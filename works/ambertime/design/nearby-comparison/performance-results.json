@@ -1,0 +1,585 @@
+{
+  "method": {
+    "scope": "Public-operation one completed generation (312 months), and exact previously observed 120-year v16 estate. Each fixture strictly cold-restored in its own process including transient receipt capture, then upgraded via public recipe-book operations. Targeted comparisons occur after required validation, with no second operation replay. No persistent game field is added.",
+    "sourceMode": "previously observed actual public v16 seed1 1440-month play; exact hash matches committed generation evidence",
+    "seed": 1,
+    "node": "v24.19.0",
+    "base": "0e0a526b2f03efc392243810c41031320665cf4c",
+    "timing": "Node read-model wall times on shared machine, not browser paint, iPhone timings, or guarantees. Initial, partner change, and reopen measured separately. Old full projection measured once per fixture only as a factual oracle and previous-cost comparison.",
+    "limits": "One seed / one deterministic manufacturing policy. Physical Safari and subjective readability are outside this script."
+  },
+  "sourceHashes": {
+    "partner-orders.mjs": "d4ae340d2d05041b6ef6a0bb7484754a31b885dcdc21b141c2f35951684544ff",
+    "nearby-comparison.mjs": "800b7802e5a637b07ffc7510379502e6433dc0e01f3ea1f5b4c41f0f29e7428d"
+  },
+  "runs": [
+    {
+      "label": "one-generation",
+      "months": 312,
+      "sourceSha256": "defafe14cce43963d054e62a6b7d90a5dca8c253e7a011e05f271a30a8ef94f6",
+      "version": 17,
+      "completedGenerations": 1,
+      "activeGeneration": 2,
+      "operations": 802,
+      "releases": 43,
+      "casks": 3,
+      "recipes": 2,
+      "sourceRetainedAfterPruning": true,
+      "sourceDetails": {
+        "key": "release:1",
+        "kind": "release",
+        "label": "朝霞・第1回",
+        "brandName": "朝霞",
+        "brand": {
+          "id": 1,
+          "name": "朝霞",
+          "bottle": "round",
+          "label": "cream",
+          "createdMonth": 6
+        },
+        "brandId": 1,
+        "releaseId": 1,
+        "releaseNumber": 1,
+        "productId": 5,
+        "caskId": 2,
+        "batchId": 1,
+        "distilledMonth": 0,
+        "filledMonth": 0,
+        "stopAt": 40,
+        "manual": true,
+        "manualSource": {
+          "caskId": 2,
+          "batchId": 1,
+          "stopAt": 40,
+          "type": "bourbon",
+          "operationIndex": 12,
+          "filledMonth": 0,
+          "generationId": 1
+        },
+        "finalGeneration": null,
+        "type": "bourbon",
+        "age": 6,
+        "profile": {
+          "roughness": 0.20059961685023614,
+          "character": 0.36592817518020554,
+          "wood": 0.1259502308890507,
+          "litres": 25.857211092400345
+        },
+        "bottledMonth": 6,
+        "bottles": 36,
+        "stock": 0,
+        "status": "sold-out",
+        "currentPrice": 16,
+        "listedMonth": 6,
+        "retailActiveMonths": 4,
+        "firstSaleMonth": 7,
+        "lastSaleMonth": 10,
+        "priceChanges": [
+          {
+            "month": 6,
+            "price": 16,
+            "initial": true
+          }
+        ],
+        "retailPriceTotals": [
+          {
+            "price": 16,
+            "count": 36,
+            "revenue": 576
+          }
+        ],
+        "retail": {
+          "count": 36,
+          "revenue": 576
+        },
+        "shops": [],
+        "shopCount": 0,
+        "retailTargetCount": 36,
+        "salesComplete": true,
+        "coverage": {
+          "complete": true,
+          "fromMonth": 0
+        }
+      },
+      "selectedReleaseIds": {
+        "current": 43,
+        "previous": 36,
+        "changed": 42
+      },
+      "timingsMs": {
+        "strictColdRestoreIncludingReceipts": 6688.5,
+        "recipeUpgradeSaveSelection": 19.33,
+        "initialCasks": 12.65,
+        "changeCaskPartner": 5.67,
+        "reopenCasks": 5.39,
+        "initialReleasePair": 5.68,
+        "changeReleasePair": 5.51,
+        "reopenReleasePair": 5.25,
+        "sourceDetails": 5.58,
+        "oldFullProjection": 7370.97
+      },
+      "checks": {
+        "targetedEqualsFullProjection": [
+          "cask:171",
+          "cask:173",
+          "cask:176",
+          "release:43",
+          "release:36",
+          "release:42",
+          "release:41"
+        ],
+        "sourceStopEqualsActualManualFill": true,
+        "readOnlyRawStateUnchanged": true,
+        "recipeBookUnchanged": true,
+        "generationUnchanged": true,
+        "sameBrandImmediatePrevious": true
+      },
+      "releasePair": {
+        "current": {
+          "key": "release:43",
+          "kind": "release",
+          "label": "朝霞・第14回",
+          "brandName": "朝霞",
+          "brand": {
+            "id": 1,
+            "name": "朝霞",
+            "bottle": "round",
+            "label": "cream",
+            "createdMonth": 6
+          },
+          "brandId": 1,
+          "releaseId": 43,
+          "releaseNumber": 14,
+          "productId": 180,
+          "caskId": 179,
+          "batchId": 178,
+          "distilledMonth": 300,
+          "filledMonth": 300,
+          "stopAt": 40,
+          "manual": true,
+          "manualSource": {
+            "caskId": 179,
+            "batchId": 178,
+            "stopAt": 40,
+            "type": "bourbon",
+            "operationIndex": 772,
+            "filledMonth": 300,
+            "generationId": 1
+          },
+          "finalGeneration": 1,
+          "type": "bourbon",
+          "age": 12,
+          "profile": {
+            "roughness": 0.1355141236245974,
+            "character": 0.4286206282849188,
+            "wood": 0.22290174643543642,
+            "litres": 25.495189982708535
+          },
+          "bottledMonth": 312,
+          "bottles": 36,
+          "stock": 36,
+          "status": "selling",
+          "currentPrice": 16,
+          "listedMonth": 312,
+          "retailActiveMonths": 0,
+          "firstSaleMonth": null,
+          "lastSaleMonth": null,
+          "priceChanges": [
+            {
+              "month": 312,
+              "price": 16,
+              "initial": true
+            }
+          ],
+          "retailPriceTotals": [],
+          "retail": {
+            "count": 0,
+            "revenue": 0
+          },
+          "shops": [],
+          "shopCount": 0,
+          "retailTargetCount": 36,
+          "salesComplete": true,
+          "coverage": {
+            "complete": true,
+            "fromMonth": 0
+          }
+        },
+        "previous": {
+          "key": "release:36",
+          "kind": "release",
+          "label": "朝霞・第13回",
+          "brandName": "朝霞",
+          "brand": {
+            "id": 1,
+            "name": "朝霞",
+            "bottle": "round",
+            "label": "cream",
+            "createdMonth": 6
+          },
+          "brandId": 1,
+          "releaseId": 36,
+          "releaseNumber": 13,
+          "productId": 150,
+          "caskId": 143,
+          "batchId": 142,
+          "distilledMonth": 240,
+          "filledMonth": 240,
+          "stopAt": 40,
+          "manual": true,
+          "manualSource": {
+            "caskId": 143,
+            "batchId": 142,
+            "stopAt": 40,
+            "type": "bourbon",
+            "operationIndex": 618,
+            "filledMonth": 240,
+            "generationId": 1
+          },
+          "finalGeneration": null,
+          "type": "bourbon",
+          "age": 12,
+          "profile": {
+            "roughness": 0.15337837803113555,
+            "character": 0.4239703295792934,
+            "wood": 0.22177994101724505,
+            "litres": 25.484544827812766
+          },
+          "bottledMonth": 252,
+          "bottles": 36,
+          "stock": 0,
+          "status": "sold-out",
+          "currentPrice": 16,
+          "listedMonth": null,
+          "retailActiveMonths": 0,
+          "firstSaleMonth": null,
+          "lastSaleMonth": null,
+          "priceChanges": [
+            {
+              "month": 252,
+              "price": 16,
+              "initial": true
+            }
+          ],
+          "retailPriceTotals": [],
+          "retail": {
+            "count": 0,
+            "revenue": 0
+          },
+          "shops": [
+            {
+              "shopId": "supermarket",
+              "count": 20,
+              "revenue": 320
+            },
+            {
+              "shopId": "town-liquor",
+              "count": 16,
+              "revenue": 204.8
+            }
+          ],
+          "shopCount": 36,
+          "retailTargetCount": 0,
+          "salesComplete": true,
+          "coverage": {
+            "complete": true,
+            "fromMonth": 0
+          }
+        }
+      }
+    },
+    {
+      "label": "120-year",
+      "months": 1440,
+      "sourceSha256": "1e12aaf00f19b047279df339bf118f1f4f99f598cbfcdddb0e862cd01294290b",
+      "version": 17,
+      "completedGenerations": 4,
+      "activeGeneration": 5,
+      "operations": 3491,
+      "releases": 163,
+      "casks": 4,
+      "recipes": 2,
+      "sourceRetainedAfterPruning": true,
+      "sourceDetails": {
+        "key": "release:1",
+        "kind": "release",
+        "label": "朝霞・第1回",
+        "brandName": "朝霞",
+        "brand": {
+          "id": 1,
+          "name": "朝霞",
+          "bottle": "round",
+          "label": "cream",
+          "createdMonth": 6
+        },
+        "brandId": 1,
+        "releaseId": 1,
+        "releaseNumber": 1,
+        "productId": 5,
+        "caskId": 2,
+        "batchId": 1,
+        "distilledMonth": 0,
+        "filledMonth": 0,
+        "stopAt": 40,
+        "manual": true,
+        "manualSource": {
+          "caskId": 2,
+          "batchId": 1,
+          "stopAt": 40,
+          "type": "bourbon",
+          "operationIndex": 12,
+          "filledMonth": 0,
+          "generationId": 1
+        },
+        "finalGeneration": null,
+        "type": "bourbon",
+        "age": 6,
+        "profile": {
+          "roughness": 0.20059961685023614,
+          "character": 0.36592817518020554,
+          "wood": 0.1259502308890507,
+          "litres": 25.857211092400345
+        },
+        "bottledMonth": 6,
+        "bottles": 36,
+        "stock": 0,
+        "status": "sold-out",
+        "currentPrice": 16,
+        "listedMonth": 6,
+        "retailActiveMonths": 4,
+        "firstSaleMonth": 7,
+        "lastSaleMonth": 10,
+        "priceChanges": [
+          {
+            "month": 6,
+            "price": 16,
+            "initial": true
+          }
+        ],
+        "retailPriceTotals": [
+          {
+            "price": 16,
+            "count": 36,
+            "revenue": 576
+          }
+        ],
+        "retail": {
+          "count": 36,
+          "revenue": 576
+        },
+        "shops": [],
+        "shopCount": 0,
+        "retailTargetCount": 36,
+        "salesComplete": true,
+        "coverage": {
+          "complete": true,
+          "fromMonth": 0
+        }
+      },
+      "selectedReleaseIds": {
+        "current": 163,
+        "previous": 162,
+        "changed": 162
+      },
+      "timingsMs": {
+        "strictColdRestoreIncludingReceipts": 79968.49,
+        "recipeUpgradeSaveSelection": 62.22,
+        "initialCasks": 43.08,
+        "changeCaskPartner": 19.67,
+        "reopenCasks": 20.59,
+        "initialReleasePair": 22.09,
+        "changeReleasePair": 20.66,
+        "reopenReleasePair": 19.38,
+        "sourceDetails": 26.83,
+        "oldFullProjection": 83590.73
+      },
+      "checks": {
+        "targetedEqualsFullProjection": [
+          "cask:749",
+          "cask:758",
+          "cask:762",
+          "cask:764",
+          "release:163",
+          "release:162",
+          "release:162",
+          "release:161"
+        ],
+        "sourceStopEqualsActualManualFill": true,
+        "readOnlyRawStateUnchanged": true,
+        "recipeBookUnchanged": true,
+        "generationUnchanged": true,
+        "sameBrandImmediatePrevious": true
+      },
+      "releasePair": {
+        "current": {
+          "key": "release:163",
+          "kind": "release",
+          "label": "朝霞・第56回",
+          "brandName": "朝霞",
+          "brand": {
+            "id": 1,
+            "name": "朝霞",
+            "bottle": "round",
+            "label": "cream",
+            "createdMonth": 6
+          },
+          "brandId": 1,
+          "releaseId": 163,
+          "releaseNumber": 56,
+          "productId": 761,
+          "caskId": 755,
+          "batchId": 754,
+          "distilledMonth": 1420,
+          "filledMonth": 1420,
+          "stopAt": 40,
+          "manual": true,
+          "manualSource": {
+            "caskId": 755,
+            "batchId": 754,
+            "stopAt": 40,
+            "type": "bourbon",
+            "operationIndex": 3438,
+            "filledMonth": 1420,
+            "generationId": 5
+          },
+          "finalGeneration": null,
+          "type": "bourbon",
+          "age": 12,
+          "profile": {
+            "roughness": 0.16672382559896953,
+            "character": 0.4366071376403446,
+            "wood": 0.25063451672387266,
+            "litres": 25.44364100379652
+          },
+          "bottledMonth": 1432,
+          "bottles": 36,
+          "stock": 0,
+          "status": "sold-out",
+          "currentPrice": 16,
+          "listedMonth": 1432,
+          "retailActiveMonths": 2,
+          "firstSaleMonth": 1433,
+          "lastSaleMonth": 1434,
+          "priceChanges": [
+            {
+              "month": 1432,
+              "price": 16,
+              "initial": true
+            }
+          ],
+          "retailPriceTotals": [
+            {
+              "price": 16,
+              "count": 24,
+              "revenue": 384
+            }
+          ],
+          "retail": {
+            "count": 24,
+            "revenue": 384
+          },
+          "shops": [
+            {
+              "shopId": "supermarket",
+              "count": 12,
+              "revenue": 192
+            }
+          ],
+          "shopCount": 12,
+          "retailTargetCount": 24,
+          "salesComplete": true,
+          "coverage": {
+            "complete": true,
+            "fromMonth": 0
+          }
+        },
+        "previous": {
+          "key": "release:162",
+          "kind": "release",
+          "label": "朝霞・第55回",
+          "brandName": "朝霞",
+          "brand": {
+            "id": 1,
+            "name": "朝霞",
+            "bottle": "round",
+            "label": "cream",
+            "createdMonth": 6
+          },
+          "brandId": 1,
+          "releaseId": 162,
+          "releaseNumber": 55,
+          "productId": 756,
+          "caskId": 746,
+          "batchId": 745,
+          "distilledMonth": 1403,
+          "filledMonth": 1403,
+          "stopAt": 40,
+          "manual": true,
+          "manualSource": {
+            "caskId": 746,
+            "batchId": 745,
+            "stopAt": 40,
+            "type": "refill",
+            "operationIndex": 3399,
+            "filledMonth": 1403,
+            "generationId": 5
+          },
+          "finalGeneration": null,
+          "type": "refill",
+          "age": 24,
+          "profile": {
+            "roughness": 0.12668551389345065,
+            "character": 0.5026406026906407,
+            "wood": 0.18280962289423794,
+            "litres": 25.059761527011776
+          },
+          "bottledMonth": 1427,
+          "bottles": 35,
+          "stock": 0,
+          "status": "sold-out",
+          "currentPrice": 18.42,
+          "listedMonth": null,
+          "retailActiveMonths": 0,
+          "firstSaleMonth": null,
+          "lastSaleMonth": null,
+          "priceChanges": [
+            {
+              "month": 1427,
+              "price": 18.42,
+              "initial": true
+            }
+          ],
+          "retailPriceTotals": [],
+          "retail": {
+            "count": 0,
+            "revenue": 0
+          },
+          "shops": [
+            {
+              "shopId": "department",
+              "count": 5,
+              "revenue": 128.95
+            },
+            {
+              "shopId": "supermarket",
+              "count": 20,
+              "revenue": 368.4
+            },
+            {
+              "shopId": "town-liquor",
+              "count": 10,
+              "revenue": 147.4
+            }
+          ],
+          "shopCount": 35,
+          "retailTargetCount": 0,
+          "salesComplete": true,
+          "coverage": {
+            "complete": true,
+            "fromMonth": 0
+          }
+        }
+      }
+    }
+  ]
+}
