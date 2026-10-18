@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 16552)
-Total output lines: 803
-
 # 湯間庭町 安全運用ルール
 
 湯間庭町は **staging を制作・探索の正本**として扱う。本番へは明示的に許可された差分だけを移す。
@@ -334,7 +331,130 @@ high-risk staging変更はbranch + Plan Lock + PRで扱う。
 
 1. Plan Lockが実装より前に存在する
 2. locked Planが後から変更されていない
-3. locked baseShaが現在のPR…1552 tokens truncated…T「SukimaStock Ops Review」を利用する。Google DriveのSukimaStock / Analyticsにある最新のSearch Console書き出し（クエリ・ページ・日付、表示回数・クリック・CTR・平均掲載順位）とページ登録状況を読む。接続がなくても書き出しで始められる。直接接続は作者が選んだ場合だけ利用し、Drive接続をSearch Console権限とみなさない。
+3. locked baseShaが現在のPR base SHAと一致する
+4. Scope Gate
+5. Risk Gate
+6. Impact Gate
+
+workflowは `pull_request_target` で**PR base側の定義を実行**する。
+candidate branchのworkflow定義を実行しないため、PR自身がgateをno-opへ書き換えて同じcheck名を偽装する経路を閉じる。
+gateのJavaScriptもtrusted base checkoutから実行し、candidate checkoutはGit diff / Plan /対象fileのデータとしてだけ読む。
+
+初回bootstrapは完了済みで、通常の将来PRには使わない。契約変更は既存のregistry-only authorization → exact transitionの2段階を維持する。
+
+**重要:** workflowが成功しても、repository設定でrequired checkになっていなければGitHub上のmerge強制にはならない。
+required check / merge protectionを確認できるまでは「hard enforcement済み」と報告しない。
+
+## Change Verification Record
+
+Verification RecordはmutableなPlanではなくPlan Lock digestを参照する。
+
+```sh
+node tools/change-verification-check.cjs \
+  --lock /tmp/yumaniwa-change-plan.lock.json \
+  --record /tmp/yumaniwa-verification.json \
+  --root . \
+  --head HEAD
+```
+
+このv0.2 checkerはRecordのschema / 内部整合を確認する。exit 0や旧出力 `VERIFIED` はtrusted evidence統合・実機確認の認証を意味しない。現在の正式なstateは `CHANGE-VERIFICATION.md` 冒頭に従い `UNVERIFIED` のまま。
+
+Recordは次をlocked Planと一致させる。
+
+- changeId
+- planDigest
+- planRevision
+- repository
+- change
+- baseSha
+- verifiedSha
+
+checkerはScope / Risk / Impactを同じtargetへ再計算する。
+
+manual checkは実際に確認した主体だけがPASSにする。
+ChatGPTがiPhone画面や音を観測していない場合はOwner確認待ち。
+
+C3-2以降、high-risk PRの `staticChecks` は
+`tools/change-static-check-registry.json` のbase-owned IDとして扱う。
+
+base-owned `tools/change-static-check.cjs` は、
+
+1. immutable Planのbase SHA
+2. eventのexact candidate SHA
+3. base-owned registry blob
+4. base-owned Risk Policy blob
+5. base-owned Static Executor blob
+
+を固定してからcandidate Git objectを検査する。
+
+`change-operations-regression` はsecurity-critical Change OS fileを
+registryの事前承認exact blobへ照合する。
+
+candidate registryはcurrent PRのexecutor dispatchには使わないが、
+変更されたcandidate registry自体はbase-owned executorがinert dataとして検査する。
+`registryTransition` FAILはstatic全体をFAILさせる。
+
+通常のcontract変更:
+
+1. steady baseからregistry-only authorization PRを作る。
+   candidateは `pending:<path>:<fromBlob>:<toBlob>` とし、対象fileはfromBlobのまま。
+2. merge後のpending baseからfresh PRを作る。
+   対象fileをexact toBlobへ変更し、candidate registryをsteadyへ戻す。
+3. base-owned executorがpending→steady cleanupまで検証する。
+
+contract pathの追加/削除、unrelated drift、same-PR自己承認、pending retargetは許可しない。
+C3-2導入時の3段bootstrap（preauthorization → executor install → cleanup）は一度限りで、
+通常の将来変更では上記2 PRを使う。
+
+`node-syntax` はcandidate codeを実行せずparseだけ行う。
+candidate module / test / workflow / Plan commandはtrusted runnerで実行しない。
+unknown IDはFAIL、非該当はN/AでありPASSではない。
+
+Static Evidenceはrun ID + run attempt単位のartifactへ保存し、
+static exitを既存ruleset-required `trusted-mechanical-evidence` jobの最終判定に含める。
+
+C3-2でも `verificationState` は `UNVERIFIED`。
+文字列evidenceをtrusted human/static evidenceへ読み替えない。
+
+Human Attestationの基盤は保留中。live comment workflowや追加の手動入力を通常運用へ持ち込まない。現行の意味と終了点は `CHANGE-VERIFICATION.md` を参照する。
+
+旧checkerの `Verification: VERIFIED` を現在のstaging確認完了として報告しない。production公開許可やRelease Completeでもない。
+
+## Search / Share v2 の生成
+
+Search / Share v2 では、町内runtimeと検索・共有面の正本を分ける。
+
+- `data/works.js`: 町内runtime / identity / launch の正本
+- `data/work-search-meta.js`: 日英文面・検索語彙・schemaType の正本
+- `tools/generate-work-search-pages.cjs`: 日英Searchページとsitemapのgenerator
+- `w/<id>/index.html`、`en/w/<id>/index.html`、`sitemap.xml`: 生成物。直接編集しない
+
+generatorは staging の `status: open` 集合を自動採用しない。必ず、今回productionへ公開してよい**全作品集合**を `--published` に明示する。
+
+staging生成例:
+
+```sh
+node tools/generate-work-search-pages.cjs \
+  --env staging \
+  --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window,pumpoko \
+  --write
+
+node tools/generate-work-search-pages.cjs \
+  --env staging \
+  --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window,pumpoko \
+  --check
+```
+
+productionではmainへ直接生成しない。production candidate branchで `--env production` と明示した全公開集合を使い、生成後に `--check` を通す。
+
+metadataが存在するだけでは公開対象にならない。たとえばCoffeeFactoryのSearch metadataがstagingにあっても、Owner承認・必要素材・Release対象集合に入るまではproductionへ含めない。
+
+### 公開後の検索観測と必要な改善
+
+作品制作中はSEO準備を強制しない。公開時は既存のSearch / Share生成・Release検査を使い、公開済み作品だけを観測する。町・ゲームの常設SEO表示、専用ダッシュボード、新しい計測体系は追加しない。
+
+- 正本: 公開集合は最新productionの `data/works.js` と公開PR、昇格状態はstagingの `data/work-lifecycle.json`。既に公開済みの作品は公開履歴と実配信を確認してreleasedを記録する。新作candidate化・production反映は従来どおり別判断。
+- 週1回のレビューは既存のChatGPT「SukimaStock Ops Review」を利用する。Google DriveのSukimaStock / Analyticsにある最新のSearch Console書き出し（クエリ・ページ・日付、表示回数・クリック・CTR・平均掲載順位）とページ登録状況を読む。接続がなくても書き出しで始められる。直接接続は作者が選んだ場合だけ利用し、Drive接続をSearch Console権限とみなさない。
 - 比較は取得日・集計期間・productionプロパティ・フィルタを揃え、同じ長さの前期間と比較する。集計遅れ、少数の表示、古い書き出し、匿名化されたクエリを明記し、未取得を0にしない。登録申請済みと登録確認済みを区別する。
 - 現在のサイト計測はPlausible。GA4導入は必須にしない。Plausibleはproductionパス／作品IDを限定して流入・利用の補助指標を確認し、staging・itch.io等との合算や過去91日分を今回のSEO効果と扱わない。表示回数・順位・検索語はSearch Consoleで確認する。
 - 報告は「全体の変化／反応のあった作品・検索語／問題ページ／次の改善候補（最大3件）」を短くまとめる。データがなければ未取得と必要操作だけ示し、検索結果の有無から需要量や順位を断定しない。変化や不備がなければ変更不要。
