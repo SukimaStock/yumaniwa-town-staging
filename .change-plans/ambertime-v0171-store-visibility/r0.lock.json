@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "892c53f0e967f0626597aa2b757c61b90ce1c91ada9b5addb487f5aa01f04ad3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v0171-store-visibility",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.17.1 show only brand-related stores in bottle details; retain offers in sales tab",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "3a50c4852af0422cc028a6c007d04182cd5c5a26",
+    "canonicalSources": [
+      "User0.17.1request",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/department-projects.mjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v0171-store-visibility/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/store-visibility*.mjs",
+      "works/ambertime/design/store-visibility/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/bottle-storage.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/*parameters.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Render only stores with existing shopBrandStats relation for exact product release brand; shelf always visible; no empty explanation",
+      "Keep existing sales-tab offer button and modal acknowledgement/defer/accept/decline, queue and department selection handling",
+      "Keep related stores even when release age/flavor/stock insufficient and show existing quote reason; department history and completed no-delivery unchanged",
+      "Edition/app cache token0.17.1 only, savev16 and all gameplay source bytes unchanged",
+      "Focused public-operation PC/phone UI verification incl independent brands/rerelease/limitedselection/defer/reload/generationinheritance and relevant Node regressions; independent review"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "PC1280 phone390 nativeChromium public-operation fixtures and strict replay",
+      "Source diff protection, offered/deferred/accepted/declined scope, generation handover and provenance",
+      "Expression audit sixpoints: no new copy/decoration; published source match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this UI change; save format and game semantics never changed.",
+    "outOfScope": [
+      "Production",
+      "Save/schema/opcode changes",
+      "Store conditions/prices/demand/reputation",
+      "Generation/chemistry/capacity changes",
+      "New store screen or explanation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari; author adoption"
+    ],
+    "rulesApplied": [
+      "User explicitly requests Plan Lock despite localUI scale",
+      "Existing brand-store relation and sales-tab invitation are authoritative; no new state",
+      "EXPRESSION-AUDIT: remove speculative destinations, no empty section/copy; preserve accessible controls"
+    ],
+    "ownerDecisions": [
+      "User0.17.1 authorizes minimal UI filtering, tests, PR and safe Staging merge; Production excluded."
+    ]
+  }
+}
