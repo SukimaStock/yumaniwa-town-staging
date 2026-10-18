@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b99b8ece84a885b135f453901aad25302c1efeabb834e936f9e499680932468a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-weather-orbit-cards-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace weather-air closing note circulation with DotWeather card and fix ORBIT work-card placeholder",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "a61d9efc8e5026bd98294112ce4f356144eb0d41",
+    "canonicalSources": [
+      "data/shinpo/5b5f9715572b4d8a894c06b220c9139c.json",
+      "data/shinpo/note-20261009-n308001a6a00a.json",
+      "data/works.js",
+      "w/dotweather/index.html",
+      "w/orbit/index.html",
+      "assets/works/dotweather/ogp.jpg",
+      "assets/works/orbit/ogp.jpg"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-weather-orbit-cards-20261018/r0.lock.json",
+      "data/shinpo/5b5f9715572b4d8a894c06b220c9139c.json",
+      "data/shinpo/note-20261009-n308001a6a00a.json",
+      "shinpo/weather-air/index.html",
+      "shinpo/orbit-remaking/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      ".github/**",
+      "engines/**",
+      "sitemap.xml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Remove closing note circulation blocks following weather-air substantive ending, replace with DotWeather canonical thumbnail card; keep source attribution",
+      "Replace orbit-remaking work-card note-empty placeholder reference with existing same-work canonical OGP JPEG",
+      "Record explicit owner-requested source deviations in canonical metadata and regenerate only two article pages"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 explicit delegated user correction: remove weather-air final note circulation and replace with thumbnail DotWeather link; repair ORBIT broken thumbnail. Keep note attribution, other prose, Production and other works unchanged."
+    ],
+    "hqDecisions": [
+      "既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。"
+    ],
+    "rulesApplied": [
+      "Fresh initial official Plan Lock",
+      "User explicit source-correction exception",
+      "Existing source-preview structure and same-work canonical links",
+      "Expression audit: no added subtitle or copy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Source prose outside requested closing section unchanged",
+      "Existing canonical JPEG bytes and card hrefs resolve locally",
+      "390/1280px image display, work link activation, note attribution retained"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR only.",
+    "outOfScope": [
+      "Production",
+      "other works and articles",
+      "shared engine/runtime/template",
+      "note attribution removal",
+      "new copy",
+      "asset modifications"
+    ],
+    "promotion": "Staging only",
+    "unverified": [
+      "Attached Library JPEG materialization failed; screenshot target not visually confirmed",
+      "Public browser unavailable due environment networking and parent preview quota",
+      "Physical iPhone/iPad unverified"
+    ],
+    "problem": "Weather-air closes with unwanted note circulation; ORBIT work card uses note_empty_ogp.svg placeholder rather than game thumbnail.",
+    "currentContract": "Static canonical JSON rendered through existing template; source-preserving exceptions require explicit owner instruction.",
+    "whyExistingIsInsufficient": "Current closing links and placeholder are specifically rejected by user.",
+    "design": "Use existing source-preview card structure, canonical w/dotweather and w/orbit URLs and existing 1200x630 OGP JPEGs. Add no copy beyond work names. Preserve all substantive prose and source attribution.",
+    "alternativesRejected": [
+      "固定枠",
+      "原文要約/画像創作",
+      "CMS"
+    ],
+    "migration": "Only canonical article blocks/provenance and two generated pages; no notes metadata or asset bytes change.",
+    "compatibility": "元の4枠と他記事を保持",
+    "boundaryCases": [
+      "同じIDの再実行",
+      "未取得media",
+      "中断再開",
+      "base進行"
+    ],
+    "testPlan": [
+      "Generator check all articles",
+      "Existing shinpo tests",
+      "Scope Risk Impact",
+      "Independent review",
+      "Required CI and exact SHA Pages"
+    ],
+    "promotionRisk": "Productionは変更しない"
+  }
+}
