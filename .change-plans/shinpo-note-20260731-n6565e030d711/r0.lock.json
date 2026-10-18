@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1aa23f4444e7533535cb072bdf35976e3cb274094074b9e7b62bc9642b00af6d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-note-20260731-n6565e030d711",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "原典を保持してnote記事 note-20260731-n6565e030d711 を町内の通常4枠から読む",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "e75b6c8f4465cd9e74184abbef683ba93715f914",
+    "canonicalSources": [
+      "data/notes.js",
+      "tools/shinpo-template.html",
+      "Drive PDF 1FP_OvuxPPptCvRu43su_JbknViPOSBkH; https:/note.com/hamamah/n/n6565e030d711"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-note-20260731-n6565e030d711/r0.lock.json",
+      "data/shinpo/note-20260731-n6565e030d711.json",
+      "data/notes.js",
+      "shinpo/making-like-craft/index.html",
+      "assets/shinpo/making-like-craft/cover.jpg",
+      "assets/shinpo/making-like-craft/card-1.jpg",
+      "assets/shinpo/making-like-craft/card-2.jpg",
+      "assets/shinpo/making-like-craft/card-3.jpg"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      ".github/**",
+      "engines/**",
+      "sitemap.xml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "ID単位の順序付き原文ブロック、取得原画像、該当notesレコード、生成HTMLのみ",
+      "既存記事/4枠選抜を変更せず町内案内を本文の外に置く"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user: 完了済み三件を維持し、次の3件に進んでください; source-preserving sequential migration through safe Staging merge"
+    ],
+    "hqDecisions": [
+      "既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "User section6 authorizes verified same-work town play links; source note/citation and historical edition retained",
+      "Expression audit: preserve author original; no invented subtitle,summary,copy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "原典と全文/順序/外部リンク/画像を照合",
+      "mobile/desktopで本文1クリック、スクロール、戻る"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "この記事追加PRのみrevert。既存記事/保存/Productionは不変。",
+    "outOfScope": [
+      "Production",
+      "既存記事変更",
+      "共通runtime",
+      "CMS/DB",
+      "外部権限"
+    ],
+    "promotion": "Staging only",
+    "unverified": [
+      "原典照合は別途証拠が必要",
+      "iPhone/iPad実機未確認"
+    ],
+    "problem": "既存note記事を町内本文として読む",
+    "currentContract": "notesのID/title/date/urlが正本。移植済みはarchivePageへ1クリック。",
+    "whyExistingIsInsufficient": "対象記事本文が未移植",
+    "design": "既存template/CLIで静的生成。原典と町内案内を分離。",
+    "alternativesRejected": [
+      "固定枠",
+      "原文要約/画像創作",
+      "CMS"
+    ],
+    "migration": "ID/原note URL保持、archivePageのみ登録",
+    "compatibility": "元の4枠と他記事を保持",
+    "boundaryCases": [
+      "同じIDの再実行",
+      "未取得media",
+      "中断再開",
+      "base進行"
+    ],
+    "testPlan": [
+      "node tools/shinpo-migrate.cjs check",
+      "node tests/test-shinpo-rack.cjs",
+      "node tests/test-shinpo-migrate.cjs",
+      "Scope/Risk/Impact、必須CI、レビュー、Pages"
+    ],
+    "promotionRisk": "Productionは変更しない"
+  }
+}
