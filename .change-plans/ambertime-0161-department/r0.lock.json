@@ -1,0 +1,75 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "93990881a01d4b48c540ce4229a1f5801a017bed24e36eb06792df62857f00a5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-0161-department",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.16.1 isolated department audit and A/B/C comparison only",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "368120c12761c965e6967a5e560ab438f5d91f5e",
+    "canonicalSources": [
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/tests/stockists-simulate.mjs",
+      "works/ambertime/design/stockists/simulation-results.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-0161-department/r0.lock.json",
+      "works/ambertime/design/department-audit/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/model.mjs",
+      "data/**",
+      "index.html"
+    ],
+    "expectedChanges": [
+      "Read-only baseline reproduction and causal instrumentation; isolated counterfactual B/C; CSV and design report. No browser/runtime imports of audit files."
+    ],
+    "ownerDecisions": [
+      "User explicitly requested research/design only and staging documentation/script PR and merge."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md: concise concrete findings; no added product copy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect isolated simulator assumptions and accounting, unchanged game sources, CSV/report agreement"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert audit-only PR; no save migration",
+    "outOfScope": [
+      "Production",
+      "game logic",
+      "save data",
+      "prices or chemistry changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human enjoyment and physical-device playtesting"
+    ]
+  }
+}
