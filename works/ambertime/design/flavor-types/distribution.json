@@ -1,0 +1,1115 @@
+{
+  "n": 135520,
+  "ranges": {
+    "r": [
+      0.00003882255614844804,
+      0.9155319235764019
+    ],
+    "a": [
+      0,
+      1
+    ],
+    "w": [
+      0,
+      1.35
+    ]
+  },
+  "counts": {
+    "layered": 23709,
+    "light": 2479,
+    "oak": 6854,
+    "dry-wood": 68880,
+    "fruit-oak": 20885,
+    "fruit": 10106,
+    "young": 2607
+  },
+  "associations": 273,
+  "byType": {
+    "refill": {
+      "layered": 14967,
+      "light": 1728,
+      "oak": 4357,
+      "dry-wood": 22610,
+      "fruit-oak": 14423,
+      "fruit": 8106,
+      "young": 1569
+    },
+    "bourbon": {
+      "layered": 8742,
+      "light": 751,
+      "oak": 2497,
+      "dry-wood": 46270,
+      "fruit-oak": 6462,
+      "fruit": 2000,
+      "young": 1038
+    }
+  },
+  "byAge": {
+    "0": {
+      "layered": 638,
+      "young": 482
+    },
+    "1": {
+      "layered": 688,
+      "young": 432
+    },
+    "2": {
+      "layered": 739,
+      "young": 381
+    },
+    "3": {
+      "layered": 787,
+      "light": 4,
+      "young": 329
+    },
+    "4": {
+      "light": 16,
+      "layered": 828,
+      "young": 276
+    },
+    "5": {
+      "light": 33,
+      "layered": 866,
+      "young": 221
+    },
+    "6": {
+      "light": 55,
+      "layered": 898,
+      "young": 167
+    },
+    "7": {
+      "light": 77,
+      "layered": 923,
+      "fruit": 4,
+      "young": 116
+    },
+    "8": {
+      "light": 99,
+      "layered": 920,
+      "fruit": 19,
+      "young": 82
+    },
+    "9": {
+      "light": 123,
+      "layered": 895,
+      "fruit": 44,
+      "young": 58
+    },
+    "10": {
+      "light": 146,
+      "layered": 867,
+      "fruit": 71,
+      "young": 36
+    },
+    "11": {
+      "light": 168,
+      "layered": 822,
+      "fruit": 110,
+      "young": 20
+    },
+    "12": {
+      "light": 185,
+      "layered": 779,
+      "fruit": 150,
+      "young": 6
+    },
+    "13": {
+      "light": 150,
+      "layered": 778,
+      "fruit": 191,
+      "young": 1
+    },
+    "14": {
+      "light": 112,
+      "layered": 770,
+      "fruit": 238
+    },
+    "15": {
+      "light": 107,
+      "layered": 730,
+      "fruit": 283
+    },
+    "16": {
+      "light": 99,
+      "layered": 694,
+      "fruit": 327
+    },
+    "17": {
+      "light": 102,
+      "layered": 642,
+      "fruit": 376
+    },
+    "18": {
+      "light": 107,
+      "layered": 641,
+      "fruit": 372
+    },
+    "19": {
+      "light": 103,
+      "layered": 693,
+      "fruit": 324
+    },
+    "20": {
+      "light": 100,
+      "oak": 14,
+      "layered": 714,
+      "fruit": 239,
+      "fruit-oak": 53
+    },
+    "21": {
+      "light": 99,
+      "oak": 42,
+      "layered": 594,
+      "fruit": 225,
+      "fruit-oak": 160
+    },
+    "22": {
+      "light": 95,
+      "oak": 70,
+      "layered": 450,
+      "fruit": 245,
+      "fruit-oak": 260
+    },
+    "23": {
+      "light": 92,
+      "oak": 89,
+      "layered": 408,
+      "fruit": 217,
+      "fruit-oak": 314
+    },
+    "24": {
+      "light": 91,
+      "oak": 107,
+      "layered": 315,
+      "fruit": 237,
+      "fruit-oak": 370
+    },
+    "25": {
+      "light": 88,
+      "oak": 125,
+      "layered": 223,
+      "fruit": 254,
+      "fruit-oak": 430
+    },
+    "26": {
+      "layered": 215,
+      "oak": 132,
+      "fruit": 275,
+      "fruit-oak": 425,
+      "light": 73
+    },
+    "27": {
+      "layered": 217,
+      "oak": 135,
+      "fruit": 294,
+      "fruit-oak": 423,
+      "light": 51
+    },
+    "28": {
+      "layered": 195,
+      "oak": 143,
+      "fruit": 315,
+      "fruit-oak": 417,
+      "light": 50
+    },
+    "29": {
+      "layered": 208,
+      "oak": 151,
+      "fruit": 334,
+      "fruit-oak": 409,
+      "light": 18
+    },
+    "30": {
+      "layered": 189,
+      "oak": 157,
+      "fruit": 353,
+      "fruit-oak": 403,
+      "light": 18
+    },
+    "31": {
+      "layered": 178,
+      "oak": 163,
+      "fruit": 373,
+      "fruit-oak": 397,
+      "light": 9
+    },
+    "32": {
+      "layered": 161,
+      "oak": 170,
+      "fruit": 390,
+      "fruit-oak": 390,
+      "light": 9
+    },
+    "33": {
+      "layered": 161,
+      "oak": 178,
+      "fruit": 399,
+      "fruit-oak": 382
+    },
+    "34": {
+      "layered": 152,
+      "oak": 185,
+      "fruit": 408,
+      "fruit-oak": 375
+    },
+    "35": {
+      "layered": 143,
+      "dry-wood": 70,
+      "fruit": 417,
+      "oak": 163,
+      "fruit-oak": 327
+    },
+    "36": {
+      "layered": 135,
+      "dry-wood": 210,
+      "fruit": 425,
+      "oak": 115,
+      "fruit-oak": 235
+    },
+    "37": {
+      "layered": 131,
+      "dry-wood": 210,
+      "fruit": 429,
+      "oak": 120,
+      "fruit-oak": 230
+    },
+    "38": {
+      "layered": 179,
+      "dry-wood": 350,
+      "fruit": 381,
+      "oak": 71,
+      "fruit-oak": 139
+    },
+    "39": {
+      "layered": 228,
+      "dry-wood": 420,
+      "fruit": 332,
+      "oak": 46,
+      "fruit-oak": 94
+    },
+    "40": {
+      "layered": 283,
+      "dry-wood": 420,
+      "fruit": 277,
+      "oak": 48,
+      "fruit-oak": 92
+    },
+    "41": {
+      "layered": 284,
+      "dry-wood": 490,
+      "fruit": 276,
+      "oak": 24,
+      "fruit-oak": 46
+    },
+    "42": {
+      "layered": 447,
+      "dry-wood": 490,
+      "oak": 24,
+      "fruit": 113,
+      "fruit-oak": 46
+    },
+    "43": {
+      "oak": 34,
+      "dry-wood": 490,
+      "layered": 383,
+      "fruit-oak": 102,
+      "fruit": 111
+    },
+    "44": {
+      "oak": 18,
+      "dry-wood": 560,
+      "layered": 317,
+      "fruit-oak": 114,
+      "fruit": 111
+    },
+    "45": {
+      "oak": 27,
+      "dry-wood": 560,
+      "layered": 304,
+      "fruit-oak": 173,
+      "fruit": 56
+    },
+    "46": {
+      "oak": 36,
+      "dry-wood": 560,
+      "layered": 237,
+      "fruit-oak": 231,
+      "fruit": 56
+    },
+    "47": {
+      "oak": 54,
+      "dry-wood": 560,
+      "fruit-oak": 349,
+      "layered": 102,
+      "fruit": 55
+    },
+    "48": {
+      "oak": 59,
+      "dry-wood": 560,
+      "fruit-oak": 349,
+      "layered": 152
+    },
+    "49": {
+      "oak": 62,
+      "dry-wood": 560,
+      "fruit-oak": 349,
+      "layered": 149
+    },
+    "50": {
+      "oak": 72,
+      "dry-wood": 560,
+      "fruit-oak": 407,
+      "layered": 81
+    },
+    "51": {
+      "oak": 78,
+      "dry-wood": 560,
+      "fruit-oak": 405,
+      "layered": 77
+    },
+    "52": {
+      "oak": 82,
+      "dry-wood": 560,
+      "fruit-oak": 403,
+      "layered": 75
+    },
+    "53": {
+      "oak": 92,
+      "dry-wood": 560,
+      "fruit-oak": 461,
+      "layered": 7
+    },
+    "54": {
+      "oak": 97,
+      "dry-wood": 560,
+      "fruit-oak": 458,
+      "layered": 5
+    },
+    "55": {
+      "oak": 100,
+      "dry-wood": 560,
+      "fruit-oak": 455,
+      "layered": 5
+    },
+    "56": {
+      "oak": 106,
+      "dry-wood": 560,
+      "fruit-oak": 451,
+      "layered": 3
+    },
+    "57": {
+      "oak": 109,
+      "dry-wood": 560,
+      "fruit-oak": 449,
+      "layered": 2
+    },
+    "58": {
+      "oak": 113,
+      "dry-wood": 560,
+      "fruit-oak": 446,
+      "layered": 1
+    },
+    "59": {
+      "oak": 117,
+      "dry-wood": 560,
+      "fruit-oak": 442,
+      "layered": 1
+    },
+    "60": {
+      "oak": 119,
+      "dry-wood": 560,
+      "fruit-oak": 441
+    },
+    "61": {
+      "oak": 125,
+      "dry-wood": 560,
+      "fruit-oak": 435
+    },
+    "62": {
+      "oak": 127,
+      "dry-wood": 560,
+      "fruit-oak": 433
+    },
+    "63": {
+      "oak": 132,
+      "dry-wood": 560,
+      "fruit-oak": 428
+    },
+    "64": {
+      "oak": 135,
+      "dry-wood": 560,
+      "fruit-oak": 425
+    },
+    "65": {
+      "oak": 139,
+      "dry-wood": 560,
+      "fruit-oak": 421
+    },
+    "66": {
+      "oak": 142,
+      "dry-wood": 560,
+      "fruit-oak": 418
+    },
+    "67": {
+      "oak": 144,
+      "dry-wood": 560,
+      "fruit-oak": 416
+    },
+    "68": {
+      "oak": 148,
+      "dry-wood": 560,
+      "fruit-oak": 412
+    },
+    "69": {
+      "oak": 152,
+      "dry-wood": 560,
+      "fruit-oak": 408
+    },
+    "70": {
+      "oak": 156,
+      "dry-wood": 560,
+      "fruit-oak": 404
+    },
+    "71": {
+      "oak": 159,
+      "dry-wood": 560,
+      "fruit-oak": 401
+    },
+    "72": {
+      "oak": 162,
+      "dry-wood": 560,
+      "fruit-oak": 398
+    },
+    "73": {
+      "dry-wood": 630,
+      "oak": 141,
+      "fruit-oak": 349
+    },
+    "74": {
+      "dry-wood": 630,
+      "oak": 144,
+      "fruit-oak": 346
+    },
+    "75": {
+      "dry-wood": 700,
+      "oak": 124,
+      "fruit-oak": 296
+    },
+    "76": {
+      "dry-wood": 700,
+      "oak": 124,
+      "fruit-oak": 296
+    },
+    "77": {
+      "dry-wood": 770,
+      "oak": 105,
+      "fruit-oak": 245
+    },
+    "78": {
+      "dry-wood": 770,
+      "oak": 106,
+      "fruit-oak": 244
+    },
+    "79": {
+      "dry-wood": 770,
+      "oak": 110,
+      "fruit-oak": 240
+    },
+    "80": {
+      "dry-wood": 840,
+      "oak": 87,
+      "fruit-oak": 193
+    },
+    "81": {
+      "dry-wood": 910,
+      "oak": 65,
+      "fruit-oak": 145
+    },
+    "82": {
+      "dry-wood": 980,
+      "oak": 42,
+      "fruit-oak": 98
+    },
+    "83": {
+      "dry-wood": 980,
+      "oak": 42,
+      "fruit-oak": 98
+    },
+    "84": {
+      "dry-wood": 980,
+      "oak": 43,
+      "fruit-oak": 97
+    },
+    "85": {
+      "dry-wood": 980,
+      "oak": 44,
+      "fruit-oak": 96
+    },
+    "86": {
+      "dry-wood": 1050,
+      "oak": 21,
+      "fruit-oak": 49
+    },
+    "87": {
+      "dry-wood": 1050,
+      "oak": 21,
+      "fruit-oak": 49
+    },
+    "88": {
+      "dry-wood": 1050,
+      "oak": 22,
+      "fruit-oak": 48
+    },
+    "89": {
+      "dry-wood": 1050,
+      "oak": 22,
+      "fruit-oak": 48
+    },
+    "90": {
+      "dry-wood": 1050,
+      "oak": 23,
+      "fruit-oak": 47
+    },
+    "91": {
+      "dry-wood": 1120
+    },
+    "92": {
+      "dry-wood": 1120
+    },
+    "93": {
+      "dry-wood": 1120
+    },
+    "94": {
+      "dry-wood": 1120
+    },
+    "95": {
+      "dry-wood": 1120
+    },
+    "96": {
+      "dry-wood": 1120
+    },
+    "97": {
+      "dry-wood": 1120
+    },
+    "98": {
+      "dry-wood": 1120
+    },
+    "99": {
+      "dry-wood": 1120
+    },
+    "100": {
+      "dry-wood": 1120
+    },
+    "101": {
+      "dry-wood": 1120
+    },
+    "102": {
+      "dry-wood": 1120
+    },
+    "103": {
+      "dry-wood": 1120
+    },
+    "104": {
+      "dry-wood": 1120
+    },
+    "105": {
+      "dry-wood": 1120
+    },
+    "106": {
+      "dry-wood": 1120
+    },
+    "107": {
+      "dry-wood": 1120
+    },
+    "108": {
+      "dry-wood": 1120
+    },
+    "109": {
+      "dry-wood": 1120
+    },
+    "110": {
+      "dry-wood": 1120
+    },
+    "111": {
+      "dry-wood": 1120
+    },
+    "112": {
+      "dry-wood": 1120
+    },
+    "113": {
+      "dry-wood": 1120
+    },
+    "114": {
+      "dry-wood": 1120
+    },
+    "115": {
+      "dry-wood": 1120
+    },
+    "116": {
+      "dry-wood": 1120
+    },
+    "117": {
+      "dry-wood": 1120
+    },
+    "118": {
+      "dry-wood": 1120
+    },
+    "119": {
+      "dry-wood": 1120
+    },
+    "120": {
+      "dry-wood": 1120
+    }
+  },
+  "examples": {
+    "layered": {
+      "seed": 1,
+      "stop": 30,
+      "type": "refill",
+      "age": 0,
+      "r": 0.2117945932239294,
+      "a": 0.23104864715337753,
+      "w": 0,
+      "flavor": "layered",
+      "association": null
+    },
+    "light": {
+      "seed": 1,
+      "stop": 30,
+      "type": "refill",
+      "age": 4,
+      "r": 0.17672697065235507,
+      "a": 0.27979785574649324,
+      "w": 0.04023142261425267,
+      "flavor": "light",
+      "association": null
+    },
+    "oak": {
+      "seed": 1,
+      "stop": 30,
+      "type": "refill",
+      "age": 43,
+      "r": 0.030257670028406285,
+      "a": 0.4827518006925198,
+      "w": 0.4079160638263825,
+      "flavor": "oak",
+      "association": null
+    },
+    "dry-wood": {
+      "seed": 1,
+      "stop": 30,
+      "type": "refill",
+      "age": 73,
+      "r": 0.0077847597242862,
+      "a": 0.5115319610968089,
+      "w": 0.6625662619836115,
+      "flavor": "dry-wood",
+      "association": null
+    },
+    "fruit-oak": {
+      "seed": 1,
+      "stop": 42,
+      "type": "refill",
+      "age": 47,
+      "r": 0.040956859939356285,
+      "a": 0.6001170551219466,
+      "w": 0.4432241733741527,
+      "flavor": "fruit-oak",
+      "association": null
+    },
+    "fruit": {
+      "seed": 1,
+      "stop": 45,
+      "type": "refill",
+      "age": 27,
+      "r": 0.10821243284635197,
+      "a": 0.60059772229726,
+      "w": 0.262317056363812,
+      "flavor": "fruit",
+      "association": null
+    },
+    "young": {
+      "seed": 1,
+      "stop": 72,
+      "type": "refill",
+      "age": 0,
+      "r": 0.6045772933846711,
+      "a": 0.6225875054778363,
+      "w": 0,
+      "flavor": "young",
+      "association": null
+    }
+  },
+  "trajectoryRunRange": [
+    3,
+    6
+  ],
+  "shortFlips": [
+    {
+      "seed": 1,
+      "stop": 42,
+      "type": "refill",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 13
+        },
+        {
+          "flavor": "light",
+          "start": 14,
+          "end": 21
+        },
+        {
+          "flavor": "layered",
+          "start": 22,
+          "end": 46
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 47,
+          "end": 47
+        },
+        {
+          "flavor": "oak",
+          "start": 48,
+          "end": 72
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 73,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 44,
+      "type": "refill",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 14
+        },
+        {
+          "flavor": "light",
+          "start": 15,
+          "end": 16
+        },
+        {
+          "flavor": "layered",
+          "start": 17,
+          "end": 42
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 43,
+          "end": 51
+        },
+        {
+          "flavor": "oak",
+          "start": 52,
+          "end": 72
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 73,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 46,
+      "type": "bourbon",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "flavor": "light",
+          "start": 11,
+          "end": 11
+        },
+        {
+          "flavor": "layered",
+          "start": 12,
+          "end": 22
+        },
+        {
+          "flavor": "oak",
+          "start": 23,
+          "end": 34
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 35,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 49,
+      "type": "bourbon",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 13
+        },
+        {
+          "flavor": "fruit",
+          "start": 14,
+          "end": 15
+        },
+        {
+          "flavor": "layered",
+          "start": 16,
+          "end": 19
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 20,
+          "end": 25
+        },
+        {
+          "flavor": "oak",
+          "start": 26,
+          "end": 34
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 35,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 50,
+      "type": "bourbon",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "flavor": "fruit",
+          "start": 11,
+          "end": 17
+        },
+        {
+          "flavor": "layered",
+          "start": 18,
+          "end": 19
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 20,
+          "end": 27
+        },
+        {
+          "flavor": "oak",
+          "start": 28,
+          "end": 34
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 35,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 51,
+      "type": "bourbon",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 8
+        },
+        {
+          "flavor": "fruit",
+          "start": 9,
+          "end": 17
+        },
+        {
+          "flavor": "layered",
+          "start": 18,
+          "end": 19
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 20,
+          "end": 28
+        },
+        {
+          "flavor": "oak",
+          "start": 29,
+          "end": 34
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 35,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 52,
+      "type": "bourbon",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 6
+        },
+        {
+          "flavor": "fruit",
+          "start": 7,
+          "end": 17
+        },
+        {
+          "flavor": "layered",
+          "start": 18,
+          "end": 19
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 20,
+          "end": 29
+        },
+        {
+          "flavor": "oak",
+          "start": 30,
+          "end": 34
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 35,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 53,
+      "type": "refill",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "flavor": "fruit",
+          "start": 11,
+          "end": 37
+        },
+        {
+          "flavor": "layered",
+          "start": 38,
+          "end": 42
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 43,
+          "end": 70
+        },
+        {
+          "flavor": "oak",
+          "start": 71,
+          "end": 72
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 73,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 53,
+      "type": "bourbon",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 6
+        },
+        {
+          "flavor": "fruit",
+          "start": 7,
+          "end": 17
+        },
+        {
+          "flavor": "layered",
+          "start": 18,
+          "end": 19
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 20,
+          "end": 30
+        },
+        {
+          "flavor": "oak",
+          "start": 31,
+          "end": 34
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 35,
+          "end": 120
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "stop": 54,
+      "type": "bourbon",
+      "runs": [
+        {
+          "flavor": "layered",
+          "start": 0,
+          "end": 7
+        },
+        {
+          "flavor": "fruit",
+          "start": 8,
+          "end": 17
+        },
+        {
+          "flavor": "layered",
+          "start": 18,
+          "end": 19
+        },
+        {
+          "flavor": "fruit-oak",
+          "start": 20,
+          "end": 31
+        },
+        {
+          "flavor": "oak",
+          "start": 32,
+          "end": 34
+        },
+        {
+          "flavor": "dry-wood",
+          "start": 35,
+          "end": 120
+        }
+      ]
+    }
+  ],
+  "shortFlipTrajectories": 294
+}
