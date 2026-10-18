@@ -30,4 +30,15 @@ Lifecycle/Prototype BenchはAGENTS.md「新作・制作ツールのLAB接続」�
 
 最新baseでの再検証ではlostpointercapture直後の即時assertも同じ非同期配信待ち不足を検出したため、data-held解除をwaitForFunctionで待つようテストのみ修正（同じテスト同期問題の3回目）。作品コードは不変。
 
-現在の再検証結果：上記3回目の待機追加後も、lostpointercaptureテスト（releasePointerCapture(1)後のdata-held解除待ち）が30秒timeout。同期問題という仮説は未解決で、作品側か固定pointer IDを使うテスト側かの切り分け中。追加自動修正はAGENTSの同一問題3回上限により停止。最新branchのブラウザ回帰全体をPASSとして扱わず、解消までmergeを推奨しない。先行SHAでの成功記録と、この最新実行での失敗を区別する。
+842258e時点の再検証結果：上記3回目の待機追加後も、lostpointercaptureテスト（releasePointerCapture(1)後のdata-held解除待ち）が30秒timeout。同期問題という仮説は未解決で、作品側か固定pointer IDを使うテスト側かの切り分け中。追加自動修正はAGENTSの同一問題3回上限により停止。最新branchのブラウザ回帰全体をPASSとして扱わず、解消までmergeを推奨しない。先行SHAでの成功記録と、この最新実行での失敗を区別する。
+
+
+## capture検証の原因確定と限定修正
+
+親の継続指示で、原因が確定したテスト手順のみ修正する明示依頼を受領。以前の失敗・3回の試行は保持し、盲目的な同じ待機の再試行は行っていない。
+
+原因はpointer IDではなくcapture取得前の解除だった。pointerdownでcaptureを要求しても、gotpointercapture発火前のreleaseは保留中の要求を取り消すだけで、lostpointercaptureは発火しない。独立担当もイベント列を実測して確認した。
+
+テストはdown→move→実際のgotpointercapture確認→そのpointer IDでrelease→move→lostpointercapture確認の順へ修正。両イベントの順序・IDとdata-held解除をassertする。取得前の取消しも別ケースとして検査し、got/lostイベントがなく、pointerupで入力を解放して位置を保持することをassertする。検査の無効化・作品コードの変更はない。
+
+修正後、ローカルChromiumの操作回帰全体PASS（mouse、CDP touch、歯ごとの低速移動、速い両端開閉、逆方向、途中保持、接触時反応、画面外release、反復、取得済capture解除、取得前cancel、pointercancel、blur、resize、keyboard、reduced motion、LAB往復、pageerrorなし）。CI/Pages/実配信は親担当、実機Safari・VoiceOver・作者触感は引き続き未確認。最終headと独立レビュー結果は最終報告に固定する。

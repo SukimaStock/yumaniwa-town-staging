@@ -38,7 +38,29 @@ const assert = require('node:assert/strict');
  await touch({type:'touchMove',touchPoints:[{x:p.x,y:830}]});assert.equal(await y(),482);
  await touch({type:'touchMove',touchPoints:[{x:p.x,y:800}]});assert.ok(await y()<482);
  await touch({type:'touchEnd',touchPoints:[]});await holds();
- p=await grab();await h.evaluate(el=>el.releasePointerCapture(1));await page.mouse.move(p.x,p.y-2);await page.waitForFunction(()=>!document.querySelector('#handle').hasAttribute('data-held'));assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();
+ // Observe actual capture acquisition before testing its loss.
+ await h.evaluate(el=>{
+   window.captureEvents=[];
+   for(const type of ['gotpointercapture','lostpointercapture']) el.addEventListener(type,event=>window.captureEvents.push({type,id:event.pointerId}));
+ });
+ p=await grab();await page.mouse.move(p.x,p.y-2);
+ await page.waitForFunction(()=>window.captureEvents.some(event=>event.type==='gotpointercapture'));
+ const capturedId=await page.evaluate(()=>window.captureEvents.find(event=>event.type==='gotpointercapture').id);
+ assert.equal(await h.evaluate((el,id)=>el.hasPointerCapture(id),capturedId),true);
+ await h.evaluate((el,id)=>el.releasePointerCapture(id),capturedId);await page.mouse.move(p.x,p.y-4);
+ await page.waitForFunction(()=>window.captureEvents.some(event=>event.type==='lostpointercapture'));
+ assert.equal(await h.getAttribute('data-held'),null);
+ assert.deepEqual(await page.evaluate(()=>window.captureEvents),[{type:'gotpointercapture',id:capturedId},{type:'lostpointercapture',id:capturedId}]);
+ await page.mouse.up();await holds();
+ // Cancelling a pending request is different: no capture was acquired or lost.
+ await h.evaluate(el=>{
+   window.captureEvents=[];
+   el.addEventListener('pointerdown',event=>el.releasePointerCapture(event.pointerId),{once:true});
+ });
+ p=await grab();await page.mouse.move(p.x,p.y-2);
+ assert.deepEqual(await page.evaluate(()=>window.captureEvents),[]);
+ assert.equal(await h.getAttribute('data-held'),'');
+ await page.mouse.up();assert.equal(await h.getAttribute('data-held'),null);await holds();
  p=await grab();await h.dispatchEvent('pointercancel',{pointerId:1});assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();
  p=await grab();await page.evaluate(()=>window.dispatchEvent(new Event('blur')));assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();
  p=await grab();await page.setViewportSize({width:844,height:390});await page.waitForFunction(()=>!document.querySelector('#handle').hasAttribute('data-held'));assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();p=await pos();assert.ok(p.y>0&&p.y<390);await page.screenshot({path:'/tmp/hitohazutsu-landscape.png'});
@@ -47,6 +69,6 @@ const assert = require('node:assert/strict');
  await page.screenshot({path:'/tmp/hitohazutsu-mobile.png'});
  await page.getByRole('link',{name:'LABへ'}).click();await page.locator('[data-room-link="bench"]').click();await page.locator('a[href="../works/hitohazutsu/"]').click();await page.waitForURL('**/works/hitohazutsu/');
  assert.equal(await y(),312);assert.deepEqual(errors,[]);
- console.log('PASS: mouse, CDP touch, slow teeth, fast endpoints, reverse, hold, contact response, outside release, repeats, cancel, blur, resize, keyboard, reduced motion, LAB roundtrip. No page errors.');
+ console.log('PASS: mouse, CDP touch, slow teeth, fast endpoints, reverse, hold, contact response, outside release, repeats, acquired capture loss, pending capture cancellation, cancel, blur, resize, keyboard, reduced motion, LAB roundtrip. No page errors.');
  } finally {await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
