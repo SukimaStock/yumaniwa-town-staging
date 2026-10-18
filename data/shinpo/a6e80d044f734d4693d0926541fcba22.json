@@ -1,0 +1,110 @@
+{
+  "id": "a6e80d044f734d4693d0926541fcba22",
+  "slug": "coffee-factory",
+  "source": {
+    "reference": "https://note.com/hamamah/n/ndd00e6f70f55",
+    "verification": "Public original HTML received 2026-10-18; original prose/order/references retained. All original images visually inspected and SHA256/dimensions/single frames verified against supplied originals. Vimeo/X retained as visible external references, not embedded players; playback unverified. Migrated related-note hrefs point to local articles; canonical note attribution retained. Current Web guidance is outside historical prose.",
+    "missingMedia": [
+      "Video binaries not supplied; original external references retained, playback unverified"
+    ]
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/coffee-factory/cover.png\" alt=\"CoffeeFactoryの工場とコーヒー豆・水を運ぶトラック\" width=\"1280\" height=\"670\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年02月09日",
+  "displayDate": "2026年2月9日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p id=\"19014b14-420a-46ba-bed4-aed1d3ee9817\">職場でコーヒーを淹れて、ほっと一息つくのが至福の時間です。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"400ceff7-e9e6-4234-81ea-1b77a08644b3\">大切な一杯にこだわりたいので、自分で豆を挽き、ハンドドリップで丁寧に淹れています。<br/><br/>美味しいコーヒーを淹れるためには、「数字」が重要です。<br/>コーヒー豆の量、お湯の量、温度、抽出時間、注ぐタイミング…。<br/><br/>これらが少し変わるだけで味が変わるのが、コーヒーの非常に奥深い魅力です。<br/><br/>ただ、スマホ標準のシンプルなタイマーを睨みながらコーヒーを淹れるのは、<br/>なんだか「仕事」の延長のように感じて、味気ないものでした。<br/><br/>「本格的なコーヒーを淹れたい。<br/>でも、リラックスもしたい。」<br/><br/>そんな矛盾したワガママを叶えるために作ったのが、この <b>「CoffeeFactory」</b>です。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"40009f52-e06f-409d-9381-bbfd1cc06597\">絵本のような見た目、中身はしっかり</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"40E98CF5-17EE-44C3-A649-203E4E0293A5\"><a href=\"https://assets.st-note.com/production/uploads/images/249478392/picture_pc_400c563f39f55fa34f7c22ed9154d7e6.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"豆と抽出レシピを選ぶCoffeeFactoryの画面\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/coffee-factory/body-1.png\" width=\"887\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"2BDC4014-EFFD-428E-B34D-2D568C8BF73A\">アプリを開くと、こびとが働く小さな工場と、コーヒー豆や水を運ぶトラックがあらわれます。<br/><br/>絵本のような世界観ですが、よく見ると細かい設定が表示されています。<br/><br/>グラム単位での豆やお湯量、豆の挽き具合、焙煎度合いなどが選択でき、有名な「4:6メソッド」にも対応し、<br/>自分のレシピ、抽出の履歴や味のメモも残せるようにしています。<br/><br/>見た目はかわいいですが、機能としては完全にコーヒー愛好者向けの内容です。<br/>※4:6メソッド：粕谷哲氏考案の、初心者でも美味しくコーヒーを淹れられるレシピ</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"58C9F626-B636-46BC-A3F3-491B095CBE7D\"><a href=\"https://assets.st-note.com/production/uploads/images/249478438/picture_pc_07a35c8058e6b817b726810c4adb8ca8.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"お湯を冷ます設備と豆のベルトコンベア\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/coffee-factory/body-2.png\" width=\"887\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"F86ABE59-9FEF-4658-9A5E-FB246ACE0692\">レシピが決まったら、沸いたお湯を適温まで冷ますお風呂と、挽いた豆を運ぶベルトコンベアがあらわれます。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"227853dc-d623-4f13-a35d-e9c490c5a9c9\">ハンドドリップに集中するためのUI</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"F3E13790-52B7-4D8A-9D36-81C8E6801865\"><a href=\"https://assets.st-note.com/production/uploads/images/249478454/picture_pc_7579cd0a61b5f5740ba055401602bb09.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"円形メーターで注湯時間を示す画面\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/coffee-factory/body-3.png\" width=\"887\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"1F276A6C-4E90-4C61-AE0E-9017F09179F9\"><a href=\"https://assets.st-note.com/production/uploads/images/249478455/picture_pc_0f95ebe0ad550cbe9aa86db8dd6700f0.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"砂時計と円形メーターで抽出の待ち時間を示す画面\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/coffee-factory/body-4.png\" width=\"887\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"94B67C6F-00CA-4923-81E3-57FC247706B6\">お湯を注ぐ場面のタイマー表示はお気に入りです。<br/>ハンドドリップでは、「蒸らし」の時間や、一気にお湯を注ぐのではなく「段階抽出」を行うなど、お湯が落ちるのを待つ時間を挟むことで、味に奥行きが出ると言われています。<br/><br/>この少し頭がこんがらがりそうな工程を、ここでは工場の「ドリップ担当」である私が集中できるように、こびとたちは裏に隠れてくれています。 <br/><br/>代わりに表示されるのは、分割された円形のメーター。 「何秒で注ぎ、何秒待つか」を直感的に示してくれるので、画面の表示に従うだけで複雑な工程が完了します。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"9e31ecc0-49c0-4e4b-b228-aabf13fa9a09\">緻密な管理を、楽しい工程へ</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"8E915323-ADD2-4A61-89F7-83B5CC2B743B\"><a href=\"https://assets.st-note.com/production/uploads/images/249478484/picture_pc_56e04ca80edc88c6867d4205c4a51b6f.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"抽出を終えたコーヒーをトラックで運ぶ画面\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/coffee-factory/body-5.png\" width=\"887\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"9BB76240-9970-4CE0-BDDE-599DD15296C4\">ドリップが終わると、<br/>「香りがふわっと広がる瞬間、豆の個性を感じて。」<br/>そんなメッセージと共に、トラックが一杯のコーヒーを出荷していきます。<br/><br/>美味しいコーヒーを作るための、緻密な工程管理。それをストイックな「作業」ではなく、<br/>目で見ても癒やされる「楽しい工程」に変えるための、自分専用のコーヒータイマーです。<br/></p>"
+    },
+    {
+      "origin": "editorial-media-note",
+      "html": "<aside class=\"media-note\"><a href=\"https://vimeo.com/1173872748\" rel=\"noopener noreferrer\" target=\"_blank\">CoffeeFactoryの動画をVimeoで見る ↗</a></aside>"
+    },
+    {
+      "origin": "source",
+      "html": "<hr id=\"c78893d6-f264-442f-9e48-03381421f8b0\"/>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"b394663b-b8f4-4bf8-aa2c-687f5a5290cb\">これは、誰かに見せるためでも、リリースするためでもなく、ただ自分のために作った、私のiPhoneの中だけにある秘密のアプリたちの記録です。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><a href=\"https://note.com/hamamah/n/nb376b9a8c54d?sub_rt=share_b\">公開予定もないアプリを21個作っていた話</a></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<hr id=\"E772521D-B4B4-43C3-AF8A-1CDC051FE163\"/>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"2BA4D319-E4E2-4EC5-AC5D-62FB6628B214\">時間をかけてゆっくり熟成させたい時はこちら▼</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><a href=\"https://note.com/hamamah/n/n2123726a637c\">樽の中で時間を育てる、正解のない経営ゲーム「AmberTime」（自作アプリ）</a></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"579D4F1B-A172-4DB8-8E46-84D707107EAB\">ただ時間を眺めたい時はこちら▼</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><a href=\"https://note.com/hamamah/n/n55f12e684c13\">時間を「確認」しないために作った、SteamClockという時計（自作アプリ）</a></p>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../w/coffee-factory/\">CoffeeFactory（現在のWeb版）↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「コーヒーが落ちるまでの、静かな時間「CoffeeFactory」（自作アプリ）」（note、2026-02-09）。<a href=\"https://note.com/hamamah/n/ndd00e6f70f55\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}

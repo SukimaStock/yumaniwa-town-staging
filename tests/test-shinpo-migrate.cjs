@@ -150,6 +150,7 @@ test('backnumbers expose every registered local article once, in publication ord
 test('connection edit preserves all source prose and asset references; only the five authorized hrefs change',()=>{
  const before='3a50c4852af0422cc028a6c007d04182cd5c5a26';
  const expected={
+  'leftover-details':[['https://note.com/hamamah/n/ndd00e6f70f55','../coffee-factory/']],
   'town-beginning':[['https://sukimastock.github.io/yumaniwa-town/','../../']],
   'yakitori-remake':[['https://note.com/hamamah/n/n0ca130319cac','../board-game-making/']],
   'making-like-craft':[['https://note.com/hamamah/n/n0ca130319cac','../board-game-making/'],['https://note.com/hamamah/n/nca6b0ef9db94','../touch-doodles/']],
@@ -157,6 +158,7 @@ test('connection edit preserves all source prose and asset references; only the 
  };
  const imageAttributes=s=>s.replace(/<img\b[^>]*>/g,tag=>tag.replace(/\s(?:width|height|alt)="[^"]*"/g,''));
  for(const row of tool.articleCatalog()){
+  if(['a6e80d044f734d4693d0926541fcba22','note-20260904-ddca9fa0'].includes(row.id))continue; // New articles have no historical baseline; separately verified against originals.
   const a=tool.load(row.id),old=JSON.parse(git(root,'show',before+':data/shinpo/'+row.id+'.json'));
   // 2026-10-18 owner requested connection to the now-published CoffeeFactory Web edition.
   const expectedGuidance=row.slug==='leftover-details'
@@ -221,4 +223,23 @@ test('production outputs validate the selected guidance without an unpublished w
   const result=cp.execFileSync(process.execPath,['-e',"const t=require('./tools/shinpo-migrate.cjs');const ids=t.notes().filter(a=>a.archivePage).map(a=>a.id).join(',');const o=t.outputs({env:'production','published-articles':ids});console.log(JSON.stringify([...o.keys()]));"],{cwd:dir,encoding:'utf8'});
   assert.equal(JSON.parse(result).length,all.length+1);
  } finally {fs.rmSync(dir,{recursive:true,force:true});}
+});
+
+test('CoffeeFactory original articles retain ordered images, section breaks and visible external video references',()=>{
+ for(const [id,slug,count,blocks] of [['a6e80d044f734d4693d0926541fcba22','coffee-factory',5,23],['note-20260904-ddca9fa0','first-public-app',4,30]]){
+  const a=tool.load(id),body=a.blocks.map(b=>b.html).join('\n');
+  assert.equal(a.blocks.length,blocks);
+  assert.deepEqual([...body.matchAll(/<img[^>]*src="([^"]+)"/g)].map(m=>m[1]),Array.from({length:count},(_,i)=>'../../assets/shinpo/'+slug+'/body-'+(i+1)+'.png'));
+  assert(!/<(?:iframe|script)\b/.test(body));
+  assert(a.afterword.includes('href="../../w/coffee-factory/"'));
+  assert(a.afterword.includes(tool.metadata(id).url));
+  assert.equal(tool.metadata(id).archiveThumbnail,'./assets/shinpo/'+slug+'/cover.'+(slug==='coffee-factory'?'png':'jpg'));
+ }
+ const coffee=tool.load('a6e80d044f734d4693d0926541fcba22');
+ assert(coffee.blocks[14].html.includes('href="https://vimeo.com/1173872748"'));
+ const first=tool.load('note-20260904-ddca9fa0');
+ assert(first.blocks[27].html.includes('href="https://twitter.com/sukimastock/status/2085378509803749678?s=46"'));
+ assert(first.blocks[7].html.includes('href="../coffee-factory/"'));
+ assert(!first.blocks[1].html.includes('<nav'));
+ assert(!/<a\b[^>]*>\s*<\/a>/.test(first.blocks[28].html));
 });
