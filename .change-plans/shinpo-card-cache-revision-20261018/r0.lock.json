@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f41dc38bbccdffb2d360e5f3e8f9b0d41252610261bc63b5781ad50aa0dc2c72",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-card-cache-revision-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "変更済み掲示板main/CSSの参照revisionを更新",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "5c642a8e99312a5ca4d8031b799b74336c75fe13",
+    "canonicalSources": [
+      "親の公開DOM: main.js/style.css rev=shinpo-paper-20261017, old mast/date/headline no image",
+      "index.html script/style references",
+      "PR465 merge5c642a8",
+      "OPERATIONS.md cache fingerprint guidance"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-card-cache-revision-20261018/r0.lock.json",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "style.css",
+      "data/**",
+      "shinpo/**",
+      "assets/**",
+      "tools/**",
+      "tests/**",
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "layout-fix.css",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "index.htmlのmain.jsとstyle.css参照revision2件のみを現在の変更に対応した新値へ更新",
+      "JS/CSS内容と記事データ/本文/画像/選択は一切変更しない",
+      "新機構/ServiceWorker/キャッシュ全削除/権限変更なし"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 parent delegation: investigate stale public card and minimally fix proven update omission within Staging; Production prohibited"
+    ],
+    "hqDecisions": [
+      "SYSTEM/full/HQ Review shared root index references only. Existing revision unchanged after PR465 is confirmed; causal public cache diagnosis still provisional until revisit",
+      "既存query revision方式を使用。表現監査: 可視文言/装飾の変更なし"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "EXPRESSION-AUDIT.md 制作前/中/完成前6点"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "index差分は2query値だけ",
+      "古いrevisionがwarm cacheでも通常再訪で新URLを取得するローカル再現",
+      "4枠/pickup/サムネイル表示、既存テスト、公開確認は親へ"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "index.htmlの2つのrevision値をこのPRだけrevert。PR465内容は保持",
+    "outOfScope": [
+      "Production",
+      "画像や本文修正",
+      "推薦やUI再設計",
+      "ServiceWorker/キャッシュポリシー変更",
+      "他作品キャッシュ消去",
+      "権限変更"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "実公開キャッシュ状態の直接取得不可、親の通常再訪で確認",
+      "実機iPhone/iPad"
+    ],
+    "problem": "公開で旧カードDOM。index参照がmain/CSS変更後も前日のrevisionのまま",
+    "currentContract": "main/styleは固定query revision、notesはDate.now。root SW登録なし",
+    "whyExistingIsInsufficient": "同一URLが再利用され、既存ブラウザ/CDNキャッシュが古いscript/styleを返し得る",
+    "design": "既存revision2つをshinpo-thumbnails-20261018へ更新するだけ。通常再訪で新規URLとして取得",
+    "alternativesRejected": [
+      "新ServiceWorker",
+      "キャッシュ全削除",
+      "新runtime/記事修正",
+      "原因未確認の大改修"
+    ],
+    "migration": "URL queryのみ更新、resource path/機能/metadataは不変",
+    "compatibility": "既存script/style読み込み順維持。保存や他作品へ変更なし",
+    "boundaryCases": [
+      "旧URLwarm cache",
+      "通常再訪/新URL",
+      "公開HTMLキャッシュは別途親が確認"
+    ],
+    "testPlan": [
+      "index差分をquery値以外同一と機械確認",
+      "warm-cache再訪テスト: 旧markupが新thumbnail markupへ変化",
+      "16既存テスト/Scope→Risk→Impact",
+      "独立レビュー/必須CI/exact Pages SHA/親公開再訪"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}
