@@ -1,0 +1,16 @@
+{
+  "nodeFixtureSHA256": "d16c4f8efa611a3ce2d43f0fd4e97f489ab687fddb7a515ec200e42711c08ae5",
+  "chromiumFixtureSHA256": "e3fc81696159c6727916c53ed02ab9c3bd5ed646c08bdbba7e0addac2b051fc3",
+  "months": 1440,
+  "operationsEqual": true,
+  "operations": 2899,
+  "firstNumericDiff": {
+    "path": ".core.casks.2.roughness",
+    "node": 0.3816148272998033,
+    "chromium": 0.3816148272998027,
+    "absoluteDifference": 6.106226635438361e-16
+  },
+  "chromiumRestoreOfNodeFixture": "Rejected with 蒸留所の状態と操作の帳面が一致しません。",
+  "validationRelaxed": false,
+  "scope": "Existing exact floating-point replay across runtime versions; same-engine native Chromium history tested separately."
+}

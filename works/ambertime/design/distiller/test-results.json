@@ -1,0 +1,84 @@
+{
+  "base": "139c37f27b447682f6fd907fbbbc556c482e851b",
+  "nodeTests": {
+    "total": 560,
+    "pass": 560,
+    "fail": 0,
+    "durationMs": 110939.545062
+  },
+  "independentReview": {
+    "staffTests": 13,
+    "pass": 13,
+    "blockers": 0
+  },
+  "protectedFiles": [
+    {
+      "file": "model.mjs",
+      "sha256": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "unchanged": true
+    },
+    {
+      "file": "economy.mjs",
+      "sha256": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "unchanged": true
+    },
+    {
+      "file": "parameters.mjs",
+      "sha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "unchanged": true
+    },
+    {
+      "file": "economy-parameters.mjs",
+      "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "unchanged": true
+    },
+    {
+      "file": "parallel-parameters.mjs",
+      "sha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f",
+      "unchanged": true
+    },
+    {
+      "file": "partner-parameters.mjs",
+      "sha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "unchanged": true
+    },
+    {
+      "file": "wholesale-parameters.mjs",
+      "sha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1",
+      "unchanged": true
+    },
+    {
+      "file": "character.mjs",
+      "sha256": "599b0e0fda18ad9df83066da92f00fd4d7a599b8d00f00656b6df8ace2d0e728",
+      "unchanged": true
+    },
+    {
+      "file": "tasting-view.mjs",
+      "sha256": "33d183ec36f9b2c06cad4289c6e80f3a2529ad4effd599852f22e12dee356c0d",
+      "unchanged": true
+    },
+    {
+      "file": "flavor-view.mjs",
+      "sha256": "bc1ecbaef2926a1e257d8cef3d5092e509dcb264a92029e7843ec786ab62f23c",
+      "unchanged": true
+    },
+    {
+      "file": "brand-reputation.mjs",
+      "sha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+      "unchanged": true
+    },
+    {
+      "file": "aroma-extraction.mjs",
+      "sha256": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff",
+      "unchanged": true
+    }
+  ],
+  "queryOnlyFiles": [
+    "generations.mjs",
+    "bottle-storage.mjs",
+    "department-projects.mjs",
+    "shop-model.mjs",
+    "distillery-history.mjs",
+    "history-worker.mjs"
+  ]
+}

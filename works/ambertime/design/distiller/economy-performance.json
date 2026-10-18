@@ -1,0 +1,31 @@
+{
+  "method": "Fresh Node child per history. Strict full replay timed separately; source read initial/switch/reopen only after strict restore. No invented or trusted bypass values.",
+  "runs": [
+    {
+      "years": 30,
+      "months": 360,
+      "operations": 1098,
+      "releases": 107,
+      "saveBytes": 152616,
+      "coldRestoreMs": 11538.945825,
+      "firstRequestMs": 6.30250100000012,
+      "switchMs": 6.904928999998447,
+      "reopenMs": 6.389503000000332,
+      "sourceMatches": true,
+      "unchanged": true
+    },
+    {
+      "years": 120,
+      "months": 1440,
+      "operations": 2899,
+      "releases": 189,
+      "saveBytes": 301685,
+      "coldRestoreMs": 43148.931314,
+      "firstRequestMs": 14.64784199999849,
+      "switchMs": 13.52045299999736,
+      "reopenMs": 15.75860599999578,
+      "sourceMatches": true,
+      "unchanged": true
+    }
+  ]
+}
