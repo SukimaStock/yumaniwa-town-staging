@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "339f252b22291b8bc9d1f6af10f2943eff2cbcd4ff7fbb421ae7f7b26da08e03",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-tasting-display",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime normal tasting: shared three flavor meters with previous sample ticks; presentation only",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "a8eb629dc101eccfd87d6d377428c33f6b42aaac",
+    "canonicalSources": [
+      "User normaltasting sharedbars andpreviousmarker request",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/character.mjs sampleCharacter/comparisons",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/design/nearby-comparison/REPORT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-tasting-display/r0.lock.json",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/tasting*.mjs",
+      "works/ambertime/design/tasting-display/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/shop-v*.mjs",
+      "works/ambertime/shop-v*.css",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "Extract work-local flavor-view helper sharedbycaskcomparison and normaltasting, labels stimulus/originalaroma/woodaroma usingcanonicaltasting+shortTaste, fixed0..1.35rawfraction barssameasexistingcomparison, no newqualitythresholds",
+      "Normaltasting threecurrentbars+shortwords, onepreviouspositiontickperknownnumericaxis onfulltrackoutsidefill, distinctshape equal/near/extreme/endpoints; noforcedoffset/nointegerrounding/no exaggeratedrange",
+      "Use existingD.comparison current/previous samples andages; no newrecord/operations/schema; same-monthsampling reusesearlierprevious; missingaxis doesnotgetmarker, initialonlycurrent nolegend",
+      "Singlepreviouslegendandknownpreviousage, accessibilitycurrent+previous+actualdirectionwithoutquality orsizeclaims; remove repetitivelongnormalchangeparagraph butkeeprecordhistory unchanged",
+      "Responsiveexistinginlinepanel/glass/caskrelation andprimaryend/bottle/compareactions; no newmodal; preventabsoluteoverlap/offscreen via scopedtastinglayout, preservecomparison exactparent/timeintent",
+      "No fullhistory/projection/validation calls addedfornormaltasting; dataalreadyincurrentcask/existingsamples. Preserveallstate/chemistry/fees/RNG/recipes/reservations/generations/sales andsamev17savekey",
+      "Targetedpure-viewtests +publicsame-month/save/read-onlyregressions;PC/iPhone390x844/744 actualscreensfirst/previous/reducedaroma/highwood/markerpositions/comparisonroundtrip/timepause;independentreview"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "PC1280 andiPhone390x844/744 firstandpreviousscreens visible3bars+glass+age+primarycontrols nooverlap",
+      "Samecurrentvalueandword/scale in normalandexistingcaskcomparison, markeroutsidefill/equal/near/bounds/missingvalue",
+      "Keyboard/accessiblelabels currentandpreviousdirection; unchangedtimepause/manualpause/recipes/queuedreservation/samplinghistory andsame-monthcomparisons",
+      "Expressionaudit sixpoints no decimalvisiblelist/longtextduplicates orqualityjudgments",
+      "Publishedsourcehashes andprotectedcalculation/savedata modules"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert scopedpresentation/helper changes; savedata samev17 openspreviousUIwithoutconversion.",
+    "outOfScope": [
+      "Production",
+      "Savedataschema/version/key/opcodes/backend/strictvalidation",
+      "Chemistry/aging/economy/sales/prices/fees/RNG/shops/generations/4casks changes",
+      "Recipebookredesign/employment/newflavorcriteria/qualityscores/recommendations",
+      "Oldrecords cleanup/fullhistory/replayperformance redesign",
+      "Sharedtown/runtime/ChangeOS/archivededitionupdates"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/screenreaderdevice andauthorreadability/adoption"
+    ],
+    "rulesApplied": [
+      "StandardWORK multi-file worklocalpresentation withunchangedcontracts;userexplicitPlanLock",
+      "AGENTS usefulsingleUIowner +independenttests/browser/review; nooverlappingedits",
+      "Expressionaudit before/while/after: threeaxislabels+canonicalshortwords+onelegend only; no first-timecopy needed",
+      "Preserve currentcomparison entry/partnerselection/returnstate; shareonlymeter/phrase rendering"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests normaal tasting sharedbars+previousmarks only, comparison/recipes/engine/saves/history/timepolicyprotected, tests/PR/Stagingmerge/publicverification; Production forbidden."
+    ],
+    "hqDecisions": [],
+    "problem": "Normaltasting stillshowsthreeparagraphs withdifferentaxislabelsandseparatechangeprose, whilecurrentcaskcomparison alreadycommunicatescurrentflavorvisually.",
+    "currentContract": "v17save; D.comparison returns currentlastsample andprevioussecondlast; sampleCharacter addsnonewsample in sameage; comparisonmeterfixed0..1.35; floatingpanelwidth49%overlaprisk.",
+    "whyExistingIsInsufficient": "Oldnormalprosedoesnotsharecomparisonlabels/scale andrequiresreadingchanges; threebars+previousmarkneedscopedresponsiveflowinexistingpanel.",
+    "design": "Pureworklocalsharedflavor rendering, threecurrentbars withknownpreviouspositions, existinginlinepanelandD.comparison unchanged.",
+    "migration": "None. Samev17key/fields/operations/strictsave. No persisted UI/derivedvalues.",
+    "compatibility": "Zeroformula/backend/sample/changecomparisonalgorithm changes; same-month andoldmissingdata semantics preserved; onlycurrentnormalpresentation andnecessarysharedcomparisonmeter markup.",
+    "promotionRisk": "Staging only; no Production/shared paths.",
+    "alternativesRejected": [
+      "Secondsetofthreepreviousbars/longtable/newmodal",
+      "Replayingallhistoryfornormaltasting",
+      "Inferringmissingpastvalue fromtasteprose orcut",
+      "Dynamicrange/markerforcedseparation/currentbarclamp1",
+      "Qualitycolors/ranks/optimalbottlingmessages",
+      "Changing samplingrecords tofitUI"
+    ],
+    "boundaryCases": [
+      "Firstsinglecasksample",
+      "Secondsampleand same-monthreopenretaintrueprevious",
+      "Priorvalueoutsidecurrentfill,equal,near,0/max1.35",
+      "Aromadecrease/highwood/currentmissing/previouspartialmissing",
+      "Comparisonroundtrip andtastingpause/manualpaused/autoresume/queuedusual",
+      "PC+iPhonefull/shortheight nooverlap/accessiblemarkers"
+    ],
+    "testPlan": [
+      "Newpureflavorhelpertests exactrange/fraction/shortcanonicalphrases/previousoutsidefill/equal/near/endpoints/missingaxis/escaping/accessibility",
+      "Publicoperationregression firstsample→month→sample→same-monthreopen→strictsave/coldrestore; no display-inducedstate/RNG/fees/reservation changes",
+      "Full538existingNode tests plusnewtests",
+      "ActualPC+iPhonewidthscreens andexistingnearbycomparisonroundtrip/sourceglyph/actions; independentreview",
+      "ScopeRiskImpact trustedstatic requiredCI exacthead; PR/Stagingmerge/Pages/sourcehashproof"
+    ]
+  }
+}
