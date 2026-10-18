@@ -1,0 +1,24 @@
+{
+  "command": "cd works/ambertime && npm test",
+  "tests": 503,
+  "pass": 503,
+  "fail": 0,
+  "durationMs": 108416.93645,
+  "additionalGenerationModelTests": 17,
+  "additionalGenerationHistoryTests": 2,
+  "sourceHashes": {
+    "generations.mjs": "49b00f8e848ad9ab4aa2c38ee0b27f25744c08edab9c768bbb9eaceb54e9c6a0",
+    "partner-orders.mjs": "d5f49bc09ac28d27fc182200de39e79c6405e5456625c24c0c10c4840807ab19",
+    "bottle-storage.mjs": "1527984862ee8c78940e19cb2ab0a731b9879b7e6d382fb33a5c99b8a9537376",
+    "shop-model.mjs": "c8bb789119cb4106001024271a9afc96eb3a593674ad16b353bb99f8e3c2704e",
+    "department-projects.mjs": "7402bfd6b88559905405af642a472ca9abe6e2e18f5c3b5bca181f0447741f3a",
+    "distillery-history.mjs": "963c2b0ee1dad3c8b5f965702055563d499f25d8c514870c8d2c3184363c8bdd",
+    "history-worker.mjs": "23675ab636ed1c4317152a6b78771bd62839d238871fef5f9099993b935c3561",
+    "shop-app.mjs": "6ab1639bfb55cf57a89df9c6491bc27892dd434c301795c443c1f5abb0d80b3f",
+    "shop.css": "616cb744cab3fd6690bcedd6fde966ee5fcc44ce3a95ac9f530b83b3e08c46c9",
+    "index.html": "037409045a34694d5659199cdd4061b691d30e4b5eaaa035d2543ff9c4b8ac17"
+  },
+  "independentReview": "No source blocker; independently checked generation tests, same-month ownership, final evidence and protected source/archive bytes.",
+  "physicalSafari": false,
+  "humanPacingAndAttachment": false
+}
