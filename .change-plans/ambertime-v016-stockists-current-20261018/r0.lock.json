@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7facb377eda3f5d69df0f7dcc87de86450c757c396a1db73681145dbfddaaf85",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v016-stockists-current-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.16 distinct stockists with shared eligibility, delivery and safe v13 replay boundary",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "84e2f72fe34050bfe45f78e8d7946b0227494e77",
+    "canonicalSources": [
+      "User0.16 request",
+      "Current0.15.2 strict v12 replay and retail/shop separate ledger",
+      "Main model age/flavor/economy distribution analysis"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v016-stockists-current-20261018/r0.lock.json",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/v0152.html",
+      "works/ambertime/shop-v0152-app.mjs",
+      "works/ambertime/shop-v0152.css",
+      "works/ambertime/tests/stockists*.mjs",
+      "works/ambertime/design/stockists/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "Three explicit retailer configs; town legacyID and history retained, supermarket and department independent offers based real sales/releases/eligible products, no ladder",
+      "Generic retailer-scoped age/flavor/stock/minimum/monthcap/historycap quote and atomic delivery; standard-price .8/1/1.4; no reputation increment",
+      "Explicit enable-stockists operation into v13 after exact v12 restore; old opcodes preserve old semantics; new key keeps old raw untouched and archived0.15.2 entry",
+      "Queued retailer offers, exact target IDs in new operations and UI, existing modal priority/pause/deferral and multi-release selection preserved",
+      "Small multiple destinations and durable perstore history; simulations and compatibility/browser tests plus independent review"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone actual parallelmodal-flow",
+      "longsimulation and inventory cases",
+      "savebytecompatibility",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert entry/UI/model additions and reopen preserved v12 key via archived0.15.2; keep v13 raw untouched.",
+    "outOfScope": [
+      "Production",
+      "Chemistry/aging/demand/economic core parameters",
+      "Fourcask/usual/wholesale/special/brandrep changes",
+      "Recognition prestige bonus or storestock/logistics",
+      "Sharedruntime/ChangeOS"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Human touch/fun",
+      "Preexisting cross-runtime aged floating-point portability"
+    ],
+    "rulesApplied": [
+      "Full WORK saveboundary locked before implementation",
+      "AGENTS necessary independent economic audit/tests/review delegation",
+      "User store coefficient changes only; core economy frozen"
+    ],
+    "hqDecisions": [
+      "Work-local v13 uses existing strict operation-replay/session/localStorage architecture with explicit enable boundary and separate key as user authorized; no shared save/runtime contract extension. Legacy v12 constructor/actions stay byte-identical and old key untouched."
+    ],
+    "ownerDecisions": [
+      "User0.16 explicitly authorizes three shop configs, analyzed roughness threshold and independent offer conditions, safe saveversion separation and Stagingmerge only."
+    ],
+    "problem": "Single hardcoded retailer cannot represent distinct age/flavor/minimum/price conditions or concurrent offers.",
+    "currentContract": "Strict replay v12, townID relation and durable shopdelivery separated from retail reputation, once offer modal and restored manual pause.",
+    "whyExistingIsInsufficient": "Single brand-only relation/quoting/offer targeting must become retailer-scoped without rewriting legacy operation results.",
+    "design": "Versioned opt-in v13 extension preserving v12 implementation semantics, reusable retailer catalog and explicit shop/offer target actions; UI iterates relations and eligible quote reasons.",
+    "migration": "Strict restore old state first, explicit enable-stockists logged boundary, retain raw old keys, archive old app; deterministic new operations replay; preserve old products/batches/releases/deliveries.",
+    "compatibility": "Old constructors/opcodes remain byte-identical for v12 and earlier; v13 actions retailer-scoped, shared inventory and retail-only reputation.",
+    "promotionRisk": "Staging only",
+    "alternativesRejected": [
+      "Inventory reservation",
+      "Sequential renumber by live rack",
+      "Persist brandnew identity map",
+      "Rewrite oldhistory/IDs",
+      "Suppress or batch-away judgments",
+      "New dashboard",
+      "Economy/price/rep/time tuning"
+    ],
+    "boundaryCases": [
+      "oldv3-v12 replay",
+      "legacy accepted and pending offers",
+      "three simultaneous retailer offers",
+      "samebrand multiple releases/store caps",
+      "insufficient stock/monthcap/age/flavor/historycap",
+      "stale double actions",
+      "zero stock relationshiponly",
+      "decline retry",
+      "retail/shop nonduplication",
+      "paused and running modal chains",
+      "PC/iPhone"
+    ],
+    "testPlan": [
+      "Full existing regression bytefingerprints",
+      "new shared API conditions/atomicity/target rejection/replay tests",
+      "8seed age/flavor/price and long paired store/no-store simulations",
+      "PC/iPhone actual offer-to-delivery multistore browser",
+      "independent review, trusted gates, CI and servedhash"
+    ]
+  }
+}
