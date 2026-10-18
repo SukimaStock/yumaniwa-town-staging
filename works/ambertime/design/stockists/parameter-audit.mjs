@@ -1,0 +1,22 @@
+// Run from repository root: node works/ambertime/design/stockists/parameter-audit.mjs > works/ambertime/design/stockists/parameter-results.json
+// Analysis only: fixed cohorts, not player saves or offer/delivery execution.
+import * as E from '../../economy.mjs';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {profileAt} from '../../experiments/distillation/models.mjs';
+import {ageExperiment,bottleExperiment,productionCosts} from '../../experiments/distillation/adapters.mjs';
+const seeds=[1,2,3,42,77,12345,20261015,4294967295],rows=[];
+for(const seed of seeds)for(let stop=30;stop<=99;stop++)for(const type of ['bourbon','refill'])for(const age of [0,12,24,36]){const a=ageExperiment(profileAt('a',stop,seed),type,age),b=bottleExperiment(a),cost=productionCosts(a);rows.push({seed,stop,type,age,roughness:a.roughness,character:a.character,wood:a.wood,bottles:cost.bottles,cost:cost.total,standard:b.prices.standard,individual:Math.round(b.prices.standard*.8*100)/100,supermarket:b.prices.standard,department:Math.round(b.prices.standard*1.4*100)/100});}
+const quant=(a,p)=>a.toSorted((a,b)=>a-b)[Math.floor((a.length-1)*p)];
+const distributions=[];for(const age of [0,12,24,36])for(const type of ['bourbon','refill']){const r=rows.filter(r=>r.age===age&&r.type===type),v=r.map(r=>r.roughness);distributions.push({age,type,n:r.length,min:Math.min(...v),p25:quant(v,.25),median:quant(v,.5),p75:quant(v,.75),max:Math.max(...v),pass030:r.filter(r=>r.roughness<=.3).length,pass020:r.filter(r=>r.roughness<=.2).length,pass015:r.filter(r=>r.roughness<=.15).length});}
+const examples=rows.filter(r=>r.seed===20261015&&[30,65,99].includes(r.stop));
+const distributionResult={seeds,conditions:rows.length,distributions,examples};
+const cohortRows=[];for(const seed of [1,2,3,42,77,12345,20261015,4294967295])for(const stop of [30,65,99])for(const type of ['bourbon','refill'])for(const age of [0,12,24,36])for(const policy of ['retail','individual','supermarket','department']){
+ const a=ageExperiment(profileAt('a',stop,seed),type,age),r=bottleExperiment(a),cost=productionCosts(a).total,config={individual:[0,1,10,.8],supermarket:[12,10,20,1],department:[24,5,5,1.4]}[policy];let s=E.newDistillery(seed);s.core=structuredClone(r.core);s.productsById[3]={listed:true,selectedPrice:'standard'};let delivered=0,receipts=0,soldOut=null,rev1=0,stock1=0;
+ for(let m=1;m<=24;m++){const p=s.core.products[0];if(config&&age>=config[0]&&(policy!=='department'||a.roughness<=.3)&&p.stock>=config[1]){const n=Math.min(p.stock,config[2]);p.stock-=n;p.sold+=n;delivered+=n;receipts+=n*Math.round(r.prices.standard*config[3]*100)/100;}s=E.economicMonthly(s,s.core.month);if(m===1){rev1=s.core.totals.revenue+receipts;stock1=s.core.products[0].stock;}if(soldOut===null&&s.core.products[0].stock===0)soldOut=m;}
+ cohortRows.push({seed,stop,type,age,policy,delivered,revenue:s.core.totals.revenue+receipts,profit:s.core.totals.revenue+receipts-cost-96,soldOut,stock:s.core.products[0].stock,rev1,stock1});}
+const summary=[];for(const policy of ['individual','supermarket','department'])for(const age of [0,12,24,36]){const rs=cohortRows.filter(x=>x.policy===policy&&x.age===age),pairs=rs.map(r=>({r,b:cohortRows.find(b=>b.policy==='retail'&&['seed','stop','type','age'].every(k=>b[k]===r[k]))}));const mean=f=>pairs.reduce((n,x)=>n+f(x),0)/pairs.length;summary.push({policy,age,n:pairs.length,used:pairs.filter(x=>x.r.delivered).length,meanDelivered:mean(x=>x.r.delivered),meanRevenueDelta:mean(x=>x.r.revenue-x.b.revenue),meanFirstMonthReceiptsDelta:mean(x=>x.r.rev1-x.b.rev1),meanSoldOutMonths:mean(x=>x.r.soldOut),meanRetailSoldOut:mean(x=>x.b.soldOut),minProfit:Math.min(...rs.map(x=>x.profit)),maxProfit:Math.max(...rs.map(x=>x.profit))});}
+
+const frozenFiles=['model.mjs','aroma-extraction.mjs','economy.mjs','economy-parameters.mjs','parameters.mjs','parallel-parameters.mjs','partner-parameters.mjs','brand-reputation.mjs'];
+const frozenSha256=Object.fromEntries(frozenFiles.map(f=>[f,createHash('sha256').update(readFileSync(new URL('../../'+f,import.meta.url))).digest('hex')]));
+console.log(JSON.stringify({schema:'ambertime-stockists-parameter-audit/1',frozenSha256,distribution:distributionResult,cohort:{scope:'Fixed single release; established relationships; delivery before standard-price monthly retail; 24 selling months; production and base selling upkeep included; no reputation multiplier, offer wait, capacity or reinvestment claim',conditions:cohortRows.length,summary,rows:cohortRows}},null,2));
