@@ -1,0 +1,237 @@
+{
+  "browser": "153.0.8010.0",
+  "clock": "Real 100ms app callbacks under Playwright controlled clock",
+  "fixtures": "All scenarios use public model operations inside Chromium; every save undergoes strict replay. Four simultaneous cask judgments are natural seed3 month118, not projected.",
+  "physicalSafari": false,
+  "humanFun": false,
+  "fonts": "Environment Noto Sans JP regular; no application font or CSS changes",
+  "sourceHashes": {
+    "index.html": "d77f2d5599ad890f59297c6711b1c26a7fa6b3b40549ba12b4e74901d4a3e13f",
+    "shop-app.mjs": "d1d9c7538b423c75b4e134bb05d8880b7d4c40dc22c2695a31796c910973fa2c",
+    "shop.css": "c9de07d3f373c8de84f08ec53070c092c11eab8bbcedc75f6d638be81dcd6057",
+    "work-context.mjs": "beaeabe3fb400f8da056b0fb07ac29d34dbd6cfb42b40a150a144caf2136860d",
+    "shop-model.mjs": "be1eb733e4aee85dbea0f7e5d6aefab03feb0b7bb1b9ab32590259f1fea3139a",
+    "partner-orders.mjs": "bfb48b80b630cb2f2506c1b8ad4686596e28d2754f4c0c59011199e57e80b8fc",
+    "tests/cross-browser.mjs": "cb645ad9af75db0299d3f4e8f1cdc84467e40564589e7725cbe0dc824719748d"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": false,
+      "naturalFourCaskDecisionMonth": 118,
+      "decisionIds": [
+        26,
+        28,
+        30,
+        32
+      ],
+      "bottleThenThreeOtherJudgments": true,
+      "reloadRestoresPendingPrice": true,
+      "releaseNumber": 9,
+      "stableSurvivingLabels": true,
+      "pastSourceCask": true,
+      "correctPriceProduct": true,
+      "clockResumesAccordingToIntent": true,
+      "strictReplay": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": true,
+      "naturalFourCaskDecisionMonth": 118,
+      "decisionIds": [
+        26,
+        28,
+        30,
+        32
+      ],
+      "bottleThenThreeOtherJudgments": true,
+      "reloadRestoresPendingPrice": true,
+      "releaseNumber": 9,
+      "stableSurvivingLabels": true,
+      "pastSourceCask": true,
+      "correctPriceProduct": true,
+      "clockResumesAccordingToIntent": true,
+      "strictReplay": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": false,
+      "naturalFourCaskDecisionMonth": 118,
+      "decisionIds": [
+        26,
+        28,
+        30,
+        32
+      ],
+      "bottleThenThreeOtherJudgments": true,
+      "reloadRestoresPendingPrice": true,
+      "releaseNumber": 9,
+      "stableSurvivingLabels": true,
+      "pastSourceCask": true,
+      "correctPriceProduct": true,
+      "clockResumesAccordingToIntent": true,
+      "strictReplay": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": true,
+      "naturalFourCaskDecisionMonth": 118,
+      "decisionIds": [
+        26,
+        28,
+        30,
+        32
+      ],
+      "bottleThenThreeOtherJudgments": true,
+      "reloadRestoresPendingPrice": true,
+      "releaseNumber": 9,
+      "stableSurvivingLabels": true,
+      "pastSourceCask": true,
+      "correctPriceProduct": true,
+      "clockResumesAccordingToIntent": true,
+      "strictReplay": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "paused": false,
+      "naturalFourCaskDecisionMonth": 118,
+      "decisionIds": [
+        26,
+        28,
+        30,
+        32
+      ],
+      "bottleThenThreeOtherJudgments": true,
+      "reloadRestoresPendingPrice": true,
+      "releaseNumber": 9,
+      "stableSurvivingLabels": true,
+      "pastSourceCask": true,
+      "correctPriceProduct": true,
+      "clockResumesAccordingToIntent": true,
+      "strictReplay": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "paused": true,
+      "naturalFourCaskDecisionMonth": 118,
+      "decisionIds": [
+        26,
+        28,
+        30,
+        32
+      ],
+      "bottleThenThreeOtherJudgments": true,
+      "reloadRestoresPendingPrice": true,
+      "releaseNumber": 9,
+      "stableSurvivingLabels": true,
+      "pastSourceCask": true,
+      "correctPriceProduct": true,
+      "clockResumesAccordingToIntent": true,
+      "strictReplay": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "multipleReleaseSelection": true,
+      "correctSkuAtomicFive": true,
+      "unselectedSkuUnchanged": true,
+      "exactCash": true,
+      "retailReputationNotInflated": true,
+      "releaseOnProduct": true,
+      "monthCapAcrossReleases": true,
+      "touchTargets44": true,
+      "strictReload": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "multipleReleaseSelection": true,
+      "correctSkuAtomicFive": true,
+      "unselectedSkuUnchanged": true,
+      "exactCash": true,
+      "retailReputationNotInflated": true,
+      "releaseOnProduct": true,
+      "monthCapAcrossReleases": true,
+      "touchTargets44": true,
+      "strictReload": true
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "multipleReleaseSelection": true,
+      "correctSkuAtomicFive": true,
+      "unselectedSkuUnchanged": true,
+      "exactCash": true,
+      "retailReputationNotInflated": true,
+      "releaseOnProduct": true,
+      "monthCapAcrossReleases": true,
+      "touchTargets44": true,
+      "strictReload": true
+    },
+    {
+      "paused": false,
+      "deferKeepsOffer": true,
+      "retailContinuesWithoutReservation": true,
+      "sellsOutWhileDeferred": true,
+      "noRepeatNoticeAfterReload": true,
+      "zeroStockRelationship": true,
+      "nextReleaseDeliveryTen": true,
+      "noDuplicateRelation": true,
+      "clockIntentPreserved": true
+    },
+    {
+      "paused": true,
+      "deferKeepsOffer": true,
+      "retailContinuesWithoutReservation": true,
+      "sellsOutWhileDeferred": true,
+      "noRepeatNoticeAfterReload": true,
+      "zeroStockRelationship": true,
+      "nextReleaseDeliveryTen": true,
+      "noDuplicateRelation": true,
+      "clockIntentPreserved": true
+    },
+    {
+      "remainingStock": 5,
+      "onlyValidPartialQuantities": true,
+      "partialDeliverySellsOut": true,
+      "relationRetained": true,
+      "strictReplay": true
+    },
+    {
+      "priority": "distilling",
+      "shopWaitsForImportantWork": true,
+      "safeFollowup": true,
+      "strictReplay": true
+    },
+    {
+      "priority": "filling",
+      "shopWaitsForImportantWork": true,
+      "safeFollowup": true,
+      "strictReplay": true
+    },
+    {
+      "priority": "tasting",
+      "shopWaitsForImportantWork": true,
+      "safeFollowup": true,
+      "strictReplay": true
+    },
+    {
+      "priority": "trade",
+      "shopWaitsForImportantWork": true,
+      "safeFollowup": true,
+      "strictReplay": true
+    }
+  ]
+}
