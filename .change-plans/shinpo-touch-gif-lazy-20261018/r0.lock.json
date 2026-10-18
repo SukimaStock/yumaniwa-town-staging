@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0f45846a98e5e05bae7f9d433707165bb91c75234ac44ade3ab59b518cb545c0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-touch-gif-lazy-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Defer seven touch-doodles GIF downloads without changing content or media",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "443d95c86876df6ce9b0f3696abff777bc035fe4",
+    "canonicalSources": [
+      "data/shinpo/3fbab1d8a9b14123bfdb1461a94e8098.json",
+      "tools/shinpo-template.html",
+      "https:/github.com/SukimaStock/yumaniwa-town-staging/pull/477#discussion_r4306455670"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-touch-gif-lazy-20261018/r0.lock.json",
+      "data/shinpo/3fbab1d8a9b14123bfdb1461a94e8098.json",
+      "shinpo/touch-doodles/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      ".github/**",
+      "engines/**",
+      "sitemap.xml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Add loading=lazy to exactly seven canonical GIF images and regenerate only this article."
+    ],
+    "ownerDecisions": [
+      "2026-10-18 delegated instruction explicitly authorizes GIF load check and minimum canonical lazy loading fix, tests, PR and safe Staging merge."
+    ],
+    "hqDecisions": [
+      "既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "User section6 authorizes verified same-work town play links; source note/citation and historical edition retained",
+      "Expression audit: preserve author original; no invented subtitle,summary,copy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "原典と全文/順序/外部リンク/画像を照合",
+      "mobile/desktopで本文1クリック、スクロール、戻る"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR only.",
+    "outOfScope": [
+      "Production",
+      "other articles",
+      "shared engine",
+      "template changes"
+    ],
+    "promotion": "Staging only",
+    "unverified": [
+      "原典照合は別途証拠が必要",
+      "iPhone/iPad実機未確認"
+    ],
+    "problem": "All seven offscreen GIF images eagerly download 8381163 bytes.",
+    "currentContract": "notesのID/title/date/urlが正本。移植済みはarchivePageへ1クリック。",
+    "whyExistingIsInsufficient": "対象記事本文が未移植",
+    "design": "Use native loading=lazy in canonical blocks, preserve GIF files, captions, text and URLs; no invented copy.",
+    "alternativesRejected": [
+      "固定枠",
+      "原文要約/画像創作",
+      "CMS"
+    ],
+    "migration": "ID/原note URL保持、archivePageのみ登録",
+    "compatibility": "元の4枠と他記事を保持",
+    "boundaryCases": [
+      "同じIDの再実行",
+      "未取得media",
+      "中断再開",
+      "base進行"
+    ],
+    "testPlan": [
+      "node tools/shinpo-migrate.cjs check",
+      "node tests/test-shinpo-rack.cjs",
+      "node tests/test-shinpo-migrate.cjs",
+      "Scope/Risk/Impact、必須CI、レビュー、Pages"
+    ],
+    "promotionRisk": "Productionは変更しない"
+  }
+}
