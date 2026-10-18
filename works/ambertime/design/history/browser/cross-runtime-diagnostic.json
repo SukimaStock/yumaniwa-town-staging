@@ -1,0 +1,29 @@
+{
+  "note": "Node-generated fixture vs Chromium operation replay; diagnostic only, never saved as a user game. Actual browser fixture generated through the same public policy in Chromium and passes unchanged strict serialization/replay.",
+  "differences": [
+    {
+      "path": ".core.archive.23.roughness",
+      "node": 0.19153843392993472,
+      "chromium": 0.19153843392993536,
+      "delta": 6.38378239159465e-16
+    },
+    {
+      "path": ".releases.4.profile.roughness",
+      "node": 0.3766102907297257,
+      "chromium": 0.37661029072972596,
+      "delta": 2.7755575615628914e-16
+    },
+    {
+      "path": ".releases.31.profile.roughness",
+      "node": 0.11164364218616898,
+      "chromium": 0.11164364218616851,
+      "delta": -4.718447854656915e-16
+    }
+  ],
+  "sourceHashes": {
+    "shop-app.mjs": "05249213388b8ff6f1ead4fb95f7301e672cbc0e57a57ef7451bb1f3ecf07d5f",
+    "distillery-history.mjs": "8d0203c61f51a34632d293d9b9d1150676941bd8094ca7afef5dcc78f184937f",
+    "history-worker.mjs": "214a8210f66a87eb3aa7d685ad46ebc5bf049465f3c8f3e7a0f41301730948c7"
+  },
+  "scope": "Three binary floating-point differences only; no validation tolerance, simulation formula, user save or baseline artifact changed."
+}
