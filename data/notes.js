@@ -156,6 +156,8 @@ var NOTE_ARTICLES = [
 
     {
         id: "3fbab1d8a9b14123bfdb1461a94e8098",
+        archivePage: "./shinpo/touch-doodles/",
+        archiveThumbnail: "./assets/shinpo/touch-doodles/cover.png",
         title: "ひねる、積む、なぞる。触れるらくがきの話",
         url: "https://note.com/hamamah/n/nca6b0ef9db94",
         publish_date: "2026-07-02",
