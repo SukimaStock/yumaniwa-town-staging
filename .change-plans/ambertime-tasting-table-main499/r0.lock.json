@@ -1,0 +1,101 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e07b7200edca6bd281ac65a5dd57cbd6860b8c87efa44daedebbb8ae8b31a4b6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-tasting-table-main499",
+    "revision": 0,
+    "change": "Rebuild isolated comparison as a sparse two-glass tasting table based on user mock, with selected-glass actions",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "4b57e41549f52c5ad780a1bee032ccf250c0db56",
+    "canonicalSources": [
+      "User 2026-10-18 tasting-table request and inline mock 1A9BE4BA-2A59-44CA-8A46-79AF6ABA0734.jpeg",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "Current isolated UI/model0052717f and latestmain4b57e415; upstream#499 only adds unrelated hitohazutsu work"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-tasting-table-main499/r0.lock.json",
+      "works/ambertime/experiments/cask-aroma/app.mjs",
+      "works/ambertime/experiments/cask-aroma/index.html",
+      "works/ambertime/experiments/cask-aroma/style.css",
+      "works/ambertime/experiments/cask-aroma/tasting-art.mjs",
+      "works/ambertime/experiments/cask-aroma/tests/tasting*.mjs",
+      "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+      "works/ambertime/experiments/cask-aroma/design/tasting-table/**",
+      "works/ambertime/experiments/cask-aroma/REPORT.md"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/ambertime/index.html",
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/experiments/cask-aroma/model.mjs",
+      "works/ambertime/experiments/cask-aroma/tests/model*",
+      "works/ambertime/experiments/distillation/**"
+    ],
+    "expectedChanges": [
+      "Two selectable glasses with minimal coarse pixel artwork, plain dark green and simple wooden bench; max2 actual aroma motifs nearby, normal-font labels; no vertical divider, panels or added room decoration",
+      "One shared use-selected-glass action and one selected detail; gauges/textures/volume only in details; briefly explain aroma impressions there; selected glass underline and short tap response with reduced-motion support",
+      "Fixed left source and switchable right partner; no model/save schema/key/coefficient change; selection is view-only; single first bottle still supports next batch without fabricating second whiskey",
+      "Only minimum result-flow changes, existing selection/aging/shelf maintained; same-age cask-change loop; old saved states intact",
+      "360390 screens real taps/keyboard; actual early/medium/long profiles; selected use/detail IDs and storage separation; compare against inline mock density",
+      "Independent code/art verification, ScopeRiskImpact on exact candidate, PR/CI/Staging merge and public operation/hashes; no Production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360390 normal scale two glasses, aromas and shared action/detail visible; no duplicate controls, borders, gauges outside details or decoration beyond mock",
+      "Actual top2 from profile, single refill aroma, vanilla/dried different shape and sharedspirit same picture; age-based existing liquid shade",
+      "Selectedglass view-only, correct detail/use targets both sides, fixedref/rightswitch, keyboardfocus and short/reduced motion",
+      "Same saved profile snapshots unchanged; corrupted/quota/cross-tab and active guards retained; main files/model byteunchanged",
+      "Final exact gates/CI, deployed hash and public touch loop; actual Safari and desire-to-retry unverified"
+    ],
+    "rollback": "Revert scoped UI/art changes; unchanged isolated v1 save remains readable by previous UI.",
+    "outOfScope": [
+      "Production",
+      "Main runtime/html/save/economy/employee/shops",
+      "Manufacturing/aging coefficients or model code",
+      "New ingredients/rewards/contests",
+      "Global pixel conversion"
+    ],
+    "unverified": [
+      "Physical iPhone Safari and author judgment of desire to experiment"
+    ],
+    "rulesApplied": [
+      "Standard WORK: more than4files; lock first and ScopeRiskImpact",
+      "AGENTS delegate separate art and browser/review with explicit file ownership; root app/layout integration",
+      "Expressionaudit: mock is density limit; no new subtitle, explanation panels or room decoration",
+      "Trusted gate requires Plan base equal PRbase; original unpublished local plan replaced by fresh lock on main499, implementation reapplied without unrelated upstream edits"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes mock-based isolated comparison redesign, tests, Staging/public operation; no main integration or Production"
+    ],
+    "hqDecisions": []
+  }
+}

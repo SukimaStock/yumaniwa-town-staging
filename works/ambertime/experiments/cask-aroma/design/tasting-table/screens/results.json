@@ -1,0 +1,87 @@
+{
+  "url": "http://127.0.0.1:43037/works/ambertime/experiments/cask-aroma/",
+  "browser": "153.0.8010.0",
+  "physicalSafari": false,
+  "sourceHashes": {
+    "index.html": "bec1f818dfac0029c1a9783797c6c51bacfa132ef9de67e61eebe822b481cbf8",
+    "app.mjs": "1f1136dd3605427fccd70efd150cf686f3a12acb6cb0e8bfa39e9cf88f5fd19f",
+    "model.mjs": "fa4430da8b1fbdd8b2020efe6d5e75aea672d5381f35e5cb8dc49aaf236a4aff",
+    "art.mjs": "d0257f5e5091da37bcbf8e6ab41649915c424fcffeac4e3354af2dc7ed5f320e",
+    "tasting-art.mjs": "76d0dd1cd7b63a5986974872a9b4131166b9b0212114c2b057d98a2e897d3fc5",
+    "style.css": "1073d97c6c2d67bd04dcbd96a1d846cc1b161c69622daf730c80f69cbeae25bd",
+    "aroma-view.mjs": "96e43b5d80a91864f7d43c6a1095240cc94d13e65988bc256ea9d00c1c1db13c"
+  },
+  "screenshotHashes": {
+    "360-bourbon-oloroso.png": "ee03d8958998b8647117d324eca654bc94cd90d901c236ac119f56dec22dd421",
+    "360-bourbon-refill.png": "50f29f3df1e343f6332027c531a00db5519dcdb36a67ac818f256fe79b67a265",
+    "360-refill-bourbon.png": "68a3503838ee34ab150839cae699ceb822f7d0329989f104929013af2033dcba",
+    "360-120months.png": "e2d53850471e44834073d4b2dbe7a5d16315600ea93410bdc201bb66f64f645b",
+    "390-bourbon-oloroso.png": "f8b799abc4f81e465df1a7797af17ac97af98c3adce0d21c8adc0b2e39a1fd04",
+    "390-bourbon-refill.png": "97f611911cfe7714f94674859c239be6253d4ba70699286fa627c0861d236e88",
+    "390-refill-bourbon.png": "7047ab5be78a84e1d3a164675fa08b4f7742434a7298a9bc56cd80878c790624",
+    "390-120months.png": "aba8929a65d9834fc4a9199745d4332261036f3c5a675055e9709bbaae7193a9"
+  },
+  "checks": [
+    {
+      "width": 360,
+      "height": 740,
+      "actualTapLoop": true,
+      "firstBottleSingle": true,
+      "selectedUseAndDetailsMatch": true,
+      "keyboardSelectUseDetails": true,
+      "noVisibleMeters": true,
+      "fixedReferencePartnerSwitchUIOnly": true,
+      "refillOneActualSpirit": true,
+      "oldV1SaveExactReload": true,
+      "mainKeysUntouched": true,
+      "activeShelfGuard": true,
+      "geometry": {
+        "overflow": false,
+        "small": [],
+        "meters": 0,
+        "animations": 0
+      },
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "actualTapLoop": true,
+      "firstBottleSingle": true,
+      "selectedUseAndDetailsMatch": true,
+      "keyboardSelectUseDetails": true,
+      "noVisibleMeters": true,
+      "fixedReferencePartnerSwitchUIOnly": true,
+      "refillOneActualSpirit": true,
+      "oldV1SaveExactReload": true,
+      "mainKeysUntouched": true,
+      "activeShelfGuard": true,
+      "geometry": {
+        "overflow": false,
+        "small": [],
+        "meters": 0,
+        "animations": 0
+      },
+      "errors": []
+    },
+    {
+      "normalMotionTapResponseUnder200ms": true,
+      "noPersistentAnimation": true
+    },
+    {
+      "recovery": "corrupt",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    },
+    {
+      "recovery": "missing-fields",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    },
+    {
+      "recovery": "quota",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    }
+  ]
+}
