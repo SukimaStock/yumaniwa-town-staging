@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "09912d5a7aac02a209d6d6c8353cbca6749a230a325937297f2c9c5d0599b622",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-ea784083edc146d298ba5b7c33a1b7f1",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "原典を保持してnote記事 ea784083edc146d298ba5b7c33a1b7f1 を町内の通常4枠から読む",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "ab73d863ed3bb529769d3ff952b24bbdc01de636",
+    "canonicalSources": [
+      "data/notes.js",
+      "tools/shinpo-template.html",
+      "Drive PDF 10CkozxiRzeENZDY5Xb9uyZTwyxE_O2Xh; https:/note.com/hamamah/n/n8a34c550580a"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-ea784083edc146d298ba5b7c33a1b7f1/r0.lock.json",
+      "data/shinpo/ea784083edc146d298ba5b7c33a1b7f1.json",
+      "data/notes.js",
+      "shinpo/yakitori-remake/index.html",
+      "assets/shinpo/yakitori-remake/cover.png",
+      "assets/shinpo/yakitori-remake/image-1.png",
+      "assets/shinpo/yakitori-remake/image-2.png",
+      "assets/shinpo/yakitori-remake/image-3.png",
+      "assets/shinpo/yakitori-remake/image-4.png",
+      "assets/shinpo/yakitori-remake/image-5.png",
+      "assets/shinpo/yakitori-remake/image-6.png",
+      "assets/shinpo/yakitori-remake/image-7.png",
+      "assets/shinpo/yakitori-remake/card-1.png",
+      "assets/shinpo/yakitori-remake/note-card.jpg"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      ".github/**",
+      "engines/**",
+      "sitemap.xml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "ID単位の順序付き原文ブロック、取得原画像、該当notesレコード、生成HTMLのみ",
+      "既存記事/4枠選抜を変更せず町内案内を本文の外に置く"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user 作品関連記事の順次移植; original text/media, verified same-work town play links, safe Staging merge"
+    ],
+    "hqDecisions": [
+      "既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "2026-10-18 user section 6 permits verified same-work town play links; preserve original visible text",
+      "Expression audit: preserve author original, no new subtitle/copy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "原典と全文/順序/外部リンク/画像を照合",
+      "mobile/desktopで本文1クリック、スクロール、戻る"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "この記事追加PRのみrevert。既存記事/保存/Productionは不変。",
+    "outOfScope": [
+      "Production",
+      "既存記事変更",
+      "共通runtime",
+      "CMS/DB",
+      "外部権限"
+    ],
+    "promotion": "Staging only",
+    "unverified": [
+      "原典照合は別途証拠が必要",
+      "iPhone/iPad実機未確認"
+    ],
+    "problem": "既存note記事を町内本文として読む",
+    "currentContract": "notesのID/title/date/urlが正本。移植済みはarchivePageへ1クリック。",
+    "whyExistingIsInsufficient": "対象記事本文が未移植",
+    "design": "既存template/CLIで静的生成。原典と町内案内を分離。",
+    "alternativesRejected": [
+      "固定枠",
+      "要約/画像創作",
+      "CMS"
+    ],
+    "migration": "ID/原note URL保持、archivePageのみ登録",
+    "compatibility": "元の4枠と他記事を保持",
+    "boundaryCases": [
+      "同じIDの再実行",
+      "未取得media",
+      "中断再開",
+      "base進行"
+    ],
+    "testPlan": [
+      "node tools/shinpo-migrate.cjs check",
+      "node tests/test-shinpo-rack.cjs",
+      "node tests/test-shinpo-migrate.cjs",
+      "Scope/Risk/Impact、必須CI、レビュー、Pages"
+    ],
+    "promotionRisk": "Productionは変更しない"
+  }
+}
