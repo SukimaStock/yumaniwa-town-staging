@@ -1,41 +1,39 @@
-# CoffeeFactory — release candidate (2026-10-18)
+# CoffeeFactory — production release record (2026-10-18)
 
-State: candidate preparation only / UNVERIFIED. Production PR is to remain unmerged. No production release instruction has been given.
+State: DEPLOYED_AWAITING_VERIFICATION / UNVERIFIED for browser/device/external checks. This records a real release, not Release Complete.
 
-## Decision and baselines
+## Authority and exact source
 
-Owner 2026-10-18T13:19+02:00 reported that the current app worked, then accepted preparation of an unmerged Production PR. This is the candidate decision, not publication permission. It does not attest to every recovery scenario or a new exact-SHA test.
+- Owner accepted current app operation and candidate preparation at 13:19+02.
+- Owner supplied PNG/JPEG at 14:11 and corrected canonical folder at 14:14.
+- Separate production instruction at 14:24+02: では本番反映お願いします (PR #64).
+- Source app: staging a57db6242c08a242a0228c5e93539ad7d426a886; approved images: staging PR #489 merge64d6bb7fc857f35326c3335c169bd5942bea9492.
+- Production base18ba9016822a9545af8c503d6f931889e68670b5; approved head027bb4ca09edbb601bfac3f87f5e812ff9ad0cd7; merge cbbce433984f4616e42f8f11bce8ede69ebeaae6. Merge tree equals tested d8f615db72d95a2c5dd65de5697b5ea310fb331a.
 
-- App source: staging `a57db6242c08a242a0228c5e93539ad7d426a886`.
-- Production baseline: `18ba9016822a9545af8c503d6f931889e68670b5`.
-- Exactly one addition: `coffee-factory`, existing soft 360×640 embedded frame in the Leisure Center. Existing authored physical exhibit/trigger/registry/64×64 asset is selected unchanged. No new placement design or common player change.
-- Proposed publication order: orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window,pumpoko,coffee-factory. Preserve twelve existing Shinpo articles and standalone tourist desk.
+## Selected publication
 
-## Selected files and environment
+Exactly one new work: coffee-factory, existing Leisure Center exhibit, embedded soft360×640 frame. Existing ten works, twelve Shinpo articles and standalone tourist desk retained. Explicit set: orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window,pumpoko,coffee-factory.
 
-17 runtime files: index.html, codea-lite.js, sketch.js, coffee-sound-config.js; coffee-cup-icon.png, beans-icon.png, kettle-icon.png, factory-exterior-line.png; CoffeeFactory.mp3; ui_select.wav, ui_step.wav, factory_start.wav, grinder_lever.wav, steam_soft.wav, brew_ready.wav, brew_change.wav, brew_finish.wav.
+17 app files selected: HTML, Codea Lite, sketch, sound config, four visual PNGs, CoffeeFactory.mp3 and eight WAVs. Excluded authoring sound-lab, migration doc, unused OGG/sound icons, other prototypes and LAB. Shared v0.2 Engine remains byte-identical. Runtime HTML robots only adapted to noindex,follow. No app SW, new features, restyling or new persistence. Setup/language/sound keys preserved; brew intentionally resets on reload.
 
-Shared `engine/sukimastock-engine.v0.2.0.js` already exists byte-identically in Production and stays unchanged. App HTML changes only staging `noindex,nofollow` to production runtime `noindex,follow`. No work Service Worker. Google Fonts remains the existing optional external font. Preserve identity `coffeefactory` and setup/language/sound storage keys. In-progress brew intentionally resets on reload; no new persistence promise.
+Owner images: assets/works/coffee-factory/icon.png PNG1024×1024 and ogp.jpg JPEG1200×630; exact original bytes, no crop/recreation. Both JA/EN Search/OGP/X use canonical JPEG and accurate alt. Earlier separate Library save was a routing error, not the canonical asset location. Repository diff, actual bytes and references were checked after correction. Existing iconless home-screen contract remains; no offline/install promise is added.
 
-Exclude sound-lab.html, migration documentation, unused OGGs/sound icons, all other prototypes, LAB and its registry, other work runtime/engine versions and staging-only UI. Copy only CoffeeFactory entries into Production-owned works/search/guide/ghost/update/lifecycle data. Preserve existing artwork and authored metadata. The historical 2026-09-18 installation record describes Staging; do not treat it as a Production deployment date.
+## Evidence
 
-## Owner supplied images (2026-10-18)
+- Scope→Risk→Impact and Search generation passed. Coffee production validator299 PASS/0 FAIL/0 HQ/1 WARNING/8 external.
+- Exact merge Pages39127199936, Safety39127200145 and PUMPOKO audit39127200164 success. Candidate Tourist Desk audit also success.
+- Live34 files HTTP200 and exact tested bytes: all runtime/audio, both images, JA/EN Search, sitemap, root/data and canonical shared Engine. These are HTTP/source checks, not browser-play claims.
+- Prior Guide/Assets63, developer/history/publication39, Tourist Desk/publication16, scene6/fixtures46 and source-scope31 checks passed. Approved-image publication regression4 passed again.
+- Source/closure independent review; integration self-review. Expression audit preserved app copy/UI and updated only accurate image alt.
 
-Owner supplied the final image files and corrected the intended destination to match the other work folders. Save original bytes as assets/works/coffee-factory/icon.png (PNG1024×1024) and ogp.jpg (JPEG1200×630). Search/Share uses ogp.jpg with accurate image alt. The earlier separate Library folder was a routing error and is not the canonical project asset location. No crop, resizing or image generation is applied. Existing iconless home-screen contract remains unchanged; this change does not add installation/offline support.
+## Remaining limits
 
-Checks must run on the repository diff and generated image references; an unrelated save receipt does not satisfy that check. App UI and original Japanese/English prose remain unchanged.
+User reported normal device operation. No new control-browser available in this managed session. Browser/device background recovery, sound off/on, paused-background, town physical approach/return/reentry, OS install, social card rendering and Plausible ingestion remain UNVERIFIED.
 
-## Checks and limits
+Old v0.2 Engine deferred AudioContext resume can attempt media play before recovery completes. v0.3-targeted audio suite against v0.2 reports2/39, with API incompatibilities; CoffeeFactory deferred-resume assertion also fails. This was recorded before release and source was not silently upgraded. Do not claim this boundary passed or that deployment resolved it.
 
-- Dependency and exact-source review: existing Engine plus all referenced local runtime assets found. Recipe clock smoke checks recipe totals, foreground/hidden elapsed time, pause/resume, seek and completion.
-- Staging guide/asset regressions: 63/63 PASS. Production developer/player history and eleven-work publication regressions: 39/39 PASS.
-- Staging CoffeeFactory Release Validator: 263 PASS, 0 FAIL, 0 HQ_REQUIRED, 1 WARNING, 8 external checks. Production candidate CoffeeFactory: 299 PASS, 0 FAIL, 0 HQ_REQUIRED, 2 WARNING, 8 external checks. These are static candidate results, not Release Ready or Release Complete.
-- Existing v0.3 audio lifecycle suite is not compatible wholesale with the selected v0.2 Engine. Against v0.2 it reports 2/39 PASS; do not present this as passing or upgrade the Engine only to satisfy that suite. The real CoffeeFactory deferred-resume test also exposes early media play before AudioContext recovery resolves. Treat this as a pre-existing recovery boundary to assess, not a demonstrated ordinary-play failure or a newly introduced regression. Engine migration is outside this preparation change.
-- Browser QA unavailable in this managed session (`control-browser` absent); no new browser/device screenshot or physical arrival/return claim. User's successful device report is preserved separately.
-- Still UNVERIFIED: Brew → background → return (including suspended/rejected recovery), sound off/on, paused background behavior, no duplicate/restarted BGM, physical exhibit approach/collision/return, production setup persistence/re-entry, actual social card crop, external Plausible Goals/ingestion and live Production URLs.
+## Lifecycle and rollback
 
-LAB remains Prototype Bench while candidate: release has not occurred. Update it only after an authorized deployment and evidence.
+CoffeeFactory is now released with the separate instruction and evidence in canonical lifecycle. LAB remains its existing room/location and is regenerated for released status; no new room or arrangement. Production snapshot receives only its selected entry. Release record does not imply all six Ready externally confirmed.
 
-## Next step and rollback
-
-Review the unmerged Production diff and audio recovery boundary before requesting publication. Production generation uses an explicit preparation-only instruction reference; its CLI acceptance does not authorize deployment. If this candidate changes, recheck affected contracts and regressions. Revert only this preparation PR; preserve all other works and storage. After separate release authorization: merge exact reviewed Production head, verify Safety/Pages/live routes, then update candidate → released with actual evidence. External announcement is an author handoff, not an automatic SNS post.
+Rollback release through a new PR reverting PR #64 atomically, preserving other works and storage. Rollback this evidence-only update separately if necessary. No force push. Announcement handoff is this chat; no SNS or external service changes.
