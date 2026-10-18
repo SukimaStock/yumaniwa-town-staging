@@ -64,3 +64,5 @@ node tools/shinpo-migrate.cjs dry-run --id <ID> --slug <URL名> \
 このツールのテストはこの変更のCIに自動接続していない。必須ゲートを弱めず、上記コマンドを記事追加ごとに実行担当が実行する。保護workflowを変更する場合は別途Authorization → Transitionの現行手順を使う。
 
 2026-10-18の作者明示指示に限る例外: town-beginningのitchリンク3件は作品名と原文を残して解除。board-game-makingのitchリンク1件は既存正本で対応を確認した `../../w/yakitori-wars/` に変更。source.ownerLinkCorrectionに承認と対象を記録。将来の原典リンクを自動置換する規則ではない。
+
+掲示板のサムネイルはnotesの任意 `archiveThumbnail` に記事coverと同じ既存画像の町root相対URLを指定する。新しい記事の登録時は実行担当がcover参照を確認して該当notesレコードへ追加する（本文画像と取り違えない）。画像なし/ロード失敗は見出しのみへ戻る。記事追加ごとにmain.jsやCSSを変更しない。
