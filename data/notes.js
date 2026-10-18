@@ -73,6 +73,8 @@ var NOTE_ARTICLES = [
 
     {
         id: "note-20260917-c12ade65",
+        archivePage: "./shinpo/curry-delivery/",
+        archiveThumbnail: "./assets/shinpo/curry-delivery/cover.png",
         title: "ゲームジャムで、カレーを配達した",
         url: "https://note.com/hamamah/n/na42fdcfeabf2",
         publishedAt: "2026-09-17",
