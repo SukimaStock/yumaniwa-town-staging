@@ -1730,50 +1730,27 @@ body {
 }
 
 
-/* 湯間庭新報0.1: 既存のnoteラックに、一枚だけ新聞の切り抜きを置く。 */
-.shinpo-archive-card { background: #59483a; padding: 16px 16px 0; border-color: #8e7b63; }
+/* 町内記事も既存noteカードと同じ外形にし、薄い紙色で区別する。 */
+.shinpo-archive-card { background: #f4f0e6; }
 .shinpo-archive-paper {
-    position: relative;
-    background: #f0e8d5;
     color: #352e25;
-    padding: 20px 22px 23px;
-    transform: rotate(-1deg);
-    box-shadow: 4px 6px 1px #1a120b55;
-    min-height: 190px;
-    font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
-}
-.shinpo-archive-paper::before {
-    content: "";
-    position: absolute;
-    top: -7px;
-    left: 51%;
-    height: 14px;
-    width: 14px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #e9c4a4, #ad6347 50%, #693524 80%);
-    box-shadow: 1px 3px 3px #0006;
+    padding: 16px;
+    box-sizing: border-box;
+    min-height: clamp(208px, 53vw, 318px);
+    font-family: system-ui, sans-serif;
 }
 .shinpo-archive-mast {
-    border-top: 2px solid #463c2f;
-    border-bottom: 3px double #463c2f;
-    text-align: center;
-    padding: 8px 4px;
+    color: #6b6255;
     font-size: 11px;
-    letter-spacing: .13em;
+    line-height: 1.5;
 }
-.shinpo-archive-date { text-align: right; font: 11px system-ui, sans-serif; margin: 8px 0; }
-.shinpo-archive-headline { font-size: clamp(20px, 5vw, 29px); font-weight: 700; line-height: 1.47; }
-.shinpo-archive-teaser { margin-top: 14px; font-size: 13px; line-height: 1.7; }
-.shinpo-archive-card .note-rack-card-footer {
-    margin: 15px -16px 0;
-    background: #e6ddcb;
-    color: #51463a;
+.shinpo-archive-date { color: #6b6255; font-size: 11px; margin: 8px 0; }
+.shinpo-archive-headline {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
 }
-.shinpo-archive-card .note-rack-card-open:active { background: #fff2; }
-@media (prefers-reduced-motion: no-preference) {
-    .shinpo-archive-card:has(.note-rack-card-open:hover) .shinpo-archive-paper,
-    .shinpo-archive-card:has(.note-rack-card-open:focus-visible) .shinpo-archive-paper {
-        transform: rotate(0) translateY(-2px);
-        transition: transform .18s ease-out;
-    }
+.shinpo-archive-card .note-rack-card-open:focus-visible {
+    outline-color: #51463a;
 }
