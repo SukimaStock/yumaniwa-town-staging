@@ -49,3 +49,13 @@ The generic pixel-space runner is copied to `tests/type-ui-browser.mjs` for this
 Screenshots: before/390-warehouse.png → after/390-warehouse.png; before/390-distill.png → after/390-distill.png; before/390-cask-window.png → windows/390-keyboard-close.png. Comparison and selection variants are in their named subdirectories.
 
 Expression audit completed: no decorative copy, no duplicate instructions, preserved action discovery/costs/conditions/flavor data/accessibility. No model,time scheduling,economy,save format/key,user names or historical prose rewriting. Production/sharedEngine/other works unchanged.
+
+## PR511 oversized-quantity follow-up
+
+The automatic review completed after merge and identified valid up-to-1e12 totals overflowing at200% text. This was reproduced and repaired within the original UI scope. Follow-up plan `.change-plans/ambertime-quantity-fit/r0.lock.json` anchors merged3d8e14c; final patch applied after locked plan commit. Earlier design probes are not successful evidence.
+
+Default quantities and nested numerals now reflow. Only bounded price controls preserve nowrap. A viewport-constrained300px minimum allows atomic prices in height-fitted short scenes. Long title alone scrolls vertically at25vh; close stays outside title scroll with visible focus padding, body scroll remains.
+
+Probes: global reflow resolved large totals; enlarged short-screen price needed216px while old body had190px, solved by viewport-constrained minimum.30vh title cap left60px body; final25vh cap yields82px, keeping a complete enlarged line. No text shrink/hidden focus/hidden scrollbar used.
+
+Current window regression:360×740,390×844 DPR3,360×430,1280×900,200% text with long title and simulated£1,000,000,000,000. No horizontal overflow, each£16.00/本 stays one line, body at least64px, scroll/focus/close checks pass. This is layout stress without fabricating a high-wealth saved model state. Existing contracts5cases also pass. Full5viewport regression and independent review are running. RuntimeJS/model/time/economy/save unchanged; only CSS and regression test change. Fresh outputs live underquantity-fit/; original windows results remain historical.
