@@ -1,3 +1,4 @@
+import {CHARACTER_PARAMETERS as C} from './character.mjs?v=0.6';
 // Fixed system copy only. Never pass user names, imported prose, or saved records.
 // This adapter leaves simulation modules and their persisted text untouched.
 const phrases=Object.freeze([
@@ -29,4 +30,21 @@ export function uiText(value){
  let text=String(value);
  for(const [from,to] of phrases)text=text.split(from).join(to);
  return text.replaceAll('銘柄','ブランド').replaceAll('樽','たる').replaceAll('瓶','ビン').replaceAll('刺激','シゲキ').replaceAll('標準','ふつう').replaceAll('バーボンたる','バーボン').replaceAll('リフィルたる','リフィル');
+}
+
+// Live maturation prompts only. Never apply this view to archived observations.
+// The event detector and its persisted title/text/options remain unchanged.
+export function agingEventText(event,cask,notes={}){
+ const fallback={title:uiText(event.title),text:uiText(event.text)};
+ if(!cask)return fallback;
+ const recent=notes.samples?.at(-1),earlier=recent&&recent.age<cask.age;
+ switch(event.id??event.eventId){
+  case 'wood':return {title:'色が深くなった',text:earlier&&cask.wood-recent.profile.wood>=C.comparisonWood?'前に試したときより色が濃い':''};
+  case 'fading':return {title:'かおりが弱くなった',text:earlier&&recent.profile.character-cask.character>=C.sampleAromaLoss?'前に試したときよりかおりが弱い':''};
+  case 'rough':return {title:'若い原酒',text:'まだシゲキが残る'};
+  case 'fruit':return {title:'かおりが強い',text:'果実とこくもつのかおり'};
+  case 'rounded':return {title:'口当たりが丸くなった',text:''};
+  case 'loss':return {title:'量が減った',text:cask.initialLitres>0?'たる詰めから'+Number(((1-cask.litres/cask.initialLitres)*100).toFixed(1))+'％減った':''};
+  default:return fallback;
+ }
 }
