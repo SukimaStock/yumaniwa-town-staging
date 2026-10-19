@@ -69,3 +69,11 @@ Current window regression:360×740,390×844 DPR3,360×430,1280×900,200% text wi
 - Window test rerun4cases after review found screenshot names omitted height. Names now include width+height for every capture; tall and short360px evidence both retained. Distinct12PNG captures in quantity-fit/windows/. No source-runtime change required for this artifact correction.
 - Existing contracts5cases pass. Prior577unit run remains valid for unchanged runtimeJS/model; CSS follow-up verified by the fresh full browser suite.
 - Scope/Risk/Impact and CI will be confirmed at final exact remote head before merge. Physical Safari/OS keyboard/VoiceOver remain unverified.
+
+### Final close-only guard
+
+Final CSS SHA256 `6c6d685581b3123761fc65328f0e92a6e3aac5b641bfe5e7a2ba859058267688`. Visual QA found enlarged閉じる wrapping in the fixed half-column. Only a sole close action now spans the footer grid, remains right aligned and uses intrinsic width; paired actions are unchanged. Independent probe confirmed90px close at390normal and160px one-line close at360×430/200%, with unchanged saves.
+
+Final-source window checks now cover6viewports:360×740,390×844 DPR3,360×640,360×430,1024×768,1280×900, including200% text, giant-total wrap, atomicprice, single-line close, body capacity, focus, overflow and actual normal close placement.18distinct images use width+height names. All6 pass; existing contracts5cases rerun pass with current CSS and original names/history exact. Results inquantity-fit/windows/ andquantity-fit/contracts/.
+
+The full5viewport/108gesture result above used6a122982CSS. The subsequent sole-close selector was verified by the final6window cases and5contracts; all runtimeJS and model/save bytes remain unchanged. A supplementary full run started before the width correction was not used as final-source evidence; it stopped at the same intermittent swipe assertion. No mixed-source run is claimed as success and no gesture assertion was weakened.

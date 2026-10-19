@@ -97,3 +97,6 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 
 /* Keep the close control and body reachable with long titles and enlarged text. */
 #action-dialog .dialog-heading h2{max-height:25vh;overflow-y:auto}
+
+/* A solitary close action can use the whole footer width while staying right aligned. */
+#dialog-actions>button[data-close=true]:only-child{grid-column:1/-1;justify-self:end;white-space:nowrap;min-width:max-content;width:max-content;max-width:100%}

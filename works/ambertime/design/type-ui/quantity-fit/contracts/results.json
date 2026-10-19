@@ -1,0 +1,779 @@
+{
+  "test": "type-ui-contracts.mjs",
+  "testSha256": "dd0a26028adbfc4108e725a0d7ddbda2223a47ddf3ce040a902f7ee6e5ed3ade",
+  "font": "Misaki Gothic 2nd",
+  "cases": 5,
+  "results": [
+    {
+      "width": 360,
+      "height": 740,
+      "dpr": 1,
+      "failed": false,
+      "checks": {
+        "font": "ready",
+        "play": {
+          "actual": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "expected": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "cell": 3,
+          "kind": "play"
+        },
+        "pause": {
+          "actual": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "expected": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "cell": 3,
+          "kind": "pause"
+        },
+        "realStartPause": {
+          "phase": "distilling",
+          "month": 1,
+          "stableProgress": 0
+        },
+        "canvasDrawCalls": 85,
+        "glyphBounds": {
+          "jp": {
+            "font": "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+            "height": 21,
+            "width": 24
+          },
+          "number": {
+            "font": "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+            "height": 21,
+            "width": 12
+          }
+        },
+        "caskChoices": [
+          {
+            "name": "バーボン",
+            "price": "£160",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 465,
+            "priceTop": 469,
+            "centerError": 0
+          },
+          {
+            "name": "リフィル",
+            "price": "£100",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 465,
+            "priceTop": 469,
+            "centerError": 0
+          }
+        ],
+        "close": {
+          "label": "閉じる",
+          "rects": [
+            "0,0",
+            "6,0",
+            "1,1",
+            "5,1",
+            "2,2",
+            "4,2",
+            "3,3",
+            "2,4",
+            "4,4",
+            "1,5",
+            "5,5",
+            "0,6",
+            "6,6"
+          ]
+        },
+        "nativeNumbers": [
+          {
+            "text": "2",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "45",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "135",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1,233",
+            "font": "24px",
+            "base": "24px"
+          }
+        ],
+        "savedText": {
+          "name": "樽と瓶2026𠮷・長い銘柄名の試作",
+          "description": "抽出50%、リフィル樽で1か月。",
+          "recordTextSha256": "1b0269e2fe09b954749eeb308e640144a3a20e786afc1a2b5b2587b95ae2fd5a",
+          "unchanged": true
+        },
+        "roughDecision": {
+          "wait": "待つ",
+          "coolHintRemoved": true
+        },
+        "staffRecipe": {
+          "staffRows": [
+            {
+              "label": "採用費",
+              "value": "£40"
+            },
+            {
+              "label": "給与",
+              "value": "£12／仕込み"
+            },
+            {
+              "label": "製法",
+              "value": "前回の手動仕込み"
+            },
+            {
+              "label": "抽出",
+              "value": "65 / 100"
+            },
+            {
+              "label": "たる",
+              "value": "リフィル"
+            }
+          ],
+          "recipeLabels": [
+            "元の仕込み",
+            "抽出",
+            "たる"
+          ],
+          "perBatchSalary": true
+        },
+        "monthProgress": {
+          "moving": {
+            "ratio": 0.05,
+            "aria": 5,
+            "elapsed": 0,
+            "monthMs": 6000,
+            "month": 1
+          },
+          "paused": {
+            "ratio": 0.05,
+            "aria": 5,
+            "elapsed": 300,
+            "monthMs": 6000,
+            "month": 1
+          },
+          "modal": {
+            "ratio": 0.08333333333333333,
+            "aria": 8,
+            "elapsed": 300,
+            "monthMs": 6000,
+            "month": 1
+          },
+          "clock": "actual setTimeout via Playwright clock"
+        }
+      },
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "failed": false,
+      "checks": {
+        "font": "ready",
+        "play": {
+          "actual": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "expected": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "cell": 10,
+          "kind": "play"
+        },
+        "pause": {
+          "actual": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "expected": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "cell": 10,
+          "kind": "pause"
+        },
+        "realStartPause": {
+          "phase": "distilling",
+          "month": 1,
+          "stableProgress": 0
+        },
+        "canvasDrawCalls": 85,
+        "glyphBounds": {
+          "jp": {
+            "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+            "height": 56,
+            "width": 64
+          },
+          "number": {
+            "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+            "height": 56,
+            "width": 32
+          }
+        },
+        "caskChoices": [
+          {
+            "name": "バーボン",
+            "price": "£160",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 517,
+            "priceTop": 521,
+            "centerError": 0
+          },
+          {
+            "name": "リフィル",
+            "price": "£100",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 517,
+            "priceTop": 521,
+            "centerError": 0
+          }
+        ],
+        "close": {
+          "label": "閉じる",
+          "rects": [
+            "0,0",
+            "6,0",
+            "1,1",
+            "5,1",
+            "2,2",
+            "4,2",
+            "3,3",
+            "2,4",
+            "4,4",
+            "1,5",
+            "5,5",
+            "0,6",
+            "6,6"
+          ]
+        },
+        "nativeNumbers": [
+          {
+            "text": "2",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "45",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "135",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1,233",
+            "font": "24px",
+            "base": "24px"
+          }
+        ],
+        "savedText": {
+          "name": "樽と瓶2026𠮷・長い銘柄名の試作",
+          "description": "抽出50%、リフィル樽で1か月。",
+          "recordTextSha256": "1b0269e2fe09b954749eeb308e640144a3a20e786afc1a2b5b2587b95ae2fd5a",
+          "unchanged": true
+        }
+      },
+      "errors": []
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "dpr": 1,
+      "failed": false,
+      "checks": {
+        "font": "ready",
+        "play": {
+          "actual": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "expected": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "cell": 5,
+          "kind": "play"
+        },
+        "pause": {
+          "actual": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "expected": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "cell": 5,
+          "kind": "pause"
+        },
+        "realStartPause": {
+          "phase": "distilling",
+          "month": 1,
+          "stableProgress": 0
+        },
+        "canvasDrawCalls": 85,
+        "glyphBounds": {
+          "jp": {
+            "font": "32px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+            "height": 28,
+            "width": 32
+          },
+          "number": {
+            "font": "32px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+            "height": 28,
+            "width": 16
+          }
+        },
+        "caskChoices": [
+          {
+            "name": "バーボン",
+            "price": "£160",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 607,
+            "priceTop": 611,
+            "centerError": 0
+          },
+          {
+            "name": "リフィル",
+            "price": "£100",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 607,
+            "priceTop": 611,
+            "centerError": 0
+          }
+        ],
+        "close": {
+          "label": "閉じる",
+          "rects": [
+            "0,0",
+            "6,0",
+            "1,1",
+            "5,1",
+            "2,2",
+            "4,2",
+            "3,3",
+            "2,4",
+            "4,4",
+            "1,5",
+            "5,5",
+            "0,6",
+            "6,6"
+          ]
+        },
+        "nativeNumbers": [
+          {
+            "text": "2",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "45",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "135",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1,233",
+            "font": "24px",
+            "base": "24px"
+          }
+        ],
+        "savedText": {
+          "name": "樽と瓶2026𠮷・長い銘柄名の試作",
+          "description": "抽出50%、リフィル樽で1か月。",
+          "recordTextSha256": "1b0269e2fe09b954749eeb308e640144a3a20e786afc1a2b5b2587b95ae2fd5a",
+          "unchanged": true
+        }
+      },
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "dpr": 1,
+      "failed": false,
+      "checks": {
+        "font": "ready",
+        "play": {
+          "actual": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "expected": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "cell": 4,
+          "kind": "play"
+        },
+        "pause": {
+          "actual": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "expected": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "cell": 4,
+          "kind": "pause"
+        },
+        "realStartPause": {
+          "phase": "distilling",
+          "month": 1,
+          "stableProgress": 0
+        },
+        "canvasDrawCalls": 85,
+        "glyphBounds": {
+          "jp": {
+            "font": "32px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+            "height": 28,
+            "width": 32
+          },
+          "number": {
+            "font": "32px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+            "height": 28,
+            "width": 16
+          }
+        },
+        "caskChoices": [
+          {
+            "name": "バーボン",
+            "price": "£160",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 545,
+            "priceTop": 549,
+            "centerError": 0
+          },
+          {
+            "name": "リフィル",
+            "price": "£100",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 545,
+            "priceTop": 549,
+            "centerError": 0
+          }
+        ],
+        "close": {
+          "label": "閉じる",
+          "rects": [
+            "0,0",
+            "6,0",
+            "1,1",
+            "5,1",
+            "2,2",
+            "4,2",
+            "3,3",
+            "2,4",
+            "4,4",
+            "1,5",
+            "5,5",
+            "0,6",
+            "6,6"
+          ]
+        },
+        "nativeNumbers": [
+          {
+            "text": "2",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "45",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "135",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1,233",
+            "font": "24px",
+            "base": "24px"
+          }
+        ],
+        "savedText": {
+          "name": "樽と瓶2026𠮷・長い銘柄名の試作",
+          "description": "抽出50%、リフィル樽で1か月。",
+          "recordTextSha256": "1b0269e2fe09b954749eeb308e640144a3a20e786afc1a2b5b2587b95ae2fd5a",
+          "unchanged": true
+        }
+      },
+      "errors": []
+    },
+    {
+      "width": 360,
+      "height": 740,
+      "dpr": 1,
+      "failed": true,
+      "checks": {
+        "font": "fallback",
+        "play": {
+          "actual": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "expected": [
+            "1000000",
+            "1110000",
+            "1111100",
+            "1111111",
+            "1111100",
+            "1110000",
+            "1000000"
+          ],
+          "cell": 3,
+          "kind": "play"
+        },
+        "pause": {
+          "actual": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "expected": [
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010",
+            "0100010"
+          ],
+          "cell": 3,
+          "kind": "pause"
+        },
+        "realStartPause": {
+          "phase": "distilling",
+          "month": 1,
+          "stableProgress": 0
+        },
+        "canvasDrawCalls": 85,
+        "caskChoices": [
+          {
+            "name": "バーボン",
+            "price": "£160",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 465,
+            "priceTop": 469,
+            "centerError": 0
+          },
+          {
+            "name": "リフィル",
+            "price": "£100",
+            "art": true,
+            "nameHeight": 32,
+            "lineHeight": 32,
+            "nameBottom": 465,
+            "priceTop": 469,
+            "centerError": 0
+          }
+        ],
+        "close": {
+          "label": "閉じる",
+          "rects": [
+            "0,0",
+            "6,0",
+            "1,1",
+            "5,1",
+            "2,2",
+            "4,2",
+            "3,3",
+            "2,4",
+            "4,4",
+            "1,5",
+            "5,5",
+            "0,6",
+            "6,6"
+          ]
+        },
+        "nativeNumbers": [
+          {
+            "text": "2",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "45",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "135",
+            "font": "24px",
+            "base": "24px"
+          },
+          {
+            "text": "1,233",
+            "font": "24px",
+            "base": "24px"
+          }
+        ],
+        "savedText": {
+          "name": "樽と瓶2026𠮷・長い銘柄名の試作",
+          "description": "抽出50%、リフィル樽で1か月。",
+          "recordTextSha256": "1b0269e2fe09b954749eeb308e640144a3a20e786afc1a2b5b2587b95ae2fd5a",
+          "unchanged": true
+        }
+      },
+      "errors": []
+    }
+  ]
+}
