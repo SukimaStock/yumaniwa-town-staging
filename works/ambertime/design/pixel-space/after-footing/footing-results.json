@@ -1,0 +1,1777 @@
+{
+  "url": "http://127.0.0.1:44649/works/ambertime/",
+  "browser": "153.0.8010.0",
+  "physicalSafari": false,
+  "sourceHashes": {
+    "index.html": "4e2b6cebced36668793411c22a32a526135f032ebcc108665acdc53452e188da",
+    "shop-app.mjs": "5cd34f51d9ffe0abec763169093290c26719febcb5a8ea743773d02a187c7406",
+    "canvas-scene.mjs": "9b894972b8f5950b101b32d7ced32c2b37c9a60a8a3b4d697ae395b34be299cc",
+    "canvas-layout.mjs": "0ce42eab3e1262c9df2faba54deb93428dd26552321c90327a2432fe71817e3d",
+    "room-scene.css": "2b88a808335eb7b73df0503c3b112e915f8aea9372c84cc2ca7f56ecd2c738ec",
+    "room-object-art.mjs": "255b2944409f37656bef4b62892ac829dcdad5e714eb8d69d190c56bdb02147c",
+    "scene-input.mjs": "5a69a69f1359a85ffcea7bdab6f018965eedf9b9e9fe79aef310b032b51702ac",
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+    "partner-orders.mjs": "478389e22041eaa00d170a794a9f2fc920298d10c9f1700653ce382d598c3aa8"
+  },
+  "screenshotHashes": {
+    "360-ready.png": "7a11f0753bdc9c1d97b365e196a3bfed88ed86c0e2b8dd7c02b583a86c10f780",
+    "360-progress.png": "124e4839d1b73266982fb7d63c04301ca713b94ea43b1d05e2e063639c90fef7",
+    "390-ready.png": "5c333c54c791e1842b9acac21e1e68937b928fcc17e066e994438fcf1c2ae84a",
+    "390-progress.png": "0fd6861f9673fed5779ed5862305bae98b46138d754f357881e54bc4ff051466",
+    "1280-ready.png": "5cb4a7a6026d50551c85c4ba92da12b711a01c7f49e4981d9064ed76870cc77f",
+    "1280-progress.png": "3017738ea7e49d45a972e4202220308ce7bb05bec49079c8ca309345bbf1cb94"
+  },
+  "checks": [
+    {
+      "width": 360,
+      "height": 740,
+      "dpr": 1,
+      "readyGeometry": {
+        "width": 360,
+        "height": 740,
+        "scroll": [
+          0,
+          0
+        ],
+        "document": [
+          360,
+          740
+        ],
+        "targets": [
+          {
+            "id": "open-aux-menu",
+            "key": "open-aux-menu",
+            "rect": [
+              303,
+              59,
+              45,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-staff-panel",
+            "key": "open-staff-panel",
+            "rect": [
+              180,
+              578,
+              168,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-distill",
+            "rect": [
+              12,
+              632,
+              108,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-warehouse",
+            "rect": [
+              126,
+              632,
+              108,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-sales",
+            "rect": [
+              240,
+              632,
+              108,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "toggle-time",
+            "key": "toggle-time",
+            "rect": [
+              174,
+              101,
+              174,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "start-distill",
+            "key": "start-distill",
+            "rect": [
+              84,
+              464,
+              192,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-ledger",
+            "key": "open-ledger",
+            "rect": [
+              18,
+              572,
+              66,
+              54
+            ],
+            "disabled": false
+          }
+        ],
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        }
+      },
+      "progressGeometry": {
+        "width": 360,
+        "height": 740,
+        "scroll": [
+          0,
+          0
+        ],
+        "document": [
+          360,
+          740
+        ],
+        "targets": [
+          {
+            "id": "open-aux-menu",
+            "key": "open-aux-menu",
+            "rect": [
+              303,
+              59,
+              45,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-staff-panel",
+            "key": "open-staff-panel",
+            "rect": [
+              180,
+              578,
+              168,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-distill",
+            "rect": [
+              12,
+              632,
+              108,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-warehouse",
+            "rect": [
+              126,
+              632,
+              108,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-sales",
+            "rect": [
+              240,
+              632,
+              108,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "toggle-time",
+            "key": "toggle-time",
+            "rect": [
+              174,
+              101,
+              174,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "stop-distill",
+            "key": "stop-distill",
+            "rect": [
+              84,
+              464,
+              192,
+              45
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-ledger",
+            "key": "open-ledger",
+            "rect": [
+              18,
+              572,
+              66,
+              54
+            ],
+            "disabled": false
+          }
+        ],
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        }
+      },
+      "readyPixels": {
+        "name": "ready",
+        "viewport": {
+          "width": 360,
+          "height": 740,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1,
+          "offsetX": 0,
+          "offsetY": 50,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "pixels": {
+          "leftFoot": {
+            "logical": [
+              74,
+              465
+            ],
+            "backing": [
+              74,
+              515
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFoot": {
+            "logical": [
+              284,
+              465
+            ],
+            "backing": [
+              284,
+              515
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "leftFormerGap": {
+            "logical": [
+              74,
+              450
+            ],
+            "backing": [
+              74,
+              500
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFormerGap": {
+            "logical": [
+              284,
+              450
+            ],
+            "backing": [
+              284,
+              500
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "floorShadow": {
+            "logical": [
+              180,
+              470
+            ],
+            "backing": [
+              180,
+              520
+            ],
+            "rgba": [
+              25,
+              20,
+              30,
+              255
+            ],
+            "hex": "#19141e"
+          }
+        }
+      },
+      "progressPixels": {
+        "name": "progress",
+        "viewport": {
+          "width": 360,
+          "height": 740,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1,
+          "offsetX": 0,
+          "offsetY": 50,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "pixels": {
+          "leftFoot": {
+            "logical": [
+              74,
+              465
+            ],
+            "backing": [
+              74,
+              515
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFoot": {
+            "logical": [
+              284,
+              465
+            ],
+            "backing": [
+              284,
+              515
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "leftFormerGap": {
+            "logical": [
+              74,
+              450
+            ],
+            "backing": [
+              74,
+              500
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFormerGap": {
+            "logical": [
+              284,
+              450
+            ],
+            "backing": [
+              284,
+              500
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "floorShadow": {
+            "logical": [
+              180,
+              470
+            ],
+            "backing": [
+              180,
+              520
+            ],
+            "rgba": [
+              25,
+              20,
+              30,
+              255
+            ],
+            "hex": "#19141e"
+          }
+        }
+      },
+      "rawTaps": true,
+      "noPageScroll": true,
+      "pureStartStopFillCorrespondence": true,
+      "openingQuoteNoSaveMutation": true,
+      "bottlingQuote": {
+        "count": 45,
+        "cost": 135
+      },
+      "displayedQuoteMatchesModel": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "readyGeometry": {
+        "width": 390,
+        "height": 844,
+        "scroll": [
+          0,
+          0
+        ],
+        "document": [
+          390,
+          844
+        ],
+        "targets": [
+          {
+            "id": "open-aux-menu",
+            "key": "open-aux-menu",
+            "rect": [
+              328.25,
+              85.078125,
+              48.75,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-staff-panel",
+            "key": "open-staff-panel",
+            "rect": [
+              195,
+              647.328125,
+              182,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-distill",
+            "rect": [
+              13,
+              705.828125,
+              117,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-warehouse",
+            "rect": [
+              136.5,
+              705.828125,
+              117,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-sales",
+            "rect": [
+              260,
+              705.828125,
+              117,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "toggle-time",
+            "key": "toggle-time",
+            "rect": [
+              188.5,
+              130.578125,
+              188.5,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "start-distill",
+            "key": "start-distill",
+            "rect": [
+              91,
+              523.828125,
+              208,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-ledger",
+            "key": "open-ledger",
+            "rect": [
+              19.5,
+              640.828125,
+              71.5,
+              58.5
+            ],
+            "disabled": false
+          }
+        ],
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        }
+      },
+      "progressGeometry": {
+        "width": 390,
+        "height": 844,
+        "scroll": [
+          0,
+          0
+        ],
+        "document": [
+          390,
+          844
+        ],
+        "targets": [
+          {
+            "id": "open-aux-menu",
+            "key": "open-aux-menu",
+            "rect": [
+              328.25,
+              85.078125,
+              48.75,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-staff-panel",
+            "key": "open-staff-panel",
+            "rect": [
+              195,
+              647.328125,
+              182,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-distill",
+            "rect": [
+              13,
+              705.828125,
+              117,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-warehouse",
+            "rect": [
+              136.5,
+              705.828125,
+              117,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-sales",
+            "rect": [
+              260,
+              705.828125,
+              117,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "toggle-time",
+            "key": "toggle-time",
+            "rect": [
+              188.5,
+              130.578125,
+              188.5,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "stop-distill",
+            "key": "stop-distill",
+            "rect": [
+              91,
+              523.828125,
+              208,
+              48.75
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-ledger",
+            "key": "open-ledger",
+            "rect": [
+              19.5,
+              640.828125,
+              71.5,
+              58.5
+            ],
+            "disabled": false
+          }
+        ],
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        }
+      },
+      "readyPixels": {
+        "name": "ready",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 3,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "pixels": {
+          "leftFoot": {
+            "logical": [
+              74,
+              465
+            ],
+            "backing": [
+              240,
+              1737
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFoot": {
+            "logical": [
+              284,
+              465
+            ],
+            "backing": [
+              922,
+              1737
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "leftFormerGap": {
+            "logical": [
+              74,
+              450
+            ],
+            "backing": [
+              240,
+              1688
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFormerGap": {
+            "logical": [
+              284,
+              450
+            ],
+            "backing": [
+              922,
+              1688
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "floorShadow": {
+            "logical": [
+              180,
+              470
+            ],
+            "backing": [
+              585,
+              1753
+            ],
+            "rgba": [
+              25,
+              20,
+              30,
+              255
+            ],
+            "hex": "#19141e"
+          }
+        }
+      },
+      "progressPixels": {
+        "name": "progress",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 3,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "pixels": {
+          "leftFoot": {
+            "logical": [
+              74,
+              465
+            ],
+            "backing": [
+              240,
+              1737
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFoot": {
+            "logical": [
+              284,
+              465
+            ],
+            "backing": [
+              922,
+              1737
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "leftFormerGap": {
+            "logical": [
+              74,
+              450
+            ],
+            "backing": [
+              240,
+              1688
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFormerGap": {
+            "logical": [
+              284,
+              450
+            ],
+            "backing": [
+              922,
+              1688
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "floorShadow": {
+            "logical": [
+              180,
+              470
+            ],
+            "backing": [
+              585,
+              1753
+            ],
+            "rgba": [
+              25,
+              20,
+              30,
+              255
+            ],
+            "hex": "#19141e"
+          }
+        }
+      },
+      "rawTaps": true,
+      "noPageScroll": true,
+      "pureStartStopFillCorrespondence": true,
+      "openingQuoteNoSaveMutation": true,
+      "bottlingQuote": {
+        "count": 45,
+        "cost": 135
+      },
+      "displayedQuoteMatchesModel": true,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "dpr": 1,
+      "readyGeometry": {
+        "width": 1280,
+        "height": 900,
+        "scroll": [
+          0,
+          0
+        ],
+        "document": [
+          1280,
+          900
+        ],
+        "targets": [
+          {
+            "id": "open-aux-menu",
+            "key": "open-aux-menu",
+            "rect": [
+              812.96875,
+              12.65625,
+              63.28125,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-staff-panel",
+            "key": "open-staff-panel",
+            "rect": [
+              640,
+              742.5,
+              236.25,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-distill",
+            "rect": [
+              403.75,
+              818.4375,
+              151.875,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-warehouse",
+            "rect": [
+              564.0625,
+              818.4375,
+              151.875,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-sales",
+            "rect": [
+              724.375,
+              818.4375,
+              151.875,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "toggle-time",
+            "key": "toggle-time",
+            "rect": [
+              631.5625,
+              71.71875,
+              244.6875,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "start-distill",
+            "key": "start-distill",
+            "rect": [
+              505,
+              582.1875,
+              270,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-ledger",
+            "key": "open-ledger",
+            "rect": [
+              412.1875,
+              734.0625,
+              92.8125,
+              75.9375
+            ],
+            "disabled": false
+          }
+        ],
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        }
+      },
+      "progressGeometry": {
+        "width": 1280,
+        "height": 900,
+        "scroll": [
+          0,
+          0
+        ],
+        "document": [
+          1280,
+          900
+        ],
+        "targets": [
+          {
+            "id": "open-aux-menu",
+            "key": "open-aux-menu",
+            "rect": [
+              812.96875,
+              12.65625,
+              63.28125,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-staff-panel",
+            "key": "open-staff-panel",
+            "rect": [
+              640,
+              742.5,
+              236.25,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-distill",
+            "rect": [
+              403.75,
+              818.4375,
+              151.875,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-warehouse",
+            "rect": [
+              564.0625,
+              818.4375,
+              151.875,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "",
+            "key": "room-sales",
+            "rect": [
+              724.375,
+              818.4375,
+              151.875,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "toggle-time",
+            "key": "toggle-time",
+            "rect": [
+              631.5625,
+              71.71875,
+              244.6875,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "stop-distill",
+            "key": "stop-distill",
+            "rect": [
+              505,
+              582.1875,
+              270,
+              63.28125
+            ],
+            "disabled": false
+          },
+          {
+            "id": "open-ledger",
+            "key": "open-ledger",
+            "rect": [
+              412.1875,
+              734.0625,
+              92.8125,
+              75.9375
+            ],
+            "disabled": false
+          }
+        ],
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        }
+      },
+      "readyPixels": {
+        "name": "ready",
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.40625,
+          "offsetX": 386.875,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "pixels": {
+          "leftFoot": {
+            "logical": [
+              74,
+              465
+            ],
+            "backing": [
+              490,
+              653
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFoot": {
+            "logical": [
+              284,
+              465
+            ],
+            "backing": [
+              786,
+              653
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "leftFormerGap": {
+            "logical": [
+              74,
+              450
+            ],
+            "backing": [
+              490,
+              632
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFormerGap": {
+            "logical": [
+              284,
+              450
+            ],
+            "backing": [
+              786,
+              632
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "floorShadow": {
+            "logical": [
+              180,
+              470
+            ],
+            "backing": [
+              640,
+              660
+            ],
+            "rgba": [
+              25,
+              20,
+              30,
+              255
+            ],
+            "hex": "#19141e"
+          }
+        }
+      },
+      "progressPixels": {
+        "name": "progress",
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.40625,
+          "offsetX": 386.875,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "pixels": {
+          "leftFoot": {
+            "logical": [
+              74,
+              465
+            ],
+            "backing": [
+              490,
+              653
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFoot": {
+            "logical": [
+              284,
+              465
+            ],
+            "backing": [
+              786,
+              653
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "leftFormerGap": {
+            "logical": [
+              74,
+              450
+            ],
+            "backing": [
+              490,
+              632
+            ],
+            "rgba": [
+              160,
+              120,
+              90,
+              255
+            ],
+            "hex": "#a0785a"
+          },
+          "rightFormerGap": {
+            "logical": [
+              284,
+              450
+            ],
+            "backing": [
+              786,
+              632
+            ],
+            "rgba": [
+              100,
+              70,
+              50,
+              255
+            ],
+            "hex": "#644632"
+          },
+          "floorShadow": {
+            "logical": [
+              180,
+              470
+            ],
+            "backing": [
+              640,
+              660
+            ],
+            "rgba": [
+              25,
+              20,
+              30,
+              255
+            ],
+            "hex": "#19141e"
+          }
+        }
+      },
+      "rawTaps": true,
+      "noPageScroll": true,
+      "pureStartStopFillCorrespondence": true,
+      "openingQuoteNoSaveMutation": true,
+      "bottlingQuote": {
+        "count": 45,
+        "cost": 135
+      },
+      "displayedQuoteMatchesModel": true,
+      "errors": []
+    }
+  ],
+  "changeBaseSHA": "1bbb9fbab8dcd95da72b8e6f4a5fa2bfe561f057",
+  "scope": "Targeted bench-footing follow-up; PR507 full regression evidence remains separate and unchanged."
+}

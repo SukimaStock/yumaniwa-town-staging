@@ -49,7 +49,7 @@ export class CanvasScene{
    const items=v.room==='warehouse'?v.casks:v.products,slots=v.room==='warehouse'?l.caskSlots:l.productSlots;
    items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand):bottleArt(item.wood)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.height+(v.room==='warehouse'?1:0);if(item.selected){r(x*3-6,y*3-6,image.width*3+12,image.height*3+6,'#f7cd58');r(x*3-3,y*3-3,image.width*3+6,image.height*3+3,'#28285a');}c.drawImage(image,x,y);if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
   }else{
-   const e=l.equipment;rail(72,e.benchY,216);r(72,e.benchY+9,6,57,'#a0785a');r(282,e.benchY+9,6,57,'#644632');const image=sprite(stillArt(),v.collection,v.phase==='distilling');c.drawImage(image,e.x/3,e.y/3);
+   const e=l.equipment;rail(72,e.benchY,216);r(72,e.benchY+9,6,l.floorY-e.benchY-9,'#a0785a');r(282,e.benchY+9,6,l.floorY-e.benchY-9,'#644632');const image=sprite(stillArt(),v.collection,v.phase==='distilling');c.drawImage(image,e.x/3,e.y/3);
   }
  }
  text(text,x,y,size=14,align='left',color=ink){const c=this.ctx;c.font=`${size}px ${font}`;c.textAlign=align;c.textBaseline='alphabetic';c.fillStyle=color;c.fillText(text,x,y);}
