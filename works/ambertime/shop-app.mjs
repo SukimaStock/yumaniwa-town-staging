@@ -12,7 +12,7 @@ import {shortTaste,shortChange} from './tasting-view.mjs?v=0.6';
 import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=0.19-flavor';
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=0.18-tasting';
 import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=0.19staff';
-import {uiText} from './ui-text.mjs?v=0.28-staff-entry-1';
+import {uiText,agingEventText} from './ui-text.mjs?v=0.34-aging-1';
 // Only fixed system labels are adapted. Never use uiText on names or saved prose.
 const caskName=id=>uiText(sourceCaskName(id)).replace('#','No.');
 const FLAVOR_AXES=sourceFlavorAxes.map(axis=>({...axis,label:uiText(axis.label)}));
@@ -267,7 +267,7 @@ function schedule(){
    if(wasDistilling){const batchId=game.core.spirit?.id;game=D.distillStep(game);if(wasAutomatic&&!game.usual.reservation){const newborn=game.core.casks.find(c=>c.batchId===batchId);completedSpirit=spiritProfile(newborn);}}
    elapsed+=jump?T.monthMs/5:T.distillStepMs;
    const completed=wasAutomatic&&!game.usual.reservation;
-   if(elapsed>=T.monthMs){const before=game.core.month;game=D.tickDistillery(game,expectedMonth);elapsed=0;if(game.core.month===before&&!game.decisions.length&&generationState()?.phase!=='review'){runtimeHalted=true;message('資金を残して停止しています。たる詰めや販売を確かめられます。');}if(game.core.month!==before){const ships=game.trade.lastShipments.filter(x=>x.month===game.core.month),key=game.core.month+':'+ships.map(x=>x.productId).join(',');if(ships.length&&shipmentKey!==key){shipmentKey=key;message('卸売出荷 '+ships.reduce((n,x)=>n+x.bottles,0)+'本 · 入金 '+money(ships.reduce((n,x)=>n+x.net,0)));document.body.classList.add('just-shipped');setTimeout(()=>document.body.classList.remove('just-shipped'),1200);}else {const obs=game.trade.lastObservations??[];message(obs.map(x=>caskName(x.caskId)+' · '+(x.title??x.text??'熟成が変化しました')).join(' / '));}}if(jump>0)jump--;save();}
+   if(elapsed>=T.monthMs){const before=game.core.month;game=D.tickDistillery(game,expectedMonth);elapsed=0;if(game.core.month===before&&!game.decisions.length&&generationState()?.phase!=='review'){runtimeHalted=true;message('資金を残して停止しています。たる詰めや販売を確かめられます。');}if(game.core.month!==before){const ships=game.trade.lastShipments.filter(x=>x.month===game.core.month),key=game.core.month+':'+ships.map(x=>x.productId).join(',');if(ships.length&&shipmentKey!==key){shipmentKey=key;message('卸売出荷 '+ships.reduce((n,x)=>n+x.bottles,0)+'本 · 入金 '+money(ships.reduce((n,x)=>n+x.net,0)));document.body.classList.add('just-shipped');setTimeout(()=>document.body.classList.remove('just-shipped'),1200);}else {const obs=game.trade.lastObservations??[];message(obs.map(x=>caskName(x.caskId)+' · '+(agingEventText(x,D.currentCask(game,x.caskId),game.notesById[x.caskId]).title??'熟成が変化しました')).join(' / '));}}if(jump>0)jump--;save();}
    else if(wasDistilling&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))save();
    if(completed){message('いつもの仕込みを1たる詰めました。');save();}
    if(game.decisions.length||game.trade.offer||!hasMonthlyWork())jump=0;
@@ -428,8 +428,8 @@ function syncModal(){
   if(kind==='contract'&&D.canCare(game,id)){actions=button('冷暗所へ','care',id)+actions;}
  }else if(kind==='decision'){
   const d=game.decisions[0];if(!d){modal=null;if(dialog.open)dialog.close();return;}
-  modal.id=d.caskId;const source=D.currentCask(game,d.caskId),pending=d.pending;
-  title=caskName(d.caskId)+' '+uiText(pending.title);body='<p>'+esc(uiText(P.casks[source.type].short))+' '+ageLabel(source.age)+'</p>'+(pending.text?'<p>'+esc(uiText(pending.text))+'</p>':'');
+  modal.id=d.caskId;const source=D.currentCask(game,d.caskId),pending=d.pending,copy=agingEventText(pending,source,game.notesById[d.caskId]);
+  title=caskName(d.caskId)+' '+copy.title;body='<p>'+esc(uiText(P.casks[source.type].short))+' '+ageLabel(source.age)+'</p>'+(copy.text?'<p>'+esc(copy.text)+'</p>':'');
   if(d.eventId==='order-unmet'){const fallback=D.orderFallbackTerms(game);body+='<p>通常卸売 '+unit(fallback.unitPrice)+'/本 ビン詰め費 '+unit(fallback.bottlingFee)+'/本</p><p class="quiet">自分で販売する場合、熟成を続けられます。</p>';}
   actions=D.contractFor(game,d.caskId)&&d.eventId==='funds'?button('契約を解除してビン詰め','cancel-contract',d.caskId):pending.options.map(o=>button(esc(o.id==='bottle'?'ビン詰め':uiText(o.label))+(o.hint&&o.id!=='cool'?'<small>'+esc(uiText(o.hint))+'</small>':''),o.id==='bottle'?'quote':'choose',d.caskId,'data-choice="'+esc(o.id)+'" data-event="'+esc(d.eventId)+'"')).join('');
   actions+=button('試す','trial',d.caskId);
