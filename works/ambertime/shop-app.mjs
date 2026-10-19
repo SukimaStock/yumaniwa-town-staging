@@ -476,7 +476,7 @@ function render(){
  $('usual-recipe').textContent=recipe?(chosen?(chosen.name||caskName(chosen.source.caskId)+'の製法')+' · ':'前回の手動仕込み · ')+'抽出 '+recipe.stopAt+' / '+T.distillMax+' · '+uiText(P.casks[recipe.type].short):'';
  $('reserve-usual').hidden=!!reservation||(!staff.hired&&!staff.legacy);$('reserve-usual').disabled=!recipe||phase!=='ready'||tasting||(!!modal&&modal.kind!=='staff-panel')||gen?.phase!=='working';
  $('cancel-usual').hidden=reservation?.status!=='queued';
- $('usual-status').textContent=gen?.phase==='last-batch'&&!automatic?(reservation?'最後の仕込みは自分で · 予約は次代へ':'最後の仕込みは自分で'):automatic?'仕込み中 · 今回で終了':reservation?(userPaused?'予約待ち · ▶で開始':D.canBeginUsual(game).ok?'予約待ち · 次の1たる':'予約待ち · '+uiText(D.canBeginUsual(game).reason)):staff.hired?'指示待ち':'';
+ $('usual-status').textContent=gen?.phase==='last-batch'&&!automatic?(reservation?'最後の仕込みは自分で · 予約は次代へ':'最後の仕込みは自分で'):automatic?'仕込み中 · 今回で終了':reservation?(userPaused?'予約待ち':D.canBeginUsual(game).ok?'予約待ち · 次の1たる':'予約待ち · '+uiText(D.canBeginUsual(game).reason)):staff.hired?'指示待ち':'';
  if(reservation)$('usual-status').textContent+=' 抽出 '+reservation.recipe.stopAt+' / '+T.distillMax+' · '+uiText(P.casks[reservation.recipe.type].short)+(reservation.source?' · '+caskName(reservation.source.caskId)+'から':'');
  for(const id of ['staff-cask','staff-tasting']){$(id).hidden=selectedCaskId===null||!D.staffSource(game,selectedCaskId);}
  const rk=JSON.stringify([game.core.casks.map(c=>[c.id,c.age,c.litres]),selectedCaskId,game.generations]);

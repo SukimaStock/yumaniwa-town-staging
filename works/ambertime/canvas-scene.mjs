@@ -23,7 +23,7 @@ export class CanvasScene{
   for(const id of ['skip','open-history','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])document.body.append($(id));
   const close=$('close-dialog');close.innerHTML=symbolMarkup('close');close.setAttribute('aria-label','閉じる');
-  const observer=new MutationObserver(()=>{observer.disconnect();numberMarkup($('action-dialog'));observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true});});observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true});
+  const observer=new MutationObserver(()=>{observer.disconnect();numberMarkup($('action-dialog'));this.alignDialog();observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});});observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});
   this.alignDialog=()=>{const dialog=$('action-dialog');if(!dialog.open)return;const vv=window.visualViewport,d=devicePixelRatio||1,r=dialog.getBoundingClientRect();Object.assign(dialog.style,{transform:'none',left:Math.round(((vv?.offsetLeft??0)+(vv?.width??innerWidth)/2-r.width/2)*d)/d+'px',top:Math.round(((vv?.offsetTop??0)+(vv?.height??innerHeight)/2-r.height/2)*d)/d+'px'});};
   new ResizeObserver(()=>this.alignDialog()).observe($('action-dialog'));
   this.resize=()=>{const vv=window.visualViewport;
