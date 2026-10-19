@@ -50,3 +50,23 @@ html[data-font-state=ready] body{font-family:AmberMisaki,system-ui,-apple-system
 #dialog-body :is(.nearby-fact,.inspection-facts,.product-overview,.brand-form){min-width:0}
 #dialog-body :is(h3,p,strong,small){overflow-wrap:anywhere}
 #close-dialog{font-family:system-ui,sans-serif!important;font-size:24px!important}
+
+/* Larger native text uses3source dots. Numerals use4dots at natural aspect ratio. */
+html,body{font-size:24px;line-height:32px}
+#action-dialog :is(h2,h3,h4,p,span,small,strong,b,em,label,button,summary,dt,dd,li,time,select),#dialog-body,#dialog-context,#dialog-actions button,#aux-panel button,#hero #change,#hero .amount,#dialog-body .quiet,#action-dialog .dialog-heading h2{font-size:24px!important;font-weight:400!important;line-height:32px}
+html[data-font-state=ready] #action-dialog .ui-number{font-size:32px!important;line-height:.75!important;vertical-align:-3px}
+#action-dialog .ui-number{white-space:nowrap}
+#dialog-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-height:45vh;overflow:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;padding-bottom:4px}
+#action-dialog button{min-height:48px;padding:6px;line-height:32px}
+#dialog-body{padding:0 3px 8px 0}#dialog-body .quiet{margin:8px 0}
+#action-dialog .dialog-heading{gap:6px;margin-bottom:8px;align-items:flex-start;max-height:30vh;overflow:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom}
+#close-dialog{position:sticky;top:0;display:flex;align-items:center;justify-content:center;min-height:48px;width:48px;flex:0 0 48px;background:#2e3143}
+.pixel-icon{display:block;flex:none;width:calc(var(--icon-cell,3px)*7);height:calc(var(--icon-cell,3px)*7);fill:currentColor;shape-rendering:crispEdges;pointer-events:none}
+#aux-panel button{min-height:48px}#action-dialog :is(input,textarea){font:20px/1.5 system-ui,-apple-system,sans-serif!important}
+@media(max-width:300px){#dialog-actions{grid-template-columns:minmax(0,1fr)}}
+/* Numeric runs stay inline even inside components whose ordinary spans are blocks. */
+#action-dialog .ui-number{display:inline!important}
+#dialog-body .nearby-picker{grid-template-columns:minmax(0,1fr)}
+#dialog-body .nearby-picker button{display:grid;grid-template-columns:64px minmax(0,1fr);gap:2px 12px;text-align:left;align-items:center}
+#dialog-body .nearby-pick-art{grid-row:1/4;width:64px;height:64px}
+#dialog-body .nearby-picker :is(strong,span:not(.nearby-pick-art),small){margin:0}
