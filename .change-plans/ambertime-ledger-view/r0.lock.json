@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d9cb1a3bb18cdb98d2a471d96531073f2d1527241cb9e3b74f2ea85bc434edfc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "1377d0aff6088d17e621dd0d17e5d4a6ad83edfe",
+    "changeId": "ambertime-ledger-view",
+    "revision": 0,
+    "change": "Organize existing ledger, cask timelines and release/record summaries with collapsed details; preserve saved prose and record provenance",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit ledger/records display-only request",
+      "PR519 copy cleanup",
+      "PR521 milestone popups",
+      "PR522 current sales controls and locked Plan",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Current ledger-body, records-body, brandHistory, comparison and stored history shapes"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ledger-view/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/ledger-view.mjs",
+      "works/ambertime/design/ledger-view/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Keep the already separate cumulative revenue/upkeep. Initial ledger exposes totals and closed existing details categories only. Group sample/observation/choice presentation by recorded age, skip empty content, render each original string escaped and unchanged. No global separator replacement or name rewriting.",
+      "Organize stored trade history by recorded month/kind with separate partner/cask/count fields; show income only when a corresponding numeric field exists, never estimate. Preserve each history entry once and existing shop-specific histories.",
+      "Compact brand/release and prior-bottle basics; move existing artwork, stats, original source, exact recorded sampling/judgments/observation prose and sale details behind native details. Keep prior-release comparison and its return behavior. Read existing cached source projection in one bounded query if needed for recorded extraction position. No new saved record or replay process.",
+      "Refresh only work-local cache refs/styles and display caches for correct live record sales values. Existing runtime, modal handlers, sales/select/milestones, save/math/time/model/IDs remain unchanged."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "First inspect current ledger with public-operation fixtures; then targeted390x844: totals, four category defaults, exact notes and names, grouped ages, all trade kinds/months and no invented income, release metadata, details open/close, comparison entry and return, no horizontal overflow. MinimalPC same ledger only.",
+      "Byte-stable saved state through reading and detail/comparison actions; protected model/handler diff, syntax/Scope→Risk→Impact. Required exact-head CI/reviews then normal Staging merge/Pages and public changed-file equality. No whole-game suites."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this ledger presentation change; no save migration.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Display cache/script changes, more than four total paths and bounded tests/evidence are outside conservative targeted proof; Standard Lock before implementation; lightweight validation only.",
+      "PR522 sales/PR521 milestone suites are not replayed. No new record functionality, separate screen, icon, tab, CI or verification infrastructure.",
+      "Preserve user/stored prose exactly including internal middle dots; only template separators change. Source reference retrieval is unnecessary for these structural edits, no private metadata is republished."
+    ]
+  }
+}
