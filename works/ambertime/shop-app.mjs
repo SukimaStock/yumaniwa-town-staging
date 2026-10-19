@@ -1,4 +1,4 @@
-import {CanvasScene} from './canvas-scene.mjs?v=0.21-space-2';
+import {CanvasScene} from './canvas-scene.mjs?v=0.22-misaki-1';
 import * as D from './partner-orders.mjs?v=0.19staff';
 import {SHOPS} from './shop-model.mjs?v=0.19staff';
 import {caskName,releaseNumber} from './work-context.mjs?v=0.15.2';

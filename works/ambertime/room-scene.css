@@ -36,3 +36,17 @@ body[data-room] #dialog-actions>.free-actions[hidden]{display:none!important}
 
 /* Priorities share one cell border; surface colors carry the hierarchy. */
 button[data-action=end-trade],button[data-action=cancel-contract],button[data-action=cancel-order]{background:#533b3b;border-color:#98786b}button[aria-pressed=true]{border-color:#bda46b}#action-dialog::backdrop{overscroll-behavior:none;touch-action:pinch-zoom}
+
+/* Standard Misaki Gothic, original official TTF. No synthetic weight or stretch. */
+@font-face{font-family:AmberMisaki;src:url('./fonts/misaki_gothic.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+html,body{font-size:16px;line-height:1.5;font-synthesis:none}
+html[data-font-state=ready] body{font-family:AmberMisaki,system-ui,-apple-system,"Noto Sans JP",sans-serif}
+#action-dialog,#storage-notice,#recovery{font-family:inherit;font-synthesis:none}
+#action-dialog :is(h2,h3,h4,p,span,small,strong,b,em,label,button,summary,dt,dd,li,time,select),#dialog-body,#dialog-context,#dialog-actions button,#aux-panel button,#hero #change,#hero .amount,#dialog-body .quiet{font-size:16px!important;font-weight:400!important;line-height:1.5}
+#action-dialog .dialog-heading h2{font-size:16px!important;line-height:1.5}
+#action-dialog button{white-space:normal;overflow-wrap:anywhere;min-height:45px}
+#action-dialog :is(input,textarea),#settings-source{font:16px/1.5 system-ui,-apple-system,sans-serif!important;font-synthesis:none;overflow-wrap:anywhere}
+#dialog-actions{grid-template-columns:repeat(auto-fit,minmax(min(128px,100%),1fr));gap:9px}
+#dialog-body :is(.nearby-fact,.inspection-facts,.product-overview,.brand-form){min-width:0}
+#dialog-body :is(h3,p,strong,small){overflow-wrap:anywhere}
+#close-dialog{font-family:system-ui,sans-serif!important;font-size:24px!important}
