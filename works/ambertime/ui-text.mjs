@@ -1,6 +1,7 @@
 // Fixed system copy only. Never pass user names, imported prose, or saved records.
 // This adapter leaves simulation modules and their persisted text untouched.
 const phrases=Object.freeze([
+ ['涼しい棚へ移す','冷暗所へ'],['生成り','ホワイト'],['墨色','ブラック'],
  ['原酒と木の重なりを待つ','熟成を待つ'],
  ['原酒の色が深くなってきた','色が深くなった'],
  ['若い原酒のまま、少し先へ','若い原酒'],['原酒の香りが広がる頃','かおりが広がる'],
@@ -13,7 +14,7 @@ const phrases=Object.freeze([
  ['この銘柄はまだ取扱い前です。','この銘柄は取扱い前です。'],
  ['瓶詰めを確かめる','ビン詰め'],['樽に詰める','たる詰め'],
  ['今止めた場合の見込み','抽出見込み'],['原酒の香り','かおり'],
- ['試飲して考える','試飲'],['口当たりの変化を待つ','待つ'],
+ ['試飲して考える','試す'],['口当たりの変化を待つ','待つ'],
  ['抽出を終える','おわる'],['蒸留する','蒸留'],
  ['果実と樽香が重なる','果実と木のかおり'],['樽香が豊か','木のかおり豊か'],
  ['果実香が豊か','果実のかおり豊か'],['刺激と香りが重なる','刺激とかおりが重なる'],
@@ -27,5 +28,5 @@ export function uiText(value){
  if(value===null||value===undefined)return value;
  let text=String(value);
  for(const [from,to] of phrases)text=text.split(from).join(to);
- return text.replaceAll('樽','たる').replaceAll('瓶','ビン').replaceAll('刺激','シゲキ').replaceAll('標準','ふつう').replaceAll('バーボンたる','バーボン').replaceAll('リフィルたる','リフィル');
+ return text.replaceAll('銘柄','ブランド').replaceAll('樽','たる').replaceAll('瓶','ビン').replaceAll('刺激','シゲキ').replaceAll('標準','ふつう').replaceAll('バーボンたる','バーボン').replaceAll('リフィルたる','リフィル');
 }
