@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "reused": "Initial unchanged-runtime checks: early guarded stop, manual saved result/volume, fit at390, X/focus, later fill exact/reload, keyboard Escape/focus. Completed before limit expectation correction.",
+      "passed": true
+    },
+    {
+      "reused": "Unchanged-runtime continuation passed limit-only/no popup, explicit limit confirmation+backdrop+result, onward fill, retail initial/double/reopen/price/reload/focus, stockist pure selection/atomic result/receipt/additional delivery/reload. Only later repeated-room selector failed.",
+      "passed": true
+    },
+    {
+      "deferDeclineNoPopup": true,
+      "departmentConsultationUnchanged": true
+    },
+    {
+      "saveFailure": "manual",
+      "noSuccess": true,
+      "oldSavedBytesPreserved": true
+    },
+    {
+      "saveFailure": "retail",
+      "noSuccess": true,
+      "oldSavedBytesPreserved": true
+    },
+    {
+      "saveFailure": "offer",
+      "noSuccess": true,
+      "oldSavedBytesPreserved": true
+    },
+    {
+      "saveConflictNoPopup": true
+    },
+    {
+      "title": "蒸留完了",
+      "height": 228,
+      "bottom": 564,
+      "viewport": 900,
+      "overflow": false
+    }
+  ],
+  "pageErrors": [],
+  "physicalSafari": false
+}
