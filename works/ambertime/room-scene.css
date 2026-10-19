@@ -113,3 +113,10 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #dialog-body .flavor-track{margin-top:calc(4 * var(--pixel));margin-bottom:6px}
 #taste-button{background:#303547;border-color:#69717d}
 #action-dialog .flavor-phrase{margin:4px 0 8px}
+
+/* Pointer-opened headings are announcement targets, not outlined controls.
+   Keyboard entry starts at the close button; keyboard focus remains visible. */
+#action-dialog[data-input=pointer] #dialog-title:focus{outline:none}
+#action-dialog[data-input=keyboard] #dialog-title:focus-visible{outline:3px solid #f7cd58;outline-offset:2px}
+#action-dialog .dialog-heading h2{padding-top:8px}
+#close-dialog{align-self:start}
