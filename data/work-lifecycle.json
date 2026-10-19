@@ -333,6 +333,13 @@
       "status": "active",
       "title": "ひと歯ずつ閉じる",
       "theme": "引き手を上下に動かし、ファスナーを一歯ずつ開け閉めする"
+    },
+    {
+      "id": "tarumu-kusari",
+      "path": "works/tarumu-kusari",
+      "status": "active",
+      "title": "たるむ鎖",
+      "theme": "端からたるみを取り、張った鎖で重りを引く"
     }
   ]
 }
