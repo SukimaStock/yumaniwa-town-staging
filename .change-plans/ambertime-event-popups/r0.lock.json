@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5288968d0a341c8a7803671261df26ea32316ec2929b9e3ecfba5febd8b42458",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "9144617b464796a0f79d0f0836650dca5ada7d84",
+    "changeId": "ambertime-event-popups",
+    "revision": 0,
+    "change": "Three post-save milestone popups integrated into current modal manager: manual distillation result, initial retail listing, normal stockist acceptance/delivery",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit three-event popup request",
+      "PR518 normal offer confirmation",
+      "PR519 completed text cleanup (preserve, no re-audit)",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Current shop-app save/action/modal code and partner-orders operation results"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-event-popups/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/event-popups.mjs",
+      "works/ambertime/design/event-popups/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Add optional post-successful-save presentation callback to existing act without changing existing callbacks/operation order. Single ephemeral milestone modal kind; close/backdrop/Escape and keyboard focus use current dialog. No persisted notification state.",
+      "Manual stop and upper-limit open-fill first commit stop result then show litres, with onward button opening existing fill modal. Upper limit alone has no success popup. Closing preserves committed spirit; later open-fill opens normal choice. Automatic staff already fills within its operation and retains its existing notification.",
+      "First retail listing shows current brand, returns sales; already listed/price/open/reload do not show popup. Normal initial stockist accept-delivery shows actual last delivery shop/count/revenue; selection/additional delivery/defer/decline/department remain unchanged. Remove duplicate success comment for these events only.",
+      "Compact centered existing pixel dialog, no art or new dialog system. Preserve PR519 copy and all core/math/schema/time/staff/conditions."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Only three events at390x844 touch and minimalPC: manual stop, limit alone/result confirmation, fill transition/close/outside/Escape/focus, spirit bytes; listing first-only/price/reload/sales state; count selection/normal acceptance actual receipt/double invocation/additional delivery/defer/decline/department exception.",
+      "Failure checks: invalid operation and localStorage setItem/conflict failure never produce milestone; previous saved bytes preserved, no success on retry/reload. Compare successful operation states to unchanged public APIs. Syntax, protected file diff and Scope→Risk→Impact; required CI/review then Staging merge/exact Pages/public changed-file bytes."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only event popup UI change; no migration or model change.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Three runtime files plus scoped test/evidence and save-call ordering exclude active four-file/contract-insensitive proof; Standard Lock before implementation, verification remains targeted.",
+      "No repeated PR519 text audit or prior whole-game suites; use existing public-operation fixtures for just target states. No new verification framework.",
+      "Use only event name and actual quantities/names/money per user; preserve existing text and accessibility. No private source metadata in public report."
+    ]
+  }
+}
