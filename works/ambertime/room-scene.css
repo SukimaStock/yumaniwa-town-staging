@@ -144,3 +144,16 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #action-dialog[data-kind=milestone] #dialog-actions{display:flex;justify-content:center;overflow:visible;max-height:none}
 #action-dialog[data-kind=milestone] #dialog-actions button{width:auto;min-width:96px;padding-inline:12px}
 #action-dialog[data-kind=milestone] #dialog-body p{margin:12px 0}
+
+/* Ledger: summaries first, original prose inside native disclosure controls. */
+#dialog-body .ledger-category{margin:12px 0}
+#dialog-body .ledger-category article{border-top:2px solid var(--quiet);margin-top:12px;padding-top:8px;min-width:0}
+#dialog-body .ledger-category h3,#dialog-body .ledger-category h4{margin:8px 0;font-size:inherit}
+#dialog-body .ledger-category p{margin:4px 0}
+#dialog-body .ledger-category section{margin:12px 0}
+#dialog-body .ledger-category details{margin:8px 0}
+#dialog-body .record-timeline{list-style:none;padding:0;margin:8px 0}
+#dialog-body .record-timeline li{margin:12px 0}
+#dialog-body .record-timeline time{color:var(--quiet)}
+#dialog-body .ledger-category .record-text{white-space:pre-line;overflow-wrap:anywhere}
+#dialog-body .ledger-category h3{overflow-wrap:anywhere}
