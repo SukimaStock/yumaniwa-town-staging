@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7f2bfdca77db7ca9983aac52da96cc3b980d0026d67088fedde0870bb0833cdc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-readable-copy",
+    "revision": 0,
+    "change": "Enlarge Misaki text with numeric optical sizing, simplify system copy, draw pixel operation symbols while preserving names/history/model/time/saves",
+    "planLevel": "standard",
+    "classes": [
+      "CONTENT",
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "59fa6bf7c508df5ad45c003181413cd0970488b2",
+    "canonicalSources": [
+      "Current explicit user readable-size/copy/symbol instruction",
+      "Latest main PR509",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Official bundled unchanged Misaki Gothic glyph metrics"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-readable-copy/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/tests/readable*.mjs",
+      "works/ambertime/design/readable-copy/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-loader.mjs",
+      "works/ambertime/scene-input.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/work-context.mjs"
+    ],
+    "expectedChanges": [
+      "Use larger integral-dot text and separate natural numeric font sizing based on actual glyph metrics; no distortion/bold/fullwidth conversion. Preserve roomscale and accessible tap regions.",
+      "Presentation-only requested terms/compounds, remove exact wood-transfer redundant paragraph and unnecessary empty-state copy; preserve costs/conditions/flavor distinctions/alerts. Never rewrite user names or historical record bodies; no shared/legacy-view modules changed.",
+      "Shared integer-cell play/pause/close glyphs for Canvas/native dialogs, preserve semantic names/focus/disabled/pressed state and originaltime logic.",
+      "Adjust native dialog spacing/wrapping/size for enlarged text; preserve zoom/scroll/focus/input and last-batch/four-cask room layout.",
+      "Related meaningful numeric/symbol/copy browser regression plus577existingunit/fulloperation checks, beforeafter screenshot pairs, read-only review. Exacthead ScopeRiskImpact/CI/PR/safemerge/Pages/publicbyte+operationverification, noProduction."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Measure fontoutline numeric and CJK actualink bounds; render money/date/age/volume/decimal/units/casknumbers at360740,390844,360640,PC/iPad,DPR1/3. Pixel grain not justCSSsize.",
+      "All rooms and taste/compare/bottle/recipe/staff/sales/ledger/history/settings; enlarged text fits buttons, names/history untouched, requestedwording and deletion; costs/conditions/flavor preserved.",
+      "Real pixelglyph play/pause/close shape; fullsemanticaccessible names; keyboardfocus,disabled,pressed,selected states. Originaltimepause conditions unchanged.",
+      "Long names containing樽/瓶 andunsupported chars preserved; real bottle/reload, text200%,pinch2x,430pxkeyboardheight; native scroll fixedbackground andsourcepreserved saves.",
+      "Relatedregression andindependentreview; snapshotbeforeafter finalSHA,ScopeRiskImpact,CI,safemerge andpublicverification. PhysicalSafari/OSreader unverified."
+    ],
+    "rollback": "Revert only this presentation/text/symbol change as one unit; retain509 fontloading/drag and existing saves.",
+    "outOfScope": [
+      "Production",
+      "Sharedruntime/town/LAB/legacy pages orsharedview/model modules",
+      "Manufacturing/economy/time/contracts/stores/staff/recipes/generation/saveschemasorIDs",
+      "Fontassetreplacement/conversion/newfontengine",
+      "Rewriting user names or stored historical text"
+    ],
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver and owner adoption"
+    ],
+    "rulesApplied": [
+      "StandardWORK+ASSET+CONTENT; explicitstaginginstruction authorizes all reversible UI work throughsafemerge",
+      "Expressionaudit: shortplaincopy, no newdecorativeexplanation; preserve neededcosts/conditions/accessible labels",
+      "Delegate displaycopy only toisolatedfile; mainownsfont/symbol/layout; finalindependentreview"
+    ],
+    "ownerDecisions": [
+      "User explicitly specified largerglyphs/numericalopticalsize, exact Japanese substitutions, pixelglyph play/pause/close, fullStagingdelivery only."
+    ],
+    "hqDecisions": []
+  }
+}
