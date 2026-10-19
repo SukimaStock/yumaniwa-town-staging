@@ -1,0 +1,1150 @@
+{
+  "browser": "153.0.8010.0",
+  "url": "http://127.0.0.1:44137/works/ambertime/",
+  "physicalSafari": false,
+  "screenReader": false,
+  "sourceHashes": {
+    "index.html": "01380719e8bfc4e8949cd4a1a967e27031b7ddb134ad9f20062c4dffb5885fbc",
+    "shop-app.mjs": "327adc96ea9c83f04a4ce9aa58d17cb7a40c4c3072d949fe69d5410b79c56b7d",
+    "shop.css": "f0017bda8c4320a319e6c4d2dd36415acf52da541914022bcdd3aeb8cf9f0953",
+    "art.mjs": "904ce38936ff24becae40dbaf58a6284012a2b5f65cda508bbaa40cae29ff2d5",
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+    "partner-orders.mjs": "478389e22041eaa00d170a794a9f2fc920298d10c9f1700653ce382d598c3aa8",
+    "flavor-types.mjs": "233eb1c504d676e7c0426436c34b7664436f0b3e6853430fb7fab2ee312d11f9"
+  },
+  "screenshotHashes": {
+    "360-warehouse.png": "c5eaf7a007fd453bf23b9710b648dd8ae972c12d2962b0d3b2f059a5ee5e8620",
+    "360-tasting-12m.png": "84508a35c133f705f53dee21aee4e9cb9983689b3f6c2b4dca43a5151af936f1",
+    "360-comparison-12m.png": "ff5e544b69318fe2862de4ca581b9fc8d757e7e740a19203f9549882a560a4e1",
+    "360-fill.png": "8ddbfef07e70b7060263c40b59c8a27fb914732b795ba633a268432696b03544",
+    "390-warehouse.png": "056e987b09edc4d061a114f41480c59375119a5f25a220d989afe30ef683cdcb",
+    "390-tasting-0m.png": "b7746f62fe64fbe8cc04ffc6245ea2ec8de39504dc0dfa795299cf1bd37d8817",
+    "390-tasting-12m.png": "c5f572df4d188562234ca52e20e6016cbbbf31356fcbc1d93a74857675b3c588",
+    "390-comparison-12m.png": "95ca677aa02dbe59ee8f5423cdc77408708fbee3bf972830a5cb09f3db05a9cc",
+    "390-tasting-72m.png": "b4ff7fc2fa151393c92182dc1548357f39e13ae03c21fe0697d395828429204e",
+    "390-fill.png": "1b85932ed002b0853fefbe1fd4f9e8695733f97d029594dc3d1ad026fce43826",
+    "1280-warehouse.png": "a4ab9e7bc33abfea957f81cc3cb26ffb1d8a0f129977eb11804077a918a854d5",
+    "1280-tasting-12m.png": "b36cb48c56c14bd09d8888ccee16f16373f6c79adfb9fdd8ea0c794cfadf00ba",
+    "390-dpr3-tasting-12m.png": "de31e48b1ccd2086206d1d949db548d993c7a335a738719d40bccd7db02e886d"
+  },
+  "fixtures": {
+    "0": "96d8bdef0d285f689d334dddbb839da5cdb29d1aaaa2b87e64db6bc60fe5ee1b",
+    "12": "76d8bb2de81ce932ec561d42a06dd742d745fa4dc50e77375dff42cf635c3ae6",
+    "72": "20e74e9b14918ee29ae33fe33150870fe103154b6effa975da7565744aea93a6",
+    "rack": "58377a9f7f6486e84a81b55ea7b1123408b1eb2669b2574efba8195bb6037322",
+    "fill": "a0300473ee0c8a977a7849f22041ca7da2d46e2ad2c9e39a62ace8a79594d63f"
+  },
+  "geometries": {
+    "360-warehouse": {
+      "height": 783,
+      "width": 360,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 100,
+          "y": 616.578125,
+          "width": 76,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 184,
+          "y": 616.578125,
+          "width": 76,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "360-warehouse-0m": {
+      "height": 783,
+      "width": 360,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 100,
+          "y": 616.578125,
+          "width": 76,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 184,
+          "y": 616.578125,
+          "width": 76,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "360-tasting-0m": {
+      "height": 871,
+      "width": 360,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 183.5,
+          "y": 604.234375,
+          "width": 160.5,
+          "height": 44,
+          "bottom": 648.234375,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 655.234375,
+          "width": 160.5,
+          "height": 44,
+          "bottom": 699.234375,
+          "font": "14px"
+        }
+      }
+    },
+    "360-comparison-0m": {
+      "height": 740,
+      "width": 360,
+      "dialog": {
+        "x": 18,
+        "y": 79.765625,
+        "width": 324,
+        "height": 580.453125,
+        "bottom": 660.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 291,
+          "y": 86.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 130.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "360-warehouse-12m": {
+      "height": 783,
+      "width": 360,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 100,
+          "y": 616.578125,
+          "width": 76,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 184,
+          "y": 616.578125,
+          "width": 76,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "360-tasting-12m": {
+      "height": 899,
+      "width": 360,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 183.5,
+          "y": 631.421875,
+          "width": 160.5,
+          "height": 44,
+          "bottom": 675.421875,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 682.421875,
+          "width": 160.5,
+          "height": 44,
+          "bottom": 726.421875,
+          "font": "14px"
+        }
+      }
+    },
+    "360-comparison-12m": {
+      "height": 740,
+      "width": 360,
+      "dialog": {
+        "x": 18,
+        "y": 79.765625,
+        "width": 324,
+        "height": 580.453125,
+        "bottom": 660.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 291,
+          "y": 86.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 130.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "360-warehouse-72m": {
+      "height": 783,
+      "width": 360,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 100,
+          "y": 616.578125,
+          "width": 76,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 184,
+          "y": 616.578125,
+          "width": 76,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "360-tasting-72m": {
+      "height": 899,
+      "width": 360,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 183.5,
+          "y": 631.421875,
+          "width": 160.5,
+          "height": 44,
+          "bottom": 675.421875,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 682.421875,
+          "width": 160.5,
+          "height": 44,
+          "bottom": 726.421875,
+          "font": "14px"
+        }
+      }
+    },
+    "360-comparison-72m": {
+      "height": 740,
+      "width": 360,
+      "dialog": {
+        "x": 18,
+        "y": 79.765625,
+        "width": 324,
+        "height": 580.453125,
+        "bottom": 660.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 291,
+          "y": 86.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 130.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "360-fill": {
+      "height": 740,
+      "width": 360,
+      "dialog": {
+        "x": 18,
+        "y": 173.5,
+        "width": 324,
+        "height": 392.984375,
+        "bottom": 566.484375,
+        "font": "15px"
+      },
+      "targets": {
+        "[data-action=\"fill\"]": {
+          "x": 33,
+          "y": 274.296875,
+          "width": 294,
+          "height": 135.09375,
+          "bottom": 409.390625,
+          "font": "14px"
+        },
+        "#close-dialog": {
+          "x": 291,
+          "y": 180.5,
+          "width": 44,
+          "height": 44,
+          "bottom": 224.5,
+          "font": "20px"
+        }
+      }
+    },
+    "390-warehouse": {
+      "height": 844,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 107.5,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 199,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "390-warehouse-0m": {
+      "height": 844,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 107.5,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 199,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "390-tasting-0m": {
+      "height": 871,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 198.5,
+          "y": 604.234375,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 648.234375,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 655.234375,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 699.234375,
+          "font": "14px"
+        }
+      }
+    },
+    "390-comparison-0m": {
+      "height": 844,
+      "width": 390,
+      "dialog": {
+        "x": 18,
+        "y": 131.765625,
+        "width": 354,
+        "height": 580.453125,
+        "bottom": 712.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 321,
+          "y": 138.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 182.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "390-warehouse-12m": {
+      "height": 844,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 107.5,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 199,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "390-tasting-12m": {
+      "height": 899,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 198.5,
+          "y": 631.421875,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 675.421875,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 682.421875,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 726.421875,
+          "font": "14px"
+        }
+      }
+    },
+    "390-comparison-12m": {
+      "height": 844,
+      "width": 390,
+      "dialog": {
+        "x": 18,
+        "y": 131.765625,
+        "width": 354,
+        "height": 580.453125,
+        "bottom": 712.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 321,
+          "y": 138.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 182.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "390-warehouse-72m": {
+      "height": 844,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 107.5,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 199,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "390-tasting-72m": {
+      "height": 899,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 198.5,
+          "y": 631.421875,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 675.421875,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 682.421875,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 726.421875,
+          "font": "14px"
+        }
+      }
+    },
+    "390-comparison-72m": {
+      "height": 844,
+      "width": 390,
+      "dialog": {
+        "x": 18,
+        "y": 131.765625,
+        "width": 354,
+        "height": 580.453125,
+        "bottom": 712.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 321,
+          "y": 138.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 182.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "390-fill": {
+      "height": 844,
+      "width": 390,
+      "dialog": {
+        "x": 18,
+        "y": 225.5,
+        "width": 354,
+        "height": 392.984375,
+        "bottom": 618.484375,
+        "font": "15px"
+      },
+      "targets": {
+        "[data-action=\"fill\"]": {
+          "x": 33,
+          "y": 326.296875,
+          "width": 324,
+          "height": 135.09375,
+          "bottom": 461.390625,
+          "font": "14px"
+        },
+        "#close-dialog": {
+          "x": 321,
+          "y": 232.5,
+          "width": 44,
+          "height": 44,
+          "bottom": 276.5,
+          "font": "20px"
+        }
+      }
+    },
+    "1280-warehouse": {
+      "height": 900,
+      "width": 1265,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 499.5,
+          "y": 621.578125,
+          "width": 129,
+          "height": 46,
+          "bottom": 667.578125,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 636.5,
+          "y": 621.578125,
+          "width": 129,
+          "height": 46,
+          "bottom": 667.578125,
+          "font": "14px"
+        }
+      }
+    },
+    "1280-warehouse-0m": {
+      "height": 900,
+      "width": 1265,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 499.5,
+          "y": 621.578125,
+          "width": 129,
+          "height": 46,
+          "bottom": 667.578125,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 636.5,
+          "y": 621.578125,
+          "width": 129,
+          "height": 46,
+          "bottom": 667.578125,
+          "font": "14px"
+        }
+      }
+    },
+    "1280-tasting-0m": {
+      "height": 900,
+      "width": 1265,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 582,
+          "y": 638.265625,
+          "width": 231.5,
+          "height": 44,
+          "bottom": 682.265625,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 343.5,
+          "y": 689.265625,
+          "width": 231.5,
+          "height": 44,
+          "bottom": 733.265625,
+          "font": "14px"
+        }
+      }
+    },
+    "1280-comparison-0m": {
+      "height": 900,
+      "width": 1265,
+      "dialog": {
+        "x": 412.5,
+        "y": 157.765625,
+        "width": 440,
+        "height": 584.453125,
+        "bottom": 742.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 799.5,
+          "y": 166.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 210.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "1280-warehouse-12m": {
+      "height": 900,
+      "width": 1265,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 499.5,
+          "y": 621.578125,
+          "width": 129,
+          "height": 46,
+          "bottom": 667.578125,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 636.5,
+          "y": 621.578125,
+          "width": 129,
+          "height": 46,
+          "bottom": 667.578125,
+          "font": "14px"
+        }
+      }
+    },
+    "1280-tasting-12m": {
+      "height": 912,
+      "width": 1265,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 582,
+          "y": 665.453125,
+          "width": 231.5,
+          "height": 44,
+          "bottom": 709.453125,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 343.5,
+          "y": 716.453125,
+          "width": 231.5,
+          "height": 44,
+          "bottom": 760.453125,
+          "font": "14px"
+        }
+      }
+    },
+    "1280-comparison-12m": {
+      "height": 900,
+      "width": 1265,
+      "dialog": {
+        "x": 412.5,
+        "y": 157.765625,
+        "width": 440,
+        "height": 584.453125,
+        "bottom": 742.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 799.5,
+          "y": 166.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 210.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "1280-warehouse-72m": {
+      "height": 900,
+      "width": 1265,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 499.5,
+          "y": 621.578125,
+          "width": 129,
+          "height": 46,
+          "bottom": 667.578125,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 636.5,
+          "y": 621.578125,
+          "width": 129,
+          "height": 46,
+          "bottom": 667.578125,
+          "font": "14px"
+        }
+      }
+    },
+    "1280-tasting-72m": {
+      "height": 912,
+      "width": 1265,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 582,
+          "y": 665.453125,
+          "width": 231.5,
+          "height": 44,
+          "bottom": 709.453125,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 343.5,
+          "y": 716.453125,
+          "width": 231.5,
+          "height": 44,
+          "bottom": 760.453125,
+          "font": "14px"
+        }
+      }
+    },
+    "1280-comparison-72m": {
+      "height": 900,
+      "width": 1265,
+      "dialog": {
+        "x": 412.5,
+        "y": 157.765625,
+        "width": 440,
+        "height": 584.453125,
+        "bottom": 742.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 799.5,
+          "y": 166.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 210.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "1280-fill": {
+      "height": 900,
+      "width": 1265,
+      "dialog": {
+        "x": 412.5,
+        "y": 251,
+        "width": 440,
+        "height": 397.984375,
+        "bottom": 648.984375,
+        "font": "15px"
+      },
+      "targets": {
+        "[data-action=\"fill\"]": {
+          "x": 429.5,
+          "y": 353.796875,
+          "width": 406,
+          "height": 135.09375,
+          "bottom": 488.890625,
+          "font": "14px"
+        },
+        "#close-dialog": {
+          "x": 799.5,
+          "y": 260,
+          "width": 44,
+          "height": 44,
+          "bottom": 304,
+          "font": "20px"
+        }
+      }
+    },
+    "390-dpr3-warehouse": {
+      "height": 844,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 107.5,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 199,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "390-dpr3-warehouse-0m": {
+      "height": 844,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 107.5,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 199,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "390-dpr3-tasting-0m": {
+      "height": 872,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 198.5,
+          "y": 604.734375,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 648.734375,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 655.734375,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 699.734375,
+          "font": "14px"
+        }
+      }
+    },
+    "390-dpr3-comparison-0m": {
+      "height": 844,
+      "width": 390,
+      "dialog": {
+        "x": 18,
+        "y": 131.765625,
+        "width": 354,
+        "height": 580.453125,
+        "bottom": 712.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 321,
+          "y": 138.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 182.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "390-dpr3-warehouse-12m": {
+      "height": 844,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 107.5,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 199,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "390-dpr3-tasting-12m": {
+      "height": 899,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 198.5,
+          "y": 631.921875,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 675.921875,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 682.921875,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 726.921875,
+          "font": "14px"
+        }
+      }
+    },
+    "390-dpr3-comparison-12m": {
+      "height": 844,
+      "width": 390,
+      "dialog": {
+        "x": 18,
+        "y": 131.765625,
+        "width": 354,
+        "height": 580.453125,
+        "bottom": 712.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 321,
+          "y": 138.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 182.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "390-dpr3-warehouse-72m": {
+      "height": 844,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#taste-button": {
+          "x": 107.5,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        },
+        "#open-bottle": {
+          "x": 199,
+          "y": 616.578125,
+          "width": 83.5,
+          "height": 66.1875,
+          "bottom": 682.765625,
+          "font": "14px"
+        }
+      }
+    },
+    "390-dpr3-tasting-72m": {
+      "height": 899,
+      "width": 390,
+      "dialog": null,
+      "targets": {
+        "#end-tasting": {
+          "x": 198.5,
+          "y": 631.921875,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 675.921875,
+          "font": "14px"
+        },
+        "#taste-bottle": {
+          "x": 16,
+          "y": 682.921875,
+          "width": 175.5,
+          "height": 44,
+          "bottom": 726.921875,
+          "font": "14px"
+        }
+      }
+    },
+    "390-dpr3-comparison-72m": {
+      "height": 844,
+      "width": 390,
+      "dialog": {
+        "x": 18,
+        "y": 131.765625,
+        "width": 354,
+        "height": 580.453125,
+        "bottom": 712.21875,
+        "font": "15px"
+      },
+      "targets": {
+        "#close-dialog": {
+          "x": 321,
+          "y": 138.765625,
+          "width": 44,
+          "height": 44,
+          "bottom": 182.765625,
+          "font": "20px"
+        }
+      }
+    },
+    "390-dpr3-fill": {
+      "height": 844,
+      "width": 390,
+      "dialog": {
+        "x": 18,
+        "y": 225.5,
+        "width": 354,
+        "height": 392.984375,
+        "bottom": 618.484375,
+        "font": "15px"
+      },
+      "targets": {
+        "[data-action=\"fill\"]": {
+          "x": 33,
+          "y": 326.296875,
+          "width": 324,
+          "height": 135.09375,
+          "bottom": 461.390625,
+          "font": "14px"
+        },
+        "#close-dialog": {
+          "x": 321,
+          "y": 232.5,
+          "width": 44,
+          "height": 44,
+          "bottom": 276.5,
+          "font": "20px"
+        }
+      }
+    }
+  },
+  "artChecks": [],
+  "checks": [
+    {
+      "width": 360,
+      "height": 740,
+      "dpr": 1,
+      "fourCasksTwoTypes": true,
+      "rackKeyboardSelection": true,
+      "glassKeyboardFocusable": true,
+      "publicAges": [
+        0,
+        12,
+        72
+      ],
+      "threeGaugesPreserved": true,
+      "previousMarkersPreserved": true,
+      "comparisonSixGauges": true,
+      "comparisonNoSaveMutation": true,
+      "fillKeyboardAndReload": true,
+      "savesSeparated": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "fourCasksTwoTypes": true,
+      "rackKeyboardSelection": true,
+      "glassKeyboardFocusable": true,
+      "publicAges": [
+        0,
+        12,
+        72
+      ],
+      "threeGaugesPreserved": true,
+      "previousMarkersPreserved": true,
+      "comparisonSixGauges": true,
+      "comparisonNoSaveMutation": true,
+      "fillKeyboardAndReload": true,
+      "savesSeparated": true,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "dpr": 1,
+      "fourCasksTwoTypes": true,
+      "rackKeyboardSelection": true,
+      "glassKeyboardFocusable": true,
+      "publicAges": [
+        0,
+        12,
+        72
+      ],
+      "threeGaugesPreserved": true,
+      "previousMarkersPreserved": true,
+      "comparisonSixGauges": true,
+      "comparisonNoSaveMutation": true,
+      "fillKeyboardAndReload": true,
+      "savesSeparated": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "fourCasksTwoTypes": true,
+      "rackKeyboardSelection": true,
+      "glassKeyboardFocusable": true,
+      "publicAges": [
+        0,
+        12,
+        72
+      ],
+      "threeGaugesPreserved": true,
+      "previousMarkersPreserved": true,
+      "comparisonSixGauges": true,
+      "comparisonNoSaveMutation": true,
+      "fillKeyboardAndReload": true,
+      "savesSeparated": true,
+      "errors": []
+    }
+  ]
+}
