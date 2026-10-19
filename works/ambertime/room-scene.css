@@ -100,3 +100,16 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 
 /* A solitary close action can use the whole footer width while staying right aligned. */
 #dialog-actions>button[data-close=true]:only-child{grid-column:1/-1;justify-self:end;white-space:nowrap;min-width:max-content;width:max-content;max-width:100%}
+
+/* Short choices form one row; the price unit is shared above the group. */
+#dialog-body .price-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#dialog-body .price-options button{min-width:0;padding:6px 3px;white-space:nowrap;overflow-wrap:normal}
+#dialog-body .price-options button>span{display:block;white-space:nowrap}
+#dialog-body .delivery-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#dialog-body .delivery-options button{min-width:0;padding:6px 3px;text-align:center}
+#dialog-body .delivery-options small{margin-top:4px;white-space:normal;overflow-wrap:normal}
+/* Previous tasting values use the same stepped pointer as object selection. */
+#dialog-body .flavor-previous{top:calc(-3 * var(--pixel));width:calc(5 * var(--pixel));height:calc(3 * var(--pixel));background:var(--ink);box-shadow:none;clip-path:polygon(0 0,100% 0,100% 33.333%,80% 33.333%,80% 66.667%,60% 66.667%,60% 100%,40% 100%,40% 66.667%,20% 66.667%,20% 33.333%,0 33.333%)}
+#dialog-body .flavor-track{margin-top:calc(4 * var(--pixel));margin-bottom:6px}
+#taste-button{background:#303547;border-color:#69717d}
+#action-dialog .flavor-phrase{margin:4px 0 8px}

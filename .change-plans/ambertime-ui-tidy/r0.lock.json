@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1364c16cba28c3858898dc1c7d94b54704cfda0d9f28f29af924428c1c68954b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "037bf6a9c8a5d9f2916e3cfec6c04f9f99bded37",
+    "changeId": "ambertime-ui-tidy",
+    "revision": 0,
+    "change": "Tidy existing pixel UI, messages, tabs, selection, modal close and concise sales copy without model changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit user UI tidy request and lightweight verification instruction",
+      "PR511/512 existing implementation and Plans",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ui-tidy/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/tests/ui-tidy.mjs",
+      "works/ambertime/design/ui-tidy/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Same-line date/generation, contained time control, comment panel, icons, blinking selected arrow with reduced motion, shared tab frame.",
+      "Concise contextual wording and sales controls; pixel meter marker; backdrop shares existing close handler; post-fill Watch instead of Bottle.",
+      "Preserve calculation/time/staff/order/save models and existing font/window fixes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Targeted iPhone390 UI and PC1280 header/dialog smoke only; saved state unchanged for display and cancel operations; relevant existing unit tests and mandatory CI.",
+      "Explicit difference from previous type-ui/quantity-fit Plans: no five-viewport full regression, full screenshot collection, font matrix, long automated play, all-feature E2E or simulation."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only UI tidy commit; existing saves and earlier UI fixes retained.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "model/economy/time/save/staff/acceptance/evaluation/generations",
+      "New screens/features",
+      "Comprehensive testing"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/CONTENT Standard locked plan; current font and short viewport fixes retained.",
+      "Expression audit: remove repeated text and decorations; keep facts needed to judge actions.",
+      "User requests lightweight verification; previous exhaustive manual checks are historical and are not required for this scope."
+    ]
+  }
+}
