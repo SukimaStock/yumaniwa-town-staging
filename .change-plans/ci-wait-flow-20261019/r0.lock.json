@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "23056a5d42602bd9889b374312ea7357ec613f3d46da9d733d0c44c79d7ec19f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ci-wait-flow-20261019",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reduce duplicate CI runs and distinguish runner execution from delayed GitHub status propagation; reuse exact-SHA completed work.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "3f92f00f27bd62a499715d65ce9182437b76aff2",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-OPERATIONS.md",
+      ".github/workflows/change-operations-tests.yml",
+      ".github/workflows/release-validator-tests.yml",
+      "GitHub PR #513 run/job/attempt/log APIs and PR comments"
+    ],
+    "allowedPaths": [
+      ".change-plans/ci-wait-flow-20261019/r0.lock.json",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-OPERATIONS.md",
+      ".github/workflows/change-operations-tests.yml",
+      ".github/workflows/release-validator-tests.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      "data/**",
+      "assets/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Keep PR regression tests and post-merge main push tests; remove feature push duplicates in two auxiliary workflows.",
+      "Stop triggering the Change Operations implementation suite from Plan Lock data alone; both trusted gates still validate every PR.",
+      "Define proportional verification depth independently of Plan/risk floor.",
+      "Document bounded CI diagnosis, immutable attempt/job identity, terminal check reconciliation, preserved exact-SHA results and merge/Pages continuation.",
+      "Keep incident evidence and timings in PR, without a new standing report."
+    ],
+    "ownerDecisions": [
+      "User 2026-10-19 explicitly requests CI/workflow audit, minimum fixes, PR and safe Staging merge; no Production or repository settings changes."
+    ],
+    "hqDecisions": [
+      "Audited current security boundary: keep contracted base-owned workflows, all gate logic, exact blobs, required job names and eight-minute timeout unchanged. Two auxiliary workflow trigger reductions preserve PR validation and merged-main validation; locks are data verified by both trusted jobs."
+    ],
+    "rulesApplied": [
+      "Change OS SYSTEM/Full risk floor",
+      "Trusted base and exact-SHA evidence",
+      "Independent review per AGENTS",
+      "No false success or bypass",
+      "Staging only"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review PR513 attempt-specific jobs and available logs; mark missing first-attempt log and unobserved propagation times unknown.",
+      "Parse YAML and check main/feature push, PR, manual, lock-only and implementation-path event matrix; preserve jobs/steps/permissions/timeouts.",
+      "Inspect policy wording and links, exact remote head review, required check results, merge and Pages status."
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR through existing Plan and trusted gates; no game data migration or settings restoration needed.",
+    "outOfScope": [
+      "Production",
+      "AmberTime/game runtime",
+      "Repository settings and auto-merge enablement",
+      "Contracted gate workflow or static registry changes",
+      "New dashboards, ledgers, approval stages or standing reports",
+      "Comprehensive game tests"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "First attempt raw log returns BlobNotFound 404; internal checkout cause cannot be proven.",
+      "GitHub control-plane propagation history has no precise completion observation timestamp.",
+      "Work session runtime and GitHub hosted infrastructure cannot be changed by this repository."
+    ],
+    "alternativesRejected": [
+      "Shorten existing eight-minute timeout without evidence it controls observed delay",
+      "Remove checkout post or change pinned action based on missing logs",
+      "Merge before required checks complete",
+      "Consolidate independent trusted gate/evidence checks for marginal seconds",
+      "Enable auto-merge through settings without authorization"
+    ],
+    "boundaryCases": [
+      "Runner actually unassigned",
+      "Post step incomplete",
+      "Steps completed but run nonterminal",
+      "Conflicting terminal observations",
+      "Cancelled earlier attempt versus successful latest attempt",
+      "New head or base invalidating prior evidence",
+      "Lock-only versus gate/test implementation change",
+      "Pages deployed versus workflow nonterminal"
+    ],
+    "testPlan": [
+      "Existing Change OS Node regression suite including trusted workflow and static contracts",
+      "YAML structural and event-routing matrix assertions, no production or game tests",
+      "Scope -> Risk -> Impact at exact candidate SHA plus trusted Static",
+      "PR required CI, auxiliary checks and automatic review",
+      "Expected-head merge; main workflow and Pages result plus served changed docs"
+    ],
+    "problem": "PR513 validation completed within seconds but post cleanup and workflow state propagation produced long waits and repeated resumes; duplicate branch push/PR suites add avoidable work.",
+    "currentContract": "Two required base-owned workflows validate Plan/Scope/Risk/Impact/Static; auxiliary tests run on branch push and PR, and lock data triggers full Change OS suite.",
+    "whyExistingIsInsufficient": "Resume comments misidentified queued state despite jobs later showing immediate execution; no explicit bounded diagnosis or evidence-reuse criteria; duplicate triggers do not add distinct candidate validation.",
+    "design": "Adjust only two auxiliary trigger sets; keep all validation implementations intact. Centralize diagnosis and restart in OPERATIONS, verification depth in CHANGE-OPERATIONS, and link from AGENTS.",
+    "migration": "No schema or data migration.",
+    "compatibility": "Plan Lock, Scope/Risk/Impact, trusted base, exact blobs/SHA evidence, review and branch protection unchanged.",
+    "promotionRisk": "Staging only, no Production changes."
+  }
+}
