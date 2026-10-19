@@ -1,0 +1,3092 @@
+{
+  "officialArchive": "https://littlelimit.net/arc/misaki/misaki_ttf_2021-05-05.zip",
+  "archiveSha256": "c1851af85a0a010dd84f40803159c2d8a23feecb6c7e800cfeb5c6edc50da46e",
+  "browser": "153.0.8010.0",
+  "fontSizeCss": 24,
+  "sourceStrings": [
+    "0123456789",
+    "2026年10月",
+    "£1,188",
+    "38.4 L",
+    "1年5か月",
+    "バーボン",
+    "リフィル"
+  ],
+  "fonts": [
+    {
+      "id": "gothic",
+      "label": "美咲ゴシック",
+      "file": "works/ambertime/fonts/misaki_gothic.ttf",
+      "sha256": "0963e11e89d5fa409a7a048a52e8ea2d623d764a7998488f8a4291111611c4e1"
+    },
+    {
+      "id": "second",
+      "label": "美咲ゴシック第2",
+      "file": "works/ambertime/fonts/misaki_gothic_2nd.ttf",
+      "sha256": "5f0cbb8850e910ffa749d467bc41c89271388a0cbe0fe48741cf2bf0dfe3ac43"
+    },
+    {
+      "id": "mincho",
+      "label": "美咲明朝",
+      "file": "works/ambertime/design/type-ui/comparison/fonts/misaki_mincho.ttf",
+      "sha256": "e383f92cb7d8cd806bc1940b051ab0609d74acdc4913466a9a3f809a555036d5"
+    }
+  ],
+  "results": [
+    {
+      "dpr": 1,
+      "boost": false,
+      "screenshot": "same-size24-dpr1.png",
+      "faces": [
+        {
+          "id": "gothic",
+          "label": "美咲ゴシック",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 9,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 42,
+                "width": 3,
+                "height": 3
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 3,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 42,
+                "width": 6,
+                "height": 6
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 9,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 27,
+                "width": 15,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 444,
+                "width": 277.328125,
+                "height": 38,
+                "top": 444,
+                "right": 305.328125,
+                "bottom": 482,
+                "left": 28
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 482,
+                "width": 277.328125,
+                "height": 38,
+                "top": 482,
+                "right": 305.328125,
+                "bottom": 520,
+                "left": 28
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 520,
+                "width": 277.328125,
+                "height": 38,
+                "top": 520,
+                "right": 305.328125,
+                "bottom": 558,
+                "left": 28
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 558,
+                "width": 277.328125,
+                "height": 38,
+                "top": 558,
+                "right": 305.328125,
+                "bottom": 596,
+                "left": 28
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 596,
+                "width": 277.328125,
+                "height": 38,
+                "top": 596,
+                "right": 305.328125,
+                "bottom": 634,
+                "left": 28
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 634,
+                "width": 277.328125,
+                "height": 38,
+                "top": 634,
+                "right": 305.328125,
+                "bottom": 672,
+                "left": 28
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 672,
+                "width": 277.328125,
+                "height": 38,
+                "top": 672,
+                "right": 305.328125,
+                "bottom": 710,
+                "left": 28
+              }
+            }
+          ]
+        },
+        {
+          "id": "second",
+          "label": "美咲ゴシック第2",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 42,
+                "width": 3,
+                "height": 3
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 6,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 39,
+                "width": 6,
+                "height": 6
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 24,
+                "width": 15,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 444,
+                "width": 277.328125,
+                "height": 38,
+                "top": 444,
+                "right": 618.65625,
+                "bottom": 482,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 482,
+                "width": 277.328125,
+                "height": 38,
+                "top": 482,
+                "right": 618.65625,
+                "bottom": 520,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 520,
+                "width": 277.328125,
+                "height": 38,
+                "top": 520,
+                "right": 618.65625,
+                "bottom": 558,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 558,
+                "width": 277.328125,
+                "height": 38,
+                "top": 558,
+                "right": 618.65625,
+                "bottom": 596,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 596,
+                "width": 277.328125,
+                "height": 38,
+                "top": 596,
+                "right": 618.65625,
+                "bottom": 634,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 634,
+                "width": 277.328125,
+                "height": 38,
+                "top": 634,
+                "right": 618.65625,
+                "bottom": 672,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 672,
+                "width": 277.328125,
+                "height": 38,
+                "top": 672,
+                "right": 618.65625,
+                "bottom": 710,
+                "left": 341.328125
+              }
+            }
+          ]
+        },
+        {
+          "id": "mincho",
+          "label": "美咲明朝",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 9,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 42,
+                "width": 3,
+                "height": 3
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 3,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 42,
+                "width": 6,
+                "height": 6
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 9,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 27,
+                "width": 15,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 444,
+                "width": 277.34375,
+                "height": 38,
+                "top": 444,
+                "right": 932,
+                "bottom": 482,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 482,
+                "width": 277.34375,
+                "height": 38,
+                "top": 482,
+                "right": 932,
+                "bottom": 520,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 520,
+                "width": 277.34375,
+                "height": 38,
+                "top": 520,
+                "right": 932,
+                "bottom": 558,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 558,
+                "width": 277.34375,
+                "height": 38,
+                "top": 558,
+                "right": 932,
+                "bottom": 596,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 596,
+                "width": 277.34375,
+                "height": 38,
+                "top": 596,
+                "right": 932,
+                "bottom": 634,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 634,
+                "width": 277.34375,
+                "height": 38,
+                "top": 634,
+                "right": 932,
+                "bottom": 672,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 672,
+                "width": 277.34375,
+                "height": 38,
+                "top": 672,
+                "right": 932,
+                "bottom": 710,
+                "left": 654.65625
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dpr": 3,
+      "boost": false,
+      "screenshot": "same-size24-dpr3.png",
+      "faces": [
+        {
+          "id": "gothic",
+          "label": "美咲ゴシック",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 90,
+                "width": 27,
+                "height": 45
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 90,
+                "width": 27,
+                "height": 45
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 90,
+                "width": 27,
+                "height": 45
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 90,
+                "width": 27,
+                "height": 45
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 27,
+                "height": 54
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 45,
+                "top": 126,
+                "width": 9,
+                "height": 9
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 3,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 126,
+                "width": 18,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 27,
+                "height": 54
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 45,
+                "top": 81,
+                "width": 45,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 444,
+                "width": 277.328125,
+                "height": 38,
+                "top": 444,
+                "right": 305.328125,
+                "bottom": 482,
+                "left": 28
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 482,
+                "width": 277.328125,
+                "height": 38,
+                "top": 482,
+                "right": 305.328125,
+                "bottom": 520,
+                "left": 28
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 520,
+                "width": 277.328125,
+                "height": 38,
+                "top": 520,
+                "right": 305.328125,
+                "bottom": 558,
+                "left": 28
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 558,
+                "width": 277.328125,
+                "height": 38,
+                "top": 558,
+                "right": 305.328125,
+                "bottom": 596,
+                "left": 28
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 596,
+                "width": 277.328125,
+                "height": 38,
+                "top": 596,
+                "right": 305.328125,
+                "bottom": 634,
+                "left": 28
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 634,
+                "width": 277.328125,
+                "height": 38,
+                "top": 634,
+                "right": 305.328125,
+                "bottom": 672,
+                "left": 28
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 672,
+                "width": 277.328125,
+                "height": 38,
+                "top": 672,
+                "right": 305.328125,
+                "bottom": 710,
+                "left": 28
+              }
+            }
+          ]
+        },
+        {
+          "id": "second",
+          "label": "美咲ゴシック第2",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 27,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 27,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 27,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 27,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 27,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 45,
+                "top": 126,
+                "width": 9,
+                "height": 9
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 6,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 117,
+                "width": 18,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 27,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 72,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 45,
+                "top": 72,
+                "width": 45,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 444,
+                "width": 277.328125,
+                "height": 38,
+                "top": 444,
+                "right": 618.65625,
+                "bottom": 482,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 482,
+                "width": 277.328125,
+                "height": 38,
+                "top": 482,
+                "right": 618.65625,
+                "bottom": 520,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 520,
+                "width": 277.328125,
+                "height": 38,
+                "top": 520,
+                "right": 618.65625,
+                "bottom": 558,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 558,
+                "width": 277.328125,
+                "height": 38,
+                "top": 558,
+                "right": 618.65625,
+                "bottom": 596,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 596,
+                "width": 277.328125,
+                "height": 38,
+                "top": 596,
+                "right": 618.65625,
+                "bottom": 634,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 634,
+                "width": 277.328125,
+                "height": 38,
+                "top": 634,
+                "right": 618.65625,
+                "bottom": 672,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 672,
+                "width": 277.328125,
+                "height": 38,
+                "top": 672,
+                "right": 618.65625,
+                "bottom": 710,
+                "left": 341.328125
+              }
+            }
+          ]
+        },
+        {
+          "id": "mincho",
+          "label": "美咲明朝",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 90,
+                "width": 27,
+                "height": 45
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 90,
+                "width": 27,
+                "height": 45
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 90,
+                "width": 27,
+                "height": 45
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 90,
+                "width": 27,
+                "height": 45
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 27,
+                "height": 54
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 45,
+                "top": 126,
+                "width": 9,
+                "height": 9
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 3,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 126,
+                "width": 18,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 27,
+                "height": 54
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 36,
+                "top": 81,
+                "width": 63,
+                "height": 54
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 45,
+                "top": 81,
+                "width": 45,
+                "height": 63
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 444,
+                "width": 277.34375,
+                "height": 38,
+                "top": 444,
+                "right": 932,
+                "bottom": 482,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 482,
+                "width": 277.34375,
+                "height": 38,
+                "top": 482,
+                "right": 932,
+                "bottom": 520,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 520,
+                "width": 277.34375,
+                "height": 38,
+                "top": 520,
+                "right": 932,
+                "bottom": 558,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 558,
+                "width": 277.34375,
+                "height": 38,
+                "top": 558,
+                "right": 932,
+                "bottom": 596,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 596,
+                "width": 277.34375,
+                "height": 38,
+                "top": 596,
+                "right": 932,
+                "bottom": 634,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 634,
+                "width": 277.34375,
+                "height": 38,
+                "top": 634,
+                "right": 932,
+                "bottom": 672,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 672,
+                "width": 277.34375,
+                "height": 38,
+                "top": 672,
+                "right": 932,
+                "bottom": 710,
+                "left": 654.65625
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dpr": 1,
+      "boost": true,
+      "screenshot": "numeric-compensation-separate-dpr1.png",
+      "faces": [
+        {
+          "id": "gothic",
+          "label": "美咲ゴシック",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 9,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 42,
+                "width": 3,
+                "height": 3
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 3,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 42,
+                "width": 6,
+                "height": 6
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 9,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 27,
+                "width": 15,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 444,
+                "width": 277.328125,
+                "height": 38,
+                "top": 444,
+                "right": 305.328125,
+                "bottom": 482,
+                "left": 28
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 482,
+                "width": 277.328125,
+                "height": 38,
+                "top": 482,
+                "right": 305.328125,
+                "bottom": 520,
+                "left": 28
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 520,
+                "width": 277.328125,
+                "height": 38,
+                "top": 520,
+                "right": 305.328125,
+                "bottom": 558,
+                "left": 28
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 558,
+                "width": 277.328125,
+                "height": 38,
+                "top": 558,
+                "right": 305.328125,
+                "bottom": 596,
+                "left": 28
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 596,
+                "width": 277.328125,
+                "height": 38,
+                "top": 596,
+                "right": 305.328125,
+                "bottom": 634,
+                "left": 28
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 634,
+                "width": 277.328125,
+                "height": 38,
+                "top": 634,
+                "right": 305.328125,
+                "bottom": 672,
+                "left": 28
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "gothic, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 28,
+                "y": 672,
+                "width": 277.328125,
+                "height": 38,
+                "top": 672,
+                "right": 305.328125,
+                "bottom": 710,
+                "left": 28
+              }
+            }
+          ]
+        },
+        {
+          "id": "second",
+          "label": "美咲ゴシック第2",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 42,
+                "width": 3,
+                "height": 3
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 6,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 39,
+                "width": 6,
+                "height": 6
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 9,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 24,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 21,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 24,
+                "width": 15,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 444,
+                "width": 277.328125,
+                "height": 38,
+                "top": 444,
+                "right": 618.65625,
+                "bottom": 482,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 482,
+                "width": 277.328125,
+                "height": 38,
+                "top": 482,
+                "right": 618.65625,
+                "bottom": 520,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 520,
+                "width": 277.328125,
+                "height": 38,
+                "top": 520,
+                "right": 618.65625,
+                "bottom": 558,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 558,
+                "width": 277.328125,
+                "height": 38,
+                "top": 558,
+                "right": 618.65625,
+                "bottom": 596,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 596,
+                "width": 277.328125,
+                "height": 38,
+                "top": 596,
+                "right": 618.65625,
+                "bottom": 634,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 634,
+                "width": 277.328125,
+                "height": 38,
+                "top": 634,
+                "right": 618.65625,
+                "bottom": 672,
+                "left": 341.328125
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "second, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 341.328125,
+                "y": 672,
+                "width": 277.328125,
+                "height": 38,
+                "top": 672,
+                "right": 618.65625,
+                "bottom": 710,
+                "left": 341.328125
+              }
+            }
+          ]
+        },
+        {
+          "id": "mincho",
+          "label": "美咲明朝",
+          "glyphs": {
+            "0": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "6": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "8": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "9": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 15,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 30,
+                "width": 9,
+                "height": 15
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "£": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 9,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ".": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": -3,
+                "right": 6,
+                "ascent": 3,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 42,
+                "width": 3,
+                "height": 3
+              },
+              "intermediateAlphaPixels": 0
+            },
+            ",": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 6,
+                "ascent": 3,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 42,
+                "width": 6,
+                "height": 6
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "L": {
+              "advanceCss": 12,
+              "metricInkCss": {
+                "left": 0,
+                "right": 9,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 9,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "蒸": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "年": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "月": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "か": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "バ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": 0,
+                "right": 21,
+                "ascent": 18,
+                "descent": 0
+              },
+              "rasterInkPhysical": {
+                "left": 12,
+                "top": 27,
+                "width": 21,
+                "height": 18
+              },
+              "intermediateAlphaPixels": 0
+            },
+            "リ": {
+              "advanceCss": 24,
+              "metricInkCss": {
+                "left": -3,
+                "right": 18,
+                "ascent": 18,
+                "descent": 3
+              },
+              "rasterInkPhysical": {
+                "left": 15,
+                "top": 27,
+                "width": 15,
+                "height": 21
+              },
+              "intermediateAlphaPixels": 0
+            }
+          },
+          "nativeSamples": [
+            {
+              "text": "0123456789",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 444,
+                "width": 277.34375,
+                "height": 38,
+                "top": 444,
+                "right": 932,
+                "bottom": 482,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "2026年10月",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 482,
+                "width": 277.34375,
+                "height": 38,
+                "top": 482,
+                "right": 932,
+                "bottom": 520,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "£1,188",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 520,
+                "width": 277.34375,
+                "height": 38,
+                "top": 520,
+                "right": 932,
+                "bottom": 558,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "38.4 L",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 558,
+                "width": 277.34375,
+                "height": 38,
+                "top": 558,
+                "right": 932,
+                "bottom": 596,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "1年5か月",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 596,
+                "width": 277.34375,
+                "height": 38,
+                "top": 596,
+                "right": 932,
+                "bottom": 634,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "バーボン",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 634,
+                "width": 277.34375,
+                "height": 38,
+                "top": 634,
+                "right": 932,
+                "bottom": 672,
+                "left": 654.65625
+              }
+            },
+            {
+              "text": "リフィル",
+              "font": "mincho, sans-serif",
+              "size": "24px",
+              "rect": {
+                "x": 654.65625,
+                "y": 672,
+                "width": 277.34375,
+                "height": 38,
+                "top": 672,
+                "right": 932,
+                "bottom": 710,
+                "left": 654.65625
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "physicalSafari": false
+}

@@ -37,8 +37,8 @@ body[data-room] #dialog-actions>.free-actions[hidden]{display:none!important}
 /* Priorities share one cell border; surface colors carry the hierarchy. */
 button[data-action=end-trade],button[data-action=cancel-contract],button[data-action=cancel-order]{background:#533b3b;border-color:#98786b}button[aria-pressed=true]{border-color:#bda46b}#action-dialog::backdrop{overscroll-behavior:none;touch-action:pinch-zoom}
 
-/* Standard Misaki Gothic, original official TTF. No synthetic weight or stretch. */
-@font-face{font-family:AmberMisaki;src:url('./fonts/misaki_gothic.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+/* Misaki Gothic2nd, original official TTF. No synthetic weight or stretch. */
+@font-face{font-family:AmberMisaki;src:url('./fonts/misaki_gothic_2nd.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
 html,body{font-size:16px;line-height:1.5;font-synthesis:none}
 html[data-font-state=ready] body{font-family:AmberMisaki,system-ui,-apple-system,"Noto Sans JP",sans-serif}
 #action-dialog,#storage-notice,#recovery{font-family:inherit;font-synthesis:none}
@@ -51,16 +51,17 @@ html[data-font-state=ready] body{font-family:AmberMisaki,system-ui,-apple-system
 #dialog-body :is(h3,p,strong,small){overflow-wrap:anywhere}
 #close-dialog{font-family:system-ui,sans-serif!important;font-size:24px!important}
 
-/* Larger native text uses3source dots. Numerals use4dots at natural aspect ratio. */
+/* Body and natural7-dot numerals share the same size and baseline. */
 html,body{font-size:24px;line-height:32px}
 #action-dialog :is(h2,h3,h4,p,span,small,strong,b,em,label,button,summary,dt,dd,li,time,select),#dialog-body,#dialog-context,#dialog-actions button,#aux-panel button,#hero #change,#hero .amount,#dialog-body .quiet,#action-dialog .dialog-heading h2{font-size:24px!important;font-weight:400!important;line-height:32px}
-html[data-font-state=ready] #action-dialog .ui-number{font-size:32px!important;line-height:.75!important;vertical-align:-3px}
-#action-dialog .ui-number{white-space:nowrap}
+html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!important;line-height:inherit!important;vertical-align:baseline}
+#action-dialog .ui-number{white-space:normal}
 #dialog-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-height:45vh;overflow:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;padding-bottom:4px}
 #action-dialog button{min-height:48px;padding:6px;line-height:32px}
 #dialog-body{padding:0 3px 8px 0}#dialog-body .quiet{margin:8px 0}
-#action-dialog .dialog-heading{gap:6px;margin-bottom:8px;align-items:flex-start;max-height:30vh;overflow:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom}
-#close-dialog{position:sticky;top:0;display:flex;align-items:center;justify-content:center;min-height:48px;width:48px;flex:0 0 48px;background:#2e3143}
+#action-dialog .dialog-heading{display:grid;grid-template-columns:minmax(0,1fr) 48px;gap:8px;margin:0 0 8px;padding:6px;align-items:start;max-height:none;overflow:visible;min-width:0}
+#action-dialog .dialog-heading h2{min-width:0;overflow-wrap:anywhere;word-break:normal}
+#close-dialog{position:static;display:flex;align-items:center;justify-content:center;min-height:48px;width:48px;height:48px;margin:0;padding:0;min-width:48px;background:#2e3143}
 .pixel-icon{display:block;flex:none;width:calc(var(--icon-cell,3px)*7);height:calc(var(--icon-cell,3px)*7);fill:currentColor;shape-rendering:crispEdges;pointer-events:none}
 #aux-panel button{min-height:48px}#action-dialog :is(input,textarea){font:20px/1.5 system-ui,-apple-system,sans-serif!important}
 @media(max-width:300px){#dialog-actions{grid-template-columns:minmax(0,1fr)}}
@@ -70,3 +71,21 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:32px!important;l
 #dialog-body .nearby-picker button{display:grid;grid-template-columns:64px minmax(0,1fr);gap:2px 12px;text-align:left;align-items:center}
 #dialog-body .nearby-pick-art{grid-row:1/4;width:64px;height:64px}
 #dialog-body .nearby-picker :is(strong,span:not(.nearby-pick-art),small){margin:0}
+
+/* Native controls share centered action labels; data rows retain their reading order. */
+#action-dialog button,#aux-panel button,#dialog-body .nearby-picker button{text-align:center}
+#dialog-actions button[data-close=true]{grid-column:2}
+.copy-facts{display:grid;gap:6px;margin:8px 0 12px}.copy-fact{display:grid;grid-template-columns:96px minmax(0,1fr);gap:6px}.copy-label{color:var(--quiet)}.copy-value{min-width:0;overflow-wrap:anywhere}
+#dialog-body button .choice-art{display:block;height:60px;margin:0 auto 4px}#dialog-body button .choice-art svg{height:60px;width:auto;margin:auto}
+#dialog-body button .choice-name,#dialog-body button .choice-price{display:block;margin:0;white-space:nowrap}
+#dialog-body :is(.cask-options,.fill-options){grid-template-columns:repeat(2,minmax(0,1fr))}
+#action-dialog button:has(.choice-art){display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+#action-dialog .ui-quantity{display:inline-block!important;max-width:100%;white-space:nowrap;overflow-wrap:normal;vertical-align:baseline}
+@media(max-width:300px){#dialog-actions button[data-close=true]{grid-column:1}#dialog-body :is(.cask-options,.fill-options){grid-template-columns:minmax(0,1fr)}}
+
+#dialog-actions .choice-art{display:block;height:60px;margin:0 auto}#dialog-actions .choice-art svg{height:60px;width:auto;margin:auto}#dialog-actions :is(.choice-name,.choice-price){display:block;white-space:nowrap;margin:0}#dialog-actions button:has(.choice-art){display:flex;flex-direction:column;align-items:center;gap:4px}
+
+/* Price plus unit sets the minimum action width; wrap columns as text grows. */
+#dialog-body .price-options{display:flex;flex-wrap:wrap;gap:9px}#dialog-body .price-options button{flex:1 1 calc(4.5em + 18px);min-width:0}
+
+#action-dialog .ui-quantity .ui-number{white-space:nowrap}

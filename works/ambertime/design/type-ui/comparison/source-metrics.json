@@ -1,0 +1,836 @@
+[
+  {
+    "font": "misaki_gothic.ttf",
+    "sha256": "0963e11e89d5fa409a7a048a52e8ea2d623d764a7998488f8a4291111611c4e1",
+    "unitsPerEm": 2048,
+    "gridUnitFontUnits": 256,
+    "unicodeCount": 7171,
+    "requestedStringsCovered": true,
+    "unsupportedSamples": {
+      "𠮷": false,
+      "髙": false,
+      "﨑": false,
+      "😀": false,
+      "é": false
+    },
+    "glyphs": {
+      "0": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "1": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "2": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "3": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "4": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "5": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "6": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "7": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "8": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "9": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "£": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 6.0
+        }
+      },
+      ".": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": 0.0,
+          "xMax": 2.0,
+          "yMax": 1.0
+        }
+      },
+      ",": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 2.0,
+          "yMax": 1.0
+        }
+      },
+      "L": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 6.0
+        }
+      },
+      "蒸": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "留": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "年": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "月": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "か": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "た": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "る": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "バ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "ー": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 2.0,
+          "xMax": 7.0,
+          "yMax": 4.0
+        }
+      },
+      "ボ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "ン": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "リ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 6.0,
+          "yMax": 6.0
+        }
+      },
+      "フ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 5.0
+        }
+      },
+      "ィ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 6.0,
+          "yMax": 4.0
+        }
+      },
+      "ル": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      }
+    }
+  },
+  {
+    "font": "misaki_gothic_2nd.ttf",
+    "sha256": "5f0cbb8850e910ffa749d467bc41c89271388a0cbe0fe48741cf2bf0dfe3ac43",
+    "unitsPerEm": 2048,
+    "gridUnitFontUnits": 256,
+    "unicodeCount": 7170,
+    "requestedStringsCovered": true,
+    "unsupportedSamples": {
+      "𠮷": false,
+      "髙": false,
+      "﨑": false,
+      "😀": false,
+      "é": false
+    },
+    "glyphs": {
+      "0": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "1": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "2": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "3": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "4": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "5": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "6": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "7": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "8": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "9": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "£": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      ".": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": 0.0,
+          "xMax": 2.0,
+          "yMax": 1.0
+        }
+      },
+      ",": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 2.0,
+          "yMax": 2.0
+        }
+      },
+      "L": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 7.0
+        }
+      },
+      "蒸": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "留": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "年": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "月": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "か": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "た": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "る": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "バ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "ー": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 3.0,
+          "xMax": 7.0,
+          "yMax": 5.0
+        }
+      },
+      "ボ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "ン": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      },
+      "リ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": 0.0,
+          "xMax": 6.0,
+          "yMax": 7.0
+        }
+      },
+      "フ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "ィ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 6.0,
+          "yMax": 6.0
+        }
+      },
+      "ル": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 7.0
+        }
+      }
+    }
+  },
+  {
+    "font": "misaki_mincho.ttf",
+    "sha256": "e383f92cb7d8cd806bc1940b051ab0609d74acdc4913466a9a3f809a555036d5",
+    "unitsPerEm": 2048,
+    "gridUnitFontUnits": 256,
+    "unicodeCount": 7171,
+    "requestedStringsCovered": true,
+    "unsupportedSamples": {
+      "𠮷": false,
+      "髙": false,
+      "﨑": false,
+      "😀": false,
+      "é": false
+    },
+    "glyphs": {
+      "0": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "1": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "2": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "3": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "4": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "5": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "6": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "7": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "8": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "9": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 5.0
+        }
+      },
+      "£": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 6.0
+        }
+      },
+      ".": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": 0.0,
+          "xMax": 2.0,
+          "yMax": 1.0
+        }
+      },
+      ",": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 2.0,
+          "yMax": 1.0
+        }
+      },
+      "L": {
+        "advance8": 4.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 3.0,
+          "yMax": 6.0
+        }
+      },
+      "蒸": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "留": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "年": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "月": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "か": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "た": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "る": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "バ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 0.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "ー": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": 1.0,
+          "xMax": 7.0,
+          "yMax": 3.0
+        }
+      },
+      "ボ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      },
+      "ン": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 5.0
+        }
+      },
+      "リ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 6.0,
+          "yMax": 6.0
+        }
+      },
+      "フ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 5.0
+        }
+      },
+      "ィ": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 1.0,
+          "yMin": -1.0,
+          "xMax": 6.0,
+          "yMax": 4.0
+        }
+      },
+      "ル": {
+        "advance8": 8.0,
+        "bbox8": {
+          "xMin": 0.0,
+          "yMin": -1.0,
+          "xMax": 7.0,
+          "yMax": 6.0
+        }
+      }
+    }
+  }
+]

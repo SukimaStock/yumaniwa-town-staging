@@ -12,7 +12,7 @@ export function layoutScene(view={}){
  for(const[name,i]of['distill','warehouse','sales'].map((n,i)=>[n,i]))add('room-'+name,'#room-nav [data-room="'+name+'"]',12+i*114,582,108);
  add('open-aux-menu','#open-aux-menu',303,9,45);
  add('open-ledger','#open-ledger',18,522,66,54);
- add('toggle-time','#toggle-time',294,51,54);
+ add('toggle-time','#toggle-time',294,60,54,48);
  const caskSlots=Array.from({length:4},(_,i)=>({x:60+(i%2)*132,y:180+Math.floor(i/2)*144,w:108,h:120,base:234+Math.floor(i/2)*144}));
  const productSlots=caskSlots.map((s,i)=>({...s,y:144+Math.floor(i/2)*144,h:144,base:234+Math.floor(i/2)*144}));
  if(view.room==='warehouse'){
