@@ -80,7 +80,7 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #dialog-body button .choice-name,#dialog-body button .choice-price{display:block;margin:0;white-space:nowrap}
 #dialog-body :is(.cask-options,.fill-options){grid-template-columns:repeat(2,minmax(0,1fr))}
 #action-dialog button:has(.choice-art){display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
-#action-dialog .ui-quantity{display:inline-block!important;max-width:100%;white-space:nowrap;overflow-wrap:normal;vertical-align:baseline}
+#action-dialog .ui-quantity{display:inline-block!important;max-width:100%;white-space:normal;overflow-wrap:anywhere;vertical-align:baseline}
 @media(max-width:300px){#dialog-actions button[data-close=true]{grid-column:1}#dialog-body :is(.cask-options,.fill-options){grid-template-columns:minmax(0,1fr)}}
 
 #dialog-actions .choice-art{display:block;height:60px;margin:0 auto}#dialog-actions .choice-art svg{height:60px;width:auto;margin:auto}#dialog-actions :is(.choice-name,.choice-price){display:block;white-space:nowrap;margin:0}#dialog-actions button:has(.choice-art){display:flex;flex-direction:column;align-items:center;gap:4px}
@@ -88,4 +88,15 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 /* Price plus unit sets the minimum action width; wrap columns as text grows. */
 #dialog-body .price-options{display:flex;flex-wrap:wrap;gap:9px}#dialog-body .price-options button{flex:1 1 calc(4.5em + 18px);min-width:0}
 
-#action-dialog .ui-quantity .ui-number{white-space:nowrap}
+#action-dialog .ui-quantity .ui-number{white-space:inherit}
+/* Only bounded price controls stay atomic; long totals may wrap at enlarged text. */
+#action-dialog :is(.price-options,.choice-price) .ui-quantity{white-space:nowrap;overflow-wrap:normal;max-width:none}
+
+/* Short scenes must still leave room for an enlarged, atomic bottle price. */
+#action-dialog:has(.price-options){min-width:min(calc(var(--view-width,100vw) - 24px),300px)}
+
+/* Keep the close control and body reachable with long titles and enlarged text. */
+#action-dialog .dialog-heading h2{max-height:25vh;overflow-y:auto}
+
+/* A solitary close action can use the whole footer width while staying right aligned. */
+#dialog-actions>button[data-close=true]:only-child{grid-column:1/-1;justify-self:end;white-space:nowrap;min-width:max-content;width:max-content;max-width:100%}

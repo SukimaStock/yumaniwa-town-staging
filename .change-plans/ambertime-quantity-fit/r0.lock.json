@@ -1,0 +1,83 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2aeacfe5495f79697dab350e7015eaae58f78932630c3cfd956b9dceae20f97c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "3d8e14c7562ebc497e643904a906f76952486d38",
+    "changeId": "ambertime-quantity-fit",
+    "revision": 0,
+    "change": "Resolve PR511 oversized quantity feedback while keeping short unit prices atomic and long-title short-screen dialogs usable",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current user AmberTime completion request",
+      "PR511 automatic P2 quantity review",
+      "Independent layout reproduction",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-quantity-fit/r0.lock.json",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/type-ui-windows.mjs",
+      "works/ambertime/design/type-ui/REPORT.md",
+      "works/ambertime/design/type-ui/quantity-fit/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs"
+    ],
+    "expectedChanges": [
+      "Allow unbounded totals to reflow; keep bounded price controls atomic, use viewport-constrained minimum price-window width in short scenes; title-only vertical scroll preserves body and fixed close/focus.",
+      "Keep all runtime JS/model/economy/time/save unchanged; update existing window regression and record independent/current browser results."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/390/PC/short430 and 200percent long title,1e12 display stress,unit price atomic,body >=64px,focus,close,scroll",
+      "Full five-viewport existing browser flow and save replay; independent review; CI,merge,Pages,normalTLS public bytes/smoke"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert CSS and regression-only changes; retain previous UI cleanup and saves.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "Runtime JS",
+      "Model/economy/time/save/names/history"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing locked UI scope inherited; follow-up locked against merged base before final application. Preliminary reproduction/design probes identified short-screen capacity.",
+      "No wording/font reduction, no hidden focus/scrollbars."
+    ]
+  }
+}

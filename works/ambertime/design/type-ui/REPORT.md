@@ -49,3 +49,31 @@ The generic pixel-space runner is copied to `tests/type-ui-browser.mjs` for this
 Screenshots: before/390-warehouse.png → after/390-warehouse.png; before/390-distill.png → after/390-distill.png; before/390-cask-window.png → windows/390-keyboard-close.png. Comparison and selection variants are in their named subdirectories.
 
 Expression audit completed: no decorative copy, no duplicate instructions, preserved action discovery/costs/conditions/flavor data/accessibility. No model,time scheduling,economy,save format/key,user names or historical prose rewriting. Production/sharedEngine/other works unchanged.
+
+## PR511 oversized-quantity follow-up
+
+The automatic review completed after merge and identified valid up-to-1e12 totals overflowing at200% text. This was reproduced and repaired within the original UI scope. Follow-up plan `.change-plans/ambertime-quantity-fit/r0.lock.json` anchors merged3d8e14c; final patch applied after locked plan commit. Earlier design probes are not successful evidence.
+
+Default quantities and nested numerals now reflow. Only bounded price controls preserve nowrap. A viewport-constrained300px minimum allows atomic prices in height-fitted short scenes. Long title alone scrolls vertically at25vh; close stays outside title scroll with visible focus padding, body scroll remains.
+
+Probes: global reflow resolved large totals; enlarged short-screen price needed216px while old body had190px, solved by viewport-constrained minimum.30vh title cap left60px body; final25vh cap yields82px, keeping a complete enlarged line. No text shrink/hidden focus/hidden scrollbar used.
+
+Current window regression:360×740,390×844 DPR3,360×430,1280×900,200% text with long title and simulated£1,000,000,000,000. No horizontal overflow, each£16.00/本 stays one line, body at least64px, scroll/focus/close checks pass. This is layout stress without fabricating a high-wealth saved model state. Existing contracts5cases also pass. Full5viewport regression and independent review completed successfully (details below). RuntimeJS/model/time/economy/save unchanged; only CSS and regression test change. Fresh outputs live underquantity-fit/; original windows results remain historical.
+
+### Follow-up final verification
+
+- CSS SHA256 `6a122982fe1a775d8f61a93d90e6e8a5d5ed19b1650921fb111e8f70f61da32d`; all runtimeJS unchanged from deployed3d8e14c.
+- Full5viewports:10checks/198geometry/108trustedgestures/16screens pass, exit0;11source and16image hashes match current files. Evidence quantity-fit/after/browser-results.json.
+- One earlier full attempt stopped at390px modal swipe; isolated same390condition passes27gestures, then unchanged full suite passes. Cause remains unknown; no assertion or gesture checks were relaxed. Evidence quantity-fit/isolated-390/. This is not reported as a diagnosed product defect.
+- Independent4viewport2×longtitle/gianttotal probe: body82px(short430),310px(360×740),452px(390×844),523px(PC); title/body scroll, visible focus and atomicprice pass; save bytes unchanged.
+- Window test rerun4cases after review found screenshot names omitted height. Names now include width+height for every capture; tall and short360px evidence both retained. Distinct12PNG captures in quantity-fit/windows/. No source-runtime change required for this artifact correction.
+- Existing contracts5cases pass. Prior577unit run remains valid for unchanged runtimeJS/model; CSS follow-up verified by the fresh full browser suite.
+- Scope/Risk/Impact and CI will be confirmed at final exact remote head before merge. Physical Safari/OS keyboard/VoiceOver remain unverified.
+
+### Final close-only guard
+
+Final CSS SHA256 `6c6d685581b3123761fc65328f0e92a6e3aac5b641bfe5e7a2ba859058267688`. Visual QA found enlarged閉じる wrapping in the fixed half-column. Only a sole close action now spans the footer grid, remains right aligned and uses intrinsic width; paired actions are unchanged. Independent probe confirmed90px close at390normal and160px one-line close at360×430/200%, with unchanged saves.
+
+Final-source window checks now cover6viewports:360×740,390×844 DPR3,360×640,360×430,1024×768,1280×900, including200% text, giant-total wrap, atomicprice, single-line close, body capacity, focus, overflow and actual normal close placement.18distinct images use width+height names. All6 pass; existing contracts5cases rerun pass with current CSS and original names/history exact. Results inquantity-fit/windows/ andquantity-fit/contracts/.
+
+The full5viewport/108gesture result above used6a122982CSS. The subsequent sole-close selector was verified by the final6window cases and5contracts; all runtimeJS and model/save bytes remain unchanged. A supplementary full run started before the width correction was not used as final-source evidence; it stopped at the same intermittent swipe assertion. No mixed-source run is claimed as success and no gesture assertion was weakened.
