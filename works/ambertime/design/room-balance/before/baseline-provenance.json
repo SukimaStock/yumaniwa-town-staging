@@ -1,0 +1,81 @@
+{
+  "baseSHA": "d5429d6539ae4c2340a8645f90f814911729a93e",
+  "copiedFromCommittedCanvasProof": true,
+  "screenshots": [
+    {
+      "file": "360-distill.png",
+      "source": "works/ambertime/design/canvas-room/after/360-distill.png",
+      "sha256": "edf3bbc279fbb34002f60d20f59b7def0ec20947365f35f422701b1b21a7152e"
+    },
+    {
+      "file": "360-warehouse.png",
+      "source": "works/ambertime/design/canvas-room/after/360-warehouse.png",
+      "sha256": "cc9103297f90d5bd457fe99992235659eb1443d89077e6b6e6eafff08e160700"
+    },
+    {
+      "file": "360-sales.png",
+      "source": "works/ambertime/design/canvas-room/after/360-sales.png",
+      "sha256": "2412e967990a307a6e92293bf7a3e8d3892fd69f5269b4f67c1b874e726ed4c9"
+    },
+    {
+      "file": "390-distill.png",
+      "source": "works/ambertime/design/canvas-room/after/390-distill.png",
+      "sha256": "8e6770047c7940ac7f294bce0ae590732afd02b3dda427d93728767228d284d2"
+    },
+    {
+      "file": "390-warehouse.png",
+      "source": "works/ambertime/design/canvas-room/after/390-warehouse.png",
+      "sha256": "12673e49b6d4fdc1751bc7ae562d8a849097347c2fc8d4f7eaa5b0af1b5b1a55"
+    },
+    {
+      "file": "390-sales.png",
+      "source": "works/ambertime/design/canvas-room/after/390-sales.png",
+      "sha256": "8e62a07439fd757d290afe12b1091ad36fe5d0acf583dda29899627ff6ce4dfe"
+    },
+    {
+      "file": "1280-distill.png",
+      "source": "works/ambertime/design/canvas-room/after/1280-distill.png",
+      "sha256": "6f42d90d0c9af275935855e942643d5a4c122f51d734d6c176413b6f825f4166"
+    },
+    {
+      "file": "1280-warehouse.png",
+      "source": "works/ambertime/design/canvas-room/after/1280-warehouse.png",
+      "sha256": "5d167a2ec563975dcaf159cd0c2f36e0cf16f595c18506262983c230f29aac3d"
+    },
+    {
+      "file": "1280-sales.png",
+      "source": "works/ambertime/design/canvas-room/after/1280-sales.png",
+      "sha256": "55a37bb9931214418ef411cd5589fbfe151ce0d6ec272d9d10f71a1110d703a6"
+    },
+    {
+      "file": "390-cask-window.png",
+      "source": "works/ambertime/design/canvas-room/after/390-cask-window.png",
+      "sha256": "867c37658fbe8a2f6cb542b9050ffa1418d928fde13a69f03c705d7d8ecfa498"
+    },
+    {
+      "file": "390-tasting.png",
+      "source": "works/ambertime/design/canvas-room/after/390-tasting.png",
+      "sha256": "38fef343ced54e55864ac5aa75c72dc7e880e4ecc1c89c3ba32956f69c4ef655"
+    },
+    {
+      "file": "390-comparison.png",
+      "source": "works/ambertime/design/canvas-room/after/390-comparison.png",
+      "sha256": "d3cbc1c264e99e1ce00b410f45f4b99fb6c6f6c4821aefcf6d23775d8ddbbb2a"
+    },
+    {
+      "file": "390-bottling.png",
+      "source": "works/ambertime/design/canvas-room/after/390-bottling.png",
+      "sha256": "031c55af1956fdde91d7cc72c3472d3afc8620256fa50812e2876325bbcaeef9"
+    },
+    {
+      "file": "390-product-window.png",
+      "source": "works/ambertime/design/canvas-room/after/390-product-window.png",
+      "sha256": "f66c21deb0af00cb1d9e3e7dc9d7668f7091aa3f78a0f6abf9bc6326e3f8af14"
+    },
+    {
+      "file": "390-pinch-window.png",
+      "source": "works/ambertime/design/canvas-room/after/390-pinch-window.png",
+      "sha256": "8bafbd41248ad9b10e6ad831827cca426918240bf125d5d8eb1ea6ffb3e31d91"
+    }
+  ]
+}
