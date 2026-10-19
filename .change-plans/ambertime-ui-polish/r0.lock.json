@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b41e085894817e19f64ab6657f91660439c4b3c4933a771698661d1942381f52",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "6ba0aaeb7b68e538934ed49aece04552b4d70333",
+    "changeId": "ambertime-ui-polish",
+    "revision": 0,
+    "change": "Eight targeted pixel UI adjustments: HUD buttons, modal pointer focus and close alignment, compact distill actions, brighter ledger offset2, readout border, two display labels",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit eight-item user request",
+      "PR513 implementation/locked plan",
+      "PR514 updated CI operations",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ui-polish/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/tests/ui-polish.mjs",
+      "works/ambertime/design/ui-polish/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Maintain PR513 layout and behavior; unify 45px HUD buttons and reduce distill action width; preserve taps and display-only book shape with brighter colors and exact2 logical px right offset.",
+      "Fix common dialog heading pointer focus ring and 48px close alignment; preserve keyboard focus, screen-reader heading focus and backdrop logic. Frame existing distill readout with comment style.",
+      "Display-only adapter: 原酒と木の重なりを待つ→熟成を待つ. Keep shelf 販売中 instead of 販売. No persisted strings or model changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Lightweight only: 390x844 touch focus/menu/fill/ledger/basic close/backdrop/keyboard, targeted room drawing and labels; minimal1280 header check. Existing layout/input regression; model/save impact by diff.",
+      "Mandatory CI then exact-head merge and changed-file public byte check. Follow PR514 finite attempt/job/step diagnosis; no redundant test or successful-job replay."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this UI polish commit; PR513 behavior and existing saves remain.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/CONTENT Standard Lock because paths exceed active-work four-file boundary; lightweight verification remains appropriate.",
+      "Expression audit: change only requested labels, no extra copy/decoration.",
+      "Prior ui-tidy Plan was broader; do not replay postfill/sales/comparison flows unrelated to these changes. CI configuration stays untouched."
+    ]
+  }
+}
