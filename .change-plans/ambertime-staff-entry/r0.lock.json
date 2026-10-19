@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7874ae3f2df7011e8fed2ab8f7d1e628ce083d153b3f20c161e753a36f9a19b2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "e7cef048ecd789e55689e5e0c7bc3a27bf83eef2",
+    "changeId": "ambertime-staff-entry",
+    "revision": 0,
+    "change": "Seven local UI adjustments: staff entry only via distill management, grouped management icons, three short labels, contextual information rows and centered distill text",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit seven-item user request",
+      "PR516 current implementation/locked Plan",
+      "PR514 CI operations",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-staff-entry/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/tests/staff-entry.mjs",
+      "works/ambertime/design/staff-entry/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Remove non-distill direct staff request UI and dead entry listeners. Retain staff hire, selected recipe workflow, request/cancel handlers and every model module. Verify saved and earlier unsaved manual sources can be selected from staff recipes.",
+      "Place ledger/person in one accessible management group with neighboring tap regions and optically aligned pixel icons. Preserve existing book brightness/2px offset and other HUD/tab geometry. Center 蒸留 using actual font glyph bounds without changing button size.",
+      "Fixed labels: 取扱開始, 前と比べる, 記録 where brand context is clear; preserve ブランドの記録 in ambiguous mixed-history links. Replace literal field separators with line breaks in current structured comparison/brand/shop/staff/notice UI, preserve names, saved prose and data. No global DOM/string replacement."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Targeted 390x844 and minimal PC: no external staff buttons, cask/trial/comparison/release/brand records; staff old recipe select/request/cancel and unsaved source availability; management icon geometry; glyph center; revised labels and information rows; save/model protected diff and stable data checks.",
+      "Existing layout/input five tests once, syntax and Scope→Risk→Impact. Mandatory CI/current head-base-reviews then Staging merge and exact merge Pages/public changed-file byte verification. No broad test replay."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this seven-item UI change only; retain PR516 and all saves.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Five runtime files exceed active-work four-file fast path: use Standard Lock before runtime edits, while verification remains lightweight.",
+      "Expression audit: remove confusing duplicated entry points and redundant button copy, no new prose or unrelated design.",
+      "Compared with PR516 Plan, do not replay pause-cue timing or other unchanged modal actions; only the current seven items. CI configuration unchanged."
+    ]
+  }
+}

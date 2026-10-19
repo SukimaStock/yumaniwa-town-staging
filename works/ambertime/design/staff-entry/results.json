@@ -1,0 +1,61 @@
+[
+  {
+    "width": 390,
+    "book": {
+      "key": "open-ledger",
+      "selector": "#open-ledger",
+      "x": 18,
+      "y": 522,
+      "w": 66,
+      "h": 54
+    },
+    "staff": {
+      "key": "open-staff-panel",
+      "selector": "#open-staff-panel",
+      "x": 90,
+      "y": 522,
+      "w": 54,
+      "h": 54
+    },
+    "glyph": {
+      "book": {
+        "x": 38,
+        "y": 528,
+        "w": 30,
+        "h": 33,
+        "color": "#6e5a42"
+      },
+      "personTop": 531,
+      "personBottom": 559
+    },
+    "button": {
+      "x": 123.5,
+      "y": 523.828125,
+      "w": 143,
+      "h": 48.75,
+      "right": 266.5,
+      "bottom": 572.578125
+    },
+    "text": {
+      "x": 195,
+      "y": 559,
+      "ascent": 21,
+      "descent": 0
+    },
+    "textCenter": 548.5,
+    "oldRecipe": {
+      "id": "recipe-2",
+      "sourceId": 2,
+      "stopAt": 35,
+      "type": "refill"
+    },
+    "unsavedSourceAdded": 8,
+    "requestCancel": true,
+    "namesRecordsPreserved": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "managementButtons": true
+  }
+]
