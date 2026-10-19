@@ -12,7 +12,7 @@ export function layoutScene(view={}){
  for(const[name,i]of['distill','warehouse','sales'].map((n,i)=>[n,i]))add('room-'+name,'#room-nav [data-room="'+name+'"]',12+i*114,582,108);
  add('open-aux-menu','#open-aux-menu',303,9,45);
  add('open-ledger','#open-ledger',18,522,66,54);
- add('toggle-time','#toggle-time',297,60,48,45);
+ add('toggle-time','#toggle-time',303,60,45,45);
  const caskSlots=Array.from({length:4},(_,i)=>({x:60+(i%2)*132,y:180+Math.floor(i/2)*144,w:108,h:120,base:234+Math.floor(i/2)*144}));
  const productSlots=caskSlots.map((s,i)=>({...s,y:144+Math.floor(i/2)*144,h:144,base:234+Math.floor(i/2)*144}));
  if(view.room==='warehouse'){
@@ -23,7 +23,7 @@ export function layoutScene(view={}){
   add('shelf-prev','#shelf-pages [data-page-step="-1"]',12,111,96);add('shelf-next','#shelf-pages [data-page-step="1"]',252,111,96);
   add('trade-info','#trade-info',96,528,120);add('shop-offer','#shop-offer',228,528,120);
  }else{
-  for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,84,414,192);
+  for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,114,414,132);
   add('open-staff-panel','#open-staff-panel',288,522,54,54);
  }
  return{width:360,height:640,floorY:468,shelf:{x:48,y:165,w:264,h:267,rails:[234,378]},equipment:{x:90,y:270,w:180,h:108,benchY:378},caskSlots,productSlots,controls};

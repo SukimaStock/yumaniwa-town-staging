@@ -1,6 +1,7 @@
 // Fixed system copy only. Never pass user names, imported prose, or saved records.
 // This adapter leaves simulation modules and their persisted text untouched.
 const phrases=Object.freeze([
+ ['原酒と木の重なりを待つ','熟成を待つ'],
  ['原酒の色が深くなってきた','色が深くなった'],
  ['若い原酒のまま、少し先へ','若い原酒'],['原酒の香りが広がる頃','かおりが広がる'],
  ['木の変化をもう少し見守る','木の変化を待つ'],['軽やかさの変化を見届ける','軽やかさを待つ'],

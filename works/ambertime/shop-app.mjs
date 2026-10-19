@@ -1,4 +1,4 @@
-import {CanvasScene} from './canvas-scene.mjs?v=0.25-ui-tidy-1';
+import {CanvasScene} from './canvas-scene.mjs?v=0.26-ui-polish-1';
 import * as D from './partner-orders.mjs?v=0.19staff';
 import {SHOPS} from './shop-model.mjs?v=0.19staff';
 import {caskName as sourceCaskName,releaseNumber} from './work-context.mjs?v=0.15.2';
@@ -12,7 +12,7 @@ import {shortTaste,shortChange} from './tasting-view.mjs?v=0.6';
 import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=0.19-flavor';
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=0.18-tasting';
 import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=0.19staff';
-import {uiText} from './ui-text.mjs?v=0.24-type-ui-1';
+import {uiText} from './ui-text.mjs?v=0.26-ui-polish-1';
 // Only fixed system labels are adapted. Never use uiText on names or saved prose.
 const caskName=id=>uiText(sourceCaskName(id)).replace('#','No.');
 const FLAVOR_AXES=sourceFlavorAxes.map(axis=>({...axis,label:uiText(axis.label)}));
@@ -32,8 +32,9 @@ let shelfPage=0;
 let modalReturnFocus=null;
 let modalReturnObject=null;
 let pointerInteraction=false;
-document.addEventListener('pointerdown',()=>{pointerInteraction=true;},true);
-document.addEventListener('keydown',()=>{pointerInteraction=false;},true);
+const inputMode=pointer=>{pointerInteraction=pointer;$('action-dialog').dataset.input=pointer?'pointer':'keyboard';};
+document.addEventListener('pointerdown',()=>inputMode(true),true);
+document.addEventListener('keydown',()=>inputMode(false),true);
 // Ephemeral display only; never stored or used by the simulation.
 let completedSpirit=null;
 let deliveryNotice='';
@@ -430,7 +431,7 @@ function syncModal(){
   else $('dialog-actions').innerHTML=actions;
  }else{vaultPanels();$('dialog-body').innerHTML=body;$('dialog-actions').innerHTML=actions;}
  dialog.dataset.kind=kind;$('close-dialog').hidden=kind==='decision'||kind==='generation-review';
- if(!dialog.open){dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}
+ if(!dialog.open){$('dialog-title').removeAttribute('tabindex');dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}
 }
 function renderSpirit(){
  const panel=$('spirit-readout');if(!panel)return;
