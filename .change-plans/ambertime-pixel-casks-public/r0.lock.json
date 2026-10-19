@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "306f2fe5a5e6b8c4988bbcc4abe531ba897f8215dd367ae21b1c51c323104eb5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-pixel-casks-public",
+    "revision": 0,
+    "change": "Codea-informed pixel casks and sample glass, main only",
+    "planLevel": "standard",
+    "classes": [
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "8d107ceccd56d7265b46743db0fca47150e2cf5a",
+    "canonicalSources": [
+      "Current user first-stage pixel-art request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Current main8d107cec compact UI and original art.mjs wood thresholds",
+      "Original Codea AmberTime source read from user-authorized Drive folder; private identifiers and detailed metadata excluded from public records"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-pixel-casks-public/r0.lock.json",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/pixel-*.mjs",
+      "works/ambertime/design/pixel-casks/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/art.mjs",
+      "works/ambertime/brand-art.mjs",
+      "works/ambertime/distillery-art.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs"
+    ],
+    "expectedChanges": [
+      "Codea16px silhouette and bourbon/refill palettes, rounded sides, two metal hoops, bung and simple staves; no Codea quality/age tag behavior",
+      "First check bourbon/glass at actual sizes before refill/related contexts; transparent clear glass and unchanged Web wood color thresholds",
+      "Main-only new module, grid-aligned SVG rect art with integer scale within existing rack/hero/tasting/comparison/fill/recipe wrappers; original art.mjs and oldversions unchanged",
+      "Preserve fonts/controls/hitareas/labels/state and all game computations, clock, save, no new animation or aromaicons",
+      "360740390844PC beforeafter and DPR checks, early/mid/long actual data, existing tests, independent review and public deployed operation/hash verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Codea source provenance exact lines/hash; baricon differs from Web sampleglass, no agecolor or interaction rules ported",
+      "Integer pixel edges, palette and outline coherent at rack/selected/comparison/fill; normalglass transparent andvisible; existingwood liquid mapping unchanged",
+      "360740390844PC/DPR1and3: compactlayout noextra scroll, hitareas/focus/readnames unchanged, gauges/type/previousmarks preserved",
+      "Existing tests and compactbrowser; actual earlymiddlelong samples match all4 liquid colors; oldsave/generation, modalclock and separated saves",
+      "ScopeRiskImpact exacthead, independent review, CI/Pages success and public file hashes and operation; physicalSafari unverified"
+    ],
+    "rollback": "Revert scoped main art import/module and CSS. Original art/assets and saves remain unchanged.",
+    "outOfScope": [
+      "Production",
+      "Manufacturing/economy/RNG/clock/save/schema/migration",
+      "Text/buttons/background/still/bottle art",
+      "Ended trials/mocks, new aromaicons/parameters/animations"
+    ],
+    "unverified": [
+      "Physical iPhone Safari and owner visual adoption"
+    ],
+    "rulesApplied": [
+      "Standard ASSET/WORK with >4 files/evidence, locked before implementation",
+      "Code-native SVG extends existing approach, no raster imagegen needed",
+      "AGENTS appropriate delegation: separate browser tests and read-only review, root owns runtime art/CSS",
+      "Expressionaudit no added UI/text/decorative framing",
+      "Public record omits private source identifiers and detailed file metadata after automated PR disclosure review"
+    ],
+    "ownerDecisions": [
+      "User authorizes first-stage main casks/glass art, necessary tests/PR/Staging merge/publicchecks, compactUI/simulation/saves/Production preserved"
+    ],
+    "hqDecisions": []
+  }
+}
