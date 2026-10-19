@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9c0041dd259949ed60965d4cf596970b32d16cedf12302507e512eab88cbada9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "db51aa502551d0e40a9c838ea92d4d7461363c3f",
+    "changeId": "ambertime-offer-confirm",
+    "revision": 0,
+    "change": "Normal shop offer quantity selection then one atomic acceptance/delivery confirmation; compact quantity rows and left-aligned pixel storefront icon",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit shop-offer confirmation/icon user request",
+      "PR517 current implementation/Plan",
+      "PR514 CI operations",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-offer-confirm/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/tests/offer-confirm.mjs",
+      "works/ambertime/design/offer-confirm/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Normal shop offers: ephemeral unselected count on open, pure count selection/reselection, reset on release switch, disabled confirm until fresh valid quote/count. Only footer commits acceptShopDelivery atomically once. Normal acceptShop without delivery becomes unreachable; preserve saved established relations and all model modules.",
+      "Preserve department special consultation and five-bottle adoption flow, later/decline behavior and established additional-delivery behavior. Short normal offer copy and aligned count/remaining/payment rows; existing selection palette, keyboard focus retained.",
+      "Add a small storefront to work-local shared pixel glyphs; offer remains conditional and named 申し出. Place its54px tap near ledger at left in existing management group; adjust adjacent trade-info bounds to prevent overlap. Other HUD/tab/object drawings unchanged."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Targeted390x844: quantity selection/reselection leaves complete saved bytes stable; initially/reset disabled; confirm equals public atomic transaction including stock/cash/history/relation and replay; duplicate/stale actions cannot re-deliver. Later/decline and additional delivery; release switch/reopen resets; department exception. Icon geometry/name/tap and compact text. MinimalPC row/icon check.",
+      "Existing layout/input five tests once and targeted existing atomic-invalid/selected-release tests only. Syntax, protected model/save/formula diff, Scope→Risk→Impact. Required CI/current head-base-reviews then Staging merge, exact merge Pages and public changed-file byte comparison."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this offer UI change; existing saves and model operations are unchanged.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Six work-local runtime files exceed four-file active-work fast path; Standard Lock before implementation, lightweight verification only.",
+      "Expression audit: short numeric column labels, no long operation explanation, code-native glyph reuses work-local icon renderer.",
+      "Prior staff-entry Plan is historical; do not replay unchanged staff/other UI flows. CI configuration and protection remain unchanged."
+    ]
+  }
+}
