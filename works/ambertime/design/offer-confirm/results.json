@@ -1,0 +1,68 @@
+[
+  {
+    "width": 390,
+    "shop": {
+      "key": "shop-offer",
+      "selector": "#shop-offer",
+      "x": 90,
+      "y": 522,
+      "w": 54,
+      "h": 54
+    },
+    "book": {
+      "key": "open-ledger",
+      "selector": "#open-ledger",
+      "x": 18,
+      "y": 522,
+      "w": 66,
+      "h": 54
+    },
+    "rows": [
+      {
+        "text": "1本44本£12.80",
+        "selected": "false",
+        "h": 50,
+        "overflow": false
+      },
+      {
+        "text": "5本40本£64.00",
+        "selected": "true",
+        "h": 50,
+        "overflow": false
+      },
+      {
+        "text": "10本35本£128.00",
+        "selected": "false",
+        "h": 50,
+        "overflow": false
+      }
+    ],
+    "token": {
+      "id": 9,
+      "count": 5,
+      "shopId": "town-liquor",
+      "offerId": 1
+    },
+    "pureSelection": true,
+    "resetOnReleaseAndReopen": true,
+    "atomicExact": true,
+    "doubleSubmitRejected": true,
+    "additionalDelivery": 1,
+    "deferDecline": true,
+    "departmentConsultAndAdoption": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "quantityRows": true,
+    "iconOpens": true
+  },
+  {
+    "width": 390,
+    "case": "actual-release-switch",
+    "from": "9",
+    "to": "6",
+    "pure": true,
+    "reset": true
+  }
+]

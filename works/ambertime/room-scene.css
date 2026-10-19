@@ -128,3 +128,10 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 
 /* Explicit current-information rows; never split player names or saved prose. */
 #usual-status,.staff-source-title,.copy-value,.delivery-confirmation{white-space:pre-line}
+
+/* Normal offers choose a quantity; the footer alone commits it. */
+.offer-quantity-options{display:grid;gap:9px}
+#action-dialog .offer-count-head,#action-dialog .offer-quantity-options button{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1fr) minmax(0,1.4fr);gap:6px;align-items:center;text-align:center}
+.offer-count-head{padding:0 9px;margin:0 0 6px}
+#action-dialog .offer-quantity-options button{width:100%;min-width:0}
+#action-dialog .offer-quantity-options button>span{min-width:0;white-space:nowrap}
