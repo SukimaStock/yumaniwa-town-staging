@@ -1,0 +1,220 @@
+{
+  "scope": "Sampled header date only; not a claim about every glyph, modal or platform.",
+  "method": "Count exact RGB colors in date ink/background region of existing PNGs using Pillow.",
+  "results": [
+    {
+      "file": "works/ambertime/design/misaki/font-checks/cold-dpr1.png",
+      "sha256": "62c95305c94f35dc6492662dae5eca0c292ebb2ab1c3b1869f0a2b7a52b97d40",
+      "imageSize": [
+        390,
+        844
+      ],
+      "cropPhysical": [
+        12,
+        90,
+        150,
+        110
+      ],
+      "uniqueColors": 2,
+      "mostCommon": [
+        [
+          [
+            41,
+            43,
+            57
+          ],
+          2404
+        ],
+        [
+          [
+            240,
+            230,
+            200
+          ],
+          356
+        ]
+      ]
+    },
+    {
+      "file": "works/ambertime/design/misaki/font-checks/cold-dpr3.png",
+      "sha256": "1ee6ff1aceacdbbb7257fe73cb8d00170670f13dcf14d3274b11b5c8b7da175f",
+      "imageSize": [
+        1170,
+        2532
+      ],
+      "cropPhysical": [
+        36,
+        270,
+        450,
+        330
+      ],
+      "uniqueColors": 2,
+      "mostCommon": [
+        [
+          [
+            41,
+            43,
+            57
+          ],
+          20479
+        ],
+        [
+          [
+            240,
+            230,
+            200
+          ],
+          4361
+        ]
+      ]
+    },
+    {
+      "file": "works/ambertime/design/misaki/font-checks/warm-dpr1.png",
+      "sha256": "62c95305c94f35dc6492662dae5eca0c292ebb2ab1c3b1869f0a2b7a52b97d40",
+      "imageSize": [
+        390,
+        844
+      ],
+      "cropPhysical": [
+        12,
+        90,
+        150,
+        110
+      ],
+      "uniqueColors": 2,
+      "mostCommon": [
+        [
+          [
+            41,
+            43,
+            57
+          ],
+          2404
+        ],
+        [
+          [
+            240,
+            230,
+            200
+          ],
+          356
+        ]
+      ]
+    },
+    {
+      "file": "works/ambertime/design/misaki/font-checks/warm-dpr3.png",
+      "sha256": "1ee6ff1aceacdbbb7257fe73cb8d00170670f13dcf14d3274b11b5c8b7da175f",
+      "imageSize": [
+        1170,
+        2532
+      ],
+      "cropPhysical": [
+        36,
+        270,
+        450,
+        330
+      ],
+      "uniqueColors": 2,
+      "mostCommon": [
+        [
+          [
+            41,
+            43,
+            57
+          ],
+          20479
+        ],
+        [
+          [
+            240,
+            230,
+            200
+          ],
+          4361
+        ]
+      ]
+    },
+    {
+      "file": "works/ambertime/design/misaki/font-checks/delayed-dpr1.png",
+      "sha256": "62c95305c94f35dc6492662dae5eca0c292ebb2ab1c3b1869f0a2b7a52b97d40",
+      "imageSize": [
+        390,
+        844
+      ],
+      "cropPhysical": [
+        12,
+        90,
+        150,
+        110
+      ],
+      "uniqueColors": 2,
+      "mostCommon": [
+        [
+          [
+            41,
+            43,
+            57
+          ],
+          2404
+        ],
+        [
+          [
+            240,
+            230,
+            200
+          ],
+          356
+        ]
+      ]
+    },
+    {
+      "file": "works/ambertime/design/misaki/font-checks/failed-dpr1.png",
+      "sha256": "1885190d6b32e0f91c236c5ca2ce4ce9c20ddca3e32dda3a39da3d24da3584f8",
+      "imageSize": [
+        390,
+        844
+      ],
+      "cropPhysical": [
+        12,
+        90,
+        150,
+        110
+      ],
+      "uniqueColors": 158,
+      "mostCommon": [
+        [
+          [
+            41,
+            43,
+            57
+          ],
+          2220
+        ],
+        [
+          [
+            240,
+            230,
+            200
+          ],
+          116
+        ],
+        [
+          [
+            103,
+            101,
+            102
+          ],
+          57
+        ],
+        [
+          [
+            79,
+            78,
+            85
+          ],
+          14
+        ]
+      ]
+    }
+  ]
+}

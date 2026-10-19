@@ -1,0 +1,2170 @@
+{
+  "browser": "153.0.8010.0",
+  "physicalSafari": false,
+  "results": [
+    {
+      "width": 360,
+      "height": 740,
+      "dpr": 1,
+      "failed": false,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "ready",
+      "unit": 1,
+      "pixels": 16,
+      "logical": 16,
+      "step": 20,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込み",
+            "は自分で行います。 抽出 99 / 100 · バーボ",
+            "ン樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 2,
+          "bottom": 164,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込みま",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 2,
+          "bottom": 164,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待ち",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 #2",
+            "から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 2,
+          "bottom": 164,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要です",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます。",
+            " 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 ",
+            "65 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 360,
+      "height": 740,
+      "dpr": 1,
+      "failed": true,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "fallback",
+      "unit": 1,
+      "pixels": 16,
+      "logical": 16,
+      "step": 20,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込み",
+            "は自分で行います。 抽出 99 / 100 · バーボン",
+            "樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 3,
+          "bottom": 165,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 99 /",
+            " 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 99 /",
+            " 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込みま",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待ち",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 3,
+          "bottom": 165,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 99 /",
+            " 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要です",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 6",
+            "5 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "failed": false,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "ready",
+      "unit": 3.25,
+      "pixels": 56,
+      "logical": 17.23076923076923,
+      "step": 21.23076923076923,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込",
+            "みは自分で行います。 抽出 99 / 100 · ",
+            "バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 2.1538461538461537,
+          "bottom": 166.6153846153846,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 2.1538461538461537,
+          "bottom": 145.3846153846154,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出",
+            " 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 2.1538461538461537,
+          "bottom": 145.3846153846154,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 2.1538461538461537,
+          "bottom": 145.3846153846154,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出",
+            " 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 2.1538461538461537,
+          "bottom": 145.3846153846154,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込",
+            "みます。 抽出 99 / 100 · バーボン樽 · ",
+            "樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 2.1538461538461537,
+          "bottom": 166.6153846153846,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 2.1538461538461537,
+          "bottom": 145.3846153846154,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 2.1538461538461537,
+          "bottom": 166.6153846153846,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を",
+            "待ちます。 抽出 99 / 100 · バーボン樽 ·",
+            " 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 2.1538461538461537,
+          "bottom": 166.6153846153846,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出",
+            " 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 2.1538461538461537,
+          "bottom": 145.3846153846154,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要",
+            "です。 抽出 99 / 100 · バーボン樽 · 樽 ",
+            "#2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 2.1538461538461537,
+          "bottom": 166.6153846153846,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 2.1538461538461537,
+          "bottom": 145.3846153846154,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みま",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2",
+            "から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 2.1538461538461537,
+          "bottom": 166.6153846153846,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽",
+            "出 65 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 2.1538461538461537,
+          "bottom": 145.3846153846154,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "failed": true,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "fallback",
+      "unit": 3.25,
+      "pixels": 56,
+      "logical": 17.23076923076923,
+      "step": 21.23076923076923,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込",
+            "みは自分で行います。 抽出 99 / 100 · バ",
+            "ーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 1.8461538461538463,
+          "bottom": 166.3076923076923,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 1.8461538461538463,
+          "bottom": 145.07692307692307,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 1.8461538461538463,
+          "bottom": 145.07692307692307,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 1.8461538461538463,
+          "bottom": 145.07692307692307,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 1.8461538461538463,
+          "bottom": 145.07692307692307,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込み",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 #",
+            "2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 1.8461538461538463,
+          "bottom": 166.3076923076923,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 1.8461538461538463,
+          "bottom": 145.07692307692307,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 1.8461538461538463,
+          "bottom": 166.3076923076923,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待",
+            "ちます。 抽出 99 / 100 · バーボン樽 · 樽 ",
+            "#2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 1.8461538461538463,
+          "bottom": 166.3076923076923,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 1.8461538461538463,
+          "bottom": 145.07692307692307,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要で",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2",
+            "から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 1.8461538461538463,
+          "bottom": 166.3076923076923,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 1.8461538461538463,
+          "bottom": 145.07692307692307,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.46153846153845,
+          "descent": 1.8461538461538463,
+          "bottom": 166.3076923076923,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽",
+            "出 65 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.23076923076923,
+          "descent": 1.8461538461538463,
+          "bottom": 145.07692307692307,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 640,
+      "dpr": 1,
+      "failed": false,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "ready",
+      "unit": 1,
+      "pixels": 16,
+      "logical": 16,
+      "step": 20,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込み",
+            "は自分で行います。 抽出 99 / 100 · バーボ",
+            "ン樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 2,
+          "bottom": 164,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込みま",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 2,
+          "bottom": 164,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待ち",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 #2",
+            "から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 2,
+          "bottom": 164,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要です",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます。",
+            " 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 ",
+            "65 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 640,
+      "dpr": 1,
+      "failed": true,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "fallback",
+      "unit": 1,
+      "pixels": 16,
+      "logical": 16,
+      "step": 20,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込み",
+            "は自分で行います。 抽出 99 / 100 · バーボン",
+            "樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 3,
+          "bottom": 165,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 99 /",
+            " 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 2,
+          "bottom": 144,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 99 /",
+            " 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込みま",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待ち",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 162,
+          "descent": 3,
+          "bottom": 165,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 99 /",
+            " 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要です",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 6",
+            "5 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142,
+          "descent": 3,
+          "bottom": 145,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "dpr": 3,
+      "failed": false,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "ready",
+      "unit": 4.800000000000001,
+      "pixels": 80,
+      "logical": 16.666666666666664,
+      "step": 20.666666666666664,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込",
+            "みは自分で行います。 抽出 99 / 100 · バ",
+            "ーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 2.083333333333333,
+          "bottom": 165.41666666666666,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 2.083333333333333,
+          "bottom": 144.75,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 2.083333333333333,
+          "bottom": 144.75,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 2.083333333333333,
+          "bottom": 144.75,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 2.083333333333333,
+          "bottom": 144.75,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込み",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 #",
+            "2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 2.083333333333333,
+          "bottom": 165.41666666666666,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 2.083333333333333,
+          "bottom": 144.75,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 2.083333333333333,
+          "bottom": 165.41666666666666,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待",
+            "ちます。 抽出 99 / 100 · バーボン樽 · 樽",
+            " #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 2.083333333333333,
+          "bottom": 165.41666666666666,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 2.083333333333333,
+          "bottom": 144.75,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要で",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2",
+            "から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 2.083333333333333,
+          "bottom": 165.41666666666666,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 2.083333333333333,
+          "bottom": 144.75,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 2.083333333333333,
+          "bottom": 165.41666666666666,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽",
+            "出 65 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 2.083333333333333,
+          "bottom": 144.75,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "dpr": 3,
+      "failed": true,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "fallback",
+      "unit": 4.800000000000001,
+      "pixels": 80,
+      "logical": 16.666666666666664,
+      "step": 20.666666666666664,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込",
+            "みは自分で行います。 抽出 99 / 100 · バー",
+            "ボン樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 1.6666666666666665,
+          "bottom": 164.99999999999997,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込み",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 #2",
+            "から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 1.8749999999999998,
+          "bottom": 165.20833333333331,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています。",
+            " 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待",
+            "ちます。 抽出 99 / 100 · バーボン樽 · 樽 #",
+            "2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 1.6666666666666665,
+          "bottom": 164.99999999999997,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 99",
+            " / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.8749999999999998,
+          "bottom": 144.54166666666666,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要で",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 163.33333333333331,
+          "descent": 1.6666666666666665,
+          "bottom": 164.99999999999997,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出 ",
+            "65 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 142.66666666666666,
+          "descent": 1.6666666666666665,
+          "bottom": 144.33333333333331,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "dpr": 1,
+      "failed": false,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "ready",
+      "unit": 1.40625,
+      "pixels": 24,
+      "logical": 17.066666666666666,
+      "step": 21.066666666666666,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込",
+            "みは自分で行います。 抽出 99 / 100 · バ",
+            "ーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込み",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 ",
+            "#2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待",
+            "ちます。 抽出 99 / 100 · バーボン樽 · ",
+            "樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 ",
+            "99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要で",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2",
+            "から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 ",
+            "抽出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽",
+            "出 65 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "dpr": 1,
+      "failed": true,
+      "publicModelFixture": true,
+      "strictReplay": true,
+      "fontState": "fallback",
+      "unit": 1.40625,
+      "pixels": 24,
+      "logical": 17.066666666666666,
+      "step": 21.066666666666666,
+      "phase": "distilling",
+      "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+      "spiritKind": "最初の採取",
+      "measured": [
+        {
+          "kind": "previous-last-batch",
+          "text": "予約は次の代へ引き継ぎます。最後の仕込みは自分で行います。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約は次の代へ引き継ぎます。最後の仕込",
+            "みは自分で行います。 抽出 99 / 100 · バ",
+            "ーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "last-batch",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出",
+            " 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "active",
+          "text": "仕込み中 · この一樽で終了します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "仕込み中 · この一樽で終了します。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-paused",
+          "text": "予約待ち · 時間を進めると始めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 時間を進めると始めます。 抽出",
+            " 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-ready",
+          "text": "予約待ち · 次の一樽を仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 次の一樽を仕込みます。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 試飲・判断を終えてから仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 試飲・判断を終えてから仕込み",
+            "ます。 抽出 99 / 100 · バーボン樽 · 樽 #",
+            "2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今の原酒を樽へ詰めます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今の原酒を樽へ詰めます。 抽出",
+            " 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 貯蔵庫の4樽が埋まっています",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 瓶詰めのため、商品の販売を待ちます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 瓶詰めのため、商品の販売を待",
+            "ちます。 抽出 99 / 100 · バーボン樽 · 樽 ",
+            "#2から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 今月は仕込み済みです。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 今月は仕込み済みです。 抽出 9",
+            "9 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 仕込みと樽・瓶に £451 必要です。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 仕込みと樽・瓶に £451 必要で",
+            "す。 抽出 99 / 100 · バーボン樽 · 樽 #2",
+            "から"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 届いた申し出を確認します。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 届いた申し出を確認します。 抽",
+            "出 99 / 100 · バーボン樽 · 樽 #2から"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        },
+        {
+          "kind": "queued-reason",
+          "text": "予約待ち · 引継ぎまでは手動で仕込みます。 抽出 99 / 100 · バーボン樽 · 樽 #2から",
+          "lines": [
+            "予約待ち · 引継ぎまでは手動で仕込みます",
+            "。 抽出 99 / 100 · バーボン樽 · 樽 #2か",
+            "ら"
+          ],
+          "lineCount": 3,
+          "lastBaseline": 164.13333333333333,
+          "descent": 2.1333333333333333,
+          "bottom": 166.26666666666665,
+          "noSpiritOverlap": false
+        },
+        {
+          "kind": "actual",
+          "text": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+          "lines": [
+            "最後の仕込みは自分で · 予約は次代へ 抽出",
+            " 65 / 100 · リフィル樽"
+          ],
+          "lineCount": 2,
+          "lastBaseline": 143.06666666666666,
+          "descent": 2.1333333333333333,
+          "bottom": 145.2,
+          "noSpiritOverlap": true
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "fullRackCases": [
+    {
+      "width": 360,
+      "height": 740,
+      "dpr": 1,
+      "failed": false,
+      "sameSessionManualFillThenStaffReserve": true,
+      "strictReplayFixture": true,
+      "fontState": "ready",
+      "phaseLayout": {
+        "lines": 2,
+        "spiritTop": 159,
+        "spiritBottom": 243,
+        "equipmentTop": 270
+      },
+      "summary": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #20から",
+      "spirit": "樽詰めした原酒",
+      "errors": []
+    },
+    {
+      "width": 360,
+      "height": 740,
+      "dpr": 1,
+      "failed": true,
+      "sameSessionManualFillThenStaffReserve": true,
+      "strictReplayFixture": true,
+      "fontState": "fallback",
+      "phaseLayout": {
+        "lines": 2,
+        "spiritTop": 159,
+        "spiritBottom": 243,
+        "equipmentTop": 270
+      },
+      "summary": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #20から",
+      "spirit": "樽詰めした原酒",
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "failed": false,
+      "sameSessionManualFillThenStaffReserve": true,
+      "strictReplayFixture": true,
+      "fontState": "ready",
+      "phaseLayout": {
+        "lines": 3,
+        "spiritTop": 183,
+        "spiritBottom": 267,
+        "equipmentTop": 270
+      },
+      "summary": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #20から",
+      "spirit": "樽詰めした原酒",
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "failed": true,
+      "sameSessionManualFillThenStaffReserve": true,
+      "strictReplayFixture": true,
+      "fontState": "fallback",
+      "phaseLayout": {
+        "lines": 3,
+        "spiritTop": 183,
+        "spiritBottom": 267,
+        "equipmentTop": 270
+      },
+      "summary": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #20から",
+      "spirit": "樽詰めした原酒",
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "dpr": 1,
+      "failed": false,
+      "sameSessionManualFillThenStaffReserve": true,
+      "strictReplayFixture": true,
+      "fontState": "ready",
+      "phaseLayout": {
+        "lines": 3,
+        "spiritTop": 183,
+        "spiritBottom": 267,
+        "equipmentTop": 270
+      },
+      "summary": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #20から",
+      "spirit": "樽詰めした原酒",
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "dpr": 1,
+      "failed": true,
+      "sameSessionManualFillThenStaffReserve": true,
+      "strictReplayFixture": true,
+      "fontState": "fallback",
+      "phaseLayout": {
+        "lines": 3,
+        "spiritTop": 183,
+        "spiritBottom": 267,
+        "equipmentTop": 270
+      },
+      "summary": "予約待ち · 貯蔵庫の4樽が埋まっています。 抽出 99 / 100 · バーボン樽 · 樽 #20から",
+      "spirit": "樽詰めした原酒",
+      "errors": []
+    }
+  ]
+}

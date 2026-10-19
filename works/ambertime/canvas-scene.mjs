@@ -70,8 +70,9 @@ export class CanvasScene{
   if(view.room==='warehouse'&&!items.length)this.text('まだ樽がありません',180,330,16,'center');
   if(view.room==='sales'&&!items.length)this.text('瓶詰めすると商品が並びます',180,330,16,'center');
   if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,16,'center');
-  if(view.room==='distill'&&view.spirit){const p=view.spirit;c.fillStyle='#2e3143';c.fillRect(24,159,312,84);this.text(p.kind+' · '+p.volume,36,180,16);p.axes.forEach((a,i)=>{const y=207+i*27;this.text(a.label,36,y,16);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,36,213,288,16,2);}
-  if(view.room==='distill'&&view.phaseSummary)this.lines(view.phaseSummary,15,122,330,16,3);
+  const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,122,330,16,3):0;
+  const spiritOffset=phaseLines>2?24:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});
+  if(view.room==='distill'&&view.spirit){const p=view.spirit;c.fillStyle='#2e3143';c.fillRect(24,159+spiritOffset,312,84);this.text(p.kind+' · '+p.volume,36,180+spiritOffset,16);p.axes.forEach((a,i)=>{const y=207+spiritOffset+i*27;this.text(a.label,36,y,16);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,36,213+spiritOffset,288,16,2);}
   if(view.notice)this.lines(view.notice,15,492,330,16,2);
   for(const a of this.activeControls){
    if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
