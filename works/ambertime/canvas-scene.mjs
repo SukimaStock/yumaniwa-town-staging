@@ -1,9 +1,12 @@
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.21-space-1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.23-readable-1';
 import{barrel}from'./cask-glass-art.mjs?v=0.19-pixel-1';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.21-space-1';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.22-misaki-1';
+import{BODY_SIZE,pixelTypography,textRuns,numberMarkup}from'./text-metrics.mjs?v=0.23-readable-1';
+import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.23-readable-1';
+import{uiText}from'./ui-text.mjs?v=0.23-readable-1';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false){
  const key=markup+':'+collection.toFixed(3)+':'+active;if(spriteCache.has(key))return spriteCache.get(key);
@@ -19,13 +22,17 @@ export class CanvasScene{
   for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','trade-info','shop-offer'])this.controlRoot.append($(id));
   for(const id of ['skip','open-history','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])document.body.append($(id));
+  const close=$('close-dialog');close.innerHTML=symbolMarkup('close');close.setAttribute('aria-label','閉じる');
+  const observer=new MutationObserver(()=>{observer.disconnect();numberMarkup($('action-dialog'));this.alignDialog();observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});});observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});
+  this.alignDialog=()=>{const dialog=$('action-dialog');if(!dialog.open)return;const vv=window.visualViewport,d=devicePixelRatio||1,r=dialog.getBoundingClientRect();Object.assign(dialog.style,{transform:'none',left:Math.round(((vv?.offsetLeft??0)+(vv?.width??innerWidth)/2-r.width/2)*d)/d+'px',top:Math.round(((vv?.offsetTop??0)+(vv?.height??innerHeight)/2-r.height/2)*d)/d+'px'});};
+  new ResizeObserver(()=>this.alignDialog()).observe($('action-dialog'));
   this.resize=()=>{const vv=window.visualViewport;
    // Fit ordinary resizes/keyboard changes, but let browser pinch magnify the scene.
    // Dialogs still follow the visible rectangle so their inputs/actions stay reachable.
    const visible={width:vv?.width??innerWidth,height:vv?.height??innerHeight,left:vv?.offsetLeft??0,top:vv?.offsetTop??0};
    const zoomed=vv?.scale>1.01;this.root.dataset.zoomed=String(!!zoomed);
    const scene=zoomed?{width:document.documentElement.clientWidth,height:innerHeight,left:0,top:0}:{width:visible.width,height:visible.height,left:0,top:0};
-   this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');document.documentElement.style.setProperty('--pixel',3*v.scale+'px');this.root.dataset.viewport=JSON.stringify(v);this.queue();};
+   this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');document.documentElement.style.setProperty('--pixel',3*v.scale+'px');document.documentElement.style.setProperty('--icon-cell',Math.round(3*v.scale*v.dpr)/v.dpr+'px');this.root.dataset.viewport=JSON.stringify(v);this.alignDialog();this.queue();};
   window.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('scroll',this.resize);this.resize();
   installSceneInput(this.root,$('action-dialog'),()=>{this.pressed=null;this.queue();});
   this.root.addEventListener('pointerdown',e=>{const p=toLogical(this.viewport,e.clientX,e.clientY),hit=hitTest(this.activeControls??[],p.x,p.y);this.root.dataset.lastPointer=JSON.stringify({...p,key:hit?.key??null});this.pressed=hit?.key;this.queue();});
@@ -55,36 +62,36 @@ export class CanvasScene{
   }
  }
  // Text is rasterized at integral physical dots, independently of the room scale.
- textMetrics(size=16){const unit=this.viewport.scale*this.viewport.dpr;const pixels=Math.max(8,Math.round(size*unit/8)*8);return{unit,pixels,logical:pixels/unit};}
- measure(text,size=16){const c=this.ctx,{unit,pixels}=this.textMetrics(size);c.font=`400 ${pixels}px ${FONT_STACK}`;return c.measureText(String(text)).width/unit;}
- text(text,x,y,size=16,align='left',color=ink){const c=this.ctx,v=this.viewport,{pixels}=this.textMetrics(size);c.save();c.setTransform(1,0,0,1,0,0);c.font=`400 ${pixels}px ${FONT_STACK}`;c.textAlign=align;c.textBaseline='alphabetic';c.fillStyle=color;c.fillText(String(text),Math.round((v.offsetX+x*v.scale)*v.dpr),Math.round((v.offsetY+y*v.scale)*v.dpr));c.restore();}
- lines(text,x,y,width,size=16,max=2,align='left'){
+ textMetrics(size=BODY_SIZE){return pixelTypography(size,this.viewport.scale*this.viewport.dpr,document.documentElement.dataset.fontState==='ready');}
+ runs(text,size=BODY_SIZE){const c=this.ctx,m=this.textMetrics(size);return textRuns(text).map(run=>{const pixels=run.number?m.numberPixels:m.pixels;c.font=`400 ${pixels}px ${FONT_STACK}`;return{...run,pixels,width:c.measureText(run.text).width,drop:run.number?m.numberDrop:0};});}
+ measure(text,size=BODY_SIZE){return this.runs(text,size).reduce((sum,run)=>sum+run.width,0)/this.textMetrics(size).unit;}
+ text(text,x,y,size=BODY_SIZE,align='left',color=ink){const c=this.ctx,v=this.viewport,runs=this.runs(text,size),width=runs.reduce((sum,run)=>sum+run.width,0);let px=Math.round((v.offsetX+x*v.scale)*v.dpr)-(align==='center'?width/2:align==='right'?width:0);const py=Math.round((v.offsetY+y*v.scale)*v.dpr);c.save();c.setTransform(1,0,0,1,0,0);c.textAlign='left';c.textBaseline='alphabetic';c.fillStyle=color;for(const run of runs){c.font=`400 ${run.pixels}px ${FONT_STACK}`;c.fillText(run.text,Math.round(px),py+run.drop);px+=run.width;}c.restore();}
+ lines(text,x,y,width,size=BODY_SIZE,max=2,align='left'){
   const result=[];let line='';for(const ch of String(text)){if(this.measure(line+ch,size)>width&&line){result.push(line);line='';}line+=ch;}if(line)result.push(line);const shown=result.slice(0,max);if(result.length>max){let last=Array.from(shown.at(-1));while(last.length&&this.measure(last.join('')+'…',size)>width)last.pop();shown[shown.length-1]=last.join('')+'…';}const step=Math.max(size+4,this.textMetrics(size).logical+4);shown.forEach((s,i)=>this.text(s,x,y+i*step,size,align));return shown.length;
  }
  window(x,y,w,h,fill='#2e3143',border='#6c707b'){const c=this.ctx;c.fillStyle=shadow;c.fillRect(x+3,y+3,w,h);c.fillStyle=border;c.fillRect(x,y,w,h);c.fillStyle=fill;c.fillRect(x+3,y+3,w-6,h-6);}
  draw(){
   if(!this.view||!this.fontSettled)return;this.controls();this.drawWorld();const c=this.ctx,v=this.viewport,view=this.view,l=this.layout;c.setTransform(v.dpr,0,0,v.dpr,0,0);c.fillStyle=shadow;c.fillRect(0,0,v.width,v.height);c.imageSmoothingEnabled=false;c.drawImage(this.world,0,0,120,640/3,v.offsetX,v.offsetY,360*v.scale,640*v.scale);c.save();c.translate(v.offsetX,v.offsetY);c.scale(v.scale,v.scale);
-  c.fillStyle='#292b39';c.fillRect(6,6,348,90);this.text(view.calendar,15,28,16);this.text(view.cash,288,29,16,'right','#e6c77a');this.text(view.generation,15,49,16);this.lines(view.timeStatus,15,73,150,16,1);
+  c.fillStyle='#292b39';c.fillRect(6,6,348,102);this.text(view.calendar,15,33,BODY_SIZE);this.text(view.generation,273,33,BODY_SIZE,'right');this.text(view.cash,288,65,BODY_SIZE,'right','#e6c77a');if(!['停止中','進行中','確認中・停止中','試飲中・停止中','画面を離れて停止中'].includes(view.timeStatus))this.lines(view.timeStatus,15,96,270,BODY_SIZE,1);
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
-  items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2;const lines=this.lines(item.name,mid,p.base+24,132,16,view.room==='sales'?2:1,'center');this.text(view.room==='sales'?item.state:item.age,mid,p.base+24+lines*Math.max(20,this.textMetrics(16).logical+4),16,'center');});
-  if(view.room==='warehouse'&&!items.length)this.text('まだ樽がありません',180,330,16,'center');
-  if(view.room==='sales'&&!items.length)this.text('瓶詰めすると商品が並びます',180,330,16,'center');
-  if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,16,'center');
-  const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,122,330,16,3):0;
-  const spiritOffset=phaseLines>2?24:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});
-  if(view.room==='distill'&&view.spirit){const p=view.spirit;c.fillStyle='#2e3143';c.fillRect(24,159+spiritOffset,312,84);this.text(p.kind+' · '+p.volume,36,180+spiritOffset,16);p.axes.forEach((a,i)=>{const y=207+spiritOffset+i*27;this.text(a.label,36,y,16);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,36,213+spiritOffset,288,16,2);}
-  if(view.notice)this.lines(view.notice,15,492,330,16,2);
+  items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2;const lines=this.lines(view.room==='warehouse'?uiText(item.name):item.name,mid,p.base+27,132,BODY_SIZE,1,'center');this.text(view.room==='sales'?item.state.replace(' · ',' ').replace('販売中','販売').replace('保管中','保管'):item.age,mid,p.base+27+lines*Math.max(26,this.textMetrics(BODY_SIZE).logical+4),BODY_SIZE,'center');});
+  if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
+  const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
+  const spiritOffset=phaseLines>1?18:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});
+  if(view.room==='distill'&&view.spirit){const p=view.spirit;c.fillStyle='#2e3143';c.fillRect(24,159+spiritOffset,312,84);this.text(uiText(p.kind)+' · '+p.volume,36,182+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=210+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,36,213+spiritOffset,288,BODY_SIZE,2);}
+  if(view.notice)this.lines(view.notice,15,492,330,BODY_SIZE,2);
   for(const a of this.activeControls){
    if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
-   if(a.key==='open-ledger'){this.text('帳面',51,574,16,'center');continue;}
+   if(a.key==='open-ledger'){this.text('帳面',51,574,BODY_SIZE,'center');continue;}
    if(a.key==='open-aux-menu'){if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(315+i*9,30,3,3);continue;}
-   if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+27,16,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}
+   if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+29,BODY_SIZE,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}
    const primary=['start-distill','stop-distill','open-fill','go-distill'].includes(a.key),quiet=['open-staff-panel','trade-info','shop-offer','shelf-prev','shelf-next'].includes(a.key);
    if(!quiet)this.window(a.x,a.y,a.w,a.h,pressed?'#414350':primary?'#685038':'#2e3143',primary?'#ae8d60':'#606575');
    else if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}
+   if(a.key==='toggle-time'){const kind=a.label==='時間を止める'?'pause':'play';const unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit));c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(a.x+a.w/2)*v.scale)*v.dpr-3.5*cell),Math.round((v.offsetY+(a.y+a.h/2)*v.scale)*v.dpr-3.5*cell),cell,ink);c.restore();if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}continue;}
    const label=a.key==='trade-info'?'取引':a.key==='shop-offer'?'申し出':a.key==='toggle-time'?a.label.replace('蒸留を再開する','蒸留を再開'):a.label;
-   this.lines(label,a.x+a.w/2,a.y+27,a.w-12,16,2,'center');
+   this.lines(label,a.x+a.w/2,a.y+27,a.w-12,BODY_SIZE,2,'center');
    if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}
   }
   c.restore();

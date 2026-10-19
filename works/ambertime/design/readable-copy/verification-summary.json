@@ -1,0 +1,50 @@
+{
+  "baseSha": "59fa6bf7c508df5ad45c003181413cd0970488b2",
+  "runtimeCheckpoint": "e9dc9b909b7feab005015011b78bb568d54b70ed",
+  "planDigest": "7f2bfdca77db7ca9983aac52da96cc3b980d0026d67088fedde0870bb0833cdc",
+  "units": {
+    "pass": 577,
+    "fail": 0,
+    "durationMs": 129902.597114,
+    "note": "577 tests at runtime checkpoint; subsequent changes: recenter modal on style mutation, shorten reservation guide to予約待ち. Model/time/save sources unchanged."
+  },
+  "browser": {
+    "cases": 10,
+    "geometries": 198,
+    "gestures": 108,
+    "screenshots": 16,
+    "allSourceAndScreenHashesMatch": true,
+    "note": "Full rerun after modal recenter fix. Redundant reservation guide shortened during run; does not affect tested control behavior or layout. Independent phase width checks cover予約待ち."
+  },
+  "contracts": {
+    "cases": 5,
+    "pass": 5,
+    "note": "Rerun after modal recenter fix"
+  },
+  "fonts": {
+    "cases": 8,
+    "pass": 8,
+    "note": "Same loader; regression before final modal-only recenter fix"
+  },
+  "sourceSha256": {
+    "canvas-scene.mjs": "0faff63ba57482525a945fdbefef97d7e63ea74176a748c1a42f8ef086219fe8",
+    "canvas-layout.mjs": "e99d6e7ccf1ef20b5550a336f3b34d478bd6a943dacf2fed89671857d47eca7a",
+    "shop-app.mjs": "3c66f84a0466b8259f8514fc449315f0fcc822a1825eecd65ad39131fb5f82ad",
+    "index.html": "968679688c3fd9ac1702969073b4b2e39cd17ec4e3d6febf908dbb84ef68c58b",
+    "room-scene.css": "9e0f73f8493dcc3d661e4b6c3e19a28fd6a8768fd4b8ae7a8d8a960a13d0bf3b",
+    "ui-text.mjs": "fec6e4f81b2ea2c464b8d8b2b35518d9d2e486e0f51aeaae67f58588bc668c59",
+    "text-metrics.mjs": "15e9a55a875ba93026e44f6a8849ec0b80665482934f796d8d9d7bdfe57ee97a",
+    "pixel-symbols.mjs": "ae81aa445830bc97cbc5adc7d9ee1436c8d4fe28637372a1776801433fb30e5e",
+    "tests/readable-contracts.mjs": "bb814f09f1540ee67959d8ffce855e53752574dfec1759f7bbb260351bddcefa",
+    "tests/readable-fonts.mjs": "bbf1d801c13c89f4508f1decdbfec46d4819b0c328c58bbb669610eacf08861d"
+  },
+  "lifecycle": "PASS",
+  "searchShare": "PASS for existing 10 published works",
+  "unverified": [
+    "Physical Safari",
+    "OS keyboard/text enlargement",
+    "VoiceOver",
+    "Owner adoption"
+  ],
+  "verificationState": "UNVERIFIED"
+}
