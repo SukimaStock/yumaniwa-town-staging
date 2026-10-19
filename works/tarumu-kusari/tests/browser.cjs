@@ -1,0 +1,32 @@
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');
+(async()=>{
+ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ const page=await browser.newPage({viewport:{width:390,height:844},hasTouch:true,isMobile:true});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(process.env.TARUMU_URL || 'http://localhost:8765/works/tarumu-kusari/');
+ const state=()=>page.evaluate(()=>({value:+document.querySelector('#handle').getAttribute('aria-valuenow'),min:+document.querySelector('#handle').getAttribute('aria-valuemin'),weight:document.querySelector('#weight').getAttribute('transform'),links:[...document.querySelector('#links').children].reverse().map(x=>x.getAttribute('transform')),drag:document.querySelector('#handle').classList.contains('dragging')}));
+ const xy=()=>page.evaluate(()=>{const s=document.querySelector('#scene'),v=+document.querySelector('#handle').getAttribute('aria-valuenow'),m=s.getScreenCTM();const p=new DOMPoint(180,340+v).matrixTransform(m);return {x:p.x,y:p.y,scale:m.d};});
+ const start=await state();const p=await xy();
+ await page.mouse.move(p.x,p.y);await page.mouse.down();await page.mouse.move(p.x,p.y+35*p.scale,{steps:8});
+ const partial=await state();assert.equal(partial.weight,start.weight);assert.notEqual(partial.links[0],start.links[0]);assert.equal(partial.links[6],start.links[6]);
+ await page.mouse.move(p.x,p.y+130*p.scale,{steps:15});const taut=await state();assert.equal(taut.min,32);
+ await page.mouse.move(p.x,p.y+90*p.scale,{steps:5});const reverse=await state();assert.equal(reverse.weight,taut.weight);assert.notEqual(reverse.links[0],taut.links[0]);
+ await page.mouse.move(-20,900);await page.mouse.up();assert.equal((await state()).drag,false);
+ await page.locator('#reset').click();assert.deepEqual(await state(),start);
+ // Real browser touch input through CDP, with matching touch ID.
+ const cdp=await page.context().newCDPSession(page);const t=await xy();
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:t.x,y:t.y,id:1}]});
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:t.x,y:t.y+60*t.scale,id:1}]});
+ assert.equal((await state()).value,60);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});assert.equal((await state()).drag,false);
+ await page.locator('#reset').click();await page.locator('#handle').focus();await page.keyboard.press('End');assert.equal((await state()).value,160);await page.keyboard.press('Home');assert.equal((await state()).value,62);
+ await page.locator('#reset').click();const b=await xy();await page.mouse.move(b.x,b.y);await page.mouse.down();await page.evaluate(()=>window.dispatchEvent(new Event('blur')));assert.equal((await state()).drag,false);await page.mouse.up();
+ await page.setViewportSize({width:1100,height:760});await page.emulateMedia({reducedMotion:'reduce'});await page.reload();assert.deepEqual(await state(),start);
+ await page.screenshot({path:'/tmp/tarumu-desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:'/tmp/tarumu-mobile.png'});
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ assert.deepEqual(errors,[]);
+ console.log(JSON.stringify({partial,taut,reverse,checks:['initial','mouse sequential slack','weight threshold','reverse slack with weight held','outside release','reset','CDP touch drag/cancel','keyboard','blur','resize/reload','reduced motion','no overflow/errors'],errors},null,2));
+ await browser.close();
+})();
