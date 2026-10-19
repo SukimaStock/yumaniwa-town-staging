@@ -7,8 +7,8 @@
 <meta name="theme-color" content="#172124">
 <title>AmberTime — 時間を育てる蒸留所</title>
 <link rel="stylesheet" href="./shop.css?v=0.19-pixel-1">
-<link rel="stylesheet" href="./room-scene.css?v=0.28-staff-entry-1">
-<script type="module" src="./shop-app.mjs?v=0.28-staff-entry-1"></script>
+<link rel="stylesheet" href="./room-scene.css?v=0.29-offer-confirm-1">
+<script type="module" src="./shop-app.mjs?v=0.29-offer-confirm-1"></script>
 </head>
 <body data-room="distill">
 <div id="scene-root" role="region" aria-label="蒸留室">
@@ -98,7 +98,7 @@
 <section id="room-sales" class="room" aria-label="販売室" hidden>
 <h2 class="sr-only">販売室</h2>
 <button id="trade-info" class="trade-info" type="button" hidden></button>
-<button id="shop-offer" class="shop-invitation" type="button" hidden></button>
+<button id="shop-offer" aria-label="申し出" aria-haspopup="dialog" class="shop-invitation" type="button" hidden></button>
 <div id="product-shelf" aria-label="商品の棚"></div><nav id="shelf-pages" aria-label="商品のページ" hidden><button type="button" data-page-step="-1">前へ</button><span></span><button type="button" data-page-step="1">次へ</button></nav>
 <p id="sales-empty" class="empty-room"></p>
 <p id="sales-result" class="quiet" role="status"></p>
