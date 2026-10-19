@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "903d6a6011b37cca4360e4eacba62b49ae6908a9438783c24c108283e8e9ac27",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tarumu-kusari-main521",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "選択B「たるむ鎖」の独立試作、active台帳・生成LAB接続",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "05b6b9694cf12c462aab5e643656565aef656361",
+    "canonicalSources": [
+      "works/tarumu-kusari",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/tarumu-kusari-main521/r0.lock.json",
+      "works/tarumu-kusari/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/town-maps.js",
+      "works/mawarikiru-coin/**",
+      "works/rewinding-thread/**",
+      "works/nadeato/**"
+    ],
+    "expectedChanges": [
+      "七つの輪と一つの重り。端を下へ引くと手前から遊びが消え、張り切った後だけ重りが動く。戻すとたるみが戻る",
+      "active staging-only、既存Prototype Benchへ生成接続",
+      "物体、戻るリンク、リセットのみ。タイトル説明・コピー・音・外部素材・保存なし。アクセシブルなsliderとキーボード操作"
+    ],
+    "ownerDecisions": [
+      "2026-10-19 19:28 UTC ユーザー選択 B「たるむ鎖」。親thread 01a11875-47fb-73f8-b86d-cf31e84fa0c8の委任。branch/commit/draft PR/CI/安全なStaging merge・Pages確認を許可。Production・Engine・町・既存作品・保存変更禁止。"
+    ],
+    "hqDecisions": [
+      "AI設計照合: lifecycle JSONと生成LABはunknown-code floorのためFull。既存schema/generatorをそのまま使い契約・共有処理は変更しない。作者による追加承認を意味しない。"
+    ],
+    "rulesApplied": [
+      "AGENTS Work lifecycle active default",
+      "CHANGE-PLAN normal locked route; not lightweight",
+      "EXPRESSION-AUDIT: 画面コピー不要。操作は端輪の形とカーソル、支援技術用ラベルで示す。",
+      "Unrelated AmberTime main update: fresh r0 before transferring reviewed implementation; previous lock unchanged"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-touch-mouse-slack-tension-reverse-reset-cancel-outside-resize",
+      "local-lab-return-expression-audit",
+      "published-entry"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該新規work、台帳の当該項目とLAB生成差分を同じ単位でrevert",
+    "outOfScope": [
+      "production",
+      "町登録",
+      "既存作品",
+      "共有Engine",
+      "外部権限",
+      "保存"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone/iPad Safari",
+      "作者の触感判断"
+    ],
+    "problem": "端から順に遊びが消え、重りへ力が届く瞬間を触る",
+    "currentContract": "単独worksとactive台帳、既存LAB generator",
+    "whyExistingIsInsufficient": "新作が存在しない",
+    "design": "七つの輪の遊びを手前から順に消費する小規模な決定論モデル。全遊びを消費した超過分でのみ重りが移動。SVG独自描画、64px以上の端輪操作領域、一指・マウス・keyboard。戻すとたるみを復元。",
+    "alternativesRejected": [
+      "町やEngine変更",
+      "3D化",
+      "ゲーム化"
+    ],
+    "migration": "既存データ変更なし",
+    "compatibility": "Pointer Eventsとcapture、相対移動。cancel/blur/resizeで入力を解放し停止。外部依存なし。",
+    "boundaryCases": [
+      "slow / fast / reverse / endpoints / hold / reset",
+      "single pointer / extra touch / outside release",
+      "cancel/lost capture/blur/hidden/resize",
+      "keyboard / reduced motion"
+    ],
+    "testPlan": [
+      "Lifecycle関連回帰",
+      "代表的な一指・マウス・張力閾値・逆戻し・初期化・中断をブラウザで確認。全作品/大量サイズ検証を追加しない",
+      "Scope/Risk/Impact/CI/Pages exact SHA・実URL"
+    ],
+    "promotionRisk": "staging only"
+  }
+}
