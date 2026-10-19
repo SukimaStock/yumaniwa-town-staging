@@ -1,0 +1,31 @@
+{
+  "sourceSHA": "a5f4b2da",
+  "source": "Detached immutable main worktree /tmp/amber-compact-before; only public-operation fixture helper copied into tests",
+  "physicalSafari": false,
+  "screenshots": {
+    "1280-warehouse.png": "5f4a3a0d9c543179ba06b59a59034568e5952e0bee15f2cfba87a8feeeac05c4",
+    "360-quote.png": "46151d438cab48bc2fd13e21566c81f45d453868deb4c48e06ae6313d865b563",
+    "390-recipes.png": "2eff05097d22f292cb4e549f70d0b94ad93ab53fc00c666405a3be3481285eaf",
+    "1280-comparison.png": "9c87fa430df6cd1482e326a63919369ab4def040b4acdde63ad29e444af619b3",
+    "360-distill.png": "0f0d1527d881ce62154287f5ad4d157918565fa6ef06237ae43acdec83700538",
+    "390-distill.png": "6a73aecf41b5f5a91687dd42cd7aba228c77dc3f85f3263bd6187710e3f28d70",
+    "360-recipes.png": "53d355e7f0eaaf98775d9438ff481ec4ae162c01616ff9c6258df7beb8f523a3",
+    "390-quote.png": "e6ee341836994833e7bbc83db0eee227f3018b05792f310973e74ccf8ce50a08",
+    "360-tasting.png": "d2589a8f142f84c5fa331180711f3e310c854ae13c454be184f54554d7cc1d61",
+    "1280-distill.png": "e6fd35625d148fa070774c09ee6af64e6f7628ed6fc682e7cb84920a96091cc5",
+    "390-comparison.png": "2b4706c72f7bc0f98df04cfb9c326284f0d41e26c10e4f5253a6536151b820b1",
+    "1280-sales.png": "98125c740d7d8105111a97b0033ae57697445aea2c87c157cba8537a53a011f4",
+    "360-product.png": "7d2531169f3f86a1c8960601f4df2c3936561f119f3f4a5b61debf2dd3209118",
+    "1280-tasting.png": "c7f0b7b57eccd75843c2ffa2960ec47e3701dc693aa195053d3cf53c37b77300",
+    "1280-recipes.png": "f0b562762ba7ecb2283a11d05a98dd71ed302e2c420b57ed9b619539ba9df9d9",
+    "360-sales.png": "e1f83ae0cae7bc242367aedbb19de09710145cd9286dd04ddde66e51b831dc00",
+    "390-product.png": "abf051d49eed2828188626cb2addd90138274689d079db7285fbc3b0a6252958",
+    "1280-product.png": "4ef553779c805e3f688bf66c74cd1546b5fa26eb5f8a03a4e8fa951ed802eb23",
+    "390-warehouse.png": "249561bd5979cd6b8e3dda4f6915322681342c8a6624d01afdda05330eb9a8e6",
+    "1280-quote.png": "2e4188b7f622fe883e45d09a0e1ee63f26535e504cdf792db79a024863d10b22",
+    "360-comparison.png": "aba9fe29358cf70d27a3c9fac785684b97903487cf0d1f4387c1679dc108ab86",
+    "360-warehouse.png": "0c366102ca75fa75f1aca7874c4d1448daca008a822271b9a86b87928f8b8d7e",
+    "390-sales.png": "03ffda3d41d2b65484d087bd87284cb738536ff04764cf697b7965e5c387467f",
+    "390-tasting.png": "94a83f5fef3d9dfd23613261bb88846aef0f7405659c1c31bc0a5b5e71a29d24"
+  }
+}
