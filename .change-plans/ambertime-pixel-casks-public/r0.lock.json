@@ -1,6 +1,6 @@
 {
   "schema": "yumaniwa-change-plan-lock/0.2",
-  "planDigest": "e8bceef6bae7a4dcf45ffc0bc1bc2ee4a5f0f36a5d619f32eb364d7882a0833d",
+  "planDigest": "306f2fe5a5e6b8c4988bbcc4abe531ba897f8215dd367ae21b1c51c323104eb5",
   "plan": {
     "schema": "yumaniwa-change-plan/0.2",
     "status": "READY",
@@ -13,7 +13,7 @@
     ],
     "impactExclusions": [],
     "promotion": "none",
-    "changeId": "ambertime-pixel-casks",
+    "changeId": "ambertime-pixel-casks-public",
     "revision": 0,
     "change": "Codea-informed pixel casks and sample glass, main only",
     "planLevel": "standard",
@@ -33,11 +33,11 @@
       "CHANGE-VERIFICATION.md",
       "OPERATIONS.md",
       "EXPRESSION-AUDIT.md",
-      "Drive SukimaStock Codea/AmberTime.txt ID1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi sha2567d7f64a2237e2cf3bba2211fa1a813545211652b4d48352812e49e83c0496080",
-      "Current main8d107cec compact UI and original art.mjs wood thresholds"
+      "Current main8d107cec compact UI and original art.mjs wood thresholds",
+      "Original Codea AmberTime source read from user-authorized Drive folder; private identifiers and detailed metadata excluded from public records"
     ],
     "allowedPaths": [
-      ".change-plans/ambertime-pixel-casks/r0.lock.json",
+      ".change-plans/ambertime-pixel-casks-public/r0.lock.json",
       "works/ambertime/cask-glass-art.mjs",
       "works/ambertime/shop-app.mjs",
       "works/ambertime/shop.css",
@@ -93,7 +93,8 @@
       "Standard ASSET/WORK with >4 files/evidence, locked before implementation",
       "Code-native SVG extends existing approach, no raster imagegen needed",
       "AGENTS appropriate delegation: separate browser tests and read-only review, root owns runtime art/CSS",
-      "Expressionaudit no added UI/text/decorative framing"
+      "Expressionaudit no added UI/text/decorative framing",
+      "Public record omits private source identifiers and detailed file metadata after automated PR disclosure review"
     ],
     "ownerDecisions": [
       "User authorizes first-stage main casks/glass art, necessary tests/PR/Staging merge/publicchecks, compactUI/simulation/saves/Production preserved"

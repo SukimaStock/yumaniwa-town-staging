@@ -4,7 +4,7 @@
 
 ## Codea原典
 
-Drive `SukimaStock/Code/AmberTime.txt`（[原典](https://drive.google.com/file/d/1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi/view)、2026-09-30保存、677,600bytes）を実際に取得した。SHA256: `7d7f64a2237e2cf3bba2211fa1a813545211652b4d48352812e49e83c0496080`。フォルダの親もCode→SukimaStockと確認。
+Google DriveのSukimaStockフォルダにあるCodea版AmberTimeの原典コードを実際に取得し、以下の描画処理を確認した。非公開ファイルの識別子と詳細メタデータは公開記録に含めない。
 
 | 原典の処理 | 参考にした点 / 今回の扱い |
 | --- | --- |
