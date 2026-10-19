@@ -1,0 +1,78 @@
+[
+  {
+    "width": 390,
+    "tastingReturn": {
+      "x": 285,
+      "y": 701,
+      "w": 78,
+      "h": 50,
+      "right": 363,
+      "bottom": 751
+    },
+    "quoteReturn": {
+      "x": 285,
+      "y": 666.25,
+      "w": 78,
+      "h": 50,
+      "right": 363,
+      "bottom": 716.25
+    },
+    "requestRect": {
+      "x": 27,
+      "y": 627,
+      "w": 78,
+      "h": 50,
+      "right": 105,
+      "bottom": 677
+    },
+    "staffReturn": {
+      "x": 285,
+      "y": 686,
+      "w": 78,
+      "h": 50,
+      "right": 363,
+      "bottom": 736
+    },
+    "trialRect": {
+      "x": 27,
+      "y": 541,
+      "w": 163.5,
+      "h": 50,
+      "right": 190.5,
+      "bottom": 591
+    },
+    "totals": [
+      {
+        "text": "売上累計 £0",
+        "y": 252
+      },
+      {
+        "text": "維持費累計 £12",
+        "y": 284
+      }
+    ],
+    "cue": {
+      "delay": 12000,
+      "step": 1200,
+      "bright": "#858995",
+      "quiet": "#606575",
+      "inputReset": true,
+      "modalSuppressed": true,
+      "reducedMotionSuppressed": true,
+      "resumeStops": true,
+      "pausedSaveStable": true
+    },
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "quoteReturn": {
+      "x": 785.25,
+      "y": 696.25,
+      "w": 80,
+      "h": 52,
+      "right": 865.25,
+      "bottom": 748.25
+    }
+  }
+]

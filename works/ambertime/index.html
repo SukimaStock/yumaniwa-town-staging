@@ -7,8 +7,8 @@
 <meta name="theme-color" content="#172124">
 <title>AmberTime — 時間を育てる蒸留所</title>
 <link rel="stylesheet" href="./shop.css?v=0.19-pixel-1">
-<link rel="stylesheet" href="./room-scene.css?v=0.26-ui-polish-1">
-<script type="module" src="./shop-app.mjs?v=0.26-ui-polish-1"></script>
+<link rel="stylesheet" href="./room-scene.css?v=0.27-modal-actions-1">
+<script type="module" src="./shop-app.mjs?v=0.27-modal-actions-1"></script>
 </head>
 <body data-room="distill">
 <div id="scene-root" role="region" aria-label="蒸留室">
@@ -82,17 +82,17 @@
 <div class="cask-window-heading"><div class="stamp"><span id="cask-kind"></span><strong id="age"></strong></div><button id="close-cask-window" type="button" aria-label="たるの窓を閉じる">×</button></div>
 <div class="inspection-summary"><div class="objects">
 <div id="barrel" class="barrel" aria-hidden="true"></div>
-<button id="glass-button" class="glass-button" aria-label="このたるを試飲" type="button"><span id="glass" class="glass" aria-hidden="true"></span></button>
+<button id="glass-button" class="glass-button" aria-label="このたるを試す" type="button"><span id="glass" class="glass" aria-hidden="true"></span></button>
 </div><div class="inspection-facts"><div class="amount"><span id="amount"></span></div><p id="change" class="change"></p></div></div>
 <section id="tasting-panel" class="tasting-panel" aria-label="試飲" role="region" hidden>
 <h2 id="taste-date"></h2><div id="taste-current"></div><div id="taste-previous" class="taste-previous" hidden></div>
-<div id="tasting-actions" class="free-actions"><button id="compare-tasting" type="button">比べる</button><button id="end-tasting" type="button">戻る</button><button id="taste-bottle" type="button">ビン詰め</button><button id="staff-tasting" type="button" hidden>任せる</button></div>
+<div id="tasting-actions" class="free-actions"><button id="compare-tasting" type="button">比べる</button><button id="taste-bottle" type="button">ビン詰め</button><button id="staff-tasting" type="button" hidden>任せる</button><button id="end-tasting" data-return="true" type="button">戻る</button></div>
 </section>
 </section>
 <details id="cask-details"><summary>たるの詳細</summary><p id="cask-provenance"></p><p id="loss"></p><p id="last-taste" class="quiet"></p></details>
 <button id="assign-wholesale" class="contract-info" type="button" hidden>卸売へ指定</button>
 <button id="contract-info" class="contract-info" type="button" hidden></button>
-<div id="free-actions" class="free-actions"><button id="compare-cask" type="button">比べる</button><button id="taste-button" class="taste-button" type="button">試飲</button><button id="open-bottle" type="button">ビン詰め</button><button id="staff-cask" type="button" hidden>任せる</button></div>
+<div id="free-actions" class="free-actions"><button id="compare-cask" type="button">比べる</button><button id="taste-button" class="taste-button" type="button">試す</button><button id="open-bottle" type="button">ビン詰め</button><button id="staff-cask" type="button" hidden>任せる</button></div>
 </div>
 </section>
 <section id="room-sales" class="room" aria-label="販売室" hidden>
