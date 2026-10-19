@@ -1,0 +1,759 @@
+{
+  "mergeSha": "037bf6a9c8a5d9f2916e3cfec6c04f9f99bded37",
+  "url": "https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/",
+  "files": [
+    {
+      "file": "index.html",
+      "bytes": 9820,
+      "sha256": "bd9916d60c7d38881b593b2a20158d4e9abd4638af23ad241679479792d00f2a",
+      "gitBlob": "125c564cece9c593f595e3aa469c557ab44fc1c2",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "work-context.mjs",
+      "bytes": 625,
+      "sha256": "beaeabe3fb400f8da056b0fb07ac29d34dbd6cfb42b40a150a144caf2136860d",
+      "gitBlob": "72a54b0eb5e89b510d0eae4f554d6f686db290b9",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "economy.mjs",
+      "bytes": 15983,
+      "sha256": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "gitBlob": "c24c3f0c88275f8adb91ebe989af5ac21bc448e2",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "wholesale-v08.mjs",
+      "bytes": 11576,
+      "sha256": "2bfb120e7c0f323e86c040b8b19203df88f4ce6ed2b1c2d7937f39ef76867cfb",
+      "gitBlob": "d2bb88f23f736154fc8ab1ecf41e96842ecdc952",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "canvas-scene.mjs",
+      "bytes": 16289,
+      "sha256": "4e4af3e99bc4f3f7eb893981621ebbe733748a3389e8803b66c0d47219a41f45",
+      "gitBlob": "3a45d62b4ca87a8fd94ccdfd76f18fc1c45534fe",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "partner-parameters.mjs",
+      "bytes": 1113,
+      "sha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "gitBlob": "692701a9b0da7eaa070f49e573c6e4ab8c5bb290",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "comparison-model.mjs",
+      "bytes": 9538,
+      "sha256": "c34e04c87bfc3b2c64beb1c564d4a977652818136c0959e560f29ed3228b2107",
+      "gitBlob": "0b945f5a884ceae0c6f811333352c6a2f8aecd05",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "aroma-extraction.mjs",
+      "bytes": 3073,
+      "sha256": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff",
+      "gitBlob": "d1c09eb4c337e75e977ac48f2097d6a568a83c2b",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "bottle-storage.mjs",
+      "bytes": 418,
+      "sha256": "b7daef172663b9950de61b7522fc9796f4332f2b46ca2441245108873b097fcb",
+      "gitBlob": "0374b2ac687d939f75e3d8a60abfa5a2f909e18a",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "spirit-view.mjs",
+      "bytes": 2433,
+      "sha256": "96397c8f775aa803ec2714060377eeb3a438d1294256672f6269216a2d5f1f8d",
+      "gitBlob": "a3759fb940f58b5599413a686e3a077461f6acfe",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "flavor-types.mjs",
+      "bytes": 1687,
+      "sha256": "233eb1c504d676e7c0426436c34b7664436f0b3e6853430fb7fab2ee312d11f9",
+      "gitBlob": "6e94f47c9243b8e0f8314bd73e9fbd822ddbb5a8",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "v08-legacy-app.mjs",
+      "bytes": 26160,
+      "sha256": "2e2a4e0a8e96589f041ec26271896698efb6b4d4af81b510f6ab9f4f8d01fdeb",
+      "gitBlob": "bc535034e448ac89095a4d0c23e9816ceb4fb362",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "trade-parameters.mjs",
+      "bytes": 374,
+      "sha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c",
+      "gitBlob": "206dc9a701778fbd7d4224f9625a263c4341008b",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "distiller.mjs",
+      "bytes": 266,
+      "sha256": "0b3b4f831bd369a0c25ebbcebc49f189a185f1df6b3a565d59add2436ebd6a99",
+      "gitBlob": "cb11a94608affca3473f797b67d34e66118c5453",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "generations.mjs",
+      "bytes": 3349,
+      "sha256": "626d4be7140355b354881b3b9e6434c845deeca6926b9bf2fccc843a03f73cb9",
+      "gitBlob": "578c667e242988b4e48ccddcabc16309226d4b70",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "distillery-parameters.mjs",
+      "bytes": 357,
+      "sha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710",
+      "gitBlob": "5ac548cb6d9fd63e90a48f356693a93a05121f89",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "distillery-history.mjs",
+      "bytes": 9299,
+      "sha256": "6cf83b22ae9924fd1bca7d698f4713a72a7a64eb8e2aee0fd8b00dae8eade339",
+      "gitBlob": "c11136bf8319e127590245a0fa408d7259dea388",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "model.mjs",
+      "bytes": 14667,
+      "sha256": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "gitBlob": "00da82ebb8d79f77c7271f8d935f7375040aee39",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "font-loader.mjs",
+      "bytes": 776,
+      "sha256": "6e8ae13fe716e5ab24789bee189c5ceb40248c76132131432e64b3f4d12427bc",
+      "gitBlob": "a00b167e22be14a8f019db1fdf7938c4235006cf",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "simulate-distillery.mjs",
+      "bytes": 4084,
+      "sha256": "945c387176109855aeee573a005437c328b40eb6fa0311393576ac6e6fb91fcb",
+      "gitBlob": "d206c9089771266082896b9dc4cb76f800422629",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "simulate.mjs",
+      "bytes": 5162,
+      "sha256": "c77af57ce019f532b71152f362c2a6edb163505705448db0499af76ee63fc240",
+      "gitBlob": "1223e9f3f5968fed6eebf3e82161e7e51f6f323c",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "aroma-app.mjs",
+      "bytes": 44467,
+      "sha256": "dfc8f1ea2434e7e68b0cf86d5fb3df5bda6961f27082adc9305458f6140335f6",
+      "gitBlob": "19a8afb0c69cdcdb61642f4f0ab7bea15a0fb8f4",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "wholesale-parameters.mjs",
+      "bytes": 529,
+      "sha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1",
+      "gitBlob": "ef5f1e810d9f9317714f12465b65e9cebfd5d0f9",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "parallel-app.mjs",
+      "bytes": 20995,
+      "sha256": "1eef4a808276fe5f51327cfcfa8ac703f5d6683245ad27644aea958837f2461f",
+      "gitBlob": "8f8109b5e0ce359704f4c5ad5f2be961c4ac5900",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-app.mjs",
+      "bytes": 100461,
+      "sha256": "5870eb69b4784c7c89fc5d1ccbfb75d9cc98d1d0c6fb4fde4e5a68be5933691c",
+      "gitBlob": "51ce1c30a6d5db9ec7dfd4c8cf7919a7b0ae3892",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "tasting-view.mjs",
+      "bytes": 1644,
+      "sha256": "33d183ec36f9b2c06cad4289c6e80f3a2529ad4effd599852f22e12dee356c0d",
+      "gitBlob": "c3d50573079550d050b08743fab7bdf3f9c9dfb7",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "flavor-view.mjs",
+      "bytes": 1927,
+      "sha256": "bc1ecbaef2926a1e257d8cef3d5092e509dcb264a92029e7843ec786ab62f23c",
+      "gitBlob": "b14cdbbe142506c021570d3374e1673e140dbd52",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "nearby-comparison.mjs",
+      "bytes": 4769,
+      "sha256": "a40aae642ceece92a95c1337cabe778ee225d79a8b3249eb69aeb6901737bfbf",
+      "gitBlob": "659cfb389d13eee91b2aa3657317da0c2677b25b",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "partner-orders.mjs",
+      "bytes": 77946,
+      "sha256": "478389e22041eaa00d170a794a9f2fc920298d10c9f1700653ce382d598c3aa8",
+      "gitBlob": "4ed3bdca8d34af913848a22d6f3d3780b8a4d22b",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "v07-app.mjs",
+      "bytes": 21986,
+      "sha256": "74274bb8c88aaa85a799ed0b228819aaad7a66e56d9d90d566ec2562805448d2",
+      "gitBlob": "4c10f1dd2f960fed4775e8658e69de28b30d93a1",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-model.mjs",
+      "bytes": 3397,
+      "sha256": "215c8c8050897f3e1aca7c9e40433a4c1f20e44cd98f0a04bfc320e5447c0dee",
+      "gitBlob": "08f48af411b34def38a2e7bff9d48c4f09fe88d2",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "distillery-app.mjs",
+      "bytes": 19595,
+      "sha256": "5d4d993b85faecf3012402cadb6f41c17163f0e3cedee4f5662ded0563df57b4",
+      "gitBlob": "7e3a9c58149ff4ae0a9c64de7d08cae15b2100a3",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v0171-app.mjs",
+      "bytes": 72373,
+      "sha256": "92b909c2e6d4b0285e6f6a7a59b80b5b013797a08f138efdd7788271d9547caa",
+      "gitBlob": "a40cb7155a0efbf96bae518334b3ceb3317206f5",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "partners-app.mjs",
+      "bytes": 36189,
+      "sha256": "e6a2fcca91822a6414a087616fc9cf43059545b110ef88772e0ea1b98aa23572",
+      "gitBlob": "b8d51cdd4cf5402c33e277ab38bb9781d7cb381f",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "monthly.mjs",
+      "bytes": 3484,
+      "sha256": "2a0d41bca56d1d3b2daa9a917a83ca1770f311e3f8901ad4e3388de8edadbcfc",
+      "gitBlob": "3e8c21ed2f33270c545f0b9409c4c442187d72d4",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v0152-app.mjs",
+      "bytes": 51272,
+      "sha256": "d1d9c7538b423c75b4e134bb05d8880b7d4c40dc22c2695a31796c910973fa2c",
+      "gitBlob": "ca30796d3b591f9b998c52ef514578b8afb0ebc0",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "canvas-layout.mjs",
+      "bytes": 2431,
+      "sha256": "b124523df70cee0f605c6ef1f5ce5b0c251e89d4ee399e4dfc82672e7bd26450",
+      "gitBlob": "64266b40a5d805cdb10373dcd57aeef2891921df",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "economy-parameters.mjs",
+      "bytes": 540,
+      "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "gitBlob": "9d5f6415394c26bb204892b0e87b8c5a13737397",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v0162-app.mjs",
+      "bytes": 57957,
+      "sha256": "0ff6d56ae2af300d0dbc67688fa13cf67cdea0ce53c9055443cf2e0ae8710ddd",
+      "gitBlob": "25b282c4ad2f4ad26a3d3c488c0a3253a27acb16",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "wholesale-care-app.mjs",
+      "bytes": 36710,
+      "sha256": "f55a8893e5057754f326d2adaac7748de1ab45f47c44ae08cfb01e3f28180fc9",
+      "gitBlob": "eaab7cedcd5534c64796152e2b16fde5e5e01659",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v0164-app.mjs",
+      "bytes": 66524,
+      "sha256": "05249213388b8ff6f1ead4fb95f7301e672cbc0e57a57ef7451bb1f3ecf07d5f",
+      "gitBlob": "b6827cfcbda7fc9b6091163cbc2d5a099d93f1da",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "wholesale.mjs",
+      "bytes": 12890,
+      "sha256": "eb6cb1c89e8eae527fc4737f9be3a4155cc2b656116c6e4c34ca45cd6dbf3622",
+      "gitBlob": "ff3368116c18b9dce6a2d8c3722ad853355bf308",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "character.mjs",
+      "bytes": 10089,
+      "sha256": "599b0e0fda18ad9df83066da92f00fd4d7a599b8d00f00656b6df8ace2d0e728",
+      "gitBlob": "9959c5cac88d57a876d4e1b1b3e108e3d9ec7da8",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "distillery.mjs",
+      "bytes": 12791,
+      "sha256": "d5a9b4904de5c7da59371594f0113b3a3cb873920162aefc1958537ab06c897e",
+      "gitBlob": "f2f24f9a83f075bea08ba3ce73a095ea683b8412",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "recipe-book.mjs",
+      "bytes": 560,
+      "sha256": "a9b64a96e3c35d7ed276216fba10ddb50291c9e013e442b0f1a3c32010fe528f",
+      "gitBlob": "a55f79f17bca19664dc8e04f9e61c5c2652a8809",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "trade.mjs",
+      "bytes": 17755,
+      "sha256": "2f257e01275080054c09fdcae5363a852ee906f2f7a524b0824cbd6389f17fc5",
+      "gitBlob": "d7c827cb9216b2a6f57ae9abbe97a8bc43bffdd5",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "room-object-art.mjs",
+      "bytes": 4250,
+      "sha256": "255b2944409f37656bef4b62892ac829dcdad5e714eb8d69d190c56bdb02147c",
+      "gitBlob": "fdae2c31b9535ef71a4abe7ce3022fcf66c6e458",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "journey-v03.mjs",
+      "bytes": 10492,
+      "sha256": "0dbc6bde9dbf22e554978cdd61d2c23b20f05386b04e13701ed7225593eb3ddc",
+      "gitBlob": "122be48ff45ee11025e3b8f487e681ae7b4376b5",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "brand-art.mjs",
+      "bytes": 1181,
+      "sha256": "3abc4d111eb6728abf8f106cba88f41c2d0fe1d1820c3e9fff6cf9217974582b",
+      "gitBlob": "018c81c05eda31c3c3f1ce8d76b41aaf3219ff1c",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "distillery-art.mjs",
+      "bytes": 2553,
+      "sha256": "3e2cd644f5379742c5d024c204c96581f96afcf0115b12831592d1a36c38d0dc",
+      "gitBlob": "97950cccdd28b9354055ec4d59e4497469500e88",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "art.mjs",
+      "bytes": 3625,
+      "sha256": "904ce38936ff24becae40dbaf58a6284012a2b5f65cda508bbaa40cae29ff2d5",
+      "gitBlob": "d3919e489067caa10d1c5e24483478c041cb2613",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "history-worker.mjs",
+      "bytes": 627,
+      "sha256": "0c0bc6555f19892041bda37f48a57c840552b5762821340bea548bd516825282",
+      "gitBlob": "f1334a7afd3e871453028c27ad61fdb88e08e9cc",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "parallel.mjs",
+      "bytes": 13490,
+      "sha256": "c087f8c71b3d9f606fd63775c2b956681ad3923485c093283bbd6edf8e7465c7",
+      "gitBlob": "e1b5af36a53dda45e3de2dd7fb51092eeef12f24",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "simulate-character.mjs",
+      "bytes": 1616,
+      "sha256": "866877a732fae2891965a1704b7b2056eb4b76fee2c03900ef4b26aacdbd59e7",
+      "gitBlob": "f5bced56616da3d23ee008d5934ea777938a09ad",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "journey.mjs",
+      "bytes": 7726,
+      "sha256": "894339a32307b96d0bdadfac70b951fff74802e5086ea2fd3db7222194c1b874",
+      "gitBlob": "ec29f716ce734c4c7778290fd91b1cfe68e4b68d",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "comparison-worker.mjs",
+      "bytes": 305,
+      "sha256": "6a12207e80e064ddb7d4bc506d7e43fdf7fbf70dbe5bd91e97418265c2a84dd9",
+      "gitBlob": "6333291abfc0ca603b1d32b200e466734b254127",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "cask-glass-art.mjs",
+      "bytes": 2365,
+      "sha256": "1e9d6fed98b5e1d68f4b18102191d078668ee560c89ff50262daf42340e0e691",
+      "gitBlob": "89c56e5cf16a01b357881346e106bf731d3f5e87",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "brand-reputation.mjs",
+      "bytes": 2254,
+      "sha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+      "gitBlob": "3ca041aba58ec6f8b8545b824ff2396a9c27bf1f",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "parallel-parameters.mjs",
+      "bytes": 352,
+      "sha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f",
+      "gitBlob": "1d9145e1baf318de7f20fd78a9332639fad29e5e",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "parameters.mjs",
+      "bytes": 850,
+      "sha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "gitBlob": "730c0a5b22f7b0b39b66ab49a262090dfaede7b5",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "v09-app.mjs",
+      "bytes": 31536,
+      "sha256": "3681e4a1404b2821cb455cb63fb66ebd1b3b60c49450a48a7b63279176a31803",
+      "gitBlob": "8695d9aff072653a53ecf8a8c2c068ff485ff7e9",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "brands-app.mjs",
+      "bytes": 40164,
+      "sha256": "429d2ec4e835313a267cfc66f3f9e59ad10cd9959e6ffacdea2d1d1319a53987",
+      "gitBlob": "b313365dd16bd958e4a9b641fa1b66d985d5e458",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "opening-balance.mjs",
+      "bytes": 2647,
+      "sha256": "0b5bac746b908d46e35bd1755efd273404ed836cfa39db82c149bda814488f17",
+      "gitBlob": "16aeea62978a2a1a931bbe1218d315f571ae7730",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "text-metrics.mjs",
+      "bytes": 1781,
+      "sha256": "d28a55999d034ce223a7624f1e67a902bc37c1ce10168590b72a8082ef16d608",
+      "gitBlob": "119eb3d25e7881be4e9b9e00048261914c4c9be4",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "usual-app.mjs",
+      "bytes": 44175,
+      "sha256": "6ceff034e987a543000fbba743837145512401a184bd976c87abfebf00295501",
+      "gitBlob": "d7b33634bc941c6476cfd30f1fd723375091adf0",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "font-coverage.mjs",
+      "bytes": 58322,
+      "sha256": "b2ca638c9315fb6800b102b9dd16da79e74eccced1e56f9c6c6ede1a1fe10b39",
+      "gitBlob": "9ed1f5d52fb33df3a00fc9cd08429049175d9f34",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "ui-text.mjs",
+      "bytes": 2663,
+      "sha256": "15f461c6a2697b13230044ec89b1a550d5aa892c972d7a50966236f9a14b2edf",
+      "gitBlob": "425537e35d9a33c6fd5c3187f8eb414a164f9e03",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "department-projects.mjs",
+      "bytes": 1886,
+      "sha256": "28e1891d05d9c07f6cd931ccbeeba97580a3d5ffa98e6b1144f6b9095d3c5250",
+      "gitBlob": "9fc72d3d0ade3776ec475b3eea57099612675e2d",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "scene-input.mjs",
+      "bytes": 2247,
+      "sha256": "5a69a69f1359a85ffcea7bdab6f018965eedf9b9e9fe79aef310b032b51702ac",
+      "gitBlob": "fbea7f98b4a14c6961ec76d5d8f249c55ba74464",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "journey-app.mjs",
+      "bytes": 11567,
+      "sha256": "d63869c591d68b64295836063bbd38f67f7f1239a4c03a6c2ad36c2d8bc2ea56",
+      "gitBlob": "a5962665ca56e74bf95a817e7dcc6a67f39536bb",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "app.mjs",
+      "bytes": 24888,
+      "sha256": "73bc837d978359d43674d426ef901ae2ba54045fca78af75e642ad75e9324026",
+      "gitBlob": "e8ac55e91da218a354d180bf565429c88b9d986d",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "pixel-symbols.mjs",
+      "bytes": 820,
+      "sha256": "ae81aa445830bc97cbc5adc7d9ee1436c8d4fe28637372a1776801433fb30e5e",
+      "gitBlob": "d46460f46f92998ba74a45233984a91ad2fad3a0",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v016-app.mjs",
+      "bytes": 53046,
+      "sha256": "186cd35dd6506f95b2b78e0b76a318ad420d33a395b9d0447dc6d4d5cc5e72e6",
+      "gitBlob": "b1f90fb6d4f4104dfa47ca529abb9fe1c5a50bf3",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "v08-app.mjs",
+      "bytes": 26943,
+      "sha256": "cd8ca8243cc91e4a97906ae20a9b6c103edede2b26db224c72500edc440e3dec",
+      "gitBlob": "b5010a534334cff225669a66c87a56dfc0068090",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "reputation-app.mjs",
+      "bytes": 40677,
+      "sha256": "c1ac94273397c415249aa3e0177ea87bed85d66e172cdb42cae9493bae5e48ef",
+      "gitBlob": "9f6a699827e2e49d3e8f87344a48842ca2bfaf7e",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "opening.mjs",
+      "bytes": 335,
+      "sha256": "879aea5d133c14fab4a0b53f058f032dc16a5dfe6f03d43b4d051d087c38f566",
+      "gitBlob": "82d32262184a401b3c2924b4af0d4f988111f690",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "room-scene.css",
+      "bytes": 14540,
+      "sha256": "6c6d685581b3123761fc65328f0e92a6e3aac5b641bfe5e7a2ba859058267688",
+      "gitBlob": "edba90b092f3db37f23af2091af580de7a4af581",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "parallel.css",
+      "bytes": 9238,
+      "sha256": "bee587696f4d973d27126d1b60d04e2d2592b3b5a5c0eca9e40c7fb15c61a369",
+      "gitBlob": "f1c45e572abceaf98ad7c7cfcb1f80ba82405ce8",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "v09.css",
+      "bytes": 396,
+      "sha256": "2d2a69e80856d5b7a85be345e00320f783670126b28d0bdf3c4d52aa9020e6a2",
+      "gitBlob": "227b7129529ac0846d6c0c7f2f9edab224b47838",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "usual.css",
+      "bytes": 1690,
+      "sha256": "b6f58e6e16228ac9362ce0c417ebc800d73e31911f1ffaeab17560ba62c5d5b9",
+      "gitBlob": "d58830e7309e1868ec5b3566a81682d3eab15f06",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "v07.css",
+      "bytes": 1839,
+      "sha256": "f974f998ee2aaba8e27e144a63b07b57fd32697015a6dd0af66f35601a7272c1",
+      "gitBlob": "5506a4221920aaf353157b52638356a7bdd2e291",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v016.css",
+      "bytes": 1640,
+      "sha256": "c9de07d3f373c8de84f08ec53070c092c11eab8bbcedc75f6d638be81dcd6057",
+      "gitBlob": "7da25d08e4b6ecf22f9aaa0f5627d771cd27c3b7",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v0171.css",
+      "bytes": 4473,
+      "sha256": "616cb744cab3fd6690bcedd6fde966ee5fcc44ce3a95ac9f530b83b3e08c46c9",
+      "gitBlob": "074aeeba13931bdcc4efefff7266316046f6a9a5",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop.css",
+      "bytes": 21419,
+      "sha256": "a1567cd939e8c6fd2ca6dee58b485bd582229f7d71502e1a85aa338cef103520",
+      "gitBlob": "4c75fe54b59b1473a88b6c208aee88ca985f11e8",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "brands.css",
+      "bytes": 1162,
+      "sha256": "199a75c90f0febc2b408905f4d25169df511e9b400625d05fc78f26bcee92af0",
+      "gitBlob": "0a8e4203fa6d72bd5ad322473942959d8fc981d5",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v0162.css",
+      "bytes": 1640,
+      "sha256": "c9de07d3f373c8de84f08ec53070c092c11eab8bbcedc75f6d638be81dcd6057",
+      "gitBlob": "7da25d08e4b6ecf22f9aaa0f5627d771cd27c3b7",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "partners.css",
+      "bytes": 138,
+      "sha256": "a75bacdc23972208a4c10485db738d7f59ebcda72e3cd32122df63c3004450b0",
+      "gitBlob": "6e55cd6fa90cde8d2f08d687803263377ca3c790",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v0152.css",
+      "bytes": 1640,
+      "sha256": "c9de07d3f373c8de84f08ec53070c092c11eab8bbcedc75f6d638be81dcd6057",
+      "gitBlob": "7da25d08e4b6ecf22f9aaa0f5627d771cd27c3b7",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "shop-v0164.css",
+      "bytes": 4187,
+      "sha256": "e5abb0b37869e0deace8c82461252ea76887305dac1d869e1975a7235d6ae11f",
+      "gitBlob": "d97ca8303d72c7e2cf8a5c5645fc853cdafca983",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "journey.css",
+      "bytes": 7456,
+      "sha256": "6539fbf4f0e904e0a65bf77a96f08006fe6ee103cdc6475a1fb6d89c192a5a23",
+      "gitBlob": "06f1fc0cf1dc3cd1fff7265cec0f8818127ca689",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "distillery.css",
+      "bytes": 17877,
+      "sha256": "34cda415e48bfed62d95301b14a2316db044e7bc630a1f44619eef99d4a9c53b",
+      "gitBlob": "974ed7308eb358c5b29f18714d6be55b0e66c904",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "style.css",
+      "bytes": 16684,
+      "sha256": "13bc5e4d1627c5192b93be7970ee1431c38bdd9baa50a29f1d7231eb6e7ad495",
+      "gitBlob": "9a3c4a5c659b2acd2cfdb2191fbb439b290871fe",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "v08.css",
+      "bytes": 638,
+      "sha256": "0820e32a1776666e43e74c3dc2757715f698cf3258d2711bc19633d7e6d39db8",
+      "gitBlob": "54e9206eafe316ec2abf32ae0ff2624e86b5ebe3",
+      "match": true,
+      "normalTLS": true
+    },
+    {
+      "file": "fonts/misaki_gothic_2nd.ttf",
+      "bytes": 1175260,
+      "sha256": "5f0cbb8850e910ffa749d467bc41c89271388a0cbe0fe48741cf2bf0dfe3ac43",
+      "gitBlob": "95fe5d33627d89fc3b33bd620702b60a248ae4aa",
+      "match": true,
+      "normalTLS": true
+    }
+  ],
+  "passed": true
+}

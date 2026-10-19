@@ -1,5 +1,7 @@
 # AmberTime type/UI recovery — 2026-10-19
 
+Final Staging: `037bf6a9c8a5d9f2916e3cfec6c04f9f99bded37` (PR511 + PR512), Pages and normal-TLS94file comparison/public PC smoke complete. Production unchanged. See final completion below.
+
 ## Recovery checkpoint
 
 Remote main was `0efa6afacc07dd9965f9a899f0914d992963b5ff`; remote `ambertime-type-ui` was plan-only `731ea25d936825c2ed7be622defd8fe3faaa23f2`. PR510 was already merged. Old local worktree `/workspace/scratch/a95109a9c610/repo` retained nine modified source/provenance files, Gothic2nd TTF, comparison images, five verification scripts and historical reports. No running process using that old path was observed. Old worktree was left untouched; files copied and byte checked. No remote implementation was recovered because none was present at that branch tip.
@@ -77,3 +79,13 @@ Final CSS SHA256 `6c6d685581b3123761fc65328f0e92a6e3aac5b641bfe5e7a2ba8590582676
 Final-source window checks now cover6viewports:360×740,390×844 DPR3,360×640,360×430,1024×768,1280×900, including200% text, giant-total wrap, atomicprice, single-line close, body capacity, focus, overflow and actual normal close placement.18distinct images use width+height names. All6 pass; existing contracts5cases rerun pass with current CSS and original names/history exact. Results inquantity-fit/windows/ andquantity-fit/contracts/.
 
 The full5viewport/108gesture result above used6a122982CSS. The subsequent sole-close selector was verified by the final6window cases and5contracts; all runtimeJS and model/save bytes remain unchanged. A supplementary full run started before the width correction was not used as final-source evidence; it stopped at the same intermittent swipe assertion. No mixed-source run is claimed as success and no gesture assertion was weakened.
+
+## Final completion — PR512
+
+- Reviewed final head `de2e1a43f614ee242384e5939c3634d0cdc78fb2`, tree `b45915b6cd2ffa1187c5361621bfea121528c244`. Exact-head Scope→Risk→Impact PASS. Latest trusted-mechanical-evidence, plan-risk-gate, scope-guard, validate checks all success before merge.
+- Final Staging merge `037bf6a9c8a5d9f2916e3cfec6c04f9f99bded37`; merge tree equals reviewed candidate. Pages39273407044 completed success for exactly that SHA: https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/39273407044 . Postmerge Change Operations Tests39273406516 and Release Validator Tests39273406455 success.
+- Public URL https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/ . Normal TLS curl fetched94files; every file matches final merge bytes. Hash map quantity-fit/public-results.json, SHA256 `e30a5a2abb900af1d3ef0679ee47e869fee95f0b2af98374a7d637052b11f670`.
+- Cloud browser reloaded normally with no certificate bypass. fontState ready; heading471px client/scroll widths equal; final title cap234px on936px viewport and final intrinsic-width sole-close CSS observed in actual published stylesheet. Tasting window opened and closed. Public image quantity-fit/public-confirmation.jpg. Existing game not reset.
+- A clipped screenshot attempt returned `Page.captureScreenshot timed out`; default screenshot recovery succeeded and the same successful bytes were saved. No launch/security setting changes. Local headless Chromium TLS limitation remains separately documented; no insecure request was used.
+- PR511 oversized-quantity thread and PR512 screenshot-name thread are resolved after actual implementation/verification. Independent final close review and current6window/5contract results are recorded above. Full5viewport source distinction is retained, not relabeled.
+- Final evidence is committed to the existing work branch after merge; deployed runtime stays unchanged. No remaining implementation or delivery work. Physical Safari/OS keyboard/VoiceOver and author visual adoption remain unverified. Production/sharedEngine/other works/model/time/save keys/schema/names/history unchanged.
