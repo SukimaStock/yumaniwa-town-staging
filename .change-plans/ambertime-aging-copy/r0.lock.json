@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bff99c3d61cda27f071220b6d0e6beee4e85b55afd6a0623b4d38cc15111f530",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "a6b4aff9f9ad9239d3d1b9b97d5e0dcc0838ca53",
+    "changeId": "ambertime-aging-copy",
+    "revision": 0,
+    "change": "Shorten six live maturation event titles and observations using display-only context; preserve chemistry and saved text",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit six aging events display-only request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR519 text adapter",
+      "PR521 milestones",
+      "PR523 ledger",
+      "character.mjs detect and model.mjs aging/tasting conditions",
+      "shop-app decision and lastObservations live render"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-aging-copy/r0.lock.json",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/aging-copy.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Add a context-specific view helper in existing ui-text; only six named event IDs. Keep current wood/fruit short titles. Directional aroma/rounded titles require actual conditions; retain meaningful supported prior-sample comparisons only. Young spirit retains stimulation without claiming stronger than its threshold. Loss uses actual initial/current ratio. Empty duplicate body omitted.",
+      "Wire helper only to live decision modal and current-month observation notice. No saved/ledger text is passed through helper. Preserve action labels/routes, ordinary events and PR521/523 results. Update work-local script cache references only."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Target six event conditions and supported/unsupported/no prior sample comparisons using bounded public-operation/character fixtures. Chromium390x844 live modal text, no empty paragraph/overflow, exact unchanged choice labels and action attrs; minimalPC. Saved bytes unchanged through view; syntax/Scope→Risk→Impact, independent focused review. Required exact-head CI then safe Staging merge/Pages and full public-file byte equality.",
+      "No broad game E2E, long play, full simulation or screenshot sweep. Reuse PR521/523 outcomes."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this display-only patch, no save migration.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Changes to script import/export/cache references and new targeted test contract markers are outside conservative targeted fastpath; Standard lock before implementation, bounded validation only.",
+      "No new documentation/report/verification infrastructure, no source/model/save/record-generation changes. User examples/current mechanics and repository expression rules suffice; no past-work/style sample lookup needed."
+    ]
+  }
+}
