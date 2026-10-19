@@ -1,5 +1,5 @@
 /* Canvas owns the room; native controls and scrollable windows share its viewport. */
-:root{--bg:#292a34;--panel:#28285a;--ink:#f0e6c8;--quiet:#d0ccbe;--line:#8c8c96;--muted:#c8c8dc;--view-width:100vw;--view-height:100dvh;--view-left:0px;--view-top:0px}
+:root{--bg:#292a34;--panel:#28285a;--ink:#f0e6c8;--quiet:#d0ccbe;--line:#8c8c96;--muted:#c8c8dc;--view-width:100vw;--view-height:100dvh;--scene-width:360px;--view-left:0px;--view-top:0px}
 *{box-sizing:border-box}html,body{margin:0;padding:0;min-width:0;width:100%;height:100%;background:#19141e;color:var(--ink);font:14px/1.5 system-ui,-apple-system,sans-serif}
 [hidden],#legacy-interface{display:none!important}
 #scene-root{position:fixed;inset:0 auto auto 0;width:100%;height:100dvh;isolation:isolate}
@@ -11,11 +11,11 @@
 #scene-controls button.scene-hit>*{visibility:hidden}#scene-controls button.scene-hit:before,#scene-controls button.scene-hit:after{display:none!important}
 #scene-controls button.scene-hit:focus-visible{outline:3px solid #f7cd58;outline-offset:0}
 .scene-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
-button,input,select,summary{font-family:inherit}button{min-height:45px;border:3px solid #c8c8dc;border-radius:0;background:#28285a;color:var(--ink);padding:6px 9px;font-size:14px;box-shadow:3px 3px #19141e;touch-action:manipulation}button:hover{background:#39396a}button:disabled{opacity:.55}button[aria-pressed=true]{background:#644632}button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f7cd58;outline-offset:2px}
-#action-dialog{position:fixed;inset:auto;left:calc(var(--view-left) + var(--view-width)/2);top:calc(var(--view-top) + var(--view-height)/2);transform:translate(-50%,-50%);width:min(680px,calc(var(--view-width) - 24px));max-width:calc(var(--view-width) - 24px);max-height:calc(var(--view-height) - 24px);margin:0;padding:12px;background:#28285a;color:var(--ink);border:3px solid #c8c8dc;border-radius:0;box-shadow:6px 6px #19141e;overflow:visible}
+button,input,select,summary{font-family:inherit}button{min-height:45px;border:1px solid #777d89;border-radius:0;background:#303547;color:var(--ink);padding:6px 9px;font-size:14px;box-shadow:1px 1px #19141e;touch-action:manipulation}button:hover{background:#39396a}button:disabled{opacity:.55}button[aria-pressed=true]{background:#644632}button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f7cd58;outline-offset:2px}
+#action-dialog{position:fixed;inset:auto;left:calc(var(--view-left) + var(--view-width)/2);top:calc(var(--view-top) + var(--view-height)/2);transform:translate(-50%,-50%);width:min(calc(var(--scene-width) - 24px),calc(var(--view-width) - 24px));max-width:min(calc(var(--scene-width) - 24px),calc(var(--view-width) - 24px));max-height:calc(var(--view-height) - 24px);margin:0;padding:12px;background:#2e3143;color:var(--ink);border:1px solid #858995;border-radius:0;box-shadow:3px 3px #19141e;overflow:visible}
 #action-dialog[open]{display:flex;flex-direction:column}#action-dialog::backdrop{background:#19141e99}
-.dialog-heading{flex:none;display:flex;gap:9px;align-items:center;margin:0 0 9px}.dialog-heading h2{font-size:18px;line-height:1.4;margin:0;flex:1;overflow-wrap:anywhere}#close-dialog{width:45px;flex:0 0 45px;height:45px;padding:0;font-size:22px}
-#dialog-context{flex:none;margin:0 0 6px}#dialog-body{min-height:0;overflow:auto;overscroll-behavior:contain;font-size:14px;overflow-wrap:anywhere;padding:0 3px 3px 0}#dialog-actions{flex:none;margin:9px 0 0;padding:3px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;background:#28285a!important;position:static!important}
+.dialog-heading{flex:none;display:flex;gap:9px;align-items:center;margin:0 0 9px}.dialog-heading h2{font-size:18px;line-height:1.4;margin:0;flex:1;overflow-wrap:anywhere}#close-dialog{width:45px;flex:0 0 45px;height:45px;padding:0;font-size:22px;border:0;background:none;box-shadow:none}
+#dialog-context{flex:none;margin:0 0 6px}#dialog-body{min-height:0;overflow:auto;overscroll-behavior:contain;font-size:14px;overflow-wrap:anywhere;padding:0 3px 3px 0}#dialog-actions{flex:none;margin:9px 0 0;padding:3px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;background:#2e3143!important;position:static!important}
 #dialog-actions>.free-actions{display:contents}#dialog-actions button{min-height:45px;font-size:14px}#action-dialog input,#action-dialog select{border-radius:0;background:#292a34;border:2px solid #8c8c96;color:var(--ink);font:inherit;min-height:45px;max-width:100%}#dialog-body summary{min-height:45px;padding:11px 0}#dialog-body .quiet{color:var(--quiet);font-size:13px}
 #selected-cask{margin:0;padding:0;background:none;border:0;max-width:none;box-shadow:none}#hero{margin:0;padding:0;min-height:0;background:none}.cask-window-heading{display:none}
 .inspection-summary{display:flex;align-items:center;gap:12px;margin:3px 0 9px}.inspection-facts{flex:1;min-width:0}body[data-room=warehouse] #hero .objects,body.is-tasting[data-room=warehouse] #hero .objects{display:flex;align-items:flex-end;gap:9px;position:static;flex:0 0 auto;min-height:0;height:54px;padding:0;margin:0}
@@ -29,3 +29,7 @@ body.is-tasting #hero .inspection-facts{display:none}#hero #tasting-panel{positi
 /* The old inline tasting spacer has no place in an overlay footer. */
 body[data-room] #dialog-actions>.free-actions[hidden]{display:none!important}
 #dialog-error:not([hidden]){flex:none;max-height:25vh;overflow:auto;margin:0 0 9px;color:#f1bea3;border-left:3px solid #bd8066;padding-left:9px}
+
+/* Auxiliary tools remain native and discoverable without occupying the room. */
+#action-dialog[data-kind=aux-panel]{width:min(264px,calc(var(--scene-width) - 24px),calc(var(--view-width) - 24px))}
+#aux-panel{display:grid;gap:9px;padding:0 1px 3px}#aux-panel button{width:100%;text-align:left;min-height:45px;font-size:14px}#action-dialog[data-kind=aux-panel] #dialog-actions{display:none}

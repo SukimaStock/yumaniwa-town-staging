@@ -1,0 +1,113 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dd6f01efaad7198b18efda78800346d8166c0ea9b3a1d6a032d98d2de0e60806",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-room-balance",
+    "revision": 0,
+    "change": "Reduce permanent controls and visual weight in existing AmberTime Canvas rooms",
+    "planLevel": "standard",
+    "classes": [
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "d5429d6539ae4c2340a8645f90f814911729a93e",
+    "canonicalSources": [
+      "Current user room-balance instruction",
+      "Latest main and Canvas display/input/dialog implementation",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Original visual source rechecked privately; publish only own implementation and public-code evidence"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-room-balance/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/tests/canvas-layout.test.mjs",
+      "works/ambertime/tests/balance-browser.mjs",
+      "works/ambertime/design/room-balance/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/rojiura-masala/**",
+      "works/yakitori-wars/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/shop.css"
+    ],
+    "expectedChanges": [
+      "Keep existing logical scene, equipment/object dimensions and anchors; reduce brick contrast and unnecessary bright borders; retain readable fonts and45px native hit targets",
+      "Move history/settings/three-month skip to a small native auxiliary dialog, retain existing handlers/model operations; display ledger as a small physical book with named native tap area",
+      "Compact HUD/time controls and text-only room links with current-room underline; quiet staff/trade entries; remove repeated state text and any text over equipment; leave freed space empty",
+      "Bound all dialogs to rendered game-scene width as well as visualViewport, including keyboard/pinch; retain scrollable body and visible actions, focus and accessibility",
+      "New browser runner reuses current public-model fixtures and regression sequences with explicit menu paths; before/after scenes, dialogs, no-scroll/raw hit geometry, save bytes and one existing clock",
+      "Exact-head Scope Risk Impact, existing unit tests, independent review, trustedCI, PR/Staging merge/Pages/public verification; no Production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Original source/current code/rules checked before implementation; no private URLs metadata or raw code in public records",
+      "360740/390844/360640/1024768/1280900 scenes no page scroll; target bounds >=44px and raw pointer hits without auto-scroll; equipment/object anchors unchanged",
+      "Zero/sparse/full casks/products; ready/collecting/filling/queued/active staff; menu history/settings/skip and ledger all reachable with no lost game operations",
+      "Cask choice/detail/taste/compare/bottle/sales dialog within scene width; long records, input at430px,2x text/pinch, focus return and accessible names",
+      "Existing575 unit tests; new browser regression with public fixtures, exact taste values, old/successor saves and isolated trial key, read-only windows save invariant and one clock",
+      "Inspect actual three-room before/after; independent review distinct from implementation; physical Safari/OS keyboard/VoiceOver remain unverified",
+      "Lock first and exact-head ScopeRiskImpact/requiredCI; safeStagingmerge Pages exactSHA then public operations/TLS file equality; no Production"
+    ],
+    "rollback": "Restore only this presentation/menu/geometry diff, leaving game models, assets and save data intact.",
+    "outOfScope": [
+      "Production",
+      "Shared engine/reference games/town/LAB or lifecycle changes",
+      "Game rules/economy/RNG/timer/save schemas/keys/migration/contracts/brands/staff/recipe/generation models",
+      "Ended experiments or their mocks",
+      "New materials/rewards/contest/game mechanics",
+      "Publishing any private source file URL identifier metadata or code"
+    ],
+    "unverified": [
+      "Physical iPhone Safari/touch/OS keyboard/screenreader and owneradoption"
+    ],
+    "rulesApplied": [
+      "Standard ASSET/WORK presentation/navigation changes in existing active work exceed four paths: lock first, exact-head Scope Risk Impact",
+      "AGENTS permits useful independent browser verification/review; main owns runtime and report, verifier owns new browser runner and screenshot evidence",
+      "Expression audit: remove duplicate status/strong framing; no new explanation or decorative copy; preserve errors, conditions, costs and input reachability",
+      "Menu routing and native panel mounting are authorized presentation changes; no game rule, timer, RNG, schema or save-key changes"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly asks to demote history/settings/three-month skip, turn ledger into a book entrance and balance current Canvas rooms/windows through Staging; no Production"
+    ],
+    "hqDecisions": []
+  }
+}

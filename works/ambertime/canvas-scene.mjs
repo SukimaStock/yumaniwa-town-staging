@@ -1,7 +1,7 @@
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.20-canvas-1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.20-balance-1';
 import{barrel}from'./cask-glass-art.mjs?v=0.19-pixel-1';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.19-room-1';
-const $=id=>document.getElementById(id),ink='#f0e6c8',blue='#28285a',edge='#c8c8dc',shadow='#19141e';
+const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 const font='system-ui,-apple-system,"Noto Sans JP",sans-serif';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false){
@@ -13,14 +13,15 @@ function sprite(markup,collection=1,active=false){
 export class CanvasScene{
  constructor(){
   this.root=$('scene-root');this.canvas=$('scene-canvas');this.ctx=this.canvas.getContext('2d');this.world=document.createElement('canvas');this.world.width=120;this.world.height=214;this.worldCtx=this.world.getContext('2d');this.controlRoot=$('scene-controls');this.view=null;this.frame=0;this.pressed=null;
-  for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','open-history','open-settings','trade-info','shop-offer'])this.controlRoot.append($(id));
+  for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','trade-info','shop-offer'])this.controlRoot.append($(id));
+  for(const id of ['skip','open-history','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])this.root.append($(id));
   this.resize=()=>{const vv=window.visualViewport;
    // Fit ordinary resizes/keyboard changes, but let browser pinch magnify the scene.
    // Dialogs still follow the visible rectangle so their inputs/actions stay reachable.
    const visible={width:vv?.width??innerWidth,height:vv?.height??innerHeight,left:vv?.offsetLeft??0,top:vv?.offsetTop??0};
    const scene=vv?.scale>1.01?{width:document.documentElement.clientWidth,height:innerHeight,left:0,top:0}:visible;
-   this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);this.root.dataset.viewport=JSON.stringify(v);this.queue();};
+   this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');this.root.dataset.viewport=JSON.stringify(v);this.queue();};
   window.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('scroll',this.resize);this.resize();
   this.root.addEventListener('pointerdown',e=>{const p=toLogical(this.viewport,e.clientX,e.clientY),hit=hitTest(this.activeControls??[],p.x,p.y);this.root.dataset.lastPointer=JSON.stringify({...p,key:hit?.key??null});this.pressed=hit?.key;this.queue();});
   for(const event of['pointerup','pointercancel','focusin','focusout'])this.root.addEventListener(event,()=>{if(event.startsWith('pointer'))this.pressed=null;this.queue();});
@@ -34,10 +35,11 @@ export class CanvasScene{
   this.activeControls=active;this.root.dataset.hitRegions=JSON.stringify(active.map(({node,label,...r})=>r));
  }
  drawWorld(){
-  const c=this.worldCtx,v=this.view,l=this.layout;c.clearRect(0,0,120,214);c.fillStyle='#5a5a64';c.fillRect(0,0,120,214);
+  const c=this.worldCtx,v=this.view,l=this.layout;c.clearRect(0,0,120,214);c.fillStyle='#4b4b55';c.fillRect(0,0,120,214);
   const r=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(Math.round(x/3),Math.round(y/3),Math.round(w/3),Math.round(h/3));};
-  for(let y=0;y<l.floorY;y+=15){r(0,y,360,3,'#282832');for(let x=(y/15%2)*24;x<360;x+=48)r(x,y,3,15,'#282832');}
+  for(let y=0;y<l.floorY;y+=15){r(0,y,360,3,'#3c3c46');for(let x=(y/15%2)*24;x<360;x+=48)r(x,y,3,15,'#3c3c46');}
   r(0,l.floorY,360,640-l.floorY,'#644632');for(let x=0;x<360;x+=36){r(x,l.floorY,3,640-l.floorY,'#3c281e');r(x+3,l.floorY,3,640-l.floorY,'#a0785a');}for(let y=l.floorY+90;y<640;y+=90)r(0,y,360,3,'#a0785a');r(0,l.floorY,360,6,shadow);
+  r(36,528,30,33,'#292820');r(39,528,27,30,'#785d41');r(39,528,3,30,'#a89063');r(42,531,21,24,'#bdb194');r(45,534,15,3,'#766e5b');r(45,540,15,3,'#766e5b');r(45,546,12,3,'#766e5b');
   const rail=(x,y,w)=>{r(x,y,w,3,'#a0785a');r(x,y+3,w,3,'#644632');r(x,y+6,w,3,shadow);};
   if(v.room==='warehouse'||v.room==='sales'){
    const s=l.shelf;r(s.x,s.y,6,s.h,'#a0785a');r(s.x+6,s.y,3,s.h,'#644632');r(s.x+s.w-6,s.y,6,s.h,'#644632');r(s.x+s.w,s.y,3,s.h,shadow);for(const y of s.rails)rail(s.x,y,s.w);
@@ -51,19 +53,31 @@ export class CanvasScene{
  lines(text,x,y,width,size=14,max=2,align='left'){
   const c=this.ctx;c.font=`${size}px ${font}`;const result=[];let line='';for(const ch of String(text)){if(c.measureText(line+ch).width>width&&line){result.push(line);line='';}line+=ch;}if(line)result.push(line);const shown=result.slice(0,max);if(result.length>max){let last=shown.at(-1);while(c.measureText(last+'…').width>width)last=last.slice(0,-1);shown[shown.length-1]=last+'…';}shown.forEach((s,i)=>this.text(s,x,y+i*(size+3),size,align));return shown.length;
  }
- window(x,y,w,h){const c=this.ctx;c.fillStyle=shadow;c.fillRect(x+3,y+3,w,h);c.fillStyle=edge;c.fillRect(x,y,w,h);c.fillStyle=blue;c.fillRect(x+3,y+3,w-6,h-6);}
+ window(x,y,w,h,fill='#2e3143'){const c=this.ctx;c.fillStyle=shadow;c.fillRect(x+2,y+2,w,h);c.fillStyle='#6c707b';c.fillRect(x,y,w,h);c.fillStyle=fill;c.fillRect(x+1,y+1,w-2,h-2);}
  draw(){
   if(!this.view)return;this.controls();this.drawWorld();const c=this.ctx,v=this.viewport,view=this.view,l=this.layout;c.setTransform(v.dpr,0,0,v.dpr,0,0);c.fillStyle=shadow;c.fillRect(0,0,v.width,v.height);c.imageSmoothingEnabled=false;c.drawImage(this.world,0,0,120,640/3,v.offsetX,v.offsetY,360*v.scale,640*v.scale);c.save();c.translate(v.offsetX,v.offsetY);c.scale(v.scale,v.scale);
-  this.window(6,6,348,51);this.text(view.calendar,15,28,16);this.text(view.cash,345,29,18,'right','#ffcf48');this.text(view.generation,15,49,12);this.text(view.timeStatus,345,49,13,'right');
+  c.fillStyle='#292b39';c.fillRect(6,6,348,54);c.fillStyle='#666977';c.fillRect(12,59,336,1);this.text(view.calendar,15,28,16);this.text(view.cash,288,29,18,'right','#e6c77a');this.text(view.generation,15,49,12);this.text(view.timeStatus,288,49,13,'right');
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
   items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2;const lines=this.lines(item.name,mid,p.base+24,132,13,view.room==='sales'?2:1,'center');this.text(view.room==='sales'?item.state:item.age,mid,p.base+24+lines*16,13,'center');});
   if(view.room==='warehouse'&&!items.length)this.text('まだ樽はありません。',180,330,14,'center');
   if(view.room==='sales'&&!items.length)this.text('瓶詰めした商品が、ここに並びます。',180,330,14,'center');
   if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,148,14,'center');
-  if(view.room==='distill'&&view.spirit){const p=view.spirit;this.window(15,132,330,96);this.text(p.kind+' · '+p.volume,27,153,14);p.axes.forEach((a,i)=>{const y=179+i*27;this.text(a.label,27,y,13);c.fillStyle='#414644';c.fillRect(135,y-10,195,9);c.fillStyle='#c8b77e';c.fillRect(135,y-10,195*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,27,186,300,14,2);}
-  if(view.room==='distill'&&view.phaseSummary)this.lines(view.phaseSummary,183,385,162,13,2);
-  if(view.notice)this.lines(view.notice,15,view.room==='warehouse'?546:480,330,13,view.room==='warehouse'?3:1);
-  for(const a of this.activeControls){if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;const pressed=this.pressed===a.key||a.node.getAttribute('aria-pressed')==='true';this.window(a.x,a.y,a.w,a.h);if(pressed){c.fillStyle='#644632';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}if(a.node.disabled){c.fillStyle='#28285abb';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}const label=a.key==='trade-info'?'取引の確認':a.key==='shop-offer'?'申し出を確認':a.label;this.lines(label,a.x+a.w/2,a.y+25,a.w-12,14,2,'center');}
+  if(view.room==='distill'&&view.spirit){const p=view.spirit;c.fillStyle='#2e3143';c.fillRect(15,162,330,84);this.text(p.kind+' · '+p.volume,27,183,14);p.axes.forEach((a,i)=>{const y=210+i*27;this.text(a.label,27,y,13);c.fillStyle='#414644';c.fillRect(135,y-10,195,9);c.fillStyle='#c8b77e';c.fillRect(135,y-10,195*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,27,216,300,14,2);}
+  if(view.room==='distill'&&view.phaseSummary)this.lines(view.phaseSummary,15,122,330,13,3);
+  if(view.notice)this.lines(view.notice,15,492,330,13,2);
+  for(const a of this.activeControls){
+   if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
+   const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
+   if(a.key==='open-ledger'){this.text('帳面',51,574,14,'center');continue;}
+   if(a.key==='open-aux-menu'){if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(315+i*9,30,3,3);continue;}
+   if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+27,14,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,2);}continue;}
+   const primary=['start-distill','stop-distill','open-fill','go-distill'].includes(a.key),quiet=['open-staff-panel','trade-info','shop-offer','shelf-prev','shelf-next'].includes(a.key);
+   if(!quiet)this.window(a.x,a.y,a.w,a.h,primary?'#5f4e39':pressed?'#414350':'#2e3143');
+   else if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}
+   const label=a.key==='trade-info'?'取引':a.key==='shop-offer'?'申し出':a.label;
+   this.lines(label,a.x+a.w/2,a.y+27,a.w-12,14,2,'center');
+   if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+1,a.y+1,a.w-2,a.h-2);}
+  }
   c.restore();
  }
 }

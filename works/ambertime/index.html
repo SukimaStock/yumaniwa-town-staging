@@ -7,13 +7,13 @@
 <meta name="theme-color" content="#172124">
 <title>AmberTime — 時間を育てる蒸留所</title>
 <link rel="stylesheet" href="./shop.css?v=0.19-pixel-1">
-<link rel="stylesheet" href="./room-scene.css?v=0.20-canvas-1">
-<script type="module" src="./shop-app.mjs?v=0.20-canvas-1"></script>
+<link rel="stylesheet" href="./room-scene.css?v=0.20-balance-1">
+<script type="module" src="./shop-app.mjs?v=0.20-balance-1"></script>
 </head>
 <body data-room="distill">
 <div id="scene-root" role="region" aria-label="蒸留室">
 <canvas id="scene-canvas" aria-hidden="true"></canvas>
-<div id="scene-controls"><button id="open-staff-panel" type="button" hidden>担当者・製法</button></div>
+<div id="scene-controls"><button id="open-aux-menu" type="button" aria-haspopup="dialog">メニュー</button><button id="open-staff-panel" type="button" hidden>担当者・製法</button></div>
 <div id="scene-access" class="scene-sr"><h1>AmberTime</h1><p id="scene-summary"></p><p id="scene-notice" role="status" aria-live="polite"></p></div>
 </div>
 <div class="page" id="legacy-interface" hidden>
@@ -121,7 +121,7 @@
 </details></div>
 </footer>
 
-</div><div id="panel-vault" hidden></div>
+</div><div id="panel-vault" hidden><section id="aux-panel" aria-label="メニュー"></section></div>
 <dialog id="action-dialog" aria-labelledby="dialog-title">
 <div class="dialog-heading"><h2 id="dialog-title"></h2><button id="close-dialog" type="button" aria-label="閉じる">×</button></div>
 <p id="dialog-context" class="quiet" hidden></p>
