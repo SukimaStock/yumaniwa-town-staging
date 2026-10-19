@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9d1022b90f04a3fa0c30d998b26bcdcf4737f080281bc1a4fe7deb1d7ce4ea9c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-type-ui",
+    "revision": 0,
+    "change": "Compare official Misaki faces and improve numeric readability, informative month progress, header/modal layout and selection/copy without model/time/save changes",
+    "planLevel": "standard",
+    "classes": [
+      "CONTENT",
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "0efa6afacc07dd9965f9a899f0914d992963b5ff",
+    "canonicalSources": [
+      "Current explicit user numericfont/header/modal request",
+      "Latest main PR510",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Official littlelimit Misaki threeface archive/license"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-type-ui/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/font-loader.mjs",
+      "works/ambertime/fonts/PROVENANCE.md",
+      "works/ambertime/fonts/misaki_gothic_2nd.ttf",
+      "works/ambertime/tests/type-ui*.mjs",
+      "works/ambertime/design/type-ui/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/scene-input.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/fonts/misaki_gothic.ttf"
+    ],
+    "expectedChanges": [
+      "Compare Gothic/Gothic2nd/Mincho official originalTTFs at identical size/scale and with old digitboost separated; choose actual-render readableface, preserve licenses/provenance/fallback and no distortion.",
+      "Header date/generation left,cash right,framedmenu right; bottom real monthlyprogress from existing elapsed/monthMs and correct pause/conditions; same clock/save/model.",
+      "Reproduce yellowfocus clipping and header horizontalscroll separately; title/close separate and closefixedright, native keyboardfocus retained, bodyverticalscroll. Centeractions/closeright, semantic name/price/unit wrapping and staff/recipe concise itemized data.",
+      "Display-only シゲキ/ふつう/バーボン/リフィル; same costs/warnings/flavor and untouched names/history. Compare offwhiteoutline/pixelpointer, choose quiet common cask/bottle marker separate keyboardfocus.",
+      "Beforeafter and fontcomparison evidence, independentreview, relevant577unit+full5viewport interactions, focused hugecash/title/scroll/focus/timebar/name/save tests; exacthead gates/CI/PR/safemerge/Pages/publicverify."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Fontcomparison actualCanvas/HTML same24px and enlargednumbervariant atDPR1/3, requiredsample strings 0/6/8/9 decimalcomma£, metrics/ink/baseline/gap/physicaldotgrain; adopt basedonrendering.",
+      "360/390/PC/iPad/short640: header overlap with longdate/money, realmonthprogress start/pause/extractioncap/modalblocked, all rooms and modals, plain button/cask labels.",
+      "Independent reproduction focusclip yellowvsheaderoverflow, longnativeheaders nohorizontal scroll, fixedrightclose, centerbuttons/rightclose, bodyverticalscroll/focus and200%/430pxinput/pinch2.",
+      "Cask and bottle selection candidates compared; originalcolors,no stackedmarkers; focus distinct; usersnames/oldhistoryexact preserved and modeltime/save diff empty.",
+      "Standard lockedScopeRiskImpact/CI, source and evidence hashes, Stagingmerge and exactPages/publicfiles/operations. PhysicalSafari/OSkeyboard/VoiceOverunverified."
+    ],
+    "rollback": "Revert this presentation change only; retain PR509/510 and existing saves.",
+    "outOfScope": [
+      "Production",
+      "Sharedruntime/town/LAB/legacy/model/view modules",
+      "Clock/production/economy/save keys/schema/identifiers",
+      "Glyphconversion/subsetting/newfontengine",
+      "Usernames or saved historical prose rewrites"
+    ],
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver and owner adoption"
+    ],
+    "rulesApplied": [
+      "Standard WORK+ASSET+CONTENT; >4files and font assets requirelock",
+      "Expressionaudit: no newdecorativecopy, actual progresslabel only and neededconditions/costs retained",
+      "Independent fontcomparison and isolated shopcopy work per AGENTS; main owns layout/symbols/CSS integration"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes official3face comparison/selection, specifiedlayout/copy/selection and Staging delivery through merge/publicverification."
+    ],
+    "hqDecisions": []
+  }
+}
