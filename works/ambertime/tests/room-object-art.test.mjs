@@ -12,7 +12,7 @@ const fills=svg=>new Set([...svg.matchAll(/\bfill="(#[0-9a-f]+)"/gi)].map(([,val
 const colorFrom=(svg,palette)=>palette.find(color=>fills(svg).has(color));
 
 test('room objects have bounded integer cells and a physical base on their common plane',()=>{
- const examples=[[stillArt(),72,48],[glass(.4),12,18],[bottleArt(.4),12,28],
+ const examples=[[stillArt(),60,36],[glass(.4),10,14],[bottleArt(.4),12,28],
   ...['standard','slender'].flatMap(bottle=>['paper','dark'].map(label=>[brandArt(.4,{bottle,label}),12,28]))];
  for(const [svg,width,height] of examples){
   assert.match(svg,new RegExp(`viewBox="0 0 ${width} ${height}"`));
@@ -36,7 +36,10 @@ test('glass preserves original liquid colors at and immediately across every bou
   assert.equal(colorFrom(current,palette),colorFrom(original,palette),`wood=${value}`);
   assert.match(original,/<g fill-opacity="\.82">/);
   assert.match(current,/<g fill-opacity="\.82">/);
-  assert.ok(rectangles(current).some(r=>r.fill===colorFrom(original,palette)&&r.y==='9'&&r.height==='1'),'opaque surface retained above translucent liquid');
+  const liquidRects=rectangles(current).filter(r=>r.fill===colorFrom(original,palette));
+  const top=Math.min(...liquidRects.map(r=>Number(r.y)));
+  assert.ok(liquidRects.some(r=>Number(r.y)===top&&r.height==='1'),'opaque surface retained above translucent liquid');
+  assert.ok(liquidRects.every(r=>Number(r.x)>=2&&Number(r.x)+Number(r.width)<=8&&Number(r.y)>=4&&Number(r.y)+Number(r.height)<=10),'liquid stays within the bowl, above the stem');
   assert.doesNotMatch(current,/class="sample-liquid"/);
   assert.match(glass(value,{sample:true}),/class="sample-liquid"/);
  }
@@ -79,8 +82,17 @@ test('clear receiver and sample preserve existing reaction hooks without introdu
  }
  for(const color of ['#d8d0a7','#e7ddb6'])assert.ok(fills(current).has(color)&&fills(original).has(color));
  assert.match(current,/fill-opacity="\.68"/);assert.match(current,/fill-opacity="\.8"/);
- const receiver=rectangles(current).filter(r=>Number(r.x)>=51&&r.fill==='#b9c0aa');
- assert.ok(receiver.some(r=>r.width==='1'&&r.height==='13'),'receiver walls are outlines, not an opaque interior');
+ const receiver=rectangles(current).filter(r=>r.fill==='#b9c0aa');
+ const walls=receiver.filter(r=>r.width==='1'&&Number(r.height)>5);
+ assert.equal(walls.length,2,'receiver has two one-cell transparent walls');
+ const left=Math.min(...walls.map(r=>Number(r.x))),right=Math.max(...walls.map(r=>Number(r.x)));
+ const liquid=rectangles(current).filter(r=>['#d8d0a7','#e7ddb6'].includes(r.fill));
+ assert.ok(liquid.every(r=>Number(r.x)>left&&Number(r.x)+Number(r.width)<=right),'liquid remains inside clear walls');
+ const bottom=Math.max(...liquid.map(r=>Number(r.y)+Number(r.height)));
+ assert.match(current,new RegExp(`class="receiver-liquid" data-liquid-bottom="${bottom}"`),'collection pivot follows the actual liquid bottom');
+ assert.match(glass(.4,{sample:true}),/class="sample-liquid" data-liquid-bottom="10"/);
+ const copper=rectangles(current).filter(r=>r.fill==='#503214');
+ assert.ok(copper.every(r=>Number(r.x)+Number(r.width)<left||Number(r.y)<20),'pot body does not overlap receiver');
  assert.equal(current,stillArt());
  assert.doesNotMatch(current,/<(?:animate|script|foreignObject)\b|\bon\w+=/);
 });

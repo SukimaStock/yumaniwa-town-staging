@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d5fb383409a229a0d3d197b5bfd39d3c521273c4af5253f624a01bcf1267372c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-pixel-space",
+    "revision": 0,
+    "change": "Adjust room/object scale and integer pixel framing; contain ordinary scene drags while preserving zoom and modal/input access",
+    "planLevel": "standard",
+    "classes": [
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "dee810b9928dc0f4ffd29ed7ff6cdb3a1941270a",
+    "canonicalSources": [
+      "Current user room-balance instruction",
+      "Latest main and Canvas display/input/dialog implementation",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Original visual source rechecked privately; publish only own implementation and public-code evidence"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-pixel-space/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/scene-input.mjs",
+      "works/ambertime/tests/canvas-layout.test.mjs",
+      "works/ambertime/tests/room-object-art.test.mjs",
+      "works/ambertime/tests/scene-input.test.mjs",
+      "works/ambertime/tests/pixel-space-browser.mjs",
+      "works/ambertime/design/pixel-space/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/rojiura-masala/**",
+      "works/yakitori-wars/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/shop.css"
+    ],
+    "expectedChanges": [
+      "Adjust shared integer-grid room layout, smaller objects and shelf density with unchanged capacity; compact time into HUD; keep readable fonts and minimum44px hit targets.",
+      "Redraw still/receiver/tasting glass integer-cell silhouettes, preserving liquid thresholds/opacities/collection/reaction hooks and authored bottles/casks.",
+      "Use common3logical-pixel frames/shadows in Canvas and native windows; differentiate priorities with muted surface/border colors and labels/focus/current marks.",
+      "Investigate ordinary/edge drags separately from pinch/keyboard; role-scoped overscroll/touch behavior and drag-click cancellation; do not disable browser zoom or modal/input scrolling.",
+      "Preserve game models/RNG/clock/save keys/formats/migration, auxiliary menu and book; no new feature/copy/decoration.",
+      "New browser regression and before/after evidence,5viewport sizes, trusted touch drags/inner scroll/pinch/keyboard height/accessibility/save regressions; lock first and ScopeRiskImpact/CI/PR/Staging/Pages/public verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Read original privately and existing code/rules; public records exclude private source URLs metadata/code.",
+      "360740/390844/360640/1024768/1280900 zero/sparse/full rooms, physical bases/pixel grid/normal fonts/tap regions.",
+      "Idle/collecting/ready/queued/active, tasting/compare/bottle/sale/staff, ledger/history/settings/skip; fixed scene under windows.",
+      "Trusted touch drags all directions from background/button/object, track during motion and after release; nested scroll ends and no behind-scene movement or accidental actions.",
+      "Pinch2x,2xtext,keyboardheight,input/confirm/focus and named controls; no blanket zoom disabling.",
+      "Full existing unit/browser/save/legacy/successor regression, review actual three-room and new object images.",
+      "ExactheadScopeRiskImpact requiredCI and safeStagingmerge exactSHA Pages/public checks; physicalSafari/OS keyboard/rubberband unverified if unavailable."
+    ],
+    "rollback": "Restore only this display/input diff; preserve all models and saved data.",
+    "outOfScope": [
+      "Production",
+      "Shared engine/reference games/town/LAB or lifecycle changes",
+      "Game rules/economy/RNG/timer/save schemas/keys/migration/contracts/brands/staff/recipe/generation models",
+      "Ended experiments or their mocks",
+      "New materials/rewards/contest/game mechanics",
+      "Publishing any private source file URL identifier metadata or code"
+    ],
+    "unverified": [
+      "Physical iPhone Safari/touch/OS keyboard/screenreader and owneradoption"
+    ],
+    "rulesApplied": [
+      "Existing active work presentation/input scope exceeds lightweight route; Standard ASSET/WORK lock first.",
+      "AGENTS requests useful independent browser verification and review with separate ownership.",
+      "Expression audit retains only necessary labels/costs/errors; no decorative explanations."
+    ],
+    "ownerDecisions": [
+      "Current user requests room scale/art/pixel framing and drag investigation/fix through Staging; preserve all game rules and Production."
+    ],
+    "hqDecisions": []
+  }
+}
