@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f36e3253556536720131d8a1af536cf0ba09962f1b3ef95bcade74c0b6b597e0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-canvas-scenes",
+    "revision": 0,
+    "change": "Recompose AmberTime main into Canvas-led fixed game scenes with native accessible overlays",
+    "planLevel": "standard",
+    "classes": [
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "8e6cdcaff8277d32a52ed901df08c2f2a7ecc7fb",
+    "canonicalSources": [
+      "Current user Canvas scene instruction",
+      "Current main and current AmberTime UI/runtime",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Repository reference game viewport, draw order and input code read without modification",
+      "Original visual reference inspected privately; publish only own implementation and public-code evidence"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-canvas-scenes/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/tests/canvas-*.mjs",
+      "works/ambertime/design/canvas-room/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/rojiura-masala/**",
+      "works/yakitori-wars/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/shop.css"
+    ],
+    "expectedChanges": [
+      "Canvas-led360x640 logical scene, centered uniform viewport transform driven by visualViewport and DPR; low-resolution world layer with nearest-neighbor scaling and high-resolution normal-font text, native accessible hit buttons use same projected rectangles",
+      "Warehouse first: fixed shelves with four real capacity positions, objects remain stationary when opening information; actual existing inspection/tasting panel mounted into existing dialog; compare, bottling and source actions remain",
+      "Distillery equipment and receiver fixed in room, current extraction readout and primary controls; staff/recipe details move into existing modal path; sales shelves retain four-per-page and existing product dialogs",
+      "Existing SVG rectangle art reused as Canvas draw primitives, exact liquid/collection/profile data retained; no full engine copying, shared runtime or reference edits",
+      "Only presentation-state modal kinds and mount/focus routing added; all game API calls, save keys/schema, RNG/economy/calculations and timer remain existing. Render invalidation cannot advance game or save",
+      "Canvas commands have native named keyboard/screen-reader controls; long dialog content scrolls internally; normal viewport has no page scroll or clipping; zoom/keyboard inputs retain reachable actions",
+      "New no-scroll/raw-pointer/anchor/coordinate/save/timer/public browser checks plus existing unit regression; screenshots and concise report, independent review, exacthead Scope Risk Impact, CI merge and Pages verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Read latest rules/current/reference code and original visual source; keep all private source URLs identifiers metadata out of public records",
+      "Warehouse prototype before other-room rollout: zero sparse full, fixed anchors, inspect taste compare bottle; close and focus return",
+      "All three scenes world-first composition; visualViewport resize and uniform scaling without stretched art or low-resolution fonts; background equipment unchanged by windows",
+      "360740390844360640PC1280900iPad1024768: document/scrollingElement dimensions and every required native control bound before raw pointer activation; no locator autoscroll accepted as fit proof",
+      "Input transform and rendered/hit rectangles match;44px native targets; keyboard names/focus/readout; native dialogs internally scroll,2x text and keyboard-height input retain confirm controls",
+      "Public model-operation fixtures for initial/distilling/reservation/longterm/4casks/6products/oldsave/successor; protected bytes unchanged; inspection and rendering no saves; existing timer exactly once",
+      "Existing572 unit tests plus new layout and Canvas browser; actual screenshots and independent read-only review separate from automated success; physicalSafari unverified",
+      "Exactcommit Scope Risk Impact and trusted CI; Staging merge Pages success then public operations and normalTLS public source comparison; no Production"
+    ],
+    "rollback": "Revert only Canvas presentation/imports/native overlay and ephemeral modal mounting; existing models, assets and all saves untouched.",
+    "outOfScope": [
+      "Production",
+      "Shared engine/reference games/town/LAB or lifecycle changes",
+      "Game rules/economy/RNG/timer/save schemas/keys/migration/contracts/brands/staff/recipe/generation models",
+      "Ended experiments or their mocks",
+      "New materials/rewards/contest/game mechanics",
+      "Publishing any private source file URL identifier metadata or code"
+    ],
+    "unverified": [
+      "Physical iPhone Safari/touch/OS keyboard/screenreader and owneradoption"
+    ],
+    "rulesApplied": [
+      "Standard ASSET/WORK substantialpresentation>4files: lockfirst, ScopeRiskImpact exacttarget",
+      "AGENTS independentdelegation: root ownsmainDOM/app/CSS, artagent ownsnewmodule, browseragent ownsnewtests/evidence, independentread-onlyreview",
+      "Source-based nativeSVG/CSS grid composition fits existingcode drawing; no need rasterimagegen",
+      "Expressionaudit visualroomparts havephysicalroles, no addeddecorativecopy/heading/explanation; preserve conditions/costs/errors",
+      "User authorizes withinwork roomrecomposition and necessary ephemeral inspector closing as presentation; no sharedruntime/newsave contract"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests three-room unified game-screen recomposition, warehouse-first thenotherrooms, HTMLnormalfonts/currentWebrules, necessaryPR/Staging/publicchecks, noProduction"
+    ],
+    "hqDecisions": []
+  }
+}
