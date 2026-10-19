@@ -1,0 +1,410 @@
+[
+  {
+    "width": 390,
+    "height": 844,
+    "dpr": 3,
+    "pointer": {
+      "dialog": {
+        "x": 12,
+        "y": 230.65625,
+        "right": 378,
+        "bottom": 613.65625,
+        "width": 366,
+        "height": 383
+      },
+      "heading": {
+        "x": 27,
+        "y": 245.65625,
+        "right": 363,
+        "bottom": 321.65625,
+        "width": 336,
+        "height": 76,
+        "clientWidth": 336,
+        "scrollWidth": 336,
+        "clientHeight": 76,
+        "scrollHeight": 76,
+        "overflowX": "visible",
+        "overflowY": "visible"
+      },
+      "title": {
+        "x": 33,
+        "y": 251.65625,
+        "right": 301,
+        "bottom": 315.65625,
+        "width": 268,
+        "height": 64
+      },
+      "close": {
+        "x": 309,
+        "y": 251.65625,
+        "right": 357,
+        "bottom": 299.65625,
+        "width": 48,
+        "height": 48,
+        "focusVisible": false,
+        "outline": "rgb(240, 230, 200) none 3px",
+        "outlineOffset": "0px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "keyboard": {
+      "dialog": {
+        "x": 12,
+        "y": 230.65625,
+        "right": 378,
+        "bottom": 613.65625,
+        "width": 366,
+        "height": 383
+      },
+      "heading": {
+        "x": 27,
+        "y": 245.65625,
+        "right": 363,
+        "bottom": 321.65625,
+        "width": 336,
+        "height": 76,
+        "clientWidth": 336,
+        "scrollWidth": 336,
+        "clientHeight": 76,
+        "scrollHeight": 76,
+        "overflowX": "visible",
+        "overflowY": "visible"
+      },
+      "title": {
+        "x": 33,
+        "y": 251.65625,
+        "right": 301,
+        "bottom": 315.65625,
+        "width": 268,
+        "height": 64
+      },
+      "close": {
+        "x": 309,
+        "y": 251.65625,
+        "right": 357,
+        "bottom": 299.65625,
+        "width": 48,
+        "height": 48,
+        "focusVisible": true,
+        "outline": "rgb(247, 205, 88) solid 3px",
+        "outlineOffset": "2px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "errors": [],
+    "longTitle": {
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "right": 378,
+        "bottom": 832,
+        "width": 366,
+        "height": 820
+      },
+      "heading": {
+        "x": 27,
+        "y": 27,
+        "right": 363,
+        "bottom": 135,
+        "width": 336,
+        "height": 108,
+        "clientWidth": 336,
+        "scrollWidth": 336,
+        "clientHeight": 108,
+        "scrollHeight": 108,
+        "overflowX": "visible",
+        "overflowY": "visible"
+      },
+      "title": {
+        "x": 33,
+        "y": 33,
+        "right": 301,
+        "bottom": 129,
+        "width": 268,
+        "height": 96
+      },
+      "close": {
+        "x": 309,
+        "y": 33,
+        "right": 357,
+        "bottom": 81,
+        "width": 48,
+        "height": 48,
+        "focusVisible": false,
+        "outline": "rgb(240, 230, 200) none 3px",
+        "outlineOffset": "0px"
+      },
+      "body": {
+        "clientHeight": 599,
+        "scrollHeight": 738,
+        "overflowY": "auto"
+      }
+    },
+    "priceUnits": [
+      {
+        "text": "£16.00/本",
+        "height": 32,
+        "line": 32
+      },
+      {
+        "text": "£16.00/本",
+        "height": 32,
+        "line": 32
+      },
+      {
+        "text": "£19.84/本",
+        "height": 32,
+        "line": 32
+      }
+    ],
+    "bottomClose": {
+      "rightColumn": true
+    },
+    "headers": [
+      {
+        "cash": "£1,188",
+        "cashWidth": 59.07692307692308,
+        "cashY": 30,
+        "calendarRight": 113.46153846153847,
+        "cashLeft": 228.9230769230769,
+        "generationRight": 54.38461538461539
+      },
+      {
+        "cash": "£1,188,888",
+        "cashWidth": 98.46153846153847,
+        "cashY": 30,
+        "calendarRight": 113.46153846153847,
+        "cashLeft": 189.53846153846155,
+        "generationRight": 54.38461538461539
+      },
+      {
+        "cash": "£1,188,888,888",
+        "cashWidth": 137.84615384615384,
+        "cashY": 30,
+        "calendarRight": 113.46153846153847,
+        "cashLeft": 150.15384615384616,
+        "generationRight": 54.38461538461539
+      },
+      {
+        "cash": "£1,188,888,888,888",
+        "cashWidth": 177.23076923076923,
+        "cashY": 60,
+        "calendarRight": 113.46153846153847,
+        "cashLeft": 110.76923076923077,
+        "generationRight": 54.38461538461539
+      }
+    ]
+  },
+  {
+    "width": 1280,
+    "height": 900,
+    "dpr": 1,
+    "pointer": {
+      "dialog": {
+        "x": 399,
+        "y": 264,
+        "right": 881.25,
+        "bottom": 637,
+        "width": 482.25,
+        "height": 373
+      },
+      "heading": {
+        "x": 415,
+        "y": 280,
+        "right": 865.25,
+        "bottom": 340,
+        "width": 450.25,
+        "height": 60,
+        "clientWidth": 450,
+        "scrollWidth": 450,
+        "clientHeight": 60,
+        "scrollHeight": 60,
+        "overflowX": "visible",
+        "overflowY": "visible"
+      },
+      "title": {
+        "x": 421,
+        "y": 286,
+        "right": 803.25,
+        "bottom": 318,
+        "width": 382.25,
+        "height": 32
+      },
+      "close": {
+        "x": 811.25,
+        "y": 286,
+        "right": 859.25,
+        "bottom": 334,
+        "width": 48,
+        "height": 48,
+        "focusVisible": false,
+        "outline": "rgb(240, 230, 200) none 3px",
+        "outlineOffset": "0px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "keyboard": {
+      "dialog": {
+        "x": 399,
+        "y": 264,
+        "right": 881.25,
+        "bottom": 637,
+        "width": 482.25,
+        "height": 373
+      },
+      "heading": {
+        "x": 415,
+        "y": 280,
+        "right": 865.25,
+        "bottom": 340,
+        "width": 450.25,
+        "height": 60,
+        "clientWidth": 450,
+        "scrollWidth": 450,
+        "clientHeight": 60,
+        "scrollHeight": 60,
+        "overflowX": "visible",
+        "overflowY": "visible"
+      },
+      "title": {
+        "x": 421,
+        "y": 286,
+        "right": 803.25,
+        "bottom": 318,
+        "width": 382.25,
+        "height": 32
+      },
+      "close": {
+        "x": 811.25,
+        "y": 286,
+        "right": 859.25,
+        "bottom": 334,
+        "width": 48,
+        "height": 48,
+        "focusVisible": true,
+        "outline": "rgb(247, 205, 88) solid 3px",
+        "outlineOffset": "2px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "errors": [],
+    "longTitle": {
+      "dialog": {
+        "x": 399,
+        "y": 28,
+        "right": 881.25,
+        "bottom": 872,
+        "width": 482.25,
+        "height": 844
+      },
+      "heading": {
+        "x": 415,
+        "y": 44,
+        "right": 865.25,
+        "bottom": 120,
+        "width": 450.25,
+        "height": 76,
+        "clientWidth": 450,
+        "scrollWidth": 450,
+        "clientHeight": 76,
+        "scrollHeight": 76,
+        "overflowX": "visible",
+        "overflowY": "visible"
+      },
+      "title": {
+        "x": 421,
+        "y": 50,
+        "right": 803.25,
+        "bottom": 114,
+        "width": 382.25,
+        "height": 64
+      },
+      "close": {
+        "x": 811.25,
+        "y": 50,
+        "right": 859.25,
+        "bottom": 98,
+        "width": 48,
+        "height": 48,
+        "focusVisible": false,
+        "outline": "rgb(240, 230, 200) none 3px",
+        "outlineOffset": "0px"
+      },
+      "body": {
+        "clientHeight": 651,
+        "scrollHeight": 651,
+        "overflowY": "auto"
+      }
+    },
+    "priceUnits": [
+      {
+        "text": "£16.00/本",
+        "height": 32,
+        "line": 32
+      },
+      {
+        "text": "£16.00/本",
+        "height": 32,
+        "line": 32
+      },
+      {
+        "text": "£19.84/本",
+        "height": 32,
+        "line": 32
+      }
+    ],
+    "bottomClose": {
+      "rightColumn": true
+    },
+    "headers": [
+      {
+        "cash": "£1,188",
+        "cashWidth": 68.26666666666667,
+        "cashY": 30,
+        "calendarRight": 128.77777777777777,
+        "cashLeft": 219.73333333333335,
+        "generationRight": 60.51111111111111
+      },
+      {
+        "cash": "£1,188,888",
+        "cashWidth": 113.77777777777777,
+        "cashY": 30,
+        "calendarRight": 128.77777777777777,
+        "cashLeft": 174.22222222222223,
+        "generationRight": 60.51111111111111
+      },
+      {
+        "cash": "£1,188,888,888",
+        "cashWidth": 159.2888888888889,
+        "cashY": 60,
+        "calendarRight": 128.77777777777777,
+        "cashLeft": 128.7111111111111,
+        "generationRight": 60.51111111111111
+      },
+      {
+        "cash": "£1,188,888,888,888",
+        "cashWidth": 204.8,
+        "cashY": 60,
+        "calendarRight": 128.77777777777777,
+        "cashLeft": 83.19999999999999,
+        "generationRight": 60.51111111111111
+      }
+    ]
+  }
+]

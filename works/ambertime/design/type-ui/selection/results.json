@@ -1,0 +1,134 @@
+{
+  "browser": "153.0.8010.0",
+  "runtimeSha256": "4e4af3e99bc4f3f7eb893981621ebbe733748a3389e8803b66c0d47219a41f45",
+  "runtimeEdited": false,
+  "method": "Only served Canvas selected branch rewritten in isolated comparison server; normal game UI/fixtures unchanged.",
+  "physicalSafari": false,
+  "variants": {
+    "old": "if(item.selected){r(x*3-6,y*3-6,image.width*3+12,image.height*3+6,'#f7cd58');r(x*3-3,y*3-3,image.width*3+6,image.height*3+3,'#28285a');}c.drawImage(image,x,y)",
+    "outline": "if(item.selected){const sx=x*3-6,sy=y*3-6,sw=image.width*3+12,sh=image.height*3+12;r(sx,sy,sw,3,'#e3dcc5');r(sx,sy+sh-3,sw,3,'#e3dcc5');r(sx,sy,3,sh,'#e3dcc5');r(sx+sw-3,sy,3,sh,'#e3dcc5');}c.drawImage(image,x,y)",
+    "arrow": "if(item.selected){const cx=(x+image.width/2)*3;for(const [dy,w] of [[-18,15],[-15,9],[-12,3]])r(cx-w/2,y*3+dy,w,3,'#e3dcc5');}c.drawImage(image,x,y)"
+  },
+  "results": [
+    {
+      "variant": "old",
+      "kind": "cask",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "screenshot": "old-cask.png",
+      "selected": {
+        "name": "たる #2 · リフィル · 1か月 · 31.9 L",
+        "pressed": "true",
+        "selectedId": "2"
+      },
+      "publicModelFixture": true,
+      "selectedViaNormalUI": true,
+      "inspectClosed": true,
+      "saveUnchangedByCapture": true,
+      "errors": []
+    },
+    {
+      "variant": "old",
+      "kind": "bottle",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "screenshot": "old-bottle.png",
+      "selected": {
+        "name": "川霧と夜明けを待つ蒸留所の長い銘柄名 · 発売1 · 45本 · 保管中",
+        "pressed": "true",
+        "selectedId": "3"
+      },
+      "publicModelFixture": true,
+      "selectedViaNormalUI": true,
+      "inspectClosed": true,
+      "saveUnchangedByCapture": true,
+      "errors": []
+    },
+    {
+      "variant": "outline",
+      "kind": "cask",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "screenshot": "outline-cask.png",
+      "selected": {
+        "name": "たる #2 · リフィル · 1か月 · 31.9 L",
+        "pressed": "true",
+        "selectedId": "2"
+      },
+      "publicModelFixture": true,
+      "selectedViaNormalUI": true,
+      "inspectClosed": true,
+      "saveUnchangedByCapture": true,
+      "errors": []
+    },
+    {
+      "variant": "outline",
+      "kind": "bottle",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "screenshot": "outline-bottle.png",
+      "selected": {
+        "name": "川霧と夜明けを待つ蒸留所の長い銘柄名 · 発売1 · 45本 · 保管中",
+        "pressed": "true",
+        "selectedId": "3"
+      },
+      "publicModelFixture": true,
+      "selectedViaNormalUI": true,
+      "inspectClosed": true,
+      "saveUnchangedByCapture": true,
+      "errors": []
+    },
+    {
+      "variant": "arrow",
+      "kind": "cask",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "screenshot": "arrow-cask.png",
+      "selected": {
+        "name": "たる #2 · リフィル · 1か月 · 31.9 L",
+        "pressed": "true",
+        "selectedId": "2"
+      },
+      "publicModelFixture": true,
+      "selectedViaNormalUI": true,
+      "inspectClosed": true,
+      "saveUnchangedByCapture": true,
+      "errors": []
+    },
+    {
+      "variant": "arrow",
+      "kind": "bottle",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "screenshot": "arrow-bottle.png",
+      "selected": {
+        "name": "川霧と夜明けを待つ蒸留所の長い銘柄名 · 発売1 · 45本 · 保管中",
+        "pressed": "true",
+        "selectedId": "3"
+      },
+      "publicModelFixture": true,
+      "selectedViaNormalUI": true,
+      "inspectClosed": true,
+      "saveUnchangedByCapture": true,
+      "errors": []
+    }
+  ]
+}

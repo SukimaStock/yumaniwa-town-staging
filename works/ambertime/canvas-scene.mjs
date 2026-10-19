@@ -1,12 +1,12 @@
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.23-readable-1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.24-type-ui-1';
 import{barrel}from'./cask-glass-art.mjs?v=0.19-pixel-1';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.21-space-1';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.22-misaki-1';
-import{BODY_SIZE,pixelTypography,textRuns,numberMarkup}from'./text-metrics.mjs?v=0.23-readable-1';
-import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.23-readable-1';
-import{uiText}from'./ui-text.mjs?v=0.23-readable-1';
+import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
+import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.24-type-ui-1';
+import{uiText}from'./ui-text.mjs?v=0.24-type-ui-1';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false){
  const key=markup+':'+collection.toFixed(3)+':'+active;if(spriteCache.has(key))return spriteCache.get(key);
@@ -32,13 +32,13 @@ export class CanvasScene{
    const visible={width:vv?.width??innerWidth,height:vv?.height??innerHeight,left:vv?.offsetLeft??0,top:vv?.offsetTop??0};
    const zoomed=vv?.scale>1.01;this.root.dataset.zoomed=String(!!zoomed);
    const scene=zoomed?{width:document.documentElement.clientWidth,height:innerHeight,left:0,top:0}:{width:visible.width,height:visible.height,left:0,top:0};
-   this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');document.documentElement.style.setProperty('--pixel',3*v.scale+'px');document.documentElement.style.setProperty('--icon-cell',Math.round(3*v.scale*v.dpr)/v.dpr+'px');this.root.dataset.viewport=JSON.stringify(v);this.alignDialog();this.queue();};
+   this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');document.documentElement.style.setProperty('--pixel',Math.round(3*v.scale*v.dpr)/v.dpr+'px');document.documentElement.style.setProperty('--icon-cell',Math.round(3*v.scale*v.dpr)/v.dpr+'px');this.root.dataset.viewport=JSON.stringify(v);this.alignDialog();this.queue();};
   window.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('scroll',this.resize);this.resize();
   installSceneInput(this.root,$('action-dialog'),()=>{this.pressed=null;this.queue();});
   this.root.addEventListener('pointerdown',e=>{const p=toLogical(this.viewport,e.clientX,e.clientY),hit=hitTest(this.activeControls??[],p.x,p.y);this.root.dataset.lastPointer=JSON.stringify({...p,key:hit?.key??null});this.pressed=hit?.key;this.queue();});
   for(const event of['pointerup','pointercancel','focusin','focusout'])this.root.addEventListener(event,()=>{if(event.startsWith('pointer'))this.pressed=null;this.queue();});
  }
- update(view){this.view=view;this.layout=layoutScene(view);this.root.dataset.room=view.room;this.root.setAttribute('aria-label',({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[view.room]);this.root.dataset.sceneAnchors=JSON.stringify({floor:this.layout.floorY,shelf:this.layout.shelf,casks:this.layout.caskSlots,products:this.layout.productSlots,equipment:this.layout.equipment});$('scene-summary').textContent=[view.calendar,view.cash,view.generation,view.timeStatus,view.phaseSummary].filter(Boolean).join(' · ');$('scene-notice').textContent=view.notice??'';$('spirit-readout').setAttribute('aria-hidden',String(view.room!=='distill'));this.queue();}
+ update(view){this.view=view;this.layout=layoutScene(view);this.root.dataset.room=view.room;this.root.setAttribute('aria-label',({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[view.room]);this.root.dataset.sceneAnchors=JSON.stringify({floor:this.layout.floorY,shelf:this.layout.shelf,casks:this.layout.caskSlots,products:this.layout.productSlots,equipment:this.layout.equipment});$('scene-summary').textContent=[view.calendar,view.cash,view.generation,view.timeStatus,view.phaseSummary].filter(Boolean).join(' · ');$('scene-notice').textContent=view.notice??'';const progress=$('month-progress');progress.setAttribute('aria-valuenow',String(Math.round(100*(view.monthProgress??0))));progress.setAttribute('aria-valuetext','今月 '+Math.round(100*(view.monthProgress??0))+'％ · '+view.timeStatus);$('spirit-readout').setAttribute('aria-hidden',String(view.room!=='distill'));this.queue();}
  queue(){if(this.frame)return;this.frame=requestAnimationFrame(()=>{this.frame=0;this.draw();});}
  controls(){
   for(const node of this.controlRoot.querySelectorAll('button'))node.dataset.sceneVisible='false';
@@ -56,7 +56,7 @@ export class CanvasScene{
   if(v.room==='warehouse'||v.room==='sales'){
    const s=l.shelf;r(s.x,s.y,6,s.h,'#a0785a');r(s.x+6,s.y,3,s.h,'#644632');r(s.x+s.w-6,s.y,6,s.h,'#644632');r(s.x+s.w,s.y,3,s.h,shadow);for(const y of s.rails)rail(s.x,y,s.w);
    const items=v.room==='warehouse'?v.casks:v.products,slots=v.room==='warehouse'?l.caskSlots:l.productSlots;
-   items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand):bottleArt(item.wood)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.height+(v.room==='warehouse'?1:0);if(item.selected){r(x*3-6,y*3-6,image.width*3+12,image.height*3+6,'#f7cd58');r(x*3-3,y*3-3,image.width*3+6,image.height*3+3,'#28285a');}c.drawImage(image,x,y);if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
+   items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand):bottleArt(item.wood)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.height+(v.room==='warehouse'?1:0);if(item.selected){const sx=x*3-6,sy=y*3-6,sw=image.width*3+12,sh=image.height*3+12;r(sx,sy,sw,3,'#e3dcc5');r(sx,sy+sh-3,sw,3,'#e3dcc5');r(sx,sy,3,sh,'#e3dcc5');r(sx+sw-3,sy,3,sh,'#e3dcc5');}c.drawImage(image,x,y);if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
   }else{
    const e=l.equipment;rail(72,e.benchY,216);r(72,e.benchY+9,6,l.floorY-e.benchY-9,'#a0785a');r(282,e.benchY+9,6,l.floorY-e.benchY-9,'#644632');const image=sprite(stillArt(),v.collection,v.phase==='distilling');c.drawImage(image,e.x/3,e.y/3);
   }
@@ -67,12 +67,12 @@ export class CanvasScene{
  measure(text,size=BODY_SIZE){return this.runs(text,size).reduce((sum,run)=>sum+run.width,0)/this.textMetrics(size).unit;}
  text(text,x,y,size=BODY_SIZE,align='left',color=ink){const c=this.ctx,v=this.viewport,runs=this.runs(text,size),width=runs.reduce((sum,run)=>sum+run.width,0);let px=Math.round((v.offsetX+x*v.scale)*v.dpr)-(align==='center'?width/2:align==='right'?width:0);const py=Math.round((v.offsetY+y*v.scale)*v.dpr);c.save();c.setTransform(1,0,0,1,0,0);c.textAlign='left';c.textBaseline='alphabetic';c.fillStyle=color;for(const run of runs){c.font=`400 ${run.pixels}px ${FONT_STACK}`;c.fillText(run.text,Math.round(px),py+run.drop);px+=run.width;}c.restore();}
  lines(text,x,y,width,size=BODY_SIZE,max=2,align='left'){
-  const result=[];let line='';for(const ch of String(text)){if(this.measure(line+ch,size)>width&&line){result.push(line);line='';}line+=ch;}if(line)result.push(line);const shown=result.slice(0,max);if(result.length>max){let last=Array.from(shown.at(-1));while(last.length&&this.measure(last.join('')+'…',size)>width)last.pop();shown[shown.length-1]=last.join('')+'…';}const step=Math.max(size+4,this.textMetrics(size).logical+4);shown.forEach((s,i)=>this.text(s,x,y+i*step,size,align));return shown.length;
+  const result=[];let line='';for(const piece of textPieces(text)){const parts=this.measure(piece,size)>width?Array.from(piece):[piece];for(const ch of parts){if(this.measure(line+ch,size)>width&&line){result.push(line);line='';}line+=ch;}}if(line)result.push(line);const shown=result.slice(0,max);if(result.length>max){let last=Array.from(shown.at(-1));while(last.length&&this.measure(last.join('')+'…',size)>width)last.pop();shown[shown.length-1]=last.join('')+'…';}const step=Math.max(size+4,this.textMetrics(size).logical+4);shown.forEach((s,i)=>this.text(s,x,y+i*step,size,align));return shown.length;
  }
  window(x,y,w,h,fill='#2e3143',border='#6c707b'){const c=this.ctx;c.fillStyle=shadow;c.fillRect(x+3,y+3,w,h);c.fillStyle=border;c.fillRect(x,y,w,h);c.fillStyle=fill;c.fillRect(x+3,y+3,w-6,h-6);}
  draw(){
   if(!this.view||!this.fontSettled)return;this.controls();this.drawWorld();const c=this.ctx,v=this.viewport,view=this.view,l=this.layout;c.setTransform(v.dpr,0,0,v.dpr,0,0);c.fillStyle=shadow;c.fillRect(0,0,v.width,v.height);c.imageSmoothingEnabled=false;c.drawImage(this.world,0,0,120,640/3,v.offsetX,v.offsetY,360*v.scale,640*v.scale);c.save();c.translate(v.offsetX,v.offsetY);c.scale(v.scale,v.scale);
-  c.fillStyle='#292b39';c.fillRect(6,6,348,102);this.text(view.calendar,15,33,BODY_SIZE);this.text(view.generation,273,33,BODY_SIZE,'right');this.text(view.cash,288,65,BODY_SIZE,'right','#e6c77a');if(!['停止中','進行中','確認中・停止中','試飲中・停止中','画面を離れて停止中'].includes(view.timeStatus))this.lines(view.timeStatus,15,96,270,BODY_SIZE,1);
+  c.fillStyle='#292b39';c.fillRect(6,6,348,102);this.text(view.calendar,15,30,BODY_SIZE);this.text(view.generation,15,60,BODY_SIZE);const cashWidth=this.measure(view.cash),cashY=cashWidth>141?60:30;this.text(view.cash,288,cashY,BODY_SIZE,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY,calendarRight:15+this.measure(view.calendar),cashLeft:288-cashWidth});this.text('月の進み',15,93,BODY_SIZE);c.fillStyle='#454958';c.fillRect(123,78,159,12);c.fillStyle='#b2a379';c.fillRect(123,78,Math.round(53*Math.max(0,Math.min(1,view.monthProgress??0)))*3,12);this.root.dataset.monthProgress=String(view.monthProgress??0);
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
   items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2;const lines=this.lines(view.room==='warehouse'?uiText(item.name):item.name,mid,p.base+27,132,BODY_SIZE,1,'center');this.text(view.room==='sales'?item.state.replace(' · ',' ').replace('販売中','販売').replace('保管中','保管'):item.age,mid,p.base+27+lines*Math.max(26,this.textMetrics(BODY_SIZE).logical+4),BODY_SIZE,'center');});
   if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
@@ -84,7 +84,7 @@ export class CanvasScene{
    if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
    if(a.key==='open-ledger'){this.text('帳面',51,574,BODY_SIZE,'center');continue;}
-   if(a.key==='open-aux-menu'){if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(315+i*9,30,3,3);continue;}
+   if(a.key==='open-aux-menu'){this.window(a.x,a.y,a.w,a.h,pressed?'#414350':'#2e3143','#606575');c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(315+i*9,30,3,3);continue;}
    if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+29,BODY_SIZE,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}
    const primary=['start-distill','stop-distill','open-fill','go-distill'].includes(a.key),quiet=['open-staff-panel','trade-info','shop-offer','shelf-prev','shelf-next'].includes(a.key);
    if(!quiet)this.window(a.x,a.y,a.w,a.h,pressed?'#414350':primary?'#685038':'#2e3143',primary?'#ae8d60':'#606575');

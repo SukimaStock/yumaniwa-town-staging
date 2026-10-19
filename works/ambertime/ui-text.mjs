@@ -26,5 +26,5 @@ export function uiText(value){
  if(value===null||value===undefined)return value;
  let text=String(value);
  for(const [from,to] of phrases)text=text.split(from).join(to);
- return text.replaceAll('樽','たる').replaceAll('瓶','ビン');
+ return text.replaceAll('樽','たる').replaceAll('瓶','ビン').replaceAll('刺激','シゲキ').replaceAll('標準','ふつう').replaceAll('バーボンたる','バーボン').replaceAll('リフィルたる','リフィル');
 }

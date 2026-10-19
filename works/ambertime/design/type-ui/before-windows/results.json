@@ -1,0 +1,302 @@
+[
+  {
+    "width": 390,
+    "height": 844,
+    "dpr": 3,
+    "pointer": {
+      "dialog": {
+        "x": 12,
+        "y": 236.65625,
+        "right": 378,
+        "bottom": 607.65625,
+        "width": 366,
+        "height": 371
+      },
+      "heading": {
+        "x": 27,
+        "y": 251.65625,
+        "right": 363,
+        "bottom": 315.65625,
+        "width": 336,
+        "height": 64,
+        "clientWidth": 336,
+        "scrollWidth": 344,
+        "clientHeight": 64,
+        "scrollHeight": 65,
+        "overflowX": "auto",
+        "overflowY": "auto"
+      },
+      "title": {
+        "x": 27,
+        "y": 251.65625,
+        "right": 317,
+        "bottom": 315.65625,
+        "width": 290,
+        "height": 64
+      },
+      "close": {
+        "x": 323,
+        "y": 251.65625,
+        "right": 371,
+        "bottom": 299.65625,
+        "width": 48,
+        "height": 48,
+        "focusVisible": false,
+        "outline": "rgb(240, 230, 200) none 3px",
+        "outlineOffset": "0px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "keyboard": {
+      "dialog": {
+        "x": 12,
+        "y": 236.65625,
+        "right": 378,
+        "bottom": 607.65625,
+        "width": 366,
+        "height": 371
+      },
+      "heading": {
+        "x": 27,
+        "y": 251.65625,
+        "right": 363,
+        "bottom": 315.65625,
+        "width": 336,
+        "height": 64,
+        "clientWidth": 336,
+        "scrollWidth": 344,
+        "clientHeight": 64,
+        "scrollHeight": 65,
+        "overflowX": "auto",
+        "overflowY": "auto"
+      },
+      "title": {
+        "x": 27,
+        "y": 251.65625,
+        "right": 317,
+        "bottom": 315.65625,
+        "width": 290,
+        "height": 64
+      },
+      "close": {
+        "x": 323,
+        "y": 251.65625,
+        "right": 371,
+        "bottom": 299.65625,
+        "width": 48,
+        "height": 48,
+        "focusVisible": true,
+        "outline": "rgb(247, 205, 88) solid 3px",
+        "outlineOffset": "2px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "withoutOutline": {
+      "dialog": {
+        "x": 12,
+        "y": 236.65625,
+        "right": 378,
+        "bottom": 607.65625,
+        "width": 366,
+        "height": 371
+      },
+      "heading": {
+        "x": 27,
+        "y": 251.65625,
+        "right": 363,
+        "bottom": 315.65625,
+        "width": 336,
+        "height": 64,
+        "clientWidth": 336,
+        "scrollWidth": 344,
+        "clientHeight": 64,
+        "scrollHeight": 65,
+        "overflowX": "auto",
+        "overflowY": "auto"
+      },
+      "title": {
+        "x": 27,
+        "y": 251.65625,
+        "right": 317,
+        "bottom": 315.65625,
+        "width": 290,
+        "height": 64
+      },
+      "close": {
+        "x": 323,
+        "y": 251.65625,
+        "right": 371,
+        "bottom": 299.65625,
+        "width": 48,
+        "height": 48,
+        "focusVisible": true,
+        "outline": "rgb(240, 230, 200) none 3px",
+        "outlineOffset": "2px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "height": 900,
+    "dpr": 1,
+    "pointer": {
+      "dialog": {
+        "x": 399,
+        "y": 274,
+        "right": 881.25,
+        "bottom": 627,
+        "width": 482.25,
+        "height": 353
+      },
+      "heading": {
+        "x": 415,
+        "y": 290,
+        "right": 865.25,
+        "bottom": 330,
+        "width": 450.25,
+        "height": 40,
+        "clientWidth": 450,
+        "scrollWidth": 458,
+        "clientHeight": 40,
+        "scrollHeight": 40,
+        "overflowX": "auto",
+        "overflowY": "auto"
+      },
+      "title": {
+        "x": 415,
+        "y": 290,
+        "right": 819.25,
+        "bottom": 322,
+        "width": 404.25,
+        "height": 32
+      },
+      "close": {
+        "x": 825.25,
+        "y": 282,
+        "right": 873.25,
+        "bottom": 330,
+        "width": 48,
+        "height": 48,
+        "focusVisible": false,
+        "outline": "rgb(240, 230, 200) none 3px",
+        "outlineOffset": "0px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "keyboard": {
+      "dialog": {
+        "x": 399,
+        "y": 274,
+        "right": 881.25,
+        "bottom": 627,
+        "width": 482.25,
+        "height": 353
+      },
+      "heading": {
+        "x": 415,
+        "y": 290,
+        "right": 865.25,
+        "bottom": 330,
+        "width": 450.25,
+        "height": 40,
+        "clientWidth": 450,
+        "scrollWidth": 458,
+        "clientHeight": 40,
+        "scrollHeight": 40,
+        "overflowX": "auto",
+        "overflowY": "auto"
+      },
+      "title": {
+        "x": 415,
+        "y": 290,
+        "right": 819.25,
+        "bottom": 322,
+        "width": 404.25,
+        "height": 32
+      },
+      "close": {
+        "x": 825.25,
+        "y": 282,
+        "right": 873.25,
+        "bottom": 330,
+        "width": 48,
+        "height": 48,
+        "focusVisible": true,
+        "outline": "rgb(247, 205, 88) solid 3px",
+        "outlineOffset": "2px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "withoutOutline": {
+      "dialog": {
+        "x": 399,
+        "y": 274,
+        "right": 881.25,
+        "bottom": 627,
+        "width": 482.25,
+        "height": 353
+      },
+      "heading": {
+        "x": 415,
+        "y": 290,
+        "right": 865.25,
+        "bottom": 330,
+        "width": 450.25,
+        "height": 40,
+        "clientWidth": 450,
+        "scrollWidth": 458,
+        "clientHeight": 40,
+        "scrollHeight": 40,
+        "overflowX": "auto",
+        "overflowY": "auto"
+      },
+      "title": {
+        "x": 415,
+        "y": 290,
+        "right": 819.25,
+        "bottom": 322,
+        "width": 404.25,
+        "height": 32
+      },
+      "close": {
+        "x": 825.25,
+        "y": 282,
+        "right": 873.25,
+        "bottom": 330,
+        "width": 48,
+        "height": 48,
+        "focusVisible": true,
+        "outline": "rgb(240, 230, 200) none 3px",
+        "outlineOffset": "2px"
+      },
+      "body": {
+        "clientHeight": 144,
+        "scrollHeight": 144,
+        "overflowY": "auto"
+      }
+    },
+    "errors": []
+  }
+]

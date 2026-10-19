@@ -1,0 +1,125 @@
+{
+  "url": "http://127.0.0.1:41175/works/ambertime/",
+  "results": [
+    {
+      "mode": "cold",
+      "dpr": 1,
+      "state": "ready",
+      "measureCount": 30,
+      "drawCount": 14,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "cold",
+      "dpr": 3,
+      "state": "ready",
+      "measureCount": 30,
+      "drawCount": 14,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "warm",
+      "dpr": 1,
+      "state": "ready",
+      "measureCount": 30,
+      "drawCount": 14,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "warm",
+      "dpr": 3,
+      "state": "ready",
+      "measureCount": 30,
+      "drawCount": 14,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "failed",
+      "dpr": 1,
+      "state": "fallback",
+      "measureCount": 30,
+      "drawCount": 14,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "failed",
+      "dpr": 3,
+      "state": "fallback",
+      "measureCount": 30,
+      "drawCount": 14,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "delayed",
+      "dpr": 1,
+      "state": "ready",
+      "measureCount": 240,
+      "drawCount": 112,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "delayed",
+      "dpr": 3,
+      "state": "ready",
+      "measureCount": 240,
+      "drawCount": 112,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    }
+  ]
+}

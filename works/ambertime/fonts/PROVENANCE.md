@@ -26,3 +26,11 @@ transform the font or replace browser text rendering. Uncovered characters
 (including 𠮷, 髙, 﨑, emoji and é) must use the normal CSS/Canvas fallback stack.
 The requested Japanese game terms, £, ASCII digits, decimal point, ％ and L are
 present. No cmap entries mapping to the missing-glyph shape were found.
+
+## 2026-10-19 — Gothic2nd selected after three-face comparison
+
+The official archive was fetched again and its SHA-256 matched the archive above.
+`misaki_gothic_2nd.ttf` (2021.0505), SHA-256 `5f0cbb8850e910ffa749d467bc41c89271388a0cbe0fe48741cf2bf0dfe3ac43`, is now the game face. The original standard face remains unchanged for comparison.
+Gothic2nd has natural7-dot numerals, so the standard-face numeric enlargement and baseline shift were removed after actual Canvas/HTML comparison. No conversion/subsetting/glyph modification.
+The original archive documents and license above apply to all3faces. Comparison-only Mincho is at `../design/type-ui/comparison/fonts/misaki_mincho.ttf`. See `../design/type-ui/comparison/REPORT.md` for source and measured rendering.
+Gothic2nd cmap covers7,170codepoints; U+2423 visible-space is absent relative to standard Gothic and falls back. Coverage metadata now follows this exact face.
