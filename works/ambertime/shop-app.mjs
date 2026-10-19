@@ -86,8 +86,8 @@ function staffRequestView(){
  if(!status.hired&&!(status.legacy&&modal.caskId===null))return out+'<p>'+copyFacts([['採用費',money(status.hireCost)],['給与',money(status.salary)+'／仕込み']])+'</p><p class="quiet">仕込み開始時に支払い<br>待機中は無料</p>'+(status.canHire?'':'<p class="quiet">'+esc(uiText(status.reason))+'</p>');
  const salary=status.hired?q.salary:0,total=q.distillationCost+q.caskCost+salary;
  out+='<p class="staff-cost">'+copyFacts([['蒸留費',money(q.distillationCost)],['たる代',money(q.caskCost)],...(salary?[['給与',money(salary)+'／仕込み']]:[]),['合計',money(total)]])+'</p>';
- let wait=[];if(game.core.casks.length>=4)wait.push('貯蔵庫は4たるで満杯です。');const minimum=q.minimum-(status.hired?0:q.salary);if(game.core.cash<minimum)wait.push('ビン詰め費を残すため、資金 '+money(minimum)+' を待ちます。');
- out+='<p class="quiet">'+(wait.length?wait.map(esc).join('<br>'):'空きと資金を待って始めます。')+'</p>';
+ let wait=[];if(game.core.casks.length>=4)wait.push('貯蔵庫が満杯です。');const minimum=q.minimum-(status.hired?0:q.salary);if(game.core.cash<minimum)wait.push('必要資金 '+money(minimum)+'（ビン詰め費を含む）');
+ if(wait.length)out+='<p class="quiet">'+wait.map(esc).join('<br>')+'</p>';
  return out;
 }
 function staffCanRequest(){return game.still.phase==='ready'&&!game.usual.reservation&&generationState()?.phase==='working'&&!game.decisions.length&&!game.trade.offer;}
@@ -201,9 +201,9 @@ function generationCauseText(g){
 function generationReview(g){
  let text='<p>'+monthLabel(g.startedMonth)+'から'+monthLabel(game.core.month)+'まで · '+Math.floor(g.tenureMonths/12)+'年'+g.tenureMonths%12+'か月</p>';
  const cause=generationCauseText(g);if(cause)text+='<p>区切り · '+esc(cause)+' · '+monthLabel(g.fixedMonth)+'</p>';
- text+=g.lastStatus==='filled'&&g.lastCaskId!==null?'<p>'+esc(caskName(g.lastCaskId))+' · '+esc(generationName(g.id))+'の最後の仕込み</p>':g.lastStatus==='unfinished'?'<p>最後の仕込みは、たる詰め前のまま次の代へ引き継ぎます。</p>':'<p>最後の1たるを仕込まず、次の代へ引き継ぎます。</p>';
+ text+=g.lastStatus==='filled'&&g.lastCaskId!==null?'<p>'+esc(caskName(g.lastCaskId))+' · '+esc(generationName(g.id))+'の最後の仕込み</p>':g.lastStatus==='unfinished'?'<p>未完成の原酒は次の代へ引き継ぎます。</p>':'<p>最後の仕込みは見送り、次の代へ。</p>';
  const reason={'grace-ended':'仕込みの猶予を終えました。','funds-stalled':'資金を残して、次の代へ引き継ぎます。'};if(reason[g.reason])text+='<p class="quiet">'+esc(reason[g.reason])+'</p>';
- if(g.lastStatus==='not-made'&&game.still.phase!=='ready')text+='<p class="quiet">進行中の蒸留・原酒は、そのまま引き継ぎます。</p>';
+ if(g.lastStatus==='not-made'&&game.still.phase!=='ready')text+='<p class="quiet">進行中の蒸留と原酒は引継ぎ</p>';
  return text;
 }
 const releaseFor=id=>game.releases.find(r=>r.productId===id);
@@ -241,7 +241,7 @@ function schedule(){
   try{
    if(D.canBeginUsual(game).ok){jump=0;game=D.beginUsual(game);completedSpirit=null;if(!save())return;message('いつもの仕込みを始めました。');}
    const wasAutomatic=game.usual.reservation?.status==='active',wasDistilling=game.still.phase==='distilling';
-   if(wasDistilling){const before=game.still.distillation.progress,batchId=game.core.spirit?.id;game=D.distillStep(game);if(wasAutomatic&&!game.usual.reservation){const newborn=game.core.casks.find(c=>c.batchId===batchId);completedSpirit=spiritProfile(newborn);}if(!wasAutomatic&&before<T.distillMax-1&&game.still.distillation.progress>=T.distillMax-1)message('抽出がいっぱいになりました。たるに詰められます。');}
+   if(wasDistilling){const before=game.still.distillation.progress,batchId=game.core.spirit?.id;game=D.distillStep(game);if(wasAutomatic&&!game.usual.reservation){const newborn=game.core.casks.find(c=>c.batchId===batchId);completedSpirit=spiritProfile(newborn);}if(!wasAutomatic&&before<T.distillMax-1&&game.still.distillation.progress>=T.distillMax-1)message('抽出完了');}
    elapsed+=jump?T.monthMs/5:T.distillStepMs;
    const completed=wasAutomatic&&!game.usual.reservation;
    if(elapsed>=T.monthMs){const before=game.core.month;game=D.tickDistillery(game,expectedMonth);elapsed=0;if(game.core.month===before&&!game.decisions.length&&generationState()?.phase!=='review'){runtimeHalted=true;message('資金を残して停止しています。たる詰めや販売を確かめられます。');}if(game.core.month!==before){const ships=game.trade.lastShipments.filter(x=>x.month===game.core.month),key=game.core.month+':'+ships.map(x=>x.productId).join(',');if(ships.length&&shipmentKey!==key){shipmentKey=key;message('卸売出荷 '+ships.reduce((n,x)=>n+x.bottles,0)+'本 · 入金 '+money(ships.reduce((n,x)=>n+x.net,0)));document.body.classList.add('just-shipped');setTimeout(()=>document.body.classList.remove('just-shipped'),1200);}else {const obs=game.trade.lastObservations??[];message(obs.map(x=>caskName(x.caskId)+' · '+(x.title??x.text??'熟成が変化しました')).join(' / '));}}if(jump>0)jump--;save();}
@@ -304,13 +304,13 @@ function departmentDestination(p,release,invitation){
 function closeModal(){if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){historyRequest++;if(historyLoading){historyWorker?.terminate();historyWorker=null;historyLoading=false;}}if(modal?.kind==='decision')return;if(modal?.kind==='offer'){act(D.declineOffer,()=>{modal=null;offerCaskId=null;});return;}modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
 function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();jump=0;if(game.tastingId!==null&&game.tastingId!==id)endTaste();selectedCaskId=id;room='warehouse';const postFill=modal?.kind==='inspect'&&modal.postFill===true;modal={kind:'inspect',id,postFill};act(s=>D.sampleDistillery(s,id));}
 function quoteModal(id){if(!D.currentCask(game,id))return;if(game.trade.order?.status==='unmet'&&game.trade.order.caskId===id){act(D.endTasting,()=>{modal=null;message('先に、このたるの販売方法を選びます。');});return;}if(D.contractFor(game,id)){stopClock();modal={kind:'contract-bottle',id};jump=0;render();return;}stopClock();modal={kind:'quote',id};jump=0;render();}
-function termButtons(terms,selected,action){return '<div class="trade-terms">'+terms.map(t=>button(ageLabel(t.targetAge)+'<small>'+unit(t.unitPrice)+'/本 費用 '+unit(t.bottlingFee)+'/本</small>',action,t.id,'aria-pressed="'+(t.id===selected)+'"')).join('')+'</div>';}
+function termButtons(terms,selected,action){return '<div class="trade-terms">'+terms.map(t=>button(ageLabel(t.targetAge)+'<small>買取 '+unit(t.unitPrice)+'/本<br>ビン詰め '+unit(t.bottlingFee)+'/本</small>',action,t.id,'aria-pressed="'+(t.id===selected)+'"')).join('')+'</div>';}
 function termEstimate(id,term){
  if(!term)return '';const q=id===null?null:D.quote(game,id);
- return (q?'<p>'+q.count+'本なら 売上 '+money(q.count*term.unitPrice)+' 入金 '+money(q.count*(term.unitPrice-term.bottlingFee))+'</p>':'')+'<p class="quiet">'+ageLabel(term.targetAge)+'で自動出荷。蒸発で本数が減ります。ビン詰め費は代金から差引。維持費は継続。出荷前の解除は無料。</p>';
+ return (q?'<p>'+copyFacts([['本数',q.count+'本'],['売上',money(q.count*term.unitPrice)],['入金',money(q.count*(term.unitPrice-term.bottlingFee))]])+'</p>':'')+'<p class="quiet">指定の熟成年数で自動出荷<br>蒸発で本数は減少<br>ビン詰め費は代金から差引<br>維持費は継続<br>出荷前の解除は無料</p>';
 }
 function orderDescription(order){
- return '<div class="order-brief"><strong>特別注文 1たる</strong><p>'+ageLabel(order.targetAge)+' '+unit(order.unitPrice)+'/本 ビン詰め費 '+unit(order.bottlingFee)+'/本</p><p>'+D.SPECIAL_ORDER.taste.map(esc).join('<br>')+'</p><p class="quiet">条件が合えば自動出荷。合わなければ販売方法を選べます。</p></div>';
+ return '<div class="order-brief"><strong>特別注文 1たる</strong><p>'+copyFacts([['出荷',ageLabel(order.targetAge)],['買取',unit(order.unitPrice)+'／本'],['ビン詰め',unit(order.bottlingFee)+'／本（代金から差引）']])+'</p><p>'+D.SPECIAL_ORDER.taste.map(esc).join('<br>')+'</p><p class="quiet">条件達成で自動出荷<br>未達なら販売方法を選択</p></div>';
 }
 function orderStatus(order){return order.status==='accepted'?'たるは未指定':order.status==='unmet'?'風味を確認 販売方法を選択':caskName(order.caskId)+' 出荷予定';}
 // Move the original panels, rather than copying their inputs or event handlers.
@@ -344,12 +344,12 @@ function syncModal(){
  }else if(kind==='staff-request'){
   const status=D.staffStatus(game),mayUse=status.hired||(status.legacy&&modal.caskId===null);title='仕込みを任せる';body=staffRequestView();
   actions=mayUse?button('依頼','staff-confirm','',staffCanRequest()?'':'disabled'):button('採用 '+money(status.hireCost),'staff-hire-request','',status.canHire&&!game.decisions.length&&!game.trade.offer?'':'disabled');
-  if(!staffCanRequest())body+='<p class="quiet">'+(generationState()?.phase!=='working'?'最後の仕込みは自分で行います。':game.usual.reservation?'次の1たるは依頼済み':'今の仕込み・判断を終えてから依頼')+'</p>';
+  if(!staffCanRequest())body+='<p class="quiet">'+(generationState()?.phase!=='working'?'最後の仕込みは自分で行います。':game.usual.reservation?'依頼済み':'今の仕込み・判断を終えてから依頼')+'</p>';
   actions+=button('戻る','staff-back');
  }else if(comparisonKinds.includes(kind)){title=({'cask-picker':'比べるたるを選ぶ','cask-comparison':'たるを比べる','release-comparison':'前と比べる','recipe-source':'元の仕込み','recipes':'製法','comparison-brand-record':'記録'})[kind];body=kind==='cask-picker'?caskPickerView():kind==='cask-comparison'?caskComparisonView():kind==='release-comparison'?releaseComparisonView():kind==='recipe-source'?recipeSourceView():kind==='comparison-brand-record'?brandComparisonRecordView(modal.brandId):recipesView();actions=(kind==='release-comparison'&&modal.pair?button('記録','compare-brand-record',modal.pair.current.brandId):'')+button('戻る','comparison-back');
  }else if(kind==='generation-notice'||kind==='generation-review'){
   const g=generationState();if(!g||g.id!==id||g.phase==='working'){modal=null;return;}title=generationName(g.id)+(kind==='generation-review'?'の歩み':'の最後の仕込み');
-  body=kind==='generation-review'?generationReview(g):'<p>'+monthLabel(g.fixedMonth)+' · '+esc(generationCauseText(g))+'</p><p>たる詰め期限 '+monthLabel(g.fixedMonth+12)+'。難しい場合は今ある原酒を引き継ぎます。</p>'+(game.usual.reservation?.status==='queued'?'<p class="quiet">いつもの仕込みの予約は、次の代へ引き継ぎます。</p>':'');
+  body=kind==='generation-review'?generationReview(g):'<p>'+monthLabel(g.fixedMonth)+'<br>'+esc(generationCauseText(g))+'</p><p>たる詰め期限 '+monthLabel(g.fixedMonth+12)+'<br>未完成の原酒も引継ぎ</p>'+(game.usual.reservation?.status==='queued'?'<p class="quiet">仕込み予約は次の代へ引継ぎ</p>':'');
   actions=kind==='generation-review'?button('次の代へ引き継ぐ','generation-handover',g.id)+button('蒸留所の歩み','generation-history',g.id):button('仕込みへ','generation-continue',g.id);
  }else if(kind==='history'||kind==='history-brand'||kind==='history-shop'){
   title=kind==='history'?'蒸留所の歩み':kind==='history-brand'?(game.brands.find(b=>b.id===modal.brandId)?.name??'ブランドの記録'):shopName(modal.shopId)+'の記録';
@@ -366,12 +366,12 @@ function syncModal(){
   const term=terms.find(t=>t.id===offerTermId);
   title=offer.partner+'からの申し出';
   if(offer.kind==='special'){
-   body='<p>果実のかおり豊かな原酒を1たる。</p>'+orderDescription(offer)+'<p class="quiet">たるは受注後に選べます。通常取引は継続します。</p>';
+   body=orderDescription(offer)+'<p class="quiet">たるは受注後に指定<br>通常の取引は継続</p>';
    actions=button('注文を受ける','contract')+button('やめる','decline');
   }else{
-   body='<p>'+(offer.kind==='terms'?'次の納品からの条件です。':'継続取引の申し出です。')+'</p>'+termButtons(terms,offerTermId,'offer-term');
-   if(offer.kind!=='terms')body+=termEstimate(null,term)+'<p class="quiet">たるは開始後に選べます。</p>';
-   else body+='<p class="quiet">指定済みのたるの条件は変わりません。</p>';
+   body=(offer.kind==='terms'?'<p>次の納品から適用</p>':'')+termButtons(terms,offerTermId,'offer-term');
+   if(offer.kind!=='terms')body+=termEstimate(null,term)+'<p class="quiet">たるは取引開始後に指定</p>';
+   else body+='<p class="quiet">指定済みのたるは元の条件で出荷</p>';
    actions=button(offer.kind==='terms'?'条件を更新':'取引を始める','contract')+button('やめる','decline');
   }
  }else if(kind==='assign'){
@@ -386,14 +386,14 @@ function syncModal(){
   const relation=game.trade.relationship;if(!relation){modal=null;return;}
   title=kind==='end-trade'?'取引を終了する':'現在の取引先';
   body='<p>'+esc(relation.partner)+' '+(relation.status==='paused'?'指定を休止中':'取引中')+'</p>'+relation.terms.map(t=>'<p>'+ageLabel(t.targetAge)+' '+unit(t.unitPrice)+'/本 ビン詰め費 '+unit(t.bottlingFee)+'/本</p>').join('')+'<p>出荷済み '+relation.deliveries+'たる '+relation.bottles+'本</p><p>指定中 '+game.trade.contracts.length+'たる</p>';
-  if(kind==='end-trade'){body+='<p>指定中のたると特別注文も解除します。熟成は続きます。</p>';actions=button('取引を終了','end-trade')+button('戻る','trade-back');}
+  if(kind==='end-trade'){body+='<p>たるの出荷指定・特別注文も解除<br>熟成は継続</p>';actions=button('取引を終了','end-trade')+button('戻る','trade-back');}
   else{const order=game.trade.order;if(order)body+=orderDescription(order)+'<p>'+esc(orderStatus(order))+'</p>';body+='<p class="quiet">休止中も指定済みのたるは出荷します。</p>';actions=(order?button('注文を取り消す','cancel-order-confirm'):'')+button(relation.status==='paused'?'指定を再開':'指定を休止',relation.status==='paused'?'resume-trade':'pause-trade')+button('取引を終える','end-trade-confirm')+button('戻る','cancel');}
  }else if(kind==='cancel-order'){
-  const order=game.trade.order;if(!order){modal=null;return;}title='注文を取り消す';body=orderDescription(order)+'<p>違約金はありません。通常の取引とたるの熟成は続きます。</p>';actions=button('注文を取り消す','cancel-order')+button('戻る','trade-back');
+  const order=game.trade.order;if(!order){modal=null;return;}title='注文を取り消す';body=orderDescription(order)+'<p>違約金なし<br>通常の取引と熟成は継続</p>';actions=button('注文を取り消す','cancel-order')+button('戻る','trade-back');
  }else if(kind==='contract'||kind==='contract-bottle'){
   const k=D.contractFor(game,id);if(!k||k.caskId!==id){modal=null;return;}title=k.kind==='special'?'このたるの特別注文':'このたるの卸売契約';
-  body='<p>'+esc(k.partner)+' '+esc(caskLabel(c))+'</p><p>'+ageLabel(k.targetAge)+'で自動出荷 '+unit(k.unitPrice)+'/本</p><p>ビン詰め費 '+unit(k.bottlingFee)+'/本を代金から差引</p><p class="quiet">自分でビン詰めするには、無料で解除できます。</p>';
-  if(k.kind==='special')body+=orderDescription(k)+'<p class="quiet">たるの指定を外しても、注文は未指定で残ります。</p>';
+  body='<p>'+esc(k.partner)+' '+esc(caskLabel(c))+'</p><p>'+ageLabel(k.targetAge)+'で自動出荷 '+unit(k.unitPrice)+'/本</p><p>ビン詰め費 '+unit(k.bottlingFee)+'/本を代金から差引</p><p class="quiet">解除は無料。自分でビン詰めできます。</p>';
+  if(k.kind==='special')body+=orderDescription(k)+'<p class="quiet">指定解除後も注文は継続（たるは未指定）</p>';
   actions=kind==='contract-bottle'?button(k.kind==='special'?'たるの指定を外してビン詰め':'契約を解除してビン詰め','cancel-for-bottle',id)+button('たるへ戻る','cancel'):button(k.kind==='special'?'たるの指定を外す':'契約を解除','cancel-contract',id)+button('たるへ戻る','cancel');
   if(kind==='contract'&&D.canCare(game,id)){actions=button('冷暗所へ','care',id)+actions;}
  }else if(kind==='decision'){
@@ -451,8 +451,8 @@ function renderSpirit(){
  const current=distillationView(game),view=current??(completedSpirit?{...completedSpirit,phase:'filled'}:null);
  panel.hidden=!view;if(!view)return;
  const gathering=view.phase==='collecting';
- $('spirit-kind').textContent=gathering?'集めはじめ':view.phase==='forecast'?(game.usual.reservation?.status==='active'?'抽出見込み':'抽出見込み'):view.phase==='filled'?'たる詰め済み':'できた原酒';
- $('spirit-phrase').textContent=uiText(view.phrase);
+ $('spirit-kind').textContent=gathering?'採取待ち':view.phase==='forecast'?(game.usual.reservation?.status==='active'?'抽出見込み':'抽出見込み'):view.phase==='filled'?'たる詰め済み':'できた原酒';
+ $('spirit-phrase').textContent=gathering?'':uiText(view.phrase);
  $('spirit-gauges').hidden=gathering;
  $('spirit-volume').textContent=view.litres.toFixed(1)+' L';
  for(const axis of view.axes??[]){const meter=$('spirit-'+axis.id);meter.setAttribute('aria-valuenow',String(axis.value));meter.setAttribute('aria-valuetext',axis.value.toFixed(2)+' / '+axis.maximum+' · 特徴の強さ');meter.style.setProperty('--flavor-fill',axis.ratio);}
@@ -480,7 +480,7 @@ function render(){
  renderSpirit();
  $('distill-caption').hidden=phase!=='ready'||start.ok;
  $('distill-caption').textContent=phase==='ready'&&!start.ok?uiText(start.reason):'';
- $('distill-direction').hidden=phase!=='distilling'||atLimit||game.still.distillation.progress>=T.minimumStop;$('distill-direction').textContent='最初の採取を待っています。';
+ $('distill-direction').hidden=phase!=='distilling'||atLimit||game.still.distillation.progress>=T.minimumStop;$('distill-direction').textContent='採取待ち';
  const quote=D.usualQuote(game),reference=D.selectedUsualRecipe(game),recipe=reference,staff=D.staffStatus(game);
  const chosen=game.recipeBook?.entries.find(r=>r.id===game.recipeBook.selectedId);
  $('staff-panel').hidden=!recipe&&!staff.hired&&!reservation;$('open-staff-panel').hidden=$('staff-panel').hidden;
@@ -495,7 +495,7 @@ function render(){
  $('usual-recipe').innerHTML=recipe?copyFacts([['製法',chosen?(chosen.name||caskName(chosen.source.caskId)+'の製法'):'前回の手動仕込み'],['抽出',recipe.stopAt+' / '+T.distillMax],['たる',uiText(P.casks[recipe.type].short)]]):'';
  $('reserve-usual').hidden=!!reservation||(!staff.hired&&!staff.legacy);$('reserve-usual').disabled=!recipe||phase!=='ready'||tasting||(!!modal&&modal.kind!=='staff-panel')||gen?.phase!=='working';
  $('cancel-usual').hidden=reservation?.status!=='queued';
- $('usual-status').textContent=gen?.phase==='last-batch'&&!automatic?(reservation?'最後の仕込みは自分で\n予約は次代へ':'最後の仕込みは自分で'):automatic?'仕込み中\n今回で終了':reservation?(userPaused?'予約待ち':D.canBeginUsual(game).ok?'予約待ち\n次の1たる':'予約待ち\n'+uiText(D.canBeginUsual(game).reason)):staff.hired?'指示待ち':'';
+ $('usual-status').textContent=gen?.phase==='last-batch'&&!automatic?(reservation?'最後の仕込みは自分で\n予約は次代へ':'最後の仕込みは自分で'):automatic?'仕込み中\n今回で終了':reservation?(userPaused?'依頼済み':D.canBeginUsual(game).ok?'依頼済み':'依頼済み\n'+uiText(D.canBeginUsual(game).reason)):staff.hired?'指示待ち':'';
  if(reservation)$('usual-status').textContent+=' 抽出 '+reservation.recipe.stopAt+' / '+T.distillMax+'\n'+uiText(P.casks[reservation.recipe.type].short)+(reservation.source?'\n'+caskName(reservation.source.caskId)+'から':'');
  const rk=JSON.stringify([game.core.casks.map(c=>[c.id,c.age,c.litres]),selectedCaskId,game.generations]);
  if(rk!==rackKey){$('cask-rack').innerHTML=game.core.casks.map(c=>'<button type="button" data-cask-id="'+c.id+'" aria-label="'+esc(caskLabel(c)+' · '+ageLabel(c.age)+' · '+c.litres.toFixed(1)+' L')+'" aria-pressed="'+(selectedCaskId===c.id)+'"><span class="shelf-art" aria-hidden="true">'+barrel(c.type)+'</span><strong>'+caskName(c.id)+'</strong><small>'+ageLabel(c.age)+'</small></button>').join('')+'<span class="shelf-space" aria-hidden="true"></span>'.repeat(Math.max(0,4-game.core.casks.length));rackKey=rk;}
@@ -505,7 +505,7 @@ function render(){
  $('warehouse-empty').hidden=game.core.casks.length>0;$('selected-cask').hidden=selectedCaskId===null||modal?.kind!=='inspect';$('close-cask-window').hidden=true;
  if(selectedCaskId!==null){
   const c=D.currentCask(game,selectedCaskId),n=game.notesById[c.id];if(barrelKey!==c.id){$('barrel').innerHTML=barrel(c.type);barrelKey=c.id;}
-  $('cask-kind').textContent=caskLabel(c)+(provenanceLabel(c.id)?' · '+provenanceLabel(c.id):'');$('cask-provenance').textContent=provenanceLabel(c.id);$('age').textContent=ageLabel(c.age);const gk=c.id+':'+c.wood;if(glassKey!==gk){$('glass').innerHTML=glass(c.wood,{sample:true});glassKey=gk;}$('amount').textContent='残り '+c.litres.toFixed(1)+' L';$('loss').textContent='仕込みから −'+(c.initialLitres-c.litres).toFixed(1)+' L';$('change').textContent=uiText(D.observation(game,c.id).change);$('last-taste').textContent=n.samples.length?'最後の試飲 · '+ageLabel(n.samples.at(-1).age):'試飲記録なし';
+  $('cask-kind').textContent=caskLabel(c)+(provenanceLabel(c.id)?' · '+provenanceLabel(c.id):'');$('cask-provenance').textContent=provenanceLabel(c.id);$('age').textContent=ageLabel(c.age);const gk=c.id+':'+c.wood;if(glassKey!==gk){$('glass').innerHTML=glass(c.wood,{sample:true});glassKey=gk;}$('amount').textContent='残り '+c.litres.toFixed(1)+' L';$('loss').textContent='仕込みから −'+(c.initialLitres-c.litres).toFixed(1)+' L';$('change').textContent=uiText(D.observation(game,c.id).change);$('last-taste').textContent=n.samples.length?'前回 '+ageLabel(n.samples.at(-1).age):'試飲記録なし';
   $('tasting-panel').hidden=!tasting||modal?.kind!=='inspect';$('tasting-actions').hidden=!tasting||modal?.kind!=='inspect';$('free-actions').hidden=tasting||modal?.kind!=='inspect';
   if(tasting){
    const comp=D.comparison(game,c.id),previous=comp.previous?.profile,hasPrevious=FLAVOR_AXES.some(({key})=>Number.isFinite(previous?.[key])&&previous[key]>=0&&previous[key]<=1.35);
