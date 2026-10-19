@@ -1,0 +1,157 @@
+{
+  "unitTests": {
+    "pass": 577,
+    "fail": 0,
+    "logSha256": "fca479252da660f6cc14e891c44cd056f470dcf7ec70fe3ad70b4fceba9dbc1d"
+  },
+  "sources": {
+    "font-loader.mjs": "6e8ae13fe716e5ab24789bee189c5ceb40248c76132131432e64b3f4d12427bc",
+    "font-coverage.mjs": "cb888e042b2cdbc2334f5f2aff0e436457f5d1d9af3931ad11ed133575fa26b1",
+    "fonts/misaki_gothic.ttf": "0963e11e89d5fa409a7a048a52e8ea2d623d764a7998488f8a4291111611c4e1",
+    "canvas-scene.mjs": "fbca97e42b0abe97dfe7691578f1044c8aa273598f47be9e433df49110ebc3f1",
+    "room-scene.css": "27c4a08a24185786b602f3163176c471083e72d6f94bd7196c5256d1ff8c79a0",
+    "index.html": "9b61791d24febd6482c9153f068867bd4651db6c3c40bc789712979698df289a",
+    "shop-app.mjs": "ff9d0eb1a3a110cf45a67990088395477f607c95789a075849ecd24981666aae",
+    "tests/misaki-browser.mjs": "49ace4b1dcf6c67eabfda599c731340901e0247f52ed5e05476a9879ad1ebfec"
+  },
+  "fontModes": [
+    {
+      "mode": "cold",
+      "dpr": 1,
+      "state": "ready",
+      "measureCount": 18,
+      "drawCount": 10,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "cold",
+      "dpr": 3,
+      "state": "ready",
+      "measureCount": 18,
+      "drawCount": 10,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "warm",
+      "dpr": 1,
+      "state": "ready",
+      "measureCount": 18,
+      "drawCount": 10,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "warm",
+      "dpr": 3,
+      "state": "ready",
+      "measureCount": 18,
+      "drawCount": 10,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "failed",
+      "dpr": 1,
+      "state": "fallback",
+      "measureCount": 18,
+      "drawCount": 10,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "failed",
+      "dpr": 3,
+      "state": "fallback",
+      "measureCount": 18,
+      "drawCount": 10,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "delayed",
+      "dpr": 1,
+      "state": "ready",
+      "measureCount": 144,
+      "drawCount": 80,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    },
+    {
+      "mode": "delayed",
+      "dpr": 3,
+      "state": "ready",
+      "measureCount": 144,
+      "drawCount": 80,
+      "preSettlementMeasurements": 0,
+      "integerPhysicalFontPixels": true,
+      "integerPhysicalOrigins": true,
+      "sample": {
+        "covered": true,
+        "missing": true
+      },
+      "errors": []
+    }
+  ],
+  "physicalSafari": false,
+  "productionChanged": false,
+  "fullRegressionCodeSha": "5dc18fbab787ce4024305cadf1cefea16349f081",
+  "followupChanges": [
+    "shorten last-batch reservation display text",
+    "shift spirit panel24logicalpx when phaseSummary3lines"
+  ],
+  "followupSources": {
+    "canvas-scene.mjs": "017dcf6a1a03aff78b4e76489006f548b59d88e48620c135e75d176779a8989d",
+    "shop-app.mjs": "084c6139b635c1fe624d9cbc017d79473510202e525db75a6c2a460525f8523e",
+    "tests/misaki-phase-browser.mjs": "bd6cbfb11b7b0c8d5586895b743918bbb544021639dec6094d1ced87883e97cb"
+  },
+  "followupTests": {
+    "layoutInputUnitPass": 5,
+    "lastBatchBrowserCases": 10,
+    "sameSessionFullRackBrowserCases": 6,
+    "phaseEvidenceSha256": "781db3be94eaf4a930ffe515ce1c80495d11555b2328fb1a9cf85115d6cb4d7d"
+  }
+}

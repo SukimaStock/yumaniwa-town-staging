@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7b838019a7a46d2f9612bf4ca7e88ca2baf5648bbbd43d3020862379e18a8422",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-misaki-font",
+    "revision": 0,
+    "change": "Embed official standard Misaki Gothic TTF for Canvas and native dialogs; adjust text and controls without model/save changes",
+    "planLevel": "standard",
+    "classes": [
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "2a1cf90f36cecf98ccd0763941eca0c15f0b2ce2",
+    "canonicalSources": [
+      "Current user Misaki Gothic instruction",
+      "https:/littlelimit.net/misaki.htm",
+      "https:/littlelimit.net/font.htm",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "Current Canvas/dialog implementation"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-misaki-font/r0.lock.json",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-loader.mjs",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/misaki*.mjs",
+      "works/ambertime/design/misaki/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/scene-input.mjs"
+    ],
+    "expectedChanges": [
+      "Bundle unchanged official standard Misaki Gothic TTF and original copyright/license documentation with source/hash provenance. No CDN, conversion, subset or second Gothic.",
+      "Load font before first font measurement/drawing; bounded failure fallback and late redraw; common Canvas/native stack with uncovered characters falling back.",
+      "Start at16 logicalpx and regular weight; inspect actual device pixels, resize,DPR and fractional scales; tune spacing/wrapping/copy while preserving accessible names/full input and44px hit areas.",
+      "Apply to rooms and all dialogs, use system font consistently for editable input/long technical save text if needed. Preserve prior drag/zoom/modal behavior.",
+      "Capture before/after, cold/warm/delayed/failed font tests and model/save regressions. ScopeRiskImpact exacthead; PR CI safeStagingmerge and publicverification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360740/390844/360640/1024768/1280900; DPR1/3; actual screenshots and pixel analysis, Japanese, kana marks, numbers,currency,units,missingglyph input,longbrand.",
+      "All three rooms and taste/comparison/bottling/sales/recipe/staff/ledger/history/settings; disabled/selected/focus;44px normalhit targets; modal close/footer/scroll reachability and fixedbackground.",
+      "Cold/warm/slow/failedfont load; no premature fontmeasure and latefont redraw; fallback works and unicode notdef handling.",
+      "Resize,2xtext,pinch,keyboard-equivalentheight,accessible labels,keyfocus,legacy/successor save reload.",
+      "Full related modelunit/browser regressions; independentreview. PhysicalSafari/OSscreenreader unverified."
+    ],
+    "rollback": "Revert this display/font bundle change only; preserve507/508 and all saves.",
+    "outOfScope": [
+      "Production",
+      "Shared runtime/town/LAB",
+      "All model/economy/time/contracts/brands/staff/recipe/generation/save keys and formats",
+      "New permanent font setting",
+      "Independent experiments"
+    ],
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver and owner adoption"
+    ],
+    "rulesApplied": [
+      "Standard WORK+ASSET locked plan; unchanged existing input and models",
+      "Expression audit before/during/after; remove only redundancy, keep conditions/costs/results",
+      "Independent font-source investigation and final read-only review"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests standard Misaki Gothic embed and text/spacing/control adjustments, full Staging delivery only."
+    ],
+    "hqDecisions": []
+  }
+}

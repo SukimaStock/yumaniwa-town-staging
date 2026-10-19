@@ -1,0 +1,15 @@
+{
+  "phase": "distilling",
+  "generation": "last-batch",
+  "reservation": {
+    "status": "queued",
+    "recipe": {
+      "stopAt": 65,
+      "type": "refill"
+    }
+  },
+  "replayValidated": true,
+  "summary": "最後の仕込みは自分で · 予約は次代へ 抽出 65 / 100 · リフィル樽",
+  "spiritKind": "最初の採取",
+  "fontState": "ready"
+}

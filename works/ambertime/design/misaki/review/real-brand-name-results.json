@@ -1,0 +1,31 @@
+{
+  "sourceCommit": "5dc18fb",
+  "browser": "153.0.8010.0",
+  "fontState": "ready",
+  "name": "樽香と夜明けの長い銘柄名を確かめる𠮷髙﨑😀é",
+  "utf16Length": 24,
+  "codePoints": 22,
+  "actualInputSelector": "#brand-name",
+  "actualQuoteText": "樽 #2 · リフィル樽 · 1か月\n\n45本 · 費用 £135\n\n瓶詰め後の所持金 £1,233\n\n銘柄\n新しい銘柄を作る\n銘柄名\nボトル・ラベルを選ぶ",
+  "exactInputRetainedAfterResize": true,
+  "resized": {
+    "value": "樽香と夜明けの長い銘柄名を確かめる𠮷髙﨑😀é",
+    "font": "system-ui, -apple-system, sans-serif",
+    "rect": {
+      "x": 100.0625,
+      "y": 230.5,
+      "width": 186.875,
+      "height": 45,
+      "top": 230.5,
+      "right": 286.9375,
+      "bottom": 275.5,
+      "left": 100.0625
+    }
+  },
+  "normalBottlingAction": true,
+  "exactBrandRetainedAfterReload": true,
+  "exactProductWindowName": true,
+  "normalInputUsesSystemFont": true,
+  "physicalSafari": false,
+  "errors": []
+}
