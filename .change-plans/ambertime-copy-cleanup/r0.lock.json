@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "409693a02df1ae78ddf353ab0f396aecd63d6d613d4bdede4156cbf8ed7d8f7c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "352cb96b44614d2798867d8b59fa789336bc5a5b",
+    "changeId": "ambertime-copy-cleanup",
+    "revision": 0,
+    "change": "Remove redundant current-play copy and shorten status/contract/generation guidance while preserving material conditions and all model data",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit text-cleanup request",
+      "PR518 current offer-confirm Plan and implementation",
+      "PR514 CI operations",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Drive SukimaStock expression audit / observation log",
+      "Drive Code/AmberTime.txt original",
+      "Drive note/昔の自分ともう一度ゲームを作る"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-copy-cleanup/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/copy-cleanup.mjs",
+      "works/ambertime/design/copy-cleanup/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Only current fixed system UI strings and existing fact rows: remove duplicate instructions; concise distillation/staff status, previous sample label, wholesale/special-order and cancellation/generation copy. Preserve meaningful financial/cancellation/acceptance/protection conditions. No global rewrite of user names or stored records.",
+      "Keep PR518 normal offer selection/confirmation and department exception as-is; already-short sales-price copy unchanged. Inspect legacy distillery-app and partner-orders but do not modify inactive legacy UI or persisted model strings.",
+      "Cache-query refresh only for modified adapter/app. Existing art, CSS, controls, handlers and model modules unchanged."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Targeted390x844 display/basic actions for changed status, cask previous-sample, wholesale conditions/assignment/cancellation, special-order unmet caveat and generation inheritance. MinimalPC only same changed contract rows. Check text clipping and preservation of important conditions.",
+      "Syntax, protected save/model/formula diff and UI-handler diff review. Scope→Risk→Impact, required exact-head CI/review, normal Staging merge, exact merge Pages and public changed-file bytes. No prior whole-flow test replay."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this fixed UI copy change; no data migration.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Cache import/script diffs trigger CONTRACT_REVIEW_REQUIRED in active-work targeted proof; use Standard Lock before implementation. Lightweight verification remains per CHANGE-OPERATIONS.",
+      "Expression audit: remove only redundant UI prose; retain concrete conditions, player names, saved records and aging observations. No extra decoration or audit ledger.",
+      "Prior offer-confirm Plan is historical; reuse completed work and do not repeat its behavioral suite. No CI redesign."
+    ]
+  }
+}

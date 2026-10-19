@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "label": "Reused completed collecting/completion/cask checks from initial run; unchanged runtime"
+    },
+    {
+      "label": "Reused completed staff status/request/name-preservation check"
+    },
+    {
+      "label": "Reused completed special offer/acceptance, cancellation effects/cancel, contract and wholesale assignment exact-action checks; unchanged runtime"
+    },
+    {
+      "label": "generation final-batch notice",
+      "metrics": {
+        "dialogOverflow": false,
+        "bodyOverflow": false,
+        "actionsOverflow": false,
+        "bottom": 603,
+        "viewport": 844
+      }
+    },
+    {
+      "label": "PC special conditions",
+      "metrics": {
+        "dialogOverflow": false,
+        "bodyOverflow": false,
+        "actionsOverflow": false,
+        "bottom": 753.5,
+        "viewport": 900
+      }
+    }
+  ],
+  "pageErrors": [],
+  "physicalSafari": false,
+  "scope": "Changed text and basic adjacent actions only"
+}
