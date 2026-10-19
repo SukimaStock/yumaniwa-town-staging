@@ -181,3 +181,16 @@ body[data-room][data-time] .clock-dock #time-controls[hidden]{display:none!impor
 .dialog-storage-error{color:#f1bea3;border-left:2px solid #bd8066;padding-left:9px}
 /* Enlarged text may wrap the status header rather than leave the viewport. */
 .clock-dock header{flex-wrap:wrap}
+/* Object grids stay at integer CSS scales inside the existing layout boxes. */
+svg.pixel-object{display:block;max-width:none;flex-shrink:0;margin-inline:auto;image-rendering:pixelated}
+#cask-rack svg.pixel-cask{width:32px;height:32px}
+#hero #barrel svg.pixel-cask{width:128px;height:128px}
+body.is-tasting #hero #barrel svg.pixel-cask{width:64px;height:64px}
+#hero #glass-button svg.pixel-glass{width:48px;height:72px}
+body.is-tasting #hero #glass-button svg.pixel-glass{width:32px;height:48px}
+.nearby-art svg.pixel-cask{width:48px;height:48px}
+.nearby-pick-art svg.pixel-cask,.nearby-origin>span svg.pixel-cask{width:64px;height:64px}
+.fill-art svg.pixel-cask{width:64px;height:64px}
+.staff-source-art svg.pixel-cask{width:48px;height:48px}
+.recipe-origin-art svg.pixel-cask{width:32px;height:32px}
+body[data-room].is-tasting #glass .pixel-glass .sample-liquid{transform-origin:8px 17px}
