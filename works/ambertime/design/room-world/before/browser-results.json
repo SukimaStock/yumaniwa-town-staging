@@ -1,0 +1,156 @@
+{
+  "browser": "153.0.8010.0",
+  "url": "Immutable local baseline, not live Staging",
+  "physicalSafari": false,
+  "physicalKeyboard": false,
+  "screenReader": false,
+  "sourceHashes": {
+    "index.html": "3af23bdb334b4af1c4f0d61084722e076afece4510590359aa0d81c8bc9218df",
+    "shop-app.mjs": "c4402af72074194c51e51298215e917f707d975b19e1987ffb0d963393f437ee",
+    "shop.css": "a1567cd939e8c6fd2ca6dee58b485bd582229f7d71502e1a85aa338cef103520",
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+    "partner-orders.mjs": "478389e22041eaa00d170a794a9f2fc920298d10c9f1700653ce382d598c3aa8",
+    "flavor-types.mjs": "233eb1c504d676e7c0426436c34b7664436f0b3e6853430fb7fab2ee312d11f9"
+  },
+  "screenshotHashes": {
+    "360-distill.png": "097083d58aaf19a1a665a36fe6535373eaf4ec04f845f7149eb7f26548d02dfe",
+    "360-fill.png": "ba87cd272ad1adbaba381e19ecd74327736bc6863b7e396e91b0f1ea6a9410e2",
+    "360-warehouse.png": "0530f469d24182bbd22610252467c4fd781e371dab7cb832fc543af122f75424",
+    "360-tasting.png": "c099391875ffde7f0baed22f453bbf2ba12a3abbe73e2bf125870e96321f5fa6",
+    "360-comparison.png": "46d9ab21cd9d26b6da3ce54a089f4511d9fb5b8633c7e2b6301dc82bf56cfca1",
+    "360-sales.png": "810c33aac9d13132af3b927b2f5093020da4c63a8ef0b09977fef267300c429c",
+    "390-distill.png": "65ba6070d696363c0284e59e2fa3e374e6b5ac67f95a795c5df4c149349a6556",
+    "390-fill.png": "5cbe26cb9b2f2af6ae88eae9c19c8003cee8da8add52610ff6ed84bec3a4f214",
+    "390-warehouse.png": "7c85995e5955311cd4deca19c73a395b8ef739bddae4b627718bd1f430ce691b",
+    "390-tasting.png": "6e6bab1c3d0770f6a7cced69b3377f0a87956f5629a24b4ad771ef4b5bc5012c",
+    "390-comparison.png": "c08d2b2bf242ea5022605a444714639f52840da1f318723b8054f805b45a8681",
+    "390-sales.png": "a70a693a333c9c93ab0a62811e1eea0a87433f3bc9bd9f056838bde2fe21c31d",
+    "1280-distill.png": "63437a32f7246b0a277ecaf6cbedb0957b1b9b61bee79e2cb70c77b313ad3c45",
+    "1280-warehouse.png": "e5ec8931fc21ecaca5330b8a5bae00bd10794c40d12f9ea8ae89e7eb49b2a65b",
+    "1280-sales.png": "7a7691d4996bdfc1ebbc4ef82d112b8b41c3f68726bee25080293b0d8bd96d1e"
+  },
+  "checks": [
+    {
+      "width": 360,
+      "height": 740,
+      "distill": {
+        "top": 344.328125,
+        "bottom": 390.328125,
+        "width": 328,
+        "height": 46
+      },
+      "extraction": {
+        "top": 459.515625,
+        "bottom": 505.515625,
+        "width": 328,
+        "height": 46
+      },
+      "warehouse": {
+        "top": 602.390625,
+        "bottom": 668.578125,
+        "width": 76,
+        "height": 66.1875
+      },
+      "tasting": {
+        "top": 682.421875,
+        "bottom": 726.421875,
+        "width": 160.5,
+        "height": 44
+      },
+      "exactTastingGaugesAndPreviousMarkers": true,
+      "twoCaskComparisonSixMeters": true,
+      "comparisonRoundtripNoMutation": true,
+      "quoteShortViewportDraftRetained": true,
+      "productFlavorInitiallyCollapsed": true,
+      "savesSeparated": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "distill": {
+        "top": 344.328125,
+        "bottom": 390.328125,
+        "width": 358,
+        "height": 46
+      },
+      "extraction": {
+        "top": 459.515625,
+        "bottom": 505.515625,
+        "width": 358,
+        "height": 46
+      },
+      "warehouse": {
+        "top": 602.390625,
+        "bottom": 668.578125,
+        "width": 83.5,
+        "height": 66.1875
+      },
+      "tasting": {
+        "top": 682.421875,
+        "bottom": 726.421875,
+        "width": 175.5,
+        "height": 44
+      },
+      "exactTastingGaugesAndPreviousMarkers": true,
+      "twoCaskComparisonSixMeters": true,
+      "comparisonRoundtripNoMutation": true,
+      "quoteShortViewportDraftRetained": true,
+      "productFlavorInitiallyCollapsed": true,
+      "savesSeparated": true,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "distill": {
+        "top": 376.328125,
+        "bottom": 422.328125,
+        "width": 430,
+        "height": 46
+      },
+      "extraction": {
+        "top": 491.515625,
+        "bottom": 537.515625,
+        "width": 430,
+        "height": 46
+      },
+      "warehouse": {
+        "top": 607.390625,
+        "bottom": 653.390625,
+        "width": 129,
+        "height": 46
+      },
+      "tasting": {
+        "top": 716.453125,
+        "bottom": 760.453125,
+        "width": 231.5,
+        "height": 44
+      },
+      "exactTastingGaugesAndPreviousMarkers": true,
+      "twoCaskComparisonSixMeters": true,
+      "comparisonRoundtripNoMutation": true,
+      "quoteShortViewportDraftRetained": true,
+      "productFlavorInitiallyCollapsed": true,
+      "savesSeparated": true,
+      "errors": []
+    },
+    {
+      "corruptSaveRecoverySettingsReachable": true,
+      "pagerKeyboardFocusRetained": true,
+      "selectedDestinationOnly": true,
+      "destinationSwitchNoGameMutation": true,
+      "threeBottleGaugesOnDemand": true,
+      "legacyV17PreservedVerbatim": true,
+      "strictV18MigrationReload": true,
+      "postGenerationTwoExactReload": true,
+      "sixLiveProductsPaginationFourThenTwo": true,
+      "modalStopsTimeWithoutMutatingGame": true,
+      "ledgerIndependentDialog": true,
+      "settingsVersionAndLabReachable": true,
+      "computedTextDoubleSizeNoHorizontalOverflow": true,
+      "shortModalActionsScrollable": true
+    }
+  ],
+  "baselineSha": "ac14fab051dab0c1e975b184730e0e8aec36f68f"
+}

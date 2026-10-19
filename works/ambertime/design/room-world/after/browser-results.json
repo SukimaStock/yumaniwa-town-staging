@@ -1,0 +1,5996 @@
+{
+  "browser": "153.0.8010.0",
+  "url": "http://127.0.0.1:37211/works/ambertime/",
+  "warehouseOnly": false,
+  "physicalSafari": false,
+  "physicalKeyboard": false,
+  "screenReader": false,
+  "sourceHashes": {
+    "index.html": "8fb29253cf2703c308ce68be365ad0f8c7135ab490a695323be7d5c184335648",
+    "shop-app.mjs": "694a32f9cb3ed828570aa6e49c4ca7e4646ef2d740327c1b506eab5ea66f59f7",
+    "shop.css": "a1567cd939e8c6fd2ca6dee58b485bd582229f7d71502e1a85aa338cef103520",
+    "room-scene.css": "858baca1e7bce0ee6909bb1683b4e1af35d83edc3725d60adab9d25e8123d279",
+    "room-object-art.mjs": "dbb51e277707d0b9b7c4241b6c2e7539c6d5cda7702afb5a0c7b84b630127012",
+    "cask-glass-art.mjs": "1e9d6fed98b5e1d68f4b18102191d078668ee560c89ff50262daf42340e0e691",
+    "art.mjs": "904ce38936ff24becae40dbaf58a6284012a2b5f65cda508bbaa40cae29ff2d5",
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+    "partner-orders.mjs": "478389e22041eaa00d170a794a9f2fc920298d10c9f1700653ce382d598c3aa8",
+    "flavor-types.mjs": "233eb1c504d676e7c0426436c34b7664436f0b3e6853430fb7fab2ee312d11f9"
+  },
+  "screenshotHashes": {
+    "360-warehouse-empty.png": "7eebbf850a283c88de06d59a4e39dafa006acc6c64562d64086bc1c2bd683ce8",
+    "360-warehouse.png": "ff7f3ed7d39ffd098de10232303b60caac273c973bc9bf7c0d65e7e260bcba44",
+    "360-tasting-12m.png": "af0204e21646b72e92d7886abe9a668a7070bd2aa3a1bcad59ecbc080e89ee9b",
+    "360-comparison-12m.png": "424b64028f1966d7ec74bef9027623a82e379cefb2508db33493d8caf2fdbfbf",
+    "360-distill.png": "37997b74d074c76d4f94eb92cbb5f8ef9f6637efd908bf00a1d282be2a5b3474",
+    "360-sales.png": "c76427edd69e47f397ff2b527f861943b9a1b6b9b6f07a18575f1f3d5cb4d906",
+    "390-warehouse-empty.png": "77d146c9177294a5657a91cc6ead7eb022a7ddf17a52aab5cb9560bda790e77c",
+    "390-warehouse.png": "fc1e08b98579b21cf2f4a24a76d6f8288132eed631d9b348695e101ddbbd644d",
+    "390-tasting-12m.png": "9346df53a46cea15387ae6f237972591e382d12eaff36132a9ef8e9becbff176",
+    "390-comparison-12m.png": "23819e8c3cc7ee93c7268eee0b6919245f0d733e304b1554f42599c7f1fe5b41",
+    "390-distill.png": "8a1b9972e70030b7a1ab472f3e0dd5f288c7f3c89967900df6b8b9d8691608f9",
+    "390-sales.png": "6ff361e829fea287ea96df00070d4d191a06ff04e4d8167557056a33e7c30b6e",
+    "1280-warehouse.png": "76e6d611083c720d6a69098892899a64f9e0abfffa3e8a7840f5bb78d6f2cb45",
+    "1280-distill.png": "b05dda9de24789b343925184cb213c0d54807b1397c637795ed04fbd4101a219",
+    "1280-sales.png": "5572cc2e5bc1f67131ac393f8a94d5ba178e8f66fea5f5b8184cbd9b50879dd1"
+  },
+  "fixtureHashes": {
+    "empty": "b5c8b6b6b66a5fbc1854f2e8bcd10b83b4431c0a9e64709d627cd8cf84ae3554",
+    "ready": "74be896b992607cbe7f590709e8cc025eb8aa03a4b008a5f64f5d1b6f269fce1",
+    "full": "f407b261396f791d4c5b8946300ba5cdb8174ef5b1a90fc7528a82d1f80f0d3c",
+    "age-0": "96d8bdef0d285f689d334dddbb839da5cdb29d1aaaa2b87e64db6bc60fe5ee1b",
+    "age-12": "76d8bb2de81ce932ec561d42a06dd742d745fa4dc50e77375dff42cf635c3ae6",
+    "age-72": "20e74e9b14918ee29ae33fe33150870fe103154b6effa975da7565744aea93a6",
+    "bottle": "1f94d46c468bc689b0c35d1d90c8b3108098e2fff8ce91925bd34db34fa17860"
+  },
+  "geometries": {
+    "360-warehouse-empty": {
+      "pageHeight": 740,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 183,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 125,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "go-distill",
+          "text": "原酒を仕込む",
+          "x": 126,
+          "y": 504.84375,
+          "width": 108,
+          "height": 45,
+          "bottom": 549.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 675,
+          "width": 94,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-sales-empty": {
+      "pageHeight": 740,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 183,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 125,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 675,
+          "width": 94,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-warehouse": {
+      "pageHeight": 798,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 183,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 4樽",
+          "x": 125,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #24か月",
+          "x": 33,
+          "y": 211.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 316.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #43か月",
+          "x": 180,
+          "y": 211.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 316.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #62か月",
+          "x": 33,
+          "y": 316.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 421.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #81か月",
+          "x": 180,
+          "y": 316.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 421.84375,
+          "font": "13px"
+        },
+        {
+          "id": "close-cask-window",
+          "text": "×",
+          "x": 285,
+          "y": 442.84375,
+          "width": 45,
+          "height": 45,
+          "bottom": 487.84375,
+          "font": "22px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 493.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 547.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 30,
+          "y": 553.84375,
+          "width": 300,
+          "height": 45,
+          "bottom": 598.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-cask",
+          "text": "比べる",
+          "x": 30,
+          "y": 598.84375,
+          "width": 147,
+          "height": 45,
+          "bottom": 643.84375,
+          "font": "14px"
+        },
+        {
+          "id": "taste-button",
+          "text": "試飲する",
+          "x": 183,
+          "y": 598.84375,
+          "width": 147,
+          "height": 45,
+          "bottom": 643.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-bottle",
+          "text": "瓶詰め",
+          "x": 30,
+          "y": 649.84375,
+          "width": 147,
+          "height": 45,
+          "bottom": 694.84375,
+          "font": "14px"
+        },
+        {
+          "id": "staff-cask",
+          "text": "仕込みを任せる",
+          "x": 183,
+          "y": 649.84375,
+          "width": 147,
+          "height": 45,
+          "bottom": 694.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 732.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 777.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 732.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 777.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 732.84375,
+          "width": 94,
+          "height": 45,
+          "bottom": 777.84375,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-tasting-0m": {
+      "pageHeight": 806,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 125,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21か月",
+          "x": 33,
+          "y": 163.84375,
+          "width": 73.5,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #40か月",
+          "x": 106.5,
+          "y": 163.84375,
+          "width": 73.5,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 298.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 352.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 30,
+          "y": 606.84375,
+          "width": 147,
+          "height": 45,
+          "bottom": 651.84375,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 183,
+          "y": 606.84375,
+          "width": 147,
+          "height": 45,
+          "bottom": 651.84375,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 30,
+          "y": 657.84375,
+          "width": 147,
+          "height": 45,
+          "bottom": 702.84375,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 183,
+          "y": 657.84375,
+          "width": 147,
+          "height": 45,
+          "bottom": 702.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 740.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 785.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 740.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 785.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 740.84375,
+          "width": 94,
+          "height": 45,
+          "bottom": 785.84375,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-comparison-0m": {
+      "pageHeight": 740,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 125,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21か月",
+          "x": 33,
+          "y": 163.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #40か月",
+          "x": 180,
+          "y": 163.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 421.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 475.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 30,
+          "y": 481.84375,
+          "width": 300,
+          "height": 45,
+          "bottom": 526.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 292,
+          "y": 86.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 131.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 32,
+          "y": 538.671875,
+          "width": 296,
+          "height": 44,
+          "bottom": 582.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 32,
+          "y": 600.671875,
+          "width": 296,
+          "height": 45,
+          "bottom": 645.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 675,
+          "width": 94,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-tasting-12m": {
+      "pageHeight": 833,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 125,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21年",
+          "x": 33,
+          "y": 163.84375,
+          "width": 73.5,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #411か月",
+          "x": 106.5,
+          "y": 163.84375,
+          "width": 73.5,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 298.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 352.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 30,
+          "y": 634.03125,
+          "width": 147,
+          "height": 45,
+          "bottom": 679.03125,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 183,
+          "y": 634.03125,
+          "width": 147,
+          "height": 45,
+          "bottom": 679.03125,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 30,
+          "y": 685.03125,
+          "width": 147,
+          "height": 45,
+          "bottom": 730.03125,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 183,
+          "y": 685.03125,
+          "width": 147,
+          "height": 45,
+          "bottom": 730.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 768.03125,
+          "width": 52,
+          "height": 45,
+          "bottom": 813.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 768.03125,
+          "width": 52,
+          "height": 45,
+          "bottom": 813.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 768.03125,
+          "width": 94,
+          "height": 45,
+          "bottom": 813.03125,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-comparison-12m": {
+      "pageHeight": 740,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 125,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21年",
+          "x": 33,
+          "y": 163.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #411か月",
+          "x": 180,
+          "y": 163.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 421.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 475.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 30,
+          "y": 481.84375,
+          "width": 300,
+          "height": 45,
+          "bottom": 526.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 292,
+          "y": 86.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 131.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 32,
+          "y": 538.671875,
+          "width": 296,
+          "height": 44,
+          "bottom": 582.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 32,
+          "y": 600.671875,
+          "width": 296,
+          "height": 45,
+          "bottom": 645.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 675,
+          "width": 94,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-tasting-72m": {
+      "pageHeight": 833,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 125,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #266年",
+          "x": 33,
+          "y": 163.84375,
+          "width": 73.5,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #285年11か月",
+          "x": 106.5,
+          "y": 163.84375,
+          "width": 73.5,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 298.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 352.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 30,
+          "y": 634.03125,
+          "width": 147,
+          "height": 45,
+          "bottom": 679.03125,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 183,
+          "y": 634.03125,
+          "width": 147,
+          "height": 45,
+          "bottom": 679.03125,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 30,
+          "y": 685.03125,
+          "width": 147,
+          "height": 45,
+          "bottom": 730.03125,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 183,
+          "y": 685.03125,
+          "width": 147,
+          "height": 45,
+          "bottom": 730.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 768.03125,
+          "width": 52,
+          "height": 45,
+          "bottom": 813.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 768.03125,
+          "width": 52,
+          "height": 45,
+          "bottom": 813.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 768.03125,
+          "width": 94,
+          "height": 45,
+          "bottom": 813.03125,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-comparison-72m": {
+      "pageHeight": 740,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 125,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 105.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #266年",
+          "x": 33,
+          "y": 163.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #285年11か月",
+          "x": 180,
+          "y": 163.84375,
+          "width": 147,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 421.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 475.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 30,
+          "y": 481.84375,
+          "width": 300,
+          "height": 45,
+          "bottom": 526.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 292,
+          "y": 86.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 131.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 32,
+          "y": 538.671875,
+          "width": 296,
+          "height": 44,
+          "bottom": 582.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 32,
+          "y": 600.671875,
+          "width": 296,
+          "height": 45,
+          "bottom": 645.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 675,
+          "width": 94,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-distill": {
+      "pageHeight": 787,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 183,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 1樽",
+          "x": 125,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "start-distill",
+          "text": "蒸留する £120",
+          "x": 30,
+          "y": 421.84375,
+          "width": 300,
+          "height": 45,
+          "bottom": 466.84375,
+          "font": "14px"
+        },
+        {
+          "id": "hire-staff",
+          "text": "採用する",
+          "x": 30,
+          "y": 552.34375,
+          "width": 80,
+          "height": 45,
+          "bottom": 597.34375,
+          "font": "14px"
+        },
+        {
+          "id": "open-recipes",
+          "text": "製法",
+          "x": 33,
+          "y": 635.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 680.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 721.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 766.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 721.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 766.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 721.84375,
+          "width": 94,
+          "height": 45,
+          "bottom": 766.84375,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-extraction": {
+      "pageHeight": 776,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "蒸留を再開する",
+          "x": 21,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 蒸留中",
+          "x": 9,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 1樽",
+          "x": 125,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 241,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "stop-distill",
+          "text": "抽出を終える",
+          "x": 30,
+          "y": 536.84375,
+          "width": 300,
+          "height": 45,
+          "bottom": 581.84375,
+          "font": "14px"
+        },
+        {
+          "id": "hire-staff",
+          "text": "採用する",
+          "x": 30,
+          "y": 617.84375,
+          "width": 80,
+          "height": 45,
+          "bottom": 662.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-recipes",
+          "text": "製法",
+          "x": 123.453125,
+          "y": 617.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 662.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 710.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 755.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 710.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 755.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 710.84375,
+          "width": 94,
+          "height": 45,
+          "bottom": 755.84375,
+          "font": "14px"
+        }
+      ]
+    },
+    "360-sales": {
+      "pageHeight": 740,
+      "pageWidth": 360,
+      "height": 740,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 183,
+          "y": 87.84375,
+          "width": 156,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 125,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 45本",
+          "x": 241,
+          "y": 153.84375,
+          "width": 110,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "川霧と夜明けを待つ蒸留所の長い銘柄名発売1 · 6か月4",
+          "x": 33,
+          "y": 211.84375,
+          "width": 147,
+          "height": 183,
+          "bottom": 394.84375,
+          "font": "13px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 675,
+          "width": 52,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 675,
+          "width": 94,
+          "height": 45,
+          "bottom": 720,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-warehouse-empty": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 198,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 135,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "go-distill",
+          "text": "原酒を仕込む",
+          "x": 141,
+          "y": 504.84375,
+          "width": 108,
+          "height": 45,
+          "bottom": 549.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-sales-empty": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 198,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 135,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-warehouse": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 198,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 4樽",
+          "x": 135,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #24か月",
+          "x": 33,
+          "y": 211.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 316.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #43か月",
+          "x": 195,
+          "y": 211.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 316.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #62か月",
+          "x": 33,
+          "y": 316.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 421.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #81か月",
+          "x": 195,
+          "y": 316.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 421.84375,
+          "font": "13px"
+        },
+        {
+          "id": "close-cask-window",
+          "text": "×",
+          "x": 315,
+          "y": 442.84375,
+          "width": 45,
+          "height": 45,
+          "bottom": 487.84375,
+          "font": "22px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 493.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 547.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 30,
+          "y": 553.84375,
+          "width": 330,
+          "height": 45,
+          "bottom": 598.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-cask",
+          "text": "比べる",
+          "x": 30,
+          "y": 598.84375,
+          "width": 162,
+          "height": 45,
+          "bottom": 643.84375,
+          "font": "14px"
+        },
+        {
+          "id": "taste-button",
+          "text": "試飲する",
+          "x": 198,
+          "y": 598.84375,
+          "width": 162,
+          "height": 45,
+          "bottom": 643.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-bottle",
+          "text": "瓶詰め",
+          "x": 30,
+          "y": 649.84375,
+          "width": 162,
+          "height": 45,
+          "bottom": 694.84375,
+          "font": "14px"
+        },
+        {
+          "id": "staff-cask",
+          "text": "仕込みを任せる",
+          "x": 198,
+          "y": 649.84375,
+          "width": 162,
+          "height": 45,
+          "bottom": 694.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-tasting-0m": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 135,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21か月",
+          "x": 33,
+          "y": 163.84375,
+          "width": 81,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #40か月",
+          "x": 114,
+          "y": 163.84375,
+          "width": 81,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 298.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 352.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 30,
+          "y": 606.84375,
+          "width": 162,
+          "height": 45,
+          "bottom": 651.84375,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 198,
+          "y": 606.84375,
+          "width": 162,
+          "height": 45,
+          "bottom": 651.84375,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 30,
+          "y": 657.84375,
+          "width": 162,
+          "height": 45,
+          "bottom": 702.84375,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 198,
+          "y": 657.84375,
+          "width": 162,
+          "height": 45,
+          "bottom": 702.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-comparison-0m": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 135,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21か月",
+          "x": 33,
+          "y": 163.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #40か月",
+          "x": 195,
+          "y": 163.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 421.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 475.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 30,
+          "y": 481.84375,
+          "width": 330,
+          "height": 45,
+          "bottom": 526.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 322,
+          "y": 138.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 183.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 32,
+          "y": 590.671875,
+          "width": 326,
+          "height": 44,
+          "bottom": 634.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 32,
+          "y": 652.671875,
+          "width": 326,
+          "height": 45,
+          "bottom": 697.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-tasting-12m": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 135,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21年",
+          "x": 33,
+          "y": 163.84375,
+          "width": 81,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #411か月",
+          "x": 114,
+          "y": 163.84375,
+          "width": 81,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 298.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 352.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 30,
+          "y": 634.03125,
+          "width": 162,
+          "height": 45,
+          "bottom": 679.03125,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 198,
+          "y": 634.03125,
+          "width": 162,
+          "height": 45,
+          "bottom": 679.03125,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 30,
+          "y": 685.03125,
+          "width": 162,
+          "height": 45,
+          "bottom": 730.03125,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 198,
+          "y": 685.03125,
+          "width": 162,
+          "height": 45,
+          "bottom": 730.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-comparison-12m": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 135,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21年",
+          "x": 33,
+          "y": 163.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #411か月",
+          "x": 195,
+          "y": 163.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 421.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 475.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 30,
+          "y": 481.84375,
+          "width": 330,
+          "height": 45,
+          "bottom": 526.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 322,
+          "y": 138.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 183.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 32,
+          "y": 590.671875,
+          "width": 326,
+          "height": 44,
+          "bottom": 634.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 32,
+          "y": 652.671875,
+          "width": 326,
+          "height": 45,
+          "bottom": 697.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-tasting-72m": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 135,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #266年",
+          "x": 33,
+          "y": 163.84375,
+          "width": 81,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #285年11か月",
+          "x": 114,
+          "y": 163.84375,
+          "width": 81,
+          "height": 87,
+          "bottom": 250.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 298.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 352.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 30,
+          "y": 634.03125,
+          "width": 162,
+          "height": 45,
+          "bottom": 679.03125,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 198,
+          "y": 634.03125,
+          "width": 162,
+          "height": 45,
+          "bottom": 679.03125,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 30,
+          "y": 685.03125,
+          "width": 162,
+          "height": 45,
+          "bottom": 730.03125,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 198,
+          "y": 685.03125,
+          "width": 162,
+          "height": 45,
+          "bottom": 730.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-comparison-72m": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 135,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 105.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 150.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #266年",
+          "x": 33,
+          "y": 163.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #285年11か月",
+          "x": 195,
+          "y": 163.84375,
+          "width": 162,
+          "height": 105,
+          "bottom": 268.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 87,
+          "y": 421.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 475.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 30,
+          "y": 481.84375,
+          "width": 330,
+          "height": 45,
+          "bottom": 526.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 322,
+          "y": 138.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 183.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 32,
+          "y": 590.671875,
+          "width": 326,
+          "height": 44,
+          "bottom": 634.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 32,
+          "y": 652.671875,
+          "width": 326,
+          "height": 45,
+          "bottom": 697.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-distill": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 198,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 1樽",
+          "x": 135,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "start-distill",
+          "text": "蒸留する £120",
+          "x": 30,
+          "y": 421.84375,
+          "width": 330,
+          "height": 45,
+          "bottom": 466.84375,
+          "font": "14px"
+        },
+        {
+          "id": "hire-staff",
+          "text": "採用する",
+          "x": 30,
+          "y": 552.34375,
+          "width": 80,
+          "height": 45,
+          "bottom": 597.34375,
+          "font": "14px"
+        },
+        {
+          "id": "open-recipes",
+          "text": "製法",
+          "x": 33,
+          "y": 635.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 680.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-extraction": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "蒸留を再開する",
+          "x": 21,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 蒸留中",
+          "x": 9,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 1樽",
+          "x": 135,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 261,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "stop-distill",
+          "text": "抽出を終える",
+          "x": 30,
+          "y": 536.84375,
+          "width": 330,
+          "height": 45,
+          "bottom": 581.84375,
+          "font": "14px"
+        },
+        {
+          "id": "hire-staff",
+          "text": "採用する",
+          "x": 30,
+          "y": 617.84375,
+          "width": 80,
+          "height": 45,
+          "bottom": 662.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-recipes",
+          "text": "製法",
+          "x": 123.453125,
+          "y": 617.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 662.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "390-sales": {
+      "pageHeight": 844,
+      "pageWidth": 390,
+      "height": 844,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 21,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 198,
+          "y": 87.84375,
+          "width": 171,
+          "height": 45,
+          "bottom": 132.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 9,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 135,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 45本",
+          "x": 261,
+          "y": 153.84375,
+          "width": 120,
+          "height": 45,
+          "bottom": 198.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "川霧と夜明けを待つ蒸留所の長い銘柄名発売1 · 6か月4",
+          "x": 33,
+          "y": 211.84375,
+          "width": 162,
+          "height": 183,
+          "bottom": 394.84375,
+          "font": "13px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 9,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 67,
+          "y": 779,
+          "width": 52,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 125,
+          "y": 779,
+          "width": 94,
+          "height": 45,
+          "bottom": 824,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-warehouse-empty": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 306.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 524.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 521.828125,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "go-distill",
+          "text": "原酒を仕込む",
+          "x": 578.5,
+          "y": 507.84375,
+          "width": 108,
+          "height": 45,
+          "bottom": 552.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-sales-empty": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 306.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 524.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 521.828125,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-warehouse": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 306.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 524.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 4樽",
+          "x": 521.828125,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #24か月",
+          "x": 377.5,
+          "y": 214.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 319.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #43か月",
+          "x": 632.5,
+          "y": 214.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 319.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #62か月",
+          "x": 377.5,
+          "y": 319.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 424.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #81か月",
+          "x": 632.5,
+          "y": 319.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 424.84375,
+          "font": "13px"
+        },
+        {
+          "id": "close-cask-window",
+          "text": "×",
+          "x": 845.5,
+          "y": 445.84375,
+          "width": 45,
+          "height": 45,
+          "bottom": 490.84375,
+          "font": "22px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 431.5,
+          "y": 496.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 550.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 374.5,
+          "y": 556.84375,
+          "width": 516,
+          "height": 45,
+          "bottom": 601.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-cask",
+          "text": "比べる",
+          "x": 374.5,
+          "y": 601.84375,
+          "width": 255,
+          "height": 45,
+          "bottom": 646.84375,
+          "font": "14px"
+        },
+        {
+          "id": "taste-button",
+          "text": "試飲する",
+          "x": 635.5,
+          "y": 601.84375,
+          "width": 255,
+          "height": 45,
+          "bottom": 646.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-bottle",
+          "text": "瓶詰め",
+          "x": 374.5,
+          "y": 652.84375,
+          "width": 255,
+          "height": 45,
+          "bottom": 697.84375,
+          "font": "14px"
+        },
+        {
+          "id": "staff-cask",
+          "text": "仕込みを任せる",
+          "x": 635.5,
+          "y": 652.84375,
+          "width": 255,
+          "height": 45,
+          "bottom": 697.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-tasting-0m": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 521.828125,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21か月",
+          "x": 377.5,
+          "y": 166.84375,
+          "width": 127.5,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #40か月",
+          "x": 505,
+          "y": 166.84375,
+          "width": 127.5,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 431.5,
+          "y": 319.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 373.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 397.5,
+          "y": 627.84375,
+          "width": 232,
+          "height": 45,
+          "bottom": 672.84375,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 635.5,
+          "y": 627.84375,
+          "width": 232,
+          "height": 45,
+          "bottom": 672.84375,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 397.5,
+          "y": 678.84375,
+          "width": 232,
+          "height": 45,
+          "bottom": 723.84375,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 635.5,
+          "y": 678.84375,
+          "width": 232,
+          "height": 45,
+          "bottom": 723.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-comparison-0m": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 521.828125,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21か月",
+          "x": 377.5,
+          "y": 166.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #40か月",
+          "x": 632.5,
+          "y": 166.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 431.5,
+          "y": 424.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 478.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 374.5,
+          "y": 484.84375,
+          "width": 516,
+          "height": 45,
+          "bottom": 529.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 801.5,
+          "y": 166.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 211.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 427.5,
+          "y": 618.671875,
+          "width": 410,
+          "height": 44,
+          "bottom": 662.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 427.5,
+          "y": 680.671875,
+          "width": 410,
+          "height": 45,
+          "bottom": 725.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-tasting-12m": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 521.828125,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21年",
+          "x": 377.5,
+          "y": 166.84375,
+          "width": 127.5,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #411か月",
+          "x": 505,
+          "y": 166.84375,
+          "width": 127.5,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 431.5,
+          "y": 319.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 373.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 397.5,
+          "y": 655.03125,
+          "width": 232,
+          "height": 45,
+          "bottom": 700.03125,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 635.5,
+          "y": 655.03125,
+          "width": 232,
+          "height": 45,
+          "bottom": 700.03125,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 397.5,
+          "y": 706.03125,
+          "width": 232,
+          "height": 45,
+          "bottom": 751.03125,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 635.5,
+          "y": 706.03125,
+          "width": 232,
+          "height": 45,
+          "bottom": 751.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-comparison-12m": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 521.828125,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #21年",
+          "x": 377.5,
+          "y": 166.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #411か月",
+          "x": 632.5,
+          "y": 166.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 431.5,
+          "y": 424.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 478.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 374.5,
+          "y": 484.84375,
+          "width": 516,
+          "height": 45,
+          "bottom": 529.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 801.5,
+          "y": 166.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 211.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 427.5,
+          "y": 618.671875,
+          "width": 410,
+          "height": 44,
+          "bottom": 662.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 427.5,
+          "y": 680.671875,
+          "width": 410,
+          "height": 45,
+          "bottom": 725.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-tasting-72m": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 521.828125,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #266年",
+          "x": 377.5,
+          "y": 166.84375,
+          "width": 127.5,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #285年11か月",
+          "x": 505,
+          "y": 166.84375,
+          "width": 127.5,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 431.5,
+          "y": 319.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 373.84375,
+          "font": "14px"
+        },
+        {
+          "id": "compare-tasting",
+          "text": "比べる",
+          "x": 397.5,
+          "y": 655.03125,
+          "width": 232,
+          "height": 45,
+          "bottom": 700.03125,
+          "font": "14px"
+        },
+        {
+          "id": "end-tasting",
+          "text": "戻る",
+          "x": 635.5,
+          "y": 655.03125,
+          "width": 232,
+          "height": 45,
+          "bottom": 700.03125,
+          "font": "14px"
+        },
+        {
+          "id": "taste-bottle",
+          "text": "瓶詰め",
+          "x": 397.5,
+          "y": 706.03125,
+          "width": 232,
+          "height": 45,
+          "bottom": 751.03125,
+          "font": "14px"
+        },
+        {
+          "id": "staff-tasting",
+          "text": "仕込みを任せる",
+          "x": 635.5,
+          "y": 706.03125,
+          "width": 232,
+          "height": 45,
+          "bottom": 751.03125,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-comparison-72m": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 2樽",
+          "x": 521.828125,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 108.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 153.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽 #266年",
+          "x": 377.5,
+          "y": 166.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "",
+          "text": "樽 #285年11か月",
+          "x": 632.5,
+          "y": 166.84375,
+          "width": 255,
+          "height": 105,
+          "bottom": 271.84375,
+          "font": "13px"
+        },
+        {
+          "id": "glass-button",
+          "text": "",
+          "x": 431.5,
+          "y": 424.84375,
+          "width": 45,
+          "height": 54,
+          "bottom": 478.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 374.5,
+          "y": 484.84375,
+          "width": 516,
+          "height": 45,
+          "bottom": 529.84375,
+          "font": "14px"
+        },
+        {
+          "id": "close-dialog",
+          "text": "×",
+          "x": 801.5,
+          "y": 166.3125,
+          "width": 44,
+          "height": 45,
+          "bottom": 211.3125,
+          "font": "20px"
+        },
+        {
+          "id": "",
+          "text": "樽の詳細",
+          "x": 427.5,
+          "y": 618.671875,
+          "width": 410,
+          "height": 44,
+          "bottom": 662.671875,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "戻る",
+          "x": 427.5,
+          "y": 680.671875,
+          "width": 410,
+          "height": 45,
+          "bottom": 725.671875,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-distill": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 306.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 524.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 1樽",
+          "x": 521.828125,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "start-distill",
+          "text": "蒸留する £120",
+          "x": 374.5,
+          "y": 424.84375,
+          "width": 516,
+          "height": 45,
+          "bottom": 469.84375,
+          "font": "14px"
+        },
+        {
+          "id": "hire-staff",
+          "text": "採用する",
+          "x": 374.5,
+          "y": 555.34375,
+          "width": 80,
+          "height": 45,
+          "bottom": 600.34375,
+          "font": "14px"
+        },
+        {
+          "id": "open-recipes",
+          "text": "製法",
+          "x": 377.5,
+          "y": 638.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 683.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-extraction": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "蒸留を再開する",
+          "x": 306.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 蒸留中",
+          "x": 294.5,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 1樽",
+          "x": 521.828125,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 0本",
+          "x": 749.15625,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "stop-distill",
+          "text": "抽出を終える",
+          "x": 374.5,
+          "y": 539.84375,
+          "width": 516,
+          "height": 45,
+          "bottom": 584.84375,
+          "font": "14px"
+        },
+        {
+          "id": "hire-staff",
+          "text": "採用する",
+          "x": 374.5,
+          "y": 620.84375,
+          "width": 80,
+          "height": 45,
+          "bottom": 665.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-recipes",
+          "text": "製法",
+          "x": 467.953125,
+          "y": 620.84375,
+          "width": 52,
+          "height": 45,
+          "bottom": 665.84375,
+          "font": "14px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    },
+    "1280-sales": {
+      "pageHeight": 900,
+      "pageWidth": 1265,
+      "height": 900,
+      "targets": [
+        {
+          "id": "toggle-time",
+          "text": "時間を進める",
+          "x": 306.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "skip",
+          "text": "3か月進める",
+          "x": 524.5,
+          "y": 90.84375,
+          "width": 212,
+          "height": 45,
+          "bottom": 135.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "蒸留室 待機",
+          "x": 294.5,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "貯蔵庫 0樽",
+          "x": 521.828125,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "販売室 45本",
+          "x": 749.15625,
+          "y": 156.84375,
+          "width": 221.328125,
+          "height": 45,
+          "bottom": 201.84375,
+          "font": "14px"
+        },
+        {
+          "id": "",
+          "text": "川霧と夜明けを待つ蒸留所の長い銘柄名発売1 · 6か月4",
+          "x": 377.5,
+          "y": 214.84375,
+          "width": 255,
+          "height": 183,
+          "bottom": 397.84375,
+          "font": "13px"
+        },
+        {
+          "id": "open-ledger",
+          "text": "帳面",
+          "x": 294.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-history",
+          "text": "歩み",
+          "x": 352.5,
+          "y": 832,
+          "width": 52,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        },
+        {
+          "id": "open-settings",
+          "text": "保存・設定",
+          "x": 410.5,
+          "y": 832,
+          "width": 94,
+          "height": 45,
+          "bottom": 877,
+          "font": "14px"
+        }
+      ]
+    }
+  },
+  "artChecks": [
+    {
+      "width": 360,
+      "state": "warehouse-empty",
+      "objects": []
+    },
+    {
+      "width": 360,
+      "state": "sales-empty",
+      "objects": []
+    },
+    {
+      "width": 360,
+      "state": "warehouse",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "tasting-0m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "comparison-0m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "tasting-12m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "comparison-12m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "tasting-72m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "comparison-72m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "distill",
+      "objects": [
+        {
+          "classes": "room-object room-still",
+          "width": 216,
+          "height": 144,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "extraction",
+      "objects": [
+        {
+          "classes": "room-object room-still",
+          "width": 216,
+          "height": 144,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "state": "sales",
+      "objects": [
+        {
+          "classes": "room-object room-bottle",
+          "width": 36,
+          "height": 84,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "warehouse-empty",
+      "objects": []
+    },
+    {
+      "width": 390,
+      "state": "sales-empty",
+      "objects": []
+    },
+    {
+      "width": 390,
+      "state": "warehouse",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "tasting-0m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "comparison-0m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "tasting-12m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "comparison-12m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "tasting-72m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "comparison-72m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "distill",
+      "objects": [
+        {
+          "classes": "room-object room-still",
+          "width": 216,
+          "height": 144,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "extraction",
+      "objects": [
+        {
+          "classes": "room-object room-still",
+          "width": 216,
+          "height": 144,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "state": "sales",
+      "objects": [
+        {
+          "classes": "room-object room-bottle",
+          "width": 36,
+          "height": 84,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "warehouse-empty",
+      "objects": []
+    },
+    {
+      "width": 1280,
+      "state": "sales-empty",
+      "objects": []
+    },
+    {
+      "width": 1280,
+      "state": "warehouse",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "tasting-0m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "comparison-0m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "tasting-12m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "comparison-12m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "tasting-72m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "comparison-72m",
+      "objects": [
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "room-object room-glass",
+          "width": 36,
+          "height": 54,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        },
+        {
+          "classes": "pixel-object pixel-cask",
+          "width": 48,
+          "height": 48,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "distill",
+      "objects": [
+        {
+          "classes": "room-object room-still",
+          "width": 216,
+          "height": 144,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "extraction",
+      "objects": [
+        {
+          "classes": "room-object room-still",
+          "width": 216,
+          "height": 144,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "sales",
+      "objects": [
+        {
+          "classes": "room-object room-bottle",
+          "width": 36,
+          "height": 84,
+          "scaleX": 3,
+          "scaleY": 3,
+          "crisp": "crispedges"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "width": 360,
+      "age": 0,
+      "exactMeters": true,
+      "previousMarks": false,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 30,
+        "y": 657.84375,
+        "width": 147,
+        "height": 45
+      }
+    },
+    {
+      "width": 360,
+      "age": 12,
+      "exactMeters": true,
+      "previousMarks": true,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 30,
+        "y": 685.03125,
+        "width": 147,
+        "height": 45
+      }
+    },
+    {
+      "width": 360,
+      "age": 72,
+      "exactMeters": true,
+      "previousMarks": true,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 30,
+        "y": 685.03125,
+        "width": 147,
+        "height": 45
+      }
+    },
+    {
+      "width": 360,
+      "height": 740,
+      "distill": {
+        "x": 30,
+        "y": 421.84375,
+        "width": 300,
+        "height": 45
+      },
+      "extraction": {
+        "x": 30,
+        "y": 536.84375,
+        "width": 300,
+        "height": 45
+      },
+      "warehouse": {
+        "x": 30,
+        "y": 649.84375,
+        "width": 147,
+        "height": 45
+      },
+      "newFillOpensSelectedWindow": true,
+      "bottlingExecutes": true,
+      "retailPriceListAndMonthlySales": true,
+      "quoteDraftRetained": true,
+      "shortViewportActionReachable": true,
+      "staffModalPausesAndResumes": true,
+      "productDetailsOnDemand": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "age": 0,
+      "exactMeters": true,
+      "previousMarks": false,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 30,
+        "y": 657.84375,
+        "width": 162,
+        "height": 45
+      }
+    },
+    {
+      "width": 390,
+      "age": 12,
+      "exactMeters": true,
+      "previousMarks": true,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 30,
+        "y": 685.03125,
+        "width": 162,
+        "height": 45
+      }
+    },
+    {
+      "width": 390,
+      "age": 72,
+      "exactMeters": true,
+      "previousMarks": true,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 30,
+        "y": 685.03125,
+        "width": 162,
+        "height": 45
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "distill": {
+        "x": 30,
+        "y": 421.84375,
+        "width": 330,
+        "height": 45
+      },
+      "extraction": {
+        "x": 30,
+        "y": 536.84375,
+        "width": 330,
+        "height": 45
+      },
+      "warehouse": {
+        "x": 30,
+        "y": 649.84375,
+        "width": 162,
+        "height": 45
+      },
+      "newFillOpensSelectedWindow": true,
+      "bottlingExecutes": true,
+      "retailPriceListAndMonthlySales": true,
+      "quoteDraftRetained": true,
+      "shortViewportActionReachable": true,
+      "staffModalPausesAndResumes": true,
+      "productDetailsOnDemand": true,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "age": 0,
+      "exactMeters": true,
+      "previousMarks": false,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 397.5,
+        "y": 678.84375,
+        "width": 232,
+        "height": 45
+      }
+    },
+    {
+      "width": 1280,
+      "age": 12,
+      "exactMeters": true,
+      "previousMarks": true,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 397.5,
+        "y": 706.03125,
+        "width": 232,
+        "height": 45
+      }
+    },
+    {
+      "width": 1280,
+      "age": 72,
+      "exactMeters": true,
+      "previousMarks": true,
+      "comparisonNoMutation": true,
+      "tasting": {
+        "x": 397.5,
+        "y": 706.03125,
+        "width": 232,
+        "height": 45
+      }
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "distill": {
+        "x": 374.5,
+        "y": 424.84375,
+        "width": 516,
+        "height": 45
+      },
+      "extraction": {
+        "x": 374.5,
+        "y": 539.84375,
+        "width": 516,
+        "height": 45
+      },
+      "warehouse": {
+        "x": 374.5,
+        "y": 652.84375,
+        "width": 255,
+        "height": 45
+      },
+      "newFillOpensSelectedWindow": true,
+      "bottlingExecutes": true,
+      "retailPriceListAndMonthlySales": true,
+      "quoteDraftRetained": true,
+      "shortViewportActionReachable": true,
+      "staffModalPausesAndResumes": true,
+      "productDetailsOnDemand": true,
+      "errors": []
+    },
+    {
+      "roomSwitchConfirmationFocus": true,
+      "legacyV17RetainedVerbatim": true,
+      "legacyMigrationReload": true,
+      "successorExactReload": true,
+      "richSalesPager": {
+        "x": 18,
+        "y": 568.84375,
+        "width": 339,
+        "height": 44
+      },
+      "sixProductsPaginationFourThenTwo": true,
+      "pagerKeyboardFocus": true,
+      "modalFocusReturn": true,
+      "productObjectFocusReturn": true,
+      "ledgerRecipesAccessible": true,
+      "textDoubleSizeReachable": true,
+      "destinationSelectionNoMutation": true
+    }
+  ]
+}
