@@ -49,3 +49,21 @@ The generic pixel-space runner is copied to `tests/type-ui-browser.mjs` for this
 Screenshots: before/390-warehouse.png → after/390-warehouse.png; before/390-distill.png → after/390-distill.png; before/390-cask-window.png → windows/390-keyboard-close.png. Comparison and selection variants are in their named subdirectories.
 
 Expression audit completed: no decorative copy, no duplicate instructions, preserved action discovery/costs/conditions/flavor data/accessibility. No model,time scheduling,economy,save format/key,user names or historical prose rewriting. Production/sharedEngine/other works unchanged.
+
+## Completion — public Staging
+
+PR #511: https://github.com/SukimaStock/yumaniwa-town-staging/pull/511
+
+Reviewed candidate: `45e29299b2ad422ca5410d24029d5d1e1d5c5a5e`; tree `7dd7ac363fcf30e84d74f715eea9d6be5ab10e86`. Exact-head Scope→Risk→Impact PASS; trusted-mechanical-evidence, plan-risk-gate, scope-guard and validate CI all success before merge.
+
+Merged Staging SHA: `3d8e14c7562ebc497e643904a906f76952486d38`; merge tree exactly matches candidate. Pages run39268303144 completed success for that SHA: https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/39268303144 . Postmerge Release Validator Tests39268303603 and Change Operations Tests39268303552 also success.
+
+Public URL: https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/
+
+Normal TLS curl downloaded94 files (all top-level mjs/css, HTML and adopted TTF), every byte matches the merge Git blob. Raw per-file SHA256/Git blob hashes: `public-results.json`, SHA256 `8cafb75ae009f692670a36f90d46fdd786b5da990add2c7e3ef37fb1592eff61`. No insecure curl flag, certificate bypass or request-block workaround used.
+
+Cloud browser opened normally and reloaded the public URL. DOM confirms shop-app v0.24-type-ui-1, fontState ready, AmberMisaki body font, バーボン and シゲキ. Visible public tasting window opened/closed; header471px scrollWidth equals471px clientWidth, body overflow auto. Actual screenshot: `public-confirmation.jpg`. Existing game was not reset. This is a public PC smoke test; the full5-viewport/108gesture suite was local against byte-identical sources, not falsely claimed as repeated live.
+
+Local headless Chromium through existing proxy failed ordinary TLS with `net::ERR_CERT_AUTHORITY_INVALID`; no ignoreHTTPSErrors bypass was used for public confirmation. The cloud browser and curl normal TLS succeeded. Physical Safari, OS keyboard, VoiceOver and owner visual adoption remain unverified.
+
+All implementation/delivery work complete. Public verification evidence is saved to the existing work branch after merge; runtime remains identical to the deployed merge. Production unchanged. No remaining implementation work.
