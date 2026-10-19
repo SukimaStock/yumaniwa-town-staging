@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   pull_request:
   push:
+    # Avoid testing the same feature push and PR twice.
+    branches: [main]
     paths:
       - "data/work-lifecycle.json"
       - "tools/work-lifecycle.cjs"

@@ -100,6 +100,34 @@ AGENTS.mdの実行方針は指示であり、設定機能や自動復旧機能�
 
 これは**再開したセッションが状況を復元する手順**。自動でWorkを起動し直す保証や、未保存のメモリを復元する機能ではない。中断が来る前に節目の成果をremoteへ残すことが前提となる。
 
+### CI待機の診断とマージ・公開
+
+CI待機では、まず既存PRのhead/base SHA、run ID・attempt・job IDを引き継ぐ。同じ条件で完了した実装、Scope/Risk/Impact、表示・操作確認、証拠は再利用し、未完了の確認だけ進める。必須gateと証拠生成の独立実行は残す。
+
+一覧の `queued` / `in_progress` だけでrunner未割当や処理停止を断定しない。GitHubのrun、**該当attemptのjobsとsteps**、exact headのcheck-runsを取得し、取得時刻と各 `created_at` / `started_at` / `completed_at`、runner情報を照合する。最新attemptだけを返すAPIで初回を説明しない。
+
+| 観測 | 扱い・次の確認 |
+| --- | --- |
+| job未開始、runner情報なし | 割当待ちの可能性。run一覧だけでは断定しない。実処理時間と待機を分ける |
+| job開始済み、最後のstepが未完了 | そのstepのログと時刻を確認。checkout後処理なら検査・アップロードと分けて記録 |
+| 全step終了、job/check/runの状態が不一致 | 終了処理または状態反映の遅れの可能性として記録。成功を推定せず、同じattemptの個別APIを再照合する。完了済みjobを再実行しない |
+| job/checkは終端、run全体だけ未完了 | 実行完了とrun反映待ちを区別。必須checkの正式成功、exact head/base、レビュー、GitHubのマージ可否が成立するまでマージしない |
+| cancelled / failure / timed_out | ログ・失敗step・保護条件を確認し、原因を取り除いてから該当jobまたは失敗jobだけを再実行 |
+
+通常のtrusted検査はPR #512付近ではjob全体が約20〜30秒。数分更新がない場合は診断へ切り替える目安とし、時間だけで取消・再実行しない。初回診断後、30〜60秒程度の間隔で最大2回再照合し、状態が動かなければ同じ待機を延々繰り返さない。既存PRに次を一つの短いコメントとして保存する（継続時は同じコメントを更新）。
+
+- head/base、run ID、attempt、job ID、観測時刻、最後のstepと状態。
+- 完了済み検証・証拠の参照、未完了条件、API間の食い違い、次に確認する一手。
+- 取消・再実行した場合だけ、その根拠と回数。ログ欠落やGitHub内部原因の推測は事実と分ける。
+
+待機中の記録保存を完了報告の代わりにしない。許可されたマージ・公開確認は可能な限り同じ作業で続行し、再開が必要なら既存成果を引き継ぐ。Workのセッション制限、自動再開、GitHub hosted runnerや状態配信の障害はrepositoryから制御できない。既存の8分job timeoutは維持するが、runner未割当やGitHub側の終了反映を8分以内に保証する設定とは扱わない。状態不一致だけを理由に空commit、新PR、全CI再実行を作らない。停止jobの取消が必要な場合も、取消完了を確認してから一度だけ該当jobを再実行し、改善しなければ原因確認へ戻る。
+
+必須 `plan-risk-gate` / `trusted-mechanical-evidence`、適用される補助CI、レビューと未解決指摘、最新head/baseを一度まとめて確認し、期待head SHAを指定して通常マージする。保護設定や成功状態を迂回しない。マージ後は同merge SHAのPages run/jobsを確認し、deploy成功と変更ファイルのHTTP・内容一致を確認する。配信が一致してもrun全体が未完了なら両状態を分けて報告し、デプロイを重複実行しない。運用文書・CIだけの変更ならゲーム全体の通しテストを追加しない。
+
+補助のChange Operations / Release ValidatorはPRとマージ後mainで実行し、feature branchのpushでは重複実行しない。Plan Lockデータの追加だけではChange Operationsの実装回帰suiteを起動しない。Lockは毎PRの両trusted jobが引き続き検査し、運用コード・テスト・関連文書・workflow変更では従来の回帰suiteを実行する。PR title/bodyの編集でもtrusted jobは再実行されるため、CI待機メモは本文の書換えではなく既存コメントへ残す。base変更時の再検証を守るため `edited` triggerは維持する。
+
+Auto-mergeは現設定では無効。既存保護を満たして自動マージする機能には運用上の利点があるが、GitHubの状態反映遅延自体は解消しない。今回のために設定変更や独自マージbotを導入せず、有効化は別のrepository設定判断とする。
+
 ## 基本フロー（iPhoneでローカル制作する場合）
 
 ### 1. 作業前（Working Copyで作業branchを選ぶ）

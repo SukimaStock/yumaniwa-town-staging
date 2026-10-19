@@ -3,6 +3,8 @@ name: Change Operations Tests
 on:
   workflow_dispatch:
   push:
+    # PR validates the candidate; main push validates the merged result.
+    branches: [main]
     paths:
       - "tools/YumaniwaDesk.py"
       - "tests/test_desk_repository.py"
@@ -38,7 +40,6 @@ on:
       - ".github/workflows/change-operations-tests.yml"
       - ".github/workflows/change-pr-gate.yml"
       - ".github/workflows/change-verification.yml"
-      - ".change-plans/**"
   pull_request:
     paths:
       - "tools/YumaniwaDesk.py"
@@ -75,7 +76,6 @@ on:
       - ".github/workflows/change-operations-tests.yml"
       - ".github/workflows/change-pr-gate.yml"
       - ".github/workflows/change-verification.yml"
-      - ".change-plans/**"
 
 permissions:
   contents: read
