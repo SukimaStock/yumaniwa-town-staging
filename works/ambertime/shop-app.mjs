@@ -1,4 +1,4 @@
-import {CanvasScene} from './canvas-scene.mjs?v=0.20-balance-1';
+import {CanvasScene} from './canvas-scene.mjs?v=0.21-space-1';
 import * as D from './partner-orders.mjs?v=0.19staff';
 import {SHOPS} from './shop-model.mjs?v=0.19staff';
 import {caskName,releaseNumber} from './work-context.mjs?v=0.15.2';
@@ -7,7 +7,7 @@ import {latestReleaseBrand,brandStats,brandReputation} from './brand-reputation.
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
 import {ageLabel,monthLabel} from './model.mjs';
 import {barrel} from './cask-glass-art.mjs?v=0.19-pixel-1';
-import {glass,bottleArt,brandArt,stillArt} from './room-object-art.mjs?v=0.19-room-1';
+import {glass,bottleArt,brandArt,stillArt} from './room-object-art.mjs?v=0.21-space-1';
 import {shortTaste,shortChange} from './tasting-view.mjs?v=0.6';
 import {flavorTypeView} from './flavor-types.mjs?v=0.19-flavor';
 import {FLAVOR_AXES,flavorMeter} from './flavor-view.mjs?v=0.18-tasting';
