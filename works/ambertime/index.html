@@ -7,10 +7,16 @@
 <meta name="theme-color" content="#172124">
 <title>AmberTime — 時間を育てる蒸留所</title>
 <link rel="stylesheet" href="./shop.css?v=0.19-pixel-1">
-<link rel="stylesheet" href="./room-scene.css?v=0.19-room-1">
-<script type="module" src="./shop-app.mjs?v=0.19-room-1"></script>
+<link rel="stylesheet" href="./room-scene.css?v=0.20-canvas-1">
+<script type="module" src="./shop-app.mjs?v=0.20-canvas-1"></script>
 </head>
-<body data-room="distill"><div class="page">
+<body data-room="distill">
+<div id="scene-root" role="region" aria-label="蒸留室">
+<canvas id="scene-canvas" aria-hidden="true"></canvas>
+<div id="scene-controls"><button id="open-staff-panel" type="button" hidden>担当者・製法</button></div>
+<div id="scene-access" class="scene-sr"><h1>AmberTime</h1><p id="scene-summary"></p><p id="scene-notice" role="status" aria-live="polite"></p></div>
+</div>
+<div class="page" id="legacy-interface" hidden>
 <div class="clock-dock"><header>
 <div><h1>AmberTime</h1><span class="edition"><span id="generation-name"></span></span></div>
 <div class="wallet"><span>所持金</span><strong id="cash"></strong><span id="calendar"></span><small id="monthly-cost"></small></div>
@@ -80,10 +86,10 @@
 </div><div class="inspection-facts"><div class="amount"><span id="amount"></span></div><p id="change" class="change"></p></div></div>
 <section id="tasting-panel" class="tasting-panel" aria-label="試飲" role="region" hidden>
 <h2 id="taste-date"></h2><div id="taste-current"></div><div id="taste-previous" class="taste-previous" hidden></div>
-<div class="free-actions"><button id="compare-tasting" type="button">比べる</button><button id="end-tasting" type="button">戻る</button><button id="taste-bottle" type="button">瓶詰め</button><button id="staff-tasting" type="button" hidden>仕込みを任せる</button></div>
+<div id="tasting-actions" class="free-actions"><button id="compare-tasting" type="button">比べる</button><button id="end-tasting" type="button">戻る</button><button id="taste-bottle" type="button">瓶詰め</button><button id="staff-tasting" type="button" hidden>仕込みを任せる</button></div>
 </section>
 </section>
-<details id="cask-details"><summary>樽の詳細</summary><p id="loss"></p><p id="last-taste" class="quiet"></p></details>
+<details id="cask-details"><summary>樽の詳細</summary><p id="cask-provenance"></p><p id="loss"></p><p id="last-taste" class="quiet"></p></details>
 <button id="assign-wholesale" class="contract-info" type="button" hidden>卸売へ指定</button>
 <button id="contract-info" class="contract-info" type="button" hidden></button>
 <div id="free-actions" class="free-actions"><button id="compare-cask" type="button">比べる</button><button id="taste-button" class="taste-button" type="button">試飲する</button><button id="open-bottle" type="button">瓶詰め</button><button id="staff-cask" type="button" hidden>仕込みを任せる</button></div>
@@ -102,11 +108,7 @@
 <details id="records" class="records" hidden><summary>これまでの一本</summary><div id="records-body"></div></details>
 </main>
 <section id="recovery" hidden><p>元の保存を残したまま、進行を止めています。</p><button id="retry-save" type="button">保存を再確認する</button></section>
-<dialog id="action-dialog" aria-labelledby="dialog-title">
-<div class="dialog-heading"><h2 id="dialog-title"></h2><button id="close-dialog" type="button" aria-label="閉じる">×</button></div>
-<p id="dialog-context" class="quiet" hidden></p>
-<div id="dialog-body"></div><div id="dialog-actions"></div>
-</dialog>
+
 <footer>
 <div class="book-entries"><button id="open-ledger" type="button">帳面</button><button id="open-history" type="button">歩み</button><button id="open-settings" type="button">保存・設定</button></div>
 <div id="settings-source" hidden><p>バージョン 0.19</p><a href="../../lab/">研究所へ</a>
@@ -118,6 +120,13 @@
 <button id="reset" type="button">新しい蒸留所で始める</button><span id="save-status" role="status"></span>
 </details></div>
 </footer>
+
+</div><div id="panel-vault" hidden></div>
+<dialog id="action-dialog" aria-labelledby="dialog-title">
+<div class="dialog-heading"><h2 id="dialog-title"></h2><button id="close-dialog" type="button" aria-label="閉じる">×</button></div>
+<p id="dialog-context" class="quiet" hidden></p>
+<p id="dialog-error" role="alert" hidden></p><div id="dialog-body"></div><div id="dialog-actions"></div>
+</dialog>
 <noscript>JavaScriptを有効にしてください。</noscript>
-</div></body>
+</body>
 </html>
