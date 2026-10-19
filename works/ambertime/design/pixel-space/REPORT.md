@@ -29,10 +29,10 @@ Stagingのみ。本編のモデル・容量・時計・乱数・保存形式／�
 
 | 390×844 | 変更前 | 変更後 |
 | --- | --- | --- |
-| 蒸留室 | ![前](before/390-distill.png) | ![後](after/390-distill.png) |
+| 蒸留室 | ![前](before/390-distill.png) | ![後](after-footing/390-ready.png) |
 | 貯蔵庫 | ![前](before/390-warehouse.png) | ![後](after/390-warehouse.png) |
 | 販売室 | ![前](before/390-sales.png) | ![後](after/390-sales.png) |
-| 蒸留器・受け器／採取中 | ![前](before/390-distill-progress.png) | ![後](after/390-distill-progress.png) |
+| 蒸留器・受け器／採取中 | ![前](before/390-distill-progress.png) | ![後](after-footing/390-progress.png) |
 | グラス／試飲窓 | ![前](before/390-tasting.png) | ![後](after/390-tasting.png) |
 
 [360pxの三室・試飲](after/)／[PCの三室・試飲](after/1280-warehouse.png)／[補助メニュー](after/390-aux-menu.png)／[樽の窓](after/390-cask-window.png)。
@@ -50,3 +50,10 @@ Stagingのみ。本編のモデル・容量・時計・乱数・保存形式／�
 [変更前の証拠](before/browser-results.json)／[変更後の証拠](after/browser-results.json)。実装担当と別担当で入力レビューを実施し、具体的な未修正不具合は見つからなかった。
 
 未確認：物理iPhone Safariの端の引っ張り／慣性・OSキーボード・VoiceOver・OS文字拡大。作者の触感評価・採用判断とProduction反映は行っていない。窓内の長い内容はスクロールを維持している。
+
+
+## 接地の最終確認
+
+上記577テストと全回帰の証拠はPR #507のhead `05f04edc09ca79d1fe26ecc570213a5f141322dd` に対応する。その公開画面の目視で、作業台の脚が床より24論理px上で終わっていることを見つけたため、脚の高さだけを床面まで伸ばした。設備・文字・操作の座標、入力・モデル・時計・保存は変更していない。追加Lockは `.change-plans/ambertime-bench-footing/r0.lock.json`。
+
+最終の蒸留室画像は上表の「変更後」へ反映し、#507の全回帰JSONと画像は原記録としてそのまま残した。[最終接地の画像・Canvas画素と操作の検証](after-footing/footing-results.json) は360×740・390×844・1280×900の待機／採取中を対象とする。左右の脚の床直前のCanvas画素、ページ寸法、実座標での蒸留・抽出終了・樽選択、採取量と瓶詰め見積もりを確認。関連する描画・座標・入力の10テストも成功。

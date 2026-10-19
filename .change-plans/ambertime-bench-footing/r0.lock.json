@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2f047a6c4db9b95294a1e8e40afa1dceb98adacd61c02af8fe705023b69754e1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-bench-footing",
+    "revision": 0,
+    "change": "Complete the same authorized visual pass: connect workbench feet to the existing floor plane",
+    "planLevel": "standard",
+    "classes": [
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "1bbb9fbab8dcd95da72b8e6f4a5fa2bfe561f057",
+    "canonicalSources": [
+      "Current user room-balance instruction",
+      "Latest main and Canvas display/input/dialog implementation",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Original visual source rechecked privately; publish only own implementation and public-code evidence"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-bench-footing/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/design/pixel-space/REPORT.md",
+      "works/ambertime/design/pixel-space/after-footing/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/rojiura-masala/**",
+      "works/yakitori-wars/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/shop.css"
+    ],
+    "expectedChanges": [
+      "Correct only workbench leg height from fixed57 to floorY minus benchY minus rail thickness; preserve all equipment/layout/input/model/clock/save parameters.",
+      "Bump entry/module cache query for correctedCanvas; preserve all existing assets and operations.",
+      "Append evidence to existing report; retain original507 fullregression proof and PNGs unchanged, add targeted currentbeforeafter footing captures and actualCanvaspixel checks.",
+      "Exacthead ScopeRiskImpact, relatedunitchecks, PR/requiredCI/safeStagingmerge/Pages and publictargetedverification; noProduction."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Visually confirm feet meet floor at360740/390844/PC; actualCanvaspixels onbothlegs aboveexistingfloor arewood, notbrick.",
+      "NormalnoPageScroll/rawcoordinateoperations,start/stop/fill; gameframe/controls unchanged.",
+      "Existing507 regression577units/fivematrix108gesture andallfunction/savechecks retained aspriorhead evidence; rerun relevantart/layout/inputunit10 plus targetedlatesthead/public checks.",
+      "No model/game/inputlogic changes; independent review and sourcebyteequality; sourcecachequeries update only.",
+      "Exacthead ScopeRiskImpact/CI then safemerge andexactSHA Pages/publicfilematch. PhysicalSafari remainsUNVERIFIED."
+    ],
+    "rollback": "Revert only legheight/cachequery delta; preserve507 input/space changes andsaveddata.",
+    "outOfScope": [
+      "Production",
+      "Shared engine/reference games/town/LAB or lifecycle changes",
+      "Game rules/economy/RNG/timer/save schemas/keys/migration/contracts/brands/staff/recipe/generation models",
+      "Ended experiments or their mocks",
+      "New materials/rewards/contest/game mechanics",
+      "Publishing any private source file URL identifier metadata or code"
+    ],
+    "unverified": [
+      "Physical iPhone Safari/touch/OS keyboard/screenreader and owneradoption"
+    ],
+    "rulesApplied": [
+      "Freshbase andnewlockedplan forminimalfollowup after507merge, preserving completedinput/layoutchanges; no bulk revert.",
+      "Expressionaudit: no newcopy/feature/panel/decoration.",
+      "AGENTS independentbrowserreview withseparateevidenceownership."
+    ],
+    "ownerDecisions": [
+      "Current user authorized roomscale/drawing/physicalgrounding and fullStagingdelivery. Finalvisualinspection found benchfeet stopped24logicalpx abovefloor; finish requestedgrounding withminimalfollowup."
+    ],
+    "hqDecisions": []
+  }
+}
