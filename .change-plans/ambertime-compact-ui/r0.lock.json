@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a52219b15e86d80944d161f6205a2dfe57cd3311a7f431d597366a8d177b4df0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-compact-ui",
+    "revision": 0,
+    "change": "Compact AmberTime main room layout and copy, with selected details and bounded shelves, preserving all simulation and saves",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "a5f4b2da6ea63e0d277e3f1943051cc7832a2e26",
+    "canonicalSources": [
+      "User 2026-10-19 main-screen text/layout request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Current main UI and all model APIs at a5f4b2da"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-compact-ui/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/compact-ui/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/art.mjs",
+      "works/ambertime/brand-art.mjs",
+      "works/ambertime/distillery-art.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs"
+    ],
+    "expectedChanges": [
+      "Compact header status/generation/time and roomspacing; remove copy/version/duplicate headings with accessible headings preserved, version insettings",
+      "Distillation manual controls/readout visible; staff concise cost/recipe/waitreason, compatibility onlyapplicable/settings; no different API or numericalcost",
+      "Compact caskrack/selectedcask especiallywhiletasting, move loss/lastsample supplemental detail; keep3gauges/type/previousmarks andflavorphrases",
+      "Comparisons prioritizedtype/age/gauges, source metadata/details; bottling count/cost/aftercash/name/actions, preserveappearancefold/inputdraft",
+      "Sales bounded pages and selectedsalesdestination show prices/conditions/deliveries; offers/availableindicators visible; tastegaugesdetails and conciseactions without semanticmerges",
+      "Staff/recipes costs andchosen/source distinctions; provenancefolds; ledger/history/settings through existingmodal/nativecontrols, linksanderrors preserved",
+      "All model/RNG/economy/clock/save/schema/migration/generation behavior unchanged; no newassets or endedexperiment integration",
+      "360740390844PC beforeafter, manycasks/products/recipes/shops/history,longnames,textzoom,keyboard/focus/return drafts; regression and publicoperation exactsourcehashes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360740390844 andPC: primaryrooms/tasting/comparison actionable within practicalviewport, labels>=existing readable, buttons>=44, noheightclipping",
+      "Bottlingnameinput keyboard/shortheight scroll reachable, textzoom200percent andlongname safe; detailreturn selectionsdrafts retained",
+      "Modalpause/resume/userpause, notifications/contracts/generation/recovery, oldsave + successorfixtures valid, same serializedgame fordisplayonlyevents",
+      "Main vs isolatedstorage preserved, all model/assets sourcebytes unchanged; no endedtrial link/import",
+      "Alltests including existing semanticassertions meaningful; independentreview expressionaudit, exactgatesCI deploymenthashes publicoperation, physicalSafariunverified"
+    ],
+    "rollback": "Revert scoped presentation changes only; same v18 and legacy saves remain compatible.",
+    "outOfScope": [
+      "Production",
+      "All simulation/model/save/RNG/economic/contract rules",
+      "Visual assets and ended independent trial",
+      "New game feature/rewards/ingredients"
+    ],
+    "unverified": [
+      "Physical iPhone Safari and author judgment of desire to experiment"
+    ],
+    "rulesApplied": [
+      "Standard WORK, >4files and substantial UI changes: lockfirst, ScopeRiskImpact",
+      "AGENTS root owns app/index/layout; delegated snippets separate temp files, independentbrowser tests/review",
+      "Expressionaudit prioritize actions/needed costs/reasons, no new decorativecopy or permanentledgers"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes main presentation/copy reorganization, necessary regressions, PR/Staging/public checks; simulation/assets/saves/Production unchanged"
+    ],
+    "hqDecisions": []
+  }
+}

@@ -43,3 +43,141 @@
 @media(max-width:700px){#hero #tasting-panel #compare-tasting:not([hidden]):has(~ #staff-tasting:not([hidden])){grid-column:1;grid-row:2}#hero #tasting-panel #staff-tasting{grid-column:1/-1;grid-row:2}#hero #tasting-panel #compare-tasting:not([hidden])~#staff-tasting{grid-column:2;grid-row:2}}
 
 .flavor-type{margin:4px 0 8px;line-height:1.5}.flavor-type strong{font-size:14px;font-weight:500}.flavor-type small{display:block;font-size:12px;color:var(--quiet);line-height:1.5}.bottle-flavor{display:grid;gap:8px;margin:12px 0 18px}.bottle-flavor h3{font-size:12px;margin:0;color:var(--quiet);font-weight:400}.nearby-fact .flavor-type{margin:0}.nearby-fact .flavor-type strong{font-size:13px}
+
+/* Main-room compaction: simulation and artwork remain unchanged. */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+.page{padding-top:10px;padding-bottom:18px}
+.clock-dock{padding:2px 0 7px}
+.clock-dock header{align-items:center;gap:12px}
+.clock-dock h1{font-size:22px;line-height:1.2}
+.clock-dock .edition{display:block;font-size:12px;margin-top:3px}
+header .wallet{max-width:55%;gap:0 8px}
+header .wallet strong{font-size:17px}
+header #calendar{font-size:13px}
+#monthly-cost{display:none!important}
+.clock-dock #time-flow{margin-top:5px}
+.clock-dock #time-status{font-size:13px;line-height:1.45;margin:3px 0;min-height:0}
+.clock-dock #time-controls button{font-size:14px;min-height:44px}
+.clock-dock #time-controls[hidden]{display:none!important}
+.clock-dock #work-notice{font-size:13px;line-height:1.5}
+.room-nav{margin-top:7px;padding-bottom:5px;gap:4px}
+.room-nav button{font-size:14px;min-height:44px;padding:6px 3px}
+.room-nav small{font-size:12px}
+.room{padding-top:10px}
+#room-distill #still{width:210px;height:128px;max-width:100%}
+#room-distill .process-caption{margin:5px 0;font-size:14px}
+#distill-direction{min-height:0;font-size:13px;margin:6px 0}
+.spirit-readout{min-height:0;margin-top:5px}
+#spirit-phrase{min-height:0;margin:5px 0;font-size:14px;line-height:1.5}
+.spirit-heading{font-size:13px}
+.spirit-axis{margin:7px 0;font-size:14px}
+.distill-actions{margin:9px auto 0}
+.distill-actions button{font-size:14px;min-height:46px}
+#staff-panel{margin:12px auto 0;padding:8px 0 0;max-width:440px}
+#staff-panel h3{font-size:14px;margin:0 0 4px}
+#staff-panel p{font-size:13px;line-height:1.5;margin:5px 0}
+#staff-panel button{font-size:14px;min-height:44px;margin:3px}
+#staff-panel #usual-recipe{margin-bottom:3px}
+#staff-panel #open-recipes{margin:3px}
+body[data-room=distill][data-phase=distilling] #staff-panel{border-top:0;margin-top:6px}
+body[data-room=distill][data-phase=distilling] #staff-panel #staff-heading,
+body[data-room=distill][data-phase=distilling] #staff-panel #staff-terms,
+body[data-room=distill][data-phase=distilling] #staff-panel #usual-recipe,
+body[data-room=distill][data-phase=distilling] #staff-panel #manual-reference{display:none}
+#cask-rack{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-bottom:7px}
+#cask-rack button{font-size:13px;min-height:44px;padding:3px}
+#cask-rack button>span{width:42px}
+#cask-rack button strong{font-size:13px}
+#cask-rack small{font-size:12px}
+#cask-rack .generation-provenance{font-size:12px}
+#hero{background:none;margin:0}
+#hero .stamp{margin:0 auto 4px;line-height:1.5}
+#hero .stamp strong{font-size:21px}
+body[data-room=warehouse] #hero .objects{height:135px;min-height:0}
+body[data-room=warehouse] #hero #barrel{width:140px;max-width:48%;left:calc(50% - 95px);bottom:5px}
+body[data-room=warehouse] #hero #glass-button{width:62px;max-width:24%;left:calc(50% + 36px);bottom:5px;min-height:62px}
+#hero .amount{margin:4px 0;font-size:14px;justify-content:center}
+#hero #change{margin:4px 0;font-size:13px;min-height:0}
+#cask-details{margin:7px auto;max-width:540px}
+#cask-details summary{min-height:44px;padding:10px 0;font-size:13px}
+#cask-details p{font-size:13px}
+#free-actions{gap:8px;margin-top:6px;max-width:540px}
+#free-actions button{font-size:14px;min-height:46px;padding:9px 5px}
+body.is-tasting #cask-details{display:none}
+body.is-tasting #cask-rack button>span{display:none}
+body.is-tasting[data-room=warehouse] #hero .objects{height:auto;min-height:0;padding:70px 0 0;display:block}
+body.is-tasting[data-room=warehouse] #hero #barrel{width:75px;max-width:none;left:calc(50% - 66px);top:0;bottom:auto}
+body.is-tasting[data-room=warehouse] #hero #glass-button{width:48px;max-width:none;min-height:48px;left:calc(50% + 24px);top:12px;bottom:auto}
+#hero #tasting-panel{position:relative;top:auto;right:auto;width:100%;max-width:none;margin:0;border:0;padding:0}
+#hero #tasting-panel h2{font-size:14px;margin:0 0 4px}
+#hero #tasting-panel .tasting-flavor{padding:5px 0}
+#hero #tasting-panel .flavor-phrase{font-size:13px}
+#hero #tasting-panel .free-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px}
+#hero #tasting-panel .free-actions button{font-size:14px;min-height:44px;padding:7px 4px;grid-column:auto!important;grid-row:auto!important}
+body.is-tasting #hero .amount{display:none}
+#product-shelf{max-width:620px;gap:12px;padding:6px 0}
+#product-shelf button{min-height:0;padding:8px 5px;gap:4px}
+#product-shelf button>span,#product-shelf button svg{width:40px;height:78px}
+#product-shelf strong{font-size:14px;line-height:1.45}
+#product-shelf small{font-size:13px;line-height:1.4}
+#shelf-pages{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:5px;font-size:14px}
+#shelf-pages button{min-height:44px;font-size:14px}
+#sales-result{margin:8px 0;font-size:14px;min-height:0}
+.shop-invitation,#trade-info{min-height:44px;font-size:14px;margin:0 0 8px;padding:8px}
+.book-entries{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.book-entries button{min-height:44px;font-size:14px;background:transparent;padding:8px 12px}
+footer{margin-top:14px;padding-top:8px}
+#action-dialog{max-height:calc(100dvh - 24px);padding:16px}
+#dialog-body{font-size:14px;overflow-wrap:anywhere}
+#dialog-body .quiet{font-size:13px}
+#dialog-title{font-size:18px}
+.dialog-heading{margin-bottom:8px}
+#dialog-actions{margin-top:10px;padding:8px 0 0}
+#dialog-actions button{font-size:14px;min-height:44px}
+#action-dialog:has(#brand-choice) #dialog-actions{grid-template-columns:repeat(2,minmax(0,1fr));position:sticky;bottom:0;background:#1c2928;padding-bottom:4px}
+.brand-form input,.brand-form select,#sales-destination-choice{font:inherit;font-size:16px;min-height:44px;max-width:100%;width:100%;color:var(--ink);background:#172624;border:1px solid #727b64;border-radius:4px;padding:7px}
+#brand-name{scroll-margin-block:75px}
+.brand-form{margin-top:10px}
+.brand-form label{font-size:14px}
+.brand-appearance{margin:6px 0}
+.brand-appearance summary{font-size:14px;min-height:44px}
+.product-overview{min-height:0;gap:14px;padding:0}
+.product-overview .modal-bottle{width:40px;flex-basis:40px;margin:0}
+.product-overview .modal-bottle svg{height:80px}
+.product-overview p{font-size:14px;line-height:1.65}
+.bottle-taste-details{margin:5px 0}
+.bottle-taste-details summary{min-height:44px;font-size:14px;padding:10px 0}
+.bottle-flavor{margin:4px 0 12px}
+.sales-destination{margin-top:7px;padding-top:7px}
+.sales-destination h3{font-size:14px}
+.sales-destination .price-options{margin:5px 0}
+.sales-destination .price-options button{font-size:14px;min-height:44px}
+.destination-notice{font-size:13px;color:var(--quiet);margin:4px 0!important}
+.comparison-entry{margin:8px 0}
+.comparison-entry button{font-size:14px;min-height:44px;margin:3px}
+.nearby-pair{gap:12px;margin-bottom:5px}
+.nearby-art,.nearby-releases .nearby-art{height:48px;margin-bottom:3px}
+.nearby-fact{padding:4px 0}
+.nearby-fact h3{font-size:13px;margin:0 0 2px}
+.nearby-fact>div{gap:12px}
+.nearby-fact>div>span{font-size:14px}
+.nearby-fact .flavor-phrase{font-size:13px}
+.nearby-fact .flavor-type strong{font-size:14px}
+.comparison-supplement{margin:6px 0}
+.comparison-supplement summary{min-height:44px;font-size:14px}
+.staff-source-art{height:60px}
+.staff-source-title{margin:6px 0!important;font-size:15px!important}
+.staff-cost{padding-top:8px;font-size:14px}
+.recipe-list article{padding:7px 0 10px}
+.recipe-list p{font-size:14px;margin:5px 0}
+.recipe-list button,.recipe-sources button{font-size:14px;min-height:44px}
+.recipe-origin-art{width:35px;height:54px}
+#dialog-body details p{font-size:14px}
+@media(min-width:650px){#product-shelf{grid-template-columns:repeat(4,minmax(0,1fr))}.still-workplace{max-width:500px}#room-distill #still{width:255px;height:155px}.room{padding-top:10px}}
+@media(max-width:430px){.page{padding-top:6px;padding-left:16px;padding-right:16px}.room-nav{margin-top:6px}.room-nav button{font-size:14px}.room-nav small{font-size:12px}#staff-panel{margin-top:9px}body.is-tasting #cask-rack small{display:none}#action-dialog{padding:14px}#dialog-actions{gap:7px}}
+@media(max-height:540px){.clock-dock{position:relative}.page{padding-top:4px}}
+/* A hidden clock control must not reserve the old tasting-mode spacer. */
+body[data-room][data-time] .clock-dock #time-controls[hidden]{display:none!important}
+.dialog-storage-error{color:#f1bea3;border-left:2px solid #bd8066;padding-left:9px}
+/* Enlarged text may wrap the status header rather than leave the viewport. */
+.clock-dock header{flex-wrap:wrap}
