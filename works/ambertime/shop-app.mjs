@@ -1,4 +1,4 @@
-import {CanvasScene} from './canvas-scene.mjs?v=0.29-offer-confirm-1';
+import {CanvasScene} from './canvas-scene.mjs?v=0.32-sales-1';
 import * as D from './partner-orders.mjs?v=0.19staff';
 import {SHOPS} from './shop-model.mjs?v=0.19staff';
 import {caskName as sourceCaskName,releaseNumber} from './work-context.mjs?v=0.15.2';
@@ -449,7 +449,18 @@ function syncModal(){
   if($(nativePanel).parentElement!==$('dialog-body')){vaultPanels();$('dialog-body').replaceChildren($(nativePanel));$('dialog-actions').replaceChildren();}
   if(kind==='inspect'){for(const id of ['free-actions','tasting-actions'])if($(id).parentElement!==$('dialog-actions'))$('dialog-actions').append($(id));}
   else $('dialog-actions').innerHTML=actions;
- }else{vaultPanels();$('dialog-body').innerHTML=body;$('dialog-actions').innerHTML=actions;}
+ }else{vaultPanels();
+  const destination=$('sales-destination-choice');
+  if(kind==='product'&&modal.keepDestination&&destination?.parentElement===$('dialog-body')){
+   // Keep the native picker and its focus alive; replace only the content below it.
+   const template=document.createElement('template');template.innerHTML=body;
+   const updated=template.content.querySelector('#sales-destination-choice'),tail=[];
+   for(let node=updated.nextSibling;node;node=node.nextSibling)tail.push(node);
+   while(destination.nextSibling)destination.nextSibling.remove();
+   destination.after(...tail);
+  }else $('dialog-body').innerHTML=body;
+  $('dialog-actions').innerHTML=actions;
+ }
  dialog.dataset.kind=kind;$('close-dialog').hidden=kind==='decision'||kind==='generation-review';
  if(!dialog.open){$('dialog-title').removeAttribute('tabindex');dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}
  else if(previousKind!==kind&&(kind==='milestone'||previousKind==='milestone')){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else $('dialog-actions button')?.focus({preventScroll:true});}
@@ -593,7 +604,10 @@ function updateBrandDraft(e){
  if(id==='brand-bottle'||id==='brand-label'){const preview=$('dialog-body').querySelector?.('.brand-appearance .brand-preview');if(preview)preview.innerHTML=brandArt(0,brandDraft);}
 }
 $('dialog-body').addEventListener('input',updateBrandDraft);$('dialog-body').addEventListener('change',updateBrandDraft);
-$('dialog-body').addEventListener('change',e=>{if(e.target.id==='sales-destination-choice'&&modal?.kind==='product'){modal.destination=e.target.value;render();$('sales-destination-choice')?.focus({preventScroll:true});}});
+$('dialog-body').addEventListener('change',e=>{if(e.target.id==='sales-destination-choice'&&modal?.kind==='product'){
+ modal.destination=e.target.value;deliveryNotice='';$('dialog-body').querySelector('.delivery-confirmation')?.remove();
+ modal.keepDestination=true;try{render();}finally{if(modal)delete modal.keepDestination;}
+}});
 function handleModal(e){
  const b=e.target.closest('[data-action]');if(!b||b.disabled||!modal)return;const a=b.dataset.action,id=Number(b.dataset.id),kind=modal.kind;
  if(a==='settings-reset'&&kind==='settings'){$('reset').click();return;}
@@ -632,7 +646,7 @@ function handleModal(e){
  if(a==='shop-accept'||a==='shop-decline'){if(kind==='shop-offer'){const target={...modal};act(s=>(a==='shop-accept'?D.acceptShop:D.declineShop)(s,target.shopId,target.offerId),()=>{modal=target.returnProductId!==null?{kind:'product',id:target.returnProductId}:null;room='sales';message(a==='shop-accept'?(target.shopId==='department'?'取扱いの相談を残しました。':shopName(target.shopId)+'で取扱いが始まりました。'):'今回は見送りました。');});}return;}
  if(a==='shop-accept-deliver'){if(kind==='shop-offer'&&modal.productId===id&&modal.shopId===b.dataset.shopId&&modal.offerId===Number(b.dataset.offerId)){const n=Number(b.dataset.count);if(modal.shopId!=='department'&&normalOfferCount()!==n)return;const name=brandFor(id)?.name??'ウイスキー',target={...modal},payment=Math.round(D.shopOfferQuote(game,id,target.shopId).unitPrice*n*100)/100;act(s=>D.acceptShopDelivery(s,id,n,target.shopId,target.offerId),()=>{modal=target.returnProductId!==null?{kind:'product',id:target.returnProductId}:null;room='sales';if(target.shopId==='department'){deliveryNotice=name+'を'+shopName(target.shopId)+'へ'+n+'本\n入金 '+unit(payment);message(name+'を'+shopName(target.shopId)+'へ'+n+'本届けました。');}},()=>{if(target.shopId!=='department'){const receipt=game.shop.deliveries.at(-1);selectedProductId=id;showMilestone('stockist',{productId:receipt.productId,shopName:shopName(receipt.shopId),count:receipt.count,revenue:receipt.revenue});}});}return;}
  if(a==='department-cancel'){if((kind==='product'&&modal.id===id||kind==='ledger')&&D.departmentInterests(game,releaseFor(id)?.brandId).some(x=>x.selectionId===b.dataset.selectionId))act(s=>D.cancelDepartmentInterest(s,b.dataset.selectionId),()=>{deliveryNotice='相談を終えました。';});return;}
- if(a==='shop-deliver'){if(kind==='product'&&modal.id===id&&SHOPS.some(s=>s.id===b.dataset.shopId)){const n=Number(b.dataset.count),shopId=b.dataset.shopId,payment=Math.round(D.shopQuote(game,id,shopId).unitPrice*n*100)/100;act(s=>D.deliverShop(s,id,n,shopId,shopId==='department'?b.dataset.selectionId:undefined),()=>{deliveryNotice=(brandFor(id)?.name??'ウイスキー')+'を'+shopName(shopId)+'へ'+n+'本\n入金 '+unit(payment);message(deliveryNotice);});}return;}
+ if(a==='shop-deliver'){if(kind==='product'&&modal.id===id&&SHOPS.some(s=>s.id===b.dataset.shopId)){const n=Number(b.dataset.count),shopId=b.dataset.shopId,payment=Math.round(D.shopQuote(game,id,shopId).unitPrice*n*100)/100;act(s=>D.deliverShop(s,id,n,shopId,shopId==='department'?b.dataset.selectionId:undefined),()=>{if(shopId==='department'){deliveryNotice=(brandFor(id)?.name??'ウイスキー')+'を'+shopName(shopId)+'へ'+n+'本\n入金 '+unit(payment);message(deliveryNotice);}},()=>{if(shopId!=='department'){const receipt=game.shop.deliveries.at(-1);deliveryNotice=receipt.count+'本納品\n'+unit(receipt.revenue)+' 入金';message('');}});}return;}
  if(a==='offer-term'){if(kind==='offer'){offerTermId=game.trade.offer.terms.find(t=>String(t.id)===b.dataset.id)?.id;render();}return;}
  if(a==='assign-term'){if(kind==='assign'){assignmentTermId=game.trade.relationship.terms.find(t=>String(t.id)===b.dataset.id)?.id;render();}return;}
  if(a==='assign-order'){if(kind==='assign')act(s=>D.assignOrder(s,id),()=>{modal=null;message('このたるを特別注文へ指定しました。');});return;}

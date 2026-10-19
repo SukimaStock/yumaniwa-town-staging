@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fa225f438a1fc09a53201f503e9220195e932baf0153cd2b35119a0a2bb570d3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "e3e5f739264299edd4765bb9d50d66fe0e468e84",
+    "changeId": "ambertime-sales-controls",
+    "revision": 0,
+    "change": "Retain sales destination select without touch refocus; handshake trade icon aligned with existing management controls; concise single normal additional-delivery receipt",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit three sales UI fixes request",
+      "PR518 selected first-delivery confirmation",
+      "PR519 completed copy cleanup",
+      "PR521 saved milestone modal Plan and implementation",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Current work-local select, renderer, layout, glyph and unchanged delivery receipt"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-sales-controls/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/sales-controls.mjs",
+      "works/ambertime/design/sales-controls/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Destination changes keep the live native select and replace only following destination content via the existing modal renderer; no programmatic focus on touch, same focused node for keyboard. Selected value, options/labels and trade semantics remain unchanged. Other modal rerenders retain current path.",
+      "Reuse existing work-local pixel glyph renderer for11x11 handshake at3px density. Book/store/trade remain one management group;54px trade tap beside store at same y. Accessible name取引, original visibility/handler, no frame/animation.",
+      "Normal additional delivery: actual saved receipt count and revenue in existing in-modal status only, without duplicate scene comment or milestone. Department delivery retains its existing notification behavior. Initial milestone/atomic acceptance unchanged.",
+      "Only work-local display/cache references, no model/schema/math/time/staff/conditions/art/HUD/tabs/CI changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Only390x844 touch and minimalPC: select identity/value/content, no scripted focus, repeat selection and keyboard focus retained; no promise of physical Safari native picker/VoiceOver verification. Group icon/tap geometry, visibility and trade opening.",
+      "Normal additional receipt/full saved operation result, no popup/duplicate notice; first-acceptance milestone and department exception checked locally. Syntax/protected diff/Scope→Risk→Impact, required exact-head CI/review, normal Staging merge/Pages and changed-file public bytes. No full E2E or prior broad suite."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only these sales presentation changes; no migration.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Five runtime files, scoped test/evidence and cache imports exceed four-file/contract-insensitive fast path; Standard Lock before implementation, verification remains lightweight.",
+      "Existing PR521 milestone checks are reused except the related normal acceptance assertion. No copy re-audit or CI redesign.",
+      "Source user requests only labels and actual receipt values; no private source metadata or unrelated new icons."
+    ]
+  }
+}

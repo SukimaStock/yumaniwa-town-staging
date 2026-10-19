@@ -21,7 +21,7 @@ export function layoutScene(view={}){
  }else if(view.room==='sales'){
   (view.products??[]).forEach((p,i)=>{const r=productSlots[i];if(r)add('product-'+p.id,'#product-shelf [data-product-id="'+p.id+'"]',r.x,r.y,r.w,r.h);});
   add('shelf-prev','#shelf-pages [data-page-step="-1"]',12,111,96);add('shelf-next','#shelf-pages [data-page-step="1"]',252,111,96);
-  add('trade-info','#trade-info',156,528,120);add('shop-offer','#shop-offer',90,522,54,54);
+  add('trade-info','#trade-info',156,522,54,54);add('shop-offer','#shop-offer',90,522,54,54);
  }else{
   for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,114,414,132);
   add('open-staff-panel','#open-staff-panel',90,522,54,54);
