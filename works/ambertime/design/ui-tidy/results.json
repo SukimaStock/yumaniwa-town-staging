@@ -1,0 +1,209 @@
+[
+  {
+    "width": 390,
+    "height": 844,
+    "header": {
+      "header": {
+        "cashWidth": 66.46153846153847,
+        "cashY": 30,
+        "calendarRight": 114.6923076923077,
+        "generationRight": 171,
+        "cashLeft": 221.53846153846155
+      },
+      "regions": [
+        {
+          "key": "room-distill",
+          "selector": "#room-nav [data-room=\"distill\"]",
+          "x": 12,
+          "y": 582,
+          "w": 108,
+          "h": 45
+        },
+        {
+          "key": "room-warehouse",
+          "selector": "#room-nav [data-room=\"warehouse\"]",
+          "x": 126,
+          "y": 582,
+          "w": 108,
+          "h": 45
+        },
+        {
+          "key": "room-sales",
+          "selector": "#room-nav [data-room=\"sales\"]",
+          "x": 240,
+          "y": 582,
+          "w": 108,
+          "h": 45
+        },
+        {
+          "key": "open-aux-menu",
+          "selector": "#open-aux-menu",
+          "x": 303,
+          "y": 9,
+          "w": 45,
+          "h": 45
+        },
+        {
+          "key": "open-ledger",
+          "selector": "#open-ledger",
+          "x": 18,
+          "y": 522,
+          "w": 66,
+          "h": 54
+        },
+        {
+          "key": "toggle-time",
+          "selector": "#toggle-time",
+          "x": 297,
+          "y": 60,
+          "w": 48,
+          "h": 45
+        },
+        {
+          "key": "start-distill",
+          "selector": "#start-distill",
+          "x": 84,
+          "y": 414,
+          "w": 192,
+          "h": 45
+        },
+        {
+          "key": "open-staff-panel",
+          "selector": "#open-staff-panel",
+          "x": 288,
+          "y": 522,
+          "w": 54,
+          "h": 54
+        }
+      ],
+      "scroll": 0
+    },
+    "tasting": {
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "focus": false
+    },
+    "prices": [
+      {
+        "label": "低め",
+        "x": 27,
+        "y": 473,
+        "client": 101,
+        "scroll": 101
+      },
+      {
+        "label": "ふつう",
+        "x": 140,
+        "y": 473,
+        "client": 101,
+        "scroll": 101
+      },
+      {
+        "label": "高め",
+        "x": 253,
+        "y": 473,
+        "client": 101,
+        "scroll": 101
+      }
+    ],
+    "deliveries": [
+      {
+        "text": "1本35本£17.34",
+        "client": 101,
+        "scroll": 101,
+        "y": 571
+      },
+      {
+        "text": "5本31本£86.70",
+        "client": 101,
+        "scroll": 101,
+        "y": 571
+      },
+      {
+        "text": "10本26本£173.40",
+        "client": 101,
+        "scroll": 101,
+        "y": 571
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "height": 900,
+    "header": {
+      "header": {
+        "cashWidth": 68.26666666666667,
+        "cashY": 30,
+        "calendarRight": 117.4,
+        "generationRight": 174.91111111111113,
+        "cashLeft": 219.73333333333335
+      },
+      "regions": [
+        {
+          "key": "room-distill",
+          "selector": "#room-nav [data-room=\"distill\"]",
+          "x": 12,
+          "y": 582,
+          "w": 108,
+          "h": 45
+        },
+        {
+          "key": "room-warehouse",
+          "selector": "#room-nav [data-room=\"warehouse\"]",
+          "x": 126,
+          "y": 582,
+          "w": 108,
+          "h": 45
+        },
+        {
+          "key": "room-sales",
+          "selector": "#room-nav [data-room=\"sales\"]",
+          "x": 240,
+          "y": 582,
+          "w": 108,
+          "h": 45
+        },
+        {
+          "key": "open-aux-menu",
+          "selector": "#open-aux-menu",
+          "x": 303,
+          "y": 9,
+          "w": 45,
+          "h": 45
+        },
+        {
+          "key": "open-ledger",
+          "selector": "#open-ledger",
+          "x": 18,
+          "y": 522,
+          "w": 66,
+          "h": 54
+        },
+        {
+          "key": "toggle-time",
+          "selector": "#toggle-time",
+          "x": 297,
+          "y": 60,
+          "w": 48,
+          "h": 45
+        },
+        {
+          "key": "cask-2",
+          "selector": "#cask-rack [data-cask-id=\"2\"]",
+          "x": 60,
+          "y": 180,
+          "w": 108,
+          "h": 120
+        }
+      ],
+      "scroll": 0
+    },
+    "tasting": {
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "focus": false
+    },
+    "errors": []
+  }
+]
