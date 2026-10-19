@@ -7,7 +7,8 @@
 <meta name="theme-color" content="#172124">
 <title>AmberTime — 時間を育てる蒸留所</title>
 <link rel="stylesheet" href="./shop.css?v=0.19-pixel-1">
-<script type="module" src="./shop-app.mjs?v=0.19-pixel-1"></script>
+<link rel="stylesheet" href="./room-scene.css?v=0.19-room-1">
+<script type="module" src="./shop-app.mjs?v=0.19-room-1"></script>
 </head>
 <body data-room="distill"><div class="page">
 <div class="clock-dock"><header>
@@ -32,7 +33,8 @@
 <section id="room-distill" class="room" aria-label="蒸留室">
 <h2 class="sr-only">蒸留室</h2>
 <div class="still-workplace">
-<div id="still" class="still" aria-hidden="true"></div>
+<div class="equipment-stage"><div id="still" class="still" aria-hidden="true"></div><div class="workbench" aria-hidden="true"></div></div>
+<div class="distill-window room-window">
 <p id="distill-caption" class="process-caption" hidden></p>
 <p id="collection" hidden></p><div id="extraction-progress" class="extraction-progress" aria-hidden="true" hidden><span></span></div>
 <p id="distill-direction" class="quiet" hidden></p>
@@ -50,7 +52,8 @@
 <button id="open-fill" type="button" hidden>樽に詰める</button>
 </div>
 </div>
-<div class="usual-batch" id="staff-panel" hidden>
+</div>
+<div class="usual-batch room-window" id="staff-panel" hidden>
 <h3 id="staff-heading">蒸留担当者</h3>
 <p id="staff-terms" class="quiet"></p>
 <p id="staff-legacy" class="quiet" hidden></p>
@@ -68,19 +71,17 @@
 <h2 class="sr-only">貯蔵庫</h2>
 <div id="cask-rack" aria-label="熟成中の樽"></div>
 <div id="warehouse-empty" class="empty-room"><p>まだ樽はありません。</p><button id="go-distill" type="button">原酒を仕込む</button></div>
-<div id="selected-cask" hidden>
+<div id="selected-cask" class="room-window" hidden>
 <section id="hero" class="workplace warehouse" aria-label="選んだ樽">
-<div class="stamp"><span id="cask-kind"></span><strong id="age"></strong></div>
-<div class="objects">
+<div class="cask-window-heading"><div class="stamp"><span id="cask-kind"></span><strong id="age"></strong></div><button id="close-cask-window" type="button" aria-label="樽の窓を閉じる">×</button></div>
+<div class="inspection-summary"><div class="objects">
 <div id="barrel" class="barrel" aria-hidden="true"></div>
 <button id="glass-button" class="glass-button" aria-label="この樽を試飲する" type="button"><span id="glass" class="glass" aria-hidden="true"></span></button>
+</div><div class="inspection-facts"><div class="amount"><span id="amount"></span></div><p id="change" class="change"></p></div></div>
 <section id="tasting-panel" class="tasting-panel" aria-label="試飲" role="region" hidden>
 <h2 id="taste-date"></h2><div id="taste-current"></div><div id="taste-previous" class="taste-previous" hidden></div>
 <div class="free-actions"><button id="compare-tasting" type="button">比べる</button><button id="end-tasting" type="button">戻る</button><button id="taste-bottle" type="button">瓶詰め</button><button id="staff-tasting" type="button" hidden>仕込みを任せる</button></div>
 </section>
-</div>
-<div class="amount"><span id="amount"></span></div>
-<p id="change" class="change"></p>
 </section>
 <details id="cask-details"><summary>樽の詳細</summary><p id="loss"></p><p id="last-taste" class="quiet"></p></details>
 <button id="assign-wholesale" class="contract-info" type="button" hidden>卸売へ指定</button>

@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0ffa21c0f7b130c3f5df093e2add5ddf0b147ee0f4d3681a7c0d383cf85b2805",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-room-world",
+    "revision": 0,
+    "change": "Recompose AmberTime main as three pixel-art rooms with HTML text and existing game rules",
+    "planLevel": "standard",
+    "classes": [
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "ac14fab051dab0c1e975b184730e0e8aec36f68f",
+    "canonicalSources": [
+      "Current user full-room redesign instruction and three attached references viewed in conversation",
+      "Latest mainac14fab0 and actual current room/browser operation",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Original Codea source freshly fetched from user-authorized Drive; GameRenderer/background/room/window/button/WarehouseShelves/selection/distillery/inventory composition read; private identifiers and metadata excluded",
+      "Existing Web model/saves/economy/staff/recipe/flavor/comparison semantics remain canonical"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-room-world/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/room-world/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/art.mjs",
+      "works/ambertime/brand-art.mjs",
+      "works/ambertime/distillery-art.mjs",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs"
+    ],
+    "expectedChanges": [
+      "Common3CSSpixel grid for room objects/stone wall/wood floor/posts/rails/bench/frame/shadow; readable normalfont HTML over native SVG/CSS objects; current three rooms/clock/status and shortcopy preserved",
+      "Warehousefirst: four realcapacity slots on persistentwood shelves (emptyspaces noninteractive), selectednativeHTML window, selectedcask status/age/volume/details, taste/compare/bottle/staff; newclose only ephemeral presentation and focusrestoration, no newpause/save action",
+      "After warehouse realoperation/visualcheck extend distill copperstill/receiver onworkbench and salesbottle shelves, sparse/full/paged lists, consistentmodels/palette/grids acrossobjects and allmodals",
+      "Main-only room-object-art module for still/receiver/glass/bottle+label variants, existing liquidcolor/amount rules; old/versioned asset modules unchanged; no simulated world effects or decorationcopy",
+      "Scope only presentation/selectionwindow ephemeral flag/filler markup/cache version; all rules/economic APIs/clock stoprules/state/save and compatibility unchanged",
+      "360740390844PC beforeafter room states plusstress, zoom/shortkeyboard/drafts/focus/oldsave/generation, existingunit tests, newart and room browser tests, independentreview, CI/Pages/publicverification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Referenceorder latest rules/currentactualUI then freshCodeasource then3inline referenceimages; no privatefileidentifiers inpublic plan/PR/record",
+      "Warehouse visualprototype before otherroom rollout: zero/sparse/four slot shelves and physicalbases, select/detailsclose withfocus/taste/compare/bottle allreachable",
+      "All3rooms onecoherentwall/floor/furniture/window composition (notwallpaperalone), newstill/receiver/bottles samegrid; HTML normalfonts/noaddedcopy; imageaspectratio integerart, nofloatingobjects",
+      "360740390844PC normalactions practically no pagescroll; necessarydetails/history/modalinner scroll; zoom2x, shortinputviewport,longnames,manyrecipes/products/shops; controls>=44 andkeyboard/focusreturn",
+      "Unit regression+newartcolor/amount checks, browserexistingrulesandclock/oldsave/successorreload/save separation; compare unchanged protectedmodule bytes anddisplay-only events serializedstate",
+      "ScopeRiskImpact exacthead; independentreview actualscreens separatefromtests; CI/Pages andpublicoperation+normalTLS sourcehashcheck; physicalSafari/owneradoptionunverified"
+    ],
+    "rollback": "Revert scoped main room presentation/imports/ephemeral inspector and new files only; model and old saves untouched.",
+    "outOfScope": [
+      "Production and sharedtown/engine",
+      "Game rules/economy/RNG/save/schema/migration/staff/recipe/contract logic",
+      "Ended independenttrials or theirmocks",
+      "New gamefeatures/rewards/materials/controlscheme or simulationeffects",
+      "Pixel font or rasterizing HTML text"
+    ],
+    "unverified": [
+      "Physical iPhone Safari/touch/OS keyboard/screenreader and owneradoption"
+    ],
+    "rulesApplied": [
+      "Standard ASSET/WORK substantialpresentation>4files: lockfirst, ScopeRiskImpact exacttarget",
+      "AGENTS independentdelegation: root ownsmainDOM/app/CSS, artagent ownsnewmodule, browseragent ownsnewtests/evidence, independentread-onlyreview",
+      "Source-based nativeSVG/CSS grid composition fits existingcode drawing; no need rasterimagegen",
+      "Expressionaudit visualroomparts havephysicalroles, no addeddecorativecopy/heading/explanation; preserve conditions/costs/errors",
+      "User authorizes withinwork roomrecomposition and necessary ephemeral inspector closing as presentation; no sharedruntime/newsave contract"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests three-room unified game-screen recomposition, warehouse-first thenotherrooms, HTMLnormalfonts/currentWebrules, necessaryPR/Staging/publicchecks, noProduction"
+    ],
+    "hqDecisions": []
+  }
+}
