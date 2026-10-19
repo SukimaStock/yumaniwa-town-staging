@@ -1,11 +1,11 @@
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.29-offer-confirm-1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.32-sales-1';
 import{barrel}from'./cask-glass-art.mjs?v=0.19-pixel-1';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.21-space-1';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.22-misaki-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
-import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.29-offer-confirm-1';
+import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.32-sales-1';
 import{uiText}from'./ui-text.mjs?v=0.28-staff-entry-1';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false){
@@ -22,7 +22,7 @@ export class CanvasScene{
   fontReady.then(()=>{this.fontSettled=true;this.queue();});
   document.addEventListener('amber-font-change',()=>this.queue());
   for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','trade-info','shop-offer'])this.controlRoot.append($(id));
-  $('management-controls').prepend($('open-ledger'));$('management-controls').append($('shop-offer'));
+  $('management-controls').prepend($('open-ledger'));$('management-controls').append($('shop-offer'),$('trade-info'));
   for(const id of ['skip','open-history','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])document.body.append($(id));
   const close=$('close-dialog');close.innerHTML=symbolMarkup('close');close.setAttribute('aria-label','閉じる');
@@ -46,7 +46,7 @@ export class CanvasScene{
  controls(){
   for(const node of this.controlRoot.querySelectorAll('button'))node.dataset.sceneVisible='false';
   const active=[];
-  for(const rect of this.layout.controls){const node=document.querySelector(rect.selector);if(!node||node.closest('[hidden]'))continue;node.classList.add('scene-hit');node.dataset.sceneKey=rect.key;node.dataset.sceneVisible='true';const r=projectRect(this.viewport,rect);Object.assign(node.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px'});const name=node.textContent.replace(/\s+/g,' ').trim();if(!node.hasAttribute('data-cask-id')&&!node.hasAttribute('data-product-id'))node.setAttribute('aria-label',name);active.push({...rect,node,label:name});}
+  for(const rect of this.layout.controls){const node=document.querySelector(rect.selector);if(!node||node.closest('[hidden]'))continue;node.classList.add('scene-hit');node.dataset.sceneKey=rect.key;node.dataset.sceneVisible='true';const r=projectRect(this.viewport,rect);Object.assign(node.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px'});const name=node.textContent.replace(/\s+/g,' ').trim();if(!node.hasAttribute('data-cask-id')&&!node.hasAttribute('data-product-id'))node.setAttribute('aria-label',rect.key==='trade-info'?'取引':name);active.push({...rect,node,label:name});}
   this.activeControls=active;this.root.dataset.hitRegions=JSON.stringify(active.map(({node,label,...r})=>r));
  }
  drawWorld(){
@@ -98,6 +98,7 @@ export class CanvasScene{
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
    if(a.key==='open-ledger')continue;
    if(a.key==='open-staff-panel'){drawSymbol(c,'person',a.x+(a.w-28)/2,a.y+9,4,ink);continue;}
+   if(a.key==='trade-info'){drawSymbol(c,'handshake',a.x+11,a.y+6,3,ink);continue;}
    if(a.key==='shop-offer'){drawSymbol(c,'store',a.x+11,a.y+6,3,ink);continue;}
    if(a.key==='open-aux-menu'){this.window(a.x,a.y,a.w,a.h,pressed?'#414350':'#2e3143','#606575');c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(a.x+(a.w-21)/2+i*9,a.y+(a.h-3)/2,3,3);continue;}
    if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+29,BODY_SIZE,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}
