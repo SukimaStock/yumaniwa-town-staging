@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "50d139e0ae10f3c3212760aad1365e4e3d4123d5c563832b267fd49bb87d003f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "cfb46d1e6a955ddfca4e08b9739a5c81f52a8e69",
+    "changeId": "ambertime-modal-actions",
+    "revision": 0,
+    "change": "Nine targeted display adjustments: return/footer placement, request/brand/color/taste/care labels, ledger totals, grouped trial action and paused idle playback border",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit nine-item user request",
+      "PR515 implementation/locked plan",
+      "PR514 CI operations",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-modal-actions/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/tests/modal-actions.mjs",
+      "works/ambertime/design/modal-actions/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Shared return buttons align at footer bottom right without changing action handlers; staff request compact label/width; decision trial joins existing action group.",
+      "Only fixed UI text changes: 銘柄→ブランド, color labels→ホワイト/ブラック, action 試飲→試す, care label→冷暗所へ; ledger totals separate rows. Preserve all names, records, data and model modules.",
+      "Display-only paused idle cue after12s without pointer/keyboard input. Slowly alternate outer border colors only; reset on interaction/resume/eligibility change and suppress for modal/hidden/disabled/reduced motion. Keep HUD geometry/time/tap handlers."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Lightweight 390x844 only changed modal/footer/text/action/ledger states plus minimal desktop shared footer; paused cue timing via browser clock (no long play) covering input reset, resume, modal, reduced motion. Save/model impact by diff and stable-save comparison.",
+      "Existing scene input/layout tests once. Syntax and Scope→Risk→Impact then mandatory CI, current head/base/review checks, Staging merge, exact merge Pages and changed runtime public byte match. No unnecessary CI replay."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this local UI change only; PR515 layout and existing saves remain.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/CONTENT Standard Lock: five runtime paths exceed four-file active-work fast path. Lightweight verification remains appropriate.",
+      "Expression audit: only requested labels and subtle pause cue, no new prose or decoration.",
+      "Prior ui-polish plan covered different eight items; do not replay its unrelated visual checks. CI configuration unchanged; follow PR514 finite diagnosis."
+    ]
+  }
+}
