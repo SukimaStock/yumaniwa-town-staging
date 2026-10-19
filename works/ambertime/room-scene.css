@@ -125,3 +125,6 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #dialog-actions button[data-return=true]{order:10;grid-column:1/-1;justify-self:end;width:max-content;max-width:100%;padding-inline:12px;white-space:nowrap}
 #dialog-actions button[data-action=staff-confirm]{justify-self:start;width:max-content;max-width:100%;padding-inline:12px;white-space:nowrap}
 #dialog-body .ledger-totals p{margin:0}
+
+/* Explicit current-information rows; never split player names or saved prose. */
+#usual-status,.staff-source-title,.copy-value,.delivery-confirmation{white-space:pre-line}

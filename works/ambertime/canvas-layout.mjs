@@ -24,7 +24,7 @@ export function layoutScene(view={}){
   add('trade-info','#trade-info',96,528,120);add('shop-offer','#shop-offer',228,528,120);
  }else{
   for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,114,414,132);
-  add('open-staff-panel','#open-staff-panel',288,522,54,54);
+  add('open-staff-panel','#open-staff-panel',90,522,54,54);
  }
  return{width:360,height:640,floorY:468,shelf:{x:48,y:165,w:264,h:267,rails:[234,378]},equipment:{x:90,y:270,w:180,h:108,benchY:378},caskSlots,productSlots,controls};
 }
