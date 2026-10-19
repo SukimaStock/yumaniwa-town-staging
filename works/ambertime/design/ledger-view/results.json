@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "totals/categories/exact stored prose and names/grouped ages/release basics/details/comparison return/save bytes",
+    "minimal PC ledger overflow",
+    "all recorded trade kinds/months exactly once/no inferred income/save bytes/no page errors"
+  ],
+  "limits": [
+    "Chromium touch emulation; no physical iPhone/Safari/VoiceOver",
+    "No whole-game E2E, long play or game-wide simulation"
+  ]
+}
