@@ -157,3 +157,8 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #dialog-body .record-timeline time{color:var(--quiet)}
 #dialog-body .ledger-category .record-text{white-space:pre-line;overflow-wrap:anywhere}
 #dialog-body .ledger-category h3{overflow-wrap:anywhere}
+
+/* Wholesale terms stay on separate, readable rows on phone dialogs. */
+#dialog-body .trade-terms{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin:8px 0}
+#dialog-body .trade-terms button{min-width:0;text-align:left}
+#dialog-body .trade-terms small{margin-top:4px}
