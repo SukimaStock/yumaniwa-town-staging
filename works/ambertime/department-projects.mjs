@@ -1,4 +1,4 @@
-import {bottleStorageMode} from './bottle-storage.mjs?v=0.19staff';
+import {bottleStorageMode} from './bottle-storage.mjs?v=0.40-partial-bottling';
 // A selection is finite; interest never reserves stock or requires production.
 export const DEPARTMENT=Object.freeze({version:14,rules:'department-limited-selection',projectId:'department-select-whisky',projectName:'特選ウイスキー',quantity:5});
 export const departmentMode=s=>s?.version===DEPARTMENT.version&&s.rules===DEPARTMENT.rules||bottleStorageMode(s);

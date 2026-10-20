@@ -1,5 +1,5 @@
-import {bottleStorageMode} from './bottle-storage.mjs?v=0.19staff';
-import {departmentMode,departmentReleaseEligible} from './department-projects.mjs?v=0.19staff';
+import {bottleStorageMode} from './bottle-storage.mjs?v=0.40-partial-bottling';
+import {departmentMode,departmentReleaseEligible} from './department-projects.mjs?v=0.40-partial-bottling';
 // Optional buyers of finished, branded bottles. The durable delivery ledger
 // is separate from retail sales and does not contribute to brand reputation.
 export const SHOP=Object.freeze({version:12,rules:'town-shop',id:'town-liquor',name:'町の酒店',rate:.80,monthlyLimit:10,minRetailSold:40,minSoldReleases:2,minBrandAge:2,offerGap:6,declineGap:12,initialWait:3,maxDeliveries:2048});

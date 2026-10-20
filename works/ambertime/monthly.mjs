@@ -1,7 +1,7 @@
 // Step 1 boundary only. No room, storage key, migration or economic rule lives
 // here. Products passed to this foundation are the existing listed inventory.
 import {advanceMonth,validateState} from './model.mjs?v=0.6-parallel';
-import {CHARACTER_PARAMETERS as C,observeCharacterMonth} from './character.mjs?v=0.6';
+import {CHARACTER_PARAMETERS as C,observeCharacterMonth} from './character.mjs?v=0.40-partial-bottling';
 const copy=x=>structuredClone(x);
 const assert=(ok,message)=>{if(!ok)throw new Error(message);};
 
