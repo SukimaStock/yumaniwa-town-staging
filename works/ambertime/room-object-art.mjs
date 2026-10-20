@@ -10,26 +10,28 @@ export function stillArt(){
  const dark='#503214',copper='#b87333',light='#dca050';
  // Native cells: 60 × 36. At the room's 3 px grid the whole set is 180 × 108.
  // A low, rounded pot and a separate clear receiver share the y36 bench plane.
- // Source PotStill silhouette and color regions, uniformly resampled from16 to26 cells.
- // Round shared row/column boundaries once: square source cells stay square to ±1px.
+ // Native16×16: one source pixel is one cell, with no resizing or resampling.
+ // Keep the original small silhouette and the existing bench plane at y36.
  // The old Web pipe owns the cap connection; there is no independent black contour.
  const rows=["......CCCC......", ".....CCCCC......", "....CCBBCCC.....", "....CBBCCCC.....", "...CCCCCCCC.....", "..CCCCCCCCCC....", ".CCCBBBCCCCCC...", ".CCBBFBBCCCCC...", "CCCBFFFBCWWCCC..", "CCCBBFBBCWWCCC..", "CCCCBBBCCCCCCC..", "CCCCCCCCCCCCCC..", ".CCCCCCCCCCCC...", ".SSSSSSSSSSSS...", ".SWWSSRRSSWWS...", ".SSSSSRRSSSSS..."];
  const palette={C:copper,B:'#29adff',F:'#ffff64',W:'#3c281e',S:'#5a5a64',R:'#ab5236'};
- const edge=n=>Math.round(n*26/16);
- const pot=rows.map((row,y)=>[...row].map((cell,x)=>cell==='.'?'':rect(6+edge(x),10+edge(y),edge(x+1)-edge(x),edge(y+1)-edge(y),cell==='C'&&x>=12?'#a3632d':palette[cell])).join('')).join('');
+ const edge=n=>n;
+ const pot=rows.map((row,y)=>[...row].map((cell,x)=>cell==='.'?'':rect(10+edge(x),20+edge(y),edge(x+1)-edge(x),edge(y+1)-edge(y),cell==='C'&&x>=12?'#a3632d':palette[cell])).join('')).join('');
  // The neck rises once, then runs to a short downpipe above the receiver.
  const pipe=cells(dark,[[16,5,5,6],[18,3,5,3],[22,4,3,3],[24,6,3,3],[26,8,24,3],[48,10,3,6]])
   +cells(copper,[[17,6,3,5],[19,4,3,2],[22,5,2,2],[25,7,2,2],[27,9,23,1],[49,10,1,5]])
   +cells(light,[[18,6,1,4],[20,4,2,1],[28,9,18,1]]);
+ // Extend only the existing straight neck down to the native-size cap.
+ const connection=cells(dark,[[16,11,5,9]])+cells(copper,[[17,11,3,9]])+cells(light,[[18,11,1,9]]);
  // Body, cyan/yellow window-like highlight, hatch, stone furnace and log ends
- // are already in source order above; the cap overlaps the unchanged pipe by one row.
+ // are already in source order above; the cap meets the straight neck at y20.
  const fitting='';
  const receiver=cells(glassEdge,[[42,20,14,1],[42,21,1,12],[55,21,1,12],[43,33,1,2],[54,33,1,2],[44,35,10,1]])
   +'<g class="receiver-liquid" data-liquid-bottom="34">'+rect(44,23,10,11,'#d8d0a7').replace('/>',' fill-opacity=".68"/>')+rect(44,23,10,1,'#e7ddb6').replace('/>',' fill-opacity=".8"/>')+'</g>'
   +cells('#d4d7bf',[[44,22,1,5],[45,34,3,1]]);
  const stream='<g class="distill-stream">'+cells('#ded7b5',[[49,16,1,1],[49,18,1,1]])+'</g>';
  const steam='<g class="still-steam">'+cells('#c1b79a',[[10,5,1,1],[11,2,1,2],[13,0,1,1]])+'</g>';
- return svg('still',60,36,'<g class="still-pipe">'+pipe+'</g><g class="still-pot">'+pot+fitting+'</g>'+receiver+stream+steam);
+ return svg('still',60,36,'<g class="still-pipe">'+pipe+'</g><g class="still-connection">'+connection+'</g><g class="still-pot">'+pot+fitting+'</g>'+receiver+stream+steam);
 }
 
 export function glass(wood=0,{sample=false}={}){

@@ -1,7 +1,7 @@
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=0.52-ui-details';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=0.52-ui-details';
-import {CanvasScene} from './canvas-scene.mjs?v=0.53-visual-polish';
+import {CanvasScene} from './canvas-scene.mjs?v=0.55-still-native';
 import * as D from './partner-orders.mjs?v=0.50-staff-experience';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
@@ -11,7 +11,7 @@ import {brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
 import {ageLabel,monthLabel} from './model.mjs';
 import {barrel} from './cask-glass-art.mjs?v=0.53-visual-polish';
-import {glass,bottleArt,brandArt,stillArt} from './room-object-art.mjs?v=0.54-still-codea';
+import {glass,bottleArt,brandArt,stillArt} from './room-object-art.mjs?v=0.55-still-native';
 import {shortTaste,shortChange} from './tasting-view.mjs?v=0.6';
 import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=0.19-flavor';
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=0.18-tasting';

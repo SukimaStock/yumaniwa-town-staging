@@ -1,7 +1,7 @@
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
 import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.52-ui-details';
 import{barrel}from'./cask-glass-art.mjs?v=0.53-visual-polish';
-import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.53-visual-polish';
+import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.55-still-native';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
