@@ -340,6 +340,12 @@
       "status": "active",
       "title": "たるむ鎖",
       "theme": "端からたるみを取り、張った鎖で重りを引く"
+    },
+    {
+      "id": "ambertime-contest-lab",
+      "path": "works/ambertime-contest-lab",
+      "status": "active",
+      "title": "AmberTime Contest Lab 0.1"
     }
   ]
 }
