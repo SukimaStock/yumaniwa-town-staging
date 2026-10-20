@@ -1,0 +1,146 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5cf850bbb0d7593a847fa94bff18ce167eed4ce2734c32dde6aa5ee77646fe7b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-reputation-lab",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent Reputation Lab0.1: bottles seed shop routes and continuing relationships",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "229e6050869a1ef445068e7527bb46227aeeef92",
+    "canonicalSources": [
+      "Current explicit ReputationLab request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md fresh-r0 rule",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "main229e6050/PR535 partialbottling",
+      "PR531/532/533 reports and results preserved",
+      "Current brand-reputation pure functions; shopEvidence/shopProductCondition/departmentReleaseEligible; aroma-a/ageCask/bottle",
+      "Official Ndemic ScenarioCreator documentation for origin/routes/traits reference"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-reputation-lab/r0.lock.json",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime-reputation-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "index.html",
+      "style.css",
+      "main.js",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/experiments/contest/**",
+      "works/ambertime/experiments/decision/**",
+      "works/ambertime/experiments/cask-aroma/**"
+    ],
+    "expectedChanges": [
+      "New isolated directory, minimal launcher and existing LAB registration; no main/oldLab changes or browser save I/O. Session memory and explicit JSON export only.",
+      "Actual current aroma-a generation, ageCask and bottle geometry for one live parent cask and frozen releases at different ages. Three flavor axes and two existing cask types. Prepared assets, not main save states; no full main copy.",
+      "Six explicitly fictional shops with taste, price band, quantity bounds and directed edges. Normal starter introductions town/station/super distinct from actual handling. Legal same-month20 comparison: town20 vs town5/station5/super10. Four cap>=20 origin probes; bar/dept smaller caps excluded from equal20 single-origin comparison, never relaxed.",
+      "Three modes: main-reference baseline without delivery spread, spread, spread+familiarity. Reuse actual main pure reputation/evidence/condition functions on isolated projection; retail-only evidence and previous-release bonus unchanged. Real three-store reference distinguished from fictional network. Default zero-retail baseline may have zero new offers; bounded established retail reference also inspected. Do not claim full native offer replay for six fictional shops.",
+      "Actual delivery consumes stock once and seeds finite provenance packets. Month reads frozen before-state, moves at most one edge, splits/decays weights with hop limit/no revisits. Frozen flavor affects paths, seeded variation deterministic; no total immunity. Offers/acceptance do not create stock or packets. Unknown/known/offered/accepted/actual handling distinct, decline nonblocking with eligibility/cooldown.",
+      "Familiarity derives from volume and distinct real delivery months, bounded and saturating. Same-month splitting cannot farm continuity or propagation. Continuing relationships have a visible consequence rather than an extra global gauge.",
+      "Compact pixel-inspired mobile UI: nodes/edges, selected frozen bottle/count/destination, monthly advance, offers accept/decline, live partial bottling, next recipe after cask ends, reset/seed/condition, optional reflections and JSON. Short provenance reasons, no numeric fame gauges.",
+      "Finite preset/seeds compare origins, same20 concentration/dispersion, flavors, three modes, genuine repeat and same-cask12/24/36 paths. Record timing/offers/continuity/types/next choices and failures. Do not retune to force fun, do not equate scalar reach with human motivation."
+    ],
+    "ownerDecisions": [
+      "User authorizes independent Staging ReputationLab; main/saves/oldLabs/Production protected."
+    ],
+    "hqDecisions": [
+      "Existing Lifecycle/LAB schema only; active top-level redirect to nested experiment; no shared contract extension.",
+      "Experimental six-store rules are distinct from actual three-store pure-function baseline."
+    ],
+    "rulesApplied": [
+      "One fresh r0 first commit before implementation; full floor for registry/LAB paths.",
+      "Current main aroma-a and reputation functions, not old linear/unadopted models.",
+      "Expression audit: necessary controls, brief shop states and route reasons, no infection/territory UI.",
+      "Disjoint model/tests, analysis and read-only review delegated per AGENTS; root integrates UI/report/registration/browser."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused model tests for native pure baseline parity, seed, one-hop finite propagation, stock/caps/illegal20, splitting/familiarity, offers/reset/parent frozen releases/live aging and protected file hashes.",
+      "Finite legal20 same-month strategies plus four legal origins/flavors/modes/repeats and same-cask release routes; JSON and REPORT with failures/adoption/subjective questions. No unlimited search/main broad tests.",
+      "390touch/360/minimalPC select/deliver/advance/offers accept+decline/partialbottle/condition/reset/JSON/LAB back; unchanged browser stored bytes, short expression audit, targeted images and independent review.",
+      "Lifecycle generator/check and new-entry regressions; Scope then Risk then Impact; exact-head required CI/reviews/base/normal Staging merge and Pages bytes. No unconditional retries."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert lab, launcher, registration and generated LAB together. Memory only; no main saves or migration.",
+    "outOfScope": [
+      "Production/main integration or existing Lab changes",
+      "Main chemistry/economy/reputation/stockist/save changes",
+      "Detailed shop inventory/management, competitors, territory, ads or upgrades",
+      "New main stores, ingredients, barrels, axes, contests or generation",
+      "Whole-game E2E/long play/comprehensive images"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver and owner adoption",
+      "Human hesitation and next bottling/recipe motivation",
+      "Real market diffusion and long-term game balance"
+    ],
+    "alternativesRejected": [
+      "Main integration forbidden",
+      "Treat deliveries as retail sales: incorrect baseline",
+      "Instant cascades and reward for shop count bias comparison",
+      "Claim native six-store offer parity: three stores are fictional"
+    ],
+    "boundaryCases": [
+      "Same20 legal minimum/cap aggregate per shop/month; small-cap origins excluded",
+      "Same-month split invariance versus across-month repeat",
+      "Finite one-hop cycles/provenance/seed; no stock duplication",
+      "Known versus accepted versus handled; skip and insufficient stock",
+      "Frozen profiles/parent serial and later portions",
+      "Zero-retail versus established native reference"
+    ],
+    "testPlan": [
+      "Focused model tests for native pure baseline parity, seed, one-hop finite propagation, stock/caps/illegal20, splitting/familiarity, offers/reset/parent frozen releases/live aging and protected file hashes.",
+      "Finite legal20 same-month strategies plus four legal origins/flavors/modes/repeats and same-cask release routes; JSON and REPORT with failures/adoption/subjective questions. No unlimited search/main broad tests.",
+      "390touch/360/minimalPC select/deliver/advance/offers accept+decline/partialbottle/condition/reset/JSON/LAB back; unchanged browser stored bytes, short expression audit, targeted images and independent review.",
+      "Lifecycle generator/check and new-entry regressions; Scope then Risk then Impact; exact-head required CI/reviews/base/normal Staging merge and Pages bytes. No unconditional retries."
+    ],
+    "problem": "Bottle destinations currently do not seed local reputation routes or later delivery choices.",
+    "currentContract": "Main reputation uses retail release ledger only, max15percent demand bonus; three stockists have evidence/taste rules and finite department consultation; v19 partial releases freeze profile.",
+    "whyExistingIsInsufficient": "Need independent causal comparison of delivery route and familiarity before main adoption.",
+    "design": "Six fictional nodes; finite one-hop seeded evidence; optional volume/month familiarity; actual frozen three-axis releases; native pure baseline; compact mobile controls and finite results.",
+    "migration": "None. No save I/O and no changes to main or existing experiments.",
+    "compatibility": "Existing AmberTime and old Labs byte unchanged. Imports are pure functions; new state/calculations only in new directory.",
+    "promotionRisk": "Staging active only. Technical success does not authorize main integration or Production."
+  }
+}
