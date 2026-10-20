@@ -1,0 +1,114 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "touch": true
+  },
+  "checks": [
+    "global listed-stock label; three delegates produce at most one stock job per month; stock above threshold prevents refill; explicit assignment FIFO survives pause/cancel/reassign and reload; all monthly UI states equal model",
+    "one-shot age success bottles actual count, records exact remaining litres, clears clock icon, shows condition/completed/manual status, opens manual quantity window; residual stays manual after reload and another month; completion notice is short and not replayed"
+  ],
+  "observedMonths": [
+    {
+      "month": 3,
+      "listedStock": 10,
+      "bottlings": [
+        {
+          "month": 3,
+          "caskId": 7,
+          "productId": 8,
+          "releaseId": 2,
+          "count": 10,
+          "cost": 30,
+          "salary": 2,
+          "mode": "stock",
+          "remainingLitres": 24.938936335906504
+        }
+      ]
+    },
+    {
+      "month": 4,
+      "listedStock": 7,
+      "bottlings": []
+    },
+    {
+      "month": 5,
+      "listedStock": 14,
+      "bottlings": [
+        {
+          "month": 5,
+          "caskId": 2,
+          "productId": 9,
+          "releaseId": 3,
+          "count": 10,
+          "cost": 30,
+          "salary": 2,
+          "mode": "stock",
+          "remainingLitres": 24.00742702170858
+        }
+      ]
+    },
+    {
+      "month": 6,
+      "listedStock": 11,
+      "bottlings": []
+    },
+    {
+      "month": 7,
+      "listedStock": 8,
+      "bottlings": []
+    },
+    {
+      "month": 8,
+      "listedStock": 15,
+      "bottlings": [
+        {
+          "month": 8,
+          "caskId": 5,
+          "productId": 10,
+          "releaseId": 4,
+          "count": 10,
+          "cost": 30,
+          "salary": 2,
+          "mode": "stock",
+          "remainingLitres": 24.553411369078997
+        }
+      ]
+    },
+    {
+      "month": 1,
+      "listedStock": 10,
+      "bottlings": [
+        {
+          "month": 1,
+          "caskId": 2,
+          "productId": 4,
+          "releaseId": 2,
+          "count": 10,
+          "cost": 30,
+          "salary": 2,
+          "mode": "age",
+          "remainingLitres": 24.241265385972817
+        }
+      ]
+    },
+    {
+      "month": 2,
+      "listedStock": 7,
+      "bottlings": []
+    }
+  ],
+  "ageCompletion": {
+    "count": 10,
+    "remainingLitres": 24.241265385972817,
+    "notice": "ビン詰め完了 10本 · たる No.1 残り 24.2L",
+    "status": "自分で行う · 完了"
+  },
+  "errors": [],
+  "physicalSafari": false,
+  "screenshotsForLocalReview": [
+    "/tmp/ambertime-bottling-roles-completed.png",
+    "/tmp/ambertime-bottling-roles-manual.png"
+  ]
+}
