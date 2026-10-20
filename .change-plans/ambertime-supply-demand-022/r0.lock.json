@@ -1,0 +1,83 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "04b13c0b5f82478993382216cbb3239295050f54f6597cf08e9ce8805a718b42",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-supply-demand-022",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Audit actual AmberTime supply, demand and cash circulation without runtime changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "8ca00c91bac36104e11f24a44a142df0588a8237",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #535/#537/#538/#540/#541",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-supply-demand-022/r0.lock.json",
+      "works/ambertime/design/supply-demand/REPORT.md",
+      "works/ambertime/design/supply-demand/results.json",
+      "works/ambertime/design/supply-demand/analyze.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html"
+    ],
+    "expectedChanges": [
+      "Add offline read-only analysis using current main public game operations and finite seeded comparisons; persist conditions, monthly results, source hashes and report.",
+      "Report actual costs, production, retail and automatic dispatch; retain impossible strategy stops without injecting cash or orders.",
+      "No runtime, parameters, saved data, UI or Production edits; proposals only max5."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Read report against saved results and inspect unchanged runtime diff; independent focused review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Current explicit user request authorizes audit artifacts, PR, required CI and Staging merge; Production excluded."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Change OS standard locked Plan before audit additions",
+      "Expression audit: numerical findings and necessary limitations only",
+      "AGENTS role-specific independent read-only audits and review"
+    ],
+    "rollback": "Revert audit-only files; no save/runtime changes",
+    "outOfScope": [
+      "Runtime, numerical tuning, Lab model import, player saves, Production, broad E2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical devices and player enjoyment; no UI change"
+    ]
+  }
+}
