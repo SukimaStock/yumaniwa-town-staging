@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#18232b">
+<title>AmberTime Contest Lab 0.1</title>
+<meta name="description" content="4樽と3人の審査員で、熟成・出品・販売の使い分けを比べるAmberTimeの独立実験。">
+<link rel="stylesheet" href="./style-v01.css">
+<script type="module" src="./app-v01.mjs"></script>
+</head>
+<body>
+<main>
+<header><a class="back" href="../../../../lab/#room-bench">← LAB</a><h1>AmberTime <span>Contest Lab 0.1</span></h1><p class="status">Staging実験・保存なし</p></header>
+<section aria-label="審査員の好み"><div id="judges" class="judges"></div></section>
+<section aria-label="4樽の手札">
+<div class="section-line"><h2>4樽</h2><output id="month">開始時点</output></div>
+<div id="casks" class="casks"></div>
+<div id="selected" class="selected"></div>
+<div class="actions"><button id="submit" class="primary">出品する</button><button id="advance6">6か月進める</button><button id="advance12">1年進める</button></div>
+<p id="message" role="status" aria-live="polite"></p>
+<details id="replace-panel"><summary>選んだ樽を売って、次を仕込む</summary><div class="form-row"><label>抽出を止める位置<select id="recipe-stop"><option value="30">30%</option><option value="50">50%</option><option value="66" selected>66%</option><option value="99">99%</option></select></label><label>たる<select id="recipe-type"><option value="bourbon">バーボン</option><option value="refill">リフィル</option></select></label></div><button id="replace">売却して入れ替える</button><p class="note">残りを全て手放します。売却本数を記録し、空いた場所に新しい樽を置きます。</p></details>
+</section>
+<section id="results" aria-label="審査結果"><div class="section-line"><h2>審査</h2><span class="note">固定の比較出品作と対戦</span></div><div id="latest"><p class="empty">樽を選んで出品すると、3人の評価が出ます。</p></div><div id="history-wrap" hidden><h3>出品の比較</h3><div class="table-wrap" tabindex="0" aria-label="出品履歴。横にスクロールできます"><table><thead><tr><th>回</th><th>たる</th><th>月齢</th><th>熟成派</th><th>かおり派</th><th>力強さ派</th><th>総合</th><th>勝敗</th><th>消費 L</th></tr></thead><tbody id="history"></tbody></table></div></div></section>
+<section aria-label="実験条件"><h2>条件を替えて比較</h2><p class="note">条件の変更・リセットで、同じシードの初期4樽に戻ります。出品履歴も消えます。</p><div class="form-row"><label>4樽の組み合わせ<select id="strategy"></select></label><label>出品の消費<select id="consumption"><option value="none">なし · 0 L</option><option value="small" selected>少量 · 0.07 L</option><option value="large">大きめ · 0.7 L</option></select></label><label>蒸発<select id="evaporation"><option value="current" selected>現行 · ×1</option><option value="strong">少し強め · ×1.3</option><option value="cool">低蒸発の環境 · ×0.8</option><option value="warm">高蒸発の環境 · ×1.2</option></select></label><label>シード<input id="seed" type="number" min="1" max="4294967295" step="1" value="20261020" inputmode="numeric"></label></div><p class="note">環境は蒸発だけを変える仮の数値比較です。</p><div class="actions"><button id="reset">初期状態へ戻す</button><button id="export">記録をJSONで保存</button></div><p id="sold" class="note"></p></section>
+<footer><a href="./REPORT.md">比較報告</a><a href="./results.json">数値結果</a><a href="../../">本編を開く</a></footer>
+</main>
+</body>
+</html>
