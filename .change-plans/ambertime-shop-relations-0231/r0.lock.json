@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b2a09e7c4473535e7eb9e6ec1fe5467800025d71178bf387d8f855ecd3417c18",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-shop-relations-0231",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "f49f26be34e806ca3096436f00d45dfbbd98bfc8",
+    "change": "Compare and conditionally add liquor familiarity as supermarket introduction path",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.23.1 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR537 Reputation Lab0.2 reference only",
+      "PR543,546,548 and related Plans",
+      "Current real shop delivery ledger, product criteria, offerclock and decline contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-shop-relations-0231/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-relations.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/tests/shop-relations.test.mjs",
+      "works/ambertime/tests/shop-relations-browser.mjs",
+      "works/ambertime/design/shop-relations/compare.mjs",
+      "works/ambertime/design/shop-relations/results.json",
+      "works/ambertime/design/shop-relations/browser-results.json",
+      "works/ambertime/design/shop-relations/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/event-notices.mjs"
+    ],
+    "expectedChanges": [
+      "Before runtime changes compare Acurrent vs BcurrentORliquorfamiliar introduction in isolated temp model, finiteyear1/2/4,realpaidproduction/shipments/cash/stock, same seed. Familiarity proposed elapsed6months/12actualbottles/3distinct positive deliverymonths; quantify overlap anddifference; do not forceadopt ifrare/no difference.",
+      "Only if meaningful comparison: add pure factual liquor familiarity from samebrand existing relation+delivery history, no scores or newdemand. Record explicit boundary and factual introduction when supermarketoffer uses referral instead of existingevidence. Existing factory/replay remains exact.",
+      "Retain supermarket12month product rule, first playerapproval, existing offerclock/cooldown/queue/duplication protection; originalpath wins overlap. No automaticacceptance or additionalpopup.",
+      "Use existing shop view andledger for relationduration/cumulativebottles/introductionfact, one shortreason on existingoffer. Separate factualstate and presentation for future dialogue; no talksystem/panel/gauge.",
+      "Newgame and strictrestore ifadopt, no savedatadeletion; retain all pendingoffers/relations/priorhistory. Scoped counters/realshipments/zero deliverymonths/onebulk-vscontinuity/decline/reoffer/minimum/nextmonth/accounting/strictsave/phone/CI/Staging. Ifnoadopt publish comparisonreport only, explicitlystate remaininglimits."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Scoped390x844 existingstore/offer/approve/defer/ledger and save ifadopt; public exacthead; no broadE2E"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User0.23.1 authorizes minimalrelationintroduction only if comparison shows effect; otherwise holdruntime andreportcause. NoProduction or economicschanges."
+    ],
+    "hqDecisions": [
+      "Use actual samebrand delivery facts rather than Lab model; preserve oldreplay with explicitworklocal boundary; useexistingofferqueue andclocks and firstapproval. No newcommunication/system."
+    ],
+    "rulesApplied": [
+      "Full WORK lock precedes implementation",
+      "AGENTS asks helpful model/UI/test delegation and independent review",
+      "Expression audit: remove unnecessary completion and monthly messages; preserve necessary actions/labels/accessibility, no new persistent interface"
+    ],
+    "rollback": "Retain postboundary saves before reverting reader ifadopt; revert work-local changes only.",
+    "outOfScope": [
+      "Production",
+      "Economy/demand/price/cost/chemistry/generation/reputation changes",
+      "New store/equipment/capacity/worker",
+      "Broad E2E/longplay/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver and author tactile/adoption",
+      "Otherseeds and playpolicies; broadE2E/longmanualplay intentionallyexcluded"
+    ],
+    "problem": "Real liquor trading history does not provide an alternate supermarket discovery route.",
+    "currentContract": "Main PR548:8/150staff, retailer based80sold/3releases plus12monthproduct andpositivebrandbonus, queuedoffers with6monthclock/12monthdecline; actual3store shipping intact.",
+    "whyExistingIsInsufficient": "Existing sales-only evidence does not distinguish repeated liquor deliveries from timewithout deliveries.",
+    "design": "Evaluate minimal6months/12bottles/3positive distinctmonths evidence and OR introduction within same supermarket offer generation; preserve product/approval/cooldowns and originalpath, recordfacts separatelyfromwording. Adopt conditional on measured effect.",
+    "alternativesRejected": [
+      "New reputation/relationshipscore or gauge",
+      "Import Lab six shops or formulas",
+      "Alter demand/prices/hire thresholds/costs",
+      "Intro popup or automaticapproval",
+      "Tune threshold merely to forceeffect"
+    ],
+    "migration": "Ifadopt: strictrestore existingstate first, additive recorded boundary, keep already pendingoffers/relations/deliveries exactly; derivefamiliarity fromactualstoredhistory; no origin fabrication. Existing reader unable to read newopcode notguaranteed.",
+    "compatibility": "Historical factory and preboundary replay preserved; same v20key andrecordstructure. Newwork-local helper/facts field onlyif adoptionjustified.",
+    "boundaryCases": [
+      "Elapsed time without delivery notcontinuity; multipledeliveries same month countonce; samebrand/sourcefiltered",
+      "Familiar but no12monthstock nooffer; original/referraloverlap generatesone",
+      "Pending/related/declinedclock guardsandacceptednextmonthshipwithminimum10",
+      "Originalpath remains, departmentonly5 andnoincreaseddemand",
+      "Strictnewsave/oldmigration factualhistory/tamper unchangedaccounting",
+      "Rare/nodifference comparison leads runtimehold notmanufacturedsuccess"
+    ],
+    "testPlan": [
+      "Isolatedcurrent/ORcandidate comparisonbeforeadoption, actual finiteproduction and acceptance withyear1/2/4 andpartialbulkpolicy, nondelivery vsbulk evidence; onlyadopt aftereffect; targeted model tests and phone ifadopt, independentreview/guards/requiredCI/public."
+    ],
+    "promotionRisk": "Staging only; no Production changes."
+  }
+}
