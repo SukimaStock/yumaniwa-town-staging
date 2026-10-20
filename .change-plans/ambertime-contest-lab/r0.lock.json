@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "36e4ca6715371e7e9fb1f584ed05495d1227a2f7ac448791b2ea08cf4361b146",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-contest-lab",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent Contest Lab 0.1: authentic casks, three deterministic judges, four-cask decisions and bounded comparison",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "10f05d83ec209d5e7c748a7b8de31ae6a0df7004",
+    "canonicalSources": [
+      "Current explicit Contest Lab request",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "PR530/529; existing distillation and frozen cask-aroma Plans"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-contest-lab/r0.lock.json",
+      "works/ambertime/experiments/contest/**",
+      "works/ambertime-contest-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/experiments/cask-aroma/**"
+    ],
+    "expectedChanges": [
+      "Add only experiment code and reports, reuse current aroma-a distillation via public partner-orders operations and pure ageCask. Baseline main files remain byte identical. No browser storage read/write.",
+      "Three experimental bounded preference functions with deterministic scores/reasons, fixed model-generated rivals and individual recommendations; no sale/reputation score reuse.",
+      "Four mutable casks, seeded presets and recipe selection, age/sell-replace/sample decisions, identical-start condition resets, evaporation-only factors and bounded analyses of strategy and horizons. Export session JSON via explicit user action.",
+      "Register independently named active staging experiment using a tiny top-level redirect entry since lifecycle paths cannot be nested. Existing LAB schema/generator only; main AmberTime has no added entry/UI."
+    ],
+    "ownerDecisions": [
+      "Current user explicitly requests this independent experiment and Staging implementation; adoption and Production remain separate."
+    ],
+    "hqDecisions": [
+      "Technical review: existing registry schema cannot hold nested work paths. Use one active ambertime-contest-lab launcher and existing bench placement; redirect to requested nested experiment. No schema, generator, town or main runtime contract changes. Full floor retained for registry/generated LAB."
+    ],
+    "rulesApplied": [
+      "Preimplementation Plan Lock; protected main has zero edits",
+      "No persistent storage or new model axes; existing aroma-a and ageCask reused",
+      "Three fixed seeded rivals; bounded comparisons, not unlimited search",
+      "Expression audit: controls, short reasons and numerical comparison only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Seeded model fixtures, diversity/dominance/aging/consumption/strategy analysis; pure adapters match main operations; reset and loss accounting; replay session export",
+      "Chromium390/360 mobile and minimal desktop selection, result compare, conditions reset, sell/refill, record export and unchanged existing save bytes; LAB link/return",
+      "Scope then Risk then Impact; required exact-head CI/review/merge and Pages byte verification; no broad main E2E"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert experiment, launcher and LAB registration together; no main saves or code changed.",
+    "outOfScope": [
+      "Production",
+      "Main code/save/key/serials/models/economy changes",
+      "Prizes/reputation/new axes/cask types/equipment/staff/generation integration",
+      "Full main E2E/long play/unbounded searches"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver",
+      "Human enjoyment/adoption and actual next-batch motivation"
+    ],
+    "alternativesRejected": [
+      "Add new rooms or runtime",
+      "Change individual works or lifecycle states",
+      "Edit generated HTML directly"
+    ],
+    "boundaryCases": [
+      "0 sample versus insufficient sample",
+      "Consumed volume followed by evaporation",
+      "Sell/replace keeps four slots",
+      "Same conditions reset to identical seed",
+      "Extreme or aged profile never gains age-only bonus",
+      "Shared files only registry/placement/generated LAB"
+    ],
+    "testPlan": [
+      "Focused experiment Node tests and bounded numerical analysis",
+      "Existing lifecycle regression once after generator",
+      "Phone/desktop focused browser controls, storage hash, fit and console",
+      "Required CI and independent review"
+    ],
+    "problem": "Test whether four real aging casks gain contextual use and opportunity costs without modifying main.",
+    "currentContract": "Nested experiments can import pure main functions; lifecycle only accepts top-level work entrypaths; LAB generated from registry.",
+    "whyExistingIsInsufficient": "No existing contest fixture or evaluation; cask-aroma is frozen and must not be revived.",
+    "design": "Independent transient experiment; exact main-generated casks; three preference ranges, consumption and loss-only scenarios; top-level redirect for existing LAB.",
+    "migration": "None. No persistence.",
+    "compatibility": "All main files and browser stored values unchanged; only experiment imports main.",
+    "promotionRisk": "Staging-only; never include experiment or launcher in Production."
+  }
+}
