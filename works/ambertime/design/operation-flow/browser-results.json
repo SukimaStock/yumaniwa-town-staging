@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "touch": true
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "chromium": "153.0.8010.0"
+  },
+  "fixture": {
+    "seed": 42,
+    "factory": "newFreeAgingDistillery",
+    "creation": "Recorded public model operations inside Chromium; strict serialize/restore; isolated storage only"
+  },
+  "checks": [
+    "manual progress98→99 performs exactly one existing stop, opens fill directly in extraction room, dismiss stays dismissed and explicit fill reopens",
+    "off-room cap completion never moves the room or opens fill; strict reload retains filling and returning to extraction opens it once",
+    "below-cap explicit manual stop preserves the existing model result and direct fill",
+    "manual partial20 opens the newly created release, close/reload leaves it stored; explicit listing earns nothing immediately and next month matches real model sales/accounting",
+    "inline delegation uses saved policy and refreshes icon without another plan dialog; manual mode persists pause before quote; delegation from tasting ends sampling",
+    "missing policy opens existing staff conditions; saving returns to the cask without silently delegating; a separate explicit opt-in starts reservation",
+    "automatic bottling stays nonmodal; exact model month, inventory/cash identity and strict saved restoration pass",
+    "actual CanvasScene full render versus original-color render differs only inside status glyph pixels; number/name/art/layout unchanged; sold-out identical"
+  ],
+  "monthly": [
+    {
+      "month": 2,
+      "sales": 3,
+      "bottlings": 0,
+      "news": ""
+    },
+    {
+      "month": 1,
+      "sales": 0,
+      "bottlings": 1,
+      "news": "ビン詰め完了 10本 · たる No.1 残り 24.2L"
+    }
+  ],
+  "pixels": [
+    {
+      "status": "保管中",
+      "changedPixels": 522,
+      "outsideStatusGlyph": 0,
+      "changedBounds": {
+        "x": 129,
+        "y": 365,
+        "right": 173,
+        "bottom": 385
+      },
+      "statusBounds": {
+        "x": 129,
+        "y": 365,
+        "right": 173,
+        "bottom": 385
+      }
+    },
+    {
+      "status": "販売中",
+      "changedPixels": 702,
+      "outsideStatusGlyph": 0,
+      "changedBounds": {
+        "x": 117,
+        "y": 365,
+        "right": 185,
+        "bottom": 385
+      },
+      "statusBounds": {
+        "x": 117,
+        "y": 365,
+        "right": 185,
+        "bottom": 385
+      }
+    },
+    {
+      "status": "完売",
+      "changedPixels": 0,
+      "outsideStatusGlyph": 0,
+      "changedBounds": null,
+      "statusBounds": null
+    }
+  ],
+  "contrastAgainstFloor": {
+    "floor": "#644632",
+    "ratios": {
+      "#c0bfbb": 4.6311883916853205,
+      "#efae95": 4.528657399116953
+    }
+  },
+  "errors": [],
+  "physicalSafari": false,
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver and author tactile acceptance",
+    "Broad E2E and long play intentionally excluded"
+  ],
+  "screenshotsForLocalReview": [
+    "/tmp/ambertime-operation-flow-product.png",
+    "/tmp/ambertime-operation-flow-status.png"
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "641877d6315cc9a024a4978f100c57b42f5bd72d696b7bfea7cd68f18c7adc4c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-operation-flow-0225",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "faae7761826075da3f5992e63464179453234900",
+    "change": "Connect existing extraction, bottling and delegation UI; color only sales status text",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.22.5 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #546 and related locked Plan",
+      "Existing distillation, bottling policy, sales and save contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-operation-flow-0225/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/operation-flow-browser.mjs",
+      "works/ambertime/design/operation-flow/browser-results.json",
+      "works/ambertime/design/operation-flow/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/design/bottling-policy/**",
+      "works/ambertime/design/bottling-roles/**",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/event-notices.mjs"
+    ],
+    "expectedChanges": [
+      "At manual extraction cap run existing stop operation once. Open fill only in distill room, defer other rooms and restore via existing filling phase. Below-cap manual stop unchanged.",
+      "After saved manual bottling open exact resulting product modal, stored until explicit list; automatic bottling unchanged.",
+      "Inline manual/delegate switch within existing cask detail; saved common policy only, pause active reservation before manual quote; missing policy staff guidance.",
+      "Split only canvas status text color from count; preserve all art, wording, layout, name/count/soldout color.",
+      "Targeted touch390x844 browser state/save/accounting tests, independent review, gates, required CI, Staging public."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844 extraction cap/offroom/restore, manualbottle product/store/list-nextmonth, inline delegation, status-only pixel changes; independent review and exact-head CI/public"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User0.22.5 authorizes these existing UI connections through Staging; no Production or balance changes."
+    ],
+    "hqDecisions": [
+      "Use existing operations, filling state, product modal, policy snapshots and reservation pause. No new persistence contract."
+    ],
+    "rulesApplied": [
+      "Full WORK lock precedes implementation",
+      "AGENTS asks helpful model/UI/test delegation and independent review",
+      "Expression audit: remove unnecessary completion and monthly messages; preserve necessary actions/labels/accessibility, no new persistent interface"
+    ],
+    "rollback": "Revert work-local UI changes; saved model format is unchanged.",
+    "outOfScope": [
+      "Production",
+      "Economy/demand/price/cost/chemistry/generation/reputation changes",
+      "New store/equipment/capacity/worker",
+      "Broad E2E/longplay/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver and author tactile adoption",
+      "Broad E2E and longplay intentionally excluded"
+    ],
+    "problem": "Existing UI requires extra fill click, manual bottle hides next sales action and delegation uses another modal; status text blends with counts.",
+    "currentContract": "Main PR546: free aging and nonblocking notifications; existing replay model, shared policy and next-month sales.",
+    "whyExistingIsInsufficient": "Display-only fill cap leaves completion pending and separate plan modal adds unnecessary navigation.",
+    "design": "Connect existing completion operations and UI surfaces; defer fill by actual room and persisted filling state; separate status text drawing without moving content.",
+    "alternativesRejected": [
+      "New modal or permanent panel",
+      "Automatic listing",
+      "New save fields",
+      "Economic or notification changes"
+    ],
+    "migration": "No model/save schema changes. Existing filling state guides unfinished cask filling after restore.",
+    "compatibility": "Keep exact existing simulation and replay; new UI uses same recorded operations.",
+    "boundaryCases": [
+      "Manual cap once and below-cap stop",
+      "Other room/return/reload unfinished filling",
+      "Correct product after partial manual bottle; close remains stored; next-month sales",
+      "Auto bottling no modal",
+      "Active/pause/delegate/missing policy and immediate icons",
+      "Only status pixels color; all art/name/count/layout unchanged"
+    ],
+    "testPlan": [
+      "Targeted browser transitions with actual model operations and strict save restore; accounting and next-month sales; 390x844; independent review; required CI and public bytes."
+    ],
+    "promotionRisk": "Staging only; no Production changes."
+  }
+}
