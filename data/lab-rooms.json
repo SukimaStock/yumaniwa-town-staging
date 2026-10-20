@@ -40,7 +40,7 @@
         {"work": "ambertime", "note": "樽を選び、時間を進め、味見して瓶に詰める。"},
         {"work": "ambertime-contest-lab", "note": "4樽を選び、3人の審査と熟成・消費を比べる独立実験。"},
         {"work": "ambertime-decision-lab", "note": "熟成・資金・季節を比べ、ビン詰めする時を考える実験。"},
-        {"work": "ambertime-reputation-lab", "note": "ビンの納品先と、町へ届く評判を比べる実験。"},
+        {"work": "ambertime-reputation-lab", "note": "自動発送と、ブランドへの期待を比べる実験。"},
         {"work": "nadeato", "note": "短い毛をなで、向きの濃淡で指の跡を残す。"},
         {"work": "tsumatta-tsubu", "note": "小さく横へずらすと、支え合っていた粒がほどけて落ちる。"},
         {"work": "yumaniwa-tourist-desk", "note": "受付机の模型や道具を触りながら、町の施設や作品を探す。"},
