@@ -1,11 +1,11 @@
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.42-delegation-fixes';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.43-staff-unlocks';
 import{barrel}from'./cask-glass-art.mjs?v=0.19-pixel-1';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.21-space-1';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
-import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.42-delegation-fixes';
+import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.43-staff-unlocks';
 import{uiText}from'./ui-text.mjs?v=0.28-staff-entry-1';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false){
@@ -62,7 +62,7 @@ export class CanvasScene{
   }else{
    const e=l.equipment;rail(72,e.benchY,216);r(72,e.benchY+9,6,l.floorY-e.benchY-9,'#a0785a');r(282,e.benchY+9,6,l.floorY-e.benchY-9,'#644632');const image=sprite(stillArt(),v.collection,v.phase==='distilling');c.drawImage(image,e.x/3,e.y/3);
   }
-  if(v.room==='sales')drawSymbol(c,'store',33,176,1,ink);else if(v.room==='distill'&&v.staffAvailable)drawSymbol(c,'person',35,177,1,ink);
+  if(v.room==='sales')drawSymbol(c,'store',55,176,1,ink);if(v.staffAvailable)drawSymbol(c,'person',35,177,1,ink);
  }
  // Text is rasterized at integral physical dots, independently of the room scale.
  textMetrics(size=BODY_SIZE){return pixelTypography(size,this.viewport.scale*this.viewport.dpr,document.documentElement.dataset.fontState==='ready');}
@@ -98,7 +98,7 @@ export class CanvasScene{
    if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
    if(a.key==='open-ledger')continue;
-   if(a.key==='open-staff-panel'){if(view.staffBrief)this.text(view.staffBrief,a.x+a.w+6,a.y+33,BODY_SIZE);continue;}
+   if(a.key==='open-staff-panel'){if(view.staffBrief&&view.room==='distill')this.text(view.staffBrief,a.x+a.w+6,a.y+33,BODY_SIZE);continue;}
    if(a.key==='trade-info'){drawSymbol(c,'handshake',a.x+11,a.y+6,3,ink);continue;}
    if(a.key==='shop-offer')continue;
    if(a.key==='open-aux-menu'){this.window(a.x,a.y,a.w,a.h,pressed?'#414350':'#2e3143','#606575');c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(a.x+(a.w-21)/2+i*9,a.y+(a.h-3)/2,3,3);continue;}
