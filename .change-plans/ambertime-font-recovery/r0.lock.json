@@ -1,0 +1,98 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "90bc1a30f9b3f489767a3462eb1d3149e6a773ee555d9595b40780bf9aa6066f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "5e0d40559787dab5242c79c7154007a5844a357a",
+    "changeId": "ambertime-font-recovery",
+    "revision": 0,
+    "change": "Recover local Misaki Gothic2nd after transient font load failures with bounded retries and synchronized display state",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit font recovery request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "PR525 current main",
+      "font-loader, font coverage, Canvas metrics/queue, CSS ready selector and import chain",
+      "W3C CSS Font Loading Level3 load/error and CSS-connected FontFace rules"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-font-recovery/r0.lock.json",
+      "works/ambertime/font-loader.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/font-recovery.mjs",
+      "works/ambertime/tests/misaki-browser.mjs",
+      "works/ambertime/room-scene.css"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Keep 1800ms provisional fallback, allow late success and make ready terminal. Deduplicate state notifications and leave fontReady semantics compatible. Retry only rejected/empty load results, at most two retries with backoff. Refresh the existing AmberMisaki CSS font source with bounded same-file retry URLs, not duplicate family registration. Observe usable loaded faces and lifecycle recovery without game reinitialization or continuous redraw.",
+      "Only if CSSOM source renewal cannot safely refresh a failed CSS-connected face, adjust its work-local CSS declaration ownership while preserving the exact font/path/descriptors and ready/fallback selection. No new font or asset changes.",
+      "Update only the loader→Canvas→app→HTML cache reference chain; no text/layout/size/color/numeral/coverage changes. Repair existing font interception paths to Gothic2nd; add one bounded font-specific browser test, no new verification infrastructure."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Before patch: actual Gothic2nd delayed2500ms recovers fallback→ready; one aborted fetch remains FontFace.error/fallback with one request. Record this empirical distinction.",
+      "Target390x844 normal, warm cache, delayed>1800ms, timeout/success race, first network/HTTP/decode/load rejection then recovery, permanent failure budget/usable menu; Canvas measurements/draws and HTML on same ready state, missing glyph behavior, no stale width/cache. MinimalPC and synthetic lifecycle event checks. Exact saved bytes unchanged across font-only changes. No whole-game E2E/simulation/screenshot sweep.",
+      "Syntax and protected runtime/math/save/asset diff, Scope→Risk→Impact, independent focused review, exact-head required CI, safe Staging merge/Pages, deployed changed-file and unchanged font-byte verification."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert loader and import-cache changes; no save migration.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/OS keyboard/VoiceOver/owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard Lock: font loading/network and script cache imports fall outside conservative targeted fastpath. One fresh immutable r0 precedes implementation; no CI changes.",
+      "Original timeout is already provisional; confirmed failure is no retry after a rejected load. Old misaki-browser interception still targets obsolete font, fixed narrowly without replaying its full suite. Prior521/523/525 results reused; only font behavior checked.",
+      "Preserve original official Gothic2nd bytes/license/coverage, all UI typography/layout and game/save/time logic. No new UI prose/decorations or past-work style reference needed."
+    ]
+  }
+}
