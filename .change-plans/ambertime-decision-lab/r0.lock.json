@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ba19bf749bf37fe55dae63420893b2126851b68b581ec6c5cbde841c244c05cb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-decision-lab",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent Decision Lab 0.1: bottling reasons through current aging, cash constraints and predictable retail seasons",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "6f6f0f35105c34b5aefffefdd0b73d678e60b401",
+    "canonicalSources": [
+      "Current explicit Decision Lab request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "ContestLab0.1/0.2 reports/results (preserved)",
+      "Current partner-orders aroma-a, M.ageCask/bottleQuote/bottle, E.economicMonthly/salePrices/canStart and economy-parameters"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-decision-lab/r0.lock.json",
+      "works/ambertime/experiments/decision/**",
+      "works/ambertime-decision-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/experiments/contest/**",
+      "works/ambertime/experiments/cask-aroma/**"
+    ],
+    "expectedChanges": [
+      "New nested experiment and tiny top-level launcher/Lifecycle/LAB connection; no main or Contest edits and no browser storage access. Seeded prepared initial snapshots identical across4conditions.",
+      "Current public D APIs generate actualaroma-a casks; main age/bottle/retail functions reused. E-shaped transient state with unique IDs/timestamps. Neutralize unrelated narrative pending/tasting before/after economicMonthly, assert month advanced once; no shared saves/replay/brand/staff/generation.",
+      "4conditions current vs costprofile1.25 production/bottling and1.75 maintenance, seasonaloff/on; same initial cash perfixture. Original evaporation unchanged. Current4cask/8product/once-month guards and bottlingreserve concept preserved, atomic rejected monthly transactions.",
+      "Predictable4seasons retailFactors modest base0.8..1.2 plus tastefactor±10%, shared24customers unchanged. Bottle freezes actualprofile, costs paid immediately, storage unlisted; explicit retail listing and futuremonth sales, never immediatecashonbottle.",
+      "Optional decisionreasons in session+JSON with exact before/after funds/slots/month/season/taste/volume/inventory. Current4cask selection, tasting, counts, replacement only through actualbottling and subsequentnewbatch.",
+      "Finite preset/seed/policy comparisons including early/late/staged/prestockvswait and financialrecovery; report failures and fixedpolicies separately fromhumanmotivation. No criterionretuningtoforcefun."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes independent DecisionLab and Staging implementation, forbids main changes and Production."
+    ],
+    "hqDecisions": [
+      "Use existingLifecycle/LAB schema with namedactiveexperiment top-level redirect. New calculations onlyin decisiondirectory. Full floorforregistry/placement/generatedHTML; no sharedcontract changes."
+    ],
+    "rulesApplied": [
+      "Preimplementation Plan Lock; protected main has zero edits",
+      "No persistent storage or new model axes; existing aroma-a and ageCask reused",
+      "Three fixed seeded rivals; bounded comparisons, not unlimited search",
+      "Expression audit: controls, short reasons and numerical comparison only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused generation/aging/bottling/salesparity/currentguards/cashledger/strongfees/season/reset/history/recovery tests and finitecomparison",
+      "390/360 andminimumPC controls/partialbottling/storagevsretail/nextbatch/conditionreset/JSON/optionalnotes, unchangedbrowserstoredbytes; newLABentry/back",
+      "Scope→Risk→Impact andexactheadCI/reviews/merge/Pagesbytechecks; no completedContest suite or mainE2E"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert DecisionLab/launcher/registration/LAB together; no main or Contest savedstate changes.",
+    "outOfScope": [
+      "Production",
+      "Mainfiles/saves/calculation/time/UI changes",
+      "Contest/judges/newaxes/casks/ingredients/equipment/debt/leases/brands/staff/generation",
+      "Broad mainE2E/longmanualplay/comprehensiveimages/unlimitedsearch"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari/VoiceOver",
+      "Humanbottlingmotivation/subjectiveenjoyment",
+      "Realmarketseasonality",
+      "Fullmaineconomyandlongtermstrategyproof"
+    ],
+    "alternativesRejected": [
+      "Add new rooms or runtime",
+      "Change individual works or lifecycle states",
+      "Edit generated HTML directly"
+    ],
+    "boundaryCases": [
+      "No cash/negativeprojectedcash/insufficientbottling funds",
+      "Listedstock recovery vs unlistedstock and no incomingcash",
+      "4casks/8products/partialbottle/freeingaslot/samemonthnewbatch",
+      "Bottledtastefrozen throughseasonchanges",
+      "Seasonalsharedcustomercap andfeeledger",
+      "Conditionreset identical initialsnapshot",
+      "Maturingaromaoverpeak/currentevaporation only"
+    ],
+    "testPlan": [
+      "Focused Decisionmodeltests andfinitecontrolledsimulation",
+      "Baselinehash protects main+Contest; purefunction parity tests",
+      "Targetedbrowser controls/storage/fit/JSON andLABgeneratorcheck",
+      "IndependentreviewandrequiredCI/Pages"
+    ],
+    "problem": "Bottling has weak personalreasons; test agingvsliquidityvsseasonalretail without externalscores.",
+    "currentContract": "Current aroma-a chemistry and economicMonthly retail; bottling freezes taste, listedinventory sells later, maincashreserveprotects bottling.",
+    "whyExistingIsInsufficient": "Contest changes externalvaluation; need independent economicreasons without contests or mainintegration.",
+    "design": "Replay-free experimentalE-shaped state using publicchemistry/retail, sidecarcost+seasonalprofiles, transactionalreserveguard, fourcontrolledconditions.",
+    "migration": "None. Transient session, explicitJSON only.",
+    "compatibility": "Every existingAmberTime/Contestfile remainsbyteidentical; no saveI/O.",
+    "promotionRisk": "Staging-only; never include experiment or launcher in Production."
+  }
+}
