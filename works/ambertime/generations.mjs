@@ -1,4 +1,4 @@
-import {recipesMode} from './recipe-book.mjs?v=0.19staff';
+import {recipesMode} from './recipe-book.mjs?v=0.40-partial-bottling';
 // Work-local execution boundary; chemistry, money and estate remain unchanged.
 export const GENERATIONS=Object.freeze({version:16,rules:'distillery-generations',lateMonths:300,hardMonths:360,graceMonths:12,brandMonths:120,shopMonths:120,matureMonths:36});
 export const generationMode=s=>s?.version===GENERATIONS.version&&s.rules===GENERATIONS.rules||recipesMode(s);
@@ -25,7 +25,7 @@ export function advanceGeneration(s,key,value){
  if(a.phase==='working'){
   let trigger=null;
   if(tenure>=GENERATIONS.lateMonths){
-   if(key==='bottle'||key==='bottle-branded'){
+   if(key==='bottle'||key==='bottle-branded'||key==='bottle-counted-branded'){
     const r=s.result,release=s.releases.find(x=>x.productId===r?.productId),brand=s.brands.find(b=>b.id===release?.brandId);
     if(release&&brand&&month-brand.createdMonth>=GENERATIONS.brandMonths&&s.releases.some(x=>x.brandId===brand.id&&x.id!==release.id))trigger={kind:'brand-rerelease',month,brandId:brand.id,releaseId:release.id,productId:release.productId,caskId:release.caskId};
     else if(r?.age>=GENERATIONS.matureMonths)trigger={kind:'mature-bottling',month,productId:r.productId,caskId:r.caskId,...(release?{brandId:release.brandId,releaseId:release.id}:{})};
