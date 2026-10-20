@@ -7,8 +7,8 @@ export const departmentInterests=(s,brandId)=> (s.department?.interests??[]).fil
 export const departmentAdoptions=(s,brandId)=> (s.department?.adoptions??[]).filter(x=>brandId===undefined||x.brandId===brandId);
 export function departmentReleaseEligible(r){return !!r&&r.age>=24&&r.profile?.roughness<=.30;}
 export function departmentUsedRelease(s,id){return (s.shop?.deliveries??[]).some(d=>d.shopId==='department'&&d.releaseId===id);}
-export function departmentSource(s,brandId){
- return [...(s.releases??[])].reverse().find(r=>r.brandId===brandId&&(bottleStorageMode(s)||r.listed)&&departmentReleaseEligible(r)&&(!delegationMode(s)||s.core.products.some(p=>p.id===r.productId&&p.stock>=5))&&!departmentUsedRelease(s,r.id)&&!s.department.seenSources.includes(r.id));
+export function departmentSource(s,brandId,availability=s){
+ return [...(s.releases??[])].reverse().find(r=>r.brandId===brandId&&(bottleStorageMode(s)||r.listed)&&departmentReleaseEligible(r)&&(!delegationMode(s)||availability.core.products.some(p=>p.id===r.productId&&p.stock>=5))&&(!s.monthlyTiming||r.bottledMonth<s.core.month)&&!departmentUsedRelease(availability,r.id)&&!availability.department.seenSources.includes(r.id));
 }
 export function departmentSelection(s,brandId,offered=false){
  if(offered)return s.shop?.offer?.shopId==='department'&&s.shop.offer.brandId===brandId?s.shop.offer:null;
@@ -18,5 +18,5 @@ export function departmentStatus(s,productId){
  const release=s.releases?.find(r=>r.productId===productId);if(!release)return null;
  const adoption=departmentAdoptions(s,release.brandId).find(a=>a.releaseId===release.id);
  const offer=departmentSelection(s,release.brandId,true),interest=departmentSelection(s,release.brandId);
- return {status:adoption?'completed':offer?'offer':interest?'interest':departmentAdoptions(s,release.brandId).length?'history':'none',offer,interest,adoption};
+ return {status:adoption?'completed':interest?.pendingDelivery?'pending':offer?'offer':interest?'interest':departmentAdoptions(s,release.brandId).length?'history':'none',offer,interest,adoption,...(interest?.pendingDelivery?{pending:structuredClone(interest.pendingDelivery)}:{})};
 }
