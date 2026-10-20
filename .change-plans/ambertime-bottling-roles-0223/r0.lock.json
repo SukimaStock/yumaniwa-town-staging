@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3f3fd442fb09b3a76bd5bbec00394d0cfb12003c305b7e336a4083eeb02f62e3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-bottling-roles-0223",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2483b6ef27ffcf0108ffddcc602eef61164233da",
+    "change": "Separate global-stock continuous replenishment and one-shot age bottling",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.22.3 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #544 and .change-plans/ambertime-bottling-policy-0222/r0.lock.json",
+      "Existing monthly timing/partial bottling/demand/save contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-bottling-roles-0223/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/tests/bottling-roles.test.mjs",
+      "works/ambertime/tests/bottling-roles-browser.mjs",
+      "works/ambertime/tests/fixtures/bottling-roles-legacy.json",
+      "works/ambertime/design/bottling-roles/reproduce.mjs",
+      "works/ambertime/design/bottling-roles/results.json",
+      "works/ambertime/design/bottling-roles/browser-results.json",
+      "works/ambertime/design/bottling-roles/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**"
+    ],
+    "expectedChanges": [
+      "Record bottling roles boundary and persistent delegation sequence, migrate existing confirmed reservations without deleting saves; preserve original replay.",
+      "Stock trigger uses all listed inventory including month-end auto listings, excludes stored bottles. Level-trigger every month; only explicitly delegated casks. Assignment FIFO, skip failures with reason, one successful stock job monthly; keep paused/cancel behavior, retire empty casks.",
+      "Age trigger is one-shot, bottle legal residual using existing partial rules, mark completed only after success and return remaining cask to manual; costs/wages and next-month sales unchanged.",
+      "Show short current state/condition/error in cask modal, active clock/stock/pause icons only, none after completion; short completion notice includes actual count and remaining volume. Shared snapshots/defaults maintained; no new panel/popup.",
+      "Reproduce old multi-cask latch stall and overfill, save conditions/results, targeted tests and phone, independent review, Scope/Risk/Impact, required CI and Staging public verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844 assignment FIFO/stock and age completion icon/manual/notice/pause/reload; independent review and exact-head CI/public bytes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User0.22.3 explicitly authorizes global listed stock/FIFO single monthly replenishment/one-shot age work through Staging. No economy parameter or Production changes."
+    ],
+    "hqDecisions": [
+      "Preserve old replay with new recorded work-local boundary; retain existing key and reservation snapshot values, add deterministic FIFO serial. All automatic jobs remain at established month-end slot."
+    ],
+    "rulesApplied": [
+      "Full WORK lock precedes implementation",
+      "AGENTS asks useful role-specific delegation/independent review",
+      "Expression audit: short current state/condition and completion notice only, no new persistent UI"
+    ],
+    "rollback": "Back up post-boundary saves before old reader; revert only work-local additions.",
+    "outOfScope": [
+      "Production",
+      "Economy/demand/price/cost/chemistry/generation/reputation changes",
+      "New store/equipment/capacity/worker",
+      "Broad E2E/longplay/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver and author tactile adoption",
+      "Broad E2E/long play intentionally excluded"
+    ],
+    "problem": "Parent-specific stock and armed latch cause simultaneous fills or permanent shortage stalls; completed age work needs clear manual return.",
+    "currentContract": "0.22.2 shared policy snapshots, old v20 strict replay and per-parent armed stock reservations.",
+    "whyExistingIsInsufficient": "Whole sales shelf is not observed, assignment chronology is lost, and blocked jobs need deterministic fallback.",
+    "design": "Recorded work-local boundary, persisted assignment FIFO, listed global stock level trigger and one successful replenishment monthly, terminal age snapshots and short completion status.",
+    "alternativesRejected": [
+      "Auto-assign all casks",
+      "Rewrite active reservations on common edits",
+      "Auto-stop at remembered extraction position",
+      "Change economic balance to hide management friction",
+      "New permanent settings panel"
+    ],
+    "migration": "Preserve old replay and existing save key/data. Enable recorded boundary after restore, infer reservation assignment order from recorded operations; keep values/status/paused snapshots. Ignore old stock latch only after boundary.",
+    "compatibility": "Historical operations retain historical semantics. New game strict cold restore and migrated active reservations guaranteed.",
+    "boundaryCases": [
+      "Stored vs listed stock across all releases",
+      "FIFO unlike cask IDs, pause/resume/cancel/reassign",
+      "Count<=threshold and shortage after all auto stock disarmed",
+      "First candidate funds/liquid/capacity/judgment failure then next",
+      "Age residual success exactly once vs failures maintain active",
+      "Mixed age and stock monthly jobs",
+      "Strict cold restore/old byte fixtures/active extraction/migration order",
+      "Next month sales/shipping and wages exactly once"
+    ],
+    "testPlan": [
+      "Focused old stall/overfill reproduction, global listed vs stored stock, FIFO fallback/minimum/funds/capacity/judgment, single stock fill monthly, residual age once, notices/icons/manual state, next-month sales and strict restore; focused phone and required CI."
+    ],
+    "promotionRisk": "Staging only; no Production changes."
+  }
+}

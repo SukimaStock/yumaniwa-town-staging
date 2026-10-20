@@ -1,12 +1,12 @@
 // Presentation only. Events are collected at saved transitions, never at render/reload.
-export function automaticEvents(before,after){
+export function automaticEvents(before,after,caskLabel=()=>''){
  const events=[];
  if(before.usual?.reservation?.status==='active'){
   const known=new Set(before.core.casks.map(c=>c.id));
   for(const c of after.core.casks)if(!known.has(c.id))events.push({id:'fill:'+c.id,kind:'filled',count:1});
  }
  if(after.core.month!==before.core.month){
-  for(const b of after.automation?.lastBottlings??[])if(b.month===after.core.month)events.push({id:'bottle:'+b.productId,kind:'bottled',count:b.count});
+  for(const b of after.automation?.lastBottlings??[])if(b.month===after.core.month)events.push({id:'bottle:'+b.productId,kind:'bottled',count:b.count,...(after.bottlingRoles?.version===1&&b.mode==='age'?{mode:'age',caskId:b.caskId,caskLabel:caskLabel(b.caskId),remainingLitres:b.remainingLitres}:{})});
   const orders=after.shopDemand?.lastOrders??[];
   const quiet=after.workPreferences?.version===1,shipped=orders.reduce((n,o)=>n+o.shipped,0);
   // Unfilled requests remain in the ledger; a shortage is not a new shipment.
@@ -18,8 +18,8 @@ export function automaticEvents(before,after){
  return events;
 }
 export function noticeText(events){
- const total=kind=>events.filter(e=>e.kind===kind).reduce((a,e)=>({count:a.count+(e.count??0),revenue:a.revenue+(e.revenue??0),shipped:a.shipped+(e.shipped??0),unmet:a.unmet+(e.unmet??0)}),{count:0,revenue:0,shipped:0,unmet:0}),filled=total('filled'),bottled=total('bottled'),sales=total('sales'),orders=total('orders'),shipping=total('shipping');
- return [filled.count?'仕込み完了 '+filled.count+'たる':'',bottled.count?'ビン詰め '+bottled.count+'本':'',sales.count?'販売 '+sales.count+'本 · 入金 £'+sales.revenue.toLocaleString('en-GB',{maximumFractionDigits:0}):'',shipping.count?'発送 '+shipping.count+'本':'',events.some(e=>e.kind==='orders')?'注文 '+orders.count+'本 · 発送 '+orders.shipped+'本'+(orders.unmet?' · 未発送 '+orders.unmet+'本':''):'',events.filter(e=>e.kind==='message').at(-1)?.text??''].filter(Boolean).join(' / ');
+ const total=kind=>events.filter(e=>e.kind===kind).reduce((a,e)=>({count:a.count+(e.count??0),revenue:a.revenue+(e.revenue??0),shipped:a.shipped+(e.shipped??0),unmet:a.unmet+(e.unmet??0)}),{count:0,revenue:0,shipped:0,unmet:0}),filled=total('filled'),bottled=total('bottled'),completed=events.filter(e=>e.kind==='bottled'&&e.mode==='age'),completionCount=completed.reduce((n,e)=>n+e.count,0),sales=total('sales'),orders=total('orders'),shipping=total('shipping');
+ return [filled.count?'仕込み完了 '+filled.count+'たる':'',bottled.count>completionCount?'ビン詰め '+(bottled.count-completionCount)+'本':'',...completed.map(e=>'ビン詰め完了 '+e.count+'本'+(Number.isFinite(e.remainingLitres)?' · '+(e.caskLabel?e.caskLabel+' ':'')+'残り '+e.remainingLitres.toFixed(1)+'L':'')),sales.count?'販売 '+sales.count+'本 · 入金 £'+sales.revenue.toLocaleString('en-GB',{maximumFractionDigits:0}):'',shipping.count?'発送 '+shipping.count+'本':'',events.some(e=>e.kind==='orders')?'注文 '+orders.count+'本 · 発送 '+orders.shipped+'本'+(orders.unmet?' · 未発送 '+orders.unmet+'本':''):'',events.filter(e=>e.kind==='message').at(-1)?.text??''].filter(Boolean).join(' / ');
 }
 export function transientNotices({show,hide,setTimer=setTimeout,clearTimer=clearTimeout,duration=3500}){
  const seen=new Set();let visible=[],timer=null;
