@@ -1,5 +1,5 @@
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.43-staff-unlocks';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.52-ui-details';
 import{barrel}from'./cask-glass-art.mjs?v=0.19-pixel-1';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.21-space-1';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
@@ -47,7 +47,7 @@ export class CanvasScene{
   for(const node of this.controlRoot.querySelectorAll('button'))node.dataset.sceneVisible='false';
   const active=[];
   for(const rect of this.layout.controls){const node=document.querySelector(rect.selector);if(!node||node.closest('[hidden]'))continue;node.classList.add('scene-hit');node.dataset.sceneKey=rect.key;node.dataset.sceneVisible='true';const r=projectRect(this.viewport,rect);Object.assign(node.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px'});const name=node.textContent.replace(/\s+/g,' ').trim();if(!node.hasAttribute('data-cask-id')&&!node.hasAttribute('data-product-id'))node.setAttribute('aria-label',rect.key==='open-staff-panel'&&this.view.staffBrief?name+' · '+this.view.staffBrief:rect.key==='trade-info'?'取引':name);active.push({...rect,node,label:name});}
-  this.activeControls=active;this.root.dataset.hitRegions=JSON.stringify(active.map(({node,label,...r})=>r));this.root.dataset.reservationIcons=JSON.stringify((this.view.casks??[]).map(x=>({id:x.id,kind:x.reservationIcon})));this.root.dataset.staffStatus=this.view.staffBrief??'';
+  this.activeControls=active;this.root.dataset.hitRegions=JSON.stringify(active.map(({node,label,...r})=>r));this.root.dataset.reservationIcons=JSON.stringify((this.view.casks??[]).map(x=>({id:x.id,kind:x.reservationIcon,color:({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[x.reservationIcon]??null})));this.root.dataset.staffStatus=this.view.staffBrief??'';
  }
  drawWorld(){
   const c=this.worldCtx,v=this.view,l=this.layout;c.clearRect(0,0,120,214);c.fillStyle='#4b4b55';c.fillRect(0,0,120,214);
@@ -87,7 +87,7 @@ export class CanvasScene{
   this.text(view.calendar,15,30,BODY_SIZE);this.text(view.generation,generationX,30,BODY_SIZE);this.text(view.cash,288,cashY,BODY_SIZE,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY,calendarRight,generationRight,cashLeft:288-cashWidth});
   c.fillStyle='#454958';c.fillRect(15,78,267,12);c.fillStyle='#b2a379';c.fillRect(15,78,Math.round(89*Math.max(0,Math.min(1,view.monthProgress??0)))*3,12);this.root.dataset.monthProgress=String(view.monthProgress??0);
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
-  items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2;const lines=this.lines(view.room==='warehouse'?uiText(item.name):item.name,mid,p.base+27,132,BODY_SIZE,1,'center');const detailY=p.base+27+lines*Math.max(26,this.textMetrics(BODY_SIZE).logical+4);const state=view.room==='sales'?item.state.replace(' · ',' ').replace('保管中','保管'):item.age;const suffix=view.room==='sales'?(state.endsWith('保管')?{text:'保管',color:'#c0bfbb'}:state.endsWith('販売中')?{text:'販売中',color:'#efae95'}:null):null;this.text(state,mid,detailY,BODY_SIZE,'center',ink,suffix);if(view.room==='warehouse'&&item.reservationIcon)drawSymbol(c,item.reservationIcon,Math.round((mid+this.measure(item.age)/2+6)/3)*3,Math.round((detailY-18)/3)*3,3,ink);});
+  items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2;const sales=view.room==='sales',size=sales?16:BODY_SIZE,titleY=p.base+(sales?15:27),lines=this.lines(sales?item.name:uiText(item.name),mid,titleY,132,size,sales?2:1,'center');const detailY=sales?p.base+55:titleY+lines*Math.max(26,this.textMetrics(BODY_SIZE).logical+4);const state=view.room==='sales'?item.state.replace(' · ',' ').replace('保管中','保管'):item.age;const suffix=view.room==='sales'?(state.endsWith('保管')?{text:'保管',color:'#c0bfbb'}:state.endsWith('販売中')?{text:'販売中',color:'#efae95'}:null):null;this.text(state,mid,detailY,BODY_SIZE,'center',ink,suffix);if(view.room==='warehouse'&&item.reservationIcon)drawSymbol(c,item.reservationIcon,Math.round((mid+this.measure(item.age)/2+6)/3)*3,Math.round((detailY-18)/3)*3,3,({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink);});
   if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});

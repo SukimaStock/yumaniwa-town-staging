@@ -18,13 +18,13 @@ export function layoutScene(view={}){
  const productSlots=caskSlots.map((s,i)=>({...s,y:144+Math.floor(i/2)*144,h:144,base:234+Math.floor(i/2)*144}));
  if(view.room==='warehouse'){
   (view.casks??[]).forEach((c,i)=>{const r=caskSlots[i];if(r)add('cask-'+c.id,'#cask-rack [data-cask-id="'+c.id+'"]',r.x,r.y,r.w,r.h);});
-  if(!view.casks?.length)add('go-distill','#go-distill',90,408,180);
+  if(!view.casks?.length)add('go-distill','#go-distill',126,408,108);
  }else if(view.room==='sales'){
   (view.products??[]).forEach((p,i)=>{const r=productSlots[i];if(r)add('product-'+p.id,'#product-shelf [data-product-id="'+p.id+'"]',r.x,r.y,r.w,r.h);});
   add('shelf-prev','#shelf-pages [data-page-step="-1"]',12,111,96);add('shelf-next','#shelf-pages [data-page-step="1"]',252,111,96);
   add('shop-offer','#shop-offer',156,522,54,54);
  }else{
-  for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,114,414,132);
+  for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,126,414,108);
  }
  return{width:360,height:640,floorY:468,shelf:{x:48,y:165,w:264,h:267,rails:[234,378]},equipment:{x:90,y:270,w:180,h:108,benchY:378},caskSlots,productSlots,controls};
 }
