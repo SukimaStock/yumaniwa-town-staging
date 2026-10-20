@@ -1,4 +1,4 @@
-import {replayDistilleryOperations} from './partner-orders.mjs?v=0.48-free-aging';
+import {replayDistilleryOperations} from './partner-orders.mjs?v=0.50-staff-experience';
 import {generationMode} from './generations.mjs?v=0.48-free-aging';
 
 // This is a disposable view projection, not a second saved event ledger.

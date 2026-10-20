@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "touch": true
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "chromium": "153.0.8010.0"
+  },
+  "fixtures": {
+    "seed": 42,
+    "factory": "newStaffExperienceDistillery",
+    "creation": "Browser-native public recorded manual operations; paid production and real sales, no age/cash injection"
+  },
+  "checks": [
+    "new game starts with cumulative0/0 and no staff entry or hiring popup",
+    "149 actual manual bottles stays locked; UI partial1 crosses150 once; defer and strict reload do not repeat notice; later hire charges unchanged cost; saved common-policy delegation and manual pause preserve cumulative counts",
+    "7 completed manual fills leaves distiller locked; eighth existing fill action unlocks and saves exactly one short opportunity; defer/reload/later hire retain actual cumulative totals and unchanged accounting"
+  ],
+  "hires": [
+    {
+      "kind": "bottling",
+      "cost": 20
+    },
+    {
+      "kind": "distill",
+      "cost": 40
+    }
+  ],
+  "finalExperience": {
+    "version": 1,
+    "manualFills": 8,
+    "manualBottles": 270
+  },
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver and author tactile acceptance",
+    "Extensive automatic exclusion and generation tested by scoped model tests, not repeated in browser",
+    "Broad E2E and unscripted long play intentionally excluded"
+  ]
+}
