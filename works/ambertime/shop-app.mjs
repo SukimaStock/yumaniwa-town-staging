@@ -330,10 +330,10 @@ function departmentDestination(p,release,invitation){
 function closeModal(){if(modal?.kind==='milestone'){if(modal.event==='distilled')modalReturnFocus=$('open-fill');else modalReturnObject={attribute:'data-product-id',id:modal.productId};modal=null;render();schedule();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){historyRequest++;if(historyLoading){historyWorker?.terminate();historyWorker=null;historyLoading=false;}}if(modal?.kind==='decision')return;if(modal?.kind==='offer'){act(D.declineOffer,()=>{modal=null;offerCaskId=null;});return;}modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
 function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();jump=0;if(game.tastingId!==null&&game.tastingId!==id)endTaste();selectedCaskId=id;room='warehouse';const postFill=modal?.kind==='inspect'&&modal.postFill===true;modal={kind:'inspect',id,postFill};act(s=>D.sampleDistillery(s,id));}
 function quoteModal(id){if(!D.currentCask(game,id))return;if(game.trade.order?.status==='unmet'&&game.trade.order.caskId===id){act(D.endTasting,()=>{modal=null;message('先に、このたるの販売方法を選びます。');});return;}if(D.contractFor(game,id)){stopClock();modal={kind:'contract-bottle',id};jump=0;render();return;}stopClock();modal={kind:'quote',id};jump=0;render();}
-function termButtons(terms,selected,action){return '<div class="trade-terms">'+terms.map(t=>button(ageLabel(t.targetAge)+'<small>買取 '+unit(t.unitPrice)+'/本<br>ビン詰め '+unit(t.bottlingFee)+'/本</small>',action,t.id,'aria-pressed="'+(t.id===selected)+'"')).join('')+'</div>';}
+function termButtons(terms,selected,action){return '<div class="trade-terms">'+terms.map(t=>button(ageLabel(t.targetAge)+'で自動出荷<small>買取 '+unit(t.unitPrice)+'/本<br>ビン詰め '+unit(t.bottlingFee)+'/本</small>',action,t.id,'aria-pressed="'+(t.id===selected)+'"')).join('')+'</div>';}
 function termEstimate(id,term){
  if(!term)return '';const q=id===null?null:D.quote(game,id);
- return (q?'<p>'+copyFacts([['本数',q.count+'本'],['売上',money(q.count*term.unitPrice)],['入金',money(q.count*(term.unitPrice-term.bottlingFee))]])+'</p>':'')+'<p class="quiet">指定の熟成年数で自動出荷<br>蒸発で本数は減少<br>ビン詰め費は代金から差引<br>維持費は継続<br>出荷前の解除は無料</p>';
+ return (q?'<p>'+copyFacts([['本数',q.count+'本'],['売上',money(q.count*term.unitPrice)],['入金',money(q.count*(term.unitPrice-term.bottlingFee))]])+'</p>':'')+'<p class="quiet">ビン詰め費は代金から差引<br>蒸発で本数減少<br>維持費は継続<br>出荷前の解除無料</p>';
 }
 function orderDescription(order){
  return '<div class="order-brief"><strong>特別注文 1たる</strong><p>'+copyFacts([['出荷',ageLabel(order.targetAge)],['買取',unit(order.unitPrice)+'／本'],['ビン詰め',unit(order.bottlingFee)+'／本（代金から差引）']])+'</p><p>'+D.SPECIAL_ORDER.taste.map(esc).join('<br>')+'</p><p class="quiet">条件達成で自動出荷<br>未達なら販売方法を選択</p></div>';
@@ -394,15 +394,15 @@ function syncModal(){
   const offer=game.trade.offer;if(!offer){modal=null;return;}
   const terms=offer.terms;if(!terms.some(t=>t.id===offerTermId))offerTermId=terms[0]?.id;
   const term=terms.find(t=>t.id===offerTermId);
-  title=offer.partner+'からの申し出';
+  title=offer.partner;
   if(offer.kind==='special'){
    body=orderDescription(offer)+'<p class="quiet">たるは受注後に指定<br>通常の取引は継続</p>';
    actions=button('注文を受ける','contract')+button('やめる','decline');
   }else{
    body=(offer.kind==='terms'?'<p>次の納品から適用</p>':'')+termButtons(terms,offerTermId,'offer-term');
-   if(offer.kind!=='terms')body+=termEstimate(null,term)+'<p class="quiet">たるは取引開始後に指定</p>';
-   else body+='<p class="quiet">指定済みのたるは元の条件で出荷</p>';
-   actions=button(offer.kind==='terms'?'条件を更新':'取引を始める','contract')+button('やめる','decline');
+   if(offer.kind!=='terms')body+=termEstimate(null,term)+'<p class="quiet">開始後にたる指定</p>';
+   else body+='<p class="quiet">ビン詰め費は代金から差引<br>指定済みは元の条件で出荷</p>';
+   actions=button(offer.kind==='terms'?'条件を更新':'取引開始','contract')+button('やめる','decline');
   }
  }else if(kind==='assign'){
  const relation=game.trade.relationship;if(!c||!relation||relation.status!=='active'){modal=null;return;}
@@ -414,10 +414,15 @@ function syncModal(){
   actions+=button('たるへ戻る','cancel');
  }else if(kind==='trade'||kind==='end-trade'){
   const relation=game.trade.relationship;if(!relation){modal=null;return;}
-  title=kind==='end-trade'?'取引を終了する':'現在の取引先';
-  body='<p>'+esc(relation.partner)+' '+(relation.status==='paused'?'指定を休止中':'取引中')+'</p>'+relation.terms.map(t=>'<p>'+ageLabel(t.targetAge)+' '+unit(t.unitPrice)+'/本 ビン詰め費 '+unit(t.bottlingFee)+'/本</p>').join('')+'<p>出荷済み '+relation.deliveries+'たる '+relation.bottles+'本</p><p>指定中 '+game.trade.contracts.length+'たる</p>';
-  if(kind==='end-trade'){body+='<p>たるの出荷指定・特別注文も解除<br>熟成は継続</p>';actions=button('取引を終了','end-trade')+button('戻る','trade-back');}
-  else{const order=game.trade.order;if(order)body+=orderDescription(order)+'<p>'+esc(orderStatus(order))+'</p>';body+='<p class="quiet">休止中も指定済みのたるは出荷します。</p>';actions=(order?button('注文を取り消す','cancel-order-confirm'):'')+button(relation.status==='paused'?'指定を再開':'指定を休止',relation.status==='paused'?'resume-trade':'pause-trade')+button('取引を終える','end-trade-confirm')+button('戻る','cancel');}
+  title=kind==='end-trade'?'取引終了':'現在の取引先';
+  body='<p>'+esc(relation.partner)+'</p>';
+  if(kind==='end-trade'){body+='<p>たるの出荷指定を解除<br>特別注文も解除</p><p>熟成は継続</p>';actions=button('終了する','end-trade')+button('戻る','trade-back');}
+  else{
+   body+='<p>'+(relation.status==='paused'?'指定休止中':'取引中')+'</p>'+relation.terms.map(t=>'<p>'+ageLabel(t.targetAge)+'で自動出荷<br>買取 '+unit(t.unitPrice)+'/本<br>ビン詰め費 '+unit(t.bottlingFee)+'/本</p>').join('')+'<p class="quiet">ビン詰め費は代金から差引</p><p>出荷済み '+relation.deliveries+'たる<br>出荷本数 '+relation.bottles+'本<br>指定中 '+game.trade.contracts.length+'たる</p>';
+   const order=game.trade.order;if(order)body+=orderDescription(order)+'<p>'+esc(orderStatus(order))+'</p>';
+   body+='<p class="quiet">休止中も指定済みは出荷</p>';
+   actions=(order?button('注文取消','cancel-order-confirm'):'')+button(relation.status==='paused'?'指定再開':'指定休止',relation.status==='paused'?'resume-trade':'pause-trade')+button('取引終了','end-trade-confirm')+button('戻る','cancel');
+  }
  }else if(kind==='cancel-order'){
   const order=game.trade.order;if(!order){modal=null;return;}title='注文を取り消す';body=orderDescription(order)+'<p>違約金なし<br>通常の取引と熟成は継続</p>';actions=button('注文を取り消す','cancel-order')+button('戻る','trade-back');
  }else if(kind==='contract'||kind==='contract-bottle'){

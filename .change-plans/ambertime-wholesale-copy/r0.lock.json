@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "38da2c66d41a773dfcfe9a046cd7dfb9bd9f5835c91f262c75e89ad075076bbc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "43af6c5cb033c889a713535339b85a0dec2bf1db",
+    "changeId": "ambertime-wholesale-copy",
+    "revision": 0,
+    "change": "Shorten wholesale offer, relationship management and termination copy; preserve terms and operations",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current user wholesale copy request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Current main through PR526; PR519/521/522/523/525/526 and their locked scopes"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-wholesale-copy/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/wholesale-copy.mjs",
+      "works/ambertime/design/wholesale-copy/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Wholesale-only short fact rows for actual age/prices/fees, automatic shipping, evaporation, ongoing upkeep, free pre-shipment cancellation and later cask assignment. Separate partner/status, shipped/assigned totals; retain paused assigned shipments and special order controls.",
+      "Entry 取引終了, confirmation 終了する; explicit relationship, assigned casks and special order release versus continued maturation. No handlers/save/math changes. Only necessary work-local layout and HTML cache references."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "390x844 and narrow390/360 phone offer/active/paused/end with real fixtures and dynamic terms; minimal PC. Start/pause/resume/cancel special order/end exact existing API results; confirmation/back pure saved bytes; stockist offer unchanged.",
+      "Syntax, protected math/save/runtime source diff, Scope→Risk→Impact, focused diff review, required exact-head CI, Staging merge/Pages and HTTP changed-content match. No full E2E/simulation or screenshot sweep."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert wholesale presentation and cache references; no saved-data migration.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari, VoiceOver and owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard Lock because test fixture imports/storage and HTML script cache reference are outside conservative targeted route; preserve existing immutable Plans.",
+      "UI-only scope supersedes no earlier Plan; only wholesale copy and local layout. Existing PR521 milestones and PR526 fonts preserved. No new explanations/decorations."
+    ]
+  }
+}
