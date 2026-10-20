@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "624ac62676a6f438890bc7527b89c8416720aad5e527c29684e5e192caff9426",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "723dd7fa582647a31e3b0d63c97e9031f4e5ad0b",
+    "changeId": "ambertime-stockist-entry",
+    "revision": 0,
+    "change": "Store icon opens encountered stockists and shared staged delivery of bottled products",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit stockist-entry implementation request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Main PR527 wholesale cleanup; PR518/521/522 existing offers/milestones/receipts",
+      "Existing shopQuote/shopOfferQuote/deliverShop/department selection APIs and data"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-stockist-entry/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/stockist-entry.mjs",
+      "works/ambertime/design/stockist-entry/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Store icon unchanged art/geometry, always accessible in normal sales state, named 取扱店; existing dialog stages encountered shop list → products → quantity/confirm; transient selection only. Encounter evidence from existing offers/relations/deliveries/decline keys/department records; no generated new relationships.",
+      "Reuse actual quotes, quantity candidates and deliverShop; separate quantity from confirm on both product and store entry. Consume selection before commit to reject duplicate stale events. Saved actual receipt once, no success on save failure. Department selection ID and finite five-bottle adoption unchanged.",
+      "Existing first offer confirmation/defer/decline and first stockist milestone unchanged; list can open current offer, pending stays ordered. Preserve unencountered shop hiding, wholesale icon/text, model/save/economy/history and other prior Plans. Work-local CSS/cache only."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844 touch and minimumPC: empty/encountered list, offers/defer/decline/first saved milestone, multiple releases and product routing, quantity selection pure/reset/back, caps and empty stock, both delivery entries exact serialized API result, stale double click, save failure/no success, department interested/complete/ineligible boundaries; minimal target screenshots.",
+      "Syntax/protected diff/Scope→Risk→Impact, focused independent review, required CI/latest head/base and normal merge, Pages/public changed bytes. No full E2E/long play/full simulation/screenshot sweep."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert work-local UI and cache changes; no migration required.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "model/economy/time/save/staff/conditions/taste/generations",
+      "New features/screens",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari, VoiceOver and owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard immutable preimplementation Lock; functionality changes use focused related delivery regression only.",
+      "Preserve PR527 copy, PR521 milestones, PR526 fonts and icon art/geometry. No new schema/calculations/acceptance rules. Product delivery quantity confirmation shares existing quote and operation with store entry."
+    ]
+  }
+}

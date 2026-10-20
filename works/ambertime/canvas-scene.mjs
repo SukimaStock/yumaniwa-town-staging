@@ -106,7 +106,7 @@ export class CanvasScene{
    if(!quiet)this.window(a.x,a.y,a.w,a.h,pressed?'#414350':primary?'#685038':'#2e3143',primary?'#ae8d60':a.key==='toggle-time'&&hintBright?'#858995':'#606575');
    else if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}
    if(a.key==='toggle-time'){const kind=a.label==='時間を止める'?'pause':'play';const unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit));c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(a.x+a.w/2)*v.scale)*v.dpr-3.5*cell),Math.round((v.offsetY+(a.y+a.h/2)*v.scale)*v.dpr-3.5*cell),cell,ink);c.restore();if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}continue;}
-   const label=a.key==='trade-info'?'取引':a.key==='shop-offer'?'申し出':a.key==='toggle-time'?a.label.replace('蒸留を再開する','蒸留を再開'):a.label;
+   const label=a.key==='trade-info'?'取引':a.key==='shop-offer'?'取扱店':a.key==='toggle-time'?a.label.replace('蒸留を再開する','蒸留を再開'):a.label;
    if(a.key==='start-distill'){this.runs(label);const bounds=c.measureText(label),baseline=a.y+a.h/2+(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/(2*this.textMetrics().unit);this.text(label,a.x+a.w/2,baseline,BODY_SIZE,'center');}
    else this.lines(label,a.x+a.w/2,a.y+27,a.w-12,BODY_SIZE,2,'center');
    if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}
