@@ -1,0 +1,142 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0dccb69155ff19526e37d6fab43b4456d08a7dca99af5639a81025f47054b550",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-contest-v02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Contest Lab 0.2 annual optional fair, seeded five-judge pool, award and recommendation records leading to next batch",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "fc32dc96199bf47397a28d7743a3884fb63adb99",
+    "canonicalSources": [
+      "Current explicit Contest Lab0.2 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR531 and immutable0.1 model/analyze/results/REPORT",
+      "Current production distill/age model; existing Lifecycle/LAB contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-contest-v02/r0.lock.json",
+      "works/ambertime/experiments/contest/**",
+      "works/ambertime-contest-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/lab-rooms.json",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/experiments/cask-aroma/**",
+      "works/ambertime/experiments/contest/model.mjs",
+      "works/ambertime/experiments/contest/analyze.mjs",
+      "works/ambertime/experiments/contest/REPORT.md",
+      "works/ambertime/experiments/contest/results.json",
+      "works/ambertime/experiments/contest/tests/model.test.mjs",
+      "works/ambertime/experiments/contest/tests/browser.mjs"
+    ],
+    "expectedChanges": [
+      "Preserve all0.1 model/data/report/tests byte-for-byte; retain old UI as v01.html/app-v01.mjs/style-v01.css, link original results. New seasonal module imports0.1 pure model.",
+      "Annual optional event at month12 then every12, upcoming judges announced; current year open until next boundary, one submit/skip per year, unresolved auto-skip at next boundary without blocking time. No save I/O.",
+      "Seeded pool of5 (original3 scores unchanged plus2 existing-axis preferences), choose3 annually; compare fixed3/rotating, arithmetic mean/median, recommendations on/off, consumption none/small. Fixed3 model-generated rivals; rank1..4, recommendation requires matching preference threshold and beating all rivals.",
+      "Existing four slots, aging/evaporation/sell-replace/JSON exports preserved, no recipe suggestions, finances or awards economy. Records only initially, no unproven cash incentive. Record subjective questions and generation design considerations, not implementation.",
+      "Bounded identical216 profiles and seeded years compare concentration/choice changes/coverage incl entry restrictions and unchanged ages/chemistry. Human motivation remains unverified.",
+      "Existing LAB identity/launcher title to0.2 and regenerated LAB, no new app or room."
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes ContestLab0.2 independent Staging extension. Main integration/Production not authorized."
+    ],
+    "hqDecisions": [
+      "Use existing registry/title and generated LAB only; no new shared contract. New annual model remains in experiment directory. Full risk floor maintained for registry/generated HTML."
+    ],
+    "rulesApplied": [
+      "Preimplementation Plan Lock; protected main has zero edits",
+      "No persistent storage or new model axes; existing aroma-a and ageCask reused",
+      "Three fixed seeded rivals; bounded comparisons, not unlimited search",
+      "Expression audit: controls, short reasons and numerical comparison only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "New annual/reproducibility/recommendation/ranking/skip/sampling/continuation/reset/history tests; immutable0.1 hash and216 score parity only, no repeated old full tests",
+      "390/360 and minimum PC annual submit/skip/nonblocking time/compare controls/result→replacement/history/JSON; storage unchanged; targeted screenshots",
+      "Scope→Risk→Impact, required CI/protection/reviews/merge and public-byte checks"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert0.2 patch and title changes. Original0.1 paths remain available, no saved data migration.",
+    "outOfScope": [
+      "Production",
+      "Main code/save/key/calculation/time/UI changes",
+      "Ingredients/casks/axes/equipment/staff/generation integration",
+      "Prizes or reputation model",
+      "Broad main E2E/long play/screenshots/unlimited search"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver",
+      "Human motivation/choice/next-batch desire",
+      "Equal-capital economic strategies",
+      "Real generation inheritance"
+    ],
+    "alternativesRejected": [
+      "Add new rooms or runtime",
+      "Change individual works or lifecycle states",
+      "Edit generated HTML directly"
+    ],
+    "boundaryCases": [
+      "Before first fair; year12/24 boundaries; multi-year advance",
+      "Only once per year; skip/manual advance do not block",
+      "Same barrel following year with aging and liquid loss",
+      "Recommendation threshold/rival victory/ties/rank",
+      "Initial fixtures unequal capital; no economic superiority claim",
+      "Original120-month per-cask diagnostic bound; sell old cask to continue"
+    ],
+    "testPlan": [
+      "Focused new seasonal unit tests and216-fixture comparative analysis",
+      "Immutable original files and original-score parity checks",
+      "Focused Chromium controls/storage/fit and minimum LAB link/title check",
+      "Required CI and independent review"
+    ],
+    "problem": "Fixed mean did not reward diversified holdings; test annual changes in judges and meaningful individual selection.",
+    "currentContract": "0.1 immutable reproducible216 fixtures, original3 deterministic scores, transient4-slot experiment.",
+    "whyExistingIsInsufficient": "Unlimited immediate submissions/fixed panel do not create annual planning or judge-dependent choices.",
+    "design": "Add seasonal model plus UI; original model and baseline assets remain unchanged and browsable.",
+    "migration": "None; transient session only.",
+    "compatibility": "Old0.1 model/report/results and playable archive remain exact. No production dependency changes.",
+    "promotionRisk": "Staging-only; never include experiment or launcher in Production."
+  }
+}
