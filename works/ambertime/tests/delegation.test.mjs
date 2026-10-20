@@ -4,7 +4,8 @@ import {execFileSync} from 'node:child_process';
 import * as D from '../partner-orders.mjs';
 import {buildDistilleryHistory} from '../distillery-history.mjs';
 import {fill,advance,resolve} from './brands-helpers.mjs';
-const fresh=()=>fill(D.newDelegatedDistillery(42),{progress:65,type:'refill'});
+// Keep the original v0.21 execution contract covered after the recorded fix boundary.
+const fresh=()=>fill(D.enableDelegation(D.newPartialDistillery(42)),{progress:65,type:'refill'});
 const id=s=>s.core.casks.at(-1).id;
 const cold=s=>{const raw=D.serializeDistillery(s),script=`import fs from 'node:fs';import * as D from ${JSON.stringify(new URL('../partner-orders.mjs',import.meta.url).href)};process.stdout.write(D.serializeDistillery(D.restoreDistillery(fs.readFileSync(0,'utf8'))));`;assert.equal(execFileSync(process.execPath,['--input-type=module','-e',script],{input:raw,encoding:'utf8'}),raw);return s;};
 const unchanged=(s,fn)=>{const raw=JSON.stringify(s);assert.throws(fn);assert.equal(JSON.stringify(s),raw);};

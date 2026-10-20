@@ -1,4 +1,4 @@
-import {buildDistilleryHistory} from './distillery-history.mjs?v=0.41-delegation';
+import {buildDistilleryHistory} from './distillery-history.mjs?v=0.42-delegation-fixes';
 // One ephemeral projection. The operation prefix and migration origin are exact;
 // a partial extraction changes no history event until an operation records it.
 let cachedKey=null,cachedHistory=null;
