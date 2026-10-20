@@ -177,3 +177,6 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #dialog-body .quote-numbers span{display:inline-block;white-space:nowrap}
 
 .bottling-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.bottling-plan{display:grid;gap:7px}.bottling-plan-fields{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:8px;align-items:center}.bottling-plan-fields input{width:100%;text-align:center}.bottling-reservation{margin:8px 0;overflow-wrap:anywhere}
+
+/* Transient information never owns focus, input, game time or saved state. */
+.automatic-news{position:fixed;z-index:15;border:var(--pixel) solid #858995;background:#2e3143;color:var(--ink);box-sizing:border-box;box-shadow:var(--pixel) var(--pixel) #19141e;padding:4px 6px;font:inherit;pointer-events:none;overflow-wrap:anywhere;overflow:hidden}.automatic-news[hidden]{display:none}
