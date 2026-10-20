@@ -1,0 +1,156 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c9271d87860b1009e7923b8fa96e82ba77886649a3d1dba57c7a399b81e18641",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "cb115ba8ebea05efe83a29b72e7deae2af9a4a18",
+    "changeId": "ambertime-partial-bottling-020",
+    "revision": 0,
+    "change": "AmberTime0.20 counted bottling and multiple frozen releases from one aging cask",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "Current explicit AmberTime0.20 partial bottling request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR533 DecisionLab; PR529serials; PR528stockistentry; PR530repeatstaff; latestmain",
+      "Current aroma-a path; M.bottle/count/quote; E.bottleNow/retail andreserve; D.strictreplay/brands/generations/shop/wholesale; bottle-storage/cask-serials andhistoryprojections",
+      "PR534 failed Plan registration: actualjob118472452782 found2locks; CHANGE-PLAN.md fresh-r0 gate; reviewedimplementation7fe77c93 reused withoutmodelchange"
+    ],
+    "allowedPaths": [
+      "works/ambertime/partial-bottling.mjs",
+      "works/ambertime/distiller.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/bottle-storage.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/tests/partial-bottling.test.mjs",
+      "works/ambertime/tests/partial-bottling-browser.mjs",
+      "works/ambertime/tests/fixtures/partial-legacy.json",
+      "works/ambertime/design/partial-bottling/REPORT.md",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      ".change-plans/ambertime-partial-bottling-020/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs"
+    ],
+    "expectedChanges": [
+      "Preserve existing chemistry/M.bottle and every prechange opcode/result. Add explicit v19 partial-bottling execution boundary fromv18 with recorded enable op, new counted-branded opcode (integercount and strictselection); UI v19save key reads oldv18/earlier without rewritingoldkeys, follows existing replayupgrade pattern. NewnewPartial factory; legacyfactories remain unchanged. No new save system.",
+      "Reuse M.bottle exact1..maximum,0.7L/count andfees. Residual>=onebottle keepssamecask/age/profile/variation/environment/history and notes/batch; selectedpending resolved, otherdecisions preserved. Maxcount retirescask usingexistingarchive fractionalremainder behavior; discloseunbottledtail not falsezero. Batchwithdrawal/upkeep attribution onlyaftercountedpath prevents priorwithdrawals markedasevaporation or duplicatecostattribution, incllaterfull/wholesale.",
+      "Each countedtransaction newproduct/release withfrozenage/3axes/price andoriginalcask/batch/manualrecipe reference; serialderivedfromexistingprojection notsavedinternalID. Existingbrandselection/newbrand/storage/list/retail/shop/department rules retained. Wholesaleassigned/unmet blockedasbefore; explicitcancel required; automaticfullshipment unchanged. Product/releasecaps retained.",
+      "Newopcode integratedintovalidator/replay/projectionreceipts/generation triggers; oldoperations byteexact. Samecask notnewserial; historicalbottling product-keyed. Updateonlynecessarysource/reference display andlivecachechain so oldcachedreader neverrejectsnewlogs. Existing generationestateandstaffrepeat unchanged.",
+      "Existingquotemodal: compare slider vsstepper vsnumeric; compacttouch1-stepchoice+allselectonly; actualmax/selected/remainder/fee andcash. Ephemeralchoices no save/mutation untilconfirm; preservebrandfields/X/backdrop/back, protectedconfirmandafter-savefeedback. Samebrand releases distinguishbyserial+age; ledgerlinksuseproduct/release whileparentcasknotduplicated.",
+      "For new counted casks only, notes carry cumulativewithdrawnLitres as observationcontext. Loss threshold observes genuinecumulativeevaporation (remaining+withdrawn)/initial ratherthan bottling; maturationchoicebudget excludes countedbottlechoices. Legacy notes withoutcontext retainexactdetectbehavior. No chemistry/coefficients changes. monthly.mjs onlyimportcachebump for updatedobserver."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Capture real baselinev18 andearlier savedfixtures beforeediting, exactoldfulloutput/coldreplay; new1/multiple/max/repeatedcount+pending/age/evaporation/frozenprofile/price/cash/reserve/8product and4caskcaps; newopcode tampering/count validation strictreplay andreloadwithactiveextraction.",
+      "Focused retail/storage+all3shops anddepartment5bottle/adoption/perrelease rules; wholesale normal/special/unmet/cancel/fullshipment anti-double-sale; record/recipe/serial/history andgenerationhandovercarry/replay. Related existing regression suites only, no fullgame simulation/E2E/longplay.",
+      "390x844touch+360 andminimalPC modal selection/uncommittedbytes/all/1/multiple/full/repeat,brandselection/reload/storageandshopentry,modalclose/savefailure/doubleclick; no broadimagecollection. Expressionauditandindependenttechnicalreview.",
+      "Scope→Risk→Impact andexactheadCI/reviews/base/normalStagingmerge/Pagesbytechecks. MaintainCI/protection; donotreruncompletedchecks withoutcause."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Preserve newv19save before reverting; oldv18andearlier keys/bytes remain readablewithpriorcode. Newcountedlogs requirev19reader; neverfeedthemtooldcode. Revertonlyfeature/cachechain afterpreservingnewprogress; no destructive downgrade.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine/CI/ChangeOS/registries",
+      "Contest/DecisionLab changes or integration",
+      "chemistry/evaporationcoefficients/price/demand/fee/balance/newaxes/casks/ingredients",
+      "newretailshops/inventory/wholesalecontractterms",
+      "newbrand/generationreward/scheduler",
+      "fullE2E/longgameplay/fullgamesimulation/comprehensiveimages"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhoneSafari/VoiceOver",
+      "Owner tactile/adoption/enjoyment",
+      "Broad long-term gamebalance andunrelatedscreens"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes mainpartialbottling andcompatiblesaveextension/Stagingdelivery; Productionforbidden."
+    ],
+    "hqDecisions": [
+      "Work-local v19 execution boundary usesexisting enable-operation/strictreplay/keyupgrade pattern, preservesoldopcodesandkeys. No alternativepersistentstore/newglobalruntime. Wholesalecontracttermsunchangedbyrejectingcountedtakeuntilcancel."
+    ],
+    "rulesApplied": [
+      "Full WORK+CONTENT dueauthorized work-local saveexecutionextension; locked beforeimplementation.",
+      "Old M.bottle math handlespartial/max tail andmustnotchange. Countedmetadata limitedtov19andnewoperation; oldresult equalitycapturedagainstbaseline.",
+      "Expressionaudit: exactselectioncost/remainderandbriefreleaseidentity only, no decorativeexplanations/optimumrecipes.",
+      "Useful independent modelimplementation/replaytests andread-onlyreview delegated perAGENTS; rootownsUI/integration andboundedbrowserchecks.",
+      "Restart fromsamecurrentmain withonefresh r0beforereapplyingreviewedimplementation; preservePR534/oldlocks asfailedhistory, no gatechange or blindrerun. Completed model/browserchecks retained becauseruntimetreeunchanged."
+    ],
+    "alternativesRejected": [
+      "CopyDecisionLabfees/seasonalengine: unrelated andincompatible",
+      "ChangeM.bottleorlegacywholeopcode: unnecessary andbreaksoldreplay",
+      "Allowreservedcaskmanualtake: violatesexistingfullcaskwholesaleassignment",
+      "Newparallelhistoryledger: existingproduct/releaseandoperationhistory suffice"
+    ],
+    "boundaryCases": [
+      "1/maximum/fractional/NaN/overstock/unaffordable count; unbottledtailarchive",
+      "Partialfollowedbypartial/full/wholesale; priorwithdrawalsnotfalseevaporation; attributedupkeepnotduplicated",
+      "Pendingselectedandothercasks;8products/4slots; oldfullbyteparity",
+      "Oldv3..18restore; v19coldreplay; activeextraction; forgedoperationandstate",
+      "Retail/threebuyers/departmentreleaseidentity; reserved/unmetorder",
+      "Samecaskserial/sourcegeneration/recipeandhistory acrosshandover",
+      "Three1bottle takes mustnotforceyounglast prompt; significantwithdrawal mustnottriggerfalseloss; actualevaporation stillcantriggerloss; oldnotesbyteexact."
+    ],
+    "testPlan": [
+      "Capture real baselinev18 andearlier savedfixtures beforeediting, exactoldfulloutput/coldreplay; new1/multiple/max/repeatedcount+pending/age/evaporation/frozenprofile/price/cash/reserve/8product and4caskcaps; newopcode tampering/count validation strictreplay andreloadwithactiveextraction.",
+      "Focused retail/storage+all3shops anddepartment5bottle/adoption/perrelease rules; wholesale normal/special/unmet/cancel/fullshipment anti-double-sale; record/recipe/serial/history andgenerationhandovercarry/replay. Related existing regression suites only, no fullgame simulation/E2E/longplay.",
+      "390x844touch+360 andminimalPC modal selection/uncommittedbytes/all/1/multiple/full/repeat,brandselection/reload/storageandshopentry,modalclose/savefailure/doubleclick; no broadimagecollection. Expressionauditandindependenttechnicalreview.",
+      "Scope→Risk→Impact andexactheadCI/reviews/base/normalStagingmerge/Pagesbytechecks. MaintainCI/protection; donotreruncompletedchecks withoutcause.",
+      "Targeted optional-observercontext tests forloss andchoicebudget, legacywithoutcontext parity; verify characterdiffonlyobserver and monthlyimportonly."
+    ],
+    "problem": "Whole-cask bottling prevents keeping part of a cask for later releases.",
+    "currentContract": "M supports integer count, E always bottles all and removes notes; D wraps brands/wholesale/strictreplay andv18staffmode; serials/history arederived.",
+    "whyExistingIsInsufficient": "No public counted transaction, retainedcaskmetadata or compatible counted replay; UI onlywholequote.",
+    "design": "v19enable boundary and counted branded opcode using M countmath; optionalwithdrawal/accountingattribution; samecaskmetadata and product-keyed releases; existingwholesalereservation guards; compactquoteselection. Add optional countedwithdrawal observationcontext; oldnotes detectunchanged.",
+    "migration": "Recorded enablePartialBottling fromvalidatedv18; newUI v19key reads existingv18andolder upgradechain, retains everyoldkey andoldopcode. No rewritingoldinputs.",
+    "compatibility": "Oldfactories/fullcalls/ops remainbyteexact; newmetadata onlyaftercountedv19action. Newreader validatesoldandnew; oldreader isnotpromisedtoacceptv19.",
+    "promotionRisk": "Stagingonly; no Productionpromotion. Newsaveprogressrequiresv19readerandmustbepreservedbeforerollback.",
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
