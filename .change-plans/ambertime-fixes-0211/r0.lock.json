@@ -1,0 +1,141 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "35e534678de8b3498f39938c921dde519a09bbfc19b0673aa0da67fcf7656983",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "f2d776067beb5e527d156c4b9a64059038695744",
+    "changeId": "ambertime-fixes-0211",
+    "revision": 0,
+    "change": "AmberTime0.21.1 stored bottle protection, residual stock bottling, compact status and transient completion news",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "Current explicit AmberTime0.21.1 user request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR538 and current main f2d7760, stored-shipping review r4322790281",
+      "Existing v20 strict replay/count bottling/reservation/monthly/shop contracts and pixel/manual-milestone UI"
+    ],
+    "allowedPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/partial-bottling.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/tests/delegation-fixes.test.mjs",
+      "works/ambertime/tests/fixtures/delegation-v20.json",
+      "works/ambertime/tests/delegation.test.mjs",
+      "works/ambertime/tests/event-notices.test.mjs",
+      "works/ambertime/tests/delegation-polish-browser.mjs",
+      "works/ambertime/design/delegation/REPORT-0211.md",
+      ".change-plans/ambertime-fixes-0211/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs"
+    ],
+    "expectedChanges": [
+      "Fix only after explicit recorded enable-delegation-fixes operation in existing v20 automation.fixVersion boundary; new game enablesfixes, current v20 savedprogress loads/replays old events then appends boundary under same savekey. Preserve prior ops/keys, strict validation, reservedcash/no economics changes.",
+      "Fixedmode excludes unlisted stored bottles from normal automaticshipping and stock reservation salesinventory counts; listing enables shipment nextmonth. No automatic department shipping. Existing explicit approved limited5 transaction remains manual. Stockmode automaticbottle min(requested,availablewholebottles) with actual count/fee; zero/cash reasons, existing fractionalarchive and one/month guard; age reservation unchanged.",
+      "Compact warehouse clock/stock/pause glyph by cask with full detail only inside cask; staff shortstatus by existing personicon with one/three/continuous terms inside existingstaffpanel; grid-aligned clear store glyph. No added permanent panel.",
+      "Reuse manual milestone dialogs for manual distillation/bottling/listing only. Automaticfill/bottling/monthly retail+shipping as brief nonblocking pointer-transparent single coalesced news popup, deduplicated actual events created after successfulsave. No persistentcompletion window, replayonrender/room/pause/reload, timers mutate presentation only. Actionable offers remain dialogs.",
+      "Targeted model/save fixtures, rawliquid/cash/tail/count equivalence, storage/listing/shipping and nodepure notice coalescing tests; focused390phone and minimalPC operations/screenshots. Existing completedloop/balance/fullE2E not repeated."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844touch +1280PC (360 only if fitissue) warehouseicons/store/staff no overlap; manualmilestones vs automaticnews nonblocking/expiry/coalescing/actionoffers; switch/pause/resume/reload no duplicate.",
+      "Independent review, Scope→Risk→Impact, syntax/diff, requiredCI/exacthead/base/normalStagingmerge/Pagesbytes andpublicboot."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Preserve progressed save with fixopcode before rollback; originalv20fixture/oldkeys remain available. Do not feednewopcode tooldreader.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine/ChangeOS/CI/registries/Labexperiments",
+      "Chemistry/demand/economiccoefficients/newrescue/brand/generation/equipment changes",
+      "FullE2E/longplay/comprehensiveimages/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhoneSafari/VoiceOver",
+      "Owner tactile/adoption/enjoyment",
+      "Broad long-term gamebalance andunrelatedscreens"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes residual stock bottling below requestedcount, storage exclusion, compact icons/status and transient notification redesign with stagingPR/CI/merge. Production forbidden."
+    ],
+    "hqDecisions": [
+      "Work-local recorded fixes boundary under existing replay and same v20 savekey preserves historical results. No global save/runtime changes. Pixel geometry and transient presentation remain worklocal."
+    ],
+    "rulesApplied": [
+      "FullWORK+CONTENT lock before implementation because replay execution semantics changed.",
+      "Chemistry,demand,prices,fees,cash,storeconditions,4casklimit,brand,generation unchanged.",
+      "Necessary independent model/UI delegation and independent review perAGENTS; no duplicate broad tests.",
+      "Expressionaudit: needed operation/state/briefnews only."
+    ],
+    "alternativesRejected": [
+      "Import experimental Lab economy or demand: differs from actual game.",
+      "New rescue loan or balance adjustments: not authorized.",
+      "Automatic all-cask bottling or department shipping: contradicts request.",
+      "New parallel durable store: existing replay suffices."
+    ],
+    "boundaryCases": [
+      "Stored normal/dept bottles not auto consumed; list nextmonth; sharedstock no duplicates",
+      "Requested10 available8 or0, cashnotenough, fractionalarchive manualequivalence",
+      "Oldsaved activeextraction/reservations replay beforefix and newop afterreload",
+      "Notice sameevent twice/samemonth/room/pause/reload/failedsave, automatic no click interception",
+      "Icon age/stock/pause andstaff shortstate/PCphone grid"
+    ],
+    "testPlan": [
+      "Targeted model/save fixtures, rawliquid/cash/tail/count equivalence, storage/listing/shipping and nodepure notice coalescing tests; focused390phone and minimalPC operations/screenshots. Existing completedloop/balance/fullE2E not repeated."
+    ],
+    "problem": "Stored inventory can auto ship; stock reservations stall below requested quantity; persistent completion/status text crowds rooms.",
+    "currentContract": "v20 strictreplay, fixed requested auto batches and shipping regardless listing; cask status and staffterms as text; manualmilestones exist.",
+    "whyExistingIsInsufficient": "Cannot safely reinterpret historical months; current visualcompletion area persists and mixes manual,automatic,decision notifications.",
+    "design": "Recorded v20fix boundary; reuse counted math with residual quantity for stockmode. Single transient presentation queue and familiar pixel icons, no extra persistentpanel.",
+    "migration": "Load existingv20 under samekey, replay unchanged oldoperations, append explicit fixboundary once then save. Capture oldfixture prior to mutation.",
+    "compatibility": "Oldv20months retain oldmeaning before boundary; samekey andstrictreplay/newfactory. Earliermodecode remains unchanged.",
+    "promotionRisk": "Stagingonly; no Productionchange. Newfixopcode requiresupdatedreader.",
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
