@@ -1,5 +1,5 @@
-import {replayDistilleryOperations} from './partner-orders.mjs?v=0.44-monthly-timing';
-import {generationMode} from './generations.mjs?v=0.44-monthly-timing';
+import {replayDistilleryOperations} from './partner-orders.mjs?v=0.45-shop-demand';
+import {generationMode} from './generations.mjs?v=0.45-shop-demand';
 
 // This is a disposable view projection, not a second saved event ledger.
 const copy=x=>structuredClone(x);

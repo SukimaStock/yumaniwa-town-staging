@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "harnessCorrections": [
+    "Use direct scene ledger entry, not background button behind aux modal.",
+    "Expand the existing 商店 ledger details before reading its rows."
+  ],
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "touch": true
+  },
+  "checks": [
+    "fresh paid manual extraction starts on phone, new demand boundary active, staff remains un-hired",
+    "lawful old v20 fixture upgrades once without inventory/cash change; repeated reload leaves saved bytes exact and no stale news",
+    "one ordinary monthly phone step equals model including orders, shipments, cash and inventory; existing news/ledger show request and fulfillment; save/reload exact, unrelated key intact, no page errors"
+  ],
+  "month": 29,
+  "orders": [
+    {
+      "shopId": "town-liquor",
+      "month": 29,
+      "count": 7,
+      "profileProductId": 8,
+      "unitPrice": 12.8,
+      "reason": "fulfilled",
+      "components": {
+        "base": 3,
+        "monthlyMultiplier": 2,
+        "flavorFactor": 1.066241660265244,
+        "ageFactor": 1,
+        "priceFactor": 1.118033988749895
+      },
+      "requested": 7,
+      "shipped": 7,
+      "unmet": 0,
+      "available": 30,
+      "belowMinimum": 0
+    }
+  ],
+  "totals": {
+    "requested": 7,
+    "shipped": 7,
+    "unmet": 0
+  },
+  "news": "販売 21本 · 入金 £314 / 注文 7本 · 発送 7本",
+  "ledgerExcerpt": "売上累計 £986\n\n維持費累計 £444\n\n2028年6月 商店\n\n町の酒店：注文 7本 · 発送 7本\n\nブランドと発売\nこれまでの一本",
+  "errors": [],
+  "physicalSafari": false,
+  "screenshotForLocalReview": "/tmp/ambertime-shop-demand-phone.png"
+}

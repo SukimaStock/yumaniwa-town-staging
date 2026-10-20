@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ab738fb76e788bc77a52f04271cc6757c594d847c9382eb859548c058005c093",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-shop-demand-0221",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "bd028b69639ccb170da7e515ea6811fb6650b5e3",
+    "change": "Compare current/fixed/variable normal-shop demand independently, then adopt simplest effective rule with minimum delivery and replay boundary",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.22.1 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #535/#538/#540/#541/#542",
+      "works/ambertime/design/supply-demand/REPORT.md",
+      "Current public partner-orders/economy/model and strict replay"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-shop-demand-0221/r0.lock.json",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/tests/shop-demand.test.mjs",
+      "works/ambertime/tests/shop-demand-integration.test.mjs",
+      "works/ambertime/tests/shop-demand-browser.mjs",
+      "works/ambertime/tests/fixtures/shop-demand-legacy.json",
+      "works/ambertime/design/shop-demand/compare.mjs",
+      "works/ambertime/design/shop-demand/results.json",
+      "works/ambertime/design/shop-demand/REPORT.md",
+      "works/ambertime/design/shop-demand/browser-results.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/brand-reputation.mjs"
+    ],
+    "expectedChanges": [
+      "Before main runtime changes, compare A cap purchases, B small fixed demand, C deterministic age/flavor/price/month demand in an independent finite base-model adapter; same initial seed, clocks, money and legal store approvals. Persist requested/unmet/shipped/zero and stockout separately.",
+      "Adopt simplest candidate satisfying variable store roles and reproducibility only after results review; otherwise defer demand integration but fix min quantities. Preserve caps, retail-first, department limited5, next-month eligibility, no backlog and one shared inventory.",
+      "Introduce explicit work-local recorded boundary so old game operation histories replay unchanged; preserve save key and saved data and protect restore integrity.",
+      "Use existing monthly notices and ledger for order/shipment results; no new settings/approval/store inventory/quality or reputation UI.",
+      "Targeted pure/integration/replay/minimum/empty/stored/listed/approved/timing/inventory/accounting tests and phone basic operation; required CI and Staging merge/public bytes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused phone interaction/order result/ledger/save reload; independent review and exact-head CI/public bytes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes independent A/B/C comparison and simplest effective adoption if no obvious breakdown; keep all listed fixed conditions and Production excluded."
+    ],
+    "hqDecisions": [
+      "Use current v20 work-local recorded enable operation, deterministic pure demand without shared RNG consumption or new save key. Main runtime untouched until independent comparison reviewed."
+    ],
+    "rulesApplied": [
+      "Plan Lock precedes comparison and implementation",
+      "Expression audit: only order/shipment amounts and shortage reasons in existing views, no added settings or score",
+      "AGENTS role-specific parallel investigation and independent review"
+    ],
+    "rollback": "Back up newer progress before old reader; retained old key and replay before recorded boundary. Revert work-local change only.",
+    "outOfScope": [
+      "Production",
+      "Other economy/chemistry/reputation constants",
+      "New stores/equipment/storage/cask capacity/flavor axes",
+      "Full E2E/long manual play/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver and author feel/adoption"
+    ],
+    "problem": "Caps are used as demand and super automatic shipments violate existing minimum10.",
+    "currentContract": "#541 retail, department, liquor, super then auto bottle. Old strict replay and v20 key.",
+    "whyExistingIsInsufficient": "Always-buy caps absorb small production and price/profile differences; automatic minimum inconsistent.",
+    "design": "Independent base-model A/B/C then minimal order budget/receipt per approved store and bounded history in existing ledger; exact old replay boundary.",
+    "alternativesRejected": [
+      "Port Lab six stores",
+      "Tune other economic constants",
+      "Backlog/store inventory/new screens",
+      "Retroactively recalculate old saves"
+    ],
+    "migration": "Recorded work-local enable after strict old restore; idempotent, preserved timing and active states.",
+    "compatibility": "Old factories and operations unchanged until explicit new boundary.",
+    "boundaryCases": [
+      "0orders/min9vs10/stock9vs10",
+      "stored/current-month approvals/listings",
+      "retail sharing/department held5",
+      "multiple lots/month cap and no double settlement",
+      "cash rollback/restore/cold replay/old saved operations"
+    ],
+    "testPlan": [
+      "Finite paired A/B/C public-operation simulations, pure demand math, focused monthly and old/new save replay, phone controls and ledger, required CI."
+    ],
+    "promotionRisk": "None; staging-only."
+  }
+}
