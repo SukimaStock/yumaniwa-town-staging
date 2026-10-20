@@ -352,6 +352,12 @@
       "path": "works/ambertime-decision-lab",
       "status": "active",
       "title": "AmberTime Decision Lab 0.1"
+    },
+    {
+      "id": "ambertime-reputation-lab",
+      "path": "works/ambertime-reputation-lab",
+      "status": "active",
+      "title": "AmberTime Reputation Lab 0.1"
     }
   ]
 }
