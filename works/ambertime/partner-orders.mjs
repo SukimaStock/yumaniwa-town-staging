@@ -168,15 +168,17 @@ export function staffStatus(s){
  validateDistillery(s);const hire=staffHireCheck(s,checkpoint.context),r=s.usual?.reservation;
  return {...clone(s.staff??{hired:false,legacy:false,hiredMonth:null}),canHire:hire.ok,reason:hire.reason,hireMinimum:hire.minimum,hireCost:DISTILLER.hireCost,salary:DISTILLER.salary,state:r?.status==='active'?'working':r?'queued':'idle'};
 }
-function reserveStaffWithContext(s,caskId,context){
+function reserveStaffWithContext(s,caskId,context,mode='once'){
+ assert(['once','three','continuous'].includes(mode),'依頼方式を選びます。');
  assert(staffMode(s)&&s.staff.hired,'蒸留担当者を雇うと依頼できます。');
  const r=sourceFromContext(s,caskId,context);assert(r,'抽出位置と樽を確認できる仕込みを選びます。');
  assert(!blocked(s)&&s.still.phase==='ready'&&!s.usual.reservation,'今の仕込みを終えてから依頼します。');
  assert(!generationMode(s)||s.generations.active.phase==='working','最後の仕込みは自分で行います。');
  const j=clone(s);j.usual.reservation={status:'queued',recipe:{stopAt:r.stopAt,type:r.type},source:clone(r.source),salary:DISTILLER.salary};
- return action(j,'staff-reserve',{caskId,progress:shopProgress(s)});
+ if(mode!=='once'){j.usual.reservation.mode=mode;if(mode==='three')j.usual.reservation.remaining=3;}
+ return action(j,mode==='once'?'staff-reserve':'staff-repeat-reserve',{caskId,...(mode==='once'?{}:{mode}),progress:shopProgress(s)});
 }
-export function reserveStaff(s,caskId){validateDistillery(s);return reserveStaffWithContext(s,caskId,checkpoint.context);}
+export function reserveStaff(s,caskId,mode='once'){validateDistillery(s);return reserveStaffWithContext(s,caskId,checkpoint.context,mode);}
 function saveRecipeFromSource(s,caskId,name,context){
  assert(recipesMode(s),'製法帳に対応した保存で記録します。');
  const source=context.manualSources.get(caskId);assert(source,'手動で樽詰めした製法を選びます。');
@@ -207,6 +209,7 @@ export function handoverGeneration(s,id){
  const a=s.generations.active;assert(a.id===id&&a.phase==='review'&&!blocked(s),'先に今の判断を確認します。');
  const j=clone(s),{noticedPhase,phase,...record}=j.generations.active;
  j.generations.completed.push({...record,endedMonth:j.core.month});j.generations.active=newGeneration(a.id+1,j.core.month);
+ if(j.usual?.reservation?.mode)j.usual.reservation=null;
  return action(j,'generation-handover',{id,progress:shopProgress(s)});
 }
 function generationStalled(s){
@@ -389,10 +392,12 @@ export function usualQuote(s){
  const recipe=s.usual?.reservation?.recipe??(recipesMode(s)?selectedUsualRecipe(s):s.usual?.recipe);if(!recipe)return null;
  return {...recipe,distillationCost:C.distillationCost,caskCost:C.casks[recipe.type].cost,cost:C.distillationCost+C.casks[recipe.type].cost};
 }
-export function reserveUsual(s){
+export function reserveUsual(s,mode='once'){
+ assert(['once','three','continuous'].includes(mode),'依頼方式を選びます。');
+ assert(mode==='once'||s.staff?.hired,'蒸留担当者を雇うと依頼できます。');
  if(staffMode(s)){
   assert(s.staff.hired||s.staff.legacy,'蒸留担当者を雇うと依頼できます。');
-  if(s.staff.hired){validateDistillery(s);const selected=s.recipeBook.entries.find(r=>r.id===s.recipeBook.selectedId),latest=[...checkpoint.context.manualSources.values()].at(-1);return reserveStaffWithContext(s,selected?.source.caskId??latest?.caskId,checkpoint.context);}
+  if(s.staff.hired){validateDistillery(s);const selected=s.recipeBook.entries.find(r=>r.id===s.recipeBook.selectedId),latest=[...checkpoint.context.manualSources.values()].at(-1);return reserveStaffWithContext(s,selected?.source.caskId??latest?.caskId,checkpoint.context,mode);}
  }
  const recipe=recipesMode(s)?selectedUsualRecipe(s):s.usual?.recipe;
  assert(usualMode(s)&&recipe,'自分で蒸留し、樽に詰めると製法が残ります。');
@@ -403,6 +408,11 @@ export function cancelUsual(s){
  assert(usualMode(s)&&s.usual.reservation?.status==='queued','実行前の予約だけ取り消せます。');
  const j=clone(s);j.usual.reservation=null;return action(j,'cancel-usual');
 }
+export function stopStaffRepeat(s){
+ const r=s.usual?.reservation;assert(r?.mode&&r.status==='active','仕込み中の依頼を選びます。');if(r.stopAfter)return s;
+ const j=clone(s);j.usual.reservation.stopAfter=true;return action(j,'staff-repeat-stop',{progress:shopProgress(s)});
+}
+const repeatOfferPending=s=>!!(s.usual?.reservation?.mode&&s.shop?.offer&&!s.shop.offer.notified);
 export function canBeginUsual(s){
  const check=E.canStart(s),recipe=s.usual?.reservation?.recipe,minimum=check.minimum+(recipe?caskPremium(recipe):0)+(staffMode(s)?s.usual?.reservation?.salary??0:0);
  // Inspect structural blockers with the full recipe budget available, so the
@@ -410,14 +420,14 @@ export function canBeginUsual(s){
  let reason=(s.core.cash<minimum?E.canStart({...s,core:{...s.core,cash:minimum}}):check).reason;
  if(generationMode(s)&&s.generations.active.phase!=='working')reason='引継ぎまでは手動で仕込みます。';
  else if(!usualMode(s)||s.usual.reservation?.status!=='queued')reason='次の一樽を予約できます。';
- else if(s.trade.offer)reason='届いた申し出を確認します。';
+ else if(s.trade.offer||repeatOfferPending(s))reason='届いた申し出を確認します。';
  else if(!reason&&s.core.cash<minimum)reason=`仕込みと樽・瓶に £${minimum} 必要です。`;
  return {ok:!reason,reason,minimum};
 }
 // An otherwise empty distillery needs at most one ordinary month to clear the
 // existing monthly start limit. Never run empty months waiting for absent money.
 export function usualNeedsClock(s){
- if(s.usual?.reservation?.status!=='queued'||generationMode(s)&&s.generations.active.phase!=='working')return false;
+ if(repeatOfferPending(s)||s.usual?.reservation?.status!=='queued'||generationMode(s)&&s.generations.active.phase!=='working')return false;
  const c=canBeginUsual(s);return c.ok||(!blocked(s)&&s.still.phase==='ready'&&s.core.lastDistillation===s.core.month&&s.core.casks.length<C.maxCasks&&s.core.products.filter(p=>p.stock>0).length+s.core.casks.length<C.maxProducts&&s.core.cash-E.upkeep(s)>=c.minimum);
 }
 export function beginUsual(s){
@@ -430,7 +440,7 @@ function completeUsual(s){
  assert(usualMode(s)&&r?.status==='active'&&!blocked(s)&&s.still.phase==='distilling'&&s.still.distillation.progress===r.recipe.stopAt,'いつもの仕込みはまだ抽出中です。');
  let j=stopWithModel(s);j.operations.pop();j=E.fillBarrel(j,r.recipe.type);j.operations.pop();
  for(const n of Object.values(j.notesById))n.observations??=[];
- j.usual.reservation=null;return action(j,'complete-usual');
+ j.usual.reservation=r.mode&&!r.stopAfter&&(r.mode==='continuous'||r.remaining>1)?{...clone(r),status:'queued',...(r.mode==='three'?{remaining:r.remaining-1}:{})}:null;return action(j,'complete-usual');
 }
 function syncReleases(s){
  if(!brandMode(s))return s;
@@ -660,7 +670,7 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-staff':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableStaff(s,{legacy:o.value?.legacy});case 'staff-hire':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return hireStaffWithContext(s,context);case 'staff-reserve':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return reserveStaffWithContext(s,o.value?.caskId,context);case 'enable-recipe-book':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableRecipeBook(s);case 'recipe-save':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return saveRecipeFromSource(s,o.value?.caskId,o.value?.name,context);case 'recipe-select':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return selectRecipe(s,o.value?.id);case 'enable-generations':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableGenerations(s);case 'generation-notice':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeGeneration(s,o.value?.id);case 'generation-handover':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return handoverGeneration(s,o.value?.id);case 'generation-stalled':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'enable-bottle-storage':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableBottleStorage(s);case 'enable-department':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableDepartment(s);case 'department-cancel':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return cancelDepartmentInterest(s,o.value?.selectionId);case 'enable-stockists':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableStockists(s);case 'stockist-notice':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s,o.value?.shopId,o.value?.offerId);case 'stockist-accept':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s,o.value?.shopId,o.value?.offerId);case 'stockist-decline':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s,o.value?.shopId,o.value?.offerId);case 'stockist-deliver':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count,o.value?.shopId,o.value?.selectionId);case 'stockist-accept-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count,o.value?.shopId,o.value?.offerId);case 'notice-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s);case 'accept-shop-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count);case 'enable-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableShop(s);case 'accept-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s);case 'decline-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s);case 'deliver-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count);case 'enable-aroma':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableAroma(s);case 'enable-usual':return enableUsual(s);case 'reserve-usual':return reserveUsual(s);case 'cancel-usual':return cancelUsual(s);case 'start-usual':return beginUsual(s);case 'complete-usual':return completeUsual(progress(s,s.usual?.reservation?.recipe.stopAt));case 'enable-brand-reputation':return enableReputation(s);case 'enable-brands':return enableBrands(s);case 'bottle-branded':return bottleBranded(s,o.value?.id,o.value?.selection);case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
+function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-staff':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableStaff(s,{legacy:o.value?.legacy});case 'staff-hire':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return hireStaffWithContext(s,context);case 'staff-repeat-stop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return stopStaffRepeat(s);case 'staff-repeat-reserve':if(o.value?.progress!==null)s=progress(s,o.value?.progress);assert(['three','continuous'].includes(o.value?.mode),'依頼方式が不正です。');return reserveStaffWithContext(s,o.value?.caskId,context,o.value.mode);case 'staff-reserve':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return reserveStaffWithContext(s,o.value?.caskId,context);case 'enable-recipe-book':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableRecipeBook(s);case 'recipe-save':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return saveRecipeFromSource(s,o.value?.caskId,o.value?.name,context);case 'recipe-select':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return selectRecipe(s,o.value?.id);case 'enable-generations':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableGenerations(s);case 'generation-notice':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeGeneration(s,o.value?.id);case 'generation-handover':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return handoverGeneration(s,o.value?.id);case 'generation-stalled':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'enable-bottle-storage':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableBottleStorage(s);case 'enable-department':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableDepartment(s);case 'department-cancel':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return cancelDepartmentInterest(s,o.value?.selectionId);case 'enable-stockists':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableStockists(s);case 'stockist-notice':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s,o.value?.shopId,o.value?.offerId);case 'stockist-accept':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s,o.value?.shopId,o.value?.offerId);case 'stockist-decline':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s,o.value?.shopId,o.value?.offerId);case 'stockist-deliver':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count,o.value?.shopId,o.value?.selectionId);case 'stockist-accept-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count,o.value?.shopId,o.value?.offerId);case 'notice-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s);case 'accept-shop-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count);case 'enable-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableShop(s);case 'accept-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s);case 'decline-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s);case 'deliver-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count);case 'enable-aroma':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableAroma(s);case 'enable-usual':return enableUsual(s);case 'reserve-usual':return reserveUsual(s);case 'cancel-usual':return cancelUsual(s);case 'start-usual':return beginUsual(s);case 'complete-usual':return completeUsual(progress(s,s.usual?.reservation?.recipe.stopAt));case 'enable-brand-reputation':return enableReputation(s);case 'enable-brands':return enableBrands(s);case 'bottle-branded':return bottleBranded(s,o.value?.id,o.value?.selection);case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
 // Derived source context lives only in replay/checkpoint memory, never in saves.
 const emptyReplayContext=()=>({manualSources:new Map(),nearbyProducts:new Map(),nearbyCasks:new Map()});
 // Comparison receipts are disposable validation context, never saved game state.
