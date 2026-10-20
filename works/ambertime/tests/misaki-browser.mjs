@@ -6,8 +6,8 @@ const url=process.env.AMBERTIME_URL??`http://127.0.0.1:${server.address().port}/
 try{for(const mode of['cold','warm','failed','delayed'])for(const dpr of[1,3]){
  const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:dpr});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(()=>{window.fontMeasures=[];window.fontDraws=[];const p=CanvasRenderingContext2D.prototype,m=p.measureText,f=p.fillText;p.measureText=function(t){window.fontMeasures.push({text:t,state:document.documentElement.dataset.fontState,font:this.font});return m.call(this,t);};p.fillText=function(t,x,y,...rest){window.fontDraws.push({text:t,x,y,state:document.documentElement.dataset.fontState,font:this.font});return f.call(this,t,x,y,...rest);};});
- if(mode==='failed')await page.route('**/fonts/misaki_gothic.ttf',route=>route.abort());
- if(mode==='delayed')await page.route('**/fonts/misaki_gothic.ttf',async route=>{await new Promise(r=>setTimeout(r,2400));await route.continue();});
+ if(mode==='failed')await page.route('**/fonts/misaki_gothic_2nd.ttf*',route=>route.abort());
+ if(mode==='delayed')await page.route('**/fonts/misaki_gothic_2nd.ttf*',async route=>{await new Promise(r=>setTimeout(r,2400));await route.continue();});
  await page.goto(url,{waitUntil:'domcontentloaded'});if(mode==='warm')await page.reload();
  await page.waitForFunction(()=>document.documentElement.dataset.fontState!=='loading');
  if(mode==='delayed'){assert.equal(await page.locator('html').getAttribute('data-font-state'),'fallback');await page.waitForFunction(()=>document.documentElement.dataset.fontState==='ready');}
