@@ -51,3 +51,13 @@ test('every authored variant remains bounded integer rect cells with determinist
  for(const [art,width,height]of examples){assert.doesNotMatch(art,/<(?:path|circle|ellipse|image|text|filter|animate|script)\b|transform=|\bon\w+=/);for(const r of rects(art)){const [x,y,w,h]=['x','y','width','height'].map(k=>Number(r[k]));assert([x,y,w,h].every(Number.isInteger));assert(x>=0&&y>=0&&w>0&&h>0&&x+w<=width&&y+h<=height);}}
  assert.equal(stillArt(),stillArt());assert.equal(brandArt(.4,{bottle:'slender',label:'dark'}),brandArt(.4,{bottle:'slender',label:'dark'}));
 });
+
+// Integer coordinates alone do not preserve source pixels: require native1×1.
+test('pot keeps its native16x16 grid with every source cell1x1',()=>{
+ const rs=rects(group(stillArt(),'still-pot'));assert(rs.length>100);
+ for(const r of rs){assert.equal(Number(r.width),1);assert.equal(Number(r.height),1);assert(Number(r.x)>=10&&Number(r.x)<26);assert(Number(r.y)>=20&&Number(r.y)<36);}
+ assert.equal(Math.max(...rs.map(r=>Number(r.y)+Number(r.height))),36);
+ const yellow=rs.filter(r=>r.fill==='#ffff64');assert.equal(yellow.length,5);
+ assert.equal(Math.max(...yellow.map(r=>Number(r.x)))-Math.min(...yellow.map(r=>Number(r.x))),2);
+ assert.equal(Math.max(...yellow.map(r=>Number(r.y)))-Math.min(...yellow.map(r=>Number(r.y))),2);
+});
