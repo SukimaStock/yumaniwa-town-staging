@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3dde077c42eda600560c600d111b4e43cc08489926135451ca0982f408f1f4b2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-shop-remarks-0232",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "55c23c3c88343fbb3b3bd82f5801aa378fb83637",
+    "change": "Read-only factual shop remarks within existing store screens",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.23.2 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR549 and design/shop-relations/REPORT.md",
+      "Existing three-store delivery/interests/adoptions and modal/timing contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-shop-remarks-0232/r0.lock.json",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/shop-remarks.test.mjs",
+      "works/ambertime/tests/shop-remarks-browser.mjs",
+      "works/ambertime/design/shop-remarks/browser-results.json",
+      "works/ambertime/design/shop-remarks/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs"
+    ],
+    "expectedChanges": [
+      "Add pure read-only per-store factual classification from existing relation, actualpositive deliveries/distinctmonths/lastmonth and departmentoffer/interest/pending/adoption. Separate classification/facts from shortdeterministic phrase table, roughly3–5 perstore. No state writes/newsavefields/scores/randomness.",
+      "Use factual shortordinary speech; no fabricatedpurchase, consumer sellout, unapproved departmentadoption. Inactive/missinghistory safe; eachstoreandbrand isolated; no-deliverymonth notcontinuity. Long/ongoing trade uses actualdeliverymonths rather than mere elapsedcalendar.",
+      "Render one small quoted paragraph in existing individual store view; no newbuttons/modal/panel/person/title, no automaticnotice or clockchanges. Existingstoremodal pause andreturnbehavior stays. Existingpixel/font/layout respected, quote1–2lines at390x844.",
+      "Only appscript/newhelper cacheedges and displayedversion0.23.2 update. Allmodel/economic/demand/offer/referral/staff/save sourcesimmutable; introduction remainsheld.",
+      "Scoped pure-state boundaries plus lawful publicoperation fixtures/coldrestore/samefacts/sameline, no auto interruptions, store/dept contradictions/verticalphonefit/actions/accounting/unchangedmodelhashes; independentreview/guards/CI/Staging public."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844 three shops before/afterdelivery/ongoing/gap anddepartment offer/pending/accepted exactlabels/<=2lines; no addedstop/notice; savedstates/realaccounting; exacthead/public"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User0.23.2 authorizes only shortshopremarks/read-onlyclassification inexisting3storeviews, throughStaging; no dialogueengine/person/names/rep/Production."
+    ],
+    "hqDecisions": [
+      "Pure derived presentationmodel contains no mutable persistence or scheduling hooks. Quoteonlyexistingstockistview unless required foractualdiscoverability; no new permanentpanel. Existingmodal pause semantics remain unchanged, quoteitself adds no stop."
+    ],
+    "rulesApplied": [
+      "Full WORK lock precedes implementation",
+      "AGENTS asks helpful model/UI/test delegation and independent review",
+      "Expression audit: remove unnecessary completion and monthly messages; preserve necessary actions/labels/accessibility, no new persistent interface"
+    ],
+    "rollback": "Revert work-local UI/helper/test/docs; no save migration or state rollback required.",
+    "outOfScope": [
+      "Production",
+      "Economy/demand/price/cost/chemistry/generation/reputation changes",
+      "New store/equipment/capacity/worker",
+      "Broad E2E/longplay/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver and author wording/tactile adoption",
+      "BroadE2E/longmanualplay intentionallyexcluded"
+    ],
+    "problem": "Years of actual deliveries are visible only as numbers; stores have no short grounded speech.",
+    "currentContract": "Main PR549 kept0.22.6 runtime and introductionheld. Shoprelations/deliveries anddepartmentinterests/pending/adoptions alreadydurable; existingstockistmodal paused by normalmodalcontract.",
+    "whyExistingIsInsufficient": "No per-store presentation selects briefgrounded remarks fromexistinghistory.",
+    "design": "Read-only fact extraction and per-store classification plus separate phrase table, one paragraph inexistingstore screen. Store/counter/economy untouched.",
+    "alternativesRejected": [
+      "New dialogueengine/person/name/buttons/modals",
+      "Newsavedremark state/affinity/reputation",
+      "Claim consumerstocks/sellout or unapproveddepartmentpurchase",
+      "Import referral/unlock/economicchanges",
+      "Randomlines or broadUIredo"
+    ],
+    "migration": "No savedata or schema changes. Existingstrictrestoredstate is read only fordisplay; neverremoveorrewritesaves.",
+    "compatibility": "Current model/replay/savekey and factories unchanged. Sameconditionsyield sameclassifiedkey/text afterrestore. Unknown/partialhistory neutralfallback only.",
+    "boundaryCases": [
+      "Pretrade/approvednoactualdelivery/firstactualdelivery/distinctmonths/gap priority",
+      "No deliverymonths notincremented; multiplelots same month countonce; stores/brands isolated",
+      "Supermarket remarks concernincomingdeliveries, notuntrackedconsumerinventory",
+      "Departmentbefore/offer/unapprovedinterest/pendingfive/fulfilledfive distinct; newoffer afteroldadoption notalreadyhandled",
+      "Read frozen inputs/strictsavebeforeafter equal, no newtime/notification trigger",
+      "390x844 longestphrase <=2lines and existingbuttons remainreachable"
+    ],
+    "testPlan": [
+      "Targeted pure-state unit tests (syntheticledger cases identified) plus lawfulmodelfixtures strictsave/restore and unchangedmodelbytechecks; narrow390x844 existingstore operations before/aftertransactions/dept and elapsedmonthnoautopopup; independentreview/CI/public."
+    ],
+    "promotionRisk": "Staging only; no Production changes."
+  }
+}

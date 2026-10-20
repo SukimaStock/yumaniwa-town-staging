@@ -1,0 +1,590 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "touch": true
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "chromium": "153.0.8010.0"
+  },
+  "fixture": {
+    "seed": 42,
+    "factory": "newStaffExperienceDistillery",
+    "baseMonth": 61,
+    "baseCash": 2297.78,
+    "creation": "Current browser-native public paid operations, three6-month refill releases then one24-month bourbon release; no state projection"
+  },
+  "checks": [
+    "three natural store offers generated from current paid model; each existing store detail shows one read-only factual remark, not list/main/modal alerts",
+    "department unapproved/approved/queued-five/actual-five use actual interest and delivery records; pending never claims receipt; only real next-month fulfillment pays",
+    "ordinary stores distinguish no delivery, first, ongoing actual history and six-month gap using lawful automatic deliveries; opening/reopening does not alter funds/inventory/history or saves",
+    "existing store modal deliberately pauses a running clock without changing user intent; closing resumes exactly one model month with no new remark popup or notification"
+  ],
+  "observations": [
+    {
+      "label": "before acceptance/delivery",
+      "shop": "town-liquor",
+      "key": "neutral",
+      "text": "いらっしゃいませ。",
+      "facts": {
+        "shopId": "town-liquor",
+        "brandId": 1,
+        "month": 61,
+        "related": false,
+        "startedMonth": null,
+        "relationshipMonths": 0,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": true,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「いらっしゃいませ。」",
+        "width": 333,
+        "height": 32,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 1,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "before acceptance/delivery",
+      "shop": "supermarket",
+      "key": "pre",
+      "text": "いらっしゃいませ。",
+      "facts": {
+        "shopId": "supermarket",
+        "brandId": 1,
+        "month": 61,
+        "related": false,
+        "startedMonth": null,
+        "relationshipMonths": 0,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": true,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「いらっしゃいませ。」",
+        "width": 333,
+        "height": 32,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 1,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "before acceptance/delivery",
+      "shop": "department",
+      "key": "offer",
+      "text": "この発売回が気になっています。",
+      "facts": {
+        "shopId": "department",
+        "brandId": 1,
+        "month": 61,
+        "related": false,
+        "startedMonth": null,
+        "relationshipMonths": 0,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": true,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「この発売回が気になっています。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "approved without delivery",
+      "shop": "town-liquor",
+      "key": "neutral",
+      "text": "いらっしゃいませ。",
+      "facts": {
+        "shopId": "town-liquor",
+        "brandId": 1,
+        "month": 61,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 0,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「いらっしゃいませ。」",
+        "width": 333,
+        "height": 32,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 1,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "approved without delivery",
+      "shop": "supermarket",
+      "key": "await",
+      "text": "取扱いを始めました。",
+      "facts": {
+        "shopId": "supermarket",
+        "brandId": 1,
+        "month": 61,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 0,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「取扱いを始めました。」",
+        "width": 333,
+        "height": 32,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 1,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "approved without delivery",
+      "shop": "department",
+      "key": "offer",
+      "text": "この発売回が気になっています。",
+      "facts": {
+        "shopId": "department",
+        "brandId": 1,
+        "month": 61,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 0,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": true,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「この発売回が気になっています。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "approved same facts after reload",
+      "shop": "department",
+      "key": "offer",
+      "text": "この発売回が気になっています。",
+      "facts": {
+        "shopId": "department",
+        "brandId": 1,
+        "month": 61,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 0,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": true,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「この発売回が気になっています。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "approved pending five",
+      "shop": "department",
+      "key": "pending",
+      "text": "5本、お待ちしています。",
+      "facts": {
+        "shopId": "department",
+        "brandId": 1,
+        "month": 61,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 0,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": true,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「5本、お待ちしています。」",
+        "width": 333,
+        "height": 32,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "actual five fulfilled",
+      "shop": "department",
+      "key": "received",
+      "text": "5本、受け取りました。",
+      "facts": {
+        "shopId": "department",
+        "brandId": 1,
+        "month": 62,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 1,
+        "deliveryBottles": 5,
+        "deliveryMonths": [
+          62
+        ],
+        "deliveryMonthCount": 1,
+        "lastDeliveryMonth": 62,
+        "gapMonths": 0,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": true,
+        "adoptionCount": 1
+      },
+      "layout": {
+        "text": "「5本、受け取りました。」",
+        "width": 333,
+        "height": 32,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "first actual automatic delivery",
+      "shop": "town-liquor",
+      "key": "first",
+      "text": "ウイスキー、届きました。",
+      "facts": {
+        "shopId": "town-liquor",
+        "brandId": 1,
+        "month": 62,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 1,
+        "deliveryBottles": 7,
+        "deliveryMonths": [
+          62
+        ],
+        "deliveryMonthCount": 1,
+        "lastDeliveryMonth": 62,
+        "gapMonths": 0,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「ウイスキー、届きました。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "ongoing actual delivery history",
+      "shop": "town-liquor",
+      "key": "repeat",
+      "text": "少しずつ届けてもらいましたね。",
+      "facts": {
+        "shopId": "town-liquor",
+        "brandId": 1,
+        "month": 63,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 2,
+        "deliveryBottles": 13,
+        "deliveryMonths": [
+          62,
+          63
+        ],
+        "deliveryMonthCount": 2,
+        "lastDeliveryMonth": 63,
+        "gapMonths": 0,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「少しずつ届けてもらいましたね。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "six months without delivery",
+      "shop": "town-liquor",
+      "key": "gap",
+      "text": "しばらく届いていませんね。",
+      "facts": {
+        "shopId": "town-liquor",
+        "brandId": 1,
+        "month": 71,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 10,
+        "deliveryBottles": 18,
+        "deliveryMonths": [
+          62,
+          63,
+          64,
+          65
+        ],
+        "deliveryMonthCount": 4,
+        "lastDeliveryMonth": 65,
+        "gapMonths": 6,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「しばらく届いていませんね。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "first actual automatic delivery",
+      "shop": "supermarket",
+      "key": "received",
+      "text": "ウイスキーを受け取りました。",
+      "facts": {
+        "shopId": "supermarket",
+        "brandId": 1,
+        "month": 64,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 3,
+        "deliveryBottles": 11,
+        "deliveryMonths": [
+          64
+        ],
+        "deliveryMonthCount": 1,
+        "lastDeliveryMonth": 64,
+        "gapMonths": 0,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「ウイスキーを受け取りました。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "ongoing actual delivery history",
+      "shop": "supermarket",
+      "key": "received",
+      "text": "ウイスキーを受け取りました。",
+      "facts": {
+        "shopId": "supermarket",
+        "brandId": 1,
+        "month": 66,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 5,
+        "deliveryBottles": 11,
+        "deliveryMonths": [
+          64
+        ],
+        "deliveryMonthCount": 1,
+        "lastDeliveryMonth": 64,
+        "gapMonths": 2,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「ウイスキーを受け取りました。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "six months without delivery",
+      "shop": "supermarket",
+      "key": "gap",
+      "text": "しばらく届いていませんね。",
+      "facts": {
+        "shopId": "supermarket",
+        "brandId": 1,
+        "month": 70,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 9,
+        "deliveryBottles": 11,
+        "deliveryMonths": [
+          64
+        ],
+        "deliveryMonthCount": 1,
+        "lastDeliveryMonth": 64,
+        "gapMonths": 6,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「しばらく届いていませんね。」",
+        "width": 333,
+        "height": 64,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 2,
+        "interactive": 0
+      }
+    },
+    {
+      "label": "unchanged current text/facts after reload",
+      "shop": "supermarket",
+      "key": "await",
+      "text": "取扱いを始めました。",
+      "facts": {
+        "shopId": "supermarket",
+        "brandId": 1,
+        "month": 62,
+        "related": true,
+        "startedMonth": 61,
+        "relationshipMonths": 1,
+        "deliveryBottles": 0,
+        "deliveryMonths": [],
+        "deliveryMonthCount": 0,
+        "lastDeliveryMonth": null,
+        "gapMonths": null,
+        "hasCurrentOffer": false,
+        "hasUnapprovedInterest": false,
+        "hasPendingFive": false,
+        "hasReceivedFive": false,
+        "adoptionCount": 0
+      },
+      "layout": {
+        "text": "「取扱いを始めました。」",
+        "width": 333,
+        "height": 32,
+        "fontSize": "24px",
+        "lineHeight": "32px",
+        "lines": 1,
+        "interactive": 0
+      }
+    }
+  ],
+  "monthly": [
+    {
+      "month": 62,
+      "sales": 19,
+      "bottlings": 0,
+      "news": ""
+    }
+  ],
+  "errors": [],
+  "screenshotsForLocalReview": [
+    "/tmp/ambertime-shop-remarks-pending.png"
+  ],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver and author tactile acceptance",
+    "Supermarket repeat requires two actual shipment months; only reached states are claimed, pure classifier boundaries covered by unit tests",
+    "Broad E2E and unscripted long play intentionally excluded"
+  ]
+}
