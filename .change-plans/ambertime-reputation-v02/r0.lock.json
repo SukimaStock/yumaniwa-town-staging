@@ -1,0 +1,155 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d5046dd12645e2c4b0f3e23627bb5d969522b2bef72a926fb7d97706227615b5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-reputation-v02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reputation Lab0.2 automatic stock-limited shipping and three brand expectation methods",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "ce84db541a9659d0eebefb6de9f73742a9d39a0b",
+    "canonicalSources": [
+      "Explicit ReputationLab0.2 request",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md fresh r0",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR536/535/533/532/531 and current main ce84db54",
+      "Unchanged Reputation0.1 model/REPORT/results and seeds20261020/42",
+      "Current brand-reputation/shop-model/partner-orders/economy/bottle-storage and partial release/replay"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-reputation-v02/r0.lock.json",
+      "works/ambertime/experiments/reputation/v02/**",
+      "works/ambertime/experiments/reputation/v01.html",
+      "works/ambertime/experiments/reputation/index.html",
+      "works/ambertime-reputation-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "index.html",
+      "style.css",
+      "main.js",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/experiments/contest/**",
+      "works/ambertime/experiments/decision/**",
+      "works/ambertime/experiments/cask-aroma/**",
+      "works/ambertime/experiments/reputation/model.mjs",
+      "works/ambertime/experiments/reputation/app.mjs",
+      "works/ambertime/experiments/reputation/style.css",
+      "works/ambertime/experiments/reputation/REPORT.md",
+      "works/ambertime/experiments/reputation/results.json",
+      "works/ambertime/experiments/reputation/analyze.mjs",
+      "works/ambertime/experiments/reputation/tests/**"
+    ],
+    "expectedChanges": [
+      "Preserve all0.1 runtime/model/reports/results/seeds byte-for-byte; original index archived as sibling v01.html with same relative imports, current entry points to v02. Existing LAB registration remains active, title/note regenerated only. No main/Contest/Decision/Production or save I/O.",
+      "New lab-only model reuses actual aroma-a generation, ageCask and partial bottle geometry; keep parentID/serial/frozen releases, multiple manual brands and explicit next recipe/cask choice. Prepared initial assets are comparison fixture, not automated ongoing production. Session memory and explicit JSON only.",
+      "Orders generated monthly by same six fictional shop gates and bounded taste/price/age/track record/brand expectation factors. Actual shipments only create revenue/stock consumption/evidence; globally shared shop-month caps across all brands/releases. Demand absence/unknown release/out-of-stock/subminimum distinct. No persistent backlog. Never substitute another brand or auto-bottle/produce/approve.",
+      "Every new shop-brand relationship requires explicit acceptance (starter introductions included); accept alone no inventory change. Thereafter recurring orders auto-settle within current stock and store minimum/cap. Actual deliveries drive preserved finite one-hop seeded0.1 network and familiarity. Brand/store relations and evidence cannot leak across brands.",
+      "Three deterministic contention policies order-time (seeded same-month tie), established relationship and release affinity, with consistent same-brand release selection and fair seeded ties across brands, shared inventory allocated once. Detailed unpaid/unfilled/order/receipt logs, no fictional sales from diffusion.",
+      "Three brand methods: current retail-ledger reference without taste target/delivery-as-retail; manually declared broad direction with gentle bounded expectation; actual shipment weighted learned expectation without release-count farming, no quality score or prohibition on exploring. Common recipe/age/stock/seed controls; no outcome-forcing retuning.",
+      "Compact mobile pixel UI reduces sales operations: brand/release selection, manual partial bottling, month advance, accept/decline, manual new brand and next batch, reset/brand-method/priority condition switch, recent shipments, optional details/reflections/JSON. Manual fulfillment only test/diagnostic adapter;0.1 old screen remains accessible.",
+      "Finite two-seed legal comparison manual0.1 versusauto0.2 (structural differences disclosed) plus paired same-demand manual adapter/auto actions,3policies and3brand methods, multiplebrands, same-parent12/24/36, stock scarcity/no demand/no stock/replenishment/new direction. Report reach/revenue/tasks/unfilled/starvation and limits; do not equate simulation to enjoyment."
+    ],
+    "ownerDecisions": [
+      "User authorizes independent0.2 Staging experiment and automatic recurring shipping; protects main,0.1 results,otherLabs,saves,Production."
+    ],
+    "hqDecisions": [
+      "Existing Lifecycle/LAB schemas only. Versioned nested experiment plus preserved same-level legacy page; no shared runtime/save/schema contract extension.",
+      "Prepared lab finances track shipment receipts only; no main economy or native replay state claimed. Six-store gates remain fictional0.1 rules."
+    ],
+    "rulesApplied": [
+      "One fresh r0 Plan-only first commit; no lock revisions in same PR.",
+      "Full floor for shared registration; current pure model reuse; no native save reads/writes.",
+      "Expression audit before/during/final: essential short operations, no fame/quality gauges or decorative explanation.",
+      "Disjoint model/tests, UI, analysis and independent read-only review per AGENTS; root report/integration/browser/CI."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused model tests actual partial stock/frozen release/cask aging;brand isolation;accepted-only orders;no auto production;stock/caps/min/price/age/taste;zero-stock refill;receipt once;three policies deterministic;learned only real shipments/release splitting no fame;fixedA native reference;protected hashes.",
+      "Finite fair manual/auto priority and brand comparisons with two fixed seeds and same initialassets/approval decisions, no unlimited search or forced results. Preserve0.1 and addREPORT/results differences, adoption/rework/reject/subjective questions.",
+      "390touch360/1280 focused browser:brands/releases/partialbottle/month/shipping/orders accept-decline/reset/JSON/newbatch;no app storage access;old0.1 entry unchanged;LAB forward/back. Two targeted images; independent review.",
+      "Lifecycle generator/check and related tests if registration changes; Scope then Risk then Impact at implementation SHA; exact-head required CI/reviews/base/normalmerge/Pages HTTP bytes. Do not repeat finished checks or blindly retry CI."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v02, entry and registration update together; original index from v01.html restores0.1. No save migration.",
+    "outOfScope": [
+      "Main/Contest/Decision/0.1 model/results changes or Production",
+      "Detailed shop inventory, retail customers, backlog, delivery setup UI, finance rebalance,auto production",
+      "Quality score,contest,new ingredients/barrels/equipment/axes/generation",
+      "Whole-game E2E,longplay or comprehensive screenshots"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver and author adoption",
+      "Human motivation/brand expectation comprehension/next recipe desire",
+      "Long-term main economy balance and real market behavior"
+    ],
+    "alternativesRejected": [
+      "Overwrite0.1 results/history",
+      "Brand-global reused0.1 evidence without isolation",
+      "Count orders/diffusion as sales or auto-bottle on shortage",
+      "Change taste/price to force example destinations"
+    ],
+    "boundaryCases": [
+      "Shared product stock and per-store quota acrossbrands",
+      "Min10supermarket/exact5department under shortage",
+      "Acceptance no ship until next demand tick",
+      "0stock no fake learning/stock/revenue",
+      "Sameparent laterage and samebrand newchallenge",
+      "Seeded priority ties/starvation,manualcomparison definitions",
+      "Preserved0.1 entry/hash and pure native retail reference"
+    ],
+    "testPlan": [
+      "Focused model tests actual partial stock/frozen release/cask aging;brand isolation;accepted-only orders;no auto production;stock/caps/min/price/age/taste;zero-stock refill;receipt once;three policies deterministic;learned only real shipments/release splitting no fame;fixedA native reference;protected hashes.",
+      "Finite fair manual/auto priority and brand comparisons with two fixed seeds and same initialassets/approval decisions, no unlimited search or forced results. Preserve0.1 and addREPORT/results differences, adoption/rework/reject/subjective questions.",
+      "390touch360/1280 focused browser:brands/releases/partialbottle/month/shipping/orders accept-decline/reset/JSON/newbatch;no app storage access;old0.1 entry unchanged;LAB forward/back. Two targeted images; independent review.",
+      "Lifecycle generator/check and related tests if registration changes; Scope then Risk then Impact at implementation SHA; exact-head required CI/reviews/base/normalmerge/Pages HTTP bytes. Do not repeat finished checks or blindly retry CI."
+    ],
+    "problem": "Repeated manual deliveries become work; brand names do not currently express shop expectations.",
+    "currentContract": "Main retail-only reputation and explicit stockist buyout, strict native replay and v19 partial releases;0.1 finite route model single-brand.",
+    "whyExistingIsInsufficient": "Need isolated recurring demand and learned/declaration expectations without modifying protected runtime or native economy.",
+    "design": "Versioned0.2 model sidecar and mobileUI; per-brand routes/expectations, global stock and monthly quotas, explicit approvals and deterministic allocation; preserve0.1.",
+    "migration": "None. In-memory lab state, explicit JSON export only.",
+    "compatibility": "All protected code/results unchanged; legacy HTML byte-preserved with same relative imports.",
+    "promotionRisk": "Staging active only. Technical success does not authorize main integration or Production."
+  }
+}
