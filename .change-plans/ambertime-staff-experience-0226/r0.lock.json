@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fc2d1e16df355c4bc3e5292afaf336246ef8dda4432cc626fd96d34831ed3028",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-staff-experience-0226",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "c84f5e4945ee97e540f9f152bd1781904d8c107b",
+    "change": "Unlock distiller after8 manual fills and bottler after150 manually bottled bottles",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.22.6 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR540–547 and related Plans",
+      "PR542 supply-demand REPORT.md",
+      "Existing v20 replay and manual/automatic production contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-staff-experience-0226/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/tests/staff-experience.test.mjs",
+      "works/ambertime/tests/staff-experience-browser.mjs",
+      "works/ambertime/design/staff-experience/compare.mjs",
+      "works/ambertime/design/staff-experience/results.json",
+      "works/ambertime/design/staff-experience/browser-results.json",
+      "works/ambertime/design/staff-experience/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/event-notices.mjs"
+    ],
+    "expectedChanges": [
+      "Before changing runtime independently compare manualfills8 and manualbottles150 on real currentmodel with year1/2/4,6/12aging,partial finite strategies seed42 actualcosts. Record reachable months/years and bias; adopt8/150 unless evident failure.",
+      "New recorded work-local staff-experience boundary preserves historicalreplay/savekey/data. Track successful manualfills and actual manualbottled counts only, no starts/autofills/autobottles; both partial/full. Strict restore and generation retain counters.",
+      "Newgames use8/150, unavailable hires/requests remain guarded. Preserve old earned/hired states and activepolicy/reservations on migration; infer counts from actual recorded manual operations without fabricated origins.",
+      "Keep once-only existing short hiringnotice, deferral/laterhire, initialhidden staff, posthiremanual/delegation; no progressUI or extra management.",
+      "Only changed runtime import cache edges andversion update. Relevant unit/phone/save/migration/generation/accounting, independentreview/guards/CI/Staging public."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844 locked/threshold/once notice/laterhire/inline delegation/manual/save, exact-head CI andpublic"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User0.22.6 authorizes8/150 if finite comparison no obvious failure, once hiringnotice with no newprogressUI, throughStaging only."
+    ],
+    "hqDecisions": [
+      "Keep historical factories and recorded operations exact; opt-in experience boundary on newgame/strict-restored oldsave; no economic/chemical changes. Preserve previouslyearned/unlocked andhired oldstate rather than revoking."
+    ],
+    "rulesApplied": [
+      "Full WORK lock precedes implementation",
+      "AGENTS asks helpful model/UI/test delegation and independent review",
+      "Expression audit: remove unnecessary completion and monthly messages; preserve necessary actions/labels/accessibility, no new persistent interface"
+    ],
+    "rollback": "Preserve newopcode saves before reverting reader; revert work-local changes only.",
+    "outOfScope": [
+      "Production",
+      "Economy/demand/price/cost/chemistry/generation/reputation changes",
+      "New store/equipment/capacity/worker",
+      "Broad E2E/longplay/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver and author tactile adoption",
+      "Broad E2E and unscriptedlongplay intentionally excluded"
+    ],
+    "problem": "First manual transaction unlocks staff before sufficient hands-on experience.",
+    "currentContract": "Main PR547 existing sharedpolicy, globalstock FIFO, freeaging, deferredfill, manualbottle sales modal and strictv20 replay.",
+    "whyExistingIsInsufficient": "Boolean first-action evidence does not distinguish8finished manualfills or150actual manualbottles.",
+    "design": "Recorded opt-in staff experience boundary with exact cumulative successful manualcounts, guarded oldreplay and once-only notices. Compare cadencebefore adoption; retain currentUI and costrules.",
+    "alternativesRejected": [
+      "Change hirecost/salary/balance",
+      "New progressgauge/achievements/manager",
+      "Count automated production or sales",
+      "Rewrite historicaloperations or delete saves"
+    ],
+    "migration": "Strict restore first; recorded experienceenable infers genuine manual history and preserves oldearned/hired/notice/reservation states. No savekey removal; freshgame and newboundary strictcoldrestore guaranteed.",
+    "compatibility": "Historical factories without newboundary retain oldfirstwork behavior. New experience enabled factory used by currententry. Saveversion20 unchanged; priorreader cannot parse newopcode, disclosed.",
+    "boundaryCases": [
+      "7 vs8 manualfills; starts/stops/no-doublefill; auto complete excluded",
+      "149 vs150 partial/fullactualcounts; automatic jobs excluded incl reusable publichelper",
+      "One notice, defer/hirelater, initialhidden, afterhiremanual and delegateresume",
+      "Activeextraction and hiredstaff/oldhistory migration; tamper and coldrestore",
+      "Generation handover retains cumulative experience, noprunedhistory loss",
+      "Comparisons real funds/stock/4casklimits/year convention; delays explicit"
+    ],
+    "testPlan": [
+      "Finite comparison seed42 unchanged currentmodelbefore runtimeadoption; targeted newboundary unit tests for counters/autoexclusion/hire/notice/save/migration/generation/accounting; relevant oldstaff/progression regression; focusedphone; CI/public."
+    ],
+    "promotionRisk": "Staging only; no Production changes."
+  }
+}
