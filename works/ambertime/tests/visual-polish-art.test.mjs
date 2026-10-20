@@ -25,8 +25,8 @@ test('receiver, stream, steam and both sample glasses retain their pre-polish re
  [0,.4,.9].forEach((wood,i)=>{assert.equal(hash(glass(wood,{sample:true})),room[i]);assert.equal(hash(caskGlass(wood,{sample:true})),older[i]);});
 });
 
-test('pot and casks use fewer plain colors and black outer contours without changing sprite dimensions',()=>{
- const pot=group(stillArt(),'still-pot');assert.deepEqual([...colors(pot)].sort(),['#19141e','#8c542d','#b87333']);assert(rects(pot).length<21,'pre-polish pot and fitting used21 rectangles');assert.doesNotMatch(pot,/#dca050|#8b8b70/);
+test('pot recovers Codea colors without black outline; casks retain their contours',()=>{
+ const pot=group(stillArt(),'still-pot');assert(!colors(pot).has('#19141e'));for(const c of ['#b87333','#a3632d','#29adff','#ffff64','#5a5a64','#3c281e','#ab5236'])assert(colors(pot).has(c));
  assert.match(stillArt(),/viewBox="0 0 60 36" width="60" height="36"/);
  for(const type of ['bourbon','refill']){
   const art=barrel(type);assert.match(art,/viewBox="0 0 16 16" width="16" height="16"/);assert.equal(colors(art).size,4);assert(colors(art).has('#19141e'));assert(colors(art).has('#757969'));

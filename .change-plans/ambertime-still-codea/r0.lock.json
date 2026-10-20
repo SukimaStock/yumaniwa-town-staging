@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "682744d25fe5f032e9f9ffbe1bcd3fdf7d6592cd4ba5bda82b9956fc64be3482",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-still-codea",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "3cee363a45a25c030a21ee3e1e5bd2eb10b29fda",
+    "change": "Redraw only the AmberTime pot still from Codea source and rendered reference",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Drive AmberTime.txt 1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi: DistilleryAssets.PotStill, DistilleryScene.drawStill, GameRenderer.setupPalette, DotMatrix.drawSprite",
+      "IMG_6156(3).png original Codea screenshot",
+      "PR552 and pre-polish55b2d09b",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-still-codea/r0.lock.json",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/visual-polish-art.test.mjs",
+      "works/ambertime/design/still-codea/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/ui-details.mjs",
+      "works/ambertime/pixel-symbols.mjs"
+    ],
+    "expectedChanges": [
+      "Only pot, connection, window and furnace/logs redraw using integer rects. Preserve exact pipe/receiver/steam/stream/glass/furniture/background/UI and all game/save behavior.",
+      "Only import cache keys in shop-app/index may change.",
+      "Save normalized original/pre-polish/current/new comparison and phone/PC idle/distilling browser evidence; no broad E2E/economy test."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Rendered source/screenshot/pre-polish/new still comparison;390x844 touch and1024x768 idle/distilling basic operation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes this exact still-only Staging correction, PR and merge; Production excluded."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Integer authored SVG grid",
+      "Expression audit: no new text/decoration/flames",
+      "Lock before implementation; Scope Risk Impact"
+    ],
+    "rollback": "Revert this redraw commit; no save migration.",
+    "outOfScope": [
+      "Production",
+      "Other art and furniture/HUD",
+      "Gameplay/economy/save",
+      "Broad E2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and author acceptance"
+    ]
+  }
+}
