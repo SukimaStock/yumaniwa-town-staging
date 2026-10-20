@@ -1,0 +1,181 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "touch": true
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "chromium": "153.0.8010.0"
+  },
+  "fixture": {
+    "seed": 42,
+    "factory": "newStaffExperienceDistillery",
+    "creation": "Browser-native public recorded paid operations, no state/cash/age projections"
+  },
+  "checks": [
+    "manual start and extraction navigation share108×45 logical hit geometry at390×844",
+    "explicit upper99 keeps existing chemistry/stop; cap directly chooses barrel once, volume centered, saved filling defers outside extraction and returns once after reload",
+    "early manual extraction remains the exact existing model operation",
+    "manual select advances by5 and includes exact44 remainder; partial10 costs£30/removes7L; actual bottled month and same-cask same-month releases remain distinct after strict reload",
+    "under-five remainder exposes exact3 remaining choice and remaining-all",
+    "per-cask accessible switches stay inside manager; no-policy click changes no save; pause/resume preserves frozen conditions across common-policy edit; cancel removes reservation; clock/stock/pause retain distinct shapes and colors",
+    "natural liquor invitation refers to hearing the name; approval shows short greeting without claiming receipt or changing cash/stock before real dispatch",
+    "date-only follow-up: same-month two-cask three-release shelf uses actual year/month, caskNo and local ordinal; strict reload and touch viewport remain intact"
+  ],
+  "observations": [
+    {
+      "case": "partial/date",
+      "label": "2026年1月 · たる No.1 · 2回目",
+      "options": [
+        {
+          "count": 5,
+          "text": "5本",
+          "disabled": false
+        },
+        {
+          "count": 10,
+          "text": "10本",
+          "disabled": false
+        },
+        {
+          "count": 15,
+          "text": "15本",
+          "disabled": false
+        },
+        {
+          "count": 20,
+          "text": "20本",
+          "disabled": false
+        },
+        {
+          "count": 25,
+          "text": "25本",
+          "disabled": false
+        },
+        {
+          "count": 30,
+          "text": "30本",
+          "disabled": false
+        },
+        {
+          "count": 35,
+          "text": "35本",
+          "disabled": false
+        },
+        {
+          "count": 40,
+          "text": "40本",
+          "disabled": false
+        },
+        {
+          "count": 44,
+          "text": "44本",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "case": "cash-choice boundary only",
+      "cashChoices": {
+        "four": [
+          4
+        ],
+        "zero": []
+      },
+      "limitation": "Current paid reserve guard stops maintenance at bottle reserve; actual low-cash quote UI not injected."
+    },
+    {
+      "case": "icons",
+      "icons": [
+        {
+          "id": 2,
+          "kind": "pause",
+          "color": "#b69e9c"
+        },
+        {
+          "id": 5,
+          "kind": "stock",
+          "color": "#a8bbb0"
+        },
+        {
+          "id": 8,
+          "kind": null,
+          "color": null
+        },
+        {
+          "id": 11,
+          "kind": null,
+          "color": null
+        }
+      ],
+      "shapes": {
+        "clock": [
+          "0011100",
+          "0100010",
+          "1001001",
+          "1001101",
+          "1000001",
+          "0100010",
+          "0011100"
+        ],
+        "stock": [
+          "0011100",
+          "0010100",
+          "0111110",
+          "0100010",
+          "0111110",
+          "0100010",
+          "0111110"
+        ],
+        "pause": [
+          "0100010",
+          "0100010",
+          "0100010",
+          "0100010",
+          "0100010",
+          "0100010",
+          "0100010"
+        ]
+      }
+    },
+    {
+      "case": "date-only same-month shelf",
+      "dates": [
+        {
+          "productId": 5,
+          "month": 1,
+          "caskId": 2,
+          "label": "2026年2月 · たる No.1 · 1回目"
+        },
+        {
+          "productId": 6,
+          "month": 1,
+          "caskId": 4,
+          "label": "2026年2月 · たる No.2"
+        },
+        {
+          "productId": 7,
+          "month": 1,
+          "caskId": 2,
+          "label": "2026年2月 · たる No.1 · 2回目"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "screenshotsForLocalReview": [
+    "/tmp/ambertime-ui-details-icons.png",
+    "/tmp/ambertime-ui-details-release-shelf.png"
+  ],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver and author tactile acceptance",
+    "Low-cash quote UI not reached through lawful reserve-protected play; pure4/0 affordability choices verified, no cash projection injected",
+    "Broad E2E and unscripted long play intentionally excluded"
+  ],
+  "reproduction": [
+    "node works/ambertime/tests/ui-details-browser.mjs",
+    "AMBER_UI_DETAILS_DATES_ONLY=1 node works/ambertime/tests/ui-details-browser.mjs"
+  ]
+}

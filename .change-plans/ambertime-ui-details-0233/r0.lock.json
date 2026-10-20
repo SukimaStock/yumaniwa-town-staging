@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dda928c5a40cf728951b887ef9c188feded2e73912f4bdf9d0dca82e077f64bd",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ui-details-0233",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "a33a0ad149e4f28fc5560c353842af01775073c1",
+    "change": "Refine existing AmberTime controls, release dates and factual offer copy",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.23.3 request and supplied four iPhone images",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR546-550/current runtime",
+      "economy/aroma-extraction/partner-orders current 30..99 extraction and cooling contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ui-details-0233/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/ui-details.mjs",
+      "works/ambertime/tests/ui-details.test.mjs",
+      "works/ambertime/tests/ui-details-browser.mjs",
+      "works/ambertime/design/ui-details/REPORT.md",
+      "works/ambertime/design/ui-details/browser-results.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-remarks.mjs"
+    ],
+    "expectedChanges": [
+      "Keep chemistry/save/opcodes fixed; investigate99 endpoint and expose existing maximum99 consistently in UI (no invent100 coefficients), preserve manual end auto-fill routing/deferred room/restore and staff automation. Fit distill action button to room button dimensions; center fill litres.",
+      "Manual count options primarily5 increments plus remainingall and sub5 possible remainder/affordability; legal bounded last-value selection; existing model costs/liquids and automatic plans unchanged.",
+      "Pure presentation helper release date from actual bottledMonth, same-month cask serial disambiguation and same-cask same-month ordinal only if needed. Apply existingUI dates through sale/modal/ledger/history/comparison/source and soldout copy; no savedID/ordering changes.",
+      "Compact per-cask role=switch in existing bottler manager toggles current reserve/pause/resume same screen, paused cancel inline, no policy redirects beyond existing setting guidance, existing snapshot conditions never overwritten. Show actual age once and stock condition in short wording, muted clock/stock/pause colors retain shapes.",
+      "Liquor offer short factual name-heard line only actual offer; approval greeting inside existing return screen, no independent popup or save state. ExistingPR550 shop lines unchanged.",
+      "Narrow helper/unit state boundaries plus current lawful browser fixtures in390x844 touch, save restore/accounting/actual nextmonth and layout; independent review, guards CI and Stagingpublic. Cooling unchanged/report effects."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844 changed controls/fill/extraction99 routing/counts/dateambiguity/shopoffer+approval/staffswitch+icons/save/accounting"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes existingwork UI changes through Staging only, 5-bottle choices/date display/switch/offer copy; preserve cooling/economics and noProduction"
+    ],
+    "hqDecisions": [
+      "Existing99 endpoint intentional constrained aroma/replay domain; cannot add100 fordisplay without chemistry/savecontractchange. Label99maximum, preserveupperauto transition. Display-only release disambiguation derives from all existing releases; no modelmigration. Switch pause/resume existing reservation snapshot; no commonpolicy overwrite."
+    ],
+    "rulesApplied": [
+      "AGENTS useful independent audit/test/review delegation",
+      "Expression audit six points; no new explanations/panels beyond necessary state or requested short spoken line",
+      "Full Plan Lock before implementation; static node syntax; Scope→Risk→Impact"
+    ],
+    "rollback": "Revert local presentation/UI/test/docs; no schema/state migration rollback needed.",
+    "outOfScope": [
+      "Production",
+      "Economy/demand/price/cost/chemistry/generation/reputation changes",
+      "New store/equipment/capacity/worker",
+      "Broad E2E/longplay/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver and author tactile adoption",
+      "BroadE2E/longplay excluded"
+    ],
+    "problem": "Repeated work controls and labels have inconsistent sizing, opaque release numbers and extra delegation navigation.",
+    "currentContract": "PR550 shopremarks are read-only. Extraction maximum99 is enforced by model/replay/frozenaroma table while old UI says /100. Delegation snapshot and freeaging/current monthlytiming remain.",
+    "whyExistingIsInsufficient": "CurrentUI step1 and number-only releases, drilldownstaffbuttons, and raw month-age label add repeated effort/confusion.",
+    "design": "Local presentation and event-handler composition around immutable current public operations. Pure UI choices/date helper; no new modelstate.",
+    "alternativesRejected": [
+      "Extend extraction to100 and invent frozen chemistry/replay values",
+      "Remove cooling",
+      "Save display dates/quote/switch state separately",
+      "Rewrite automation/economics or sharedtownruntime",
+      "New modal/panel/settings or broadE2E"
+    ],
+    "migration": "No schema/key/opcode changes or save deletion; replay unchanged.",
+    "compatibility": "Current strict saves and operationPreferences retained; re-opened manual count adjusted to legal newchoices only in UI. Existing automatic reservations untouched; paused resume preserves frozen policy.",
+    "boundaryCases": [
+      "Max99 automaticallystops and choosesbarrel only in distillroom and once afterrestore; early manualstop same",
+      "Bottling0/1..4/5/10/non5remaining/cash<5/cash0/lastcount outside choices",
+      "Same month differentcasks and samecask multiplepartialreleases, productpruned/missingmonth no fabricated date",
+      "Staffnonepolicy/active/paused/completed/cancel, multiplecasks, commonpolicychanged retains existing reservation",
+      "Offer heardname beforeactualdelivery, approvalgreeting no receivedclaim, originalshopremarkunchanged",
+      "Coolingonce/nocharge/clamps/slowerwood+evap+soften but ageunchanged; no runtimechange"
+    ],
+    "testPlan": [
+      "Focused helper unit and lawfulcurrentmodel/browser operations, count costs/remaining/accounting strictrestore, layout/actions/timing/date UI/offer copy/switch icon shape+color, source invariance; independentreview CIpublic"
+    ],
+    "promotionRisk": "Staging only; no Production changes."
+  }
+}
