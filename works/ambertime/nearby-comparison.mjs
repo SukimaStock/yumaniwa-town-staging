@@ -1,4 +1,4 @@
-import {nearbyComparisonFacts} from './partner-orders.mjs?v=0.39-staff-repeat';
+import {nearbyComparisonFacts} from './partner-orders.mjs?v=0.40-partial-bottling';
 
 // Targeted views over an exact validated snapshot. No persistent ledger or replay.
 const copy=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
@@ -28,7 +28,7 @@ export function releasePair(state,id){
  return {current:releaseView(state,current,facts),previous:releaseView(state,previous,facts)};
 }
 export function sourceDetails(state,caskId){
- const c=state.core.casks.find(c=>c.id===caskId),r=state.releases?.find(r=>r.caskId===caskId),record=state.records?.find(r=>r.caskId===caskId);
+ const c=state.core.casks.find(c=>c.id===caskId),r=state.releases?.filter(r=>r.caskId===caskId).at(-1),record=state.records?.filter(r=>r.caskId===caskId).at(-1);
  const facts=nearbyComparisonFacts(state,{caskIds:[caskId],productIds:r?[r.productId]:[]});
  if(c){const fill=facts.casks[0];return {key:`cask:${c.id}`,kind:'cask',label:`樽 ${c.id}`,...sourceFields(state,c.id,fill),batchId:c.batchId,type:c.type,age:c.age,profile:profile(c),litres:c.litres,filledMonth:c.filledMonth,status:'aging'};}
  if(r)return releaseView(state,r,facts);

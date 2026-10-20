@@ -21,13 +21,13 @@ function prompt(j,id,title,text,waitLabel,cool=false) {
   j.phase='choice';j.pending={id,title,text,options:[bottleOption,{id:'wait',label:waitLabel},...(cool&&!j.cooled?[coolOption]:[])]};j.seen.push(id);j.lastEventAge=caskOf(j).age;
 }
 function detect(j,onFinish=finishCharacterMutable) {
-  const c=caskOf(j);
+  const c=caskOf(j),decisionCount=j.withdrawnLitres===undefined?j.choices.length:j.choices.filter(x=>x.key!=='bottle').length;
   if(j.targetAge!==null&&c.age>=j.targetAge){onFinish(j);return;}
   // Finite ending is a safety boundary, never a projected optimum age.
-  if(c.age>=CHARACTER_PARAMETERS.maxAge||j.choices.length>=CHARACTER_PARAMETERS.maxDecisions-1&&c.age>=j.lastEventAge+CHARACTER_PARAMETERS.finalObservationMonths) {
+  if(c.age>=CHARACTER_PARAMETERS.maxAge||decisionCount>=CHARACTER_PARAMETERS.maxDecisions-1&&c.age>=j.lastEventAge+CHARACTER_PARAMETERS.finalObservationMonths) {
     j.phase='choice';j.pending={id:'last',title:'この樽を手放すとき',text:`残量 ${c.litres.toFixed(1)} L。ここまでの変化を、一本に残せます。`,options:[bottleOption,{id:'last',label:'あと3か月だけ見守って瓶詰めする'}]};j.seen.push('last');j.lastEventAge=c.age;return;
   }
-  if(j.choices.length>=CHARACTER_PARAMETERS.maxDecisions-1||c.age<CHARACTER_PARAMETERS.firstEventAge||c.age-j.lastEventAge<CHARACTER_PARAMETERS.minEventGap)return;
+  if(decisionCount>=CHARACTER_PARAMETERS.maxDecisions-1||c.age<CHARACTER_PARAMETERS.firstEventAge||c.age-j.lastEventAge<CHARACTER_PARAMETERS.minEventGap)return;
   const unseen=id=>!j.seen.includes(id);
   const recent=j.samples.at(-1);
   if(unseen('wood')&&c.wood>=CHARACTER_PARAMETERS.woodGoal)prompt(j,'wood','原酒の色が深くなってきた',recent?`前の試飲は ${recent.age}か月目。色は、その頃より濃くなっています。`:'グラスに取ると、以前より深い琥珀色です。','木の変化をもう少し見守る',true);
@@ -35,7 +35,7 @@ function detect(j,onFinish=finishCharacterMutable) {
   else if(unseen('rough')&&c.roughness>CHARACTER_PARAMETERS.roughGoal)prompt(j,'rough','若い原酒のまま、少し先へ','色はまだ淡く、若い原酒が、ゆっくり変わっています。試飲して、刺激の変化を確かめられます。','口当たりの変化を待つ',true);
   else if(unseen('fruit')&&unseen('rough')&&unseen('rounded')&&c.character>CHARACTER_PARAMETERS.fruitGoal)prompt(j,'fruit','原酒の香りが広がる頃','若い色合いのまま、原酒の香りが育つ時期に入りました。','原酒と木の重なりを待つ');
   else if(unseen('rounded')&&unseen('fruit')&&c.roughness<=CHARACTER_PARAMETERS.softGoal)prompt(j,'rounded','口当たりが変わる頃','仕込みから時間が経ちました。今の口当たりを、試飲で確かめられます。','丸さがどう変わるか見守る');
-  else if(unseen('loss')&&c.litres/c.initialLitres<=CHARACTER_PARAMETERS.remainingGoal&&c.wood<CHARACTER_PARAMETERS.woodThreat)prompt(j,'loss','少しずつ、減っていく','樽詰めした量から、1割ほど減りました。これからも時間とともに減っていきます。','減少を承知で、もう少し待つ');
+  else if(unseen('loss')&&(c.litres+(j.withdrawnLitres??0))/c.initialLitres<=CHARACTER_PARAMETERS.remainingGoal&&c.wood<CHARACTER_PARAMETERS.woodThreat)prompt(j,'loss','少しずつ、減っていく','樽詰めした量から、1割ほど減りました。これからも時間とともに減っていきます。','減少を承知で、もう少し待つ');
 }
 export function tickCharacter(j,onFinish=finishCharacterMutable) {
   if(j.phase!=='watching'||j.view==='tasting')return j;
