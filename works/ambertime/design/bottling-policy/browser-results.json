@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "touch": true
+  },
+  "checks": [
+    "common stock policy saved once; three explicit cask opt-ins have no repeated condition fields; later policy edits preserve all existing copies; stop/resume/cancel/manual switch work and survive reload",
+    "staff repeat mode is remembered without starting automatically; previous stop is a visible reference and manual extraction continues past it; remembered cask type requires explicit confirm; prior bottle quantity is preset and confirmed replacement survives reload",
+    "actual automatic bottling remains visible once; reload does not replay notices; zero-sales/zero-shipment requests emit no transient event; real shipment remains visible and duplicate event IDs are suppressed"
+  ],
+  "uiActions": {
+    "sharedPolicyFieldChanges": 3,
+    "sharedPolicySaves": 1,
+    "caskChoiceOpens": 3,
+    "caskExplicitDelegations": 3
+  },
+  "oldPerCaskLogicalBaseline": {
+    "conditionFieldChanges": 9,
+    "perCaskSaves": 3,
+    "note": "Modelled from prior UI three fields plus save per cask, not a second old-UI run."
+  },
+  "newMeasuredSetupAndThreeAssignments": {
+    "conditionFieldChanges": 3,
+    "commonSaves": 1,
+    "caskChoiceOpens": 3,
+    "explicitDelegations": 3
+  },
+  "quietNotificationCheck": {
+    "events": [],
+    "text": "",
+    "real": [
+      {
+        "id": "shipping:2",
+        "kind": "shipping",
+        "count": 2
+      },
+      {
+        "id": "sales:2",
+        "kind": "sales",
+        "count": 2,
+        "revenue": 25.6
+      }
+    ],
+    "textReal": "販売 2本 · 入金 £26 / 発送 2本",
+    "messages": [
+      "販売 2本 · 入金 £26 / 発送 2本"
+    ]
+  },
+  "errors": [],
+  "physicalSafari": false,
+  "screenshotsForLocalReview": [
+    "/tmp/ambertime-bottling-policy-phone.png",
+    "/tmp/ambertime-bottling-policy-notice.png"
+  ]
+}

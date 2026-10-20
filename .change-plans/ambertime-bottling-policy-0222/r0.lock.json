@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f3dba63307d3d5e9359411e949640bb626276285805e2f9d047cabbfc44a7ba8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-bottling-policy-0222",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "f3c9da2e560f6acb6dd5fb9bb3827164705ec37c",
+    "change": "Persistent shared bottling policy with explicit cask opt-in, confirmed operation defaults, quieter transient notices",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.22.2 request and8year trial",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #540/#541/#542/#543 and related .change-plans",
+      "Existing v20 strict replay, partial bottling, staff and demand contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-bottling-policy-0222/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/tests/bottling-policy.test.mjs",
+      "works/ambertime/tests/bottling-policy-browser.mjs",
+      "works/ambertime/tests/fixtures/bottling-policy-legacy.json",
+      "works/ambertime/design/bottling-policy/compare.mjs",
+      "works/ambertime/design/bottling-policy/results.json",
+      "works/ambertime/design/bottling-policy/browser-results.json",
+      "works/ambertime/design/bottling-policy/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**"
+    ],
+    "expectedChanges": [
+      "Add recorded work-local boundary and persisted common policy/defaults without clearing old saves; preserve historical operation replay and new game strict restore.",
+      "Explicitly assign only selected casks using frozen copy of common policy via existing reservation API; common edits apply only to future opt-ins, no silent rewrite, preserve stop/cancel/manual and special unassigned casks.",
+      "Remember confirmed manual stop/cask/bottle quantity, per-auto-mode fields and staff repeat mode across restore. No automatic execution, legal clamping in UI drafts/reasons, automatic actions do not overwrite manual preferences.",
+      "Reuse existing staff modal for common policy and cask opt-in/manual only; keep small reservation icon and no new permanent panel. Manual stop is prior-reference only, never auto-stop.",
+      "Suppress repetitive no-stock/no-shipment order transient notices and zero sales while keeping settled records and real auto bottling/shipping/positive sales notifications.",
+      "Compare same bottling outcomes for new-game manual/partial delegation/multi-cask delegation with explicit UI operation reduction; focused policy/defaults/save/minimum/remainder/funds/wage/phone tests; required CI and Staging merge/public verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844 common policy/cask opt-in/defaults/stop cancel/save reload and notice checks; independent review/exact-head CI/public bytes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Current explicit user request authorizes common bottling policy and operation defaults/quiet notices through Staging merge/public; keep current economic balance and Production excluded."
+    ],
+    "hqDecisions": [
+      "Use established work-local recorded replay boundary and existing reservation calculations. Policy changes snapshot only future cask opt-in; no live bulk application or new savekey."
+    ],
+    "rulesApplied": [
+      "Locked Full WORK plan precedes implementation",
+      "AGENTS requests role-specific model/UI/verification delegation and independent review",
+      "Expression audit: short necessary scope note and status, no new permanent panel or long copy"
+    ],
+    "rollback": "Back up newer saves before old reader; retain existing save data/key, revert only work-local additions.",
+    "outOfScope": [
+      "Production",
+      "Economy/demand/price/cost/chemistry/generation/reputation changes",
+      "New store/equipment/capacity/worker",
+      "Broad E2E/longplay/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari/VoiceOver and author tactile adoption"
+    ],
+    "problem": "Per-cask repeated bottling forms and reset inputs cause repeated actions; unmet/zero orders can notify each month.",
+    "currentContract": "0.22.1 shared inventory, opt-in per-cask age/stock reservations, recorded monthly demand boundary and v20 key.",
+    "whyExistingIsInsufficient": "No common defaults and no confirmed setting reuse; notifications include non-events.",
+    "design": "Persist common policy and confirmed defaults, snapshot per explicit assignment, keep existing automatic engine unchanged and filter transient events only.",
+    "alternativesRejected": [
+      "Auto-assign all casks",
+      "Rewrite active reservations on common edits",
+      "Auto-stop at remembered extraction position",
+      "Change economic balance to hide management friction",
+      "New permanent settings panel"
+    ],
+    "migration": "Add one recorded boundary after strict old restore, infer past confirmed values where reliable, preserve reservations/active operations and all existing data.",
+    "compatibility": "Old factories and histories unchanged before boundary; new-game roundtrip guaranteed.",
+    "boundaryCases": [
+      "Unassigned special cask",
+      "Common update with active/paused/completed reservations",
+      "No policy/hire/no casks",
+      "Age/stock/partial residual/poor funds/wage once",
+      "Remembered count greater than current stock/cash",
+      "Auto does not overwrite manual preferences",
+      "save reload/active extraction/receipt tamper/no stale notification"
+    ],
+    "testPlan": [
+      "Focused new model/cold save tests plus existing related bottling/staff/monthly cases; finite same-seed three-policy comparison and phone basic interaction; mandatory CI."
+    ],
+    "promotionRisk": "Staging only; no Production changes."
+  }
+}

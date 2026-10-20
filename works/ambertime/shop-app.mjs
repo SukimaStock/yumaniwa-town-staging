@@ -1,9 +1,9 @@
-import {automaticEvents,transientNotices} from './event-notices.mjs?v=0.45-shop-demand';
-import {CanvasScene} from './canvas-scene.mjs?v=0.45-shop-demand';
-import * as D from './partner-orders.mjs?v=0.45-shop-demand';
-import {SHOPS} from './shop-model.mjs?v=0.45-shop-demand';
+import {automaticEvents,transientNotices} from './event-notices.mjs?v=0.46-bottling-policy';
+import {CanvasScene} from './canvas-scene.mjs?v=0.46-bottling-policy';
+import * as D from './partner-orders.mjs?v=0.46-bottling-policy';
+import {SHOPS} from './shop-model.mjs?v=0.46-bottling-policy';
 import {caskName as sourceCaskName,releaseNumber} from './work-context.mjs?v=0.38-cask-serials';
-import {createCaskSerials} from './cask-serials.mjs?v=0.45-shop-demand';
+import {createCaskSerials} from './cask-serials.mjs?v=0.46-bottling-policy';
 import {distillationView,spiritProfile} from './spirit-view.mjs?v=0.14';
 import {brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
@@ -13,7 +13,7 @@ import {glass,bottleArt,brandArt,stillArt} from './room-object-art.mjs?v=0.21-sp
 import {shortTaste,shortChange} from './tasting-view.mjs?v=0.6';
 import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=0.19-flavor';
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=0.18-tasting';
-import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=0.45-shop-demand';
+import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=0.46-bottling-policy';
 import {uiText,agingEventText} from './ui-text.mjs?v=0.34-aging-1';
 // Resolve structured cask IDs only; saved prose and player names stay verbatim.
 const caskSerials=createCaskSerials();
@@ -44,7 +44,7 @@ let historyWorker=null,historyRequest=0,historyData=null,historyError='',history
 function openHistory(){
  if(!game||(modal&&modal.kind!=='aux-panel'))return;stopClock();jump=0;modal={kind:'history',year:null,page:0};historyData=null;historyError='';historyLoading=true;const requestId=++historyRequest;
  try{
-  if(!historyWorker){historyWorker=new Worker(new URL('./history-worker.mjs?v=0.45-shop-demand',import.meta.url),{type:'module'});historyWorker.onmessage=({data})=>{if(data.requestId!==historyRequest||!['history','history-brand','history-shop'].includes(modal?.kind))return;historyLoading=false;historyData=data.history??null;historyError=data.error?'歩みを読めませんでした。':'';render();};historyWorker.onerror=()=>{if(!historyLoading)return;historyLoading=false;historyError='歩みを読めませんでした。';historyWorker?.terminate();historyWorker=null;if(modal?.kind==='history')render();};}
+  if(!historyWorker){historyWorker=new Worker(new URL('./history-worker.mjs?v=0.46-bottling-policy',import.meta.url),{type:'module'});historyWorker.onmessage=({data})=>{if(data.requestId!==historyRequest||!['history','history-brand','history-shop'].includes(modal?.kind))return;historyLoading=false;historyData=data.history??null;historyError=data.error?'歩みを読めませんでした。':'';render();};historyWorker.onerror=()=>{if(!historyLoading)return;historyLoading=false;historyError='歩みを読めませんでした。';historyWorker?.terminate();historyWorker=null;if(modal?.kind==='history')render();};}
   historyWorker.postMessage({requestId,state:game});
  }catch{historyLoading=false;historyError='歩みを読めませんでした。';}
  render();
@@ -74,7 +74,7 @@ function staffTitle(item){return (item?.brandName?item.brandName+'\n'+caskName(i
 function openStaffRequest(caskId=null){
  if(!game||!D.staffStatus(game).hired)return;const quote=D.staffQuote(game,caskId===null?undefined:caskId);if(!quote)return;
  const sourceId=caskId??quote.source?.caskId??D.selectedUsualRecipe(game)?.source?.caskId??null;
- stopClock();modal={kind:'staff-request',requestMode:'once',caskId,sourceId,parent:modal,returnFocusId:document.activeElement?.id};render();
+ stopClock();modal={kind:'staff-request',requestMode:D.operationDefaults(game).requestMode,caskId,sourceId,parent:modal,returnFocusId:document.activeElement?.id};render();
 }
 // Presentation rows escape values without rewriting user names or stored prose.
 const copyFacts=items=>'<span class="copy-facts">'+items.map(([label,value])=>'<span class="copy-fact"><span class="copy-label">'+esc(label)+'</span> <span class="copy-value">'+esc(value)+'</span></span>').join(' ')+'</span>';
@@ -91,7 +91,9 @@ function staffCostView(kind){const status=jobStatus(kind);return '<p>'+copyFacts
 function staffManagerView(){return ['distill','bottling'].filter(kind=>jobStatus(kind).unlocked).map(kind=>{const status=jobStatus(kind);return '<section class="staff-job"><h3>'+jobName(kind)+'</h3>'+(status.hired?'<p>採用済み</p><p>給与 '+money(status.salary)+(kind==='distill'?'／仕込み':'／回')+'</p>':staffCostView(kind))+(status.hired?button(kind==='distill'?'依頼・製法':'予約・停止','staff-job-open',kind):button('採用 '+money(status.hireCost),'staff-job-hire',kind,status.canHire?'':'disabled'))+'</section>';}).join('');}
 function bottlerManagerView(){
  const status=D.bottlingStaffStatus(game);if(!status.hired)return staffCostView('bottling');
- return '<p>給与 '+money(status.salary)+'／回</p>'+(game.core.casks.length?'<div class="staff-casks">'+game.core.casks.map(c=>button(esc(caskName(c.id))+'<small>'+ageLabel(c.age)+'<br>'+esc(reservationLabel(c.id)||'自分で行う')+'</small>','staff-bottle-plan',c.id)).join('')+'</div>':'<p>熟成中のたるはありません</p>');
+ const policy=D.commonBottlingPolicy(game),editing=modal.editPolicy||!policy;
+ const common=editing?bottlingPolicyView():'<p>'+esc(policyLabel(policy))+'</p>'+button('条件を変える','bottling-policy-edit');
+ return '<p>給与 '+money(status.salary)+'／回</p>'+common+'<p class="quiet">新しい予約から適用<br>今の予約はそのまま</p>'+(game.core.casks.length?'<div class="staff-casks">'+game.core.casks.map(c=>button(esc(caskName(c.id))+'<small>'+ageLabel(c.age)+'<br>'+esc(reservationLabel(c.id)||'自分で行う')+'</small>','staff-bottle-plan',c.id)).join('')+'</div>':'<p>熟成中のたるはありません</p>');
 }
 function staffRequestView(){
  const q=D.staffQuote(game,modal.caskId===null?undefined:modal.caskId),status=D.staffStatus(game);if(!q)return '<p>抽出位置・たるが不明です。</p>';
@@ -338,18 +340,23 @@ function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();jump=0;i
 function quoteModal(id){if(!D.currentCask(game,id))return;stopClock();modal={kind:D.bottlingStaffStatus(game).hired&&D.bottlingReservation(game,id)?.status==='active'?'bottling-plan':'quote',id};jump=0;render();}
 function reservationLabel(id){const r=D.bottlingReservation(game,id);if(!r)return '';const condition=r.mode==='age'?r.age+'か月で'+r.count+'本':'在庫'+r.threshold+'本で'+r.count+'本';return condition+' · '+(r.status==='active'&&!D.bottlingStaffStatus(game).hired?'採用待ち':({active:'予約中',paused:'停止',completed:'完了'}[r.status]??r.status));}
 function reservationSymbol(id){const r=D.bottlingReservation(game,id);return r?.status==='paused'||r?.status==='active'&&!D.bottlingStaffStatus(game).hired?'pause':r?.status==='active'?(r.mode==='age'?'clock':'stock'):null;}
-function validPlanDraft(d){return !!d&&Number.isInteger(d.count)&&d.count>=1&&d.count<=Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)&&Number.isInteger(d[d.mode==='age'?'age':'threshold'])&&d[d.mode==='age'?'age':'threshold']>=0&&d[d.mode==='age'?'age':'threshold']<=(d.mode==='age'?1200:999);}
-function bottlingPlanView(id){
- const r=D.bottlingReservation(game,id),draft=modal.planDraft??(modal.planDraft={mode:r?.mode??'age',age:r?.age??24,threshold:r?.threshold??5,count:r?.count??10});
- return '<div class="bottling-plan"><div class="bottling-modes" role="group" aria-label="ビン詰めの方式">'+button('自分で行う','bottling-manual',id)+button('任せる','bottling-auto',id,'aria-pressed="true"')+'</div><label for="bottling-mode">条件</label><select id="bottling-mode"><option value="age"'+(draft.mode==='age'?' selected':'')+'>時期指定</option><option value="stock"'+(draft.mode==='stock'?' selected':'')+'>在庫連動</option></select><div class="bottling-plan-fields"><label for="bottling-condition">'+(draft.mode==='age'?'月齢':'在庫が次の本数以下')+'</label><input id="bottling-condition" type="number" inputmode="numeric" min="0" max="'+(draft.mode==='age'?1200:999)+'" step="1" value="'+(draft.mode==='age'?draft.age:draft.threshold)+'"><label for="bottling-quantity">ビン詰めする本数</label><input id="bottling-quantity" type="number" inputmode="numeric" min="1" max="'+Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)+'" step="1" value="'+draft.count+'"></div>'+(draft.mode==='stock'?'<p class="quiet">このたるの販売在庫</p>':'')+'<p class="quiet">ふつうの価格で販売開始</p>'+(r?'<p class="bottling-reservation" role="status">'+esc(r.status==='completed'?'完了':reservationLabel(id))+'</p>':'')+'</div>';
+function validPlanDraft(d){return !!d&&['age','stock'].includes(d.mode)&&Number.isInteger(d.count)&&d.count>=1&&d.count<=Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)&&Number.isInteger(d[d.mode==='age'?'age':'threshold'])&&d[d.mode==='age'?'age':'threshold']>=0&&d[d.mode==='age'?'age':'threshold']<=(d.mode==='age'?1200:999);}
+const policyLabel=r=>r.mode==='age'?r.age+'か月で'+r.count+'本':'在庫'+r.threshold+'本で'+r.count+'本';
+function bottlingPolicyView(){
+ const draft=modal.planDraft??(modal.planDraft={...D.operationDefaults(game).auto,...D.commonBottlingPolicy(game)});
+ return '<div class="bottling-plan"><label for="bottling-mode">共通の条件</label><select id="bottling-mode"><option value="age"'+(draft.mode==='age'?' selected':'')+'>時期指定</option><option value="stock"'+(draft.mode==='stock'?' selected':'')+'>在庫連動</option></select><div class="bottling-plan-fields"><label for="bottling-condition">'+(draft.mode==='age'?'月齢':'在庫が次の本数以下')+'</label><input id="bottling-condition" data-policy-field="'+(draft.mode==='age'?'age':'threshold')+'" type="number" inputmode="numeric" min="0" max="'+(draft.mode==='age'?1200:999)+'" step="1" value="'+(draft.mode==='age'?draft.age:draft.threshold)+'"><label for="bottling-quantity">ビン詰めする本数</label><input id="bottling-quantity" type="number" inputmode="numeric" min="1" max="'+Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)+'" step="1" value="'+draft.count+'"></div><p class="quiet">ふつうの価格で販売開始</p>'+button('条件を保存','bottling-policy-save','',validPlanDraft(draft)?'':'disabled')+'</div>';
+}
+function bottlingChoiceView(id){
+ const r=D.bottlingReservation(game,id),policy=D.commonBottlingPolicy(game);
+ return '<div class="bottling-modes" role="group" aria-label="ビン詰めの方式">'+button('自分で行う','bottling-manual',id)+button('任せる','bottling-delegate',id,r?.status==='active'?'disabled aria-pressed="true"':'')+'</div>'+(modal.staffContext&&r?'<p class="bottling-reservation">'+esc(reservationLabel(id))+'</p>':'')+(!policy?'<p>担当者の条件を決めてください</p>':'');
 }
 function bottleSelection(id){
  const c=D.currentCask(game,id),q=D.quote(game,id),fee=q.count>0?q.cost/q.count:0;
  const affordable=fee>0?Math.min(q.count,Math.max(0,Math.floor((game.core.cash+1e-9)/fee))):0;
- if(modal.bottleCount===undefined)modal.bottleCount=q.count>0?1:null;
+ if(modal.bottleCount===undefined)modal.bottleCount=affordable>0?Math.min(D.operationDefaults(game).bottleCount??1,affordable):null;
  const count=modal.bottleCount,valid=Number.isInteger(count)&&count>=1&&count<=q.count,cost=valid?count*fee:0;
  const remaining=valid?Math.max(0,c.litres-count*P.bottleLitres):c.litres,retired=valid&&count===q.count;
- const reason=!valid?'本数を選んでください。':count>affordable?'ビン詰めの資金が足りません。':'';
+ const reason=affordable<1?(q.count<1?'ビン1本分の原酒がありません。':'ビン詰めの資金が足りません。'):!valid?'本数を選んでください。':count>affordable?'ビン詰めの資金が足りません。':'';
  return {c,max:q.count,affordable,count,valid,cost,remaining,retired,ok:valid&&count<=affordable&&!modal.committing&&(preview||canSave),reason};
 }
 function bottleRemainder(q){return q.retired?'残り '+q.remaining.toFixed(2)+' L（1本未満） · たる終了':'たるに残す '+q.remaining.toFixed(2)+' L';}
@@ -437,16 +444,16 @@ function syncModal(){
   actions=D.contractFor(game,d.caskId)&&d.eventId==='funds'?button('契約を解除してビン詰め','cancel-contract',d.caskId):pending.options.map(o=>button(esc(o.id==='bottle'?'ビン詰め':uiText(o.label))+(o.hint&&o.id!=='cool'?'<small>'+esc(uiText(o.hint))+'</small>':''),o.id==='bottle'?'quote':'choose',d.caskId,'data-choice="'+esc(o.id)+'" data-event="'+esc(d.eventId)+'"')).join('');
   actions+=button('試す','trial',d.caskId);
  }else if(kind==='fill'){
-  title='たるを選ぶ';body='<p>'+game.still.distillation.litres.toFixed(1)+' L</p>';
-  actions=['bourbon','refill'].map(type=>button('<span class="fill-art choice-art" aria-hidden="true">'+barrel(type)+'</span><span class="choice-name">'+esc(uiText(P.casks[type].short))+'</span><span class="choice-price">'+money(P.casks[type].cost)+'</span>','fill',type)).join('');
+  modal.fillType??=D.operationDefaults(game).caskType;title='たるを選ぶ';body='<p>'+game.still.distillation.litres.toFixed(1)+' L</p><div class="bottling-modes" role="group" aria-label="たるの種類">'+['bourbon','refill'].map(type=>button('<span class="fill-art choice-art" aria-hidden="true">'+barrel(type)+'</span><span class="choice-name">'+esc(uiText(P.casks[type].short))+'</span><span class="choice-price">'+money(P.casks[type].cost)+'</span>','fill-select',type,'aria-pressed="'+(modal.fillType===type)+'"')).join('')+'</div>';
+  actions=button('たる詰め','fill',modal.fillType??'',P.casks[modal.fillType]?'':'disabled')+button('戻る','cancel');
  }else if(kind==='quote'&&c){
   const q=bottleSelection(id);title='ビン詰め';
   body='<p>'+esc(caskLabel(c))+' '+ageLabel(c.age)+'<br>'+c.litres.toFixed(2)+' L · '+q.max+'本まで</p><label for="bottle-count">本数</label><div class="bottle-count-controls">'+button('−','bottle-less',id,'aria-label="1本減らす"'+(q.count<=1?' disabled':''))+'<input id="bottle-count" type="number" inputmode="numeric" min="1" max="'+q.affordable+'" step="1" value="'+(q.count??'')+'"'+(q.affordable<1?' disabled':'')+'>'+button('＋','bottle-more',id,'aria-label="1本増やす"'+(q.count>=q.affordable?' disabled':''))+button('全部','bottle-all',id,q.max<1||q.affordable<q.max?'disabled':'')+'</div><p class="quote-numbers"><span id="bottle-selected">'+(q.valid?q.count+'本':'')+'</span> <span id="bottle-cost">費用 '+money(q.cost)+'</span></p><p id="bottle-remainder">'+bottleRemainder(q)+'</p><p id="bottle-cash">ビン詰め後の資金 '+money(game.core.cash-q.cost)+'</p><p id="bottle-count-reason" class="quiet" role="status">'+esc(q.reason||(q.affordable<q.max?'今の資金で '+q.affordable+'本まで':''))+'</p>';
-  body=(D.bottlingStaffStatus(game).hired?'<div class="bottling-modes" role="group" aria-label="ビン詰めの方式">'+button('自分で行う','bottling-manual',id,'aria-pressed="true"')+button('任せる','bottling-auto',id)+'</div>':'')+body+(D.bottlingReservation(game,id)?'<p class="bottling-reservation" role="status">'+esc(reservationLabel(id))+'</p>':'');
+  body=(D.bottlingStaffStatus(game).hired?'<div class="bottling-modes" role="group" aria-label="ビン詰めの方式">'+button('自分で行う','bottling-manual',id,'aria-pressed="true"')+button('任せる','bottling-auto',id)+'</div>':'')+body;
   actions=button('ビン詰め','bottle',id,q.ok?'':'disabled')+button('戻る','cancel');
  }else if(kind==='bottling-plan'&&c){
-  title='ビン詰めを任せる';body='<p>'+esc(caskLabel(c))+' '+ageLabel(c.age)+'</p>'+bottlingPlanView(id);
-  const r=D.bottlingReservation(game,id);actions=button('予約する','bottling-reserve',id,validPlanDraft(modal.planDraft)?'':'disabled')+(r&&r.status!=='completed'?button(r.status==='paused'?'再開':'停止',r.status==='paused'?'bottling-resume':'bottling-pause',id):'')+(r?button('予約取消','bottling-cancel',id):'')+button('戻る','cancel');
+  title='ビン詰め';body='<p>'+esc(caskLabel(c))+' '+ageLabel(c.age)+'</p>'+bottlingChoiceView(id);
+  const r=D.bottlingReservation(game,id);actions=(modal.staffContext&&r&&r.status!=='completed'?button(r.status==='paused'?'再開':'停止',r.status==='paused'?'bottling-resume':'bottling-pause',id):'')+(modal.staffContext&&r?button('予約取消','bottling-cancel',id):'')+button('戻る',modal.staffContext?'bottling-staff-back':'cancel');
  }else if(kind==='product'){
   const p=game.core.products.find(x=>x.id===id),meta=game.productsById[id];if(!p){modal=null;render();return;}
   const prices=D.salePrices(game,id),record=game.records.find(r=>r.productId===id);title=(brandFor(id)?.name??record?.name??'この一本')+(releaseTag(id)?' '+releaseTag(id):'');
@@ -551,8 +558,8 @@ function render(){
  }
  $('usual-status').textContent=staff.hired||reservation?staffState:'';
  const rk=JSON.stringify([game.core.casks.map(c=>[c.id,c.age,c.litres,reservationLabel(c.id)]),selectedCaskId,game.generations]);
- if(rk!==rackKey){$('cask-rack').innerHTML=game.core.casks.map(c=>'<button type="button" data-cask-id="'+c.id+'" aria-label="'+esc(caskLabel(c)+' · '+ageLabel(c.age)+' · '+c.litres.toFixed(1)+' L'+(reservationLabel(c.id)?' · '+reservationLabel(c.id):''))+'" aria-pressed="'+(selectedCaskId===c.id)+'"><span class="shelf-art" aria-hidden="true">'+barrel(c.type)+'</span><strong>'+caskName(c.id)+'</strong><small>'+ageLabel(c.age)+'</small></button>').join('')+'<span class="shelf-space" aria-hidden="true"></span>'.repeat(Math.max(0,4-game.core.casks.length));rackKey=rk;}
- const contracted=false;$('bottling-status').textContent=selectedCaskId!==null?reservationLabel(selectedCaskId):'';
+ if(rk!==rackKey){$('cask-rack').innerHTML=game.core.casks.map(c=>'<button type="button" data-cask-id="'+c.id+'" aria-label="'+esc(caskLabel(c)+' · '+ageLabel(c.age)+' · '+c.litres.toFixed(1)+' L')+'" aria-pressed="'+(selectedCaskId===c.id)+'"><span class="shelf-art" aria-hidden="true">'+barrel(c.type)+'</span><strong>'+caskName(c.id)+'</strong><small>'+ageLabel(c.age)+'</small></button>').join('')+'<span class="shelf-space" aria-hidden="true"></span>'.repeat(Math.max(0,4-game.core.casks.length));rackKey=rk;}
+ const contracted=false;$('bottling-status').textContent='';
  const postFill=modal?.kind==='inspect'&&modal.postFill===true;$('open-bottle').hidden=postFill;$('taste-bottle').hidden=postFill;$('watch-cask').hidden=!postFill||tasting;$('watch-tasting').hidden=!postFill||!tasting;
  $('open-bottle').textContent='ビン詰め';$('taste-bottle').textContent=game.trade.order?.status==='unmet'&&game.trade.order.caskId===selectedCaskId?'販売方法を選ぶ':'ビン詰め';
  $('warehouse-empty').hidden=game.core.casks.length>0;$('selected-cask').hidden=selectedCaskId===null||modal?.kind!=='inspect';$('close-cask-window').hidden=true;
@@ -587,7 +594,7 @@ function render(){
  const spirit=$('spirit-readout').hidden?null:{kind:$('spirit-kind').textContent,volume:$('spirit-volume').textContent,phrase:$('spirit-phrase').textContent,axes:$('spirit-gauges').hidden?[]:[['roughness','シゲキ'],['character','かおり']].map(([id,label])=>({label,ratio:Number($('spirit-'+id).style.getPropertyValue('--flavor-fill'))}))};
  scene.update({room,phase,pauseHint:userPaused&&jump===0&&!runtimeHalted&&!modal&&!tasting,monthProgress:elapsed/T.monthMs,inspectId:modal?.kind==='inspect'?selectedCaskId:null,cash:money(game.core.cash),calendar:monthLabel(game.core.month),generation:$('generation-name').textContent,timeStatus:$('time-status').textContent,
   collection:Math.max(0,Math.min(1,game.still.distillation?.litres/40||0)),spirit,
-  staffAvailable:!$('open-staff-panel').hidden,phaseSummary:!reservation&&!start.ok&&phase==='ready'?uiText(start.reason):'',staffBrief:staff.hired||reservation?staffBrief:'',
+  staffAvailable:!$('open-staff-panel').hidden,phaseSummary:!reservation&&!start.ok&&phase==='ready'?uiText(start.reason):!automatic&&['ready','distilling'].includes(phase)&&D.operationDefaults(game).stopAt!==null?'前の抽出 '+D.operationDefaults(game).stopAt+' / '+T.distillMax:'',staffBrief:staff.hired||reservation?staffBrief:'',
   notice:!$('storage-notice').hidden?$('storage-notice').textContent:!banner.hidden?banner.textContent:runtimeHalted?$('work-notice').textContent:'',
   casks:game.core.casks.map(c=>({id:c.id,type:c.type,wood:c.wood,name:caskName(c.id),age:ageLabel(c.age),reservationIcon:reservationSymbol(c.id),selected:c.id===selectedCaskId})),
   products:shelfProducts.slice(shelfStart,shelfStart+4).map(p=>({id:p.id,wood:p.wood,brand:brandFor(p.id),name:brandFor(p.id)?.name??'この一本',state:p.stock+'本 · '+(game.productsById[p.id]?.listed?'販売中':'保管中'),selected:p.id===selectedProductId})),pageCount:shelfPageCount,pageLabel:(shelfPage+1)+' / '+shelfPageCount});
@@ -628,12 +635,12 @@ $('action-dialog').addEventListener('pointercancel',()=>{backdropPress=null;});
 $('ledger-body').addEventListener('click',e=>{const b=e.target.closest?.('[data-action="department-cancel"]');if(!b||modal||!D.departmentInterests(game).some(i=>i.selectionId===b.dataset.selectionId))return;act(s=>D.cancelDepartmentInterest(s,b.dataset.selectionId),()=>message('相談を終えました。'));});
 $('dialog-actions').addEventListener('click',e=>handleModal(e));$('dialog-body').addEventListener('click',e=>handleModal(e));
 function updateBottleDraft(e){
- if(modal?.kind==='bottling-plan'){
+ if(modal?.kind==='bottler-panel'&&modal.planDraft){
   const draft=modal.planDraft;
   if(e.target.id==='bottling-mode'){draft.mode=e.target.value;render();}
-  if(e.target.id==='bottling-condition')draft[draft.mode==='age'?'age':'threshold']=Number(e.target.value);
-  if(e.target.id==='bottling-quantity')draft.count=Number(e.target.value);
-  const reserve=$('dialog-actions').querySelector('[data-action="bottling-reserve"]');if(reserve)reserve.disabled=!validPlanDraft(draft);
+  if(e.target.id==='bottling-condition'&&['age','threshold'].includes(e.target.dataset.policyField))draft[e.target.dataset.policyField]=e.target.value===''?null:Number(e.target.value);
+  if(e.target.id==='bottling-quantity')draft.count=e.target.value===''?null:Number(e.target.value);
+  const reserve=$('action-dialog').querySelector('[data-action="bottling-policy-save"]');if(reserve)reserve.disabled=!validPlanDraft(draft);
   return;
  }
  if(modal?.kind==='product'&&e.target.id==='sales-destination-choice'){modal.destination=e.target.value;render();return;}
@@ -647,11 +654,20 @@ function handleModal(e){
  if(a==='staff-job-hire'&&kind==='staff-manager'&&['distill','bottling'].includes(b.dataset.id)){act(b.dataset.id==='distill'?D.hireStaff:D.hireBottlingStaff);return;}
  if(a==='staff-job-open'&&kind==='staff-manager'){if(b.dataset.id==='distill'&&D.staffStatus(game).hired){modal={kind:'staff-panel'};render();}else if(b.dataset.id==='bottling'&&D.bottlingStaffStatus(game).hired){modal={kind:'bottler-panel'};render();}return;}
  if(a==='staff-manage-back'&&['staff-panel','bottler-panel'].includes(kind)){modal={kind:'staff-manager'};render();return;}
- if(a==='staff-bottle-plan'&&kind==='bottler-panel'&&D.bottlingStaffStatus(game).hired&&D.currentCask(game,id)){modal={kind:'bottling-plan',id};render();return;}
+ if(a==='staff-bottle-plan'&&kind==='bottler-panel'&&D.bottlingStaffStatus(game).hired&&D.currentCask(game,id)){modal={kind:'bottling-plan',id,staffContext:true};render();return;}
  if(a==='bottling-auto'&&D.bottlingStaffStatus(game).hired&&['quote','bottling-plan'].includes(kind)){modal={kind:'bottling-plan',id};render();return;}
  if(a==='bottling-manual'&&['quote','bottling-plan'].includes(kind)){if(D.bottlingReservation(game,id)?.status==='active')act(s=>D.pauseBottling(D.endTasting(s),id,true),()=>{modal={kind:'quote',id};});else{modal={kind:'quote',id};render();}return;}
- if(a==='bottling-reserve'&&kind==='bottling-plan'){if(!validPlanDraft(modal.planDraft))return;const draft=modal.planDraft,plan=draft.mode==='age'?{mode:'age',age:draft.age,count:draft.count}:{mode:'stock',threshold:draft.threshold,count:draft.count};act(s=>D.reserveBottling(D.endTasting(s),id,plan),()=>{modal=null;message('ビン詰めを予約しました。');});return;}
- if(['bottling-pause','bottling-resume','bottling-cancel'].includes(a)&&kind==='bottling-plan'){act(s=>a==='bottling-cancel'?D.cancelBottling(D.endTasting(s),id):D.pauseBottling(D.endTasting(s),id,a==='bottling-pause'),()=>{modal=null;message(a==='bottling-cancel'?'予約を取り消しました。':a==='bottling-pause'?'予約を停止しました。':'予約を再開しました。');});return;}
+ if(a==='bottling-policy-edit'&&kind==='bottler-panel'){modal.editPolicy=true;render();return;}
+ if(a==='bottling-staff-back'&&kind==='bottling-plan'){modal={kind:'bottler-panel'};render();return;}
+ if(a==='bottling-policy-save'&&kind==='bottler-panel'){
+  if(!validPlanDraft(modal.planDraft))return;const draft={...modal.planDraft},returnCaskId=modal.returnCaskId,displayDefaults=Object.fromEntries(['age','threshold'].filter(key=>Number.isInteger(draft[key])&&draft[key]>=0&&draft[key]<=(key==='age'?1200:999)).map(key=>[key,draft[key]])),plan=draft.mode==='age'?{mode:'age',age:draft.age,count:draft.count}:{mode:'stock',threshold:draft.threshold,count:draft.count};
+  act(s=>D.setBottlingPolicy(s,plan,displayDefaults),()=>{modal=returnCaskId?{kind:'bottling-plan',id:returnCaskId}:{kind:'bottler-panel'};message('条件を保存しました。');});return;
+ }
+ if(a==='bottling-delegate'&&kind==='bottling-plan'&&D.bottlingStaffStatus(game).hired){
+  if(!D.commonBottlingPolicy(game)){modal={kind:'bottler-panel',returnCaskId:id};render();return;}
+  const staffContext=modal.staffContext;act(s=>D.delegateBottling(D.endTasting(s),id),()=>{modal=staffContext?{kind:'bottler-panel'}:null;message('ビン詰めを任せました。');});return;
+ }
+ if(['bottling-pause','bottling-resume','bottling-cancel'].includes(a)&&kind==='bottling-plan'&&modal.staffContext){act(s=>a==='bottling-cancel'?D.cancelBottling(D.endTasting(s),id):D.pauseBottling(D.endTasting(s),id,a==='bottling-pause'),()=>{modal={kind:'bottler-panel'};message(a==='bottling-cancel'?'予約を取り消しました。':a==='bottling-pause'?'予約を停止しました。':'予約を再開しました。');});return;}
  if(a==='stockist-open'&&kind==='stockists'&&knownStockists().some(s=>s.id===b.dataset.id)){deliveryNotice='';modal={kind:'stockist',shopId:b.dataset.id};render();return;}
  if(a==='stockists-back'&&kind==='stockist'){modal={kind:'stockists'};deliveryNotice='';render();return;}
  if(a==='stockist-back'&&kind==='stockist-delivery'){modal={kind:'stockist',shopId:modal.shopId};deliveryNotice='';render();return;}
@@ -704,7 +720,8 @@ function handleModal(e){
  if(a==='milestone-fill'){if(kind==='milestone'&&modal.event==='distilled'&&game.still.phase==='filling'){modal={kind:'fill'};render();}return;}
  if(a==='store'||a==='product-later'){if(kind==='product')closeModal();return;}if(a==='cancel'){closeModal();return;}if(a==='trial'){trial(id);return;}if(a==='quote'){quoteModal(id);return;}
  if(a==='choose'){const first=game.decisions[0];if(kind!=='decision'||first?.caskId!==id||first.eventId!==b.dataset.event)return;act(s=>D.chooseDistillery(s,id,b.dataset.choice),()=>{modal=null;message('');});return;}
- if(a==='fill'){if(kind!=='fill')return;act(s=>D.fillBarrel(s,b.dataset.id),()=>{modal=null;selectedCaskId=game.core.casks.at(-1)?.id??null;room='warehouse';modal={kind:'inspect',id:selectedCaskId,postFill:true};message('');});return;}
+ if(a==='fill-select'&&kind==='fill'&&P.casks[b.dataset.id]){modal.fillType=b.dataset.id;render();return;}
+ if(a==='fill'){if(kind!=='fill'||modal.fillType!==b.dataset.id||!P.casks[modal.fillType])return;act(s=>D.fillBarrel(s,modal.fillType),()=>{modal=null;selectedCaskId=game.core.casks.at(-1)?.id??null;room='warehouse';modal={kind:'inspect',id:selectedCaskId,postFill:true};message('');});return;}
  if(a==='price'){if(kind!=='product'||modal.id!==id)return;act(s=>D.setSalePrice(s,b.dataset.tier,id));return;}
  if(a==='list'){if(kind!=='product'||modal.id!==id||game.productsById[id]?.listed)return;act(s=>D.listBottles(s,id),null,()=>{room='sales';selectedProductId=id;showMilestone('listed',{productId:id,brandName:brandFor(id)?.name??'この一本'});});return;}
  if(['bottle-less','bottle-more','bottle-all'].includes(a)){
@@ -725,19 +742,19 @@ function suspend(){jump=0;stopClock();save();if(game)render();}
 function resume(){if(game){render();schedule();}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();else resume();});window.addEventListener('pagehide',suspend);window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;suspend();storageNotice('別の画面で保存が変わりました。再読み込みしてください。');}});
-$('reset').addEventListener('click',()=>{if(!confirm('0.21の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}game=D.newShopDemandDistillery(seed);automaticNews.reset();staffMigrationNotice=false;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;jump=0;glassKey='';canSave=!preview;storageNotice('');save();render();});
+$('reset').addEventListener('click',()=>{if(!confirm('0.21の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}game=D.newBottlingPolicyDistillery(seed);automaticNews.reset();staffMigrationNotice=false;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;jump=0;glassKey='';canSave=!preview;storageNotice('');save();render();});
 $('retry-save').addEventListener('click',()=>{if(!game){boot();return;}canSave=!preview;if(save()){storageNotice('');$('recovery').hidden=true;}render();schedule();});
 function shopOrderLedger(){
  const rows=game.shopDemand?.lastOrders??[];if(!rows.length)return '';
  return '<details class="ledger-category"><summary>'+esc(monthLabel(game.core.month))+' 商店</summary>'+rows.map(o=>'<p>'+esc(SHOPS.find(x=>x.id===o.shopId)?.name??o.shopId)+'：注文 '+o.requested+'本 · 発送 '+o.shipped+'本'+(o.unmet?' · 未発送 '+o.unmet+'本':'')+'</p>').join('')+'</details>';
 }
 function boot(){
- if(preview){game=D.newShopDemandDistillery(seed);save();render();schedule();return;}
+ if(preview){game=D.newBottlingPolicyDistillery(seed);save();render();schedule();return;}
  try{
   lastSavedText=localStorage.getItem(SAVE_KEY);
-  if(lastSavedText===null){game=D.newShopDemandDistillery(seed);userPaused=false;elapsed=0;}
+  if(lastSavedText===null){game=D.newBottlingPolicyDistillery(seed);userPaused=false;elapsed=0;}
   else{const session=JSON.parse(lastSavedText);if(session.version!==2||typeof session.userPaused!=='boolean'||Object.keys(session).length!==4||session.game?.version!==20||!Number.isInteger(session.elapsed)||session.elapsed<0||session.elapsed>=T.monthMs||session.elapsed%T.distillStepMs!==0)throw Error('session');game=D.restoreDistillery(JSON.stringify(session.game));userPaused=session.userPaused;elapsed=session.elapsed;}
-  const restoredGame=game;game=D.enableShopDemand(game);const corrected=game!==restoredGame;
+  const restoredGame=game;game=D.enableBottlingPolicy(game);const corrected=game!==restoredGame;
   selectedCaskId=game.tastingId??game.core.casks[0]?.id??null;room=selectedCaskId!==null?'warehouse':'distill';canSave=true;if(lastSavedText===null||corrected)save();render();schedule();
  }catch{canSave=false;game=null;stopClock();$('settings-source').hidden=false;$('recovery').append($('settings-source'));$('game').hidden=true;$('recovery').hidden=false;storageNotice('この保存は開けません。元の記録を残して停止しています。');}
 }
