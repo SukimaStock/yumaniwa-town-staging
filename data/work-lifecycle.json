@@ -346,6 +346,12 @@
       "path": "works/ambertime-contest-lab",
       "status": "active",
       "title": "AmberTime Contest Lab 0.2"
+    },
+    {
+      "id": "ambertime-decision-lab",
+      "path": "works/ambertime-decision-lab",
+      "status": "active",
+      "title": "AmberTime Decision Lab 0.1"
     }
   ]
 }
