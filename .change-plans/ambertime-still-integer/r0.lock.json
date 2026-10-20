@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f29dbebb63d67dfb5db6dcd0b631f193f26a2f6dd3aeb315e75c084211edcf3a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-still-integer",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "c05d80a07dcf847f1a7807573b05ae84eb152f8b",
+    "change": "Fix unequal pot pixels caused by16-to26 resampling",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current source and prior request",
+      "User supplied Codea PixelEditor",
+      "Prior Codea source excerpt design/still-codea/source-reference.json",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-still-integer/r0.lock.json",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/visual-polish-art.test.mjs",
+      "works/ambertime/design/still-integer/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/ui-details.mjs",
+      "works/ambertime/pixel-symbols.mjs"
+    ],
+    "expectedChanges": [
+      "Keep identical16x16 source rows and colors; each source pixel becomes2x2 square,32x32 native pot, origin4,4 keeps bench y36.",
+      "Pipe route and receiver/steam/stream/glasses/other art/model unchanged. Canvas change only import cache edge; update whole index-app-canvas-art chain.",
+      "Scoped pixel-size regression and phone/PC before-after idle/distilling review; no broad E2E."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone390x844 and PC1024x768 idle/distilling source-cell geometry, window, cap, bench and basic start/menu/time"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User identifies resampling defect and authorizes correction within already authorized still-only Staging scope."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Integer authored SVG grid",
+      "Expression audit: no new text/decoration/flames",
+      "Lock before implementation; Scope Risk Impact"
+    ],
+    "rollback": "Revert this redraw commit; no save migration.",
+    "outOfScope": [
+      "Production",
+      "Other art and furniture/HUD",
+      "Gameplay/economy/save",
+      "Broad E2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}
