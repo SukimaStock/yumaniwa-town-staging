@@ -65,7 +65,7 @@ test('authored bottle shapes and labels remain distinct without incorporating pl
  const standard=brandArt(.4),slender=brandArt(.4,{bottle:'slender'}),dark=brandArt(.4,{label:'dark'});
  assert.notEqual(standard,slender);assert.notEqual(standard,dark);
  const outlineWidth=svg=>{
-  const outline=rectangles(svg).filter(r=>r.fill==='#8f9a7d');
+  const outline=rectangles(svg).filter(r=>r.fill==='#19141e');
   return Math.max(...outline.map(r=>Number(r.x)+Number(r.width)))-Math.min(...outline.map(r=>Number(r.x)));
  };
  assert.ok(outlineWidth(slender)<outlineWidth(standard));
@@ -91,7 +91,7 @@ test('clear receiver and sample preserve existing reaction hooks without introdu
  const bottom=Math.max(...liquid.map(r=>Number(r.y)+Number(r.height)));
  assert.match(current,new RegExp(`class="receiver-liquid" data-liquid-bottom="${bottom}"`),'collection pivot follows the actual liquid bottom');
  assert.match(glass(.4,{sample:true}),/class="sample-liquid" data-liquid-bottom="10"/);
- const copper=rectangles(current).filter(r=>r.fill==='#503214');
+ const copper=rectangles(current).filter(r=>r.fill==='#503214'||r.fill==='#19141e');
  assert.ok(copper.every(r=>Number(r.x)+Number(r.width)<left||Number(r.y)<20),'pot body does not overlap receiver');
  assert.equal(current,stillArt());
  assert.doesNotMatch(current,/<(?:animate|script|foreignObject)\b|\bon\w+=/);

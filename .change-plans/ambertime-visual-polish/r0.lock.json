@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0e0210d7dbfc4f19f0eba0375a2b4c706f76d608602156e4ae26b096679c0d7e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-visual-polish",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "55b2d09bfc9a571def5316feceeb756a6d076699",
+    "change": "Sharpen existing AmberTime silhouettes and pixel frames using supplied Codea references",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User visual polishing request and supplied Web/Codea four images",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "OPERATIONS.md",
+      "PR546-551 and current local canvas/asset contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-visual-polish/r0.lock.json",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/room-object-art.test.mjs",
+      "works/ambertime/tests/visual-polish-art.test.mjs",
+      "works/ambertime/tests/visual-polish-browser.mjs",
+      "works/ambertime/design/visual-polish/REPORT.md",
+      "works/ambertime/design/visual-polish/browser-results.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/ui-details.mjs",
+      "works/ambertime/pixel-symbols.mjs"
+    ],
+    "expectedChanges": [
+      "Keep all layout/geometry/hitboxes/fonts/content/modal structure and calculations/save/time/notification modules unchanged. Only app/index cache edges update; no invented release version required.",
+      "HUD same positions with white pixel frame and hard black offset shadow, existing267x12 progress fill has exterior thin frame and clearer track/fill; lowprogress visible. Menu/time buttons same square frame visual family no hitbox change.",
+      "Simplify pot/cask/bottle authored integer SVG cells and few muted colors with nearblack outer contours; preserve pipe exact rendered cells/origin, clearreceiver/glass/sample/stream hooks, sprite dimensions and bottletype/label/liquid-threshold distinctions.",
+      "Shelf/bench rails/posts get narrow black contours and hard shadow with existing muted wood palette, no furniture geometry moved/newobject. Existing brick background only reduce prominence if needed, no recolor overhaul.",
+      "Bottomledger/staff/store frames align54x54 visually inside unchanged tapregions (ledger66x54 retained); sameicons/semantic operations, monochrome-ish normal/selected/pressed differentiation. Rootrenderer only owns styling and allselected/pressed effects are ephemeral.",
+      "Before/after same lawful current state/seed/clock/viewport image comparison at390x844 three rooms plus1024x768 distill, check pipe bytes/pixels, fonts/control bounds/save equality/basic taps/modal return; scoped art/layout tests and independentreview/CI/public"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Samecondition390x844三室+1024x768蒸留室 beforeafter/Codeareference review, HUD/bar/objects/pipe/furniture/iconpressedselected and basicnativeactions/save"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes visualpolishing existingwork using supplied Codea references and Staging merge; no Production, layout/font/operation/economy changes"
+    ],
+    "hqDecisions": [
+      "Repo-native rect SVG assets and local Canvas renderer remain canonical; no raster generation or new UI layer. Art changes are decorative only; frozen pipe/receiver/glass and unchanged model/handlers preserve behavior. White frame fits insideexistingHUDrect with shadow outside, progress frame outside unchanged fill rect."
+    ],
+    "rulesApplied": [
+      "AGENTS useful independent audit/test/review delegation",
+      "Expression audit six points; no new explanations/panels beyond necessary state or requested short spoken line",
+      "Full Plan Lock before implementation; static node syntax; Scope→Risk→Impact"
+    ],
+    "rollback": "Revert local art/render/cache/test/docs commit; no state rollback/migration needed.",
+    "outOfScope": [
+      "Production",
+      "Economy/demand/price/cost/chemistry/generation/reputation changes",
+      "New store/equipment/capacity/worker",
+      "Broad E2E/longplay/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver and author tactile/visual acceptance",
+      "BroadE2E/economicbalance/longplay intentionallyexcluded"
+    ],
+    "problem": "Objects and UI boundaries lack contrast against brick and wood background.",
+    "currentContract": "Currentmain PR551 uses local integerSVG sprites and Canvas renderer with native accessible unchanged hitregions; model and sourceSVG behavior hooks separate.",
+    "whyExistingIsInsufficient": "HUD unframed, bottomicons bare and sprite outlines use brown/green close to background.",
+    "design": "Modify canonical art/Canvas decoration only: clear outlines, restrained palette, hard rectangular frames/shadows; preserve all coordinates and state.",
+    "alternativesRejected": [
+      "Copy Codea entirelayout or additional icons/screens",
+      "New artstyle/assetsystem/canvasgeometry/fonts",
+      "Change gameplay/save/notifications or addinformation",
+      "Generatedrasterassets instead of existing authoredintegerSVG"
+    ],
+    "migration": "None; no save fields/key/operations or state changes.",
+    "compatibility": "Exports/dimensions/type-labelvariants/liquidcolors/hooks unchanged. Pipe exact original cells and receiver unchanged. Native buttons keep originalbounds, labels andhandlers.",
+    "boundaryCases": [
+      "390x844 three rooms and1024x768 still; realgoods casks/bottles/staff/storeicons available",
+      "Paused/running/pressed/selected/disabled visuals; preserve operativefocus/tap area",
+      "Zero/low/half/fullprogress267x12 fill has samewidth/time mapping",
+      "Standard/slender paper/dark bottlevariants and bourb/refill casks remain distinct",
+      "Pipe markup/cells immutable and receiver/glass exact",
+      "Saved lawfullygeneratedstate samebeforeafter/roundtrip; no new clock/statehooks"
+    ],
+    "testPlan": [
+      "Samefixture before/after images and invariants; bounded integergeometry/palette/pipe/receiver/variant tests; existingart/layout scopedregressions; independentread-onlyreview and targetedpublicbasicnewgame/save"
+    ],
+    "promotionRisk": "Staging only; no Production changes."
+  }
+}

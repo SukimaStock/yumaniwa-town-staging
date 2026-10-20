@@ -1,7 +1,7 @@
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
 import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-layout.mjs?v=0.52-ui-details';
-import{barrel}from'./cask-glass-art.mjs?v=0.19-pixel-1';
-import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.21-space-1';
+import{barrel}from'./cask-glass-art.mjs?v=0.53-visual-polish';
+import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.53-visual-polish';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
@@ -50,19 +50,20 @@ export class CanvasScene{
   this.activeControls=active;this.root.dataset.hitRegions=JSON.stringify(active.map(({node,label,...r})=>r));this.root.dataset.reservationIcons=JSON.stringify((this.view.casks??[]).map(x=>({id:x.id,kind:x.reservationIcon,color:({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[x.reservationIcon]??null})));this.root.dataset.staffStatus=this.view.staffBrief??'';
  }
  drawWorld(){
-  const c=this.worldCtx,v=this.view,l=this.layout;c.clearRect(0,0,120,214);c.fillStyle='#4b4b55';c.fillRect(0,0,120,214);
+  const c=this.worldCtx,v=this.view,l=this.layout;c.clearRect(0,0,120,214);c.fillStyle='#41414b';c.fillRect(0,0,120,214);
   const r=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(Math.round(x/3),Math.round(y/3),Math.round(w/3),Math.round(h/3));};
-  for(let y=0;y<l.floorY;y+=15){r(0,y,360,3,'#3c3c46');for(let x=(y/15%2)*24;x<360;x+=48)r(x,y,3,15,'#3c3c46');}
+  for(let y=0;y<l.floorY;y+=15){r(0,y,360,3,'#35353e');for(let x=(y/15%2)*24;x<360;x+=48)r(x,y,3,15,'#35353e');}
   r(0,l.floorY,360,640-l.floorY,'#644632');for(let x=0;x<360;x+=36){r(x,l.floorY,3,640-l.floorY,'#3c281e');r(x+3,l.floorY,3,640-l.floorY,'#a0785a');}for(let y=l.floorY+90;y<640;y+=90)r(0,y,360,3,'#a0785a');r(0,l.floorY,360,6,shadow);
-  const rail=(x,y,w)=>{r(x,y,w,3,'#a0785a');r(x,y+3,w,3,'#644632');r(x,y+6,w,3,shadow);};
+  const rail=(x,y,w)=>{r(x+3,y+3,w,9,shadow);r(x,y,w,9,shadow);r(x+3,y+3,w-6,3,'#a0785a');};
+  const post=(x,y,w,h)=>{r(x,y,w,h,shadow);r(x+3,y+3,w-6,h-6,'#a0785a');};
   if(v.room==='warehouse'||v.room==='sales'){
-   const s=l.shelf;r(s.x,s.y,6,s.h,'#a0785a');r(s.x+6,s.y,3,s.h,'#644632');r(s.x+s.w-6,s.y,6,s.h,'#644632');r(s.x+s.w,s.y,3,s.h,shadow);for(const y of s.rails)rail(s.x,y,s.w);
+   const s=l.shelf;post(s.x,s.y,9,s.h);post(s.x+s.w-6,s.y,9,s.h);for(const y of s.rails)rail(s.x,y,s.w);
    const items=v.room==='warehouse'?v.casks:v.products,slots=v.room==='warehouse'?l.caskSlots:l.productSlots;
    items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand):bottleArt(item.wood)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.height+(v.room==='warehouse'?1:0);if(item.selected){c.save();c.globalAlpha=this.reducedMotion.matches||Math.floor(performance.now()/900)%2===0?1:.35;c.fillStyle=ink;for(let row=0;row<4;row++)c.fillRect(Math.round((pos.x+pos.w/2)/3)-3+row,y-7+row,7-row*2,1);c.restore();}c.drawImage(image,x,y);if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
   }else{
-   const e=l.equipment;rail(72,e.benchY,216);r(72,e.benchY+9,6,l.floorY-e.benchY-9,'#a0785a');r(282,e.benchY+9,6,l.floorY-e.benchY-9,'#644632');const image=sprite(stillArt(),v.collection,v.phase==='distilling');c.drawImage(image,e.x/3,e.y/3);
+   const e=l.equipment;post(72,e.benchY+6,9,l.floorY-e.benchY-6);post(282,e.benchY+6,9,l.floorY-e.benchY-6);rail(72,e.benchY,216);const image=sprite(stillArt(),v.collection,v.phase==='distilling');c.drawImage(image,e.x/3,e.y/3);
   }
-  if(v.room==='sales')drawSymbol(c,'store',55,176,1,ink);if(v.staffAvailable)drawSymbol(c,'person',35,177,1,ink);
+
  }
  // Text is rasterized at integral physical dots, independently of the room scale.
  textMetrics(size=BODY_SIZE){return pixelTypography(size,this.viewport.scale*this.viewport.dpr,document.documentElement.dataset.fontState==='ready');}
@@ -72,7 +73,9 @@ export class CanvasScene{
  lines(text,x,y,width,size=BODY_SIZE,max=2,align='left'){
   const result=[];let line='';for(const piece of textPieces(text)){const parts=this.measure(piece,size)>width?Array.from(piece):[piece];for(const ch of parts){if(ch==='\n'){result.push(line);line='';continue;}if(this.measure(line+ch,size)>width&&line){result.push(line);line='';}line+=ch;}}if(line)result.push(line);const shown=result.slice(0,max);if(result.length>max){let last=Array.from(shown.at(-1));while(last.length&&this.measure(last.join('')+'…',size)>width)last.pop();shown[shown.length-1]=last.join('')+'…';}const step=Math.max(size+4,this.textMetrics(size).logical+4);shown.forEach((s,i)=>this.text(s,x,y+i*step,size,align));return shown.length;
  }
- window(x,y,w,h,fill='#2e3143',border='#6c707b'){const c=this.ctx;c.fillStyle=shadow;c.fillRect(x+3,y+3,w,h);c.fillStyle=border;c.fillRect(x,y,w,h);c.fillStyle=fill;c.fillRect(x+3,y+3,w-6,h-6);}
+ pixelRect(x,y,w,h,color){const c=this.ctx,v=this.viewport,left=Math.round((v.offsetX+x*v.scale)*v.dpr),top=Math.round((v.offsetY+y*v.scale)*v.dpr);c.save();c.setTransform(1,0,0,1,0,0);c.fillStyle=color;c.fillRect(left,top,Math.round((v.offsetX+(x+w)*v.scale)*v.dpr)-left,Math.round((v.offsetY+(y+h)*v.scale)*v.dpr)-top);c.restore();}
+ window(x,y,w,h,fill='#2e3143',border='#6c707b'){this.pixelRect(x+3,y+3,w,h,shadow);this.pixelRect(x,y,w,h,border);this.pixelRect(x+3,y+3,w-6,h-6,fill);}
+ icon(kind,x,y,w,h,color=ink){const c=this.ctx,v=this.viewport,unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit)),width=kind==='store'?11:7;c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(x+w/2)*v.scale)*v.dpr-width*cell/2),Math.round((v.offsetY+(y+h/2)*v.scale)*v.dpr-width*cell/2),cell,color);c.restore();}
  draw(){
   if(!this.view||!this.fontSettled)return;this.controls();this.drawWorld();
   // Presentation clock only: never advances, saves or changes the game state.
@@ -80,12 +83,12 @@ export class CanvasScene{
   const idle=performance.now()-this.idleSince,hintBright=hintEligible&&idle>=12000&&Math.floor((idle-12000)/1200)%2===0;
   this.root.dataset.playbackHint=hintEligible?(idle<12000?'waiting':hintBright?'bright':'quiet'):'off';const c=this.ctx,v=this.viewport,view=this.view,l=this.layout;c.setTransform(v.dpr,0,0,v.dpr,0,0);c.fillStyle=shadow;c.fillRect(0,0,v.width,v.height);c.imageSmoothingEnabled=false;c.drawImage(this.world,0,0,120,640/3,v.offsetX,v.offsetY,360*v.scale,640*v.scale);c.save();c.translate(v.offsetX,v.offsetY);c.scale(v.scale,v.scale);
   // Book shape is unchanged; draw above the coarse room grid for an exact 2px shift.
-  const book=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(x+2,y,w,h);};
-  book(36,528,30,33,'#6e5a42');book(39,528,27,30,'#b69a65');book(39,528,3,30,'#e4c58a');book(42,531,21,24,'#e7dcc0');book(45,534,15,3,'#9a835c');book(45,540,15,3,'#9a835c');book(45,546,12,3,'#9a835c');
-  c.fillStyle='#292b39';c.fillRect(6,6,348,102);
+  const book=(x,y,w,h,color)=>this.pixelRect(x+2,y,w,h,color);
+
+  this.window(6,6,348,102,'#292b39','#d8d5df');
   const calendarRight=15+this.measure(view.calendar),generationX=calendarRight+12,generationRight=generationX+this.measure(view.generation),cashWidth=this.measure(view.cash),cashY=288-cashWidth>=generationRight+9?30:60;
   this.text(view.calendar,15,30,BODY_SIZE);this.text(view.generation,generationX,30,BODY_SIZE);this.text(view.cash,288,cashY,BODY_SIZE,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY,calendarRight,generationRight,cashLeft:288-cashWidth});
-  c.fillStyle='#454958';c.fillRect(15,78,267,12);c.fillStyle='#b2a379';c.fillRect(15,78,Math.round(89*Math.max(0,Math.min(1,view.monthProgress??0)))*3,12);this.root.dataset.monthProgress=String(view.monthProgress??0);
+  this.pixelRect(12,75,273,18,'#d8d5df');this.pixelRect(15,78,267,12,'#353947');this.pixelRect(15,78,Math.round(89*Math.max(0,Math.min(1,view.monthProgress??0)))*3,12,'#c5b687');this.root.dataset.monthProgress=String(view.monthProgress??0);
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
   items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2;const sales=view.room==='sales',size=sales?16:BODY_SIZE,titleY=p.base+(sales?15:27),lines=this.lines(sales?item.name:uiText(item.name),mid,titleY,132,size,sales?2:1,'center');const detailY=sales?p.base+55:titleY+lines*Math.max(26,this.textMetrics(BODY_SIZE).logical+4);const state=view.room==='sales'?item.state.replace(' · ',' ').replace('保管中','保管'):item.age;const suffix=view.room==='sales'?(state.endsWith('保管')?{text:'保管',color:'#c0bfbb'}:state.endsWith('販売中')?{text:'販売中',color:'#efae95'}:null):null;this.text(state,mid,detailY,BODY_SIZE,'center',ink,suffix);if(view.room==='warehouse'&&item.reservationIcon)drawSymbol(c,item.reservationIcon,Math.round((mid+this.measure(item.age)/2+6)/3)*3,Math.round((detailY-18)/3)*3,3,({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink);});
   if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
@@ -93,18 +96,22 @@ export class CanvasScene{
   const spiritOffset=phaseLines>1?18:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});
   if(view.room==='distill'&&view.spirit){const p=view.spirit;this.window(24,159+spiritOffset,312,84,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,182+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=210+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,36,213+spiritOffset,288,BODY_SIZE,2);}
   if(view.notice){this.window(12,465,336,57,'#2e3143','#858995');this.lines(view.notice,21,489,318,BODY_SIZE,2);}
-  this.window(9,582,342,45);c.fillStyle='#606575';for(const x of[123,237])c.fillRect(x,588,3,33);
+  this.window(9,582,342,45,'#292b39','#d8d5df');for(const x of[123,237])this.pixelRect(x,588,3,33,'#858995');
   for(const a of this.activeControls){
    if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
-   if(a.key==='open-ledger')continue;
-   if(a.key==='open-staff-panel'){if(view.staffBrief&&view.room==='distill')this.text(view.staffBrief,a.x+a.w+6,a.y+33,BODY_SIZE);continue;}
+   if(['open-ledger','open-staff-panel','shop-offer'].includes(a.key)){
+    const kind=$('action-dialog').open?$('action-dialog').dataset.kind:'',active=a.key==='open-ledger'?kind==='ledger':a.key==='open-staff-panel'?/^(staff|bottl)/.test(kind):/^(stockist|shop-offer)/.test(kind),x=a.x+(a.w-54)/2;
+    this.window(x,a.y,54,54,pressed?'#19141e':active?'#414552':'#292b39',pressed?'#f0e6c8':'#d8d5df');if(active)this.pixelRect(x+6,a.y+45,42,3,'#d8d5df');
+    if(a.key==='open-ledger'){book(36,531,30,33,'#6e5a42');book(39,531,27,30,'#b69a65');book(39,531,3,30,'#e4c58a');book(42,534,21,24,'#e7dcc0');book(45,537,15,3,'#9a835c');book(45,543,15,3,'#9a835c');book(45,549,12,3,'#9a835c');}
+    else this.icon(a.key==='open-staff-panel'?'person':'store',x,a.y,54,54);
+    if(a.key==='open-staff-panel'&&view.staffBrief&&view.room==='distill')this.text(view.staffBrief,a.x+a.w+6,a.y+33,BODY_SIZE);continue;
+   }
    if(a.key==='trade-info'){drawSymbol(c,'handshake',a.x+11,a.y+6,3,ink);continue;}
-   if(a.key==='shop-offer')continue;
-   if(a.key==='open-aux-menu'){this.window(a.x,a.y,a.w,a.h,pressed?'#414350':'#2e3143','#606575');c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(a.x+(a.w-21)/2+i*9,a.y+(a.h-3)/2,3,3);continue;}
+   if(a.key==='open-aux-menu'){this.window(a.x,a.y,a.w,a.h,pressed?'#19141e':'#292b39','#d8d5df');c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(a.x+(a.w-21)/2+i*9,a.y+(a.h-3)/2,3,3);continue;}
    if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+29,BODY_SIZE,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}
    const primary=['start-distill','stop-distill','open-fill','go-distill'].includes(a.key),quiet=['open-staff-panel','shop-offer','shelf-prev','shelf-next'].includes(a.key);
-   if(!quiet)this.window(a.x,a.y,a.w,a.h,pressed?'#414350':primary?'#685038':'#2e3143',primary?'#ae8d60':a.key==='toggle-time'&&hintBright?'#858995':'#606575');
+   if(!quiet)this.window(a.x,a.y,a.w,a.h,pressed?'#19141e':primary?'#685038':'#292b39',primary?'#ae8d60':a.key==='toggle-time'?(hintBright?'#f0e6c8':'#d8d5df'):'#858995');
    else if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}
    if(a.key==='toggle-time'){const kind=a.label==='時間を止める'?'pause':'play';const unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit));c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(a.x+a.w/2)*v.scale)*v.dpr-3.5*cell),Math.round((v.offsetY+(a.y+a.h/2)*v.scale)*v.dpr-3.5*cell),cell,ink);c.restore();if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}continue;}
    const label=a.key==='trade-info'?'取引':a.key==='shop-offer'?'取扱店':a.key==='toggle-time'?a.label.replace('蒸留を再開する','蒸留を再開'):a.label;
