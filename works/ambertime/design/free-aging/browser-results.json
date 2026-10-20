@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "touch": true
+  },
+  "checks": [
+    "manual stop opens fill choice directly once; fill does not open a completion/inspection modal; genuine first staff opportunity remains",
+    "sample and optional cool during tasting use saved model operations; cooled once, no fabricated pending decision; cask comparison remains read-only; cooling and samples survive exact reload",
+    "manual bottling returns to sales with a short pointer-transparent notice; room controls work while visible; listing closes without popup/toast; ordinary monthly sales stay quiet, real sellout notices once; each month matches the model and reload replays no notices",
+    "saved automatic age completion still emits one short notice without a blocking modal",
+    "paid long-aged saved cask remains inspectable/tastable/bottleable without narrative pending or target deadline; ledger opens read-only and long state restores exactly"
+  ],
+  "monthly": [
+    {
+      "month": 13,
+      "sales": 14,
+      "bottlings": 0,
+      "news": ""
+    },
+    {
+      "month": 14,
+      "sales": 6,
+      "bottlings": 0,
+      "news": "発売2 完売"
+    },
+    {
+      "month": 1,
+      "sales": 0,
+      "bottlings": 1,
+      "news": "ビン詰め完了 10本 · たる No.1 残り 24.2L"
+    }
+  ],
+  "longAging": {
+    "age": 180,
+    "cash": 19989,
+    "decisions": 0,
+    "pending": null,
+    "source": "Same lawful paid operation history replayed with public projection API in Chromium; no age/cash edits.",
+    "runtimeComparison": {
+      "sameOperationCount": 526,
+      "numericDiffCount": 8,
+      "maxAbsoluteDifference": 3.885780586188048e-16,
+      "firstDifferences": [
+        {
+          "path": "game.core.products.7.roughness",
+          "node": 0.43068209110979844,
+          "chromium": 0.43068209110979877,
+          "delta": 3.3306690738754696e-16
+        },
+        {
+          "path": "game.core.archive.4.roughness",
+          "node": 0.43068209110979844,
+          "chromium": 0.43068209110979877,
+          "delta": 3.3306690738754696e-16
+        },
+        {
+          "path": "game.records.7.profile.roughness",
+          "node": 0.43068209110979844,
+          "chromium": 0.43068209110979877,
+          "delta": 3.3306690738754696e-16
+        },
+        {
+          "path": "game.records.7.choices.0.profile.roughness",
+          "node": 0.43068209110979844,
+          "chromium": 0.43068209110979877,
+          "delta": 3.3306690738754696e-16
+        },
+        {
+          "path": "game.releases.6.profile.roughness",
+          "node": 0.42769110110783076,
+          "chromium": 0.4276911011078306,
+          "delta": -1.6653345369377348e-16
+        },
+        {
+          "path": "game.releases.12.profile.roughness",
+          "node": 0.44596627597173033,
+          "chromium": 0.44596627597173,
+          "delta": -3.3306690738754696e-16
+        },
+        {
+          "path": "game.releases.22.profile.roughness",
+          "node": 0.44259144492662883,
+          "chromium": 0.4425914449266292,
+          "delta": 3.885780586188048e-16
+        },
+        {
+          "path": "game.releases.71.profile.roughness",
+          "node": 0.43068209110979844,
+          "chromium": 0.43068209110979877,
+          "delta": 3.3306690738754696e-16
+        }
+      ],
+      "browserNativeStrictRestoreExact": true,
+      "nodeVersion": "v24.19.0",
+      "browserVersion": "153.0.8010.0"
+    },
+    "ledgerReadOnly": true
+  },
+  "errors": [],
+  "physicalSafari": false,
+  "screenshotsForLocalReview": [
+    "/tmp/ambertime-free-aging-bottled.png",
+    "/tmp/ambertime-free-aging-long-cask.png"
+  ]
+}
