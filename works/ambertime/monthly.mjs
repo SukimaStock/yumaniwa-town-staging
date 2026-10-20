@@ -35,6 +35,22 @@ function requestBottling(j) {
   j.pending={id:'bottle-ready',title:'この樽を瓶へ移す',text:'',options:[{id:'bottle',label:'瓶詰めを確かめる'}]};
 }
 
+// Passive flavor history reuses the existing observation thresholds and spacing.
+// It never creates a choice, deadline, completion, or a new chemistry step.
+function observeFreeAging(notes,cask,month){
+ const n=copy(notes);n.peakCharacter=Math.max(n.peakCharacter,cask.character);
+ if(cask.age<C.firstEventAge||cask.age-n.lastEventAge<C.minEventGap)return n;
+ const unseen=id=>!n.seen.includes(id),recent=n.samples.at(-1);let event=null;
+ if(unseen('wood')&&cask.wood>=C.woodGoal)event={id:'wood',title:'原酒の色が深くなってきた'};
+ else if(unseen('fading')&&(n.peakCharacter-cask.character>=C.aromaLoss||recent&&recent.profile.character-cask.character>=C.sampleAromaLoss))event={id:'fading',title:'香りの移り変わり'};
+ else if(unseen('rough')&&cask.roughness>C.roughGoal)event={id:'rough',title:'若い原酒のまま、少し先へ'};
+ else if(unseen('fruit')&&unseen('rough')&&unseen('rounded')&&cask.character>C.fruitGoal)event={id:'fruit',title:'原酒の香りが広がる頃'};
+ else if(unseen('rounded')&&unseen('fruit')&&cask.roughness<=C.softGoal)event={id:'rounded',title:'口当たりが変わる頃'};
+ else if(unseen('loss')&&(cask.litres+(n.withdrawnLitres??0))/cask.initialLitres<=C.remainingGoal&&cask.wood<C.woodThreat)event={id:'loss',title:'少しずつ、減っていく'};
+ if(event){n.seen.push(event.id);n.lastEventAge=cask.age;n.observations??=[];n.observations.push({caskId:cask.id,age:cask.age,eventId:event.id,title:event.title,text:'',month});}
+ return n;
+}
+
 export function advanceMonthly(state,{expectedMonth,paused=false,listedProductIds}={}) {
   validateState(state.core);
   // Reject stale callbacks even while paused; they must never become a later
@@ -49,7 +65,8 @@ export function advanceMonthly(state,{expectedMonth,paused=false,listedProductId
     // a phantom observation or refer to another barrel in its place.
     if(!cask)continue;
     const local={...copy(state.notesById[before.id]),core:{...core,casks:[cask]}};
-    const {core:ignored,...notes}=observeCharacterMonth(local,requestBottling);
+    const {core:ignored,...legacyNotes}=state.freeAging?.version===1?local:observeCharacterMonth(local,requestBottling);
+    const notes=state.freeAging?.version===1?observeFreeAging(legacyNotes,cask,core.month):legacyNotes;
     notesById[cask.id]=notes;
     if(notes.pending)decisions.push({month:core.month,caskId:cask.id,eventId:notes.pending.id,pending:copy(notes.pending)});
   }

@@ -1,9 +1,9 @@
-import {automaticEvents,transientNotices} from './event-notices.mjs?v=0.47-bottling-roles';
-import {CanvasScene} from './canvas-scene.mjs?v=0.47-bottling-roles';
-import * as D from './partner-orders.mjs?v=0.47-bottling-roles';
-import {SHOPS} from './shop-model.mjs?v=0.47-bottling-roles';
+import {automaticEvents,transientNotices} from './event-notices.mjs?v=0.48-free-aging';
+import {CanvasScene} from './canvas-scene.mjs?v=0.48-free-aging';
+import * as D from './partner-orders.mjs?v=0.48-free-aging';
+import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName,releaseNumber} from './work-context.mjs?v=0.38-cask-serials';
-import {createCaskSerials} from './cask-serials.mjs?v=0.47-bottling-roles';
+import {createCaskSerials} from './cask-serials.mjs?v=0.48-free-aging';
 import {distillationView,spiritProfile} from './spirit-view.mjs?v=0.14';
 import {brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
@@ -13,7 +13,7 @@ import {glass,bottleArt,brandArt,stillArt} from './room-object-art.mjs?v=0.21-sp
 import {shortTaste,shortChange} from './tasting-view.mjs?v=0.6';
 import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=0.19-flavor';
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=0.18-tasting';
-import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=0.47-bottling-roles';
+import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=0.48-free-aging';
 import {uiText,agingEventText} from './ui-text.mjs?v=0.34-aging-1';
 // Resolve structured cask IDs only; saved prose and player names stay verbatim.
 const caskSerials=createCaskSerials();
@@ -44,7 +44,7 @@ let historyWorker=null,historyRequest=0,historyData=null,historyError='',history
 function openHistory(){
  if(!game||(modal&&modal.kind!=='aux-panel'))return;stopClock();jump=0;modal={kind:'history',year:null,page:0};historyData=null;historyError='';historyLoading=true;const requestId=++historyRequest;
  try{
-  if(!historyWorker){historyWorker=new Worker(new URL('./history-worker.mjs?v=0.47-bottling-roles',import.meta.url),{type:'module'});historyWorker.onmessage=({data})=>{if(data.requestId!==historyRequest||!['history','history-brand','history-shop'].includes(modal?.kind))return;historyLoading=false;historyData=data.history??null;historyError=data.error?'歩みを読めませんでした。':'';render();};historyWorker.onerror=()=>{if(!historyLoading)return;historyLoading=false;historyError='歩みを読めませんでした。';historyWorker?.terminate();historyWorker=null;if(modal?.kind==='history')render();};}
+  if(!historyWorker){historyWorker=new Worker(new URL('./history-worker.mjs?v=0.48-free-aging',import.meta.url),{type:'module'});historyWorker.onmessage=({data})=>{if(data.requestId!==historyRequest||!['history','history-brand','history-shop'].includes(modal?.kind))return;historyLoading=false;historyData=data.history??null;historyError=data.error?'歩みを読めませんでした。':'';render();};historyWorker.onerror=()=>{if(!historyLoading)return;historyLoading=false;historyError='歩みを読めませんでした。';historyWorker?.terminate();historyWorker=null;if(modal?.kind==='history')render();};}
   historyWorker.postMessage({requestId,state:game});
  }catch{historyLoading=false;historyError='歩みを読めませんでした。';}
  render();
@@ -235,7 +235,7 @@ function recordTimeline(samples=[],observations=[],choices=[],withChanges=false)
  const ages=new Map(),add=(age,html)=>{if(html)ages.set(age,(ages.get(age)??'')+html);};
  samples.forEach((sample,i)=>{add(sample.age,(sample.text??[]).map(recordText).join(''));if(withChanges&&i)add(sample.age,shortChange(sample,samples[i-1]).split(' · ').map(recordText).join(''));});
  observations.forEach(o=>add(o.age,recordText(o.title)+(o.text!==o.title?recordText(o.text):'')));
- choices.forEach(c=>add(c.age,recordText(c.text)));
+ choices.filter(c=>c.key!=='cool'||!observations.some(o=>o.eventId==='manual-cool'&&o.age===c.age)).forEach(c=>add(c.age,recordText(c.text)));
  return ages.size?'<ol class="record-timeline">'+[...ages].sort((a,b)=>a[0]-b[0]).map(([age,html])=>'<li data-age="'+age+'"><time>'+ageLabel(age)+'</time>'+html+'</li>').join('')+'</ol>':'';
 }
 function maturationHistory(){
@@ -289,10 +289,9 @@ function schedule(){
   }catch(e){runtimeHalted=true;jump=0;storageNotice(e.message);render();}
  },T.distillStepMs);
 }
-function act(fn,after,afterSave){stopClock();try{game=fn(game);runtimeHalted=false;if(after)after();const saved=save();if(saved&&afterSave)afterSave();render();schedule();return true;}catch(e){storageNotice(e.message);render();schedule();return false;}}
+function act(fn,after,afterSave){stopClock();try{const before=game;game=fn(game);runtimeHalted=false;if(after)after();const saved=save();if(saved){automaticNews.push(automaticEvents(before,game,caskName));if(afterSave)afterSave();}render();schedule();return true;}catch(e){storageNotice(e.message);render();schedule();return false;}}
 // Event presentation is transient and created only after the operation is saved.
-function showMilestone(event,details={}){modal={kind:'milestone',event,...details};jump=0;deliveryNotice='';message('');}
-function finishDistillation(){if(game?.still.phase==='distilling'&&game.still.distillation.progress>=T.minimumStop&&!modal)act(D.stopDistillation,null,()=>showMilestone('distilled',{litres:game.core.spirit.litres}));}
+function finishDistillation(){if(game?.still.phase==='distilling'&&game.still.distillation.progress>=T.minimumStop&&!modal)act(D.stopDistillation,null,()=>{modal={kind:'fill'};jump=0;message('');});}
 function endTaste(){if(game?.tastingId!==null)game=D.endTasting(game);}
 function selectRoom(next){if(!game||!['distill','warehouse','sales'].includes(next)||modal)return;stopClock();endTaste();room=next;jump=0;save();render();schedule();}
 // The internal identity remains the action target; its display serial is derived.
@@ -335,8 +334,8 @@ function departmentDestination(p,release,invitation){
  else body+='<p>'+(adopted?'今回の企画は完了':adoptions.length?'過去に採用実績あり':'申し出待ち')+'</p><p>5本 '+unit(q.unitPrice)+'/本</p><p class="quiet">'+esc(uiText(q.reason)??shopTerms('department'))+'</p>';
  body+=D.departmentAdoptions(game,release?.brandId).length?'<p class="quiet">採用歴は記録へ</p>':'';return body+'</section>';
 }
-function closeModal(){if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='milestone'){if(modal.event==='distilled')modalReturnFocus=$('open-fill');else modalReturnObject={attribute:'data-product-id',id:modal.productId};modal=null;render();schedule();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){historyRequest++;if(historyLoading){historyWorker?.terminate();historyWorker=null;historyLoading=false;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
-function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();jump=0;if(game.tastingId!==null&&game.tastingId!==id)endTaste();selectedCaskId=id;room='warehouse';const postFill=modal?.kind==='inspect'&&modal.postFill===true;modal={kind:'inspect',id,postFill};act(s=>D.sampleDistillery(s,id));}
+function closeModal(){if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){historyRequest++;if(historyLoading){historyWorker?.terminate();historyWorker=null;historyLoading=false;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
+function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();jump=0;if(game.tastingId!==null&&game.tastingId!==id)endTaste();selectedCaskId=id;room='warehouse';modal={kind:'inspect',id};act(s=>D.sampleDistillery(s,id));}
 function quoteModal(id){if(!D.currentCask(game,id))return;stopClock();modal={kind:D.bottlingStaffStatus(game).hired&&D.bottlingReservation(game,id)?.status==='active'?'bottling-plan':'quote',id};jump=0;render();}
 function reservationLabel(id){
  const r=D.bottlingReservation(game,id);if(!r)return '';
@@ -397,11 +396,7 @@ function syncModal(){
   });
  }return;}
  const {kind,id}=modal,c=D.currentCask(game,id);let title='',body='',actions='';
- if(kind==='milestone'){
-  title=({distilled:'蒸留完了',bottled:'ビン詰め完了',listed:'販売開始',stockist:'取扱開始'})[modal.event];
-  body=modal.event==='distilled'?'<p>'+Number(modal.litres).toFixed(1)+' L</p>':modal.event==='bottled'?'<p>'+modal.count+'本</p>':modal.event==='listed'?'<p>'+esc(modal.brandName)+'</p>':'<p>'+esc(modal.shopName)+'</p><p>'+modal.count+'本<br>'+unit(modal.revenue)+'</p>';
-  actions=modal.event==='distilled'?button('たる詰めへ','milestone-fill'):modal.event==='bottled'?button('販売へ','milestone-product'):button('閉じる','cancel');
- }else if(kind==='inspect'){title=c?caskLabel(c)+' '+ageLabel(c.age):'たる';
+ if(kind==='inspect'){title=c?caskLabel(c)+' '+ageLabel(c.age):'たる';
  }else if(kind==='aux-panel'){title='メニュー';
  }else if(kind==='staff-manager'){title='担当者';body=staffManagerView();actions=button('閉じる','cancel');
  }else if(kind==='staff-opportunity'){title=jobName(modal.job);const status=jobStatus(modal.job);body='<p>'+(modal.job==='distill'?'仕込みを任せられます':'ビン詰めを任せられます')+'</p>'+staffCostView(modal.job);actions=button('採用','staff-opportunity-hire',modal.job,status.canHire?'':'disabled')+button('見送る','staff-opportunity-later');
@@ -483,7 +478,7 @@ function syncModal(){
   actions=button('閉じる','cancel');
 
  }
- const activeCask=['decision','quote','contract-bottle'].includes(kind)?modal.id:null,waiting=game.decisions.filter(d=>d.caskId!==activeCask).length+(game.trade.offer&&kind!=='offer'?1:0)+shopOffers().filter(o=>!o.notified&&(kind!=='shop-offer'||o.id!==modal.offerId)).length;$('dialog-context').textContent=waiting?'このあと判断 '+waiting+'件':'';$('dialog-context').hidden=!waiting||kind==='milestone';
+ const activeCask=['decision','quote','contract-bottle'].includes(kind)?modal.id:null,waiting=game.decisions.filter(d=>d.caskId!==activeCask).length+(game.trade.offer&&kind!=='offer'?1:0)+shopOffers().filter(o=>!o.notified&&(kind!=='shop-offer'||o.id!==modal.offerId)).length;$('dialog-context').textContent=waiting?'このあと判断 '+waiting+'件':'';$('dialog-context').hidden=!waiting;
  $('dialog-error').hidden=$('storage-notice').hidden;$('dialog-error').textContent=$('storage-notice').textContent;
  $('dialog-title').textContent=title;
  const nativePanel=kind==='inspect'?'selected-cask':kind==='staff-panel'?'staff-panel':kind==='aux-panel'?'aux-panel':null;
@@ -505,7 +500,7 @@ function syncModal(){
  }
  dialog.dataset.kind=kind;$('close-dialog').hidden=kind==='decision'||kind==='generation-review';
  if(!dialog.open){$('dialog-title').removeAttribute('tabindex');dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}
- else if(previousKind!==kind&&(kind==='milestone'||previousKind==='milestone'||['stockists','stockist','stockist-delivery'].includes(kind))){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else (['stockists','stockist','stockist-delivery'].includes(kind)?document.querySelector('#dialog-body button:not(:disabled), #dialog-actions button'):$('dialog-actions button'))?.focus({preventScroll:true});}
+ else if(previousKind!==kind&&['stockists','stockist','stockist-delivery'].includes(kind)){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else document.querySelector('#dialog-body button:not(:disabled), #dialog-actions button')?.focus({preventScroll:true});}
 }
 function renderSpirit(){
  const panel=$('spirit-readout');if(!panel)return;
@@ -565,7 +560,7 @@ function render(){
  const rk=JSON.stringify([game.core.casks.map(c=>[c.id,c.age,c.litres,reservationLabel(c.id)]),selectedCaskId,game.generations]);
  if(rk!==rackKey){$('cask-rack').innerHTML=game.core.casks.map(c=>'<button type="button" data-cask-id="'+c.id+'" aria-label="'+esc(caskLabel(c)+' · '+ageLabel(c.age)+' · '+c.litres.toFixed(1)+' L')+'" aria-pressed="'+(selectedCaskId===c.id)+'"><span class="shelf-art" aria-hidden="true">'+barrel(c.type)+'</span><strong>'+caskName(c.id)+'</strong><small>'+ageLabel(c.age)+'</small></button>').join('')+'<span class="shelf-space" aria-hidden="true"></span>'.repeat(Math.max(0,4-game.core.casks.length));rackKey=rk;}
  const contracted=false;$('bottling-status').textContent=selectedCaskId!==null?reservationLabel(selectedCaskId):'';
- const postFill=modal?.kind==='inspect'&&modal.postFill===true;$('open-bottle').hidden=postFill;$('taste-bottle').hidden=postFill;$('watch-cask').hidden=!postFill||tasting;$('watch-tasting').hidden=!postFill||!tasting;
+ const canCool=D.freeAgingMode(game)&&selectedCaskId!==null&&D.canCare(game,selectedCaskId);for(const id of ['cool-cask','cool-tasting'])$(id).hidden=!canCool;$('open-bottle').hidden=false;$('taste-bottle').hidden=false;
  $('open-bottle').textContent='ビン詰め';$('taste-bottle').textContent=game.trade.order?.status==='unmet'&&game.trade.order.caskId===selectedCaskId?'販売方法を選ぶ':'ビン詰め';
  $('warehouse-empty').hidden=game.core.casks.length>0;$('selected-cask').hidden=selectedCaskId===null||modal?.kind!=='inspect';$('close-cask-window').hidden=true;
  if(selectedCaskId!==null){
@@ -608,7 +603,6 @@ $('room-nav').addEventListener('click',e=>{const b=e.target.closest('[data-room]
 $('go-distill').addEventListener('click',()=>selectRoom('distill'));
 $('cask-rack').addEventListener('click',e=>{const b=e.target.closest('[data-cask-id]');if(!b||modal||!D.currentCask(game,Number(b.dataset.caskId)))return;stopClock();endTaste();selectedCaskId=Number(b.dataset.caskId);modal={kind:'inspect',id:selectedCaskId};save();render();schedule();});
 $('close-cask-window').addEventListener('click',closeModal);
-for(const [id,parent] of [['watch-cask','free-actions'],['watch-tasting','tasting-actions']]){const watch=document.createElement('button');watch.type='button';watch.id=id;watch.textContent='見守る';watch.hidden=true;watch.addEventListener('click',closeModal);$(parent).append(watch);}
 $('open-staff-panel').addEventListener('click',()=>{if(game&&(D.staffStatus(game).unlocked||D.bottlingStaffStatus(game).unlocked))openModal('staff-manager');});
 $('open-aux-menu').addEventListener('click',()=>openModal('aux-panel'));
 $('open-history').addEventListener('click',openHistory);
@@ -626,6 +620,7 @@ $('cancel-usual').addEventListener('click',()=>{if(!game||(modal&&modal.kind!=='
 $('start-distill').addEventListener('click',()=>{if(!game||!D.canStart(game).ok||modal)return;message('');act(D.startDistillation);});
 $('stop-distill').addEventListener('click',finishDistillation);$('open-fill').addEventListener('click',()=>{if(atExtractionLimit()&&!modal)finishDistillation();else openModal('fill');});
 $('taste-button').addEventListener('click',()=>trial(selectedCaskId));$('glass-button').addEventListener('click',()=>{if(game?.tastingId===null)trial(selectedCaskId);});
+for(const id of ['cool-cask','cool-tasting'])$(id).addEventListener('click',()=>{if(!game||modal?.kind!=='inspect'||!D.freeAgingMode(game)||!D.canCare(game,selectedCaskId))return;act(s=>D.careForCask(s,selectedCaskId));});
 $('end-tasting').addEventListener('click',()=>act(D.endTasting));$('open-bottle').addEventListener('click',()=>quoteModal(selectedCaskId));$('taste-bottle').addEventListener('click',()=>quoteModal(selectedCaskId));
 $('toggle-time').addEventListener('click',()=>{if(jump>0){jump=0;userPaused=true;}else if(runtimeHalted){runtimeHalted=false;}else userPaused=!userPaused;save();render();schedule();});
 $('skip').addEventListener('click',()=>{if(!game||(!preview&&!canSave)||document.hidden||(modal&&modal.kind!=='aux-panel')||game.tastingId!==null||game.decisions.length||runtimeHalted||!hasMonthlyWork()||game.usual.reservation||game.still.phase==='distilling'||jump>0)return;if(modal?.kind==='aux-panel')modal=null;jump=3;schedule();render();});
@@ -713,7 +708,7 @@ function handleModal(e){
  if(a==='shop-later'){if(kind==='shop-offer'){if(modal.returnModal){modal=modal.returnModal;render();}else closeModal();}return;}
  if(a==='shop-open-offer'){if(kind==='product'){showShopOffer(modal.id);render();schedule();}return;}
  if(a==='shop-accept'||a==='shop-decline'){if(kind==='shop-offer'){const target={...modal};act(s=>(a==='shop-accept'?D.acceptShop:D.declineShop)(s,target.shopId,target.offerId),()=>{modal=target.returnModal??(target.returnProductId!==null?{kind:'product',id:target.returnProductId}:null);room='sales';message(a==='shop-accept'?(target.shopId==='department'?'取扱いの相談を残しました。':shopName(target.shopId)+'で取扱いが始まりました。'):'今回は見送りました。');});}return;}
- if(a==='shop-accept-deliver'){if(kind==='shop-offer'&&modal.productId===id&&modal.shopId===b.dataset.shopId&&modal.offerId===Number(b.dataset.offerId)&& (preview||canSave)){const n=Number(b.dataset.count);if(modal.shopId!=='department')return;const target={...modal};act(s=>D.acceptShopDelivery(s,id,n,target.shopId,target.offerId),()=>{modal=target.returnModal??(target.returnProductId!==null?{kind:'product',id:target.returnProductId}:null);room='sales';},()=>{if(target.shopId==='department'){deliveryNotice='翌月5本納品';message(target.returnModal||target.returnProductId!==null?'':deliveryNotice);}else{const receipt=game.shop.deliveries.at(-1);selectedProductId=id;showMilestone('stockist',{productId:receipt.productId,shopName:shopName(receipt.shopId),count:receipt.count,revenue:receipt.revenue});}});}return;}
+ if(a==='shop-accept-deliver'){if(kind==='shop-offer'&&modal.productId===id&&modal.shopId===b.dataset.shopId&&modal.offerId===Number(b.dataset.offerId)&& (preview||canSave)){const n=Number(b.dataset.count);if(modal.shopId!=='department')return;const target={...modal};act(s=>D.acceptShopDelivery(s,id,n,target.shopId,target.offerId),()=>{modal=target.returnModal??(target.returnProductId!==null?{kind:'product',id:target.returnProductId}:null);room='sales';},()=>{deliveryNotice='翌月5本納品';message(target.returnModal||target.returnProductId!==null?'':deliveryNotice);});}return;}
  if(a==='department-cancel'){if((kind==='product'&&modal.id===id||kind==='ledger')&&D.departmentInterests(game,releaseFor(id)?.brandId).some(x=>x.selectionId===b.dataset.selectionId))act(s=>D.cancelDepartmentInterest(s,b.dataset.selectionId),()=>{deliveryNotice='相談を終えました。';});return;}
  if(a==='shop-deliver'){
   const shopId=b.dataset.shopId;if(!['product','stockist-delivery'].includes(kind)||modal.id!==id||(kind==='product'?modal.destination!==shopId:modal.shopId!==shopId)||!preview&&!canSave)return;
@@ -721,14 +716,12 @@ function handleModal(e){
   modal.deliveryCount=null;deliveryNotice='';
   act(s=>D.deliverShop(s,id,n,shopId,shopId==='department'?q.selectionId:undefined),null,()=>{if(shopId==='department')deliveryNotice='翌月5本納品';else{const receipt=game.shop.deliveries.at(-1);deliveryNotice=receipt.count+'本納品\n'+unit(receipt.revenue)+' 入金';}message('');});return;
  }
- if(a==='milestone-product'&&kind==='milestone'&&modal.event==='bottled'){selectedProductId=modal.productId;room='sales';const target={kind:'product',id:modal.productId};modal=null;if(!showStaffOpportunity(target))modal=target;render();return;}
- if(a==='milestone-fill'){if(kind==='milestone'&&modal.event==='distilled'&&game.still.phase==='filling'){modal={kind:'fill'};render();}return;}
  if(a==='store'||a==='product-later'){if(kind==='product')closeModal();return;}if(a==='cancel'){closeModal();return;}if(a==='trial'){trial(id);return;}if(a==='quote'){quoteModal(id);return;}
  if(a==='choose'){const first=game.decisions[0];if(kind!=='decision'||first?.caskId!==id||first.eventId!==b.dataset.event)return;act(s=>D.chooseDistillery(s,id,b.dataset.choice),()=>{modal=null;message('');});return;}
  if(a==='fill-select'&&kind==='fill'&&P.casks[b.dataset.id]){modal.fillType=b.dataset.id;render();return;}
- if(a==='fill'){if(kind!=='fill'||modal.fillType!==b.dataset.id||!P.casks[modal.fillType])return;act(s=>D.fillBarrel(s,modal.fillType),()=>{modal=null;selectedCaskId=game.core.casks.at(-1)?.id??null;room='warehouse';modal={kind:'inspect',id:selectedCaskId,postFill:true};message('');});return;}
+ if(a==='fill'){if(kind!=='fill'||modal.fillType!==b.dataset.id||!P.casks[modal.fillType])return;act(s=>D.fillBarrel(s,modal.fillType),()=>{modal=null;selectedCaskId=game.core.casks.at(-1)?.id??null;room='warehouse';message('');});return;}
  if(a==='price'){if(kind!=='product'||modal.id!==id)return;act(s=>D.setSalePrice(s,b.dataset.tier,id));return;}
- if(a==='list'){if(kind!=='product'||modal.id!==id||game.productsById[id]?.listed)return;act(s=>D.listBottles(s,id),null,()=>{room='sales';selectedProductId=id;showMilestone('listed',{productId:id,brandName:brandFor(id)?.name??'この一本'});});return;}
+ if(a==='list'){if(kind!=='product'||modal.id!==id||game.productsById[id]?.listed)return;act(s=>D.listBottles(s,id),()=>{room='sales';selectedProductId=id;modal=null;message('');});return;}
  if(['bottle-less','bottle-more','bottle-all'].includes(a)){
   if(kind!=='quote'||modal.id!==id||modal.committing)return;const q=bottleSelection(id);
   if(a==='bottle-all'){if(q.max<1||q.affordable<q.max)return;modal.bottleCount=q.max;}
@@ -739,7 +732,7 @@ function handleModal(e){
   if(kind!=='quote'||modal.id!==id||modal.committing)return;const q=bottleSelection(id);if(!q.ok)return;const count=q.count,quoteState=modal;
   const selection={};
   quoteState.committing=true;updateBottleSelection();
-  const ok=act(s=>D.bottleBranded(D.endTasting(s),id,selection,count),()=>{selectedProductId=game.result.productId;room='sales';modal={kind:'product',id:selectedProductId};deliveryNotice='';},()=>showMilestone('bottled',{productId:selectedProductId,count:game.result.bottles}));
+  const ok=act(s=>D.bottleBranded(D.endTasting(s),id,selection,count),()=>{selectedProductId=game.result.productId;room='sales';modal=null;deliveryNotice='';message('');});
   if(!ok&&modal===quoteState){quoteState.committing=false;updateBottleSelection();}return;
  }
 }
@@ -747,19 +740,19 @@ function suspend(){jump=0;stopClock();save();if(game)render();}
 function resume(){if(game){render();schedule();}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();else resume();});window.addEventListener('pagehide',suspend);window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;suspend();storageNotice('別の画面で保存が変わりました。再読み込みしてください。');}});
-$('reset').addEventListener('click',()=>{if(!confirm('0.21の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}game=D.newBottlingRolesDistillery(seed);automaticNews.reset();staffMigrationNotice=false;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;jump=0;glassKey='';canSave=!preview;storageNotice('');save();render();});
+$('reset').addEventListener('click',()=>{if(!confirm('0.21の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}game=D.newFreeAgingDistillery(seed);automaticNews.reset();staffMigrationNotice=false;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;jump=0;glassKey='';canSave=!preview;storageNotice('');save();render();});
 $('retry-save').addEventListener('click',()=>{if(!game){boot();return;}canSave=!preview;if(save()){storageNotice('');$('recovery').hidden=true;}render();schedule();});
 function shopOrderLedger(){
  const rows=game.shopDemand?.lastOrders??[];if(!rows.length)return '';
  return '<details class="ledger-category"><summary>'+esc(monthLabel(game.core.month))+' 商店</summary>'+rows.map(o=>'<p>'+esc(SHOPS.find(x=>x.id===o.shopId)?.name??o.shopId)+'：注文 '+o.requested+'本 · 発送 '+o.shipped+'本'+(o.unmet?' · 未発送 '+o.unmet+'本':'')+'</p>').join('')+'</details>';
 }
 function boot(){
- if(preview){game=D.newBottlingRolesDistillery(seed);save();render();schedule();return;}
+ if(preview){game=D.newFreeAgingDistillery(seed);save();render();schedule();return;}
  try{
   lastSavedText=localStorage.getItem(SAVE_KEY);
-  if(lastSavedText===null){game=D.newBottlingRolesDistillery(seed);userPaused=false;elapsed=0;}
+  if(lastSavedText===null){game=D.newFreeAgingDistillery(seed);userPaused=false;elapsed=0;}
   else{const session=JSON.parse(lastSavedText);if(session.version!==2||typeof session.userPaused!=='boolean'||Object.keys(session).length!==4||session.game?.version!==20||!Number.isInteger(session.elapsed)||session.elapsed<0||session.elapsed>=T.monthMs||session.elapsed%T.distillStepMs!==0)throw Error('session');game=D.restoreDistillery(JSON.stringify(session.game));userPaused=session.userPaused;elapsed=session.elapsed;}
-  const restoredGame=game;game=D.enableBottlingRoles(game);const corrected=game!==restoredGame;
+  const restoredGame=game;game=D.enableFreeAging(game);const corrected=game!==restoredGame;
   selectedCaskId=game.tastingId??game.core.casks[0]?.id??null;room=selectedCaskId!==null?'warehouse':'distill';canSave=true;if(lastSavedText===null||corrected)save();render();schedule();
  }catch{canSave=false;game=null;stopClock();$('settings-source').hidden=false;$('recovery').append($('settings-source'));$('game').hidden=true;$('recovery').hidden=false;storageNotice('この保存は開けません。元の記録を残して停止しています。');}
 }

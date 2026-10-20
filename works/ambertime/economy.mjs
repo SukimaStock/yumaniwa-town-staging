@@ -1,7 +1,7 @@
 import * as M from './model.mjs?v=0.8-direct-sale';
 import * as D from './distillery.mjs?v=0.6';
 import {mixSeed,sampleCharacter,endCharacterTasting,chooseCharacter,comparisons,sampleOf,profile} from './character.mjs?v=0.40-partial-bottling';
-import {advanceMonthly,createCaskNotes} from './monthly.mjs?v=0.40-partial-bottling';
+import {advanceMonthly,createCaskNotes} from './monthly.mjs?v=0.48-free-aging';
 import {PARAMETERS as OLD_CORE} from './parameters.mjs';
 import {ECONOMY_PARAMETERS as CORE} from './economy-parameters.mjs';
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
