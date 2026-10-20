@@ -1,4 +1,4 @@
-import * as V081 from './wholesale.mjs?v=0.8.1';
+import * as V081 from './wholesale.mjs?v=0.38-cask-serials';
 import * as E from './economy.mjs?v=0.8';
 import * as M from './model.mjs?v=0.6-parallel';
 import {mixSeed} from './character.mjs?v=0.6';
@@ -119,3 +119,12 @@ export function validateDistillery(s){
 }
 export function serializeDistillery(s){validateDistillery(s);return JSON.stringify(s);}
 export function restoreDistillery(text){assert(typeof text==='string'&&text.length<P.maxSaveBytes*3+8192,'保存が大きすぎます。');let s;try{s=JSON.parse(text);}catch{throw Error('帳面を読み取れません。');}if(s?.version===3||s?.version===4)return upgraded(s);validateDistillery(s);return s;}
+
+// Read-only display facts: use this version's frozen execution, including origins.
+export function caskCreationIds(s){
+ validateDistillery(s);
+ const ids=s.origin?V081.caskCreationIds(s.origin):[],initial=s.origin?upgraded(s.origin):newDistillery(s.seed);
+ let state=initial;
+ for(const operation of s.operations){const before=new Set(state.core.casks.map(c=>c.id));state=apply(state,operation);for(const c of state.core.casks)if(!before.has(c.id))ids.push(c.id);}
+ return ids;
+}

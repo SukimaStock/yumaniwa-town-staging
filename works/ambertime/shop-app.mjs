@@ -1,7 +1,8 @@
 import {CanvasScene} from './canvas-scene.mjs?v=0.37-stockists-1';
 import * as D from './partner-orders.mjs?v=0.19staff';
 import {SHOPS} from './shop-model.mjs?v=0.19staff';
-import {caskName as sourceCaskName,releaseNumber} from './work-context.mjs?v=0.15.2';
+import {caskName as sourceCaskName,releaseNumber} from './work-context.mjs?v=0.38-cask-serials';
+import {createCaskSerials} from './cask-serials.mjs?v=0.38-cask-serials';
 import {distillationView,spiritProfile} from './spirit-view.mjs?v=0.14';
 import {latestReleaseBrand,brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
@@ -13,8 +14,9 @@ import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=0.19-
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=0.18-tasting';
 import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=0.19staff';
 import {uiText,agingEventText} from './ui-text.mjs?v=0.34-aging-1';
-// Only fixed system labels are adapted. Never use uiText on names or saved prose.
-const caskName=id=>uiText(sourceCaskName(id)).replace('#','No.');
+// Resolve structured cask IDs only; saved prose and player names stay verbatim.
+const caskSerials=createCaskSerials();
+const caskName=id=>sourceCaskName(id,caskSerials(game));
 const FLAVOR_AXES=sourceFlavorAxes.map(axis=>({...axis,label:uiText(axis.label)}));
 const flavorTypeView=profile=>uiText(sourceFlavorTypeView(profile));
 const flavorMeter=(...args)=>uiText(sourceFlavorMeter(...args));
@@ -70,7 +72,7 @@ function comparisonSourceActions(item){
  return button(saved?'製法を保存済み':'製法を残す','recipe-save',item.caskId,saved?'disabled':'');
 }
 function staffArt(item){return item?.brandId!==null&&item?.brandId!==undefined?brandArt(item.profile?.wood??0,game.brands.find(b=>b.id===item.brandId)):barrel(item?.type??'bourbon');}
-function staffTitle(item){return (item?.brandName??caskName(item?.caskId))+(item?.releaseNumber?'\n発売'+item.releaseNumber:'');}
+function staffTitle(item){return (item?.brandName?item.brandName+'\n'+caskName(item.caskId):caskName(item?.caskId))+(item?.releaseNumber?'\n発売'+item.releaseNumber:'');}
 function openStaffRequest(caskId=null){
  if(!game)return;const quote=D.staffQuote(game,caskId===null?undefined:caskId);if(!quote)return;
  const sourceId=caskId??quote.source?.caskId??D.selectedUsualRecipe(game)?.source?.caskId??null;
@@ -129,12 +131,12 @@ function releaseComparisonView(){
  return out+'</details>';
 }
 function brandComparisonRecordView(id){const b=game.brands.find(b=>b.id===id);return '<h3>'+esc(b?.name)+'</h3>'+brandSummary(id)+shopHistory(id,true)+game.releases.filter(r=>r.brandId===id).map(r=>'<p>発売'+releaseNumber(game,r.productId)+'<br>'+monthLabel(r.bottledMonth)+'<br>'+r.bottles+'本<br>自家販売 '+r.sold+'本<br>売上 '+money(r.revenue)+'</p>'+releaseComparisonButton(r)).join('');}
-function recipeSourceView(){const item=sourceDetails(game,modal.caskId);if(!item)return '<p>元の記録はありません。</p>';return '<div class="nearby-source"><span class="nearby-art">'+(item.kind==='cask'||item.kind==='source'&&item.productId===null?barrel(item.type):brandArt(item.profile?.wood??0,game.brands.find(b=>b.id===item.brandId)))+'</span><h3>'+esc(item.brandName??caskName(item.caskId))+'</h3><p>'+copyFacts([['たる',caskType(item)],['抽出',finiteText(item.stopAt,n=>n+' / '+T.distillMax)]])+'</p><details><summary>元の記録</summary><p>'+finiteText(item.filledMonth,monthLabel)+'仕込み'+(item.releaseNumber?'<br>発売'+item.releaseNumber:'')+(item.generationId?'<br>'+generationName(item.generationId):'')+'</p></details>'+comparisonSourceActions(item)+(item.commissionedFrom?'<p>'+button('依頼元の記録','recipe-source',item.commissionedFrom.caskId)+'</p>':'')+'</div>';}
+function recipeSourceView(){const item=sourceDetails(game,modal.caskId);if(!item)return '<p>元の記録はありません。</p>';return '<div class="nearby-source"><span class="nearby-art">'+(item.kind==='cask'||item.kind==='source'&&item.productId===null?barrel(item.type):brandArt(item.profile?.wood??0,game.brands.find(b=>b.id===item.brandId)))+'</span><h3>'+esc(item.brandName??caskName(item.caskId))+'</h3><p>'+copyFacts([['たる',caskType(item)],['抽出',finiteText(item.stopAt,n=>n+' / '+T.distillMax)]])+'</p><details><summary>元の記録</summary><p>'+caskName(item.caskId)+'<br>'+finiteText(item.filledMonth,monthLabel)+'仕込み'+(item.releaseNumber?'<br>発売'+item.releaseNumber:'')+(item.generationId?'<br>'+generationName(item.generationId):'')+'</p></details>'+comparisonSourceActions(item)+(item.commissionedFrom?'<p>'+button('依頼元の記録','recipe-source',item.commissionedFrom.caskId)+'</p>':'')+'</div>';}
 function recipesView(){
  const entries=game.recipeBook?.entries??[],selected=game.recipeBook?.selectedId??null;
  const latestSource=D.manualRecipeSources(game).at(-1),latest=latestSource?sourceDetails(game,latestSource.caskId):null;
  let out='<div class="recipe-list"><article>'+(latest?'<span class="recipe-origin-art">'+staffArt(latest)+'</span>':'')+'<h3>前回の手動仕込み</h3>'+(latest?'<p>'+copyFacts([['元の仕込み',staffTitle(latest)],['抽出',latest.stopAt+' / '+T.distillMax],['たる',caskType(latest)]])+'</p>':'')+button(selected===null?'選択中':'製法を選ぶ','recipe-select','latest','aria-pressed="'+(selected===null)+'"')+'</article>';
- out+=entries.map(r=>{const source=r.source;const item=sourceDetails(game,source.caskId);return '<article><span class="recipe-origin-art">'+(item?staffArt(item):barrel(r.type))+'</span><h3>'+esc(r.name||caskName(source.caskId)+'の製法')+'</h3><p>'+copyFacts([['抽出',r.stopAt+' / '+T.distillMax],['たる',uiText(P.casks[r.type]?.short)??r.type]])+'</p>'+button(selected===r.id?'選択中':'製法を選ぶ','recipe-select',r.id,'aria-pressed="'+(selected===r.id)+'"')+button('元の記録','recipe-source',source.caskId)+'</article>';}).join('')+'</div>';
+ out+=entries.map(r=>{const source=r.source;const item=sourceDetails(game,source.caskId);return '<article><span class="recipe-origin-art">'+(item?staffArt(item):barrel(r.type))+'</span><h3>'+esc(r.name||caskName(source.caskId)+'の製法')+'</h3><p>'+copyFacts([['元のたる',caskName(source.caskId)],['抽出',r.stopAt+' / '+T.distillMax],['たる',uiText(P.casks[r.type]?.short)??r.type]])+'</p>'+button(selected===r.id?'選択中':'製法を選ぶ','recipe-select',r.id,'aria-pressed="'+(selected===r.id)+'"')+button('元の記録','recipe-source',source.caskId)+'</article>';}).join('')+'</div>';
  const sources=D.nearbyComparisonFacts(game,{includeManualSources:true}).manualSources??[],unique=sources.filter(s=>!entries.some(r=>r.source.caskId===s.caskId)),page=Math.min(modal.sourcePage??0,Math.max(0,Math.ceil(unique.length/50)-1)),start=page*50;
  if(unique.length)out+='<details class="recipe-sources"'+(modal.sourcesOpen?' open':'')+'><summary>手動仕込みから残す</summary>'+unique.slice(start,start+50).map(s=>'<p>'+copyFacts([['元の仕込み',caskName(s.caskId)],['抽出',s.stopAt+' / '+T.distillMax],['たる',uiText(P.casks[s.type]?.short)??s.type]])+' '+button('製法を残す','recipe-save',s.caskId)+'</p>').join('')+(unique.length>50?'<div class="history-pagination">'+button('前の50件','recipe-source-page',page-1,page===0?'disabled':'')+'<span>'+(start+1)+'–'+Math.min(start+50,unique.length)+' / '+unique.length+'件</span>'+button('次の50件','recipe-source-page',page+1,start+50>=unique.length?'disabled':'')+'</div>':'')+'</details>';
  return out;
@@ -281,7 +283,7 @@ function showMilestone(event,details={}){modal={kind:'milestone',event,...detail
 function finishDistillation(){if(game?.still.phase==='distilling'&&game.still.distillation.progress>=T.minimumStop&&!modal)act(D.stopDistillation,null,()=>showMilestone('distilled',{litres:game.core.spirit.litres}));}
 function endTaste(){if(game?.tastingId!==null)game=D.endTasting(game);}
 function selectRoom(next){if(!game||!['distill','warehouse','sales'].includes(next)||modal)return;stopClock();endTaste();room=next;jump=0;save();render();schedule();}
-// The visible serial is the immutable identity, including after shipment.
+// The internal identity remains the action target; its display serial is derived.
 const caskLabel=c=>caskName(c.id)+' '+uiText(P.casks[c.type].short);
 const button=(text,action,id='',extra='')=>'<button type="button" data-action="'+action+'" data-id="'+id+'" '+(text==='閉じる'?'data-close="true" ':text.endsWith('戻る')?'data-return="true" ':'')+extra+'>'+text+'</button>';
 function openModal(kind,id=null){if(!game||(modal&&!['inspect','staff-panel','aux-panel'].includes(modal.kind))||kind==='fill'&&game.still.phase!=='filling')return;stopClock();jump=0;deliveryNotice='';modal={kind,id};render();}

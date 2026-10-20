@@ -1,4 +1,4 @@
-import * as V08 from './wholesale-v08.mjs?v=0.8';
+import * as V08 from './wholesale-v08.mjs?v=0.38-cask-serials';
 import * as E from './economy.mjs?v=0.8';
 import * as M from './model.mjs?v=0.6-parallel';
 import {mixSeed} from './character.mjs?v=0.6';
@@ -70,3 +70,12 @@ let checkpoint=null;
 export function validateDistillery(s){assert(s?.version===4&&s.rules==='parallel-wholesale-v081'&&Number.isInteger(s.seed)&&s.seed>0&&s.seed<=4294967295&&Array.isArray(s.operations)&&s.operations.length<=P.maxOperations,'対応していない0.8.1の保存です。');M.restore(M.serialize(s.core));assert(s.origin===null||s.origin?.version===3&&s.origin?.seed===s.seed,'元の0.8保存が不正です。');const originText=JSON.stringify(s.origin);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),start=0;if(checkpoint&&checkpoint.originText===originText&&checkpoint.seed===s.seed&&s.operations.length>=checkpoint.length&&JSON.stringify(s.operations.slice(0,checkpoint.length))===checkpoint.operations){j=clone(checkpoint.state);start=checkpoint.length;}for(let i=start;i<s.operations.length;i++)j=apply(j,s.operations[i]);j=E.endTasting(j);const cache=clone(j);if(s.still?.phase==='distilling')j=progress(j,s.still.distillation?.progress);assert(s.tastingId===null||Number.isInteger(s.tastingId),'試飲する樽が不正です。');if(s.tastingId!==null){assert(j.notesById[s.tastingId]?.samples.at(-1)?.age===E.currentCask(j,s.tastingId)?.age,'試飲の年月が不正です。');j=sampleDistillery(j,s.tastingId);}assert(JSON.stringify(s)===JSON.stringify(j),'蒸留所の状態と操作の帳面が一致しません。');checkpoint={originText,seed:s.seed,length:s.operations.length,operations:JSON.stringify(s.operations),state:cache};return true;}
 export function serializeDistillery(s){validateDistillery(s);return JSON.stringify(s);}
 export function restoreDistillery(text){assert(typeof text==='string'&&text.length<P.maxSaveBytes*2+4096,'保存が大きすぎます。');let s;try{s=JSON.parse(text);}catch{throw Error('帳面を読み取れません。');}if(s?.version===3)return upgraded(s);validateDistillery(s);return s;}
+
+// Read-only display facts: use this version's frozen execution, including origins.
+export function caskCreationIds(s){
+ validateDistillery(s);
+ const ids=s.origin?V08.caskCreationIds(s.origin):[],initial=s.origin?upgraded(s.origin):newDistillery(s.seed);
+ let state=initial;
+ for(const operation of s.operations){const before=new Set(state.core.casks.map(c=>c.id));state=apply(state,operation);for(const c of state.core.casks)if(!before.has(c.id))ids.push(c.id);}
+ return ids;
+}
