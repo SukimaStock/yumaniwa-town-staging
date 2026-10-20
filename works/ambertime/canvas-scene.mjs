@@ -3,7 +3,7 @@ import{computeViewport,layoutScene,projectRect,toLogical,hitTest}from'./canvas-l
 import{barrel}from'./cask-glass-art.mjs?v=0.19-pixel-1';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.21-space-1';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
-import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.22-misaki-1';
+import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
 import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.32-sales-1';
 import{uiText}from'./ui-text.mjs?v=0.28-staff-entry-1';
