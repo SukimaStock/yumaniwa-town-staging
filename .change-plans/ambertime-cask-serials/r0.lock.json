@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3fd61298893e64c2cc5e50de63beaa86607d693204ed86a12bba21779a4e25a4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "6fe2a61c03dfc717d0d16a6ba64949293eff1e7d",
+    "changeId": "ambertime-cask-serials",
+    "revision": 0,
+    "change": "Derive display-only chronological cask serials from complete validated current and nested legacy operation histories",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current cask serial request, including stop on unrecoverable saved history",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR527 wholesale and PR528 stockist entry maintained",
+      "model.id/fillCask, work-context, current projection replay, frozen legacy apply and nested origins, recipe/release/trade/generation structured source IDs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-cask-serials/r0.lock.json",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/wholesale-v08.mjs",
+      "works/ambertime/wholesale.mjs",
+      "works/ambertime/trade.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/cask-serials.test.mjs",
+      "works/ambertime/tests/cask-serials-browser.mjs",
+      "works/ambertime/design/cask-serials/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Keep all allocator IDs/fields/validation/saved text unchanged. Add read-only legacy caskCreationIds accessors that validate and reuse private existing apply execution, recursively origin first; no duplicated dispatch/calculations, no modifications of existing execution. Cache queries only for additive legacy imports.",
+      "Display resolver uses current createProjectionReplay continuation and actual before/after cask additions, seeds chronological legacy origin IDs, keeps all pruned casks in ephemeral Map. Same-batch split counted by actual distinct cask creation. No archive-count or batch-number inference, no serial reuse or generation reset. Clear derived state when replay restarts; unknown IDs remain unnumbered without guessing.",
+      "Current shop-app consistently resolves structured cask IDs at rendering across rack/detail/ledger/trade/release/recipe/staff/generation. Keep older standalone UI caskName default behavior, current Misaki and terse UI. No stored text replacement or new IDs."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Targeted exact serial tests: first/several/same batch model split, archive-pruned creation replay, bottled/shipped/evaporated references, usual/staff automatic and generation continuation, nested legacy v3/v4/v5 and current saves cold/incremental/reload, unchanged serialized bytes/references; invalid/incomplete history rejected rather than guessed.",
+      "Focused390x844 UI display and fit across rack/details/structured ledger/recipe/release/staff/trade; minimalPC, no whole-game E2E/long play/full simulation/screenshot sweep. Existing real operation fixtures only.",
+      "Syntax/protected diff/Scope→Risk→Impact, independent focused review, exact-head required CI/review then Staging merge/Pages/public bytes."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert display resolver/accessors/cache references; no save migration or ID changes.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "allocator/model/economy/save schema/serialized data/text",
+      "acceptance/staff/time/condition/generation behavior",
+      "Unrelated UI/features",
+      "Comprehensive validation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari, VoiceOver and owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Research confirms valid supported saves preserve all operations across origins; capped archives/records do not erase full creation ledger. No schema or migration needed; stop if tests disprove this.",
+      "Legacy execution remains frozen: additive read-only facts run the existing private apply, without editing dispatch/validation/cost/time/save functions. Current projection API reused with ephemeral continuation.",
+      "Existing Plan immutable, preserve PR528/527/font/events. Verification narrowed to identity/compatibility and related displays."
+    ]
+  }
+}
