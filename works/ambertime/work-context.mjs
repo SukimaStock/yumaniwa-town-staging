@@ -1,5 +1,5 @@
-// Display-only identities. A serial may have gaps; it never means a rack slot.
-export const caskName=id=>Number.isInteger(id)&&id>0?'樽 #'+id:'樽';
+// Older standalone pages retain their internal-ID label unless given a derived serial map.
+export const caskName=(id,serials)=>serials instanceof Map?(serials.has(id)?'たる No.'+serials.get(id):'たる'):Number.isInteger(id)&&id>0?'樽 #'+id:'樽';
 export function releaseNumber(s,productId){
  const r=s.releases?.find(r=>r.productId===productId);if(!r)return null;
  return s.releases.filter(x=>x.brandId===r.brandId).findIndex(x=>x.id===r.id)+1;
