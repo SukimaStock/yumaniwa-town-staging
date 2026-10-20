@@ -91,8 +91,8 @@ test('clear receiver and sample preserve existing reaction hooks without introdu
  const bottom=Math.max(...liquid.map(r=>Number(r.y)+Number(r.height)));
  assert.match(current,new RegExp(`class="receiver-liquid" data-liquid-bottom="${bottom}"`),'collection pivot follows the actual liquid bottom');
  assert.match(glass(.4,{sample:true}),/class="sample-liquid" data-liquid-bottom="10"/);
- const copper=rectangles(current).filter(r=>r.fill==='#503214'||r.fill==='#19141e');
- assert.ok(copper.every(r=>Number(r.x)+Number(r.width)<left||Number(r.y)<20),'pot body does not overlap receiver');
+ const copper=rectangles(current.match(/<g class="still-pot">(.*?)<\/g>/s)[0]);
+ assert.ok(copper.every(r=>Number(r.x)+Number(r.width)<left),'pot body does not overlap receiver');
  assert.equal(current,stillArt());
  assert.doesNotMatch(current,/<(?:animate|script|foreignObject)\b|\bon\w+=/);
 });

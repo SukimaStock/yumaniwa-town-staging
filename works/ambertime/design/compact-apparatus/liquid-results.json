@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "changedPixels": [
+    18,
+    28
+  ],
+  "interior": {
+    "x": 31,
+    "y": 29,
+    "width": 6,
+    "height": 5
+  },
+  "pivot": 34
+}
