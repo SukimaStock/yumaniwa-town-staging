@@ -1,0 +1,74 @@
+{
+  "url": "https://drive.google.com/file/d/1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi/view",
+  "modified": "2026-09-30T01:45:05.043Z",
+  "note": "Only provenance and digests are published here. Source code excerpts are not included. The specifically requested native pixel assets are in codea-object-art.mjs.",
+  "assets": [
+    {
+      "name": "Cask",
+      "firstLine": 14402,
+      "lastLine": 14419,
+      "width": 16,
+      "height": 16,
+      "matrixSha256": "2b422c01187a862d59a9d129129594684c30c134267952e20aa9e488c09b481b"
+    },
+    {
+      "name": "BottleStandard",
+      "firstLine": 14469,
+      "lastLine": 14482,
+      "width": 12,
+      "height": 12,
+      "matrixSha256": "3428b529865a9d18eecb76673d91f2c8fbd0de3e50dc2e7f471513eb172db120"
+    },
+    {
+      "name": "BottleFancy",
+      "firstLine": 14485,
+      "lastLine": 14498,
+      "width": 12,
+      "height": 12,
+      "matrixSha256": "c3f1360f70980792db45c5f60414e21cf48186538d143c72ba0f94bcc496408a"
+    },
+    {
+      "name": "BottleSquare",
+      "firstLine": 14502,
+      "lastLine": 14515,
+      "width": 12,
+      "height": 12,
+      "matrixSha256": "2ebe47d4a376303e43feb3ca48fc223d2def3b70b0b102676f692ce41cae2930"
+    },
+    {
+      "name": "BottleTall",
+      "firstLine": 14519,
+      "lastLine": 14532,
+      "width": 12,
+      "height": 12,
+      "matrixSha256": "e578351ad3b98e1c0a971bc83206baacf9a9479e76dc369ce93e642c066a1f9b"
+    }
+  ],
+  "references": [
+    {
+      "name": "CaskVisual palette and shared base",
+      "firstLine": 6539,
+      "lastLine": 6684
+    },
+    {
+      "name": "BottlingScene shape selection",
+      "firstLine": 3511,
+      "lastLine": 3517
+    },
+    {
+      "name": "InventoryScene shape/material selection",
+      "firstLine": 16301,
+      "lastLine": 16315
+    },
+    {
+      "name": "GameRenderer palette",
+      "firstLine": 5197,
+      "lastLine": 5216
+    },
+    {
+      "name": "Config colors",
+      "firstLine": 5111,
+      "lastLine": 5112
+    }
+  ]
+}

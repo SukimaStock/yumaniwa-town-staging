@@ -29,29 +29,15 @@ test('receiver fits native body, catches aligned drops and leaves sample glasses
  [0,.4,.9].forEach((wood,i)=>{assert.equal(hash(glass(wood,{sample:true})),room[i]);assert.equal(hash(caskGlass(wood,{sample:true})),older[i]);});
 });
 
-test('pot recovers Codea colors without black outline; casks retain their contours',()=>{
- const pot=group(stillArt(),'still-pot');assert(!colors(pot).has('#19141e'));for(const c of ['#b87333','#a3632d','#29adff','#ffff64','#5a5a64','#3c281e','#ab5236'])assert(colors(pot).has(c));
- assert.match(stillArt(),/viewBox="0 0 60 36" width="60" height="36"/);
- for(const type of ['bourbon','refill']){
-  const art=barrel(type);assert.match(art,/viewBox="0 0 16 16" width="16" height="16"/);assert.equal(colors(art).size,4);assert(colors(art).has('#19141e'));assert(colors(art).has('#757969'));
-  const pixels=new Map(rects(art).map(r=>[`${r.x},${r.y}`,r.fill]));
-  for(const [cell,color]of pixels){const [x,y]=cell.split(',').map(Number);if([[x-1,y],[x+1,y],[x,y-1],[x,y+1]].some(([xx,yy])=>!pixels.has(`${xx},${yy}`)))assert.equal(color,'#19141e',`outer contour ${type}/${cell}`);}
- }
- assert.notEqual(barrel('bourbon'),barrel('refill'));
-});
-
-test('bottle variants retain cap and flat labels with fewer colors and no decorative glints',()=>{
- for(const bottle of ['standard','slender'])for(const label of ['paper','dark']){
-  const art=brandArt(.4,{bottle,label}),rs=rects(art);assert.match(art,/viewBox="0 0 12 28" width="12" height="28"/);assert.equal(colors(art).size,6);assert(rs.length<(bottle==='slender'?22:24));
-  assert(rs.some(r=>r.fill==='#19141e'&&r.x==='4'&&r.y==='0'&&r.width==='4'&&r.height==='3'),'black cap silhouette');
-  const labelColor=label==='dark'?'#303e3a':'#d9cba4',flat=rs.filter(r=>r.fill===labelColor);assert.equal(flat.length,1);assert.equal(flat[0].height,'6');assert.equal(flat[0].width,bottle==='slender'?'6':'10');
-  assert.doesNotMatch(art,/#c8a078|#e2d6a8|#8f9a7d/);assert.match(art,/fill-opacity="0\.8"/);
- }
- assert.match(bottleArt(.4),/fill-opacity="\.85"/);
+test('pot retains accepted palette while casks and bottles use source grids',()=>{
+ const pot=group(stillArt(),'still-pot');assert(!colors(pot).has('#19141e'));
+ for(const c of ['#b87333','#a3632d','#29adff','#ffff64','#5a5a64','#3c281e','#ab5236'])assert(colors(pot).has(c));
+ for(const type of ['bourbon','refill']){assert.match(barrel(type),/viewBox="0 0 16 16"/);assert(!colors(barrel(type)).has('#19141e'));assert(colors(barrel(type)).has('#282832'));}
+ for(const bottle of ['standard','slender']){const art=brandArt(.4,{bottle});assert.match(art,/viewBox="0 0 12 12"/);assert.doesNotMatch(art,/opacity=|stroke=/);assert(colors(art).has('#8f9a7d'));assert(!colors(art).has('#29adff'));}
 });
 
 test('every authored variant remains bounded integer rect cells with deterministic rendering',()=>{
- const examples=[[stillArt(),60,36],...[barrel('bourbon'),barrel('refill')].map(art=>[art,16,16]),[bottleArt(.4),12,28],...['standard','slender'].flatMap(bottle=>['paper','dark'].map(label=>[brandArt(.4,{bottle,label}),12,28]))];
+ const examples=[[stillArt(),60,36],...[barrel('bourbon'),barrel('refill')].map(art=>[art,16,16]),[bottleArt(.4),12,12],...['standard','slender'].flatMap(bottle=>['paper','dark'].map(label=>[brandArt(.4,{bottle,label}),12,12]))];
  for(const [art,width,height]of examples){assert.doesNotMatch(art,/<(?:path|circle|ellipse|image|text|filter|animate|script)\b|transform=|\bon\w+=/);for(const r of rects(art)){const [x,y,w,h]=['x','y','width','height'].map(k=>Number(r[k]));assert([x,y,w,h].every(Number.isInteger));assert(x>=0&&y>=0&&w>0&&h>0&&x+w<=width&&y+h<=height);}}
  assert.equal(stillArt(),stillArt());assert.equal(brandArt(.4,{bottle:'slender',label:'dark'}),brandArt(.4,{bottle:'slender',label:'dark'}));
 });

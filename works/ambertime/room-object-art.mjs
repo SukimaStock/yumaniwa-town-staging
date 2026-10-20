@@ -1,6 +1,5 @@
 // Main-room objects share an integer cell grid with the room furniture.
-// Codea's copper/wood/metal palette and stepped silhouettes inform the drawing;
-// the existing Web liquid thresholds, opacity and authored variants stay intact.
+// Accepted apparatus and sample glass stay intact; bottles delegate to source matrices.
 const rect=(x,y,w,h,color)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${color}"/>`;
 const svg=(kind,w,h,body)=>`<svg class="room-object room-${kind}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" shape-rendering="crispEdges" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
 const cells=(color,areas)=>areas.map(([x,y,w,h])=>rect(x,y,w,h,color)).join('');
@@ -43,21 +42,7 @@ export function glass(wood=0,{sample=false}={}){
  return svg('glass',10,14,(sample?'<g class="sample-liquid" data-liquid-bottom="10">'+liquid+'</g>':liquid)+outline);
 }
 
-function bottleBody(slender,color,opacity){
- const body=slender?[[5,4,2,6],[4,10,4,2],[3,12,6,15],[4,27,4,1]]:[[4,4,4,5],[3,9,6,2],[2,11,8,1],[1,12,10,15],[2,27,8,1]];
- return `<g fill-opacity="${opacity}">${cells(color,body)}</g>`;
-}
-function bottleOutline(slender){
- return cells('#19141e',slender?[[4,4,1,6],[7,4,1,6],[3,10,1,2],[8,10,1,2],[2,12,1,15],[9,12,1,15],[3,27,6,1]]:[[3,4,1,5],[8,4,1,5],[2,9,1,2],[9,9,1,2],[1,11,1,1],[10,11,1,1],[0,12,1,15],[11,12,1,15],[1,27,10,1]]);
-}
-function bottle(wood,brand,full){
- const color=wood>.6?'#946332':wood>.2?'#bb8542':'#ccad6d';
- const slender=brand.bottle==='slender',dark=brand.label==='dark';
- const labelX=slender?3:1,labelW=slender?6:10;
- const liquid=full?bottleBody(slender,color,.8):'<g fill-opacity=".85">'+rect(1,13,10,14,color)+'</g>';
- const label=rect(labelX,16,labelW,6,dark?'#303e3a':'#d9cba4')
-  +rect(4,18,4,1,dark?'#d5c098':'#786343');
- return svg('bottle',12,28,bottleBody(slender,'#a9b690',.12)+liquid+bottleOutline(slender)+rect(4,0,4,3,'#19141e')+rect(5,1,2,2,'#94734c')+label);
-}
-export function bottleArt(wood=0){return bottle(wood,{},false);}
-export function brandArt(wood=0,brand={}){return bottle(wood,brand,true);}
+// Existing saved shape identifiers map to the original assets; labels and spirit use source colors.
+import {codeaBottle} from './codea-object-art.mjs?v=0.57-codea-objects';
+export function bottleArt(wood=0){return codeaBottle('standard');}
+export function brandArt(wood=0,brand={}){return codeaBottle(brand.bottle==='slender'?'tall':'standard');}

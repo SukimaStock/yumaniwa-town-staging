@@ -2,8 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {stillArt,glass,bottleArt,brandArt} from '../room-object-art.mjs';
 import {glass as originalGlass} from '../cask-glass-art.mjs';
-import {bottleArt as originalBottle} from '../art.mjs';
-import {brandArt as originalBrand} from '../brand-art.mjs';
 import {stillArt as originalStill} from '../distillery-art.mjs';
 
 const attrs=tag=>Object.fromEntries([...tag.matchAll(/([\w-]+)="([^"]*)"/g)].map(([,key,value])=>[key,value]));
@@ -12,8 +10,8 @@ const fills=svg=>new Set([...svg.matchAll(/\bfill="(#[0-9a-f]+)"/gi)].map(([,val
 const colorFrom=(svg,palette)=>palette.find(color=>fills(svg).has(color));
 
 test('room objects have bounded integer cells and a physical base on their common plane',()=>{
- const examples=[[stillArt(),60,36],[glass(.4),10,14],[bottleArt(.4),12,28],
-  ...['standard','slender'].flatMap(bottle=>['paper','dark'].map(label=>[brandArt(.4,{bottle,label}),12,28]))];
+ const examples=[[stillArt(),60,36],[glass(.4),10,14],[bottleArt(.4),12,12],
+  ...['standard','slender'].flatMap(bottle=>['paper','dark'].map(label=>[brandArt(.4,{bottle,label}),12,12]))];
  for(const [svg,width,height] of examples){
   assert.match(svg,new RegExp(`viewBox="0 0 ${width} ${height}"`));
   assert.match(svg,/shape-rendering="crispEdges"/);
@@ -25,7 +23,7 @@ test('room objects have bounded integer cells and a physical base on their commo
    assert.ok([x,y,w,h].every(Number.isInteger));
    assert.ok(x>=0&&y>=0&&w>0&&h>0&&x+w<=width&&y+h<=height,JSON.stringify(r));
   }
-  assert.ok(rects.some(r=>Number(r.y)+Number(r.height)===height),'base meets the shelf or bench');
+  assert.ok(rects.some(r=>Number(r.y)+Number(r.height)===Number(svg.match(/data-content-bottom="(\d+)"/)?.[1]??height)),'painted base meets the declared shelf plane');
  }
 });
 
@@ -46,33 +44,13 @@ test('glass preserves original liquid colors at and immediately across every bou
  assert.equal(glass(),glass(0));
 });
 
-test('both bottle renderers preserve original colors, threshold strictness and liquid opacity',()=>{
- const palette=['#ccad6d','#bb8542','#946332'];
- for(const value of [-.1,0,.2,.200001,.6,.600001,1]){
-  assert.equal(colorFrom(bottleArt(value),palette),colorFrom(originalBottle(value),palette),`plain wood=${value}`);
-  assert.match(originalBottle(value),/opacity="\.85"/);
-  assert.match(bottleArt(value),/fill-opacity="\.85"/);
-  for(const bottle of ['standard','slender'])for(const label of ['paper','dark']){
-   const brand={bottle,label};
-   assert.equal(colorFrom(brandArt(value,brand),palette),colorFrom(originalBrand(value,brand),palette),`${bottle}/${label} wood=${value}`);
-   assert.match(originalBrand(value,brand),/fill-opacity="\.8"/);
-   assert.match(brandArt(value,brand),/fill-opacity="0\.8"/);
-  }
+test('original bottle shapes use source labels independent of saved wood and label values',()=>{
+ assert.notEqual(brandArt(0),brandArt(0,{bottle:'slender'}));
+ for(const wood of [0,.2,.200001,.6,.600001,1])for(const label of ['paper','dark']){
+  assert.equal(bottleArt(wood),brandArt(wood,{bottle:'standard',label}));
+  assert.equal(brandArt(wood,{bottle:'slender',label}),brandArt(0,{bottle:'slender'}));
  }
-});
-
-test('authored bottle shapes and labels remain distinct without incorporating player text',()=>{
- const standard=brandArt(.4),slender=brandArt(.4,{bottle:'slender'}),dark=brandArt(.4,{label:'dark'});
- assert.notEqual(standard,slender);assert.notEqual(standard,dark);
- const outlineWidth=svg=>{
-  const outline=rectangles(svg).filter(r=>r.fill==='#19141e');
-  return Math.max(...outline.map(r=>Number(r.x)+Number(r.width)))-Math.min(...outline.map(r=>Number(r.x)));
- };
- assert.ok(outlineWidth(slender)<outlineWidth(standard));
- assert.ok(fills(standard).has('#d9cba4'));assert.ok(fills(dark).has('#303e3a'));
- assert.ok(fills(standard).has('#786343'));assert.ok(fills(dark).has('#d5c098'));
- assert.equal(brandArt(.4,{name:'<script>alert(1)</script>',bottle:'unknown',label:'unknown'}),standard);
- assert.equal(bottleArt(),bottleArt(0));assert.equal(brandArt(),brandArt(0,{}));
+ assert.equal(brandArt(.4,{name:'<script>alert(1)</script>',bottle:'unknown',label:'unknown'}),brandArt());
 });
 
 test('clear receiver and sample preserve existing reaction hooks without introducing state or effects',()=>{

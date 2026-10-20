@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "comparison": "Same four display pixels per native cell; old 12x28 bottle remains 12x28, no squeezing. PNGs also saved at native1x.",
+  "results": [
+    {
+      "name": "Cask bourbon",
+      "width": 16,
+      "height": 16,
+      "changedPixels": 0,
+      "onlyIndex9": false
+    },
+    {
+      "name": "Cask refill",
+      "width": 16,
+      "height": 16,
+      "changedPixels": 0,
+      "onlyIndex9": false
+    },
+    {
+      "name": "Bottle standard",
+      "width": 12,
+      "height": 12,
+      "changedPixels": 22,
+      "onlyIndex9": true
+    },
+    {
+      "name": "Bottle fancy",
+      "width": 12,
+      "height": 12,
+      "changedPixels": 20,
+      "onlyIndex9": true
+    },
+    {
+      "name": "Bottle square",
+      "width": 12,
+      "height": 12,
+      "changedPixels": 28,
+      "onlyIndex9": true
+    },
+    {
+      "name": "Bottle tall",
+      "width": 12,
+      "height": 12,
+      "changedPixels": 18,
+      "onlyIndex9": true
+    }
+  ]
+}
