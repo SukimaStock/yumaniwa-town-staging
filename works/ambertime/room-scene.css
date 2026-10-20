@@ -175,3 +175,5 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #bottle-count::-webkit-inner-spin-button,#bottle-count::-webkit-outer-spin-button{appearance:none;margin:0}
 #dialog-body #bottle-count-reason:empty{display:none}
 #dialog-body .quote-numbers span{display:inline-block;white-space:nowrap}
+
+.bottling-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.bottling-plan{display:grid;gap:7px}.bottling-plan-fields{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:8px;align-items:center}.bottling-plan-fields input{width:100%;text-align:center}.bottling-reservation{margin:8px 0;overflow-wrap:anywhere}

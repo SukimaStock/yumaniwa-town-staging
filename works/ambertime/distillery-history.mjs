@@ -1,5 +1,5 @@
-import {replayDistilleryOperations} from './partner-orders.mjs?v=0.40-partial-bottling';
-import {generationMode} from './generations.mjs?v=0.40-partial-bottling';
+import {replayDistilleryOperations} from './partner-orders.mjs?v=0.41-delegation';
+import {generationMode} from './generations.mjs?v=0.41-delegation';
 
 // This is a disposable view projection, not a second saved event ledger.
 const copy=x=>structuredClone(x);
@@ -63,7 +63,7 @@ export function buildDistilleryHistory(state){
   if(key==='fill'||key==='complete-usual')for(const c of after.core.casks)if(!before.core.casks.some(x=>x.id===c.id))addCask(c);
   for(const r of after.records??[])if(!before.records?.some(x=>x.productId===r.productId))addBottle(r);
   if(after.core.month>before.core.month){
-   for(const sale of after.core.lastMonth?.sales??[])if(sale.sold>0&&sale.channel!=='wholesale')addSale({id:sale.id},after.core.month);
+   for(const sale of after.core.lastMonth?.sales??[])if(sale.sold>0&&sale.channel!=='wholesale'&&sale.channel!=='stockist')addSale({id:sale.id},after.core.month);
    for(const h of after.trade.history)if(!before.trade.history.some(x=>JSON.stringify(x)===JSON.stringify(h)))addTrade(h);
   }
   for(const r of after.shop?.relations??[])if(!before.shop?.relations?.some(x=>x.brandId===r.brandId&&x.shopId===r.shopId))addShopRelation(r);

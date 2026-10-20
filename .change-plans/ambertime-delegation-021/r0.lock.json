@@ -1,0 +1,143 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "23881eaa7d99075899b468c678707abddf2c5733e9a182e0cf345fd0a97525ba",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "997f3734d8ef6fa4c84e36f183f94c27a862fd37",
+    "changeId": "ambertime-delegation-021",
+    "revision": 0,
+    "change": "AmberTime0.21 single brand, no wholesale, delegated counted bottling and automatic store shipping",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "Current explicit AmberTime0.21 user request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR535 partial bottling and PR537 ReputationLab0.2",
+      "Existing partner-orders/economy/model strict replay and staff/shop/generation contracts"
+    ],
+    "allowedPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/partial-bottling.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/delegation.test.mjs",
+      "works/ambertime/tests/delegation-browser.mjs",
+      "works/ambertime/tests/delegation-economy.test.mjs",
+      "works/ambertime/design/delegation/REPORT.md",
+      "works/ambertime/distiller.mjs",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/bottle-storage.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      ".change-plans/ambertime-delegation-021/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs"
+    ],
+    "expectedChanges": [
+      "Add recorded v20 execution boundary using existing replay/save mechanism, fresh game one AmberTime brand; preserve old keys without automatic deletion; legacy complete compatibility not priority but old mode behavior kept where practical. Single brand survives generations. No wholesale operations/offers/contracts in new mode.",
+      "Per-cask manual or auto counted bottle reservations, age one-shot or linked same-parent-stock edge-trigger repeated batches, pause/cancel, once/month, no all-quantity fallback, insufficient volume/cash/caps safely wait; each bottle uses existing exact fee/quantity and independent frozen release; existing staff UI/model retained.",
+      "Approved town/supermarket monthly auto shipping, deterministic shop then release order, shared remaining retail stock, conditions/monthly caps/partial supply/cash/history; department remains manual offer for exact release five bottles with existing age/taste.",
+      "Remove new mode brand/wholesale UI; compact bottle delegation and reservation labels, monthly shipment summary, special department popup, existing modal close/alignment/pixel UI. Cache import versions updated only where necessary.",
+      "Meaningful bounded tests: three new-game production-sale rounds and salary/upkeep/cash recovery boundary; manual/auto identical fee, insufficient cash/liquid, stock edges and cancellation, save/replay/tamper, generation continuity; focused phone UI. No broad E2E or long balance simulations."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused390x844touch flow and360/1280 fit; close/backdrop/centered labels and no wholesale/brand creation UI; auto reservations/reload/store/department. Physical Safari remains unverified.",
+      "Independent model/UI review; scope/risk/impact, requiredCI and exacthead/base merge, Pages deploy and public content checks."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Preserve v20 progress and all old keys before reverting feature commit. Never feed new opcodes to old reader.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine/ChangeOS/CI/registries/Lab experiments",
+      "Chemistry or economic coefficient changes, new loans/rescue schemes",
+      "BroadE2E/longplay/unrelated screens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhoneSafari/VoiceOver",
+      "Owner tactile/adoption/enjoyment",
+      "Broad long-term gamebalance andunrelatedscreens"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-20 explicitly authorizes single AmberTime brand, wholesale removal, per-stage delegation, new-game review, existing saves retained, PR/CI/Staging merge; Production forbidden."
+    ],
+    "hqDecisions": [
+      "Work-local v20 recorded execution boundary and existing replay/key mechanism; no new global runtime or saving system. Existing counted bottling and transaction accounting reused."
+    ],
+    "rulesApplied": [
+      "Full WORK+CONTENT scope locked before applying implementation.",
+      "Existing counted math and chemistry/fees preserved; v20 automatic scheduler only.",
+      "Expression audit keeps necessary operation/state labels only.",
+      "AGENTS execution policy delegates independent model/UI/economy and independent review; root integrates."
+    ],
+    "alternativesRejected": [
+      "Import experimental Lab economy or demand: differs from actual game.",
+      "New rescue loan or balance adjustments: not authorized.",
+      "Automatic all-cask bottling or department shipping: contradicts request.",
+      "New parallel durable store: existing replay suffices."
+    ],
+    "boundaryCases": [
+      "Insufficient funds or litres, product/release caps",
+      "Stock condition remains true/rearms after replenishment, two parents, same month twice",
+      "Manual/pause/cancel after restore",
+      "Department exact release and shared stock",
+      "Generation handover and no-cash bottling recovery"
+    ],
+    "testPlan": [
+      "Meaningful bounded tests: three new-game production-sale rounds and salary/upkeep/cash recovery boundary; manual/auto identical fee, insufficient cash/liquid, stock edges and cancellation, save/replay/tamper, generation continuity; focused phone UI. No broad E2E or long balance simulations."
+    ],
+    "problem": "Wholesale and brand management add repeated decisions; bottling/shipping currently tie player to stages they want to delegate.",
+    "currentContract": "Main v19 counted bottling and staff repeat, multiple brands and wholesale, manual shop deliveries; Lab0.2 auto shipping is isolated.",
+    "whyExistingIsInsufficient": "Main has no per-cask bottling reservations, single-brand/no-wholesale mode or monthly automatic stockist shipping.",
+    "design": "Reuse existing counted bottling/replay; new-mode-only automatic scheduler in monthly action. Fixed deterministic shipment priority, same stock ledger. One selected brand and no wholesale. Delegation uses existing staff contract and per-cask reservation state.",
+    "migration": "New v20 key; preserve old keys. New-game default uses v20; do not silently delete existing saves.",
+    "compatibility": "Existing save mechanism with explicit version/rules boundary and replay validation. Legacy reader kept; new progress requires new reader.",
+    "promotionRisk": "Staging only. Preserve v20 progress before rollback to older reader.",
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
