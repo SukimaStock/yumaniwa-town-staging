@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bb73101049f6b7906185af3643c1e10b2bdcb7bb5e3380fd3532d8c5ac9dc0b9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "d2b5d83d85c40e4148dffe0ecacdbc42edb98079",
+    "changeId": "ambertime-staff-unlocks-0212",
+    "revision": 0,
+    "change": "AmberTime0.21.2 manual-work unlocks for distillation and bottling staff",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "Current explicit AmberTime0.21.2 user request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR5390.21.1/latestmain d2b5d83d",
+      "Existing recordedv20boundary/strictreplay/staff40hire12salary/partialbottling3perbottle/startingcash1600/shop/generation contracts"
+    ],
+    "allowedPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distiller.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/tests/staff-progression.test.mjs",
+      "works/ambertime/tests/staff-unlocks-economy.test.mjs",
+      "works/ambertime/tests/staff-unlocks-browser.mjs",
+      "works/ambertime/tests/fixtures/staff-progression-v20.json",
+      "works/ambertime/design/delegation/REPORT-0212.md",
+      ".change-plans/ambertime-staff-unlocks-0212/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs"
+    ],
+    "expectedChanges": [
+      "Add recorded enable-staff-progression worklocal executionboundary under samev20savingmechanism; newStaffProgressionDistillery factory forUI newgames, existingfactory retained historical0.21.1. Manualfill unlocksdistill, manualpartial/fullbottle unlocksbottler; automations cannot bypass. State/op validation, olddata retained no keydeletion.",
+      "Persist unlock/notice/hire states separately, one saved notice perrole, hire/defer/laterhire. Distillerexisting40hire12salaryandrecipe/once3continuous unchanged. Bottler20hire2persuccessfulautooperation, regular3perbottle separatelyaccounted, nonewhilewait/pause/cancel/failure andatomicrollback. Keepmanual operations afterhire. Gate bottleplans beforehire atmodelandUI.",
+      "Existingpersonicon manages unlocked roles, availableonlyafterunlock; freshgame hides automationinclsource paths. Shortcost/salary beforehire, modalunlockqueuedafternormalmanualcompletion andnotrepeatedonreload/rooms. No newpermanentpanel. Existingtransientnews/manualcompletion/actionshopoffers and0.21.1stored/residual fixes preserved.",
+      "Existing retail/normalautomaticshipping/manualdepartment5 untouched; no shippingworker. Generationcarries unlock/hire/plan consistently; oldauto reservations maywaitforhire afterexplicit migration withoutdeletion. No chemistry/demand/price/basecost/funds/recipe changes.",
+      "Targetedmanualunlock/hiredeferlater/manualautogating/plans/wages/insufficientcash/dedup/savegeneration tests; boundedmanualnohire vsbothhire financecomparison. Focusedphonebuttons/modals, minimalPCfit, independentreview andrequiredCI/normalstagingmerge/publicbytesboot; no broadE2E/longplay."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone390x844freshhide/manualfillunlockevent/hiredeferlaterhire/manualbottleunlock/hirebottler/planpauseandmanualswitch;reload noeventrepeat; existingmilestones/eventpriority andsavefailure. MinimalPCfit andtargetimagesonly.",
+      "Independentreview,Scope→Risk→Impact,syntax/diff,requiredCI/exacthead/base/reviews/normalmerge/Pagesbytes/publicboot."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Preserveprogressincludingnewstaffopcodesbeforeolderreaderrollback; oldkeys/dataremain. No destructive downgrade.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine/ChangeOS/CI/registries/Labexperiments",
+      "Chemistry/demand/prices/maintenance/initialcash/basebottlingfee/4casks/brands/recipes/generationrules changes",
+      "Newshippingstaff/equipment/loan/rescue/reputation",
+      "FullE2E/longplay/comprehensiveimages/unrelatedscreens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhoneSafari/VoiceOver",
+      "Owner tactile/adoption/enjoyment",
+      "Broad long-term gamebalance andunrelatedscreens"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes manualexperienceunlock, newbottler hire/salary atminimal sustainablecosts, existingperson management andstagingPR/CI/merge; Productionforbidden."
+    ],
+    "hqDecisions": [
+      "Reuse existingrecordedoperationboundary under samev20key andstrictreplay, no newglobal save/runtime. Bottlerhire20 salary2 chosenagainst1600cash/3perbottle/distiller40and12 andboundedfinancialverification."
+    ],
+    "rulesApplied": [
+      "Full WORK+CONTENT lockedbeforeimplementation due worklocalsavedexecutionextension.",
+      "Existing0.21.1 fixes andeconomiccoefficients preserved; onlyexplicit bottlerhire/wage added.",
+      "AGENTS independentmodel/UI/economydelegation andindependentreview.",
+      "Expressionaudit: short actionableunlock/cost/salary/status only; no dashboard/panel expansion."
+    ],
+    "alternativesRejected": [
+      "Import experimental Lab economy or demand: differs from actual game.",
+      "New rescue loan or balance adjustments: not authorized.",
+      "Automatic all-cask bottling or department shipping: contradicts request.",
+      "New parallel durable store: existing replay suffices."
+    ],
+    "boundaryCases": [
+      "Freshhiddencontrols/APImethodbypass",
+      "Manualpartial/full vsautomaticunlock, noticehiredeferlater andsavednoticed",
+      "Hiresalaryregularbottlingfees independent/idempotent/cashguard/wait/failure/monthrollback",
+      "Existingreservationmigration/activeextraction/savedstateforgery",
+      "Generationcarry andmanualnohire vsbothhire loop",
+      "Unlockeventaftermanualmilestone,closingreload/savefailure"
+    ],
+    "testPlan": [
+      "Targetedmanualunlock/hiredeferlater/manualautogating/plans/wages/insufficientcash/dedup/savegeneration tests; boundedmanualnohire vsbothhire financecomparison. Focusedphonebuttons/modals, minimalPCfit, independentreview andrequiredCI/normalstagingmerge/publicbytesboot; no broadE2E/longplay."
+    ],
+    "problem": "Automaticbottling is availablebeforemanualexperience andhasnopersonnelcost; distillerinitialexperiencegate lacksoneoffopportunityevent.",
+    "currentContract": "0.21.1 v20fixedstorage/residualbottling, existingdistiller40/12aftermanualsource, bottlingreservationfreeandinitiallyavailable; transientautomaticnews andmanualmilestones.",
+    "whyExistingIsInsufficient": "Playerscanimmediatelydelegatewithoutlearningbottling; nounifiedhiringopportunity/acknowledgementforroles.",
+    "design": "RecordedstaffProgressiondata andopportunityacknowledgement; manualopsunlock, APIhiregates andsuccessfuljobwages, reusedpersonmodal andcompletionqueue.",
+    "migration": "Samekeyv20 explicit enableoperation; infer manualexperiencefromexistingoperations, preservehired distiller andoldprogress; oldbottleplans retained butrequirehire fornewautomaticwork. Oldcompletecompatibilitynotpriority, no silentdeletion.",
+    "compatibility": "HistoricalnewDelegatedfactoryandoldmonths unchangeduntilprogressionboundary; UIusesnewStaffProgressionfactory andmigratesonce.",
+    "promotionRisk": "Stagingonly; newstaffopcodesrequireupdatedreader.",
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
