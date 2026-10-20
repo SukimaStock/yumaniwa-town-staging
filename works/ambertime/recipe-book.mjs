@@ -1,4 +1,4 @@
-import {staffMode} from './distiller.mjs?v=0.40-partial-bottling';
+import {staffMode} from './distiller.mjs?v=0.41-delegation';
 // Selected manual recipes are observations, not another production model.
 export const RECIPE_BOOK=Object.freeze({version:17,rules:'recipe-book',maxEntries:64});
 export const recipesMode=s=>s?.version===RECIPE_BOOK.version&&s.rules===RECIPE_BOOK.rules||staffMode(s);

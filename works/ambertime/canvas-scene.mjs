@@ -21,8 +21,8 @@ export class CanvasScene{
   document.addEventListener('visibilitychange',this.resetIdle);
   fontReady.then(()=>{this.fontSettled=true;this.queue();});
   document.addEventListener('amber-font-change',()=>this.queue());
-  for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','trade-info','shop-offer'])this.controlRoot.append($(id));
-  $('management-controls').prepend($('open-ledger'));$('management-controls').append($('shop-offer'),$('trade-info'));
+  for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','shop-offer'])this.controlRoot.append($(id));
+  $('management-controls').prepend($('open-ledger'));$('management-controls').append($('shop-offer'));
   for(const id of ['skip','open-history','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])document.body.append($(id));
   const close=$('close-dialog');close.innerHTML=symbolMarkup('close');close.setAttribute('aria-label','閉じる');
@@ -102,7 +102,7 @@ export class CanvasScene{
    if(a.key==='shop-offer'){drawSymbol(c,'store',a.x+11,a.y+6,3,ink);continue;}
    if(a.key==='open-aux-menu'){this.window(a.x,a.y,a.w,a.h,pressed?'#414350':'#2e3143','#606575');c.fillStyle=ink;for(let i=0;i<3;i++)c.fillRect(a.x+(a.w-21)/2+i*9,a.y+(a.h-3)/2,3,3);continue;}
    if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+29,BODY_SIZE,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}
-   const primary=['start-distill','stop-distill','open-fill','go-distill'].includes(a.key),quiet=['open-staff-panel','trade-info','shop-offer','shelf-prev','shelf-next'].includes(a.key);
+   const primary=['start-distill','stop-distill','open-fill','go-distill'].includes(a.key),quiet=['open-staff-panel','shop-offer','shelf-prev','shelf-next'].includes(a.key);
    if(!quiet)this.window(a.x,a.y,a.w,a.h,pressed?'#414350':primary?'#685038':'#2e3143',primary?'#ae8d60':a.key==='toggle-time'&&hintBright?'#858995':'#606575');
    else if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}
    if(a.key==='toggle-time'){const kind=a.label==='時間を止める'?'pause':'play';const unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit));c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(a.x+a.w/2)*v.scale)*v.dpr-3.5*cell),Math.round((v.offsetY+(a.y+a.h/2)*v.scale)*v.dpr-3.5*cell),cell,ink);c.restore();if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}continue;}
