@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f94a8cd2b3747fb32f34890ea4f61dbed7538f9a880110b2b97de5af3e965e7f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "683167e70171791049a1c756d27ed42abaf2df5f",
+    "changeId": "ambertime-monthly-timing-0213",
+    "revision": 0,
+    "change": "AmberTime 0.21.3 consistent monthly production, sales and offer timing",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "Current explicit AmberTime 0.21.3 user request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #538 / #539 / #540; latest main 683167e7",
+      "Existing v20 strict replay, chemistry/economy constants, staff and stockist contracts"
+    ],
+    "allowedPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/tests/monthly-timing.test.mjs",
+      "works/ambertime/tests/monthly-timing-integration.test.mjs",
+      "works/ambertime/tests/monthly-timing-browser.mjs",
+      "works/ambertime/tests/fixtures/monthly-timing-v20.json",
+      "works/ambertime/tests/event-notices.test.mjs",
+      "works/ambertime/design/delegation/REPORT-0213.md",
+      ".change-plans/ambertime-monthly-timing-0213/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs"
+    ],
+    "expectedChanges": [
+      "Audit existing tick/economic monthly, manual and automatic fill/bottle/list, retail/ship/offers/dept, notifications and save timing. Record prior plan differences and limits.",
+      "Add explicit worklocal monthly timing replay boundary under existing v20 key and new UI factory; historical operations retain original semantics. Preserve existing data without deleting keys.",
+      "Settle eligible listed old lots in fixed retail/town/supermarket priority before automatic bottling. Require bottledMonth and listedMonth < settlement month; relation approval < shipment month. Stock-linked replenishment evaluates settled sales inventory, one execution per month, remaining volume/cost rules unchanged.",
+      "Offer eligibility uses prior confirmed facts; current shipments cannot trigger same-month new offer. Department manual approval of specific5 schedules delivery next month, holds those5 from common sales until settlement; no new player reservation settings or ordinary auto-department. Preserve conditions and prices.",
+      "Manual/auto fill completes in current month and ages only in later ticks. Keep staff unlock/hires/wages and pause/cancel/restart, guard cash and atomic rollback. No chemistry/demand/price/maintenance/fund changes.",
+      "Replace misleading previous-month copy with actual recorded month; retain transient notifications and one-off decision popups. Focused tests distinguish bottle/list/first-sale months, approvals/offers/department/aging/fees/dedup/save and phone UI; required CI and staging public verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused 390x844 phone list/approval no instant sale, bottle then next-month retail/shipping, monthly label/news/history agreement, paused save/reload no stale news; minimal PC fit if changed.",
+      "Independent review, Scope then Risk then Impact, syntax/diff, exact-head required CI, safe staging merge and exact-merge Pages/public bytes and boot."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Back up saves containing monthly-timing opcode before reverting to old reader; do not delete existing data.",
+    "outOfScope": [
+      "Production",
+      "Shared Engine/Change OS/CI/registries/Lab experiments",
+      "Chemistry/demand/prices/maintenance/initial cash/base bottle fees/staff fees/4casks/brand/generation/reputation changes",
+      "New workers/equipment/rescue/reservation modes",
+      "Broad E2E/longplay/comprehensive images/unrelated screens"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhoneSafari/VoiceOver",
+      "Owner tactile/adoption/enjoyment",
+      "Broad long-term gamebalance andunrelatedscreens"
+    ],
+    "ownerDecisions": [
+      "User 0.21.3 explicitly authorizes next-month sales and shipping, prior confirmed evidence for offers, consistent department timing and Staging PR/CI/merge/public confirmation. Production excluded."
+    ],
+    "hqDecisions": [
+      "Use existing worklocal recorded replay boundary, not new shared runtime/save mechanism. Timing only; no changed economy or chemistry formulas."
+    ],
+    "rulesApplied": [
+      "Full WORK+CONTENT Plan Lock before implementation for saved execution timing change.",
+      "AGENTS permits role-specific model/UI/tests delegation and independent review.",
+      "Expression audit: only necessary period/next-delivery copy, no new panel or long explanation."
+    ],
+    "alternativesRejected": [
+      "Change chemistry or economy coefficients to compensate for timing.",
+      "Sell new auto lots immediately or change stored bottles to listed.",
+      "Add new reservation/settings screens or ordinary automatic department trading."
+    ],
+    "boundaryCases": [
+      "Bottled/listed month and first sale month distinct",
+      "Stored lots and unrelated parent inventory",
+      "Stock threshold after settled sales, partial residual and insufficient funds",
+      "Store approval and new offers same-month chain",
+      "Specific department5 held, next-month settlement, no double consumption",
+      "Manual/auto fill age0 then next-month age1",
+      "One-off wages/events, save/restore and old history replay"
+    ],
+    "testPlan": [
+      "Targeted monthly model and integration tests: bottle/list/first-sale distinct, stored exclusion, store start next month, sales then stock refill, prior-month offers, queued5 department, manual/auto ages, wages/rollback/dedup, cold save migration and tamper rejection; narrow phone browser. No broad E2E/longplay."
+    ],
+    "problem": "Automatic bottles currently ship in their bottling month after retail has already settled, and same-month shipments can affect new offers; UI says previous month despite current stamped month.",
+    "currentContract": "0.21.2: economicMonthly advances month/chemistry/retail/upkeep, then automaticBottling then automaticShipping, then offers. Department approval can deliver immediately.",
+    "whyExistingIsInsufficient": "New automatic lots can sell out before being observed, manual and automatic paths differ, and offer timing chains within one month.",
+    "design": "Explicit replay boundary, common month eligibility, sales/shipping then replenishment; prior facts for offers and approved department next-month handoff. Existing UI with exact period labels.",
+    "migration": "Preserve v20 key and old replay via recorded enable operation. Infer bottle/list dates from existing releases/operations; preserve active extraction/tasting and queued plans. No deletion.",
+    "compatibility": "Historical factories unchanged before timing boundary; new latest UI factory enables once on fresh/restore.",
+    "promotionRisk": "Staging only; updated reader needed for new timing operation.",
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}

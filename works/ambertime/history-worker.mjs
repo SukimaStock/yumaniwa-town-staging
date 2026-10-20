@@ -1,4 +1,4 @@
-import {buildDistilleryHistory} from './distillery-history.mjs?v=0.43-staff-unlocks';
+import {buildDistilleryHistory} from './distillery-history.mjs?v=0.44-monthly-timing';
 // One ephemeral projection. The operation prefix and migration origin are exact;
 // a partial extraction changes no history event until an operation records it.
 let cachedKey=null,cachedHistory=null;
