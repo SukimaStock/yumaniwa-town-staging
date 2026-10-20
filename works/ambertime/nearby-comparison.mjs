@@ -1,4 +1,4 @@
-import {nearbyComparisonFacts} from './partner-orders.mjs?v=0.19staff';
+import {nearbyComparisonFacts} from './partner-orders.mjs?v=0.39-staff-repeat';
 
 // Targeted views over an exact validated snapshot. No persistent ledger or replay.
 const copy=x=>structuredClone(x),round=x=>Math.round(x*100)/100;

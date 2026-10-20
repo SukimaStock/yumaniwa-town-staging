@@ -164,3 +164,6 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #dialog-body .trade-terms small{margin-top:4px}
 
 .stockist-list{display:grid;gap:10px;margin:8px 0}#dialog-body .stockist-list button{width:100%;min-width:0;text-align:left}#dialog-body .stockist-list small{display:block;margin-top:4px}
+
+/* Keep the chosen instructions visible while delegated extraction runs. */
+#action-dialog #staff-panel :is(#staff-terms,#usual-recipe){display:block}

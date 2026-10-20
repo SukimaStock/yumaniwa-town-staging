@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8fc4a036d1a6237902053c59264b666cae66521e734872258a251f0bd0d76432",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "4e1e1b48b9751e644d760efde60f89ba2efc4e67",
+    "changeId": "ambertime-staff-repeat",
+    "revision": 0,
+    "change": "Repeat hired-staff execution one/three/continuous using existing reservation, finance guards, extraction and replay",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit multiple delegation request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "PR529 derived cask numbering; PR528/527/521 maintained",
+      "Existing reserveStaff/canBeginUsual/completeUsual, strict replay, old queued generation handover contract and existing scheduler"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-staff-repeat/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/tests/staff-repeat.test.mjs",
+      "works/ambertime/tests/staff-repeat-browser.mjs",
+      "works/ambertime/design/staff-repeat/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/fonts/**",
+      "works/ambertime/font-coverage.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs"
+    ],
+    "expectedChanges": [
+      "Keep old one-shot operation outputs and absent reservation fields exactly. New hired-staff reserve operation explicitly records three/continuous mode, remaining only for three; active stop operation records extraction progress and stopAfter. No save version/key/migration; new behavior is conditional on new mode. Existing reservation recipe/source/salary frozen across cycles.",
+      "Reuse existing canBeginUsual/beginUsual/complete-usual and actual monthly schedule. Count down once at completion; requeue one future batch; pay once at start, no prepay/wait fees. Preserve same-month/capacity/reserve/decisions/generation guards; new repeat blocks unacknowledged stockist offer without bypass via usualNeedsClock. No separate calculator/engine.",
+      "Queued stop uses existing cancel; active stop marks current final and finishes normally. Handover ends only repeat reservation; old single reservation carry remains unchanged. Current final batch stays manual. Scheduler completion detection handles active→queued. No automatic new recipe discovery.",
+      "Existing staff panels only: ephemeral mode choices, brief status/remaining/pay and stop control, frozen source display. Keep PR529 labels and structured IDs. Only reader import cache chain changes for serials/comparison/history to understand new operations; no record display changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Related tests one/three/continuous, remaining and reload, salary at each start/no wait charges, exact existing finance/manual chemistry references, full/combined cap/funds waits and recovery, no same-month repeat, stop queued/active, manual return, judgement/trade/stockist/generation restrictions, old base-generated idle/queued/active/completed bytes and cold completion parity, forged repeat fields rejected, source/serial/history consistency.",
+      "390x844 touch existing request/panel mode selection pure, saved count/reload, active final stop and no next batch, minimalPC and errors/fit, no broad screenshot collection. Focused independent review and related existing staff regression only.",
+      "Syntax/protected diff/Scope→Risk→Impact, exact-head required CI/review and normal Staging merge, Pages/public changed-byte match. No full E2E/long play/full game simulations."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Stop repeat orders and revert UI/runtime only after preserving saves; new repeat operation logs require this reader. Existing pre-change saves remain intact. Do not claim old code can read new operations.",
+    "outOfScope": [
+      "Production",
+      "SharedEngine",
+      "CI/workflow/Change OS changes",
+      "chemistry/aging/evaporation/bottle/shop/wholesale/reputation calculation",
+      "allocator/serial/recipe identity and format",
+      "new staff types/abilities",
+      "unrelated records/event/art/HUD/tab changes",
+      "comprehensive testing"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari, VoiceOver and owner adoption"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes necessary UI repair and Staging delivery."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK+CONTENT runtime feature; preimplementation Lock. Existing reservation/operation replay extension explicitly authorized by current user; no new persistence method or scheduler.",
+      "Preserve all pre-repeat execution by optional fields and new operation keys. Baseline original source exported to scratch and real old single idle/queued/active/completed bytes captured before editing.",
+      "Run focused progress/save regression deeper than UI-only, preserve prior completed tests and CI optimization. Cache references are required so old cached validators never reject new logs."
+    ]
+  }
+}
