@@ -196,3 +196,7 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #action-dialog .bottle-count-controls{display:grid;grid-template-columns:45px minmax(0,1fr) 45px;gap:9px;align-items:center}
 #action-dialog .bottle-count-controls #bottle-count{width:100%;min-width:0;text-align:center}
 #action-dialog .bottle-count-controls [data-action=bottle-all]{grid-column:1/-1;justify-self:end}
+
+/* Source matrices remain native; only these assets get integral dialog display scales. */
+svg[data-codea="cask"]{width:48px!important;height:48px!important;max-width:none!important;max-height:none!important;image-rendering:pixelated;flex-shrink:0}
+svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:none!important;max-height:none!important;image-rendering:pixelated;flex-shrink:0}

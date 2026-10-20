@@ -1,0 +1,5818 @@
+{
+  "passed": true,
+  "base": "e24d2145144d9beb21d3137e13f2421620805192",
+  "browser": "153.0.8010.0",
+  "captures": {
+    "before": [
+      {
+        "name": "390-warehouse",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-390-warehouse.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "toggle-time",
+            "x": 328.25,
+            "y": 140.328125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 65,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 208,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "390-cask-selected",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-390-cask-selected.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 65,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 208,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "390-bottling",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-390-bottling.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 65,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 208,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "390-sales",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-390-sales.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "sales",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "toggle-time",
+            "x": 328.25,
+            "y": 140.328125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-12",
+            "x": 65,
+            "y": 231.328125,
+            "width": 117,
+            "height": 156,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-17",
+            "x": 208,
+            "y": 231.328125,
+            "width": 117,
+            "height": 156,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "shop-offer",
+            "x": 169,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "sales",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "390-product",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-390-product.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "sales",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-12",
+            "x": 65,
+            "y": 231.328125,
+            "width": 117,
+            "height": 156,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-17",
+            "x": 208,
+            "y": 231.328125,
+            "width": 117,
+            "height": 156,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "shop-offer",
+            "x": 169,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "sales",
+          "14",
+          "17"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-warehouse",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-1024-warehouse.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "toggle-time",
+            "x": 659.59375,
+            "y": 72,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 368,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 526.390625,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-cask-selected",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-1024-cask-selected.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 368,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 526.390625,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-bottling",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-1024-bottling.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 368,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 526.390625,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-sales",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-1024-sales.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "sales",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "toggle-time",
+            "x": 659.59375,
+            "y": 72,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-12",
+            "x": 368,
+            "y": 172.796875,
+            "width": 129.59375,
+            "height": 172.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-17",
+            "x": 526.390625,
+            "y": 172.796875,
+            "width": 129.59375,
+            "height": 172.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "shop-offer",
+            "x": 483.1875,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "sales",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-product",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/before-1024-product.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "sales",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-12",
+            "x": 368,
+            "y": 172.796875,
+            "width": 129.59375,
+            "height": 172.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-17",
+            "x": 526.390625,
+            "y": 172.796875,
+            "width": 129.59375,
+            "height": 172.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "shop-offer",
+            "x": 483.1875,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "sales",
+          "14",
+          "17"
+        ],
+        "overflow": false
+      }
+    ],
+    "after": [
+      {
+        "name": "390-warehouse",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-390-warehouse.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "toggle-time",
+            "x": 328.25,
+            "y": 140.328125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 65,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 208,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "390-cask-selected",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-390-cask-selected.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 65,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 208,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "390-bottling",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-390-bottling.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 65,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 208,
+            "y": 270.328125,
+            "width": 117,
+            "height": 130,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "390-sales",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-390-sales.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "sales",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "toggle-time",
+            "x": 328.25,
+            "y": 140.328125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-12",
+            "x": 65,
+            "y": 231.328125,
+            "width": 117,
+            "height": 156,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-17",
+            "x": 208,
+            "y": 231.328125,
+            "width": 117,
+            "height": 156,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "shop-offer",
+            "x": 169,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "sales",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "390-product",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-390-product.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "sales",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 13,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 136.5,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 260,
+            "y": 705.828125,
+            "width": 117,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 328.25,
+            "y": 85.078125,
+            "width": 48.75,
+            "height": 48.75,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 19.5,
+            "y": 640.828125,
+            "width": 71.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 97.5,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-12",
+            "x": 65,
+            "y": 231.328125,
+            "width": 117,
+            "height": 156,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-17",
+            "x": 208,
+            "y": 231.328125,
+            "width": 117,
+            "height": 156,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "shop-offer",
+            "x": 169,
+            "y": 640.828125,
+            "width": 58.5,
+            "height": 58.5,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "sales",
+          "14",
+          "17"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-warehouse",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-1024-warehouse.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "toggle-time",
+            "x": 659.59375,
+            "y": 72,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 368,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 526.390625,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-cask-selected",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-1024-cask-selected.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 368,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 526.390625,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-bottling",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-1024-bottling.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "warehouse",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-14",
+            "x": 368,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "cask-16",
+            "x": 526.390625,
+            "y": 216,
+            "width": 129.59375,
+            "height": 144,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "warehouse",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-sales",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-1024-sales.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "sales",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "toggle-time",
+            "x": 659.59375,
+            "y": 72,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-12",
+            "x": 368,
+            "y": 172.796875,
+            "width": 129.59375,
+            "height": 172.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-17",
+            "x": 526.390625,
+            "y": 172.796875,
+            "width": 129.59375,
+            "height": 172.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "shop-offer",
+            "x": 483.1875,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "sales",
+          "14"
+        ],
+        "overflow": false
+      },
+      {
+        "name": "1024-product",
+        "screenshot": "/workspace/scratch/2c284de40f78/yumaniwa-town-staging/works/ambertime/design/codea-cask-bottles/after-1024-product.png",
+        "saveSha256": "fb4ba054150a7eb3288f43cd90fccbbcabea23424683ad091dada7d4da4c770e",
+        "room": "sales",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hitRegions": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "boxes": [
+          {
+            "key": "room-distill",
+            "x": 310.390625,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-warehouse",
+            "x": 447.1875,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "room-sales",
+            "x": 584,
+            "y": 698.390625,
+            "width": 129.59375,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-aux-menu",
+            "x": 659.59375,
+            "y": 10.796875,
+            "width": 54,
+            "height": 54,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-ledger",
+            "x": 317.59375,
+            "y": 626.390625,
+            "width": 79.1875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "open-staff-panel",
+            "x": 404,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-12",
+            "x": 368,
+            "y": 172.796875,
+            "width": 129.59375,
+            "height": 172.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "product-17",
+            "x": 526.390625,
+            "y": 172.796875,
+            "width": 129.59375,
+            "height": 172.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          },
+          {
+            "key": "shop-offer",
+            "x": 483.1875,
+            "y": 626.390625,
+            "width": 64.796875,
+            "height": 64.796875,
+            "font": "system-ui, sans-serif",
+            "fontSize": "14px"
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": null,
+            "color": null
+          },
+          {
+            "id": 16,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "phase": {
+          "lines": 0,
+          "spiritTop": 159,
+          "spiritBottom": 243,
+          "equipmentTop": 270
+        },
+        "font": {
+          "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+          "size": "24px",
+          "state": "ready"
+        },
+        "progress": "2",
+        "selected": [
+          "sales",
+          "14",
+          "17"
+        ],
+        "overflow": false
+      }
+    ]
+  },
+  "basic": [
+    {
+      "phase": "before",
+      "width": 390,
+      "caskSelect": true,
+      "bottling": true,
+      "listForSale": true,
+      "caskChoice": true,
+      "fill": true,
+      "unrelatedSaveUnchanged": true,
+      "artBoxes": []
+    },
+    {
+      "phase": "before",
+      "width": 1024,
+      "caskSelect": true,
+      "bottling": true,
+      "listForSale": true,
+      "caskChoice": true,
+      "fill": true,
+      "unrelatedSaveUnchanged": true,
+      "artBoxes": []
+    },
+    {
+      "phase": "after",
+      "width": 390,
+      "caskSelect": true,
+      "bottling": true,
+      "listForSale": true,
+      "caskChoice": true,
+      "fill": true,
+      "unrelatedSaveUnchanged": true,
+      "artBoxes": []
+    },
+    {
+      "phase": "after",
+      "width": 1024,
+      "caskSelect": true,
+      "bottling": true,
+      "listForSale": true,
+      "caskChoice": true,
+      "fill": true,
+      "unrelatedSaveUnchanged": true,
+      "artBoxes": []
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari",
+    "Author visual acceptance"
+  ]
+}
