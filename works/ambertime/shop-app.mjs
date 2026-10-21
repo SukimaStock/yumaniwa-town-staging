@@ -315,7 +315,9 @@ function ledgerRecipeComparison(){
 function ledgerCaskDetail(){
  const c=caskEntry(modal.caskId);if(!c)return '<p>記録なし</p>';let out='<article class="ledger-cask-detail"><span class="release-bottle">'+ledgerBarrel(c)+'</span><h3>'+esc(caskName(c.caskId))+'</h3>'+copyFacts([['仕込み',known(c.filledMonth,monthLabel)],['たる',ledgerType(c)],['状態',ledgerCaskStatus(c)],['熟成記録',known(c.age,ageLabel)],['原酒量',known(c.litres,n=>n.toFixed(1)+' L')]])+'';
  if(c.status==='aging'){out+=button('試す','ledger-cask-taste',c.caskId);if(game.core.casks.length>1)out+=button('比べる','ledger-cask-compare',c.caskId);}
- if(recipeRows().some(r=>r.caskId===c.caskId))out+=button('元の仕込み','ledger-recipe-open',c.caskId);
+ const sourceId=recipeRows().some(r=>r.caskId===c.caskId)?c.caskId:c.commissionedFrom?.caskId;
+ if(Number.isFinite(sourceId)&&recipeRows().some(r=>r.caskId===sourceId))out+=button('元の仕込み','ledger-recipe-open',sourceId);
+ else if(Number.isFinite(sourceId)&&sourceId!==c.caskId&&caskEntry(sourceId))out+=button('依頼元のたる','ledger-cask-open',sourceId);
  out+=caskTimeline(c)+linkedReleases(c);
  if(!caskData().coverage.complete)out+='<p class="quiet">記録の残る範囲</p>';
  return out+'</article>';
@@ -797,7 +799,7 @@ function handleModal(e){
  if(a==='staff-confirm'&&kind==='staff-request'&&staffCanRequest()){const sourceId=modal.caskId,mode=modal.requestMode;act(s=>sourceId===null?D.reserveUsual(D.endTasting(s),mode):D.reserveStaff(D.endTasting(s),sourceId,mode),()=>{modal=null;room='distill';message('仕込みを依頼しました。');});return;}
 
  if(a==='ledger-recipe-open'&&['ledger','recipes','ledger-cask'].includes(kind)&&recipeRows().some(r=>r.caskId===id)){openLedgerDetail('ledger-recipe',id,b.id);return;}
- if(a==='ledger-cask-open'&&['ledger','ledger-recipe'].includes(kind)&&caskData().casks.some(c=>c.caskId===id)){openLedgerDetail('ledger-cask',id,b.id);return;}
+ if(a==='ledger-cask-open'&&['ledger','ledger-recipe','ledger-cask'].includes(kind)&&caskData().casks.some(c=>c.caskId===id)){openLedgerDetail('ledger-cask',id,b.id);return;}
  if(a==='ledger-list-page'&&(kind==='recipes'||kind==='ledger'&&['recipes','aging'].includes(modal.section))&&Number.isInteger(id)&&id>=0){modal.listPage=id;render();$('dialog-body').scrollTop=0;return;}
  if(a==='ledger-source-compare'&&kind==='ledger-recipe'){const other=recipeRows().find(r=>r.caskId!==modal.caskId);if(other){const parent=rememberLedger();modal={kind:'ledger-recipe-comparison',caskId:parent.caskId,otherId:other.caskId,parent,returnFocusId:b.id};render();$('dialog-body').scrollTop=0;}return;}
  if(a==='ledger-recipe-request'&&kind==='ledger-recipe'){rememberLedger();openStaffRequest(modal.caskId);return;}

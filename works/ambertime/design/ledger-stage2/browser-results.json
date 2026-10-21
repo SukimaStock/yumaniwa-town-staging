@@ -42,6 +42,17 @@
     {
       "olderV20Records": true,
       "oldSaveReadOnly": true
+    },
+    {
+      "automaticSourceChain": {
+        "manual": 14,
+        "automatic": [
+          26,
+          28
+        ]
+      },
+      "sourceAndBack": true,
+      "saveUnchanged": true
     }
   ],
   "errors": [],
