@@ -122,3 +122,7 @@ Aで継続だけを外すと、食堂の60年関心は36.9%→22.1%、認知99.7
 実機iPhone Safari/VoiceOver、作者の試遊・採用、実経済との相互作用、長期の遊びやすさは未確認。正式なverificationStateはUNVERIFIEDのまま。本編統合・Production公開の承認を意味しない。
 
 再現：`node --test works/ambertime/experiments/reputation/v03/tests/model.test.mjs`、`node works/ambertime/experiments/reputation/v03/analyze.mjs`。ブラウザ検査はPlaywrightと`/tmp/chromium`がある環境で`node works/ambertime/experiments/reputation/v03/tests/browser.mjs`。
+
+### 公開パスの補正
+
+公開確認でLABへの絶対パスがGitHub Pagesのproject prefixを落とすことを確認し、相対パスへ補正。ローカルrootだけでなく、公開URLを基準に戻り先が`/yumaniwa-town-staging/lab/`となる回帰を追加した。モデル・比較結果は変更なし。
