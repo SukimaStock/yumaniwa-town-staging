@@ -1,0 +1,97 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fd045ac981d87c5740181b70f534f6c3e170cd62d23efcaffc35e9ac45d3c347",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ledger-stage2",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "a3f7e232c019cb1b2c36139f6f3166be6cb2f9b0",
+    "change": "Organize recipe and cask history lists/details with shared release links and existing tasting/comparison/request operations",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User stage2 request",
+      "works/ambertime/design/ledger-information-audit.md PR564",
+      "PR565 ledger integration",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ledger-stage2/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/cask-ledger.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/cask-ledger.test.mjs",
+      "works/ambertime/design/ledger-stage2/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/*-art.mjs"
+    ],
+    "expectedChanges": [
+      "Short deduplicated recipe/manual-source and cask lists in existing ledger categories, selected single detail. Preserve selected latest dynamic recipe versus fixed saved recipe semantics and 64 limit. Staff entry shares recipe view and existing operations.",
+      "Read-only cached caskId projection connects live/archive/records/releases and existing replay facts; merge duplicate snapshot observations/samples while retaining distinct observation order, values and original text. Recover observed history from existing validated operation replay; unknown pre-origin history stays unknown. No persistent aggregate or game/save modifications.",
+      "Cask detail shows tasting changes, care, observed volume/age, source recipe and all partial release links to stage1 common release detail. Live casks use existing sample/comparison operations; archived casks have no retaste. Add source-pair display only using existing comparison styling where existing live-only comparison cannot accept archived sources.",
+      "Preserve in-dialog parents/scroll/focus and end actual tasting once before returning. Keep stage1 category shell/release detail, shops and generations unchanged.",
+      "Scoped tests, old/current/partial and pruned snapshot cases, cold restore and read-only save equality, phone/PC screenshots and basic recipe select/request/tasting/comparison/back. Required gates/CI/PR/Staging merge/public check."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Scoped new projection plus existing recipe/comparison/ledger tests; 390x844 and1024x768 selected navigation/basic operations/save equality/coldrestore; current/pruned and old facts; no broadE2E or longplay"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes stage2 recipe and cask display/navigation changes through Staging merge, no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard work-local display and existing operations only",
+      "Expression audit: compact summary/list and selected detail without explanatory cards",
+      "AGENTS scoped module delegation and independent review",
+      "Immutable fresh r0 lock before implementation"
+    ],
+    "rollback": "Revert this display-only PR; existing saved format and calculations unchanged.",
+    "outOfScope": [
+      "Production",
+      "Game calculations, new recipe fields or saved aggregates, operation or save schema",
+      "Stage1 release detail/category shell, shop/generation redesign",
+      "Sprites/HUD/furniture/rooms",
+      "Broad E2E/long play"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}
