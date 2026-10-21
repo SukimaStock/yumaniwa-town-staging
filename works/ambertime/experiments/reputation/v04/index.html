@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>AmberTime Reputation Lab 0.4</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="../../../../../lab/#room-bench">← LAB</a>
+    <h1>AmberTime Reputation Lab 0.4</h1>
+    <nav aria-label="関連ページ"><a href="../v03/">0.3</a><a href="REPORT.md">比較報告</a></nav>
+  </header>
+  <main>
+    <p class="intro">1号店の供給量は同じまま、地元への定着と外への口コミを比べます。図の地点・経路は実験用です。</p>
+    <div class="controls">
+      <label>納品・商品の方針<select id="strategy"></select></label>
+      <label>SNS経路<select id="sns"><option value="off">なし</option><option value="on">あり</option></select></label>
+    </div>
+    <details id="conditions">
+      <summary>実験条件</summary>
+      <div class="controls details-controls">
+        <label>シード<input id="seed" type="number" min="1" max="4294967295" step="1" value="20261021"></label>
+        <label>要因を外す<select id="mode"><option value="full">すべて有効</option><option value="rootednessOff">定着なし</option><option value="memoryOff">商品記憶なし</option><option value="bridgesOff">地域間の経路なし</option></select></label>
+        <label class="check"><input id="space" type="checkbox">宇宙の仮想経路も比較</label>
+      </div>
+      <p>内部値は0〜100で表示します。候補・認知と実納品は別の状態です。宇宙は拡張性を調べる仮想条件で、通常条件には含めません。</p>
+    </details>
+    <div id="years" aria-label="比較する時点"><button type="button" data-years="10">10年</button><button type="button" data-years="30">30年</button><button type="button" data-years="60">60年</button><button type="button" data-years="90">90年</button><button type="button" id="play">▶ 再生</button></div>
+    <label class="timeline"><output id="time" for="month"></output><input id="month" type="range" min="0" max="1080" step="1" value="120" aria-label="経過月数"></label>
+    <p id="totals" aria-live="polite"></p>
+    <dl id="measures" class="measures"></dl>
+    <p id="generation"></p>
+    <h2>町から外への経路</h2>
+    <p class="key">青：認知　黄：関心　黒い点：実納品　太線：選択した地点への経路　破線：SNS</p>
+    <svg id="map" viewBox="0 0 410 1100" role="img" aria-label="町・周辺地域・全国・海外へ口コミが伝わる実験図"></svg>
+    <label>経路を見る地点<select id="destination"></select></label>
+    <p id="route"></p>
+    <details id="arrivals"><summary>最近届いた口コミ</summary><ol id="arrival-list"></ol></details>
+    <h2>地元の関係と商品記憶</h2>
+    <p id="product"></p>
+    <div class="scroll"><table><thead><tr><th>店</th><th>定着</th><th>認知</th><th>関心</th><th>実納品</th><th>記憶</th></tr></thead><tbody id="nodes"></tbody></table></div>
+    <label class="memory-select">商品記憶を見る店<select id="memory-shop"></select></label>
+    <p id="reaction"></p>
+    <div class="scroll"><table><thead><tr><th>覚えている商品</th><th>店との相性</th><th>接点</th><th>好まれた接点</th><th>最初／最近</th></tr></thead><tbody id="memories"></tbody></table></div>
+    <h2>同じ時点の6方針</h2>
+    <p class="key">商品・配分・SNS以外の条件をそろえて計算します。結果は実行中のモデルから求めます。</p>
+    <div class="scroll"><table><thead><tr><th>方針</th><th>地元の定着</th><th>町の認知</th><th>外部認知</th><th>遠方の到達先</th><th>実納品</th></tr></thead><tbody id="comparison"></tbody></table></div>
+    <details id="calculation"><summary>条件と計算の範囲</summary><p>管理するのは1号店だけです。遠方の地点は口コミを集約する実験用の範囲で、支店の経営や自動販売を追加しません。供給・実納品・在庫を分け、商品の特徴は発売回ごとに保持します。</p><p>地元の定着は旧市街3店（町の酒店・食堂・路地のバー）の平均、町の認知は町内8店の平均です。定着は取引の積み重ねと相性・商品記憶から、認知と関心は実納品を起点とする経路から計算します。記憶は実際に届けた商品を表示し、未納品の味を補いません。詳細な係数・比較の限界は比較報告に記載します。</p><p>世代交代はLabの比較用境界です。本編の保存・需要・価格・申し出・世代交代処理には接続しません。</p></details>
+  </main>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
