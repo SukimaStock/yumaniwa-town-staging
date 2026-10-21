@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "731c86fb7cb243196a2c5b166a0ca9a8b385744e78001282112499d612190d32",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-reputation-v03",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent long-term town affinity continuity and word-of-mouth comparison Lab 0.3",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2bcafb73daea2bca61cf5e77506c08321dc7a169",
+    "canonicalSources": [
+      "User 0.24.1 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Reputation v01/v02 and PR537/549",
+      "current four-cask production, demand, sales and history; ledger PR564-571"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-reputation-v03/r0.lock.json",
+      "works/ambertime/experiments/reputation/v03/**",
+      "works/ambertime/experiments/reputation/index.html",
+      "works/ambertime-reputation-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "index.html",
+      "style.css",
+      "main.js",
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/experiments/reputation/v02/**",
+      "works/ambertime/experiments/reputation/model.mjs",
+      "works/ambertime/experiments/reputation/results.json"
+    ],
+    "expectedChanges": [
+      "Independent deterministic monthly model: eight fictional connected shops, town-only initial trading, bounded awareness/interest, path provenance, release-specific taste/age/price affinity with no universal quality score; actual deliveries alone seed packets; no localStorage/main state access.",
+      "Same initial product/supply/seed A/B/C destination comparisons and C/D/E/F explicit single-axis contrasts. Four-slot finite production and age pipeline with inventory conservation; no immediate long-aged free supply. Report offered, delivered, unsent and capacity differences.",
+      "Small town continuity represented by durable local ties and repeated local route retention, not an arbitrary shop multiplier. Attenuation/distance/delays, saturation and decaying recent interest; generations inherit network. No unreachable automatic sales or main approval changes.",
+      "UI map/edges, monthly/10/30/60/90-year views, strategy results, route provenance, internal values, seed and ablation controls. Finite two-seed long-term comparisons and one-factor controls. REPORT/results include failures and limits.",
+      "Preserve v01/v02; existing LAB entry offers v03/v02/v01. Update existing registration title/note only and regenerate LAB; no new work or room."
+    ],
+    "ownerDecisions": [
+      "Explicit user instruction permits independent v03 Lab, PR, Staging merge/deploy; main and Production protected."
+    ],
+    "hqDecisions": [
+      "Versioned nested standalone experiment, existing lifecycle/LAB schema; no shared contract or native save change."
+    ],
+    "rulesApplied": [
+      "Fresh r0 plan-only first commit before implementation.",
+      "AGENTS direct implementation plus separate read-only research/review.",
+      "Expression audit: necessary controls and concrete experimental caveats only."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Determinism, capacity/inventory, route delays/attenuation, no delivery no rumor, store-specific affinities, equal fixtures for paired contrasts, continuity/affinity/propagation ablations, generation persistence.",
+      "390/360/1280 browser map, seed, strategy/year/ablation changes, path/table readability; storage inaccessible; v01/v02 and LAB links.",
+      "Two fixed seed finite 10/30/60/90 results, honest success/failure REPORT.",
+      "Scope then Risk then Impact, lifecycle generation/check/test, required CI, reviews and exact-head merge, Pages SHA and HTTP contents."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v03 plus entry/registration changes together; v01/v02 remain unchanged.",
+    "outOfScope": [
+      "Main AmberTime and Production",
+      "Native demand/pricing/shipping/approval/save/history/generation changes",
+      "Official town map or art",
+      "Real market calibration or proof of player motivation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption and subjective enjoyment",
+      "Full main economic balance"
+    ],
+    "alternativesRejected": [
+      "Integrate main now",
+      "Universal quality/reputation metric",
+      "Volume-linear unlimited fame",
+      "Unlimited supply or free aged stock"
+    ],
+    "boundaryCases": [
+      "zero supply",
+      "bulk versus recurring",
+      "no paths",
+      "no affinity",
+      "no continuity",
+      "generation boundary",
+      "same seed",
+      "finite four slots and age lead time"
+    ],
+    "testPlan": [
+      "Focused node model tests and paired analysis",
+      "Mobile/desktop browser controls/links/storage isolation",
+      "Scope/Risk/Impact and required trusted CI"
+    ],
+    "problem": "Need decades-long store-specific rumor paths with meaningful small deliveries.",
+    "currentContract": "v02 finite shipment experiments, current main automatic shipping and four-cask production remain unchanged.",
+    "whyExistingIsInsufficient": "v02 finite one-hop evidence cannot evaluate multigeneration neighborhood networks.",
+    "design": "Separate pure monthly simulation and fictional graph with supply pipeline, deterministic routing and state inheritance.",
+    "migration": "None; no storage.",
+    "compatibility": "Only lab entries and existing LAB registration updated; all main and prior model files unchanged.",
+    "promotionRisk": "staging-only experiment; no main adoption or production authorization"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checks": [
+    "10/30/60/90 controls and eight-node map, six actual comparisons",
+    "strategy/seed/three ablations/quantity controls; real provenance and inventory",
+    "monthly playback and stop",
+    "390/360 phone and1280 desktop; page fits viewport, tables scroll locally",
+    "preserved v02 and v01 entries still load",
+    "LAB Prototype Bench forward/back; storage blocked during whole test"
+  ],
+  "errors": [],
+  "viewports": [
+    390,
+    360,
+    1280
+  ],
+  "physicalSafari": false,
+  "screenshots": "/tmp/reputation-v03-browser"
+}
