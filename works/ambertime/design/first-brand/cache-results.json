@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "oldCache": "Previous main modules served immutable max-age3600 before new deployment",
+  "base": "0aa346d6479177df4d39f7db100e72acbb577b8d",
+  "newReaders": [
+    "http://127.0.0.1:34987/works/ambertime/partner-orders.mjs?v=0.58-first-brand",
+    "http://127.0.0.1:34987/works/ambertime/partner-orders.mjs?v=0.58-first-brand",
+    "http://127.0.0.1:34987/works/ambertime/cask-serials.mjs?v=0.58-first-brand",
+    "http://127.0.0.1:34987/works/ambertime/nearby-comparison.mjs?v=0.58-first-brand",
+    "http://127.0.0.1:34987/works/ambertime/history-worker.mjs?v=0.58-first-brand",
+    "http://127.0.0.1:34987/works/ambertime/distillery-history.mjs?v=0.58-first-brand",
+    "http://127.0.0.1:34987/works/ambertime/partner-orders.mjs?v=0.58-first-brand"
+  ],
+  "firstSetup": true,
+  "bottling": true,
+  "historyWorker": true,
+  "pageErrors": []
+}

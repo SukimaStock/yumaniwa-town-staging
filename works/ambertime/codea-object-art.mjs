@@ -1,3 +1,4 @@
+import {CAP_COLORS,IDENTITY_LABELS} from './brand-identity.mjs?v=0.58-first-brand';
 // Exact top-row-first Codea DistilleryAssets matrices. See design/codea-cask-bottles/source-reference.json.
 // Native dimensions are part of the asset: never pad, resample or author extra cells.
 const freeze=rows=>Object.freeze(rows.map(row=>Object.freeze(row)));
@@ -80,11 +81,18 @@ export const sourcePalette=Object.freeze({4:'#32ff32',6:'#ffc832',7:'#646464',9:
 export const glassColor='#8f9a7d';
 export const caskPalettes=Object.freeze({bourbon:Object.freeze({10:'#503214',11:'#b46e28',12:'#dca050'}),refill:Object.freeze({10:'#463c32',11:'#a09678',12:'#c8beaa'})});
 export const bottles=Object.freeze({standard:BottleStandard,fancy:BottleFancy,square:BottleSquare,tall:BottleTall});
-function render(kind,rows,palette,classes){
+function render(kind,rows,palette,classes,colorAt=(index)=>palette[index]){
  const h=rows.length,w=rows[0].length,bottom=rows.reduce((bottom,row,y)=>row.some(Boolean)?y+1:bottom,0);
- const body=rows.map((row,y)=>row.map((index,x)=>index?`<rect x="${x}" y="${y}" width="1" height="1" fill="${palette[index]}"/>`:'').join('')).join('');
+ const body=rows.map((row,y)=>row.map((index,x)=>index?`<rect x="${x}" y="${y}" width="1" height="1" fill="${colorAt(index,x,y)}"/>`:'').join('')).join('');
  return `<svg class="${classes}" data-codea="${kind}" data-content-bottom="${bottom}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" shape-rendering="crispEdges" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
 }
 export function codeaCask(type='bourbon'){return render('cask',Cask,{...sourcePalette,...(caskPalettes[type]??caskPalettes.bourbon)},'pixel-object pixel-cask');}
-export function codeaBottle(shape='standard'){return render('bottle',bottles[shape]??BottleStandard,{...sourcePalette,9:glassColor},'room-object room-bottle');}
+export function codeaBottle(shape='standard',{label=null,priceTier=null}={}){
+ const rows=bottles[shape]??BottleStandard,palette={...sourcePalette,9:glassColor},labelStyle=IDENTITY_LABELS.find(x=>x.id===label),cap=CAP_COLORS[priceTier];
+ return render('bottle',rows,palette,'room-object room-bottle',(index,x,y)=>{
+  if(cap&&y>=1&&y<=(shape==='tall'?2:1))return cap;
+  if(labelStyle){if(index===6||index===7)return labelStyle.color;if(shape==='fancy'&&x===5&&y===6)return labelStyle.detail;}
+  return palette[index];
+ });
+}
 

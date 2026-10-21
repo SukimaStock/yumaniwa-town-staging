@@ -200,3 +200,15 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 /* Source matrices remain native; only these assets get integral dialog display scales. */
 svg[data-codea="cask"]{width:48px!important;height:48px!important;max-width:none!important;max-height:none!important;image-rendering:pixelated;flex-shrink:0}
 svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:none!important;max-height:none!important;image-rendering:pixelated;flex-shrink:0}
+
+/* First-bottling identity uses existing native art and modal controls. */
+#action-dialog:has(.first-brand){width:min(408px,calc(var(--view-width,100vw) - 24px));max-width:calc(var(--view-width,100vw) - 24px)}
+.first-brand{display:grid;gap:4px;margin-bottom:8px;text-align:left}
+.first-brand fieldset{border:0;padding:0;margin:0;min-width:0}.first-brand legend{padding:0;margin:0 0 4px}
+#action-dialog #brand-name{box-sizing:border-box;width:100%;min-width:0;min-height:44px;border-radius:0}
+#brand-name-error{margin:0;font-size:14px}#brand-name-error:empty{display:none}
+.brand-bottles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.brand-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+#action-dialog .first-brand button{min-width:0;padding:4px 2px;display:flex;align-items:center;justify-content:center;gap:2px;font-size:14px}
+#action-dialog .brand-bottles button{flex-direction:column}.first-brand button span{white-space:nowrap}
+.brand-readout{display:flex;align-items:center;gap:10px;margin:6px 0;min-width:0}.brand-readout span{min-width:0;overflow-wrap:anywhere}
+.release-bottle{float:right;margin-left:8px}

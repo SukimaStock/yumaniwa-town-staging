@@ -43,6 +43,7 @@ export function glass(wood=0,{sample=false}={}){
 }
 
 // Existing saved shape identifiers map to the original assets; labels and spirit use source colors.
-import {codeaBottle} from './codea-object-art.mjs?v=0.57-codea-objects';
-export function bottleArt(wood=0){return codeaBottle('standard');}
-export function brandArt(wood=0,brand={}){return codeaBottle(brand.bottle==='slender'?'tall':'standard');}
+import {codeaBottle} from './codea-object-art.mjs?v=0.58-first-brand';
+export function bottleArt(wood=0,priceTier='standard'){return codeaBottle('standard',{label:'cream',priceTier});}
+import {bottleShape} from './brand-identity.mjs?v=0.58-first-brand';
+export function brandArt(wood=0,brand={},priceTier='standard'){return codeaBottle(bottleShape(brand),{label:brand?.label==='dark'?'dark':'cream',priceTier});}
