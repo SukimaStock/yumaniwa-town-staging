@@ -358,6 +358,12 @@
       "path": "works/ambertime-reputation-lab",
       "status": "active",
       "title": "AmberTime Reputation Lab 0.3"
+    },
+    {
+      "id": "ambertime-reputation-world-lab",
+      "path": "works/ambertime-reputation-world-lab",
+      "status": "active",
+      "title": "AmberTime Reputation Lab 0.4"
     }
   ]
 }
