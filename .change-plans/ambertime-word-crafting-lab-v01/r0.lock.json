@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5c0a43b0329de4cfc821c63fe4332216f761b1763c9655eaaf483aba3e935c13",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-word-crafting-lab-v01",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Introduce independent AmberTime word-crafting Lab with card choices, extraction stop, four aging casks, evolving compositional phrases and exclusion; register it in LAB",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "83d250f5ad15dc3fe702426087e4fca9ff787564",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "tools/work-lifecycle.cjs",
+      "works/ambertime/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-word-crafting-lab-v01/r0.lock.json",
+      "works/ambertime-word-crafting-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html",
+      "tools/**",
+      "engine/**",
+      "data/works.js",
+      "main.js",
+      "index.html",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Independent four-barrel simulator with two choices of malt, fermentation and cask and one stop position control",
+      "Eight game-only flavor attributes evolve monthly; phrases composed deterministically; candidate stability and user expression exclusion",
+      "Bottling freezes the phrase and history, while using separate localStorage key from the main AmberTime save",
+      "Add active staging-only lifecycle and Prototype Bench registration, regenerate lab/index.html via existing renderer",
+      "Focused model syntax and deterministic behavior tests, with real-device verification left to the author"
+    ],
+    "ownerDecisions": [
+      "User authorizes creating independent card-to-word LAB for staging; author retains approval of phrases, feel and production."
+    ],
+    "hqDecisions": [
+      "Existing LAB and lifecycle schemas are sufficient; add an active work and a bench machine without new runtime contracts.",
+      "Use isolated app and save key. Preserve all main AmberTime calculations, saves, shops and reputation experiments."
+    ],
+    "rulesApplied": [
+      "Plan-only locked commit before implementation",
+      "Staging-only, no production files or main save edits",
+      "Minimal interface and phrase audit"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Cards, faucet slider, four cask limit, monthly aging, phrasing, bottle and exclusion on a playable page",
+      "Model determinism, negative inputs, stable phrase transitions, standalone save integrity",
+      "Lifecycle, LAB generated output, scope/risk/impact, required CI and Staging Pages availability"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert independent work, lifecycle registration, lab room entry, generated lab page and lock as one change",
+    "outOfScope": [
+      "Production promotion",
+      "Integrating into main AmberTime or existing labs",
+      "New town venue or runtime system",
+      "Scientific sensory simulation or economic balance"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone/Safari input and visual feel",
+      "Author adoption of generated phrases",
+      "Gameplay enjoyment and final game integration"
+    ],
+    "alternativesRejected": [
+      "Change main AmberTime model/save directly",
+      "Only select fixed names with calendar-age tables",
+      "Fully random labels without correspondence to flavor",
+      "Unplanned edits to shared lab files"
+    ],
+    "boundaryCases": [
+      "Four-barrel capacity",
+      "Invalid recipe/stop",
+      "No active casks",
+      "Phrase exclusion without changing flavor",
+      "Bottling freezes word after more time passes",
+      "Deterministic replay across thirty-two recipe conditions",
+      "Unavailable storage or corrupt save",
+      "Mobile touch slider and small screen"
+    ],
+    "testPlan": [
+      "Automated model assertions and varied recipe simulation",
+      "JavaScript syntax and focused HTML interaction checks",
+      "Lifecycle and LAB generator exact-output comparison",
+      "Plan scope risk impact and required CI"
+    ],
+    "problem": "AmberTime flavor labels are too coarse to motivate diverse crafting and aging choices.",
+    "currentContract": "AmberTime main uses three flavor axes and a different persistent save; LAB uses lifecycle and lab-rooms generated index.",
+    "whyExistingIsInsufficient": "Neither current main gameplay nor earlier conceptual prototypes has live cards, maturation-dependent compositional words and expression exclusion together.",
+    "design": "One isolated work with pure monthly model, minimal responsive interface, explicit card choices, deterministic word composition and saved results. Register in existing Prototype Bench.",
+    "migration": "None. This is a new staging-only work with a distinct localStorage key.",
+    "compatibility": "No main game changes and no old saved-state migration. Separate module and stylesheet. Existing LAB schemas and routes reused.",
+    "promotionRisk": "Staging-only; no authority for promotion to production. Author verifies physical interaction separately."
+  }
+}
