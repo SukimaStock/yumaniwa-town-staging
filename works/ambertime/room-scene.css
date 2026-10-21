@@ -212,3 +212,7 @@ svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:no
 #action-dialog .brand-bottles button{flex-direction:column}.first-brand button span{white-space:nowrap}
 .brand-readout{display:flex;align-items:center;gap:10px;margin:6px 0;min-width:0}.brand-readout span{min-width:0;overflow-wrap:anywhere}
 .release-bottle{float:right;margin-left:8px}
+
+/* Cask fill cards keep the native 48px art and the existing two columns. */
+#dialog-body button[data-action=fill-select]{padding-block:6px;gap:2px}
+#dialog-body button[data-action=fill-select] .choice-art{height:48px;margin-bottom:0}

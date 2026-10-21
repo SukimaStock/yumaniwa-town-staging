@@ -91,7 +91,9 @@ export function codeaBottle(shape='standard',{label=null,priceTier=null}={}){
  const rows=bottles[shape]??BottleStandard,palette={...sourcePalette,9:glassColor},labelStyle=IDENTITY_LABELS.find(x=>x.id===label),cap=CAP_COLORS[priceTier];
  return render('bottle',rows,palette,'room-object room-bottle',(index,x,y)=>{
   if(cap&&y>=1&&y<=(shape==='tall'?2:1))return cap;
-  if(labelStyle){if(index===6||index===7)return labelStyle.color;if(shape==='fancy'&&x===5&&y===6)return labelStyle.detail;}
+  // Author-requested exception: blend the Fancy label's center dot into its label.
+  if(shape==='fancy'&&x===5&&y===6)return labelStyle?.color??palette[6];
+  if(labelStyle&&(index===6||index===7))return labelStyle.color;
   return palette[index];
  });
 }
