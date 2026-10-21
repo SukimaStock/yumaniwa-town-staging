@@ -1,0 +1,85 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d928b09b73791d85565b1905b977865a01c331b426db3bc40838a293bf8a3c32",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ledger-information-audit",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Audit current AmberTime information roles and propose ledger and generation retrospective design; documentation only",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "c92e121331b31766e6596c886671324d99b4fa4d",
+    "canonicalSources": [
+      "User ledger/records/generation audit-only instruction",
+      "Current main c92e1213 / AGENTS.md / Change OS / EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/nearby-comparison.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ledger-information-audit/r0.lock.json",
+      "works/ambertime/design/ledger-information-audit.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "One concise audit report with current inventory/screens/purpose/runtime-save dependence/duplication/post-generation need and A-D classification, with fixed-source references",
+      "Propose ledger four categories and one canonical release/cask detail, preserve recipe reuse/staff request/tasting/comparison routes; separate hide-display from delete-save",
+      "Assess each generation candidate metric exactness and action-order attribution, old-save coverage, bounded histories; distinguish current facts from recommendations and decisions pending",
+      "Document save/replay/pruning risks and small recommended implementation order; no runtime/UI/save/model/promotion changes"
+    ],
+    "ownerDecisions": [
+      "User authorizes audit/design report only through PR/CI/Staging merge, no application implementation."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "CONTENT/Lite: source-referencing report includes contract terminology so use normal immutable r0 lock",
+      "Expression audit: concise facts/proposals; no invented milestones, rankings or new management UI",
+      "AGENTS: scoped read-only audit; distinguish actual runtime/save dependencies from optional display"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "git-diff-check",
+      "reference-audit"
+    ],
+    "manualChecks": [
+      "Read-only current UI render/model/serialize/replay/history source cross-check; selected existing history/generation/recipe tests; independent generation/internal-dependency audit and final report review"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "rollback": "Revert documentation-only PR",
+    "outOfScope": [
+      "Production",
+      "Any game/UI/sprite/runtime/save/test changes",
+      "Implementation of proposed information architecture",
+      "Broad E2E/long play"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author adoption of design",
+      "Future implementation and migration",
+      "Physical device interaction for proposed UI"
+    ]
+  }
+}
