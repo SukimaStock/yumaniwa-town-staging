@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 390,
+      "height": 844,
+      "counts": [
+        30,
+        25,
+        20,
+        15,
+        10,
+        5,
+        0
+      ],
+      "timeBorderPixels": [
+        [
+          216,
+          213,
+          223
+        ],
+        [
+          53,
+          57,
+          71
+        ],
+        [
+          53,
+          57,
+          71
+        ],
+        [
+          53,
+          57,
+          71
+        ]
+      ],
+      "saveReaderUnchanged": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "counts": [
+        30,
+        25,
+        20,
+        15,
+        10,
+        5,
+        0
+      ],
+      "timeBorderPixels": [
+        [
+          216,
+          213,
+          223
+        ],
+        [
+          53,
+          57,
+          71
+        ],
+        [
+          53,
+          57,
+          71
+        ],
+        [
+          53,
+          57,
+          71
+        ]
+      ],
+      "saveReaderUnchanged": true
+    }
+  ],
+  "errors": []
+}

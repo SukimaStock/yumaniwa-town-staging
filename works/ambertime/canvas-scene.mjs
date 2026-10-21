@@ -1,11 +1,11 @@
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
 import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout}from'./canvas-layout.mjs?v=0.59-hud-controls';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
-import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.58-first-brand';
+import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.60-ui-fine';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
-import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.59-hud-controls';
+import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.60-ui-fine';
 import{uiText}from'./ui-text.mjs?v=0.28-staff-entry-1';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false){
@@ -92,9 +92,15 @@ export class CanvasScene{
   while(headerSize>8&&this.measure(view.calendar+' '+view.generation,headerSize)+this.measure(view.cash,headerSize)>312)headerSize--;
   const calendarRight=15+this.measure(view.calendar,headerSize),generationX=calendarRight+this.measure(' ',headerSize),generationRight=generationX+this.measure(view.generation,headerSize),cashWidth=this.measure(view.cash,headerSize);
   this.text(view.calendar,15,32,headerSize);this.text(view.generation,generationX,32,headerSize);this.text(view.cash,345,32,headerSize,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY:32,calendarRight,generationRight,cashLeft:345-cashWidth,size:headerSize,blocks:[{x:6,y:6,w:348,h:39},{x:6,y:51,w:348,h:45}]});
-  this.pixelRect(12,57,279,33,'#d8d5df');this.pixelRect(15,60,273,27,'#353947');this.pixelRect(15,60,Math.round(91*Math.max(0,Math.min(1,view.monthProgress??0)))*3,27,'#c5b687');this.root.dataset.monthProgress=String(view.monthProgress??0);
+  this.pixelRect(12,57,279,33,'#d8d5df');this.pixelRect(13,58,277,31,'#353947');this.pixelRect(13,58,Math.round(277*Math.max(0,Math.min(1,view.monthProgress??0))),31,'#c5b687');this.root.dataset.monthProgress=String(view.monthProgress??0);
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
-  items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2;const sales=view.room==='sales',size=sales?16:BODY_SIZE,titleY=p.base+(sales?15:27),lines=this.lines(sales?item.name:uiText(item.name),mid,titleY,132,size,sales?2:1,'center');const detailY=sales?p.base+55:titleY+lines*Math.max(26,this.textMetrics(BODY_SIZE).logical+4);const state=view.room==='sales'?item.state.replace(' · ',' ').replace('保管中','保管'):item.age;const suffix=view.room==='sales'?(state.endsWith('保管')?{text:'保管',color:'#c0bfbb'}:state.endsWith('販売中')?{text:'販売中',color:'#efae95'}:null):null;this.text(state,mid,detailY,BODY_SIZE,'center',ink,suffix);if(view.room==='warehouse'&&item.reservationIcon)drawSymbol(c,item.reservationIcon,Math.round((mid+this.measure(item.age)/2+6)/3)*3,Math.round((detailY-18)/3)*3,3,({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink);});
+  const salesText=[];
+  items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2,sales=view.room==='sales',size=sales?16:BODY_SIZE,titleY=p.base+(sales?15:27),lines=this.lines(sales?item.name:uiText(item.name),mid,titleY,132,size,sales?2:1,'center'),detailY=sales?p.base+55:titleY+lines*Math.max(26,this.textMetrics(BODY_SIZE).logical+4);
+   if(sales){const stock=item.stock??Number(item.state.split('本')[0]),state=item.saleState??item.state.split(' · ')[1]??'',status=state.replace('保管中','保管'),countX=mid-24,countY=p.base-39;
+    this.text(stock+'本',countX,countY,16,'right');this.text(status,mid,detailY,16,'center',status==='販売中'?'#efae95':status==='保管'?'#c0bfbb':ink);
+    salesText.push({id:item.id,stock,status,count:{x:countX,y:countY,align:'right',size:16},statusLabel:{x:mid,y:detailY,align:'center',size:16},bottle:{x:mid-18,y:p.base-33,w:36,h:33}});
+   }else{this.text(item.age,mid,detailY,BODY_SIZE,'center');if(item.reservationIcon)drawSymbol(c,item.reservationIcon,Math.round((mid+this.measure(item.age)/2+6)/3)*3,Math.round((detailY-18)/3)*3,3,({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink);}
+  });this.root.dataset.salesText=JSON.stringify(salesText);
   if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});
@@ -129,7 +135,7 @@ export class CanvasScene{
    else if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}
    if(a.key==='toggle-time'){const kind=a.label==='時間を止める'?'pause':'play';const unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit));c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(a.x+a.w/2)*v.scale)*v.dpr-3.5*cell),Math.round((v.offsetY+(a.y+a.h/2)*v.scale)*v.dpr-3.5*cell),cell,ink);c.restore();if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}continue;}
    const label=a.key==='trade-info'?'取引':a.key==='shop-offer'?'取扱店':a.key==='toggle-time'?a.label.replace('蒸留を再開する','蒸留を再開'):a.label;
-   if(a.key==='start-distill'){this.runs(label);const bounds=c.measureText(label),baseline=a.y+a.h/2+(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/(2*this.textMetrics().unit);this.text(label,a.x+a.w/2,baseline,BODY_SIZE,'center');}
+   if(['start-distill','stop-distill'].includes(a.key)){this.runs(label);const bounds=c.measureText(label),baseline=a.y+a.h/2+(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/(2*this.textMetrics().unit);if(a.key==='stop-distill')this.text(label,a.x+a.w/2+(bounds.actualBoundingBoxLeft-bounds.actualBoundingBoxRight)/(2*this.textMetrics().unit),baseline,BODY_SIZE);else this.text(label,a.x+a.w/2,baseline,BODY_SIZE,'center');}
    else this.lines(label,a.x+a.w/2,a.y+27,a.w-12,BODY_SIZE,2,'center');
    if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}
   }

@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a317dbbc4f7fe5f4ae4a8370e9556d843a917e3e1682a58228e89772c020c800",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ui-fine",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "6a2ed9b10c198de17d4a1b06b86c820305c2827e",
+    "change": "Fine UI adjustments: thin time bar frame, centered stop label, compact cask cards, short bottle labels, Fancy label dot removal, sales stock/status and filled store glyph",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User UI fine adjustments instruction and five iPhone screenshots IMG6166-6170",
+      "Current main PR559 HUD / PR558 brand / PR556 Codea source matrices",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/first-brand-art.test.mjs",
+      "works/ambertime/tests/codea-object-art.test.mjs",
+      "works/ambertime/design/ui-fine/**",
+      ".change-plans/ambertime-ui-fine/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/cask-glass-art.mjs"
+    ],
+    "expectedChanges": [
+      "Time bar border1-2 logical px while preserving outerbounds, colors/progress ratio, HUD frames and play/pause. Center only stop-distill label using actual glyph metrics, preserve button geometry.",
+      "Compact only fill-options cask art wrapper and vertical spacing, same native48px cask, two columns/width, central volume and adequate hit area.",
+      "Display bottle option names as 丸/角/細/丸胴 without changing identities/order/validation. Fancy center(5,6) alone matches surrounding label; raw source arrays/native12x12 geometry remain intact, other shapes/colors unchanged.",
+      "Canvas sales stock separately at upper left of unchanged bottle, status alone centered at existingbaseline with release-date16px size and existing colors. Keep zero-stock filtering/complete history semantics and existing DOM accessibility text.",
+      "Fill only existing store building footprint white and cut windows to background, native11x11 glyph centered.",
+      "Cache-only references of changed art/UI modules and CSS. No model/save/furniture/layout/modal redesign. Scoped same-state phonePC before-after/control probes and single-cell art check, requiredCI/PR/Staging publish."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "390x844 touch and1024x768 PC timebar/stop/caskfill/brand4x2/sales stock/status/store, same state/clock screenshots, no broadE2E"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes these limited display changes including Fancy label dot removal and PR/CI/safe Staging merge/public check."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Preserve original authored sprite arrays; one explicitly requested cell color override only",
+      "Expression audit no new decoration or copy",
+      "Fresh single r0 lock before implementation; Scope Risk Impact"
+    ],
+    "rollback": "Revert this UI-only change; game/save contract unchanged.",
+    "outOfScope": [
+      "Production",
+      "Game calculations/economy/brand configuration logic/save/staff/shops/generation",
+      "HUD two blocks/control/tab positions and furniture/layout/art beyond single Fancy cell and specified store glyph",
+      "Broad E2E/long play"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}
