@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1888240091fa26b7db8922e818d9bb7c46d928afc311cfc3b7ce47e8290684dc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-time-speed",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "c5631d37b185ecd9b0a10364c1937426a36877e3",
+    "change": "Replace 3-month jump with ephemeral 1x/2x pacing and corresponding HUD glyphs",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User time-speed request",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md",
+      "PR561",
+      "PR571-573",
+      "Current scheduler and monthly timing contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-time-speed/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/time-speed.test.mjs",
+      "works/ambertime/design/time-speed/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/*-art.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/*ledger*",
+      "works/ambertime/*history*",
+      "works/ambertime/*.css"
+    ],
+    "expectedChanges": [
+      "Remove jump state and 3-month operation, menu toggle between normal1 and fast2 without advancing or saving game solely for speed change. Keep pause intent; reset speed1 on reload/new game.",
+      "Only scheduler delay changes100ms/speed; same one distillStep, elapsed100 and at-most-one tick per callback, preserve month ordering/save boundary/generation guard/single timer and stop conditions.",
+      "HUD existing rectangle unchanged. User table: running1 play, running2 fast-forward, paused pause; accessible action label remains stop/resume. Add simple existing pixel glyph data only, no asset.",
+      "Speed persists across room/pause/modal/decision/generation while ephemeral from simulation; no model/save/operation/economy/animation changes.",
+      "Targeted clock browser checks at phone/PC, equivalent exact game/operations after matched months/steps incl automation/stockist payments, event/funds/generation stops, save roundtrip and stale timer cancellation. Gates, review, required CI, Staging merge and public verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone/PC speed menu/HUD states/pause/resume/room, equal1x2x state, auto work and shipment, decision/funds/generation/hidden stops, stale callback/timer guard, restore speed1 and exact saved game."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes1x/2x time pacing and icon table through Staging merge, no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard explicit Plan Lock for runtime timing change.",
+      "AGENTS independent investigation/review, scoped regression only.",
+      "Expression audit: short menu toggle/action label only, no explanation/popup."
+    ],
+    "rollback": "Revert this UI timing PR; saved formats and model state unchanged.",
+    "outOfScope": [
+      "Production",
+      "All simulation/month/economy/automation/shop/generation/save/operation models",
+      "HUD geometry/time bar/art/arrival animations/CSS/ledger",
+      "New images or broad E2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption of timing/feel"
+    ]
+  }
+}
