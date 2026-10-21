@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#162126">
+<title>AmberTime｜言葉を育てる Lab 0.1</title>
+<link rel="stylesheet" href="./style.css">
+<script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<main>
+<header><div><p class="eyebrow">AmberTime ・ 独立実験</p><h1>言葉を育てる</h1></div><a href="../../lab/">研究所へ</a></header>
+<div class="layout">
+<section class="panel work" aria-labelledby="work-title">
+<div class="heading"><h2 id="work-title">仕込み</h2><span id="room-count">0 / 4 たる</span></div>
+<div class="card-section">
+<h3>麦芽</h3><div class="card-pair" id="malt-pair"></div>
+<h3>発酵</h3><div class="card-pair" id="fermentation-pair"></div>
+</div>
+<div class="valve">
+<div class="heading"><h3>蒸留の蛇口</h3><span id="cut-number">50%</span></div>
+<svg id="tap-art" viewBox="0 0 320 94" role="img" aria-label="蛇口と蒸留液">
+<rect x="64" y="21" width="192" height="22" rx="3" fill="#716354"/><rect x="149" y="3" width="22" height="54" rx="3" fill="#8c7a64"/>
+<rect x="117" y="7" width="86" height="9" rx="3" fill="#a28c6d"/><rect x="152" y="44" width="16" height="18" fill="#a99578"/>
+<path d="M154 65 Q144 76 154 90 Q164 76 166 65Z" fill="#e6ae65" id="flow-art"/>
+</svg>
+<label for="cut">取る範囲を決める</label>
+<input id="cut" type="range" min="0" max="100" value="50" step="1">
+<div class="range-end"><span>早め・軽い</span><span>遅め・厚い</span></div>
+</div>
+<h3>樽</h3><div class="card-pair" id="cask-pair"></div>
+<div class="summary" id="recipe-summary"></div>
+<button id="make" class="primary full">この製法でたる詰め</button>
+<p id="notice" class="notice" role="status" aria-live="polite"></p>
+</section>
+<section class="panel storage" aria-labelledby="storage-title">
+<div class="heading"><h2 id="storage-title">貯蔵庫</h2><div class="clock"><strong id="month-label">0年0か月</strong><span class="muted">経過</span></div></div>
+<div id="rack" class="rack" aria-label="4つの樽"></div>
+<div class="time-actions"><button id="plus-month">1か月</button><button id="plus-year">1年</button><button id="plus-five">5年</button></div>
+<div id="cask-detail" class="detail" aria-live="polite"><p class="muted">たるを仕込むと、ここで試せます。</p></div>
+</section>
+</div>
+<section class="panel notes">
+<div class="heading"><h2>残した言葉</h2><span id="bottle-count" class="muted">0本</span></div><div id="bottles"></div>
+</section>
+<details class="panel options">
+<summary>言葉の比較・除外</summary>
+<div class="options-inner">
+<fieldset><legend>表示を比較</legend>
+<label><input type="radio" name="mode" value="mixed" checked> 固定＋組み合わせ</label>
+<label><input type="radio" name="mode" value="fixed"> 固定だけ</label>
+<label><input type="radio" name="mode" value="composed"> 組み合わせだけ</label>
+</fieldset>
+<p class="muted">言葉の比較は表示だけを切り替えます。実際の熟成記録と瓶詰めの言葉は混合方式を使います。</p>
+<div id="word-comparison"></div>
+<h3>除外した言葉</h3><div id="excluded"></div><button id="reset-exclusions">除外を戻す</button>
+</div>
+</details>
+<footer><p>本編とは別の模型です。風味・言葉の生成条件は仮説で、ウイスキーの実成分を再現するものではありません。</p><a href="./REPORT.md">実験の説明</a> · <button id="reset" class="text-button">このLabを最初から</button></footer>
+</main>
+</body></html>
