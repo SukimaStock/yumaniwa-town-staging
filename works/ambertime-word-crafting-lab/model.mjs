@@ -70,7 +70,8 @@ function candidates(b){
   ];
   selected.push({text:choose(templates,n>>>9),kind:"composed",key:primary.id+"+"+secondary.id,reason:primary.id+"と"+secondary.id+"が重なる"});
  }
- selected.push({text:noun+"のような香り",kind:"composed",key:primary.id,reason:primary.id+"が目立つ"});
+ const simile=primary.id==="body"?noun:primary.id==="sweet"?noun+"のような甘み":primary.id==="spice"?noun+"のような刺激":primary.id==="wood"?noun+"を思わせる香り":primary.id==="smoke"?noun+"の香り":noun+"のような香り";
+ selected.push({text:simile,kind:"composed",key:primary.id,reason:primary.id+"が目立つ"});
  const alt=top[1]&&WORDS[top[1].id];
  if(alt)selected.push({text:choose(alt.plain,n>>>12),kind:"fixed",key:top[1].id,reason:top[1].id+"が目立つ"});
  // Signature-bound diversity. No year-based name tables, no quality rankings.
@@ -80,7 +81,7 @@ function candidates(b){
 function wordFor(b,excluded,mode,epoch=0){
  const options=candidates(b).filter(x=>!excluded.includes(x.text)&&(mode==="mixed"||x.kind===mode));
  if(!options.length)return {text:"かおりは控えめ",kind:"fallback",key:"none",reason:"候補がありません"};
- const base=(hash(signatureOf(b.choices)+"/"+b.id+"/"+epoch)%options.length);
+ const base=(hash(signatureOf(b.choices)+"/"+b.id)%options.length);
  return options[base];
 }
 export function inspect(b,excluded=[],mode="mixed"){return wordFor(b,excluded,mode,b.epoch??0)}
