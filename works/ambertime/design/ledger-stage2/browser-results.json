@@ -59,11 +59,14 @@
         "operations": 273,
         "releases": 13,
         "artificialWorkerDelayMs": 2000,
-        "openingMs": 54,
+        "openingMs": 49,
         "closeMs": 47
       },
       "switchAndCloseDuringRead": true,
       "errorRetry": true,
+      "sectionFocusPreserved": true,
+      "detailBackFocusPreserved": true,
+      "detailExpansionPreserved": true,
       "saveUnchanged": true,
       "mainThreadReplay": false
     }
