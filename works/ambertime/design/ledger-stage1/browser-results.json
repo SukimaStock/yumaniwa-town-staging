@@ -1,0 +1,40 @@
+{
+  "base": "77cfcc11f5774f6c65acba70c34439790fcfe6fd",
+  "checks": [
+    {
+      "width": 390,
+      "entryCategories": true,
+      "distinctReleaseIds": 6,
+      "sourceAndComparisonReturn": true,
+      "scrollReturn": true,
+      "historyReturn": true,
+      "saveBytesUnchanged": true,
+      "restoreRowsSame": true
+    },
+    {
+      "recipeSaveSelect": true,
+      "staffRequestCancelReturn": true
+    },
+    {
+      "width": 1024,
+      "entryCategories": true,
+      "distinctReleaseIds": 6,
+      "sourceAndComparisonReturn": true,
+      "scrollReturn": true,
+      "historyReturn": true,
+      "saveBytesUnchanged": true,
+      "restoreRowsSame": true
+    },
+    {
+      "supportedOlderV20": true,
+      "releaseRows": 4,
+      "retailAndDeliveryCountMatch": true,
+      "saveUnchanged": true
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari",
+    "Author adoption"
+  ]
+}

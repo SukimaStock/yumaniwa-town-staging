@@ -216,3 +216,14 @@ svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:no
 /* Cask fill cards keep the native 48px art and the existing two columns. */
 #dialog-body button[data-action=fill-select]{padding-block:6px;gap:2px}
 #dialog-body button[data-action=fill-select] .choice-art{height:48px;margin-bottom:0}
+
+/* Ledger classification and selected detail reuse the existing modal. */
+.ledger-sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}
+#action-dialog .ledger-sections button{min-width:0;margin:0;min-height:44px;padding:8px 4px}
+.ledger-sections [aria-pressed=true]{border-color:#d9cba4;background:#554531}
+.ledger-release-list{display:grid;gap:10px}
+#action-dialog .ledger-release-row{display:flex;align-items:center;gap:12px;text-align:left;min-width:0;width:100%;margin:0;padding:8px}
+.ledger-release-row>span:last-child{min-width:0;overflow-wrap:anywhere}
+.ledger-bottle{flex-shrink:0;display:flex;align-items:center}
+.ledger-release-detail{overflow-wrap:anywhere}.ledger-release-detail>.copy-facts{display:grid;gap:7px}
+#action-dialog[data-kind=ledger] .recipe-origin-art{width:48px;height:48px}

@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "58416e0605cdefbea3664436e816074f108d0578efd7f8f3cfa6a56a4612b8ec",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ledger-stage1",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "77cfcc11f5774f6c65acba70c34439790fcfe6fd",
+    "change": "Unify ledger entry into four categories and one release list/detail without save or calculation changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User ledger stage1 instruction",
+      "works/ambertime/design/ledger-information-audit.md PR564",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ledger-stage1/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/ledger-view.test.mjs",
+      "works/ambertime/design/ledger-stage1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/*-art.mjs"
+    ],
+    "expectedChanges": [
+      "Four in-modal entry categories; existing recipes, aging/shop records and distillery history remain reachable with back navigation.",
+      "One pure detached release projection and shared selected detail; preserve partial/same-month release IDs, source casks, recipes, taste/previous comparisons, legacy wholesale and stored prose.",
+      "Brand design/name once per release list. Retail and actual shop deliveries separately; unknown old facts remain unknown. No source save/math mutations.",
+      "Scoped read-model tests and same fixture phone/PC before-after screenshots, navigation/save equality and old-save restore checks. Required CI, PR, safe Staging merge/public checks."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Scoped ledger read-model tests and comparison/source regression; 390x844 and1024x768 navigation/readability/save restore; same-state before-after screenshots; exact public assets and ledger smoke"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes these ledger display changes through PR/CI/Staging merge; no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard work-local UI projection, model/save untouched",
+      "Expression audit: short list and selected detail, no decorative explanatory cards",
+      "AGENTS scoped delegated read model implementation and independent UI review",
+      "Immutable fresh r0 before implementation"
+    ],
+    "rollback": "Revert ledger display PR; persisted state and model unchanged.",
+    "outOfScope": [
+      "Production",
+      "Model/save/schema/economy/brand calculations",
+      "Sprites/HUD/furniture/rooms/generations",
+      "Further recipes/aging/shop redesign",
+      "Broad E2E/long play"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}
