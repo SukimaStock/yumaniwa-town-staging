@@ -1,3 +1,4 @@
+import {createGenerationSummary} from './generation-summary.mjs?v=0.66-generation-review';
 import {replayDistilleryOperations} from './partner-orders.mjs?v=0.58-first-brand';
 import {generationMode} from './generations.mjs?v=0.48-free-aging';
 
@@ -6,6 +7,7 @@ const copy=x=>structuredClone(x);
 const dated=x=>Number.isInteger(x)&&x>=0;
 const ids=r=>Object.fromEntries(['brandId','releaseId','productId','caskId','batchId','shopId'].filter(k=>r?.[k]!==undefined).map(k=>[k,r[k]]));
 export function buildDistilleryHistory(state){
+ const summary=createGenerationSummary(state);
  const events=new Map(),firstSales=new Set(),firstDistillations=new Set();
  const eras=generationMode(state)?[...state.generations.completed,state.generations.active]:[];
  let actor=eras.length?1:undefined;
@@ -49,7 +51,9 @@ export function buildDistilleryHistory(state){
   for(const r of s.records??[])if(r.channel!=='wholesale'&&r.sold>0)firstSales.add(r.productId);
   for(const p of s.core.products??[]){const delivered=(s.shop?.deliveries??[]).filter(d=>d.productId===p.id).reduce((n,d)=>n+d.count,0);if(p.sold>delivered&&!s.records?.some(r=>r.productId===p.id&&r.channel==='wholesale'))firstSales.add(p.id);}
  }}
- replayDistilleryOperations(state,({operation,before,after})=>{
+ replayDistilleryOperations(state,observation=>{
+  summary.observe(observation);
+  const {operation,before,after}=observation;
   if(!operation)return;
   if(eras.length)actor=before.generations?.active.id??after.generations?.active.id??1;
   const key=operation.key;
@@ -97,5 +101,5 @@ export function buildDistilleryHistory(state){
   const shopId=r.shopId??'town-liquor',ds=(state.shop.deliveries??[]).filter(d=>d.brandId===r.brandId&&(d.shopId??'town-liquor')===shopId);
   return {shopId,brandId:r.brandId,brandName:brand(r.brandId)?.name,startedMonth:r.startedMonth,deliveries:ds.length,bottles:ds.reduce((n,d)=>n+d.count,0),revenue:ds.reduce((n,d)=>n+Math.round(d.revenue*100),0)/100,firstDeliveryMonth:ds.length?Math.min(...ds.map(d=>d.month)):null,lastDeliveryMonth:ds.length?Math.max(...ds.map(d=>d.month)):null,adoptions:(state.department?.adoptions??[]).filter(a=>a.brandId===r.brandId&&shopId==='department').length};
  });
- return {events:list,shops,coverage:{complete:!legacy,fromMonth:legacy?state.origin.core.month:0,legacy,notes:legacy?['旧版から引き継いだ期間は、保存に残る記録を表示しています。']:[]},elapsedMonths:state.core.month};
+ return {events:list,shops,generations:summary.finish(state),coverage:{complete:!legacy,fromMonth:legacy?state.origin.core.month:0,legacy,notes:legacy?['旧版から引き継いだ期間は、保存に残る記録を表示しています。']:[]},elapsedMonths:state.core.month};
 }

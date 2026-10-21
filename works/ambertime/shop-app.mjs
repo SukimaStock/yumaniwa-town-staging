@@ -47,18 +47,28 @@ document.addEventListener('keydown',()=>inputMode(false),true);
 let deliveryNotice='';
 let staffMigrationNotice=false;
 // History is a read-only projection in an isolated worker, never save data.
-let historyWorker=null,historyRequest=0,historyData=null,historyError='',historyLoading=false;
+let historyWorker=null,historyRequest=0,historyData=null,historyError='',historyLoading=false,historySnapshot=null;
+const historyVisible=()=>['history','history-brand','history-shop','history-generation','generation-review'].includes(modal?.kind);
+function readHistory(){
+ if(historySnapshot===game)return;
+ const snapshot=game,requestId=++historyRequest;historySnapshot=snapshot;historyWorker?.terminate();historyWorker=null;historyData=null;historyError='';historyLoading=true;
+ const finish=(data,error)=>{
+  if(requestId!==historyRequest||historySnapshot!==snapshot)return;
+  if(game!==snapshot){historyWorker?.terminate();historyWorker=null;historySnapshot=null;historyLoading=false;return;}
+  const active=document.activeElement,action=active?.dataset?.action,target=active?.dataset?.id;
+  historyLoading=false;historyData=data;historyError=error?'記録を読めませんでした。':'';historyWorker?.terminate();historyWorker=null;
+  if(historyVisible()){render();restoreLedger(active?.id);if(action)queueMicrotask(()=>$('action-dialog').querySelector('[data-action="'+CSS.escape(action)+'"][data-id="'+CSS.escape(target??'')+'"]')?.focus({preventScroll:true}));}
+ };
+ try{const worker=new Worker(new URL('./history-worker.mjs?v=0.66-generation-review',import.meta.url),{type:'module'});historyWorker=worker;worker.onmessage=({data})=>{if(data.requestId===requestId)finish(data.history??null,data.error||!data.history);};worker.onerror=e=>{e.preventDefault();finish(null,true);};worker.postMessage({requestId,state:snapshot});}catch{finish(null,true);}
+}
+function historyWaiting(){readHistory();return historyLoading?'<p role="status" data-history-loading>記録を読んでいます…</p>':historyError?'<p role="alert">'+esc(historyError)+'</p>'+button('もう一度読む','history-retry'):null;}
 function openHistory(){
- if(!game||(modal&&!['aux-panel','ledger'].includes(modal.kind)))return;const parent=modal?.kind==='ledger'?rememberLedger():null;stopClock();jump=0;modal={kind:'history',year:null,page:0,parent};historyData=null;historyError='';historyLoading=true;const requestId=++historyRequest;
- try{
-  if(!historyWorker){historyWorker=new Worker(new URL('./history-worker.mjs?v=0.58-first-brand',import.meta.url),{type:'module'});historyWorker.onmessage=({data})=>{if(data.requestId!==historyRequest||!['history','history-brand','history-shop'].includes(modal?.kind))return;historyLoading=false;historyData=data.history??null;historyError=data.error?'歩みを読めませんでした。':'';render();};historyWorker.onerror=()=>{if(!historyLoading)return;historyLoading=false;historyError='歩みを読めませんでした。';historyWorker?.terminate();historyWorker=null;if(modal?.kind==='history')render();};}
-  historyWorker.postMessage({requestId,state:game});
- }catch{historyLoading=false;historyError='歩みを読めませんでした。';}
- render();
+ if(!game||(modal&&!['aux-panel','ledger','generation-review'].includes(modal.kind)))return;
+ const parent=['ledger','generation-review'].includes(modal?.kind)?rememberLedger():null;stopClock();jump=0;modal={kind:'history',year:null,page:0,parent};render();
 }
 
 // All comparison selection and return paths are temporary display state.
-const comparisonKinds=['cask-picker','cask-comparison','release-comparison','recipe-source','comparison-brand-record','recipes','ledger-release','ledger-shop','ledger-recipe','ledger-cask','ledger-recipe-comparison'];
+const comparisonKinds=['cask-picker','cask-comparison','release-comparison','recipe-source','comparison-brand-record','recipes','history-generation','ledger-release','ledger-shop','ledger-recipe','ledger-cask','ledger-recipe-comparison'];
 const comparisonStatus=x=>({'selling':'販売中','sold-out':'完売','stored':'保管中','wholesale':'卸売出荷'}[x?.status]??'状態不明');
 const finiteText=(x,format=String)=>Number.isFinite(x)?format(x):'不明';
 const caskType=x=>uiText(P.casks[x.type]?.short)??'たる不明';
@@ -172,12 +182,12 @@ function historyEventText(e){
  return name+(name?' · ':'')+(Number.isInteger(e.caskId)?caskName(e.caskId)+' · ':'')+(e.kind==='distillation'&&extraction?extraction+' · ':'')+(type?type+' · ':'')+(e.shopId?shopName(e.shopId)+' · ':e.partner?e.partner+' · ':'')+(kinds[e.kind]??'記録')+release+age+count+(Number.isFinite(e.revenue)?' · '+unit(e.revenue):'')+(profile?' · '+profile:'')+(e.generationTrigger?' · '+generationName(e.generationTrigger)+'の最後の仕込みを決めた':'')+(e.finalGeneration?' · '+generationName(typeof e.finalGeneration==='number'?e.finalGeneration:e.finalGeneration.id??e.generationNumber)+'の最後の仕込み':'');
 }
 function historyView(){
- if(historyLoading)return '<p role="status">読込中</p>';
- if(historyError)return '<p role="status">'+esc(historyError)+'</p>';
+ const waiting=historyWaiting();if(waiting)return waiting;
  if(!historyData)return '';
  const months=historyData.elapsedMonths,years=historyYears(),selected=modal.year;
  let out='<p class="history-elapsed">'+Math.floor(months/12)+'年'+(months%12)+'か月</p>';
  if(historyData.coverage?.notes?.length)out+='<p class="quiet history-coverage">'+historyData.coverage.notes.map(esc).join('<br>')+'</p>';
+ out+=(historyData.generations??[]).filter(g=>g.completed).map(g=>'<p>'+button(generationName(g.id)+'の振り返り','history-generation',g.id,'id="history-generation-'+g.id+'"')+'</p>').join('');
  if(!years.length)return out+'<p>記録なし</p>';
  out+='<div class="history-years">'+years.map(y=>'<section class="history-year"><h3>'+button(y+'年','history-year',y,'aria-expanded="'+(selected===y)+'"')+'</h3>'+(selected===y?historyYearEvents(y):'')+'</section>').join('')+'</div>';
  return out;
@@ -215,13 +225,18 @@ function generationCauseText(g){
  if(t.kind==='funds-stalled')return '資金の状況';
  return '';
 }
-function generationReview(g){
- let text='<p>'+monthLabel(g.startedMonth)+'から'+monthLabel(game.core.month)+'まで · '+Math.floor(g.tenureMonths/12)+'年'+g.tenureMonths%12+'か月</p>';
- const cause=generationCauseText(g);if(cause)text+='<p>区切り · '+esc(cause)+' · '+monthLabel(g.fixedMonth)+'</p>';
- text+=g.lastStatus==='filled'&&g.lastCaskId!==null?'<p>'+esc(caskName(g.lastCaskId))+' · '+esc(generationName(g.id))+'の最後の仕込み</p>':g.lastStatus==='unfinished'?'<p>未完成の原酒は次の代へ引き継ぎます。</p>':'<p>最後の仕込みは見送り、次の代へ。</p>';
- const reason={'grace-ended':'仕込みの猶予を終えました。','funds-stalled':'資金を残して、次の代へ引き継ぎます。'};if(reason[g.reason])text+='<p class="quiet">'+esc(reason[g.reason])+'</p>';
- if(g.lastStatus==='not-made'&&game.still.phase!=='ready')text+='<p class="quiet">進行中の蒸留と原酒は引継ぎ</p>';
- return text;
+function generationReview(g){return generationSummaryView(g.id);}
+function generationSummaryView(id){
+ const waiting=historyWaiting();if(waiting)return waiting;
+ const g=historyData?.generations?.find(g=>g.id===id);if(!g)return '<p>世代の記録なし</p>';
+ const count=(n,suffix)=>Number.isFinite(n)&&(g.coverage.complete||n>0)?n+suffix+(g.coverage.complete?'':'以上'):'不明';
+ let out='<article class="generation-summary"><p>'+esc(known(g.startedMonth,monthLabel))+'〜'+esc(known(g.endedMonth??game.core.month,monthLabel))+'</p>';
+ if(!g.coverage.complete)out+='<p class="quiet">記録の残る範囲'+(Number.isFinite(g.coverage.fromMonth)?' · '+esc(monthLabel(g.coverage.fromMonth))+'から':'')+'</p>';
+ out+=copyFacts([['仕込み',count(g.totals.filled,'たる')],['ビン詰め',count(g.totals.bottled,'本')],['販売',count(g.totals.sold,'本')]]);
+ for(const e of g.events??[]){const label=e.kind==='shop-start'?'取扱開始':e.kind==='department-adoption'?'特別取扱い':'初の長期熟成',detail=e.kind==='mature-bottling'?ageLabel(e.age)+'でビン詰め':shopName(e.shopId??'department');out+='<p>'+esc(known(e.month,monthLabel))+' · '+esc(label)+'<br>'+esc(detail)+'</p>';}
+ const last=g.lastStatus==='filled'?((g.lastCaskId!==null?caskName(g.lastCaskId)+' · ':'')+'たる詰め済み'):g.lastStatus==='unfinished'?'未完成の原酒を引継ぎ':g.lastStatus==='not-made'?'見送り':'状態の記録なし';
+ out+='<p>最後の仕込み<br>'+esc(last)+'</p>'+copyFacts([['引継たる',known(g.estate.casks,n=>n+'たる')],['資金',known(g.estate.cash,unit)]]);
+ return out+'</article>';
 }
 const releaseFor=id=>game.releases.find(r=>r.productId===id);
 const releaseTag=id=>releaseLabel(game,id,caskSerials(game));
@@ -462,7 +477,7 @@ function departmentDestination(p,release,invitation){
  else body+='<p>'+(adopted?'今回の企画は完了':adoptions.length?'過去に採用実績あり':'申し出待ち')+'</p><p>5本 '+unit(q.unitPrice)+'/本</p><p class="quiet">'+esc(uiText(q.reason)??shopTerms('department'))+'</p>';
  body+=D.departmentAdoptions(game,release?.brandId).length?'<p class="quiet">採用歴は記録へ</p>':'';return body+'</section>';
 }
-function closeModal(){if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='inspect'&&modal.ledgerParent){finishLedgerTasting();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){historyRequest++;if(historyLoading){historyWorker?.terminate();historyWorker=null;historyLoading=false;}if(modal.parent){closeComparison();return;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
+function closeModal(){if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='inspect'&&modal.ledgerParent){finishLedgerTasting();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){if(modal.parent){closeComparison();return;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
 function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();jump=0;if(game.tastingId!==null&&game.tastingId!==id)endTaste();selectedCaskId=id;room='warehouse';modal={kind:'inspect',id};act(s=>D.sampleDistillery(s,id));}
 function quoteModal(id){if(!D.currentCask(game,id))return;stopClock();jump=0;if(D.bottlingReservation(game,id)?.status==='active')act(s=>D.pauseBottling(D.endTasting(s),id,true),()=>{modal={kind:'quote',id};});else{modal={kind:'quote',id};render();}}
 function reservationLabel(id){
@@ -548,6 +563,7 @@ function syncModal(){
   actions=mayUse?button('依頼','staff-confirm','',staffCanRequest()?'':'disabled'):button('採用 '+money(status.hireCost),'staff-hire-request','',status.canHire&&!game.decisions.length&&!game.trade.offer?'':'disabled');
   if(!staffCanRequest())body+='<p class="quiet">'+(generationState()?.phase!=='working'?'最後の仕込みは自分で行います。':game.usual.reservation?'依頼済み':'今の仕込み・判断を終えてから依頼')+'</p>';
   actions+=button('戻る','staff-back');
+ }else if(kind==='history-generation'){title=generationName(id)+'の振り返り';body=generationSummaryView(id);actions=button('歩みへ戻る','comparison-back');
  }else if(comparisonKinds.includes(kind)){title=({'cask-picker':'比べるたるを選ぶ','cask-comparison':'たるを比べる','release-comparison':'前と比べる','recipe-source':'元の仕込み','recipes':'製法','comparison-brand-record':'記録'})[kind];body=kind==='cask-picker'?caskPickerView():kind==='cask-comparison'?caskComparisonView():kind==='release-comparison'?releaseComparisonView():kind==='recipe-source'?recipeSourceView():kind==='comparison-brand-record'?brandComparisonRecordView(modal.brandId):recipesView();actions=(kind==='release-comparison'&&modal.pair?button('記録','compare-brand-record',modal.pair.current.brandId):'')+button('戻る','comparison-back');
  }else if(kind==='generation-notice'||kind==='generation-review'){
   const g=generationState();if(!g||g.id!==id||g.phase==='working'){modal=null;return;}title=generationName(g.id)+(kind==='generation-review'?'の歩み':'の最後の仕込み');
@@ -556,7 +572,7 @@ function syncModal(){
  }else if(kind==='history'||kind==='history-brand'||kind==='history-shop'){
   title=kind==='history'?'蒸留所の歩み':kind==='history-brand'?(game.brands.find(b=>b.id===modal.brandId)?.name??'ブランドの記録'):shopName(modal.shopId)+'の記録';
   body=kind==='history'?historyView():kind==='history-brand'?historyBrandView(modal.brandId):historyShopView(modal.shopId);
-  actions=button(modal.parent?'帳面へ戻る':'閉じる','cancel')+(kind==='history'?'':button('歩みへ戻る','history-back'));
+  actions=button(modal.parent?.kind==='generation-review'?'振り返りへ戻る':modal.parent?'帳面へ戻る':'閉じる','cancel')+(kind==='history'?'':button('歩みへ戻る','history-back'));
  }else if(kind==='stockists'){
   title='取扱店';const shops=knownStockists();
   body=shops.length?'<div class="stockist-list">'+shops.map(shop=>button(esc(shop.name)+'<small>'+stockistStatus(shop.id)+'</small>','stockist-open',shop.id)).join('')+'</div>':'<p>取扱店はまだありません</p>';
@@ -855,7 +871,9 @@ function handleModal(e){
  if(a==='recipe-source-page'&&(kind==='recipes'||kind==='ledger'&&modal.section==='recipes')&&id>=0){modal.sourcePage=id;modal.sourcesOpen=true;render();return;}
  if(a==='recipe-select'&&(kind==='recipes'||kind==='ledger-recipe'||kind==='ledger'&&modal.section==='recipes')){recipeAction(s=>D.selectRecipe(s,b.dataset.id==='latest'?null:b.dataset.id));return;}
  if(a==='recipe-save'&&(comparisonKinds.includes(kind)||kind==='ledger'&&modal.section==='recipes')){recipeAction(s=>D.saveRecipe(s,id));return;}
- if(a==='generation-history'&&kind==='generation-review'&&generationState()?.id===id){modal=null;openHistory();return;}
+ if(a==='generation-history'&&kind==='generation-review'&&generationState()?.id===id){openHistory();return;}
+ if(a==='history-retry'&&historyVisible()){historySnapshot=null;render();return;}
+ if(a==='history-generation'&&kind==='history'&&historyData?.generations?.some(g=>g.id===id)){modal={kind:'history-generation',id,parent:rememberLedger(),returnFocusId:b.id};render();$('dialog-body').scrollTop=0;return;}
  if(a==='generation-continue'&&kind==='generation-notice'&&generationState()?.id===id){modal=null;room='distill';render();schedule();return;}
  if(a==='generation-handover'&&kind==='generation-review'&&generationState()?.id===id){act(s=>D.handoverGeneration(s,id),()=>{modal=null;runtimeHalted=false;room='distill';message(generationName(generationState().id)+'へ引き継ぎました。');});return;}
  if(a==='history-year'&&kind==='history'){modal.year=modal.year===b.dataset.id?null:b.dataset.id;modal.page=0;render();return;}

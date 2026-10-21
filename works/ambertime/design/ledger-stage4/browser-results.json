@@ -1,0 +1,120 @@
+{
+  "checks": [
+    {
+      "width": 390,
+      "phase": "finished",
+      "totals": {
+        "filled": 6,
+        "bottled": 182,
+        "sold": 177
+      },
+      "estate": {
+        "casks": 2,
+        "cash": 1405.85
+      },
+      "pastSame": true,
+      "saveRestore": true
+    },
+    {
+      "width": 390,
+      "phase": "unfinished",
+      "totals": {
+        "filled": 5,
+        "bottled": 182,
+        "sold": 177
+      },
+      "estate": {
+        "casks": 1,
+        "cash": 1361.85
+      },
+      "pastSame": true,
+      "saveRestore": true
+    },
+    {
+      "width": 390,
+      "phase": "skipped",
+      "totals": {
+        "filled": 5,
+        "bottled": 182,
+        "sold": 177
+      },
+      "estate": {
+        "casks": 1,
+        "cash": 1481.85
+      },
+      "pastSame": true,
+      "saveRestore": true
+    },
+    {
+      "width": 390,
+      "delayedHandoverNavigation": true,
+      "focusPreserved": true,
+      "errorRetry": true
+    },
+    {
+      "width": 390,
+      "stage2WorkerAndStage3": true
+    },
+    {
+      "width": 1024,
+      "phase": "finished",
+      "totals": {
+        "filled": 6,
+        "bottled": 182,
+        "sold": 177
+      },
+      "estate": {
+        "casks": 2,
+        "cash": 1405.85
+      },
+      "pastSame": true,
+      "saveRestore": true
+    },
+    {
+      "width": 1024,
+      "phase": "unfinished",
+      "totals": {
+        "filled": 5,
+        "bottled": 182,
+        "sold": 177
+      },
+      "estate": {
+        "casks": 1,
+        "cash": 1361.85
+      },
+      "pastSame": true,
+      "saveRestore": true
+    },
+    {
+      "width": 1024,
+      "phase": "skipped",
+      "totals": {
+        "filled": 5,
+        "bottled": 182,
+        "sold": 177
+      },
+      "estate": {
+        "casks": 1,
+        "cash": 1481.85
+      },
+      "pastSame": true,
+      "saveRestore": true
+    },
+    {
+      "width": 1024,
+      "delayedHandoverNavigation": true,
+      "focusPreserved": true,
+      "errorRetry": true
+    },
+    {
+      "width": 1024,
+      "stage2WorkerAndStage3": true
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver",
+    "Author adoption",
+    "Maximum operation history completion time"
+  ]
+}
