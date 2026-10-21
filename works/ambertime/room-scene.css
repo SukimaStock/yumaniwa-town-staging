@@ -227,3 +227,9 @@ svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:no
 .ledger-bottle{flex-shrink:0;display:flex;align-items:center}
 .ledger-release-detail{overflow-wrap:anywhere}.ledger-release-detail>.copy-facts{display:grid;gap:7px}
 #action-dialog[data-kind=ledger] .recipe-origin-art{width:48px;height:48px}
+
+/* Selected recipe/cask records reuse the ledger rows and native modal sizing. */
+.ledger-cask-detail{min-width:0;overflow-wrap:anywhere}.ledger-cask-detail>.copy-facts{display:grid;gap:7px;margin-bottom:10px}
+.ledger-cask-detail>button{margin:5px 5px 5px 0}.ledger-related .ledger-release-row{margin:8px 0!important}
+.ledger-taste{margin-block:12px}.ledger-taste h4{margin:0 0 6px}.ledger-volume{color:var(--quiet)}
+#action-dialog #ledger-compare-choice{width:100%;min-width:0;margin-block:8px;min-height:44px}

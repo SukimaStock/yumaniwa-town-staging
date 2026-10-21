@@ -1,0 +1,52 @@
+{
+  "base": "a3f7e232c019cb1b2c36139f6f3166be6cb2f9b0",
+  "checks": [
+    {
+      "staffRecipeEntry": true,
+      "exactOriginalText": true,
+      "joinedTastingDuplicateRemoved": true
+    },
+    {
+      "width": 390,
+      "recipeRows": 8,
+      "closedCaskNotes": true,
+      "partialReleaseLinks": 2,
+      "sharedReleaseDetail": true,
+      "sourceComparison": true,
+      "returnAndScroll": true,
+      "readOnlySaveSame": true,
+      "restoreRowsSame": true,
+      "tastingEndReturns": true,
+      "fixedAndLatestSelection": true,
+      "staffRequest": true
+    },
+    {
+      "staffRecipeEntry": true,
+      "exactOriginalText": true,
+      "joinedTastingDuplicateRemoved": true
+    },
+    {
+      "width": 1024,
+      "recipeRows": 8,
+      "closedCaskNotes": true,
+      "partialReleaseLinks": 2,
+      "sharedReleaseDetail": true,
+      "sourceComparison": true,
+      "returnAndScroll": true,
+      "readOnlySaveSame": true,
+      "restoreRowsSame": true,
+      "tastingEndReturns": true,
+      "fixedAndLatestSelection": true,
+      "staffRequest": true
+    },
+    {
+      "olderV20Records": true,
+      "oldSaveReadOnly": true
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver",
+    "Author adoption"
+  ]
+}

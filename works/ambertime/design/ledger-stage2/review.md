@@ -1,0 +1,47 @@
+# 帳面整理 第2段階：仕込み・樽と熟成
+
+基準: main `a3f7e232c019cb1b2c36139f6f3166be6cb2f9b0`（PR #565）。[設計原典](../ledger-information-audit.md)（PR #564）。Stagingのみ。正式verificationStateはUNVERIFIED。
+
+## 表示と導線
+
+- 「仕込み」は保存製法と手動仕込みを元樽IDで1行に統合。名前・元樽・仕込年月・樽種を表示。20件ごとの一覧から選択した1件だけ開く。担当者画面の「製法」も同じ一覧を使用。
+- 詳細から抽出位置・元の原酒・関連樽・発売回、仕込み同士の表示比較、保存製法の選択と再依頼へ進む。現行に過去製法同士の比較処理はなかったため、既存の比較枠・メーターで既知の抽出・樽種・年月・原酒値だけを並べる表示を用意した。計算・製法項目は追加しない。
+- 同じ元樽の行をまとめても「前回の手動仕込み」への可変参照（selectedId=null）と、保存製法への固定参照を別の選択として維持。製法保存64件、依頼方式・条件・給与・処理は既存APIのまま。
+- 「樽と熟成」は現存・瓶詰め済みを一つの一覧に表示。樽番号・年月・樽種・状態・最後の熟成年数を短く表示。詳細で試飲、前回との差、観察・手入れ、記録時の原酒量を確認。
+- 現存樽だけ既存の試飲・樽比較へ接続。試飲中の比較から戻っても試飲を継続し、終了すると一度の既存終了操作で帳面詳細へ戻る。過去の樽には再試飲ボタンを出さない。
+- 部分瓶詰めは各発売キーを保持し、PR #565の共通発売詳細をそのまま開く。一覧・詳細・比較の往復でスクロール・展開・フォーカスを復元。
+
+参照: `shop-app.mjs` の `caskData / recipeRows / ledgerRecipeList / ledgerRecipeDetail / ledgerCaskList / ledgerCaskDetail / caskTimeline / finishLedgerTasting`、`cask-ledger.mjs` の `buildCaskLedger`。
+
+## 元記録・欠損
+
+`caskId`で現存樽、archive、records、releases、保存製法、既存のmanualSourcesを接続する。一時投影へ既存 `replayDistilleryOperations` の観測スナップショットを渡し、recordsの12件制限などで現在配列から外れた試飲も読み取れる範囲を表示する。ゲームsnapshotごとに一度だけ作り、同じsnapshotの画面往復では再生し直さない。
+
+原文・試飲順・同年月の異なるプロフィールは保持。完全一致するスナップショットを統合し、同年月の試飲文と自動熟成文が結合形式だけ違う場合は表示だけ重複を除く。同じ時点・量の再掲も表示だけ除く。原酒量は仕込・試飲・手入れ・瓶詰め時の既知値だけを用い、全月の数値一覧は追加しない。
+
+旧origin以前の履歴は生き残った事実だけを使用。未知値はnull→「記録なし」。部分プロフィールからタイプや「変化わずか」を推測しない。部分瓶詰めがあるだけでは親樽を瓶詰め済みと決めない。明示終了の樽は「熟成終了」。現在解決できない発売キーをリンクにしない。
+
+保存キー・形式・operations・モデル・製法上限・売上・担当者条件・ドット絵は変更なし。PR #565の発売詳細、取扱店、世代交代の描画関数も変更なし。
+
+## 検証
+
+- `node --test works/ambertime/tests/cask-ledger.test.mjs works/ambertime/tests/ledger-view.test.mjs works/ambertime/tests/nearby-comparison.test.mjs`: 34/34成功。
+- `node --test works/ambertime/tests/recipe-book.test.mjs`: 11/11成功。既存の保存製法・上限・再依頼・復元を確認。
+- 新しい投影テストには、実際の部分瓶詰め5+3本、手入れ、原酒の初期値、同年月の異なる原文、欠損、13発売で古い試飲がrecordsから外れたケース、別Nodeプロセスによる冷復元一致を含む。原セーブ文字列は不変。
+- [ブラウザ結果](browser-results.json) / [再現スクリプト](browser-review.mjs): 同一の公開操作由来セーブ・固定時計で390×844と1024×768を比較。手動仕込み8件の重複なし、閉じた樽の試飲原文、現存親の2発売リンク、共通発売詳細、仕込み比較、スクロール・戻り、保存復元、担当者画面からの導線、固定／可変製法選択、実際の再依頼、試飲終了の戻りを確認。ページエラー0。
+- 対応済み旧v20セーブも既存APIで有効化し、帳面を読んでも保存が変わらないことを確認。旧v09の欠損は投影テストで確認。旧形式を新たにブラウザへ取り込む機能は追加しない。
+- 独立コード・実画像レビューで、試飲文と自動履歴の二重表示を修正し再確認。表現監査: 新しい常設タブ・装飾・説明カードなし。
+- Scope→Risk→Impact・base-owned static・必須CI・公開確認の対象SHAはPRへ記録する。
+
+## 比較画像
+
+| 条件 | 変更前 | 変更後 |
+| --- | --- | --- |
+| 390px | [仕込み](before-390-recipes.png) / [樽](before-390-casks.png) | [仕込み](after-390-recipes.png) / [樽](after-390-casks.png) |
+| 390px詳細 | — | [仕込み](after-390-recipe-detail.png) / [比較](after-390-compare.png) / [現存樽](after-390-live.png) / [過去樽](after-390-closed.png) |
+| 1024px | [仕込み](before-1024-recipes.png) / [樽](before-1024-casks.png) | [仕込み](after-1024-recipes.png) / [樽](after-1024-casks.png) / [詳細](after-1024-recipe-detail.png) |
+| 旧v20 | — | [樽詳細](after-390-old-save.png) |
+
+## 未確認・対象外
+
+実機iPhone Safari／VoiceOver、作者の採用判断、操作上限付近のcold replay待ち時間は未確認。包括的E2E・長時間プレイは実施しない。取扱店、世代交代、Productionは変更しない。PR #565の旧複数ブランド取扱履歴見出しのレビュー指摘も、今回の取扱店変更には含めない。
