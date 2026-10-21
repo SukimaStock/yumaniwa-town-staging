@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ffa4f0cd8f76a1a2f2d1f9bc76c25d33823608c05b02d9b4857c2595765dfc82",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-generation-review",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "d1add6177ba9fd0e4680d1efca1d29e75aad6cb4",
+    "change": "Read-only actor-attributed generation achievements and handover retrospectives",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User stage2 request",
+      "works/ambertime/design/ledger-information-audit.md PR564",
+      "PR565 ledger integration",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-generation-review/r0.lock.json",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/generation-summary.test.mjs",
+      "works/ambertime/design/ledger-stage4/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/cask-ledger*",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/room-scene.css"
+    ],
+    "expectedChanges": [
+      "Aggregate observed completed fills, created product bottle counts, authoritative bottlesSold delta per transaction using before.generations.active.id, never month or maker. No new save fields or operations.",
+      "Freeze completed era results and estate at observed handover; label incomplete origin/pre-generation attribution without zero or era1 inference.",
+      "Reuse read-only summary in existing review modal and history generation detail; at most two actual milestones; last batch status and estate; no new management screen.",
+      "Run projection off UI thread using existing history worker/replay, preserve usable controls, focus, scroll and loading/error recovery. Preserve stage1-3 ledger and cask async behavior.",
+      "Targeted tests, phone/PC browser checks, gates, required CI, PR merge and public exact asset/navigation confirmation."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review/previous eras mobile and PC, three totals and last batch statuses, handover while loading, history return/focus, save restore identical."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes stage4 generation read-only statistics and review UI through Staging merge; no Production or economy/save/generation rule changes."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard with explicit Plan Lock before implementation.",
+      "Expression audit: only three totals, max two real events, concise estate and final-batch status.",
+      "Independent investigation and implementation review per AGENTS.md; current tool availability checked."
+    ],
+    "rollback": "Revert this display-only PR; existing saved format and calculations unchanged.",
+    "outOfScope": [
+      "Production",
+      "Save format or operation history",
+      "Generation triggers, final batch handling, economic and demand calculations",
+      "New shops/reputation/staff unlocks/pay, ledger stage1-3 or room visuals",
+      "Broad E2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver",
+      "Author adoption",
+      "Maximum operation history completion time"
+    ]
+  }
+}
