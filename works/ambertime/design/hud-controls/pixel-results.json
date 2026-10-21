@@ -1,0 +1,56 @@
+[
+  {
+    "width": 390,
+    "room": "distill",
+    "logicalRegion": [
+      112,
+      459
+    ],
+    "protectedWorldPixelDifferences": 0
+  },
+  {
+    "width": 390,
+    "room": "warehouse",
+    "logicalRegion": [
+      112,
+      459
+    ],
+    "protectedWorldPixelDifferences": 0
+  },
+  {
+    "width": 390,
+    "room": "sales",
+    "logicalRegion": [
+      112,
+      459
+    ],
+    "protectedWorldPixelDifferences": 0
+  },
+  {
+    "width": 1024,
+    "room": "distill",
+    "logicalRegion": [
+      112,
+      459
+    ],
+    "protectedWorldPixelDifferences": 0
+  },
+  {
+    "width": 1024,
+    "room": "warehouse",
+    "logicalRegion": [
+      112,
+      459
+    ],
+    "protectedWorldPixelDifferences": 0
+  },
+  {
+    "width": 1024,
+    "room": "sales",
+    "logicalRegion": [
+      112,
+      459
+    ],
+    "protectedWorldPixelDifferences": 0
+  }
+]

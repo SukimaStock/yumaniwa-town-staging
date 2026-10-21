@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dad1436450e97c6a0dd010fa9354b8d06427a41e21956f82517f2da7cf580552",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hud-controls",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "17b8ac6464238ef0531201cc214c475247e93852",
+    "change": "Split compact HUD into information/time frames and arrange bottom controls and adaptive notices",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User HUD and bottom UI instruction",
+      "Shared IMG_6164(1).png and IMG_6162(2).png",
+      "Current main PR552 pixel frame styling and PR551 controls",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/canvas-layout.test.mjs",
+      "works/ambertime/tests/hud-controls.test.mjs",
+      "works/ambertime/design/hud-controls/**",
+      ".change-plans/ambertime-hud-controls/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/cask-glass-art.mjs"
+    ],
+    "expectedChanges": [
+      "Two equal width compact white pixel HUD frames: calendar/generation/cash single row and aligned progress/play button. Preserve information and time functions.",
+      "Move menu into existing bottom group with uniform54px visuals, existing minimum hit areas, regular gaps and data driven placement. Center book and replace11x11 store glyph with outline/windows only. Retain staff status.",
+      "Five logical px between icons including hard shadow and tabs; preserve viewport safe margins. Existing canvas and automatic notifications move fivepx up, text sized width bounded to scene with wrapping, no new notification system.",
+      "Only cache references of changed UI modules/styles; all sprite geometry, room/furniture anchors, modal styles, game/save logic byte unchanged.",
+      "Scoped phone/PC before-after screenshots, basic room/time/menu/book/staff/store controls, short/long notices and large cash one-row checks. Scope Risk Impact, required CI, PR and Staging deploy check."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "390x844 touch and1024x768 PC same state/clock before-after, affected controls and notification widths/wrapping; no broadE2E"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly requests this HUD/control/icon/notification staging adjustment with PR, CI, safe staging merge and public verification."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing pixel frames/hard shadows and glyph dimensions",
+      "Expression audit: no new copy/decoration",
+      "Lock before implementation; Scope Risk Impact"
+    ],
+    "rollback": "Revert this UI-only commit; game state and save contract unchanged.",
+    "outOfScope": [
+      "Production",
+      "Still/pipe/glass/cask/bottle artwork, furniture/background/room layout, modal design/fonts",
+      "Game logic/economy/save/staff/store/generation",
+      "Broad E2E/long play"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}
