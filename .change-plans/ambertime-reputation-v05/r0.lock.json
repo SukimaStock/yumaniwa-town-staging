@@ -1,0 +1,141 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "20888b80e217d6e281c3692d5f4738c6ba6c0f5d80a94917ce3fc34fdc588a44",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-reputation-v05",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent Reputation Lab0.5 seeded chance encounters and accountable causal history",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "bcf952c6e58a8ef75b1ebd8dc704ecab4e3e4e64",
+    "canonicalSources": [
+      "User0.24.3 request",
+      "AGENTS.md",
+      "Change OS and EXPRESSION-AUDIT.md",
+      "v04 REPORT PR577 and immutable model",
+      "v03 fixtures, related sales/generation boundaries"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-reputation-v05/r0.lock.json",
+      "works/ambertime/experiments/reputation/v05/**",
+      "works/ambertime-reputation-encounter-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "index.html",
+      "style.css",
+      "main.js",
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/experiments/reputation/v04/**",
+      "works/ambertime/experiments/reputation/v03/**",
+      "works/ambertime/experiments/reputation/v02/**",
+      "works/ambertime/experiments/reputation/index.html",
+      "works/ambertime-reputation-lab/**",
+      "works/ambertime-reputation-world-lab/**"
+    ],
+    "expectedChanges": [
+      "Copy immutable v04 pure core only insidev05 to carry namespace/event metadata and bounded forward hooks; conditionA must exactly reproduce v04 base model state projection. No main/oldLab/save change.",
+      "Finite one chance opportunity per actual shipment, frozen source receipt/release/product; deterministic separate RNG streams, storeguest profiles, fit/root/recentdelivery factors, source cooldown and global rolling cap. No calendar milestone unlocks/repeated unbounded reroll.",
+      "Event log immutable id/month/shop/receipt/release/product/guestkind/target/probability/roll/strength/reason/generation. Reason formatter finite natural templates tied only to modeled facts; clearly fictional Lab guest archetypes, no named real person or unsupported purchase.",
+      "Separate normal/chance dedup namespaces; chance limited to one external target and at most one secondary external node with bounded impact. Actual deliveries/localrelationships/memory remain identical acrossA-E; no chance-driven sales/approval/stock/site expansion. Normal remote gates can respond and indirect effect must be disclosed.",
+      "A normal/B low/C high/D neutral reference fit for chance strength only/E common guest distribution; same deliverypolicy/supply/seed, coupled RNG. Eight predeclared seeds,10/20/30/60/90 and finite32seed short-horizon distribution inclnone/clusters; role counterfactuals labeled separately. No cherry-picked success judgment.",
+      "Focused mobile UI with condition/seed/policy/time controls, normal versuschance paths, auditable events source release/date/destination/reason and inheritedhistory, comparisontable. REPORT/results honest successes/failures/assumptions.",
+      "Preserve every existingLab/entry; add one v05 launcher and active registry/LAB PrototypeBench connection underexisting schema, regenerate LAB. No art or formal map/eventpopup."
+    ],
+    "ownerDecisions": [
+      "User expressly authorizes independentv05 compare/test/PR/Stagingmerge/deploy; main, oldLabs, saves andProduction protected."
+    ],
+    "hqDecisions": [
+      "Independent local core copy permits hooks without modifying existingLab; baseline parity test required. Existing lifecycle/LAB schema, no sharedruntime extension."
+    ],
+    "rulesApplied": [
+      "Fresh r0 plan-only beforeimplementation.",
+      "AGENTS: separate UI ownership and independent read-only model/report review.",
+      "Expressionaudit: necessary short factual templates; no namedpersons, invented transactions, or decorative narrative."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "A/v04 exact projection; determinism acrossseeds/modes; allpolicy supply/receipt/localroot/memory identical; frozen release/source, finite opportunities/cooldown/caps, no stale/empty origin, event dedup/namespaces, impact/hoplimits and reason facts; generation history/pendingevents retention.",
+      "Eightseed fullmatrix A-E and checkpoints, finite32seed early distribution noevents/clusters; no-fitstrength occurrenceparity; common guest role control; rolematched fixture, earlypossible/late/none honestreport; reproducible result hash.",
+      "390touch/360/1280 focused controls, event/normalroute selection and detail reasons/source, comparisonactualmodel equality, generation history, nostorage, newLAB+oldv04 links/prefix.",
+      "Lifecycle generator/check/test, protecteddiff; ScopeRiskImpact, exacthead requiredCI/reviews/merge, PagesSHA and HTTPbytes."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v05/itslauncher/newregistry/LAB additions together; no main or oldLab migration.",
+    "outOfScope": [
+      "Main and all existingLabs",
+      "Native save/economy/demand/shipping/approval/generation changes",
+      "Real influencer claims/purchases, externalSNSAPI or publishing",
+      "Formal map/newart/eventpopup/site management",
+      "Production or guaranteed fun/target-yearforced events"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari/VoiceOver",
+      "Authoradoption/subjective surprises",
+      "Real guest likelihood/nativeeconomyintegration"
+    ],
+    "alternativesRejected": [
+      "Change main or oldLabs",
+      "Global cumulative quality/fame score",
+      "Unlimited new places/supply/remote sales",
+      "Calendar-only level unlocks",
+      "Invent a never-delivered averaged taste"
+    ],
+    "boundaryCases": [
+      "no deliveries/stale source",
+      "same shipment split lots",
+      "no event seed/cluster",
+      "modeA parity",
+      "B/D matchingoccurrences",
+      "E no role mix",
+      "normal/chance no preemption",
+      "bounded event cohort/secondaryhops",
+      "generation boundary/pendingchance",
+      "frozen source releasedifferentfromcurrent",
+      "finite supply4casks"
+    ],
+    "testPlan": [
+      "Pure model regression plus finite multi-seedanalysis",
+      "Focused mobile browser/storage/paths",
+      "ScopeRiskImpact/lifecycle/requiredCI/deploy"
+    ],
+    "problem": "v04 smooth propagation can take86.5years to new overseasrecognition; need occasional reasoned early leaps without guaranteed success.",
+    "currentContract": "v04 real shipments, local root and memory, finite hierarchical road/supply, 30y Lab handovers. All immutable.",
+    "whyExistingIsInsufficient": "No explicit finite guest opportunities/events; earliestpath dedup must not suppress normal rumors.",
+    "design": "Versioned fork with baselineparity plus finite seeded shipment-bound encounter opportunities, role-specific targetmix, bounded chance cohorts and auditable immutablehistory.",
+    "migration": "None; in-memory Lab only, no persistent save.",
+    "compatibility": "All old models/results/entrypoints and main remain byte-identical; new launcher/registry item only.",
+    "promotionRisk": "Staging-only independentLab; no main adoption/Production authorization."
+  }
+}
