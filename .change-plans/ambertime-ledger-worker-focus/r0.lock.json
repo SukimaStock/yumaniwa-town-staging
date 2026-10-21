@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7596b542717367bbe3fd656c810e00a04a0a25b51608cb9b54f0a0d76b7b28ec",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ledger-worker-focus",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "3e7c94c1ab5d9b0ffa8ce7399bee5e7ec9ae6b6a",
+    "change": "Preserve ledger keyboard focus on asynchronous history completion",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User stage2 request",
+      "works/ambertime/design/ledger-information-audit.md PR564",
+      "PR565 ledger integration",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ledger-worker-focus/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/design/ledger-stage2/browser-review.mjs",
+      "works/ambertime/design/ledger-stage2/browser-results.json",
+      "works/ambertime/design/ledger-stage2/review.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/cask-ledger.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/*-art.mjs"
+    ],
+    "expectedChanges": [
+      "Capture current dialog control and ledger scroll/details immediately before worker redraw; restore that same control after refresh without changing saved state or shared release views.",
+      "Scoped delayed-worker browser focus checks for initial classification and Back action; existing navigation controls continue to work.",
+      "Change OS gates, required CI, PR Staging merge and public exact asset and focus check."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Delayed worker success/error refresh preserves section and Back focus; save unchanged; scoped phone/PC source and navigation flows."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes stage2 recipe and cask display/navigation changes through Staging merge, no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "P2 PR568 worker redraw drops focus; current main reproduces before this change.",
+      "WORK/Standard local async redraw only. Fresh r0 before edits.",
+      "Expression audit: no new text or decoration."
+    ],
+    "rollback": "Revert this display-only PR; existing saved format and calculations unchanged.",
+    "outOfScope": [
+      "Production",
+      "Game/model/save/operations and cask projection algorithms",
+      "Other room/HUD/sprite/shop/generation changes",
+      "Broad E2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}
