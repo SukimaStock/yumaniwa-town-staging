@@ -364,6 +364,12 @@
       "path": "works/ambertime-reputation-world-lab",
       "status": "active",
       "title": "AmberTime Reputation Lab 0.4"
+    },
+    {
+      "id": "ambertime-reputation-encounter-lab",
+      "path": "works/ambertime-reputation-encounter-lab",
+      "status": "active",
+      "title": "AmberTime Reputation Lab 0.5"
     }
   ]
 }

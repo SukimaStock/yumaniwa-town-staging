@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>AmberTime Reputation Lab 0.5</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="../../../../../lab/#room-bench">← LAB</a>
+    <h1>AmberTime Reputation Lab 0.5</h1>
+    <nav aria-label="関連ページ"><a href="../v04/">0.4</a><a href="REPORT.md">比較報告</a></nav>
+  </header>
+  <main>
+    <p class="intro">実納品から生まれる、Lab内の仮想の出会いを比べます。出来事・地点・経路は実験用です。</p>
+    <div class="controls">
+      <label>比較条件<select id="condition"></select></label>
+      <label>納品・商品の方針<select id="strategy"></select></label>
+    </div>
+    <label class="seed-control">シード<input id="seed" type="number" min="1" max="4294967295" step="1" value="20261021"></label>
+    <div id="years" aria-label="比較する時点"><button type="button" data-years="10">10年</button><button type="button" data-years="20">20年</button><button type="button" data-years="30">30年</button><button type="button" data-years="60">60年</button><button type="button" data-years="90">90年</button><button type="button" id="play">▶ 再生</button></div>
+    <label class="timeline"><output id="time" for="month"></output><input id="month" type="range" min="0" max="1080" step="1" value="120" aria-label="経過月数"></label>
+    <p id="totals" aria-live="polite"></p>
+    <dl id="measures" class="measures"></dl>
+    <p id="generation"></p>
+    <h2>町から外への経路</h2>
+    <p class="key">青：認知　黄：関心　黒い点：実納品　橙の太線：通常の口コミ　紫の破線：偶然の出会い</p>
+    <svg id="map" viewBox="0 0 410 1100" role="img" aria-label="通常の口コミと仮想の出会いによる経路を示す実験図"></svg>
+    <label>経路を見る地点<select id="destination"></select></label>
+    <p id="route"></p>
+    <h2>仮想の出会いの記録</h2>
+    <p id="event-totals"></p>
+    <div class="controls event-controls"><label>種類<select id="event-filter"><option value="all">すべて</option></select></label><label>出来事を選ぶ<select id="event-select"></select></label></div>
+    <p id="event-detail"></p>
+    <div class="scroll event-history"><table><thead><tr><th>年月・世代</th><th>種類・行先</th><th>発生元</th><th>発売回・商品</th><th>理由</th></tr></thead><tbody id="events"></tbody></table></div>
+    <details id="receipt-audit"><summary>選んだ出来事の元になった実納品</summary><div id="receipt-detail"></div></details>
+    <h2>地元の関係と商品記憶</h2>
+    <p id="product"></p>
+    <div class="scroll"><table><thead><tr><th>店</th><th>定着</th><th>認知</th><th>関心</th><th>実納品</th><th>記憶</th></tr></thead><tbody id="nodes"></tbody></table></div>
+    <label class="memory-select">商品記憶を見る店<select id="memory-shop"></select></label>
+    <p id="reaction"></p>
+    <div class="scroll"><table><thead><tr><th>覚えている商品</th><th>店との相性</th><th>接点</th><th>好まれた接点</th><th>最初／最近</th></tr></thead><tbody id="memories"></tbody></table></div>
+    <h2>同じ方針・同じシードでA〜Eを比較</h2>
+    <div class="scroll"><table><thead><tr><th>条件</th><th>地元の定着</th><th>町の関心</th><th>外部認知</th><th>出来事</th><th>最初の遠方到着</th><th>実納品</th></tr></thead><tbody id="comparison"></tbody></table></div>
+    <details id="calculation"><summary>条件と計算の範囲</summary><p>管理するのは1号店だけです。実際の納品・発売回に由来する出来事を、通常の口コミと区別して記録します。遠方へ話が届いても、在庫や販売本数は増えません。</p><p>出来事の確率・抽選値・商品との相性と、元になった実納品を確認できます。Aは通常の口コミのみ、B〜Eは出来事の頻度・相性・来訪者構成を変える比較です。条件の詳細と未達項目は比較報告に記載します。</p><p>地元の定着は旧市街3店、町の認知・関心は町内8店の平均です。記憶は実際に届けた商品の特徴を保持します。表示値は0〜100。認知・関心・実納品は別の状態です。</p><p>世代交代はLabの比較用境界です。本編・既存Lab・保存・需要・世代交代処理には接続しません。</p></details>
+  </main>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

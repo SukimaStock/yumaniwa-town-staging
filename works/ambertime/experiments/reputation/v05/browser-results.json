@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checks": [
+    "five checkpoints match exact model",
+    "event/source receipt/product audit and inherited history",
+    "A-E exact summaries, blank seed rejection, unlucky no-event history",
+    "pending encounter distinguished from actual arrival",
+    "playback,390touch/360/1280 fits page,storage0",
+    "new LAB roundtrip and unchanged v04 entry"
+  ],
+  "errors": [],
+  "viewports": [
+    390,
+    360,
+    1280
+  ],
+  "storageAccesses": 0,
+  "physicalSafari": false,
+  "screenshots": "/tmp/reputation-v05-browser"
+}
