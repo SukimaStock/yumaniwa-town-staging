@@ -284,7 +284,11 @@ function caskData(){
    const worker=new Worker(new URL('./cask-ledger-worker.mjs?v=0.64.2-ledger-worker',import.meta.url),{type:'module'});caskWorker=worker;
    const current=()=>caskWorker===worker&&caskSnapshot===snapshot&&game===snapshot;
    const finish=()=>{worker.terminate();if(caskWorker===worker)caskWorker=null;};
-   const redraw=()=>{if(caskModalVisible()){render();restoreLedger();}};
+   const redraw=()=>{if(caskModalVisible()){
+    const active=document.activeElement,action=active?.dataset?.action,target=active?.dataset?.id;
+    render();restoreLedger(active?.id);
+    if(action)queueMicrotask(()=>$('action-dialog').querySelector('[data-action="'+CSS.escape(action)+'"][data-id="'+CSS.escape(target??'')+'"]')?.focus({preventScroll:true}));
+   }};
    worker.onmessage=({data})=>{if(data.requestId!==requestId)return;if(!current()){finish();return;}caskProjection=data.error||!data.ledger?emptyCaskView(false,true):data.ledger;finish();redraw();};
    worker.onerror=event=>{event.preventDefault();if(!current()){finish();return;}caskProjection=emptyCaskView(false,true);finish();redraw();};
    worker.postMessage({requestId,state:snapshot});
