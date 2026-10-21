@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="description" content="AmberTimeの口コミ、街との接点、長く残る記憶を月単位で観察する独立シミュレーター。">
+<title>AmberTime｜街と口コミの長期シミュレーター</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><a href="../../../../../lab/#room-bench">← LAB</a><h1>AmberTime <span>街と口コミ · 0.1</span></h1><a href="../../reputation/v05/">Lab 0.5</a></header>
+<main>
+<div class="clock"><strong id="time">0年 0か月</strong><span id="generation">初代</span><span id="stock"></span></div>
+<div class="playback"><button id="play" type="button">▶ 再生</button><button id="speed" type="button" aria-label="再生速度" aria-pressed="false">1倍</button><span class="targets"><button data-year="10" type="button">10年</button><button data-year="30" type="button">30年</button><button data-year="60" type="button">60年</button><button data-year="100" type="button">100年</button></span></div>
+<p id="status" role="status" class="status">指定年まで、各月を計算します。</p>
+<div class="stage">
+<section class="town" aria-label="街マップ">
+<div id="map-wrap"><canvas id="map" width="144" height="144" role="img" aria-label="蒸留所と町の酒店。口コミと接点に応じて広がる実験用マップ"></canvas></div>
+<div class="map-key"><span><i class="known"></i>認知</span><span><i class="contact"></i>接点</span><span><i class="trade"></i>取扱い</span><span>配置・接点の模式図</span></div>
+<label class="place-label">場所<select id="place"></select></label><p id="place-detail"></p>
+</section>
+<section class="news" aria-labelledby="news-heading">
+<div class="section-line"><h2 id="news-heading">街の記録</h2><label class="sr-only" for="filter">出来事の種類</label><select id="filter"><option value="news">ニュース</option><option value="all">すべて</option><option value="arrival">口コミの到着</option><option value="memory">記憶</option><option value="interest">関心</option><option value="share">紹介</option><option value="visit">訪問</option><option value="inquiry">問い合わせ</option><option value="trade">取扱い</option><option value="resurface">記憶の再浮上</option><option value="shipment">納品</option><option value="release">発売</option><option value="generation">世代交代</option></select></div>
+<ol id="news"></ol><div class="pages"><button id="newer" type="button">← 新しい記録</button><output id="page-count"></output><button id="older" type="button">古い記録 →</button></div>
+<details id="event-detail"><summary>選んだ記録の詳細</summary><div id="event-body">記録を選ぶと、発売回と発生元を確認できます。</div></details>
+</section>
+</div>
+<details id="settings"><summary>条件を変える</summary><div class="settings-grid"><label>比較条件<select id="mode"></select></label><label>シード<input id="seed" type="number" min="1" max="4294967295" step="1" value="20261021"></label><label>納品方針<select id="policy"></select></label><label>商品<select id="product"><option value="changing">発売ごとに変更</option><option value="standard">標準</option><option value="young">若い原酒</option><option value="long">長期熟成</option></select></label></div><div class="settings-actions"><button id="apply" type="button">商品・納品方針を切替</button><button id="reset" type="button">初期状態に戻す</button></div><p class="help">比較条件とシードは初期状態に戻すと適用。商品・納品方針の切替は履歴に残り、仕込み済みの商品は変わりません。</p></details>
+<section class="exports" aria-label="ログの書き出し"><button id="json" type="button">JSONを保存</button><button id="copy" type="button">要約をコピー</button><a href="REPORT.md">比較・検証レポート</a><details id="report"><summary>要約を見る</summary><textarea id="report-text" readonly aria-label="時系列レポート"></textarea></details></section>
+<p class="boundary">1号店・AmberTime一銘柄の独立試作。口コミの到着と納品は別に記録します。本編のセーブには接続しません。</p>
+</main><script type="module" src="app.mjs"></script>
+</body></html>
