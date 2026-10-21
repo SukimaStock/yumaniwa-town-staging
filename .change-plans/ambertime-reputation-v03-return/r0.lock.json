@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4c76108f14ec7df2d4bf5326f50f47ecbd983a6f4b620abce0c4640b2a8d6431",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-reputation-v03-return",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Fix project-prefix LAB return link in Reputation v03",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "bd2427ccf0b0f9e20f8ca8e1e0caea5fff8992a9",
+    "canonicalSources": [
+      "User 0.24.1 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Reputation v01/v02 and PR537/549",
+      "current four-cask production, demand, sales and history; ledger PR564-571"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-reputation-v03-return/r0.lock.json",
+      "works/ambertime/experiments/reputation/v03/index.html",
+      "works/ambertime/experiments/reputation/v03/tests/browser.mjs",
+      "works/ambertime/experiments/reputation/v03/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "index.html",
+      "style.css",
+      "main.js",
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/experiments/reputation/v02/**",
+      "works/ambertime/experiments/reputation/model.mjs",
+      "works/ambertime/experiments/reputation/results.json"
+    ],
+    "expectedChanges": [
+      "Use relative LAB return URL preserving GitHub Pages project prefix. Add focused prefix regression, document correction. No model/result changes."
+    ],
+    "ownerDecisions": [
+      "Original user authorizes independent Lab implementation and Staging fixes; no additional design decision."
+    ],
+    "hqDecisions": [
+      "Existing relative link contract only; no new routing."
+    ],
+    "rulesApplied": [
+      "Fresh r0 plan-only first commit before implementation.",
+      "AGENTS direct implementation plus separate read-only research/review.",
+      "Expression audit: necessary controls and concrete experimental caveats only."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Browser focused LAB return and hosted-prefix URL resolution.",
+      "Scope Risk Impact, exact-head CI and Pages content."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert follow-up link/test/report changes only.",
+    "outOfScope": [
+      "Main AmberTime and Production",
+      "Native demand/pricing/shipping/approval/save/history/generation changes",
+      "Official town map or art",
+      "Real market calibration or proof of player motivation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption and subjective enjoyment",
+      "Full main economic balance"
+    ],
+    "alternativesRejected": [
+      "Integrate main now",
+      "Universal quality/reputation metric",
+      "Volume-linear unlimited fame",
+      "Unlimited supply or free aged stock"
+    ],
+    "boundaryCases": [
+      "zero supply",
+      "bulk versus recurring",
+      "no paths",
+      "no affinity",
+      "no continuity",
+      "generation boundary",
+      "same seed",
+      "finite four slots and age lead time"
+    ],
+    "testPlan": [
+      "Focused browser prefix/link regression",
+      "Scope Risk Impact and required CI"
+    ],
+    "problem": "Need decades-long store-specific rumor paths with meaningful small deliveries.",
+    "currentContract": "v02 finite shipment experiments, current main automatic shipping and four-cask production remain unchanged.",
+    "whyExistingIsInsufficient": "v02 finite one-hop evidence cannot evaluate multigeneration neighborhood networks.",
+    "design": "Separate pure monthly simulation and fictional graph with supply pipeline, deterministic routing and state inheritance.",
+    "migration": "None; no storage.",
+    "compatibility": "Only lab entries and existing LAB registration updated; all main and prior model files unchanged.",
+    "promotionRisk": "staging-only experiment; no main adoption or production authorization"
+  }
+}
