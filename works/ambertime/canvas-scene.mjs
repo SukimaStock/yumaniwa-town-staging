@@ -1,3 +1,4 @@
+import{RoomMotion}from'./room-motion.mjs?v=0.67-small-motion';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
 import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout}from'./canvas-layout.mjs?v=0.59-hud-controls';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
@@ -8,15 +9,15 @@ import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-me
 import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.60-ui-fine';
 import{uiText}from'./ui-text.mjs?v=0.28-staff-entry-1';
 const spriteCache=new Map();
-function sprite(markup,collection=1,active=false){
- const key=markup+':'+collection.toFixed(3)+':'+active;if(spriteCache.has(key))return spriteCache.get(key);
+function sprite(markup,collection=1,active=false,frame=0){
+ const key=markup+':'+collection.toFixed(3)+':'+active+':'+frame;if(spriteCache.has(key))return spriteCache.get(key);
  const svg=new DOMParser().parseFromString(markup,'image/svg+xml').documentElement,[,,w,h]=svg.getAttribute('viewBox').split(' ').map(Number),canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.contentBottom=Number(svg.getAttribute('data-content-bottom')??h);const ctx=canvas.getContext('2d');
- function paint(node,alpha=1){if(!active&&(node.classList?.contains('still-steam')||node.classList?.contains('distill-stream')))return;ctx.save();const opacity=Number(node.getAttribute('fill-opacity')??node.getAttribute('opacity')??1);ctx.globalAlpha=alpha*opacity;if(node.classList?.contains('receiver-liquid')){const bottom=Number(node.getAttribute('data-liquid-bottom'));ctx.translate(0,bottom);ctx.scale(1,collection);ctx.translate(0,-bottom);}if(node.tagName==='rect'){ctx.fillStyle=node.getAttribute('fill');ctx.fillRect(...['x','y','width','height'].map(k=>Number(node.getAttribute(k))));}else for(const child of node.children)paint(child,alpha*opacity);ctx.restore();}
+ function paint(node,alpha=1){if(!active&&(node.classList?.contains('still-steam')||node.classList?.contains('distill-stream')))return;ctx.save();if(active&&frame===1){if(node.classList?.contains('distill-stream'))ctx.translate(0,1);if(node.classList?.contains('still-steam'))ctx.translate(0,-1);}const opacity=Number(node.getAttribute('fill-opacity')??node.getAttribute('opacity')??1);ctx.globalAlpha=alpha*opacity;if(node.classList?.contains('receiver-liquid')){const bottom=Number(node.getAttribute('data-liquid-bottom'));ctx.translate(0,bottom);ctx.scale(1,collection);ctx.translate(0,-bottom);}if(node.tagName==='rect'){ctx.fillStyle=node.getAttribute('fill');ctx.fillRect(...['x','y','width','height'].map(k=>Number(node.getAttribute(k))));}else for(const child of node.children)paint(child,alpha*opacity);ctx.restore();}
  paint(svg);if(spriteCache.size>100)spriteCache.clear();spriteCache.set(key,canvas);return canvas;
 }
 export class CanvasScene{
  constructor(){
-  this.root=$('scene-root');this.canvas=$('scene-canvas');this.ctx=this.canvas.getContext('2d');this.world=document.createElement('canvas');this.world.width=120;this.world.height=214;this.worldCtx=this.world.getContext('2d');this.controlRoot=$('scene-controls');this.view=null;this.frame=0;this.pressed=null;this.fontSettled=false;this.selectionTimer=null;this.hintTimer=null;this.idleSince=performance.now();this.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');this.resetIdle=()=>{this.idleSince=performance.now();this.queue();};this.reducedMotion.addEventListener('change',this.resetIdle);
+  this.root=$('scene-root');this.canvas=$('scene-canvas');this.ctx=this.canvas.getContext('2d');this.world=document.createElement('canvas');this.world.width=120;this.world.height=214;this.worldCtx=this.world.getContext('2d');this.controlRoot=$('scene-controls');this.view=null;this.frame=0;this.pressed=null;this.fontSettled=false;this.selectionTimer=null;this.hintTimer=null;this.motionTimer=null;this.motion=new RoomMotion();this.idleSince=performance.now();this.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');this.resetIdle=()=>{this.idleSince=performance.now();this.queue();};this.reducedMotion.addEventListener('change',this.resetIdle);
   for(const event of ['pointerdown','keydown'])document.addEventListener(event,this.resetIdle,true);
   document.addEventListener('visibilitychange',this.resetIdle);
   fontReady.then(()=>{this.fontSettled=true;this.queue();});
@@ -42,7 +43,8 @@ export class CanvasScene{
   this.root.addEventListener('pointerdown',e=>{const p=toLogical(this.viewport,e.clientX,e.clientY),hit=hitTest(this.activeControls??[],p.x,p.y);this.root.dataset.lastPointer=JSON.stringify({...p,key:hit?.key??null});this.pressed=hit?.key;this.queue();});
   for(const event of['pointerup','pointercancel','focusin','focusout'])this.root.addEventListener(event,()=>{if(event.startsWith('pointer'))this.pressed=null;this.queue();});
  }
- update(view){if(!!view.pauseHint!==!!this.view?.pauseHint)this.idleSince=performance.now();this.view=view;this.layout=layoutScene(view);this.root.dataset.room=view.room;this.root.setAttribute('aria-label',({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[view.room]);this.root.dataset.sceneAnchors=JSON.stringify({floor:this.layout.floorY,shelf:this.layout.shelf,casks:this.layout.caskSlots,products:this.layout.productSlots,equipment:this.layout.equipment});$('scene-summary').textContent=[view.calendar,view.cash,view.generation,view.timeStatus,view.phaseSummary].filter(Boolean).join(' · ');$('scene-notice').textContent=view.notice??'';const progress=$('month-progress');progress.setAttribute('aria-valuenow',String(Math.round(100*(view.monthProgress??0))));progress.setAttribute('aria-valuetext','今月 '+Math.round(100*(view.monthProgress??0))+'％ · '+view.timeStatus);$('spirit-readout').setAttribute('aria-hidden',String(view.room!=='distill'));this.queue();}
+ resetMotion(){this.motion.reset();clearTimeout(this.motionTimer);this.queue();}
+ update(view){this.motion.observe(view.motionIds);if(!!view.pauseHint!==!!this.view?.pauseHint)this.idleSince=performance.now();this.view=view;this.layout=layoutScene(view);this.root.dataset.room=view.room;this.root.setAttribute('aria-label',({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[view.room]);this.root.dataset.sceneAnchors=JSON.stringify({floor:this.layout.floorY,shelf:this.layout.shelf,casks:this.layout.caskSlots,products:this.layout.productSlots,equipment:this.layout.equipment});$('scene-summary').textContent=[view.calendar,view.cash,view.generation,view.timeStatus,view.phaseSummary].filter(Boolean).join(' · ');$('scene-notice').textContent=view.notice??'';const progress=$('month-progress');progress.setAttribute('aria-valuenow',String(Math.round(100*(view.monthProgress??0))));progress.setAttribute('aria-valuetext','今月 '+Math.round(100*(view.monthProgress??0))+'％ · '+view.timeStatus);$('spirit-readout').setAttribute('aria-hidden',String(view.room!=='distill'));this.queue();}
  queue(){if(this.frame)return;this.frame=requestAnimationFrame(()=>{this.frame=0;this.draw();});}
  controls(){
   for(const node of this.controlRoot.querySelectorAll('button'))node.dataset.sceneVisible='false';
@@ -65,9 +67,9 @@ export class CanvasScene{
    const shelfRail=(x,y,w)=>{r(x+3,y+3,w,9,shadow);r(x,y,w,3,'#3c281e');r(x,y+3,w,3,'#644632');r(x,y+6,w,3,'#a0785a');r(x,y+9,w,3,shadow);};
    const s=l.shelf;post(s.x,s.y,9,s.h);post(s.x+s.w-6,s.y,9,s.h);for(const y of s.rails)shelfRail(s.x,y,s.w);
    const items=v.room==='warehouse'?v.casks:v.products,slots=v.room==='warehouse'?l.caskSlots:l.productSlots;
-   items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand,item.priceTier):bottleArt(item.wood,item.priceTier)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.contentBottom;if(item.selected){c.save();c.globalAlpha=this.reducedMotion.matches||Math.floor(performance.now()/900)%2===0?1:.35;c.fillStyle=ink;for(let row=0;row<4;row++)c.fillRect(Math.round((pos.x+pos.w/2)/3)-3+row,y-7+row,7-row*2,1);c.restore();}c.drawImage(image,x,y);if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
+   items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand,item.priceTier):bottleArt(item.wood,item.priceTier)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.contentBottom;if(item.selected){c.save();c.globalAlpha=this.reducedMotion.matches||Math.floor(performance.now()/900)%2===0?1:.35;c.fillStyle=ink;for(let row=0;row<4;row++)c.fillRect(Math.round((pos.x+pos.w/2)/3)-3+row,y-7+row,7-row*2,1);c.restore();}const arrival=this.arrival,identity=v.room==='warehouse'?item.id:item.releaseId,belongs=arrival.room===v.room&&arrival.ids.includes(identity);if(!(belongs&&arrival.blinkId===identity&&arrival.hidden))c.drawImage(image,x,y);if(belongs&&arrival.staticIds.includes(identity)){c.fillStyle=ink;c.fillRect(x-1,y,1,2);c.fillRect(x,y-1,2,1);c.fillRect(x+image.width-2,y-1,2,1);c.fillRect(x+image.width,y,1,2);}if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
   }else{
-   const e=l.equipment;post(72,e.benchY+6,9,l.floorY-e.benchY-6);post(282,e.benchY+6,9,l.floorY-e.benchY-6);rail(72,e.benchY,216);const image=sprite(stillArt(),v.collection,v.phase==='distilling');c.drawImage(image,e.x/3,e.y/3);
+   const e=l.equipment;post(72,e.benchY+6,9,l.floorY-e.benchY-6);post(282,e.benchY+6,9,l.floorY-e.benchY-6);rail(72,e.benchY,216);const image=sprite(stillArt(),v.collection,v.phase==='distilling',this.stillFrame);c.drawImage(image,e.x/3,e.y/3);
   }
 
  }
@@ -83,7 +85,13 @@ export class CanvasScene{
  window(x,y,w,h,fill='#2e3143',border='#6c707b'){this.pixelRect(x+3,y+3,w,h,shadow);this.pixelRect(x,y,w,h,border);this.pixelRect(x+3,y+3,w-6,h-6,fill);}
  icon(kind,x,y,w,h,color=ink){const c=this.ctx,v=this.viewport,unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit)),width=kind==='store'?11:7;c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(x+w/2)*v.scale)*v.dpr-width*cell/2),Math.round((v.offsetY+(y+h/2)*v.scale)*v.dpr-width*cell/2),cell,color);c.restore();}
  draw(){
-  if(!this.view||!this.fontSettled)return;this.controls();this.drawWorld();
+  if(!this.view||!this.fontSettled)return;
+  const now=performance.now(),visible=!document.hidden&&!$('action-dialog').open;
+  this.stillMoving=visible&&!this.reducedMotion.matches&&this.view.room==='distill'&&this.view.phase==='distilling';
+  this.stillFrame=this.stillMoving?Math.floor(now/400)%2:0;
+  this.arrival=this.motion.sample({room:this.view.room,caskIds:this.view.casks.map(c=>c.id),releaseIds:this.view.products.map(p=>p.releaseId),visible,reduced:this.reducedMotion.matches,now});
+  this.root.dataset.roomMotion=JSON.stringify({stillFrame:this.stillFrame,stillMoving:this.stillMoving,arrival:this.arrival});
+  this.controls();this.drawWorld();
   // Presentation clock only: never advances, saves or changes the game state.
   const resume=this.activeControls.find(a=>a.key==='toggle-time'),hintEligible=this.view.pauseHint&&!document.hidden&&!this.reducedMotion.matches&&resume&&!resume.node.disabled;
   const idle=performance.now()-this.idleSince,hintBright=hintEligible&&idle>=12000&&Math.floor((idle-12000)/1200)%2===0;
@@ -150,5 +158,6 @@ export class CanvasScene{
   c.restore();
   clearTimeout(this.hintTimer);if(hintEligible)this.hintTimer=setTimeout(()=>this.queue(),idle<12000?12000-idle:1200-(idle-12000)%1200);
   clearTimeout(this.selectionTimer);if(!this.reducedMotion.matches&&items.some(item=>item.selected))this.selectionTimer=setTimeout(()=>this.queue(),900-performance.now()%900);
+  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&!document.hidden)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
  }
 }

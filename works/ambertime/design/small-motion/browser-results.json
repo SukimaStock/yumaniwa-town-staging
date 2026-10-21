@@ -1,0 +1,158 @@
+{
+  "base": "81fdf44af3f7904a25ea16f7a4d65997619025f8",
+  "checks": [
+    {
+      "width": 390,
+      "frame0Exact": true,
+      "changedNativePixels": [
+        [
+          48,
+          98
+        ],
+        [
+          48,
+          99
+        ],
+        [
+          46,
+          100
+        ],
+        [
+          46,
+          102
+        ],
+        [
+          45,
+          103
+        ],
+        [
+          45,
+          104
+        ],
+        [
+          64,
+          114
+        ],
+        [
+          64,
+          115
+        ],
+        [
+          64,
+          116
+        ],
+        [
+          64,
+          117
+        ]
+      ],
+      "onlyExistingStreamSteam": true,
+      "presentationNoSave": true
+    },
+    {
+      "width": 390,
+      "caskId": 22,
+      "releaseId": 9,
+      "fillOnlyNew": true,
+      "partialBottling": true,
+      "modalAndPageWait": true,
+      "finiteEndNoRepeat": true,
+      "restoreNoRepeat": true
+    },
+    {
+      "width": 390,
+      "automaticReleaseIds": [
+        5,
+        6
+      ],
+      "maxOneBlink": true,
+      "otherStatic": true,
+      "clockAdvanced": true,
+      "switchCancels": true
+    },
+    {
+      "width": 390,
+      "reducedStillFixed": true,
+      "reducedFiniteStatic": true
+    },
+    {
+      "width": 1024,
+      "frame0Exact": true,
+      "changedNativePixels": [
+        [
+          48,
+          98
+        ],
+        [
+          48,
+          99
+        ],
+        [
+          46,
+          100
+        ],
+        [
+          46,
+          102
+        ],
+        [
+          45,
+          103
+        ],
+        [
+          45,
+          104
+        ],
+        [
+          64,
+          114
+        ],
+        [
+          64,
+          115
+        ],
+        [
+          64,
+          116
+        ],
+        [
+          64,
+          117
+        ]
+      ],
+      "onlyExistingStreamSteam": true,
+      "presentationNoSave": true
+    },
+    {
+      "width": 1024,
+      "caskId": 22,
+      "releaseId": 9,
+      "fillOnlyNew": true,
+      "partialBottling": true,
+      "modalAndPageWait": true,
+      "finiteEndNoRepeat": true,
+      "restoreNoRepeat": true
+    },
+    {
+      "width": 1024,
+      "automaticReleaseIds": [
+        5,
+        6
+      ],
+      "maxOneBlink": true,
+      "otherStatic": true,
+      "clockAdvanced": true,
+      "switchCancels": true
+    },
+    {
+      "width": 1024,
+      "reducedStillFixed": true,
+      "reducedFiniteStatic": true
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari",
+    "Author timing/feel"
+  ]
+}

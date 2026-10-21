@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0c802c7e6cb7e712fb9f60f1211aa36e87e379183bcee01396e0fbefe8696f52",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-small-motion",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "81fdf44af3f7904a25ea16f7a4d65997619025f8",
+    "change": "Add two-frame existing still dots and brief ID-specific new cask/release cues",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User stage2 request",
+      "works/ambertime/design/ledger-information-audit.md PR564",
+      "PR565 ledger integration",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-small-motion/r0.lock.json",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/room-motion.test.mjs",
+      "works/ambertime/design/small-motion/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/*-art.mjs",
+      "works/ambertime/*ledger*",
+      "works/ambertime/*history*",
+      "works/ambertime/room-scene.css"
+    ],
+    "expectedChanges": [
+      "Keep original art modules byte-identical; sprite painter derives frame1 by native integer translation of existing distill-stream/still-steam groups only. 400ms frames while distilling in visible distill room; fixed frame reduced-motion.",
+      "Track ephemeral cask/release IDs from full lists after initial baseline; reset baseline on boot/new game, never save motion. Wait until room/page visible and modal closed, then three brief blink cycles on new target only.",
+      "At most one moving addition cue per visible batch; other new targets use temporary static marker, reduced-motion uses static marks. Missing targets disappear safely; interrupted active cue never repeats on return; off-page pending waits for first visibility.",
+      "Use bounded timers only for next frame/finite cue; no game clock/control/layout/modal/economic changes.",
+      "Targeted unit/art/pixel-diff and phone/PC before-after browser checks incl auto/partial, restore baseline, reduce motion, timers; gates, CI, PR, Staging merge and public verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone/PC same-state baseline and two still frames; exact unaffected native pixels; cue begin/off/end/cancel, partial/auto release IDs, reduced-motion, save/restore no repeat, normal input/time unaffected."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes four local motion cues through Staging merge; no Production or underlying art/game/save changes."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard with explicit Plan Lock.",
+      "AGENTS independent investigation and final review; no unneeded broad E2E or longplay.",
+      "Expression audit: no added user-facing text, sound, popup or decoration beyond brief target marker."
+    ],
+    "rollback": "Revert this display-only PR; existing saved format and calculations unchanged.",
+    "outOfScope": [
+      "Production",
+      "Original 16x16 matrices and basic sprites, labels/colors",
+      "Rooms/HUD/timebar/buttons/modals/ledger",
+      "Economy/simulation/staff/shops/generations/save/operations",
+      "New art/sound assets, broad E2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption of timing/feel"
+    ]
+  }
+}
