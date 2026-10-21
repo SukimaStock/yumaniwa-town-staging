@@ -1,0 +1,141 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "530d07fe71cd67212340adbf87abd9e0c376749219f7c2adbb2f7fc0e58be71b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-reputation-v04",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent Reputation Lab0.4 rooted local relationships and hierarchical world transmission",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "09afa61644cce0b9a0b9526215af81d3aa1a1f94",
+    "canonicalSources": [
+      "User0.24.2 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "v03 REPORT/models PR575/576",
+      "current shop-ledger/shop-demand/brand-reputation/generations"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-reputation-v04/r0.lock.json",
+      "works/ambertime/experiments/reputation/v04/**",
+      "works/ambertime-reputation-world-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "index.html",
+      "style.css",
+      "main.js",
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/experiments/reputation/v03/**",
+      "works/ambertime/experiments/reputation/v02/**",
+      "works/ambertime/experiments/reputation/index.html",
+      "works/ambertime-reputation-lab/**"
+    ],
+    "expectedChanges": [
+      "Versioned pure independent v04 model; one managed distillery/brand, finite native-referenced four-slot supply and frozen release lots; no native storage/demand/approval/economy modification.",
+      "Separate local rootedness from recognition/interest: repeated distinct periods, actual delivery spans and fit, bounded real product exemplars and recall; no fabricated mean taste; persistent history through gaps/generations; no period-only growth.",
+      "Finite detailed shops plus regional/national/overseas aggregate nodes and optional abstract space endpoint. Actual receipt provenance, causal immutable messages, road delays and finite attenuation, receipt-destination dedup; store role through channel topology and taste-specific pathways rather than universal multiplier.",
+      "Six strategy policies with same supply/initial town bootstrap/seed; stable versus staged products, local-plus-world deliveries, SNS on/off with fixed communication budget; no unbounded remote sales or additional managed operations. Paired controls and honest failure reporting.",
+      "Focused mobile comparison UI: local roots versus external reach, store memories/release response, causal routes, four time checkpoints/generation inheritance and SNS/ablations. REPORT/results reproducible finite comparisons.",
+      "Preserve every existing Lab/entry byte-for-byte. New single v04 launcher/active registry item and Prototype Bench entry using existing schema; regenerate LAB. No official map or new pixel art."
+    ],
+    "ownerDecisions": [
+      "User expressly authorizes v04 independent Lab comparison through Staging merge/deploy and protects main, existing Labs, saves and Production."
+    ],
+    "hqDecisions": [
+      "No shared runtime/schema contract extension. One new standalone launcher avoids changing existing Lab entry; finite world nodes are experimental aggregates only."
+    ],
+    "rulesApplied": [
+      "Fresh r0 plan-only commit before implementation.",
+      "AGENTS delegates read-only research/review and isolated UI work where useful.",
+      "Expression audit before/during/final: essential operations and concrete caveats only, no fame/quality ranks."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Model deterministic paired conditions, finite supply conservation/four slots, frozen inventory, actual receipt provenance/dedup and causal delays; local memories rootedness stable/new releases; gaps/generations inheritance.",
+      "Same-supply 6policies x SNSon/off x2seeds at10/30/60/90; matched frequency/quantity and rootedness/memory/bridges ablations; finite space stress only. REPORT honest failures/assumptions.",
+      "390touch/360/1280 focused controls, paths/memory/reactivity, no storage access, prefix-safe LAB forward/back and preservedv03.",
+      "Lifecycle generator/check/test; Scope Risk Impact; required CI/reviews/exact-head merge/PagesSHA and HTTP bytes."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v04 plus its new launcher/registry/LAB entries; existing Labs and native saves require no migration.",
+    "outOfScope": [
+      "Main AmberTime and all existing Labs",
+      "Native demand/economy/shipping/approval/history/generation/save changes",
+      "Multiple managed branches or production expansion",
+      "Official world/space map or new pixel art",
+      "Production or guaranteed subjective enjoyment"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver",
+      "Author adoption and subjective long-term engagement",
+      "Native economic integration and real-world calibration"
+    ],
+    "alternativesRejected": [
+      "Change main or oldLabs",
+      "Global cumulative quality/fame score",
+      "Unlimited new places/supply/remote sales",
+      "Calendar-only level unlocks",
+      "Invent a never-delivered averaged taste"
+    ],
+    "boundaryCases": [
+      "no shipments",
+      "same total bulk versus repeated",
+      "consistent vs opposing products",
+      "stockout gaps",
+      "SNSwithfinitebudget",
+      "bridges/memory/rootedness removed",
+      "causal dedup over converging routes",
+      "frozen lots across change",
+      "generation boundary",
+      "abstract space opt-in"
+    ],
+    "testPlan": [
+      "Focused pure model tests, paired analysis and native supply reference check",
+      "Mobile/desktop browser and protected path diff audit",
+      "Scope Risk Impact/lifecycle/requiredCI/deploy"
+    ],
+    "problem": "v03 continuity is local multiplier and stable product reach plateaus; big-store concentration has little independent advantage.",
+    "currentContract": "One managed distillery, native4casks; v03 isolated deterministic finite town network and conserved deliveries.",
+    "whyExistingIsInsufficient": "Need local product memory and lasting relations distinct from external breadth, with finite role-specific bridges.",
+    "design": "Independent deterministic model with fixed frozen product exemplars/local delivery-period history and finite hierarchical causal receipt-derived channels; fixed supply and comparison policies.",
+    "migration": "None; in-memory Lab only, no persistent save.",
+    "compatibility": "All old models/results/entrypoints and main remain byte-identical; new launcher/registry item only.",
+    "promotionRisk": "Staging-only experiment. No main adoption or Production permission."
+  }
+}
