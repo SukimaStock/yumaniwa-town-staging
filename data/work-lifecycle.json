@@ -376,6 +376,12 @@
       "path": "works/ambertime-town-simulation-lab",
       "status": "active",
       "title": "AmberTime 街と口コミの長期シミュレーター 0.1"
+    },
+    {
+      "id": "ambertime-word-crafting-lab",
+      "path": "works/ambertime-word-crafting-lab",
+      "status": "active",
+      "title": "AmberTime 言葉を育てる Lab 0.1"
     }
   ]
 }
