@@ -2,7 +2,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=0.52-ui-details';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=0.52-ui-details';
-import {CanvasScene} from './canvas-scene.mjs?v=0.58-first-brand';
+import {CanvasScene} from './canvas-scene.mjs?v=0.59-hud-controls';
 import * as D from './partner-orders.mjs?v=0.58-first-brand';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';

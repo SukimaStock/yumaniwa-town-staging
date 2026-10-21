@@ -1,0 +1,5929 @@
+{
+  "base": "17b8ac6464238ef0531201cc214c475247e93852",
+  "browser": "153.0.8010.0",
+  "passed": true,
+  "captures": {
+    "before": [
+      {
+        "name": "390-distill",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "distill",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "stop-distill",
+            "selector": "#stop-distill",
+            "x": 126,
+            "y": 414,
+            "w": 108,
+            "h": 45
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-warehouse",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "warehouse",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-sales",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-notice-short",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-notice-long",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-automatic-short",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-automatic-long",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 30,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 171,
+          "cashLeft": 221.53846153846155
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-distill",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "distill",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "stop-distill",
+            "selector": "#stop-distill",
+            "x": 126,
+            "y": 414,
+            "w": 108,
+            "h": 45
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-warehouse",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "warehouse",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-sales",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-notice-short",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-notice-long",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-automatic-short",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-automatic-long",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 30,
+          "calendarRight": 105,
+          "generationRight": 157,
+          "cashLeft": 228
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 303,
+            "y": 9,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 522,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 60,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 90,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 156,
+            "y": 522,
+            "w": 54,
+            "h": 54
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      }
+    ],
+    "after": [
+      {
+        "name": "390-distill",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "distill",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "stop-distill",
+            "selector": "#stop-distill",
+            "x": 126,
+            "y": 414,
+            "w": 108,
+            "h": 45
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-warehouse",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "warehouse",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-sales",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-notice-short",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": {
+          "x": 12,
+          "y": 460,
+          "w": 151,
+          "h": 44,
+          "lines": [
+            "ビン詰め 5本"
+          ],
+          "padding": 9,
+          "step": 26
+        },
+        "overflow": false
+      },
+      {
+        "name": "390-notice-long",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": {
+          "x": 12,
+          "y": 418,
+          "w": 329,
+          "h": 96,
+          "lines": [
+            "ビン詰めが完了しました。取扱",
+            "店への発送を確認してください",
+            "。"
+          ],
+          "padding": 9,
+          "step": 26
+        },
+        "overflow": false
+      },
+      {
+        "name": "390-large-cash",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 132.92307692307693,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 212.07692307692307,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-automatic-short",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 132.92307692307693,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 212.07692307692307,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "390-automatic-long",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 132.92307692307693,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 212.07692307692307,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-distill",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "distill",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "stop-distill",
+            "selector": "#stop-distill",
+            "x": 126,
+            "y": 414,
+            "w": 108,
+            "h": 45
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-warehouse",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "warehouse",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-sales",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-notice-short",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": {
+          "x": 12,
+          "y": 460,
+          "w": 138,
+          "h": 44,
+          "lines": [
+            "ビン詰め 5本"
+          ],
+          "padding": 9,
+          "step": 26
+        },
+        "overflow": false
+      },
+      {
+        "name": "1024-notice-long",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": {
+          "x": 12,
+          "y": 444,
+          "w": 318,
+          "h": 70,
+          "lines": [
+            "ビン詰めが完了しました。取扱店",
+            "への発送を確認してください。"
+          ],
+          "padding": 9,
+          "step": 26
+        },
+        "overflow": false
+      },
+      {
+        "name": "1024-large-cash",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 120,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 225,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-automatic-short",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 120,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 225,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      },
+      {
+        "name": "1024-automatic-long",
+        "save": "b5bebff41a225cefd7084d2048abfc02fc4fa713b502c3fc8995998ccbbe37f4",
+        "room": "sales",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 120,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 225,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "notice": null,
+        "overflow": false
+      }
+    ]
+  },
+  "checks": [
+    {
+      "phase": "before",
+      "width": 390,
+      "height": 844,
+      "menu": true,
+      "ledger": true,
+      "staff": true,
+      "store": true,
+      "pauseResume": true,
+      "progressAdvances": true,
+      "noticeNoSaveChanges": true,
+      "automatic": {
+        "x": 13,
+        "y": 575.828125,
+        "w": 364,
+        "h": 58.5,
+        "scroll": 106,
+        "client": 53,
+        "font": "15.1667px"
+      }
+    },
+    {
+      "phase": "before",
+      "width": 1024,
+      "height": 768,
+      "menu": true,
+      "ledger": true,
+      "staff": true,
+      "store": true,
+      "pauseResume": true,
+      "progressAdvances": true,
+      "noticeNoSaveChanges": true,
+      "automatic": {
+        "x": 310.390625,
+        "y": 554.390625,
+        "w": 403.1875,
+        "h": 64.796875,
+        "scroll": 118,
+        "client": 57,
+        "font": "16.8px"
+      }
+    },
+    {
+      "phase": "after",
+      "width": 390,
+      "height": 844,
+      "menu": true,
+      "ledger": true,
+      "staff": true,
+      "store": true,
+      "pauseResume": true,
+      "progressAdvances": true,
+      "noticeNoSaveChanges": true,
+      "automatic": {
+        "x": 13,
+        "y": 515.65625,
+        "w": 349.90625,
+        "h": 116.5,
+        "scroll": 111,
+        "client": 111,
+        "font": "15.1667px"
+      }
+    },
+    {
+      "phase": "after",
+      "width": 1024,
+      "height": 768,
+      "menu": true,
+      "ledger": true,
+      "staff": true,
+      "store": true,
+      "pauseResume": true,
+      "progressAdvances": true,
+      "noticeNoSaveChanges": true,
+      "automatic": {
+        "x": 310.390625,
+        "y": 486.453125,
+        "w": 396,
+        "h": 130.34375,
+        "scroll": 122,
+        "client": 122,
+        "font": "16.8px"
+      }
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/safe-area and VoiceOver",
+    "Author adoption"
+  ]
+}
