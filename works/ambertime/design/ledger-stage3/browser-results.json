@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "width": 390,
+      "phase": "interest",
+      "list": 3,
+      "actualTotals": true,
+      "sharedReleaseBack": true,
+      "focusScroll": true,
+      "saveRestoreUnchanged": true
+    },
+    {
+      "width": 390,
+      "phase": "pending",
+      "list": 3,
+      "actualTotals": true,
+      "sharedReleaseBack": true,
+      "focusScroll": true,
+      "saveRestoreUnchanged": true
+    },
+    {
+      "width": 390,
+      "phase": "delivered",
+      "list": 3,
+      "actualTotals": true,
+      "sharedReleaseBack": true,
+      "focusScroll": true,
+      "saveRestoreUnchanged": true
+    },
+    {
+      "width": 390,
+      "unhandledNoFakeZero": true,
+      "workerSwitchCloseFocus": true
+    },
+    {
+      "width": 390,
+      "olderSaveNoGuessedFacts": true
+    },
+    {
+      "width": 1024,
+      "phase": "interest",
+      "list": 3,
+      "actualTotals": true,
+      "sharedReleaseBack": true,
+      "focusScroll": true,
+      "saveRestoreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "phase": "pending",
+      "list": 3,
+      "actualTotals": true,
+      "sharedReleaseBack": true,
+      "focusScroll": true,
+      "saveRestoreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "phase": "delivered",
+      "list": 3,
+      "actualTotals": true,
+      "sharedReleaseBack": true,
+      "focusScroll": true,
+      "saveRestoreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "unhandledNoFakeZero": true,
+      "workerSwitchCloseFocus": true
+    },
+    {
+      "width": 1024,
+      "olderSaveNoGuessedFacts": true
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver",
+    "Author adoption"
+  ]
+}

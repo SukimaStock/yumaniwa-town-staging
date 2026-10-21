@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1393faaddbf323419b1d18b7836736fe940f5da27d3178a8c7aacd93a71f014a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ledger-shops",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "5d6758831422bc516c659ca42402dc17ddf364be",
+    "change": "Organize shop ledger by stockist ID using actual deliveries without save/model changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User stage2 request",
+      "works/ambertime/design/ledger-information-audit.md PR564",
+      "PR565 ledger integration",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ledger-shops/r0.lock.json",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/shop-ledger.test.mjs",
+      "works/ambertime/design/ledger-stage3/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/cask-ledger*",
+      "works/ambertime/room-scene.css"
+    ],
+    "expectedChanges": [
+      "Generate short stockist list and single detail from SHOPS IDs plus existing relations and delivery facts; nullable missing facts; no new saved fields or operations.",
+      "Read-only department interest/pending status separate from actual delivered adoption; sum deliveries once and use common release detail.",
+      "Preserve category, detail expansion, scroll and focus including asynchronous cask history; retain legacy wholesale history separately.",
+      "Targeted model projection and phone/PC browser checks, scoped gates, required CI, PR merge and Staging public asset check."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone/PC stockist list, detail, release/back focus and scroll; delayed worker switch/close; old save; save/restore unchanged."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User stage3 instruction authorizes stockist ledger only through Staging merge; excludes Production and new shops/collaborations."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard; explicit Plan Lock requested; no save or economic changes.",
+      "Expression audit: short factual labels, no subtitle, copy or decoration."
+    ],
+    "rollback": "Revert this display-only PR; existing saved format and calculations unchanged.",
+    "outOfScope": [
+      "Production",
+      "New shops, collaboration, reputation, generation UI",
+      "Save format, operations, demand or monthly model",
+      "Broad E2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver",
+      "Author adoption"
+    ]
+  }
+}
