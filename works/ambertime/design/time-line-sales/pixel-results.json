@@ -1,0 +1,74 @@
+[
+  {
+    "width": 390,
+    "room": "sales",
+    "index": 0,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 390,
+    "room": "sales",
+    "index": 1,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 390,
+    "room": "warehouse",
+    "index": 0,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 390,
+    "room": "warehouse",
+    "index": 1,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 390,
+    "room": "warehouse",
+    "index": 2,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 390,
+    "room": "warehouse",
+    "index": 3,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 1024,
+    "room": "sales",
+    "index": 0,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 1024,
+    "room": "sales",
+    "index": 1,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 1024,
+    "room": "warehouse",
+    "index": 0,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 1024,
+    "room": "warehouse",
+    "index": 1,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 1024,
+    "room": "warehouse",
+    "index": 2,
+    "pixelsIdentical": true
+  },
+  {
+    "width": 1024,
+    "room": "warehouse",
+    "index": 3,
+    "pixelsIdentical": true
+  }
+]
