@@ -1,4 +1,3 @@
-import {buildCaskLedger} from './cask-ledger.mjs?v=0.64-ledger';
 import {buildReleaseLedger} from './ledger-view.mjs?v=0.63-ledger';
 import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,releasePriceTier} from './brand-identity.mjs?v=0.58-first-brand';
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=0.52-ui-details';
@@ -275,12 +274,26 @@ function ledgerReleaseView(){
 }
 
 // Recipe/cask history is an ephemeral read projection, never part of a saved game.
-let caskSnapshot=null,caskProjection=null;
+let caskSnapshot=null,caskProjection=null,caskWorker=null,caskRequest=0;
+const caskModalVisible=()=>modal?.kind==='ledger'&&['recipes','aging'].includes(modal.section)||['recipes','ledger-recipe','ledger-cask','ledger-recipe-comparison'].includes(modal?.kind);
+const emptyCaskView=(loading,error=false)=>({recipes:{latestManual:null,saved:[],unsaved:[]},casks:[],coverage:{complete:false,fromMonth:null,replayed:false},loading,error});
 function caskData(){
- if(caskSnapshot!==game){const manual=D.nearbyComparisonFacts(game,{includeManualSources:true}),caskIds=[...new Set([...game.core.casks,...game.core.archive,...game.records,...game.releases,...manual.manualSources,...(game.recipeBook?.entries??[]).map(r=>r.source)].map(c=>c.caskId??c.id).filter(Number.isFinite))];
- const facts=D.nearbyComparisonFacts(game,{caskIds,includeManualSources:true});caskProjection=buildCaskLedger(game,{facts,replay:observer=>D.replayDistilleryOperations(game,observer)});caskSnapshot=game;}
+ if(caskSnapshot!==game){
+  const snapshot=game,requestId=++caskRequest;caskSnapshot=snapshot;caskProjection=emptyCaskView(true);caskWorker?.terminate();caskWorker=null;
+  try{
+   const worker=new Worker(new URL('./cask-ledger-worker.mjs?v=0.64.2-ledger-worker',import.meta.url),{type:'module'});caskWorker=worker;
+   const current=()=>caskWorker===worker&&caskSnapshot===snapshot&&game===snapshot;
+   const finish=()=>{worker.terminate();if(caskWorker===worker)caskWorker=null;};
+   const redraw=()=>{if(caskModalVisible()){render();restoreLedger();}};
+   worker.onmessage=({data})=>{if(data.requestId!==requestId)return;if(!current()){finish();return;}caskProjection=data.error||!data.ledger?emptyCaskView(false,true):data.ledger;finish();redraw();};
+   worker.onerror=event=>{event.preventDefault();if(!current()){finish();return;}caskProjection=emptyCaskView(false,true);finish();redraw();};
+   worker.postMessage({requestId,state:snapshot});
+  }catch{caskWorker?.terminate();caskWorker=null;caskProjection=emptyCaskView(false,true);}
+ }
  return caskProjection;
 }
+function caskLoadingView(){const data=caskData();return data.loading?'<p role="status" data-ledger-loading>記録を読んでいます…</p>':data.error?'<p role="alert">記録を読めませんでした。</p>'+button('もう一度読む','ledger-record-retry'):null;}
+
 function recipeRows(){
  const recipes=caskData().recipes,rows=new Map();
  for(const r of [...recipes.saved,...recipes.unsaved,...(recipes.latestManual?[recipes.latestManual]:[])]){if(!Number.isFinite(r.caskId))continue;const existing=rows.get(r.caskId);if(existing){if(r.saved&&!existing.savedRecipes.some(x=>x.id===r.id))existing.savedRecipes.push(r);continue;}rows.set(r.caskId,{...r,savedRecipes:r.saved?[r]:[]});}
@@ -291,13 +304,14 @@ const ledgerType=c=>uiText(P.casks[c?.type]?.short)??'記録なし';
 const ledgerBarrel=c=>P.casks[c?.type]?barrel(c.type):'';
 const ledgerCaskStatus=c=>c.status==='aging'?'熟成中':c.status==='ended'?'熟成終了':['bottled','bottled-out','finished'].includes(c.status)?'瓶詰め済み':'状態の記録なし';
 function ledgerPaged(rows,renderRow){const page=Math.min(modal.listPage??0,Math.max(0,Math.ceil(rows.length/20)-1)),start=page*20;return '<div class="ledger-release-list">'+rows.slice(start,start+20).map(renderRow).join('')+'</div>'+(rows.length>20?'<div class="history-pagination">'+button('前の20件','ledger-list-page',page-1,page===0?'disabled':'')+'<span>'+(start+1)+'–'+Math.min(rows.length,start+20)+' / '+rows.length+'</span>'+button('次の20件','ledger-list-page',page+1,start+20>=rows.length?'disabled':'')+'</div>':'');}
-function ledgerRecipeList(){const rows=recipeRows();return rows.length?ledgerPaged(rows,r=>'<button type="button" class="ledger-release-row" id="ledger-recipe-'+r.caskId+'" data-action="ledger-recipe-open" data-id="'+r.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(r)+'</span><span>'+esc(r.savedRecipes.map(x=>x.name).filter(Boolean).join('／')||'手動仕込み')+'<br>'+esc(caskName(r.caskId))+' · '+esc(ledgerType(r))+'<br>'+esc(known(r.filledMonth,monthLabel))+'</span></button>'):'<p>仕込みの記録なし</p>';}
-function ledgerCaskList(){const rows=caskData().casks.slice().sort((a,b)=>(b.filledMonth??-1)-(a.filledMonth??-1)||b.caskId-a.caskId);return rows.length?ledgerPaged(rows,c=>'<button type="button" class="ledger-release-row" id="ledger-cask-'+c.caskId+'" data-action="ledger-cask-open" data-id="'+c.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(c)+'</span><span>'+esc(caskName(c.caskId))+' · '+esc(ledgerType(c))+'<br>'+esc(known(c.filledMonth,monthLabel))+'<br>'+esc(ledgerCaskStatus(c))+' · '+esc(known(c.age,ageLabel))+'</span></button>'):'<p>たるの記録なし</p>';}
+function ledgerRecipeList(){const waiting=caskLoadingView();if(waiting)return waiting;const rows=recipeRows();return rows.length?ledgerPaged(rows,r=>'<button type="button" class="ledger-release-row" id="ledger-recipe-'+r.caskId+'" data-action="ledger-recipe-open" data-id="'+r.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(r)+'</span><span>'+esc(r.savedRecipes.map(x=>x.name).filter(Boolean).join('／')||'手動仕込み')+'<br>'+esc(caskName(r.caskId))+' · '+esc(ledgerType(r))+'<br>'+esc(known(r.filledMonth,monthLabel))+'</span></button>'):'<p>仕込みの記録なし</p>';}
+function ledgerCaskList(){const waiting=caskLoadingView();if(waiting)return waiting;const rows=caskData().casks.slice().sort((a,b)=>(b.filledMonth??-1)-(a.filledMonth??-1)||b.caskId-a.caskId);return rows.length?ledgerPaged(rows,c=>'<button type="button" class="ledger-release-row" id="ledger-cask-'+c.caskId+'" data-action="ledger-cask-open" data-id="'+c.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(c)+'</span><span>'+esc(caskName(c.caskId))+' · '+esc(ledgerType(c))+'<br>'+esc(known(c.filledMonth,monthLabel))+'<br>'+esc(ledgerCaskStatus(c))+' · '+esc(known(c.age,ageLabel))+'</span></button>'):'<p>たるの記録なし</p>';}
 function openLedgerDetail(kind,caskId,focusId){const parent=rememberLedger();modal={kind,caskId,parent,returnFocusId:focusId};render();$('dialog-body').scrollTop=0;}
 const knownProfile=p=>FLAVOR_AXES.every(({key})=>Number.isFinite(p?.[key]));
 function ledgerProfile(profile,previous=null){return profile?(knownProfile(profile)?flavorTypeView(profile):'<p>風味の記録なし</p>')+FLAVOR_AXES.map(({label,key})=>'<section class="tasting-flavor"><h3>'+esc(label)+'</h3>'+flavorMeter(profile,key,{previousProfile:previous})+'</section>').join(''):'<p>原酒の特徴 記録なし</p>';}
 function linkedReleases(c){const rows=ledgerData().entries.filter(r=>(c.releaseKeys??[]).includes(r.key));return rows.length?'<details class="ledger-related"><summary>関連する発売 '+rows.length+'回</summary>'+rows.map(releaseRow).join('')+'</details>':'<p class="quiet">関連する発売の記録なし</p>';}
 function ledgerRecipeDetail(){
+ const waiting=caskLoadingView();if(waiting)return waiting;
  const r=recipeRows().find(r=>r.caskId===modal.caskId),c=caskEntry(modal.caskId);if(!r||!c)return '<p>記録なし</p>';
  const latest=caskData().recipes.latestManual?.caskId===r.caskId,selected=game.recipeBook?.selectedId??null;
  let out='<article class="ledger-cask-detail"><span class="release-bottle">'+ledgerBarrel(c)+'</span><h3>'+esc(r.savedRecipes.map(x=>x.name).filter(Boolean).join('／')||'手動仕込み')+'</h3><p>'+esc(caskName(c.caskId))+'</p>'+copyFacts([['仕込み',known(r.filledMonth,monthLabel)],['抽出',known(r.stopAt,n=>n+' / '+extractionMaximum)],['たる',ledgerType(r)]])+'<details><summary>仕込み時の原酒</summary>'+ledgerProfile(c.initialProfile)+'</details>';
@@ -309,10 +323,12 @@ function ledgerRecipeDetail(){
  out+=button('たる・熟成の記録','ledger-cask-open',c.caskId)+linkedReleases(c);return out+'</article>';
 }
 function ledgerRecipeComparison(){
+ const waiting=caskLoadingView();if(waiting)return waiting;
  const rows=recipeRows(),a=rows.find(r=>r.caskId===modal.caskId),b=rows.find(r=>r.caskId===modal.otherId);if(!a||!b)return '<p>記録なし</p>';const pair=[a,b];
  return '<label for="ledger-compare-choice">比べる仕込み</label><select id="ledger-compare-choice">'+rows.filter(r=>r.caskId!==a.caskId).map(r=>'<option value="'+r.caskId+'"'+(r.caskId===b.caskId?' selected':'')+'>'+esc(caskName(r.caskId)+' '+(r.savedRecipes[0]?.name??ledgerType(r)))+'</option>').join('')+'</select><div class="nearby-pair">'+pair.map(r=>'<article><span class="nearby-art">'+ledgerBarrel(r)+'</span><strong>'+esc(caskName(r.caskId))+'</strong></article>').join('')+'</div>'+compareFact('抽出位置',...pair.map(r=>esc(known(r.stopAt,n=>n+' / '+extractionMaximum))))+compareFact('たる',...pair.map(r=>esc(ledgerType(r))))+compareFact('仕込み',...pair.map(r=>esc(known(r.filledMonth,monthLabel))))+FLAVOR_AXES.map(({label,key})=>compareFact(label,...pair.map(r=>flavorMeter(caskEntry(r.caskId)?.initialProfile,key)))).join('');
 }
 function ledgerCaskDetail(){
+ const waiting=caskLoadingView();if(waiting)return waiting;
  const c=caskEntry(modal.caskId);if(!c)return '<p>記録なし</p>';let out='<article class="ledger-cask-detail"><span class="release-bottle">'+ledgerBarrel(c)+'</span><h3>'+esc(caskName(c.caskId))+'</h3>'+copyFacts([['仕込み',known(c.filledMonth,monthLabel)],['たる',ledgerType(c)],['状態',ledgerCaskStatus(c)],['熟成記録',known(c.age,ageLabel)],['原酒量',known(c.litres,n=>n.toFixed(1)+' L')]])+'';
  if(c.status==='aging'){out+=button('試す','ledger-cask-taste',c.caskId);if(game.core.casks.length>1)out+=button('比べる','ledger-cask-compare',c.caskId);}
  const sourceId=recipeRows().some(r=>r.caskId===c.caskId)?c.caskId:c.commissionedFrom?.caskId;
@@ -798,6 +814,7 @@ function handleModal(e){
  if(a==='staff-mode'&&kind==='staff-request'&&['once','three','continuous'].includes(b.dataset.id)&&game.staff.hired){modal.requestMode=b.dataset.id;render();return;}
  if(a==='staff-confirm'&&kind==='staff-request'&&staffCanRequest()){const sourceId=modal.caskId,mode=modal.requestMode;act(s=>sourceId===null?D.reserveUsual(D.endTasting(s),mode):D.reserveStaff(D.endTasting(s),sourceId,mode),()=>{modal=null;room='distill';message('仕込みを依頼しました。');});return;}
 
+ if(a==='ledger-record-retry'&&caskModalVisible()){caskSnapshot=null;render();return;}
  if(a==='ledger-recipe-open'&&['ledger','recipes','ledger-cask'].includes(kind)&&recipeRows().some(r=>r.caskId===id)){openLedgerDetail('ledger-recipe',id,b.id);return;}
  if(a==='ledger-cask-open'&&['ledger','ledger-recipe','ledger-cask'].includes(kind)&&caskData().casks.some(c=>c.caskId===id)){openLedgerDetail('ledger-cask',id,b.id);return;}
  if(a==='ledger-list-page'&&(kind==='recipes'||kind==='ledger'&&['recipes','aging'].includes(modal.section))&&Number.isInteger(id)&&id>=0){modal.listPage=id;render();$('dialog-body').scrollTop=0;return;}

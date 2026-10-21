@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a3081ded0844a5448974c61fafeee11be2dc958aa5e26ff50ca716e8c25e8df1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ledger-worker",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "42559dd278c5ba44c080441e2b655cfd21129e0b",
+    "change": "Move cask ledger cold replay off the UI thread, keep responsive cancellable ledger navigation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User stage2 request",
+      "works/ambertime/design/ledger-information-audit.md PR564",
+      "PR565 ledger integration",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ledger-worker/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/tests/cask-ledger-worker.test.mjs",
+      "works/ambertime/design/ledger-stage2/browser-review.mjs",
+      "works/ambertime/design/ledger-stage2/browser-results.json",
+      "works/ambertime/design/ledger-stage2/review.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/cask-ledger.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/*-art.mjs"
+    ],
+    "expectedChanges": [
+      "Read-only module Worker builds existing cask projection using validated public facts and replay, root caches exactsnapshot response and ignores/terminates stale requests. No synchronous replay fallback or model/save/projection changes.",
+      "Existing modal shows minimal loading/error/retry state while classification/close remain usable. Restore selected detail/scroll/focus after current result arrives. Preserve manual/staff source chain, tasting, comparison and shared releases.",
+      "Scoped worker tests exact projection, request identity and error recovery; existingphone/PC source/tasting/save/navigation checks adapt to asynchronous load. Valid 13-release history UI responsiveness during delayed worker/result, stale and retry cases.",
+      "Fresh lock Scope Risk Impact trustedstatic, required CI, PR and Staging/public finalcheck."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Worker tests plus changed async UI/source flows and same readonly save/restore; 13-release responsive close/switch and error/retry; no game-wide E2E/longplay"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes stage2 recipe and cask display/navigation changes through Staging merge, no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "P1 review onPR566 reproduces1.2s synchronous cold replay with255ops; resolve before declaring task complete",
+      "WORK/Standard existing work-local module Worker pattern; no shared worker/runtime policy changes",
+      "Expression audit: necessary read/loading/error/retry only, no decorative UI",
+      "Fresh immutable r0 before worker implementation"
+    ],
+    "rollback": "Revert this display-only PR; existing saved format and calculations unchanged.",
+    "outOfScope": [
+      "Production",
+      "Game/model/save/operations and cask projection algorithms",
+      "Other room/HUD/sprite/shop/generation changes",
+      "Broad E2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}

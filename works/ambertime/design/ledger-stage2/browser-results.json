@@ -53,6 +53,19 @@
       },
       "sourceAndBack": true,
       "saveUnchanged": true
+    },
+    {
+      "responsiveWorker": {
+        "operations": 273,
+        "releases": 13,
+        "artificialWorkerDelayMs": 2000,
+        "openingMs": 54,
+        "closeMs": 47
+      },
+      "switchAndCloseDuringRead": true,
+      "errorRetry": true,
+      "saveUnchanged": true,
+      "mainThreadReplay": false
     }
   ],
   "errors": [],
