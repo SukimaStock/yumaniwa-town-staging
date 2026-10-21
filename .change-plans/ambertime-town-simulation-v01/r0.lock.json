@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "31fbdefa2b997a1fa1b0e0f1882c5a9c56b82de3dea3fd909a9f664dd9ca728d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-town-simulation-v01",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent 100-year town simulator with branching responses, long memory and exportable causal logs",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "80e4b75cd0cf235fe0e98f0c2c44a4df8fa76c09",
+    "canonicalSources": [
+      "User AmberTime0.24.4 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md / CHANGE-OPERATIONS.md / CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "Reputation v03-v05 and PR575-578",
+      "AmberTime monthly/generations/partner-orders and pixel art read-only"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-town-simulation-v01/r0.lock.json",
+      "works/ambertime/experiments/town-simulation/v01/**",
+      "works/ambertime-town-simulation-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "index.html",
+      "style.css",
+      "main.js",
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime-reputation-lab/**",
+      "works/ambertime-reputation-world-lab/**",
+      "works/ambertime-reputation-encounter-lab/**"
+    ],
+    "expectedChanges": [
+      "Independent deterministic monthly model using existing affinity/seed/guest concepts; separate shipment, rumor, arrival, reaction, trade and sale semantics; four barrel limit and conserved inventory.",
+      "Four paired conditions normal/chance/responses/memory; domestic and overseas use same branching reactions; bounded memory seeds from actual release and encounter, finite recalls across generation.",
+      "Integer pixel schematic town; only distillery/liquorstore initially, progressive awareness/contact/discovery; no formal map or existing asset redraw; modest two-frame people/parcels.",
+      "Play/pause 1x2x, chunked monthly advance to10/30/60/100, seed/reset/product/policy controls; bounded news page with full causal details; deterministic JSON download and copied text report.",
+      "Multi-seed comparison,100year replay, conservation/references/UI checks and honest quiet/failed/stagnant cases; no imposed overseas arrival year.",
+      "New active launcher and PrototypeBench entry via existing schemas; old Lab→LAB→new simulator navigation without editing oldLab."
+    ],
+    "ownerDecisions": [
+      "User0.24.4 explicitly authorizes independent simulator, PR, required CI, Staging merge/publication; existingLab/main/save/Production protected."
+    ],
+    "hqDecisions": [
+      "New independent model reuses read-only old model definitions, no native integrations. Separate finite reactions and trade eligibility avoid recognition=buying. Existing LAB registration schema; no shared runtime contract change."
+    ],
+    "rulesApplied": [
+      "Plan-only commit before implementation",
+      "AGENTS delegation by independent owned paths, model+UI+read-only review",
+      "Expression audit minimal necessary controls and factual causal news"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Model replay paired modes/seeds,100years,4barrel/stock conservation,event ancestry,finite memory/recall,domestic+overseas and handovers.",
+      "390/360/1280 UI controls, map growth, news paging/detail, JSONdownload/textcopy matching state, no storage and responsive advance.",
+      "Lifecycle checks, unchanged protected paths, ScopeRiskImpact, requiredCI and Pages exact deployment."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert new simulator/launcher and registry/LAB additions as one unit",
+    "outOfScope": [
+      "Main/oldLab/Production changes",
+      "Native demand/economy/save integration",
+      "Formal town map",
+      "More managed distilleries",
+      "Guaranteed discovery or real population likelihood"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/Safari",
+      "Author adoption",
+      "Real-world rates/native economic balance"
+    ],
+    "alternativesRejected": [
+      "Change oldLab/main",
+      "calendar-only unlocks",
+      "rumor as purchase",
+      "unbounded memory replay",
+      "all-at-once synchronous100year render"
+    ],
+    "boundaryCases": [
+      "zero/invalidseed",
+      "no chance/quiet periods",
+      "untraded interest",
+      "same source multiple reactions",
+      "delayed recurrence afterhandover",
+      "outofstock/trade no shipment",
+      "100years and capped news rendering",
+      "reset during advance",
+      "midrun policy changes replay"
+    ],
+    "testPlan": [
+      "Model invariant and finite multi-seed100year comparison",
+      "Focused browser UI and exports",
+      "Lifecycle,ScopeRiskImpact,requiredCI/deploy"
+    ],
+    "problem": "Observe what happens after rumor arrival over100years without expanding management or conflating awareness and sales.",
+    "currentContract": "Immutable Lab0.3-0.5 and native economy/shipping/save. Existing lifecycle/LAB schemas.",
+    "whyExistingIsInsufficient": "Existing Lab shows recognition but not explicit postarrival branches, recurring memories or state-revealed pixel town.",
+    "design": "Independent monthly model and UI; bounded causal events and memories, real shipment basis, reproducible exports and finite map.",
+    "migration": "None; in-memory independent model.",
+    "compatibility": "No main/oldLab/save modifications. Existing LAB links provide indirect entry.",
+    "promotionRisk": "Staging-only independentLab; no main adoption/Production authorization."
+  }
+}
