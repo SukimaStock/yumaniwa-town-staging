@@ -1,0 +1,24 @@
+{
+  "url": "https://drive.google.com/file/d/1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi/view",
+  "title": "AmberTime.txt",
+  "modified": "2026-09-30T01:45:05.043Z",
+  "sections": [
+    {
+      "name": "WarehouseShelves:draw",
+      "startLine": 1653,
+      "endLine": 1672,
+      "code": "    -- shelf structure (unchanged)\n    for r = 0, maxRow do\n        local rowY = self.startY + r * self.cellH\n        \n        local POST_W = 2\n        local POST_H = self.cellH\n        \n        rMatrix:rect(self.startX - 3, rowY, POST_W, POST_H, 12)\n        rMatrix:rect(self.startX - 3 + POST_W, rowY, POST_W, POST_H, 10)\n        \n        rMatrix:rect(self.startX + self.gridWidth + 1, rowY, POST_W, POST_H, 10)\n        rMatrix:rect(self.startX + self.gridWidth + 1 + POST_W, rowY, POST_W, POST_H, 12)\n        \n        local shelfY = rowY + self.itemH + 1\n        local SHELF_W = self.gridWidth + 8\n        \n        rMatrix:rect(self.startX - 4, shelfY - 1, SHELF_W, 3, 16)\n        rMatrix:rect(self.startX - 4, shelfY,     SHELF_W, 1, 12)\n        rMatrix:rect(self.startX - 4, shelfY + 1, SHELF_W, 1, 11)\n        rMatrix:rect(self.startX - 4, shelfY + 2, SHELF_W, 1, 10)"
+    },
+    {
+      "name": "GameRenderer:createBackgroundCache",
+      "startLine": 5348,
+      "endLine": 5363,
+      "code": "    -- Draw Walls (Brick/Stone)\n    for y = floorY, self.H do\n        for x = 1, self.W do\n            cacheMatrix:rect(x, y, 1, 1, C_WALL_BASE)\n            \n            -- Brick pattern\n            local row = math.floor((y - floorY) / 5)\n            local shift = (row % 2) * 4\n            if (y - floorY) % 5 == 0 or (x + shift) % 8 == 0 then\n                cacheMatrix:rect(x, y, 1, 1, C_WALL_SHADOW)\n            end\n            \n            -- Vignette edges\n            if x < 10 then\n                if (x + y) % 2 == 0 then cacheMatrix:rect(x, y, 1, 1, 16) end\n            end"
+    }
+  ],
+  "adaptations": [
+    "Codea y points upward, Web y downward: source shelf colors10/11/12/16 map upper-to-lower; keep existing Web footprint",
+    "Original left checker x<10 and parity(x+y)%2; Web mirror right and reduce contrast per request; native9 columns each",
+    "Original bottle source12x12 (cask16x16), unchanged arrays; only Fancy rendered label column x7 rows5..7"
+  ]
+}

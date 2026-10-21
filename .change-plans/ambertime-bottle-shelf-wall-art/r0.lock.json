@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d6753fd3c801520131cc73f14c1c74e7a9022ca8027d86698210f6ba4e99413e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-bottle-shelf-wall-art",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "eeeeacb4f1df27f7310a3081ba85fe80652ab0a4",
+    "change": "Adjust only Fancy label right column, Codea shelf depth and symmetric wall edge checker texture",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User bottle/shelf/wall instruction and IMG_6172(1).png / IMG_6173(1).png / IMG_6155(5).png",
+      "Google Drive AmberTime.txt 1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi: WarehouseShelves:draw L1653-1672 and GameRenderer:createBackgroundCache L5348-5363",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "Current main PR561/560/559"
+    ],
+    "allowedPaths": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/design/bottle-shelf-wall/**",
+      ".change-plans/ambertime-bottle-shelf-wall-art/r0.lock.json",
+      "works/ambertime/tests/codea-object-art.test.mjs",
+      "works/ambertime/tests/first-brand-art.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/pixel-symbols.mjs"
+    ],
+    "expectedChanges": [
+      "Fancy bottle render-only label override x7,y5..7: one native column added using existing label color. Keep x5y6 center blended. Immutable source matrices unchanged; actual original bottle12x12 (cask16x16). All other bottle shapes/caps/glass/art unchanged.",
+      "Warehouse/sales shelf only: same x/y/width/rows/posts and item positions. Translate Codea 10/11/12/16 top-to-bottom shelf layers into existing12 logicalpx total rail footprint: upper dark3/front wood3/lip light3/underside shadow3. Keep bench rail and apparatus unchanged.",
+      "Wall-only edges: native9-cell wide bands at x0..8 and mirrored119..111, checker alternates one nativecell per parity (x+y)%2; same wall extent only. Use subdued #2d2d36 instead of source16. Draw before furniture; central wall and floor unchanged.",
+      "Cache-only entry and art dependency versions0.62-bottle-shelf-wall. Focused comparison phonePC warehouse/sales and native bottle plus source shelf/checker strips; basic selection/preview/navigation, protected pixel crops, exact save/layout/hit comparison. CI/PR/Staging merge/public check.",
+      "Update two existing art regression expectations for specified Fancy3 label cells, preserving all other exact-cell/source/cap checks."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "390x844 iPhone-equivalent and1024x768 PC same-state before/after; bottle all4 shapes labels2/caps3 only Fancy3 color cells differ; shelf source structure/right-left symmetric checker/native integer pixels; basic preview/select/nav only. No broad E2E or longplay."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes only three drawing changes through PR/CI/safe Staging merge/public check."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Native art remains; only specified Fancy label column override",
+      "Source-code shelf layering/checker pattern distinguished from adapted shelf dimensions, muted hatch color and mirrored right side",
+      "Expression audit no new copy or decoration beyond explicitly requested texture",
+      "Fresh immutable r0 lock before implementation; Scope Risk Impact"
+    ],
+    "rollback": "Revert this drawing-only change; no model/save migration.",
+    "outOfScope": [
+      "Production",
+      "Model/economy/save/brand/history/calculations",
+      "Apparatus/pipe/glass/casks/other3bottles/caps/HUD/timebar/lowerUI/modal layout",
+      "Furniture position/width/rows/items",
+      "BroadE2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}

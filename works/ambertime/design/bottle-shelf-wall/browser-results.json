@@ -1,0 +1,3008 @@
+{
+  "base": "eeeeacb4f1df27f7310a3081ba85fe80652ab0a4",
+  "browser": "153.0.8010.0",
+  "passed": true,
+  "captures": {
+    "before": [
+      {
+        "name": "390-sales",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [
+          {
+            "id": 12,
+            "stock": 25,
+            "status": "販売中",
+            "count": {
+              "x": 90,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年1月",
+              "lines": 1,
+              "x": 114,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 114,
+              "y": 290.15384615384613,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 96,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          },
+          {
+            "id": 17,
+            "stock": 5,
+            "status": "保管中",
+            "count": {
+              "x": 222,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年3月",
+              "lines": 1,
+              "x": 246,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 246,
+              "y": 290.15384615384613,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 228,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "390-warehouse",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-19",
+            "selector": "#cask-rack [data-cask-id=\"19\"]",
+            "x": 60,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-21",
+            "selector": "#cask-rack [data-cask-id=\"21\"]",
+            "x": 192,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "390-distill",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "start-distill",
+            "selector": "#start-distill",
+            "x": 126,
+            "y": 414,
+            "w": 108,
+            "h": 45
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "1024-sales",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [
+          {
+            "id": 12,
+            "stock": 25,
+            "status": "販売中",
+            "count": {
+              "x": 90,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年1月",
+              "lines": 1,
+              "x": 114,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 114,
+              "y": 288,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 96,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          },
+          {
+            "id": 17,
+            "stock": 5,
+            "status": "保管中",
+            "count": {
+              "x": 222,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年3月",
+              "lines": 1,
+              "x": 246,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 246,
+              "y": 288,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 228,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "1024-warehouse",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-19",
+            "selector": "#cask-rack [data-cask-id=\"19\"]",
+            "x": 60,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-21",
+            "selector": "#cask-rack [data-cask-id=\"21\"]",
+            "x": 192,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "1024-distill",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "start-distill",
+            "selector": "#start-distill",
+            "x": 126,
+            "y": 414,
+            "w": 108,
+            "h": 45
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      }
+    ],
+    "after": [
+      {
+        "name": "390-sales",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [
+          {
+            "id": 12,
+            "stock": 25,
+            "status": "販売中",
+            "count": {
+              "x": 90,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年1月",
+              "lines": 1,
+              "x": 114,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 114,
+              "y": 290.15384615384613,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 96,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          },
+          {
+            "id": 17,
+            "stock": 5,
+            "status": "保管中",
+            "count": {
+              "x": 222,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年3月",
+              "lines": 1,
+              "x": 246,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 246,
+              "y": 290.15384615384613,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 228,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "390-warehouse",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-19",
+            "selector": "#cask-rack [data-cask-id=\"19\"]",
+            "x": 60,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-21",
+            "selector": "#cask-rack [data-cask-id=\"21\"]",
+            "x": 192,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "390-distill",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "start-distill",
+            "selector": "#start-distill",
+            "x": 126,
+            "y": 414,
+            "w": 108,
+            "h": 45
+          }
+        ],
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "1024-sales",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [
+          {
+            "id": 12,
+            "stock": 25,
+            "status": "販売中",
+            "count": {
+              "x": 90,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年1月",
+              "lines": 1,
+              "x": 114,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 114,
+              "y": 288,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 96,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          },
+          {
+            "id": 17,
+            "stock": 5,
+            "status": "保管中",
+            "count": {
+              "x": 222,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年3月",
+              "lines": 1,
+              "x": 246,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 246,
+              "y": 288,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 228,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "1024-warehouse",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-19",
+            "selector": "#cask-rack [data-cask-id=\"19\"]",
+            "x": 60,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-21",
+            "selector": "#cask-rack [data-cask-id=\"21\"]",
+            "x": 192,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      },
+      {
+        "name": "1024-distill",
+        "save": "dd663dbe10a56b05788ed7d0a6338eb66334121fbe838f75fc7189915a3f19ea",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "start-distill",
+            "selector": "#start-distill",
+            "x": 126,
+            "y": 414,
+            "w": 108,
+            "h": 45
+          }
+        ],
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "time": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "overflow": false
+      }
+    ]
+  },
+  "checks": [
+    {
+      "name": "390-sales",
+      "changedNativeCells": 1938,
+      "differenceConfined": true,
+      "mirrorEqual": true,
+      "shelfLayers": [
+        "#3c281e",
+        "#644632",
+        "#a0785a",
+        "#19141e"
+      ]
+    },
+    {
+      "name": "390-warehouse",
+      "changedNativeCells": 1932,
+      "differenceConfined": true,
+      "mirrorEqual": true,
+      "shelfLayers": [
+        "#3c281e",
+        "#644632",
+        "#a0785a",
+        "#19141e"
+      ]
+    },
+    {
+      "name": "390-distill",
+      "changedNativeCells": 1404,
+      "differenceConfined": true,
+      "mirrorEqual": true,
+      "shelfLayers": null
+    },
+    {
+      "name": "1024-sales",
+      "changedNativeCells": 1938,
+      "differenceConfined": true,
+      "mirrorEqual": true,
+      "shelfLayers": [
+        "#3c281e",
+        "#644632",
+        "#a0785a",
+        "#19141e"
+      ]
+    },
+    {
+      "name": "1024-warehouse",
+      "changedNativeCells": 1932,
+      "differenceConfined": true,
+      "mirrorEqual": true,
+      "shelfLayers": [
+        "#3c281e",
+        "#644632",
+        "#a0785a",
+        "#19141e"
+      ]
+    },
+    {
+      "name": "1024-distill",
+      "changedNativeCells": 1404,
+      "differenceConfined": true,
+      "mirrorEqual": true,
+      "shelfLayers": null
+    },
+    {
+      "previewBothLabels": true,
+      "draftCancelUnchanged": true
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver",
+    "Author adoption"
+  ]
+}
