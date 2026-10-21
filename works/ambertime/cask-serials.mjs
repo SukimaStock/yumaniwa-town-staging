@@ -1,4 +1,4 @@
-import * as D from './partner-orders.mjs?v=0.50-staff-experience';
+import * as D from './partner-orders.mjs?v=0.58-first-brand';
 import {caskCreationIds} from './trade.mjs?v=0.38-cask-serials';
 // This index is a disposable projection, never part of game state or a save.
 export class CaskSerialIndex {
