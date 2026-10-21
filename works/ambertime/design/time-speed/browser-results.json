@@ -1,0 +1,226 @@
+{
+  "base": "c5631d37b185ecd9b0a10364c1937426a36877e3",
+  "checks": [
+    {
+      "width": 390,
+      "menuToggle": true,
+      "pausedNoAdvance": true,
+      "pauseResumeKeepsRate": true,
+      "roomKeepsRate": true
+    },
+    {
+      "width": 390,
+      "staleCallbackGuard": true,
+      "modalStops": true,
+      "maxOneTimer": true
+    },
+    {
+      "width": 390,
+      "fixture": "automatic",
+      "speed": 1,
+      "month": 4,
+      "stateHash": "8444da29cf9cb71144e745757e75d64fd5fc82b1e722bba6c58625e6160e56e5",
+      "timers": {
+        "active": 0,
+        "max": 1,
+        "calls": 180,
+        "delays": [
+          100
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "fixture": "automatic",
+      "speed": 2,
+      "month": 4,
+      "stateHash": "8444da29cf9cb71144e745757e75d64fd5fc82b1e722bba6c58625e6160e56e5",
+      "timers": {
+        "active": 0,
+        "max": 1,
+        "calls": 180,
+        "delays": [
+          50
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "fixture": "pending",
+      "speed": 1,
+      "month": 62,
+      "stateHash": "8966b51fe0a82b320121e84f58cdbbba4892af7d73505da20e92ae8806bb3986",
+      "timers": {
+        "active": 0,
+        "max": 1,
+        "calls": 60,
+        "delays": [
+          100
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "fixture": "pending",
+      "speed": 2,
+      "month": 62,
+      "stateHash": "8966b51fe0a82b320121e84f58cdbbba4892af7d73505da20e92ae8806bb3986",
+      "timers": {
+        "active": 0,
+        "max": 1,
+        "calls": 60,
+        "delays": [
+          50
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "fixture": "funds",
+      "speed": 1,
+      "stopped": true,
+      "stateHash": "d87ab4f8dccabbea17a85fb9fc399e3d2ca1c9cc0ff7137f5bd54e2f47d70c51"
+    },
+    {
+      "width": 390,
+      "fixture": "funds",
+      "speed": 2,
+      "stopped": true,
+      "stateHash": "d87ab4f8dccabbea17a85fb9fc399e3d2ca1c9cc0ff7137f5bd54e2f47d70c51"
+    },
+    {
+      "width": 390,
+      "fixture": "generation",
+      "speed": 1,
+      "stopped": true,
+      "stateHash": "d12da2aa6809e0be8a4ec8f9150001c8521b5909221d19ea2da8a5251a0f396e"
+    },
+    {
+      "width": 390,
+      "fixture": "generation",
+      "speed": 2,
+      "stopped": true,
+      "stateHash": "d12da2aa6809e0be8a4ec8f9150001c8521b5909221d19ea2da8a5251a0f396e"
+    },
+    {
+      "width": 390,
+      "backgroundStopsAndResumes": true,
+      "restoreSameGameAndElapsed": true,
+      "restoreNormalRate": true,
+      "saveConflictStops": true
+    },
+    {
+      "width": 1024,
+      "menuToggle": true,
+      "pausedNoAdvance": true,
+      "pauseResumeKeepsRate": true,
+      "roomKeepsRate": true
+    },
+    {
+      "width": 1024,
+      "staleCallbackGuard": true,
+      "modalStops": true,
+      "maxOneTimer": true
+    },
+    {
+      "width": 1024,
+      "fixture": "automatic",
+      "speed": 1,
+      "month": 4,
+      "stateHash": "8444da29cf9cb71144e745757e75d64fd5fc82b1e722bba6c58625e6160e56e5",
+      "timers": {
+        "active": 0,
+        "max": 1,
+        "calls": 180,
+        "delays": [
+          100
+        ]
+      }
+    },
+    {
+      "width": 1024,
+      "fixture": "automatic",
+      "speed": 2,
+      "month": 4,
+      "stateHash": "8444da29cf9cb71144e745757e75d64fd5fc82b1e722bba6c58625e6160e56e5",
+      "timers": {
+        "active": 0,
+        "max": 1,
+        "calls": 180,
+        "delays": [
+          50
+        ]
+      }
+    },
+    {
+      "width": 1024,
+      "fixture": "pending",
+      "speed": 1,
+      "month": 62,
+      "stateHash": "8966b51fe0a82b320121e84f58cdbbba4892af7d73505da20e92ae8806bb3986",
+      "timers": {
+        "active": 0,
+        "max": 1,
+        "calls": 60,
+        "delays": [
+          100
+        ]
+      }
+    },
+    {
+      "width": 1024,
+      "fixture": "pending",
+      "speed": 2,
+      "month": 62,
+      "stateHash": "8966b51fe0a82b320121e84f58cdbbba4892af7d73505da20e92ae8806bb3986",
+      "timers": {
+        "active": 0,
+        "max": 1,
+        "calls": 60,
+        "delays": [
+          50
+        ]
+      }
+    },
+    {
+      "width": 1024,
+      "fixture": "funds",
+      "speed": 1,
+      "stopped": true,
+      "stateHash": "d87ab4f8dccabbea17a85fb9fc399e3d2ca1c9cc0ff7137f5bd54e2f47d70c51"
+    },
+    {
+      "width": 1024,
+      "fixture": "funds",
+      "speed": 2,
+      "stopped": true,
+      "stateHash": "d87ab4f8dccabbea17a85fb9fc399e3d2ca1c9cc0ff7137f5bd54e2f47d70c51"
+    },
+    {
+      "width": 1024,
+      "fixture": "generation",
+      "speed": 1,
+      "stopped": true,
+      "stateHash": "d12da2aa6809e0be8a4ec8f9150001c8521b5909221d19ea2da8a5251a0f396e"
+    },
+    {
+      "width": 1024,
+      "fixture": "generation",
+      "speed": 2,
+      "stopped": true,
+      "stateHash": "d12da2aa6809e0be8a4ec8f9150001c8521b5909221d19ea2da8a5251a0f396e"
+    },
+    {
+      "width": 1024,
+      "backgroundStopsAndResumes": true,
+      "restoreSameGameAndElapsed": true,
+      "restoreNormalRate": true,
+      "saveConflictStops": true
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver",
+    "Author feel/adoption"
+  ]
+}
