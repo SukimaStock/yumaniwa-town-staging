@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "browser": "153.0.8010.0",
+  "checks": [
+    {
+      "width": 390,
+      "height": 844,
+      "touch": true,
+      "first": true,
+      "choices": [
+        4,
+        2
+      ],
+      "nativePreview": "12x12",
+      "cancelUnchanged": true,
+      "keyboardHeight": 500,
+      "nameEscaped": true,
+      "partialRepeat": true,
+      "priceTiers": [
+        "low",
+        "standard",
+        "high"
+      ],
+      "ledgerCaps": true,
+      "coldRestore": true,
+      "existingHistoryUnchanged": true,
+      "store": true,
+      "layout": {
+        "x": 12,
+        "y": 152,
+        "w": 366,
+        "h": 541,
+        "scrollHeight": 535,
+        "clientHeight": 535
+      }
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "touch": false,
+      "first": true,
+      "choices": [
+        4,
+        2
+      ],
+      "nativePreview": "12x12",
+      "cancelUnchanged": true,
+      "keyboardHeight": null,
+      "nameEscaped": true,
+      "partialRepeat": true,
+      "priceTiers": [
+        "low",
+        "standard",
+        "high"
+      ],
+      "ledgerCaps": true,
+      "coldRestore": true,
+      "existingHistoryUnchanged": true,
+      "store": true,
+      "layout": {
+        "x": 308,
+        "y": 108,
+        "w": 408,
+        "h": 553,
+        "scrollHeight": 545,
+        "clientHeight": 545
+      }
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/IME/keyboard: simulated viewport and input only",
+    "Author adoption"
+  ]
+}

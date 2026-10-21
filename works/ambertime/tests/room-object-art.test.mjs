@@ -44,11 +44,11 @@ test('glass preserves original liquid colors at and immediately across every bou
  assert.equal(glass(),glass(0));
 });
 
-test('original bottle shapes use source labels independent of saved wood and label values',()=>{
- assert.notEqual(brandArt(0),brandArt(0,{bottle:'slender'}));
+test('original bottle shapes use selected labels independently of wood',()=>{
+ assert.notEqual(brandArt(0),brandArt(0,{bottle:'slender'}));assert.notEqual(brandArt(0),brandArt(0,{label:'dark'}));
  for(const wood of [0,.2,.200001,.6,.600001,1])for(const label of ['paper','dark']){
-  assert.equal(bottleArt(wood),brandArt(wood,{bottle:'standard',label}));
-  assert.equal(brandArt(wood,{bottle:'slender',label}),brandArt(0,{bottle:'slender'}));
+  assert.equal(brandArt(wood,{bottle:'standard',label}),brandArt(0,{bottle:'standard',label}));
+  assert.equal(brandArt(wood,{bottle:'slender',label}),brandArt(0,{bottle:'slender',label}));
  }
  assert.equal(brandArt(.4,{name:'<script>alert(1)</script>',bottle:'unknown',label:'unknown'}),brandArt());
 });

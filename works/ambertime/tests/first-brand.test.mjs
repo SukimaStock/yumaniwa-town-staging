@@ -1,0 +1,26 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {execFileSync}from'node:child_process';
+import * as D from '../partner-orders.mjs';import {fill,advance}from'./brands-helpers.mjs';import{IDENTITY_BOTTLES,IDENTITY_LABELS,releasePriceTier}from'../brand-identity.mjs';import{brandReputation}from'../brand-reputation.mjs';
+const id=s=>s.core.casks[0].id;
+const cold=s=>{const text=D.serializeDistillery(s);assert.equal(execFileSync(process.execPath,['--input-type=module','-e',`import fs from 'node:fs';import * as D from ${JSON.stringify(new URL('../partner-orders.mjs',import.meta.url).href)};process.stdout.write(D.serializeDistillery(D.restoreDistillery(fs.readFileSync(0,'utf8'))));`],{input:text,encoding:'utf8',maxBuffer:8e6}),text);return D.restoreDistillery(text);};
+test('first transaction configures existing singleton for all four shapes and two labels; repeats inherit',()=>{
+ for(const bottle of IDENTITY_BOTTLES)for(const label of IDENTITY_LABELS){let s=fill(D.newBrandIdentityDistillery(42));assert(D.needsBrandSetup(s));const before=D.serializeDistillery(s),cash=s.core.cash,c=id(s);s=D.bottleBranded(s,c,{name:'  川と麦 <&>  ',bottle:bottle.id,label:label.id},5);assert.notEqual(D.serializeDistillery(s),before);assert.equal(s.core.cash,cash-15);assert.equal(s.brands.length,1);assert.deepEqual(s.brands[0],{id:1,name:'川と麦 <&>',bottle:bottle.id,label:label.id,createdMonth:0});assert.equal(D.needsBrandSetup(s),false);const brand=structuredClone(s.brands[0]);s=cold(s);s=D.bottleBranded(s,c,{},3);assert.deepEqual(s.brands,[brand]);assert(s.releases.every(r=>r.brandId===1));assert(s.records.every(r=>r.name===brand.name));cold(s);}
+});
+test('invalid names/designs and failed transactions never commit identity or consume input state',()=>{
+ const s=fill(D.newBrandIdentityDistillery(42)),raw=D.serializeDistillery(s),c=id(s);
+ for(const selection of [{name:''},{name:'   '},{name:'a'.repeat(41)},{name:'a\nb'},{bottle:'other'},{label:'other'},{brandId:1}]){assert.throws(()=>D.bottleBranded(s,c,selection,5));assert.equal(D.serializeDistillery(s),raw);}
+ assert.throws(()=>D.bottleBranded(s,c,{name:'Good'},999));assert(D.needsBrandSetup(s));assert.equal(D.serializeDistillery(s),raw);
+ const j=D.bottleBranded(s,c,{},1),saved=D.serializeDistillery(j);assert.equal(j.brands[0].name,'AmberTime');for(const input of [{name:'Rename'},{bottle:'fancy'},{label:'dark'},{brandId:2}])assert.throws(()=>D.bottleBranded(j,c,input,1));assert.equal(D.serializeDistillery(j),saved);
+});
+test('configured identity follows manual partial and actual automatic bottling without changing old economics',()=>{
+ let s=D.newBrandIdentityDistillery(42);for(let cycle=0;cycle<4;cycle++){s=advance(fill(s,{progress:65}),6);const c=s.core.casks.at(-1).id;s=D.bottleBranded(s,c,cycle?{}:{name:'麦の家',bottle:'square',label:'dark'});s=D.listBottles(D.setSalePrice(s,'low',s.result.productId),s.result.productId);s=advance(s,6);}
+ s=D.hireBottlingStaff(s);s=fill(s,{progress:65});const c=id(s),brand=structuredClone(s.brands[0]);s=D.bottleBranded(s,c,{},2);s=D.setBottlingPolicy(s,{mode:'age',age:1,count:5});s=D.delegateBottling(s,c);s=advance(s,1);assert.equal(s.automation.lastBottlings[0].count,5);assert.equal(s.automation.lastBottlings[0].salary,2);assert.equal(s.result.name,'麦の家');assert.equal(s.releases.at(-1).brandId,1);assert.deepEqual(s.brands,[brand]);assert.equal(releasePriceTier(s,s.result.productId),'standard');cold(s);
+});
+test('old saves retain exact identity/history/reputation; missing design alone is recovered from replay',()=>{
+ let old=advance(fill(D.newStaffExperienceDistillery(42)),6);old=D.bottleBranded(old,id(old),{},5);old=D.listBottles(old,old.result.productId);old=advance(old,1);const raw=D.serializeDistillery(old),stats=brandReputation(old,1),migrated=D.enableBrandIdentity(D.restoreDistillery(raw));assert.equal(D.serializeDistillery(old),raw);assert.deepEqual(migrated.brands,old.brands);assert.deepEqual(migrated.releases,old.releases);assert.deepEqual(migrated.core,old.core);assert.deepEqual(brandReputation(migrated,1),stats);assert.equal(D.needsBrandSetup(migrated),false);cold(migrated);
+ const missing=JSON.parse(raw);delete missing.brands[0].bottle;delete missing.brands[0].label;assert.equal(D.serializeDistillery(D.restoreDistillery(JSON.stringify(missing))),raw);
+ const corrupt=JSON.parse(raw);delete corrupt.brands[0].bottle;corrupt.brands[0].name='Tamper';assert.throws(()=>D.restoreDistillery(JSON.stringify(corrupt)));
+ let legacy=fill(D.newBrandedDistillery(7));legacy=D.bottleBranded(legacy,id(legacy),{name:'以前の名前',bottle:'slender',label:'dark'});const exact=D.serializeDistillery(legacy),noDesign=JSON.parse(exact);delete noDesign.brands[0].bottle;assert.equal(D.serializeDistillery(D.restoreDistillery(JSON.stringify(noDesign))),exact);
+});
+test('explicit tier is retained per release on price edits and restoration; no guessing from numeric price',()=>{
+ let s=fill(D.newBrandIdentityDistillery(42));s=D.bottleBranded(s,id(s),{},5);const p=s.result.productId;for(const tier of ['low','standard','high']){s=D.setSalePrice(s,tier,p);assert.equal(releasePriceTier(s,p),tier);assert.equal(releasePriceTier(cold(s),p),tier);}assert.equal(s.brands.length,1);
+});
