@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "525ea0b51434906242c740dae7675388d1c0e7a2e05dcd78cf56cc8ca78237c8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ledger-stage2-source-link",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "35d3609a2a9ce0a3bcb03d1db8b306865b26ab27",
+    "change": "Preserve ledger source navigation for automatic casks and chained staff commissions",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User stage2 request",
+      "works/ambertime/design/ledger-information-audit.md PR564",
+      "PR565 ledger integration",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ledger-stage2-source-link/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/design/ledger-stage2/browser-review.mjs",
+      "works/ambertime/design/ledger-stage2/browser-results.json",
+      "works/ambertime/design/ledger-stage2/review.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/*-art.mjs"
+    ],
+    "expectedChanges": [
+      "Manual cask opens its recipe; commissioned cask opens its direct source recipe if available, otherwise direct source cask. Preserve one-hop provenance so automatic->automatic->manual chain can be followed and returned without new state or model behavior.",
+      "Existing-browser scoped public-operation automatic cask chain case and read-only save equality; app cache-only entry bump; keep previous stage2 screenshots unchanged.",
+      "Fresh lock, Scope Risk Impact trusted static, required CI and Staging/public check."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Browser auto source chain -> manual recipe -> back, save equality; node syntax and diff review, existing stage2 tests already passed45; no unrelated tests"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes stage2 recipe and cask display/navigation changes through Staging merge, no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Followup corrects missing stage2 required source navigation found in final independent review",
+      "WORK/Standard immutable fresh r0 lock",
+      "Expression audit: existing source action only, no new decorative explanation"
+    ],
+    "rollback": "Revert this display-only PR; existing saved format and calculations unchanged.",
+    "outOfScope": [
+      "Production",
+      "Game/save/operations/model/projection/CSS and other display changes",
+      "New generation/shop/release behavior"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}
