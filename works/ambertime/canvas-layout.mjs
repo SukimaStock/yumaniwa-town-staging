@@ -41,5 +41,5 @@ export function noticeLayout(text,measure,{step=26,padding=9}={}){
  if(line||!lines.length)lines.push(line);
  const w=Math.min(336,Math.max(36,Math.ceil(Math.max(...lines.map(measure)))+padding*2));
  const h=lines.length*step+padding*2;
- return{x:12,y:Math.min(460,514-h),w,h,lines,padding,step};
+ return{x:(360-w)/2,y:Math.min(460,514-h),w,h,lines,padding,step};
 }

@@ -1,6 +1,6 @@
-import{RoomMotion}from'./room-motion.mjs?v=0.67-small-motion';
+import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout}from'./canvas-layout.mjs?v=0.59-hud-controls';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout}from'./canvas-layout.mjs?v=0.68-ui-refinements';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
@@ -24,7 +24,7 @@ export class CanvasScene{
   document.addEventListener('amber-font-change',()=>this.queue());
   for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','shop-offer'])this.controlRoot.append($(id));
   $('management-controls').prepend($('open-ledger'));$('management-controls').append($('shop-offer'),$('open-aux-menu'));
-  for(const id of ['skip','open-history','open-settings'])$('aux-panel').append($(id));
+  for(const id of ['skip','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])document.body.append($(id));
   const close=$('close-dialog');close.innerHTML=symbolMarkup('close');close.setAttribute('aria-label','閉じる');
   const observer=new MutationObserver(()=>{observer.disconnect();numberMarkup($('action-dialog'));this.alignDialog();observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});});observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});
@@ -108,27 +108,29 @@ export class CanvasScene{
   const timeBar={x:6,y:45,w:348,h:2/v.scale,cssHeight:2},progress=Math.max(0,Math.min(1,view.monthProgress??0));
   this.pixelRect(timeBar.x,timeBar.y,timeBar.w,timeBar.h,'#353947');this.pixelRect(timeBar.x,timeBar.y,timeBar.w*progress,timeBar.h,'#c5b687');this.root.dataset.timeBar=JSON.stringify({...timeBar,progress});this.root.dataset.monthProgress=String(view.monthProgress??0);
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
-  const salesText=[],reservationLayout=[];
+  const salesText=[],reservationLayout=[],cooledLayout=[];
   items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2,sales=view.room==='sales';
    if(sales){const stock=item.stock??Number(item.state.split('本')[0]),status=item.saleState??item.state.split(' · ')[1]??'',countX=mid-24,countY=p.base-39,dateY=p.base+30,date=item.releaseDate??item.name.split('\n').at(-1).split(' · ')[0],dateText=this.measure(date)>132?date.replace('年','年\n'):date,dateLines=this.lines(dateText,mid,dateY,132,BODY_SIZE,2,'center'),statusY=dateY+dateLines*Math.max(BODY_SIZE+4,this.textMetrics().logical+4);
     this.text(stock+'本',countX,countY,16,'right');this.text(status,mid,statusY,BODY_SIZE,'center',status==='販売中'?'#efae95':['保管','保管中'].includes(status)?'#c0bfbb':ink);
     salesText.push({id:item.id,stock,status,count:{x:countX,y:countY,align:'right',size:16},date:{text:date,lines:dateLines,x:mid,y:dateY,size:BODY_SIZE},statusLabel:{x:mid,y:statusY,align:'center',size:BODY_SIZE},bottle:{x:mid-18,y:p.base-33,w:36,h:33}});
    }else{const titleY=p.base+27,lines=this.lines(uiText(item.name),mid,titleY,132,BODY_SIZE,1,'center'),detailY=titleY+lines*Math.max(26,this.textMetrics().logical+4);this.text(item.age,mid,detailY,BODY_SIZE,'center');
+    if(item.cooled){const x=mid-45,y=p.base-33;/* Separate left-hand snow crystal, no change to the cask sprite. */for(const [dx,dy,w,h] of [[9,0,3,21],[0,9,21,3],[3,3,3,3],[15,3,3,3],[3,15,3,3],[15,15,3,3]])this.pixelRect(x+dx,y+dy,w,h,'#a8c5cf');cooledLayout.push({id:item.id,x,y,w:21,h:21});}
     if(item.reservationIcon){const x=mid+30,y=p.base-33,color=({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink;drawSymbol(c,item.reservationIcon,x,y,3,color);reservationLayout.push({id:item.id,kind:item.reservationIcon,x,y,w:21,h:21,color,cask:{x:mid-24,y:p.base-45,w:48,h:45}});}
    }
-  });this.root.dataset.salesText=JSON.stringify(salesText);this.root.dataset.reservationLayout=JSON.stringify(reservationLayout);
+  });this.root.dataset.cooledLayout=JSON.stringify(cooledLayout);this.root.dataset.salesText=JSON.stringify(salesText);this.root.dataset.reservationLayout=JSON.stringify(reservationLayout);
   if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});
   if(view.room==='distill'&&view.spirit){const p=view.spirit;this.window(24,159+spiritOffset,312,84,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,182+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=210+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,36,213+spiritOffset,288,BODY_SIZE,2);}
-  if(view.notice){const n=noticeLayout(view.notice,t=>this.measure(t));this.window(n.x,n.y,n.w,n.h,'#2e3143','#858995');n.lines.forEach((line,i)=>this.text(line,n.x+n.padding,n.y+n.padding+18+i*n.step,BODY_SIZE));this.root.dataset.noticeLayout=JSON.stringify(n);}else delete this.root.dataset.noticeLayout;
+  const noticeStep=Math.max(26,this.textMetrics().logical+4),metrics=this.textMetrics();
+  // The same normal scene font and wrapping apply to both transient notice paths.
+  if(view.notice){const n=noticeLayout(view.notice,t=>this.measure(t),{step:noticeStep});this.window(n.x,n.y,n.w,n.h,'#2e3143','#858995');
+   c.save();c.font=`400 ${metrics.pixels}px ${FONT_STACK}`;const bounds=c.measureText('国Ag');c.restore();const baseline=(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/metrics.unit/2;
+   n.lines.forEach((line,i)=>this.text(line,n.x+n.w/2,n.y+n.padding+n.step*(i+.5)+baseline,BODY_SIZE,'center'));this.root.dataset.noticeLayout=JSON.stringify(n);
+  }else delete this.root.dataset.noticeLayout;
   const news=$('automatic-news');if(news&&!news.hidden){
-   // Native notices retain their CSS font size; measure that exact size instead
-   // of the independently quantized Canvas text. Clamp using actual DOM height.
-   const measure=t=>{c.save();c.font=`400 ${14*v.scale}px ${FONT_STACK}`;const width=c.measureText(t).width/v.scale;c.restore();return width;};
-   const n=noticeLayout(news.textContent,measure,{step:18,padding:9}),r=projectRect(v,n);
-   Object.assign(news.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:'auto',fontSize:14*v.scale+'px',lineHeight:18*v.scale+'px',padding:6*v.scale+'px'});
-   news.style.top=Math.min(v.offsetY+460*v.scale,v.offsetY+514*v.scale-news.getBoundingClientRect().height)+'px';news.dataset.noticeLayout=JSON.stringify(n);
+   const n=noticeLayout(news.textContent,t=>this.measure(t),{step:noticeStep}),r=projectRect(v,n),border=parseFloat(getComputedStyle(news).borderLeftWidth);
+   Object.assign(news.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px',fontSize:metrics.pixels/v.dpr+'px',lineHeight:noticeStep*v.scale+'px',padding:Math.max(0,n.padding*v.scale-border)+'px'});news.dataset.noticeLayout=JSON.stringify(n);
   }
 
   this.window(9,582,342,45,'#292b39','#d8d5df');for(const x of[123,237])this.pixelRect(x,588,3,33,'#858995');
