@@ -1,0 +1,101 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "afc350fbff450b6020b4807bd776b94ae50ece543b827ab40a680bc1fb739873",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ui-refinements-6",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "92436b87baf9882c4a85ab4e18b2b612bd6ae713",
+    "change": "Six scoped UI refinements: addition cue tempo, established stockists, notice typography, history entry, cooled status and supermarket greetings",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User six UI adjustments request",
+      "AGENTS.md",
+      "Change OS",
+      "EXPRESSION-AUDIT.md",
+      "PR550",
+      "PR571",
+      "PR572"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ui-refinements-6/r0.lock.json",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/tests/room-motion.test.mjs",
+      "works/ambertime/tests/shop-ledger.test.mjs",
+      "works/ambertime/tests/canvas-layout.test.mjs",
+      "works/ambertime/tests/shop-remarks.test.mjs",
+      "works/ambertime/design/ui-tidy/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/*-art.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/partner-orders.mjs"
+    ],
+    "expectedChanges": [
+      "Addition cue STEP300 duration1800, 3 cycles; still400 unchanged; no persistence.",
+      "Ledger filters established ordinary relations or actual receipts; department needs actual completed handling, not consultation or pending. Empty state and no fake pre-delivery totals.",
+      "Shared transient notices use normal scene typography, center text horizontally/vertically in variable bounded width; retain border/shadow/timing/triggers.",
+      "Remove auxiliary history button only, retain ledger and all existing history views.",
+      "Existing cooled note drives distinct small warehouse indicator, detail and ledger label; no art/effect/save changes.",
+      "Existing supermarket offer and approval show requested short greetings without delivered implication; no popup.",
+      "Targeted phone/PC before-after browser tests, state/save tests, independent review, gates and required CI, Staging merge/public verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone/PC six UI states incl finite cues, department/ordinary pre-delivery, notice wrapping, ledger history, cooled restore and supermarket offer/approval."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User authorizes six precise UI changes through Staging merge; Production unchanged."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard, >4 files explicit Plan Lock.",
+      "AGENTS targeted investigation and independent review.",
+      "Expression audit: only necessary status and requested dialogue, no new independent UI."
+    ],
+    "rollback": "Revert this display-only PR; saved data and simulation unchanged.",
+    "outOfScope": [
+      "Production",
+      "Original art/HUD/time bar/skip/time advance",
+      "Simulation/economy/demand/staff/brand/generation/save/operation models",
+      "New features or speed controls",
+      "Broad E2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption of timing/feel"
+    ]
+  }
+}
