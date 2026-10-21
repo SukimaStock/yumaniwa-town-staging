@@ -1,0 +1,61 @@
+import {createServer} from 'node:http';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+const root=path.resolve(new URL('../../../../../../',import.meta.url).pathname);
+const out='/tmp/town-simulation-browser';await fs.mkdir(out,{recursive:true});
+const server=createServer(async(req,res)=>{try{let rel=new URL(req.url,'http://localhost').pathname;rel=rel.replace(/^\/yumaniwa-town-staging/,'');if(rel.endsWith('/'))rel+='index.html';res.setHeader('Content-Type',({'.html':'text/html','.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.json':'application/json','.ttf':'font/ttf'})[path.extname(rel)]??'text/plain');res.end(await fs.readFile(path.join(root,rel)));}catch{res.writeHead(404).end();}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const {chromium}=createRequire(import.meta.url)('playwright');
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/tmp/chromium',args:['--no-sandbox']});
+const errors=[],checks=[];
+try{
+const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,permissions:['clipboard-read','clipboard-write'],acceptDownloads:true});
+const p=await context.newPage();p.setDefaultTimeout(20000);p.on('pageerror',e=>errors.push(e.message));
+await p.addInitScript(()=>{window.storageAccesses=0;for(const key of ['localStorage','sessionStorage'])Object.defineProperty(window,key,{get(){window.storageAccesses++;throw Error('No native or Lab storage access');}});});
+const origin=`http://127.0.0.1:${server.address().port}/yumaniwa-town-staging`;
+await p.goto(origin+'/works/ambertime-town-simulation-lab/');
+await p.waitForFunction(()=>typeof window.labSnapshot==='function');
+assert.equal(await p.evaluate(()=>window.labSnapshot().month),0);
+assert.equal(await p.locator('#place option').count(),2);
+await p.screenshot({path:path.join(out,'initial-390.png'),fullPage:true});
+checks.push('launcher project-prefix, initial distillery/store only');
+for(const year of [10,30,60,100]){
+ await p.locator(`[data-year="${year}"]`).click();
+ await p.waitForFunction(m=>window.labSnapshot().month===m,year*12);
+ await p.waitForFunction(()=>!document.querySelector('#json').disabled);
+ assert.match(await p.locator('#time').innerText(),new RegExp(String(year)));
+}
+assert(await p.locator('#place option').count()>2);
+assert(await p.locator('#news li').count()<=20);
+const exact=await p.evaluate(async()=>{const M=await import('./model.mjs');const s=window.labSnapshot();return {check:M.validate(s),exported:JSON.stringify(window.labExport()),direct:JSON.stringify(M.exportLog(s)),report:M.report(s)};});
+assert.equal(exact.exported,exact.direct);
+const downloadPromise=p.waitForEvent('download');await p.locator('#json').click();const download=await downloadPromise;await download.saveAs(path.join(out,'export.json'));
+assert.deepEqual(JSON.parse(await fs.readFile(path.join(out,'export.json'),'utf8')),JSON.parse(exact.exported));
+await p.locator('#copy').click();assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),exact.report);
+checks.push('all target years process monthly,100year JSON/state equality and actual clipboard');
+await p.locator('#filter').selectOption('all');
+const first=await p.locator('#news').innerText();await p.locator('#older').click();assert.notEqual(await p.locator('#news').innerText(),first);
+await p.locator('#news button').first().click();assert(await p.locator('#event-detail').evaluate(e=>e.open));
+checks.push('bounded history pagination and causal detail');
+for(const width of [390,360,1280]){await p.setViewportSize({width,height:width===1280?900:844});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));const r=await p.locator('#map').boundingBox();assert.equal(r.width/144,Math.round(r.width/144));await p.screenshot({path:path.join(out,`${width}.png`),fullPage:true});}
+checks.push('390touch/360/1280 no horizontal overflow; integer map scale');
+await p.locator('#settings').evaluate(e=>e.open=true);
+await p.locator('#seed').fill('');await p.locator('#reset').click();assert.equal(await p.evaluate(()=>window.labSnapshot().month),1200);
+await p.locator('#seed').fill('42');await p.locator('#mode').selectOption('normal');await p.locator('#reset').click();assert.equal(await p.evaluate(()=>window.labSnapshot().month),0);
+await p.locator('#speed').click();assert.equal(await p.locator('#speed').innerText(),'2倍');await p.locator('#play').click();await p.waitForFunction(()=>window.labSnapshot().month>=1);await p.locator('#play').click();
+const paused=await p.evaluate(()=>window.labSnapshot().month);await new Promise(r=>setTimeout(r,700));assert.equal(await p.evaluate(()=>window.labSnapshot().month),paused);
+await p.locator('#policy').selectOption('distributed');await p.locator('#product').selectOption('long');await p.locator('#apply').click();assert.equal(await p.evaluate(()=>window.labSnapshot().settingsHistory.length),1);
+await p.locator('[data-year="100"]').click();await p.waitForFunction(()=>window.labSnapshot().month===1200);
+const paired=await p.evaluate(async()=>{const M=await import('./model.mjs'),s=window.labSnapshot(),log=M.exportLog(s);return {check:M.validate(s),same:JSON.stringify(M.exportLog(M.replay(log)))===JSON.stringify(log),rumors:s.events.filter(e=>e.type==='rumor').length};});
+assert(paired.check.ok);assert(paired.same);assert.equal(paired.rumors,0);
+await p.locator('#mode').selectOption('chance');await p.locator('#reset').click();
+await p.evaluate(()=>{document.querySelector('[data-year="100"]').click();document.querySelector('#reset').click();});await new Promise(r=>setTimeout(r,100));assert.equal(await p.evaluate(()=>window.labSnapshot().month),0);
+checks.push('invalid seed retained,2x playback/pause,midrun settings exact replay,normal no chance,reset cancels chunked advance');
+const back=await p.locator('header a').first().getAttribute('href');assert.equal(new URL(back,p.url()).pathname,'/yumaniwa-town-staging/lab/');await p.locator('header a').first().click();await p.locator('a[href="../works/ambertime-reputation-encounter-lab/"]').click();await p.locator('#comparison').waitFor();await p.locator('header a').first().click();await p.locator('a[href="../works/ambertime-town-simulation-lab/"]').click();await p.waitForFunction(()=>typeof window.labSnapshot==='function');assert.equal(await p.evaluate(()=>window.labSnapshot().month),0);
+checks.push('old Lab→LAB→new simulator navigation');
+assert.equal(await p.evaluate(()=>window.storageAccesses),0);assert.deepEqual(errors,[]);
+const result={passed:true,checks,errors,viewports:[390,360,1280],physicalSafari:false,screenshots:out};
+console.log(JSON.stringify(result,null,2));await fs.writeFile(new URL('../browser-results.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
+}finally{await browser.close();await new Promise(r=>server.close(r));}

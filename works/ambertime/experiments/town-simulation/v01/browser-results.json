@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checks": [
+    "launcher project-prefix, initial distillery/store only",
+    "all target years process monthly,100year JSON/state equality and actual clipboard",
+    "bounded history pagination and causal detail",
+    "390touch/360/1280 no horizontal overflow; integer map scale",
+    "invalid seed retained,2x playback/pause,midrun settings exact replay,normal no chance,reset cancels chunked advance",
+    "old Lab→LAB→new simulator navigation"
+  ],
+  "errors": [],
+  "viewports": [
+    390,
+    360,
+    1280
+  ],
+  "physicalSafari": false,
+  "screenshots": "/tmp/town-simulation-browser"
+}
