@@ -1,0 +1,358 @@
+{
+  "base": "92436b87baf9882c4a85ab4e18b2b612bd6ae713",
+  "checks": [
+    {
+      "width": 390,
+      "tiny": {
+        "text": "完了",
+        "layout": {
+          "x": 148.5,
+          "y": 460,
+          "w": 63,
+          "h": 44.15384615384616,
+          "lines": [
+            "完了"
+          ],
+          "padding": 9,
+          "step": 26.153846153846157
+        },
+        "x": 160.875,
+        "y": 573.65625,
+        "w": 68.25,
+        "h": 47.828125,
+        "scrollHeight": 42,
+        "clientHeight": 42,
+        "font": "24px",
+        "align": "center",
+        "vertical": "center",
+        "line": "28.3333px"
+      },
+      "short": {
+        "text": "ビン詰め 10本",
+        "layout": {
+          "x": 99,
+          "y": 460,
+          "w": 162,
+          "h": 44.15384615384616,
+          "lines": [
+            "ビン詰め 10本"
+          ],
+          "padding": 9,
+          "step": 26.153846153846157
+        },
+        "x": 107.25,
+        "y": 573.65625,
+        "w": 175.5,
+        "h": 47.828125,
+        "scrollHeight": 42,
+        "clientHeight": 42,
+        "font": "24px",
+        "align": "center",
+        "vertical": "center",
+        "line": "28.3333px"
+      },
+      "long": {
+        "text": "ビン詰め 10本 · 販売 120本 · 入金 £1200 · 新しい樽を貯蔵庫へ移しました",
+        "layout": {
+          "x": 12,
+          "y": 417.53846153846155,
+          "w": 336,
+          "h": 96.46153846153847,
+          "lines": [
+            "ビン詰め 10本 · 販売 120本 · ",
+            "入金 £1200 · 新しい樽を貯蔵庫",
+            "へ移しました"
+          ],
+          "padding": 9,
+          "step": 26.153846153846157
+        },
+        "x": 13,
+        "y": 527.65625,
+        "w": 364,
+        "h": 104.5,
+        "scrollHeight": 99,
+        "clientHeight": 99,
+        "font": "24px",
+        "align": "center",
+        "vertical": "center",
+        "line": "28.3333px"
+      },
+      "normalFontPixels": 24
+    },
+    {
+      "width": 390,
+      "fixture": "offer",
+      "ledgerShopIds": [
+        "town-liquor"
+      ]
+    },
+    {
+      "width": 390,
+      "fixture": "approved",
+      "ledgerShopIds": [
+        "town-liquor",
+        "supermarket"
+      ]
+    },
+    {
+      "width": 390,
+      "fixture": "interest",
+      "ledgerShopIds": [
+        "town-liquor",
+        "supermarket"
+      ]
+    },
+    {
+      "width": 390,
+      "fixture": "pending",
+      "ledgerShopIds": [
+        "town-liquor",
+        "supermarket"
+      ]
+    },
+    {
+      "width": 390,
+      "fixture": "delivered",
+      "ledgerShopIds": [
+        "town-liquor",
+        "supermarket",
+        "department"
+      ]
+    },
+    {
+      "width": 390,
+      "cold": [
+        {
+          "id": 14,
+          "x": 69,
+          "y": 201,
+          "w": 21,
+          "h": 21
+        }
+      ],
+      "reserved": [
+        {
+          "id": 14,
+          "kind": "clock",
+          "x": 144,
+          "y": 201,
+          "w": 21,
+          "h": 21,
+          "color": "#c5b687",
+          "cask": {
+            "x": 90,
+            "y": 189,
+            "w": 48,
+            "h": 45
+          }
+        }
+      ],
+      "coldImmediateAndRestored": true,
+      "ledgerCold": true
+    },
+    {
+      "width": 390,
+      "supermarketOfferAndApproved": true,
+      "noPrematureReceipt": true
+    },
+    {
+      "width": 390,
+      "cid": 22,
+      "rid": 9,
+      "cueStep300": true,
+      "ends1800": true,
+      "noReplay": true
+    },
+    {
+      "width": 390,
+      "automaticReleaseIds": [
+        5,
+        6
+      ],
+      "maxOneBlink": true
+    },
+    {
+      "width": 390,
+      "reducedStatic": true
+    },
+    {
+      "width": 1024,
+      "tiny": {
+        "text": "完了",
+        "layout": {
+          "x": 151,
+          "y": 460,
+          "w": 58,
+          "h": 44,
+          "lines": [
+            "完了"
+          ],
+          "padding": 9,
+          "step": 26
+        },
+        "x": 477.1875,
+        "y": 552,
+        "w": 69.59375,
+        "h": 52.796875,
+        "scrollHeight": 45,
+        "clientHeight": 45,
+        "font": "24px",
+        "align": "center",
+        "vertical": "center",
+        "line": "31.2px"
+      },
+      "short": {
+        "text": "ビン詰め 10本",
+        "layout": {
+          "x": 106,
+          "y": 460,
+          "w": 148,
+          "h": 44,
+          "lines": [
+            "ビン詰め 10本"
+          ],
+          "padding": 9,
+          "step": 26
+        },
+        "x": 423.1875,
+        "y": 552,
+        "w": 177.59375,
+        "h": 52.796875,
+        "scrollHeight": 45,
+        "clientHeight": 45,
+        "font": "24px",
+        "align": "center",
+        "vertical": "center",
+        "line": "31.2px"
+      },
+      "long": {
+        "text": "ビン詰め 10本 · 販売 120本 · 入金 £1200 · 新しい樽を貯蔵庫へ移しました",
+        "layout": {
+          "x": 17.5,
+          "y": 418,
+          "w": 325,
+          "h": 96,
+          "lines": [
+            "ビン詰め 10本 · 販売 120本 · 入",
+            "金 £1200 · 新しい樽を貯蔵庫へ移",
+            "しました"
+          ],
+          "padding": 9,
+          "step": 26
+        },
+        "x": 317,
+        "y": 501.59375,
+        "w": 390,
+        "h": 115.1875,
+        "scrollHeight": 107,
+        "clientHeight": 107,
+        "font": "24px",
+        "align": "center",
+        "vertical": "center",
+        "line": "31.2px"
+      },
+      "normalFontPixels": 24
+    },
+    {
+      "width": 1024,
+      "fixture": "offer",
+      "ledgerShopIds": [
+        "town-liquor"
+      ]
+    },
+    {
+      "width": 1024,
+      "fixture": "approved",
+      "ledgerShopIds": [
+        "town-liquor",
+        "supermarket"
+      ]
+    },
+    {
+      "width": 1024,
+      "fixture": "interest",
+      "ledgerShopIds": [
+        "town-liquor",
+        "supermarket"
+      ]
+    },
+    {
+      "width": 1024,
+      "fixture": "pending",
+      "ledgerShopIds": [
+        "town-liquor",
+        "supermarket"
+      ]
+    },
+    {
+      "width": 1024,
+      "fixture": "delivered",
+      "ledgerShopIds": [
+        "town-liquor",
+        "supermarket",
+        "department"
+      ]
+    },
+    {
+      "width": 1024,
+      "cold": [
+        {
+          "id": 14,
+          "x": 69,
+          "y": 201,
+          "w": 21,
+          "h": 21
+        }
+      ],
+      "reserved": [
+        {
+          "id": 14,
+          "kind": "clock",
+          "x": 144,
+          "y": 201,
+          "w": 21,
+          "h": 21,
+          "color": "#c5b687",
+          "cask": {
+            "x": 90,
+            "y": 189,
+            "w": 48,
+            "h": 45
+          }
+        }
+      ],
+      "coldImmediateAndRestored": true,
+      "ledgerCold": true
+    },
+    {
+      "width": 1024,
+      "supermarketOfferAndApproved": true,
+      "noPrematureReceipt": true
+    },
+    {
+      "width": 1024,
+      "cid": 22,
+      "rid": 9,
+      "cueStep300": true,
+      "ends1800": true,
+      "noReplay": true
+    },
+    {
+      "width": 1024,
+      "automaticReleaseIds": [
+        5,
+        6
+      ],
+      "maxOneBlink": true
+    },
+    {
+      "width": 1024,
+      "reducedStatic": true
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari",
+    "Author feel/adoption"
+  ]
+}

@@ -17,10 +17,21 @@ test('catalog is dynamic and records of unknown counterpart IDs stay separate',(
 });
 test('consultation and approval do not count as delivery; adoption metadata never adds 5 twice; valid save roundtrip',()=>{
  let s=D.restoreDistillery(JSON.stringify(shopFixture().interest));const id=s.releases.at(-1).productId;
- let shop=get(s,'department');assert.equal(shop.interests[0].status,'interest');assert.equal(shop.count,0);assert.equal(shop.firstMonth,null);
+ let shop=get(s,'department');assert.equal(shop.established,false);assert.equal(shop.interests[0].status,'interest');assert.equal(shop.count,0);assert.equal(shop.firstMonth,null);
  const before=D.serializeDistillery(s);s=D.deliverShop(s,id,5,'department',D.shopQuote(s,id,'department').selectionId);
- shop=get(s,'department');assert.equal(shop.interests[0].status,'pending');assert.equal(shop.count,0);assert.equal(shop.revenue,0);assert.equal(shop.interests[0].dueMonth,s.core.month+1);
- const cancelled=D.cancelDepartmentInterest(s,s.department.interests[0].selectionId);assert.equal(get(cancelled,'department').count,0);assert.equal(get(cancelled,'department').related,true);
- s=advance(s,1);shop=get(s,'department');assert.equal(shop.count,5);assert.equal(shop.deliveries[0].kind,'adoption');assert.equal(shop.interests.length,0);assert.equal(shop.revenue,s.shop.deliveries.find(d=>d.shopId==='department').revenue);
+ shop=get(s,'department');assert.equal(shop.established,false);assert.equal(shop.interests[0].status,'pending');assert.equal(shop.count,0);assert.equal(shop.revenue,0);assert.equal(shop.interests[0].dueMonth,s.core.month+1);
+ const cancelled=D.cancelDepartmentInterest(s,s.department.interests[0].selectionId);assert.equal(get(cancelled,'department').count,0);assert.equal(get(cancelled,'department').related,true);assert.equal(get(cancelled,'department').established,false);
+ s=advance(s,1);shop=get(s,'department');assert.equal(shop.established,true);assert.equal(shop.count,5);assert.equal(shop.deliveries[0].kind,'adoption');assert.equal(shop.interests.length,0);assert.equal(shop.revenue,s.shop.deliveries.find(d=>d.shopId==='department').revenue);
  const raw=D.serializeDistillery(s);assert.deepEqual(buildShopLedger(D.restoreDistillery(raw)),buildShopLedger(s));assert.equal(D.serializeDistillery(s),raw);assert.notEqual(raw,before);
+});
+
+test('established eligibility hides mere offers and keeps approved ordinary shops before first receipt',()=>{
+ const s={shop:{offer:{shopId:'supermarket'},pendingOffers:[{shopId:'department'}],declinedUntil:{'town-liquor:1':12},relations:[],deliveries:[]}};
+ const before=JSON.stringify(s);assert(buildShopLedger(s).every(x=>!x.established));assert.equal(buildShopLedger(s).length,3,'projection keeps all catalog rows');assert.equal(JSON.stringify(s),before);
+ s.shop.relations=[{shopId:'supermarket',startedMonth:2}];assert.equal(get(s,'supermarket').established,true);assert.equal(get(s,'supermarket').count,0);assert.equal(get(s,'department').established,false);
+});
+test('receipt eligibility never guesses missing quantity or promotes adoption mirrors alone',()=>{
+ const s={shop:{relations:[{shopId:'department',startedMonth:1}],deliveries:[{shopId:'department',count:null,month:2},{shopId:'department',count:0,month:3}]},department:{adoptions:[{deliveryId:7,count:5,month:2}]}};
+ assert.equal(get(s,'department').established,false);s.shop.deliveries.push({id:7,shopId:'department',count:5,month:4});assert.equal(get(s,'department').established,true);
+ const old={shop:{deliveries:[{count:2,month:3},{shopId:'future',count:1,month:4}]}};assert.equal(get(old).established,true);assert.equal(get(old,'future').established,true);assert.equal(get({shop:{deliveries:[{count:undefined,month:3}]}}).established,false);
 });

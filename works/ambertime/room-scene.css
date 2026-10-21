@@ -179,7 +179,7 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 .bottling-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.bottling-plan{display:grid;gap:7px}.bottling-plan-fields{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:8px;align-items:center}.bottling-plan-fields input{width:100%;text-align:center}.bottling-reservation{margin:8px 0;overflow-wrap:anywhere}
 
 /* Transient information never owns focus, input, game time or saved state. */
-.automatic-news{position:fixed;z-index:15;border:var(--pixel) solid #858995;background:#2e3143;color:var(--ink);box-sizing:border-box;box-shadow:var(--pixel) var(--pixel) #19141e;padding:4px 6px;font:inherit;pointer-events:none;overflow-wrap:anywhere;overflow:hidden}.automatic-news[hidden]{display:none}
+.automatic-news{display:flex;align-items:center;justify-content:center;text-align:center;white-space:pre-wrap;position:fixed;z-index:15;border:var(--pixel) solid #858995;background:#2e3143;color:var(--ink);box-sizing:border-box;box-shadow:var(--pixel) var(--pixel) #19141e;padding:4px 6px;font:inherit;pointer-events:none;overflow-wrap:anywhere;overflow:hidden}.automatic-news[hidden]{display:none}
 
 .staff-job{padding:6px 0 14px}.staff-job+.staff-job{border-top:var(--pixel) solid #606575;padding-top:14px}.staff-job h3{margin:4px 0}.staff-casks{display:grid;gap:8px}.staff-casks small{display:block;margin-top:4px}
 

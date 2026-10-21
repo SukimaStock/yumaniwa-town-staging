@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {computeViewport,layoutScene,projectRect,toLogical,hitTest} from '../canvas-layout.mjs';
+import {computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout} from '../canvas-layout.mjs';
 const sizes=[[360,740,1],[390,844,3],[360,640,2],[1024,768,2],[1280,900,1],[390,430,3]];
 test('letterboxed viewport keeps shape and inverse input mapping, including viewport offset',()=>{
  for(const [width,height,dpr] of sizes){const v=computeViewport({width,height,dpr,left:17,top:31});assert(v.offsetX>=0&&v.offsetY>=0);assert(Math.abs(360*v.scale+2*v.offsetX-width)<1e-8);assert(Math.abs(640*v.scale+2*v.offsetY-height)<1e-8);
@@ -12,4 +12,10 @@ test('all room controls fit the scene, and physical centers resolve to drawn tar
 });
 test('room furniture remains fixed for empty and full shelves and transient windows',()=>{
  for(const room of ['warehouse','sales']){const empty=layoutScene({room}),full=layoutScene({room,casks:[{id:4},{id:8},{id:12},{id:19}],products:[{id:7}],modal:'tasting'});for(const key of ['shelf','floorY','caskSlots','productSlots'])assert.deepEqual(empty[key],full[key]);assert.equal(hitTest(empty.controls,-1,-1),null);}
+});
+
+test('notice windows center variable measured widths and wrap within scene',()=>{
+ const measure=t=>Array.from(t).length*20,short=noticeLayout('ビン詰め 10本',measure),long=noticeLayout('長い出来事の表示を画面幅の内側で折り返して表示します'.repeat(3),measure);
+ for(const n of [short,long]){assert.equal(n.x+n.w/2,180);assert(n.x>=12&&n.x+n.w<=348);assert(n.lines.every(t=>measure(t)<=318));assert.equal(n.h,n.padding*2+n.lines.length*n.step);assert(n.y+n.h<=514);}
+ assert(short.w<long.w);assert(long.lines.length>1);
 });

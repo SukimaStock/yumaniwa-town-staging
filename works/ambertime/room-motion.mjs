@@ -1,5 +1,5 @@
 // Disposable presentation state. Inputs are identifiers only; no game or save access.
-const DURATION=2400,STEP=400;
+const STEP=300,DURATION=STEP*6;
 const kind=room=>room==='warehouse'?'cask':room==='sales'?'release':null;
 export class RoomMotion{
  constructor(){this.reset();}
