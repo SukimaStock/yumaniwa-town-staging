@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1537b9afffb66d07e8a591bb5bcc211f3225083c6b835dfc021ca56b3200c158",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-time-line-sales",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "b59809484006fbf6e3baa02fb5f5e474ab3d2796",
+    "change": "Replace time panel with an attached two CSS pixel line, simplify readable sales dates/status and move cask reservation glyphs to the right",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User time bar and sales display instruction; IMG_6171.png",
+      "Current main PR560/559/558",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/design/time-line-sales/**",
+      ".change-plans/ambertime-time-line-sales/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/cask-glass-art.mjs",
+      "works/ambertime/pixel-symbols.mjs"
+    ],
+    "expectedChanges": [
+      "Remove time control panel and old thick bar. Draw a borderless/shadowless progress line flush at calendar frame bottom y45, width348 fromx6, exact2 CSSpx height independent of scene scale/DPR; preserve current completed/background colors and monthly ratio. Calendar frame and play/pause hit/visual bounds unchanged.",
+      "Sales list visual only: omit brand/product title, project existing release date without source/release suffix, render date and status at normal BODY_SIZE20. Date below bottle with enough shelf clearance; preserve full year/month and wrap by year/month when required. State color and count upperleft retained. Preserve full internal brand/release metadata and accessible labels.",
+      "Move unchanged clock/stock/pause glyphs and colors from age text to right of each cask (x=center+30,y=base-33), no cask movement or sprite change. Existing reservation classifier remains untouched; none/completed stay omitted and updates follow render.",
+      "Cache-only app/Canvas entry refs. Scoped same-state phonePC sales/warehouse before-after, real raster2CSSpx includingDPR3, unchanged play target, progress/pause, reservation updates/none/completed, save/model identity comparison. Required CI, PR and Staging publish."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "390x844 touch and1024x768 PC changed displays/basic controls only; DPR3 time line raster; no broadE2E or longplay"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly requests time line structure replacement and these limited display changes, PR/CI/safe Staging merge/public check."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Preserve native art, calendar/play/control/furniture geometry",
+      "Expression audit no new copy/decoration",
+      "Single fresh r0 lock before implementation; Scope Risk Impact"
+    ],
+    "rollback": "Revert this display-only change; model/save contract unchanged.",
+    "outOfScope": [
+      "Production",
+      "Game calculations/save/brand/history/operations/staff/payroll/demand/generation",
+      "Sprites/furniture/layout/lower controls/tabs/modal design",
+      "BroadE2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}

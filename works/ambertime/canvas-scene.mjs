@@ -87,20 +87,23 @@ export class CanvasScene{
   const book=(x,y,w,h,color)=>this.pixelRect(x,y,w,h,color);
 
   this.window(6,6,348,39,'#292b39','#d8d5df');
-  this.window(6,51,348,45,'#292b39','#d8d5df');
   let headerSize=BODY_SIZE;
   while(headerSize>8&&this.measure(view.calendar+' '+view.generation,headerSize)+this.measure(view.cash,headerSize)>312)headerSize--;
   const calendarRight=15+this.measure(view.calendar,headerSize),generationX=calendarRight+this.measure(' ',headerSize),generationRight=generationX+this.measure(view.generation,headerSize),cashWidth=this.measure(view.cash,headerSize);
-  this.text(view.calendar,15,32,headerSize);this.text(view.generation,generationX,32,headerSize);this.text(view.cash,345,32,headerSize,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY:32,calendarRight,generationRight,cashLeft:345-cashWidth,size:headerSize,blocks:[{x:6,y:6,w:348,h:39},{x:6,y:51,w:348,h:45}]});
-  this.pixelRect(12,57,279,33,'#d8d5df');this.pixelRect(13,58,277,31,'#353947');this.pixelRect(13,58,Math.round(277*Math.max(0,Math.min(1,view.monthProgress??0))),31,'#c5b687');this.root.dataset.monthProgress=String(view.monthProgress??0);
+  this.text(view.calendar,15,32,headerSize);this.text(view.generation,generationX,32,headerSize);this.text(view.cash,345,32,headerSize,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY:32,calendarRight,generationRight,cashLeft:345-cashWidth,size:headerSize,blocks:[{x:6,y:6,w:348,h:39}]});
+  // Target two CSS pixels, aligned to physical dots and flush with the calendar frame.
+  const timeBar={x:6,y:45,w:348,h:2/v.scale,cssHeight:2},progress=Math.max(0,Math.min(1,view.monthProgress??0));
+  this.pixelRect(timeBar.x,timeBar.y,timeBar.w,timeBar.h,'#353947');this.pixelRect(timeBar.x,timeBar.y,timeBar.w*progress,timeBar.h,'#c5b687');this.root.dataset.timeBar=JSON.stringify({...timeBar,progress});this.root.dataset.monthProgress=String(view.monthProgress??0);
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
-  const salesText=[];
-  items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2,sales=view.room==='sales',size=sales?16:BODY_SIZE,titleY=p.base+(sales?15:27),lines=this.lines(sales?item.name:uiText(item.name),mid,titleY,132,size,sales?2:1,'center'),detailY=sales?p.base+55:titleY+lines*Math.max(26,this.textMetrics(BODY_SIZE).logical+4);
-   if(sales){const stock=item.stock??Number(item.state.split('本')[0]),state=item.saleState??item.state.split(' · ')[1]??'',status=state.replace('保管中','保管'),countX=mid-24,countY=p.base-39;
-    this.text(stock+'本',countX,countY,16,'right');this.text(status,mid,detailY,16,'center',status==='販売中'?'#efae95':status==='保管'?'#c0bfbb':ink);
-    salesText.push({id:item.id,stock,status,count:{x:countX,y:countY,align:'right',size:16},statusLabel:{x:mid,y:detailY,align:'center',size:16},bottle:{x:mid-18,y:p.base-33,w:36,h:33}});
-   }else{this.text(item.age,mid,detailY,BODY_SIZE,'center');if(item.reservationIcon)drawSymbol(c,item.reservationIcon,Math.round((mid+this.measure(item.age)/2+6)/3)*3,Math.round((detailY-18)/3)*3,3,({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink);}
-  });this.root.dataset.salesText=JSON.stringify(salesText);
+  const salesText=[],reservationLayout=[];
+  items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2,sales=view.room==='sales';
+   if(sales){const stock=item.stock??Number(item.state.split('本')[0]),status=item.saleState??item.state.split(' · ')[1]??'',countX=mid-24,countY=p.base-39,dateY=p.base+30,date=item.releaseDate??item.name.split('\n').at(-1).split(' · ')[0],dateText=this.measure(date)>132?date.replace('年','年\n'):date,dateLines=this.lines(dateText,mid,dateY,132,BODY_SIZE,2,'center'),statusY=dateY+dateLines*Math.max(BODY_SIZE+4,this.textMetrics().logical+4);
+    this.text(stock+'本',countX,countY,16,'right');this.text(status,mid,statusY,BODY_SIZE,'center',status==='販売中'?'#efae95':['保管','保管中'].includes(status)?'#c0bfbb':ink);
+    salesText.push({id:item.id,stock,status,count:{x:countX,y:countY,align:'right',size:16},date:{text:date,lines:dateLines,x:mid,y:dateY,size:BODY_SIZE},statusLabel:{x:mid,y:statusY,align:'center',size:BODY_SIZE},bottle:{x:mid-18,y:p.base-33,w:36,h:33}});
+   }else{const titleY=p.base+27,lines=this.lines(uiText(item.name),mid,titleY,132,BODY_SIZE,1,'center'),detailY=titleY+lines*Math.max(26,this.textMetrics().logical+4);this.text(item.age,mid,detailY,BODY_SIZE,'center');
+    if(item.reservationIcon){const x=mid+30,y=p.base-33,color=({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink;drawSymbol(c,item.reservationIcon,x,y,3,color);reservationLayout.push({id:item.id,kind:item.reservationIcon,x,y,w:21,h:21,color,cask:{x:mid-24,y:p.base-45,w:48,h:45}});}
+   }
+  });this.root.dataset.salesText=JSON.stringify(salesText);this.root.dataset.reservationLayout=JSON.stringify(reservationLayout);
   if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});

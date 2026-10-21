@@ -1,0 +1,3330 @@
+{
+  "base": "b59809484006fbf6e3baa02fb5f5e474ab3d2796",
+  "browser": "153.0.8010.0",
+  "passed": true,
+  "captures": {
+    "before": [
+      {
+        "name": "390-sales",
+        "save": "b90cceb98b9b0809a7a3cbdf4143d9c63e0c690b32121426472ff11decc2cc90",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "sales": [
+          {
+            "id": 12,
+            "stock": 25,
+            "status": "販売中",
+            "count": {
+              "x": 90,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "statusLabel": {
+              "x": 114,
+              "y": 289,
+              "align": "center",
+              "size": 16
+            },
+            "bottle": {
+              "x": 96,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          },
+          {
+            "id": 17,
+            "stock": 5,
+            "status": "保管",
+            "count": {
+              "x": 222,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "statusLabel": {
+              "x": 246,
+              "y": 289,
+              "align": "center",
+              "size": 16
+            },
+            "bottle": {
+              "x": 228,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "iconLayout": null,
+        "timeBar": null,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "text": [
+          {
+            "text": "2031年5月",
+            "x": 15,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "初代",
+            "x": 125.76923076923077,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "£1,781",
+            "x": 345,
+            "y": 32,
+            "size": 20,
+            "align": "right",
+            "color": "#e6c77a"
+          },
+          {
+            "text": "AmberTime",
+            "x": 114,
+            "y": 249,
+            "size": 16,
+            "align": "center"
+          },
+          {
+            "text": "2031年1月",
+            "x": 114,
+            "y": 269,
+            "size": 16,
+            "align": "center"
+          },
+          {
+            "text": "25本",
+            "x": 90,
+            "y": 195,
+            "size": 16,
+            "align": "right"
+          },
+          {
+            "text": "販売中",
+            "x": 114,
+            "y": 289,
+            "size": 16,
+            "align": "center",
+            "color": "#efae95"
+          },
+          {
+            "text": "AmberTime",
+            "x": 246,
+            "y": 249,
+            "size": 16,
+            "align": "center"
+          },
+          {
+            "text": "2031年3月",
+            "x": 246,
+            "y": 269,
+            "size": 16,
+            "align": "center"
+          },
+          {
+            "text": "5本",
+            "x": 222,
+            "y": 195,
+            "size": 16,
+            "align": "right"
+          },
+          {
+            "text": "保管",
+            "x": 246,
+            "y": 289,
+            "size": 16,
+            "align": "center",
+            "color": "#c0bfbb"
+          },
+          {
+            "text": "蒸留室",
+            "x": 66,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "貯蔵庫",
+            "x": 180,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "販売室",
+            "x": 294,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#f0e6c8"
+          }
+        ],
+        "overflow": false,
+        "products": [
+          {
+            "id": 12,
+            "wood": 0.3881730650172102,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "high",
+            "name": "AmberTime\n2031年1月",
+            "state": "25本 · 販売中",
+            "stock": 25,
+            "saleState": "販売中",
+            "selected": false
+          },
+          {
+            "id": 17,
+            "wood": 0.008400349379070103,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "standard",
+            "name": "AmberTime\n2031年3月",
+            "state": "5本 · 保管中",
+            "stock": 5,
+            "saleState": "保管中",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "name": "390-warehouse",
+        "save": "b90cceb98b9b0809a7a3cbdf4143d9c63e0c690b32121426472ff11decc2cc90",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-19",
+            "selector": "#cask-rack [data-cask-id=\"19\"]",
+            "x": 60,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-21",
+            "selector": "#cask-rack [data-cask-id=\"21\"]",
+            "x": 192,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "iconLayout": null,
+        "timeBar": null,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "text": [
+          {
+            "text": "2031年5月",
+            "x": 15,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "初代",
+            "x": 125.76923076923077,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "£1,781",
+            "x": 345,
+            "y": 32,
+            "size": 20,
+            "align": "right",
+            "color": "#e6c77a"
+          },
+          {
+            "text": "たる No.5",
+            "x": 114,
+            "y": 261,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "3か月",
+            "x": 114,
+            "y": 287.15384615384613,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.6",
+            "x": 246,
+            "y": 261,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "2か月",
+            "x": 246,
+            "y": 287.15384615384613,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.7",
+            "x": 114,
+            "y": 405,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "1か月",
+            "x": 114,
+            "y": 431.15384615384613,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.8",
+            "x": 246,
+            "y": 405,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "0か月",
+            "x": 246,
+            "y": 431.15384615384613,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "蒸留室",
+            "x": 66,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "貯蔵庫",
+            "x": 180,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#f0e6c8"
+          },
+          {
+            "text": "販売室",
+            "x": 294,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          }
+        ],
+        "overflow": false,
+        "products": [
+          {
+            "id": 12,
+            "wood": 0.3881730650172102,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "high",
+            "name": "AmberTime\n2031年1月",
+            "state": "25本 · 販売中",
+            "stock": 25,
+            "saleState": "販売中",
+            "selected": false
+          },
+          {
+            "id": 17,
+            "wood": 0.008400349379070103,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "standard",
+            "name": "AmberTime\n2031年3月",
+            "state": "5本 · 保管中",
+            "stock": 5,
+            "saleState": "保管中",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "name": "1024-sales",
+        "save": "b90cceb98b9b0809a7a3cbdf4143d9c63e0c690b32121426472ff11decc2cc90",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "sales": [
+          {
+            "id": 12,
+            "stock": 25,
+            "status": "販売中",
+            "count": {
+              "x": 90,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "statusLabel": {
+              "x": 114,
+              "y": 289,
+              "align": "center",
+              "size": 16
+            },
+            "bottle": {
+              "x": 96,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          },
+          {
+            "id": 17,
+            "stock": 5,
+            "status": "保管",
+            "count": {
+              "x": 222,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "statusLabel": {
+              "x": 246,
+              "y": 289,
+              "align": "center",
+              "size": 16
+            },
+            "bottle": {
+              "x": 228,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "iconLayout": null,
+        "timeBar": null,
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "text": [
+          {
+            "text": "2031年5月",
+            "x": 15,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "初代",
+            "x": 115,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "£1,781",
+            "x": 345,
+            "y": 32,
+            "size": 20,
+            "align": "right",
+            "color": "#e6c77a"
+          },
+          {
+            "text": "AmberTime",
+            "x": 114,
+            "y": 249,
+            "size": 16,
+            "align": "center"
+          },
+          {
+            "text": "2031年1月",
+            "x": 114,
+            "y": 269,
+            "size": 16,
+            "align": "center"
+          },
+          {
+            "text": "25本",
+            "x": 90,
+            "y": 195,
+            "size": 16,
+            "align": "right"
+          },
+          {
+            "text": "販売中",
+            "x": 114,
+            "y": 289,
+            "size": 16,
+            "align": "center",
+            "color": "#efae95"
+          },
+          {
+            "text": "AmberTime",
+            "x": 246,
+            "y": 249,
+            "size": 16,
+            "align": "center"
+          },
+          {
+            "text": "2031年3月",
+            "x": 246,
+            "y": 269,
+            "size": 16,
+            "align": "center"
+          },
+          {
+            "text": "5本",
+            "x": 222,
+            "y": 195,
+            "size": 16,
+            "align": "right"
+          },
+          {
+            "text": "保管",
+            "x": 246,
+            "y": 289,
+            "size": 16,
+            "align": "center",
+            "color": "#c0bfbb"
+          },
+          {
+            "text": "蒸留室",
+            "x": 66,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "貯蔵庫",
+            "x": 180,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "販売室",
+            "x": 294,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#f0e6c8"
+          }
+        ],
+        "overflow": false,
+        "products": [
+          {
+            "id": 12,
+            "wood": 0.3881730650172102,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "high",
+            "name": "AmberTime\n2031年1月",
+            "state": "25本 · 販売中",
+            "stock": 25,
+            "saleState": "販売中",
+            "selected": false
+          },
+          {
+            "id": 17,
+            "wood": 0.008400349379070103,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "standard",
+            "name": "AmberTime\n2031年3月",
+            "state": "5本 · 保管中",
+            "stock": 5,
+            "saleState": "保管中",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "name": "1024-warehouse",
+        "save": "b90cceb98b9b0809a7a3cbdf4143d9c63e0c690b32121426472ff11decc2cc90",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            },
+            {
+              "x": 6,
+              "y": 51,
+              "w": 348,
+              "h": 45
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-19",
+            "selector": "#cask-rack [data-cask-id=\"19\"]",
+            "x": 60,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-21",
+            "selector": "#cask-rack [data-cask-id=\"21\"]",
+            "x": 192,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "iconLayout": null,
+        "timeBar": null,
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "text": [
+          {
+            "text": "2031年5月",
+            "x": 15,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "初代",
+            "x": 115,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "£1,781",
+            "x": 345,
+            "y": 32,
+            "size": 20,
+            "align": "right",
+            "color": "#e6c77a"
+          },
+          {
+            "text": "たる No.5",
+            "x": 114,
+            "y": 261,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "3か月",
+            "x": 114,
+            "y": 287,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.6",
+            "x": 246,
+            "y": 261,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "2か月",
+            "x": 246,
+            "y": 287,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.7",
+            "x": 114,
+            "y": 405,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "1か月",
+            "x": 114,
+            "y": 431,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.8",
+            "x": 246,
+            "y": 405,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "0か月",
+            "x": 246,
+            "y": 431,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "蒸留室",
+            "x": 66,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "貯蔵庫",
+            "x": 180,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#f0e6c8"
+          },
+          {
+            "text": "販売室",
+            "x": 294,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          }
+        ],
+        "overflow": false,
+        "products": [
+          {
+            "id": 12,
+            "wood": 0.3881730650172102,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "high",
+            "name": "AmberTime\n2031年1月",
+            "state": "25本 · 販売中",
+            "stock": 25,
+            "saleState": "販売中",
+            "selected": false
+          },
+          {
+            "id": 17,
+            "wood": 0.008400349379070103,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "standard",
+            "name": "AmberTime\n2031年3月",
+            "state": "5本 · 保管中",
+            "stock": 5,
+            "saleState": "保管中",
+            "selected": false
+          }
+        ]
+      }
+    ],
+    "after": [
+      {
+        "name": "390-sales",
+        "save": "b90cceb98b9b0809a7a3cbdf4143d9c63e0c690b32121426472ff11decc2cc90",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "sales": [
+          {
+            "id": 12,
+            "stock": 25,
+            "status": "販売中",
+            "count": {
+              "x": 90,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年1月",
+              "lines": 1,
+              "x": 114,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 114,
+              "y": 290.15384615384613,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 96,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          },
+          {
+            "id": 17,
+            "stock": 5,
+            "status": "保管中",
+            "count": {
+              "x": 222,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年3月",
+              "lines": 1,
+              "x": 246,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 246,
+              "y": 290.15384615384613,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 228,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "iconLayout": [],
+        "timeBar": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "text": [
+          {
+            "text": "2031年5月",
+            "x": 15,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "初代",
+            "x": 125.76923076923077,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "£1,781",
+            "x": 345,
+            "y": 32,
+            "size": 20,
+            "align": "right",
+            "color": "#e6c77a"
+          },
+          {
+            "text": "2031年1月",
+            "x": 114,
+            "y": 264,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "25本",
+            "x": 90,
+            "y": 195,
+            "size": 16,
+            "align": "right"
+          },
+          {
+            "text": "販売中",
+            "x": 114,
+            "y": 290.15384615384613,
+            "size": 20,
+            "align": "center",
+            "color": "#efae95"
+          },
+          {
+            "text": "2031年3月",
+            "x": 246,
+            "y": 264,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "5本",
+            "x": 222,
+            "y": 195,
+            "size": 16,
+            "align": "right"
+          },
+          {
+            "text": "保管中",
+            "x": 246,
+            "y": 290.15384615384613,
+            "size": 20,
+            "align": "center",
+            "color": "#c0bfbb"
+          },
+          {
+            "text": "蒸留室",
+            "x": 66,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "貯蔵庫",
+            "x": 180,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "販売室",
+            "x": 294,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#f0e6c8"
+          }
+        ],
+        "overflow": false,
+        "products": [
+          {
+            "id": 12,
+            "wood": 0.3881730650172102,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "high",
+            "name": "AmberTime\n2031年1月",
+            "state": "25本 · 販売中",
+            "releaseDate": "2031年1月",
+            "stock": 25,
+            "saleState": "販売中",
+            "selected": false
+          },
+          {
+            "id": 17,
+            "wood": 0.008400349379070103,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "standard",
+            "name": "AmberTime\n2031年3月",
+            "state": "5本 · 保管中",
+            "releaseDate": "2031年3月",
+            "stock": 5,
+            "saleState": "保管中",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "name": "390-warehouse",
+        "save": "b90cceb98b9b0809a7a3cbdf4143d9c63e0c690b32121426472ff11decc2cc90",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 66.46153846153847,
+          "cashY": 32,
+          "calendarRight": 114.6923076923077,
+          "generationRight": 170.0769230769231,
+          "cashLeft": 278.53846153846155,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-19",
+            "selector": "#cask-rack [data-cask-id=\"19\"]",
+            "x": 60,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-21",
+            "selector": "#cask-rack [data-cask-id=\"21\"]",
+            "x": 192,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "iconLayout": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "x": 144,
+            "y": 201,
+            "w": 21,
+            "h": 21,
+            "color": "#b69e9c",
+            "cask": {
+              "x": 90,
+              "y": 189,
+              "w": 48,
+              "h": 45
+            }
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "x": 276,
+            "y": 201,
+            "w": 21,
+            "h": 21,
+            "color": "#a8bbb0",
+            "cask": {
+              "x": 222,
+              "y": 189,
+              "w": 48,
+              "h": 45
+            }
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "x": 144,
+            "y": 345,
+            "w": 21,
+            "h": 21,
+            "color": "#c5b687",
+            "cask": {
+              "x": 90,
+              "y": 333,
+              "w": 48,
+              "h": 45
+            }
+          }
+        ],
+        "timeBar": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.0833333333333333,
+          "offsetX": 0,
+          "offsetY": 75.33333333333337,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "text": [
+          {
+            "text": "2031年5月",
+            "x": 15,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "初代",
+            "x": 125.76923076923077,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "£1,781",
+            "x": 345,
+            "y": 32,
+            "size": 20,
+            "align": "right",
+            "color": "#e6c77a"
+          },
+          {
+            "text": "たる No.5",
+            "x": 114,
+            "y": 261,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "3か月",
+            "x": 114,
+            "y": 287.15384615384613,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.6",
+            "x": 246,
+            "y": 261,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "2か月",
+            "x": 246,
+            "y": 287.15384615384613,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.7",
+            "x": 114,
+            "y": 405,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "1か月",
+            "x": 114,
+            "y": 431.15384615384613,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.8",
+            "x": 246,
+            "y": 405,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "0か月",
+            "x": 246,
+            "y": 431.15384615384613,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "蒸留室",
+            "x": 66,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "貯蔵庫",
+            "x": 180,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#f0e6c8"
+          },
+          {
+            "text": "販売室",
+            "x": 294,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          }
+        ],
+        "overflow": false,
+        "products": [
+          {
+            "id": 12,
+            "wood": 0.3881730650172102,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "high",
+            "name": "AmberTime\n2031年1月",
+            "state": "25本 · 販売中",
+            "releaseDate": "2031年1月",
+            "stock": 25,
+            "saleState": "販売中",
+            "selected": false
+          },
+          {
+            "id": 17,
+            "wood": 0.008400349379070103,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "standard",
+            "name": "AmberTime\n2031年3月",
+            "state": "5本 · 保管中",
+            "releaseDate": "2031年3月",
+            "stock": 5,
+            "saleState": "保管中",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "name": "1024-sales",
+        "save": "b90cceb98b9b0809a7a3cbdf4143d9c63e0c690b32121426472ff11decc2cc90",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "shop-offer",
+            "selector": "#shop-offer",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 216,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "product-12",
+            "selector": "#product-shelf [data-product-id=\"12\"]",
+            "x": 60,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          },
+          {
+            "key": "product-17",
+            "selector": "#product-shelf [data-product-id=\"17\"]",
+            "x": 192,
+            "y": 144,
+            "w": 108,
+            "h": 144
+          }
+        ],
+        "sales": [
+          {
+            "id": 12,
+            "stock": 25,
+            "status": "販売中",
+            "count": {
+              "x": 90,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年1月",
+              "lines": 1,
+              "x": 114,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 114,
+              "y": 288,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 96,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          },
+          {
+            "id": 17,
+            "stock": 5,
+            "status": "保管中",
+            "count": {
+              "x": 222,
+              "y": 195,
+              "align": "right",
+              "size": 16
+            },
+            "date": {
+              "text": "2031年3月",
+              "lines": 1,
+              "x": 246,
+              "y": 264,
+              "size": 20
+            },
+            "statusLabel": {
+              "x": 246,
+              "y": 288,
+              "align": "center",
+              "size": 20
+            },
+            "bottle": {
+              "x": 228,
+              "y": 201,
+              "w": 36,
+              "h": 33
+            }
+          }
+        ],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "iconLayout": [],
+        "timeBar": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "text": [
+          {
+            "text": "2031年5月",
+            "x": 15,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "初代",
+            "x": 115,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "£1,781",
+            "x": 345,
+            "y": 32,
+            "size": 20,
+            "align": "right",
+            "color": "#e6c77a"
+          },
+          {
+            "text": "2031年1月",
+            "x": 114,
+            "y": 264,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "25本",
+            "x": 90,
+            "y": 195,
+            "size": 16,
+            "align": "right"
+          },
+          {
+            "text": "販売中",
+            "x": 114,
+            "y": 288,
+            "size": 20,
+            "align": "center",
+            "color": "#efae95"
+          },
+          {
+            "text": "2031年3月",
+            "x": 246,
+            "y": 264,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "5本",
+            "x": 222,
+            "y": 195,
+            "size": 16,
+            "align": "right"
+          },
+          {
+            "text": "保管中",
+            "x": 246,
+            "y": 288,
+            "size": 20,
+            "align": "center",
+            "color": "#c0bfbb"
+          },
+          {
+            "text": "蒸留室",
+            "x": 66,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "貯蔵庫",
+            "x": 180,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "販売室",
+            "x": 294,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#f0e6c8"
+          }
+        ],
+        "overflow": false,
+        "products": [
+          {
+            "id": 12,
+            "wood": 0.3881730650172102,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "high",
+            "name": "AmberTime\n2031年1月",
+            "state": "25本 · 販売中",
+            "releaseDate": "2031年1月",
+            "stock": 25,
+            "saleState": "販売中",
+            "selected": false
+          },
+          {
+            "id": 17,
+            "wood": 0.008400349379070103,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "standard",
+            "name": "AmberTime\n2031年3月",
+            "state": "5本 · 保管中",
+            "releaseDate": "2031年3月",
+            "stock": 5,
+            "saleState": "保管中",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "name": "1024-warehouse",
+        "save": "b90cceb98b9b0809a7a3cbdf4143d9c63e0c690b32121426472ff11decc2cc90",
+        "anchors": {
+          "floor": 468,
+          "shelf": {
+            "x": 48,
+            "y": 165,
+            "w": 264,
+            "h": 267,
+            "rails": [
+              234,
+              378
+            ]
+          },
+          "casks": [
+            {
+              "x": 60,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 180,
+              "w": 108,
+              "h": 120,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 324,
+              "w": 108,
+              "h": 120,
+              "base": 378
+            }
+          ],
+          "products": [
+            {
+              "x": 60,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 192,
+              "y": 144,
+              "w": 108,
+              "h": 144,
+              "base": 234
+            },
+            {
+              "x": 60,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            },
+            {
+              "x": 192,
+              "y": 288,
+              "w": 108,
+              "h": 144,
+              "base": 378
+            }
+          ],
+          "equipment": {
+            "x": 90,
+            "y": 270,
+            "w": 180,
+            "h": 108,
+            "benchY": 378
+          }
+        },
+        "header": {
+          "cashWidth": 60,
+          "cashY": 32,
+          "calendarRight": 105,
+          "generationRight": 155,
+          "cashLeft": 285,
+          "size": 20,
+          "blocks": [
+            {
+              "x": 6,
+              "y": 6,
+              "w": 348,
+              "h": 39
+            }
+          ]
+        },
+        "hits": [
+          {
+            "key": "room-distill",
+            "selector": "#room-nav [data-room=\"distill\"]",
+            "x": 12,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-warehouse",
+            "selector": "#room-nav [data-room=\"warehouse\"]",
+            "x": 126,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "room-sales",
+            "selector": "#room-nav [data-room=\"sales\"]",
+            "x": 240,
+            "y": 582,
+            "w": 108,
+            "h": 45
+          },
+          {
+            "key": "toggle-time",
+            "selector": "#toggle-time",
+            "x": 303,
+            "y": 51,
+            "w": 45,
+            "h": 45
+          },
+          {
+            "key": "open-ledger",
+            "selector": "#open-ledger",
+            "x": 18,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-staff-panel",
+            "selector": "#open-staff-panel",
+            "x": 84,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "open-aux-menu",
+            "selector": "#open-aux-menu",
+            "x": 150,
+            "y": 520,
+            "w": 66,
+            "h": 54
+          },
+          {
+            "key": "cask-14",
+            "selector": "#cask-rack [data-cask-id=\"14\"]",
+            "x": 60,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-16",
+            "selector": "#cask-rack [data-cask-id=\"16\"]",
+            "x": 192,
+            "y": 180,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-19",
+            "selector": "#cask-rack [data-cask-id=\"19\"]",
+            "x": 60,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          },
+          {
+            "key": "cask-21",
+            "selector": "#cask-rack [data-cask-id=\"21\"]",
+            "x": 192,
+            "y": 324,
+            "w": 108,
+            "h": 120
+          }
+        ],
+        "sales": [],
+        "icons": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "color": "#b69e9c"
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "color": "#a8bbb0"
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "color": "#c5b687"
+          },
+          {
+            "id": 21,
+            "kind": null,
+            "color": null
+          }
+        ],
+        "iconLayout": [
+          {
+            "id": 14,
+            "kind": "pause",
+            "x": 144,
+            "y": 201,
+            "w": 21,
+            "h": 21,
+            "color": "#b69e9c",
+            "cask": {
+              "x": 90,
+              "y": 189,
+              "w": 48,
+              "h": 45
+            }
+          },
+          {
+            "id": 16,
+            "kind": "stock",
+            "x": 276,
+            "y": 201,
+            "w": 21,
+            "h": 21,
+            "color": "#a8bbb0",
+            "cask": {
+              "x": 222,
+              "y": 189,
+              "w": 48,
+              "h": 45
+            }
+          },
+          {
+            "id": 19,
+            "kind": "clock",
+            "x": 144,
+            "y": 345,
+            "w": 21,
+            "h": 21,
+            "color": "#c5b687",
+            "cask": {
+              "x": 90,
+              "y": 333,
+              "w": 48,
+              "h": 45
+            }
+          }
+        ],
+        "timeBar": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        },
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "left": 0,
+          "top": 0,
+          "dpr": 1,
+          "scale": 1.2,
+          "offsetX": 296,
+          "offsetY": 0,
+          "logicalWidth": 360,
+          "logicalHeight": 640
+        },
+        "text": [
+          {
+            "text": "2031年5月",
+            "x": 15,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "初代",
+            "x": 115,
+            "y": 32,
+            "size": 20
+          },
+          {
+            "text": "£1,781",
+            "x": 345,
+            "y": 32,
+            "size": 20,
+            "align": "right",
+            "color": "#e6c77a"
+          },
+          {
+            "text": "たる No.5",
+            "x": 114,
+            "y": 261,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "3か月",
+            "x": 114,
+            "y": 287,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.6",
+            "x": 246,
+            "y": 261,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "2か月",
+            "x": 246,
+            "y": 287,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.7",
+            "x": 114,
+            "y": 405,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "1か月",
+            "x": 114,
+            "y": 431,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "たる No.8",
+            "x": 246,
+            "y": 405,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "0か月",
+            "x": 246,
+            "y": 431,
+            "size": 20,
+            "align": "center"
+          },
+          {
+            "text": "蒸留室",
+            "x": 66,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          },
+          {
+            "text": "貯蔵庫",
+            "x": 180,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#f0e6c8"
+          },
+          {
+            "text": "販売室",
+            "x": 294,
+            "y": 611,
+            "size": 20,
+            "align": "center",
+            "color": "#c1bdb0"
+          }
+        ],
+        "overflow": false,
+        "products": [
+          {
+            "id": 12,
+            "wood": 0.3881730650172102,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "high",
+            "name": "AmberTime\n2031年1月",
+            "state": "25本 · 販売中",
+            "releaseDate": "2031年1月",
+            "stock": 25,
+            "saleState": "販売中",
+            "selected": false
+          },
+          {
+            "id": 17,
+            "wood": 0.008400349379070103,
+            "brand": {
+              "id": 1,
+              "name": "AmberTime",
+              "bottle": "round",
+              "label": "cream",
+              "createdMonth": 0
+            },
+            "priceTier": "standard",
+            "name": "AmberTime\n2031年3月",
+            "state": "5本 · 保管中",
+            "releaseDate": "2031年3月",
+            "stock": 5,
+            "saleState": "保管中",
+            "selected": false
+          }
+        ]
+      }
+    ]
+  },
+  "checks": [
+    {
+      "width": 390,
+      "height": 844,
+      "raster": {
+        "rows": 2,
+        "cssHeight": 2,
+        "top": 124,
+        "expectedCalendarBottom": 124,
+        "bar": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.5
+        }
+      },
+      "readableSales": true,
+      "productNameOmitted": true,
+      "rightIcons": true,
+      "pauseResumeCancelImmediate": true,
+      "completedOmitted": true,
+      "progressAdvances": true,
+      "playBoundsUnchanged": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "raster": {
+        "rows": 2,
+        "cssHeight": 2,
+        "top": 54,
+        "expectedCalendarBottom": 54,
+        "bar": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.6666666666666667,
+          "cssHeight": 2,
+          "progress": 0.5
+        }
+      },
+      "readableSales": true,
+      "productNameOmitted": true,
+      "rightIcons": true,
+      "pauseResumeCancelImmediate": true,
+      "completedOmitted": true,
+      "progressAdvances": true,
+      "playBoundsUnchanged": true
+    },
+    {
+      "dpr": 3,
+      "raster": {
+        "rows": 6,
+        "cssHeight": 2,
+        "top": 372,
+        "expectedCalendarBottom": 372,
+        "bar": {
+          "x": 6,
+          "y": 45,
+          "w": 348,
+          "h": 1.8461538461538463,
+          "cssHeight": 2,
+          "progress": 0.016666666666666666
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver",
+    "Author adoption",
+    "Fractional desktop zoom pixel rounding"
+  ]
+}
