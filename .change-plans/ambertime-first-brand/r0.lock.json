@@ -1,0 +1,108 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "591725559c0d33dc07fd390e8e67091addd503505df2970cc6940ca0d1ad35c0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-first-brand",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "0aa346d6479177df4d39f7db100e72acbb577b8d",
+    "change": "Configure singleton brand atomically at first bottling, persist native bottle/label choices and display price-tier caps",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "User first bottling brand configuration instruction",
+      "Current main PR556 native Codea sprites",
+      "Drive AmberTime.txt 1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi modified2026-09-30T01:45:05.043Z: BottlingScene3217-3219,3545-3579 and DistilleryAssets14469-14532",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-first-brand/r0.lock.json",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/first-brand.test.mjs",
+      "works/ambertime/tests/first-brand-art.test.mjs",
+      "works/ambertime/tests/room-object-art.test.mjs",
+      "works/ambertime/design/first-brand/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/design/shop-demand/**",
+      "works/ambertime/design/supply-demand/**",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/ui-details.mjs",
+      "works/ambertime/pixel-symbols.mjs"
+    ],
+    "expectedChanges": [
+      "Keep savekey/gameversion20 and old replay semantics/factories exact. Add recorded feature boundary after staffExperience for newgame first configuration vs existing configured singleton.",
+      "Configure existing brandid1 with name1-40characters defaultAmberTime, round/slender/square/fancy source sprites, cream/dark labels only when first manual bottling transaction succeeds. No economic/design fees. Immutable identity thereafter; automatic/partial inherit1.",
+      "Restore only missing brand design fields from trusted operation replay (default currentstandard when no otherdesign exists); preserve names/history/releases/reputation and reject other save corruption.",
+      "Preserve all native arrays/geometry. Render-only coordinate role masks for sourcecap/label, cream/dark palette, silver/copper/gold low/standard/high tier; preserve Fancy labelcenter when cap uses samepaletteindex. Cap reads perrelease selectedPrice with storedprice fallback forpruned history.",
+      "Firstquote integrates compact transient draft/name/4shape/2label controls and preview, then samequote quantity. Cancel/failure writes no draft. Subsequentquote shows existingbrand. Allproduct/history/store/comparison/Canvas use shared release design+cap. No newdecoration.",
+      "Scoped replay/compatibility/manual-auto-partial/cap/art tests and phonePC input/cancel/price/store/ledger/restore display screenshots. CI/Stagingmerge/deploy; Productionexcluded."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "390x844 touch firstsetup/name/4shape/2label/keyboard/cancel/confirm/repeat/price/restore/store/ledger and1024x768 PC; no broadE2E"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes first brand setup/name/4shapes/2labels and price tier cap colors, relatedsave/state/UI changes, PR and safe Staging merge/public verification."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Integer authored SVG grid",
+      "Expression audit: no new text/decoration/flames",
+      "Lock before implementation; Scope Risk Impact"
+    ],
+    "rollback": "Revert UI/render deployment; keep forward-compatible v20 recorded feature reader for saves created by this feature, do not open such saves with an old reader.",
+    "outOfScope": [
+      "Production",
+      "Still/pipe/receiver/sampleglasses/furniture/HUD/fonts/native sprite geometry",
+      "Distillation/aging/evaporation/casklimit/quantity policy/staff thresholds salaries/store demand/price calculations/shipping/department5/reputation/generation",
+      "BroadE2E/longplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption"
+    ]
+  }
+}
