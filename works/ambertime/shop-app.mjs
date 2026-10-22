@@ -685,7 +685,7 @@ function renderSpirit(){
  const view=distillationView(game);
  panel.hidden=!view;if(!view)return;
  const gathering=view.phase==='collecting';
- $('spirit-kind').textContent=gathering?'蒸留':view.phase==='forecast'?(game.usual.reservation?.status==='active'?'抽出見込み':'抽出見込み'):view.phase==='filled'?'たる詰め済み':'できた原酒';
+ $('spirit-kind').textContent=gathering?'蒸留':view.phase==='forecast'?(game.still.distillation?.collectionVersion===2?'原酒':'抽出見込み'):view.phase==='filled'?'たる詰め済み':'できた原酒';
  $('spirit-phrase').textContent=gathering?'':uiText(view.phrase);
  $('spirit-gauges').hidden=gathering;
  $('spirit-volume').textContent=view.litres.toFixed(1)+' L';
@@ -758,9 +758,9 @@ function render(){
  $('shelf-pages').hidden=shelfPageCount<=1;const pageButtons=$('shelf-pages').querySelectorAll('button');pageButtons[0].disabled=shelfPage===0;pageButtons[1].disabled=shelfPage+1>=shelfPageCount;$('shelf-pages').querySelector('span').textContent=(shelfPage+1)+' / '+shelfPageCount;
 
  $('sales-empty').hidden=game.core.products.some(p=>p.stock>0);const last=game.core.lastMonth;$('sales-result').textContent=last?monthLabel(last.month)+' '+last.bottles+'本\n売上 '+money(last.revenue):'';
- $('toggle-time').textContent=(!preview&&!canSave)?'保存待ち':userPaused||runtimeHalted?(phase==='distilling'&&!atLimit?'蒸留を再開する':'時間を進める'):'時間を止める';$('time-controls').hidden=tasting||!!modal;
- $('toggle-time').disabled=!hasMonthlyWork()||(!preview&&!canSave);$('toggle-speed').disabled=!game||(!preview&&!canSave);$('toggle-speed').textContent=playbackRate===2?'通常速度に戻す':'倍速にする';$('toggle-speed').setAttribute('aria-pressed',String(playbackRate===2));
- $('time-status').textContent=(!preview&&!canSave)?'保存エラー・停止中':modal?'確認中・停止中':tasting?'試飲中・停止中':document.hidden?'画面を離れて停止中':runtimeHalted?'資金を残して停止中':userPaused?'停止中':!hasMonthlyWork()?'停止中':playbackRate===2?'2倍速で進行中':'進行中';
+ $('toggle-time').textContent=(!preview&&!canSave)?'保存待ち':userPaused||runtimeHalted||heldRange()?(phase==='distilling'&&!atLimit?'蒸留を再開する':'時間を進める'):'時間を止める';$('time-controls').hidden=tasting||!!modal;
+ $('toggle-time').disabled=heldRange()||!hasMonthlyWork()||(!preview&&!canSave);$('toggle-speed').disabled=!game||(!preview&&!canSave);$('toggle-speed').textContent=playbackRate===2?'通常速度に戻す':'倍速にする';$('toggle-speed').setAttribute('aria-pressed',String(playbackRate===2));
+ $('time-status').textContent=(!preview&&!canSave)?'保存エラー・停止中':modal?'確認中・停止中':tasting?'試飲中・停止中':document.hidden?'画面を離れて停止中':runtimeHalted?'資金を残して停止中':userPaused||heldRange()?'停止中':!hasMonthlyWork()?'停止中':playbackRate===2?'2倍速で進行中':'進行中';
  $('time-change').textContent=last?monthLabel(last.month)+' 維持費 '+money(last.upkeep)+(last.revenue?' · 売上 '+money(last.revenue):''):'';
  $('records').hidden=true;
  const spirit=$('spirit-readout').hidden?null:{kind:$('spirit-kind').textContent,volume:$('spirit-volume').textContent,phrase:$('spirit-phrase').textContent,axes:$('spirit-gauges').hidden?[]:[['roughness','シゲキ'],['character','かおり']].map(([id,label])=>({label,ratio:Number($('spirit-'+id).style.getPropertyValue('--flavor-fill'))}))};
