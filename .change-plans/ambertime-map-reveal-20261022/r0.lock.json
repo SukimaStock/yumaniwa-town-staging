@@ -1,0 +1,140 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4bc6d5f712546f25b6a483a90a78cf6beabdfbd6f28ddad714f6d18e7c3cb3fe",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-reveal-20261022",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Show world map once at new zoom unlocks and require a factual overseas contact for Earth, without altering AmberTime simulation or save replay format.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f7bcaf82ccdbdd26f93f2e5a0045d349d94945a3",
+    "canonicalSources": [
+      "Owner-approved main-map integration request and prior six-stage behavior specification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs and room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-reveal-20261022/r0.lock.json",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/tests/world-map-view.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/experiments/**",
+      "works/ambertime/canvas-scene.mjs",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Earth (stage 6) unlocks from logged overseas 'inquiry' event to overseas place or 'visit' event from overseas place, not mere rumor, interest or arrival; stage 5 can open from first overseas/national arrival.",
+      "On a newly reached zoom level, enqueue one native map dialog after saving the game and after important player decisions/modals have cleared, not during distillation, tasting or filling.",
+      "Animate small discrete zoom from previous unlock level to maximum newly unlocked once; multiple unlocks coalesce into one; no gameplay action or text-heavy reward.",
+      "Use a separate versioned localStorage sidecar for UI-only highest already-shown stage, with legacy save baseline on initial load and safe reset/preview behavior; avoid rewriting v20 game save/replay history.",
+      "Keep normal menu map access and +/- bounds; draw approved pixel art unchanged, no new shop detail or game simulation.",
+      "Focused deterministic tests for stage 1-5 and overseas contact semantics, visit source versus destination, combined leap, UI notice transition boundaries and old saves."
+    ],
+    "ownerDecisions": [
+      "Owner 2026-10-22 explicitly approved Earth after factual overseas contact and once-only auto display of each newly unlocked map stage without interrupting play; Staging implementation requested."
+    ],
+    "hqDecisions": [
+      "Use external UI-only view notice sidecar rather than game v20 operation log; existing stable map renderer is read-only and untouched. Preserve major event modal priority and no live map calculations."
+    ],
+    "rulesApplied": [
+      "Plan Lock before implementation; only three AmberTime files plus lock",
+      "No schema changes to game or monthly transmission, Staging only",
+      "Expression audit: existing map modal, no extra text or congratulations"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "New save first notice only after actual first reach; old save is baselined without retroactive popups.",
+      "Deferred notice after mandatory shop/generation/aging decision and manual distillation/filling; app pauses during map dialog, closing returns previous room.",
+      "Once-only persisted sidecar, multiple levels combined, no repeat on reload, menu access unaffected and stage 6 contact validity.",
+      "Unit coverage for visit from overseas, inquiry to overseas, mere interest/arrival, missing legacy fields; required CI and existing save replay invariants."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert projection, native UI notice code and targeted tests without touching production or original save/replay model.",
+    "outOfScope": [
+      "Production publication",
+      "Town model probabilities/edges/rooms/new regions",
+      "Modify main save format or replay log",
+      "Pixel art changes or map sizing",
+      "Shop inspection/management UI",
+      "Month or time gates for unlock"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari use",
+      "Author adoption",
+      "Production rollout"
+    ],
+    "alternativesRejected": [
+      "Introduce arbitrary 30-year unlocks",
+      "Boost rumor delivery delay",
+      "Inject map seen flag into replay operations",
+      "Force-pop map over ongoing selections",
+      "Overwrite actual map art"
+    ],
+    "boundaryCases": [
+      "Only overseas rumor, interest, memory or first arrival: stage 5 at most",
+      "Overseas inquiry to known overseas node or visit from overseas node: stage 6",
+      "Domestic inquiry or visit: no stage 6",
+      "Simultaneous far jump shows only one auto dialog",
+      "Existing save with stage 6 starts baseline and never replays old popups",
+      "New save starts stage 1; reset clears UI notice baseline"
+    ],
+    "testPlan": [
+      "Existing world-map-view tests updated for overseas contact and early-stage equivalence",
+      "UI notice pure helpers/boundary tests + code review of timing and sidecar",
+      "Required PR CI Gate/Trusted Evidence/Release Validator before Staging merge"
+    ],
+    "problem": "Earth can appear by year ten from lone overseas arrival; players may never notice the menu map.",
+    "currentContract": "Main game v20 save/replay must remain stable; world-map modal and stage projection are existing, with several automatic decisions of higher priority.",
+    "whyExistingIsInsufficient": "Map unlock and notification are not differentiated; stage 6 requires only an arrival and unlocks are silent.",
+    "design": "Read-only existing town events for stage 6 plus standalone presentation sidecar and safe queued map dialog; existing 144x144 map with gradual stage reveal.",
+    "migration": "No schema migration: legacy saves initialize shown-stage baseline from current progress; fresh saves start at stage 1. UI sidecar independent.",
+    "compatibility": "No modifications to user game object, monetary calculations, propagation, replay operations or original Lab.",
+    "promotionRisk": "Only Staging and visual behavior; physical touch user acceptance separate."
+  }
+}
