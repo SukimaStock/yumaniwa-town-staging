@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "82a7bfaecc6965e1bccf48f9a75b24c147c301a7ef420dcda604ea5a08ce97c3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-world-map-art-v02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace prototype map line drawings with six production-style 144x144 pixel scenes using AmberTime palette and still source silhouette; correct +/- interaction, Lab-only",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "81a2025c9aee61abda9b5477e766d6fa002a7fc6",
+    "canonicalSources": [
+      "User's accepted six pixel scene reference images and explicit request to use actual AmberTime code",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "existing map Lab v01"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-world-map-art-v02/r0.lock.json",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/experiments/world-map/v01/app.mjs",
+      "works/ambertime/experiments/world-map/v01/map.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/town-simulation/v01/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "All six stage scenes upgraded into coherent handcrafted integer pixel landscapes, retaining a consistent distillery with the source copper still silhouette and 144x144 display.",
+      "Stage 1 lone distillery; stage 2 distillery and distinct shop/super separated; stage 3 detailed streets; stage 4 JRPG geography; stage 5 recognizable Japan land/sea; stage 6 distant Earth.",
+      "Plus moves stage number DOWN (zoom in) and minus moves stage UP (zoom out), with disabled bounds and accessible labels.",
+      "Scoped deterministic tests of 6 distinct scenes, integer source pixels, controls and limits. No external image resources, no change to save or simulation."
+    ],
+    "ownerDecisions": [
+      "2026-10-22: user explicitly criticized schematic prototype, approved six detailed visual references, requested coded pixel art suitable for AmberTime's Lab before main integration."
+    ],
+    "hqDecisions": [
+      "Reuse room-object-art.mjs source palette and 16x16 copper pot pattern as authored read-only reference; isolated Lab only, no shared code changes."
+    ],
+    "rulesApplied": [
+      "Use same no-blur integer pixel grid and native color accents",
+      "Staging only, not main integration; maintain 6-stage small viewport and source isolation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Six 144x144 scenes identifiable and consistent, quality comparable to accepted visual reference at native render size; +/- and iPhone-sized container.",
+      "Node scene smoke test and all required PR CI; iPhone physical check remains owner decision."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore previous v01 map.mjs, app.mjs, map.test.mjs with separate revert; retain Lab registration.",
+    "outOfScope": [
+      "AmberTime main integration",
+      "Store tapping or management",
+      "Town probability and unlock model",
+      "New geographic database",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone or browser direct inspection",
+      "User adoption"
+    ],
+    "alternativesRejected": [
+      "Scaling generated images to game map",
+      "New global canvas engine",
+      "Big full-screen minimap"
+    ],
+    "boundaryCases": [
+      "Stage 1 + disabled",
+      "Stage 6 - disabled",
+      "All six scenes distinct and no illegal half-pixel geometry",
+      "No new network/save behavior"
+    ],
+    "testPlan": [
+      "Node syntax and map.test for 6 stages and +/- state",
+      "CI risk/plan/trust and target diff checks"
+    ],
+    "problem": "Old map v01 is rough placeholder rather than import-ready pixel artwork despite agreed visuals.",
+    "currentContract": "144x144 static Canvas Lab with six stages and existing + and - controls; AmberTime source has 16-cell still silhouette.",
+    "whyExistingIsInsufficient": "Schematic buildings, unrefined geography, inverted button semantics.",
+    "design": "Detailed authored pixel raster with source colors and still motifs, single grid; all scenarios draw on a fixed canvas.",
+    "migration": "None; no saved state in Lab.",
+    "compatibility": "No changes to game, save, town simulation or lifecycle; replace three Lab-only source files.",
+    "promotionRisk": "Staging-only Lab visuals; user decides adoption."
+  }
+}
