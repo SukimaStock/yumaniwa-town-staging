@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6a1bc8975e6220dd1021427414c2cbaf2a2dc93d23eb7ddcc27c36de6617ba6c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-world-map-lab-v01",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent six-stage zoom-out world-map visual laboratory for AmberTime; unchanged game data",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "45eac8da84ba650917c0a085d1ed259c5a8eb3ee",
+    "canonicalSources": [
+      "User map Lab request 2026-10-22",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "existing town-simulation/v01/map.mjs and town-connection.mjs",
+      "data/work-lifecycle.json and data/lab-rooms.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-world-map-lab-v01/r0.lock.json",
+      "works/ambertime/experiments/world-map/v01/**",
+      "works/ambertime-world-map-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/town-simulation/v01/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Six unique authored 144x144 integer pixel map backgrounds: isolated distillery, nearby stores, town roads, RPG terrain, Japan and sea, Earth and space.",
+      "Single small display frame with accessible 1-6 stage +/- controls; no store click, drag or geographic data.",
+      "Independent no-save/no-network/no-simulation visual demo only; stages are freely selectable and do not imply brand success.",
+      "Existing-schema active work launcher, Prototype Bench placement and generated lab/index.html entry.",
+      "Small automated render/controller test plus syntax and scoped UI review."
+    ],
+    "ownerDecisions": [
+      "User 2026-10-22 explicitly requested six-stage independent visual Lab, small frame, no shop details, Staging only; author adoption follows actual review."
+    ],
+    "hqDecisions": [
+      "Use existing independent Lab entry and layout, no new runtime/game interfaces; shared registry + generated LAB are required by AGENTS and authorized by stated Lab integration."
+    ],
+    "rulesApplied": [
+      "Add LAB entry in same PR via canonical lifecycle/room config; generated lab/index.html only",
+      "Do not change production, native model, legacy Lab, saved states or economic rules.",
+      "Expression audit: no poetic intro or descriptive cards."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Visually compare six 144x144 stages and pixel consistency; test 320/390 px browser viewport and +/- bounds.",
+      "Node-focused tests on six stages and button boundary, lifecycle source/generated LAB consistency, required CI."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only newly added Lab and its launcher/registry/LAB entries; preserve town model/main game.",
+    "outOfScope": [
+      "Native shop/map integration",
+      "Existing town-simulation changes",
+      "Map tile/object placement registry",
+      "Rumor/sales/aging calculation and unlock logic",
+      "Production changes",
+      "Shop inspection and management UI"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/Safari experience",
+      "Author approval of final map design",
+      "Production release"
+    ],
+    "alternativesRejected": [
+      "A big interactive shop management map",
+      "Changing old town-simulation map or game save",
+      "Continuous zoom renderer and new map engine"
+    ],
+    "boundaryCases": [
+      "Stage 1 + button disabled",
+      "Stage 6 - button disabled",
+      "All six views distinct, empty store events do not affect visibility",
+      "Responsive small display; no map-tap navigation"
+    ],
+    "testPlan": [
+      "Node JS module syntax and stage/controller geometry regression",
+      "Compare six browser-level 144x144 generated map images if browser runner accessible",
+      "Lifecycle/LAB and required CI before staging merge"
+    ],
+    "problem": "Player needs quiet world-scale overview from isolated distillery to Earth, without management features.",
+    "currentContract": "Town model and old 144x144 provisional diagram immutable; new Lab entries require lifecycle and LAB generator.",
+    "whyExistingIsInsufficient": "Town-simulation map mixes contact status with a fixed schematic and does not provide six staged zoom-out views.",
+    "design": "Six deliberately authored integer raster scenes in one 144px Canvas, switch stage using +/- with fixed frame; inert map and no simulation imports.",
+    "migration": "None; independent Lab with no saved data.",
+    "compatibility": "No modification to AmberTime main, old experiments, saved game or public pages; new active wrapper and existing Lab entry contract.",
+    "promotionRisk": "Staging-only proof-of-concept. Owner approval and Production action remain separate."
+  }
+}
