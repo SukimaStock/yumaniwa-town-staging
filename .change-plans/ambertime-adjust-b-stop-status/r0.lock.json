@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9049c8c600f67f11af17cefb120f0efe9e3616c90fd6a4ca8092b733c4a89350",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-adjust-b-stop-status",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Display the actual stopped clock at collection limit and shorten the spirit heading",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "dc2867e92b3551f11b26d7979aa8a4acec4020c7",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR596 public missed88 actualUI"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-adjust-b-stop-status/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Use existing heldRange predicate in displayed time status and disable unavailable playbutton atheldmanualrange",
+      "Shorten new current spirit forecastheading to原酒; preserve oldlegacyforecastheading",
+      "RefreshentryUIquery only; no savedstate/math/clockbehavior changes"
+    ],
+    "ownerDecisions": [
+      "AdjustmentB authorizesrelatedUIbugfixes/publicconfirmation"
+    ],
+    "hqDecisions": [
+      "Presentationonly; existingheldRangealreadyownstheactualclockstop"
+    ],
+    "rulesApplied": [
+      "Stagingonly",
+      "No cards/sales/town/agingmodel changes",
+      "Expression audit short actionlabels withoutconstantnumericdisplay",
+      "Bounded delegation core and UI ownership",
+      "Freshbasebranch/freshr0 before new dependency scope implementation; preserve original core authorization evidence"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Publicmissed88reports停止中 withやり直す anddisabledtimebutton",
+      "Existingstart/two-marker confirmation andsave positions remain"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert thispresentationfix",
+    "outOfScope": [
+      "Production",
+      "Cards adjustmentC",
+      "Flavor/town/aging redesign",
+      "NewLab",
+      "Sales/inventory/economy redesign"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "AuthorphysicaliPhone/Safari feel",
+      "Actualviewport390if unsupported"
+    ],
+    "alternativesRejected": [
+      "Globally lower frozen minimumStop",
+      "Reinterpret oldoperations withnewmapping",
+      "Autochoose missedrange",
+      "ChangeLab minimumwidth"
+    ],
+    "boundaryCases": [
+      "Newmissed88",
+      "Newcollected99",
+      "Paused/restart",
+      "Legacyforecast"
+    ],
+    "testPlan": [
+      "Node syntax/diff/ScopeRiskImpact",
+      "Existing27relatedregressionsevidence reused because no behavioraldependency changed",
+      "Publicactualclockstopandshortheading"
+    ],
+    "problem": "Actualclockholds88 but displayed time-status and playbutton still claim progress",
+    "currentContract": "heldRange stopsactualtimer correctly",
+    "whyExistingIsInsufficient": "Displayed status only checks userPaused, not heldRange",
+    "design": "Reuse existing heldRange in presentation conditions",
+    "migration": "None",
+    "compatibility": "No savedstate changes",
+    "promotionRisk": "Stagingonly",
+    "dependencies": [
+      "PR596 heldRange"
+    ]
+  }
+}
