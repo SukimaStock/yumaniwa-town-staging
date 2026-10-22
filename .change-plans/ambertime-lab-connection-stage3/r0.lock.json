@@ -1,0 +1,152 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2536e2e01f40f4391f37912c486241d1b1db3e1c6f0f9760c0cb5bc774be3c1e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-lab-connection-stage3",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Connect bottled flavor Lab specimens one-way to existing town simulation",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "5ee378230025b70c27567b3b395df61f83516039",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR588/589",
+      "works/ambertime-flavor-lab-v02/REPORT.md",
+      "works/ambertime/experiments/town-simulation/v01/REPORT.md",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "User stage3 request"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-lab-connection-stage3/r0.lock.json",
+      "works/ambertime-flavor-lab-v02/bridge.mjs",
+      "works/ambertime-flavor-lab-v02/bridge.test.mjs",
+      "works/ambertime-flavor-lab-v02/stage3-results.json",
+      "works/ambertime-flavor-lab-v02/STAGE3.md",
+      "works/ambertime-flavor-lab-v02/app.mjs",
+      "works/ambertime-flavor-lab-v02/index.html",
+      "works/ambertime-flavor-lab-v02/browser-test.mjs",
+      "works/ambertime-flavor-lab-v02/REPORT.md",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/experiments/town-simulation/v01/app.mjs",
+      "works/ambertime/experiments/town-simulation/v01/index.html",
+      "works/ambertime/experiments/town-simulation/v01/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "One-way size-bounded URL fragment snapshot from existing stored bottle; native version2 save unchanged",
+      "Three shared projection rules: rough unchanged, character max fruit/grain/smoke/body, wood max wood/vanilla; preserve raw8 and provenance, disclose collisions",
+      "Optional initialConditions.productSnapshot nested log extension for exact replay; normal fixtures/log output stay unchanged",
+      "Custom town batches repeat exact frozen profile using existing24month preparation/18month cycle/24bottle supply; no jitter/reaging of imported specimen",
+      "Minimal send/name/primary-character/assumption UI; no axes or events added",
+      "Five fixed specimens isolate fruit vs body/smoke/cask/age pairs; grain mapping unit-only; one preselectedseed30years, no search"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes small module/UI and unavoidable minimal exchange contract changes withinstage3; author fun/adoption remains pending"
+    ],
+    "hqDecisions": [
+      "New exchange is a validated URLfragment envelope, no extra storage/key; frozen product data is copied into existing release products",
+      "Optional nested initialConditions.productSnapshot is required to replay custom input; no native save fields changed",
+      "Existing recurring town supply explicitly disclosed; source bottle age is metadata, preparation remains24months",
+      "3-axis lossyprojection is disclosed; no smoke-to-stimulus relabeling"
+    ],
+    "rulesApplied": [
+      "Stagingonly",
+      "Prior work retained; noPhase4",
+      "Expressionaudit minimal buttons/factual labels",
+      "Independent read-only design and implementationreview"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Real create-age-bottle-send flow; name/character/age/provenance remain fixed",
+      "Reload received URL,reset,switch products,JSONdownload/replay/summary and source reference",
+      "Existing nameLab controls/save and town preset regressions",
+      "RequiredCI and public bytes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert thisPR; old name2 data remains readable; captured URLs/logs preserve their schema for versioned sourcecode",
+    "outOfScope": [
+      "Production",
+      "MainAmberTime",
+      "Growth or rumor redesign",
+      "New flavor axes/regions/events",
+      "Shared save or bidirectional sync",
+      "Large simulations",
+      "Stage4integration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari/touch",
+      "Author fun/adoption",
+      "Threeaxis representation of aroma identities"
+    ],
+    "alternativesRejected": [
+      "Parsing names into flavor",
+      "Shared localStorage or synchronized state",
+      "Finite24only (cannotreach existingsettlement threshold)",
+      "Newsmokeaxis",
+      "Real bottleage alters comparison productiontime"
+    ],
+    "boundaryCases": [
+      "Oldversion2bottles",
+      "No bottles",
+      "Malformed/oversized/tamperedfragment and HTMLlabel",
+      "Same name differentprofile,renamed sameprofile",
+      "Frozen source after other batches age",
+      "Same origin differentcask/age",
+      "Reloadcustom URL andlogreplay",
+      "Preset mode unaffected"
+    ],
+    "testPlan": [
+      "Existing nameLab model/controller and town8tests unchanged outcomes",
+      "Focused bridge validation/projection/immutability/label-neutrality/oldsave/supply/month boundaries",
+      "Five fixed bottles, same seed20261021,24bottles/release0,30years",
+      "Scope Risk Impact requiredCI deploy and browser round trip"
+    ],
+    "problem": "Existing Lab product formats differ and there is no operation to send a frozen bottled specimen to town",
+    "currentContract": "Nameversion2 save stores frozen original/months/label/recipe; townlog1 stores initialconditions and releases; townhasnoautosave",
+    "whyExistingIsInsufficient": "Preset IDs alone cannot preserve arbitrary captured flavor/provenance or replay it",
+    "design": "Small bottle snapshot/projection module and one-way URLfragment transport; optional explicit custom-product initialcondition; existing simulationmechanics unchanged",
+    "migration": "None for native saves. Old log1 remains valid; optional nested snapshot only for customruns.",
+    "compatibility": "Existing name2 save key/shape untouched. Normal townfixtures export originalshape. Customlog1 adds optional productSnapshot initialcondition and source fields in generic product records.",
+    "promotionRisk": "Stagingonly; no main/Production edits",
+    "dependencies": [
+      "Existing nameLab pure profileFor/summaryFor",
+      "Existing town taste affinity and release/shipment pipeline"
+    ]
+  }
+}

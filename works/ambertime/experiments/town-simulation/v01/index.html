@@ -9,6 +9,7 @@
 <header><a href="../../../../../lab/#room-bench">← LAB</a><h1>AmberTime <span>街と口コミ · 0.1</span></h1><a href="../../reputation/v05/">Lab 0.5</a></header>
 <main>
 <div class="clock" style="flex-wrap:wrap"><strong id="time">0年 0か月</strong><span id="generation">初代</span><span id="stock"></span></div>
+<p id="specimen" class="help" hidden></p>
 <div class="playback"><button id="play" type="button">▶ 再生</button><button id="speed" type="button" aria-label="再生速度" aria-pressed="false">1倍</button><span class="targets"><button data-year="10" type="button">10年</button><button data-year="30" type="button">30年</button><button data-year="60" type="button">60年</button><button data-year="100" type="button">100年</button></span></div>
 <p id="status" role="status" class="status">指定年まで、各月を計算します。</p>
 <div class="stage">
@@ -26,5 +27,5 @@
 <details id="settings"><summary>条件を変える</summary><div class="settings-grid"><label>比較条件<select id="mode"></select></label><label>シード<input id="seed" type="number" min="1" max="4294967295" step="1" value="20261021"></label><label>納品方針<select id="policy"></select></label><label>商品<select id="product"><option value="changing">発売ごとに変更</option><option value="standard">原酒香が豊か</option><option value="young">力強い</option><option value="long">樽香が豊か</option></select></label></div><div class="settings-actions"><button id="apply" type="button">商品・納品方針を切替</button><button id="reset" type="button">初期状態に戻す</button></div><p class="help">比較条件とシードは初期状態に戻すと適用。商品・納品方針の切替は履歴に残り、仕込み済みの商品は変わりません。</p></details>
 <section class="exports" aria-label="ログの書き出し"><button id="json" type="button">JSONを保存</button><button id="copy" type="button">要約をコピー</button><a href="REPORT.md">比較・検証レポート</a><details id="report"><summary>要約を見る</summary><textarea id="report-text" readonly aria-label="時系列レポート"></textarea></details></section>
 <p class="boundary">1号店・AmberTime一銘柄の独立試作。口コミの到着と納品は別に記録します。本編のセーブには接続しません。</p>
-</main><script type="module" src="app.mjs?stage2=1"></script>
+</main><script type="module" src="app.mjs?stage3=1"></script>
 </body></html>

@@ -1,0 +1,1137 @@
+{
+  "seed": 20261021,
+  "months": 360,
+  "quantity": 24,
+  "releaseMonth": 0,
+  "runs": [
+    {
+      "name": "果実・3年リフィル",
+      "snapshot": {
+        "schema": "ambertime-bottled-specimen/1",
+        "id": "flavor-v02-1-28ed416d117517d3",
+        "label": "果実香が強い",
+        "profile": {
+          "fruit": 0.8451780682800887,
+          "grain": 0.37319292607552085,
+          "smoke": 0.05419666816092945,
+          "body": 0.20303485377324967,
+          "spice": 0.10748641375772175,
+          "rough": 0.3273743364604752,
+          "wood": 0.08003025867193228,
+          "vanilla": 0.051784285023015006
+        },
+        "primary": "fruit",
+        "ageMonths": 36,
+        "recipe": {
+          "malt": "plain",
+          "ferment": "long",
+          "cask": "refill",
+          "start": 0.12,
+          "end": 0.4
+        },
+        "source": {
+          "bottleId": 1,
+          "bottledAt": 36
+        },
+        "quantity": 24,
+        "releaseMonth": 0
+      },
+      "projected": {
+        "roughness": 0.3273743364604752,
+        "character": 0.8451780682800887,
+        "wood": 0.08003025867193228,
+        "age": 24,
+        "price": 30,
+        "label": "果実香が強い",
+        "specimenId": "flavor-v02-1-28ed416d117517d3",
+        "primaryLabel": "果実の香り"
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "fit": 0.6780125641724363
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "fit": 0.723547226502482
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "fit": 0.35751088849412693
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "fit": 0.4589504622171908
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "fit": 0.3989923639686034
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "fit": 0.714373015299405
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "fit": 0.2526341207000847
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "fit": 0.32503805857566914
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "fit": 0.6917093265236964
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "fit": 0.49966720098497436
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "fit": 0.7344822424891383
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "fit": 0.28541443411058487
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "fit": 0.725331503477027
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "fit": 0.26084915206020365
+        }
+      ],
+      "summary": {
+        "month": 360,
+        "years": 30,
+        "generation": 2,
+        "produced": 480,
+        "inventory": 120,
+        "delivered": 360,
+        "barrels": 2,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 20,
+          "shipment": 189,
+          "arrival": 1137,
+          "memory": 56,
+          "interest": 86,
+          "rumor": 13,
+          "inquiry": 42,
+          "share": 17,
+          "visit": 10,
+          "trade": 4,
+          "generation": 1
+        },
+        "firstOverseas": 55,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0.5936285483154736,
+        "longestMemory": 0
+      },
+      "liked": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "trading": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "news": 118,
+      "examples": [
+        {
+          "month": 22,
+          "type": "interest",
+          "reason": "食堂で「果実香が強い」(#1)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 31,
+          "type": "interest",
+          "reason": "町の酒店で「果実香が強い」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 43,
+          "type": "interest",
+          "reason": "町の酒店で「果実香が強い」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 54,
+          "type": "rumor",
+          "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。"
+        },
+        {
+          "month": 70,
+          "type": "interest",
+          "reason": "町の酒店で「果実香が強い」(#4)が好みに合い、関心を持たれました。"
+        }
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 360,
+        "conservation": {
+          "produced": 480,
+          "inventory": 120,
+          "delivered": 360,
+          "lotStock": 120,
+          "shipmentTotal": 360,
+          "receivedTotal": 360
+        },
+        "peakBarrels": 2,
+        "eventCount": 1575,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      }
+    },
+    {
+      "name": "厚み・3年リフィル",
+      "snapshot": {
+        "schema": "ambertime-bottled-specimen/1",
+        "id": "flavor-v02-1-d570e47afc67ef78",
+        "label": "まろやかで厚みのある味",
+        "profile": {
+          "fruit": 0.17903359204875635,
+          "grain": 0.702457001940542,
+          "smoke": 0.05419666816092945,
+          "body": 0.9859504900567223,
+          "spice": 0.5458344895310521,
+          "rough": 0.31211342510251633,
+          "wood": 0.10230356301479071,
+          "vanilla": 0.06619642312721752
+        },
+        "primary": "body",
+        "ageMonths": 36,
+        "recipe": {
+          "malt": "plain",
+          "ferment": "short",
+          "cask": "refill",
+          "start": 0.63,
+          "end": 0.89
+        },
+        "source": {
+          "bottleId": 1,
+          "bottledAt": 36
+        },
+        "quantity": 24,
+        "releaseMonth": 0
+      },
+      "projected": {
+        "roughness": 0.31211342510251633,
+        "character": 0.9859504900567223,
+        "wood": 0.10230356301479071,
+        "age": 24,
+        "price": 30,
+        "label": "まろやかで厚みのある味",
+        "specimenId": "flavor-v02-1-d570e47afc67ef78",
+        "primaryLabel": "味の厚み"
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "fit": 0.5677311462157306
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "fit": 0.6030745654267557
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "fit": 0.2993603322928311
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "fit": 0.39742190020180446
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "fit": 0.34550200186828106
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "fit": 0.8124045556304179
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "fit": 0.21876507503532241
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "fit": 0.2814622786367667
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "fit": 0.5792000761442145
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "fit": 0.4326800054294123
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "fit": 0.6150158086117821
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "fit": 0.2471507408474348
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "fit": 0.615015808611782
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "fit": 0.22587876952335817
+        }
+      ],
+      "summary": {
+        "month": 360,
+        "years": 30,
+        "generation": 2,
+        "produced": 480,
+        "inventory": 120,
+        "delivered": 360,
+        "barrels": 2,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 20,
+          "shipment": 189,
+          "arrival": 1145,
+          "memory": 47,
+          "interest": 72,
+          "rumor": 13,
+          "inquiry": 33,
+          "share": 16,
+          "visit": 8,
+          "trade": 4,
+          "generation": 1
+        },
+        "firstOverseas": 55,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0.49707252338735536,
+        "longestMemory": 0
+      },
+      "liked": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "trading": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "news": 107,
+      "examples": [
+        {
+          "month": 31,
+          "type": "interest",
+          "reason": "町の酒店で「まろやかで厚みのある味」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 43,
+          "type": "interest",
+          "reason": "町の酒店で「まろやかで厚みのある味」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 54,
+          "type": "rumor",
+          "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。"
+        },
+        {
+          "month": 70,
+          "type": "interest",
+          "reason": "町の酒店で「まろやかで厚みのある味」(#4)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 70,
+          "type": "interest",
+          "reason": "周辺の食文化圏で「まろやかで厚みのある味」(#3)が好みに合い、関心を持たれました。"
+        }
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 360,
+        "conservation": {
+          "produced": 480,
+          "inventory": 120,
+          "delivered": 360,
+          "lotStock": 120,
+          "shipmentTotal": 360,
+          "receivedTotal": 360
+        },
+        "peakBarrels": 2,
+        "eventCount": 1548,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      }
+    },
+    {
+      "name": "煙・3年リフィル",
+      "snapshot": {
+        "schema": "ambertime-bottled-specimen/1",
+        "id": "flavor-v02-1-0207f936195f1f78",
+        "label": "煙の香りが豊か",
+        "profile": {
+          "fruit": 0.5885485535256688,
+          "grain": 0.4587352536881114,
+          "smoke": 0.6722850834707406,
+          "body": 0.564588981990031,
+          "spice": 0.27484684697125816,
+          "rough": 0.2803781060515984,
+          "wood": 0.08329892266941138,
+          "vanilla": 0.053899302903736776
+        },
+        "primary": "smoke",
+        "ageMonths": 36,
+        "recipe": {
+          "malt": "peat",
+          "ferment": "long",
+          "cask": "refill",
+          "start": 0.1,
+          "end": 0.9
+        },
+        "source": {
+          "bottleId": 1,
+          "bottledAt": 36
+        },
+        "quantity": 24,
+        "releaseMonth": 0
+      },
+      "projected": {
+        "roughness": 0.2803781060515984,
+        "character": 0.6722850834707406,
+        "wood": 0.08329892266941138,
+        "age": 24,
+        "price": 30,
+        "label": "煙の香りが豊か",
+        "specimenId": "flavor-v02-1-0207f936195f1f78",
+        "primaryLabel": "煙の香り"
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "fit": 0.7525298975673362
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "fit": 0.6192076809417496
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "fit": 0.4264518691477624
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "fit": 0.6070843093064922
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "fit": 0.5277737438769948
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "fit": 0.5773454149483817
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "fit": 0.3341759586242315
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "fit": 0.42994946412179913
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "fit": 0.5919609837120262
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "fit": 0.6609430484667875
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "fit": 0.6285658066343718
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "fit": 0.3775366599720956
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "fit": 0.5519407628385389
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "fit": 0.3450425271316379
+        }
+      ],
+      "summary": {
+        "month": 360,
+        "years": 30,
+        "generation": 2,
+        "produced": 480,
+        "inventory": 120,
+        "delivered": 360,
+        "barrels": 2,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 20,
+          "shipment": 189,
+          "arrival": 1153,
+          "memory": 54,
+          "interest": 80,
+          "share": 19,
+          "rumor": 13,
+          "inquiry": 36,
+          "visit": 10,
+          "trade": 4,
+          "generation": 1
+        },
+        "firstOverseas": 55,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0.6588716113279547,
+        "longestMemory": 0
+      },
+      "liked": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "trading": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "news": 114,
+      "examples": [
+        {
+          "month": 31,
+          "type": "interest",
+          "reason": "町の酒店で「煙の香りが豊か」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 43,
+          "type": "interest",
+          "reason": "町の酒店で「煙の香りが豊か」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 54,
+          "type": "rumor",
+          "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。"
+        },
+        {
+          "month": 55,
+          "type": "interest",
+          "reason": "町の酒店で「煙の香りが豊か」(#3)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 70,
+          "type": "interest",
+          "reason": "町の酒店で「煙の香りが豊か」(#4)が好みに合い、関心を持たれました。"
+        }
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 360,
+        "conservation": {
+          "produced": 480,
+          "inventory": 120,
+          "delivered": 360,
+          "lotStock": 120,
+          "shipmentTotal": 360,
+          "receivedTotal": 360
+        },
+        "peakBarrels": 2,
+        "eventCount": 1579,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      }
+    },
+    {
+      "name": "同じ果実・3年1stフィル",
+      "snapshot": {
+        "schema": "ambertime-bottled-specimen/1",
+        "id": "flavor-v02-1-2bbc4a2a083244ec",
+        "label": "果実香が強い",
+        "profile": {
+          "fruit": 0.8451780682800887,
+          "grain": 0.37319292607552085,
+          "smoke": 0.05419666816092945,
+          "body": 0.20303485377324967,
+          "spice": 0.10748641375772175,
+          "rough": 0.3273743364604752,
+          "wood": 0.23108535227021265,
+          "vanilla": 0.22494668579483287
+        },
+        "primary": "fruit",
+        "ageMonths": 36,
+        "recipe": {
+          "malt": "plain",
+          "ferment": "long",
+          "cask": "first",
+          "start": 0.12,
+          "end": 0.4
+        },
+        "source": {
+          "bottleId": 1,
+          "bottledAt": 36
+        },
+        "quantity": 24,
+        "releaseMonth": 0
+      },
+      "projected": {
+        "roughness": 0.3273743364604752,
+        "character": 0.8451780682800887,
+        "wood": 0.23108535227021265,
+        "age": 24,
+        "price": 30,
+        "label": "果実香が強い",
+        "specimenId": "flavor-v02-1-2bbc4a2a083244ec",
+        "primaryLabel": "果実の香り"
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "fit": 0.7410367417347301
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "fit": 0.6474555923990903
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "fit": 0.41580687621249357
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "fit": 0.4538771959010297
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "fit": 0.4640523515052287
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "fit": 0.8308592031792763
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "fit": 0.2938288257330041
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "fit": 0.378039002828141
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "fit": 0.7560066769268328
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "fit": 0.5811433012922499
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "fit": 0.8542474557050388
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "fit": 0.3319543210931558
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "fit": 0.7173136449332892
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "fit": 0.3033834061325737
+        }
+      ],
+      "summary": {
+        "month": 360,
+        "years": 30,
+        "generation": 2,
+        "produced": 480,
+        "inventory": 120,
+        "delivered": 360,
+        "barrels": 2,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 20,
+          "shipment": 189,
+          "arrival": 1137,
+          "memory": 57,
+          "interest": 95,
+          "share": 18,
+          "rumor": 13,
+          "inquiry": 44,
+          "visit": 14,
+          "trade": 4,
+          "generation": 1
+        },
+        "firstOverseas": 55,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0.6488088694659346,
+        "longestMemory": 0
+      },
+      "liked": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "trading": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "news": 122,
+      "examples": [
+        {
+          "month": 31,
+          "type": "interest",
+          "reason": "町の酒店で「果実香が強い」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 43,
+          "type": "interest",
+          "reason": "町の酒店で「果実香が強い」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 54,
+          "type": "rumor",
+          "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。"
+        },
+        {
+          "month": 55,
+          "type": "interest",
+          "reason": "町の酒店で「果実香が強い」(#3)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 70,
+          "type": "interest",
+          "reason": "町の酒店で「果実香が強い」(#4)が好みに合い、関心を持たれました。"
+        }
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 360,
+        "conservation": {
+          "produced": 480,
+          "inventory": 120,
+          "delivered": 360,
+          "lotStock": 120,
+          "shipmentTotal": 360,
+          "receivedTotal": 360
+        },
+        "peakBarrels": 2,
+        "eventCount": 1592,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      }
+    },
+    {
+      "name": "同じ果実・8年リフィル",
+      "snapshot": {
+        "schema": "ambertime-bottled-specimen/1",
+        "id": "flavor-v02-1-26db9be94db762d7",
+        "label": "穏やかな果実香",
+        "profile": {
+          "fruit": 0.8162280029519426,
+          "grain": 0.36382633209563153,
+          "smoke": 0.05310995555508962,
+          "body": 0.19969397441171496,
+          "spice": 0.10268631303216848,
+          "rough": 0.21952363945915188,
+          "wood": 0.17003643373680255,
+          "vanilla": 0.11002357477087224
+        },
+        "primary": "fruit",
+        "ageMonths": 96,
+        "recipe": {
+          "malt": "plain",
+          "ferment": "long",
+          "cask": "refill",
+          "start": 0.12,
+          "end": 0.4
+        },
+        "source": {
+          "bottleId": 1,
+          "bottledAt": 96
+        },
+        "quantity": 24,
+        "releaseMonth": 0
+      },
+      "projected": {
+        "roughness": 0.21952363945915188,
+        "character": 0.8162280029519426,
+        "wood": 0.17003643373680255,
+        "age": 24,
+        "price": 30,
+        "label": "穏やかな果実香",
+        "specimenId": "flavor-v02-1-26db9be94db762d7",
+        "primaryLabel": "果実の香り"
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "fit": 0.6841459775249871
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "fit": 0.634665726173664
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "fit": 0.36074499088845147
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "fit": 0.5640519955852501
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "fit": 0.5104125424408243
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "fit": 0.7100703999375981
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "fit": 0.32318318719497896
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "fit": 0.4158062079621448
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "fit": 0.6979666430449066
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "fit": 0.6392012215278884
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "fit": 0.7411264898546615
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "fit": 0.3651175313599641
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "fit": 0.6521608620867141
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "fit": 0.3336922981991167
+        }
+      ],
+      "summary": {
+        "month": 360,
+        "years": 30,
+        "generation": 2,
+        "produced": 480,
+        "inventory": 120,
+        "delivered": 360,
+        "barrels": 2,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 20,
+          "shipment": 189,
+          "arrival": 1137,
+          "memory": 56,
+          "interest": 83,
+          "rumor": 13,
+          "inquiry": 39,
+          "share": 17,
+          "visit": 10,
+          "trade": 4,
+          "generation": 1
+        },
+        "firstOverseas": 55,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0.5989986099590043,
+        "longestMemory": 0
+      },
+      "liked": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "trading": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "news": 115,
+      "examples": [
+        {
+          "month": 31,
+          "type": "interest",
+          "reason": "町の酒店で「穏やかな果実香」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 43,
+          "type": "interest",
+          "reason": "町の酒店で「穏やかな果実香」(#2)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 54,
+          "type": "rumor",
+          "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。"
+        },
+        {
+          "month": 70,
+          "type": "interest",
+          "reason": "町の酒店で「穏やかな果実香」(#4)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 70,
+          "type": "interest",
+          "reason": "周辺の食文化圏で「穏やかな果実香」(#3)が好みに合い、関心を持たれました。"
+        }
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 360,
+        "conservation": {
+          "produced": 480,
+          "inventory": 120,
+          "delivered": 360,
+          "lotStock": 120,
+          "shipmentTotal": 360,
+          "receivedTotal": 360
+        },
+        "peakBarrels": 2,
+        "eventCount": 1569,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      }
+    }
+  ],
+  "limits": [
+    "Fruit/grain/smoke/body identities can collapse under max projection; provenance preserves raw8.",
+    "Age is source metadata; recurring preparation24months and24bottles/18months common."
+  ]
+}
