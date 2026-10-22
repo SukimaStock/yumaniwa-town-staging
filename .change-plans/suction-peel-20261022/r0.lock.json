@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fc75421b5e9800b3c41a0d41c412f3cd8acf8f0d7cbd60cfeaad3de050640e95",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "suction-peel-20261022",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "吸盤をはがすを独立workとして制作しactive台帳と生成LABへ接続",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f7bcaf82ccdbdd26f93f2e5a0045d349d94945a3",
+    "canonicalSources": [
+      "works/suction-peel",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/suction-peel-20261022/r0.lock.json",
+      "works/suction-peel/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/town-maps.js",
+      "works/mawarikiru-coin/**",
+      "works/rewinding-thread/**",
+      "works/nadeato/**"
+    ],
+    "expectedChanges": [
+      "吸盤の縁の変形・離脱・再吸着をSVGとPointer Eventsで実装",
+      "active staging-only一項目と既存Prototype Benchへの生成接続",
+      "作品内MAKINGに狙い・結果・差・面白さ・次の可能性と検証を記録"
+    ],
+    "ownerDecisions": [
+      "2026-10-22 おやすみ工房 選択A「吸盤をはがす」。今回の委任で独立work、必要なLifecycle/LAB、通常branch/commit/draft PR/CI/安全なstaging mergeを許可。Production・町・Engine・既存作品・保存・外部権限変更は禁止。"
+    ],
+    "hqDecisions": [
+      "AI設計照合: 既存Lifecycle schema/generatorのみ使用。台帳と生成LABのunknown-code floorをFull/SYSTEMとして扱う。新しい契約・外部権限なし。"
+    ],
+    "rulesApplied": [
+      "AGENTS/OPERATIONS LAB接続とWork Lifecycle",
+      "CHANGE-PLAN通常Lock。Full WORK/SYSTEM、軽量扱いしない",
+      "EXPRESSION-AUDIT: 画面は吸盤のみ。title/meta/操作対象の支援技術ラベルを保持し説明UIを追加しない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-touch-mouse-keyboard-bounds-cancel",
+      "lab-entry-browser-back-expression-audit",
+      "published-entry"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該新規work、台帳の当該項目とLAB生成差分を同じ単位でrevert",
+    "outOfScope": [
+      "production",
+      "町登録",
+      "既存作品",
+      "共有Engine",
+      "外部権限",
+      "保存"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone/iPad Safari",
+      "作者の触感判断"
+    ],
+    "problem": "選択された吸盤の動きを試せる独立作品がない",
+    "currentContract": "既存独立workとactive lifecycle、既存LAB generator",
+    "whyExistingIsInsufficient": "新作の動きと入口を追加する必要がある。既存契約の拡張は不要。",
+    "design": "ガラス面と吸盤のSVG。縁のドラッグで局所変形、閾値で離脱。戻して離すと再吸着。音・保存・外部通信・Engineなし。",
+    "alternativesRejected": [
+      "ゲーム化",
+      "共有Engine変更",
+      "軽量偽装",
+      "Production反映"
+    ],
+    "migration": "既存データ変更なし",
+    "compatibility": "単独作品・外部依存なし。既存作品・保存に接続しない。",
+    "boundaryCases": [
+      "反復・途中戻し・離脱・再吸着",
+      "touch/cancel/blur/resize/keyboard/画面外解放",
+      "LAB単一リンク・ブラウザー戻る"
+    ],
+    "testPlan": [
+      "Lifecycle checkと関連tests",
+      "対象作品browserテスト・表示確認",
+      "Scope→Risk→Impact、必須CI、exact Pages SHAと公開URL確認"
+    ],
+    "promotionRisk": "staging only"
+  }
+}
