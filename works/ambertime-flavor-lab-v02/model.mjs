@@ -59,7 +59,7 @@ export function expression(profile,origin){
   if(kind==="smoke")return "煙と木の香り";
   return "厚みのある樽の香り";
  }
- if(p.rough<.28&&p.wood>.12){
+ if(p.rough<.17&&p.wood>.28){
   if(kind==="fruit")return "穏やかな果実香";
   if(kind==="grain")return "丸みのある麦の香り";
   if(kind==="smoke")return "落ち着いた煙の香り";
