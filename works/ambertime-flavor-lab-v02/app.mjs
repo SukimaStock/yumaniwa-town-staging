@@ -1,4 +1,4 @@
-import {CARDS,initial,fill,advance,bottle,profileFor,validateState,distill} from "./model.mjs";
+import {CARDS,initial,fill,advance,bottle,profileFor,validateState,summaryFor} from "./model.mjs";
 const $=id=>document.getElementById(id);
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const KEY="sukimastock.ambertime.flavor-lab.v02";
@@ -41,23 +41,24 @@ function renderRack(){
  document.querySelectorAll("[data-barrel]").forEach(b=>b.onclick=()=>{selected=Number(b.dataset.barrel);renderRack();renderDetail()});
  for(const id of ["month","year","three"])$(id).disabled=!state.barrels.length;
 }
-function renderFlavor(b){
+function renderFlavor(b,detailed=false){
  const p=profileFor(b);
- return '<div class="flavor" aria-label="現在の風味">'+FEATURES.map(([key,label])=>{
-  const value=Math.round(Math.max(0,Math.min(1,p[key]))*100);
-  return '<div class="flavor-item"><span>'+label+'</span><div class="flavor-track" role="progressbar" aria-label="'+label+'" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+value+'"><i style="width:'+value+'%"></i></div></div>';
+ return '<div class="flavor" '+(detailed?'':'style="grid-template-columns:1fr" ')+ 'aria-label="現在の風味">'+(detailed?FEATURES.map(([key,label])=>({key,label,value:p[key]})):summaryFor(b)).map(({key,label,value:raw})=>{
+  const value=Math.round(Math.max(0,Math.min(1,raw))*100);
+  return '<div class="flavor-item" '+(detailed?'':'style="grid-template-columns:130px minmax(0,1fr)"')+'><span>'+label+'</span><div class="flavor-track" role="progressbar" aria-label="'+label+'" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+value+'"><i style="width:'+value+'%"></i></div></div>';
  }).join("")+'</div>';
 }
 function renderDetail(){
  const b=state.barrels.find(x=>x.id===selected)||state.barrels[0],el=$("detail");
  if(!b){el.innerHTML='<p class="muted">樽を仕込むと、ここで育てられます。</p>';return}
  selected=b.id;
- const last=b.history.at(-1),previous=b.history.at(-2),changed=recentChanges.get(b.id);
- const changeNotice=changed&&last&&previous&&last.months===changed.months
+ const last=b.history.at(-1),previous=b.history.at(-2);
+ const changeNotice=last&&previous
   ?'<p class="name-change" role="status">'+elapsed(last.months)+'に名前が変わりました<span>前：'+escape(previous.label)+'</span></p>'
   :'';
  el.innerHTML='<div class="muted">たる No.'+b.id+' ・ '+elapsed(b.months)+'</div><div class="word">'+escape(b.label)+'</div>'+changeNotice+
  renderFlavor(b)+
+ '<details><summary class="muted">風味の詳細</summary>'+renderFlavor(b,true)+'</details>'+
  '<div class="recipe muted">'+escape(CARDS.malt.find(x=>x.id===b.choice.malt).name)+' / '+escape(CARDS.ferment.find(x=>x.id===b.choice.ferment).name)+' / '+escape(CARDS.cask.find(x=>x.id===b.choice.cask).name)+'</div>'+
  '<button id="bottle">今の状態で瓶詰め</button><details><summary class="muted">これまでの変化</summary><ol class="history">'+b.history.map(h=>'<li>'+elapsed(h.months)+'　'+escape(h.label)+'</li>').join("")+'</ol></details>';
  $("bottle").onclick=()=>{try{const next=bottle(state,b.id);recentChanges.delete(b.id);selected=null;commit(next)}catch(e){note(e.message)}};

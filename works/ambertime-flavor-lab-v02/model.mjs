@@ -23,7 +23,7 @@ export function distill(choice){
 export function mature(original,years,cask){
  if(!Number.isFinite(years)||years<0||years>100)throw Error("年数が不正です");
  if(!CARDS.cask.some(x=>x.id===cask))throw Error("樽が不正です");
- const first=cask==="first",woodGain=first?.73:.34,vanillaGain=first?.67:.22;
+ const first=cask==="first",affinity=.85+.25*original.body+.12*original.spice-.12*original.smoke,woodGain=(first?.73:.34)*affinity,vanillaGain=(first?.67:.22)*affinity;
  const wood=woodGain*(1-Math.exp(-years/(first?7:10)));
  const vanilla=vanillaGain*(1-Math.exp(-years/(first?6.5:10)));
  return {
@@ -50,22 +50,30 @@ function identity(p){
 }
 export function expression(profile,origin){
  const kind=identity(origin),p=profile;
- const power=p[kind],tier=power<.29?0:power<.48?1:power<.69?2:3;
- // Only curated, complete Japanese phrases. No concatenation of arbitrary nouns or connectors.
- const woody=p.wood>.42&&p.vanilla>.36;
+ // Strength describes the birth character, not a ladder to climb while aging.
+ const power=origin[kind],tier=power<.29?0:power<.48?1:power<.69?2:3;
+ // Two shared rules: the original edge softens; noticeable sweet wood can join it.
+ // Refill's modest wood usually stays below the naming threshold.
+ const woody=p.wood>.32+.12*power&&p.vanilla>.28+.08*origin.fruit;
+ const rounded=origin.rough>.32&&p.rough<origin.rough*(.66+.12*origin.body-.08*origin.fruit);
  if(woody){
-  if(kind==="fruit")return "果実香に樽の甘い香り";
+  if(kind==="fruit")return "果実香と樽の甘い香り";
   if(kind==="grain")return "麦と樽の甘い香り";
-  if(kind==="smoke")return "煙と木の香り";
-  return "厚みのある樽の香り";
+  if(kind==="smoke")return "煙と樽の甘い香り";
+  return "厚みのある味と樽の甘い香り";
  }
- if(p.rough<.17&&p.wood>.28){
+ if(rounded){
   if(kind==="fruit")return "穏やかな果実香";
   if(kind==="grain")return "丸みのある麦の香り";
   if(kind==="smoke")return "落ち着いた煙の香り";
-  return "まろやかな口当たり";
+  return "まろやかで厚みのある味";
  }
  return names[kind][tier];
+}
+export function summaryFor(b){
+ const p=profileFor(b),kind=identity(b.spirit);
+ const label={fruit:"果実の香り",grain:"麦の香り",smoke:"煙の香り",body:"味の厚み"}[kind];
+ return [[kind,"原酒："+label],["rough","刺激・口当たり"],["wood","樽の影響"]].map(([key,label])=>({key,label,value:p[key]}));
 }
 export const initial=()=>({version:2,months:0,nextId:1,barrels:[],bottles:[],draft:{malt:"plain",ferment:"long",cask:"refill"},excluded:[]});
 export function fill(state,choice){
@@ -75,6 +83,10 @@ export function fill(state,choice){
  s.barrels.push({id,choice:{...choice},spirit,months:0,label,history:[{months:0,label}],pending:null,held:0});
  return s;
 }
+// Read already-earned descriptors from existing v2 history without adding save fields.
+const roundedLabels=new Set(["穏やかな果実香","丸みのある麦の香り","落ち着いた煙の香り","まろやかな口当たり","まろやかで厚みのある味"]);
+const woodLabels=new Set(["果実香に樽の甘い香り","果実香と樽の甘い香り","麦と樽の甘い香り","煙と木の香り","煙と樽の甘い香り","厚みのある樽の香り","厚みのある味と樽の甘い香り"]);
+const labelStage=label=>woodLabels.has(label)?2:roundedLabels.has(label)?1:0;
 export function advance(state,months){
  if(!Number.isInteger(months)||months<1||months>120)throw Error("期間が不正です");
  const s=structuredClone(state);
@@ -84,7 +96,7 @@ export function advance(state,months){
    b.months++;
    const p=mature(b.spirit,b.months/12,b.choice.cask);
    const candidate=expression(p,b.spirit);
-   if(candidate===b.label){b.pending=null;b.held=0;continue;}
+   if(candidate===b.label||labelStage(candidate)<=labelStage(b.label)){b.pending=null;b.held=0;continue;}
    if(candidate===b.pending)b.held++;else{b.pending=candidate;b.held=1;}
    if(b.held>=3){b.label=candidate;b.history.push({months:b.months,label:candidate});b.pending=null;b.held=0;}
   }
