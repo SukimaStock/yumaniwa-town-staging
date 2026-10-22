@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ec5bfc9111a764332cec3d1bc4ed7687893e7ffd52c0ba0f674c8c5b136c560d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-flavor-lab-v02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add independent flavor-and-aging Lab 0.2 with two-tap distillation, 4 casks and meaningful short names; register at Prototype Bench",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "974b61af6e1def66ab27e0a51cefc58d3fa1bf1d",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "tools/work-lifecycle.cjs",
+      "works/ambertime-word-crafting-lab/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-flavor-lab-v02/r0.lock.json",
+      "works/ambertime-flavor-lab-v02/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/index.html",
+      "tools/**",
+      "engine/**",
+      "data/works.js",
+      "main.js",
+      "index.html",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Independent 2-card malt, fermentation and cask choices; two-tap distillation start/end",
+      "Eight-feature flavor model and maturation with curated short labels; allow unchanged identities",
+      "Four-cask storage and bottling with distinct localStorage key; keep v01 untouched",
+      "Register staging-only active work and LAB Prototype Bench, regenerate lab/index.html",
+      "Focused model, syntax and UI interaction checks"
+    ],
+    "ownerDecisions": [
+      "User explicitly requested independent Lab implementation to test making different whiskies and growing names; final artistic acceptance remains with user"
+    ],
+    "hqDecisions": [
+      "Use existing LAB lifecycle schema and Prototype Bench; no new shared runtime contract",
+      "Keep v01 and main AmberTime untouched; staging-only"
+    ],
+    "rulesApplied": [
+      "Plan-only locked commit before implementation",
+      "Staging-only, no production files or main save edits",
+      "Minimal interface and phrase audit"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Two-tap distillation, card selection, 4 casks, aging, bottling, isolated saves",
+      "80 recipes and 15 years, deterministic repeatability, stable expressions, some unchanged",
+      "Lifecycle/LAB exact generation and required CI; iPhone Safari feel unverified"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert independent v02 work, lifecycle entry, lab room, generated LAB page and lock together",
+    "outOfScope": [
+      "Production and main AmberTime",
+      "Modifying previous word-crafting Lab 0.1",
+      "Realistic whisky chemistry",
+      "Additional cards or town scene"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari touch feel and actual browser visual review",
+      "Author's acceptance of the new words and game feel",
+      "Production and main game integration"
+    ],
+    "alternativesRejected": [
+      "Change main AmberTime model/save directly",
+      "Only select fixed names with calendar-age tables",
+      "Fully random labels without correspondence to flavor",
+      "Unplanned edits to shared lab files"
+    ],
+    "boundaryCases": [
+      "Four casks max",
+      "Valid start/end window",
+      "Replaying same choices deterministic",
+      "Bottling freezes history",
+      "No-label-change casks allowed",
+      "Distinct save key",
+      "Storage unavailable"
+    ],
+    "testPlan": [
+      "Automated model assertions and varied recipe simulation",
+      "JavaScript syntax and focused HTML interaction checks",
+      "Lifecycle and LAB generator exact-output comparison",
+      "Plan scope risk impact and required CI"
+    ],
+    "problem": "Previous Lab generated meaningless combinations and did not test the core crafting and maturation game loop.",
+    "currentContract": "Previous Lab 0.1 remains available and unchanged. LAB listing is generated from work lifecycle and lab rooms.",
+    "whyExistingIsInsufficient": "The old Lab uses mechanical noun concatenation and a one-dimensional stop slider.",
+    "design": "Independent work with short complete Japanese expressions and continuous internal flavor features; do not join arbitrary nouns or invent forced evolution.",
+    "migration": "No migration; new localStorage key.",
+    "compatibility": "No changes to existing work runtime or saves; separate v02 module and page.",
+    "promotionRisk": "Staging only; user decides adoption."
+  }
+}
