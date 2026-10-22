@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mapProgress,mapStep,drawGameMap} from '../world-map-view.mjs';
-const make=(arrivals=[],shipments=[],deliveries=[],relations=[])=>({
- labConnection:{version:1,town:{arrivals,shipments}},shop:{deliveries,relations}
+import {mapProgress,mapStep,drawGameMap,newlyUnlocked,revealStart} from '../world-map-view.mjs';
+const make=(arrivals=[],shipments=[],deliveries=[],relations=[],events=[])=>({
+ labConnection:{version:1,town:{arrivals,shipments,events}},shop:{deliveries,relations}
 });
 const arrived=(to,channel='road')=>({type:'arrival',to,channel});
 test('new game, old saves and bottling without a sale stay at the distillery',()=>{
@@ -16,7 +16,7 @@ test('actual deliveries and retail sales open nearby, never rumor as a sale',()=
  assert.equal(mapProgress(make([arrived('diner')])).max,3);
 });
 test('arrivals only unlock levels actually reached; jumps unlock skipped views',()=>{
- assert.equal(mapProgress(make([arrived('overseas-craft')])).max,6);
+ assert.equal(mapProgress(make([arrived('overseas-craft')])).max,5);
  assert.equal(mapProgress(make([arrived('national-food')])).max,5);
  assert.equal(mapProgress(make([arrived('near-wide')])).max,4);
  assert.equal(mapProgress(make([arrived('town','direct')])).max,1);
@@ -35,4 +35,22 @@ test('display is a read-only projection of state and uses the Lab renderer',()=>
  assert.equal(drawGameMap(canvas,game,3),3);assert.ok(draws>25);
  assert.equal(drawGameMap(canvas,game,4),4);assert.equal(drawGameMap(canvas,game,5),5);assert.equal(drawGameMap(canvas,game,6),6);
  assert.equal(JSON.stringify(game),before);
+});
+
+test('Earth requires an overseas inquiry or overseas-origin visit',()=>{
+ const arrive=[arrived('overseas-craft')];
+ assert.equal(mapProgress(make(arrive,[],[],[],[{type:'interest',to:'overseas-craft'}])).max,5);
+ assert.equal(mapProgress(make(arrive,[],[],[],[{type:'rumor',to:'overseas-craft'}])).max,5);
+ assert.equal(mapProgress(make(arrive,[],[],[],[{type:'memory',to:'overseas-craft'}])).max,5);
+ assert.equal(mapProgress(make(arrive,[],[],[],[{type:'inquiry',to:'diner'}])).max,5);
+ assert.equal(mapProgress(make(arrive,[],[],[],[{type:'visit',from:'diner',to:'distillery'}])).max,5);
+ assert.equal(mapProgress(make(arrive,[],[],[],[{type:'inquiry',to:'overseas-food'}])).max,6);
+ assert.equal(mapProgress(make([],[],[],[],[{type:'visit',from:'overseas-craft',to:'distillery'}])).max,6);
+});
+test('newly reached map stages coalesce and old-stage baseline is not replayed',()=>{
+ assert.equal(newlyUnlocked(1,4),true);
+ assert.equal(newlyUnlocked(4,4),false);
+ assert.equal(newlyUnlocked(6,5),false);
+ assert.equal(revealStart(2,6),2);
+ assert.equal(revealStart(6,6),6);
 });
