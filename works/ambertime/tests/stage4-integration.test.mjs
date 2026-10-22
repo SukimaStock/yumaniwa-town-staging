@@ -73,3 +73,10 @@ test('new final cask and connected street state survive an actual generation han
 test('old20 high-wood bottled provenance stays intact after town enable',()=>{
  let s=legacyFill(fundedOld20(),{progress:65,type:'bourbon'});s=legacyAdvance(s,84);const id=s.core.casks.at(-1).id;assert(s.core.casks.at(-1).wood>1);s=D.bottleBranded(s,id,{});const release=clone(s.releases.at(-1));s=D.enableStage4(s);s=D.selectFlavorCards(s,{malt:'plain',ferment:'long'});assert.deepEqual(s.releases.at(-1),release);const registered=s.labConnection.town.releases.find(r=>r.externalId===release.id);assert.equal(registered.product.wood,release.profile.wood);assert.equal(registered.product.aromaFamily,null);cold(s);
 });
+
+test('cask ledger retains captured aroma family for original and current profiles without aliasing saves',()=>{
+ let s=fill(D.newConnectedDistillery(42),{malt:'peat',ferment:'long',start:37,end:95,cask:'bourbon'});
+ const initial=clone(s.core.casks[0].flavor);s=months(s,12);const before=D.serializeDistillery(s),view=caskLedger(s).casks.find(c=>c.caskId===s.core.casks[0].id);
+ assert.equal(view.initialProfile.flavor.primary,'smoke');assert.deepEqual(view.initialProfile.flavor,initial);assert.deepEqual(view.profile.flavor,s.core.casks[0].flavor);assert.equal(view.profile.flavor.months,12);
+ view.initialProfile.flavor.profile.smoke=0;view.profile.flavor.profile.smoke=0;assert.equal(D.serializeDistillery(s),before);
+});

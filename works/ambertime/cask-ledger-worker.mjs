@@ -1,5 +1,5 @@
 import * as D from './partner-orders.mjs?v=stage4-r2';
-import {buildCaskLedger} from './cask-ledger.mjs?v=0.64-ledger';
+import {buildCaskLedger} from './cask-ledger.mjs?v=stage4-r3';
 
 // Validation and full historical replay stay off the rendering thread.
 // The caller owns snapshot identity, caching and cancellation.
