@@ -1,0 +1,140 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5ea0020591a14e4bf7328dd9135414485ec8de4b6c6b8f75c94f62a091798184",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-worldmap-stage456-20261022",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reauthor AmberTime world map stages 4 to 6 with approved 72x72 cell-level regional landscape, Japanese archipelago and East Asia-facing Earth, preserving stages 1-3.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "08544cb3077a73e5e461554a8eb1a8cd89f320b2",
+    "canonicalSources": [
+      "Owner-approved main-map integration request and prior six-stage behavior specification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs and room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-worldmap-stage456-20261022/r0.lock.json",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/experiments/world-map/v01/map.test.mjs",
+      "works/ambertime/experiments/world-map/v01/app.mjs",
+      "works/ambertime/experiments/world-map/v01/index.html",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/tests/world-map-view.test.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/experiments/town-simulation/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Reauthor ONLY Stage4 authored RPG terrain: 5x5 distillery near cell (31,37), two other villages, mountains northwest, forest clusters upper and southwest, a curved river right and narrow roads; all drawn directly in 72x72 grid.",
+      "Reauthor ONLY Stage5: recognizable distinct Hokkaido, Honshu, Shikoku, Kyushu and southwest isles as fixed row-based cell art on blue ocean, with home marker near (35,40) and no false precise remote geolocations.",
+      "Reauthor ONLY Stage6: hand-placed 36-cell-diameter pixel Earth at (36,36), East Asia-facing land, Japan marker near (43,30), restrained clouds and stars, ample space.",
+      "Stages 1-3 imagery and existing 72x72 grid, 144x144 Canvas, fixed modal CSS, buttons, read-only town-unlock logic, sales data and save format unchanged.",
+      "Align existing near/national reach marker coordinates with the new actual imagery, and refresh query versions for Lab and game.",
+      "Add focused regression coverage to preserve the current Stage1-3 output, grid boundaries and six scene rendering; inspect source to ensure no image/sprite scaling."
+    ],
+    "ownerDecisions": [
+      "Owner accepted the Stage1-3 iPhone screenshots and authorized implementation of the agreed Stage4-6 72x72 grid blueprint (Oct 22, 2026)."
+    ],
+    "hqDecisions": [
+      "Existing Lab art is read-only imported by main game; update only later-stage draw functions and display-specific marker positions; stage1-3 left byte-identical in sources."
+    ],
+    "rulesApplied": [
+      "Same exact 2x2 native pixels / 72x72 integer cells; row-authored land and globe forms, no fractional shape or post-hoc snap",
+      "Preserve 1-3, game progression, saved state, UI style; no invented real geo-outlet positions",
+      "No decoration/text labels or shop detail screens; Staging-only."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Stage4 landscape recognizably RPG terrain with two villages, river, mountains, forest, distillery",
+      "Stage5 Japanese islands clearly distinct and origin point on Honshu; Stage6 Earth round and East Asia-facing with no invented overseas business pins",
+      "Stage1-3 pixel output snapshots unchanged; markers and unlock stages still work in main view and Lab",
+      "Focus tests and CI; real iPhone author inspection after Staging deployment."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only Stage4-6 pixel scene, marker spots, snapshot tests and cache query changes.",
+    "outOfScope": [
+      "Production publication",
+      "Changing map Lab artwork/zoom semantics",
+      "Changing old saved structures or replay operations",
+      "Adding new shops/places/consumer sales or city simulation",
+      "Continuous zoom, map shop management/detail UI, popup on reach",
+      "Changes outside works/ambertime main UI and new projection module"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari visual feel and user approval",
+      "Production release"
+    ],
+    "alternativesRejected": [
+      "Scaling/auto-quantizing generated artwork",
+      "Inventing real shop locations",
+      "Changing more than the final three stages."
+    ],
+    "boundaryCases": [
+      "Every rect in all 6 stages remains inside 72x72 cell canvas",
+      "1-3 draw calls and colors identical before and after",
+      "Stage4 river stays on right and bridge path joins settlements",
+      "Stage5 row spans have coastline borders and detached four islands without fake coordinates",
+      "Stage6 Earth radius18 has meaningful north and south poles, stars stay outside disc; Japan mark on East Asia side",
+      "Native main markers align at exact 2px boundaries",
+      "Existing plus/minus, event read-only nature and saved compatibility unchanged"
+    ],
+    "testPlan": [
+      "Compare stage1-3 pixel-render signature before/after",
+      "Node map 6-stage grid and geometry; main read-only projection tests",
+      "Required GitHub CI Scope Risk Impact and Pages after merge"
+    ],
+    "problem": "Earlier Stage4-6 artworks remain crude when compared with completed 72x72 hand-drawn Stage1-3.",
+    "currentContract": "Six fixed 72x72 hand-authored views, native 144x144 canvas, Staging Lab and read-only AmberTime dialog.",
+    "whyExistingIsInsufficient": "Terrain river, islands and globe are simplistic placeholders and do not reflect the accepted Stage4-6 layout.",
+    "design": "Hand-author Stage4-6 separately with fixed mountain/river/forest sites, recognizable Japan spans, 36-cell Earth circle and East Asia-facing continent; minimal marker relocation.",
+    "migration": "None; state derivation and save schema untouched.",
+    "compatibility": "Stages1-3, mapStage and room UI keep behavior; map Lab and main import same new source.",
+    "promotionRisk": "Staging only; author still evaluates real iPhone visuals before Production."
+  }
+}
