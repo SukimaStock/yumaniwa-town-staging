@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c3a71f36b8959578748928306dc8fedf6719133d625bf795a0b5382116d1b8b0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-stage4-ledger-flavor",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Retain captured flavor metadata in the cask ledger display projection",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "1cc92f0dffbf13bc328784fd67b718860c7d8471",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR592/593",
+      "Maincaskledgerprofileprojection",
+      "Userstage4request"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-stage4-ledger-flavor/r0.lock.json",
+      "works/ambertime/cask-ledger.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/stage4-integration.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/**",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Caskledger transient profile projection preserves optional copied8feature flavor metadata, so smoke/grain origins are not mislabeledbyold3axisdisplay",
+      "Refreshworker/helper/entryqueries for thissmallpresentationfix",
+      "One focused regression assertscurrentandinitialcaskmetadatafromlegitimatepublicmainflow; existingoldledger/workerchecks"
+    ],
+    "ownerDecisions": [
+      "Originalstage4request requiresaccurateexistingledgerandflavorpresentation"
+    ],
+    "hqDecisions": [
+      "Deriveddisplayonly; no savedstate/math/economy/schema/operationchanges"
+    ],
+    "rulesApplied": [
+      "Stagingonly",
+      "No addedfeatures or verificationcases",
+      "Mechanicalquerydiffreview"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Publiccaskledgerorigin/currentflavorcorrectandworkerloads",
+      "Currentbrowserexportcoldreplayalreadyexact; nostatecodechanges"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert thispresentationfix",
+    "outOfScope": [
+      "Any gameplay/math/supply/savechanges",
+      "NewfeatureorLab",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Authorfun/adoption"
+    ],
+    "alternativesRejected": [
+      "Recomputingflavorfromnames",
+      "Changinggameprofile",
+      "Leavingmisleadingoriginalcaskdisplay"
+    ],
+    "boundaryCases": [
+      "Oldcasknometadata",
+      "Newsmokecaskoriginal/currentmetadata",
+      "Copydoesnotaliasstate"
+    ],
+    "testPlan": [
+      "Focusedregressionforoptionalflavorretentioninactualmainledger",
+      "Existingcaskledger/workeroldregressions",
+      "Querynormalizationexceptoneprojectionchange; gates/CI/publicbytes"
+    ],
+    "problem": "Caskledgerprofileprojectionstripsoptionalnewflavormetadata, sooriginalspiritdetailcanfallthrougholdflavorlabels",
+    "currentContract": "Disposableledgerprofilehasold3axes; newsavedcaskcontainsfullflavor",
+    "whyExistingIsInsufficient": "Displaycannot distinguishnewscentfamilyafterprojection",
+    "design": "Copyoptionalflavorinthederivedprofile, absentlegacypropertyunchanged",
+    "migration": "None",
+    "compatibility": "Oldderivedprofilesunchanged; no savedformat/mathchanges",
+    "promotionRisk": "Stagingonly",
+    "dependencies": [
+      "PR592/593",
+      "Existingcaskledgerworker"
+    ]
+  }
+}
