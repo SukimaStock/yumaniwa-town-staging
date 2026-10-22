@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e5f7e67f0e0e430e9986fc81f51fbb5b00a8e6877c488f025289503cfc3a18fc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-distill-display",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Hide precollection result, compact yield estimate while collecting, fit two-tap labels",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "a6254739c12cf97143325e1813576954e85cafeb",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR596-598",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "IMG_6208.png and IMG_6209.png"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-distill-display/r0.lock.json",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/distill-display.test.mjs",
+      "works/ambertime/design/distill-display.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Separate display projection from existing distillationView forecast API; hide before collection (including staff future start), compact estimated current-stop yield only during, confirmed spirit after",
+      "Reuse existing previewDistillation formula; never use d.litres as confirmed yield or change yield/price/model",
+      "Widen stop-distill rect at same center and height to fit full labels; center measured text with existing Misaki size",
+      "Refresh changed view module queries and entry only; preserve all model/readers/cards/save files",
+      "Focused phase/width/quantity/no-mutation tests, public flow and before-after evidence"
+    ],
+    "ownerDecisions": [
+      "User explicitly specifies narrow steam display and button fix; Staging merge authorized"
+    ],
+    "hqDecisions": [
+      "Presentation projection only; existing yield is hypothetical final amount at current end position, so label採取見込み instead of actual count"
+    ],
+    "rulesApplied": [
+      "Staging only",
+      "Expression audit minimal quantity label, no duplicate explanation",
+      "Useful independent read-only audit; main owns edits"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Precollection no upper window; collecting quantity only; confirmed quantity and flavor",
+      "Both full labels centered inside frame; marker/range unchanged",
+      "Start collect stop fill public operation",
+      "Phone-equivalent before/after comparison; physical Safari remains author check"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this presentation commit",
+    "outOfScope": [
+      "Production",
+      "Flavor/yield/distillation/aging/sales model changes",
+      "Brewing cards",
+      "Save schema changes",
+      "New Lab or large simulation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/Safari operation",
+      "Actual browser mobile viewport if unavailable; distinguish fixed-size rendering evidence"
+    ],
+    "alternativesRejected": [
+      "Globally lower frozen minimumStop",
+      "Reinterpret oldoperations withnewmapping",
+      "Autochoose missedrange",
+      "ChangeLab minimumwidth"
+    ],
+    "boundaryCases": [
+      "Before collect",
+      "Less than minimum width",
+      "Future staff start",
+      "End99 awaiting tap",
+      "Confirmed filling",
+      "Old active run",
+      "Font quantization at360/390 andDPR1-3"
+    ],
+    "testPlan": [
+      "New targeted readout/3range estimate/confirmed/no mutation and buttongeometry tests",
+      "Existing spirit-view and canvas-layout tests",
+      "Scope Risk Impact syntax diff required CI",
+      "Public normal flow; view before/after screenshots"
+    ],
+    "problem": "Forecast flavor shown as if confirmed and long tap labels exceed108 logical width",
+    "currentContract": "Existing forecast API and yield formulas plus fixed Canvas controls",
+    "whyExistingIsInsufficient": "Large empty window and premature bars; stop label six glyphs wider than frame",
+    "design": "Small read-only display projection and compact Canvas branch; widen stop-only frame and hitbox",
+    "migration": "None",
+    "compatibility": "Keep existing distillationView and simulation untouched; no save shape/key/operation changes",
+    "promotionRisk": "Stagingonly",
+    "dependencies": [
+      "Existing forecast and Canvas renderer"
+    ]
+  }
+}
