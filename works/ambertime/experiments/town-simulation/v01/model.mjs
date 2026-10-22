@@ -1,3 +1,4 @@
+import {copySnapshot,projectSnapshot} from '../../../../ambertime-flavor-lab-v02/bridge.mjs?stage3=1';
 // Independent monthly experiment. Main save, economics and demand are not imported.
 import {PRODUCTS as BASE_PRODUCTS, affinity as baseAffinity, unit} from '../../reputation/v03/model.mjs';
 import {NODES as BASE_NODES, SHOPS, EDGES} from '../../reputation/v05/core.mjs';
@@ -21,7 +22,7 @@ const clamp=n=>Math.max(0,Math.min(1,n)), copy=x=>structuredClone(x);
 const draw=(s,key)=>unit(s.seed,'town-v01:'+key);
 const hasResponses=s=>['responses','memory'].includes(s.mode);
 export const date=month=>`${Math.floor(month/12)}年${month%12}か月`;
-function event(s,type,fields={}){const e={id:'e'+(s.events.length+1),type,month:s.month,generation:s.generation,sourceId:null,releaseId:null,from:null,to:null,...fields};e.reason=describeEvent(e);s.events.push(e);return e;}
+function event(s,type,fields={}){const e={id:'e'+(s.events.length+1),type,month:s.month,generation:s.generation,sourceId:null,releaseId:null,from:null,to:null,...fields};e.reason=describeEvent(e);const product=s.releases.find(r=>r.id===e.releaseId)?.product;if(product?.specimenId)e.reason=e.reason.replace('発売#'+e.releaseId,()=> '「'+product.label+'」(#'+e.releaseId+')');s.events.push(e);return e;}
 export function describeEvent(e){
  const at=name(e.to),outlet=config(e.to)?.level==='町'?at:at+'の取扱先',from=name(e.from),release=e.releaseId?`発売#${e.releaseId}`:'AmberTime';
  switch(e.type){
@@ -41,24 +42,25 @@ export function describeEvent(e){
  default:throw Error('Unknown event type: '+e.type);
  }
 }
-function validOptions(o){if(!Number.isInteger(o.seed)||o.seed<1||o.seed>4294967295||!MODES.some(x=>x.id===o.mode)||!POLICIES.some(x=>x.id===o.policy)||!PRODUCT_OPTIONS.some(x=>x.id===o.product))throw Error('Invalid simulation settings');}
+function validOptions(o){if(!Number.isInteger(o.seed)||o.seed<1||o.seed>4294967295||!MODES.some(x=>x.id===o.mode)||!POLICIES.some(x=>x.id===o.policy)||!(PRODUCT_OPTIONS.some(x=>x.id===o.product)||o.product==='bottled'&&o.productSnapshot))throw Error('Invalid simulation settings');}
 export function create(options={}){
- const initial={seed:options.seed??20261021,mode:options.mode??'responses',policy:options.policy??'mixed',product:options.product??'standard'};validOptions(initial);
- const s={version:VERSION,modelVersion:MODEL_VERSION,...initial,initial:copy(initial),settingsHistory:[],month:0,generation:1,managedDistilleries:1,brand:'AmberTime',produced:0,inventory:0,delivered:0,peakBarrels:0,barrels:[],barrelHistory:[],releases:[],shipments:[],arrivals:[],events:[],memories:[],handovers:[],trades:[],pending:[],packets:[],attempts:[],seen:{},lastEncounter:{},nodes:Object.fromEntries(NODES.map(n=>[n.id,{awareness:0,interest:0,root:0,received:0,periods:0,fitSum:0,lastDelivery:null,firstDelivery:null,firstArrival:null,firstInterest:null,discovered:n.id==='town',contact:n.id==='town',trading:n.id==='town',tradingSince:n.id==='town'?0:null,inquiries:0,visits:0}]))};
- const prepared=initial.product==='changing'?'standard':initial.product;
- release(s,{id:'initial',kind:prepared,product:{...PRODUCTS[prepared],brand:'AmberTime'},start:-PRODUCTS[prepared].age,due:0},true);
+ const specimen=options.productSnapshot?copySnapshot(options.productSnapshot):null;
+ const initial={seed:options.seed??20261021,mode:options.mode??'responses',policy:options.policy??'mixed',product:options.product??(specimen?'bottled':'standard'),...(specimen?{productSnapshot:specimen}:{})};validOptions(initial);
+ const s={version:VERSION,modelVersion:MODEL_VERSION,seed:initial.seed,mode:initial.mode,policy:initial.policy,product:initial.product,initial:{...copy(initial),...(specimen?{productSnapshot:specimen}:{})},settingsHistory:[],month:0,generation:1,managedDistilleries:1,brand:'AmberTime',produced:0,inventory:0,delivered:0,peakBarrels:0,barrels:[],barrelHistory:[],releases:[],shipments:[],arrivals:[],events:[],memories:[],handovers:[],trades:[],pending:[],packets:[],attempts:[],seen:{},lastEncounter:{},nodes:Object.fromEntries(NODES.map(n=>[n.id,{awareness:0,interest:0,root:0,received:0,periods:0,fitSum:0,lastDelivery:null,firstDelivery:null,firstArrival:null,firstInterest:null,discovered:n.id==='town',contact:n.id==='town',trading:n.id==='town',tradingSince:n.id==='town'?0:null,inquiries:0,visits:0}]))};
+ const prepared=initial.product==='changing'?'standard':initial.product,p=prepared==='bottled'?projectSnapshot(specimen):PRODUCTS[prepared];
+ release(s,{id:'initial',kind:prepared,product:{...p,brand:'AmberTime'},start:-p.age,due:0},true);
  fill(s);return s;
 }
 function fill(s){
  if(s.barrels.length>=PARAMETERS.maxBarrels)return;
  const serial=s.barrelHistory.length+1,kind=s.product==='changing'?['young','standard','long'][(serial-1)%3]:s.product;
- const p={...PRODUCTS[kind],brand:'AmberTime'};
- for(const axis of ['roughness','character','wood'])p[axis]=Number(clamp(p[axis]+(draw(s,`barrel:${serial}:${axis}`)-.5)*.04).toFixed(4));
+ const p={...(kind==='bottled'?projectSnapshot(s.initial.productSnapshot):PRODUCTS[kind]),brand:'AmberTime'};
+ for(const axis of kind==='bottled'?[]:['roughness','character','wood'])p[axis]=Number(clamp(p[axis]+(draw(s,`barrel:${serial}:${axis}`)-.5)*.04).toFixed(4));
  const b={id:'b'+serial,kind,product:p,start:s.month,due:s.month+p.age};s.barrels.push(b);s.barrelHistory.push(copy(b));s.peakBarrels=Math.max(s.peakBarrels,s.barrels.length);
 }
 function release(s,b,initial=false){const r={id:s.releases.length+1,month:s.month,barrelId:b.id,kind:b.kind,product:{...b.product,kind:b.kind,release:s.releases.length+1},count:24,stock:24,initial};s.releases.push(r);s.produced+=24;s.inventory+=24;const e=event(s,'release',{releaseId:r.id,count:24,barrelId:b.id,initial});r.eventId=e.id;}
 export function setPolicy(s,changes={}){
- const next={seed:s.seed,mode:s.mode,policy:changes.policy??s.policy,product:changes.product??s.product};validOptions(next);
+ const next={seed:s.seed,mode:s.mode,policy:changes.policy??s.policy,product:changes.product??s.product,productSnapshot:s.initial.productSnapshot};validOptions(next);
  if(next.policy===s.policy&&next.product===s.product)return s;
  s.policy=next.policy;s.product=next.product;const e=event(s,'policy',{policy:s.policy,product:s.product});s.settingsHistory.push({month:s.month,policy:s.policy,product:s.product,eventId:e.id});return s;
 }

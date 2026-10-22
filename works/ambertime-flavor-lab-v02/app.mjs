@@ -1,3 +1,4 @@
+import {createSnapshot,encodeSnapshot} from "./bridge.mjs?stage3=1";
 import {CARDS,initial,fill,advance,bottle,profileFor,validateState,summaryFor} from "./model.mjs";
 const $=id=>document.getElementById(id);
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -65,9 +66,10 @@ function renderDetail(){
 }
 function renderBottles(){
  $("count").textContent=state.bottles.length+"本";
- $("bottles").innerHTML=state.bottles.length?state.bottles.slice().reverse().map(b=>'<div class="bottle"><small>No.'+b.id+' / '+elapsed(b.months)+'</small><strong>'+escape(b.label)+'</strong><small>'+escape(CARDS.cask.find(x=>x.id===b.choice.cask).name)+'</small></div>').join(""):'<p class="muted">まだありません。</p>';
+ $("bottles").innerHTML=state.bottles.length?state.bottles.slice().reverse().map(b=>'<div class="bottle"><small>No.'+b.id+' / '+elapsed(b.months)+'</small><strong>'+escape(b.label)+'</strong><small>'+escape(CARDS.cask.find(x=>x.id===b.choice.cask).name)+'</small><button data-send="'+b.id+'">街へ送り出す</button></div>').join(""):'<p class="muted">まだありません。</p>';
 }
-function render(){renderCards();renderRack();renderDetail();renderBottles();updateTap()}
+function sendBottle(id){try{const b=state.bottles.find(b=>b.id===id);const s=createSnapshot(b);location.assign('../ambertime/experiments/town-simulation/v01/'+encodeSnapshot(s));}catch(e){note(e.message)}}
+function render(){renderCards();renderRack();renderDetail();renderBottles();document.querySelectorAll('[data-send]').forEach(b=>b.onclick=()=>sendBottle(Number(b.dataset.send)));updateTap()}
 for(const [id,months] of [["month",1],["year",12],["three",36]])$(id).onclick=()=>{
  try{
   const before=new Map(state.barrels.map(b=>[b.id,b.history.length]));

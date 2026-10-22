@@ -1,12 +1,14 @@
-import {create,step,setPolicy,summarize,exportLog,report,MODES,POLICIES,PRODUCT_OPTIONS,NODES,date,newsEvents,phaseFor} from './model.mjs?stage2=1';
+import {decodeSnapshot,PRIMARY} from '../../../../ambertime-flavor-lab-v02/bridge.mjs?stage3=1';
+import {create,step,setPolicy,summarize,exportLog,report,MODES,POLICIES,PRODUCT_OPTIONS,NODES,date,newsEvents,phaseFor} from './model.mjs?stage3=1';
 import {drawMap,hitPlace} from './map.mjs';
 const $=id=>document.getElementById(id),nodeName=id=>id==='distillery'?'1号店の蒸留所':NODES.find(n=>n.id===id)?.name??'—';
 const typeNames={release:'発売',shipment:'納品',rumor:'偶然の紹介',arrival:'口コミの到着',memory:'記憶',interest:'関心',share:'紹介',visit:'訪問',inquiry:'問い合わせ',trade:'取扱開始',resurface:'記憶の再浮上',generation:'世代交代',policy:'方針変更'};
 const important=new Set(['rumor','trade','resurface','generation']);
-let state=create(),playing=false,speed=1,timer=null,token=0,target=null,page=0,selected='distillery',visibleIds=[],selectedEvent=null;
+let received=null,receiveError='';try{received=decodeSnapshot(location.hash)}catch(e){receiveError=e.message}
+let state=create(received?{productSnapshot:received}:{}),playing=false,speed=1,timer=null,token=0,target=null,page=0,selected='distillery',visibleIds=[],selectedEvent=null;
 const PAGE_SIZE=12,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function options(select,values){select.replaceChildren(...values.map(v=>new Option(v.name,v.id)));}
-options($('mode'),MODES);options($('policy'),POLICIES);options($('product'),PRODUCT_OPTIONS);
+options($('mode'),MODES);options($('policy'),POLICIES);options($('product'),received?[...PRODUCT_OPTIONS,{id:'bottled',name:received.label}]:PRODUCT_OPTIONS);
 $('mode').value=state.mode;$('policy').value=state.policy;$('product').value=state.product;
 window.labSnapshot=()=>structuredClone(state);window.labExport=()=>exportLog(state);
 function status(text){$('status').textContent=text;}
@@ -46,13 +48,15 @@ function eventDetail(id){
  const e=state.events.find(x=>x.id===id);if(!e)return;selectedEvent=id;
  const body=$('event-body');body.replaceChildren();const p=document.createElement('p');p.textContent=e.reason;body.append(p);
  const dl=document.createElement('dl'),fields=[['年月',date(e.month)+' · '+e.generation+'代目'],['出来事',e.id+' · '+typeNames[e.type]],['場所',`${nodeName(e.from)} → ${nodeName(e.to)}`],['発売回',e.releaseId?'#'+e.releaseId:'—']];
- const release=state.releases.find(r=>r.id===e.releaseId);if(release){fields.push(['商品',`${PRODUCT_OPTIONS.find(x=>x.id===release.kind)?.name??release.kind}`]);}
+ const release=state.releases.find(r=>r.id===e.releaseId);if(release){fields.push(['商品',`${release.product.label??PRODUCT_OPTIONS.find(x=>x.id===release.kind)?.name??release.kind}`]);}
+ if(release?.product.specimenId){const origin=state.initial.productSnapshot;fields.push(['瓶詰め時',date(origin.ageMonths)+' · '+origin.recipe.cask],['固定ID',release.product.specimenId]);}
  for(const[k,v]of fields){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=k;dd.textContent=v;dl.append(dt,dd);}body.append(dl);
  if(e.sourceId){const button=document.createElement('button');button.type='button';button.textContent='発生元 '+e.sourceId+' を見る';button.onclick=()=>eventDetail(e.sourceId);body.append(button);}
  const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent='計算・参照情報';pre.textContent=JSON.stringify({event:e,product:release?.product},null,2);details.append(summary,pre);body.append(details);$('event-detail').open=true;
 }
 function render(){
- const s=summarize(state);$('time').textContent=date(state.month);$('generation').textContent=state.generation===1?'初代':state.generation+'代目';$('stock').textContent=`在庫 ${s.inventory}本 · ${s.barrels}/4たる · ${PRODUCT_OPTIONS.find(p=>p.id===state.product).name}`;
+ const s=summarize(state);$('time').textContent=date(state.month);$('generation').textContent=state.generation===1?'初代':state.generation+'代目';$('stock').textContent=`在庫 ${s.inventory}本 · ${s.barrels}/4たる · ${state.product==='bottled'?received.label:PRODUCT_OPTIONS.find(p=>p.id===state.product).name}`;
+ $('specimen').hidden=!received||state.product!=='bottled';if(received)$('specimen').textContent=received.label+' · '+PRIMARY[received.primary]+' · '+date(received.ageMonths)+'で瓶詰め。この風味を18か月ごとに24本ずつ造る仮定です。';
  syncButtons();renderPlaces();renderNews();if($('report').open)$('report-text').value=report(state);
 }
 function tick(){
@@ -68,7 +72,7 @@ async function advanceTo(month){
  }catch(e){error(e);}
 }
 document.querySelectorAll('[data-year]').forEach(b=>b.onclick=()=>advanceTo(Number(b.dataset.year)*12));
-$('reset').onclick=()=>{const seed=Number($('seed').value);if(!$('seed').value.trim()||!Number.isInteger(seed)||seed<1||seed>4294967295){status('シードは1〜4294967295の整数で指定してください。');$('seed').focus();return;}try{const next=create({seed,mode:$('mode').value,policy:$('policy').value,product:$('product').value});pause();state=next;page=0;selected='distillery';selectedEvent=null;$('event-detail').open=false;$('event-body').textContent='記録を選ぶと、発売回と発生元を確認できます。';render();status('初期状態に戻しました。');}catch(e){error(e);}};
+$('reset').onclick=()=>{const seed=Number($('seed').value);if(!$('seed').value.trim()||!Number.isInteger(seed)||seed<1||seed>4294967295){status('シードは1〜4294967295の整数で指定してください。');$('seed').focus();return;}try{const next=create({seed,mode:$('mode').value,policy:$('policy').value,product:$('product').value,...(received?{productSnapshot:received}:{})});pause();state=next;page=0;selected='distillery';selectedEvent=null;$('event-detail').open=false;$('event-body').textContent='記録を選ぶと、発売回と発生元を確認できます。';render();status('初期状態に戻しました。');}catch(e){error(e);}};
 $('apply').onclick=()=>{try{pause();setPolicy(state,{policy:$('policy').value,product:$('product').value});page=0;render();status('現在の月から商品・納品方針を切り替えました。');}catch(e){error(e);}};
 $('place').onchange=()=>{selected=$('place').value;placeDetail();draw();};
 $('map').onclick=e=>{const id=hitPlace($('map'),e,state);if(id){selected=id;$('place').value=id;placeDetail();draw();}};
@@ -76,5 +80,5 @@ $('filter').onchange=()=>{page=0;renderNews();};$('newer').onclick=()=>{page--;r
 $('json').onclick=()=>{try{const payload=exportLog(state),url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=`ambertime-town-v01-${state.seed}-${state.month}months.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);status(`${date(state.month)}の全履歴をJSONで保存しました。`);}catch(e){error(e);}};
 $('copy').onclick=async()=>{const text=report(state);$('report-text').value=text;try{await navigator.clipboard.writeText(text);status('時系列の要約をコピーしました。');}catch{$('report').open=true;$('report-text').focus();$('report-text').select();status('自動コピーを利用できません。表示された要約をコピーしてください。');}};
 $('report').ontoggle=()=>{if($('report').open)$('report-text').value=report(state);};
-render();
+render();if(receiveError)status(receiveError);
 if(!reduced)setInterval(()=>{if(!document.hidden)draw();},150);
