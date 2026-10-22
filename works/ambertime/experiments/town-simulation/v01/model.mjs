@@ -15,14 +15,25 @@ export const NODES=BASE_NODES.filter(n=>!['online','space'].includes(n.id));
 export const PARAMETERS=Object.freeze({maxBarrels:4,bottlesPerBarrel:24,fillInterval:18,quarterlyRequest:3,memoryLimit:48,memoryMinMonths:24,memoryMaxMonths:600,generationMonths:360,maxMonths:1200});
 // One shared preference rule, from existing three taste axes. Age/price are not quality.
 export const MIN_FIT=.5;
-export function affinity(node,product){const a=baseAffinity(node,product);return {...a,fit:a.taste};}
+// Main-only aroma supplement: four existing place groups, one bounded adjustment.
+// Unknown legacy aroma is neutral; the independent Lab keeps its original taste.
+export const AROMA_PLACES=Object.freeze({
+ fruit:Object.freeze(['diner','near-local','national-food','overseas-food']),
+ grain:Object.freeze(['town','super','near-wide']),
+ smoke:Object.freeze(['bar','specialist','national-craft','overseas-craft']),
+ body:Object.freeze(['restaurant','department','hill'])
+});
+export function affinity(node,product,external=false){const a=baseAffinity(node,product),family=product.aromaFamily;
+ const aroma=external&&Object.hasOwn(AROMA_PLACES,family)?(AROMA_PLACES[family].includes(node.id)?.08:-.04):0;
+ return {...a,fit:external?Math.round(Math.max(0,Math.min(1,a.taste+aroma))*1e12)/1e12:a.taste,...(external?{aroma}: {})};}
+const taste=(s,node,product)=>affinity(node,product,s.external===true);
 export const productName=kind=>PRODUCT_OPTIONS.find(p=>p.id===kind)?.name??kind;
 const config=id=>NODES.find(n=>n.id===id), name=id=>id==='distillery'?'1号店':config(id)?.name??id;
 const clamp=n=>Math.max(0,Math.min(1,n)), copy=x=>structuredClone(x);
 const draw=(s,key)=>unit(s.seed,'town-v01:'+key);
 const hasResponses=s=>['responses','memory'].includes(s.mode);
 export const date=month=>`${Math.floor(month/12)}年${month%12}か月`;
-function event(s,type,fields={}){const e={id:'e'+(s.events.length+1),type,month:s.month,generation:s.generation,sourceId:null,releaseId:null,from:null,to:null,...fields};e.reason=describeEvent(e);const product=s.releases.find(r=>r.id===e.releaseId)?.product;if(product?.specimenId)e.reason=e.reason.replace('発売#'+e.releaseId,()=> '「'+product.label+'」(#'+e.releaseId+')');s.events.push(e);return e;}
+function event(s,type,fields={}){const e={id:'e'+(s.events.length+1),type,month:s.month,generation:s.generation,sourceId:null,releaseId:null,from:null,to:null,...fields};e.reason=describeEvent(e);const product=s.releases.find(r=>r.id===e.releaseId)?.product;if(product?.specimenId)e.reason=e.reason.replace('発売#'+e.releaseId,()=> '「'+product.label+'」(#'+(s.external?s.releases[e.releaseId-1].externalId:e.releaseId)+')');if(s.external&&e.releaseId){e.mainReleaseId=s.releases[e.releaseId-1].externalId;e.productId=product.productId;}s.events.push(e);return e;}
 export function describeEvent(e){
  const at=name(e.to),outlet=config(e.to)?.level==='町'?at:at+'の取扱先',from=name(e.from),release=e.releaseId?`発売#${e.releaseId}`:'AmberTime';
  switch(e.type){
@@ -68,7 +79,7 @@ function send(s,to,count){
  if(!s.nodes[to].trading)throw Error('Shipment without handling agreement');
  count=Math.min(count,s.releases.filter(r=>r.month<s.month).reduce((n,r)=>n+r.stock,0));if(!count)return;
  const request=count,shipmentId='s'+(s.shipments.length+1),parts=[];
- for(const r of [...s.releases].reverse()){if(r.month>=s.month)continue;if(count<=0)break;const q=Math.min(count,r.stock);if(!q)continue;r.stock-=q;s.inventory-=q;s.delivered+=q;count-=q;const e=event(s,'shipment',{sourceId:r.eventId,releaseId:r.id,from:'distillery',to,count:q,shipmentId});parts.push({releaseId:r.id,count:q,eventId:e.id});const n=s.nodes[to],fit=affinity(config(to),r.product).fit;
+ for(const r of [...s.releases].reverse()){if(r.month>=s.month)continue;if(count<=0)break;const q=Math.min(count,r.stock);if(!q)continue;r.stock-=q;s.inventory-=q;s.delivered+=q;count-=q;const e=event(s,'shipment',{sourceId:r.eventId,releaseId:r.id,from:'distillery',to,count:q,shipmentId});parts.push({releaseId:r.id,count:q,eventId:e.id});const n=s.nodes[to],fit=taste(s,config(to),r.product).fit;
   s.packets.push({sourceId:e.id,releaseId:r.id,to,from:'distillery',due:s.month+1,strength:(1-Math.exp(-request/4))*q/request,path:[to],cohort:shipmentId+':release:'+r.id,channel:'direct',hops:0});n.fitSum+=fit*q;
  }
  const n=s.nodes[to];n.received+=request;n.periods++;n.firstDelivery??=s.month;n.lastDelivery=s.month;
@@ -81,7 +92,7 @@ function send(s,to,count){
 }
 // Reuse factual delivery history: earlier disliked receipts cannot become continuity.
 export function relationship(s,to){
- const contacts=s.shipments.filter(x=>x.to===to).map(x=>({month:x.month,fit:x.parts.reduce((v,p)=>v+p.count*affinity(config(to),s.releases[p.releaseId-1].product).fit,0)/x.count})).filter(x=>x.fit>=MIN_FIT);
+ const contacts=s.shipments.filter(x=>x.to===to).map(x=>({month:x.month,fit:x.parts.reduce((v,p)=>v+p.count*taste(s,config(to),s.releases[p.releaseId-1].product).fit,0)/x.count})).filter(x=>x.fit>=MIN_FIT);
  if(contacts.length<2)return 0;
  const periods=new Set(contacts.map(x=>Math.floor(x.month/3))).size,span=contacts.at(-1).month-contacts[0].month;
  return (1-Math.exp(-periods/24))*span/(span+48)*contacts.reduce((v,x)=>v+x.fit,0)/contacts.length;
@@ -93,13 +104,13 @@ function distribute(s){
  else send(s,available[index%available.length],3);
 }
 function encounter(s,t){
- const n=s.nodes[t.to],p=s.releases[t.releaseId-1].product,profile=GUEST_PROFILES[config(t.to).role],fit=affinity(config(t.to),p).fit,age=s.month-t.receivedMonth;
+ const n=s.nodes[t.to],p=s.releases[t.releaseId-1].product,profile=GUEST_PROFILES[config(t.to).role],fit=taste(s,config(t.to),p).fit,age=s.month-t.receivedMonth;
  // One encounter rate per existing shop role; cooldown and annual cap still apply.
  const probability=profile.rate,roll=draw(s,t.shipmentId+':encounter');
  const skip=s.month-(s.lastEncounter[t.to]??-1000)<6?'cooldown':s.events.filter(e=>e.type==='rumor'&&s.month-e.month<12).length>=4?'annual-cap':null;
  s.attempts.push({type:'encounter',month:s.month,sourceId:t.sourceId,probability,roll,fit,root:n.root,age,skip});if(skip||roll>=probability)return;
  let selection=draw(s,t.shipmentId+':guest'),guest=profile.guests.at(-1);for(const g of profile.guests){selection-=g[1];if(selection<0){guest=g;break;}}
- const [kind,,destinations]=guest,to=destinations[Math.floor(draw(s,t.shipmentId+':target')*destinations.length)],targetFit=affinity(config(to),p).fit;
+ const [kind,,destinations]=guest,to=destinations[Math.floor(draw(s,t.shipmentId+':target')*destinations.length)],targetFit=taste(s,config(to),p).fit;
  const e=event(s,'rumor',{sourceId:t.sourceId,releaseId:t.releaseId,from:t.to,to,actor:KINDS[kind],kind,probability,roll,fit,root:n.root,targetFit});s.lastEncounter[t.to]=s.month;
  s.packets.push({sourceId:e.id,releaseId:t.releaseId,to,from:t.to,due:s.month+1+Math.floor(draw(s,t.shipmentId+':travel')*6),strength:(.08+.08*(fit+targetFit)/2)/.045,path:[t.to,to],cohort:'chance:'+t.shipmentId,channel:'chance',hops:0});
 }
@@ -110,15 +121,15 @@ function edgeOpen(s,e,packet){
  if(config(e.from).level==='町'){
   if(packet.channel!=='direct')return false;
   if(e.channel==='rooted')return n.root>=.12;
-  if(e.channel==='curated')return p.wood>=.5&&affinity(config(e.to),p).fit>=MIN_FIT;
-  if(e.channel==='taste')return affinity(config(e.to),p).fit>=.3;
+  if(e.channel==='curated')return p.wood>=.5&&taste(s,config(e.to),p).fit>=MIN_FIT;
+  if(e.channel==='taste')return taste(s,config(e.to),p).fit>=.3;
   return true;
  }
  return n.awareness>=.07;
 }
 function arrive(s,p){
  const key=p.cohort+':'+p.to;if(s.seen[key])return;s.seen[key]=true;
- const n=s.nodes[p.to],product=s.releases[p.releaseId-1].product,fit=affinity(config(p.to),product).fit;
+ const n=s.nodes[p.to],product=s.releases[p.releaseId-1].product,fit=taste(s,config(p.to),product).fit;
  n.awareness=clamp(n.awareness+.045*p.strength*(1-n.awareness));n.firstArrival??=s.month;
  const e=event(s,'arrival',{sourceId:p.sourceId,releaseId:p.releaseId,from:p.from,to:p.to,path:p.path,channel:p.channel,strength:p.strength,fit,cohort:p.cohort});s.arrivals.push(e);
  if(hasResponses(s))react(s,e,fit,p.strength);
@@ -145,15 +156,15 @@ function react(s,e,fit,strength){
 }
 function response(s,t){
  const n=s.nodes[t.to];
- if(t.kind!=='visit'&&affinity(config(t.to),s.releases[t.releaseId-1].product).fit<MIN_FIT)return;
+ if(t.kind!=='visit'&&taste(s,config(t.to),s.releases[t.releaseId-1].product).fit<MIN_FIT)return;
  n.discovered=true;n.contact=true;
  if(t.kind==='visit'){n.visits++;event(s,'visit',{sourceId:t.sourceId,releaseId:t.releaseId,from:t.to,to:'distillery'});return;}
  if(t.kind==='inquiry'){
   n.inquiries++;const e=event(s,'inquiry',{sourceId:t.sourceId,releaseId:t.releaseId,to:t.to});
-  s.pending.push({kind:'trade',causalKey:t.causalKey,sourceId:e.id,releaseId:t.releaseId,to:t.to,due:s.month+6+Math.floor(draw(s,t.causalKey+':agreementDelay')*24)});return;
+  if(!s.external)s.pending.push({kind:'trade',causalKey:t.causalKey,sourceId:e.id,releaseId:t.releaseId,to:t.to,due:s.month+6+Math.floor(draw(s,t.causalKey+':agreementDelay')*24)});return;
  }
  if(t.kind==='trade'&&!n.trading){
-  const p=s.releases[t.releaseId-1].product,fit=affinity(config(t.to),p).fit,probability=.12+.45*fit,roll=draw(s,t.causalKey+':agreement');
+  const p=s.releases[t.releaseId-1].product,fit=taste(s,config(t.to),p).fit,probability=.12+.45*fit,roll=draw(s,t.causalKey+':agreement');
   const skip=s.inventory<2?'no-stock':s.policy==='local'?'local-policy':n.interest<.015?'interest-faded':null;
   s.attempts.push({type:'trade',month:s.month,sourceId:t.sourceId,probability,roll,fit,skip});
   if(!skip&&roll<probability){n.trading=true;n.tradingSince=s.month;const e=event(s,'trade',{sourceId:t.sourceId,releaseId:t.releaseId,to:t.to,probability,roll,fit});s.trades.push(e);}
@@ -165,19 +176,19 @@ function memories(s){for(const m of s.memories){if(m.retired||m.due>s.month)cont
  const kind=m.fit<MIN_FIT||draw(s,memoryKey+':returnKind')<.5?'visit':'inquiry';s.pending.push({kind,causalKey:'memory:'+memoryKey,sourceId:e.id,releaseId:m.releaseId,to:m.to,due:s.month+1+Math.floor(draw(s,memoryKey+':returnDelay')*12)});
 }}
 export function step(s){
- if(s.month>=PARAMETERS.maxMonths)return s;s.month++;
+ if(!s.external&&s.month>=PARAMETERS.maxMonths)return s;s.month++;
  for(const n of Object.values(s.nodes)){n.interest*=.996;if(n.lastDelivery!==null&&s.month-n.lastDelivery>24)n.root*=.9997;}
- for(const b of s.barrels.filter(b=>b.due<=s.month))release(s,b);s.barrels=s.barrels.filter(b=>b.due>s.month);
- if(s.month%18===0)fill(s);
+ if(!s.external){for(const b of s.barrels.filter(b=>b.due<=s.month))release(s,b);s.barrels=s.barrels.filter(b=>b.due>s.month);
+ if(s.month%18===0)fill(s);}
  // Decisions already pending can finish; today's arrivals cannot trade today.
  const due=s.pending.filter(x=>x.due<=s.month);s.pending=s.pending.filter(x=>x.due>s.month);
  for(const t of due)t.kind==='encounter'?encounter(s,t):response(s,t);
- if(s.month%3===0)distribute(s);
+ if(!s.external&&s.month%3===0)distribute(s);
  const packets=s.packets.filter(x=>x.due<=s.month);s.packets=s.packets.filter(x=>x.due>s.month);
  packets.sort((a,b)=>a.due-b.due||b.strength-a.strength||a.to.localeCompare(b.to)||a.sourceId.localeCompare(b.sourceId));for(const p of packets)arrive(s,p);
  if(s.mode==='memory')memories(s);
- if(s.month%360===0){s.generation++;const e=event(s,'generation',{preservedMemories:s.memories.length,preservedNodes:NODES.length});s.handovers.push(e);}
- return s;
+ if(!s.external&&s.month%360===0){s.generation++;const e=event(s,'generation',{preservedMemories:s.memories.length,preservedNodes:NODES.length});s.handovers.push(e);}
+ if(s.external)quantizeReaction(s);return s;
 }
 export function advance(s,targetMonth){if(!Number.isInteger(targetMonth)||targetMonth<s.month||targetMonth>1200)throw Error('Target month must be current month..1200');while(s.month<targetMonth)step(s);return s;}
 export function summarize(s){
@@ -229,4 +240,43 @@ export function report(s){const a=summarize(s),major=newsEvents(s);
  lines.push('',`地元：酒店へ${s.nodes.town.received}本、関係 ${Math.round(s.nodes.town.root*100)}。`,`取扱いに至っていない関心：${a.pendingInterest.map(name).join('、')||'なし'}`);
  const unfinished=s.events.filter(e=>e.type==='inquiry'&&!s.trades.some(t=>t.sourceId===e.id));lines.push(`取扱いへ直接つながっていない問い合わせ：${unfinished.length}件。`);
  let longest=0,last=0;for(const e of major){longest=Math.max(longest,e.month-last);last=e.month;}longest=Math.max(longest,s.month-last);lines.push(`主な出来事がない最長期間：${date(longest)}。`,`検証：${validate(s).ok?'保存則・参照整合 OK':'不整合あり'}。完全な履歴と不成立の抽選はJSONに含まれます。`);return lines.join('\n');
+}
+
+
+// Main-game boundary: actual bottled releases and receipts only. These functions
+// reuse the Lab reactions without its autonomous supply, shops or generation clock.
+export function createExternal({seed,month=0}={}){
+ if(!Number.isInteger(seed)||seed<1||seed>4294967295||!Number.isSafeInteger(month)||month<0)throw Error('Invalid main town clock');
+ return {external:true,version:'ambertime-town-main/1',seed,month,generation:1,mode:'responses',releases:[],shipments:[],arrivals:[],events:[],memories:[],trades:[],pending:[],packets:[],attempts:[],seen:{},lastEncounter:{},nodes:Object.fromEntries(NODES.map(n=>[n.id,{awareness:0,interest:0,root:0,received:0,periods:0,fitSum:0,lastDelivery:null,firstDelivery:null,firstArrival:null,firstInterest:null,discovered:false,contact:false,trading:false,tradingSince:null,inquiries:0,visits:0}]))};
+}
+export function registerExternalRelease(s,{externalId,product,count,month=s.month}){
+ if(!s.external||!Number.isSafeInteger(externalId)||externalId<1||!Number.isSafeInteger(count)||count<1||!Number.isSafeInteger(month)||month<0||month>s.month||!product||!['roughness','character','wood'].every(k=>Number.isFinite(product[k])&&product[k]>=0&&product[k]<=(k==='wood'?1.35:1)))throw Error('Invalid bottled town input');
+ const old=s.releases.find(r=>r.externalId===externalId);
+ if(old){if(old.count!==count||JSON.stringify(old.product)!==JSON.stringify(product))throw Error('Bottled town profile changed');return old;}
+ const r={id:s.releases.length+1,externalId,month,kind:product.aromaFamily??'legacy',product:copy(product),count};s.releases.push(r);
+ r.eventId=event(s,'release',{month:r.month,releaseId:r.id,count}).id;return r;
+}
+export function receiveExternal(s,{receiptId,releaseId,to,count}){
+ if(!s.external||typeof receiptId!=='string'||!receiptId||receiptId.length>160||!config(to)||!Number.isSafeInteger(count)||count<1)throw Error('Invalid actual town receipt');
+ const prior=s.shipments.find(x=>x.id===receiptId);
+ if(prior){if(prior.to!==to||prior.count!==count||prior.parts[0].releaseId!==releaseId)throw Error('Actual receipt changed');return false;}
+ const r=s.releases[releaseId-1];if(!r)throw Error('Missing bottled town product');
+ const already=s.shipments.reduce((total,x)=>total+x.parts.filter(p=>p.releaseId===releaseId).reduce((n,p)=>n+p.count,0),0);
+ if(already+count>r.count)throw Error('Town receipts exceed actual bottled quantity');
+ const e=event(s,'shipment',{sourceId:r.eventId,releaseId:r.id,from:'distillery',to,count,shipmentId:receiptId}),n=s.nodes[to],fit=taste(s,config(to),r.product).fit;
+ s.shipments.push({id:receiptId,month:s.month,to,count,parts:[{releaseId:r.id,count,eventId:e.id}]});
+ s.packets.push({sourceId:e.id,releaseId:r.id,to,from:'distillery',due:s.month+1,strength:1-Math.exp(-count/4),path:[to],cohort:receiptId+':release:'+r.id,channel:'direct',hops:0});
+ n.received+=count;n.periods++;n.fitSum+=fit*count;n.firstDelivery??=s.month;n.lastDelivery=s.month;n.discovered=true;n.contact=true;n.root=Math.max(n.root,relationship(s,to));
+ if(config(to).level==='町')s.pending.push({kind:'encounter',due:s.month+1+Math.floor(draw(s,receiptId+':lag')*6),sourceId:e.id,releaseId:r.id,to,shipmentId:receiptId,count,receivedMonth:s.month});
+ quantizeReaction(s);return true;
+}
+// Only mutable reaction calculations are quantized. Frozen bottled provenance and
+// seed-derived uniform draws stay untouched, so a save replays across JS engines.
+function quantizeReaction(s){
+ const visit=value=>{for(const key of Object.keys(value)){if(typeof value[key]==='number'&&!Number.isInteger(value[key])&&key!=='roll')value[key]=Math.round(value[key]*1e12)/1e12;else if(value[key]&&typeof value[key]==='object')visit(value[key]);}};
+ for(const key of ['nodes','events','arrivals','memories','pending','packets','attempts'])visit(s[key]);
+}
+export function advanceExternal(s,month){
+ if(!s.external||!Number.isSafeInteger(month)||month<s.month)throw Error('Invalid main town month');
+ while(s.month<month)step(s);return s;
 }

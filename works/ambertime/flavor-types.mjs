@@ -2,6 +2,7 @@
 // ingredients, production certification or quality. No state, RNG or hysteresis.
 // Broad intermediate regions prevent close contenders from trading strong labels.
 export function flavorType(profile){
+ if(profile?.flavor?.version===1)return {id:'lab-'+profile.flavor.primary,label:profile.flavor.label,association:null};
  if(!profile||!['roughness','character','wood'].every(k=>typeof profile[k]==='number'&&Number.isFinite(profile[k])&&profile[k]>=0&&profile[k]<=(k==='wood'?1.35:1)))return null;
  const {roughness:r,character:c,wood:w}=profile;
  let id='layered',label='刺激と香りが重なる',association=null;

@@ -1,0 +1,156 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ef8dbae6f5d512c3fb28b2b253048ae9e2fe9be1dddf9a823600e7b4da4dc687",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-main-stage4",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate Lab flavor, names and actual-supply town reactions into main AmberTime",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2daa788bfccf4fcb3ec68dbaee23f399576a2429",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR588/589/590/591",
+      "works/ambertime-flavor-lab-v02/STAGE3.md",
+      "works/ambertime/index.html",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "Userstage4request"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-main-stage4/r0.lock.json",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/cask-ledger.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/design/stage4-integration.md",
+      "works/ambertime/tests/stage4-flavor.test.mjs",
+      "works/ambertime/tests/stage4-town.test.mjs",
+      "works/ambertime/tests/stage4-integration.test.mjs",
+      "works/ambertime/tests/stage4-results.json",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/**",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Logged optional stage4 enable boundary keeps native20 key/session/history; old stock/casks/bottles remain legacy, new recipes use nameLab8features",
+      "Cards and collection start/end in existing still interaction; replay records choices/start, staff reproduces full recipe",
+      "Guarded flavor maturity/name hold/history and frozen bottle metadata retain costs/volume/evaporation and existing stock economy",
+      "Reaction-only external boundary reuses town packets/reactions/encounters with actual sales/deliveries, no synthetic supply/trade/generation",
+      "Small family supplement to existing3axis affinity, no new actors/regions/events",
+      "Existing shelf/tasting/bottling/news/ledger UI; bounded3-5specimens and save/worker/generation regressions"
+    ],
+    "ownerDecisions": [
+      "User stage4 explicitly authorizes main integration, minimal aroma-family supplement and compatible migration; fun/adoption remains author decision"
+    ],
+    "hqDecisions": [
+      "Optional logged enable marker rather than version cascade; old operation replay untouched before boundary",
+      "Old casks/products are retained under old model; in-progress old distillation finishes unchanged; new batches get Lab profile/recipe/name metadata",
+      "Quantized new profile and reaction numeric state for strict crossengine replay, no name parsing",
+      "External town processing cannot produce inventory, money, automatic deliveries, new stores or autonomous handovers; existing main economy is sole authority"
+    ],
+    "rulesApplied": [
+      "Stagingonly",
+      "Expressionaudit factual minimal text",
+      "Independent flavor/town implementation and crossreview",
+      "Sequential flavor then actualsupply then family/save verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Create cards/tap range/fill/age/name/bottle/list/real sale or shipment/news/provenance onStaging",
+      "Reload native session, ledger recipe reuse, worker repeat/time/generation related checks",
+      "RequiredCI deploy and public bytes; author fun/physicalSafari unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert PR and use retained pre-migration save; do not feed new opcodes to old code",
+    "outOfScope": [
+      "Production",
+      "NewLab",
+      "Growth/rumor redesign",
+      "New flavor axes/regions/actors/events",
+      "Duplicate supply/economy",
+      "Large seed search"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari/touch",
+      "Author fun/adoption"
+    ],
+    "alternativesRejected": [
+      "Replacing old saved flavor",
+      "Running Lab auto supply",
+      "Parallel economic simulation",
+      "Changing save key or all recursive versions",
+      "Inferring aroma from names"
+    ],
+    "boundaryCases": [
+      "Old20 save with stock/casks/inflight distillation; old legacy version imports",
+      "Worker full recipe and repeats",
+      "Frozen partial bottles and new releases",
+      "No stock=no new actual delivery, queued rumor can still arrive",
+      "Midmonth actions/reload/exact replay/crossengine rounding",
+      "Generation preserves town and frozenproducts"
+    ],
+    "testPlan": [
+      "Stage2/3 lab regressions unchanged",
+      "Focused profile/name/collection/bottle tests then actual supply/family tests",
+      "Existing main regression suite, save/replay/worker/ledger/generation integration",
+      "3-5fixed specimens same conditions/seed, no seedsearch",
+      "Scope Risk Impact CI/public browser"
+    ],
+    "problem": "Main currently uses earlier3axis flavor and has no real-sale-driven town reaction path",
+    "currentContract": "Native20 session and exact operations replay; finite product inventory and existing3shop sales/deliveries",
+    "whyExistingIsInsufficient": "Lab snapshot transport uses synthetic recurring supply and loses aroma families; cannot simply tick in main",
+    "design": "Work-local flavor adapter and guarded legacy hooks, optional logged enable boundary, external actual-receipt town boundary, existingUI",
+    "migration": "Read and validate old save first; append enable operation; no historical recomputation or relabeling. Existing key/session preserved; new opcodes require new code.",
+    "compatibility": "Old saves and legacy tests remain exact before marker; optional new fields on new flavor objects and main stage4 state; existing sales/ledger remain factual",
+    "promotionRisk": "Stagingonly",
+    "dependencies": [
+      "NameLab pure model",
+      "TownLab existing reactions",
+      "Main exact replay and actual inventory pipeline"
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import { PARAMETERS as P } from './parameters.mjs';
+import {ageFlavor,freezeFlavor} from './lab-flavor.mjs';
 export const SAVE_VERSION = 1;
 const clamp = (v,lo=0,hi=1)=>Math.min(hi,Math.max(lo,v));
 const round = v => Math.round(v*100)/100;
@@ -44,6 +45,7 @@ export function fillCask(state,type,litres=state.spirit?.litres) {
   note(s,`樽${cask.id}に仕込み${spirit.id}を${litres.toFixed(1)} L詰めた。${P.casks[type].short}。`); return s;
 }
 export function tasting(c) {
+  if(c.flavor?.version===1)return [c.roughness<.3?'口当たりが穏やか':c.roughness<.6?'少し刺激が残る':'刺激が強い',c.flavor.label,c.wood<.3?'樽の香りは控えめ':'樽の香りを感じる'].join('。')+'。';
   const rough=c.roughness>0.6?'舌に強い刺激が残る':c.roughness>0.30?'口当たりにまだ角がある':c.roughness>0.12?'刺激がほどけ、丸さが出てきた':'やわらかい口当たり';
   const aroma=c.character>0.80?'熟した果実と厚い穀物の香り':c.character>0.57?'果実と穀物の香りが広がる':c.character>0.35?'軽い果実、穀物の香り':'香りは控えめ';
   const wood=c.wood>0.85?'乾いた木の苦みが余韻を覆う':c.wood>0.66?'木の渋みが長く残る':c.wood>0.36?'バニラと木の香りが重なる':c.wood>0.13?'ほのかにバニラを感じる':'木の香りはまだ淡い';
@@ -56,7 +58,7 @@ export function ageCask(cask) {
   const bloom=(0.30+0.16*c.cut)*Math.exp(-c.age/P.aromaBloomMonths)/P.aromaBloomMonths;
   c.character=clamp(c.character+bloom-0.016*Math.max(0,c.wood-0.62));
   c.litres=Math.max(0,c.litres*(1-b.evaporation*c.variation.evaporation));
-  return c;
+  return c.flavor?.version===1?ageFlavor(c):c;
 }
 // Private economic signal. Never rendered as a score, optimum age or future price.
 export function marketValue(c) {
@@ -80,6 +82,7 @@ export function bottle(state,sourceId=null,count=null,{directSale=false}={}) {
   const product={id:id(s),sourceId:source.id,batchId:source.batchId??source.id,batchMonth:source.batchMonth,bottledMonth:s.month,
     type:source.type??'newmake',age:source.age,cut:source.cut,roughness:source.roughness,character:source.character,wood:source.wood,
     stock:count,originalStock:count,price:source.age===0?16:30,revenue:0,sold:0,lastSold:0,lastRevenue:0};
+  if(source.flavor?.version===1)product.flavor=freezeFlavor(source);
   s.products.push(product); s.products=s.products.filter(p=>p.stock>0||s.month-p.bottledMonth<=24).slice(-32);
   const remaining=source.litres-count*P.bottleLitres;
   if(sourceId===null) { s.spirit.litres=Math.max(0,remaining); if(remaining<P.bottleLitres) s.spirit=null; }
