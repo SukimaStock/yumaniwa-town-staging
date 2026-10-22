@@ -382,6 +382,12 @@
       "path": "works/ambertime-word-crafting-lab",
       "status": "active",
       "title": "AmberTime 言葉を育てる Lab 0.1"
+    },
+    {
+      "id": "ambertime-flavor-lab-v02",
+      "path": "works/ambertime-flavor-lab-v02",
+      "status": "active",
+      "title": "AmberTime 仕込みと熟成 Lab 0.2"
     }
   ]
 }
