@@ -313,7 +313,7 @@ function caskData(){
  if(caskSnapshot!==game){
   const snapshot=game,requestId=++caskRequest;caskSnapshot=snapshot;caskProjection=emptyCaskView(true);caskWorker?.terminate();caskWorker=null;
   try{
-   const worker=new Worker(new URL('./cask-ledger-worker.mjs?v=stage4-r2',import.meta.url),{type:'module'});caskWorker=worker;
+   const worker=new Worker(new URL('./cask-ledger-worker.mjs?v=stage4-r3',import.meta.url),{type:'module'});caskWorker=worker;
    const current=()=>caskWorker===worker&&caskSnapshot===snapshot&&game===snapshot;
    const finish=()=>{worker.terminate();if(caskWorker===worker)caskWorker=null;};
    const redraw=()=>{if(caskModalVisible()){

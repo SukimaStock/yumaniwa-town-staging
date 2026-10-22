@@ -7,7 +7,7 @@ const known=x=>x!==null&&x!==undefined;
 const number=x=>typeof x==='number'&&Number.isFinite(x)?x:null;
 const first=(...xs)=>xs.find(known)??null;
 const signature=x=>JSON.stringify(x,(_key,value)=>value&&typeof value==='object'&&!Array.isArray(value)?Object.fromEntries(Object.keys(value).sort().map(key=>[key,value[key]])):value);
-const profile=c=>c?Object.fromEntries(['roughness','character','wood','litres'].filter(k=>known(c[k])).map(k=>[k,c[k]])):null;
+const profile=c=>c?{...Object.fromEntries(['roughness','character','wood','litres'].filter(k=>known(c[k])).map(k=>[k,c[k]])),...(c.flavor?.version===1?{flavor:copy(c.flavor)}:{})}:null;
 const chronology=rows=>rows?.sort((a,b)=>(number(a.age)??Infinity)-(number(b.age)??Infinity)||(number(a.month)??Infinity)-(number(b.month)??Infinity))??null;
 
 export function buildCaskLedger(state,{facts,replay}={}){
