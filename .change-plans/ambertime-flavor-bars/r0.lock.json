@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "660d80a60922f6cefdc967ea34ff28c212a6f20e9d9393381bce55909af89b9b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-flavor-bars",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Show eight live flavor bars beside selected cask names and show the timing and previous name of a recent name change",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "7b6d22b9d261605772706b7096bea72efd0b82a5",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "tools/work-lifecycle.cjs",
+      "works/ambertime-word-crafting-lab/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-flavor-bars/r0.lock.json",
+      "works/ambertime-flavor-lab-v02/app.mjs",
+      "works/ambertime-flavor-lab-v02/style.css",
+      "works/ambertime-flavor-lab-v02/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "works/ambertime-flavor-lab-v02/test.mjs",
+      "works/ambertime/**",
+      "works/ambertime-word-crafting-lab/**",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Show eight current flavor bars directly below selected barrel name",
+      "Mark casks whose names changed during latest aging and show prior name and exact month",
+      "Remove duplicate hidden comparison panel",
+      "Keep model, save, other labs and Production untouched"
+    ],
+    "ownerDecisions": [
+      "User requested simultaneous display of name and parameters and visible indication of when names change; final visual adoption remains user decision"
+    ],
+    "hqDecisions": [
+      "Use existing profileFor and history without changing model",
+      "Avoid shared HUD and duplicate comparison panels"
+    ],
+    "rulesApplied": [
+      "Staging only",
+      "No changes to save or model",
+      "Expression audit and targeted regression"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Selected barrel shows eight bars beside name",
+      "Name change shows old name and exact month",
+      "No false change cue on unchanged barrel",
+      "Bottling and existing card and tap controls preserved",
+      "Required CI and Pages deployment"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the three UI files and plan lock, preserving all existing saved data",
+    "outOfScope": [
+      "Main AmberTime",
+      "Previous labs",
+      "Flavor formula changes",
+      "Production",
+      "Shared town or LAB registration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari visual and interaction check",
+      "User acceptance of density"
+    ],
+    "alternativesRejected": [
+      "Change main AmberTime model/save directly",
+      "Only select fixed names with calendar-age tables",
+      "Fully random labels without correspondence to flavor",
+      "Unplanned edits to shared lab files"
+    ],
+    "boundaryCases": [
+      "Empty casks",
+      "Unchanged name after aging",
+      "Multiple changes in a batch",
+      "Switch selected cask",
+      "Bottling after name change"
+    ],
+    "testPlan": [
+      "Automated model assertions and varied recipe simulation",
+      "JavaScript syntax and focused HTML interaction checks",
+      "Lifecycle and LAB generator exact-output comparison",
+      "Plan scope risk impact and required CI"
+    ],
+    "problem": "Flavor bars are separated from the name, hiding the connection between the flavor and name changes.",
+    "currentContract": "Existing Lab 0.2 has eight flavor features, label history and an isolated save key.",
+    "whyExistingIsInsufficient": "Players cannot see why or when a name changed while viewing the barrel.",
+    "design": "Render compact bars in the selected barrel details and a temporary old-name change cue after aging.",
+    "migration": "None",
+    "compatibility": "UI-only; no save or model changes",
+    "promotionRisk": "Staging only"
+  }
+}
