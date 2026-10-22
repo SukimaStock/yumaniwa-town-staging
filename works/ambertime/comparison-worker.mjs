@@ -1,4 +1,4 @@
-import {createComparisonProjection} from './comparison-model.mjs?v=0.18';
+import {createComparisonProjection} from './comparison-model.mjs?v=adjust-b-r1';
 const projection=createComparisonProjection();
 self.onmessage=({data})=>{
  const {requestId,state}=data;

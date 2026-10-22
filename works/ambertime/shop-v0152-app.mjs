@@ -1,6 +1,6 @@
-import * as D from './partner-orders.mjs?v=0.15.1';
+import * as D from './partner-orders.mjs?v=adjust-b-r1';
 import {caskName,releaseNumber,pendingPriceIds} from './work-context.mjs?v=0.15.2';
-import {distillationView,spiritProfile} from './spirit-view.mjs?v=0.14';
+import {distillationView,spiritProfile} from './spirit-view.mjs?v=adjust-b-r1';
 import {latestReleaseBrand,brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
 import {ageLabel,monthLabel} from './model.mjs';

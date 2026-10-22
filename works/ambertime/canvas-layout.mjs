@@ -43,3 +43,10 @@ export function noticeLayout(text,measure,{step=26,padding=9}={}){
  const h=lines.length*step+padding*2;
  return{x:(360-w)/2,y:Math.min(460,514-h),w,h,lines,padding,step};
 }
+
+// The visible scale and the Lab input share normalized positions. No clock/state.
+export function collectionGeometry(range={}){
+ const clamp=n=>Math.max(0,Math.min(1,Number.isFinite(n)?n:0));
+ const start=range.start==null?null:clamp(range.start),end=range.end==null?null:clamp(range.end),current=clamp(range.current);
+ return {x:60,y:393,w:240,h:6,current,start,end,rangeEnd:start===null?null:end??current};
+}

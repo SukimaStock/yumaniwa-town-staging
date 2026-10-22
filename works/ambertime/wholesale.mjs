@@ -1,10 +1,10 @@
-import * as V08 from './wholesale-v08.mjs?v=stage4-r2';
-import * as E from './economy.mjs?v=stage4-r2';
+import * as V08 from './wholesale-v08.mjs?v=adjust-b-r1';
+import * as E from './economy.mjs?v=adjust-b-r1';
 import * as M from './model.mjs?v=stage4-r2';
 import {mixSeed} from './character.mjs?v=stage4-r2';
 import {PARALLEL_PARAMETERS as P,ECONOMY_PARAMETERS as C} from './economy-parameters.mjs';
 import {WHOLESALE as W} from './wholesale-parameters.mjs';
-export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting,setSalePrice,listBottles} from './economy.mjs?v=stage4-r2';
+export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting,setSalePrice,listBottles} from './economy.mjs?v=adjust-b-r1';
 const clone=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
 const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
 const blocked=s=>s.tastingId!==null||s.decisions.length>0||s.trade.offer!==null;

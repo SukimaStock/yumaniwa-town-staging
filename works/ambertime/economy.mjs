@@ -23,6 +23,17 @@ export function startDistillation(s){const check=canStart(s);assert(check.ok,che
 // waiting for an explicit stop instead of silently completing a batch.
 export function distillStep(s){if(s.still.phase!=='distilling'||isBlocked(s)||s.still.distillation.progress>=P.distillMax-1)return s;return acceptStill(clone(s),D.distillStep(projectedStill(s)));}
 export function stopDistillation(s){assert(!isBlocked(s),'試飲・判断を終えてから抽出を止めます。');const j=acceptStill(clone(s),D.stopDistillation(projectedStill(s)));return action(j,'stop',j.still.distillation.progress);}
+// Only an explicitly recorded full-range run may finish below the old position30.
+// Its volume reuses the old curve at the equivalent30..99 end position. Starting
+// collection changes flavor, not the established expense/yield economy.
+export function stopRangeDistillation(s){
+ const d=s.still.distillation;
+ assert(!isBlocked(s)&&s.still.phase==='distilling'&&d?.collectionVersion===2&&Number.isInteger(d.collectStart)&&d.collectStart>=0&&Number.isInteger(d.progress)&&d.progress<=99&&d.progress-d.collectStart>=12,'採取する範囲を確認してください。');
+ const j=clone(s),cut=(P.distillMax-1-P.minimumStop)/(P.distillMax-P.minimumStop)*(d.progress/(P.distillMax-1)),f=M.previewDistillation(cut);
+ Object.assign(j.core.spirit,{cut,litres:f.litres,initialLitres:f.litres,roughness:Math.min(1,f.roughness*d.variation),character:Math.min(1,f.character*d.variation)});
+ Object.assign(j.still.distillation,{litres:f.litres,cut});Object.assign(j.still.batch,{cut,initialLitres:f.litres});j.still.phase='filling';
+ return action(j,'stop',d.progress);
+}
 export function fillBarrel(s,type){assert(!isBlocked(s)&&s.still.phase==='filling','樽詰めできる原酒がありません。');const j=clone(s);j.core=M.fillCask(j.core,type);assert(j.core.cash>=reserve(j),'瓶詰め費用を残せる樽を選んでください。');const c=j.core.casks.at(-1);j.notesById[c.id]=createCaskNotes(c);j.batchesById[c.id]={...j.still.batch,type,upkeep:0};j.still={phase:'ready',distillation:null,batch:null};return action(j,'fill',type);}
 function rebuildDecisions(s){s.decisions=s.core.casks.slice().sort((a,b)=>a.id-b.id).filter(c=>s.notesById[c.id]?.pending).map(c=>({month:s.core.month,caskId:c.id,eventId:s.notesById[c.id].pending.id,pending:clone(s.notesById[c.id].pending)}));}
 function syncSales(s){s.records=s.records.map(r=>{const p=s.core.products.find(p=>p.id===r.productId);return p?{...r,sold:p.sold,revenue:p.revenue}:r;});if(s.result)s.result=s.records.find(r=>r.productId===s.result.productId)??s.result;}

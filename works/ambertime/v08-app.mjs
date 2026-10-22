@@ -1,4 +1,4 @@
-import * as D from './wholesale.mjs?v=0.8.1';
+import * as D from './wholesale.mjs?v=adjust-b-r1';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
 import {ageLabel,monthLabel} from './model.mjs';
 import {barrel,glass,bottleArt} from './art.mjs?v=0.5';
