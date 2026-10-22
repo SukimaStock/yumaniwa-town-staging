@@ -1,0 +1,12 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>AmberTime｜仕込みと熟成 Lab 0.2</title><link rel="stylesheet" href="./style.css"><script type="module" src="./app.mjs"></script></head><body><main>
+<header><div><span class="muted">AmberTime / Lab 0.2</span><h1>仕込みと熟成</h1></div><a href="../../lab/">研究所へ</a></header>
+<section class="panel"><h2>仕込み</h2><div class="cards"><div><h3>麦芽</h3><div id="malt" class="pair"></div></div><div><h3>発酵</h3><div id="ferment" class="pair"></div></div></div>
+<div class="tap"><h3>蒸留</h3><div class="distill" aria-hidden="true"><svg viewBox="0 0 300 120"><path d="M78 21H202V39H161V65" fill="none" stroke="#9d8668" stroke-width="13" stroke-linejoin="round"/><path d="M136 18V5M112 7H160" stroke="#9d8668" stroke-width="8" stroke-linecap="round"/><path id="drop" d="M160 70Q148 87 160 104Q172 87 160 70Z" fill="#dca968"/></svg><div id="track"><div id="progress"></div><div id="selection"></div></div></div>
+<div id="tap-message" class="tap-message" role="status">蒸留を始めると、液が落ち始めます。</div><button id="tap-action" class="primary">蒸留を始める</button><button id="tap-reset" class="subtle">やり直す</button>
+</div>
+<h3>樽</h3><div id="cask" class="pair"></div><button id="fill" class="primary full" disabled>この原酒をたる詰め</button><p id="notice" role="status" class="muted"></p></section>
+<section class="panel"><div class="between"><h2>貯蔵庫</h2><strong id="clock">0年0か月</strong></div><div id="rack" class="rack"></div><div class="time"><button id="month">1か月</button><button id="year">1年</button><button id="three">3年</button></div><div id="detail"></div></section>
+<section class="panel"><div class="between"><h2>瓶詰めしたもの</h2><span id="count" class="muted">0本</span></div><div id="bottles" class="bottles"></div></section>
+<details class="panel"><summary>比較用の記録</summary><div id="comparison"></div></details>
+<footer>本編とは独立したゲーム用の仮モデルです。<a href="./REPORT.md">検証内容</a><button id="clear" class="subtle">Labを初期化</button></footer>
+</main></body></html>
