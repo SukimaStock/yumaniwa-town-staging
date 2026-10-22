@@ -34,7 +34,7 @@ function third(p){backdrop(p);path(p,[[0,40],[69,40]],3);path(p,[[36,0],[36,69]]
 function mountain(p,x,y){for(let i=0;i<6;i++){const span=i+1;p(x+6-span,y+i,span*2,1,P.mountain)}p(x+5,y+1,2,2,P.snow);p(x+4,y+3,2,1,P.snow);}
 function village(p,x,y){p(x,y+2,5,4,P.ink);p(x+1,y,3,3,P.copper);p(x+2,y+4,1,2,P.cream);}
 function fourth(p){backdrop(p);for(let y=0;y<72;y++){const x=52+Math.round(5*Math.sin(y/9));p(x,y,8,1,P.river);if(y%4===0)p(x+2,y,3,1,P.waterLight)}for(const a of [[4,8],[14,7],[24,10],[7,24],[17,25]])mountain(p,...a);for(const a of [[3,32],[15,40],[26,25],[33,16],[42,31],[11,54],[35,56],[45,57],[20,58]])tree(p,...a);
- path(p,[[1,38],[15,35],[28,38],[36,42],[46,50]],2);path(p,[[11,71],[18,56],[28,38],[36,23]],2);village(p,16,17);village(p,40,50);distillery(p,28,36,8);}
+ path(p,[[1,38],[15,35],[28,38],[36,42],[46,50]],2);path(p,[[11,69],[18,56],[28,38],[36,23]],2);village(p,16,17);village(p,40,50);distillery(p,28,36,8);}
 function fillIsle(p,cells,color){for(const [y,start,len] of cells)p(start,y,len,1,color);}
 function fifth(p){p(0,0,72,72,P.sea);for(const [x,y]of[[6,6],[36,12],[57,48],[18,54],[4,38],[61,69]])p(x,y,3,1,P.waterLight);
  // All coastline spans are authored on the 72-row cell grid, not scaled polygons.
