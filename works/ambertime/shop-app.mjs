@@ -1,4 +1,4 @@
-import {mapProgress,mapStep,drawGameMap,STAGES as MAP_STAGES} from './world-map-view.mjs?v=world-map-main-r1';
+import {mapProgress,mapStep,drawGameMap,STAGES as MAP_STAGES} from './world-map-view.mjs?v=stage456-r1';
 import {brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard} from './brewing-cards.mjs?v=adjust-c-r1';
 import {playerMilestones,customerComments} from './player-news.mjs?v=adjust-a-r1';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
