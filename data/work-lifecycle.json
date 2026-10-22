@@ -401,6 +401,13 @@
       "path": "works/ambertime-world-map-lab",
       "status": "active",
       "title": "AmberTime 世界マップ Lab 0.1"
+    },
+    {
+      "id": "suction-peel",
+      "path": "works/suction-peel",
+      "status": "active",
+      "title": "吸盤をはがす",
+      "theme": "ガラスについた吸盤の縁を引き、はがして戻す"
     }
   ]
 }
