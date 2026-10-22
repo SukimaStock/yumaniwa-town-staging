@@ -36,7 +36,7 @@ function renderRack(){
  $("clock").textContent=elapsed(state.months);
  $("rack").innerHTML=Array.from({length:4},(_,i)=>{
  const b=state.barrels[i];if(!b)return '<div class="empty">空き</div>';
- return '<button class="barrel'+(selected===b.id?" selected":"")+'" data-barrel="'+b.id+'" aria-pressed="'+(selected===b.id)+'"><span class="drawing" aria-hidden="true">▥</span><strong>'+escape(b.label)+'</strong><small>No.'+b.id+' ・ '+elapsed(b.months)+'</small></button>';
+ return '<button class="barrel'+(selected===b.id?" selected":"")+'" data-barrel="'+b.id+'" aria-pressed="'+(selected===b.id)+'"><span class="drawing" aria-hidden="true">▥</span><strong>'+escape(b.label)+'</strong><small>No.'+b.id+' ・ '+elapsed(b.months)+'</small>'+(recentChanges.has(b.id)?'<span class="cask-change">名前が変化</span>':'')+'</button>';
  }).join("");
  document.querySelectorAll("[data-barrel]").forEach(b=>b.onclick=()=>{selected=Number(b.dataset.barrel);renderRack();renderDetail()});
  for(const id of ["month","year","three"])$(id).disabled=!state.barrels.length;
