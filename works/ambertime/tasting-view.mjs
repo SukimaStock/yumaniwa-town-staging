@@ -1,4 +1,4 @@
-import {CHARACTER_PARAMETERS as C} from './character.mjs?v=0.6';
+import {CHARACTER_PARAMETERS as C} from './character.mjs?v=stage4-r2';
 // Presentation only: saved samples and the underlying tasting model stay unchanged.
 const phrases=new Map([
  ['舌に強い刺激が残る','強い刺激'],['口当たりにまだ角がある','まだ角がある'],['刺激がほどけ、丸さが出てきた','丸さが出てきた'],['やわらかい口当たり','やわらかい'],

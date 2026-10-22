@@ -1,4 +1,4 @@
-import * as D from './partner-orders.mjs?v=0.58-first-brand';
+import * as D from './partner-orders.mjs?v=stage4-r2';
 import {buildCaskLedger} from './cask-ledger.mjs?v=0.64-ledger';
 
 // Validation and full historical replay stay off the rendering thread.

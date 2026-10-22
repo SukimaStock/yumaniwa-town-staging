@@ -1,6 +1,6 @@
 // Reactions to the main game's factual bottles and receipts. This adapter never
 // allocates inventory, starts a batch, changes demand or creates a stockist.
-import {createExternal,registerExternalRelease,receiveExternal,advanceExternal,newsEvents,affinity,NODES,AROMA_PLACES,phaseFor} from './experiments/town-simulation/v01/model.mjs';
+import {createExternal,registerExternalRelease,receiveExternal,advanceExternal,newsEvents,affinity,NODES,AROMA_PLACES,phaseFor} from './experiments/town-simulation/v01/model.mjs?v=stage4-r2';
 const copy=x=>structuredClone(x);
 const nativePlaces=Object.freeze({'town-liquor':'town',supermarket:'super',department:'department'});
 export {NODES,AROMA_PLACES,phaseFor};

@@ -1,4 +1,4 @@
-import {CHARACTER_PARAMETERS as C} from './character.mjs?v=0.6';
+import {CHARACTER_PARAMETERS as C} from './character.mjs?v=stage4-r2';
 // Fixed system copy only. Never pass user names, imported prose, or saved records.
 // This adapter leaves simulation modules and their persisted text untouched.
 const phrases=Object.freeze([

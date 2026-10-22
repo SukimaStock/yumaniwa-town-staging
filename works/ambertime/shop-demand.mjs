@@ -1,7 +1,7 @@
 // One ordinary-shop request per month; a capacity limit is not an order.
 // Pure projections: no clocks, RNG writes, state mutations, or player settings.
 import {SHOPS} from './shop-model.mjs?v=0.41-delegation';
-import {marketValue,salePrices} from './economy.mjs?v=0.44-monthly-timing';
+import {marketValue,salePrices} from './economy.mjs?v=stage4-r2';
 import {ECONOMY_PARAMETERS as C} from './economy-parameters.mjs';
 export const NORMAL_SHOP_DEMAND=Object.freeze({version:1,modes:Object.freeze(['capacity','fixed','variable']),monthlyMultipliers:Object.freeze([0,.5,1,1.5,2,2.5]),base:Object.freeze({'town-liquor':3,supermarket:6}),referencePaidPrice:Object.freeze({'town-liquor':16,supermarket:20})});
 const round=n=>Math.round(n*100)/100,clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
