@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "eaf03e1c7a9a9a7c639a68fa8fe56f90f0fc51f29f8d6ac47d1bdc3cb5879937",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-adjust-a",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Separate stable product identity from character; select town milestones and rare factual-sale comments; shorten sales modal",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "09fd1d2dc18f088b64ba9620512aee02127ef2e6",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR588-590/592-594",
+      "User adjustmentA and three iPhone screenshots",
+      "Existing v20 save and actual sales/town logs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-adjust-a/r0.lock.json",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/style.css",
+      "works/ambertime/tests/adjust-a.test.mjs",
+      "works/ambertime/tests/event-notices.test.mjs",
+      "works/ambertime/design/adjust-a.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/town-connection.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Pure derived UI projection resolves product/brand/release identity without rewriting saved flavor labels/reasons",
+      "Deduplicate first destination per brand and remote inquiries; priority one town message; keep individual reactions/logs unchanged",
+      "Rare deterministic retail receipt comments use frozen flavor and affinity, no RNG/state changes; quiet display and concise ledger",
+      "Move sales choices/confirm above collapsed character and source detail; stable barrel title in normal view",
+      "Refresh only changed dependency URL queries; 3-5 samples and focused compatibility/economy/notice/UI regressions"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes adjustment A and staging merge, prohibits B/C/production"
+    ],
+    "hqDecisions": [
+      "Presentation-only derived helpers; leave immutable town labels, canonical saved bytes/schema and all gameplay math untouched"
+    ],
+    "rulesApplied": [
+      "Staging-only",
+      "AGENTS bounded useful delegation",
+      "Expression audit: short complete sentences and no redundant explanations"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone-equivalent sales modal top action visibility/close/details/scroll",
+      "Public product identity, quiet comment, major-only town ledger and save/reload"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert adjustmentA; no migration or new save fields",
+    "outOfScope": [
+      "Flavor/aging/town math or probabilities",
+      "Distillation/cards B/C",
+      "Production",
+      "New system or Lab"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author physical iPhone/Safari and fun/adoption"
+    ],
+    "alternativesRejected": [
+      "Rewrite immutable saved labels/reasons",
+      "New comment operations or RNG draws",
+      "Reduce font size to fit sales"
+    ],
+    "boundaryCases": [
+      "Old saves without flavor and without stage4",
+      "Multiple releases onebrand sameplace",
+      "No sales/no comments",
+      "Soldout actual receipt no infinite comments",
+      "Multiple simultaneous important events"
+    ],
+    "testPlan": [
+      "Pure projection on 3-5 frozen bottle samples, rename/poisoned display string invariance, source-state byte invariance",
+      "Existing event notices/brands/sales/save/stage4 finite supply focused regressions",
+      "iPhone-equivalent browser and staging public checks; required CI"
+    ],
+    "problem": "Character descriptions treated as product names, minor reactions too prominent, ledger repetitions and tall sales modal",
+    "currentContract": "Stable brand/release identifiers and saved immutable town labels; existing price/list/delivery operations",
+    "whyExistingIsInsufficient": "Directly rendering flavor labels/reasons conflates identity and personality; expanded flavor UI obscures sales",
+    "design": "Read-only player presentation adapter + reordered existing UI",
+    "migration": "None; saved records remain untouched",
+    "compatibility": "Exact save/replay/economy/RNG retained; old data safely projected",
+    "promotionRisk": "Stagingonly",
+    "dependencies": [
+      "Existing stage4 frozen metadata/actual receipts",
+      "Existing main modal and notice renderer"
+    ]
+  }
+}
