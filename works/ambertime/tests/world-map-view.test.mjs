@@ -31,7 +31,7 @@ test('zoom is clamped to visible area, plus outward and minus inward',()=>{
 test('display is a read-only projection of state and uses the Lab renderer',()=>{
  const game=make([arrived('overseas-craft')],[{count:3}],[],[{shopId:'supermarket'}]);
  const before=JSON.stringify(game);let draws=0;
- const canvas={getContext(){return {fillStyle:'',imageSmoothingEnabled:true,fillRect(x,y,w,h){draws++;assert.ok([x,y,w,h].every(Number.isInteger));}}}};
+ const canvas={getContext(){return {fillStyle:'',imageSmoothingEnabled:true,fillRect(x,y,w,h){draws++;assert.ok([x,y,w,h].every(Number.isInteger));assert.ok([x,y,w,h].every(n=>n%2===0));}}}};
  assert.equal(drawGameMap(canvas,game,3),3);assert.ok(draws>25);
  assert.equal(drawGameMap(canvas,game,6),6);
  assert.equal(JSON.stringify(game),before);
