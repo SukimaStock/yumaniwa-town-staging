@@ -1,4 +1,4 @@
-import {create,step,setPolicy,summarize,exportLog,report,MODES,POLICIES,PRODUCT_OPTIONS,NODES,date} from './model.mjs';
+import {create,step,setPolicy,summarize,exportLog,report,MODES,POLICIES,PRODUCT_OPTIONS,NODES,date,newsEvents,phaseFor} from './model.mjs?stage2=1';
 import {drawMap,hitPlace} from './map.mjs';
 const $=id=>document.getElementById(id),nodeName=id=>id==='distillery'?'1号店の蒸留所':NODES.find(n=>n.id===id)?.name??'—';
 const typeNames={release:'発売',shipment:'納品',rumor:'偶然の紹介',arrival:'口コミの到着',memory:'記憶',interest:'関心',share:'紹介',visit:'訪問',inquiry:'問い合わせ',trade:'取扱開始',resurface:'記憶の再浮上',generation:'世代交代',policy:'方針変更'};
@@ -20,8 +20,8 @@ function syncButtons(){
 function draw(){visibleIds=drawMap($('map'),state,{frame:reduced?0:Math.floor(performance.now()/600)%2,selected,motion:reduced?8:Math.floor(performance.now()/150)});}
 function placeDetail(){
  if(selected==='distillery'){$('place-detail').textContent=`1号店 · AmberTimeのみ。使用中 ${state.barrels.length}/4たる、納品 ${state.delivered}本。`;return;}
- const n=state.nodes[selected],config=NODES.find(n=>n.id===selected),phase=n.trading?'取扱いあり':n.contact?'訪問・問い合わせの接点あり':n.discovered?'関心あり':'口コミが到着';
- $('place-detail').textContent=`${config.region} · ${phase}。認知 ${Math.round(n.awareness*100)} / 関心 ${Math.round(n.interest*100)} / 関係 ${Math.round(n.root*100)}。納品 ${n.received}本、訪問 ${n.visits}件、問い合わせ ${n.inquiries}件。`;
+ const n=state.nodes[selected],config=NODES.find(n=>n.id===selected),phase=phaseFor(n);
+ $('place-detail').textContent=`${config.region} · ${phase}。${n.received?'取扱先にウイスキーが届いています。':''}`;
 }
 function renderPlaces(){
  draw();if(!visibleIds.includes(selected))selected='distillery';
@@ -30,7 +30,7 @@ function renderPlaces(){
  const discovered=visibleIds.filter(id=>id==='distillery'||id==='town'||state.nodes[id]?.discovered),known=visibleIds.filter(id=>!discovered.includes(id));
  $('map').setAttribute('aria-label',`街の実験用配置。建物：${discovered.map(nodeName).join('、')}。口コミのみ：${known.map(nodeName).join('、')||'なし'}。道と線は接点を示し、実際の伝播経路は記録の詳細で確認できます。`);
 }
-function filteredEvents(){const f=$('filter').value;return state.events.filter(e=>{if(f==='all')return true;if(f==='news')return !['shipment','release'].includes(e.type)&&(e.type!=='arrival'||e.channel!=='direct');return e.type===f;}).reverse();}
+function filteredEvents(){const f=$('filter').value;return (f==='news'?newsEvents(state):state.events.filter(e=>f==='all'||e.type===f)).slice().reverse();}
 function renderNews(){
  const all=filteredEvents(),pages=Math.max(1,Math.ceil(all.length/PAGE_SIZE));page=Math.min(page,pages-1);
  $('news').replaceChildren();
@@ -46,13 +46,13 @@ function eventDetail(id){
  const e=state.events.find(x=>x.id===id);if(!e)return;selectedEvent=id;
  const body=$('event-body');body.replaceChildren();const p=document.createElement('p');p.textContent=e.reason;body.append(p);
  const dl=document.createElement('dl'),fields=[['年月',date(e.month)+' · '+e.generation+'代目'],['出来事',e.id+' · '+typeNames[e.type]],['場所',`${nodeName(e.from)} → ${nodeName(e.to)}`],['発売回',e.releaseId?'#'+e.releaseId:'—']];
- const release=state.releases.find(r=>r.id===e.releaseId);if(release){const q=release.product;fields.push(['商品',`${PRODUCT_OPTIONS.find(x=>x.id===release.kind)?.name??release.kind} / ${q.age}か月 / シゲキ ${q.roughness.toFixed(2)}・原酒香 ${q.character.toFixed(2)}・木香 ${q.wood.toFixed(2)} / 価格 ${q.price}`]);}
+ const release=state.releases.find(r=>r.id===e.releaseId);if(release){fields.push(['商品',`${PRODUCT_OPTIONS.find(x=>x.id===release.kind)?.name??release.kind}`]);}
  for(const[k,v]of fields){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=k;dd.textContent=v;dl.append(dt,dd);}body.append(dl);
  if(e.sourceId){const button=document.createElement('button');button.type='button';button.textContent='発生元 '+e.sourceId+' を見る';button.onclick=()=>eventDetail(e.sourceId);body.append(button);}
- const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent='計算・参照情報';pre.textContent=JSON.stringify(e,null,2);details.append(summary,pre);body.append(details);$('event-detail').open=true;
+ const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent='計算・参照情報';pre.textContent=JSON.stringify({event:e,product:release?.product},null,2);details.append(summary,pre);body.append(details);$('event-detail').open=true;
 }
 function render(){
- const s=summarize(state);$('time').textContent=date(state.month);$('generation').textContent=state.generation===1?'初代':state.generation+'代目';$('stock').textContent=`在庫 ${s.inventory}本 · ${s.barrels}/4たる`;
+ const s=summarize(state);$('time').textContent=date(state.month);$('generation').textContent=state.generation===1?'初代':state.generation+'代目';$('stock').textContent=`在庫 ${s.inventory}本 · ${s.barrels}/4たる · ${PRODUCT_OPTIONS.find(p=>p.id===state.product).name}`;
  syncButtons();renderPlaces();renderNews();if($('report').open)$('report-text').value=report(state);
 }
 function tick(){

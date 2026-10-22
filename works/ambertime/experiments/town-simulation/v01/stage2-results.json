@@ -1,0 +1,1843 @@
+{
+  "modelVersion": "ambertime-town/0.1.1",
+  "seeds": [
+    20261021,
+    42
+  ],
+  "profiles": [
+    "standard",
+    "young",
+    "long"
+  ],
+  "mode": "responses",
+  "policy": "mixed",
+  "runs": [
+    {
+      "seed": 20261021,
+      "product": "standard",
+      "name": "原酒香が豊か",
+      "checkpoints": [
+        {
+          "month": 120,
+          "interested": [
+            "town",
+            "near-local"
+          ],
+          "trading": [
+            "town"
+          ]
+        },
+        {
+          "month": 360,
+          "interested": [
+            "town",
+            "diner",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ],
+          "trading": [
+            "town",
+            "diner",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ]
+        },
+        {
+          "month": 1200,
+          "interested": [
+            "town",
+            "diner",
+            "specialist",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ],
+          "trading": [
+            "town",
+            "diner",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ]
+        }
+      ],
+      "summary": {
+        "month": 1200,
+        "years": 100,
+        "generation": 4,
+        "produced": 1608,
+        "inventory": 408,
+        "delivered": 1200,
+        "barrels": 1,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 67,
+          "shipment": 749,
+          "arrival": 4419,
+          "memory": 204,
+          "interest": 306,
+          "rumor": 43,
+          "inquiry": 130,
+          "share": 68,
+          "visit": 68,
+          "trade": 4,
+          "generation": 3
+        },
+        "firstOverseas": 55,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "specialist",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "specialist",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [
+          "specialist"
+        ],
+        "localRoot": 0.7037409648358416,
+        "longestMemory": 0
+      },
+      "likedRegions": [
+        "town",
+        "diner",
+        "specialist",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "settled": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "reachedWithoutLiking": [
+        "bar",
+        "super",
+        "restaurant",
+        "department",
+        "overseas-craft"
+      ],
+      "rawEvents": 6061,
+      "newsEvents": 411,
+      "maxNewsPerMonth": 3,
+      "longestQuietMonths": 18,
+      "firstNewsMonth": 10,
+      "chanceCount": 43,
+      "firstChance": [
+        {
+          "id": "e80",
+          "type": "release",
+          "month": 42,
+          "reason": "発売#3を24本、瓶詰めしました。",
+          "from": null,
+          "to": null,
+          "releaseId": 3
+        },
+        {
+          "id": "e97",
+          "type": "shipment",
+          "month": 48,
+          "reason": "町の酒店へ発売#3を3本届けました。",
+          "from": "distillery",
+          "to": "town",
+          "releaseId": 3
+        },
+        {
+          "id": "e113",
+          "type": "rumor",
+          "month": 54,
+          "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。",
+          "from": "town",
+          "to": "overseas-craft",
+          "releaseId": 3
+        },
+        {
+          "id": "e115",
+          "type": "arrival",
+          "month": 55,
+          "reason": "海外の熟成酒文化圏へ発売#3の口コミが届きました。この土地の好みとは合いませんでした。",
+          "from": "town",
+          "to": "overseas-craft",
+          "releaseId": 3
+        }
+      ],
+      "tradeExamples": [
+        [
+          {
+            "id": "e190",
+            "type": "release",
+            "month": 78,
+            "reason": "発売#5を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 5
+          },
+          {
+            "id": "e236",
+            "type": "shipment",
+            "month": 93,
+            "reason": "町の酒店へ発売#5を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 5
+          },
+          {
+            "id": "e238",
+            "type": "arrival",
+            "month": 94,
+            "reason": "町の酒店へ発売#5の口コミが届きました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 5
+          },
+          {
+            "id": "e296",
+            "type": "arrival",
+            "month": 112,
+            "reason": "周辺の食文化圏へ発売#5の口コミが届きました。",
+            "from": "town",
+            "to": "near-local",
+            "releaseId": 5
+          },
+          {
+            "id": "e297",
+            "type": "interest",
+            "month": 112,
+            "reason": "周辺の食文化圏で発売#5が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 5
+          },
+          {
+            "id": "e376",
+            "type": "inquiry",
+            "month": 135,
+            "reason": "周辺の食文化圏の取扱先から発売#5の取扱いについて問い合わせがありました。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 5
+          },
+          {
+            "id": "e457",
+            "type": "trade",
+            "month": 155,
+            "reason": "周辺の食文化圏の取扱先との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 5
+          }
+        ],
+        [
+          {
+            "id": "e365",
+            "type": "release",
+            "month": 132,
+            "reason": "発売#8を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 8
+          },
+          {
+            "id": "e421",
+            "type": "shipment",
+            "month": 147,
+            "reason": "町の酒店へ発売#8を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 8
+          },
+          {
+            "id": "e423",
+            "type": "arrival",
+            "month": 148,
+            "reason": "町の酒店へ発売#8の口コミが届きました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 8
+          },
+          {
+            "id": "e451",
+            "type": "arrival",
+            "month": 154,
+            "reason": "食堂へ発売#8の口コミが届きました。",
+            "from": "town",
+            "to": "diner",
+            "releaseId": 8
+          },
+          {
+            "id": "e452",
+            "type": "interest",
+            "month": 154,
+            "reason": "食堂で発売#8が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "diner",
+            "releaseId": 8
+          },
+          {
+            "id": "e469",
+            "type": "inquiry",
+            "month": 159,
+            "reason": "食堂から発売#8の取扱いについて問い合わせがありました。",
+            "from": null,
+            "to": "diner",
+            "releaseId": 8
+          },
+          {
+            "id": "e597",
+            "type": "trade",
+            "month": 188,
+            "reason": "食堂との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "diner",
+            "releaseId": 8
+          }
+        ]
+      ],
+      "newsExamples": [
+        "食堂へ発売#1の口コミが届きました。",
+        "路地のバーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "スーパーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "レストランへ発売#1の口コミが届きました。",
+        "専門酒店へ発売#1の口コミが届きました。",
+        "町の酒店で発売#2が好みに合い、関心を持たれました。",
+        "町の酒店で発売#2が好みに合い、関心を持たれました。",
+        "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。"
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 1200,
+        "conservation": {
+          "produced": 1608,
+          "inventory": 408,
+          "delivered": 1200,
+          "lotStock": 408,
+          "shipmentTotal": 1200,
+          "receivedTotal": 1200
+        },
+        "peakBarrels": 2,
+        "eventCount": 6061,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      },
+      "exportBytes": 5308840,
+      "sha256": "af1d09fb87d64f296eb8793d9d2d9cc06a7178902f1bac1a7cb58c7874ef2380"
+    },
+    {
+      "seed": 20261021,
+      "product": "young",
+      "name": "力強い",
+      "checkpoints": [
+        {
+          "month": 120,
+          "interested": [
+            "town",
+            "diner",
+            "near-local"
+          ],
+          "trading": [
+            "town"
+          ]
+        },
+        {
+          "month": 360,
+          "interested": [
+            "town",
+            "diner",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ],
+          "trading": [
+            "town",
+            "diner",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ]
+        },
+        {
+          "month": 1200,
+          "interested": [
+            "town",
+            "diner",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ],
+          "trading": [
+            "town",
+            "diner",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ]
+        }
+      ],
+      "summary": {
+        "month": 1200,
+        "years": 100,
+        "generation": 4,
+        "produced": 1608,
+        "inventory": 408,
+        "delivered": 1200,
+        "barrels": 1,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 67,
+          "shipment": 749,
+          "arrival": 4424,
+          "memory": 193,
+          "interest": 269,
+          "rumor": 43,
+          "inquiry": 112,
+          "share": 55,
+          "visit": 57,
+          "trade": 4,
+          "generation": 3
+        },
+        "firstOverseas": 55,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "specialist",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0.5162855621084212,
+        "longestMemory": 0
+      },
+      "likedRegions": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "settled": [
+        "town",
+        "diner",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "reachedWithoutLiking": [
+        "bar",
+        "super",
+        "restaurant",
+        "specialist",
+        "department",
+        "overseas-craft"
+      ],
+      "rawEvents": 5976,
+      "newsEvents": 381,
+      "maxNewsPerMonth": 3,
+      "longestQuietMonths": 18,
+      "firstNewsMonth": 10,
+      "chanceCount": 43,
+      "firstChance": [
+        {
+          "id": "e80",
+          "type": "release",
+          "month": 42,
+          "reason": "発売#3を24本、瓶詰めしました。",
+          "from": null,
+          "to": null,
+          "releaseId": 3
+        },
+        {
+          "id": "e97",
+          "type": "shipment",
+          "month": 48,
+          "reason": "町の酒店へ発売#3を3本届けました。",
+          "from": "distillery",
+          "to": "town",
+          "releaseId": 3
+        },
+        {
+          "id": "e113",
+          "type": "rumor",
+          "month": 54,
+          "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。",
+          "from": "town",
+          "to": "overseas-craft",
+          "releaseId": 3
+        },
+        {
+          "id": "e115",
+          "type": "arrival",
+          "month": 55,
+          "reason": "海外の熟成酒文化圏へ発売#3の口コミが届きました。この土地の好みとは合いませんでした。",
+          "from": "town",
+          "to": "overseas-craft",
+          "releaseId": 3
+        }
+      ],
+      "tradeExamples": [
+        [
+          {
+            "id": "e185",
+            "type": "release",
+            "month": 78,
+            "reason": "発売#5を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 5
+          },
+          {
+            "id": "e230",
+            "type": "shipment",
+            "month": 93,
+            "reason": "町の酒店へ発売#5を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 5
+          },
+          {
+            "id": "e232",
+            "type": "arrival",
+            "month": 94,
+            "reason": "町の酒店へ発売#5の口コミが届きました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 5
+          },
+          {
+            "id": "e286",
+            "type": "arrival",
+            "month": 112,
+            "reason": "周辺の食文化圏へ発売#5の口コミが届きました。",
+            "from": "town",
+            "to": "near-local",
+            "releaseId": 5
+          },
+          {
+            "id": "e287",
+            "type": "interest",
+            "month": 112,
+            "reason": "周辺の食文化圏で発売#5が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 5
+          },
+          {
+            "id": "e363",
+            "type": "inquiry",
+            "month": 135,
+            "reason": "周辺の食文化圏の取扱先から発売#5の取扱いについて問い合わせがありました。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 5
+          },
+          {
+            "id": "e441",
+            "type": "trade",
+            "month": 155,
+            "reason": "周辺の食文化圏の取扱先との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 5
+          }
+        ],
+        [
+          {
+            "id": "e353",
+            "type": "release",
+            "month": 132,
+            "reason": "発売#8を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 8
+          },
+          {
+            "id": "e407",
+            "type": "shipment",
+            "month": 147,
+            "reason": "町の酒店へ発売#8を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 8
+          },
+          {
+            "id": "e409",
+            "type": "arrival",
+            "month": 148,
+            "reason": "町の酒店へ発売#8の口コミが届きました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 8
+          },
+          {
+            "id": "e435",
+            "type": "arrival",
+            "month": 154,
+            "reason": "食堂へ発売#8の口コミが届きました。",
+            "from": "town",
+            "to": "diner",
+            "releaseId": 8
+          },
+          {
+            "id": "e436",
+            "type": "interest",
+            "month": 154,
+            "reason": "食堂で発売#8が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "diner",
+            "releaseId": 8
+          },
+          {
+            "id": "e453",
+            "type": "inquiry",
+            "month": 159,
+            "reason": "食堂から発売#8の取扱いについて問い合わせがありました。",
+            "from": null,
+            "to": "diner",
+            "releaseId": 8
+          },
+          {
+            "id": "e576",
+            "type": "trade",
+            "month": 188,
+            "reason": "食堂との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "diner",
+            "releaseId": 8
+          }
+        ]
+      ],
+      "newsExamples": [
+        "食堂へ発売#1の口コミが届きました。",
+        "路地のバーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "スーパーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "食堂で発売#1が好みに合い、関心を持たれました。",
+        "レストランへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "専門酒店へ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "町の酒店で発売#2が好みに合い、関心を持たれました。",
+        "町の酒店で発売#2が好みに合い、関心を持たれました。"
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 1200,
+        "conservation": {
+          "produced": 1608,
+          "inventory": 408,
+          "delivered": 1200,
+          "lotStock": 408,
+          "shipmentTotal": 1200,
+          "receivedTotal": 1200
+        },
+        "peakBarrels": 2,
+        "eventCount": 5976,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      },
+      "exportBytes": 5304639,
+      "sha256": "39a7ba8033a418ce19c12495caac5527198e7cfd61e8ed98abb157228383d1c1"
+    },
+    {
+      "seed": 20261021,
+      "product": "long",
+      "name": "樽香が豊か",
+      "checkpoints": [
+        {
+          "month": 120,
+          "interested": [
+            "overseas-craft"
+          ],
+          "trading": [
+            "town"
+          ]
+        },
+        {
+          "month": 360,
+          "interested": [
+            "overseas-craft"
+          ],
+          "trading": [
+            "town"
+          ]
+        },
+        {
+          "month": 1200,
+          "interested": [
+            "overseas-craft"
+          ],
+          "trading": [
+            "town",
+            "overseas-craft"
+          ]
+        }
+      ],
+      "summary": {
+        "month": 1200,
+        "years": 100,
+        "generation": 4,
+        "produced": 1608,
+        "inventory": 408,
+        "delivered": 1200,
+        "barrels": 1,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 67,
+          "shipment": 595,
+          "arrival": 2401,
+          "memory": 103,
+          "rumor": 32,
+          "interest": 73,
+          "visit": 14,
+          "inquiry": 31,
+          "generation": 3,
+          "trade": 1
+        },
+        "firstOverseas": 55,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "overseas-craft"
+        ],
+        "trading": [
+          "town",
+          "overseas-craft"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0,
+        "longestMemory": 0
+      },
+      "likedRegions": [
+        "overseas-craft"
+      ],
+      "settled": [
+        "overseas-craft"
+      ],
+      "reachedWithoutLiking": [
+        "town",
+        "diner",
+        "bar",
+        "super",
+        "restaurant",
+        "specialist",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "rawEvents": 3320,
+      "newsEvents": 115,
+      "maxNewsPerMonth": 2,
+      "longestQuietMonths": 78,
+      "firstNewsMonth": 10,
+      "chanceCount": 32,
+      "firstChance": [
+        {
+          "id": "e76",
+          "type": "release",
+          "month": 42,
+          "reason": "発売#3を24本、瓶詰めしました。",
+          "from": null,
+          "to": null,
+          "releaseId": 3
+        },
+        {
+          "id": "e91",
+          "type": "shipment",
+          "month": 48,
+          "reason": "町の酒店へ発売#3を3本届けました。",
+          "from": "distillery",
+          "to": "town",
+          "releaseId": 3
+        },
+        {
+          "id": "e106",
+          "type": "rumor",
+          "month": 54,
+          "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。",
+          "from": "town",
+          "to": "overseas-craft",
+          "releaseId": 3
+        },
+        {
+          "id": "e108",
+          "type": "arrival",
+          "month": 55,
+          "reason": "海外の熟成酒文化圏へ発売#3の口コミが届きました。",
+          "from": "town",
+          "to": "overseas-craft",
+          "releaseId": 3
+        }
+      ],
+      "tradeExamples": [
+        [
+          {
+            "id": "e1457",
+            "type": "release",
+            "month": 582,
+            "reason": "発売#33を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 33
+          },
+          {
+            "id": "e1473",
+            "type": "shipment",
+            "month": 588,
+            "reason": "町の酒店へ発売#33を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 33
+          },
+          {
+            "id": "e1489",
+            "type": "rumor",
+            "month": 594,
+            "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。",
+            "from": "town",
+            "to": "overseas-craft",
+            "releaseId": 33
+          },
+          {
+            "id": "e1498",
+            "type": "arrival",
+            "month": 598,
+            "reason": "海外の熟成酒文化圏へ発売#33の口コミが届きました。",
+            "from": "town",
+            "to": "overseas-craft",
+            "releaseId": 33
+          },
+          {
+            "id": "e1499",
+            "type": "interest",
+            "month": 598,
+            "reason": "海外の熟成酒文化圏で発売#33が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "overseas-craft",
+            "releaseId": 33
+          },
+          {
+            "id": "e1508",
+            "type": "inquiry",
+            "month": 601,
+            "reason": "海外の熟成酒文化圏の取扱先から発売#33の輸入方法について問い合わせがありました。",
+            "from": null,
+            "to": "overseas-craft",
+            "releaseId": 33
+          },
+          {
+            "id": "e1551",
+            "type": "trade",
+            "month": 617,
+            "reason": "海外の熟成酒文化圏の取扱先との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "overseas-craft",
+            "releaseId": 33
+          }
+        ]
+      ],
+      "newsExamples": [
+        "食堂へ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "路地のバーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "スーパーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "レストランへ発売#1の口コミが届きました。",
+        "専門酒店へ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。",
+        "海外の熟成酒文化圏へ発売#3の口コミが届きました。",
+        "海外の熟成酒文化圏で発売#3が好みに合い、関心を持たれました。"
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 1200,
+        "conservation": {
+          "produced": 1608,
+          "inventory": 408,
+          "delivered": 1200,
+          "lotStock": 408,
+          "shipmentTotal": 1200,
+          "receivedTotal": 1200
+        },
+        "peakBarrels": 2,
+        "eventCount": 3320,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      },
+      "exportBytes": 2944283,
+      "sha256": "029d5523a2bb01c38683c7d04b994dbc0ea6f67e7a6e0a6411840dfdf4611dcb"
+    },
+    {
+      "seed": 42,
+      "product": "standard",
+      "name": "原酒香が豊か",
+      "checkpoints": [
+        {
+          "month": 120,
+          "interested": [
+            "town",
+            "specialist",
+            "near-local",
+            "national-food"
+          ],
+          "trading": [
+            "town",
+            "specialist"
+          ]
+        },
+        {
+          "month": 360,
+          "interested": [
+            "town",
+            "diner",
+            "specialist",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ],
+          "trading": [
+            "town",
+            "specialist",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ]
+        },
+        {
+          "month": 1200,
+          "interested": [
+            "town",
+            "diner",
+            "specialist",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ],
+          "trading": [
+            "town",
+            "diner",
+            "specialist",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ]
+        }
+      ],
+      "summary": {
+        "month": 1200,
+        "years": 100,
+        "generation": 4,
+        "produced": 1608,
+        "inventory": 408,
+        "delivered": 1200,
+        "barrels": 1,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 67,
+          "shipment": 776,
+          "arrival": 4845,
+          "interest": 342,
+          "memory": 193,
+          "inquiry": 139,
+          "share": 78,
+          "visit": 91,
+          "trade": 5,
+          "rumor": 47,
+          "generation": 3
+        },
+        "firstOverseas": 146,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "specialist",
+          "department",
+          "hill",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "specialist",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "specialist",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0.7046980928115493,
+        "longestMemory": 0
+      },
+      "likedRegions": [
+        "town",
+        "diner",
+        "specialist",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "settled": [
+        "town",
+        "diner",
+        "specialist",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "reachedWithoutLiking": [
+        "bar",
+        "super",
+        "restaurant",
+        "department",
+        "hill",
+        "overseas-craft"
+      ],
+      "rawEvents": 6586,
+      "newsEvents": 475,
+      "maxNewsPerMonth": 4,
+      "longestQuietMonths": 15,
+      "firstNewsMonth": 10,
+      "chanceCount": 47,
+      "firstChance": [
+        {
+          "id": "e200",
+          "type": "release",
+          "month": 78,
+          "reason": "発売#5を24本、瓶詰めしました。",
+          "from": null,
+          "to": null,
+          "releaseId": 5
+        },
+        {
+          "id": "e215",
+          "type": "shipment",
+          "month": 81,
+          "reason": "専門酒店へ発売#5を2本届けました。",
+          "from": "distillery",
+          "to": "specialist",
+          "releaseId": 5
+        },
+        {
+          "id": "e225",
+          "type": "rumor",
+          "month": 84,
+          "reason": "専門酒店の常連客の紹介を通じて、全国の飲食のつながりへの紹介が生まれました。",
+          "from": "specialist",
+          "to": "national-food",
+          "releaseId": 5
+        },
+        {
+          "id": "e237",
+          "type": "arrival",
+          "month": 86,
+          "reason": "全国の飲食のつながりへ発売#5の口コミが届きました。",
+          "from": "specialist",
+          "to": "national-food",
+          "releaseId": 5
+        }
+      ],
+      "tradeExamples": [
+        [
+          {
+            "id": "e1",
+            "type": "release",
+            "month": 0,
+            "reason": "発売#1を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 1
+          },
+          {
+            "id": "e10",
+            "type": "shipment",
+            "month": 12,
+            "reason": "町の酒店へ発売#1を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 1
+          },
+          {
+            "id": "e11",
+            "type": "arrival",
+            "month": 13,
+            "reason": "町の酒店へ発売#1の口コミが届きました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 1
+          },
+          {
+            "id": "e25",
+            "type": "arrival",
+            "month": 19,
+            "reason": "食堂へ発売#1の口コミが届きました。",
+            "from": "town",
+            "to": "diner",
+            "releaseId": 1
+          },
+          {
+            "id": "e76",
+            "type": "arrival",
+            "month": 37,
+            "reason": "専門酒店へ発売#1の口コミが届きました。",
+            "from": "diner",
+            "to": "specialist",
+            "releaseId": 1
+          },
+          {
+            "id": "e77",
+            "type": "interest",
+            "month": 37,
+            "reason": "専門酒店で発売#1が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "specialist",
+            "releaseId": 1
+          },
+          {
+            "id": "e106",
+            "type": "inquiry",
+            "month": 48,
+            "reason": "専門酒店から発売#1の取扱いについて問い合わせがありました。",
+            "from": null,
+            "to": "specialist",
+            "releaseId": 1
+          },
+          {
+            "id": "e178",
+            "type": "trade",
+            "month": 72,
+            "reason": "専門酒店との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "specialist",
+            "releaseId": 1
+          }
+        ],
+        [
+          {
+            "id": "e669",
+            "type": "release",
+            "month": 168,
+            "reason": "発売#10を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 10
+          },
+          {
+            "id": "e727",
+            "type": "shipment",
+            "month": 177,
+            "reason": "町の酒店へ発売#10を1本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 10
+          },
+          {
+            "id": "e731",
+            "type": "arrival",
+            "month": 178,
+            "reason": "町の酒店へ発売#10の口コミが届きました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 10
+          },
+          {
+            "id": "e863",
+            "type": "arrival",
+            "month": 196,
+            "reason": "周辺の食文化圏へ発売#10の口コミが届きました。",
+            "from": "town",
+            "to": "near-local",
+            "releaseId": 10
+          },
+          {
+            "id": "e864",
+            "type": "interest",
+            "month": 196,
+            "reason": "周辺の食文化圏で発売#10が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 10
+          },
+          {
+            "id": "e877",
+            "type": "inquiry",
+            "month": 198,
+            "reason": "周辺の食文化圏の取扱先から発売#10の取扱いについて問い合わせがありました。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 10
+          },
+          {
+            "id": "e981",
+            "type": "trade",
+            "month": 214,
+            "reason": "周辺の食文化圏の取扱先との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 10
+          }
+        ]
+      ],
+      "newsExamples": [
+        "食堂へ発売#1の口コミが届きました。",
+        "路地のバーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "町の酒店で発売#1が好みに合い、関心を持たれました。",
+        "スーパーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "レストランへ発売#1の口コミが届きました。",
+        "町の酒店で発売#1が好みに合い、関心を持たれました。",
+        "専門酒店へ発売#1の口コミが届きました。",
+        "町の酒店から発売#1の取扱いについて問い合わせがありました。"
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 1200,
+        "conservation": {
+          "produced": 1608,
+          "inventory": 408,
+          "delivered": 1200,
+          "lotStock": 408,
+          "shipmentTotal": 1200,
+          "receivedTotal": 1200
+        },
+        "peakBarrels": 2,
+        "eventCount": 6586,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      },
+      "exportBytes": 5814970,
+      "sha256": "8e8af6bbf85e1af3dd9868425fed64c5ee79419bebf7091f6d6cea7258d6ed6f"
+    },
+    {
+      "seed": 42,
+      "product": "young",
+      "name": "力強い",
+      "checkpoints": [
+        {
+          "month": 120,
+          "interested": [
+            "town",
+            "near-local"
+          ],
+          "trading": [
+            "town"
+          ]
+        },
+        {
+          "month": 360,
+          "interested": [
+            "town",
+            "diner",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ],
+          "trading": [
+            "town",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ]
+        },
+        {
+          "month": 1200,
+          "interested": [
+            "town",
+            "diner",
+            "bar",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ],
+          "trading": [
+            "town",
+            "diner",
+            "bar",
+            "near-local",
+            "national-food",
+            "overseas-food"
+          ]
+        }
+      ],
+      "summary": {
+        "month": 1200,
+        "years": 100,
+        "generation": 4,
+        "produced": 1608,
+        "inventory": 408,
+        "delivered": 1200,
+        "barrels": 1,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 67,
+          "shipment": 743,
+          "arrival": 3829,
+          "interest": 295,
+          "memory": 208,
+          "inquiry": 125,
+          "share": 54,
+          "visit": 80,
+          "rumor": 29,
+          "trade": 5,
+          "generation": 3
+        },
+        "firstOverseas": 155,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "diner",
+          "bar",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "trading": [
+          "town",
+          "diner",
+          "bar",
+          "near-local",
+          "national-food",
+          "overseas-food"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0.5177039909548337,
+        "longestMemory": 0
+      },
+      "likedRegions": [
+        "town",
+        "diner",
+        "bar",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "settled": [
+        "town",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "reachedWithoutLiking": [
+        "super",
+        "restaurant",
+        "specialist",
+        "department",
+        "overseas-craft"
+      ],
+      "rawEvents": 5438,
+      "newsEvents": 401,
+      "maxNewsPerMonth": 3,
+      "longestQuietMonths": 15,
+      "firstNewsMonth": 10,
+      "chanceCount": 29,
+      "firstChance": [
+        {
+          "id": "e186",
+          "type": "release",
+          "month": 78,
+          "reason": "発売#5を24本、瓶詰めしました。",
+          "from": null,
+          "to": null,
+          "releaseId": 5
+        },
+        {
+          "id": "e225",
+          "type": "shipment",
+          "month": 90,
+          "reason": "町の酒店へ発売#5を3本届けました。",
+          "from": "distillery",
+          "to": "town",
+          "releaseId": 5
+        },
+        {
+          "id": "e234",
+          "type": "rumor",
+          "month": 93,
+          "reason": "町の酒店の常連客の紹介を通じて、全国の飲食のつながりへの紹介が生まれました。",
+          "from": "town",
+          "to": "national-food",
+          "releaseId": 5
+        },
+        {
+          "id": "e245",
+          "type": "arrival",
+          "month": 95,
+          "reason": "全国の飲食のつながりへ発売#5の口コミが届きました。",
+          "from": "town",
+          "to": "national-food",
+          "releaseId": 5
+        }
+      ],
+      "tradeExamples": [
+        [
+          {
+            "id": "e308",
+            "type": "release",
+            "month": 114,
+            "reason": "発売#7を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 7
+          },
+          {
+            "id": "e326",
+            "type": "shipment",
+            "month": 120,
+            "reason": "町の酒店へ発売#7を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 7
+          },
+          {
+            "id": "e327",
+            "type": "arrival",
+            "month": 121,
+            "reason": "町の酒店へ発売#7の口コミが届きました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 7
+          },
+          {
+            "id": "e394",
+            "type": "arrival",
+            "month": 139,
+            "reason": "周辺の食文化圏へ発売#7の口コミが届きました。",
+            "from": "town",
+            "to": "near-local",
+            "releaseId": 7
+          },
+          {
+            "id": "e396",
+            "type": "interest",
+            "month": 139,
+            "reason": "周辺の食文化圏で発売#7が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 7
+          },
+          {
+            "id": "e474",
+            "type": "inquiry",
+            "month": 163,
+            "reason": "周辺の食文化圏の取扱先から発売#7の取扱いについて問い合わせがありました。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 7
+          },
+          {
+            "id": "e509",
+            "type": "trade",
+            "month": 172,
+            "reason": "周辺の食文化圏の取扱先との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "near-local",
+            "releaseId": 7
+          }
+        ],
+        [
+          {
+            "id": "e246",
+            "type": "release",
+            "month": 96,
+            "reason": "発売#6を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 6
+          },
+          {
+            "id": "e266",
+            "type": "shipment",
+            "month": 102,
+            "reason": "町の酒店へ発売#6を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 6
+          },
+          {
+            "id": "e267",
+            "type": "rumor",
+            "month": 103,
+            "reason": "町の酒店の旅行者を通じて、全国の飲食のつながりへの紹介が生まれました。",
+            "from": "town",
+            "to": "national-food",
+            "releaseId": 6
+          },
+          {
+            "id": "e277",
+            "type": "arrival",
+            "month": 104,
+            "reason": "全国の飲食のつながりへ発売#6の口コミが届きました。",
+            "from": "town",
+            "to": "national-food",
+            "releaseId": 6
+          },
+          {
+            "id": "e484",
+            "type": "arrival",
+            "month": 164,
+            "reason": "海外の飲食文化圏へ発売#6の口コミが届きました。",
+            "from": "national-food",
+            "to": "overseas-food",
+            "releaseId": 6
+          },
+          {
+            "id": "e486",
+            "type": "interest",
+            "month": 164,
+            "reason": "海外の飲食文化圏で発売#6が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "overseas-food",
+            "releaseId": 6
+          },
+          {
+            "id": "e519",
+            "type": "inquiry",
+            "month": 173,
+            "reason": "海外の飲食文化圏の取扱先から発売#6の輸入方法について問い合わせがありました。",
+            "from": null,
+            "to": "overseas-food",
+            "releaseId": 6
+          },
+          {
+            "id": "e577",
+            "type": "trade",
+            "month": 186,
+            "reason": "海外の飲食文化圏の取扱先との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "overseas-food",
+            "releaseId": 6
+          }
+        ]
+      ],
+      "newsExamples": [
+        "食堂へ発売#1の口コミが届きました。",
+        "路地のバーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "町の酒店で発売#1が好みに合い、関心を持たれました。",
+        "スーパーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "レストランへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "町の酒店で発売#1が好みに合い、関心を持たれました。",
+        "専門酒店へ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "路地のバーへ発売#2の口コミが届きました。"
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 1200,
+        "conservation": {
+          "produced": 1608,
+          "inventory": 408,
+          "delivered": 1200,
+          "lotStock": 408,
+          "shipmentTotal": 1200,
+          "receivedTotal": 1200
+        },
+        "peakBarrels": 2,
+        "eventCount": 5438,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      },
+      "exportBytes": 4678869,
+      "sha256": "fd84e81eafd3d0e24c5a2d7b522e780420c82a34549824513916d717327a2f55"
+    },
+    {
+      "seed": 42,
+      "product": "long",
+      "name": "樽香が豊か",
+      "checkpoints": [
+        {
+          "month": 120,
+          "interested": [],
+          "trading": [
+            "town"
+          ]
+        },
+        {
+          "month": 360,
+          "interested": [
+            "overseas-craft"
+          ],
+          "trading": [
+            "town",
+            "overseas-craft"
+          ]
+        },
+        {
+          "month": 1200,
+          "interested": [
+            "overseas-craft"
+          ],
+          "trading": [
+            "town",
+            "overseas-craft"
+          ]
+        }
+      ],
+      "summary": {
+        "month": 1200,
+        "years": 100,
+        "generation": 4,
+        "produced": 1608,
+        "inventory": 408,
+        "delivered": 1200,
+        "barrels": 1,
+        "peakBarrels": 2,
+        "counts": {
+          "release": 67,
+          "shipment": 702,
+          "arrival": 2387,
+          "memory": 136,
+          "rumor": 32,
+          "interest": 124,
+          "inquiry": 56,
+          "trade": 1,
+          "visit": 38,
+          "generation": 3
+        },
+        "firstOverseas": 155,
+        "known": [
+          "town",
+          "diner",
+          "bar",
+          "super",
+          "near-local",
+          "national-food",
+          "overseas-food",
+          "overseas-craft"
+        ],
+        "discovered": [
+          "town",
+          "overseas-craft"
+        ],
+        "trading": [
+          "town",
+          "overseas-craft"
+        ],
+        "pendingInterest": [],
+        "localRoot": 0,
+        "longestMemory": 0
+      },
+      "likedRegions": [
+        "overseas-craft"
+      ],
+      "settled": [
+        "overseas-craft"
+      ],
+      "reachedWithoutLiking": [
+        "town",
+        "diner",
+        "bar",
+        "super",
+        "restaurant",
+        "specialist",
+        "near-local",
+        "national-food",
+        "overseas-food"
+      ],
+      "rawEvents": 3546,
+      "newsEvents": 163,
+      "maxNewsPerMonth": 2,
+      "longestQuietMonths": 79,
+      "firstNewsMonth": 10,
+      "chanceCount": 32,
+      "firstChance": [
+        {
+          "id": "e164",
+          "type": "release",
+          "month": 78,
+          "reason": "発売#5を24本、瓶詰めしました。",
+          "from": null,
+          "to": null,
+          "releaseId": 5
+        },
+        {
+          "id": "e194",
+          "type": "shipment",
+          "month": 90,
+          "reason": "町の酒店へ発売#5を3本届けました。",
+          "from": "distillery",
+          "to": "town",
+          "releaseId": 5
+        },
+        {
+          "id": "e201",
+          "type": "rumor",
+          "month": 93,
+          "reason": "町の酒店の常連客の紹介を通じて、全国の飲食のつながりへの紹介が生まれました。",
+          "from": "town",
+          "to": "national-food",
+          "releaseId": 5
+        },
+        {
+          "id": "e210",
+          "type": "arrival",
+          "month": 95,
+          "reason": "全国の飲食のつながりへ発売#5の口コミが届きました。この土地の好みとは合いませんでした。",
+          "from": "town",
+          "to": "national-food",
+          "releaseId": 5
+        }
+      ],
+      "tradeExamples": [
+        [
+          {
+            "id": "e618",
+            "type": "release",
+            "month": 258,
+            "reason": "発売#15を24本、瓶詰めしました。",
+            "from": null,
+            "to": null,
+            "releaseId": 15
+          },
+          {
+            "id": "e656",
+            "type": "shipment",
+            "month": 273,
+            "reason": "町の酒店へ発売#15を3本届けました。",
+            "from": "distillery",
+            "to": "town",
+            "releaseId": 15
+          },
+          {
+            "id": "e672",
+            "type": "rumor",
+            "month": 278,
+            "reason": "町の酒店の発信者を通じて、海外の熟成酒文化圏への紹介が生まれました。",
+            "from": "town",
+            "to": "overseas-craft",
+            "releaseId": 15
+          },
+          {
+            "id": "e681",
+            "type": "arrival",
+            "month": 283,
+            "reason": "海外の熟成酒文化圏へ発売#15の口コミが届きました。",
+            "from": "town",
+            "to": "overseas-craft",
+            "releaseId": 15
+          },
+          {
+            "id": "e683",
+            "type": "interest",
+            "month": 283,
+            "reason": "海外の熟成酒文化圏で発売#15が好みに合い、関心を持たれました。",
+            "from": null,
+            "to": "overseas-craft",
+            "releaseId": 15
+          },
+          {
+            "id": "e698",
+            "type": "inquiry",
+            "month": 289,
+            "reason": "海外の熟成酒文化圏の取扱先から発売#15の輸入方法について問い合わせがありました。",
+            "from": null,
+            "to": "overseas-craft",
+            "releaseId": 15
+          },
+          {
+            "id": "e721",
+            "type": "trade",
+            "month": 296,
+            "reason": "海外の熟成酒文化圏の取扱先との取扱いが始まりました。納品は次の配分からです。",
+            "from": null,
+            "to": "overseas-craft",
+            "releaseId": 15
+          }
+        ]
+      ],
+      "newsExamples": [
+        "食堂へ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "路地のバーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "スーパーへ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "レストランへ発売#1の口コミが届きました。",
+        "専門酒店へ発売#1の口コミが届きました。この土地の好みとは合いませんでした。",
+        "町の酒店の常連客の紹介を通じて、全国の飲食のつながりへの紹介が生まれました。",
+        "全国の飲食のつながりへ発売#5の口コミが届きました。この土地の好みとは合いませんでした。",
+        "町の酒店の旅行者を通じて、全国の飲食のつながりへの紹介が生まれました。"
+      ],
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "monthsProcessed": 1200,
+        "conservation": {
+          "produced": 1608,
+          "inventory": 408,
+          "delivered": 1200,
+          "lotStock": 408,
+          "shipmentTotal": 1200,
+          "receivedTotal": 1200
+        },
+        "peakBarrels": 2,
+        "eventCount": 3546,
+        "memorySeeds": 0,
+        "activeMemorySeeds": 0
+      },
+      "exportBytes": 3015293,
+      "sha256": "22fcb6e467116d4a444d5ef06faaef7c6dc716ebf2e9f3cc3baf0d0f3e3e3eb1"
+    }
+  ]
+}

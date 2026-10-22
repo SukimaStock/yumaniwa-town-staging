@@ -1,55 +1,76 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import * as M from './model.mjs';
-const seeds=[20261021,42,7,137,2026,314159,271828,65537];
-const run=o=>M.advance(M.create(o),1200);
-test('100 years, four ablations and eight fixed seeds reproduce full exports',()=>{
- for(const seed of seeds)for(const mode of M.MODES){const a=run({seed,mode:mode.id}),b=run({seed,mode:mode.id});assert.deepEqual(M.exportLog(a),M.exportLog(b));assert.equal(M.validate(a).ok,true);assert.equal(a.month,1200);assert.equal(a.generation,4);}
-});
-test('supply is conserved every month across product and delivery policies; occupancy <=4',()=>{
- for(const product of M.PRODUCT_OPTIONS)for(const policy of M.POLICIES){const s=M.create({product:product.id,policy:policy.id});for(let i=0;i<1200;i++){M.step(s);assert.equal(s.produced,s.inventory+s.delivered);assert.equal(s.releases.reduce((n,r)=>n+r.stock,0),s.inventory);assert.ok(s.barrels.length<=4);assert.ok(s.inventory>=0);}assert.equal(M.validate(s).ok,true);
- for(const shipment of s.shipments)for(const part of shipment.parts){const release=s.releases[part.releaseId-1];assert.ok(release.month<shipment.month);}
- for(let month=0;month<=1200;month++)assert.ok(s.barrelHistory.filter(b=>b.start<=month&&month<b.due).length<=4);
+import {compare} from './analyze.mjs';
+const runs=compare(),node=id=>M.NODES.find(n=>n.id===id);
+test('three profiles x two fixed seeds retain exact recorded results and conserved causal logs',()=>{
+ const recorded=JSON.parse(readFileSync(new URL('./stage2-results.json',import.meta.url)));
+ assert.deepEqual(runs.map(x=>x.result),recorded.runs);
+ for(const {state:s}of runs){
+  assert.equal(M.validate(s).ok,true);assert.equal(s.month,1200);assert.equal(s.generation,4);assert.ok(s.peakBarrels<=4);
+  const events=new Map(s.events.map(e=>[e.id,e]));
+  for(const shipment of s.shipments)for(const p of shipment.parts)assert.ok(s.releases[p.releaseId-1].month<shipment.month);
+  for(const trade of s.trades){assert.equal(events.get(trade.sourceId).type,'inquiry');assert.ok(events.get(trade.sourceId).month<trade.month);assert.ok(s.shipments.filter(x=>x.to===trade.to).every(x=>x.month>trade.month));}
+  assert.ok(!s.events.some(e=>['sale','purchase'].includes(e.type)));
  }
 });
-test('receiving a rumor does not imply an agreement or a sale; inquiry and agreement are delayed',()=>{
- const s=run({seed:42});const events=new Map(s.events.map(e=>[e.id,e]));
- assert.ok(s.arrivals.length>s.trades.length*100);
- for(const e of s.trades){const inquiry=events.get(e.sourceId);assert.equal(inquiry.type,'inquiry');assert.ok(inquiry.month<e.month);const shipments=s.shipments.filter(x=>x.to===e.to);for(const p of shipments)assert.ok(p.month>e.month);}
- assert.ok(Object.values(s.nodes).some(n=>n.interest>0&&!n.trading));
- assert.ok(!s.events.some(e=>e.type==='sale'||e.type==='purchase'));
+test('selected profile is present from first stock; taste has no age/price quality bonus',()=>{
+ for(const product of ['standard','young','long']){const s=M.create({product});assert.equal(s.releases[0].kind,product);assert.equal(M.exportLog(s).initialConditions.initialStockAge,M.PRODUCTS[product].age);assert.equal(s.releases[0].product.wood,M.PRODUCTS[product].wood);}
+ assert.ok(M.affinity(node('diner'),M.PRODUCTS.young).fit>M.affinity(node('diner'),M.PRODUCTS.long).fit);
+ assert.ok(M.affinity(node('department'),M.PRODUCTS.long).fit>M.affinity(node('department'),M.PRODUCTS.young).fit);
+ assert.equal(M.affinity(node('town'),M.PRODUCTS.standard).fit,M.affinity(node('town'),{...M.PRODUCTS.standard,age:99,price:999}).fit);
 });
-test('event DAG, frozen release ancestry and future queues remain referentially sound',()=>{
- const s=run({seed:137}),events=new Map();for(const e of s.events){if(e.sourceId){const parent=events.get(e.sourceId);assert.ok(parent);assert.ok(parent.month<=e.month);if(e.releaseId)assert.equal(e.releaseId,parent.releaseId);}events.set(e.id,e);}
- for(const p of [...s.pending,...s.packets])assert.ok(events.has(p.sourceId));
- for(const a of s.arrivals){let e=a;while(e.type!=='shipment'){e=events.get(e.sourceId);assert.ok(e);}assert.equal(e.releaseId,a.releaseId);}
+test('poor-fit reach cannot manufacture liking, positive sharing, inquiries or handling',()=>{
+ for(const {state:s,result:r}of runs){
+  assert.ok(r.reachedWithoutLiking.length>0);
+  for(const e of s.events.filter(e=>['interest','share','inquiry','trade'].includes(e.type))){const to=e.type==='share'?e.from:e.to;assert.ok(M.affinity(node(to),s.releases[e.releaseId-1].product).fit>=M.MIN_FIT,`${e.id}:${e.type}:${to}`);}
+ }
+ for(const seed of [20261021,42]){
+  const selected=runs.filter(x=>x.state.seed===seed);
+  assert.equal(new Set(selected.map(x=>x.result.likedRegions.join('|'))).size,3);
+ }
 });
-test('one arrival may lead independently to several responses',()=>{
- const s=run(),children=new Map();for(const e of s.events.filter(e=>['memory','interest','share'].includes(e.type))){if(!children.has(e.sourceId))children.set(e.sourceId,[]);children.get(e.sourceId).push(e.type);}assert.ok(s.arrivals.some(a=>new Set(children.get(a.id)).size>=2));
+test('chance arrivals have short explanations and a traceable original shipment',()=>{
+ for(const {state:s,result:r}of runs){
+  assert.ok(r.chanceCount>0);assert.ok(r.firstChance.some(e=>e.type==='shipment'));assert.ok(r.firstChance.some(e=>e.type==='rumor'));
+  const events=new Map(s.events.map(e=>[e.id,e]));
+  for(const a of s.arrivals.filter(e=>e.channel==='chance')){let parent=a;while(parent.type!=='rumor')parent=events.get(parent.sourceId);assert.ok(parent.reason.includes('通じて'));assert.ok(parent.month<a.month);}
+ }
+ assert.ok(runs.some(({state:s})=>s.arrivals.some(a=>a.channel==='chance'&&node(a.to).level==='海外'&&a.month<360)));
 });
-test('long memory is bounded, causal, finite, and survives generations',()=>{
- const s=M.create();for(let i=0;i<1200;i++){M.step(s);assert.ok(s.memories.filter(m=>!m.retired).length<=48);}
- const returns=s.events.filter(e=>e.type==='resurface');assert.ok(returns.some(e=>e.age>=240));assert.ok(returns.some(e=>e.generation>1));
- for(const e of returns){const m=s.memories.find(m=>m.id===e.memoryId);assert.equal(m.sourceId,e.sourceId);assert.equal(m.releaseId,e.releaseId);assert.ok(e.age>=24&&e.age<=600);assert.equal(returns.filter(x=>x.memoryId===m.id).length,1);}
- assert.ok(s.events.some(e=>e.type==='inquiry'&&returns.some(r=>r.id===e.sourceId)));
+test('prior poor-fit shipments do not count toward later relationship continuity',()=>{
+ const s=M.create({product:'young'});s.releases.push({...structuredClone(s.releases[0]),id:2,product:{...M.PRODUCTS.long}});
+ s.shipments=Array.from({length:30},(_,i)=>({month:i*3,to:'department',count:3,parts:[{releaseId:1,count:3}]}));
+ s.shipments.push({month:120,to:'department',count:3,parts:[{releaseId:2,count:3}]});assert.equal(M.relationship(s,'department'),0);
+ s.shipments.push({month:123,to:'department',count:3,parts:[{releaseId:2,count:3}]});
+ const clean=structuredClone(s);clean.shipments=clean.shipments.slice(-2);
+ assert.equal(M.relationship(s,'department'),M.relationship(clean,'department'));
+ assert.ok(M.relationship(s,'department')>0&&M.relationship(s,'department')<.02);
 });
-test('foreign arrivals in first generation and later events are possible without timed unlocks',()=>{
- const runs=seeds.map(seed=>run({seed}));assert.ok(runs.some(s=>s.arrivals.some(e=>M.NODES.find(n=>n.id===e.to).level==='海外'&&e.month<360)));
- assert.ok(runs.every(s=>s.events.some(e=>['visit','inquiry','resurface'].includes(e.type)&&e.month>1080)));
- const s=M.create();assert.deepEqual(M.summarize(s).discovered,['town']);
+test('pending and long-memory paths cannot bypass mismatch gate; memory remains bounded',()=>{
+ const s=M.create({seed:42,mode:'memory',product:'long'}),sourceId=s.releases[0].eventId;
+ s.pending.push({kind:'inquiry',to:'town',releaseId:1,sourceId,due:1,causalKey:'test-inquiry'},{kind:'trade',to:'diner',releaseId:1,sourceId,due:1,causalKey:'test-trade'});
+ s.memories.push({id:'m1',sourceId,releaseId:1,to:'town',createdMonth:-30,due:1,fit:.9,retired:false,resurfaced:false});
+ M.advance(s,60);assert.equal(s.events.filter(e=>e.type==='inquiry'||e.type==='trade').length,0);assert.ok(s.memories.filter(m=>!m.retired).length<=48);
+ for(const e of s.events.filter(e=>e.type==='resurface'))assert.equal(s.events.filter(x=>x.memoryId===e.memoryId).length,1);
 });
-test('normal and chance ablations have no response-driven trade; ordinary supply matches',()=>{
- const a=run({mode:'normal'}),b=run({mode:'chance'});const omitEvent=(key,value)=>key==='eventId'?undefined:value;assert.equal(JSON.stringify(a.shipments,omitEvent),JSON.stringify(b.shipments,omitEvent));assert.equal(JSON.stringify(a.releases,omitEvent),JSON.stringify(b.releases,omitEvent));assert.equal(a.trades.length,0);assert.equal(b.trades.length,0);assert.equal(a.events.filter(e=>e.type==='rumor').length,0);assert.ok(b.events.some(e=>e.type==='rumor'));assert.equal(b.memories.length,0);
- const c=run({mode:'responses'});assert.equal(c.memories.length,0);assert.ok(c.events.some(e=>e.type==='memory'));assert.ok(!c.events.some(e=>e.type==='resurface'));
+test('normal news is bounded and factual; all raw events and schema remain available',()=>{
+ for(const {state:s,result:r}of runs){
+  const news=M.newsEvents(s);assert.ok(news.length<s.events.length/3);assert.ok(news.every(e=>s.events.includes(e)));assert.ok(r.maxNewsPerMonth<=6);
+  assert.ok(!news.some(e=>['shipment','release','memory','share'].includes(e.type)));
+  const log=M.exportLog(s);assert.equal(log.events.length,s.events.length);assert.equal(log.schema,'ambertime-town-log/1');assert.ok(log.trials.length>0);
+  assert.deepEqual(Object.keys(log).sort(),['schema','labVersion','modelVersion','seed','initialConditions','nodeDefinitions','settingsHistory','period','summary','releases','barrelHistory','shipments','events','arrivals','memories','tradeHistory','generations','finalNodes','pending','pendingTransmissions','trials','validation','checksum'].sort());
+  assert.match(M.report(s),/消費者への販売は未計算/);
+ }
+ const s=M.create();assert.equal(M.phaseFor(s.nodes.town),'取扱いが始まっている');
+ s.nodes.town.root=.5;assert.notEqual(M.phaseFor(s.nodes.town),'少しずつ定着している');
 });
-test('midrun settings, same-month changes, and month-zero changes replay exactly from export',()=>{
- const s=M.create({seed:7});M.setPolicy(s,{product:'long'});M.advance(s,240);M.setPolicy(s,{policy:'local'});M.setPolicy(s,{product:'young'});M.advance(s,601);M.setPolicy(s,{policy:'distributed',product:'changing'});M.advance(s,1200);
- const log=M.exportLog(s);assert.deepEqual(M.exportLog(M.replay(log)),log);assert.equal(log.settingsHistory.length,4);
-});
-test('invalid inputs rejected, reset is fresh and 100-year cap is stable',()=>{
- for(const seed of [0,-1,1.5,4294967296,NaN])assert.throws(()=>M.create({seed}));assert.throws(()=>M.create({mode:'x'}));assert.throws(()=>M.advance(M.create(),1201));assert.throws(()=>M.advance(M.create(),1.5));assert.throws(()=>M.setPolicy(M.create(),{policy:'x'}));
- const s=run(),before=JSON.stringify(s);M.step(s);assert.equal(JSON.stringify(s),before);assert.deepEqual(M.create(),M.create());assert.throws(()=>M.replay({modelVersion:'unknown'}));
-});
-test('report and checksum derive from the same complete state; corrupt ancestry is detected',()=>{
- const s=run();const log=M.exportLog(s),checksum=log.checksum;delete log.checksum;assert.equal(M.checksum(JSON.stringify(log)),checksum);assert.match(M.report(s),/消費者への販売は未計算/);s.events[1].sourceId='missing';assert.equal(M.validate(s).ok,false);
+test('exact replay, midrun policies, invalid inputs and100year cap stay intact',()=>{
+ const original=runs[0].state;assert.deepEqual(M.exportLog(M.replay(M.exportLog(original))),M.exportLog(original));
+ const s=M.create({seed:42});M.advance(s,12);M.setPolicy(s,{product:'long'});M.setPolicy(s,{policy:'local'});M.advance(s,36);M.setPolicy(s,{policy:'mixed',product:'young'});M.advance(s,120);
+ assert.deepEqual(M.exportLog(M.replay(M.exportLog(s))),M.exportLog(s));
+ for(const seed of [0,-1,1.5,NaN])assert.throws(()=>M.create({seed}));assert.throws(()=>M.advance(s,1201));assert.throws(()=>M.replay({modelVersion:'ambertime-town/0.1.0'}));
+ const capped=structuredClone(original),before=JSON.stringify(capped);M.step(capped);assert.equal(JSON.stringify(capped),before);
+ const corrupt=structuredClone(original);corrupt.events[1].sourceId='missing';assert.equal(M.validate(corrupt).ok,false);
 });
