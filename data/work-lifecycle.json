@@ -395,6 +395,12 @@
       "status": "active",
       "title": "ねじで持ち上げる",
       "theme": "丸いつまみを回し、ねじで台を少しずつ上下させる"
+    },
+    {
+      "id": "ambertime-world-map-lab",
+      "path": "works/ambertime-world-map-lab",
+      "status": "active",
+      "title": "AmberTime 世界マップ Lab 0.1"
     }
   ]
 }
