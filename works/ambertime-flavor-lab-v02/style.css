@@ -8,3 +8,5 @@
 .name-change span{display:block;color:#b6c0bc}
 .recipe{margin:5px 0 15px;line-height:1.5}
 @media(max-width:420px){.flavor{column-gap:9px}.flavor-item{grid-template-columns:48px minmax(0,1fr);gap:5px;font-size:11px}}
+
+.cask-change{font-size:11px;color:#e4c89c;line-height:1.2}
