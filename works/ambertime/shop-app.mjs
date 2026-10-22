@@ -1,4 +1,4 @@
-import {mapProgress,mapStep,drawGameMap,STAGES as MAP_STAGES} from './world-map-view.mjs?v=stage456-r1';
+import {mapProgress,mapStep,drawGameMap,newlyUnlocked,revealStart,STAGES as MAP_STAGES} from './world-map-view.mjs?v=stage456-r1';
 import {brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard} from './brewing-cards.mjs?v=adjust-c-r1';
 import {playerMilestones,customerComments} from './player-news.mjs?v=adjust-a-r1';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
@@ -42,6 +42,29 @@ let shownFillSpiritId=null;
 
 let shelfPage=0;
 let worldMapStage=1;
+const MAP_NOTICE_KEY=SAVE_KEY+'.map-reveal.v1';
+let mapShown=1,mapPending=0,mapFrame=null;
+function mapNoticeLoad(restored){
+ const current=mapProgress(game).max;let stored=null;
+ if(!preview){try{stored=JSON.parse(localStorage.getItem(MAP_NOTICE_KEY));}catch{}}
+ mapShown=Number.isInteger(stored?.shown)&&stored.shown>=1&&stored.shown<=6?stored.shown:(restored?current:1);
+ mapPending=0;
+}
+function mapNoticeSave(){if(preview)return;try{localStorage.setItem(MAP_NOTICE_KEY,JSON.stringify({version:1,shown:mapShown}));}catch{}}
+function noteMapReach(){if(!game||!preview&&!canSave)return;const max=mapProgress(game).max;if(newlyUnlocked(mapShown,max))mapPending=Math.max(mapPending,max);}
+function stopMapReveal(){if(mapFrame!==null){clearTimeout(mapFrame);mapFrame=null;}}
+function animateMapReveal(target){
+ stopMapReveal();
+ const advance=()=>{mapFrame=null;if(modal?.kind!=='world-map'||worldMapStage>=target)return;worldMapStage++;render();mapFrame=setTimeout(advance,230);};
+ mapFrame=setTimeout(advance,350);
+}
+function tryShowMapReveal(){
+ if(mapPending<=mapShown||modal||document.hidden||runtimeHalted||!preview&&!canSave||game.tastingId!==null||game.decisions.length||game.trade.offer||game.shop.offer&&!game.shop.offer.notified||game.still.phase!=='ready'||generationState()?.phase!=='working')return false;
+ const target=Math.max(mapPending,mapProgress(game).max),start=mapShown;
+ mapPending=0;mapShown=target;mapNoticeSave();
+ stopClock();worldMapStage=revealStart(start,target);modal={kind:'world-map'};animateMapReveal(target);return true;
+}
+
 let modalReturnFocus=null;
 let modalReturnObject=null;
 let pointerInteraction=false;
@@ -441,12 +464,12 @@ function schedule(){
    if(elapsed>=T.monthMs){const before=game.core.month;game=D.tickDistillery(game,expectedMonth);elapsed=0;if(game.core.month===before&&!game.decisions.length&&generationState()?.phase!=='review'){runtimeHalted=true;message('資金を残して停止しています。たる詰めや販売を確かめられます。');}saved=save();}
    else if(wasDistilling&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))saved=save();
    if(completed)saved=save();
-   if(saved)automaticNews.push(automaticEvents(beforeStep,game,caskName,releaseTag));
+   if(saved){automaticNews.push(automaticEvents(beforeStep,game,caskName,releaseTag));noteMapReach();}
    render();schedule();
   }catch(e){runtimeHalted=true;storageNotice(e.message);render();}
  },T.distillStepMs/playbackRate);
 }
-function act(fn,after,afterSave){stopClock();try{const before=game;game=fn(game);runtimeHalted=false;if(after)after();const saved=save();if(saved){automaticNews.push(automaticEvents(before,game,caskName,releaseTag));if(afterSave)afterSave();}render();schedule();return true;}catch(e){storageNotice(e.message);render();schedule();return false;}}
+function act(fn,after,afterSave){stopClock();try{const before=game;game=fn(game);runtimeHalted=false;if(after)after();const saved=save();if(saved){automaticNews.push(automaticEvents(before,game,caskName,releaseTag));noteMapReach();if(afterSave)afterSave();}render();schedule();return true;}catch(e){storageNotice(e.message);render();schedule();return false;}}
 // Event presentation is transient and created only after the operation is saved.
 function finishDistillation(){
  const collection=D.collectionState(game);
@@ -496,7 +519,7 @@ function departmentDestination(p,release,invitation){
  else body+='<p>'+(adopted?'今回の企画は完了':adoptions.length?'過去に採用実績あり':'申し出待ち')+'</p><p>5本 '+unit(q.unitPrice)+'/本</p><p class="quiet">'+esc(uiText(q.reason)??shopTerms('department'))+'</p>';
  body+=D.departmentAdoptions(game,release?.brandId).length?'<p class="quiet">採用歴は記録へ</p>':'';return body+'</section>';
 }
-function closeModal(){if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='inspect'&&modal.ledgerParent){finishLedgerTasting();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){if(modal.parent){closeComparison();return;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
+function closeModal(){if(modal?.kind==='world-map')stopMapReveal();if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='inspect'&&modal.ledgerParent){finishLedgerTasting();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){if(modal.parent){closeComparison();return;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
 function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();if(game.tastingId!==null&&game.tastingId!==id)endTaste();selectedCaskId=id;room='warehouse';modal={kind:'inspect',id};act(s=>D.sampleDistillery(s,id));}
 function quoteModal(id){if(!D.currentCask(game,id))return;stopClock();if(D.bottlingReservation(game,id)?.status==='active')act(s=>D.pauseBottling(D.endTasting(s),id,true),()=>{modal={kind:'quote',id};});else{modal={kind:'quote',id};render();}}
 function reservationLabel(id){
@@ -556,6 +579,7 @@ function syncModal(){
  if(!modal&&game.shop.offer&&!game.shop.offer.notified&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&game.still.phase==='ready'&&!document.hidden&&!runtimeHalted&&(preview||canSave))showShopOffer();
  if(!modal&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&(!game.shop.offer||game.shop.offer.notified)&&!document.hidden&&(preview||canSave))showGeneration();
  if(!modal&&room==='distill'&&game.still.phase==='filling'&&game.still.distillation?.collectionVersion!==2&&game.core.spirit&&shownFillSpiritId!==game.core.spirit.id&&(preview||canSave)){shownFillSpiritId=game.core.spirit.id;modal={kind:'fill'};}
+ if(!modal){noteMapReach();tryShowMapReveal();}
  if(!modal){vaultPanels();if(dialog.open){
   const origin=modalReturnFocus,reference=modalReturnObject;dialog.close();
   // Room switches and shelf rerenders finish before choosing a visible focus target.
@@ -786,7 +810,7 @@ $('cask-rack').addEventListener('click',e=>{const b=e.target.closest('[data-cask
 $('close-cask-window').addEventListener('click',closeModal);
 $('open-staff-panel').addEventListener('click',()=>{if(game&&(D.staffStatus(game).unlocked||D.bottlingStaffStatus(game).unlocked))openModal('staff-manager');});
 $('open-aux-menu').addEventListener('click',()=>openModal('aux-panel'));
-$('open-world-map').addEventListener('click',()=>{if(!game)return;worldMapStage=mapProgress(game).max;openModal('world-map');});
+$('open-world-map').addEventListener('click',()=>{if(!game)return;stopMapReveal();worldMapStage=mapProgress(game).max;mapShown=Math.max(mapShown,worldMapStage);mapPending=0;mapNoticeSave();openModal('world-map');});
 
 $('open-ledger').addEventListener('click',()=>openModal('ledger'));$('open-settings').addEventListener('click',()=>{if(!game){$('settings-source').hidden=!$('settings-source').hidden;return;}openModal('settings');});
 $('shelf-pages').addEventListener('click',e=>{const b=e.target.closest('button[data-page-step]');if(b&&!b.disabled){shelfPage=Math.max(0,shelfPage+Number(b.dataset.pageStep));render();if(b.disabled)$('shelf-pages').querySelector('button:not(:disabled)')?.focus({preventScroll:true});}});
@@ -953,7 +977,7 @@ function suspend(){stopClock();if(manualDistilling())userPaused=true;save();if(g
 function resume(){if(game){render();schedule();}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();else resume();});window.addEventListener('pagehide',suspend);window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;suspend();storageNotice('別の画面で保存が変わりました。再読み込みしてください。');}});
-$('reset').addEventListener('click',()=>{if(!confirm('0.21の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}scene.resetMotion();game=D.newConnectedDistillery(seed);automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';canSave=!preview;storageNotice('');save();render();});
+$('reset').addEventListener('click',()=>{if(!confirm('0.21の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}scene.resetMotion();stopMapReveal();game=D.newConnectedDistillery(seed);mapShown=1;mapPending=0;mapNoticeSave();automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';canSave=!preview;storageNotice('');save();render();});
 $('retry-save').addEventListener('click',()=>{if(!game){boot();return;}canSave=!preview;if(save()){storageNotice('');$('recovery').hidden=true;}render();schedule();});
 function shopOrderLedger(){
  const rows=game.shopDemand?.lastOrders??[];if(!rows.length)return '';
@@ -961,13 +985,13 @@ function shopOrderLedger(){
 }
 function boot(){
  playbackRate=1;scene.resetMotion();
- if(preview){game=D.newConnectedDistillery(seed);save();render();schedule();return;}
+ if(preview){game=D.newConnectedDistillery(seed);mapNoticeLoad(false);save();render();schedule();return;}
  try{
   lastSavedText=localStorage.getItem(SAVE_KEY);
   if(lastSavedText===null){game=D.newConnectedDistillery(seed);userPaused=false;elapsed=0;}
   else{const session=JSON.parse(lastSavedText);if(session.version!==2||typeof session.userPaused!=='boolean'||Object.keys(session).length!==4||session.game?.version!==20||!Number.isInteger(session.elapsed)||session.elapsed<0||session.elapsed>=T.monthMs||session.elapsed%T.distillStepMs!==0)throw Error('session');game=D.restoreDistillery(JSON.stringify(session.game));userPaused=session.userPaused;elapsed=session.elapsed;}
   const restoredGame=game;game=D.enableStage4(game);if(manualDistilling())userPaused=true;const corrected=game!==restoredGame||lastSavedText!==null&&JSON.stringify(game)!==JSON.stringify(JSON.parse(lastSavedText).game);
-  selectedCaskId=game.tastingId??game.core.casks[0]?.id??null;room=selectedCaskId!==null?'warehouse':'distill';canSave=true;if(lastSavedText===null||corrected)save();render();schedule();
+  mapNoticeLoad(lastSavedText!==null);selectedCaskId=game.tastingId??game.core.casks[0]?.id??null;room=selectedCaskId!==null?'warehouse':'distill';canSave=true;if(lastSavedText===null||corrected)save();render();schedule();
  }catch{canSave=false;game=null;stopClock();$('settings-source').hidden=false;$('recovery').append($('settings-source'));$('game').hidden=true;$('recovery').hidden=false;storageNotice('この保存は開けません。元の記録を残して停止しています。');}
 }
 const scene=new CanvasScene();
