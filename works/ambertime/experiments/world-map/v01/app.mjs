@@ -1,4 +1,4 @@
-import {STAGES,clampStage,zoomTarget,renderMap} from './map.mjs';
+import {STAGES,clampStage,zoomTarget,renderMap} from './map.mjs?v=stage456-r1';
 const canvas=document.getElementById('map'),ctx=canvas.getContext('2d',{alpha:false});
 const plus=document.getElementById('plus'),minus=document.getElementById('minus'),label=document.getElementById('stage');
 let stage=1;

@@ -31,27 +31,85 @@ function third(p){backdrop(p);path(p,[[0,40],[69,40]],3);path(p,[[36,0],[36,69]]
  for(const a of [[12,24],[27,12],[54,27],[14,56],[46,57]])house(p,...a);
  distillery(p,23,31,8);shop(p,43,22,'liquor',8);shop(p,49,46,'super',8);
 }
-function mountain(p,x,y){for(let i=0;i<6;i++){const span=i+1;p(x+6-span,y+i,span*2,1,P.mountain)}p(x+5,y+1,2,2,P.snow);p(x+4,y+3,2,1,P.snow);}
-function village(p,x,y){p(x,y+2,5,4,P.ink);p(x+1,y,3,3,P.copper);p(x+2,y+4,1,2,P.cream);}
-function fourth(p){backdrop(p);for(let y=0;y<72;y++){const x=52+Math.round(5*Math.sin(y/9));p(x,y,8,1,P.river);if(y%4===0)p(x+2,y,3,1,P.waterLight)}for(const a of [[4,8],[14,7],[24,10],[7,24],[17,25]])mountain(p,...a);for(const a of [[3,32],[15,40],[26,25],[33,16],[42,31],[11,54],[35,56],[45,57],[20,58]])tree(p,...a);
- path(p,[[1,38],[15,35],[28,38],[36,42],[46,50]],2);path(p,[[11,69],[18,56],[28,38],[36,23]],2);village(p,16,17);village(p,40,50);distillery(p,28,36,8);}
-function fillIsle(p,cells,color){for(const [y,start,len] of cells)p(start,y,len,1,color);}
-function fifth(p){p(0,0,72,72,P.sea);for(const [x,y]of[[6,6],[36,12],[57,48],[18,54],[4,38],[61,69]])p(x,y,3,1,P.waterLight);
- // All coastline spans are authored on the 72-row cell grid, not scaled polygons.
- const hokkaido=[[6,51,5],[7,48,10],[8,46,11],[9,44,12],[10,43,12],[11,45,10],[12,46,7],[13,48,5],[14,49,3]];
- const honshu=[[13,49,4],[14,48,5],[15,49,6],[16,50,5],[17,49,5],[18,47,7],[19,46,7],[20,45,7],[21,46,5],[22,44,7],[23,43,7],[24,42,7],[25,40,7],[26,39,7],[27,38,8],[28,37,7],[29,36,7],[30,34,8],[31,33,8],[32,31,8],[33,29,8],[34,28,8],[35,26,8],[36,24,8],[37,23,7],[38,21,7],[39,19,7],[40,17,7],[41,16,6],[42,14,7],[43,13,6],[44,11,7],[45,9,7],[46,9,6],[47,12,5]];
- const shikoku=[[46,18,11],[47,19,12],[48,21,8],[49,23,5]];
- const kyushu=[[46,10,7],[47,7,9],[48,6,10],[49,5,9],[50,4,8],[51,4,8],[52,6,7],[53,7,6],[54,8,5],[55,9,4]];
- for(const a of [hokkaido,honshu,shikoku,kyushu]){fillIsle(p,a.map(([y,x,w])=>[y,x-1,w+2]),P.beach);fillIsle(p,a,P.land);}
- for(const [x,y]of[[8,59],[10,63],[12,68],[6,71]])if(y<72)p(x,y,2,1,P.land);p(37,31,2,2,P.copper);p(38,31,1,1,P.cream);
+// Stage 4: fixed regional layout. All mountains, woods, rivers, villages and
+// bridge use authored cell coordinates, not miniature versions of town sprites.
+function mountain(p,x,y){for(let i=0;i<7;i++){const span=i+1;p(x+7-span,y+i,span*2,1,i<4?P.mountain:P.stone)}p(x+5,y+2,4,1,P.snow);p(x+6,y+1,2,1,P.snow);p(x+6,y+4,2,2,P.stoneLight);}
+function pine(p,x,y){p(x+2,y+5,2,3,P.trunk);p(x+1,y+2,4,5,P.grove);p(x,y+4,6,2,P.ink);p(x+1,y+1,4,4,P.leaf);p(x+2,y,2,2,P.leafLight);}
+function hamlet(p,x,y){p(x,y+3,6,4,P.ink);p(x+1,y+4,4,2,P.cream);p(x+1,y+2,4,2,P.copper);p(x+2,y+1,2,2,P.roof);p(x+3,y+5,1,2,P.ink);}
+function river(p){for(const [y,x,w] of [
+[0,58,5],[1,58,5],[2,57,5],[3,57,5],[4,56,5],[5,56,5],[6,55,5],[7,55,5],[8,54,5],[9,54,5],
+[10,54,5],[11,55,5],[12,55,5],[13,56,5],[14,57,5],[15,58,5],[16,58,5],[17,59,5],[18,59,5],
+[19,58,5],[20,57,5],[21,56,5],[22,56,5],[23,55,5],[24,54,5],[25,54,5],[26,53,5],[27,53,5],
+[28,52,5],[29,51,5],[30,50,5],[31,50,5],[32,50,5],[33,51,5],[34,52,5],[35,53,5],[36,54,5],
+[37,55,5],[38,56,5],[39,57,5],[40,58,5],[41,58,5],[42,58,5],[43,57,5],[44,56,5],[45,55,5],
+[46,54,5],[47,53,5],[48,52,5],[49,51,5],[50,50,5],[51,50,5],[52,51,5],[53,52,5],[54,53,5],
+[55,54,5],[56,55,5],[57,56,5],[58,56,5],[59,56,5],[60,55,5],[61,54,5],[62,53,5],
+[63,52,5],[64,52,5],[65,53,5],[66,54,5],[67,55,5],[68,56,5],[69,56,5],[70,57,5],[71,58,5]]){p(x,y,w,1,P.river);if(y%5===0)p(x+1,y,2,1,P.waterLight);}}
+function fourth(p){
+ backdrop(p);
+ // Northwest ridge, with dark foothills and a few snowy caps.
+ for(const [x,y] of [[2,10],[11,7],[20,10],[6,20],[16,22]])mountain(p,x,y);
+ for(const [x,y] of [[30,7],[37,6],[44,9],[33,14],[41,15],[7,44],[14,46],[5,55],[13,58],[20,53],[25,62],[32,49],[39,27],[22,31]])pine(p,x,y);
+ river(p);
+ // Narrow routes connect the distillery with two representative settlements.
+ path(p,[[32,39],[37,35],[44,26],[46,20]],2);
+ path(p,[[32,40],[25,45],[19,49],[15,54]],2);
+ path(p,[[32,39],[42,41],[50,43],[57,44],[63,47]],2);
+ // A short bridge crosses the river, not a representation of actual gossip routes.
+ p(55,43,8,2,P.roadLight);p(56,42,2,1,P.stoneLight);p(61,42,2,1,P.stoneLight);
+ hamlet(p,43,17);hamlet(p,12,53);hamlet(p,61,48);
+ // The map-scale distillery is a dedicated five-cell mark.
+ p(30,36,6,5,P.ink);p(31,37,4,3,P.cream);p(31,34,4,3,P.copper);p(32,33,2,2,P.shine);
+ p(33,38,1,2,P.blue);p(33,38,1,1,P.yellow);
 }
-function sixth(p){p(0,0,72,72,P.night);for(const [x,y]of[[8,11],[20,6],[56,14],[63,29],[10,46],[59,55],[21,64],[43,5],[5,63],[49,65],[67,8]])p(x,y,1,1,P.star);
- // Circle is drawn as cell rows, so edges never require sub-pixel rounding.
- for(let y=18;y<=54;y++){const dy=y-36;const span=Math.floor(Math.sqrt(Math.max(0,18*18-dy*dy)));if(span>0)p(36-span,y,2*span,1,y%7===0?P.river:P.sea);}
- const north=[[23,26,4],[24,24,7],[25,23,9],[26,22,9],[27,23,8],[28,22,8],[29,23,7],[30,25,5],[31,26,6],[32,28,4],[33,29,3],[34,29,2]];
- const south=[[35,34,4],[36,33,5],[37,33,5],[38,34,4],[39,35,5],[40,36,5],[41,36,5],[42,37,4],[43,38,3],[44,39,3],[45,40,2]];
- const east=[[25,43,7],[26,42,10],[27,41,12],[28,42,12],[29,43,10],[30,42,11],[31,42,10],[32,43,9],[33,45,6],[34,44,7],[35,44,6],[36,45,5],[37,46,4]];
- for(const a of [north,south,east])fillIsle(p,a,P.land);
- for(const [x,y,w]of[[28,22,7],[44,30,6],[26,42,7],[39,48,5]])p(x,y,w,2,P.cream);
+// Stage 5: explicitly authored island rows. Coastline stays one native cell wide.
+function island(p,rows){for(const [y,x,w] of rows){p(x-1,y,w+2,1,P.beach);p(x,y,w,1,P.land);}}
+function fifth(p){
+ p(0,0,72,72,P.sea);
+ for(const [x,y] of [[8,8],[23,10],[38,11],[62,38],[4,48],[52,61],[19,70]])p(x,y,3,1,P.waterLight);
+ // Hokkaido – independent from the slender northern end of Honshu.
+ island(p,[[7,55,4],[8,52,8],[9,50,10],[10,49,12],[11,48,12],[12,49,11],[13,50,9],[14,52,7],[15,53,5],[16,54,3]]);
+ // Honshu – a recognizable slanted continuous island running northeast to southwest.
+ island(p,[[19,52,4],[20,51,5],[21,50,6],[22,49,6],[23,48,6],[24,48,5],
+ [25,47,6],[26,45,7],[27,44,7],[28,44,6],[29,42,7],[30,40,8],[31,39,8],[32,37,8],
+ [33,36,8],[34,34,9],[35,32,9],[36,30,9],[37,29,8],[38,27,8],[39,25,8],
+ [40,23,8],[41,21,8],[42,20,7],[43,19,7],[44,17,7],[45,15,7],[46,13,7],
+ [47,11,7],[48,10,7],[49,10,6],[50,11,5]]);
+ // Shikoku, slightly to the south of western Honshu.
+ island(p,[[52,24,7],[53,23,9],[54,24,8],[55,25,5]]);
+ // Kyushu, west/southwest of Honshu; visibly detached from Shikoku.
+ island(p,[[50,12,4],[51,10,7],[52,9,8],[53,8,9],[54,7,9],[55,7,8],[56,8,7],
+ [57,9,6],[58,9,6],[59,10,5],[60,11,4],[61,12,3],[62,12,2]]);
+ for(const [x,y] of [[10,65],[8,68],[5,70]])p(x,y,2,1,P.land);
+ // Low-detail mountain symbols; no prefecture boundary or fabricated city pins.
+ for(const [x,y] of [[51,12],[48,28],[39,33],[30,38],[18,47]]){p(x,y,2,1,P.grove);p(x+1,y-1,1,1,P.stoneLight);}
+ // One schematic home point in central Honshu; it is NOT a real prefecture.
+ p(34,35,2,2,P.copper);p(35,35,1,1,P.cream);
+}
+// Stage 6: East Asia-facing Earth on its own 72-row cell artwork.
+function sixth(p){
+ p(0,0,72,72,P.night);
+ for(const [x,y] of [[8,11],[20,6],[56,14],[63,29],[10,46],[59,55],[21,64],[43,5],[5,63],[49,65],[67,8],[15,30]])p(x,y,1,1,P.star);
+ const spans=[];
+ for(let y=18;y<=54;y++){
+  const delta=y-36;const half=Math.floor(Math.sqrt(Math.max(0,18*18-delta*delta)));
+  if(half>0){p(36-half,y,half*2,1,y%9===0?P.river:P.sea);spans.push([y,36-half,half*2]);}
+ }
+ // Eurasia appears on the upper right; the continent silhouettes do not leave the sphere.
+ const asia=[[22,39,3],[23,37,7],[24,36,10],[25,35,12],[26,35,13],[27,36,13],
+ [28,37,12],[29,38,12],[30,38,12],[31,39,11],[32,39,10],[33,40,9],[34,41,8],[35,41,7],[36,42,6],
+ [37,42,5],[38,44,3]];
+ const australia=[[43,42,3],[44,40,6],[45,39,8],[46,39,9],[47,40,8],[48,41,6],[49,43,4]];
+ const africa=[[32,27,4],[33,26,6],[34,26,7],[35,27,7],[36,28,6],[37,29,5],[38,29,4],[39,30,3],[40,31,2]];
+ for(const [y,x,w] of [...asia,...australia,...africa]){
+  const d=y-36,half=Math.floor(Math.sqrt(Math.max(0,18*18-d*d)));
+  if(half>0){const left=Math.max(x,36-half),right=Math.min(x+w,36+half);if(right>left)p(left,y,right-left,1,P.land);}
+ }
+ // A compact Japanese archipelago separated by ocean from the continental coast.
+ for(const [x,y] of [[49,29],[50,30],[50,32],[49,34],[48,35]])p(x,y,1,1,P.beach);
+ // Thin cloud rows follow the same one-cell grid.
+ for(const [x,y,w] of [[28,26,7],[39,24,6],[32,42,5],[43,48,5]])p(x,y,w,1,P.cream);
+ // Home-location dot is symbolic, not a precise geolocation.
+ p(49,33,1,1,P.shine);
 }
 export function renderMap(ctx,stage){stage=clampStage(stage);ctx.imageSmoothingEnabled=false;const p=painter(ctx);[first,second,third,fourth,fifth,sixth][stage-1](p);return stage;}
