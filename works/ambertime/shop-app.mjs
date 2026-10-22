@@ -571,7 +571,7 @@ function syncModal(){
  }else if(kind==='aux-panel'){title='メニュー';
  }else if(kind==='world-map'){
   const progress=mapProgress(game);worldMapStage=Math.min(worldMapStage,progress.max);
-  title='地図';body='<div class="world-map-view"><canvas id="world-map-canvas" width="144" height="144" role="img" aria-label="'+esc(MAP_STAGES[worldMapStage-1])+'の地図"></canvas><div class="world-map-controls">'+button('−','world-map-in','',worldMapStage===1?'disabled aria-label="近づく"':'aria-label="近づく"')+'<span role="status">'+worldMapStage+' / 6　'+esc(MAP_STAGES[worldMapStage-1])+'</span>'+button('＋','world-map-out','',worldMapStage>=progress.max?'disabled aria-label="遠ざかる"':'aria-label="遠ざかる"')+'</div></div>';
+  title='地図';body='<div class="world-map-view"><canvas id="world-map-canvas" width="144" height="144" role="img" aria-label="'+esc(MAP_STAGES[worldMapStage-1])+'の地図"></canvas><div class="world-map-controls">'+button('−','world-map-in','',worldMapStage===1?'disabled aria-label="近づく"':'aria-label="近づく"')+'<span role="status">'+worldMapStage+' / 6'+'</span>'+button('＋','world-map-out','',worldMapStage>=progress.max?'disabled aria-label="遠ざかる"':'aria-label="遠ざかる"')+'</div></div>';
   actions='';
  }else if(kind==='staff-manager'){title='担当者';body=staffManagerView();actions=button('閉じる','cancel');
  }else if(kind==='staff-opportunity'){title=jobName(modal.job);const status=jobStatus(modal.job);body='<p>'+(modal.job==='distill'?'仕込みを任せられます':'ビン詰めを任せられます')+'</p>'+staffCostView(modal.job);actions=button('採用','staff-opportunity-hire',modal.job,status.canHire?'':'disabled')+button('見送る','staff-opportunity-later');
