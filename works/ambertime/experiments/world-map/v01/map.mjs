@@ -54,4 +54,19 @@ function land(c,pts){polygon(c,pts,K.coast);polygon(c,pts.map(([x,y])=>[x-1,y-1]
 function fifth(c){pix(c,0,0,144,144,K.sea);pattern(c,{count:68,land:false});for(const a of ISLANDS)land(c,a);for(const [x,y] of [[100,39],[86,76],[60,110],[30,130]]){pix(c,x-1,y,3,1,K.mountainLight);pix(c,x,y-1,1,2,K.mountain)}pix(c,80,88,2,2,K.copperLight);pix(c,82,88,1,1,K.foam);}
 const CONTINENTS=[[[44,48],[56,38],[69,37],[79,47],[76,60],[68,66],[64,82],[54,83],[46,72],[38,58]],[[62,84],[73,87],[77,99],[70,116],[59,112],[53,98]],[[79,43],[99,43],[108,55],[105,77],[94,83],[82,71]]];
 function sixth(c){pix(c,0,0,144,144,K.night);for(let i=0;i<31;i++){let x=(i*61+17)%140,y=(i*41+23)%140;pix(c,x,y,i%9===0?2:1,1,i%5===0?K.star:K.stone);if(i%13===0){pix(c,x-2,y,5,1,K.star);pix(c,x,y-2,1,5,K.star)}}const cx=72,cy=73,r=36;for(let y=cy-r;y<=cy+r;y++){let dx=Math.floor(Math.sqrt(Math.max(0,r*r-(y-cy)*(y-cy))));pix(c,cx-dx,y,2*dx,1,y%7===0?K.river:K.sea);pix(c,cx+Math.floor(dx*.55),y,Math.max(1,Math.floor(dx*.45)),1,K.seaDark)}for(const shape of CONTINENTS){for(let y=37;y<109;y++)for(let x=36;x<109;x++)if((x-cx)**2+(y-cy)**2<r*r-12&&inPoly(x,y,shape)){pix(c,x,y,1,1,(x+y)%11===0?K.grassLight:K.land)}}for(const [x,y,w] of [[51,49,11],[71,58,13],[85,73,12],[58,91,9],[78,101,12]]){pix(c,x,y,w,2,K.cream);pix(c,x+3,y-2,w-5,2,K.foam)}}
-export function renderMap(ctx,stage){stage=clampStage(stage);ctx.imageSmoothingEnabled=false;const f=[first,second,third,fourth,fifth,sixth][stage-1];f(ctx);return stage;}
+// All the map drawing operations share one native 2x2 source grid.
+export const MAP_CELL=2;
+export function gridContext(ctx){
+ return {
+  get fillStyle(){return ctx.fillStyle;},
+  set fillStyle(value){ctx.fillStyle=value;},
+  get imageSmoothingEnabled(){return ctx.imageSmoothingEnabled;},
+  set imageSmoothingEnabled(value){ctx.imageSmoothingEnabled=value;},
+  fillRect(x,y,w,h){
+   const x1=Math.floor(x/MAP_CELL)*MAP_CELL,y1=Math.floor(y/MAP_CELL)*MAP_CELL;
+   const x2=Math.ceil((x+w)/MAP_CELL)*MAP_CELL,y2=Math.ceil((y+h)/MAP_CELL)*MAP_CELL;
+   ctx.fillRect(x1,y1,Math.max(MAP_CELL,x2-x1),Math.max(MAP_CELL,y2-y1));
+  }
+ };
+}
+export function renderMap(ctx,stage){stage=clampStage(stage);ctx.imageSmoothingEnabled=false;const f=[first,second,third,fourth,fifth,sixth][stage-1];f(gridContext(ctx));return stage;}

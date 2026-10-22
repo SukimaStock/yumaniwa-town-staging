@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9cd9c2f84f3047d7af8c4d875b3a0bfa21931ab9337bbc84e3a5cac9b9114665",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-world-map-grid-fix-20261022",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Fix unequal world map raster pixel grid and noninteger Canvas display scale, plus overlapping zoom label",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "681190fd9962ea855a9b7b5d23786ff8d8f3bde0",
+    "canonicalSources": [
+      "Owner-approved main-map integration request and prior six-stage behavior specification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs and room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-world-map-grid-fix-20261022/r0.lock.json",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/world-map-view.test.mjs",
+      "works/ambertime/experiments/world-map/v01/map.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Quantize every map pixel to one shared 2x2 source grid including sprites and overlays",
+      "Set in-game 144x144 canvas raster to exactly 216 CSS pixel content size: every 2x2 block is displayed as 3x3 screen pixels; external border not rescale image",
+      "Shorten zoom label to 1 / 6, no control overlap",
+      "Maintain map progress, town data, no saved-state changes, production untouched",
+      "Focused tests of pixel-grid alignment, source integrity and zoom control"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-22 supplied iPhone screenshot showing irregular canvas pixels and asks to align them"
+    ],
+    "hqDecisions": [
+      "Existing LAB drawing primitives quantized at render boundary with no game/simulation changes"
+    ],
+    "rulesApplied": [
+      "Changes limited to AmberTime main UI, style and one read-only module/test",
+      "No new store/rumor simulation or persistent fields",
+      "Staging only and existing required CI retained",
+      "Expression audit: avoid duplicated description or decorative labels."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review screenshot-equivalent native 216px map size, pixel-grid regularity, unobscured controls at iPhone viewport",
+      "Run targeted Node tests, required CI, Pages status"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert map entry, projection module and modal styles without modifying historic game saves, map Lab or world data.",
+    "outOfScope": [
+      "Production publication",
+      "Changing map Lab artwork/zoom semantics",
+      "Changing old saved structures or replay operations",
+      "Adding new shops/places/consumer sales or city simulation",
+      "Continuous zoom, map shop management/detail UI, popup on reach",
+      "Changes outside works/ambertime main UI and new projection module"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari rendering / touch",
+      "Owner aesthetic adoption",
+      "Production deployment"
+    ],
+    "alternativesRejected": [
+      "CSS smoothing as workaround",
+      "Replacing map with image generation"
+    ],
+    "boundaryCases": [
+      "All six scenes use grid",
+      "Map marker uses same grid",
+      "216 CSS render at desktop and phone widths",
+      "No UI label overlap"
+    ],
+    "testPlan": [
+      "Node grid renderer tests",
+      "CI checks and deployed screenshot/manual pending"
+    ],
+    "problem": "Existing arbitrary rectangle sizes and 144-to-210 CSS rescale create inconsistent pixels",
+    "currentContract": "32px source map art, 144 canvas and read-only game modal",
+    "whyExistingIsInsufficient": "An integer canvas resolution without consistent cell dimensions and display scale is not a coherent pixel grid",
+    "design": "Snap existing map artwork and overlay positions to 2x2 logical cells, render at 3 CSS pixels per logical cell",
+    "migration": "None",
+    "compatibility": "No save or game data mutations",
+    "promotionRisk": "Staging only; author still evaluates real iPhone visuals before Production."
+  }
+}
