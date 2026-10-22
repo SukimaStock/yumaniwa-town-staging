@@ -2,7 +2,9 @@ import {CARDS,initial,fill,advance,bottle,profileFor,validateState,distill} from
 const $=id=>document.getElementById(id);
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const KEY="sukimastock.ambertime.flavor-lab.v02";
+const FEATURES=[["fruit","果実"],["grain","穀物"],["smoke","煙"],["body","厚み"],["rough","刺激"],["spice","スパイス"],["wood","木"],["vanilla","バニラ"]];
 let state,selected=null,phase="idle",start=0,end=0,position=0,startedAt=0,frame=0,save=true;
+let recentChanges=new Map();
 try{const old=localStorage.getItem(KEY);state=old?JSON.parse(old):initial();validateState(state)}catch{state=initial();save=false}
 const elapsed=m=>Math.floor(m/12)+"年"+m%12+"か月";
 function commit(next){state=next;if(save){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{save=false;$("notice").textContent="保存できません。"}}render()}
@@ -39,26 +41,39 @@ function renderRack(){
  document.querySelectorAll("[data-barrel]").forEach(b=>b.onclick=()=>{selected=Number(b.dataset.barrel);renderRack();renderDetail()});
  for(const id of ["month","year","three"])$(id).disabled=!state.barrels.length;
 }
+function renderFlavor(b){
+ const p=profileFor(b);
+ return '<div class="flavor" aria-label="現在の風味">'+FEATURES.map(([key,label])=>{
+  const value=Math.round(Math.max(0,Math.min(1,p[key]))*100);
+  return '<div class="flavor-item"><span>'+label+'</span><div class="flavor-track" role="progressbar" aria-label="'+label+'" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+value+'"><i style="width:'+value+'%"></i></div></div>';
+ }).join("")+'</div>';
+}
 function renderDetail(){
  const b=state.barrels.find(x=>x.id===selected)||state.barrels[0],el=$("detail");
  if(!b){el.innerHTML='<p class="muted">樽を仕込むと、ここで育てられます。</p>';return}
  selected=b.id;
- el.innerHTML='<div class="muted">たる No.'+b.id+' ・ '+elapsed(b.months)+'</div><div class="word">'+escape(b.label)+'</div>'+
- '<div class="muted">'+escape(CARDS.malt.find(x=>x.id===b.choice.malt).name)+' / '+escape(CARDS.ferment.find(x=>x.id===b.choice.ferment).name)+' / '+escape(CARDS.cask.find(x=>x.id===b.choice.cask).name)+'</div>'+
+ const last=b.history.at(-1),previous=b.history.at(-2),changed=recentChanges.get(b.id);
+ const changeNotice=changed&&last&&previous&&last.months===changed.months
+  ?'<p class="name-change" role="status">'+elapsed(last.months)+'に名前が変わりました<span>前：'+escape(previous.label)+'</span></p>'
+  :'';
+ el.innerHTML='<div class="muted">たる No.'+b.id+' ・ '+elapsed(b.months)+'</div><div class="word">'+escape(b.label)+'</div>'+changeNotice+
+ renderFlavor(b)+
+ '<div class="recipe muted">'+escape(CARDS.malt.find(x=>x.id===b.choice.malt).name)+' / '+escape(CARDS.ferment.find(x=>x.id===b.choice.ferment).name)+' / '+escape(CARDS.cask.find(x=>x.id===b.choice.cask).name)+'</div>'+
  '<button id="bottle">今の状態で瓶詰め</button><details><summary class="muted">これまでの変化</summary><ol class="history">'+b.history.map(h=>'<li>'+elapsed(h.months)+'　'+escape(h.label)+'</li>').join("")+'</ol></details>';
- $("bottle").onclick=()=>{try{commit(bottle(state,b.id));selected=null;render()}catch(e){note(e.message)}};
+ $("bottle").onclick=()=>{try{const next=bottle(state,b.id);recentChanges.delete(b.id);selected=null;commit(next)}catch(e){note(e.message)}};
 }
 function renderBottles(){
  $("count").textContent=state.bottles.length+"本";
  $("bottles").innerHTML=state.bottles.length?state.bottles.slice().reverse().map(b=>'<div class="bottle"><small>No.'+b.id+' / '+elapsed(b.months)+'</small><strong>'+escape(b.label)+'</strong><small>'+escape(CARDS.cask.find(x=>x.id===b.choice.cask).name)+'</small></div>').join(""):'<p class="muted">まだありません。</p>';
 }
-function renderComparison(){
- const b=state.barrels.find(x=>x.id===selected)||state.barrels[0];
- if(!b){$("comparison").innerHTML='<p class="muted">樽を選ぶと内部の変化を確認できます。</p>';return}
- const p=profileFor(b);
- $("comparison").innerHTML='<p class="muted">内部の特徴（プレイヤーには非表示の想定）</p><div class="profile">'+Object.entries({fruit:"果実",grain:"穀物",smoke:"煙",body:"厚み",rough:"刺激",spice:"スパイス",wood:"木",vanilla:"バニラ"}).map(([key,label])=>'<div class="metric">'+label+'<div><i style="width:'+Math.round(p[key]*100)+'%"></i></div></div>').join("")+'</div>';
-}
-function render(){renderCards();renderRack();renderDetail();renderBottles();renderComparison();updateTap()}
-for(const [id,months] of [["month",1],["year",12],["three",36]])$(id).onclick=()=>{try{commit(advance(state,months))}catch(e){note(e.message)}};
-$("clear").onclick=()=>{if(!confirm("このLabの記録を消しますか？"))return;state=initial();selected=null;try{localStorage.removeItem(KEY)}catch{}resetTap();render()};
+function render(){renderCards();renderRack();renderDetail();renderBottles();updateTap()}
+for(const [id,months] of [["month",1],["year",12],["three",36]])$(id).onclick=()=>{
+ try{
+  const before=new Map(state.barrels.map(b=>[b.id,b.history.length]));
+  const next=advance(state,months);
+  recentChanges=new Map(next.barrels.filter(b=>b.history.length>before.get(b.id)).map(b=>[b.id,b.history.at(-1)]));
+  commit(next);
+ }catch(e){note(e.message)}
+};
+$("clear").onclick=()=>{if(!confirm("このLabの記録を消しますか？"))return;state=initial();selected=null;recentChanges.clear();try{localStorage.removeItem(KEY)}catch{}resetTap();render()};
 render();
