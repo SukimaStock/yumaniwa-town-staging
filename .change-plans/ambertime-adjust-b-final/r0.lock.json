@@ -1,0 +1,168 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ccf4eb119ed9aab59bad7dc840a127b8e26fdc9e562a92b346ab0c5394905174",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-adjust-b-final",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Complete full-range two-tap distillation, collection markers, and versioned recipe replay",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "11c670c7bb9bd827a379e36b94d0eee853b40da5",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "User adjustmentB",
+      "PR588-590/592-595",
+      "Existing Lab distill/valid and v20 operation replay",
+      "Preimplementation core scope lock commit3e5f18237f40f80e187059c41a631662e98297db digest5105b9b976f810b38f2f06ff65d19a232108db6fd2245ba0ece06f98962c612a; fresh scope adds required query dependency ancestors before edits"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-adjust-b-final/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/tests/adjust-b.test.mjs",
+      "works/ambertime/tests/adjust-b-view.test.mjs",
+      "works/ambertime/design/adjust-b.md",
+      "works/ambertime/aroma-app.mjs",
+      "works/ambertime/brands-app.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/comparison-model.mjs",
+      "works/ambertime/comparison-worker.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/partners-app.mjs",
+      "works/ambertime/reputation-app.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-v0152-app.mjs",
+      "works/ambertime/shop-v016-app.mjs",
+      "works/ambertime/shop-v0162-app.mjs",
+      "works/ambertime/shop-v0164-app.mjs",
+      "works/ambertime/shop-v0171-app.mjs",
+      "works/ambertime/trade.mjs",
+      "works/ambertime/usual-app.mjs",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/v08-app.mjs",
+      "works/ambertime/v08-legacy-app.mjs",
+      "works/ambertime/v09-app.mjs",
+      "works/ambertime/wholesale-care-app.mjs",
+      "works/ambertime/wholesale-v08.mjs",
+      "works/ambertime/wholesale.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "New explicitly versioned start/range stop/restart operations preserve old start/stop and old30..99 normalized recipes exactly",
+      "Full0..99 maps toLab0..1; min12steps retains Lab min.12; no automaticrangeconfirmation",
+      "Collection start/end normalized stored inexistingrecipe metadata with explicit range version; staff repeat and ledger reuse maintain bothcontracts",
+      "Reuses existing costs and yield path or boundedmarkedoperation; no neweconomy/flavormodel",
+      "Small fullbar/currentline/twofixedtriangles and mutedselectedinterval inexistingCanvas; accessibleprogress; no newpanel",
+      "Pause when leaving manual distillation room/visibility pause/reload preserve positions and2xspeed; missedrange stops and explicitrestart",
+      "3boundedranges plus min/missed/oldsave/recipe/staff regressions; changedUI only; queryrefresh on changedmodules andworkers",
+      "Extra query dependency ancestor paths are URL-query-only: prevent old cached readers interpreting new start marker; no old reader math/UI edits"
+    ],
+    "ownerDecisions": [
+      "User adjustmentB authorizes immediate collection/two taps/fullbar/staging merge and requiredcompatibility"
+    ],
+    "hqDecisions": [
+      "New per-run execution metadata/recordedopcodes distinguish fullrange from historical savedoperations; no blanketrewrite and samekey/envelope",
+      "Lab rules remain unchanged; minimum12integersteps to satisfy .12 normalized width"
+    ],
+    "rulesApplied": [
+      "Stagingonly",
+      "No cards/sales/town/agingmodel changes",
+      "Expression audit short actionlabels withoutconstantnumericdisplay",
+      "Bounded delegation core and UI ownership",
+      "Freshbasebranch/freshr0 before new dependency scope implementation; preserve original core authorization evidence"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Publicimmediate/central/late taps andrangebar/fill",
+      "Pause/roomleave/reload/2x/missedrange restart",
+      "Saveexport/coldreplay andauthorphysicaldeviceunverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert UI/runtime together; use pre-change export for newopcodes as needed. Old saves unmodified.",
+    "outOfScope": [
+      "Production",
+      "Cards adjustmentC",
+      "Flavor/town/aging redesign",
+      "NewLab",
+      "Sales/inventory/economy redesign"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "AuthorphysicaliPhone/Safari feel",
+      "Actualviewport390if unsupported"
+    ],
+    "alternativesRejected": [
+      "Globally lower frozen minimumStop",
+      "Reinterpret oldoperations withnewmapping",
+      "Autochoose missedrange",
+      "ChangeLab minimumwidth"
+    ],
+    "boundaryCases": [
+      "start0 end12",
+      "late87..99",
+      "startafter87 missed",
+      "oldactive30..99",
+      "oldrecipe/unflavored",
+      "staffthree/continued",
+      "roompause/reload"
+    ],
+    "testPlan": [
+      "Three fullranges differ and exactLab distill match; starts/ends bothmatter andfreezeoncask",
+      "New/old active andcompleted coldreplay; recipesaved/reused/threecommissions",
+      "Bounds/noautoend/restartcost/RNG; existingrelatedstaff/save/clock tests",
+      "Canvasbargeometry390/pausedmarkers andrequiredgates/CI/publiccheck"
+    ],
+    "problem": "Oldminimum30/legacytransform/autoendandnumericalUI obscure newtwo-tapchoice",
+    "currentContract": "v20/session2 operation replay; oldstage4mapping30..99to0..1, min9, legacyyield",
+    "whyExistingIsInsufficient": "Startisdisabledandbarcannotshowthetwo actualpositions; newrangeunder30 rejected byoldstop",
+    "design": "Versionedfullrangeoperations + retainedoldroute + smallpurederivedbar",
+    "migration": "No globalmigration; oldactive/recipespreserve originalbehavior; newstartusesrecordedversion",
+    "compatibility": "Oldbytesexact; newmetadata/opcodesrequire newreader; existingquantity/costtests",
+    "promotionRisk": "Stagingonly",
+    "dependencies": [
+      "Labdistill unchanged",
+      "Existingstaff/recipe/replay",
+      "Canvasandclock"
+    ]
+  }
+}
