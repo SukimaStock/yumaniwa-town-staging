@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8fa199256a3ac4991c449d32ca5485d9ab185ca4aa2bc80476cdde33542edf58",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-adjust-c",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Four direct 16x16 brewing card icons and manual-first-fill unlock",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "ASSET",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "0935d8de0f544b32c8ed1e78cfe9823c98f4a045",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "PR588-590,592-597",
+      "Retro Brewing Selection Menu.png reference; user adjustment C specifications"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-adjust-c/r0.lock.json",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/adjust-c.test.mjs",
+      "works/ambertime/design/adjust-c.md",
+      "works/ambertime/design/adjust-c-icons.png"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Direct author four 16x16 pixel matrices in existing palette and Canvas renderer; single ear malt / container-free liquid and bubbles; no animation",
+      "Small four-choice metadata and pure manual-fill-history unlock predicate, inspect origin chains, no saved field or core change",
+      "Two-column malt then ferment cards, whole-button targets, existing selected cask frame/background, dark locked long fermentation and pixel lock",
+      "Manual UI effective initial short fermentation while locked; existing selectFlavorCards journal operation only on user choice/start; reject locked manual long UI requests; recipes/staff readers unchanged",
+      "Entry cache query for changed UI/CSS; focused related tests and report/icon comparison only"
+    ],
+    "ownerDecisions": [
+      "User adjustment C explicitly specifies four icons, two-column layout and first manual fill unlock; author judges actual feel"
+    ],
+    "hqDecisions": [
+      "Existing journal fill plus origin chains represent unlock without schema change; retain model default/reader semantics and apply short fallback only in manual card UI"
+    ],
+    "rulesApplied": [
+      "Staging only; no new cards/model/economy changes",
+      "Expression audit only group names, short card names and accessible lock condition",
+      "AGENTS useful read-only audit delegation; main owns edits",
+      "Reference image is directional; user container-free 16x16 specification takes precedence"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Four icons, selected/unselected/locked, mobile width readability and existing cask consistency",
+      "Fresh preview: choose 3 available options, locked long unavailable, initial manual short, collect/fill, next long available",
+      "Real saved prior manual fill opens unlocked; reload retains unlock; new fill save/reload and card selection",
+      "Public files match merge and actual user flow"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert adjustment C commit as one unit; no save migration needed",
+    "outOfScope": [
+      "Production",
+      "New cards",
+      "Distillation/flavor/aging/name/town/sales redesign",
+      "New lab/research/levels"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/Safari operation and final author visual adoption"
+    ],
+    "alternativesRejected": [
+      "Globally lower frozen minimumStop",
+      "Reinterpret oldoperations withnewmapping",
+      "Autochoose missedrange",
+      "ChangeLab minimumwidth"
+    ],
+    "boundaryCases": [
+      "New default-long state but locked UI short",
+      "No successful fill yet",
+      "Successful manual fill in current/old origin history",
+      "Only automatic complete-usual does not newly unlock",
+      "Old long recipes/staff and active distillation unchanged",
+      "Reload after fill and after selecting long"
+    ],
+    "testPlan": [
+      "New targeted unlock/icon/UI-contract tests",
+      "Existing adjust-b core recipe/staff/old hash tests and relevant flavor selection checks",
+      "Node syntax, diff, Scope Risk Impact, required CI",
+      "Bounded public card/fill/reload operations"
+    ],
+    "problem": "Text-only cards and initially available long fermentation need small visual/progression change",
+    "currentContract": "Cards stored in labConnection; default long and flavor-cards journal replay shared by existing saves and staff",
+    "whyExistingIsInsufficient": "No pixel icons or manual first-fill gate",
+    "design": "Pure view module, exact pixel matrices and unlock from existing validated history; unchanged simulation modules",
+    "migration": "None; no schema/key rewriting. Old long recipes/staff remain valid.",
+    "compatibility": "No modifications to partner-orders or model. Locked manual UI derives short and records normal flavor-cards on explicit actions only.",
+    "promotionRisk": "Stagingonly",
+    "dependencies": [
+      "Existing Canvas/direct pixel convention",
+      "Existing validated manual fill journal and original snapshots"
+    ]
+  }
+}

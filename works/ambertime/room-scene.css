@@ -233,3 +233,14 @@ svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:no
 .ledger-cask-detail>button{margin:5px 5px 5px 0}.ledger-related .ledger-release-row{margin:8px 0!important}
 .ledger-taste{margin-block:12px}.ledger-taste h4{margin:0 0 6px}.ledger-volume{color:var(--quiet)}
 #action-dialog #ledger-compare-choice{width:100%;min-width:0;margin-block:8px;min-height:44px}
+
+/* Four native pixel choices use the same frame and selected fill as casks. */
+#dialog-body .flavor-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#dialog-body .flavor-cards h3{grid-column:1/-1;margin:0}
+#dialog-body .flavor-cards h3:not(:first-child){margin-top:3px}
+#dialog-body .flavor-cards button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;min-height:102px;padding:6px 3px}
+#dialog-body .flavor-cards .brewing-icon{display:block;width:48px;height:48px;flex:none;image-rendering:pixelated;pointer-events:none}
+#dialog-body .flavor-cards .brewing-name{display:block;white-space:nowrap;margin:0}
+#dialog-body .flavor-cards button:disabled{opacity:1;background:#242735;border-color:#484b59;color:#898b97}
+#dialog-body .flavor-cards button:disabled .brewing-icon{opacity:.4}
+#dialog-body .flavor-cards .card-lock{position:absolute;top:6px;right:6px;width:14px;height:16px;image-rendering:pixelated;pointer-events:none}
