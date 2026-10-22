@@ -36,8 +36,8 @@ export function drawGameMap(canvas,game,stage){
  if(safe===2||safe===3){
   const pos=safe===2?{ 'town-liquor':[100,64],supermarket:[114,118]}:{'town-liquor':[31,69],supermarket:[117,99],department:[41,111]};
   for(const [shop,[x,y]] of Object.entries(pos))if(progress.activeShops.has(shop))marker(ctx,x,y,'#e6d49e');
- }else if(safe===4&&progress.reached.near){marker(ctx,77,38,'#e6d49e')}
- else if(safe===5&&progress.reached.national){marker(ctx,81,88,'#e6d49e')}
+ }else if(safe===4&&progress.reached.near){marker(ctx,88,40,'#e6d49e')}
+ else if(safe===5&&progress.reached.national){marker(ctx,70,70,'#e6d49e')}
  return safe;
 }
 export {STAGES};
