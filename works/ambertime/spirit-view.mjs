@@ -1,5 +1,5 @@
 import {attachFlavor,flavorName} from './lab-flavor.mjs?v=stage4-r2';
-import {tasting} from './model.mjs?v=stage4-r2';
+import {tasting,previewDistillation} from './model.mjs?v=stage4-r2';
 import {previewForDistillation} from './aroma-extraction.mjs?v=stage4-r2';
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
 // Absolute model units, never a batch-relative score. Wood's distinct range is
@@ -32,6 +32,11 @@ export function distillationView(s){
  if(still?.phase!=='distilling')return null;
  const d=still.distillation;
  if(!d||!Number.isInteger(d.progress)||d.progress<0||d.progress>=P.distillMax)return null;
+ if(d.collectionVersion===2){
+  if(d.collectStart===null||d.progress-d.collectStart<12)return {phase:'collecting',litres:0,phrase:'',axes:[]};
+  const f=attachFlavor(previewDistillation(69/70*d.progress/99),{...d.labChoice,cask:'refill',start:d.collectStart/99,end:d.progress/99});
+  return {phase:'forecast',...spiritProfile(f)};
+ }
  if(d.progress<P.minimumStop)return {phase:'collecting',litres:d.litres,phrase:'原酒を集めています。',axes:[]};
  if(!Number.isFinite(d.variation)||d.variation<=0)return null;
  let f=previewForDistillation(d);

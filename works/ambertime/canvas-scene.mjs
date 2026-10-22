@@ -1,6 +1,6 @@
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout}from'./canvas-layout.mjs?v=0.68-ui-refinements';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=adjust-b-r1';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
@@ -87,7 +87,7 @@ export class CanvasScene{
  draw(){
   if(!this.view||!this.fontSettled)return;
   const now=performance.now(),visible=!document.hidden&&!$('action-dialog').open;
-  this.stillMoving=visible&&!this.reducedMotion.matches&&this.view.room==='distill'&&this.view.phase==='distilling';
+  this.stillMoving=visible&&!this.reducedMotion.matches&&this.view.room==='distill'&&this.view.phase==='distilling'&&this.view.running;
   this.stillFrame=this.stillMoving?Math.floor(now/400)%2:0;
   this.arrival=this.motion.sample({room:this.view.room,caskIds:this.view.casks.map(c=>c.id),releaseIds:this.view.products.map(p=>p.releaseId),visible,reduced:this.reducedMotion.matches,now});
   this.root.dataset.roomMotion=JSON.stringify({stillFrame:this.stillFrame,stillMoving:this.stillMoving,arrival:this.arrival});
@@ -122,6 +122,14 @@ export class CanvasScene{
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:159+spiritOffset,spiritBottom:243+spiritOffset,equipmentTop:l.equipment.y});
   if(view.room==='distill'&&view.spirit){const p=view.spirit;this.window(24,159+spiritOffset,312,84,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,182+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=210+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(!p.axes.length)this.lines(p.phrase,36,213+spiritOffset,288,BODY_SIZE,2);}
+  if(view.room==='distill'){
+   const g=collectionGeometry(view.cutRange),point=n=>g.x+Math.round(n*g.w);
+   this.pixelRect(g.x,g.y,g.w,g.h,'#656978');
+   if(g.start!==null)this.pixelRect(point(g.start),g.y,Math.max(0,point(g.rangeEnd)-point(g.start)),g.h,'#b8aa7c');
+   this.pixelRect(point(g.current)-1,g.y-3,2,g.h+6,'#f0e6c8');
+   for(const n of [g.start,g.end])if(n!==null)for(let row=0;row<4;row++)this.pixelRect(point(n)-3+row,g.y-10+row,7-row*2,1,'#f0e6c8');
+   this.root.dataset.collectionBar=JSON.stringify(g);
+  }else delete this.root.dataset.collectionBar;
   const noticeStep=Math.max(26,this.textMetrics().logical+4),metrics=this.textMetrics();
   // The same normal scene font and wrapping apply to both transient notice paths.
   if(view.notice){const n=noticeLayout(view.notice,t=>this.measure(t),{step:noticeStep});this.window(n.x,n.y,n.w,n.h,'#2e3143','#858995');

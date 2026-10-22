@@ -1,4 +1,4 @@
-import * as D from './partner-orders.mjs?v=0.12';
+import * as D from './partner-orders.mjs?v=adjust-b-r1';
 import {latestReleaseBrand,brandStats,brandReputation} from './brand-reputation.mjs?v=0.12';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
 import {ageLabel,monthLabel} from './model.mjs';
