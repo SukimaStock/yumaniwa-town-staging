@@ -1,6 +1,6 @@
 // Pure, read-only view of the existing AmberTime town record.
 // No save schema, economic action or transmission draw is changed here.
-import {STAGES,clampStage,renderMap,gridContext} from './experiments/world-map/v01/map.mjs';
+import {STAGES,clampStage,renderMap,MAP_CELL} from './experiments/world-map/v01/map.mjs';
 import {NODES} from './town-connection.mjs?v=stage4-r2';
 const level=new Map(NODES.map(n=>[n.id,n.level]));
 const receipts=game=>game?.labConnection?.version===1?game.labConnection.town:null;
@@ -28,7 +28,7 @@ export function mapProgress(game){
  return {max,reached,activeShops,firstSale};
 }
 export function mapStep(current,direction,max){const n=clampStage(current)+(direction==='out'?1:-1);return Math.max(1,Math.min(clampStage(max),n));}
-function marker(raw,x,y,fill){const ctx=gridContext(raw);ctx.fillStyle='#27353b';ctx.fillRect(x-1,y-1,5,5);ctx.fillStyle=fill;ctx.fillRect(x,y,3,3);}
+function marker(ctx,x,y,fill){const cell=(v)=>Math.floor(v/MAP_CELL)*MAP_CELL;const sx=cell(x),sy=cell(y);ctx.fillStyle='#27353b';ctx.fillRect(sx-2,sy-2,8,8);ctx.fillStyle=fill;ctx.fillRect(sx,sy,4,4);}
 export function drawGameMap(canvas,game,stage){
  const ctx=canvas.getContext('2d',{alpha:false});
  const progress=mapProgress(game);const safe=Math.min(clampStage(stage),progress.max);
