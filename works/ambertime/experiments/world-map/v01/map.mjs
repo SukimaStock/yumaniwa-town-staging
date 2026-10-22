@@ -26,7 +26,7 @@ function shop(p,x,y,kind,size){const q=(a,b,w,h,c)=>p(x+a,y+b,w,h,c);
 function house(p,x,y){p(x, y+3,6,5,P.ink);p(x+1,y+4,4,3,P.cream);p(x+1,y+1,4,3,P.roof);p(x+2,y,2,2,P.copper);p(x+3,y+5,1,3,P.ink);}
 function first(p){backdrop(p);cloud(p,7,6);cloud(p,49,9);tree(p,8,36,1);tree(p,56,42,1);tree(p,7,57,1);tree(p,61,23,1);path(p,[[35,47],[35,53],[33,60],[34,68]],2);distillery(p,26,31,16);for(const a of [[43,22],[53,55],[18,62]])stone(p,...a);for(const a of [[22,30],[50,39],[16,51]])flower(p,...a);}
 function second(p){backdrop(p);path(p,[[24,49],[36,50],[39,40],[51,32]],2);path(p,[[39,40],[45,56],[55,59]],2);tree(p,7,15,1);tree(p,28,10,1);tree(p,6,59,1);tree(p,63,36,1);distillery(p,13,36,12);shop(p,45,17,'liquor',12);shop(p,51,47,'super',12);for(const a of [[34,21],[18,27],[61,68]])stone(p,...a);flower(p,33,60);}
-function third(p){backdrop(p);path(p,[[0,40],[70,40]],3);path(p,[[36,0],[36,69]],3);path(p,[[35,17],[70,17]],2);path(p,[[0,59],[35,59]],2);path(p,[[27,40],[27,31]],2);path(p,[[45,40],[45,29]],2);path(p,[[53,40],[53,49]],2);
+function third(p){backdrop(p);path(p,[[0,40],[69,40]],3);path(p,[[36,0],[36,69]],3);path(p,[[35,17],[70,17]],2);path(p,[[0,59],[35,59]],2);path(p,[[27,40],[27,31]],2);path(p,[[45,40],[45,29]],2);path(p,[[53,40],[53,49]],2);
  tree(p,7,9);tree(p,57,7);tree(p,7,47);tree(p,61,56);tree(p,28,57);
  for(const a of [[12,24],[27,12],[54,27],[14,56],[46,57]])house(p,...a);
  distillery(p,23,31,8);shop(p,43,22,'liquor',8);shop(p,49,46,'super',8);
