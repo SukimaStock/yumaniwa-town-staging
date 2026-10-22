@@ -5,7 +5,7 @@ export const CARDS={
  cask:[{id:"refill",name:"リフィル"},{id:"first",name:"1stフィル"}]
 };
 const clip=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
-const bell=(x,c,w)=>Math.exp(-((x-c)/w)**2);
+const bell=(x,c,w)=>Math.exp(-(((x-c)/w)**2));
 const avg=(f,a,b)=>{let v=0;for(let i=0;i<48;i++)v+=f(a+(b-a)*(i+.5)/48);return v/48};
 export const valid=choice=>CARDS.malt.some(x=>x.id===choice.malt)&&CARDS.ferment.some(x=>x.id===choice.ferment)&&CARDS.cask.some(x=>x.id===choice.cask)&&Number.isFinite(choice.start)&&Number.isFinite(choice.end)&&choice.start>=0&&choice.end<=1&&choice.end-choice.start>=.12;
 export function distill(choice){
