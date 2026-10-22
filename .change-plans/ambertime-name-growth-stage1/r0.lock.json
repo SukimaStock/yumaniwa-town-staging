@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7e5ab8ae63d19f53cc711c6ee9f59272a8131fc5e5a215d1cec31b18c47f1da3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-name-growth-stage1",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Complete stage 1 name growth in existing Lab v02 only",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b073faeeb56b4110b8d69e33faea7b8ac4c43f3c",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "works/ambertime-flavor-lab-v02/REPORT.md",
+      "User stage 1 request and audit findings (74 months first-fill, >17 years refill)"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-name-growth-stage1/r0.lock.json",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "works/ambertime-flavor-lab-v02/app.mjs",
+      "works/ambertime-flavor-lab-v02/test.mjs",
+      "works/ambertime-flavor-lab-v02/REPORT.md",
+      "works/ambertime-flavor-lab-v02/growth-results.json",
+      "works/ambertime-flavor-lab-v02/browser-test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/**",
+      "works/ambertime-word-crafting-lab/**",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Origin identity preserved; at most two small flavor-driven name transitions with recipe/cask variation",
+      "Three summary features and optional eight details; persistent previous/current name comparison",
+      "Five representative recipes, focused regression and actual browser operations; preserve save schema/key and bottling"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes stage 1 reversible staging implementation; fun/adoption remains author decision"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Staging only",
+      "No changes to save or model",
+      "Expression audit and targeted regression"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Cards and two-tap distillation to cask to aging to bottling",
+      "Three features / details / prior and current labels at phone and desktop sizes",
+      "Save reload and bottled label frozen",
+      "Required CI and Pages"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR; same version 2 saves remain readable",
+    "outOfScope": [
+      "Production",
+      "Main game",
+      "Town propagation Lab",
+      "Save format changes",
+      "Large-scale simulation",
+      "New features"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari touch feel",
+      "Author assessment of fun"
+    ],
+    "alternativesRejected": [
+      "Change main AmberTime model/save directly",
+      "Only select fixed names with calendar-age tables",
+      "Fully random labels without correspondence to flavor",
+      "Unplanned edits to shared lab files"
+    ],
+    "boundaryCases": [
+      "Empty casks",
+      "Unchanged name after aging",
+      "Multiple changes in a batch",
+      "Switch selected cask",
+      "Bottling after name change"
+    ],
+    "testPlan": [
+      "Five fixed recipes monthly through 12 years; bounded 100-year endpoints only",
+      "Model invariants and old version 2 save compatibility",
+      "Focused browser operations and display",
+      "Scope Risk Impact and CI"
+    ],
+    "problem": "Uniform first-fill transition and excessive refill wait",
+    "currentContract": "Independent version 2 Lab, eight continuous features and three-month label stability",
+    "whyExistingIsInsufficient": "Shared wood thresholds erase recipe-dependent timing",
+    "design": "Preserve origin identity; easing roughness and modest wood additions drive two possible descriptor changes with origin-dependent thresholds; no quality score",
+    "migration": "None",
+    "compatibility": "Same version 2 fields and key; stored bottles and histories retained",
+    "promotionRisk": "Staging only"
+  }
+}
