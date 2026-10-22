@@ -92,7 +92,7 @@
   });
   function sizeHitArea() {
     const scale=svg.getScreenCTM()?.a;
-    if(scale) $('hit-area').setAttribute('r',Math.max(36,22/scale));
+    if(scale) $('hit-area').setAttribute('r',Math.max(36,22.5/scale));
   }
   window.addEventListener('blur',()=>end(true));
   window.addEventListener('resize',()=>{end(true);sizeHitArea();});
