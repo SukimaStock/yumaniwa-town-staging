@@ -1,0 +1,12 @@
+:root { color-scheme: light; font-family: system-ui,sans-serif; color: #46584b; background: #e5e6d8; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { min-height: 100svh; padding: max(12px,env(safe-area-inset-top)) 16px max(12px,env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#scene { touch-action: none; display: block; width: min(100%,420px); height: auto; max-height: calc(100svh - 70px); }
+#hint { margin: 0; font-size: 13px; line-height: 1.5; text-align: center; }
+#knob { touch-action: none; cursor: grab; outline: none; -webkit-tap-highlight-color: transparent; user-select: none; }
+#knob.dragging { cursor: grabbing; }
+.focus { fill: none; stroke: #466753; stroke-width: 2; opacity: 0; }
+#knob:focus-visible .focus { opacity: 1; }
+#knob.dragging .focus { opacity: .35; }
+@media (orientation: landscape) and (max-height: 500px) { main { flex-direction: row; gap: 14px; } #scene { width: auto; height: calc(100svh - 24px); max-height: none; } #hint { max-width: 10em; } }

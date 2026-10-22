@@ -388,6 +388,13 @@
       "path": "works/ambertime-flavor-lab-v02",
       "status": "active",
       "title": "AmberTime 仕込みと熟成 Lab 0.2"
+    },
+    {
+      "id": "neji-lift",
+      "path": "works/neji-lift",
+      "status": "active",
+      "title": "ねじで持ち上げる",
+      "theme": "丸いつまみを回し、ねじで台を少しずつ上下させる"
     }
   ]
 }
