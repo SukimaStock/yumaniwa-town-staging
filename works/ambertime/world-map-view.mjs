@@ -21,12 +21,20 @@ export function mapProgress(game){
  if(reached.town)max=Math.max(max,3);
  if(reached.near)max=Math.max(max,4);
  if(reached.national)max=Math.max(max,5);
- if(reached.overseas)max=6;
+ if(reached.overseas)max=Math.max(max,5);
+ // Arrival, rumor and interest are not factual relationships. Overseas inquiries
+ // identify the overseas destination; visits identify the visitor's origin.
+ const events=Array.isArray(town?.events)?town.events:[];
+ const overseasContact=events.some(e=>e&&(e.type==='inquiry'&&level.get(e.to)==='海外'||e.type==='visit'&&level.get(e.from)==='海外'));
+ if(overseasContact)max=6;
  // Lab's long-range encounters may skip intermediate groups: lower viewpoints open as well.
  const activeShops=new Set();
  for(const relation of game?.shop?.relations??[]){if(relation?.shopId&&relation.status!=='declined')activeShops.add(relation.shopId);}
- return {max,reached,activeShops,firstSale};
+ return {max,reached,activeShops,firstSale,overseasContact};
 }
+// Pure UI display boundary; no game or town-model mutation.
+export const newlyUnlocked=(shown,max)=>Math.max(1,Math.min(6,max))>Math.max(1,Math.min(6,shown));
+export const revealStart=(shown,max)=>Math.min(Math.max(1,shown),Math.max(1,max));
 export function mapStep(current,direction,max){const n=clampStage(current)+(direction==='out'?1:-1);return Math.max(1,Math.min(clampStage(max),n));}
 function marker(ctx,x,y,fill){const cell=(v)=>Math.floor(v/MAP_CELL)*MAP_CELL;const sx=cell(x),sy=cell(y);ctx.fillStyle='#27353b';ctx.fillRect(sx-2,sy-2,8,8);ctx.fillStyle=fill;ctx.fillRect(sx,sy,4,4);}
 export function drawGameMap(canvas,game,stage){
