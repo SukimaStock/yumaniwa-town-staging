@@ -1,3 +1,4 @@
+import {brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard} from './brewing-cards.mjs?v=adjust-c-r1';
 import {playerMilestones,customerComments} from './player-news.mjs?v=adjust-a-r1';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
 import {buildShopLedger} from './shop-ledger.mjs?v=0.68-ui-refinements';
@@ -563,7 +564,7 @@ function syncModal(){
   });
  }return;}
  const {kind,id}=modal,c=D.currentCask(game,id);let title='',body='',actions='';
- if(kind==='flavor-cards'){title='仕込み';const cards=game.labConnection.cards;body='<div class="flavor-cards"><h3>麦芽</h3>'+[['plain','ふつうの麦芽'],['peat','ピート麦芽']].map(([value,label])=>button(label,'flavor-card',value,'data-group="malt" aria-pressed="'+(cards.malt===value)+'"')).join('')+'<h3>発酵</h3>'+[['short','短めの発酵'],['long','長めの発酵']].map(([value,label])=>button(label,'flavor-card',value,'data-group="ferment" aria-pressed="'+(cards.ferment===value)+'"')).join('')+'</div>';actions=button('蒸留を始める','flavor-start')+button('戻る','cancel');
+ if(kind==='flavor-cards'){title='仕込み';body=brewingCardsMarkup(game);actions=button('蒸留を始める','flavor-start')+button('戻る','cancel');
  }else if(kind==='inspect'){title=c?caskLabel(c)+' '+ageLabel(c.age):'たる';
  }else if(kind==='aux-panel'){title='メニュー';
  }else if(kind==='staff-manager'){title='担当者';body=staffManagerView();actions=button('閉じる','cancel');
@@ -676,6 +677,7 @@ function syncModal(){
   }else $('dialog-body').innerHTML=body;
   $('dialog-actions').innerHTML=actions;
  }
+ if(kind==='flavor-cards')renderBrewingIcons($('dialog-body'));
  dialog.dataset.kind=kind;$('close-dialog').hidden=kind==='decision'||kind==='generation-review';
  if(!dialog.open){$('dialog-title').removeAttribute('tabindex');dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}
  else if(previousKind!==kind&&['stockists','stockist','stockist-delivery'].includes(kind)){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else document.querySelector('#dialog-body button:not(:disabled), #dialog-actions button')?.focus({preventScroll:true});}
@@ -874,8 +876,8 @@ function handleModal(e){
  if(a==='ledger-list-page'&&(kind==='recipes'||kind==='ledger-shop'||kind==='ledger'&&['recipes','aging','shops'].includes(modal.section))&&Number.isInteger(id)&&id>=0){modal.listPage=id;modal.openDetails=[];modal.scrollTop=0;render();$('dialog-body').scrollTop=0;return;}
  if(a==='ledger-source-compare'&&kind==='ledger-recipe'){const other=recipeRows().find(r=>r.caskId!==modal.caskId);if(other){const parent=rememberLedger();modal={kind:'ledger-recipe-comparison',caskId:parent.caskId,otherId:other.caskId,parent,returnFocusId:b.id};render();$('dialog-body').scrollTop=0;}return;}
  if(a==='ledger-recipe-request'&&kind==='ledger-recipe'){rememberLedger();openStaffRequest(modal.caskId);return;}
- if(a==='flavor-card'&&kind==='flavor-cards'){act(x=>D.selectFlavorCards(x,{...x.labConnection.cards,[b.dataset.group]:b.dataset.id}));return;}
- if(a==='flavor-start'&&kind==='flavor-cards'){act(D.startRangeDistillation,()=>{modal=null;userPaused=false;});return;}
+ if(a==='flavor-card'&&kind==='flavor-cards'){const cards=chooseManualCard(game,b.dataset.group,b.dataset.id);if(cards)act(x=>D.selectFlavorCards(x,cards));return;}
+ if(a==='flavor-start'&&kind==='flavor-cards'){act(x=>{const cards=manualCards(x);if(cards.ferment!==x.labConnection.cards.ferment)x=D.selectFlavorCards(x,cards);return D.startRangeDistillation(x);},()=>{modal=null;userPaused=false;});return;}
  if(['connected-export','connected-export-before'].includes(a)&&kind==='settings'){const before=a==='connected-export-before',snapshot=before?D.preStage4State(game):game,text=JSON.stringify({version:2,game:JSON.parse(D.serializeDistillery(snapshot)),userPaused:before?true:userPaused,elapsed:before?0:elapsed});const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download=before?'ambertime-before-stage4.json':'ambertime-save.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),10000);return;}
  if(a==='ledger-cask-taste'&&kind==='ledger-cask'&&D.currentCask(game,id)){const parent=rememberLedger();stopClock();selectedCaskId=id;room='warehouse';act(s=>D.sampleDistillery(s,id),()=>{modal={kind:'inspect',id,ledgerParent:parent};});return;}
  if(a==='ledger-cask-compare'&&kind==='ledger-cask'&&D.currentCask(game,id)){rememberLedger();openCaskComparison(id);return;}
