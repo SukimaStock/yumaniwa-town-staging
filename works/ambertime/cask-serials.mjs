@@ -1,5 +1,5 @@
-import * as D from './partner-orders.mjs?v=0.58-first-brand';
-import {caskCreationIds} from './trade.mjs?v=0.38-cask-serials';
+import * as D from './partner-orders.mjs?v=stage4-r2';
+import {caskCreationIds} from './trade.mjs?v=stage4-r2';
 // This index is a disposable projection, never part of game state or a save.
 export class CaskSerialIndex {
  constructor(ids=[]){this.numbers=new Map();for(const id of ids)this.add(id);}

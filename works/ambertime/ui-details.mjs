@@ -1,6 +1,6 @@
 // Presentation only: keep the existing extraction, bottle transaction and release identities.
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
-import {monthLabel} from './model.mjs';
+import {monthLabel} from './model.mjs?v=stage4-r2';
 export const extractionMaximum=P.distillMax-1;
 export function bottleChoices(max,affordable){
  if(!Number.isFinite(max)||!Number.isFinite(affordable))return [];

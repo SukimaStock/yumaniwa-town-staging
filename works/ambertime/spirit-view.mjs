@@ -1,6 +1,6 @@
-import {attachFlavor,flavorName} from './lab-flavor.mjs?v=stage4';
-import {tasting} from './model.mjs';
-import {previewForDistillation} from './aroma-extraction.mjs';
+import {attachFlavor,flavorName} from './lab-flavor.mjs?v=stage4-r2';
+import {tasting} from './model.mjs?v=stage4-r2';
+import {previewForDistillation} from './aroma-extraction.mjs?v=stage4-r2';
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
 // Absolute model units, never a batch-relative score. Wood's distinct range is
 // reserved for a later aging view; Phase 1 renders only the first two axes.

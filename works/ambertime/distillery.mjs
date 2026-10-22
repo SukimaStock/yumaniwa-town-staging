@@ -1,6 +1,6 @@
-import {advanceCoreMonth} from './monthly.mjs?v=0.6';
-import {newGame,distill,previewDistillation,fillCask,bottle,bottleQuote,setPrice,marketValue,tasting,restore,serialize} from './model.mjs';
-import {CHARACTER_PARAMETERS as C,mixSeed,caskOf,profile,sampleOf,observeCharacterMonth,sampleCharacter,endCharacterTasting,comparisons,chooseCharacter} from './character.mjs?v=0.6';
+import {advanceCoreMonth} from './monthly.mjs?v=stage4-r2';
+import {newGame,distill,previewDistillation,fillCask,bottle,bottleQuote,setPrice,marketValue,tasting,restore,serialize} from './model.mjs?v=stage4-r2';
+import {CHARACTER_PARAMETERS as C,mixSeed,caskOf,profile,sampleOf,observeCharacterMonth,sampleCharacter,endCharacterTasting,comparisons,chooseCharacter} from './character.mjs?v=stage4-r2';
 import {PARAMETERS as CORE_PARAMETERS} from './parameters.mjs';
 import {DISTILLERY_PARAMETERS as P} from './distillery-parameters.mjs';
 export {DISTILLERY_PARAMETERS} from './distillery-parameters.mjs';

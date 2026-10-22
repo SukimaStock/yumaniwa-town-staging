@@ -1,6 +1,6 @@
 // One barrel, ordinary AmberTime chemistry. Event logic observes state rather
 // than stepping through a fixed questionnaire. All public transitions are pure.
-import { newGame, distill, fillCask, advanceMonth, bottle, bottleQuote, tasting } from './model.mjs';
+import { newGame, distill, fillCask, advanceMonth, bottle, bottleQuote, tasting } from './model.mjs?v=stage4-r2';
 export const CHARACTER_PARAMETERS=Object.freeze({monthMs:1100,maxAge:84,finalWait:3,maxRecords:12,minEventGap:6,firstEventAge:6,finalObservationMonths:12,maxDecisions:4,softGoal:0.30,woodGoal:0.36,roughGoal:0.55,fruitGoal:0.80,aromaLoss:0.035,sampleAromaLoss:0.025,remainingGoal:0.90,woodThreat:0.62,comparisonRough:0.025,comparisonAroma:0.025,comparisonWood:0.035,cool:Object.freeze({soften:0.88,wood:0.83,evaporation:0.86})});
 const copy=s=>structuredClone(s);
 const assert=(ok,text)=>{if(!ok)throw new Error(text);};

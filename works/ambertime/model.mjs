@@ -1,5 +1,5 @@
 import { PARAMETERS as P } from './parameters.mjs';
-import {ageFlavor,freezeFlavor} from './lab-flavor.mjs';
+import {ageFlavor,freezeFlavor} from './lab-flavor.mjs?v=stage4-r2';
 export const SAVE_VERSION = 1;
 const clamp = (v,lo=0,hi=1)=>Math.min(hi,Math.max(lo,v));
 const round = v => Math.round(v*100)/100;

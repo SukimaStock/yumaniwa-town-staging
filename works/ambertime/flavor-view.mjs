@@ -1,6 +1,6 @@
-import {flavorSummary} from './lab-flavor.mjs?v=stage4';
-import {tasting} from './model.mjs';
-import {shortTaste} from './tasting-view.mjs?v=0.6';
+import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
+import {tasting} from './model.mjs?v=stage4-r2';
+import {shortTaste} from './tasting-view.mjs?v=stage4-r2';
 
 // One fixed display scale covers every existing flavor indicator, including wood.
 export const FLAVOR_MAX=1.35;

@@ -1,6 +1,6 @@
 // Frozen Phase 2 hypothesis A. Aroma is the volume-weighted collected spirit,
 // not the instantaneous fraction; no random draws or player-state mutations.
-import {previewDistillation} from './model.mjs?v=0.6-parallel';
+import {previewDistillation} from './model.mjs?v=stage4-r2';
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
 export const AROMA_MODEL='aroma-a/1';
 // Fixed IEEE-754 coefficients for the discrete legal positions 30..99.
