@@ -1,6 +1,7 @@
 // Presentation only. Events are collected at saved transitions, never at render/reload.
 export function automaticEvents(before,after,caskLabel=()=>'',releaseLabel=()=>''){
- const events=[];
+ const knownTown=new Set((before.labConnection?.town.events??[]).map(e=>e.id));
+ const events=(after.labConnection?.town.events??[]).filter(e=>!knownTown.has(e.id)&&['interest','rumor','inquiry'].includes(e.type)).slice(-1).map(e=>({id:'town:'+e.id,kind:'message',text:e.reason}));
  if(before.usual?.reservation?.status==='active'){
   const known=new Set(before.core.casks.map(c=>c.id));
   for(const c of after.core.casks)if(!known.has(c.id))events.push({id:'fill:'+c.id,kind:'filled',count:1});

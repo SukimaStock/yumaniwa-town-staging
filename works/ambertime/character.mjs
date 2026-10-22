@@ -5,7 +5,7 @@ export const CHARACTER_PARAMETERS=Object.freeze({monthMs:1100,maxAge:84,finalWai
 const copy=s=>structuredClone(s);
 const assert=(ok,text)=>{if(!ok)throw new Error(text);};
 export const caskOf=j=>j.core.casks[0]??null;
-export const profile=c=>({roughness:c.roughness,character:c.character,wood:c.wood,litres:c.litres});
+export const profile=c=>({roughness:c.roughness,character:c.character,wood:c.wood,litres:c.litres,...(c.flavor?.version===1?{flavor:copy(c.flavor)}:{})});
 export const sampleOf=c=>({age:c.age,type:c.type,cut:c.cut,profile:profile(c),text:tasting(c).split('。').filter(Boolean)});
 export function mixSeed(seed) {let x=seed>>>0;x=Math.imul(x^(x>>>16),0x7feb352d);x=Math.imul(x^(x>>>15),0x846ca68b);return (x^(x>>>16))>>>0||1;}
 export function createCharacter(seed=20261014,records=[],round=1) {

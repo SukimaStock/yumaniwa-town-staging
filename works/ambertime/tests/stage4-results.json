@@ -1,0 +1,1352 @@
+{
+  "seed": 20261021,
+  "listingMonth": 96,
+  "observationMonths": 48,
+  "quantity": 24,
+  "runs": [
+    {
+      "name": "果実・3年リフィル",
+      "recipe": {
+        "name": "果実・3年リフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "refill",
+        "age": 36
+      },
+      "seed": 20261021,
+      "listingMonth": 96,
+      "observedThroughMonth": 144,
+      "listedQuantity": 24,
+      "actuallySold": 24,
+      "unlistedRemainder": 16,
+      "cash": 832.32,
+      "release": {
+        "id": 1,
+        "productId": 3,
+        "bottledMonth": 36,
+        "age": 36,
+        "name": "果実香が強い",
+        "profile": {
+          "roughness": 0.309746884571,
+          "character": 0.868366573604,
+          "wood": 0.08019161267,
+          "litres": 28.30547136494322,
+          "flavor": {
+            "version": 1,
+            "choice": {
+              "malt": "plain",
+              "ferment": "long",
+              "cask": "refill",
+              "start": 0.14492753623188406,
+              "end": 0.4057971014492754
+            },
+            "spirit": {
+              "fruit": 0.891222539116,
+              "grain": 0.394086535725,
+              "smoke": 0.055,
+              "body": 0.212835613002,
+              "rough": 0.429397466982,
+              "spice": 0.111665302907,
+              "wood": 0,
+              "vanilla": 0
+            },
+            "months": 36,
+            "label": "果実香が強い",
+            "history": [
+              {
+                "months": 0,
+                "label": "果実香が強い"
+              }
+            ],
+            "pending": null,
+            "held": 0,
+            "profile": {
+              "fruit": 0.868366573604,
+              "grain": 0.3868265975,
+              "smoke": 0.054196668161,
+              "body": 0.210134974412,
+              "rough": 0.309746884571,
+              "spice": 0.107753315805,
+              "wood": 0.08019161267,
+              "vanilla": 0.051888690551
+            },
+            "primary": "fruit"
+          }
+        }
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "taste": 0.6453494280354802,
+          "age": 0.8176037681770133,
+          "price": 0.8628583639627644,
+          "fit": 0.605349428035,
+          "aroma": -0.04
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "taste": 0.6886904660092399,
+          "age": 0.6155722066724582,
+          "price": 0.647771738799419,
+          "fit": 0.768690466009,
+          "aroma": 0.08
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "taste": 0.3402878642636233,
+          "age": 0.6155722066724582,
+          "price": 0.9136077752147318,
+          "fit": 0.300287864264,
+          "aroma": -0.04
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "taste": 0.4541142293714788,
+          "age": 0.8176037681770133,
+          "price": 0.647771738799419,
+          "fit": 0.414114229371,
+          "aroma": -0.04
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "taste": 0.39478794511587734,
+          "age": 0.8553876799929505,
+          "price": 0.5849732535876099,
+          "fit": 0.354787945116,
+          "aroma": -0.04
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "taste": 0.7507718902715631,
+          "age": 0.8176037681770133,
+          "price": 0.7747226539790469,
+          "fit": 0.710771890272,
+          "aroma": -0.04
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "taste": 0.24997196534114932,
+          "age": 0.6758858679716275,
+          "price": 0.37892914162759955,
+          "fit": 0.209971965341,
+          "aroma": -0.04
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "taste": 0.32161294004022634,
+          "age": 0.6758858679716275,
+          "price": 0.4629830328466287,
+          "fit": 0.28161294004,
+          "aroma": -0.04
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "taste": 0.6583863512672974,
+          "age": 0.8176037681770133,
+          "price": 1,
+          "fit": 0.738386351267,
+          "aroma": 0.08
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "taste": 0.4944019117473202,
+          "age": 0.8176037681770133,
+          "price": 0.7747226539790469,
+          "fit": 0.454401911747,
+          "aroma": -0.04
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "taste": 0.6990986895222672,
+          "age": 0.8176037681770133,
+          "price": 0.805887639114776,
+          "fit": 0.779098689522,
+          "aroma": 0.08
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "taste": 0.2824068531742511,
+          "age": 0.6758858679716275,
+          "price": 0.4280179585727664,
+          "fit": 0.242406853174,
+          "aroma": -0.04
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "taste": 0.6990986895222671,
+          "age": 0.6155722066724582,
+          "price": 1,
+          "fit": 0.779098689522,
+          "aroma": 0.08
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "taste": 0.258100430050261,
+          "age": 0.6758858679716275,
+          "price": 0.3619273402891437,
+          "fit": 0.21810043005,
+          "aroma": -0.04
+        }
+      ],
+      "counts": {
+        "release": 2,
+        "shipment": 1,
+        "arrival": 6,
+        "interest": 1,
+        "inquiry": 1
+      },
+      "arrivalPlaces": [
+        "town",
+        "diner",
+        "bar",
+        "super",
+        "restaurant",
+        "specialist"
+      ],
+      "interested": [
+        "town"
+      ],
+      "settled": [],
+      "actualMainStockists": [],
+      "news": [
+        {
+          "month": 98,
+          "type": "interest",
+          "to": "town",
+          "reason": "町の酒店で「果実香が強い」(#1)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 101,
+          "type": "inquiry",
+          "to": "town",
+          "reason": "町の酒店から「果実香が強い」(#1)の取扱いについて問い合わせがありました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "diner",
+          "reason": "食堂へ「果実香が強い」(#1)の口コミが届きました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "bar",
+          "reason": "路地のバーへ「果実香が強い」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 110,
+          "type": "arrival",
+          "to": "super",
+          "reason": "スーパーへ「果実香が強い」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 116,
+          "type": "arrival",
+          "to": "restaurant",
+          "reason": "レストランへ「果実香が強い」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 122,
+          "type": "arrival",
+          "to": "specialist",
+          "reason": "専門酒店へ「果実香が強い」(#1)の口コミが届きました。"
+        }
+      ],
+      "coldReplay": "exact"
+    },
+    {
+      "name": "厚み・3年リフィル",
+      "recipe": {
+        "name": "厚み・3年リフィル",
+        "malt": "plain",
+        "ferment": "short",
+        "start": 74,
+        "end": 94,
+        "cask": "refill",
+        "age": 36
+      },
+      "seed": 20261021,
+      "listingMonth": 96,
+      "observedThroughMonth": 144,
+      "listedQuantity": 24,
+      "actuallySold": 24,
+      "unlistedRemainder": 27,
+      "cash": 823.56,
+      "release": {
+        "id": 1,
+        "productId": 3,
+        "bottledMonth": 36,
+        "age": 36,
+        "name": "まろやかで厚みのある味",
+        "profile": {
+          "roughness": 0.336974304772,
+          "character": 0.980882502929,
+          "wood": 0.102585752561,
+          "litres": 35.96843285617619,
+          "flavor": {
+            "version": 1,
+            "choice": {
+              "malt": "plain",
+              "ferment": "short",
+              "cask": "refill",
+              "start": 0.6376811594202898,
+              "end": 0.927536231884058
+            },
+            "spirit": {
+              "fruit": 0.174297153096,
+              "grain": 0.674767869045,
+              "smoke": 0.055,
+              "body": 0.993488729699,
+              "rough": 0.467142431819,
+              "spice": 0.603030584961,
+              "wood": 0,
+              "vanilla": 0
+            },
+            "months": 36,
+            "label": "まろやかで厚みのある味",
+            "history": [
+              {
+                "months": 0,
+                "label": "どっしりした味"
+              },
+              {
+                "months": 31,
+                "label": "まろやかで厚みのある味"
+              }
+            ],
+            "pending": null,
+            "held": 0,
+            "profile": {
+              "fruit": 0.169827192401,
+              "grain": 0.662337165122,
+              "smoke": 0.054196668161,
+              "body": 0.980882502929,
+              "rough": 0.336974304772,
+              "spice": 0.581904525126,
+              "wood": 0.102585752561,
+              "vanilla": 0.066379016363
+            },
+            "primary": "body"
+          }
+        }
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "taste": 0.587493694376554,
+          "age": 0.8176037681770133,
+          "price": 0.8628583639627644,
+          "fit": 0.547493694377,
+          "aroma": -0.04
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "taste": 0.6237152960125318,
+          "age": 0.6155722066724582,
+          "price": 0.647771738799419,
+          "fit": 0.583715296013,
+          "aroma": -0.04
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "taste": 0.3097809742178191,
+          "age": 0.6155722066724582,
+          "price": 0.9136077752147318,
+          "fit": 0.269780974218,
+          "aroma": -0.04
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "taste": 0.38936688276238274,
+          "age": 0.8176037681770133,
+          "price": 0.647771738799419,
+          "fit": 0.349366882762,
+          "aroma": -0.04
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "taste": 0.3384993061210388,
+          "age": 0.8553876799929505,
+          "price": 0.5849732535876099,
+          "fit": 0.418499306121,
+          "aroma": 0.08
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "taste": 0.7959385962553918,
+          "age": 0.8176037681770133,
+          "price": 0.7747226539790469,
+          "fit": 0.755938596255,
+          "aroma": -0.04
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "taste": 0.2143311057607276,
+          "age": 0.6758858679716275,
+          "price": 0.37892914162759955,
+          "fit": 0.294331105761,
+          "aroma": 0.08
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "taste": 0.27575755133863017,
+          "age": 0.6758858679716275,
+          "price": 0.4629830328466287,
+          "fit": 0.355757551339,
+          "aroma": 0.08
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "taste": 0.5993618542602298,
+          "age": 0.8176037681770133,
+          "price": 1,
+          "fit": 0.55936185426,
+          "aroma": -0.04
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "taste": 0.4239103704705607,
+          "age": 0.8176037681770133,
+          "price": 0.7747226539790469,
+          "fit": 0.383910370471,
+          "aroma": -0.04
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "taste": 0.6364243214587055,
+          "age": 0.8176037681770133,
+          "price": 0.805887639114776,
+          "fit": 0.596424321459,
+          "aroma": -0.04
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "taste": 0.24214144587229328,
+          "age": 0.6758858679716275,
+          "price": 0.4280179585727664,
+          "fit": 0.202141445872,
+          "aroma": -0.04
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "taste": 0.6364243214587055,
+          "age": 0.6155722066724582,
+          "price": 1,
+          "fit": 0.596424321459,
+          "aroma": -0.04
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "taste": 0.22130061862935388,
+          "age": 0.6758858679716275,
+          "price": 0.3619273402891437,
+          "fit": 0.181300618629,
+          "aroma": -0.04
+        }
+      ],
+      "counts": {
+        "release": 2,
+        "shipment": 1,
+        "arrival": 6,
+        "interest": 1,
+        "inquiry": 1
+      },
+      "arrivalPlaces": [
+        "town",
+        "diner",
+        "bar",
+        "super",
+        "restaurant",
+        "specialist"
+      ],
+      "interested": [
+        "town"
+      ],
+      "settled": [],
+      "actualMainStockists": [],
+      "news": [
+        {
+          "month": 98,
+          "type": "interest",
+          "to": "town",
+          "reason": "町の酒店で「まろやかで厚みのある味」(#1)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 101,
+          "type": "inquiry",
+          "to": "town",
+          "reason": "町の酒店から「まろやかで厚みのある味」(#1)の取扱いについて問い合わせがありました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "diner",
+          "reason": "食堂へ「まろやかで厚みのある味」(#1)の口コミが届きました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "bar",
+          "reason": "路地のバーへ「まろやかで厚みのある味」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 110,
+          "type": "arrival",
+          "to": "super",
+          "reason": "スーパーへ「まろやかで厚みのある味」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 116,
+          "type": "arrival",
+          "to": "restaurant",
+          "reason": "レストランへ「まろやかで厚みのある味」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 122,
+          "type": "arrival",
+          "to": "specialist",
+          "reason": "専門酒店へ「まろやかで厚みのある味」(#1)の口コミが届きました。"
+        }
+      ],
+      "coldReplay": "exact"
+    },
+    {
+      "name": "煙・3年リフィル",
+      "recipe": {
+        "name": "煙・3年リフィル",
+        "malt": "peat",
+        "ferment": "long",
+        "start": 37,
+        "end": 95,
+        "cask": "refill",
+        "age": 36
+      },
+      "seed": 20261021,
+      "listingMonth": 96,
+      "observedThroughMonth": 144,
+      "listedQuantity": 24,
+      "actuallySold": 24,
+      "unlistedRemainder": 27,
+      "cash": 756.84,
+      "release": {
+        "id": 1,
+        "productId": 3,
+        "bottledMonth": 36,
+        "age": 36,
+        "name": "煙の香りが豊か",
+        "profile": {
+          "roughness": 0.290167988919,
+          "character": 0.669858817995,
+          "wood": 0.083977882351,
+          "litres": 36.18258609347675,
+          "flavor": {
+            "version": 1,
+            "choice": {
+              "malt": "peat",
+              "ferment": "long",
+              "cask": "refill",
+              "start": 0.10144927536231885,
+              "end": 0.9420289855072463
+            },
+            "spirit": {
+              "fruit": 0.580710033441,
+              "grain": 0.460208652355,
+              "smoke": 0.679787821649,
+              "body": 0.58904315231,
+              "rough": 0.402255537173,
+              "spice": 0.310740085265,
+              "wood": 0,
+              "vanilla": 0
+            },
+            "months": 36,
+            "label": "煙の香りが豊か",
+            "history": [
+              {
+                "months": 0,
+                "label": "煙の香りが豊か"
+              }
+            ],
+            "pending": null,
+            "held": 0,
+            "profile": {
+              "fruit": 0.565817357466,
+              "grain": 0.451730599735,
+              "smoke": 0.669858817995,
+              "body": 0.581568873706,
+              "rough": 0.290167988919,
+              "spice": 0.299853881815,
+              "wood": 0.083977882351,
+              "vanilla": 0.054338629757
+            },
+            "primary": "smoke"
+          }
+        }
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "taste": 0.7587970971984556,
+          "age": 0.8176037681770133,
+          "price": 0.8628583639627644,
+          "fit": 0.718797097198,
+          "aroma": -0.04
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "taste": 0.6243645500071904,
+          "age": 0.6155722066724582,
+          "price": 0.647771738799419,
+          "fit": 0.584364550007,
+          "aroma": -0.04
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "taste": 0.43272459472643054,
+          "age": 0.6155722066724582,
+          "price": 0.9136077752147318,
+          "fit": 0.512724594726,
+          "aroma": 0.08
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "taste": 0.6028882825313301,
+          "age": 0.8176037681770133,
+          "price": 0.647771738799419,
+          "fit": 0.562888282531,
+          "aroma": -0.04
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "taste": 0.5241258934440538,
+          "age": 0.8553876799929505,
+          "price": 0.5849732535876099,
+          "fit": 0.484125893444,
+          "aroma": -0.04
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "taste": 0.5821536477950628,
+          "age": 0.8176037681770133,
+          "price": 0.7747226539790469,
+          "fit": 0.662153647795,
+          "aroma": 0.08
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "taste": 0.33186621144660383,
+          "age": 0.6758858679716275,
+          "price": 0.37892914162759955,
+          "fit": 0.291866211447,
+          "aroma": -0.04
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "taste": 0.4269777525559335,
+          "age": 0.6758858679716275,
+          "price": 0.4629830328466287,
+          "fit": 0.386977752556,
+          "aroma": -0.04
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "taste": 0.5968909375527307,
+          "age": 0.8176037681770133,
+          "price": 1,
+          "fit": 0.556890937553,
+          "aroma": -0.04
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "taste": 0.6563747625043452,
+          "age": 0.8176037681770133,
+          "price": 0.7747226539790469,
+          "fit": 0.616374762504,
+          "aroma": -0.04
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "taste": 0.6338006117952134,
+          "age": 0.8176037681770133,
+          "price": 0.805887639114776,
+          "fit": 0.593800611795,
+          "aroma": -0.04
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "taste": 0.3749272136240952,
+          "age": 0.6758858679716275,
+          "price": 0.4280179585727664,
+          "fit": 0.454927213624,
+          "aroma": 0.08
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "taste": 0.5565374213320333,
+          "age": 0.6155722066724582,
+          "price": 1,
+          "fit": 0.516537421332,
+          "aroma": -0.04
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "taste": 0.34265767273790826,
+          "age": 0.6758858679716275,
+          "price": 0.3619273402891437,
+          "fit": 0.422657672738,
+          "aroma": 0.08
+        }
+      ],
+      "counts": {
+        "release": 2,
+        "shipment": 2,
+        "arrival": 12,
+        "interest": 1,
+        "inquiry": 1
+      },
+      "arrivalPlaces": [
+        "town",
+        "diner",
+        "bar",
+        "super",
+        "restaurant",
+        "specialist"
+      ],
+      "interested": [
+        "town"
+      ],
+      "settled": [],
+      "actualMainStockists": [],
+      "news": [
+        {
+          "month": 98,
+          "type": "interest",
+          "to": "town",
+          "reason": "町の酒店で「煙の香りが豊か」(#1)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 101,
+          "type": "inquiry",
+          "to": "town",
+          "reason": "町の酒店から「煙の香りが豊か」(#1)の取扱いについて問い合わせがありました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "diner",
+          "reason": "食堂へ「煙の香りが豊か」(#1)の口コミが届きました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "bar",
+          "reason": "路地のバーへ「煙の香りが豊か」(#1)の口コミが届きました。"
+        },
+        {
+          "month": 110,
+          "type": "arrival",
+          "to": "super",
+          "reason": "スーパーへ「煙の香りが豊か」(#1)の口コミが届きました。"
+        },
+        {
+          "month": 116,
+          "type": "arrival",
+          "to": "restaurant",
+          "reason": "レストランへ「煙の香りが豊か」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 122,
+          "type": "arrival",
+          "to": "specialist",
+          "reason": "専門酒店へ「煙の香りが豊か」(#1)の口コミが届きました。"
+        }
+      ],
+      "coldReplay": "exact"
+    },
+    {
+      "name": "同じ果実・3年1stフィル",
+      "recipe": {
+        "name": "同じ果実・3年1stフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "bourbon",
+        "age": 36
+      },
+      "seed": 20261021,
+      "listingMonth": 96,
+      "observedThroughMonth": 144,
+      "listedQuantity": 24,
+      "actuallySold": 24,
+      "unlistedRemainder": 15,
+      "cash": 795.24,
+      "release": {
+        "id": 1,
+        "productId": 3,
+        "bottledMonth": 36,
+        "age": 36,
+        "name": "果実香が強い",
+        "profile": {
+          "roughness": 0.309746884571,
+          "character": 0.868366573604,
+          "wood": 0.231551257869,
+          "litres": 27.56973854653779,
+          "flavor": {
+            "version": 1,
+            "choice": {
+              "malt": "plain",
+              "ferment": "long",
+              "cask": "first",
+              "start": 0.14492753623188406,
+              "end": 0.4057971014492754
+            },
+            "spirit": {
+              "fruit": 0.891222539116,
+              "grain": 0.394086535725,
+              "smoke": 0.055,
+              "body": 0.212835613002,
+              "rough": 0.429397466982,
+              "spice": 0.111665302907,
+              "wood": 0,
+              "vanilla": 0
+            },
+            "months": 36,
+            "label": "果実香が強い",
+            "history": [
+              {
+                "months": 0,
+                "label": "果実香が強い"
+              }
+            ],
+            "pending": null,
+            "held": 0,
+            "profile": {
+              "fruit": 0.868366573604,
+              "grain": 0.3868265975,
+              "smoke": 0.054196668161,
+              "body": 0.210134974412,
+              "rough": 0.309746884571,
+              "spice": 0.107753315805,
+              "wood": 0.231551257869,
+              "vanilla": 0.225400214845
+            },
+            "primary": "fruit"
+          }
+        }
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "taste": 0.70489513597854,
+          "age": 0.8176037681770133,
+          "price": 0.8628583639627644,
+          "fit": 0.664895135979,
+          "aroma": -0.04
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "taste": 0.6158780963759511,
+          "age": 0.6155722066724582,
+          "price": 0.647771738799419,
+          "fit": 0.695878096376,
+          "aroma": 0.08
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "taste": 0.3958960054215973,
+          "age": 0.6155722066724582,
+          "price": 0.9136077752147318,
+          "fit": 0.355896005422,
+          "aroma": -0.04
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "taste": 0.4488128126111657,
+          "age": 0.8176037681770133,
+          "price": 0.647771738799419,
+          "fit": 0.408812812611,
+          "aroma": -0.04
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "taste": 0.45930221695738715,
+          "age": 0.8553876799929505,
+          "price": 0.5849732535876099,
+          "fit": 0.419302216957,
+          "aroma": -0.04
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "taste": 0.87345927832169,
+          "age": 0.8176037681770133,
+          "price": 0.7747226539790469,
+          "fit": 0.833459278322,
+          "aroma": -0.04
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "taste": 0.29082113392465786,
+          "age": 0.6758858679716275,
+          "price": 0.37892914162759955,
+          "fit": 0.250821133925,
+          "aroma": -0.04
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "taste": 0.37416931846614876,
+          "age": 0.6758858679716275,
+          "price": 0.4629830328466287,
+          "fit": 0.334169318466,
+          "aroma": -0.04
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "taste": 0.7191349623036489,
+          "age": 0.8176037681770133,
+          "price": 1,
+          "fit": 0.799134962304,
+          "aroma": 0.08
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "taste": 0.5751945998930201,
+          "age": 0.8176037681770133,
+          "price": 0.7747226539790469,
+          "fit": 0.535194599893,
+          "aroma": -0.04
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "taste": 0.8133419014993822,
+          "age": 0.8176037681770133,
+          "price": 0.805887639114776,
+          "fit": 0.893341901499,
+          "aroma": 0.08
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "taste": 0.32855636893578566,
+          "age": 0.6758858679716275,
+          "price": 0.4280179585727664,
+          "fit": 0.288556368936,
+          "aroma": -0.04
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "taste": 0.6909372771065498,
+          "age": 0.6155722066724582,
+          "price": 1,
+          "fit": 0.770937277107,
+          "aroma": 0.08
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "taste": 0.30027791168989343,
+          "age": 0.6758858679716275,
+          "price": 0.3619273402891437,
+          "fit": 0.26027791169,
+          "aroma": -0.04
+        }
+      ],
+      "counts": {
+        "release": 2,
+        "shipment": 1,
+        "arrival": 6,
+        "interest": 1,
+        "inquiry": 1
+      },
+      "arrivalPlaces": [
+        "town",
+        "diner",
+        "bar",
+        "super",
+        "restaurant",
+        "specialist"
+      ],
+      "interested": [
+        "town"
+      ],
+      "settled": [],
+      "actualMainStockists": [],
+      "news": [
+        {
+          "month": 98,
+          "type": "interest",
+          "to": "town",
+          "reason": "町の酒店で「果実香が強い」(#1)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 101,
+          "type": "inquiry",
+          "to": "town",
+          "reason": "町の酒店から「果実香が強い」(#1)の取扱いについて問い合わせがありました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "diner",
+          "reason": "食堂へ「果実香が強い」(#1)の口コミが届きました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "bar",
+          "reason": "路地のバーへ「果実香が強い」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 110,
+          "type": "arrival",
+          "to": "super",
+          "reason": "スーパーへ「果実香が強い」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 116,
+          "type": "arrival",
+          "to": "restaurant",
+          "reason": "レストランへ「果実香が強い」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 122,
+          "type": "arrival",
+          "to": "specialist",
+          "reason": "専門酒店へ「果実香が強い」(#1)の口コミが届きました。"
+        }
+      ],
+      "coldReplay": "exact"
+    },
+    {
+      "name": "同じ果実・8年リフィル",
+      "recipe": {
+        "name": "同じ果実・8年リフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "refill",
+        "age": 96
+      },
+      "seed": 20261021,
+      "listingMonth": 96,
+      "observedThroughMonth": 144,
+      "listedQuantity": 24,
+      "actuallySold": 24,
+      "unlistedRemainder": 11,
+      "cash": 427.8,
+      "release": {
+        "id": 1,
+        "productId": 3,
+        "bottledMonth": 96,
+        "age": 96,
+        "name": "穏やかな果実香",
+        "profile": {
+          "roughness": 0.207703402006,
+          "character": 0.838622227439,
+          "wood": 0.170379254801,
+          "litres": 25.130342328007416,
+          "flavor": {
+            "version": 1,
+            "choice": {
+              "malt": "plain",
+              "ferment": "long",
+              "cask": "refill",
+              "start": 0.14492753623188406,
+              "end": 0.4057971014492754
+            },
+            "spirit": {
+              "fruit": 0.891222539116,
+              "grain": 0.394086535725,
+              "smoke": 0.055,
+              "body": 0.212835613002,
+              "rough": 0.429397466982,
+              "spice": 0.111665302907,
+              "wood": 0,
+              "vanilla": 0
+            },
+            "months": 96,
+            "label": "穏やかな果実香",
+            "history": [
+              {
+                "months": 0,
+                "label": "果実香が強い"
+              },
+              {
+                "months": 59,
+                "label": "穏やかな果実香"
+              }
+            ],
+            "pending": null,
+            "held": 0,
+            "profile": {
+              "fruit": 0.838622227439,
+              "grain": 0.377117818404,
+              "smoke": 0.053109955555,
+              "body": 0.206677264634,
+              "rough": 0.207703402006,
+              "spice": 0.102941295836,
+              "wood": 0.170379254801,
+              "vanilla": 0.110245400165
+            },
+            "primary": "fruit"
+          }
+        }
+      },
+      "fit": [
+        {
+          "id": "town",
+          "name": "町の酒店",
+          "taste": 0.6561565346151278,
+          "age": 0.46346305677196986,
+          "price": 0.8628583639627644,
+          "fit": 0.616156534615,
+          "aroma": -0.04
+        },
+        {
+          "id": "diner",
+          "name": "食堂",
+          "taste": 0.6082833871830208,
+          "age": 0.3489403885752605,
+          "price": 0.647771738799419,
+          "fit": 0.688283387183,
+          "aroma": 0.08
+        },
+        {
+          "id": "bar",
+          "name": "路地のバー",
+          "taste": 0.34598636968889734,
+          "age": 0.3489403885752605,
+          "price": 0.9136077752147318,
+          "fit": 0.305986369689,
+          "aroma": -0.04
+        },
+        {
+          "id": "super",
+          "name": "スーパー",
+          "taste": 0.5548475472117996,
+          "age": 0.46346305677196986,
+          "price": 0.647771738799419,
+          "fit": 0.514847547212,
+          "aroma": -0.04
+        },
+        {
+          "id": "restaurant",
+          "name": "レストラン",
+          "taste": 0.5024277738174002,
+          "age": 0.6626882136251182,
+          "price": 0.5849732535876099,
+          "fit": 0.462427773817,
+          "aroma": -0.04
+        },
+        {
+          "id": "specialist",
+          "name": "専門酒店",
+          "taste": 0.7218498632705161,
+          "age": 0.46346305677196986,
+          "price": 0.7747226539790469,
+          "fit": 0.681849863271,
+          "aroma": -0.04
+        },
+        {
+          "id": "department",
+          "name": "デパート",
+          "taste": 0.31812738868267687,
+          "age": 0.8386849917614465,
+          "price": 0.37892914162759955,
+          "fit": 0.278127388683,
+          "aroma": -0.04
+        },
+        {
+          "id": "hill",
+          "name": "丘の宿",
+          "taste": 0.4093014376309063,
+          "age": 0.8386849917614465,
+          "price": 0.4629830328466287,
+          "fit": 0.369301437631,
+          "aroma": -0.04
+        },
+        {
+          "id": "near-local",
+          "name": "周辺の食文化圏",
+          "taste": 0.6694117758816659,
+          "age": 0.46346305677196986,
+          "price": 1,
+          "fit": 0.749411775882,
+          "aroma": 0.08
+        },
+        {
+          "id": "near-wide",
+          "name": "周辺の流通圏",
+          "taste": 0.6292017143972384,
+          "age": 0.46346305677196986,
+          "price": 0.7747226539790469,
+          "fit": 0.589201714397,
+          "aroma": -0.04
+        },
+        {
+          "id": "national-food",
+          "name": "全国の飲食のつながり",
+          "taste": 0.7108058883189843,
+          "age": 0.46346305677196986,
+          "price": 0.805887639114776,
+          "fit": 0.790805888319,
+          "aroma": 0.08
+        },
+        {
+          "id": "national-craft",
+          "name": "全国の熟成酒のつながり",
+          "taste": 0.3594057222529159,
+          "age": 0.8386849917614465,
+          "price": 0.4280179585727664,
+          "fit": 0.319405722253,
+          "aroma": -0.04
+        },
+        {
+          "id": "overseas-food",
+          "name": "海外の飲食文化圏",
+          "taste": 0.6625252445121724,
+          "age": 0.3489403885752605,
+          "price": 1,
+          "fit": 0.742525244512,
+          "aroma": 0.08
+        },
+        {
+          "id": "overseas-craft",
+          "name": "海外の熟成酒文化圏",
+          "taste": 0.32847209773186925,
+          "age": 0.8386849917614465,
+          "price": 0.3619273402891437,
+          "fit": 0.288472097732,
+          "aroma": -0.04
+        }
+      ],
+      "counts": {
+        "release": 2,
+        "shipment": 1,
+        "arrival": 6,
+        "interest": 1,
+        "inquiry": 1
+      },
+      "arrivalPlaces": [
+        "town",
+        "diner",
+        "bar",
+        "super",
+        "restaurant",
+        "specialist"
+      ],
+      "interested": [
+        "town"
+      ],
+      "settled": [],
+      "actualMainStockists": [],
+      "news": [
+        {
+          "month": 98,
+          "type": "interest",
+          "to": "town",
+          "reason": "町の酒店で「穏やかな果実香」(#1)が好みに合い、関心を持たれました。"
+        },
+        {
+          "month": 101,
+          "type": "inquiry",
+          "to": "town",
+          "reason": "町の酒店から「穏やかな果実香」(#1)の取扱いについて問い合わせがありました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "diner",
+          "reason": "食堂へ「穏やかな果実香」(#1)の口コミが届きました。"
+        },
+        {
+          "month": 104,
+          "type": "arrival",
+          "to": "bar",
+          "reason": "路地のバーへ「穏やかな果実香」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 110,
+          "type": "arrival",
+          "to": "super",
+          "reason": "スーパーへ「穏やかな果実香」(#1)の口コミが届きました。"
+        },
+        {
+          "month": 116,
+          "type": "arrival",
+          "to": "restaurant",
+          "reason": "レストランへ「穏やかな果実香」(#1)の口コミが届きました。この土地の好みとは合いませんでした。"
+        },
+        {
+          "month": 122,
+          "type": "arrival",
+          "to": "specialist",
+          "reason": "専門酒店へ「穏やかな果実香」(#1)の口コミが届きました。"
+        }
+      ],
+      "coldReplay": "exact"
+    }
+  ],
+  "limits": [
+    "All use actual main production, bottling, prices and cash; no mutated finance or synthetic supplies.",
+    "Remainder bottles are real inventory and stay unlisted.",
+    "Common48month observation is bounded by existing empty-distillery finance reserve for the8year sample; no bypass.",
+    "Same arrival or stockist regions are reported without forcing divergence."
+  ]
+}

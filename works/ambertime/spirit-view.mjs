@@ -1,3 +1,4 @@
+import {attachFlavor,flavorName} from './lab-flavor.mjs?v=stage4';
 import {tasting} from './model.mjs';
 import {previewForDistillation} from './aroma-extraction.mjs';
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
@@ -23,7 +24,7 @@ const touch=new Map([
 export function spiritProfile(source){
  if(!source||!['roughness','character','litres'].every(k=>Number.isFinite(source[k]))||source.roughness<0||source.roughness>1||source.character<0||source.character>1||source.litres<0)return null;
  const {roughness,character,litres}=source,[r,a]=tasting({...source,wood:0}).split('。');
- return {roughness,character,litres,phrase:aroma.get(a)+touch.get(r),axes:FLAVOR_AXES.slice(0,2).map(axis=>({...axis,value:source[axis.id],ratio:source[axis.id]/axis.maximum}))};
+ return {roughness,character,litres,phrase:source.flavor?flavorName(source):aroma.get(a)+touch.get(r),axes:FLAVOR_AXES.slice(0,2).map(axis=>({...axis,value:source[axis.id],ratio:source[axis.id]/axis.maximum}))};
 }
 export function distillationView(s){
  const still=s?.still;
@@ -33,7 +34,8 @@ export function distillationView(s){
  if(!d||!Number.isInteger(d.progress)||d.progress<0||d.progress>=P.distillMax)return null;
  if(d.progress<P.minimumStop)return {phase:'collecting',litres:d.litres,phrase:'原酒を集めています。',axes:[]};
  if(!Number.isFinite(d.variation)||d.variation<=0)return null;
- const f=previewForDistillation(d);
- const profile=spiritProfile({litres:f.litres,roughness:Math.min(1,f.roughness*d.variation),character:Math.min(1,f.character*d.variation)});
+ let f=previewForDistillation(d);
+ if(d.labChoice){if(d.collectStart===null||d.progress-d.collectStart<9)return {phase:'collecting',litres:d.litres,phrase:'採取を始める位置を選びます。',axes:[]};f=attachFlavor(f,{...d.labChoice,cask:'refill',start:(d.collectStart-30)/69,end:(d.progress-30)/69});}
+ const profile=spiritProfile({litres:f.litres,roughness:f.flavor?f.roughness:Math.min(1,f.roughness*d.variation),character:f.flavor?f.character:Math.min(1,f.character*d.variation),...(f.flavor?{flavor:f.flavor}:{})});
  return profile?{phase:'forecast',...profile}:null;
 }
