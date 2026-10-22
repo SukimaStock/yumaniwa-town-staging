@@ -1,0 +1,140 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "de39c88524c9d2062768d4b06219d08e93e1c0bef8f07c2ec58a5ad95bea0204",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-main-world-map-20261022",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate existing six-stage 144x144 pixel world map into AmberTime main as a read-only modal with event-derived stage unlocks and subtle grounded markers.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "83bdb53c290eecfc52ee6c2fb8e351f2694d5cdc",
+    "canonicalSources": [
+      "Owner-approved main-map integration request and prior six-stage behavior specification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs and room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-main-world-map-20261022/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/tests/world-map-view.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/experiments/world-map/v01/**",
+      "works/ambertime/canvas-scene.mjs",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Add a map entry to the existing '...' auxiliary menu; open native modal from any room and halt time while open; dismiss and restore prior room.",
+      "Render the approved 144x144 six-stage world map from its existing Lab module in the existing modal, at compact fixed area; '+' progressively shows distant stages and '−' goes closer.",
+      "Derive highest available view from actual retail/store receipt and town.arrivals history: 1 start, 2 first sales/delivery, 3 non-direct town arrival, 4 nearby region, 5 nationwide, 6 overseas. Earlier stages unlocked if far-reaching jump.",
+      "Derive map-state details only from actual retail agreements/shipments and town arrivals. Keep rumor, liking, and sales distinct; no shop tap, rankings, forced reveal or gameplay reward.",
+      "No new saved schema, counters, replay operations, economic changes or town-model simulation; compatibility with missing/old town data and existing stored games.",
+      "Focused tests for sparse/old saves, missed earlier stages, leap to overseas, first sale, actual agreements and overview overlay. Existing LAB art file unmodified."
+    ],
+    "ownerDecisions": [
+      "Owner approved using Lab map as main game display, menu entry and progressive six-stage visibility with +/-; no store details, no forced navigation; only staging integration now."
+    ],
+    "hqDecisions": [
+      "Existing app modal UI reused; new read-only projection imports map.mjs directly without modifying its source, time/cost/model/events or original LAB. Direct no-save unlock derivation guards old states."
+    ],
+    "rulesApplied": [
+      "Changes limited to AmberTime main UI, style and one read-only module/test",
+      "No new store/rumor simulation or persistent fields",
+      "Staging only and existing required CI retained",
+      "Expression audit: avoid duplicated description or decorative labels."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Verify map entry is in ... menu from all rooms and does not change bottom tabs; modal pauses/resumes clock without modifying user pause preference.",
+      "Verify 6 stages/+/−/disabled ends, small iPhone width, no shop tap, no forced popup, no overflow.",
+      "Run focused existing save, replay and town/event interaction checks and required CI. Actual iPhone and user adoption remain unverified."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert map entry, projection module and modal styles without modifying historic game saves, map Lab or world data.",
+    "outOfScope": [
+      "Production publication",
+      "Changing map Lab artwork/zoom semantics",
+      "Changing old saved structures or replay operations",
+      "Adding new shops/places/consumer sales or city simulation",
+      "Continuous zoom, map shop management/detail UI, popup on reach",
+      "Changes outside works/ambertime main UI and new projection module"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari rendering / touch",
+      "Owner aesthetic adoption",
+      "Production deployment"
+    ],
+    "alternativesRejected": [
+      "New fourth room or persistent map registry",
+      "Separate map-specific progress tracker in saved state",
+      "Changing existing town propagation model",
+      "Opening map automatically when new reach happens"
+    ],
+    "boundaryCases": [
+      "New game stage 1; no town state old save stage 1",
+      "First actual self sale, shop delivery stage 2; non-sale release alone does not unlock",
+      "Town rumor arrival versus direct receipt; one distant overseas arrival can unlock all earlier stages",
+      "Town.arrivals absent/malformed entries; unknown node ignored",
+      "Native trade agreement versus rumors and direct receipts for shop markers",
+      "Plus/minus within one-to-max stage boundaries and closing modal without state mutation"
+    ],
+    "testPlan": [
+      "Node tests for pure map status and view boundaries",
+      "Existing map render smoke at all six stages; old saved-state smoke",
+      "Required CI and Scope/Risk/Impact/Trusted Evidence on PR and Pages after merge"
+    ],
+    "problem": "Six-view production-style map exists as independent Lab but is not accessible from AmberTime gameplay, nor linked to existing factual spread.",
+    "currentContract": "Main game uses shared modal with time pause, three room tabs, stage4 town state in labConnection.town, and a stable v20 save/replay format.",
+    "whyExistingIsInsufficient": "Map experiment has free six-stage switch but no main entry, access gating or event-derived status.",
+    "design": "Main menu modal imports existing drawing code, computes max stage and marks from immutable game state and renders via 144x144 canvas; labels unchanged.",
+    "migration": "None; derive everything from existing factual receipts and town arrival event data, with safe fallback for legacy or missing fields.",
+    "compatibility": "No save version bump, mutation or replay operation; all old saves stay readable; no effects on economics or town probability.",
+    "promotionRisk": "Staging only; author still evaluates real iPhone visuals before Production."
+  }
+}
