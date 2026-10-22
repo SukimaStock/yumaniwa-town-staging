@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "97371d9de57e593d7749e279ce62facafff61186dd1284b6c70646381f5818f2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-stage4-module-urls",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Align current AmberTime entry and worker module URLs after stage4 integration",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f5a4e2f97f85ec16c16e54ace8ad23e096838838",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR592",
+      "Currentmainmodulegraph",
+      "Userstage4request"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-stage4-module-urls/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/ui-details.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/trade.mjs",
+      "works/ambertime/wholesale.mjs",
+      "works/ambertime/wholesale-v08.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/design/stage4-integration.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-flavor-lab-v02/**",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Only existing current module graph import/worker URL query updates to stage4-r2; no math/state/schema/API/functionchanges",
+      "Entry index shop-app query update and shortcache evidence in existing report"
+    ],
+    "ownerDecisions": [
+      "Authorizedstage4 integration includes safe currentmodule/worker delivery; noadditionalgamefeatures"
+    ],
+    "hqDecisions": [
+      "Pinned current dependency graph updates queries only; original stage4lock excludes dependency parents, soseparatebefore-edit lock",
+      "Historical entrypages and Labsource remain unchanged; reachable legacy reader importURLs only refreshed, calculations notedited"
+    ],
+    "rulesApplied": [
+      "Stagingonly",
+      "No addedfeatures or verificationcases",
+      "Mechanicalquerydiffreview"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Publicgraphbytes current; nativecreate/bottle/sale/reload/ledger/JSONexport",
+      "RequiredCI/Page deploy; authorsfununverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "RevertqueryPRalongside592; usepre-stage4exportforoldruntime",
+    "outOfScope": [
+      "Production",
+      "All gameplay/math/state/schema/APIchanges",
+      "Newtests/features/Labs"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Authorfun/adoption"
+    ],
+    "alternativesRejected": [
+      "Waitforcacheexpiry",
+      "Disableworkers",
+      "Importmapwithdifferentworkerresolution"
+    ],
+    "boundaryCases": [
+      "Currentmainmodulegraph",
+      "History/caskledgerworkers",
+      "Strictcoldsaveandpreboundaryexport"
+    ],
+    "testPlan": [
+      "Mechanical diff proves imports/newURL queries only exceptreportandentry",
+      "Existingfocusedstage4 18tests includingcoldmain/worker/ledger/save; no repeated804suite",
+      "ScopeRiskImpactTrustedStatic/CI/publicUI"
+    ],
+    "problem": "Newmainentry can readcachedpre-stage4 model/character/validator through historicalimportqueries, includingmoduleworkers",
+    "currentContract": "Currentmain andmoduleworkers haveexplicitversionedrelativeimports",
+    "whyExistingIsInsufficient": "Entryqueryalone doesnotrefresholdcacheleaf/parentmodules",
+    "design": "RefreshqueriesalongcurrentdependencygraphincludingworkerURLs; samefiles/exports/no newdeps",
+    "migration": "None; gameformat andoperations unchanged",
+    "compatibility": "OnlyURLquerychanges; alllegacyreader calculationsremainidentical",
+    "promotionRisk": "Stagingonly",
+    "dependencies": [
+      "PR592 currentmodulegraph"
+    ]
+  }
+}
