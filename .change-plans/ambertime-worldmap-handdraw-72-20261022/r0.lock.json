@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3e06242d79b5c4eca3d80a4ff2f0a5a9be13c56b86ceebbf1d6b98a4d1e93b7d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-worldmap-handdraw-72-20261022",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reauthor all six AmberTime world map compositions cell by cell at native 72x72 logical grid, retaining 144x144 canvas and existing gameplay integration",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "ea3b1a4e4284966482b55f01ad20e5fb8d0f0635",
+    "canonicalSources": [
+      "Owner-approved main-map integration request and prior six-stage behavior specification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs and room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-worldmap-handdraw-72-20261022/r0.lock.json",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/experiments/world-map/v01/map.test.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/tests/world-map-view.test.mjs",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/experiments/town-simulation/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Replace map.mjs completely with six separate 72x72 hand-composed scenes using cell coordinates and direct 2x2 source pixel rendering: no stamp/sprite scaling, post-hoc rounding, random scattered texture or gridContext.",
+      "Stage 1 lonely distillery (16x16 cells) with trees, path and clouds; Stage 2 distillery (~12x12) and two distinct shops separated by space; Stage 3 small distillery (~8x8) and shops with readable town roads.",
+      "Stage 4 hand-authored RPG terrain, stage 5 recognizable Japan coastlines, stage 6 sparse planet Earth, all on same 72x72 grid.",
+      "Maintain existing AmberTime main map unlocks, small window, +/- controls and 144 native canvas; move map milestone markers to handcrafted grid coordinates.",
+      "Add focused tests that reject off-grid drawing and prevent accidentally restoring sprite scaling; ensure all six scenes draw and old state remains read-only.",
+      "No stage/unlock state, economy or save mutations, no Production changes."
+    ],
+    "ownerDecisions": [
+      "User approved stage1-3 precise 72x72 grid sketches and asks to reflect all six views as independently hand-drawn code, preserve current main game interface."
+    ],
+    "hqDecisions": [
+      "Map Lab canvas code is referenced by current main read-only modal. Replace renderer and adjust only marker view. No new runtime, save keys or world coordinates."
+    ],
+    "rulesApplied": [
+      "One source cell = 2x2 native canvas pixels; same direct drawing primitives across six views",
+      "No after-draw pixel snap, sprite resizing, image assets, anti-aliasing or added UI copy",
+      "Staging only; author aesthetic judgement pending"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare all six cell-authored scenes at main's fixed modal view size and selected iPhone widths; verify readable distillery, spaced shops, legible road pattern, RPG geography, recognisable Japanese islands and Earth.",
+      "Verify existing menu entry, old-save unlocks and markers remain intact; no new modal controls.",
+      "Run focused Node tests and required CI; actual physical iPhone remains author verification."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only map source, marker presentation and two focused tests, retaining game/data.",
+    "outOfScope": [
+      "Production publication",
+      "Changing map Lab artwork/zoom semantics",
+      "Changing old saved structures or replay operations",
+      "Adding new shops/places/consumer sales or city simulation",
+      "Continuous zoom, map shop management/detail UI, popup on reach",
+      "Changes outside works/ambertime main UI and new projection module"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari physical appearance",
+      "User final visual adoption",
+      "Production release"
+    ],
+    "alternativesRejected": [
+      "Global grid snap on already scaled sprite drawings",
+      "Stretching generated raster images into Canvas",
+      "Separate persistent map progression model"
+    ],
+    "boundaryCases": [
+      "No draw operation off native 2px grid or outside a logical cell pattern",
+      "Stage1/2/3 authored with progressively fewer cells, without sprite resampling",
+      "Japan coastline and Earth disk stay pixel-perfect with visible ocean/space",
+      "Shop/reach map markers render on same grid",
+      "Old saves and plus/minus functionality preserved"
+    ],
+    "testPlan": [
+      "Node suite for grid and distinct stage rendering",
+      "Map overlay read-only and unlocked stage tests",
+      "Mandatory GitHub CI and Pages deployment check"
+    ],
+    "problem": "Quantizing arbitrarily scaled 32px sprite artwork makes a uniform grid but visibly unnatural shapes and density.",
+    "currentContract": "144x144 canvas in existing world-map Lab and AmberTime main; 72x72 source grid with CSS integer nearest-neighbor display.",
+    "whyExistingIsInsufficient": "Stage artwork was scaled and snapped rather than drawn cell by cell, inconsistent with handcrafted pixel-art aesthetic.",
+    "design": "Use 72x72 tile coordinates and 2x2 pixel primitive at source; create each of six dedicated scenes without scaling, with hand-authored roads and island/planet pixel masks.",
+    "migration": "None",
+    "compatibility": "No changes to save or underlying model; unchanged 6-stage stage labels and zoom behavior.",
+    "promotionRisk": "Staging only; author still evaluates real iPhone visuals before Production."
+  }
+}
