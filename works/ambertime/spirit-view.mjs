@@ -44,3 +44,15 @@ export function distillationView(s){
  const profile=spiritProfile({litres:f.litres,roughness:f.flavor?f.roughness:Math.min(1,f.roughness*d.variation),character:f.flavor?f.character:Math.min(1,f.character*d.variation),...(f.flavor?{flavor:f.flavor}:{})});
  return profile?{phase:'forecast',...profile}:null;
 }
+
+// Presentation only. This is the yield if collection ends now, not a measured
+// volume since the first tap. Keep the existing forecast API/calculations intact.
+export function distillationReadout(s){
+ if(s?.still?.phase==='filling')return distillationView(s);
+ if(s?.still?.phase!=='distilling')return null;
+ const d=s.still.distillation;
+ if(!d||!Number.isInteger(d.progress)||d.progress<0||d.progress>=P.distillMax)return null;
+ if(d.labChoice&&(d.collectStart==null||d.progress<d.collectStart))return null;
+ const litres=d.collectionVersion===2?previewDistillation(69/70*d.progress/99).litres:distillationView(s)?.litres;
+ return Number.isFinite(litres)?{phase:'estimate',litres,phrase:'',axes:[]}:null;
+}

@@ -24,7 +24,7 @@ export function layoutScene(view={}){
   (view.products??[]).forEach((p,i)=>{const r=productSlots[i];if(r)add('product-'+p.id,'#product-shelf [data-product-id="'+p.id+'"]',r.x,r.y,r.w,r.h);});
   add('shelf-prev','#shelf-pages [data-page-step="-1"]',12,111,96);add('shelf-next','#shelf-pages [data-page-step="1"]',252,111,96);
  }else{
-  for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,126,414,108);
+  for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,id==='stop-distill'?90:126,414,id==='stop-distill'?180:108);
  }
  return{width:360,height:640,floorY:468,shelf:{x:48,y:165,w:264,h:267,rails:[234,378]},equipment:{x:90,y:270,w:180,h:108,benchY:378},caskSlots,productSlots,controls};
 }
