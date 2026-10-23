@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6e0a38630081220aa2b98cb32e0ab28f0ae7af74115e1086479b8704b53d02ea",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-render-power-20261023",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Suspend redundant scene presentation timers and finite world-map reveal while hidden, preserving simulation and save behavior.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "c7bc1809b3eff3cbfcb479a5bfb95285db62ec29",
+    "canonicalSources": [
+      "Owner-approved main-map integration request and prior six-stage behavior specification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs and room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-render-power-20261023/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/world-map-view.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Cancel scene RAF and hint/selection/motion timers when hidden or pagehide; resume normal drawing when visible/pageshow.",
+      "Suppress recurring backdrop animations while native action dialog is open; preserve final static scene and normal visible selection blink.",
+      "Pause map reveal with target preserved on lifecycle suspension, resume one finite chain, cancel on close/reset/manual zoom.",
+      "Update local module cache versions; fix prior map renderer test fixture to contain the now-required overseas contact.",
+      "Add focused deterministic lifecycle/timer regressions against actual source and run relevant map/layout/motion tests."
+    ],
+    "ownerDecisions": [
+      "User explicitly requests continuing AmberTime heat and rendering optimization, 2026-10-23; Staging-only scope retained."
+    ],
+    "hqDecisions": [
+      "AI technical design review within authorized Staging scope: keep all model and persistence APIs unchanged; only cancel transient presentation scheduling. No new shared runtime or save contract."
+    ],
+    "rulesApplied": [
+      "Normal locked Plan route because executable imports and lifecycle/save-adjacent code require contract review.",
+      "No shared runtime, simulation, save schema, map art, text or visual design change.",
+      "Expression audit six points: no new UI text or decoration."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review exact diff for simulation/save compatibility.",
+      "Attempt browser behavior validation; if browser unavailable record honestly; physical Safari thermal improvement remains unverified."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the four AmberTime files; no data migration or cleanup required.",
+    "outOfScope": [
+      "Production",
+      "Game balance, simulation, save schema",
+      "Full render pipeline redesign",
+      "New UI or map art"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari use",
+      "Author adoption",
+      "Production rollout"
+    ],
+    "alternativesRejected": [
+      "Introduce arbitrary 30-year unlocks",
+      "Boost rumor delivery delay",
+      "Inject map seen flag into replay operations",
+      "Force-pop map over ongoing selections",
+      "Overwrite actual map art"
+    ],
+    "boundaryCases": [
+      "Hidden and pagehide with queued RAF and all three timers.",
+      "Native dialog while a cask is selected or pause hint is eligible.",
+      "Visible/pageshow restores drawing without duplicate chains.",
+      "Map hide midway, resume, final target, close, manual zoom and reset cancel."
+    ],
+    "testPlan": [
+      "Syntax checks and focused Node regression tests for map, scene lifecycle, layout, room motion.",
+      "Independent review of production diff; required CI; Staging deployment and HTTP content check."
+    ],
+    "problem": "Selection blink redraws every 900ms behind dialogs and in hidden documents; map reveal continues rendering while hidden.",
+    "currentContract": "Game clock already stops for hidden/modal/paused states. Static map renders on demand. All game model and saves must remain stable.",
+    "whyExistingIsInsufficient": "Presentation timers do not consistently use existing visibility and lifecycle guards.",
+    "design": "Cancel presentation work at lifecycle boundaries and gate recurring timers by visibility; keep map animation target in transient UI state.",
+    "migration": "None; no persisted data changes.",
+    "compatibility": "Preserve current visible artwork, selection timing, gameplay time, replay and saves.",
+    "promotionRisk": "Staging only; no physical temperature measurements or Safari claims."
+  }
+}
