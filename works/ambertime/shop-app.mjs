@@ -1,5 +1,5 @@
 import {caskDetailProfile} from './cask-detail-view.mjs?v=start-map-ui-r1';
-import {StartCountdown} from './start-countdown.mjs?v=start-map-ui-r1';
+import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
 import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapSeenBaseline,STAGES as MAP_STAGES} from './world-map-view.mjs?v=start-map-ui-r1';
 import {brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard} from './brewing-cards.mjs?v=adjust-c-r1';
 import {playerMilestones,customerComments} from './player-news.mjs?v=adjust-a-r1';

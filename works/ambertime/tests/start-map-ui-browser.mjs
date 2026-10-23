@@ -17,6 +17,27 @@ function caskFixture(){let s=D.startRangeDistillation(D.newConnectedDistillery(4
 const cask=caskFixture();
 const snapshot=s=>JSON.stringify({version:2,game:JSON.parse(D.serializeDistillery(s)),userPaused:true,elapsed:0});
 try{
+ // This context deliberately keeps the browser's real Window timers. Playwright's
+ // fake clock accepts receivers that native setTimeout/clearTimeout reject.
+ const nativeContext=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true});
+ const nativePage=await nativeContext.newPage();nativePage.setDefaultTimeout(10000);nativePage.on('pageerror',e=>errors.push(e.message));
+ const nativeURL=`http://127.0.0.1:${server.address().port}/works/ambertime/`;
+ await nativePage.goto(nativeURL);await nativePage.evaluate(()=>document.fonts.ready);
+ const nativeBytes=()=>nativePage.evaluate(k=>localStorage.getItem(k),KEY);
+ async function nativeTap(selector){const n=nativePage.locator(selector).first();assert(await n.isVisible(),selector+' hidden in native clock smoke');assert(await n.isEnabled(),selector+' disabled in native clock smoke');const b=await n.boundingBox();assert(b&&b.x>=0&&b.y>=0&&b.x+b.width<=391&&b.y+b.height<=845,selector+' outside native viewport');await nativePage.touchscreen.tap(b.x+b.width/2,b.y+b.height/2);}
+ async function nativePrepare(){await nativeTap('#start-distill');await nativeTap('[data-action="flavor-start"]');await nativePage.waitForFunction(()=>document.getElementById('scene-root').dataset.countdown==='3');}
+ await nativePrepare();const nativeBefore=await nativeBytes(),nativeBar=await nativePage.locator('#scene-root').getAttribute('data-collection-bar'),observed=['3'];
+ for(const digit of ['2','1']){await nativePage.waitForFunction(d=>document.getElementById('scene-root').dataset.countdown===d,digit);observed.push(digit);assert.equal(await nativeBytes(),nativeBefore,'native preparation mutated game/save');assert.equal(await nativePage.locator('#scene-root').getAttribute('data-collection-bar'),nativeBar,'native preparation advanced bar');}
+ await nativePage.screenshot({path:path.join(out,'390-native-countdown.png'),scale:'css'});
+ await nativePage.waitForFunction(k=>JSON.parse(localStorage.getItem(k)).game.still.phase==='distilling',KEY);await nativePage.waitForFunction(()=>JSON.parse(document.getElementById('scene-root').dataset.collectionBar).current>0);
+ assert.equal(await nativePage.locator('#scene-root').getAttribute('data-countdown'),null);assert.deepEqual(observed,['3','2','1']);checks.push({width:390,name:'native-window-timers-countdown-and-bar',observed,unchangedUntilCompletion:true});
+ for(const interruption of ['hidden','pagehide']){
+  await nativePage.evaluate(({KEY,MAP,raw})=>{localStorage.setItem(KEY,raw);localStorage.setItem(MAP,JSON.stringify({version:1,shown:0}));},{KEY,MAP,raw:snapshot(D.newConnectedDistillery(42))});await nativePage.reload();await nativePage.evaluate(()=>document.fonts.ready);await nativePrepare();const before=await nativeBytes();
+  await nativePage.evaluate(interruption=>{if(interruption==='hidden'){Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'));}else dispatchEvent(new PageTransitionEvent('pagehide'));},interruption);
+  await nativePage.waitForTimeout(3300);assert.equal(await nativeBytes(),before,'native cancellation changed game/save');assert.equal(JSON.parse(await nativeBytes()).game.still.phase,'ready');assert.equal(await nativePage.locator('#start-distill').isEnabled(),true);checks.push({width:390,name:'native-window-clear-timer-'+interruption,gameUnchanged:true});
+  await nativePage.evaluate(interruption=>{if(interruption==='hidden'){Object.defineProperty(document,'hidden',{configurable:true,get:()=>false});document.dispatchEvent(new Event('visibilitychange'));}else dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true}));},interruption);await nativePage.waitForFunction(()=>document.getElementById('scene-root').dataset.countdown===undefined);
+ }
+ await nativeContext.close();
  for(const [width,height] of [[390,844],[360,740]]){
   const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:3,isMobile:true,hasTouch:true});
   const page=await context.newPage();page.setDefaultTimeout(10000);page.on('pageerror',e=>errors.push(e.message));

@@ -1,6 +1,6 @@
 // Transient preparation only: this timer never owns game time, model or saves.
 export class StartCountdown{
- constructor({onChange=()=>{},canRun=()=>true,setTimer=setTimeout,clearTimer=clearTimeout}={}){
+ constructor({onChange=()=>{},canRun=()=>true,setTimer=(fn,ms)=>globalThis.setTimeout(fn,ms),clearTimer=id=>globalThis.clearTimeout(id)}={}){
   this.onChange=onChange;this.canRun=canRun;this.setTimer=setTimer;this.clearTimer=clearTimer;this.value=null;this.timer=null;this.token=0;
  }
  get active(){return this.value!==null;}
