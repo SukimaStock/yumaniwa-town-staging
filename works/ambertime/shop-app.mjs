@@ -8,7 +8,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=adjust-a-r1';
-import {CanvasScene} from './canvas-scene.mjs?v=distill-ui-r1';
+import {CanvasScene} from './canvas-scene.mjs?v=render-power-r1';
 import * as D from './partner-orders.mjs?v=adjust-b-r1';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
@@ -43,7 +43,7 @@ let shownFillSpiritId=null;
 let shelfPage=0;
 let worldMapStage=1;
 const MAP_NOTICE_KEY=SAVE_KEY+'.map-reveal.v1';
-let mapShown=1,mapPending=0,mapFrame=null;
+let mapShown=1,mapPending=0,mapFrame=null,mapRevealTarget=null;
 function mapNoticeLoad(restored){
  const current=mapProgress(game).max;let stored=null;
  if(!preview){try{stored=JSON.parse(localStorage.getItem(MAP_NOTICE_KEY));}catch{}}
@@ -52,11 +52,11 @@ function mapNoticeLoad(restored){
 }
 function mapNoticeSave(){if(preview)return;try{localStorage.setItem(MAP_NOTICE_KEY,JSON.stringify({version:1,shown:mapShown}));}catch{}}
 function noteMapReach(){if(!game||!preview&&!canSave)return;const max=mapProgress(game).max;if(newlyUnlocked(mapShown,max))mapPending=Math.max(mapPending,max);}
-function stopMapReveal(){if(mapFrame!==null){clearTimeout(mapFrame);mapFrame=null;}}
+function stopMapReveal(preserve=false){if(mapFrame!==null){clearTimeout(mapFrame);mapFrame=null;}if(!preserve)mapRevealTarget=null;}
 function animateMapReveal(target){
- stopMapReveal();
- const advance=()=>{mapFrame=null;if(modal?.kind!=='world-map'||worldMapStage>=target)return;worldMapStage++;render();mapFrame=setTimeout(advance,230);};
- mapFrame=setTimeout(advance,350);
+ stopMapReveal();mapRevealTarget=target;
+ const advance=()=>{mapFrame=null;if(document.hidden)return;if(modal?.kind!=='world-map'||worldMapStage>=target){stopMapReveal();return;}worldMapStage++;render();if(worldMapStage<target)mapFrame=setTimeout(advance,230);else stopMapReveal();};
+ if(!document.hidden)mapFrame=setTimeout(advance,350);
 }
 function tryShowMapReveal(){
  if(mapPending<=mapShown||modal||document.hidden||runtimeHalted||!preview&&!canSave||game.tastingId!==null||game.decisions.length||game.trade.offer||game.shop.offer&&!game.shop.offer.notified||game.still.phase!=='ready'||generationState()?.phase!=='working')return false;
@@ -861,7 +861,7 @@ function handleModal(e){
  if(kind==='quote'&&D.needsBrandSetup(game)&&a==='brand-next'){if(!brandNameError(firstBrandDraft().name)){modal.brandDraftConfirmed=true;render();}return;}
  if(kind==='quote'&&D.needsBrandSetup(game)&&a==='brand-edit'){modal.brandDraftConfirmed=false;render();return;}
  if(kind==='quote'&&D.needsBrandSetup(game)&&['brand-bottle','brand-label'].includes(a)){const field=a==='brand-bottle'?'bottle':'label',choices=field==='bottle'?IDENTITY_BOTTLES:IDENTITY_LABELS;if(choices.some(x=>x.id===b.dataset.id)){firstBrandDraft()[field]=b.dataset.id;render();}return;}
- if(kind==='world-map'&&['world-map-in','world-map-out'].includes(a)){worldMapStage=mapStep(worldMapStage,a==='world-map-out'?'out':'in',mapProgress(game).max);render();return;}
+ if(kind==='world-map'&&['world-map-in','world-map-out'].includes(a)){stopMapReveal();worldMapStage=mapStep(worldMapStage,a==='world-map-out'?'out':'in',mapProgress(game).max);render();return;}
   if(a==='staff-opportunity-later'&&kind==='staff-opportunity'){closeModal();return;}
  if(a==='staff-opportunity-hire'&&kind==='staff-opportunity'&&b.dataset.id===modal.job){const target=modal.returnModal??null,job=modal.job;act(job==='distill'?D.hireStaff:D.hireBottlingStaff,()=>{modal=target;});return;}
  if(a==='staff-job-hire'&&kind==='staff-manager'&&['distill','bottling'].includes(b.dataset.id)){act(b.dataset.id==='distill'?D.hireStaff:D.hireBottlingStaff);return;}
@@ -973,8 +973,8 @@ function handleModal(e){
   if(!ok&&modal===quoteState){quoteState.committing=false;updateBottleSelection();}return;
  }
 }
-function suspend(){stopClock();if(manualDistilling())userPaused=true;save();if(game)render();}
-function resume(){if(game){render();schedule();}}
+function suspend(){stopClock();stopMapReveal(true);if(manualDistilling())userPaused=true;save();if(game)render();}
+function resume(){if(game){render();if(modal?.kind==='world-map'&&mapRevealTarget!==null)animateMapReveal(mapRevealTarget);schedule();}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();else resume();});window.addEventListener('pagehide',suspend);window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;suspend();storageNotice('別の画面で保存が変わりました。再読み込みしてください。');}});
 $('reset').addEventListener('click',()=>{if(!confirm('0.21の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}scene.resetMotion();stopMapReveal();game=D.newConnectedDistillery(seed);mapShown=1;mapPending=0;mapNoticeSave();automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';canSave=!preview;storageNotice('');save();render();});
