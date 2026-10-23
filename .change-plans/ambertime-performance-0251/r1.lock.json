@@ -1,0 +1,142 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c846a7635cd4400c7503a2e01b3ff02248088399d9b63cd67cc21fe837fcdb19",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-performance-0251",
+    "revision": 1,
+    "previousPlanDigest": "25368aecef69ff7635290e2476f7803e8712a715531078cd97b9bb8e38b99fe4",
+    "revisionReason": "Include entry module cache-version update so existing Staging clients request the optimized module graph. No UI/markup design change.",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stabilize native clock and reduce presentation validation/clone/draw work without changing model outcomes or saves.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "c662e09fdf486c22b8012fb4e9e119c350f4af1e",
+    "canonicalSources": [
+      "User AmberTime0.25.1 request",
+      "PR #614 audit and reproducible evidence",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #611–#613"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-performance-0251/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/tests/performance-0251*",
+      "works/ambertime/tests/runtime-clock.test.mjs",
+      "works/ambertime/design/performance-improvement-0251.md",
+      "works/ambertime/design/performance-0251/**",
+      ".change-plans/ambertime-performance-0251/r1.lock.json",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Measure unchanged baseline with native browser audit harness.",
+      "Introduce bounded deadline-based clock: one logical extraction step per task, reset after long gaps/pause/hidden, no offline catchup.",
+      "Separate presentation status from strict validation, cache only clearly invalidated derived results; retain strict save/restore and public action validation.",
+      "Reduce static/offroom draw and redundant DOM updates while preserving animations/HUD and manual controls.",
+      "Measure clock-only and final effects; compare seeded operation outputs against immutable base, strict save compatibility.",
+      "Report evidence and limitations; PR/requiredCI/merge/Staging smoke.",
+      "Bump existing entry/module URLs for updated clock/Canvas/validation code; no page design change."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes0.25.1 performance implementation andStaging merge; no Production."
+    ],
+    "hqDecisions": [
+      "Keep integer elapsed and same logical model step order/save schema. Bound long-gap catchup; manual extraction never batches multiple positions. Presentation accessor must not expose shared mutable checkpoint or bypass public strict validation."
+    ],
+    "rulesApplied": [
+      "Full locked Plan: executable save-adjacent performance change.",
+      "Expression audit: no UI design/copy additions."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Native clock baseline/clock-only/final comparison; pause/rate/hidden/resume/manual offroom.",
+      "Independent design and final review; same seed+operations and old saves; Staging smoke."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only0.25.1 implementation/report; save format unchanged.",
+    "outOfScope": [
+      "Auto delivery specification changes",
+      "Reputation tuning",
+      "Tasting notifications",
+      "Game balance/flavor/model changes",
+      "Production",
+      "ComprehensiveE2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhone heat/power/Safari",
+      "Author adoption",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Unbounded catchup loops",
+      "Remove strict validation",
+      "Identity-only cache of mutable save state",
+      "Permanent60fpsloop"
+    ],
+    "boundaryCases": [
+      "Long task gap while manual collection",
+      "Rate change while modal pauses",
+      "Hidden resume has no offline time",
+      "Same mutable state tampered before serialization",
+      "Month once and automatic begin/end ordering",
+      "Old save elapsed remains integer100ms"
+    ],
+    "testPlan": [
+      "Baseline native matrix and expanded sales/auto2x cases.",
+      "Clock regression tests after clock stage.",
+      "Strict validator/tamper/save and base-vs-new seeded operations.",
+      "Targeted native UI/Canvas/browser smoke only.",
+      "Scope/Risk/Impact; syntax; independentreview; requiredCI; Staging."
+    ],
+    "problem": "Recursive timeout drift and render validation replay amplify distillation cost.",
+    "currentContract": "Deterministic gameplay, strict validation/save replay, 100mslogicalsteps/6000msmonth, no hidden progress.",
+    "whyExistingIsInsufficient": "Audit #614 measured late automatic1x9.486sec/2x6.869sec per month, dominated by validation/cloning.",
+    "design": "Deadline clock first, then presentation facts reuse and redraw invalidation; stage metrics isolate effects.",
+    "migration": "None; version20/session2 unchanged.",
+    "compatibility": "Same action positions and seed produce identical results; old saves strict restore.",
+    "promotionRisk": "Staging-only local work; unchanged public visual design."
+  }
+}
