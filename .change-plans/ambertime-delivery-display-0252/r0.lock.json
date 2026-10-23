@@ -1,0 +1,147 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "97e1349d2684b6eb91469e9f36a6fa675215e17bda7f7e91297018e2b1946c2e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-delivery-display-0252",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Separate ordinary-store relationship state from completed order/shipment results using existing records only.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "4a36600d6230042cdeb60cc3bf1034b40e1e0807",
+    "canonicalSources": [
+      "User AmberTime0.25.2 request",
+      "PR614 delivery audit and data",
+      "PR616 performance implementation",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-delivery-display-0252/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop-order-view.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/shop-order-view.test.mjs",
+      "works/ambertime/tests/delivery-display-0252*",
+      "works/ambertime/design/delivery-display-0252.md",
+      "works/ambertime/design/delivery-display-0252/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Fix ordinary-store list labels using relation/offer facts, never manual shopQuote. Keep department special-five path.",
+      "Render recorded lastOrders counts/reason in existing store detail only, preserving store remark/brands/monthlylimit.",
+      "Use recorded absolute processing month, not guessed prior month or current forecast. Distinguish missing row from zero demand.",
+      "Pure read-only projection/markup with no heavy validation, save mutation, new timer, or new management screen.",
+      "Reuse614 audit rows/edges and public fixture patterns; verify12 requested conditions and375/390px existingmodal.",
+      "Prove game/model/save/calculation source bytes unchanged; existing limited regression, requiredCI,Stagingmerge/publishedsmoke.",
+      "Bump entry and newmodule cacheversion in existingURL only."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes0.25.2 display changes andStagingmerge; no calculation/Production changes."
+    ],
+    "hqDecisions": [
+      "List relationship and completed demand results are separate. Label actual record month absolutely to avoid misrepresenting current-month records as last month.",
+      "Reason codes only: no inference about retail priority or specific flavor from profileProductId. Missing/unknown record stays unknown.",
+      "Display helper called only inside store modal; no strict validation or cloning in frame/tick paths."
+    ],
+    "rulesApplied": [
+      "Fresh revision0 lockedPlan before implementation; one changedlock as requiredbytrustedCI.",
+      "Expression audit6points: existingstore remark/visuals preserved; short factual labels, no redundant list/detail order information."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent code/evidence review; twelve conditions and department distinction.",
+      "375/390 modal touch/overflow/read-onlysave checks; list/details and ledger correspondence.",
+      "Preserve616 clocks/render/cache sourceandhotpath; requiredCI andStagingpublishedhash/smoke."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert0.25.2 display helper/import/detail changes; save format and game calculations untouched.",
+    "outOfScope": [
+      "Demand/shipment/storeconditions/productorder/inventory/retail/reputation/save-format changes",
+      "Distillation/aging/timeoptimization changes",
+      "New management system or notifications",
+      "Production",
+      "ComprehensiveE2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/authoracceptance",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Use manualquote.ok forauto store state",
+      "Infer unmet cause fromcurrentinventory",
+      "Treat absentlastOrders aszeroorders",
+      "Label lastOrders.month-1 asprocessed month",
+      "DisplayprofileProductId as requestedflavor"
+    ],
+    "boundaryCases": [
+      "Approved store with adequateinventorymanualquotefalse",
+      "Missingrow/zero-demand/no-eligible-release",
+      "Insufficientstock/minimum-lot/stock-or-capacity/delivery-ledger-full",
+      "Supermarket9/10/split5+5; perrelease minimum",
+      "Simultaneousshops/retailfirst/departmentheldstock",
+      "Newrelease/newapprovalmonth vsfollowing month",
+      "Oldsave/no demandmetadata; recordmonth notcurrentforecast",
+      "Departmentpending5 andactualadoption separate"
+    ],
+    "testPlan": [
+      "Pure helper tests with6141776auditrows/edgeconditions; no state mutations.",
+      "Targeted existing6demand tests pluslimitedmonthly/department integration andshopremarks.",
+      "Read-only375/390browsermodal/list/reload, publiclegalfixtures andmarkedcomponentdisplayedge cases.",
+      "Sourcebytes unchanged forprotectedcalculation/performancefiles, savedbytes unchanged byview.",
+      "ScopeRiskImpact/syntax/independentreview/requiredCI/merge/Pages/hash/UIcheck."
+    ],
+    "problem": "Manual quote rejects automaticmode andmislabels active stores; lastOrders notconnected todetail.",
+    "currentContract": "Ordinaryshippingusesexistingmonthlydemand; departmentseparate. Preservegame/save/performance. UIlistanddetailonly.",
+    "whyExistingIsInsufficient": "PR614 reproduced manualquote false despite20stock followedby2actualshipments; reasons existbutnotvisible.",
+    "design": "Pure presentation module forrelationship andrecordedorderstatus; existingmodal integrationwithdatedprocessingfacts.",
+    "migration": "None.",
+    "compatibility": "No model or save changes; read-only views keep byte-identical saveddata.",
+    "promotionRisk": "Staging-onlydisplay; Productionuntouched."
+  }
+}

@@ -1,3 +1,4 @@
+import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=0.25.2';
 import {RuntimeClock} from './runtime-clock.mjs?v=0.25.1';
 import {caskDetailProfile} from './cask-detail-view.mjs?v=start-map-ui-r1';
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
@@ -527,7 +528,7 @@ function knownStockists(){
  return SHOPS.filter(s=>seen.has(s.id));
 }
 function stockistProducts(shopId){return game.releases.filter(r=>D.shopBrandStats(game,r.brandId,shopId)||shopId==='department'&&D.departmentInterests(game,r.brandId).length).map(r=>({r,p:game.core.products.find(p=>p.id===r.productId),q:D.shopQuote(game,r.productId,shopId)})).filter(x=>x.p?.stock>0).reverse();}
-function stockistStatus(shopId){if(shopId==='department'&&D.departmentInterests(game).some(i=>i.pendingDelivery))return '翌月5本納品';if(shopOffers().some(o=>o.shopId===shopId))return '申し出あり';if(stockistProducts(shopId).some(x=>x.q.ok))return '取扱中';return game.shop.relations.some(r=>(r.shopId??'town-liquor')===shopId)||shopId==='department'&&D.departmentInterests(game).length?'現在は納品不可':'取扱前';}
+function stockistStatus(shopId){if(shopId!=='department')return shopRelationshipLabel(game,shopId);if(shopId==='department'&&D.departmentInterests(game).some(i=>i.pendingDelivery))return '翌月5本納品';if(shopOffers().some(o=>o.shopId===shopId))return '申し出あり';if(stockistProducts(shopId).some(x=>x.q.ok))return '取扱中';return game.shop.relations.some(r=>(r.shopId??'town-liquor')===shopId)||shopId==='department'&&D.departmentInterests(game).length?'現在は納品不可':'取扱前';}
 function departmentOfferInventory(offer){
  const r=game.releases.find(r=>r.id===offer.sourceReleaseId),p=game.core.products.find(p=>p.id===r?.productId);modal.productId=p?.id??null;
  if(!p||!r)return '<p>対象の発売回に在庫がありません。</p>';
@@ -649,9 +650,10 @@ function syncModal(){
   actions=button('戻る','cancel');
  }else if(kind==='stockist'){
   if(!knownStockists().some(s=>s.id===modal.shopId)){modal={kind:'stockists'};render();return;}
-  title=shopName(modal.shopId);const offers=shopOffers().filter(o=>o.shopId===modal.shopId),items=stockistProducts(modal.shopId);
+  title=shopName(modal.shopId);const offers=shopOffers().filter(o=>o.shopId===modal.shopId),items=modal.shopId==='department'?stockistProducts(modal.shopId):[];
   const remark=modal.greeting&&['town-liquor','supermarket'].includes(modal.shopId)?{key:'approved',text:modal.shopId==='supermarket'?'これからよろしくお願いします':'これからよろしくお願いします。'}:shopRemark(game,modal.shopId);body='<p class="shop-remark" data-remark-key="'+esc(remark.key)+'">「'+esc(remark.text)+'」</p>'+(deliveryNotice?'<p class="delivery-confirmation" role="status">'+esc(deliveryNotice)+'</p>':'')+offers.map(o=>button(o.shopId==='department'?'相談を見る':'申し出を見る','stockist-offer',o.id,offerTarget(o)+(o===game.shop.offer?'':' disabled'))+(o===game.shop.offer?'':'<p class="quiet">先の申し出を確認</p>')).join('');
-  body+=modal.shopId!=='department'?'<p>自動発送 · 月'+SHOPS.find(s=>s.id===modal.shopId).monthlyLimit+'本まで</p>':(items.length?'<div class="stockist-list">'+items.map(({p,r,q})=>button(esc(brandFor(p.id)?.name??'ウイスキー')+'<small>'+releaseTag(p.id)+' · '+esc(releaseSource(p.id))+'<br>在庫 '+p.stock+'本<br>買取 '+unit(q.unitPrice)+'/本'+(q.ok?'':'<br>'+esc(uiText(q.reason)))+'</small>','stockist-product',p.id,q.ok?'':'disabled')).join('')+'</div>':'<p>現在は納品不可</p><p class="quiet">'+(modal.shopId==='department'&&!D.departmentInterests(game).length?'限定取扱いの相談が必要':'納品できる在庫なし')+'</p>');
+  body+=modal.shopId!=='department'?'<p>'+(game.shop.relations.some(r=>(r.shopId??'town-liquor')===modal.shopId)?'自動発送':'取扱開始後は自動発送')+' · 月'+SHOPS.find(s=>s.id===modal.shopId).monthlyLimit+'本まで</p>':(items.length?'<div class="stockist-list">'+items.map(({p,r,q})=>button(esc(brandFor(p.id)?.name??'ウイスキー')+'<small>'+releaseTag(p.id)+' · '+esc(releaseSource(p.id))+'<br>在庫 '+p.stock+'本<br>買取 '+unit(q.unitPrice)+'/本'+(q.ok?'':'<br>'+esc(uiText(q.reason)))+'</small>','stockist-product',p.id,q.ok?'':'disabled')).join('')+'</div>':'<p>現在は納品不可</p><p class="quiet">'+(modal.shopId==='department'&&!D.departmentInterests(game).length?'限定取扱いの相談が必要':'納品できる在庫なし')+'</p>');
+  body+=shopOrderMarkup(game,modal.shopId,{monthLabel,minQuantity:SHOPS.find(s=>s.id===modal.shopId)?.minQuantity});
   body+=game.brands.filter(b=>game.shop.relations.some(r=>r.brandId===b.id&&r.shopId===modal.shopId)).map(b=>'<div class="brand-readout">'+brandDisplay(b)+'<span>'+esc(b.name)+'</span></div>').join('');
   actions=button('戻る','stockists-back');
  }else if(kind==='stockist-delivery'){
@@ -1017,10 +1019,6 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();e
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;suspend();storageNotice('別の画面で保存が変わりました。再読み込みしてください。');}});
 $('reset').addEventListener('click',()=>{if(!confirm('0.21の進行を新しくしますか？以前の保存は残ります。'))return;countdown.cancel();stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}scene.resetMotion();stopMapReveal();game=D.newConnectedDistillery(seed);staffDisplayKey=null;staffDisplay=null;serialDisplayKey=null;serialDisplay=null;mapShown=0;mapPending=0;mapNoticeSave();automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';canSave=!preview;storageNotice('');save();render();});
 $('retry-save').addEventListener('click',()=>{if(!game){boot();return;}canSave=!preview;if(save()){storageNotice('');$('recovery').hidden=true;}render();schedule();});
-function shopOrderLedger(){
- const rows=game.shopDemand?.lastOrders??[];if(!rows.length)return '';
- return '<details class="ledger-category"><summary>'+esc(monthLabel(game.core.month))+' 商店</summary>'+rows.map(o=>'<p>'+esc(SHOPS.find(x=>x.id===o.shopId)?.name??o.shopId)+'：注文 '+o.requested+'本 · 発送 '+o.shipped+'本'+(o.unmet?' · 未発送 '+o.unmet+'本':'')+'</p>').join('')+'</details>';
-}
 function boot(){
  staffDisplayKey=null;staffDisplay=null;serialDisplayKey=null;serialDisplay=null;playbackRate=1;scene.resetMotion();
  if(preview){game=D.newConnectedDistillery(seed);mapNoticeLoad(false);save();render();schedule();return;}
