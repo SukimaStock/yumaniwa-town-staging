@@ -1,0 +1,156 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e68512da817f152bcbda751dc658cb64772485024778957734069bcd89fc44be",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-feedback-freshness-0254",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Expire maturation cues using recorded facts and add small deterministic, affinity-compatible customer comment variation without changing occurrences or simulation.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "74d845cfcd7b403b21183a8f7750d4687cb71304",
+    "canonicalSources": [
+      "User0.25.4 request",
+      "PR614 audit",
+      "PR616 clock/performance",
+      "PR617 delivery",
+      "PR618 feedback UI",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "monthly.mjs",
+      "player-news.mjs",
+      "flavor-feedback-view.mjs",
+      "tasting-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-feedback-freshness-0254/r0.lock.json",
+      "works/ambertime/flavor-feedback-view.mjs",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/flavor-feedback-0254*",
+      "works/ambertime/tests/flavor-feedback-0253*.mjs",
+      "works/ambertime/tests/adjust-a.test.mjs",
+      "works/ambertime/design/flavor-feedback-0254.md",
+      "works/ambertime/design/flavor-feedback-0254/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-order-view.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Threegame-month window0..2 after dated observation/confirmedname. Missing/future/initial/pending facts excluded; tastedfacts/livecask safeguards maintained.",
+      "Existing shortChange comparison only in context of recent recorded observation/name; same anchordate, never renew atcurrentmonth. Original tastingcomparison remains available.",
+      "Newerrecordmonth first, samemonth name>comparison>observation, caskId/stableevent tie. Onecue; no newreadstate/timer/notification.",
+      "Small factual descriptor pools plus occasional compatible preference variants, all samefeature. No affinitymodel change.",
+      "Preserve exact old comment occurrence IDs/months/releaseId by retaining original eligibilityline state and hash%8/12month guard; separate deterministic wording hash highbits, no RNG or fictitioussale.",
+      "Reuse comment cache, UI/navigation, reset/load behavior; modulecacheURL bumps only.",
+      "Maintain related618 tests to reflect intentionalexpiry and commentdisplay changes without weakening simulation/performance safeguards.",
+      "Focused A/B/C comparison with existing614/618 data, expiry/affinity/reload/cache tests and375/390 targetedsmoke; report, requiredCI, merge Staging, publishedhash."
+    ],
+    "ownerDecisions": [
+      "User authorizes0.25.4 displayexpiry/commentvariation andStagingreflection. No newstores/model changes/Production."
+    ],
+    "hqDecisions": [
+      "Datedfacts only. Three months is shorter than existing sixmonth minimum observationgap and18s/9s at1x/2x.",
+      "No threshold-crossing timestamp exists for cumulative sampledelta; recent observation/name is context only. Do not replay chemistry or infer a firstcrossing date.",
+      "Keep legacy eligibilityline separate from displayedline so expanded text pools cannot alter occurrence timing, especially singleline mismatchfruit. Wordingdeterminism uses independent highbits to avoid%8 hashcorrelation.",
+      "Reuse existing flavor/affinitybranches. Normaldescriptors plus feature-specific likes forfit>=.5 or existing preference mismatches forfit<.5; no oppositebranch subjectiveclaims."
+    ],
+    "rulesApplied": [
+      "Fresh revision0 Plan Lock firstcommit; one changedlock.",
+      "Expression audit6points: factual concrete record text, no qualityscore, no generic motivational copy or duplicate blocks."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review ofexpiry/frequency/affinity/cache andevidence.",
+      "375/390 new/expiredquiet/nextcue/sameexisting sales-ledger-source/taste/back/read-onlysave.",
+      "Protected616/617 calculations/runtime/Canvas unchanged; exactheadCI andStagingpublishedhash/basicops."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert0254 helper/commenttext/cacheURLs andrelated tests; no savemigration.",
+    "outOfScope": [
+      "Newstores/order/demand/affinity/chemistry/name/observations/monthly/reputation propagation/saveformat",
+      "Newnotification/readstate/popups/timers",
+      "Production/comprehensiveE2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/authorplayevaluation",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Indefinite latestobservation",
+      "Renew sampledelta withcurrentmonth",
+      "Replay oldchemistry toinfer crossing",
+      "Newseenstorage orwallclockexpiry",
+      "Expand candidates in eligibility loop changingfrequency",
+      "Lowbitmodulo afterold%8 selection",
+      "Unconditional mixedlike/dislike pools"
+    ],
+    "boundaryCases": [
+      "Fresh age0/2 vsaged3; pause/reload, missing/future dates, nameinitial/pending",
+      "Same/new month facts acrosscasks; samecask samemonth name/observation/sample; tasted/endedcasks",
+      "Oldsamplebigdelta withoutrecentfact silent; newfact maycontextualize existingcomparison",
+      "Sameflavor repeated/differentcuts/cards/casks; high/lowaffinity; singletonlegacy candidates",
+      "Same receipt seed/restoration/displaylocations identity; retailonly vsrumor/shop; cache extraction unchanged"
+    ],
+    "testPlan": [
+      "Exactold occurrence comparison againstbase acrosscurrent614/618 profiles andcontrolled factual-format receipts; deterministictext andbounded preference share.",
+      "Existing relatedadjust-a/618/617 unitregressions maintained. No comprehensiveE2E.",
+      "375/390 legalpublic-operation fixtures forfresh/expired/new/name/taste andsales→ledger/source; marked pure edges formissingfacts.",
+      "Savebytes andprotectedmodel/runtime source equality; same seed/operations monthlyresults baseline comparison.",
+      "ScopeRiskImpact/syntax/independentreview/requiredCI/merge/Pages/publishedhash."
+    ],
+    "problem": "618 has no expiry forobservations and renews cumulative sampledeltas everymonth; two wordingvariants repeat.",
+    "currentContract": "Existing saved facts and calculation models remaincanonical; presentation only, onequietroomcue andcached retailcomments.",
+    "whyExistingIsInsufficient": "Oldobservations remain untilsampled; samplecandidates use currentage/date; commentpools mostlytwo lines.",
+    "design": "Pure datedfact freshness filter/contextual comparison plus deterministic displayvariation outside unchanged legacy occurrence selection.",
+    "migration": "None.",
+    "compatibility": "No savedstate changes. Existingcomment prose changes intentionally but exact emitted occurrence IDs/months/releases andsimulation remain same.",
+    "promotionRisk": "Staging only."
+  }
+}
