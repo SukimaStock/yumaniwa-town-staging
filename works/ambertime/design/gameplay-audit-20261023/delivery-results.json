@@ -1,0 +1,1937 @@
+{
+  "method": {
+    "runtimeSha": "2a1a172fa67ef7bda3cad82c9070c8946353b3f6",
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "careerMonths": 120,
+    "careerPolicy": "One full-range manual batch/year; collect35-65;refill;full bottling at12months;list standard/high;accept ordinary shop offers and decline department;no injected funds/stock/relations in careers. Component fixtures deliberately mutate old test data and are NOT certified game saves. No gameplay files changed.",
+    "components": "10 edge-stock/catalog conditions per seed;12 consecutive projected months;ordinary shipping oldest-first with native planShopFulfillment;no retail step. Reserved5 remains held as an explicit fixture, not settled.",
+    "orderProductSemantics": "profileProductId is the catalog profile used for store-wide demand, NOT a named-product order. Different actual product is recorded, not automatically classified as bug.",
+    "sources": {
+      "shop-demand.mjs": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893",
+      "shop-model.mjs": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508",
+      "partner-orders.mjs": "7a68f52c6f64f122c5c89f41c9fe872149cee0560f208d6510145462e179a639",
+      "event-notices.mjs": "84e0f7b0ffe0dfb3a4ebf96eb62a5d8ef5af65bbde19569b99cfe14f1e7a9b06",
+      "shop-app.mjs": "73cb0669a50373fc8569b533f68f6f781e347d4bedb99bc208ef191b4b8e684b"
+    }
+  },
+  "rowCount": 1776,
+  "runs": [
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "enough",
+      "seed": 42,
+      "months": 12,
+      "requested": 110,
+      "shipped": 50,
+      "unmet": 60,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 8,
+        "insufficient-stock": 6,
+        "stock-or-capacity": 1,
+        "zero-demand": 9
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "low9",
+      "seed": 42,
+      "months": 12,
+      "requested": 110,
+      "shipped": 9,
+      "unmet": 101,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 1,
+        "insufficient-stock": 13,
+        "stock-or-capacity": 1,
+        "zero-demand": 9
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "threshold10",
+      "seed": 42,
+      "months": 12,
+      "requested": 110,
+      "shipped": 10,
+      "unmet": 100,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 1,
+        "insufficient-stock": 13,
+        "stock-or-capacity": 1,
+        "zero-demand": 9
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "split5+5",
+      "seed": 42,
+      "months": 12,
+      "requested": 110,
+      "shipped": 10,
+      "unmet": 100,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 1,
+      "reasons": {
+        "fulfilled": 1,
+        "insufficient-stock": 13,
+        "stock-or-capacity": 1,
+        "zero-demand": 9
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "split6+14",
+      "seed": 42,
+      "months": 12,
+      "requested": 110,
+      "shipped": 20,
+      "unmet": 90,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 2,
+      "reasons": {
+        "fulfilled": 5,
+        "insufficient-stock": 9,
+        "stock-or-capacity": 1,
+        "zero-demand": 9
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "different-flavors",
+      "seed": 42,
+      "months": 12,
+      "requested": 59,
+      "shipped": 59,
+      "unmet": 0,
+      "remainingStock": 41,
+      "catalogMismatchMonths": 11,
+      "reasons": {
+        "fulfilled": 12,
+        "zero-demand": 12
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "department-hold5",
+      "seed": 42,
+      "months": 12,
+      "requested": 110,
+      "shipped": 15,
+      "unmet": 95,
+      "remainingStock": 5,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 4,
+        "insufficient-stock": 10,
+        "stock-or-capacity": 1,
+        "zero-demand": 9
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "stored",
+      "seed": 42,
+      "months": 12,
+      "requested": 78,
+      "shipped": 0,
+      "unmet": 78,
+      "remainingStock": 50,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "insufficient-stock": 12,
+        "zero-demand": 12
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "bottling-month",
+      "seed": 42,
+      "months": 12,
+      "requested": 105,
+      "shipped": 50,
+      "unmet": 55,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 8,
+        "insufficient-stock": 6,
+        "stock-or-capacity": 1,
+        "zero-demand": 9
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "young",
+      "seed": 42,
+      "months": 12,
+      "requested": 56,
+      "shipped": 32,
+      "unmet": 24,
+      "remainingStock": 18,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 10,
+        "insufficient-stock": 2,
+        "zero-demand": 12
+      }
+    },
+    {
+      "scope": "public-model-career",
+      "scenario": "annual-12m-standard",
+      "seed": 42,
+      "months": 120,
+      "stop": null,
+      "bottlings": [
+        {
+          "month": 12,
+          "productId": 3,
+          "count": 47
+        },
+        {
+          "month": 24,
+          "productId": 6,
+          "count": 47
+        },
+        {
+          "month": 36,
+          "productId": 9,
+          "count": 47
+        },
+        {
+          "month": 48,
+          "productId": 12,
+          "count": 47
+        },
+        {
+          "month": 60,
+          "productId": 15,
+          "count": 47
+        },
+        {
+          "month": 72,
+          "productId": 18,
+          "count": 47
+        },
+        {
+          "month": 84,
+          "productId": 21,
+          "count": 47
+        },
+        {
+          "month": 96,
+          "productId": 24,
+          "count": 47
+        },
+        {
+          "month": 108,
+          "productId": 27,
+          "count": 48
+        }
+      ],
+      "approvals": [
+        {
+          "month": 26,
+          "shopId": "town-liquor"
+        },
+        {
+          "month": 38,
+          "shopId": "supermarket"
+        }
+      ],
+      "refusals": [],
+      "requested": 895,
+      "shipped": 117,
+      "unmet": 778,
+      "retail": 307,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "preSettlementLossMonths": 10,
+      "reasons": {
+        "fulfilled": 16,
+        "insufficient-stock": 102,
+        "stock-or-capacity": 1,
+        "zero-demand": 57
+      },
+      "finalCash": 3337.6
+    },
+    {
+      "scope": "public-model-career",
+      "scenario": "annual-12m-high",
+      "seed": 42,
+      "months": 120,
+      "stop": null,
+      "bottlings": [
+        {
+          "month": 12,
+          "productId": 3,
+          "count": 47
+        },
+        {
+          "month": 24,
+          "productId": 6,
+          "count": 47
+        },
+        {
+          "month": 36,
+          "productId": 9,
+          "count": 47
+        },
+        {
+          "month": 48,
+          "productId": 12,
+          "count": 47
+        },
+        {
+          "month": 60,
+          "productId": 15,
+          "count": 47
+        },
+        {
+          "month": 72,
+          "productId": 18,
+          "count": 47
+        },
+        {
+          "month": 84,
+          "productId": 21,
+          "count": 47
+        },
+        {
+          "month": 96,
+          "productId": 24,
+          "count": 47
+        },
+        {
+          "month": 108,
+          "productId": 27,
+          "count": 48
+        }
+      ],
+      "approvals": [
+        {
+          "month": 26,
+          "shopId": "town-liquor"
+        },
+        {
+          "month": 38,
+          "shopId": "supermarket"
+        }
+      ],
+      "refusals": [],
+      "requested": 895,
+      "shipped": 189,
+      "unmet": 706,
+      "retail": 235,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "preSettlementLossMonths": 9,
+      "reasons": {
+        "fulfilled": 24,
+        "insufficient-stock": 92,
+        "stock-or-capacity": 3,
+        "zero-demand": 57
+      },
+      "finalCash": 4083.2
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "enough",
+      "seed": 43,
+      "months": 12,
+      "requested": 155,
+      "shipped": 50,
+      "unmet": 105,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 6,
+        "insufficient-stock": 11,
+        "stock-or-capacity": 1,
+        "zero-demand": 6
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "low9",
+      "seed": 43,
+      "months": 12,
+      "requested": 155,
+      "shipped": 9,
+      "unmet": 146,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 2,
+        "insufficient-stock": 15,
+        "stock-or-capacity": 1,
+        "zero-demand": 6
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "threshold10",
+      "seed": 43,
+      "months": 12,
+      "requested": 155,
+      "shipped": 10,
+      "unmet": 145,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 2,
+        "insufficient-stock": 15,
+        "stock-or-capacity": 1,
+        "zero-demand": 6
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "split5+5",
+      "seed": 43,
+      "months": 12,
+      "requested": 155,
+      "shipped": 10,
+      "unmet": 145,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 1,
+      "reasons": {
+        "fulfilled": 2,
+        "insufficient-stock": 15,
+        "stock-or-capacity": 1,
+        "zero-demand": 6
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "split6+14",
+      "seed": 43,
+      "months": 12,
+      "requested": 155,
+      "shipped": 20,
+      "unmet": 135,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 1,
+      "reasons": {
+        "fulfilled": 3,
+        "insufficient-stock": 14,
+        "stock-or-capacity": 1,
+        "zero-demand": 6
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "different-flavors",
+      "seed": 43,
+      "months": 12,
+      "requested": 87,
+      "shipped": 87,
+      "unmet": 0,
+      "remainingStock": 13,
+      "catalogMismatchMonths": 8,
+      "reasons": {
+        "fulfilled": 14,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "department-hold5",
+      "seed": 43,
+      "months": 12,
+      "requested": 155,
+      "shipped": 15,
+      "unmet": 140,
+      "remainingStock": 5,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 3,
+        "insufficient-stock": 14,
+        "stock-or-capacity": 1,
+        "zero-demand": 6
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "stored",
+      "seed": 43,
+      "months": 12,
+      "requested": 111,
+      "shipped": 0,
+      "unmet": 111,
+      "remainingStock": 50,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "insufficient-stock": 14,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "bottling-month",
+      "seed": 43,
+      "months": 12,
+      "requested": 141,
+      "shipped": 50,
+      "unmet": 91,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 6,
+        "insufficient-stock": 10,
+        "stock-or-capacity": 1,
+        "zero-demand": 7
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "young",
+      "seed": 43,
+      "months": 12,
+      "requested": 89,
+      "shipped": 32,
+      "unmet": 57,
+      "remainingStock": 18,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 10,
+        "insufficient-stock": 4,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "public-model-career",
+      "scenario": "annual-12m-standard",
+      "seed": 43,
+      "months": 120,
+      "stop": null,
+      "bottlings": [
+        {
+          "month": 12,
+          "productId": 3,
+          "count": 48
+        },
+        {
+          "month": 24,
+          "productId": 6,
+          "count": 48
+        },
+        {
+          "month": 36,
+          "productId": 9,
+          "count": 47
+        },
+        {
+          "month": 48,
+          "productId": 12,
+          "count": 47
+        },
+        {
+          "month": 60,
+          "productId": 15,
+          "count": 48
+        },
+        {
+          "month": 72,
+          "productId": 18,
+          "count": 47
+        },
+        {
+          "month": 84,
+          "productId": 21,
+          "count": 47
+        },
+        {
+          "month": 96,
+          "productId": 24,
+          "count": 47
+        },
+        {
+          "month": 108,
+          "productId": 27,
+          "count": 48
+        }
+      ],
+      "approvals": [
+        {
+          "month": 26,
+          "shopId": "town-liquor"
+        },
+        {
+          "month": 38,
+          "shopId": "supermarket"
+        }
+      ],
+      "refusals": [],
+      "requested": 918,
+      "shipped": 107,
+      "unmet": 811,
+      "retail": 320,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "preSettlementLossMonths": 7,
+      "reasons": {
+        "fulfilled": 15,
+        "insufficient-stock": 107,
+        "stock-or-capacity": 3,
+        "zero-demand": 51
+      },
+      "finalCash": 3341.4
+    },
+    {
+      "scope": "public-model-career",
+      "scenario": "annual-12m-high",
+      "seed": 43,
+      "months": 120,
+      "stop": null,
+      "bottlings": [
+        {
+          "month": 12,
+          "productId": 3,
+          "count": 48
+        },
+        {
+          "month": 24,
+          "productId": 6,
+          "count": 48
+        },
+        {
+          "month": 36,
+          "productId": 9,
+          "count": 47
+        },
+        {
+          "month": 48,
+          "productId": 12,
+          "count": 47
+        },
+        {
+          "month": 60,
+          "productId": 15,
+          "count": 48
+        },
+        {
+          "month": 72,
+          "productId": 18,
+          "count": 47
+        },
+        {
+          "month": 84,
+          "productId": 21,
+          "count": 47
+        },
+        {
+          "month": 96,
+          "productId": 24,
+          "count": 47
+        },
+        {
+          "month": 108,
+          "productId": 27,
+          "count": 48
+        }
+      ],
+      "approvals": [
+        {
+          "month": 26,
+          "shopId": "town-liquor"
+        },
+        {
+          "month": 38,
+          "shopId": "supermarket"
+        }
+      ],
+      "refusals": [],
+      "requested": 918,
+      "shipped": 166,
+      "unmet": 752,
+      "retail": 261,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "preSettlementLossMonths": 9,
+      "reasons": {
+        "fulfilled": 29,
+        "insufficient-stock": 95,
+        "stock-or-capacity": 1,
+        "zero-demand": 51
+      },
+      "finalCash": 4270.04
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "enough",
+      "seed": 44,
+      "months": 12,
+      "requested": 92,
+      "shipped": 50,
+      "unmet": 42,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 8,
+        "insufficient-stock": 6,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "low9",
+      "seed": 44,
+      "months": 12,
+      "requested": 92,
+      "shipped": 9,
+      "unmet": 83,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 3,
+        "insufficient-stock": 11,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "threshold10",
+      "seed": 44,
+      "months": 12,
+      "requested": 92,
+      "shipped": 10,
+      "unmet": 82,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 3,
+        "insufficient-stock": 10,
+        "stock-or-capacity": 1,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "split5+5",
+      "seed": 44,
+      "months": 12,
+      "requested": 92,
+      "shipped": 10,
+      "unmet": 82,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 2,
+      "reasons": {
+        "fulfilled": 3,
+        "insufficient-stock": 10,
+        "stock-or-capacity": 1,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "split6+14",
+      "seed": 44,
+      "months": 12,
+      "requested": 92,
+      "shipped": 20,
+      "unmet": 72,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 2,
+      "reasons": {
+        "fulfilled": 4,
+        "insufficient-stock": 9,
+        "stock-or-capacity": 1,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "different-flavors",
+      "seed": 44,
+      "months": 12,
+      "requested": 39,
+      "shipped": 39,
+      "unmet": 0,
+      "remainingStock": 61,
+      "catalogMismatchMonths": 10,
+      "reasons": {
+        "fulfilled": 10,
+        "zero-demand": 14
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "department-hold5",
+      "seed": 44,
+      "months": 12,
+      "requested": 92,
+      "shipped": 15,
+      "unmet": 77,
+      "remainingStock": 5,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 2,
+        "insufficient-stock": 11,
+        "stock-or-capacity": 1,
+        "zero-demand": 10
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "stored",
+      "seed": 44,
+      "months": 12,
+      "requested": 51,
+      "shipped": 0,
+      "unmet": 51,
+      "remainingStock": 50,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "insufficient-stock": 10,
+        "zero-demand": 14
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "bottling-month",
+      "seed": 44,
+      "months": 12,
+      "requested": 116,
+      "shipped": 50,
+      "unmet": 66,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 8,
+        "insufficient-stock": 8,
+        "zero-demand": 8
+      }
+    },
+    {
+      "scope": "component-input-not-saveable",
+      "scenario": "young",
+      "seed": 44,
+      "months": 12,
+      "requested": 36,
+      "shipped": 24,
+      "unmet": 12,
+      "remainingStock": 26,
+      "catalogMismatchMonths": 0,
+      "reasons": {
+        "fulfilled": 9,
+        "insufficient-stock": 1,
+        "zero-demand": 14
+      }
+    },
+    {
+      "scope": "public-model-career",
+      "scenario": "annual-12m-standard",
+      "seed": 44,
+      "months": 120,
+      "stop": null,
+      "bottlings": [
+        {
+          "month": 12,
+          "productId": 3,
+          "count": 47
+        },
+        {
+          "month": 24,
+          "productId": 6,
+          "count": 47
+        },
+        {
+          "month": 36,
+          "productId": 9,
+          "count": 48
+        },
+        {
+          "month": 48,
+          "productId": 12,
+          "count": 47
+        },
+        {
+          "month": 60,
+          "productId": 15,
+          "count": 47
+        },
+        {
+          "month": 72,
+          "productId": 18,
+          "count": 47
+        },
+        {
+          "month": 84,
+          "productId": 21,
+          "count": 47
+        },
+        {
+          "month": 96,
+          "productId": 24,
+          "count": 47
+        },
+        {
+          "month": 108,
+          "productId": 27,
+          "count": 47
+        }
+      ],
+      "approvals": [
+        {
+          "month": 26,
+          "shopId": "town-liquor"
+        },
+        {
+          "month": 38,
+          "shopId": "supermarket"
+        }
+      ],
+      "refusals": [],
+      "requested": 1011,
+      "shipped": 128,
+      "unmet": 883,
+      "retail": 296,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "preSettlementLossMonths": 10,
+      "reasons": {
+        "fulfilled": 14,
+        "insufficient-stock": 115,
+        "stock-or-capacity": 4,
+        "zero-demand": 43
+      },
+      "finalCash": 3283.2
+    },
+    {
+      "scope": "public-model-career",
+      "scenario": "annual-12m-high",
+      "seed": 44,
+      "months": 120,
+      "stop": null,
+      "bottlings": [
+        {
+          "month": 12,
+          "productId": 3,
+          "count": 47
+        },
+        {
+          "month": 24,
+          "productId": 6,
+          "count": 47
+        },
+        {
+          "month": 36,
+          "productId": 9,
+          "count": 48
+        },
+        {
+          "month": 48,
+          "productId": 12,
+          "count": 47
+        },
+        {
+          "month": 60,
+          "productId": 15,
+          "count": 47
+        },
+        {
+          "month": 72,
+          "productId": 18,
+          "count": 47
+        },
+        {
+          "month": 84,
+          "productId": 21,
+          "count": 47
+        },
+        {
+          "month": 96,
+          "productId": 24,
+          "count": 47
+        },
+        {
+          "month": 108,
+          "productId": 27,
+          "count": 47
+        }
+      ],
+      "approvals": [
+        {
+          "month": 26,
+          "shopId": "town-liquor"
+        },
+        {
+          "month": 38,
+          "shopId": "supermarket"
+        }
+      ],
+      "refusals": [],
+      "requested": 1011,
+      "shipped": 201,
+      "unmet": 810,
+      "retail": 223,
+      "remainingStock": 0,
+      "catalogMismatchMonths": 0,
+      "preSettlementLossMonths": 8,
+      "reasons": {
+        "fulfilled": 25,
+        "insufficient-stock": 105,
+        "stock-or-capacity": 3,
+        "zero-demand": 43
+      },
+      "finalCash": 4059.52
+    }
+  ],
+  "edges": [
+    {
+      "stocks": [
+        9
+      ],
+      "requested": 20,
+      "planned": 0,
+      "unmet": 20,
+      "reason": "insufficient-stock",
+      "shipments": []
+    },
+    {
+      "stocks": [
+        10
+      ],
+      "requested": 20,
+      "planned": 10,
+      "unmet": 10,
+      "reason": "stock-or-capacity",
+      "shipments": [
+        {
+          "productId": 8,
+          "count": 10,
+          "unitPrice": 16
+        }
+      ]
+    },
+    {
+      "stocks": [
+        5,
+        5
+      ],
+      "requested": 20,
+      "planned": 0,
+      "unmet": 20,
+      "reason": "minimum-lot",
+      "shipments": []
+    },
+    {
+      "stocks": [
+        6,
+        14
+      ],
+      "requested": 20,
+      "planned": 14,
+      "unmet": 6,
+      "reason": "minimum-lot",
+      "shipments": [
+        {
+          "productId": 100,
+          "count": 14,
+          "unitPrice": 16
+        }
+      ]
+    },
+    {
+      "stocks": [
+        20
+      ],
+      "requested": 20,
+      "planned": 20,
+      "unmet": 0,
+      "reason": "fulfilled",
+      "shipments": [
+        {
+          "productId": 8,
+          "count": 20,
+          "unitPrice": 16
+        }
+      ]
+    },
+    {
+      "stocks": [
+        20
+      ],
+      "held": 5,
+      "requested": 20,
+      "planned": 15,
+      "unmet": 5,
+      "reason": "stock-or-capacity",
+      "shipments": [
+        {
+          "productId": 8,
+          "count": 15,
+          "unitPrice": 16
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "publicRequested": 5648,
+    "publicShipped": 908,
+    "publicUnmet": 4740,
+    "publicReasons": {
+      "fulfilled": 123,
+      "insufficient-stock": 616,
+      "stock-or-capacity": 15,
+      "zero-demand": 302
+    }
+  },
+  "examples": {
+    "catalogMismatch": [
+      {
+        "scope": "component-input-not-saveable",
+        "scenario": "split5+5",
+        "seed": 42,
+        "month": 17,
+        "shopId": "town-liquor",
+        "requested": 5,
+        "profileProductId": 99,
+        "actualShipments": [
+          {
+            "productId": 8,
+            "count": 5
+          }
+        ],
+        "shipped": 5,
+        "unmet": 0,
+        "reason": "fulfilled",
+        "stockBefore": 10,
+        "stockAfter": 5,
+        "inventoryBefore": [
+          {
+            "id": 8,
+            "stock": 5,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 5,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [
+          {
+            "id": 99,
+            "stock": 5,
+            "listed": true
+          }
+        ],
+        "preSettlementPlanned": 5,
+        "retailSold": 0,
+        "catalogDiffers": true,
+        "held": 0
+      },
+      {
+        "scope": "component-input-not-saveable",
+        "scenario": "split6+14",
+        "seed": 42,
+        "month": 17,
+        "shopId": "town-liquor",
+        "requested": 5,
+        "profileProductId": 99,
+        "actualShipments": [
+          {
+            "productId": 8,
+            "count": 5
+          }
+        ],
+        "shipped": 5,
+        "unmet": 0,
+        "reason": "fulfilled",
+        "stockBefore": 20,
+        "stockAfter": 15,
+        "inventoryBefore": [
+          {
+            "id": 8,
+            "stock": 6,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 14,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [
+          {
+            "id": 8,
+            "stock": 1,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 14,
+            "listed": true
+          }
+        ],
+        "preSettlementPlanned": 5,
+        "retailSold": 0,
+        "catalogDiffers": true,
+        "held": 0
+      },
+      {
+        "scope": "component-input-not-saveable",
+        "scenario": "split6+14",
+        "seed": 42,
+        "month": 19,
+        "shopId": "town-liquor",
+        "requested": 7,
+        "profileProductId": 99,
+        "actualShipments": [
+          {
+            "productId": 8,
+            "count": 1
+          },
+          {
+            "productId": 99,
+            "count": 6
+          }
+        ],
+        "shipped": 7,
+        "unmet": 0,
+        "reason": "fulfilled",
+        "stockBefore": 15,
+        "stockAfter": 8,
+        "inventoryBefore": [
+          {
+            "id": 8,
+            "stock": 1,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 14,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [
+          {
+            "id": 99,
+            "stock": 8,
+            "listed": true
+          }
+        ],
+        "preSettlementPlanned": 7,
+        "retailSold": 0,
+        "catalogDiffers": true,
+        "held": 0
+      },
+      {
+        "scope": "component-input-not-saveable",
+        "scenario": "different-flavors",
+        "seed": 42,
+        "month": 17,
+        "shopId": "town-liquor",
+        "requested": 4,
+        "profileProductId": 99,
+        "actualShipments": [
+          {
+            "productId": 8,
+            "count": 4
+          }
+        ],
+        "shipped": 4,
+        "unmet": 0,
+        "reason": "fulfilled",
+        "stockBefore": 100,
+        "stockAfter": 96,
+        "inventoryBefore": [
+          {
+            "id": 8,
+            "stock": 50,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [
+          {
+            "id": 8,
+            "stock": 46,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "preSettlementPlanned": 4,
+        "retailSold": 0,
+        "catalogDiffers": true,
+        "held": 0
+      },
+      {
+        "scope": "component-input-not-saveable",
+        "scenario": "different-flavors",
+        "seed": 42,
+        "month": 19,
+        "shopId": "town-liquor",
+        "requested": 5,
+        "profileProductId": 99,
+        "actualShipments": [
+          {
+            "productId": 8,
+            "count": 5
+          }
+        ],
+        "shipped": 5,
+        "unmet": 0,
+        "reason": "fulfilled",
+        "stockBefore": 96,
+        "stockAfter": 91,
+        "inventoryBefore": [
+          {
+            "id": 8,
+            "stock": 46,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [
+          {
+            "id": 8,
+            "stock": 41,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "preSettlementPlanned": 5,
+        "retailSold": 0,
+        "catalogDiffers": true,
+        "held": 0
+      },
+      {
+        "scope": "component-input-not-saveable",
+        "scenario": "different-flavors",
+        "seed": 42,
+        "month": 20,
+        "shopId": "town-liquor",
+        "requested": 1,
+        "profileProductId": 99,
+        "actualShipments": [
+          {
+            "productId": 8,
+            "count": 1
+          }
+        ],
+        "shipped": 1,
+        "unmet": 0,
+        "reason": "fulfilled",
+        "stockBefore": 91,
+        "stockAfter": 90,
+        "inventoryBefore": [
+          {
+            "id": 8,
+            "stock": 41,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [
+          {
+            "id": 8,
+            "stock": 40,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "preSettlementPlanned": 1,
+        "retailSold": 0,
+        "catalogDiffers": true,
+        "held": 0
+      },
+      {
+        "scope": "component-input-not-saveable",
+        "scenario": "different-flavors",
+        "seed": 42,
+        "month": 20,
+        "shopId": "supermarket",
+        "requested": 10,
+        "profileProductId": 99,
+        "actualShipments": [
+          {
+            "productId": 8,
+            "count": 10
+          }
+        ],
+        "shipped": 10,
+        "unmet": 0,
+        "reason": "fulfilled",
+        "stockBefore": 91,
+        "stockAfter": 80,
+        "inventoryBefore": [
+          {
+            "id": 8,
+            "stock": 41,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [
+          {
+            "id": 8,
+            "stock": 30,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "preSettlementPlanned": 10,
+        "retailSold": 0,
+        "catalogDiffers": true,
+        "held": 0
+      },
+      {
+        "scope": "component-input-not-saveable",
+        "scenario": "different-flavors",
+        "seed": 42,
+        "month": 21,
+        "shopId": "town-liquor",
+        "requested": 1,
+        "profileProductId": 99,
+        "actualShipments": [
+          {
+            "productId": 8,
+            "count": 1
+          }
+        ],
+        "shipped": 1,
+        "unmet": 0,
+        "reason": "fulfilled",
+        "stockBefore": 80,
+        "stockAfter": 79,
+        "inventoryBefore": [
+          {
+            "id": 8,
+            "stock": 30,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [
+          {
+            "id": 8,
+            "stock": 29,
+            "listed": true
+          },
+          {
+            "id": 99,
+            "stock": 50,
+            "listed": true
+          }
+        ],
+        "preSettlementPlanned": 1,
+        "retailSold": 0,
+        "catalogDiffers": true,
+        "held": 0
+      }
+    ],
+    "retailCompetition": [
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 28,
+        "shopId": "town-liquor",
+        "requested": 8,
+        "profileProductId": 6,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 8,
+        "reason": "insufficient-stock",
+        "stockBefore": 2,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 6,
+            "stock": 2,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 2,
+        "retailSold": 2,
+        "catalogDiffers": false,
+        "notice": "発売2 完売"
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 40,
+        "shopId": "town-liquor",
+        "requested": 8,
+        "profileProductId": 9,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 8,
+        "reason": "insufficient-stock",
+        "stockBefore": 1,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 9,
+            "stock": 1,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 1,
+        "retailSold": 1,
+        "catalogDiffers": false,
+        "notice": "発売3 完売"
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 50,
+        "shopId": "town-liquor",
+        "requested": 6,
+        "profileProductId": 12,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 6,
+        "reason": "insufficient-stock",
+        "stockBefore": 12,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 12,
+            "stock": 12,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 6,
+        "retailSold": 12,
+        "catalogDiffers": false,
+        "notice": "発売4 完売"
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 63,
+        "shopId": "town-liquor",
+        "requested": 6,
+        "profileProductId": 15,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 6,
+        "reason": "insufficient-stock",
+        "stockBefore": 1,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 15,
+            "stock": 1,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 1,
+        "retailSold": 1,
+        "catalogDiffers": false,
+        "notice": "発売5 完売"
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 74,
+        "shopId": "town-liquor",
+        "requested": 1,
+        "profileProductId": 18,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 1,
+        "reason": "insufficient-stock",
+        "stockBefore": 12,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 18,
+            "stock": 12,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 1,
+        "retailSold": 12,
+        "catalogDiffers": false,
+        "notice": "発売6 完売 / デパートへ「AmberTime・第4回」の口コミが届きました。"
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 74,
+        "shopId": "supermarket",
+        "requested": 16,
+        "profileProductId": 18,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 16,
+        "reason": "insufficient-stock",
+        "stockBefore": 12,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 18,
+            "stock": 12,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 12,
+        "retailSold": 12,
+        "catalogDiffers": false,
+        "notice": "発売6 完売 / デパートへ「AmberTime・第4回」の口コミが届きました。"
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 87,
+        "shopId": "town-liquor",
+        "requested": 5,
+        "profileProductId": 21,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 5,
+        "reason": "insufficient-stock",
+        "stockBefore": 5,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 21,
+            "stock": 5,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 5,
+        "retailSold": 5,
+        "catalogDiffers": false,
+        "notice": "発売7 完売"
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 98,
+        "shopId": "town-liquor",
+        "requested": 8,
+        "profileProductId": 24,
+        "actualShipments": [
+          {
+            "productId": 24,
+            "releaseId": 8,
+            "count": 1
+          }
+        ],
+        "shipped": 1,
+        "unmet": 7,
+        "reason": "stock-or-capacity",
+        "stockBefore": 15,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 24,
+            "stock": 15,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 8,
+        "retailSold": 14,
+        "catalogDiffers": false,
+        "notice": "発売8 完売"
+      }
+    ],
+    "unmet": [
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 28,
+        "shopId": "town-liquor",
+        "requested": 8,
+        "profileProductId": 6,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 8,
+        "reason": "insufficient-stock",
+        "stockBefore": 2,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 6,
+            "stock": 2,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 2,
+        "retailSold": 2,
+        "catalogDiffers": false,
+        "notice": "発売2 完売"
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 29,
+        "shopId": "town-liquor",
+        "requested": 6,
+        "profileProductId": 6,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 6,
+        "reason": "insufficient-stock",
+        "stockBefore": 0,
+        "stockAfter": 0,
+        "inventoryBefore": [],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 0,
+        "retailSold": 0,
+        "catalogDiffers": false,
+        "notice": ""
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 30,
+        "shopId": "town-liquor",
+        "requested": 3,
+        "profileProductId": 6,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 3,
+        "reason": "insufficient-stock",
+        "stockBefore": 0,
+        "stockAfter": 0,
+        "inventoryBefore": [],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 0,
+        "retailSold": 0,
+        "catalogDiffers": false,
+        "notice": ""
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 31,
+        "shopId": "town-liquor",
+        "requested": 6,
+        "profileProductId": 6,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 6,
+        "reason": "insufficient-stock",
+        "stockBefore": 0,
+        "stockAfter": 0,
+        "inventoryBefore": [],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 0,
+        "retailSold": 0,
+        "catalogDiffers": false,
+        "notice": ""
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 33,
+        "shopId": "town-liquor",
+        "requested": 5,
+        "profileProductId": 6,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 5,
+        "reason": "insufficient-stock",
+        "stockBefore": 0,
+        "stockAfter": 0,
+        "inventoryBefore": [],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 0,
+        "retailSold": 0,
+        "catalogDiffers": false,
+        "notice": ""
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 34,
+        "shopId": "town-liquor",
+        "requested": 3,
+        "profileProductId": 6,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 3,
+        "reason": "insufficient-stock",
+        "stockBefore": 0,
+        "stockAfter": 0,
+        "inventoryBefore": [],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 0,
+        "retailSold": 0,
+        "catalogDiffers": false,
+        "notice": ""
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 36,
+        "shopId": "town-liquor",
+        "requested": 3,
+        "profileProductId": 6,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 3,
+        "reason": "insufficient-stock",
+        "stockBefore": 0,
+        "stockAfter": 0,
+        "inventoryBefore": [],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 0,
+        "retailSold": 0,
+        "catalogDiffers": false,
+        "notice": ""
+      },
+      {
+        "scope": "public-model-career",
+        "scenario": "annual-12m-standard",
+        "seed": 42,
+        "month": 40,
+        "shopId": "town-liquor",
+        "requested": 8,
+        "profileProductId": 9,
+        "actualShipments": [],
+        "shipped": 0,
+        "unmet": 8,
+        "reason": "insufficient-stock",
+        "stockBefore": 1,
+        "stockAfter": 0,
+        "inventoryBefore": [
+          {
+            "id": 9,
+            "stock": 1,
+            "listed": true
+          }
+        ],
+        "inventoryAfter": [],
+        "preSettlementPlanned": 1,
+        "retailSold": 1,
+        "catalogDiffers": false,
+        "notice": "発売3 完売"
+      }
+    ]
+  },
+  "uiChecks": {
+    "lawfulLegacyDemandBoundary": {
+      "beforeMonth": 16,
+      "stock": [
+        {
+          "id": 8,
+          "stock": 20,
+          "listed": true
+        }
+      ],
+      "displayedStatus": "現在は納品不可",
+      "manualQuote": {
+        "shopId": "town-liquor",
+        "ok": false,
+        "reason": "商店へは月ごとに自動発送します。",
+        "unitPrice": 12.8,
+        "quantities": [],
+        "remaining": 10
+      },
+      "nextMonthOrder": {
+        "shopId": "town-liquor",
+        "month": 17,
+        "count": 2,
+        "profileProductId": 8,
+        "unitPrice": 12.8,
+        "reason": "fulfilled",
+        "components": {
+          "base": 3,
+          "monthlyMultiplier": 1.5,
+          "flavorFactor": 1.0037789221930975,
+          "ageFactor": 0.55,
+          "priceFactor": 1.118033988749895
+        },
+        "requested": 2,
+        "shipped": 2,
+        "unmet": 0,
+        "available": 17,
+        "belowMinimum": 0
+      },
+      "nextMonthShipments": [
+        {
+          "id": 1,
+          "month": 17,
+          "brandId": 1,
+          "releaseId": 4,
+          "productId": 8,
+          "count": 2,
+          "unitPrice": 12.8,
+          "revenue": 25.6,
+          "shopId": "town-liquor"
+        }
+      ]
+    },
+    "unmetDisplay": {
+      "shopOrderLedgerReferenceCount": 1,
+      "liveShopLedgerReadsLastOrders": false,
+      "quietEventBranch": "workPreferences.version1 emits shipping count only; no orders/unmet/reason event"
+    }
+  }
+}

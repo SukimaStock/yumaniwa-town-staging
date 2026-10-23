@@ -1,0 +1,2320 @@
+{
+  "runtimeSha": "2a1a172fa67ef7bda3cad82c9070c8946353b3f6",
+  "methodology": {
+    "matrix": "Main full-range manual fill API at seed42, then unchanged monthly chemistry/free-aging observer directly for144months. No finance progression implied by this component experiment.",
+    "autoBottle": "Fresh connected-main public operations only, no direct state mutation. Manual sales unlock bottler then age1 reservation.",
+    "feedback": "Display projection contract only: constructed monthly retail receipt rows, no claim they were produced in a playable game. Existing deterministic1/8 filter and12-month gap measured."
+  },
+  "sourceHashes": {
+    "lab-flavor.mjs": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca",
+    "monthly.mjs": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2",
+    "partner-orders.mjs": "7a68f52c6f64f122c5c89f41c9fe872149cee0560f208d6510145462e179a639",
+    "event-notices.mjs": "84e0f7b0ffe0dfb3a4ebf96eb62a5d8ef5af65bbde19569b99cfe14f1e7a9b06",
+    "player-news.mjs": "3cf68801121451c82cd7b8e9a66fd20d7ba6e4ab6f303de306f42fdf800a22ed",
+    "shop-app.mjs": "73cb0669a50373fc8569b533f68f6f781e347d4bedb99bc208ef191b4b8e684b",
+    "tasting-view.mjs": "1a6c93eeec591333d7e9cea594d9dabada000d98a61793c88f247f607037b161"
+  },
+  "matrix": [
+    {
+      "recipe": {
+        "id": "fruit-first",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 12,
+        "end": 40,
+        "cask": "bourbon"
+      },
+      "seed": 42,
+      "initialFamily": "fruit",
+      "profiles": [
+        {
+          "month": 0,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.449976946028,
+            "character": 0.869607001884,
+            "wood": 0
+          },
+          "eight": {
+            "fruit": 0.869607001884,
+            "grain": 0.382760433296,
+            "smoke": 0.055,
+            "body": 0.207501740089,
+            "rough": 0.449976946028,
+            "spice": 0.111486451329,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "litres": 30.37,
+          "changeFromLastCheckpoint": null
+        },
+        {
+          "month": 6,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.424332327268,
+            "character": 0.865593752675,
+            "wood": 0.045727249506
+          },
+          "eight": {
+            "fruit": 0.865593752675,
+            "grain": 0.381502122631,
+            "smoke": 0.054857150994,
+            "body": 0.207025549955,
+            "rough": 0.424332327268,
+            "spice": 0.110771341715,
+            "wood": 0.045727249506,
+            "vanilla": 0.045074751106
+          },
+          "litres": 29.905080068451568,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 12,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.400805841085,
+            "character": 0.861703978164,
+            "wood": 0.088302189539
+          },
+          "eight": {
+            "fruit": 0.861703978164,
+            "grain": 0.380278284044,
+            "smoke": 0.05471801214,
+            "body": 0.206564971191,
+            "rough": 0.400805841085,
+            "spice": 0.110083214107,
+            "wood": 0.088302189539,
+            "vanilla": 0.08681221626
+          },
+          "litres": 29.44727737571614,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        },
+        {
+          "month": 24,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.359421922725,
+            "character": 0.854279774446,
+            "wood": 0.16484940615
+          },
+          "eight": {
+            "fruit": 0.854279774446,
+            "grain": 0.377930271457,
+            "smoke": 0.054450481944,
+            "body": 0.205688617343,
+            "rough": 0.359421922725,
+            "spice": 0.108783871055,
+            "wood": 0.16484940615,
+            "vanilla": 0.161245350712
+          },
+          "litres": 28.5525895568773,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 36,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.324591940751,
+            "character": 0.847305380492,
+            "wood": 0.231206496518
+          },
+          "eight": {
+            "fruit": 0.847305380492,
+            "grain": 0.375709146716,
+            "smoke": 0.054196668161,
+            "body": 0.204868782198,
+            "rough": 0.324591940751,
+            "spice": 0.107580729961,
+            "wood": 0.231206496518,
+            "vanilla": 0.225064611906
+          },
+          "litres": 27.685084770376747,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 60,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.270606398267,
+            "character": 0.834598662644,
+            "wood": 0.338595838295
+          },
+          "eight": {
+            "fruit": 0.834598662644,
+            "grain": 0.371620502991,
+            "smoke": 0.053727412896,
+            "body": 0.203384322847,
+            "rough": 0.270606398267,
+            "spice": 0.105435090246,
+            "wood": 0.338595838295,
+            "vanilla": 0.326699682737
+          },
+          "litres": 26.02834581152196,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 84,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.232366145708,
+            "character": 0.823385023502,
+            "wood": 0.419296490158
+          },
+          "eight": {
+            "fruit": 0.823385023502,
+            "grain": 0.367961823833,
+            "smoke": 0.053305042039,
+            "body": 0.20208516363,
+            "rough": 0.232366145708,
+            "spice": 0.103595410346,
+            "wood": 0.419296490158,
+            "vanilla": 0.401415839188
+          },
+          "litres": 24.47074991112456,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 120,
+          "label": "果実香と樽の甘い香り",
+          "projected": {
+            "roughness": 0.194860461732,
+            "character": 0.808986014513,
+            "wood": 0.504352606893
+          },
+          "eight": {
+            "fruit": 0.808986014513,
+            "grain": 0.363182394252,
+            "smoke": 0.052749276326,
+            "body": 0.200434064474,
+            "rough": 0.194860461732,
+            "spice": 0.10131585373,
+            "wood": 0.504352606893,
+            "vanilla": 0.478082308655
+          },
+          "litres": 22.30736864287694,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 144,
+          "label": "果実香と樽の甘い香り",
+          "projected": {
+            "roughness": 0.178712081858,
+            "character": 0.800781940859,
+            "wood": 0.543858937933
+          },
+          "eight": {
+            "fruit": 0.800781940859,
+            "grain": 0.360411072374,
+            "smoke": 0.052424633416,
+            "body": 0.199503176218,
+            "rough": 0.178712081858,
+            "spice": 0.100063560813,
+            "wood": 0.543858937933,
+            "vanilla": 0.512703486941
+          },
+          "litres": 20.972444549029323,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        }
+      ],
+      "nameChanges": [
+        {
+          "month": 59,
+          "label": "穏やかな果実香"
+        },
+        {
+          "month": 88,
+          "label": "果実香と樽の甘い香り"
+        }
+      ],
+      "observerEvents": [
+        {
+          "month": 6,
+          "id": "fruit",
+          "title": "原酒の香りが広がる頃"
+        },
+        {
+          "month": 41,
+          "id": "loss",
+          "title": "少しずつ、減っていく"
+        },
+        {
+          "month": 60,
+          "id": "fading",
+          "title": "香りの移り変わり"
+        },
+        {
+          "month": 66,
+          "id": "wood",
+          "title": "原酒の色が深くなってきた"
+        }
+      ],
+      "automaticEventsAtNameChanges": 0,
+      "distinctNames": 3
+    },
+    {
+      "recipe": {
+        "id": "fruit-refill",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 12,
+        "end": 40,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "initialFamily": "fruit",
+      "profiles": [
+        {
+          "month": 0,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.449976946028,
+            "character": 0.869607001884,
+            "wood": 0
+          },
+          "eight": {
+            "fruit": 0.869607001884,
+            "grain": 0.382760433296,
+            "smoke": 0.055,
+            "body": 0.207501740089,
+            "rough": 0.449976946028,
+            "spice": 0.111486451329,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "litres": 30.37,
+          "changeFromLastCheckpoint": null
+        },
+        {
+          "month": 6,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.424332327268,
+            "character": 0.865593752675,
+            "wood": 0.015067293529
+          },
+          "eight": {
+            "fruit": 0.865593752675,
+            "grain": 0.381502122631,
+            "smoke": 0.054857150994,
+            "body": 0.207025549955,
+            "rough": 0.424332327268,
+            "spice": 0.110771341715,
+            "wood": 0.015067293529,
+            "vanilla": 0.009749425225
+          },
+          "litres": 30.02966332263715,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 12,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.400805841085,
+            "character": 0.861703978164,
+            "wood": 0.029399746482
+          },
+          "eight": {
+            "fruit": 0.861703978164,
+            "grain": 0.380278284044,
+            "smoke": 0.05471801214,
+            "body": 0.206564971191,
+            "rough": 0.400805841085,
+            "spice": 0.110083214107,
+            "wood": 0.029399746482,
+            "vanilla": 0.019023365371
+          },
+          "litres": 29.69314057526963,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 24,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.359421922725,
+            "character": 0.854279774446,
+            "wood": 0.056001737179
+          },
+          "eight": {
+            "fruit": 0.854279774446,
+            "grain": 0.377930271457,
+            "smoke": 0.054450481944,
+            "body": 0.205688617343,
+            "rough": 0.359421922725,
+            "spice": 0.108783871055,
+            "wood": 0.056001737179,
+            "vanilla": 0.036236418175
+          },
+          "litres": 29.031366388631007,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 36,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.324591940751,
+            "character": 0.847305380492,
+            "wood": 0.080072213756
+          },
+          "eight": {
+            "fruit": 0.847305380492,
+            "grain": 0.375709146716,
+            "smoke": 0.054196668161,
+            "body": 0.204868782198,
+            "rough": 0.324591940751,
+            "spice": 0.107580729961,
+            "wood": 0.080072213756,
+            "vanilla": 0.051811432431
+          },
+          "litres": 28.38434123377604,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 60,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.270606398267,
+            "character": 0.834598662644,
+            "wood": 0.121559321048
+          },
+          "eight": {
+            "fruit": 0.834598662644,
+            "grain": 0.371620502991,
+            "smoke": 0.053727412896,
+            "body": 0.203384322847,
+            "rough": 0.270606398267,
+            "spice": 0.105435090246,
+            "wood": 0.121559321048,
+            "vanilla": 0.078656031267
+          },
+          "litres": 27.13323049251495,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 84,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.232366145708,
+            "character": 0.823385023502,
+            "wood": 0.155526091645
+          },
+          "eight": {
+            "fruit": 0.823385023502,
+            "grain": 0.367961823833,
+            "smoke": 0.053305042039,
+            "body": 0.20208516363,
+            "rough": 0.232366145708,
+            "spice": 0.103595410346,
+            "wood": 0.155526091645,
+            "vanilla": 0.100634529888
+          },
+          "litres": 25.937265582330475,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 120,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.194860461732,
+            "character": 0.808986014513,
+            "wood": 0.195288776238
+          },
+          "eight": {
+            "fruit": 0.808986014513,
+            "grain": 0.363182394252,
+            "smoke": 0.052749276326,
+            "body": 0.200434064474,
+            "rough": 0.194860461732,
+            "spice": 0.10131585373,
+            "wood": 0.195288776238,
+            "vanilla": 0.126363325801
+          },
+          "litres": 24.241428941716926,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 144,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.178712081858,
+            "character": 0.800781940859,
+            "wood": 0.215890664016
+          },
+          "eight": {
+            "fruit": 0.800781940859,
+            "grain": 0.360411072374,
+            "smoke": 0.052424633416,
+            "body": 0.199503176218,
+            "rough": 0.178712081858,
+            "spice": 0.100063560813,
+            "wood": 0.215890664016,
+            "vanilla": 0.139693959069
+          },
+          "litres": 23.172927408328867,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        }
+      ],
+      "nameChanges": [
+        {
+          "month": 59,
+          "label": "穏やかな果実香"
+        }
+      ],
+      "observerEvents": [
+        {
+          "month": 6,
+          "id": "fruit",
+          "title": "原酒の香りが広がる頃"
+        },
+        {
+          "month": 57,
+          "id": "loss",
+          "title": "少しずつ、減っていく"
+        },
+        {
+          "month": 63,
+          "id": "fading",
+          "title": "香りの移り変わり"
+        }
+      ],
+      "automaticEventsAtNameChanges": 0,
+      "distinctNames": 2
+    },
+    {
+      "recipe": {
+        "id": "grain-refill",
+        "malt": "plain",
+        "ferment": "short",
+        "start": 30,
+        "end": 65,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "initialFamily": "grain",
+      "profiles": [
+        {
+          "month": 0,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.247749120585,
+            "character": 0.858970489051,
+            "wood": 0
+          },
+          "eight": {
+            "fruit": 0.438986369777,
+            "grain": 0.858970489051,
+            "smoke": 0.055,
+            "body": 0.497390943147,
+            "rough": 0.247749120585,
+            "spice": 0.166024586756,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "litres": 34.35,
+          "changeFromLastCheckpoint": null
+        },
+        {
+          "month": 6,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.233629660018,
+            "character": 0.856146655568,
+            "wood": 0.016377551042
+          },
+          "eight": {
+            "fruit": 0.436960441171,
+            "grain": 0.856146655568,
+            "smoke": 0.054857150994,
+            "body": 0.496249494118,
+            "rough": 0.233629660018,
+            "spice": 0.164959652168,
+            "wood": 0.016377551042,
+            "vanilla": 0.010597238909
+          },
+          "litres": 33.965062072195785,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 12,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.220676404715,
+            "character": 0.85340018248,
+            "wood": 0.031956359494
+          },
+          "eight": {
+            "fruit": 0.434996843835,
+            "grain": 0.85340018248,
+            "smoke": 0.05471801214,
+            "body": 0.495145466239,
+            "rough": 0.220676404715,
+            "spice": 0.163934898931,
+            "wood": 0.031956359494,
+            "vanilla": 0.020677644378
+          },
+          "litres": 33.58443789135699,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 24,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.197891172115,
+            "character": 0.848130898235,
+            "wood": 0.060871669308
+          },
+          "eight": {
+            "fruit": 0.431249031051,
+            "grain": 0.848130898235,
+            "smoke": 0.054450481944,
+            "body": 0.493044806907,
+            "rough": 0.197891172115,
+            "spice": 0.161999929339,
+            "wood": 0.060871669308,
+            "vanilla": 0.039387550729
+          },
+          "litres": 32.83593794696987,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 36,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.17871441766,
+            "character": 0.843146368909,
+            "wood": 0.087035323582
+          },
+          "eight": {
+            "fruit": 0.427728286765,
+            "grain": 0.843146368909,
+            "smoke": 0.054196668161,
+            "body": 0.491079625429,
+            "rough": 0.17871441766,
+            "spice": 0.160208222808,
+            "wood": 0.087035323582,
+            "vanilla": 0.056316974082
+          },
+          "litres": 32.10411990056657,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 60,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.148990960064,
+            "character": 0.833970853378,
+            "wood": 0.132130165329
+          },
+          "eight": {
+            "fruit": 0.421313807664,
+            "grain": 0.833970853378,
+            "smoke": 0.053727412896,
+            "body": 0.487521310032,
+            "rough": 0.148990960064,
+            "spice": 0.157012956095,
+            "wood": 0.132130165329,
+            "vanilla": 0.08549598933
+          },
+          "litres": 30.689050622913665,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 84,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.127936572664,
+            "character": 0.825760241329,
+            "wood": 0.169050699072
+          },
+          "eight": {
+            "fruit": 0.415653049726,
+            "grain": 0.825760241329,
+            "smoke": 0.053305042039,
+            "body": 0.484407167336,
+            "rough": 0.127936572664,
+            "spice": 0.154273321892,
+            "wood": 0.169050699072,
+            "vanilla": 0.109385746458
+          },
+          "litres": 29.33635405838167,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        },
+        {
+          "month": 120,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.107286625364,
+            "character": 0.815034501134,
+            "wood": 0.212271161673
+          },
+          "eight": {
+            "fruit": 0.408384285019,
+            "grain": 0.815034501134,
+            "smoke": 0.052749276326,
+            "body": 0.480449408881,
+            "rough": 0.107286625364,
+            "spice": 0.150878627375,
+            "wood": 0.212271161673,
+            "vanilla": 0.137351928142
+          },
+          "litres": 27.41827738386486,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        },
+        {
+          "month": 144,
+          "label": "力強い麦の香り",
+          "projected": {
+            "roughness": 0.098395621174,
+            "character": 0.808815248824,
+            "wood": 0.234664597361
+          },
+          "eight": {
+            "fruit": 0.404242786039,
+            "grain": 0.808815248824,
+            "smoke": 0.052424633416,
+            "body": 0.478218028134,
+            "rough": 0.098395621174,
+            "spice": 0.149013724406,
+            "wood": 0.234664597361,
+            "vanilla": 0.151841798293
+          },
+          "litres": 26.20974831992414,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        }
+      ],
+      "nameChanges": [],
+      "observerEvents": [
+        {
+          "month": 6,
+          "id": "fruit",
+          "title": "原酒の香りが広がる頃"
+        },
+        {
+          "month": 57,
+          "id": "loss",
+          "title": "少しずつ、減っていく"
+        },
+        {
+          "month": 90,
+          "id": "fading",
+          "title": "香りの移り変わり"
+        }
+      ],
+      "automaticEventsAtNameChanges": 0,
+      "distinctNames": 1
+    },
+    {
+      "recipe": {
+        "id": "smoke-first",
+        "malt": "peat",
+        "ferment": "long",
+        "start": 10,
+        "end": 90,
+        "cask": "bourbon"
+      },
+      "seed": 42,
+      "initialFamily": "smoke",
+      "profiles": [
+        {
+          "month": 0,
+          "label": "煙の香りが豊か",
+          "projected": {
+            "roughness": 0.391360647684,
+            "character": 0.681850269195,
+            "wood": 0
+          },
+          "eight": {
+            "fruit": 0.598874872339,
+            "grain": 0.4660844258,
+            "smoke": 0.681850269195,
+            "body": 0.576471288685,
+            "rough": 0.391360647684,
+            "spice": 0.290837582691,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "litres": 38.34,
+          "changeFromLastCheckpoint": null
+        },
+        {
+          "month": 6,
+          "label": "煙の香りが豊か",
+          "projected": {
+            "roughness": 0.36905662812,
+            "character": 0.680079330407,
+            "wood": 0.047666868387
+          },
+          "eight": {
+            "fruit": 0.596111055923,
+            "grain": 0.464552190614,
+            "smoke": 0.680079330407,
+            "body": 0.575148360309,
+            "rough": 0.36905662812,
+            "spice": 0.288972057787,
+            "wood": 0.047666868387,
+            "vanilla": 0.046986692875
+          },
+          "litres": 37.75307111703764,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        },
+        {
+          "month": 12,
+          "label": "煙の香りが豊か",
+          "projected": {
+            "roughness": 0.348594822351,
+            "character": 0.67835438741,
+            "wood": 0.092047715367
+          },
+          "eight": {
+            "fruit": 0.593432273198,
+            "grain": 0.463061931811,
+            "smoke": 0.67835438741,
+            "body": 0.573868802683,
+            "rough": 0.348594822351,
+            "spice": 0.287176921536,
+            "wood": 0.092047715367,
+            "vanilla": 0.090494541691
+          },
+          "litres": 37.1751272500809,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        },
+        {
+          "month": 24,
+          "label": "煙の香りが豊か",
+          "projected": {
+            "roughness": 0.31260178485,
+            "character": 0.675037741301,
+            "wood": 0.171841845542
+          },
+          "eight": {
+            "fruit": 0.588319424469,
+            "grain": 0.460202775003,
+            "smoke": 0.675037741301,
+            "body": 0.571434158851,
+            "rough": 0.31260178485,
+            "spice": 0.283787291784,
+            "wood": 0.171841845542,
+            "vanilla": 0.1680849164
+          },
+          "litres": 36.04564648043055,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 36,
+          "label": "煙の香りが豊か",
+          "projected": {
+            "roughness": 0.282308934461,
+            "character": 0.671891141364,
+            "wood": 0.241013613519
+          },
+          "eight": {
+            "fruit": 0.583516347585,
+            "grain": 0.457498128548,
+            "smoke": 0.671891141364,
+            "body": 0.569156532539,
+            "rough": 0.282308934461,
+            "spice": 0.280648626563,
+            "wood": 0.241013613519,
+            "vanilla": 0.234611207764
+          },
+          "litres": 34.95048238710058,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 60,
+          "label": "落ち着いた煙の香り",
+          "projected": {
+            "roughness": 0.235355824844,
+            "character": 0.666073653572,
+            "wood": 0.352958103423
+          },
+          "eight": {
+            "fruit": 0.574765573946,
+            "grain": 0.452519418636,
+            "smoke": 0.666073653572,
+            "body": 0.565032479436,
+            "rough": 0.235355824844,
+            "spice": 0.275051240868,
+            "wood": 0.352958103423,
+            "vanilla": 0.340557347038
+          },
+          "litres": 32.85896537417688,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 84,
+          "label": "煙と樽の甘い香り",
+          "projected": {
+            "roughness": 0.202096943159,
+            "character": 0.660837404795,
+            "wood": 0.437081845671
+          },
+          "eight": {
+            "fruit": 0.567043043314,
+            "grain": 0.44806427326,
+            "smoke": 0.660837404795,
+            "body": 0.561423218195,
+            "rough": 0.202096943159,
+            "spice": 0.270252020436,
+            "wood": 0.437081845671,
+            "vanilla": 0.418442748728
+          },
+          "litres": 30.8926095354796,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 120,
+          "label": "煙と樽の甘い香り",
+          "projected": {
+            "roughness": 0.169476941396,
+            "character": 0.653947422964,
+            "wood": 0.525745799127
+          },
+          "eight": {
+            "fruit": 0.557126834439,
+            "grain": 0.442244398743,
+            "smoke": 0.653947422964,
+            "body": 0.556836214454,
+            "rough": 0.169476941396,
+            "spice": 0.264305282264,
+            "wood": 0.525745799127,
+            "vanilla": 0.498361190123
+          },
+          "litres": 28.16149205689502,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 144,
+          "label": "煙と樽の甘い香り",
+          "projected": {
+            "roughness": 0.155432132073,
+            "character": 0.649922734672,
+            "wood": 0.566927875516
+          },
+          "eight": {
+            "fruit": 0.551476910334,
+            "grain": 0.438869781478,
+            "smoke": 0.649922734672,
+            "body": 0.554250065766,
+            "rough": 0.155432132073,
+            "spice": 0.261038393414,
+            "wood": 0.566927875516,
+            "vanilla": 0.534450899576
+          },
+          "litres": 26.476243793539137,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        }
+      ],
+      "nameChanges": [
+        {
+          "month": 46,
+          "label": "落ち着いた煙の香り"
+        },
+        {
+          "month": 76,
+          "label": "煙と樽の甘い香り"
+        }
+      ],
+      "observerEvents": [
+        {
+          "month": 29,
+          "id": "rounded",
+          "title": "口当たりが変わる頃"
+        },
+        {
+          "month": 41,
+          "id": "loss",
+          "title": "少しずつ、減っていく"
+        },
+        {
+          "month": 62,
+          "id": "wood",
+          "title": "原酒の色が深くなってきた"
+        }
+      ],
+      "automaticEventsAtNameChanges": 0,
+      "distinctNames": 3
+    },
+    {
+      "recipe": {
+        "id": "body-refill",
+        "malt": "plain",
+        "ferment": "short",
+        "start": 63,
+        "end": 89,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "initialFamily": "body",
+      "profiles": [
+        {
+          "month": 0,
+          "label": "どっしりした味",
+          "projected": {
+            "roughness": 0.444474538212,
+            "character": 1,
+            "wood": 0
+          },
+          "eight": {
+            "fruit": 0.179739331793,
+            "grain": 0.70205664661,
+            "smoke": 0.055,
+            "body": 1,
+            "rough": 0.444474538212,
+            "spice": 0.580193362113,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "litres": 38.18,
+          "changeFromLastCheckpoint": null
+        },
+        {
+          "month": 6,
+          "label": "どっしりした味",
+          "projected": {
+            "roughness": 0.419143506964,
+            "character": 0.997705127034,
+            "wood": 0.019285245723
+          },
+          "eight": {
+            "fruit": 0.178909832112,
+            "grain": 0.699748661539,
+            "smoke": 0.054857150994,
+            "body": 0.997705127034,
+            "rough": 0.419143506964,
+            "spice": 0.576471817063,
+            "wood": 0.019285245723,
+            "vanilla": 0.012478688409
+          },
+          "litres": 37.752141773404226,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 12,
+          "label": "どっしりした味",
+          "projected": {
+            "roughness": 0.395904707345,
+            "character": 0.995485488952,
+            "wood": 0.037629938914
+          },
+          "eight": {
+            "fruit": 0.178105853452,
+            "grain": 0.697503904925,
+            "smoke": 0.05471801214,
+            "body": 0.995485488952,
+            "rough": 0.395904707345,
+            "spice": 0.572890690692,
+            "wood": 0.037629938914,
+            "vanilla": 0.024348784003
+          },
+          "litres": 37.329078273420954,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 24,
+          "label": "どっしりした味",
+          "projected": {
+            "roughness": 0.35502683979,
+            "character": 0.991262132333,
+            "wood": 0.071678915683
+          },
+          "eight": {
+            "fruit": 0.176571342561,
+            "grain": 0.693197195819,
+            "smoke": 0.054450481944,
+            "body": 0.991262132333,
+            "rough": 0.35502683979,
+            "spice": 0.566128701187,
+            "wood": 0.071678915683,
+            "vanilla": 0.046380474853
+          },
+          "litres": 36.497121129994454,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 36,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.320622765779,
+            "character": 0.987311152715,
+            "wood": 0.102487703908
+          },
+          "eight": {
+            "fruit": 0.175129802985,
+            "grain": 0.68912322356,
+            "smoke": 0.054196668161,
+            "body": 0.987311152715,
+            "rough": 0.320622765779,
+            "spice": 0.55986736209,
+            "wood": 0.102487703908,
+            "vanilla": 0.066315573117
+          },
+          "litres": 35.683705904035854,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 60,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.267297369273,
+            "character": 0.98015719174,
+            "wood": 0.155588750685
+          },
+          "eight": {
+            "fruit": 0.172503447665,
+            "grain": 0.681623860373,
+            "smoke": 0.053727412896,
+            "body": 0.98015719174,
+            "rough": 0.267297369273,
+            "spice": 0.548701109106,
+            "wood": 0.155588750685,
+            "vanilla": 0.100675073972
+          },
+          "litres": 34.11085743181496,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 84,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.229524726147,
+            "character": 0.973896235969,
+            "wood": 0.199064210701
+          },
+          "eight": {
+            "fruit": 0.170185697231,
+            "grain": 0.674913135342,
+            "smoke": 0.053305042039,
+            "body": 0.973896235969,
+            "rough": 0.229524726147,
+            "spice": 0.539127120036,
+            "wood": 0.199064210701,
+            "vanilla": 0.128806253983
+          },
+          "litres": 32.60733618483295,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 120,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.192477669153,
+            "character": 0.965939198332,
+            "wood": 0.249958098281
+          },
+          "eight": {
+            "fruit": 0.167209561749,
+            "grain": 0.666146737322,
+            "smoke": 0.052749276326,
+            "body": 0.965939198332,
+            "rough": 0.192477669153,
+            "spice": 0.527263942034,
+            "wood": 0.249958098281,
+            "vanilla": 0.161737593005
+          },
+          "litres": 30.47539535708763,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 144,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.176526754888,
+            "character": 0.961453027488,
+            "wood": 0.276327297726
+          },
+          "eight": {
+            "fruit": 0.165513859307,
+            "grain": 0.661063597125,
+            "smoke": 0.052424633416,
+            "body": 0.961453027488,
+            "rough": 0.176526754888,
+            "spice": 0.520746808972,
+            "wood": 0.276327297726,
+            "vanilla": 0.178800016176
+          },
+          "litres": 29.13211618208743,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        }
+      ],
+      "nameChanges": [
+        {
+          "month": 31,
+          "label": "まろやかで厚みのある味"
+        }
+      ],
+      "observerEvents": [
+        {
+          "month": 6,
+          "id": "fruit",
+          "title": "原酒の香りが広がる頃"
+        },
+        {
+          "month": 57,
+          "id": "loss",
+          "title": "少しずつ、減っていく"
+        },
+        {
+          "month": 125,
+          "id": "fading",
+          "title": "香りの移り変わり"
+        }
+      ],
+      "automaticEventsAtNameChanges": 0,
+      "distinctNames": 2
+    },
+    {
+      "recipe": {
+        "id": "early-fruit",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 0,
+        "end": 20,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "initialFamily": "fruit",
+      "profiles": [
+        {
+          "month": 0,
+          "label": "果実香が豊か",
+          "projected": {
+            "roughness": 0.653314227397,
+            "character": 0.561697638818,
+            "wood": 0
+          },
+          "eight": {
+            "fruit": 0.561697638818,
+            "grain": 0.256027678387,
+            "smoke": 0.055,
+            "body": 0.156441435377,
+            "rough": 0.653314227397,
+            "spice": 0.110021882737,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "litres": 27.19,
+          "changeFromLastCheckpoint": null
+        },
+        {
+          "month": 6,
+          "label": "果実香が豊か",
+          "projected": {
+            "roughness": 0.616081221485,
+            "character": 0.559105395886,
+            "wood": 0.014852708835
+          },
+          "eight": {
+            "fruit": 0.559105395886,
+            "grain": 0.255185996932,
+            "smoke": 0.054857150994,
+            "body": 0.156082422156,
+            "rough": 0.616081221485,
+            "spice": 0.109316167333,
+            "wood": 0.014852708835,
+            "vanilla": 0.009610576305
+          },
+          "litres": 26.885299497612905,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 12,
+          "label": "果実香が豊か",
+          "projected": {
+            "roughness": 0.581923497895,
+            "character": 0.556592907884,
+            "wood": 0.028981042512
+          },
+          "eight": {
+            "fruit": 0.556592907884,
+            "grain": 0.254367373781,
+            "smoke": 0.05471801214,
+            "body": 0.155735178789,
+            "rough": 0.581923497895,
+            "spice": 0.108637079478,
+            "wood": 0.028981042512,
+            "vanilla": 0.018752439273
+          },
+          "litres": 26.584013573973696,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 24,
+          "label": "果実香が豊か",
+          "projected": {
+            "roughness": 0.521838858252,
+            "character": 0.551797456962,
+            "wood": 0.055204174191
+          },
+          "eight": {
+            "fruit": 0.551797456962,
+            "grain": 0.252796792918,
+            "smoke": 0.054450481944,
+            "body": 0.155074470817,
+            "rough": 0.521838858252,
+            "spice": 0.107354805559,
+            "wood": 0.055204174191,
+            "vanilla": 0.035720348006
+          },
+          "litres": 25.991532831968282,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 36,
+          "label": "果実香が豊か",
+          "projected": {
+            "roughness": 0.471269772513,
+            "character": 0.547292547724,
+            "wood": 0.078931844952
+          },
+          "eight": {
+            "fruit": 0.547292547724,
+            "grain": 0.251311087079,
+            "smoke": 0.054196668161,
+            "body": 0.154456373895,
+            "rough": 0.471269772513,
+            "spice": 0.106167469817,
+            "wood": 0.078931844952,
+            "vanilla": 0.051073546733
+          },
+          "litres": 25.4122567713655,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 60,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.392889039256,
+            "character": 0.539085008691,
+            "wood": 0.11982810305
+          },
+          "eight": {
+            "fruit": 0.539085008691,
+            "grain": 0.248576201574,
+            "smoke": 0.053727412896,
+            "body": 0.153337197971,
+            "rough": 0.392889039256,
+            "spice": 0.104050016815,
+            "wood": 0.11982810305,
+            "vanilla": 0.077535831385
+          },
+          "litres": 24.292148076769216,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 84,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.337368636985,
+            "character": 0.531841880915,
+            "wood": 0.153311127241
+          },
+          "eight": {
+            "fruit": 0.531841880915,
+            "grain": 0.246128918498,
+            "smoke": 0.053305042039,
+            "body": 0.152357725063,
+            "rough": 0.337368636985,
+            "spice": 0.102234504312,
+            "wood": 0.153311127241,
+            "vanilla": 0.099201317626
+          },
+          "litres": 23.22141097081215,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 120,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.282914742922,
+            "character": 0.522541255078,
+            "wood": 0.192507521445
+          },
+          "eight": {
+            "fruit": 0.522541255078,
+            "grain": 0.242931967734,
+            "smoke": 0.052749276326,
+            "body": 0.151112914674,
+            "rough": 0.282914742922,
+            "spice": 0.099984893641,
+            "wood": 0.192507521445,
+            "vanilla": 0.124563690347
+          },
+          "litres": 21.703143000503207,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 144,
+          "label": "穏やかな果実香",
+          "projected": {
+            "roughness": 0.259469172179,
+            "character": 0.517242069595,
+            "wood": 0.212816002196
+          },
+          "eight": {
+            "fruit": 0.517242069595,
+            "grain": 0.241078236144,
+            "smoke": 0.052424633416,
+            "body": 0.150411091668,
+            "rough": 0.259469172179,
+            "spice": 0.098749051771,
+            "wood": 0.212816002196,
+            "vanilla": 0.137704472009
+          },
+          "litres": 20.746522760370794,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        }
+      ],
+      "nameChanges": [
+        {
+          "month": 55,
+          "label": "穏やかな果実香"
+        }
+      ],
+      "observerEvents": [
+        {
+          "month": 6,
+          "id": "rough",
+          "title": "若い原酒のまま、少し先へ"
+        },
+        {
+          "month": 57,
+          "id": "loss",
+          "title": "少しずつ、減っていく"
+        },
+        {
+          "month": 104,
+          "id": "fading",
+          "title": "香りの移り変わり"
+        },
+        {
+          "month": 110,
+          "id": "rounded",
+          "title": "口当たりが変わる頃"
+        }
+      ],
+      "automaticEventsAtNameChanges": 0,
+      "distinctNames": 2
+    },
+    {
+      "recipe": {
+        "id": "middle-fruit",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 25,
+        "end": 55,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "initialFamily": "fruit",
+      "profiles": [
+        {
+          "month": 0,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.278833429943,
+            "character": 0.876492617308,
+            "wood": 0
+          },
+          "eight": {
+            "fruit": 0.876492617308,
+            "grain": 0.513141718558,
+            "smoke": 0.055,
+            "body": 0.355811255001,
+            "rough": 0.278833429943,
+            "spice": 0.127738877483,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "litres": 32.76,
+          "changeFromLastCheckpoint": null
+        },
+        {
+          "month": 6,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.262942444702,
+            "character": 0.872447590882,
+            "wood": 0.015714450182
+          },
+          "eight": {
+            "fruit": 0.872447590882,
+            "grain": 0.511454784275,
+            "smoke": 0.054857150994,
+            "body": 0.354994713371,
+            "rough": 0.262942444702,
+            "spice": 0.126919519631,
+            "wood": 0.015714450182,
+            "vanilla": 0.010168173647
+          },
+          "litres": 32.39288015968366,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 12,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.248363984861,
+            "character": 0.868527016836,
+            "wood": 0.030662497585
+          },
+          "eight": {
+            "fruit": 0.868527016836,
+            "grain": 0.509814064438,
+            "smoke": 0.05471801214,
+            "body": 0.354204941159,
+            "rough": 0.248363984861,
+            "spice": 0.126131077203,
+            "wood": 0.030662497585,
+            "vanilla": 0.019840439614
+          },
+          "litres": 32.02987439070902,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 24,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.2227199602,
+            "character": 0.861044027699,
+            "wood": 0.05840707273
+          },
+          "eight": {
+            "fruit": 0.861044027699,
+            "grain": 0.506666238515,
+            "smoke": 0.054450481944,
+            "body": 0.35270222334,
+            "rough": 0.2227199602,
+            "spice": 0.124642316722,
+            "wood": 0.05840707273,
+            "vanilla": 0.037792811766
+          },
+          "litres": 31.316021168638507,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 36,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.201137158182,
+            "character": 0.854014409955,
+            "wood": 0.083511402469
+          },
+          "eight": {
+            "fruit": 0.854014409955,
+            "grain": 0.503688522776,
+            "smoke": 0.054196668161,
+            "body": 0.351296420324,
+            "rough": 0.201137158182,
+            "spice": 0.123263782461,
+            "wood": 0.083511402469,
+            "vanilla": 0.054036789833
+          },
+          "litres": 30.618077669361305,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        },
+        {
+          "month": 60,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.167684391077,
+            "character": 0.841207079334,
+            "wood": 0.126780426164
+          },
+          "eight": {
+            "fruit": 0.841207079334,
+            "grain": 0.498207147259,
+            "smoke": 0.053727412896,
+            "body": 0.348750960491,
+            "rough": 0.167684391077,
+            "spice": 0.120805352711,
+            "wood": 0.126780426164,
+            "vanilla": 0.0820343934
+          },
+          "litres": 29.268509415040807,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 84,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.143988375365,
+            "character": 0.82990464973,
+            "wood": 0.162206106518
+          },
+          "eight": {
+            "fruit": 0.82990464973,
+            "grain": 0.493302196937,
+            "smoke": 0.053305042039,
+            "body": 0.346523241961,
+            "rough": 0.143988375365,
+            "spice": 0.118697485409,
+            "wood": 0.162206106518,
+            "vanilla": 0.104956892453
+          },
+          "litres": 27.97842675262252,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        },
+        {
+          "month": 120,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.12074754359,
+            "character": 0.815391628276,
+            "wood": 0.203676641683
+          },
+          "eight": {
+            "fruit": 0.815391628276,
+            "grain": 0.486894730293,
+            "smoke": 0.052749276326,
+            "body": 0.343692038413,
+            "rough": 0.12074754359,
+            "spice": 0.116085616435,
+            "wood": 0.203676641683,
+            "vanilla": 0.131790768148
+          },
+          "litres": 26.14913441325801,
+          "changeFromLastCheckpoint": "木の余韻が増した"
+        },
+        {
+          "month": 144,
+          "label": "果実香が強い",
+          "projected": {
+            "roughness": 0.110741012838,
+            "character": 0.807122594133,
+            "wood": 0.22516340296
+          },
+          "eight": {
+            "fruit": 0.807122594133,
+            "grain": 0.483179401467,
+            "smoke": 0.052424633416,
+            "body": 0.342095808335,
+            "rough": 0.110741012838,
+            "spice": 0.114650765029,
+            "wood": 0.22516340296,
+            "vanilla": 0.145693966621
+          },
+          "litres": 24.996545995945112,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        }
+      ],
+      "nameChanges": [],
+      "observerEvents": [
+        {
+          "month": 6,
+          "id": "fruit",
+          "title": "原酒の香りが広がる頃"
+        },
+        {
+          "month": 57,
+          "id": "loss",
+          "title": "少しずつ、減っていく"
+        },
+        {
+          "month": 63,
+          "id": "fading",
+          "title": "香りの移り変わり"
+        }
+      ],
+      "automaticEventsAtNameChanges": 0,
+      "distinctNames": 1
+    },
+    {
+      "recipe": {
+        "id": "late-fruit",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 75,
+        "end": 99,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "initialFamily": "body",
+      "profiles": [
+        {
+          "month": 0,
+          "label": "どっしりした味",
+          "projected": {
+            "roughness": 0.598285960704,
+            "character": 0.947701625169,
+            "wood": 0
+          },
+          "eight": {
+            "fruit": 0.156853973804,
+            "grain": 0.361158932224,
+            "smoke": 0.055,
+            "body": 0.947701625169,
+            "rough": 0.598285960704,
+            "spice": 0.736601692378,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "litres": 39.77,
+          "changeFromLastCheckpoint": null
+        },
+        {
+          "month": 6,
+          "label": "どっしりした味",
+          "projected": {
+            "roughness": 0.564189068615,
+            "character": 0.945526770329,
+            "wood": 0.019379670338
+          },
+          "eight": {
+            "fruit": 0.156130090389,
+            "grain": 0.359971635689,
+            "smoke": 0.054857150994,
+            "body": 0.945526770329,
+            "rough": 0.564189068615,
+            "spice": 0.731876894473,
+            "wood": 0.019379670338,
+            "vanilla": 0.012539786689
+          },
+          "litres": 39.32432368591635,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 12,
+          "label": "どっしりした味",
+          "projected": {
+            "roughness": 0.532908429657,
+            "character": 0.943423215712,
+            "wood": 0.037814183
+          },
+          "eight": {
+            "fruit": 0.155428478525,
+            "grain": 0.358816865763,
+            "smoke": 0.05471801214,
+            "body": 0.943423215712,
+            "rough": 0.532908429657,
+            "spice": 0.727330369266,
+            "wood": 0.037814183,
+            "vanilla": 0.024468000765
+          },
+          "litres": 38.88364177406893,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 24,
+          "label": "どっしりした味",
+          "projected": {
+            "roughness": 0.47788468328,
+            "character": 0.93942073378,
+            "wood": 0.072029870712
+          },
+          "eight": {
+            "fruit": 0.154089349639,
+            "grain": 0.356601365818,
+            "smoke": 0.054450481944,
+            "body": 0.93942073378,
+            "rough": 0.47788468328,
+            "spice": 0.718745484918,
+            "wood": 0.072029870712,
+            "vanilla": 0.046607563402
+          },
+          "litres": 38.017037908325825,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 36,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.431575001393,
+            "character": 0.935676383976,
+            "wood": 0.102989505236
+          },
+          "eight": {
+            "fruit": 0.152831354471,
+            "grain": 0.354505592666,
+            "smoke": 0.054196668161,
+            "body": 0.935676383976,
+            "rough": 0.431575001393,
+            "spice": 0.710796216146,
+            "wood": 0.102989505236,
+            "vanilla": 0.066640268094
+          },
+          "litres": 37.169748135241136,
+          "changeFromLastCheckpoint": "刺激がやわらいだ"
+        },
+        {
+          "month": 60,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.359796230426,
+            "character": 0.928896563533,
+            "wood": 0.156350545893
+          },
+          "eight": {
+            "fruit": 0.150539400538,
+            "grain": 0.350647695993,
+            "smoke": 0.053727412896,
+            "body": 0.928896563533,
+            "rough": 0.359796230426,
+            "spice": 0.69661976846,
+            "wood": 0.156350545893,
+            "vanilla": 0.101168000284
+          },
+          "litres": 35.531398639687836,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 84,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.308952278438,
+            "character": 0.922963045574,
+            "wood": 0.200038870895
+          },
+          "eight": {
+            "fruit": 0.148516758291,
+            "grain": 0.34719549837,
+            "smoke": 0.053305042039,
+            "body": 0.922963045574,
+            "rough": 0.308952278438,
+            "spice": 0.684464826655,
+            "wood": 0.200038870895,
+            "vanilla": 0.129436916461
+          },
+          "litres": 33.965263490592136,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 120,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.259085003309,
+            "character": 0.915422148074,
+            "wood": 0.25118194564
+          },
+          "eight": {
+            "fruit": 0.145919560046,
+            "grain": 0.342685801092,
+            "smoke": 0.052749276326,
+            "body": 0.915422148074,
+            "rough": 0.259085003309,
+            "spice": 0.669403577141,
+            "wood": 0.25118194564,
+            "vanilla": 0.162529494238
+          },
+          "litres": 31.744538327694492,
+          "changeFromLastCheckpoint": "木の余韻が増した · 刺激がやわらいだ"
+        },
+        {
+          "month": 144,
+          "label": "まろやかで厚みのある味",
+          "projected": {
+            "roughness": 0.237614238969,
+            "character": 0.911170596674,
+            "wood": 0.277680254225
+          },
+          "eight": {
+            "fruit": 0.144439763367,
+            "grain": 0.340070881777,
+            "smoke": 0.052424633416,
+            "body": 0.911170596674,
+            "rough": 0.237614238969,
+            "spice": 0.661129557553,
+            "wood": 0.277680254225,
+            "vanilla": 0.179675458616
+          },
+          "litres": 30.345318506066477,
+          "changeFromLastCheckpoint": "味わいの変化はわずか"
+        }
+      ],
+      "nameChanges": [
+        {
+          "month": 32,
+          "label": "まろやかで厚みのある味"
+        }
+      ],
+      "observerEvents": [
+        {
+          "month": 6,
+          "id": "rough",
+          "title": "若い原酒のまま、少し先へ"
+        },
+        {
+          "month": 57,
+          "id": "loss",
+          "title": "少しずつ、減っていく"
+        },
+        {
+          "month": 90,
+          "id": "rounded",
+          "title": "口当たりが変わる頃"
+        },
+        {
+          "month": 135,
+          "id": "fading",
+          "title": "香りの移り変わり"
+        }
+      ],
+      "automaticEventsAtNameChanges": 0,
+      "distinctNames": 2
+    }
+  ],
+  "autoBottle": {
+    "seed": 42,
+    "bootstrap": [
+      {
+        "month": 0,
+        "manualBottles": 43,
+        "cash": 1251
+      },
+      {
+        "month": 1,
+        "manualBottles": 86,
+        "cash": 946
+      },
+      {
+        "month": 2,
+        "manualBottles": 129,
+        "cash": 641
+      },
+      {
+        "month": 3,
+        "manualBottles": 172,
+        "cash": 336
+      }
+    ],
+    "funding": [
+      {
+        "month": 5,
+        "cash": 424
+      },
+      {
+        "month": 6,
+        "cash": 468
+      },
+      {
+        "month": 7,
+        "cash": 512
+      },
+      {
+        "month": 8,
+        "cash": 556
+      },
+      {
+        "month": 9,
+        "cash": 600
+      },
+      {
+        "month": 10,
+        "cash": 644
+      },
+      {
+        "month": 11,
+        "cash": 688
+      },
+      {
+        "month": 12,
+        "cash": 732
+      }
+    ],
+    "month": 13,
+    "parentId": 14,
+    "job": {
+      "month": 13,
+      "caskId": 14,
+      "productId": 15,
+      "releaseId": 5,
+      "count": 10,
+      "cost": 30,
+      "salary": 2,
+      "mode": "age",
+      "remainingLitres": 23.311635044376384
+    },
+    "age": 1,
+    "sampleCount": 0,
+    "flavorName": "果実香が強い",
+    "nameHistory": [
+      {
+        "months": 0,
+        "label": "果実香が強い"
+      }
+    ],
+    "automaticEvents": [
+      {
+        "id": "town:e107",
+        "month": 13,
+        "text": "海外の飲食文化圏へ「AmberTime・第3回」の口コミが届きました。旅行者からの紹介です。",
+        "priority": 2,
+        "kind": "message"
+      },
+      {
+        "id": "bottle:15",
+        "kind": "bottled",
+        "count": 10,
+        "mode": "age",
+        "caskId": 14,
+        "caskLabel": "",
+        "remainingLitres": 23.311635044376384
+      }
+    ],
+    "strictRoundTrip": true
+  },
+  "feedback": [
+    {
+      "seed": 1,
+      "monthlyReceiptRows": 360,
+      "comments": 23,
+      "months": [
+        0,
+        13,
+        26,
+        39,
+        57,
+        75,
+        88,
+        101,
+        116,
+        130,
+        145,
+        167,
+        181,
+        196,
+        215,
+        237,
+        251,
+        268,
+        282,
+        295,
+        310,
+        329,
+        347
+      ],
+      "meanGap": 15.772727272727273
+    },
+    {
+      "seed": 2,
+      "monthlyReceiptRows": 360,
+      "comments": 22,
+      "months": [
+        7,
+        27,
+        41,
+        56,
+        70,
+        85,
+        106,
+        119,
+        133,
+        155,
+        177,
+        191,
+        205,
+        227,
+        241,
+        256,
+        270,
+        285,
+        304,
+        317,
+        335,
+        348
+      ],
+      "meanGap": 16.238095238095237
+    },
+    {
+      "seed": 3,
+      "monthlyReceiptRows": 360,
+      "comments": 23,
+      "months": [
+        6,
+        24,
+        37,
+        51,
+        68,
+        82,
+        95,
+        107,
+        125,
+        143,
+        158,
+        176,
+        194,
+        217,
+        235,
+        248,
+        266,
+        279,
+        297,
+        312,
+        327,
+        341,
+        356
+      ],
+      "meanGap": 15.909090909090908
+    },
+    {
+      "seed": 7,
+      "monthlyReceiptRows": 360,
+      "comments": 22,
+      "months": [
+        2,
+        19,
+        33,
+        55,
+        77,
+        91,
+        103,
+        118,
+        136,
+        154,
+        172,
+        190,
+        208,
+        226,
+        239,
+        257,
+        275,
+        288,
+        301,
+        316,
+        330,
+        345
+      ],
+      "meanGap": 16.333333333333332
+    },
+    {
+      "seed": 11,
+      "monthlyReceiptRows": 360,
+      "comments": 23,
+      "months": [
+        6,
+        24,
+        37,
+        51,
+        68,
+        82,
+        95,
+        107,
+        125,
+        143,
+        158,
+        176,
+        194,
+        217,
+        235,
+        248,
+        266,
+        279,
+        297,
+        312,
+        327,
+        341,
+        356
+      ],
+      "meanGap": 15.909090909090908
+    },
+    {
+      "seed": 42,
+      "monthlyReceiptRows": 360,
+      "comments": 22,
+      "months": [
+        7,
+        27,
+        41,
+        56,
+        70,
+        85,
+        106,
+        119,
+        133,
+        155,
+        177,
+        191,
+        205,
+        227,
+        241,
+        256,
+        270,
+        285,
+        304,
+        317,
+        335,
+        348
+      ],
+      "meanGap": 16.238095238095237
+    },
+    {
+      "seed": 99,
+      "monthlyReceiptRows": 360,
+      "comments": 23,
+      "months": [
+        6,
+        24,
+        37,
+        51,
+        68,
+        82,
+        95,
+        107,
+        125,
+        143,
+        158,
+        176,
+        194,
+        217,
+        235,
+        248,
+        266,
+        279,
+        297,
+        312,
+        327,
+        341,
+        356
+      ],
+      "meanGap": 15.909090909090908
+    },
+    {
+      "seed": 20261021,
+      "monthlyReceiptRows": 360,
+      "comments": 23,
+      "months": [
+        4,
+        17,
+        35,
+        48,
+        66,
+        79,
+        97,
+        112,
+        127,
+        141,
+        156,
+        170,
+        185,
+        206,
+        219,
+        233,
+        255,
+        277,
+        291,
+        307,
+        325,
+        343,
+        358
+      ],
+      "meanGap": 16.09090909090909
+    }
+  ],
+  "cooling": [
+    {
+      "month": 12,
+      "normal": {
+        "litres": 29.44727737571614,
+        "projected": {
+          "roughness": 0.400805841085,
+          "character": 0.861703978164,
+          "wood": 0.088302189539
+        },
+        "name": "果実香が強い"
+      },
+      "cooled": {
+        "litres": 29.574892366169838,
+        "projected": {
+          "roughness": 0.400805841085,
+          "character": 0.861703978164,
+          "wood": 0.088302189539
+        },
+        "name": "果実香が強い"
+      },
+      "sameEight": true,
+      "sameNameHistory": true
+    },
+    {
+      "month": 36,
+      "normal": {
+        "litres": 27.685084770376747,
+        "projected": {
+          "roughness": 0.324591940751,
+          "character": 0.847305380492,
+          "wood": 0.231206496518
+        },
+        "name": "果実香が強い"
+      },
+      "cooled": {
+        "litres": 28.04658151454785,
+        "projected": {
+          "roughness": 0.324591940751,
+          "character": 0.847305380492,
+          "wood": 0.231206496518
+        },
+        "name": "果実香が強い"
+      },
+      "sameEight": true,
+      "sameNameHistory": true
+    },
+    {
+      "month": 60,
+      "normal": {
+        "litres": 26.02834581152196,
+        "projected": {
+          "roughness": 0.270606398267,
+          "character": 0.834598662644,
+          "wood": 0.338595838295
+        },
+        "name": "穏やかな果実香"
+      },
+      "cooled": {
+        "litres": 26.59724758802389,
+        "projected": {
+          "roughness": 0.270606398267,
+          "character": 0.834598662644,
+          "wood": 0.338595838295
+        },
+        "name": "穏やかな果実香"
+      },
+      "sameEight": true,
+      "sameNameHistory": true
+    },
+    {
+      "month": 120,
+      "normal": {
+        "litres": 22.30736864287694,
+        "projected": {
+          "roughness": 0.194860461732,
+          "character": 0.808986014513,
+          "wood": 0.504352606893
+        },
+        "name": "果実香と樽の甘い香り"
+      },
+      "cooled": {
+        "litres": 23.293170209372516,
+        "projected": {
+          "roughness": 0.194860461732,
+          "character": 0.808986014513,
+          "wood": 0.504352606893
+        },
+        "name": "果実香と樽の甘い香り"
+      },
+      "sameEight": true,
+      "sameNameHistory": true
+    },
+    {
+      "month": 144,
+      "normal": {
+        "litres": 20.972444549029323,
+        "projected": {
+          "roughness": 0.178712081858,
+          "character": 0.800781940859,
+          "wood": 0.543858937933
+        },
+        "name": "果実香と樽の甘い香り"
+      },
+      "cooled": {
+        "litres": 22.089473358716074,
+        "projected": {
+          "roughness": 0.178712081858,
+          "character": 0.800781940859,
+          "wood": 0.543858937933
+        },
+        "name": "果実香と樽の甘い香り"
+      },
+      "sameEight": true,
+      "sameNameHistory": true
+    }
+  ]
+}
