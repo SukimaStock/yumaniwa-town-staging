@@ -1,0 +1,144 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e70d075d40ca7d9104a1ce14227a4c123c3c23dec91abf4b40e8b38c041d1459",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-start-map-ui-20261023",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add transient 3-2-1 manual distillation preparation, concise cask details, factual map introductions with first-bottle stage one, and one store roof accent.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2bc6f6be99012f3d0e98253779f0da4fdc83fe90",
+    "canonicalSources": [
+      "Owner-approved main-map integration request and prior six-stage behavior specification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs and room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-start-map-ui-20261023/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/cask-detail-view.mjs",
+      "works/ambertime/start-countdown.mjs",
+      "works/ambertime/tests/start-countdown.test.mjs",
+      "works/ambertime/tests/cask-detail.test.mjs",
+      "works/ambertime/tests/pixel-symbols.test.mjs",
+      "works/ambertime/tests/world-map-view.test.mjs",
+      "works/ambertime/tests/start-map-ui-browser.mjs",
+      "works/ambertime/design/start-map-ui/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Use finite presentation-only countdown before manual start commits; freeze bar/model/save until completion, prevent repeat starts, cancel on lifecycle/interruption and refresh via existing scene.",
+      "Cask detail alone uses summary plus each axis heading/meter/strength once, preserving tasting/comparison and flavor calculations.",
+      "Distinguish map unlocked max from UI seen baseline zero for fresh games; stage one auto shown after first bottling; deliveries unlock two, existing rumor/contact rules three-six retained.",
+      "First automatic map view starts one for unseen first bottle and proceeds sequentially with factual brief reason per displayed stage; menu omits reasons; preserve old sidecar seen and legacy unlocks.",
+      "One colored roof cell in 11x11 store glyph, same rendering in Canvas and SVG, all other symbols unchanged.",
+      "Focused tests and iPhone-sized browser checks, preserving #611 lifecycle suspension and no permanent animation loops."
+    ],
+    "ownerDecisions": [
+      "User detailed 2026-10-23 request authorizes these five UI changes, required checks, PR, Staging merge and published confirmation. Production excluded."
+    ],
+    "hqDecisions": [
+      "Within approved UI scope keep countdown, map notice sequence and pending reasons outside game/save schema; model operations remain unchanged and only occur after transient preparation."
+    ],
+    "rulesApplied": [
+      "Normal locked Plan route because executable imports and lifecycle/save-adjacent code require contract review.",
+      "No shared runtime, simulation, save schema, map art, text or visual design change.",
+      "Expression audit six points: no new UI text or decoration."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect supplied iPhone screenshots IMG_6226 and IMG_6227.",
+      "Check changed UI and basic interactions at iPhone width; report physical Safari separately.",
+      "Verify served byte content after successful CI and Pages deploy."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this UI PR; original game saves remain readable. Sidecar seen baseline remains backward compatible.",
+    "outOfScope": [
+      "Production",
+      "Simulation, balance, save schema",
+      "Full feature regression",
+      "New map art or modal"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari use",
+      "Author adoption",
+      "Production rollout"
+    ],
+    "alternativesRejected": [
+      "Introduce arbitrary 30-year unlocks",
+      "Boost rumor delivery delay",
+      "Inject map seen flag into replay operations",
+      "Force-pop map over ongoing selections",
+      "Overwrite actual map art"
+    ],
+    "boundaryCases": [
+      "Countdown 3/2/1, double tap, hidden/pagehide/modal/reset/room switch, successful and rejected start.",
+      "First bottling and delivery same model transaction, skipped arrivals, no bottle, overseas inquiry versus visit.",
+      "Old UI notice sidecar, old save no sidecar, fresh/preview/reset, menu before first bottle.",
+      "Selection still stops behind dialog/hidden; countdown and reveal have no recurring hidden work."
+    ],
+    "testPlan": [
+      "Focused countdown/map/detail/icon unit tests and related save/model regression.",
+      "Changed UI only browser tests in iPhone-sized Chromium where available.",
+      "Exact head Scope/Risk/Impact, syntax, independent review and required CI, Staging deploy/HTTP."
+    ],
+    "problem": "Manual collection starts abruptly, cask axes repeat labels, and newly unlocked maps lack reason and may skip the distillery.",
+    "currentContract": "Manual start uses existing model APIs, map metadata is sidecar-only, pixel glyph is shared Canvas/SVG, #611 hidden work cancellation retained.",
+    "whyExistingIsInsufficient": "No preparation or first-bottle baseline; axis text repeats labels; store color is monochrome.",
+    "design": "Finite cancellable UI countdown and pure detail/map helpers, tiny store accent; integrate through existing native modal and Canvas scene.",
+    "migration": "Game/save format unchanged. Existing UI sidecar v1 shown baseline read compatibly; preserve previously shown/unlocked stages.",
+    "compatibility": "No calculation, distillation speed/range, propagation model, save replay or shared runtime changes.",
+    "promotionRisk": "Staging only; no physical temperature measurements or Safari claims."
+  }
+}
