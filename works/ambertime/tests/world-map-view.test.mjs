@@ -29,7 +29,7 @@ test('zoom is clamped to visible area, plus outward and minus inward',()=>{
  assert.equal(mapStep(3,'out',2),2);assert.equal(mapStep(1,'in',5),1);
 });
 test('display is a read-only projection of state and uses the Lab renderer',()=>{
- const game=make([arrived('overseas-craft')],[{count:3}],[],[{shopId:'supermarket'}]);
+ const game=make([arrived('overseas-craft')],[{count:3}],[],[{shopId:'supermarket'}],[{type:'inquiry',to:'overseas-craft'}]);
  const before=JSON.stringify(game);let draws=0;
  const canvas={getContext(){return {fillStyle:'',imageSmoothingEnabled:true,fillRect(x,y,w,h){draws++;assert.ok([x,y,w,h].every(Number.isInteger));assert.ok([x,y,w,h].every(n=>n%2===0));assert.ok(w>0&&h>0&&x>=0&&y>=0&&x+w<=144&&y+h<=144);}}}};
  assert.equal(drawGameMap(canvas,game,3),3);assert.ok(draws>25);
@@ -53,4 +53,38 @@ test('newly reached map stages coalesce and old-stage baseline is not replayed',
  assert.equal(newlyUnlocked(6,5),false);
  assert.equal(revealStart(2,6),2);
  assert.equal(revealStart(6,6),6);
+});
+
+// Run the production methods with deterministic host scheduling; no browser or copied policy.
+import fs from 'node:fs';
+import vm from 'node:vm';
+function clock(){let id=0;const jobs=new Map();return {jobs,set:fn=>{jobs.set(++id,fn);return id;},clear:n=>jobs.delete(n),step(){const [n,fn]=jobs.entries().next().value??[];if(fn){jobs.delete(n);fn();}}};}
+test('scene queue coalesces, cancels all presentation work hidden and after pagehide',()=>{
+ const c=clock(),document={hidden:false},sandbox={document,requestAnimationFrame:c.set,cancelAnimationFrame:c.clear,setTimeout:c.set,clearTimeout:c.clear};
+ vm.runInNewContext(fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8').replace(/^import[^\n]*\n/gm,'').replace('export class CanvasScene','globalThis.CanvasScene=class CanvasScene'),sandbox);
+ const scene=Object.create(sandbox.CanvasScene.prototype);let draws=0;scene.draw=()=>draws++;
+ scene.queue();scene.queue();assert.equal(c.jobs.size,1);c.step();assert.equal(draws,1);
+ scene.queue();for(const key of ['hintTimer','selectionTimer','motionTimer'])scene[key]=c.set(()=>assert.fail('cancelled timer fired'));
+ document.hidden=true;scene.queue();assert.equal(c.jobs.size,0);assert.equal(scene.frame,0);
+ document.hidden=false;scene.suspended=true;scene.queue();assert.equal(c.jobs.size,0);scene.suspended=false;scene.queue();c.step();assert.equal(draws,2);
+ const actual=Object.create(sandbox.CanvasScene.prototype);actual.view={};actual.fontSettled=true;actual.suspended=true;actual.draw();document.hidden=true;actual.suspended=false;actual.draw();assert.equal(c.jobs.size,0);
+});
+test('actual scene drawing keeps selection blink visible but stops it behind a dialog',()=>{
+ const c=clock(),dialog={open:false},document={hidden:false,getElementById:id=>id==='action-dialog'?dialog:null};
+ const sandbox={document,setTimeout:c.set,clearTimeout:c.clear,cancelAnimationFrame:c.clear,performance:{now:()=>100},BODY_SIZE:16,drawSymbol(){}};
+ vm.runInNewContext(fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8').replace(/^import[^\n]*\n/gm,'').replace('export class CanvasScene','globalThis.CanvasScene=class CanvasScene'),sandbox);
+ const scene=Object.create(sandbox.CanvasScene.prototype),ctx=new Proxy({},{get:()=>()=>{},set:()=>true});
+ Object.assign(scene,{fontSettled:true,view:{room:'warehouse',casks:[{id:1,selected:true}],products:[],calendar:'',generation:'',cash:''},root:{dataset:{}},ctx,world:{},viewport:{dpr:1,width:360,height:640,scale:1,offsetX:0,offsetY:0},layout:{caskSlots:[],equipment:{y:0}},reducedMotion:{matches:false},motion:{sample:()=>({nextMs:null})},activeControls:[],idleSince:0,controls(){},drawWorld(){},window(){},pixelRect(){},text(){},measure:()=>0,textMetrics:()=>({logical:16})});
+ scene.draw();assert.equal(c.jobs.size,1,'visible selected object still blinks');dialog.open=true;scene.draw();assert.equal(c.jobs.size,0,'dialog leaves no scene timer');
+ dialog.open=false;scene.draw();assert.equal(c.jobs.size,1,'closing dialog restores selection motion');scene.reducedMotion.matches=true;scene.draw();assert.equal(c.jobs.size,0);
+});
+test('actual map reveal pauses, resumes one chain, cancels and ends at its target',()=>{
+ const c=clock(),document={hidden:false},sandbox={document,setTimeout:c.set,clearTimeout:c.clear,renders:0,render(){sandbox.renders++;}};
+ const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),start=source.indexOf('function stopMapReveal('),end=source.indexOf('function tryShowMapReveal(');
+ vm.runInNewContext('let mapFrame=null,mapRevealTarget=null,worldMapStage=1,modal={kind:"world-map"};'+source.slice(start,end)+';globalThis.state=()=>({target:mapRevealTarget,stage:worldMapStage});globalThis.pause=()=>stopMapReveal(true);globalThis.resume=()=>{if(mapRevealTarget!==null)animateMapReveal(mapRevealTarget);};globalThis.close=()=>{modal=null;stopMapReveal();};',sandbox);
+ sandbox.animateMapReveal(6);assert.equal(c.jobs.size,1);c.step();assert.equal(sandbox.state().stage,2);
+ document.hidden=true;sandbox.pause();assert.equal(c.jobs.size,0);assert.equal(sandbox.state().target,6);assert.equal(sandbox.state().stage,2);
+ sandbox.resume();assert.equal(c.jobs.size,0,'resume while hidden cannot schedule');document.hidden=false;sandbox.resume();sandbox.resume();assert.equal(c.jobs.size,1);
+ for(let n=0;n<8&&c.jobs.size;n++)c.step();assert.equal(sandbox.state().stage,6);assert.equal(sandbox.state().target,null);assert.equal(c.jobs.size,0);assert.equal(sandbox.renders,5);
+ sandbox.animateMapReveal(6);sandbox.close();assert.equal(c.jobs.size,0);assert.equal(sandbox.state().target,null);
 });
