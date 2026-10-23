@@ -1,0 +1,2745 @@
+{
+  "fixedSha": "c662e09fdf486c22b8012fb4e9e119c350f4af1e",
+  "browser": "153.0.8010.0",
+  "host": "container native Chromium, not physical iPhone",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 3
+  },
+  "nativeTimers": true,
+  "hostContention": "Final full matrix run after other audit CPU simulations completed; no CPU throttling. Single observed interval per case, no physical power/temperature measurement.",
+  "instrumentation": "response-only wrappers time render/save/model calls and Canvas prototype methods; native scheduling preserved; no CPU slowdown",
+  "fixtureMetadata": {
+    "normal": {
+      "raw": 9678,
+      "month": 1,
+      "cash": 1368,
+      "operations": 29,
+      "casks": 1,
+      "products": 0
+    },
+    "manual": {
+      "raw": 10233,
+      "month": 1,
+      "cash": 1248,
+      "operations": 30,
+      "casks": 1,
+      "products": 0
+    },
+    "automatic": {
+      "raw": 9311,
+      "month": 1,
+      "cash": 1196,
+      "operations": 31,
+      "casks": 1,
+      "products": 0
+    },
+    "filling": {
+      "raw": 11079,
+      "month": 1,
+      "cash": 1248,
+      "operations": 32,
+      "casks": 1,
+      "products": 0
+    },
+    "late": {
+      "raw": 46640,
+      "month": 100,
+      "cash": 3028,
+      "operations": 193,
+      "casks": 3,
+      "products": 3
+    },
+    "lateAutomatic": {
+      "raw": 47641,
+      "month": 101,
+      "cash": 2868,
+      "operations": 196,
+      "casks": 3,
+      "products": 3
+    },
+    "longHistory": {
+      "raw": 51636,
+      "month": 277,
+      "cash": 3028,
+      "operations": 387,
+      "casks": 0,
+      "products": 3
+    }
+  },
+  "fixtureConstruction": "public model operations and existing brands-helpers; strict serialize/restore accepted",
+  "results": [
+    {
+      "name": "normal-1x",
+      "fixture": "normal",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 1,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 6130.9940560000005,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1368,
+        "canSave": true,
+        "saveBytes": 9729
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1356,
+        "canSave": true,
+        "saveBytes": 9835
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 1036,
+          "ms": 27.900000013411045,
+          "maxMs": 1.5999999977648258
+        },
+        "validateDistillery": {
+          "n": 66,
+          "ms": 39.400000020861626,
+          "maxMs": 2
+        },
+        "serializeDistillery": {
+          "n": 3,
+          "ms": 2.3000000044703484,
+          "maxMs": 0.9000000022351742
+        },
+        "localStorage-game": {
+          "n": 3,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "save": {
+          "n": 3,
+          "ms": 3.2000000029802322,
+          "maxMs": 1.2000000029802322
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 10.100000035017729,
+          "maxMs": 0.6999999992549419
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 3.699999999254942,
+          "maxMs": 0.3999999985098839
+        },
+        "render": {
+          "n": 62,
+          "ms": 108.80000000074506,
+          "maxMs": 7.599999997764826
+        },
+        "scene-controls": {
+          "n": 67,
+          "ms": 11.00000000372529,
+          "maxMs": 0.6000000014901161
+        },
+        "scene-drawWorld": {
+          "n": 67,
+          "ms": 24.799999993294477,
+          "maxMs": 0.8999999985098839
+        },
+        "scene-draw": {
+          "n": 67,
+          "ms": 165.00000001490116,
+          "maxMs": 5.600000001490116
+        },
+        "raf": {
+          "n": 434,
+          "ms": 178.50000002235174,
+          "maxMs": 5.600000001490116
+        },
+        "timeout-100": {
+          "n": 60,
+          "ms": 119.10000002384186,
+          "maxMs": 9.5
+        },
+        "timeout-63.900000002235174": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-47.900000002235174": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-30.700000002980232": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-13.100000001490116": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "timeout-97.70000000298023": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-81.40000000223517": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-64.40000000223517": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.6999999992549419,
+          "maxMs": 0.6999999992549419
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 0.630673,
+        "ScriptDuration": 0.232517,
+        "LayoutDuration": 0.057623,
+        "RecalcStyleDuration": 0.076523,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 67
+      },
+      "heapBytes": 5532120,
+      "serializeBenchMs": [
+        0.5999999977648258,
+        0.4000000022351742,
+        0.3999999985098839,
+        0.5,
+        0.3999999985098839,
+        0.30000000074505806,
+        0.6000000014901161,
+        0.3999999985098839,
+        0.4000000022351742,
+        0.29999999701976776
+      ]
+    },
+    {
+      "name": "normal-2x",
+      "fixture": "normal",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 2,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 3143.4983389999998,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1368,
+        "canSave": true,
+        "saveBytes": 9729
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1356,
+        "canSave": true,
+        "saveBytes": 9835
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 1036,
+          "ms": 28.200000006705523,
+          "maxMs": 0.7000000029802322
+        },
+        "validateDistillery": {
+          "n": 66,
+          "ms": 39.69999999925494,
+          "maxMs": 1.699999999254942
+        },
+        "serializeDistillery": {
+          "n": 3,
+          "ms": 1.8000000044703484,
+          "maxMs": 0.7000000029802322
+        },
+        "localStorage-game": {
+          "n": 3,
+          "ms": 0.19999999925494194,
+          "maxMs": 0.10000000149011612
+        },
+        "save": {
+          "n": 3,
+          "ms": 2.7999999970197678,
+          "maxMs": 1.0999999977648258
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 11.000000018626451,
+          "maxMs": 0.5
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 4.199999999254942,
+          "maxMs": 0.20000000298023224
+        },
+        "render": {
+          "n": 62,
+          "ms": 111.09999999776483,
+          "maxMs": 4.400000002235174
+        },
+        "scene-controls": {
+          "n": 64,
+          "ms": 9.900000013411045,
+          "maxMs": 0.5
+        },
+        "scene-drawWorld": {
+          "n": 64,
+          "ms": 25.99999999254942,
+          "maxMs": 1.6000000014901161
+        },
+        "scene-draw": {
+          "n": 64,
+          "ms": 168.40000002086163,
+          "maxMs": 6.900000002235174
+        },
+        "raf": {
+          "n": 252,
+          "ms": 175.19999999552965,
+          "maxMs": 7
+        },
+        "timeout-50": {
+          "n": 60,
+          "ms": 119.30000000447035,
+          "maxMs": 4.800000000745058
+        },
+        "timeout-13.799999997019768": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-15.799999997019768": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.6999999992549419,
+          "maxMs": 0.6999999992549419
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 0.588938,
+        "ScriptDuration": 0.222525,
+        "LayoutDuration": 0.050263,
+        "RecalcStyleDuration": 0.080868,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 64
+      },
+      "heapBytes": 5383620,
+      "serializeBenchMs": [
+        0.8000000007450581,
+        0.5,
+        0.5999999977648258,
+        0.5,
+        0.4000000022351742,
+        0.5,
+        0.5,
+        0.30000000074505806,
+        0.29999999701976776,
+        0.30000000074505806
+      ]
+    },
+    {
+      "name": "manual-1x",
+      "fixture": "manual",
+      "seed": 42,
+      "room": "distill",
+      "rate": 1,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 6859.465595,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1248,
+        "canSave": true,
+        "saveBytes": 10284
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1236,
+        "canSave": true,
+        "saveBytes": 10393
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 9593,
+          "ms": 712.6999999955297,
+          "maxMs": 1.6000000014901161
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 712.9999999925494,
+          "maxMs": 11.899999998509884
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 72.89999999850988,
+          "maxMs": 10.099999997764826
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 1.199999999254942,
+          "maxMs": 0.20000000298023224
+        },
+        "save": {
+          "n": 14,
+          "ms": 77.5,
+          "maxMs": 10.5
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 10.499999985098839,
+          "maxMs": 0.3999999985098839
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 5.5000000186264515,
+          "maxMs": 0.20000000298023224
+        },
+        "render": {
+          "n": 62,
+          "ms": 734.6000000201166,
+          "maxMs": 22.599999997764826
+        },
+        "scene-controls": {
+          "n": 78,
+          "ms": 11.600000005215406,
+          "maxMs": 0.30000000074505806
+        },
+        "scene-drawWorld": {
+          "n": 78,
+          "ms": 126.60000000149012,
+          "maxMs": 3.599999997764826
+        },
+        "scene-draw": {
+          "n": 78,
+          "ms": 235.90000001341105,
+          "maxMs": 6.099999997764826
+        },
+        "raf": {
+          "n": 487,
+          "ms": 246.6000000089407,
+          "maxMs": 6.099999997764826
+        },
+        "timeout-93.19999999925494": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "svg-parse": {
+          "n": 77,
+          "ms": 45.80000000074506,
+          "maxMs": 1.5999999977648258
+        },
+        "canvas-allocated": {
+          "n": 77,
+          "ms": 0
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 17.100000001490116,
+          "maxMs": 0.5
+        },
+        "timeout-100": {
+          "n": 60,
+          "ms": 834.6000000201166,
+          "maxMs": 28.5
+        },
+        "timeout-59": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-43.900000002235174": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-10.100000001490116": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-87.69999999925494": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-52.69999999925494": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-8.900000002235174": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-71.90000000223517": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-20": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-77.60000000149012": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-12.900000002235174": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-57.19999999925494": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-20.199999999254942": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-51.30000000074506": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-92.80000000074506": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-2.900000002235174": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.6000000014901161,
+          "maxMs": 0.6000000014901161
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.529181,
+        "ScriptDuration": 1.056091,
+        "LayoutDuration": 0.04469,
+        "RecalcStyleDuration": 0.040622,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 78
+      },
+      "heapBytes": 4331432,
+      "serializeBenchMs": [
+        0.6999999992549419,
+        0.30000000074505806,
+        0.4000000022351742,
+        0.3999999985098839,
+        0.3999999985098839,
+        0.4000000022351742,
+        0.30000000074505806,
+        0.3999999985098839,
+        0.3999999985098839,
+        0.30000000074505806
+      ]
+    },
+    {
+      "name": "manual-2x",
+      "fixture": "manual",
+      "seed": 42,
+      "room": "distill",
+      "rate": 2,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 3842.8201740000004,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1248,
+        "canSave": true,
+        "saveBytes": 10284
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1236,
+        "canSave": true,
+        "saveBytes": 10393
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 9593,
+          "ms": 699.1999999433756,
+          "maxMs": 2.199999999254942
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 699.1999999955297,
+          "maxMs": 13.100000001490116
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 73.70000000298023,
+          "maxMs": 13.100000001490116
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 1.2999999970197678,
+          "maxMs": 0.30000000074505806
+        },
+        "save": {
+          "n": 14,
+          "ms": 78.69999999925494,
+          "maxMs": 13.699999999254942
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 10.900000028312206,
+          "maxMs": 0.8000000007450581
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 2.900000002235174,
+          "maxMs": 0.19999999925494194
+        },
+        "render": {
+          "n": 62,
+          "ms": 718.3999999947846,
+          "maxMs": 21.600000001490116
+        },
+        "scene-controls": {
+          "n": 66,
+          "ms": 10.499999985098839,
+          "maxMs": 1
+        },
+        "scene-drawWorld": {
+          "n": 66,
+          "ms": 103.00000000372529,
+          "maxMs": 4.699999999254942
+        },
+        "scene-draw": {
+          "n": 66,
+          "ms": 199.09999997913837,
+          "maxMs": 6.199999999254942
+        },
+        "raf": {
+          "n": 295,
+          "ms": 210.19999998435378,
+          "maxMs": 6.199999999254942
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 18.599999997764826,
+          "maxMs": 1.699999999254942
+        },
+        "timeout-50": {
+          "n": 60,
+          "ms": 821.1999999955297,
+          "maxMs": 31.899999998509884
+        },
+        "svg-parse": {
+          "n": 64,
+          "ms": 34.49999999254942,
+          "maxMs": 1
+        },
+        "canvas-allocated": {
+          "n": 64,
+          "ms": 0
+        },
+        "timeout-40.19999999925494": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-38.69999999925494": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "timeout-39.099999997764826": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-17.5": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-38.5": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "timeout-42.69999999925494": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-7.699999999254942": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.6000000014901161,
+          "maxMs": 0.6000000014901161
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.38443,
+        "ScriptDuration": 1.002643,
+        "LayoutDuration": 0.047972,
+        "RecalcStyleDuration": 0.038402,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 66
+      },
+      "heapBytes": 4908836,
+      "serializeBenchMs": [
+        0.6000000014901161,
+        0.3999999985098839,
+        0.4000000022351742,
+        0.3999999985098839,
+        0.3999999985098839,
+        0.6000000014901161,
+        0.30000000074505806,
+        0.30000000074505806,
+        0.30000000074505806,
+        0.6000000014901161
+      ]
+    },
+    {
+      "name": "manual-offroom",
+      "fixture": "manual",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 1,
+      "requestedMonths": 0,
+      "targetError": null,
+      "wallMs": 2501.521052,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1248,
+        "canSave": true,
+        "saveBytes": 10284
+      },
+      "after": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1248,
+        "canSave": true,
+        "saveBytes": 10284
+      },
+      "metrics": {
+        "timeout-602.1000000014901": {
+          "n": 1,
+          "ms": 0.19999999925494194,
+          "maxMs": 0.19999999925494194
+        },
+        "scene-controls": {
+          "n": 3,
+          "ms": 0.3999999947845936,
+          "maxMs": 0.19999999925494194
+        },
+        "scene-drawWorld": {
+          "n": 3,
+          "ms": 1.4000000022351742,
+          "maxMs": 0.5
+        },
+        "scene-draw": {
+          "n": 3,
+          "ms": 5,
+          "maxMs": 1.7999999970197678
+        },
+        "raf": {
+          "n": 3,
+          "ms": 5.100000001490116,
+          "maxMs": 1.7999999970197678
+        },
+        "timeout-897.6999999992549": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-898.4000000022352": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 0.016359000000000002,
+        "ScriptDuration": 0.005029,
+        "LayoutDuration": 0,
+        "RecalcStyleDuration": 0.000336,
+        "LayoutCount": 0,
+        "RecalcStyleCount": 3
+      },
+      "heapBytes": 4130880,
+      "serializeBenchMs": [
+        0.6999999992549419,
+        0.5,
+        8.599999997764826,
+        0.5,
+        0.4000000022351742,
+        0.3999999985098839,
+        0.4000000022351742,
+        0.3999999985098839,
+        0.30000000074505806,
+        0.3999999985098839
+      ]
+    },
+    {
+      "name": "automatic-1x",
+      "fixture": "automatic",
+      "seed": 42,
+      "room": "distill",
+      "rate": 1,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 6904.832986000001,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9362
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1184,
+        "canSave": true,
+        "saveBytes": 9467
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 9522,
+          "ms": 698.8000000342727,
+          "maxMs": 6.299999997019768
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 718.2000000141561,
+          "maxMs": 21.5
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 70.50000000372529,
+          "maxMs": 10.800000000745058
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 1.1000000014901161,
+          "maxMs": 0.10000000149011612
+        },
+        "save": {
+          "n": 14,
+          "ms": 74.59999999403954,
+          "maxMs": 11.100000001490116
+        },
+        "innerHTML": {
+          "n": 250,
+          "ms": 19.499999970197678,
+          "maxMs": 12.399999998509884
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 4.1999999806284904,
+          "maxMs": 0.29999999701976776
+        },
+        "render": {
+          "n": 62,
+          "ms": 774.7999999970198,
+          "maxMs": 32.099999997764826
+        },
+        "scene-controls": {
+          "n": 76,
+          "ms": 12.699999991804361,
+          "maxMs": 0.5
+        },
+        "scene-drawWorld": {
+          "n": 76,
+          "ms": 124.00000001117587,
+          "maxMs": 3.5
+        },
+        "scene-draw": {
+          "n": 76,
+          "ms": 258.59999998658895,
+          "maxMs": 7.899999998509884
+        },
+        "raf": {
+          "n": 483,
+          "ms": 273.89999997615814,
+          "maxMs": 7.899999998509884
+        },
+        "timeout-87.69999999925494": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "svg-parse": {
+          "n": 74,
+          "ms": 44.10000002011657,
+          "maxMs": 1.699999999254942
+        },
+        "canvas-allocated": {
+          "n": 74,
+          "ms": 0
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 17.100000008940697,
+          "maxMs": 1
+        },
+        "timeout-100": {
+          "n": 60,
+          "ms": 872.5999999791384,
+          "maxMs": 42.69999999925494
+        },
+        "timeout-57.899999998509884": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-8.199999999254942": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-90.60000000149012": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-53.69999999925494": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-19.300000000745058": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-86.60000000149012": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-40.399999998509884": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-50.69999999925494": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-25.300000000745058": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-79.80000000074506": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-90.89999999850988": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-7": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-40.30000000074506": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-68.69999999925494": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.8000000007450581,
+          "maxMs": 0.8000000007450581
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.6783679999999999,
+        "ScriptDuration": 1.105499,
+        "LayoutDuration": 0.060238,
+        "RecalcStyleDuration": 0.05568,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 76
+      },
+      "heapBytes": 4558720,
+      "serializeBenchMs": [
+        0.6000000014901161,
+        0.6000000014901161,
+        0.29999999701976776,
+        0.4000000022351742,
+        0.30000000074505806,
+        0.29999999701976776,
+        0.4000000022351742,
+        0.30000000074505806,
+        0.3999999985098839,
+        0.30000000074505806
+      ]
+    },
+    {
+      "name": "automatic-offroom-1x",
+      "fixture": "automatic",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 1,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 6864.714759999995,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9362
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1184,
+        "canSave": true,
+        "saveBytes": 9467
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 9522,
+          "ms": 725.5000000223517,
+          "maxMs": 5.199999999254942
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 722.0999999977648,
+          "maxMs": 13.100000001490116
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 75.19999999552965,
+          "maxMs": 10.300000000745058
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 2.199999999254942,
+          "maxMs": 0.8999999985098839
+        },
+        "save": {
+          "n": 14,
+          "ms": 80.29999999329448,
+          "maxMs": 10.599999997764826
+        },
+        "innerHTML": {
+          "n": 250,
+          "ms": 9.19999997317791,
+          "maxMs": 0.3999999985098839
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 4.5999999940395355,
+          "maxMs": 0.5999999977648258
+        },
+        "render": {
+          "n": 62,
+          "ms": 746.4000000059605,
+          "maxMs": 23.599999997764826
+        },
+        "scene-controls": {
+          "n": 69,
+          "ms": 10.19999996945262,
+          "maxMs": 0.3999999985098839
+        },
+        "scene-drawWorld": {
+          "n": 69,
+          "ms": 32.200000025331974,
+          "maxMs": 6.400000002235174
+        },
+        "scene-draw": {
+          "n": 69,
+          "ms": 182.00000000745058,
+          "maxMs": 8.300000000745058
+        },
+        "raf": {
+          "n": 477,
+          "ms": 196.29999999701977,
+          "maxMs": 8.300000000745058
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 18.50000001117587,
+          "maxMs": 1.3999999985098839
+        },
+        "timeout-100": {
+          "n": 60,
+          "ms": 850.8999999947846,
+          "maxMs": 27.800000000745058
+        },
+        "timeout-30.600000001490116": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-76.69999999925494": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-80.30000000074506": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-79.5": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-44.100000001490116": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "timeout-6.300000000745058": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "timeout-71": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.8000000007450581,
+          "maxMs": 0.8000000007450581
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.470256,
+        "ScriptDuration": 0.982047,
+        "LayoutDuration": 0.054873,
+        "RecalcStyleDuration": 0.081224,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 69
+      },
+      "heapBytes": 3612696,
+      "serializeBenchMs": [
+        0.5,
+        0.3999999985098839,
+        0.4000000022351742,
+        0.29999999701976776,
+        0.30000000074505806,
+        0.6999999992549419,
+        0.4000000022351742,
+        0.5,
+        0.19999999925494194,
+        0.3999999985098839
+      ]
+    },
+    {
+      "name": "automatic-offroom-2x",
+      "fixture": "automatic",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 2,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 3829.4691019999955,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9362
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1184,
+        "canSave": true,
+        "saveBytes": 9467
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 9522,
+          "ms": 696.0000000111759,
+          "maxMs": 7.199999999254942
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 696.7999999895692,
+          "maxMs": 16
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 79.10000000149012,
+          "maxMs": 16.099999997764826
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 1.199999999254942,
+          "maxMs": 0.19999999925494194
+        },
+        "save": {
+          "n": 14,
+          "ms": 83.89999999850988,
+          "maxMs": 16.799999997019768
+        },
+        "innerHTML": {
+          "n": 250,
+          "ms": 6.899999994784594,
+          "maxMs": 0.3999999985098839
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 3.5999999940395355,
+          "maxMs": 0.29999999701976776
+        },
+        "render": {
+          "n": 62,
+          "ms": 708.099999986589,
+          "maxMs": 25.800000000745058
+        },
+        "scene-controls": {
+          "n": 66,
+          "ms": 9.800000004470348,
+          "maxMs": 0.30000000074505806
+        },
+        "scene-drawWorld": {
+          "n": 66,
+          "ms": 23.999999977648258,
+          "maxMs": 0.6999999992549419
+        },
+        "scene-draw": {
+          "n": 66,
+          "ms": 162.50000001117587,
+          "maxMs": 3.800000000745058
+        },
+        "raf": {
+          "n": 294,
+          "ms": 170.30000001192093,
+          "maxMs": 3.800000000745058
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 16.80000000819564,
+          "maxMs": 1
+        },
+        "timeout-50": {
+          "n": 60,
+          "ms": 814.5999999716878,
+          "maxMs": 36.899999998509884
+        },
+        "timeout-25": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-24.899999998509884": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-20.899999998509884": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-26.599999997764826": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.8000000007450581,
+          "maxMs": 0.8000000007450581
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.3458029999999999,
+        "ScriptDuration": 0.92033,
+        "LayoutDuration": 0.058618,
+        "RecalcStyleDuration": 0.074953,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 66
+      },
+      "heapBytes": 3599736,
+      "serializeBenchMs": [
+        0.6000000014901161,
+        0.5,
+        0.29999999701976776,
+        0.4000000022351742,
+        0.30000000074505806,
+        0.3999999985098839,
+        0.30000000074505806,
+        0.5,
+        0.19999999925494194,
+        0.3999999985098839
+      ]
+    },
+    {
+      "name": "automatic-sales-1x",
+      "fixture": "automatic",
+      "seed": 42,
+      "room": "sales",
+      "rate": 1,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 6870.618026000004,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "sales",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9362
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "sales",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1184,
+        "canSave": true,
+        "saveBytes": 9467
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 9522,
+          "ms": 736.5999999754131,
+          "maxMs": 5.100000001490116
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 726.5000000149012,
+          "maxMs": 15.400000002235174
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 68.90000001341105,
+          "maxMs": 10
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 0.6000000014901161,
+          "maxMs": 0.10000000149011612
+        },
+        "save": {
+          "n": 14,
+          "ms": 72.80000000447035,
+          "maxMs": 10.300000000745058
+        },
+        "innerHTML": {
+          "n": 250,
+          "ms": 8.800000008195639,
+          "maxMs": 0.6999999992549419
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 4.400000002235174,
+          "maxMs": 0.30000000074505806
+        },
+        "render": {
+          "n": 62,
+          "ms": 758.4999999888241,
+          "maxMs": 26.199999999254942
+        },
+        "scene-controls": {
+          "n": 62,
+          "ms": 9.50000000372529,
+          "maxMs": 0.4000000022351742
+        },
+        "scene-drawWorld": {
+          "n": 62,
+          "ms": 18.899999983608723,
+          "maxMs": 1.5999999977648258
+        },
+        "scene-draw": {
+          "n": 62,
+          "ms": 125.39999997988343,
+          "maxMs": 6.099999997764826
+        },
+        "raf": {
+          "n": 471,
+          "ms": 138.09999999031425,
+          "maxMs": 6.099999997764826
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 18.299999982118607,
+          "maxMs": 0.6000000014901161
+        },
+        "timeout-100": {
+          "n": 60,
+          "ms": 858.0999999828637,
+          "maxMs": 32.80000000074506
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.8000000007450581,
+          "maxMs": 0.8000000007450581
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.397993,
+        "ScriptDuration": 0.960814,
+        "LayoutDuration": 0.064256,
+        "RecalcStyleDuration": 0.048821,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 62
+      },
+      "heapBytes": 3215928,
+      "serializeBenchMs": [
+        0.6999999992549419,
+        0.3999999985098839,
+        0.4000000022351742,
+        0.5,
+        0.29999999701976776,
+        0.5,
+        0.5,
+        0.4000000022351742,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "name": "automatic-sales-2x",
+      "fixture": "automatic",
+      "seed": 42,
+      "room": "sales",
+      "rate": 2,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 3814.618653999998,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "sales",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9362
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "sales",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1184,
+        "canSave": true,
+        "saveBytes": 9467
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 9522,
+          "ms": 683.0999999977648,
+          "maxMs": 3.199999999254942
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 687.6000000089407,
+          "maxMs": 15.599999997764826
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 65.09999999403954,
+          "maxMs": 9.100000001490116
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 1.1000000089406967,
+          "maxMs": 0.19999999925494194
+        },
+        "save": {
+          "n": 14,
+          "ms": 68.70000000298023,
+          "maxMs": 9.400000002235174
+        },
+        "innerHTML": {
+          "n": 250,
+          "ms": 5.700000010430813,
+          "maxMs": 0.4000000022351742
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 4.9000000059604645,
+          "maxMs": 0.20000000298023224
+        },
+        "render": {
+          "n": 62,
+          "ms": 711.2999999895692,
+          "maxMs": 28.100000001490116
+        },
+        "scene-controls": {
+          "n": 62,
+          "ms": 9.099999994039536,
+          "maxMs": 0.30000000074505806
+        },
+        "scene-drawWorld": {
+          "n": 62,
+          "ms": 16.399999994784594,
+          "maxMs": 0.5
+        },
+        "scene-draw": {
+          "n": 62,
+          "ms": 110.69999999180436,
+          "maxMs": 3.199999999254942
+        },
+        "raf": {
+          "n": 289,
+          "ms": 117.29999999701977,
+          "maxMs": 3.199999999254942
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 16.899999994784594,
+          "maxMs": 0.6000000014901161
+        },
+        "timeout-50": {
+          "n": 60,
+          "ms": 802.1000000014901,
+          "maxMs": 28.900000002235174
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.5999999977648258,
+          "maxMs": 0.5999999977648258
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.2751020000000002,
+        "ScriptDuration": 0.892251,
+        "LayoutDuration": 0.056171,
+        "RecalcStyleDuration": 0.039255,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 62
+      },
+      "heapBytes": 3338492,
+      "serializeBenchMs": [
+        0.6000000014901161,
+        0.3999999985098839,
+        0.30000000074505806,
+        0.3999999985098839,
+        0.30000000074505806,
+        0.6000000014901161,
+        0.5,
+        0.29999999701976776,
+        0.30000000074505806,
+        0.30000000074505806
+      ]
+    },
+    {
+      "name": "automatic-distill-2x",
+      "fixture": "automatic",
+      "seed": 42,
+      "room": "distill",
+      "rate": 2,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 3863.5164030000014,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9362
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1184,
+        "canSave": true,
+        "saveBytes": 9467
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 9522,
+          "ms": 729.1999999992549,
+          "maxMs": 5
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 729.4000000208616,
+          "maxMs": 14.600000001490116
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 74.70000000670552,
+          "maxMs": 14
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 0.9999999925494194,
+          "maxMs": 0.19999999925494194
+        },
+        "save": {
+          "n": 14,
+          "ms": 78.30000000447035,
+          "maxMs": 14.399999998509884
+        },
+        "innerHTML": {
+          "n": 250,
+          "ms": 7.799999989569187,
+          "maxMs": 0.3999999985098839
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 3.3999999836087227,
+          "maxMs": 0.20000000298023224
+        },
+        "render": {
+          "n": 62,
+          "ms": 748.399999987334,
+          "maxMs": 25.400000002235174
+        },
+        "scene-controls": {
+          "n": 66,
+          "ms": 9.299999978393316,
+          "maxMs": 0.30000000074505806
+        },
+        "scene-drawWorld": {
+          "n": 66,
+          "ms": 108.99999998882413,
+          "maxMs": 6.599999997764826
+        },
+        "scene-draw": {
+          "n": 66,
+          "ms": 214.49999998882413,
+          "maxMs": 13.199999999254942
+        },
+        "raf": {
+          "n": 296,
+          "ms": 221.19999999552965,
+          "maxMs": 13.199999999254942
+        },
+        "timeout-31.899999998509884": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "svg-parse": {
+          "n": 64,
+          "ms": 40.79999999329448,
+          "maxMs": 5.599999997764826
+        },
+        "canvas-allocated": {
+          "n": 64,
+          "ms": 0
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 18.69999999180436,
+          "maxMs": 1.300000000745058
+        },
+        "timeout-50": {
+          "n": 60,
+          "ms": 847.1999999955297,
+          "maxMs": 29.899999998509884
+        },
+        "timeout-30.099999997764826": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-62.899999998509884": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-43.899999998509884": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-30.199999999254942": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.8999999985098839,
+          "maxMs": 0.8999999985098839
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.502572,
+        "ScriptDuration": 1.038123,
+        "LayoutDuration": 0.088895,
+        "RecalcStyleDuration": 0.045357,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 66
+      },
+      "heapBytes": 4509320,
+      "serializeBenchMs": [
+        0.8000000007450581,
+        0.5,
+        0.3999999985098839,
+        0.30000000074505806,
+        0.5,
+        0.30000000074505806,
+        0.29999999701976776,
+        0.30000000074505806,
+        0.4000000022351742,
+        0.3999999985098839
+      ]
+    },
+    {
+      "name": "filling-1x",
+      "fixture": "filling",
+      "seed": 42,
+      "room": "distill",
+      "rate": 1,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 6148.901848999994,
+      "before": {
+        "month": 1,
+        "elapsed": 0,
+        "phase": "filling",
+        "progress": 65,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1248,
+        "canSave": true,
+        "saveBytes": 11130
+      },
+      "after": {
+        "month": 2,
+        "elapsed": 0,
+        "phase": "filling",
+        "progress": 65,
+        "room": "distill",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 1236,
+        "canSave": true,
+        "saveBytes": 11236
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 1036,
+          "ms": 29.300000000745058,
+          "maxMs": 0.4000000022351742
+        },
+        "validateDistillery": {
+          "n": 66,
+          "ms": 48.70000000298023,
+          "maxMs": 4.800000000745058
+        },
+        "serializeDistillery": {
+          "n": 3,
+          "ms": 2.599999997764826,
+          "maxMs": 1
+        },
+        "localStorage-game": {
+          "n": 3,
+          "ms": 0.30000000074505806,
+          "maxMs": 0.19999999925494194
+        },
+        "save": {
+          "n": 3,
+          "ms": 3.300000000745058,
+          "maxMs": 1.300000000745058
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 10.599999994039536,
+          "maxMs": 0.3999999985098839
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 3.8999999798834324,
+          "maxMs": 0.19999999925494194
+        },
+        "render": {
+          "n": 62,
+          "ms": 127.49999998509884,
+          "maxMs": 5.799999997019768
+        },
+        "scene-controls": {
+          "n": 62,
+          "ms": 10.5,
+          "maxMs": 1.199999999254942
+        },
+        "scene-drawWorld": {
+          "n": 62,
+          "ms": 23.50000000372529,
+          "maxMs": 1.0999999977648258
+        },
+        "scene-draw": {
+          "n": 62,
+          "ms": 135.10000000149012,
+          "maxMs": 3.100000001490116
+        },
+        "raf": {
+          "n": 430,
+          "ms": 148.20000002160668,
+          "maxMs": 3.100000001490116
+        },
+        "timeout-100": {
+          "n": 60,
+          "ms": 136.19999998435378,
+          "maxMs": 5.899999998509884
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 0.6999999992549419,
+          "maxMs": 0.6999999992549419
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 0.651885,
+        "ScriptDuration": 0.251927,
+        "LayoutDuration": 0.083332,
+        "RecalcStyleDuration": 0.046956,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 62
+      },
+      "heapBytes": 5116536,
+      "serializeBenchMs": [
+        0.8000000007450581,
+        0.3999999985098839,
+        0.5,
+        0.4000000022351742,
+        0.6999999992549419,
+        0.3999999985098839,
+        0.4000000022351742,
+        0.5,
+        0.5,
+        0.30000000074505806
+      ]
+    },
+    {
+      "name": "late-1x",
+      "fixture": "late",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 1,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 6218.919289999991,
+      "before": {
+        "month": 100,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 3028,
+        "canSave": true,
+        "saveBytes": 46691
+      },
+      "after": {
+        "month": 101,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 3000,
+        "canSave": true,
+        "saveBytes": 46788
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 1330,
+          "ms": 85.49999998509884,
+          "maxMs": 2.399999998509884
+        },
+        "validateDistillery": {
+          "n": 66,
+          "ms": 128.80000001564622,
+          "maxMs": 4.600000001490116
+        },
+        "serializeDistillery": {
+          "n": 3,
+          "ms": 9.600000001490116,
+          "maxMs": 4.900000002235174
+        },
+        "localStorage-game": {
+          "n": 3,
+          "ms": 0.6000000014901161,
+          "maxMs": 0.30000000074505806
+        },
+        "save": {
+          "n": 3,
+          "ms": 12,
+          "maxMs": 6
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 10.500000022351742,
+          "maxMs": 0.9000000022351742
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 5.100000008940697,
+          "maxMs": 0.8000000007450581
+        },
+        "render": {
+          "n": 62,
+          "ms": 190.70000000670552,
+          "maxMs": 10.5
+        },
+        "scene-controls": {
+          "n": 68,
+          "ms": 11.600000001490116,
+          "maxMs": 0.3999999985098839
+        },
+        "scene-drawWorld": {
+          "n": 68,
+          "ms": 28.200000006705523,
+          "maxMs": 0.8000000007450581
+        },
+        "scene-draw": {
+          "n": 68,
+          "ms": 217.69999999925494,
+          "maxMs": 5.399999998509884
+        },
+        "raf": {
+          "n": 439,
+          "ms": 230.1999999731779,
+          "maxMs": 5.399999998509884
+        },
+        "timeout-100": {
+          "n": 60,
+          "ms": 203.40000000223517,
+          "maxMs": 18.800000000745058
+        },
+        "timeout-71": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-52.400000002235174": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-17.600000001490116": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-88": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-54.600000001490116": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-37.900000002235174": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-4.5": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 1.8999999985098839,
+          "maxMs": 1.8999999985098839
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 0.791677,
+        "ScriptDuration": 0.334144,
+        "LayoutDuration": 0.056379,
+        "RecalcStyleDuration": 0.117917,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 68
+      },
+      "heapBytes": 11136956,
+      "serializeBenchMs": [
+        1.8999999985098839,
+        1.8999999985098839,
+        2.300000000745058,
+        1.800000000745058,
+        1.6000000014901161,
+        1.5999999977648258,
+        1.699999999254942,
+        1.800000000745058,
+        1.800000000745058,
+        1.6000000014901161
+      ]
+    },
+    {
+      "name": "late-2x",
+      "fixture": "late",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 2,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 3222.2854880000086,
+      "before": {
+        "month": 100,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 3028,
+        "canSave": true,
+        "saveBytes": 46691
+      },
+      "after": {
+        "month": 101,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 3000,
+        "canSave": true,
+        "saveBytes": 46788
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 1330,
+          "ms": 83.69999999925494,
+          "maxMs": 0.9000000022351742
+        },
+        "validateDistillery": {
+          "n": 66,
+          "ms": 129.09999997913837,
+          "maxMs": 3
+        },
+        "serializeDistillery": {
+          "n": 3,
+          "ms": 8.200000002980232,
+          "maxMs": 3.100000001490116
+        },
+        "localStorage-game": {
+          "n": 3,
+          "ms": 0.8000000007450581,
+          "maxMs": 0.30000000074505806
+        },
+        "save": {
+          "n": 3,
+          "ms": 10.700000002980232,
+          "maxMs": 4
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 10.49999999254942,
+          "maxMs": 1.3999999985098839
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 4.200000010430813,
+          "maxMs": 0.3999999985098839
+        },
+        "render": {
+          "n": 62,
+          "ms": 195.40000000596046,
+          "maxMs": 10.399999998509884
+        },
+        "scene-controls": {
+          "n": 65,
+          "ms": 12.299999970942736,
+          "maxMs": 0.8999999985098839
+        },
+        "scene-drawWorld": {
+          "n": 65,
+          "ms": 29.700000029057264,
+          "maxMs": 1.199999999254942
+        },
+        "scene-draw": {
+          "n": 65,
+          "ms": 215.6999999806285,
+          "maxMs": 4.899999998509884
+        },
+        "raf": {
+          "n": 257,
+          "ms": 222.30000001192093,
+          "maxMs": 4.899999998509884
+        },
+        "timeout-50": {
+          "n": 60,
+          "ms": 203.50000001117587,
+          "maxMs": 16
+        },
+        "timeout-24.599999997764826": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-11.299999997019768": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "timeout-10.199999999254942": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-60.19999999925494": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 1.300000000745058,
+          "maxMs": 1.300000000745058
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 0.770031,
+        "ScriptDuration": 0.329715,
+        "LayoutDuration": 0.055553,
+        "RecalcStyleDuration": 0.116806,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 65
+      },
+      "heapBytes": 4788932,
+      "serializeBenchMs": [
+        2.199999999254942,
+        1.9000000022351742,
+        1.699999999254942,
+        1.800000000745058,
+        1.8999999985098839,
+        1.800000000745058,
+        1.800000000745058,
+        2.099999997764826,
+        3.900000002235174,
+        1.9000000022351742
+      ]
+    },
+    {
+      "name": "late-auto-1x",
+      "fixture": "lateAutomatic",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 1,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 9322.030505000002,
+      "before": {
+        "month": 101,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 2868,
+        "canSave": true,
+        "saveBytes": 47692
+      },
+      "after": {
+        "month": 102,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 2840,
+        "canSave": true,
+        "saveBytes": 47783
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 10415,
+          "ms": 3074.8000000044703,
+          "maxMs": 4.599999997764826
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 3064.39999999851,
+          "maxMs": 53.5
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 312.20000000298023,
+          "maxMs": 53.69999999925494
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 3.4999999925494194,
+          "maxMs": 0.4000000022351742
+        },
+        "save": {
+          "n": 14,
+          "ms": 324.99999998882413,
+          "maxMs": 54.5
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 14.900000020861626,
+          "maxMs": 1
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 4.500000022351742,
+          "maxMs": 0.20000000298023224
+        },
+        "render": {
+          "n": 62,
+          "ms": 2924.6000000163913,
+          "maxMs": 101.60000000149012
+        },
+        "scene-controls": {
+          "n": 67,
+          "ms": 10.599999964237213,
+          "maxMs": 0.30000000074505806
+        },
+        "scene-drawWorld": {
+          "n": 67,
+          "ms": 30.900000024586916,
+          "maxMs": 0.7000000029802322
+        },
+        "scene-draw": {
+          "n": 67,
+          "ms": 209.09999998286366,
+          "maxMs": 6.5
+        },
+        "raf": {
+          "n": 515,
+          "ms": 223.80000000819564,
+          "maxMs": 6.5
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 52.400000002235174,
+          "maxMs": 2
+        },
+        "timeout-100": {
+          "n": 60,
+          "ms": 3306.199999999255,
+          "maxMs": 158.40000000223517
+        },
+        "timeout-68.39999999850988": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-29.199999999254942": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-31.599999997764826": {
+          "n": 1,
+          "ms": 0.10000000149011612,
+          "maxMs": 0.10000000149011612
+        },
+        "timeout-72.5": {
+          "n": 1,
+          "ms": 0.09999999776482582,
+          "maxMs": 0.09999999776482582
+        },
+        "timeout-42.5": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 1.300000000745058,
+          "maxMs": 1.300000000745058
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 4.0672559999999995,
+        "ScriptDuration": 3.447192,
+        "LayoutDuration": 0.060245,
+        "RecalcStyleDuration": 0.105489,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 67
+      },
+      "heapBytes": 30653704,
+      "serializeBenchMs": [
+        2,
+        1.699999999254942,
+        2.600000001490116,
+        2.2999999970197678,
+        1.800000000745058,
+        1.800000000745058,
+        1.6000000014901161,
+        1.699999999254942,
+        1.8999999985098839,
+        1.9000000022351742
+      ]
+    },
+    {
+      "name": "late-auto-2x",
+      "fixture": "lateAutomatic",
+      "seed": 42,
+      "room": "warehouse",
+      "rate": 2,
+      "requestedMonths": 1,
+      "targetError": null,
+      "wallMs": 6264.410348999998,
+      "before": {
+        "month": 101,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 0,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 2868,
+        "canSave": true,
+        "saveBytes": 47692
+      },
+      "after": {
+        "month": 102,
+        "elapsed": 0,
+        "phase": "distilling",
+        "progress": 60,
+        "room": "warehouse",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 2840,
+        "canSave": true,
+        "saveBytes": 47783
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 10415,
+          "ms": 3024.2999999970198,
+          "maxMs": 4.099999997764826
+        },
+        "validateDistillery": {
+          "n": 136,
+          "ms": 3013.8999999798834,
+          "maxMs": 48.899999998509884
+        },
+        "serializeDistillery": {
+          "n": 14,
+          "ms": 296.8999999985099,
+          "maxMs": 43.30000000074506
+        },
+        "localStorage-game": {
+          "n": 14,
+          "ms": 2.899999998509884,
+          "maxMs": 0.30000000074505806
+        },
+        "save": {
+          "n": 14,
+          "ms": 308.80000000074506,
+          "maxMs": 44.30000000074506
+        },
+        "innerHTML": {
+          "n": 312,
+          "ms": 13.899999998509884,
+          "maxMs": 1
+        },
+        "scene-update": {
+          "n": 62,
+          "ms": 3.8000000081956387,
+          "maxMs": 0.19999999925494194
+        },
+        "render": {
+          "n": 62,
+          "ms": 2884.600000027567,
+          "maxMs": 97.29999999701977
+        },
+        "scene-controls": {
+          "n": 64,
+          "ms": 10.099999997764826,
+          "maxMs": 0.30000000074505806
+        },
+        "scene-drawWorld": {
+          "n": 64,
+          "ms": 29.80000001192093,
+          "maxMs": 0.8999999985098839
+        },
+        "scene-draw": {
+          "n": 64,
+          "ms": 203.80000000819564,
+          "maxMs": 4.900000002235174
+        },
+        "raf": {
+          "n": 330,
+          "ms": 212.50000000745058,
+          "maxMs": 4.900000002235174
+        },
+        "distillStep": {
+          "n": 60,
+          "ms": 52.600000005215406,
+          "maxMs": 1.300000000745058
+        },
+        "timeout-50": {
+          "n": 60,
+          "ms": 3248.400000013411,
+          "maxMs": 117.5
+        },
+        "timeout-8.5": {
+          "n": 1,
+          "ms": 0,
+          "maxMs": 0
+        },
+        "timeout-24.5": {
+          "n": 1,
+          "ms": 0.19999999925494194,
+          "maxMs": 0.19999999925494194
+        },
+        "tickDistillery": {
+          "n": 1,
+          "ms": 1.199999999254942,
+          "maxMs": 1.199999999254942
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 3.9399219999999997,
+        "ScriptDuration": 3.370872,
+        "LayoutDuration": 0.059802,
+        "RecalcStyleDuration": 0.106725,
+        "LayoutCount": 62,
+        "RecalcStyleCount": 64
+      },
+      "heapBytes": 4423864,
+      "serializeBenchMs": [
+        2.5,
+        2.199999999254942,
+        1.800000000745058,
+        2,
+        2,
+        1.8999999985098839,
+        1.800000000745058,
+        2.099999997764826,
+        2.100000001490116,
+        1.800000000745058
+      ]
+    },
+    {
+      "name": "history-2x-3months",
+      "fixture": "longHistory",
+      "seed": 42,
+      "room": "sales",
+      "rate": 2,
+      "requestedMonths": 3,
+      "targetError": null,
+      "wallMs": 9657.597754999995,
+      "before": {
+        "month": 277,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "sales",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 3028,
+        "canSave": true,
+        "saveBytes": 51687
+      },
+      "after": {
+        "month": 280,
+        "elapsed": 0,
+        "phase": "ready",
+        "room": "sales",
+        "userPaused": true,
+        "runtimeHalted": false,
+        "cash": 3016,
+        "canSave": true,
+        "saveBytes": 51813
+      },
+      "metrics": {
+        "structuredClone": {
+          "n": 2396,
+          "ms": 269.2000000178814,
+          "maxMs": 2.900000002235174
+        },
+        "validateDistillery": {
+          "n": 187,
+          "ms": 433.700000025332,
+          "maxMs": 27.100000001490116
+        },
+        "serializeDistillery": {
+          "n": 5,
+          "ms": 18.199999999254942,
+          "maxMs": 4.5
+        },
+        "localStorage-game": {
+          "n": 5,
+          "ms": 2.5,
+          "maxMs": 1.1000000014901161
+        },
+        "save": {
+          "n": 5,
+          "ms": 26.400000002235174,
+          "maxMs": 7.100000001490116
+        },
+        "innerHTML": {
+          "n": 728,
+          "ms": 14.900000013411045,
+          "maxMs": 0.30000000074505806
+        },
+        "scene-update": {
+          "n": 182,
+          "ms": 12.900000002235174,
+          "maxMs": 0.3999999985098839
+        },
+        "render": {
+          "n": 182,
+          "ms": 580.8999999910593,
+          "maxMs": 28.300000000745058
+        },
+        "scene-controls": {
+          "n": 182,
+          "ms": 25.700000021606684,
+          "maxMs": 0.7000000029802322
+        },
+        "scene-drawWorld": {
+          "n": 182,
+          "ms": 50.00000003352761,
+          "maxMs": 0.6999999992549419
+        },
+        "scene-draw": {
+          "n": 182,
+          "ms": 319.4000000208616,
+          "maxMs": 3.699999999254942
+        },
+        "raf": {
+          "n": 760,
+          "ms": 336.6000000089407,
+          "maxMs": 3.699999999254942
+        },
+        "timeout-50": {
+          "n": 180,
+          "ms": 623.0999999567866,
+          "maxMs": 28.5
+        },
+        "tickDistillery": {
+          "n": 3,
+          "ms": 3.9999999962747097,
+          "maxMs": 1.7999999970197678
+        }
+      },
+      "cdpDelta": {
+        "TaskDuration": 1.8967040000000002,
+        "ScriptDuration": 0.881632,
+        "LayoutDuration": 0.218977,
+        "RecalcStyleDuration": 0.110022,
+        "LayoutCount": 182,
+        "RecalcStyleCount": 182
+      },
+      "heapBytes": 6484524,
+      "serializeBenchMs": [
+        2.100000001490116,
+        2.099999997764826,
+        2,
+        2.199999999254942,
+        1.9000000022351742,
+        1.8999999985098839,
+        2.699999999254942,
+        4.300000000745058,
+        2.400000002235174,
+        2
+      ]
+    },
+    {
+      "name": "uninstrumented-normal-1x",
+      "wallMs": 6125.262852,
+      "requestedMonths": 1,
+      "afterMonth": 2,
+      "instrumentation": false
+    },
+    {
+      "name": "uninstrumented-manual-1x",
+      "wallMs": 6836.489782000004,
+      "requestedMonths": 1,
+      "afterMonth": 2,
+      "instrumentation": false
+    },
+    {
+      "name": "automatic-hidden-resume",
+      "seed": 42,
+      "wallMs": 3421.8464330000133,
+      "hiddenBefore": {
+        "month": 1,
+        "elapsed": 900,
+        "phase": "distilling",
+        "progress": 9,
+        "room": "warehouse",
+        "userPaused": false,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9367
+      },
+      "hiddenAfter": {
+        "month": 1,
+        "elapsed": 900,
+        "phase": "distilling",
+        "progress": 9,
+        "room": "warehouse",
+        "userPaused": false,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9367
+      },
+      "hiddenMetrics": {},
+      "resumed": {
+        "month": 1,
+        "elapsed": 2000,
+        "phase": "distilling",
+        "progress": 20,
+        "room": "warehouse",
+        "userPaused": false,
+        "runtimeHalted": false,
+        "cash": 1196,
+        "canSave": true,
+        "saveBytes": 9368
+      },
+      "visibilityMethod": "synthetic document.hidden signal; native timers unchanged"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "shop-app.mjs": "73cb0669a50373fc8569b533f68f6f781e347d4bedb99bc208ef191b4b8e684b",
+    "canvas-scene.mjs": "3dde5d826ab7f505b2c040a0392ffa1eebdd10405e9254be3f56affc0ef21e79",
+    "room-motion.mjs": "47c92e15bf515338f06182501e1b5f2e4ffa626a8f13c0196e9ffc7e58c44145",
+    "partner-orders.mjs": "7a68f52c6f64f122c5c89f41c9fe872149cee0560f208d6510145462e179a639",
+    "parallel-parameters.mjs": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f",
+    "design/gameplay-audit-20261023/time-fixtures.mjs": "4eab4dcbbb5c1166621fba48f914171213692a56ca2e79e336818f7b51f9e226"
+  }
+}
