@@ -6,7 +6,7 @@ import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottl
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
-import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=0.69-time-speed';
+import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=start-map-ui-r1';
 import{uiText}from'./ui-text.mjs?v=stage4-r2';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false,frame=0){
@@ -127,6 +127,10 @@ export class CanvasScene{
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0,readout=view.room==='distill'?view.spirit:null;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:readout?(readout.compact?216:141)+spiritOffset:null,spiritBottom:readout?(readout.compact?252:readout.phrase&&readout.axes.length?255:243)+spiritOffset:null,equipmentTop:l.equipment.y});
   if(view.room==='distill'&&view.spirit){const p=view.spirit;if(p.compact){this.window(72,216+spiritOffset,216,36,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,180,240+spiritOffset,16,'center');}else{this.window(24,141+spiritOffset,312,p.phrase&&p.axes.length?114:102,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,164+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=192+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(p.phrase)this.lines(p.phrase,36,(p.axes.length?244:195)+spiritOffset,288,16,1);}}
+  if(view.room==='distill'&&Number.isInteger(view.countdown)&&view.countdown>=1&&view.countdown<=3){
+   // One repaint per digit, using the scene's existing pixel font.
+   this.text(String(view.countdown),180,228,48,'center');this.root.dataset.countdown=String(view.countdown);
+  }else delete this.root.dataset.countdown;
   if(view.room==='distill'){
    const g=collectionGeometry(view.cutRange),point=n=>g.x+Math.round(n*g.w);
    this.pixelRect(g.x,g.y,g.w,g.h,'#656978');
