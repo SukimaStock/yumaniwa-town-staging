@@ -1,6 +1,6 @@
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=distill-ui-r1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=0.25.3-feedback';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
@@ -25,7 +25,7 @@ export class CanvasScene{
   new MutationObserver(()=>this.queue()).observe($('action-dialog'),{attributes:true,attributeFilter:['open']});
   fontReady.then(()=>{this.fontSettled=true;this.queue();});
   document.addEventListener('amber-font-change',()=>this.queue());
-  for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','shop-offer'])this.controlRoot.append($(id));
+  for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','shop-offer','room-feedback'])this.controlRoot.append($(id));
   $('management-controls').prepend($('open-ledger'));$('management-controls').append($('shop-offer'),$('open-aux-menu'));
   for(const id of ['toggle-speed','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])document.body.append($(id));
@@ -177,6 +177,7 @@ export class CanvasScene{
     if(a.key==='open-aux-menu'&&view.staffBrief&&view.room==='distill')this.text(view.staffBrief,a.x+a.w+9,a.y+32,BODY_SIZE);
     continue;
    }
+   if(a.key==='room-feedback'){this.window(a.x,a.y,a.w,a.h,pressed?'#19141e':'#292b39','#858995');this.lines(a.label,a.x+9,a.y+21,a.w-18,16,3);continue;}
    if(a.key==='trade-info'){drawSymbol(c,'handshake',a.x+11,a.y+6,3,ink);continue;}
    if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+29,BODY_SIZE,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}
    const primary=['start-distill','stop-distill','open-fill','go-distill'].includes(a.key),quiet=['open-staff-panel','shop-offer','shelf-prev','shelf-next'].includes(a.key);
