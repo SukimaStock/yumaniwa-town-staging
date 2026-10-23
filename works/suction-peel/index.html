@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="ガラスについた吸盤の端をドラッグしてはがす作品。戻して離すと、また吸いつきます。">
+<title>吸盤をはがす</title>
+<link rel="stylesheet" href="style.css">
+<script src="main.js" defer></script>
+</head>
+<body>
+<main>
+<svg id="scene" viewBox="0 0 400 580" aria-label="ガラスについた吸盤">
+<defs>
+ <linearGradient id="glass" x2=".9" y2="1"><stop stop-color="#ecf2ee"/><stop offset=".55" stop-color="#c8d9d4"/><stop offset="1" stop-color="#b6cbc7"/></linearGradient>
+ <radialGradient id="rubber" cx=".36" cy=".24" r=".8"><stop stop-color="#f1d0b2" stop-opacity=".92"/><stop offset=".5" stop-color="#d49c7e" stop-opacity=".8"/><stop offset="1" stop-color="#a96c57" stop-opacity=".92"/></radialGradient>
+ <linearGradient id="lip" x2=".6" y2="1"><stop stop-color="#f6dbc4" stop-opacity=".95"/><stop offset=".55" stop-color="#d5a087" stop-opacity=".65"/><stop offset="1" stop-color="#a06b59"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<g aria-hidden="true">
+ <rect x="28" y="40" width="344" height="500" rx="9" fill="#536d69" opacity=".12"/>
+ <rect x="22" y="32" width="344" height="500" rx="9" fill="url(#glass)" stroke="#f1f5ec" stroke-width="2"/>
+ <path d="M38 164 L229 33 H278 L38 199Z M38 216 L306 33 H321 L38 229Z" fill="#fff" opacity=".2"/>
+ <path d="M29 523H357V42" fill="none" stroke="#879f9a" opacity=".35"/>
+ <ellipse id="shadow" cx="200" cy="294" rx="88" ry="61" fill="#344b43" opacity=".16" filter="url(#soft)"/>
+ <ellipse id="mark" cx="200" cy="280" rx="87" ry="64" fill="none" stroke="#f3f4e5" stroke-width="2" opacity="0"/>
+ <path id="contact" fill="none" stroke="#725449" stroke-width="3" opacity=".5"/>
+</g>
+<g id="cup" aria-hidden="true">
+ <path id="rim" fill="url(#lip)" stroke="#b17d65" stroke-width="1.5"/>
+ <path id="rim-light" fill="none" stroke="#ffe9d5" stroke-width="2" opacity=".8"/>
+ <ellipse id="dome" cx="200" cy="267" rx="66" ry="49" fill="url(#rubber)" stroke="#bc866a" stroke-width="1"/>
+ <path id="shine" d="M150 260 Q158 230 191 229" fill="none" stroke="#fff0dc" stroke-width="5" stroke-linecap="round" opacity=".48"/>
+ <ellipse id="stem" cx="200" cy="255" rx="20" ry="14" fill="#d6a286" stroke="#b77f64"/>
+ <ellipse id="stem-top" cx="198" cy="249" rx="17" ry="12" fill="#efd0b1" stroke="#cf9d7f"/>
+ <path id="fold" fill="#f4d6bc" stroke="#a8755f" stroke-width="1.5"/>
+</g>
+<g id="handle" tabindex="0" role="slider" aria-label="吸盤の端。外へドラッグしてはがし、元の位置へ戻して離すと吸着。矢印キーで引く・戻す、Homeで吸着" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+ <circle class="focus" r="36"/>
+ <circle id="hit-area" r="36" fill="transparent"/>
+ <path d="M-14 -8 Q-16 9 -6 16 Q9 23 17 9 Q21-2 9-11Z" fill="url(#lip)" stroke="#ad765e" stroke-width="1.5"/>
+ <path d="M-5 7 L7 0 M-2 12 L11 5" stroke="#fff0da" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+</g>
+</svg>
+</main>
+</body>
+</html>

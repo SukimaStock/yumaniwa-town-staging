@@ -1,0 +1,9 @@
+:root { color-scheme: light; background: #e2e4d9; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { min-height: 100svh; display: grid; place-items: center; padding: max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left)); }
+#scene { display: block; width: min(100%,480px); height: calc(100svh - 24px); max-height: 740px; touch-action: none; user-select: none; -webkit-user-select: none; }
+#handle { cursor: grab; outline: none; -webkit-tap-highlight-color: transparent; }
+#handle.dragging { cursor: grabbing; }
+.focus { fill: none; stroke: #495f54; stroke-width: 2; opacity: 0; }
+#handle:focus-visible .focus { opacity: 1; }
