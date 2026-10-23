@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c4b08a9d7f7d59d533e3654c22c5c04110b3700c86e7cc01baffd3803b631333",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-countdown-native-timer-fix-20261023",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Fix native Window timer receiver error that leaves manual start countdown at3; verify native timers without Playwright clock.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "4e424669272e93f28f85bc113ad5efa16a76d456",
+    "canonicalSources": [
+      "User stuck-at3 report",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/start-countdown.mjs",
+      "PR #612"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-countdown-native-timer-fix-20261023/r0.lock.json",
+      "works/ambertime/start-countdown.mjs",
+      "works/ambertime/tests/start-countdown.test.mjs",
+      "works/ambertime/tests/start-map-ui-browser.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Wrap default browser timers in explicit globalThis calls so native Window timers receive correct receiver.",
+      "Add receiver-sensitive default-timer regression and actual browser native-time smoke before mocked-clock checks.",
+      "Bump countdown module/app URLs so existing clients receive fix; no model, save, layout, map or unrelated UI changes."
+    ],
+    "ownerDecisions": [
+      "User reports countdown stuck at3 and explicitly requests fix and Staging reflection,2026-10-23."
+    ],
+    "hqDecisions": [
+      "Confirmed unmocked Chromium reproduces Illegal invocation for both timers when stored as instance methods. Use Window-bound wrapper defaults without altering timer behavior or model operations."
+    ],
+    "rulesApplied": [
+      "Normal locked Plan route because executable imports and lifecycle/save-adjacent code require contract review.",
+      "No shared runtime, simulation, save schema, map art, text or visual design change.",
+      "Expression audit six points: no new UI text or decoration."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Reproduce native timer Illegal invocation before fix.",
+      "Without page.clock verify3->2->1->normal collection, no page error and hidden cancellation.",
+      "Required CI, Staging deploy and matching published files."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this timer repair and cache URLs; no data migration required.",
+    "outOfScope": [
+      "Production",
+      "Game model/save/calculations",
+      "Other UI changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari use",
+      "Author adoption",
+      "Production rollout"
+    ],
+    "alternativesRejected": [
+      "Introduce arbitrary 30-year unlocks",
+      "Boost rumor delivery delay",
+      "Inject map seen flag into replay operations",
+      "Force-pop map over ongoing selections",
+      "Overwrite actual map art"
+    ],
+    "boundaryCases": [
+      "Default native setTimeout receiver",
+      "Default native clearTimeout cancellation",
+      "Injected deterministic timers retain existing behavior",
+      "Saved bytes remain unchanged until countdown completes",
+      "Repeated start and hidden/pagehide cancellation"
+    ],
+    "testPlan": [
+      "Focused countdown and existing world-map/heat unit tests.",
+      "Unmocked native Chromium countdown plus existing24 focused browser checks.",
+      "Scope/Risk/Impact, syntax, independent review, requiredCI and published byte checks."
+    ],
+    "problem": "Calling copied native Window timers as StartCountdown methods throws Illegal invocation immediately after showing3.",
+    "currentContract": "Manual countdown uses three finite one-second timers and commits no game state before completion.",
+    "whyExistingIsInsufficient": "Playwright clock wrappers and injected unit timers accepted the wrong receiver, masking real browser failure.",
+    "design": "Default arrow wrappers call globalThis.setTimeout/clearTimeout with the Window receiver.",
+    "migration": "None.",
+    "compatibility": "No timing, simulation, save, map or other UI behavior change.",
+    "promotionRisk": "Staging only; no physical temperature measurements or Safari claims."
+  }
+}
