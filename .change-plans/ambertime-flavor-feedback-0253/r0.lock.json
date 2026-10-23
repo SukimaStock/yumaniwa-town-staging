@@ -1,0 +1,149 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "29eee7eedc4b8a32c1990e07ce68f8b7ee29924ce4b500f447f09d625d5cec8b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-flavor-feedback-0253",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Connect existing retail comments and meaningful cask changes to existing release/cask/recipe/tasting paths without model/save changes.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "1d5c2dbeaddfb10fecf8e8241d00e293910b798a",
+    "canonicalSources": [
+      "User AmberTime0.25.3 request",
+      "PR614 audit",
+      "PR616 performance",
+      "PR617 delivery display",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "player-news.mjs",
+      "monthly.mjs",
+      "tasting-view.mjs",
+      "cask-ledger.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-flavor-feedback-0253/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/flavor-feedback-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/flavor-feedback-0253*",
+      "works/ambertime/design/flavor-feedback-0253.md",
+      "works/ambertime/design/flavor-feedback-0253/**",
+      "works/ambertime/tests/shop-order-view.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-order-view.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "One optional quiet existing-scene control per sales/warehouse room linking latest recorded comment or meaningful cask fact. No transient notices, new screen, timers or save metadata.",
+      "Reuse customerComments unchanged, stable monthly/record cache with explicit reset; no heavy history/validation/cloning per render.",
+      "Sales cue opens existing release ledger; dated comments tied to exact release displayed there, links via existing cask worker to full recipe cards/cut/type/profile. Archived/incomplete records remain unknown.",
+      "Warehouse cue uses existing monthly observations, confirmed flavor.history names, and existing shortChange thresholds versus previous sample; at most one room cue; no forecasts or forced tasting.",
+      "Reuse existing cask/tasting/recipe/staff navigation and return state. Do not alter its intended pause on explicit modal/tasting; passive cues never stop time or autobottling.",
+      "Minimal optional Canvas control drawing/layout only; preserve optimization loops, sprites and clock. Suppress cue during other notices to avoid overlap.",
+      "Related unit/browser tests and report, protected source bytes/save/results comparisons; requiredCI, merge Staging, published hash and targeted checks.",
+      "Maintain617 regression test: retain model byte equality and clock/hotpath checks; replace wholeCanvas bytefreeze with exact protected animation/progress method comparisons because optionalfeedbackdrawing is intentionally changed."
+    ],
+    "ownerDecisions": [
+      "User explicitly requests0.25.3 existing-information connections andStaging reflection; noProduction."
+    ],
+    "hqDecisions": [
+      "Use persistent factual room links instead of new toast/newseen storage. Latest comment excerpt in sales; exact release in detail. One latest aging cue across presentcasks; compare only existing sample thresholds.",
+      "Reuse full cask-ledger worker route from release for recipe provenance, not new journal or inference. Cache monthly comments across extraction renders; invalidate on relevant records/identity andreset.",
+      "Pre-implementation scope review for existing617 wholeCanvas bytefreeze discovered during integration. Freshbranch/r0 lock before applying work; no post-hoc scope amendment."
+    ],
+    "rulesApplied": [
+      "Fresh revision0 Plan Lock firstcommit; one changedlock.",
+      "Expression audit6points: factual concrete record text, no qualityscore, no generic motivational copy or duplicate blocks."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review of identity/cache/factual cues and missingrecords.",
+      "375/390 sales/warehouse/ledger/taste/back/source/staff paths, speed/pause, no duplicates/overlap; save unchanged by passive view.",
+      "Protect616 clock/hotpaths and617 delivery output; requiredCI, Stagingpublishedhash/targetedchecks."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert0.25.3 UI/helper/Canvas optionalcontrol integration; calculations and save untouched.",
+    "outOfScope": [
+      "All flavor/name/comment/reputation/demand/shipping/monthly calculations andfrequency changes",
+      "Saveformat/newseenkeys/newworker/system/timers/missions/qualityscores",
+      "Mapconditions/Production/comprehensiveE2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/authoracceptance",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Generate new comments or simulate preferences",
+      "Use delivery/rumor as proof ofdrinking",
+      "Toasts per month/per barrel",
+      "Infer missing recipe orpending name",
+      "Recalculate history inside room render"
+    ],
+    "boundaryCases": [
+      "First/none/multiple release comments; samebrand differentflavor; rumoronly/shoponly; incompleteoldsource",
+      "Initial/changedname/pendingname/unchangedname; previous/no sample; smallchange; observations roughnotrounded",
+      "Several presentcasks/autobottle/endedcask; save/reload/newgame; no duplicate notices",
+      "375/390 room/ledger/recipe/staff/tasteback/speedpause; simultaneousexistingnotice"
+    ],
+    "testPlan": [
+      "Pure projections with existing comments and meaningful observations/history/samplecomparison; cache/no mutations and protectedsources.",
+      "Reuse existing related comment/tasting/ledger/staff regressions.",
+      "Targeted375/390 nativebrowser legalfixture paths plus marked projectionedges; no comprehensiveE2E.",
+      "ScopeRiskImpact/syntax/independentreview/requiredCI/merge/Pages/publishedhash."
+    ],
+    "problem": "Existing comments and aging facts are hidden from normalrooms and do not lead back to the next flavor decision.",
+    "currentContract": "Existing records own all facts, existing ledger worker owns recipe reconstruction. Preserve calculation/save/performance.",
+    "whyExistingIsInsufficient": "Comments hidden in town details; passive aging observations notshown in freeaging; recipe-source compactview does notshow full cards.",
+    "design": "Read-only cached room feedback projection plus optional Canvas existing-scene links and existingledger navigation.",
+    "migration": "None.",
+    "compatibility": "No game/save changes. No new toast/seen state. Existing records missing stays unknown.",
+    "promotionRisk": "Staging-only local UI; Production untouched."
+  }
+}
