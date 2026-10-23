@@ -8,7 +8,7 @@ export class RuntimeClock {
   this.deadline=this.deadline===null?now+period:this.deadline+period;
   // Recover only small scheduling jitter. Manual work never runs overdue steps
   // back-to-back; automatic work can recover at most two intervals of debt.
-  if(now-this.deadline>(manual?0:2*period))this.deadline=now+period;
+  if(manual?now>=this.deadline:now-this.deadline>2*period)this.deadline=now+period;
   return Math.max(0,this.deadline-now);
  }
 }

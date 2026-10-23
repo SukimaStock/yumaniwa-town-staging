@@ -7,6 +7,7 @@ test('processing time is part of the interval at both rates',()=>{
 test('long gaps discard debt and preserve one step per task',()=>{
  for(const manual of [false,true]){const c=new RuntimeClock();assert.equal(c.delay(0,1,manual),100);assert.equal(c.delay(2000,1,manual),100);assert.equal(c.delay(2100,1,manual),100);}
  const c=new RuntimeClock();c.delay(0);assert.equal(c.delay(250,1,true),100);
+ const edge=new RuntimeClock();edge.delay(0);assert.equal(edge.delay(200,1,true),100);
 });
 test('pause and rate changes start a fresh wall anchor',()=>{
  const c=new RuntimeClock();c.delay(0);c.reset();assert.equal(c.delay(5000,2),50);c.reset();assert.equal(c.delay(6000,1),100);
