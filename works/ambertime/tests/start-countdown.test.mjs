@@ -48,3 +48,13 @@ test('Canvas paints each valid countdown digit in the existing text path without
  for(const number of [3,2,1]){scene.view.countdown=number;scene.draw();assert.equal(scene.root.dataset.countdown,String(number));assert.ok(calls.some(x=>x[0]===String(number)&&x[1]===180&&x[2]===228&&x[3]===48));}
  scene.view.countdown=null;scene.draw();assert.equal(scene.root.dataset.countdown,undefined);
 });
+
+test('default timers call the native host with its global receiver for scheduling and cancellation',()=>{
+ const c=clock(),sandbox={__nativeWindow:true};
+ sandbox.setTimeout=function(fn,ms){assert.equal(this?.__nativeWindow,true,'native setTimeout receiver');return c.set(fn,ms);};
+ sandbox.clearTimeout=function(id){assert.equal(this?.__nativeWindow,true,'native clearTimeout receiver');c.clear(id);};
+ vm.runInNewContext(fs.readFileSync(new URL('../start-countdown.mjs',import.meta.url),'utf8').replace('export class StartCountdown','globalThis.StartCountdown=class StartCountdown'),sandbox);
+ const seen=[];let starts=0;const countdown=new sandbox.StartCountdown({onChange:v=>seen.push(v)});
+ countdown.start(()=>starts++);c.advance(3000);assert.deepEqual(seen,[3,2,1,null]);assert.equal(starts,1);assert.equal(c.jobs.size,0);
+ countdown.start(()=>starts++);assert.equal(c.jobs.size,1);countdown.cancel();assert.equal(c.jobs.size,0);c.advance(5000);assert.equal(starts,1);
+});
