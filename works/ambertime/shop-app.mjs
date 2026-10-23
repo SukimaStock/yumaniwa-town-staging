@@ -1,3 +1,4 @@
+import {RuntimeClock} from './runtime-clock.mjs?v=0.25.1';
 import {caskDetailProfile} from './cask-detail-view.mjs?v=start-map-ui-r1';
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
 import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapSeenBaseline,STAGES as MAP_STAGES} from './world-map-view.mjs?v=start-map-ui-r1';
@@ -448,7 +449,8 @@ const manualDistilling=()=>game?.still.phase==='distilling'&&game.usual?.reserva
 $('still').innerHTML=stillArt();
 const message=t=>{$('work-notice').textContent=t;};
 function storageNotice(t){$('storage-notice').textContent=t;$('storage-notice').hidden=!t;}
-function stopClock(){generation++;if(timer!==null){clearTimeout(timer);timer=null;}}
+const wallClock=new RuntimeClock(T.distillStepMs);
+function stopClock(reset=true){if(reset)wallClock.reset();generation++;if(timer!==null){clearTimeout(timer);timer=null;}}
 function save(){
  if(preview){$('save-status').textContent='試遊中 · 保存しません';return true;}
  if(!game||!canSave)return false;
@@ -458,8 +460,8 @@ function save(){
 const bottleStock=()=>game.core.products.reduce((sum,p)=>sum+p.stock,0);
 const hasMonthlyWork=()=>game&&(game.core.casks.length>0||game.core.products.some(p=>p.stock>0)||game.still.phase==='distilling'||D.usualNeedsClock(game)||D.generationNeedsClock(game));
 const blocked=()=>!game||countdown.active||generationState()?.phase==='review'||(!preview&&!canSave)||userPaused||runtimeHalted||heldRange()||manualDistilling()&&room!=='distill'||document.hidden||modal!==null||game.tastingId!==null||game.decisions.length>0||game.trade.offer!==null;
-function schedule(){
- stopClock();if(blocked()||!hasMonthlyWork())return;const token=generation,expectedMonth=game.core.month;
+function schedule(continuing=false){
+ stopClock(!continuing);if(blocked()||!hasMonthlyWork())return;const token=generation,expectedMonth=game.core.month;
  timer=setTimeout(()=>{
   if(token!==generation)return;timer=null;if(blocked())return;
   try{
@@ -473,9 +475,9 @@ function schedule(){
    else if(wasDistilling&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))saved=save();
    if(completed)saved=save();
    if(saved){automaticNews.push(automaticEvents(beforeStep,game,caskName,releaseTag));noteMapReach();}
-   render();schedule();
+   render();schedule(true);
   }catch(e){runtimeHalted=true;storageNotice(e.message);render();}
- },T.distillStepMs/playbackRate);
+ },wallClock.delay(performance.now(),playbackRate,manualDistilling()));
 }
 function act(fn,after,afterSave){countdown.cancel();stopClock();try{const before=game;game=fn(game);runtimeHalted=false;if(after)after();const saved=save();if(saved){automaticNews.push(automaticEvents(before,game,caskName,releaseTag));noteMapReach();if(afterSave)afterSave();}render();schedule();return true;}catch(e){storageNotice(e.message);render();schedule();return false;}}
 // Event presentation is transient and created only after the operation is saved.
