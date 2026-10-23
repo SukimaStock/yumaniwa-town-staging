@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>AmberTime｜取扱店 Lab 0.1</title>
+<meta name="description" content="同じウイスキーを違う店へ届け、店ごとの好みと口コミの広がりを比べる独立実験。">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header><h1>AmberTime <span>取扱店 Lab 0.1</span></h1><nav aria-label="関連ページ"><a href="./REPORT.md">レポート</a><a href="../../../../../lab/">LABへ</a></nav></header>
+<main>
+<p class="limit">本編とは別の実験です。納品はLab内の記録で、店頭販売・店ごとの最低本数と受入上限は計算しません。</p>
+<details id="conditions"><summary>実験条件</summary><form id="settings">
+<label>シード<input id="seed" name="seed" type="number" min="1" max="4294967295" value="42" required></label>
+<label>納品先<select id="group" name="group"></select></label>
+<label>納品方法<select id="timing" name="timing"></select></label>
+<label>関係の始まり<select id="access" name="access"><option value="open">最初から取扱可能</option><option value="discovery">口コミ・関心から出会う</option></select></label>
+<label>最初の味<select id="flavor" name="flavor"></select></label>
+<label>味の方針<select id="change" name="change"><option value="same">同じ味を続ける</option><option value="switch">10年後から2年ごとに変える</option></select></label>
+<button type="submit" id="reset">この条件で最初から</button>
+</form><p class="detail-note">回数をそろえた比較と、分割して納品回数を増やす比較は分けて確認できます。内部の相性と抽選はJSONに含まれます。</p></details>
+<section class="time-panel" aria-label="時間の操作"><div class="clock"><strong id="date">0年0か月</strong><span id="stock"></span></div><div class="controls"><button id="next-month" type="button">1か月進める</button><button type="button" data-year="10">10年</button><button type="button" data-year="20">20年</button><button type="button" data-year="30">30年</button></div><p id="status" role="status" aria-live="polite"></p></section>
+<div class="layout">
+<section class="stores"><h2>取扱店</h2><div id="shops" aria-label="店を選ぶ"></div></section>
+<div class="observations">
+<section class="product"><h2 id="product-name">選択中の味</h2><p id="recipe"></p><div id="flavor-bars"></div></section>
+<section class="shop-detail" aria-label="選んだ店の記録"><div class="section-heading"><h2 id="shop-name"></h2><span id="shop-status"></span></div><p id="handler-comment"></p><p class="detail-note" id="relationship"></p><h3>実際の納品</h3><ol id="shipments"></ol><details><summary>この店の出来事</summary><ol id="shop-events"></ol></details></section>
+</div></div>
+<section class="lower"><div><h2>口コミが届いた地域</h2><ul id="regions"></ul></div><div><h2>最近の出来事</h2><ol id="events"></ol></div></section>
+<footer><button type="button" id="download">JSONを保存</button><label class="file-button" for="import-log">JSONから再現<input type="file" id="import-log" accept="application/json,.json"></label><p class="detail-note">JSONには条件・納品・未成立の抽選を含む全記録が入ります。本編のセーブデータは使用しません。</p></footer>
+</main><script type="module" src="./app.mjs"></script>
+</body></html>

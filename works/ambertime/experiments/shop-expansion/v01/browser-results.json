@@ -1,0 +1,75 @@
+{
+  "origin": "http://127.0.0.1:33459/yumaniwa-town-staging",
+  "browser": "153.0.8010.0",
+  "physicalIPhone": false,
+  "checks": [
+    {
+      "width": 375,
+      "name": "unshipped shop has no invented reaction"
+    },
+    {
+      "width": 375,
+      "name": "same fruit: bar mismatch and diner compatible handler; no score"
+    },
+    {
+      "width": 375,
+      "name": "actual JSON download, month advance and exact file replay"
+    },
+    {
+      "width": 375,
+      "name": "changed cut/cards: smoke finds compatible bar under same existing affinity"
+    },
+    {
+      "width": 375,
+      "name": "30year event-gated shops, actual receipts and bounded display"
+    },
+    {
+      "width": 375,
+      "name": "no idle progress or main storage access"
+    },
+    {
+      "width": 390,
+      "name": "unshipped shop has no invented reaction"
+    },
+    {
+      "width": 390,
+      "name": "same fruit: bar mismatch and diner compatible handler; no score"
+    },
+    {
+      "width": 390,
+      "name": "actual JSON download, month advance and exact file replay"
+    },
+    {
+      "width": 390,
+      "name": "changed cut/cards: smoke finds compatible bar under same existing affinity"
+    },
+    {
+      "width": 390,
+      "name": "30year event-gated shops, actual receipts and bounded display"
+    },
+    {
+      "width": 390,
+      "name": "no idle progress or main storage access"
+    },
+    {
+      "width": 1280,
+      "name": "desktop no overflow"
+    },
+    {
+      "name": "LAB Prototype Bench launcher round trip"
+    }
+  ],
+  "errors": [],
+  "publishedHashes": {
+    "works/ambertime/experiments/shop-expansion/v01/index.html": "df8ddcb9df5d3f2e73f677816287323272c1db5d77716b4590a947ac69aac7c9",
+    "works/ambertime/experiments/shop-expansion/v01/app.mjs": "c4fb64bbbb4b48ca16f3e7536c6a8a382ee41a84da3f1d070d5e9be8a444c7c6",
+    "works/ambertime/experiments/shop-expansion/v01/style.css": "3c486e378c97402d56a6f0f702589f7dfd5a0d9f052bc736775ac51a1f07b7ea",
+    "works/ambertime/experiments/shop-expansion/v01/model.mjs": "0dbcbd22d9cdfa7b330a62197104c79f2aa33bddf04b3db2a69f77d514c3b2b1",
+    "works/ambertime/experiments/town-simulation/v01/model.mjs": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1",
+    "works/ambertime/experiments/reputation/v03/model.mjs": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067",
+    "works/ambertime/experiments/reputation/v05/core.mjs": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f",
+    "works/ambertime-flavor-lab-v02/model.mjs": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a",
+    "works/ambertime-shop-expansion-lab/index.html": "8e96582484646c181dc25f726b1d0d6e610af8ebf2a3c99e45cb5aa8474d0024",
+    "lab/index.html": "e1170b28e9260d2dc5f116949e0e3367630c5d12cfe83a4c42ffc99ca08ef99b"
+  }
+}

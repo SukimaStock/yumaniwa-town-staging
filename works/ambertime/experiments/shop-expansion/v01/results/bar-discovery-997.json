@@ -1,0 +1,314 @@
+{
+  "seed": 997,
+  "options": {
+    "seed": 997,
+    "group": "E",
+    "timing": "rotation",
+    "access": "discovery",
+    "flavor": "fruit",
+    "change": "switch"
+  },
+  "handling": {
+    "availableMonth": 291,
+    "sourceId": "lab-124"
+  },
+  "causalChain": [
+    {
+      "id": "e1085",
+      "type": "inquiry",
+      "month": 290,
+      "generation": 1,
+      "sourceId": "e1034",
+      "releaseId": 22,
+      "from": null,
+      "to": "bar",
+      "reason": "路地のバーから発売#22の取扱いについて問い合わせがありました。",
+      "mainReleaseId": 22
+    },
+    {
+      "id": "e1034",
+      "type": "interest",
+      "month": 277,
+      "generation": 1,
+      "sourceId": "e1033",
+      "releaseId": 22,
+      "from": null,
+      "to": "bar",
+      "reason": "路地のバーで発売#22が好みに合い、関心を持たれました。",
+      "mainReleaseId": 22
+    },
+    {
+      "id": "e1033",
+      "type": "arrival",
+      "month": 277,
+      "generation": 1,
+      "sourceId": "e970",
+      "releaseId": 22,
+      "from": "restaurant",
+      "to": "bar",
+      "path": [
+        "super",
+        "restaurant",
+        "bar"
+      ],
+      "channel": "road",
+      "strength": 0.008263576328,
+      "fit": 0.509424246139,
+      "cohort": "receipt:85:release:22",
+      "reason": "路地のバーへ発売#22の口コミが届きました。",
+      "mainReleaseId": 22
+    },
+    {
+      "id": "e970",
+      "type": "arrival",
+      "month": 265,
+      "generation": 1,
+      "sourceId": "e934",
+      "releaseId": 22,
+      "from": "super",
+      "to": "restaurant",
+      "path": [
+        "super",
+        "restaurant"
+      ],
+      "channel": "road",
+      "strength": 0.098665612981,
+      "fit": 0.455081018216,
+      "cohort": "receipt:85:release:22",
+      "reason": "レストランへ発売#22の口コミが届きました。この土地の好みとは合いませんでした。",
+      "mainReleaseId": 22
+    },
+    {
+      "id": "e934",
+      "type": "arrival",
+      "month": 259,
+      "generation": 1,
+      "sourceId": "e933",
+      "releaseId": 22,
+      "from": "distillery",
+      "to": "super",
+      "path": [
+        "super"
+      ],
+      "channel": "direct",
+      "strength": 0.776869839852,
+      "fit": 0.529478723565,
+      "cohort": "receipt:85:release:22",
+      "reason": "スーパーへ発売#22の口コミが届きました。",
+      "mainReleaseId": 22
+    },
+    {
+      "id": "e933",
+      "type": "shipment",
+      "month": 258,
+      "generation": 1,
+      "sourceId": "e900",
+      "releaseId": 22,
+      "from": "distillery",
+      "to": "super",
+      "count": 6,
+      "shipmentId": "receipt:85",
+      "reason": "スーパーへ発売#22を6本届けました。",
+      "mainReleaseId": 22
+    },
+    {
+      "id": "e900",
+      "type": "release",
+      "month": 252,
+      "generation": 1,
+      "sourceId": null,
+      "releaseId": 22,
+      "from": null,
+      "to": null,
+      "count": 24,
+      "reason": "発売#22を24本、瓶詰めしました。",
+      "mainReleaseId": 22
+    }
+  ],
+  "sourceRelease": {
+    "id": 22,
+    "externalId": 22,
+    "month": 252,
+    "kind": "smoke",
+    "product": {
+      "roughness": 0.3126017848494846,
+      "character": 0.6750377413013966,
+      "wood": 0.05837717038313414,
+      "age": 24,
+      "price": 30,
+      "aromaFamily": "smoke",
+      "label": "煙の香りが豊か"
+    },
+    "count": 24,
+    "eventId": "e900"
+  },
+  "barShipments": [
+    {
+      "id": "receipt:99",
+      "month": 300,
+      "to": "bar",
+      "releaseId": 25,
+      "count": 6,
+      "flavorId": "body",
+      "comment": "この店では、もう少し樽の香りがある味を探しています。",
+      "speaker": "取扱担当者",
+      "liked": false,
+      "feature": "wood"
+    },
+    {
+      "id": "receipt:104",
+      "month": 315,
+      "to": "bar",
+      "releaseId": 27,
+      "count": 6,
+      "flavorId": "wood",
+      "comment": "うちで扱うなら、もう少しシゲキのある味がよさそうです。",
+      "speaker": "取扱担当者",
+      "liked": false,
+      "feature": "roughness"
+    },
+    {
+      "id": "receipt:109",
+      "month": 330,
+      "to": "bar",
+      "releaseId": 28,
+      "count": 6,
+      "flavorId": "wood",
+      "comment": "うちで扱うなら、もう少しシゲキのある味がよさそうです。",
+      "speaker": "取扱担当者",
+      "liked": false,
+      "feature": "roughness"
+    },
+    {
+      "id": "receipt:114",
+      "month": 345,
+      "to": "bar",
+      "releaseId": 29,
+      "count": 6,
+      "flavorId": "fruit",
+      "comment": "この店では、もう少し樽の香りがある味を探しています。",
+      "speaker": "取扱担当者",
+      "liked": false,
+      "feature": "wood"
+    },
+    {
+      "id": "receipt:119",
+      "month": 360,
+      "to": "bar",
+      "releaseId": 30,
+      "count": 6,
+      "flavorId": "fruit",
+      "comment": "この店では、もう少し樽の香りがある味を探しています。",
+      "speaker": "取扱担当者",
+      "liked": false,
+      "feature": "wood"
+    }
+  ],
+  "summary": {
+    "id": "bar",
+    "name": "路地のバー",
+    "status": "納品あり",
+    "received": 30,
+    "deliveries": 5,
+    "firstHandling": 291,
+    "firstDelivery": 300,
+    "firstInterest": 277,
+    "inquiries": 1,
+    "visits": 1,
+    "lastComment": "この店では、もう少し樽の香りがある味を探しています。",
+    "liked": false,
+    "settled": false,
+    "history": [
+      {
+        "id": "receipt:99",
+        "month": 300,
+        "to": "bar",
+        "releaseId": 25,
+        "count": 6,
+        "flavorId": "body",
+        "comment": "この店では、もう少し樽の香りがある味を探しています。",
+        "speaker": "取扱担当者",
+        "liked": false,
+        "feature": "wood"
+      },
+      {
+        "id": "receipt:104",
+        "month": 315,
+        "to": "bar",
+        "releaseId": 27,
+        "count": 6,
+        "flavorId": "wood",
+        "comment": "うちで扱うなら、もう少しシゲキのある味がよさそうです。",
+        "speaker": "取扱担当者",
+        "liked": false,
+        "feature": "roughness"
+      },
+      {
+        "id": "receipt:109",
+        "month": 330,
+        "to": "bar",
+        "releaseId": 28,
+        "count": 6,
+        "flavorId": "wood",
+        "comment": "うちで扱うなら、もう少しシゲキのある味がよさそうです。",
+        "speaker": "取扱担当者",
+        "liked": false,
+        "feature": "roughness"
+      },
+      {
+        "id": "receipt:114",
+        "month": 345,
+        "to": "bar",
+        "releaseId": 29,
+        "count": 6,
+        "flavorId": "fruit",
+        "comment": "この店では、もう少し樽の香りがある味を探しています。",
+        "speaker": "取扱担当者",
+        "liked": false,
+        "feature": "wood"
+      },
+      {
+        "id": "receipt:119",
+        "month": 360,
+        "to": "bar",
+        "releaseId": 30,
+        "count": 6,
+        "flavorId": "fruit",
+        "comment": "この店では、もう少し樽の香りがある味を探しています。",
+        "speaker": "取扱担当者",
+        "liked": false,
+        "feature": "wood"
+      }
+    ],
+    "events": [
+      {
+        "month": 290,
+        "text": "路地のバーから取扱いの問い合わせがありました。"
+      },
+      {
+        "month": 291,
+        "text": "路地のバーの申し出を受けました。納品は次の配分からです。"
+      },
+      {
+        "month": 300,
+        "text": "路地のバーへ第25回を6本届けました。"
+      },
+      {
+        "month": 315,
+        "text": "路地のバーへ第27回を6本届けました。"
+      },
+      {
+        "month": 330,
+        "text": "路地のバーへ第28回を6本届けました。"
+      },
+      {
+        "month": 345,
+        "text": "路地のバーへ第29回を6本届けました。"
+      },
+      {
+        "month": 360,
+        "text": "路地のバーへ第30回を6本届けました。"
+      }
+    ]
+  }
+}

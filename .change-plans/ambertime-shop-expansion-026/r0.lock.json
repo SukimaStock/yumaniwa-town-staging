@@ -1,0 +1,143 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c324a412e1580f73e8e7e63de76bb1737b8b8bf8a725e0b366f1a2f902e31de8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-shop-expansion-026",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent shop-expansion Lab comparing existing shop preferences, fixed-receipt destinations versus split frequency, and discovery without modifying main or existing Labs.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d3776bd9e3af6b376c068f78e4c7a0a7178c69a9",
+    "canonicalSources": [
+      "User AmberTime0.26 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/experiments/reputation/v03/model.mjs",
+      "works/ambertime/experiments/reputation/v05/core.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/design/gameplay-audit-20261023.md",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "PR614/617/618/619"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-shop-expansion-026/r0.lock.json",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime-shop-expansion-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime/experiments/world-map/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Independent pure Lab with existing Town external adapter, shop definitions, affinity and deterministic unit; real flavor profiles generated with unchanged adopted FlavorLab chemistry. No main save/storage access.",
+      "Fixed seed/product/month/bottle receipt rotation A..E; separate simultaneous splitting and staggered increased-frequency controls. Explicit proposed pooled-budget arm only if necessary, not silently change original model.",
+      "Lab-only inquiry-to-offer delayed consent adapter for discovery versus all-available; record assumptions, factual shipment evidence, no invented customer drinking/sales.",
+      "Short shop-handler comments tied to native affinity and actual lab receipt; detailed axis gaps only debug; no qualityscore.",
+      "Targeted dot UI for month, product, shops, events, delivery and regional reach; incremental month10/20/30 years; JSON export and deterministic replay.",
+      "Fixed3-seed pilot then24-seed30year comparison with 10/20/30 checkpoints; same versus changed flavor, null arrivals, quiet periods, distributions; reproduce JSON/CSV and report.",
+      "New staging-only launcher/lifecycle/PrototypeBench connection via existing generator; do not alter existing Lab entries.",
+      "Related tests, protected source hashes, mobile375/390 operations, independentreview, mandatoryCI and publicStaging."
+    ],
+    "ownerDecisions": [
+      "User authorizes independent0.26Lab including proposed shop trials, comparative simulations, report, PR andStaging; no integration/Production."
+    ],
+    "hqDecisions": [
+      "No shared runtime/schema changes. Existing Lab modules imported read-only. Independent state lives in memory and downloaded JSON only; no storage API.",
+      "Town external adapter already supports shop IDs and real bottled profiles with aroma supplement; use affinity(...,true), not v03 age/price weighted fit.",
+      "Counterfactual all-available and inquiry-driven handling are explicitly Lab policies; external adapter does not autonomously trade. Do not conflate offer with actual delivery or arrival with customer consumption.",
+      "Separate fixed receipt rotation from split receipts; quantify native saturation and encounter differences. Preserve existing rumor rules and report acceleration rather than claiming resolved."
+    ],
+    "rulesApplied": [
+      "Locked r0 first commit; full risk review for new executable/LAB registration.",
+      "Reuse existing lifecycle schema/launcher/PrototypeBench; generated lab/index only via --write-lab.",
+      "Expression audit six points: concrete shop-handler speech, no praise of sales or invented consumers, no decorative slogan or internal numerical scores on normal screen."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent model and evidence review.",
+      "375/390 mobile and desktop Lab controls, select shops, product, replay, download and return; no main storage access.",
+      "PublicStaging exact source hashes, lab connection and basic operations."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert new Lab, launcher and three registration/generated files together. No state migration.",
+    "outOfScope": [
+      "Main gameplay/runtime/style/save, existingLab behavior/source",
+      "Main demand/order/affinity/rumor/maps/customer comments",
+      "Production, comprehensiveE2E, qualityranks, economic simulation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari and author experience/adoption",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Tune store affinities to fit diner/bar hypotheses",
+      "Treat each split receipt as equal-frequency destination-only comparison",
+      "Fabricate consumer sales/comments",
+      "Modify main connection or existingLab for reuse"
+    ],
+    "boundaryCases": [
+      "No interest/unknown old receipt, low-fit smoke bar vs specialist, no wood/strong wood",
+      "Allavailable vs unresolved discovery; actual shipment after offer, no-supply conservation",
+      "Same total frequency/count/IDs vs simultaneous split vs staggered split",
+      "30year null arrivals, rarechance seeds, frozen profiles, repeated and changed taste",
+      "Replay invalid log/seed/options, no storage or timers, mobile width"
+    ],
+    "testPlan": [
+      "Existing Town/reputation relevant tests and new pureLab validation/replay/comparison invariants.",
+      "24fixedseeds paired results with pilot evidence and10/20/30checkpoints; native chemistry profiles and frozen source hashes.",
+      "Targeted browser and accessibility/overflow/storage/JSON export checks, lifecycle generator/check/test.",
+      "ScopeRiskImpact/node-syntax/independentreview/requiredCI/Pages/publichash."
+    ],
+    "problem": "Need evidence whether existing shop tastes create useful encounters without store-count/frequency-driven runaway reputation.",
+    "currentContract": "Existing main and Labs stay byte-identical; native shop/town affinity and rumor calculations are read-only reuse.",
+    "whyExistingIsInsufficient": "Existing comparisons conflate recipient availability, frequency and flavor, and do not offer new-shop focused paired trials.",
+    "design": "Pure controlled supply/receipt driver around existing Town external API with minimal explicit handling/comment projection and isolated UI/log.",
+    "migration": "None. New active staging-only Lab registration using existing schema.",
+    "compatibility": "No main/oldLab data access or source changes; new log schema/version replay only within this Lab.",
+    "promotionRisk": "Staging-only, not adopted for main or Production."
+  }
+}

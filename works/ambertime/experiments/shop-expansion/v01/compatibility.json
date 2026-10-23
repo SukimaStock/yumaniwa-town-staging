@@ -1,0 +1,17 @@
+{
+  "base": "d3776bd9e3af6b376c068f78e4c7a0a7178c69a9",
+  "protectedFileCount": 1829,
+  "unchanged": true,
+  "storage": "none",
+  "mainSaveFormatChanged": false,
+  "existingLabsChanged": false,
+  "sourceHashes": {
+    "model.mjs": "0dbcbd22d9cdfa7b330a62197104c79f2aa33bddf04b3db2a69f77d514c3b2b1",
+    "app.mjs": "c4fb64bbbb4b48ca16f3e7536c6a8a382ee41a84da3f1d070d5e9be8a444c7c6",
+    "style.css": "3c486e378c97402d56a6f0f702589f7dfd5a0d9f052bc736775ac51a1f07b7ea",
+    "index.html": "df8ddcb9df5d3f2e73f677816287323272c1db5d77716b4590a947ac69aac7c9",
+    "analyze.mjs": "df673a0d9c18e4fe18498c4ea08a36b38adee40609643327d19b74a0fff7e7f8",
+    "tests/model.test.mjs": "8367538fa438e179b0fef495ef8b925d90ee80103c79d8ebe11520c9a1360dde",
+    "tests/browser.mjs": "014989ecda0e274ec0e2c3628225729114929aaad309677b072781a5a2d52f27"
+  }
+}
