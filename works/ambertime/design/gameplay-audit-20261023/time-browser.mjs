@@ -1,0 +1,67 @@
+// Native-clock audit only. No application files are changed; response instrumentation
+// counts/times existing calls and does not advance time or replace the clock.
+import {createServer} from 'node:http';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createRequire} from 'node:module';
+import {createHash} from 'node:crypto';
+import * as D from '../../partner-orders.mjs';
+import {fill,advance,resolve} from '../../tests/brands-helpers.mjs';
+const {chromium}=createRequire(import.meta.url)('playwright');
+const root=path.resolve(new URL('../../../../',import.meta.url).pathname),out=path.dirname(new URL(import.meta.url).pathname),KEY='sukimastock.ambertime.wholesale.v20';
+const fixedSha='2a1a172fa67ef7bda3cad82c9070c8946353b3f6';
+const init=()=>{
+ window.__metrics={};window.__auditCall=(name,fn)=>{const t=performance.now();try{return fn();}finally{const m=window.__metrics[name]??={n:0,ms:0};m.n++;const dt=performance.now()-t;m.ms+=dt;m.maxMs=Math.max(m.maxMs??0,dt);}};
+ const clone=window.structuredClone.bind(window);window.structuredClone=(...a)=>window.__auditCall('structuredClone',()=>clone(...a));
+ const storage=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){return window.__auditCall(k.endsWith('.v20')?'localStorage-game':'localStorage-other',()=>storage.call(this,k,v));};
+ const parse=DOMParser.prototype.parseFromString;DOMParser.prototype.parseFromString=function(...a){return window.__auditCall('svg-parse',()=>parse.apply(this,a));};
+ const create=document.createElement.bind(document);document.createElement=function(tag,...args){if(tag.toLowerCase()==='canvas'){const m=window.__metrics['canvas-allocated']??={n:0,ms:0};m.n++;}return create(tag,...args);};
+ const html=Object.getOwnPropertyDescriptor(Element.prototype,'innerHTML');Object.defineProperty(Element.prototype,'innerHTML',{...html,set(v){return window.__auditCall('innerHTML',()=>html.set.call(this,v));}});
+ const timer=window.setTimeout.bind(window);window.setTimeout=function(fn,ms,...args){return timer(typeof fn==='function'?function(...a){return window.__auditCall('timeout-'+ms,()=>fn.apply(this,a));}:fn,ms,...args);};
+ const raf=window.requestAnimationFrame.bind(window);window.requestAnimationFrame=fn=>raf(t=>window.__auditCall('raf',()=>fn(t)));
+};
+function instrument(name,s){
+ if(name==='shop-app.mjs'){
+  for(const fn of ['render','save']){s=s.replace('function '+fn+'(){','function __original_'+fn+'(){');s+='\nfunction '+fn+'(){return window.__auditCall('+JSON.stringify(fn)+',()=>__original_'+fn+'());}\n';}
+  s=s.replaceAll('game=D.distillStep(game);',"game=window.__auditCall('distillStep',()=>D.distillStep(game));").replaceAll('game=D.tickDistillery(game,expectedMonth);',"game=window.__auditCall('tickDistillery',()=>D.tickDistillery(game,expectedMonth));").replaceAll('D.serializeDistillery(game)',"window.__auditCall('serializeDistillery',()=>D.serializeDistillery(game))");
+  s+='\nwindow.__auditState=()=>({month:game?.core.month,elapsed,phase:game?.still.phase,progress:game?.still.distillation?.progress,room,userPaused,runtimeHalted,modal:modal?.kind,cash:game?.core.cash,canSave,saveBytes:lastSavedText?.length});window.__auditRoom=r=>selectRoom(r);window.__auditRate=r=>{playbackRate=r;render();schedule();};window.__auditBench=()=>{const a=[];for(let i=0;i<10;i++){const t=performance.now();D.serializeDistillery(game);a.push(performance.now()-t);}return a;};';
+ }
+ if(name==='partner-orders.mjs'){s=s.replace('export function validateDistillery(', 'export function __original_validateDistillery(');s+='\nexport function validateDistillery(...a){return window.__auditCall("validateDistillery",()=>__original_validateDistillery(...a));}\n';}
+ if(name==='canvas-scene.mjs'){s+='\nfor(const name of ["draw","drawWorld","controls","update"]){const original=CanvasScene.prototype[name];CanvasScene.prototype[name]=function(...a){return window.__auditCall("scene-"+name,()=>original.apply(this,a));};}\n';}
+ return s;
+}
+const server=createServer(async(req,res)=>{try{let f=path.join(root,new URL(req.url,'http://localhost').pathname);if(f.endsWith('/'))f+='index.html';let data=await fs.readFile(f);if(req.headers['x-amber-instrument']==='1'&&(f.endsWith('/shop-app.mjs')||f.endsWith('/canvas-scene.mjs')||f.endsWith('/partner-orders.mjs')))data=instrument(path.basename(f),data.toString());res.setHeader('Content-Type',({'.mjs':'text/javascript','.html':'text/html','.css':'text/css','.woff2':'font/woff2'})[path.extname(f)]??'application/octet-stream');res.end(data);}catch(e){res.writeHead(404).end();}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const browser=await chromium.launch({headless:true,executablePath:process.env.AMBERTIME_CHROME??'/tmp/amber-chromium/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+const allCases=[['normal-1x','normal','warehouse',1,1],['normal-2x','normal','warehouse',2,1],['manual-1x','manual','distill',1,1],['manual-2x','manual','distill',2,1],['manual-offroom','manual','warehouse',1,0],['automatic-1x','automatic','distill',1,1],['automatic-offroom-1x','automatic','warehouse',1,1],['automatic-offroom-2x','automatic','warehouse',2,1],['filling-1x','filling','distill',1,1],['late-1x','late','warehouse',1,1],['late-2x','late','warehouse',2,1],['late-auto-1x','lateAutomatic','warehouse',1,1],['late-auto-2x','lateAutomatic','warehouse',2,1],['history-2x-3months','longHistory','sales',2,3]];
+const fixtureContext=await browser.newContext(),fixturePage=await fixtureContext.newPage();await fixturePage.goto(`http://127.0.0.1:${server.address().port}/works/ambertime/`);const fixtures=await fixturePage.evaluate(async()=>{const F=await import('./design/gameplay-audit-20261023/time-fixtures.mjs');return F.makeFixtures();});await fixtureContext.close();console.log(Object.fromEntries(Object.entries(fixtures).map(([k,v])=>[k,{...v,raw:v.raw.length}])));
+const cases=process.env.AUDIT_CASES?allCases.filter(c=>process.env.AUDIT_CASES.split(',').includes(c[0])):allCases;
+const results=[],errors=[];
+const cdpMetrics=async cdp=>Object.fromEntries((await cdp.send('Performance.getMetrics')).metrics.map(x=>[x.name,x.value]));
+try{
+ for(const [name,fixture,room,rate,months]of cases){
+  const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true,extraHTTPHeaders:{'x-amber-instrument':'1'}});await context.addInitScript(init);const p=await context.newPage();p.on('pageerror',e=>errors.push({name,error:e.message}));
+  const s=fixtures[fixture],raw=JSON.stringify({version:2,game:JSON.parse(s.raw),userPaused:true,elapsed:0});
+  await p.goto(`http://127.0.0.1:${server.address().port}/works/ambertime/`);await p.evaluate(({raw,KEY})=>{localStorage.setItem(KEY,raw);localStorage.setItem(KEY+'.map-reveal.v1',JSON.stringify({version:1,shown:6}));},{raw,KEY});await p.reload();await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(80);
+  await p.evaluate(({room,rate})=>{window.__auditRoom(room);window.__auditRate(rate);}, {room,rate});
+  const before=await p.evaluate(()=>window.__auditState());if(before.modal)throw Error(name+' unexpected modal '+before.modal);
+  const cdp=await context.newCDPSession(p);await cdp.send('Performance.enable');const bm=await cdpMetrics(cdp);await p.evaluate(()=>{window.__metrics={};});
+  const started=performance.now();if(name!=='manual-offroom')await p.evaluate(()=>document.getElementById('toggle-time').click());
+  let targetError=null;if(months)try{await p.waitForFunction(target=>window.__auditState().month>=target,before.month+months,{timeout:20000});}catch(e){targetError=e.message.split('\n')[0];}else await p.waitForTimeout(2500);
+  const wallMs=performance.now()-started;await p.evaluate(()=>{if(document.body.dataset.time==='running')document.getElementById('toggle-time').click();});await p.waitForTimeout(30);
+  const am=await cdpMetrics(cdp),state=await p.evaluate(()=>window.__auditState()),metrics=await p.evaluate(()=>window.__metrics),serializeBenchMs=await p.evaluate(()=>window.__auditState().month===undefined?null:window.__auditBench());
+  results.push({name,fixture,seed:42,room,rate,requestedMonths:months,targetError,wallMs,before,after:state,metrics,cdpDelta:Object.fromEntries(['TaskDuration','ScriptDuration','LayoutDuration','RecalcStyleDuration','LayoutCount','RecalcStyleCount'].map(k=>[k,am[k]-bm[k]])),heapBytes:am.JSHeapUsedSize,serializeBenchMs});
+  console.log(name,Math.round(wallMs),state.month-before.month,metrics.render?.n,metrics.save?.n);await context.close();
+ }
+ if(!process.env.AUDIT_CASES){
+  for(const [fixture,room]of [['normal','warehouse'],['manual','distill']]){
+   const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true});const p=await context.newPage();await p.goto(`http://127.0.0.1:${server.address().port}/works/ambertime/`);const raw=JSON.stringify({version:2,game:JSON.parse(fixtures[fixture].raw),userPaused:true,elapsed:0});await p.evaluate(({raw,KEY})=>{localStorage.setItem(KEY,raw);localStorage.setItem(KEY+'.map-reveal.v1',JSON.stringify({version:1,shown:6}));},{raw,KEY});await p.reload();await p.evaluate(()=>document.fonts.ready);await p.evaluate(room=>document.querySelector('[data-room="'+room+'"]').click(),room);const before=JSON.parse(await p.evaluate(KEY=>localStorage.getItem(KEY),KEY));const t=performance.now();await p.evaluate(()=>document.getElementById('toggle-time').click());await p.waitForFunction(({KEY,target})=>JSON.parse(localStorage.getItem(KEY)).game.core.month>=target,{KEY,target:before.game.core.month+1});results.push({name:'uninstrumented-'+fixture+'-1x',wallMs:performance.now()-t,requestedMonths:1,afterMonth:JSON.parse(await p.evaluate(KEY=>localStorage.getItem(KEY),KEY)).game.core.month,instrumentation:false});await context.close();
+  }
+ }
+ // Native hidden/resume on automatic work: override only visibility signal, not timers.
+ const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true,extraHTTPHeaders:{'x-amber-instrument':'1'}});await context.addInitScript(init);const p=await context.newPage();await p.goto(`http://127.0.0.1:${server.address().port}/works/ambertime/`);const raw=JSON.stringify({version:2,game:JSON.parse(fixtures.automatic.raw),userPaused:true,elapsed:0});await p.evaluate(({raw,KEY})=>{localStorage.setItem(KEY,raw);localStorage.setItem(KEY+'.map-reveal.v1',JSON.stringify({version:1,shown:6}));},{raw,KEY});await p.reload();await p.evaluate(()=>document.fonts.ready);await p.evaluate(()=>{window.__auditRoom('warehouse');document.getElementById('toggle-time').click();});await p.waitForTimeout(1000);await p.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'));window.__metrics={};});const hiddenBefore=await p.evaluate(()=>window.__auditState());const t=performance.now();await p.waitForTimeout(2200);const hiddenAfter=await p.evaluate(()=>window.__auditState()),hiddenMetrics=await p.evaluate(()=>window.__metrics);await p.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>false});document.dispatchEvent(new Event('visibilitychange'));});await p.waitForTimeout(1200);const resumed=await p.evaluate(()=>window.__auditState());results.push({name:'automatic-hidden-resume',seed:42,wallMs:performance.now()-t,hiddenBefore,hiddenAfter,hiddenMetrics,resumed,visibilityMethod:'synthetic document.hidden signal; native timers unchanged'});await context.close();
+ const hashes={};for(const f of ['shop-app.mjs','canvas-scene.mjs','room-motion.mjs','partner-orders.mjs','parallel-parameters.mjs','design/gameplay-audit-20261023/time-fixtures.mjs'])hashes[f]=createHash('sha256').update(await fs.readFile(path.join(root,'works/ambertime',f))).digest('hex');
+ const payload={fixedSha,browser:await browser.version(),host:'container native Chromium, not physical iPhone',viewport:{width:390,height:844,dpr:3},nativeTimers:true,hostContention:'Final full matrix run after other audit CPU simulations completed; no CPU throttling. Single observed interval per case, no physical power/temperature measurement.',instrumentation:'response-only wrappers time render/save/model calls and Canvas prototype methods; native scheduling preserved; no CPU slowdown',fixtureMetadata:Object.fromEntries(Object.entries(fixtures).map(([k,v])=>[k,{...v,raw:v.raw.length}])),fixtureConstruction:'public model operations and existing brands-helpers; strict serialize/restore accepted',results,errors,sourceHashes:hashes};await fs.writeFile(path.join(out,'time-results.json'),JSON.stringify(payload,null,2)+'\n');
+ const rows=results.filter(r=>r.metrics).map(r=>[r.name,r.wallMs,r.after.month-r.before.month,r.metrics.render?.n??0,r.metrics.render?.ms??0,r.metrics['scene-draw']?.n??0,r.metrics['scene-draw']?.ms??0,r.metrics.save?.n??0,r.metrics.save?.ms??0,r.metrics.serializeDistillery?.ms??0,r.metrics.distillStep?.ms??0,r.metrics.tickDistillery?.ms??0,r.metrics['svg-parse']?.n??0,r.metrics.innerHTML?.n??0,r.cdpDelta.TaskDuration*1000,r.after.saveBytes]);await fs.writeFile(path.join(out,'time-summary.csv'),'case,wall_ms,advanced_months,render_n,render_ms,draw_n,draw_ms,save_n,save_ms,serialize_ms,distill_ms,monthly_ms,svg_parses,innerHTML_writes,task_ms,save_chars\n'+rows.map(r=>r.join(',')).join('\n')+'\n');
+ console.log('DONE',results.length,errors);
+}finally{await browser.close();await new Promise(r=>server.close(r));}

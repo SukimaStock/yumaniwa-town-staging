@@ -1,0 +1,142 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ad0cde2761f7059bced8ca28c1cdffbb5585655071781a0564cd39a12c0e9e8a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-gameplay-audit-20261023",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Audit only: browser clock/render performance, delivery correctness,30-year reputation/flavor policies and tasting feedback; produce evidence and recommendations without gameplay edits.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2a1a172fa67ef7bda3cad82c9070c8946353b3f6",
+    "canonicalSources": [
+      "User 2026-10-23 cross-system audit request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #613 and current main",
+      "works/ambertime/experiments/reputation/v03-v05",
+      "works/ambertime/experiments/town-simulation/v01",
+      "works/ambertime/design existing reports"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-gameplay-audit-20261023/r0.lock.json",
+      "works/ambertime/design/gameplay-audit-20261023.md",
+      "works/ambertime/design/gameplay-audit-20261023/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Read current code, prior Lab/reports and PRs; reuse model APIs and existing fixture patterns.",
+      "Add isolated reproducible audit runners and CSV/JSON evidence under design audit directory only.",
+      "Measure actual native-browser time,CPU/draw/save/model costs for normal/manual/offroom/automatic/late/multirate/hidden cases; separate game clock stalls from thermal proxy costs.",
+      "Trace delivery selection, demand, inventory, minimums,caps,reservations,order chronology and UI reasons across seeds/monthly logs.",
+      "Run at least30years with multiple seeds for matched flavor/volume policies using unchanged existing town/model APIs, report medians/ranges/censoring and model versus playable scope.",
+      "Analyze flavor/tasting/name growth, feedback and repeat delegation without introducing scores or gameplay.",
+      "Write ten-section report with code anchors, conditions, limitations, A-D improvements, three propagation alternatives and prioritized implementation units."
+    ],
+    "ownerDecisions": [
+      "User explicitly requests audit/report/verification code PR only; no runtime/model/Lab/save/Production changes."
+    ],
+    "hqDecisions": [
+      "Audit harness is an internal verification environment under design, not a new playable Lab; no lifecycle or LAB entry changes. Metrics distinguish real browser native elapsed from accelerated model simulation and cannot measure physical iPhone temperature."
+    ],
+    "rulesApplied": [
+      "Normal locked Plan route because executable imports and lifecycle/save-adjacent code require contract review.",
+      "No shared runtime, simulation, save schema, map art, text or visual design change.",
+      "Expression audit six points: no new UI text or decoration."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review no runtime/Lab behavior diff.",
+      "Audit metric definitions,public-operation fixtures,seeds,timing methods,limitations and reproducibility.",
+      "Independent evidence review and requiredCI; PR and report link."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove audit report and evidence directory; no user data or gameplay effects.",
+    "outOfScope": [
+      "Implementing any improvements",
+      "Simulation/needs/flavor changes",
+      "Save changes",
+      "Production",
+      "Full gameE2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari use",
+      "Author adoption",
+      "Production rollout"
+    ],
+    "alternativesRejected": [
+      "Introduce arbitrary 30-year unlocks",
+      "Boost rumor delivery delay",
+      "Inject map seen flag into replay operations",
+      "Force-pop map over ongoing selections",
+      "Overwrite actual map art"
+    ],
+    "boundaryCases": [
+      "Manual distillation pauses offroom versus automatic continues",
+      "Native timers and2x processing overhead",
+      "Inventory quantity below shop minimum, simultaneous shops, named product substitution",
+      "First bottle month vs next-month sale, reserved department stock, stored bottles",
+      "Rumor arrival vs interest vs inquiry/visit vs dealing vs settled relationship",
+      "Production-volume confound in flavor diversity",
+      "Unreached regions censored at360months",
+      "Automatic bottling before first taste or name change"
+    ],
+    "testPlan": [
+      "Run audit scripts and necessary relevant existing tests only.",
+      "Check source hashes unchanged and CSV/JSON internally consistent.",
+      "Scope/Risk/Impact and syntax,independent review,requiredCI; no comprehensiveE2E."
+    ],
+    "problem": "User observes distillation slowdown/heat, missed deliveries and fast reputation progression with weak reasons to change flavor.",
+    "currentContract": "Current main runtime/model/save/Lab behavior must remain byte-identical; only report and isolated measurement code/data may be added.",
+    "whyExistingIsInsufficient": "Past reports cover separate revisions/domains; current end-to-end behavior and player-facing feedback need matched evidence.",
+    "design": "Four disjoint audit workstreams integrated into one report using shared fixed SHA and unchanged APIs.",
+    "migration": "None.",
+    "compatibility": "No application imports of audit code or runtime changes.",
+    "promotionRisk": "Documentation/audit-only Staging PR; Production untouched."
+  }
+}
