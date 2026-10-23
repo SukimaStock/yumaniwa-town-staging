@@ -1,0 +1,686 @@
+{
+  "baselineSha": "c662e09fdf486c22b8012fb4e9e119c350f4af1e",
+  "baselineSourceSha256": "7a68f52c6f64f122c5c89f41c9fe872149cee0560f208d6510145462e179a639",
+  "assertions": 1284,
+  "results": [
+    {
+      "name": "manual-42-12-40",
+      "operations": 68,
+      "month": 15,
+      "sha256": "c327afbc4de3d3976cc594e4aa9a9dd7b41173616c212313152770390a73137f",
+      "seed": 42,
+      "recipe": {
+        "malt": "plain",
+        "ferment": "long",
+        "start": 12,
+        "end": 40,
+        "type": "refill"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.39826839826839827,
+        "initialLitres": 30.37,
+        "litres": 30.37,
+        "roughness": 0.449976946028,
+        "character": 0.869607001884,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "plain",
+            "ferment": "long",
+            "cask": "refill",
+            "start": 0.12121212121212122,
+            "end": 0.40404040404040403,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.869607001884,
+            "grain": 0.382760433296,
+            "smoke": 0.055,
+            "body": 0.207501740089,
+            "rough": 0.449976946028,
+            "spice": 0.111486451329,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "果実香が強い",
+          "history": [
+            {
+              "months": 0,
+              "label": "果実香が強い"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.869607001884,
+            "grain": 0.382760433296,
+            "smoke": 0.055,
+            "body": 0.207501740089,
+            "rough": 0.449976946028,
+            "spice": 0.111486451329,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "fruit"
+        }
+      }
+    },
+    {
+      "name": "manual-42-35-65",
+      "operations": 93,
+      "month": 15,
+      "sha256": "6105eb5406fda164b523d2f051708cfb068f15c0836fd224cde80671e80387f9",
+      "seed": 42,
+      "recipe": {
+        "malt": "plain",
+        "ferment": "short",
+        "start": 35,
+        "end": 65,
+        "type": "bourbon"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.6471861471861472,
+        "initialLitres": 34.35,
+        "litres": 34.35,
+        "roughness": 0.233876843564,
+        "character": 0.89208025227,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "plain",
+            "ferment": "short",
+            "cask": "refill",
+            "start": 0.35353535353535354,
+            "end": 0.6565656565656566,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.420775364097,
+            "grain": 0.89208025227,
+            "smoke": 0.055,
+            "body": 0.540972738137,
+            "rough": 0.233876843564,
+            "spice": 0.175030166666,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "力強い麦の香り",
+          "history": [
+            {
+              "months": 0,
+              "label": "力強い麦の香り"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.420775364097,
+            "grain": 0.89208025227,
+            "smoke": 0.055,
+            "body": 0.540972738137,
+            "rough": 0.233876843564,
+            "spice": 0.175030166666,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "grain"
+        }
+      }
+    },
+    {
+      "name": "manual-42-63-89",
+      "operations": 117,
+      "month": 15,
+      "sha256": "3670cee1c0eabfebd8cd4497ef5cd5599926afada9f27ddcb32e1884b348a3c4",
+      "seed": 42,
+      "recipe": {
+        "malt": "peat",
+        "ferment": "long",
+        "start": 63,
+        "end": 89,
+        "type": "refill"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.8861471861471862,
+        "initialLitres": 38.18,
+        "litres": 38.18,
+        "roughness": 0.444474538212,
+        "character": 1,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "peat",
+            "ferment": "long",
+            "cask": "refill",
+            "start": 0.6363636363636364,
+            "end": 0.898989898989899,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.239478663585,
+            "grain": 0.469303625424,
+            "smoke": 0.692322308337,
+            "body": 1,
+            "rough": 0.444474538212,
+            "spice": 0.580193362113,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "どっしりした味",
+          "history": [
+            {
+              "months": 0,
+              "label": "どっしりした味"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.239478663585,
+            "grain": 0.469303625424,
+            "smoke": 0.692322308337,
+            "body": 1,
+            "rough": 0.444474538212,
+            "spice": 0.580193362113,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "body"
+        }
+      }
+    },
+    {
+      "name": "manual-43-12-40",
+      "operations": 68,
+      "month": 15,
+      "sha256": "81af3dadfb5eae7380c19e189f46fd18bde8f75b939c49721311df195a015ae1",
+      "seed": 43,
+      "recipe": {
+        "malt": "plain",
+        "ferment": "long",
+        "start": 12,
+        "end": 40,
+        "type": "refill"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.39826839826839827,
+        "initialLitres": 30.37,
+        "litres": 30.37,
+        "roughness": 0.449976946028,
+        "character": 0.869607001884,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "plain",
+            "ferment": "long",
+            "cask": "refill",
+            "start": 0.12121212121212122,
+            "end": 0.40404040404040403,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.869607001884,
+            "grain": 0.382760433296,
+            "smoke": 0.055,
+            "body": 0.207501740089,
+            "rough": 0.449976946028,
+            "spice": 0.111486451329,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "果実香が強い",
+          "history": [
+            {
+              "months": 0,
+              "label": "果実香が強い"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.869607001884,
+            "grain": 0.382760433296,
+            "smoke": 0.055,
+            "body": 0.207501740089,
+            "rough": 0.449976946028,
+            "spice": 0.111486451329,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "fruit"
+        }
+      }
+    },
+    {
+      "name": "manual-43-35-65",
+      "operations": 93,
+      "month": 15,
+      "sha256": "74ecc3de0cf61c277fc6b5c59e83158377adfcc3d5870cef0e4f1e862eb7f621",
+      "seed": 43,
+      "recipe": {
+        "malt": "plain",
+        "ferment": "short",
+        "start": 35,
+        "end": 65,
+        "type": "bourbon"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.6471861471861472,
+        "initialLitres": 34.35,
+        "litres": 34.35,
+        "roughness": 0.233876843564,
+        "character": 0.89208025227,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "plain",
+            "ferment": "short",
+            "cask": "refill",
+            "start": 0.35353535353535354,
+            "end": 0.6565656565656566,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.420775364097,
+            "grain": 0.89208025227,
+            "smoke": 0.055,
+            "body": 0.540972738137,
+            "rough": 0.233876843564,
+            "spice": 0.175030166666,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "力強い麦の香り",
+          "history": [
+            {
+              "months": 0,
+              "label": "力強い麦の香り"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.420775364097,
+            "grain": 0.89208025227,
+            "smoke": 0.055,
+            "body": 0.540972738137,
+            "rough": 0.233876843564,
+            "spice": 0.175030166666,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "grain"
+        }
+      }
+    },
+    {
+      "name": "manual-43-63-89",
+      "operations": 117,
+      "month": 15,
+      "sha256": "4a51665b5a9a7d30f420d098587729dcea1be7ab5439b055806b214a83da835a",
+      "seed": 43,
+      "recipe": {
+        "malt": "peat",
+        "ferment": "long",
+        "start": 63,
+        "end": 89,
+        "type": "refill"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.8861471861471862,
+        "initialLitres": 38.18,
+        "litres": 38.18,
+        "roughness": 0.444474538212,
+        "character": 1,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "peat",
+            "ferment": "long",
+            "cask": "refill",
+            "start": 0.6363636363636364,
+            "end": 0.898989898989899,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.239478663585,
+            "grain": 0.469303625424,
+            "smoke": 0.692322308337,
+            "body": 1,
+            "rough": 0.444474538212,
+            "spice": 0.580193362113,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "どっしりした味",
+          "history": [
+            {
+              "months": 0,
+              "label": "どっしりした味"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.239478663585,
+            "grain": 0.469303625424,
+            "smoke": 0.692322308337,
+            "body": 1,
+            "rough": 0.444474538212,
+            "spice": 0.580193362113,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "body"
+        }
+      }
+    },
+    {
+      "name": "manual-20261021-12-40",
+      "operations": 68,
+      "month": 15,
+      "sha256": "91efab780d807fbb3b0cfc8ab2e620f6033478621fd6c3a15dc53089a34d58a3",
+      "seed": 20261021,
+      "recipe": {
+        "malt": "plain",
+        "ferment": "long",
+        "start": 12,
+        "end": 40,
+        "type": "refill"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.39826839826839827,
+        "initialLitres": 30.37,
+        "litres": 30.37,
+        "roughness": 0.449976946028,
+        "character": 0.869607001884,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "plain",
+            "ferment": "long",
+            "cask": "refill",
+            "start": 0.12121212121212122,
+            "end": 0.40404040404040403,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.869607001884,
+            "grain": 0.382760433296,
+            "smoke": 0.055,
+            "body": 0.207501740089,
+            "rough": 0.449976946028,
+            "spice": 0.111486451329,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "果実香が強い",
+          "history": [
+            {
+              "months": 0,
+              "label": "果実香が強い"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.869607001884,
+            "grain": 0.382760433296,
+            "smoke": 0.055,
+            "body": 0.207501740089,
+            "rough": 0.449976946028,
+            "spice": 0.111486451329,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "fruit"
+        }
+      }
+    },
+    {
+      "name": "manual-20261021-35-65",
+      "operations": 93,
+      "month": 15,
+      "sha256": "1abc7b44a9e72ec6e602f77e557423e6386630dade3324f5ebc6e247c914a3ae",
+      "seed": 20261021,
+      "recipe": {
+        "malt": "plain",
+        "ferment": "short",
+        "start": 35,
+        "end": 65,
+        "type": "bourbon"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.6471861471861472,
+        "initialLitres": 34.35,
+        "litres": 34.35,
+        "roughness": 0.233876843564,
+        "character": 0.89208025227,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "plain",
+            "ferment": "short",
+            "cask": "refill",
+            "start": 0.35353535353535354,
+            "end": 0.6565656565656566,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.420775364097,
+            "grain": 0.89208025227,
+            "smoke": 0.055,
+            "body": 0.540972738137,
+            "rough": 0.233876843564,
+            "spice": 0.175030166666,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "力強い麦の香り",
+          "history": [
+            {
+              "months": 0,
+              "label": "力強い麦の香り"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.420775364097,
+            "grain": 0.89208025227,
+            "smoke": 0.055,
+            "body": 0.540972738137,
+            "rough": 0.233876843564,
+            "spice": 0.175030166666,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "grain"
+        }
+      }
+    },
+    {
+      "name": "manual-20261021-63-89",
+      "operations": 117,
+      "month": 15,
+      "sha256": "d6b6933e61beb4fb985d5d5e89e01e3bb1ba388b2a02bd45a31722e4d31720c4",
+      "seed": 20261021,
+      "recipe": {
+        "malt": "peat",
+        "ferment": "long",
+        "start": 63,
+        "end": 89,
+        "type": "refill"
+      },
+      "spirit": {
+        "id": 1,
+        "batchMonth": 0,
+        "cut": 0.8861471861471862,
+        "initialLitres": 38.18,
+        "litres": 38.18,
+        "roughness": 0.444474538212,
+        "character": 1,
+        "wood": 0,
+        "age": 0,
+        "flavor": {
+          "version": 1,
+          "choice": {
+            "malt": "peat",
+            "ferment": "long",
+            "cask": "refill",
+            "start": 0.6363636363636364,
+            "end": 0.898989898989899,
+            "collectionVersion": 2
+          },
+          "spirit": {
+            "fruit": 0.239478663585,
+            "grain": 0.469303625424,
+            "smoke": 0.692322308337,
+            "body": 1,
+            "rough": 0.444474538212,
+            "spice": 0.580193362113,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "months": 0,
+          "label": "どっしりした味",
+          "history": [
+            {
+              "months": 0,
+              "label": "どっしりした味"
+            }
+          ],
+          "pending": null,
+          "held": 0,
+          "profile": {
+            "fruit": 0.239478663585,
+            "grain": 0.469303625424,
+            "smoke": 0.692322308337,
+            "body": 1,
+            "rough": 0.444474538212,
+            "spice": 0.580193362113,
+            "wood": 0,
+            "vanilla": 0
+          },
+          "primary": "body"
+        }
+      }
+    },
+    {
+      "name": "automatic-42",
+      "operations": 150,
+      "month": 2,
+      "sha256": "89982a5ea2fb2446fb55769c51f383852872999836a4b22dfeb61fda94f8d429",
+      "seed": 42,
+      "delegatedCasks": 2
+    },
+    {
+      "name": "automatic-43",
+      "operations": 150,
+      "month": 2,
+      "sha256": "55c60269dd5326fed1aa706f11cdc717b205d38dc23f48cf66915893b6aaee34",
+      "seed": 43,
+      "delegatedCasks": 2
+    },
+    {
+      "name": "automatic-bottling",
+      "operations": 93,
+      "month": 15,
+      "sha256": "51278e9da9ae21914d450636f1576bf11c9f214253fb7cab246f98c982d2f8bc",
+      "refill": {
+        "month": 13,
+        "caskId": 2,
+        "productId": 5,
+        "releaseId": 3,
+        "count": 10,
+        "cost": 30,
+        "salary": 2,
+        "mode": "stock",
+        "remainingLitres": 16.542551814222588
+      }
+    },
+    {
+      "name": "automatic-delivery-reputation",
+      "operations": 15,
+      "month": 29,
+      "sha256": "b2e0754ddb01c18a70245b8a07aa65041ce3350e2698827401f98d9c6645c731",
+      "newDeliveries": 2,
+      "townConnected": true,
+      "townShipments": 7,
+      "townEvents": 38
+    },
+    {
+      "name": "legacy-v09-initial",
+      "cases": 1
+    },
+    {
+      "name": "legacy-partial-legacy",
+      "cases": 6
+    },
+    {
+      "name": "legacy-shop-demand-legacy",
+      "cases": 2
+    },
+    {
+      "name": "legacy-bottling-roles-legacy",
+      "cases": 4
+    },
+    {
+      "name": "legacy-staff-progression-v20",
+      "cases": 2
+    },
+    {
+      "name": "legacy-monthly-timing-v20",
+      "cases": 2
+    },
+    {
+      "name": "legacy-delegation-v20",
+      "cases": 4
+    },
+    {
+      "name": "strict-mutation-rollback-branch",
+      "rejectedEdits": 5,
+      "branches": 2
+    }
+  ]
+}

@@ -57,7 +57,11 @@ export class CanvasScene{
   this.activeControls=active;this.root.dataset.hitRegions=JSON.stringify(active.map(({node,label,...r})=>r));this.root.dataset.reservationIcons=JSON.stringify((this.view.casks??[]).map(x=>({id:x.id,kind:x.reservationIcon,color:({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[x.reservationIcon]??null})));this.root.dataset.staffStatus=this.view.staffBrief??'';
  }
  drawWorld(){
-  const c=this.worldCtx,v=this.view,l=this.layout;c.clearRect(0,0,120,214);c.fillStyle='#41414b';c.fillRect(0,0,120,214);
+  const c=this.worldCtx,v=this.view,l=this.layout;
+  const items=v.room==='warehouse'?v.casks:v.room==='sales'?v.products:[];
+  const key=JSON.stringify([v.room,l,items,v.inspectId,this.reducedMotion.matches,items.some(item=>item.selected)?Math.floor(performance.now()/900)%2:0,this.arrival,v.room==='distill'?[v.collection,v.phase,this.stillFrame]:null]);
+  if(key===this.worldKey)return;this.worldKey=key;
+  c.clearRect(0,0,120,214);c.fillStyle='#41414b';c.fillRect(0,0,120,214);
   const r=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(Math.round(x/3),Math.round(y/3),Math.round(w/3),Math.round(h/3));};
   for(let y=0;y<l.floorY;y+=15){r(0,y,360,3,'#35353e');for(let x=(y/15%2)*24;x<360;x+=48)r(x,y,3,15,'#35353e');}
   // Codea edge checker: one native cell, mirrored into equally narrow wall bands.
@@ -88,6 +92,17 @@ export class CanvasScene{
  pixelRect(x,y,w,h,color){const c=this.ctx,v=this.viewport,left=Math.round((v.offsetX+x*v.scale)*v.dpr),top=Math.round((v.offsetY+y*v.scale)*v.dpr);c.save();c.setTransform(1,0,0,1,0,0);c.fillStyle=color;c.fillRect(left,top,Math.round((v.offsetX+(x+w)*v.scale)*v.dpr)-left,Math.round((v.offsetY+(y+h)*v.scale)*v.dpr)-top);c.restore();}
  window(x,y,w,h,fill='#2e3143',border='#6c707b'){this.pixelRect(x+3,y+3,w,h,shadow);this.pixelRect(x,y,w,h,border);this.pixelRect(x+3,y+3,w-6,h-6,fill);}
  icon(kind,x,y,w,h,color=ink){const c=this.ctx,v=this.viewport,unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit)),width=kind==='store'?11:7;c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(x+w/2)*v.scale)*v.dpr-width*cell/2),Math.round((v.offsetY+(y+h/2)*v.scale)*v.dpr-width*cell/2),cell,color);c.restore();}
+ // Clock-only changes touch the existing two-pixel bar. Pending arrival,
+ // selection and still animations keep their own bounded presentation timers.
+ updateProgress(progress){
+  if(!this.view)return;this.view.monthProgress=progress;
+  const node=$('month-progress');node.setAttribute('aria-valuenow',String(Math.round(100*progress)));node.setAttribute('aria-valuetext','今月 '+Math.round(100*progress)+'％ · '+this.view.timeStatus);
+  if(this.fontSettled&&!document.hidden&&!this.suspended&&!this.frame)this.drawTimeBar();
+ }
+ drawTimeBar(){
+  const v=this.viewport,timeBar={x:6,y:45,w:348,h:2/v.scale,cssHeight:2},progress=Math.max(0,Math.min(1,this.view.monthProgress??0));
+  this.pixelRect(timeBar.x,timeBar.y,timeBar.w,timeBar.h,'#353947');this.pixelRect(timeBar.x,timeBar.y,timeBar.w*progress,timeBar.h,'#c5b687');this.root.dataset.timeBar=JSON.stringify({...timeBar,progress});this.root.dataset.monthProgress=String(this.view.monthProgress??0);
+ }
  draw(){
   this.stopDrawing();
   if(!this.view||!this.fontSettled||document.hidden||this.suspended)return;
@@ -110,8 +125,7 @@ export class CanvasScene{
   const calendarRight=15+this.measure(view.calendar,headerSize),generationX=calendarRight+this.measure(' ',headerSize),generationRight=generationX+this.measure(view.generation,headerSize),cashWidth=this.measure(view.cash,headerSize);
   this.text(view.calendar,15,32,headerSize);this.text(view.generation,generationX,32,headerSize);this.text(view.cash,345,32,headerSize,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY:32,calendarRight,generationRight,cashLeft:345-cashWidth,size:headerSize,blocks:[{x:6,y:6,w:348,h:39}]});
   // Target two CSS pixels, aligned to physical dots and flush with the calendar frame.
-  const timeBar={x:6,y:45,w:348,h:2/v.scale,cssHeight:2},progress=Math.max(0,Math.min(1,view.monthProgress??0));
-  this.pixelRect(timeBar.x,timeBar.y,timeBar.w,timeBar.h,'#353947');this.pixelRect(timeBar.x,timeBar.y,timeBar.w*progress,timeBar.h,'#c5b687');this.root.dataset.timeBar=JSON.stringify({...timeBar,progress});this.root.dataset.monthProgress=String(view.monthProgress??0);
+  this.drawTimeBar();
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
   const salesText=[],reservationLayout=[],cooledLayout=[];
   items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2,sales=view.room==='sales';

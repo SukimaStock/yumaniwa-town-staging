@@ -1154,9 +1154,17 @@ export const manualRecipeSources=s=>[...manualReplayContext(s).manualSources.val
 let checkpoint=null;
 export function validateDistillery(s,{repairMissingBrandDesign=false}={}){
  assert(((s?.version===T.version&&s.rules===T.rules)||careMode(s))&&Number.isInteger(s.seed)&&s.seed>0&&s.seed<=4294967295&&Array.isArray(s.operations)&&s.operations.length<=P.maxOperations,'対応していない業者別卸売の保存です。');M.restore(M.serialize(s.core));
- assert(s.origin===null||s.origin?.version===5&&s.origin?.seed===s.seed,'元の0.9保存が不正です。');const originText=JSON.stringify(s.origin);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),start=0,context=emptyReplayContext();
- if(matchingPrefix(checkpoint,s,originText)){j=clone(checkpoint.state);start=checkpoint.length;context=clone(checkpoint.context);}
- for(let i=start;i<s.operations.length;i++)j=apply(j,s.operations[i],context,i);j=E.endTasting(j);const cache=clone(j);
+ assert(s.origin===null||s.origin?.version===5&&s.origin?.seed===s.seed,'元の0.9保存が不正です。');const originText=JSON.stringify(s.origin),prefix=matchingPrefix(checkpoint,s,originText);
+ // A detached, strictly validated partial extraction can continue only within
+ // exactly the same operation epoch. Never replace the operation-boundary cache:
+ // older progress, branches, tasting and new operations use ordinary replay.
+ const partial=prefix&&s.operations.length===checkpoint.length&&s.tastingId===null&&s.still?.phase==='distilling'&&checkpoint.partial?.tastingId===null&&checkpoint.partial.still.phase==='distilling'&&s.still.distillation?.progress>=checkpoint.partial.still.distillation.progress;
+ let j,cache,context;
+ if(partial){j=clone(checkpoint.partial);cache=checkpoint.state;context=clone(checkpoint.context);}
+ else{
+  j=prefix?clone(checkpoint.state):s.origin===null?newDistillery(s.seed):upgraded(s.origin);context=prefix?clone(checkpoint.context):emptyReplayContext();
+  for(let i=prefix?checkpoint.length:0;i<s.operations.length;i++)j=apply(j,s.operations[i],context,i);j=E.endTasting(j);cache=clone(j);
+ }
  if(usualMode(s)&&s.usual?.reservation?.status==='active')assert(s.still?.phase==='distilling'&&s.still.distillation.progress<s.usual.reservation.recipe.stopAt,'いつもの抽出の進行が不正です。');
  if(s.still?.phase==='distilling')j=progress(j,s.still.distillation?.progress);
  assert(s.tastingId===null||Number.isInteger(s.tastingId),'試飲する樽が不正です。');if(s.tastingId!==null){assert(j.notesById[s.tastingId]?.samples.at(-1)?.age===E.currentCask(j,s.tastingId)?.age,'試飲の年月が不正です。');j=sampleDistillery(j,s.tastingId);}
@@ -1166,7 +1174,7 @@ export function validateDistillery(s,{repairMissingBrandDesign=false}={}){
   const fixed={};for(const key of Object.keys(expected)){if(Object.hasOwn(b,key))fixed[key]=b[key];if(['bottle','label'].includes(key)&&b[key]==null)fixed[key]=expected[key];}
   for(const key of Object.keys(b))if(!Object.hasOwn(fixed,key))fixed[key]=b[key];return fixed;
  });
- assert(JSON.stringify(s)===JSON.stringify(j),'蒸留所の状態と操作の帳面が一致しません。');checkpoint={originText,seed:s.seed,length:s.operations.length,operations:JSON.stringify(s.operations),state:cache,context:clone(context)};return true;
+ assert(JSON.stringify(s)===JSON.stringify(j),'蒸留所の状態と操作の帳面が一致しません。');checkpoint={originText,seed:s.seed,length:s.operations.length,operations:JSON.stringify(s.operations),state:cache,context:clone(context),partial:s.still.phase==='distilling'&&s.tastingId===null?clone(j):null};return true;
 }
 // Only the exact validated state may expose cached facts. Missing origin history
 // stays incomplete; this accessor never starts a second history reconstruction.
