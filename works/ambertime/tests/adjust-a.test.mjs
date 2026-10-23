@@ -76,7 +76,7 @@ test('rare factual retail comments reflect five frozen profiles, keep spacing an
 test('comments require actual retail sales and can express a supported preference mismatch',()=>{
  const game=retailHistory(fixture());
  game.releases[0].profile={roughness:.05,character:.1,wood:1};
- const comments=customerComments(game);assert(comments.length>0);assert(comments.every(c=>/もう少し刺激|穏やかすぎる/.test(c.text)));
+ const comments=customerComments(game);assert(comments.length>0);assert(comments.every(c=>/もう少し刺激|穏やかすぎる|刺激が控えめ|穏やかな飲み口/.test(c.text)));assert(comments.every(c=>!/好きです|好みです/.test(c.text)));
  const unreceived=fixture();assert.deepEqual(customerComments(unreceived),[]);
  for(const receipt of game.labConnection.town.shipments)receipt.id=receipt.id.replace('retail:','shop:');
  assert.deepEqual(customerComments(game),[]);

@@ -1,0 +1,3624 @@
+{
+  "base": "74d845cfcd7b403b21183a8f7750d4687cb71304",
+  "method": "614/618 frozen profiles; constructed monthly retail-format rows for presentation only; no new game transactions",
+  "rows": [
+    {
+      "name": "fruit-refill",
+      "recipe": {
+        "id": "fruit-refill",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 12,
+        "end": 40,
+        "cask": "refill"
+      },
+      "seed": 1,
+      "fit": 0.581596728434,
+      "receiptRows": 360,
+      "before": 21,
+      "after": 21,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 2,
+      "descriptions": 19,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:27:3",
+          "month": 27,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:45:3",
+          "month": 45,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:63:3",
+          "month": 63,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:81:3",
+          "month": 81,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:100:3",
+          "month": 100,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:117:3",
+          "month": 117,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:131:3",
+          "month": 131,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:144:3",
+          "month": 144,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:166:3",
+          "month": 166,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:180:3",
+          "month": 180,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:197:3",
+          "month": 197,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:214:3",
+          "month": 214,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:236:3",
+          "month": 236,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:250:3",
+          "month": 250,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:269:3",
+          "month": 269,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:283:3",
+          "month": 283,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:302:3",
+          "month": 302,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:319:3",
+          "month": 319,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:337:3",
+          "month": 337,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:355:3",
+          "month": 355,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "fruit-refill",
+      "recipe": {
+        "id": "fruit-refill",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 12,
+        "end": 40,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "fit": 0.581596728434,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 5,
+      "descriptions": 15,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:26:3",
+          "month": 26,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:40:3",
+          "month": 40,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:57:3",
+          "month": 57,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:71:3",
+          "month": 71,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:84:3",
+          "month": 84,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:107:3",
+          "month": 107,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:121:3",
+          "month": 121,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:143:3",
+          "month": 143,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:165:3",
+          "month": 165,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:187:3",
+          "month": 187,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:204:3",
+          "month": 204,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:226:3",
+          "month": 226,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:240:3",
+          "month": 240,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:257:3",
+          "month": 257,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:271:3",
+          "month": 271,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:284:3",
+          "month": 284,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:305:3",
+          "month": 305,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:323:3",
+          "month": 323,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:341:3",
+          "month": 341,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "fruit-refill",
+      "recipe": {
+        "id": "fruit-refill",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 12,
+        "end": 40,
+        "cask": "refill"
+      },
+      "seed": 20261021,
+      "fit": 0.581596728434,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 3,
+      "descriptions": 17,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:23:3",
+          "month": 23,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:41:3",
+          "month": 41,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:67:3",
+          "month": 67,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:85:3",
+          "month": 85,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:104:3",
+          "month": 104,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:126:3",
+          "month": 126,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:140:3",
+          "month": 140,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:157:3",
+          "month": 157,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:171:3",
+          "month": 171,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:184:3",
+          "month": 184,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:207:3",
+          "month": 207,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:221:3",
+          "month": 221,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:243:3",
+          "month": 243,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:265:3",
+          "month": 265,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:287:3",
+          "month": 287,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:306:3",
+          "month": 306,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:324:3",
+          "month": 324,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:342:3",
+          "month": 342,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:359:3",
+          "month": 359,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "grain-refill",
+      "recipe": {
+        "id": "grain-refill",
+        "malt": "plain",
+        "ferment": "short",
+        "start": 30,
+        "end": 65,
+        "cask": "refill"
+      },
+      "seed": 1,
+      "fit": 0.643190353039,
+      "receiptRows": 360,
+      "before": 21,
+      "after": 21,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 2,
+      "descriptions": 19,
+      "unique": [
+        "「麦の香りがよく分かりますね。」",
+        "「麦の香りがしっかりしますね。」",
+        "「この麦の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:27:3",
+          "month": 27,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:45:3",
+          "month": 45,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:63:3",
+          "month": 63,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:81:3",
+          "month": 81,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:100:3",
+          "month": 100,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:117:3",
+          "month": 117,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:131:3",
+          "month": 131,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:144:3",
+          "month": 144,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:166:3",
+          "month": 166,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:180:3",
+          "month": 180,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:197:3",
+          "month": 197,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:214:3",
+          "month": 214,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:236:3",
+          "month": 236,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:250:3",
+          "month": 250,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:269:3",
+          "month": 269,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:283:3",
+          "month": 283,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:302:3",
+          "month": 302,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:319:3",
+          "month": 319,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:337:3",
+          "month": 337,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:355:3",
+          "month": 355,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "grain-refill",
+      "recipe": {
+        "id": "grain-refill",
+        "malt": "plain",
+        "ferment": "short",
+        "start": 30,
+        "end": 65,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "fit": 0.643190353039,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 5,
+      "descriptions": 15,
+      "unique": [
+        "「麦の香りがよく分かりますね。」",
+        "「麦の香りがしっかりしますね。」",
+        "「この麦の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:26:3",
+          "month": 26,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:40:3",
+          "month": 40,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:57:3",
+          "month": 57,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:71:3",
+          "month": 71,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:84:3",
+          "month": 84,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:107:3",
+          "month": 107,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:121:3",
+          "month": 121,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:143:3",
+          "month": 143,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:165:3",
+          "month": 165,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:187:3",
+          "month": 187,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:204:3",
+          "month": 204,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:226:3",
+          "month": 226,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:240:3",
+          "month": 240,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:257:3",
+          "month": 257,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:271:3",
+          "month": 271,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:284:3",
+          "month": 284,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:305:3",
+          "month": 305,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:323:3",
+          "month": 323,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:341:3",
+          "month": 341,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "grain-refill",
+      "recipe": {
+        "id": "grain-refill",
+        "malt": "plain",
+        "ferment": "short",
+        "start": 30,
+        "end": 65,
+        "cask": "refill"
+      },
+      "seed": 20261021,
+      "fit": 0.643190353039,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 3,
+      "descriptions": 17,
+      "unique": [
+        "「麦の香りがよく分かりますね。」",
+        "「麦の香りがしっかりしますね。」",
+        "「この麦の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:23:3",
+          "month": 23,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:41:3",
+          "month": 41,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:67:3",
+          "month": 67,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:85:3",
+          "month": 85,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:104:3",
+          "month": 104,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:126:3",
+          "month": 126,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:140:3",
+          "month": 140,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:157:3",
+          "month": 157,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:171:3",
+          "month": 171,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:184:3",
+          "month": 184,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:207:3",
+          "month": 207,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:221:3",
+          "month": 221,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:243:3",
+          "month": 243,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:265:3",
+          "month": 265,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:287:3",
+          "month": 287,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:306:3",
+          "month": 306,
+          "text": "AmberTime・第1回のお客さん「この麦の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:324:3",
+          "month": 324,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:342:3",
+          "month": 342,
+          "text": "AmberTime・第1回のお客さん「麦の香りがよく分かりますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:359:3",
+          "month": 359,
+          "text": "AmberTime・第1回のお客さん「麦の香りがしっかりしますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "smoke-first",
+      "recipe": {
+        "id": "smoke-first",
+        "malt": "peat",
+        "ferment": "long",
+        "start": 10,
+        "end": 90,
+        "cask": "bourbon"
+      },
+      "seed": 1,
+      "fit": 0.752075995708,
+      "receiptRows": 360,
+      "before": 21,
+      "after": 21,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 2,
+      "descriptions": 19,
+      "unique": [
+        "「けっこうスモーキーですね。」",
+        "「煙の香りがはっきりしますね。」",
+        "「この煙の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:27:3",
+          "month": 27,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:45:3",
+          "month": 45,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:63:3",
+          "month": 63,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:81:3",
+          "month": 81,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:100:3",
+          "month": 100,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:117:3",
+          "month": 117,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:131:3",
+          "month": 131,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:144:3",
+          "month": 144,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:166:3",
+          "month": 166,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:180:3",
+          "month": 180,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:197:3",
+          "month": 197,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:214:3",
+          "month": 214,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:236:3",
+          "month": 236,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:250:3",
+          "month": 250,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:269:3",
+          "month": 269,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:283:3",
+          "month": 283,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:302:3",
+          "month": 302,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:319:3",
+          "month": 319,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:337:3",
+          "month": 337,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:355:3",
+          "month": 355,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "smoke-first",
+      "recipe": {
+        "id": "smoke-first",
+        "malt": "peat",
+        "ferment": "long",
+        "start": 10,
+        "end": 90,
+        "cask": "bourbon"
+      },
+      "seed": 42,
+      "fit": 0.752075995708,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 5,
+      "descriptions": 15,
+      "unique": [
+        "「けっこうスモーキーですね。」",
+        "「煙の香りがはっきりしますね。」",
+        "「この煙の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:26:3",
+          "month": 26,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:40:3",
+          "month": 40,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:57:3",
+          "month": 57,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:71:3",
+          "month": 71,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:84:3",
+          "month": 84,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:107:3",
+          "month": 107,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:121:3",
+          "month": 121,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:143:3",
+          "month": 143,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:165:3",
+          "month": 165,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:187:3",
+          "month": 187,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:204:3",
+          "month": 204,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:226:3",
+          "month": 226,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:240:3",
+          "month": 240,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:257:3",
+          "month": 257,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:271:3",
+          "month": 271,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:284:3",
+          "month": 284,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:305:3",
+          "month": 305,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:323:3",
+          "month": 323,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:341:3",
+          "month": 341,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "smoke-first",
+      "recipe": {
+        "id": "smoke-first",
+        "malt": "peat",
+        "ferment": "long",
+        "start": 10,
+        "end": 90,
+        "cask": "bourbon"
+      },
+      "seed": 20261021,
+      "fit": 0.752075995708,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 3,
+      "descriptions": 17,
+      "unique": [
+        "「けっこうスモーキーですね。」",
+        "「煙の香りがはっきりしますね。」",
+        "「この煙の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:23:3",
+          "month": 23,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:41:3",
+          "month": 41,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:67:3",
+          "month": 67,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:85:3",
+          "month": 85,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:104:3",
+          "month": 104,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:126:3",
+          "month": 126,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:140:3",
+          "month": 140,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:157:3",
+          "month": 157,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:171:3",
+          "month": 171,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:184:3",
+          "month": 184,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:207:3",
+          "month": 207,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:221:3",
+          "month": 221,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:243:3",
+          "month": 243,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:265:3",
+          "month": 265,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:287:3",
+          "month": 287,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:306:3",
+          "month": 306,
+          "text": "AmberTime・第1回のお客さん「この煙の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:324:3",
+          "month": 324,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:342:3",
+          "month": 342,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:359:3",
+          "month": 359,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "late-fruit",
+      "recipe": {
+        "id": "late-fruit",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 75,
+        "end": 99,
+        "cask": "refill"
+      },
+      "seed": 1,
+      "fit": 0.43705348357,
+      "receiptRows": 360,
+      "before": 21,
+      "after": 21,
+      "occurrencesMatch": true,
+      "variants": 4,
+      "preferences": 3,
+      "descriptions": 18,
+      "unique": [
+        "「けっこう刺激がありますね。」",
+        "「力強い飲み口ですね。」",
+        "「私には少し刺激が強いかな。」",
+        "「もう少し穏やかな飲み口が好みです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:27:3",
+          "month": 27,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:45:3",
+          "month": 45,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:63:3",
+          "month": 63,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:81:3",
+          "month": 81,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:100:3",
+          "month": 100,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:117:3",
+          "month": 117,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:131:3",
+          "month": 131,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:144:3",
+          "month": 144,
+          "text": "AmberTime・第1回のお客さん「私には少し刺激が強いかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:166:3",
+          "month": 166,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:180:3",
+          "month": 180,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:197:3",
+          "month": 197,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:214:3",
+          "month": 214,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:236:3",
+          "month": 236,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:250:3",
+          "month": 250,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:269:3",
+          "month": 269,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:283:3",
+          "month": 283,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:302:3",
+          "month": 302,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:319:3",
+          "month": 319,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:337:3",
+          "month": 337,
+          "text": "AmberTime・第1回のお客さん「もう少し穏やかな飲み口が好みです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:355:3",
+          "month": 355,
+          "text": "AmberTime・第1回のお客さん「私には少し刺激が強いかな。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "late-fruit",
+      "recipe": {
+        "id": "late-fruit",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 75,
+        "end": 99,
+        "cask": "refill"
+      },
+      "seed": 42,
+      "fit": 0.43705348357,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 4,
+      "preferences": 6,
+      "descriptions": 14,
+      "unique": [
+        "「けっこう刺激がありますね。」",
+        "「力強い飲み口ですね。」",
+        "「もう少し穏やかな飲み口が好みです。」",
+        "「私には少し刺激が強いかな。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:26:3",
+          "month": 26,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:40:3",
+          "month": 40,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:57:3",
+          "month": 57,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:71:3",
+          "month": 71,
+          "text": "AmberTime・第1回のお客さん「もう少し穏やかな飲み口が好みです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:84:3",
+          "month": 84,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:107:3",
+          "month": 107,
+          "text": "AmberTime・第1回のお客さん「私には少し刺激が強いかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:121:3",
+          "month": 121,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:143:3",
+          "month": 143,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:165:3",
+          "month": 165,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:187:3",
+          "month": 187,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:204:3",
+          "month": 204,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:226:3",
+          "month": 226,
+          "text": "AmberTime・第1回のお客さん「もう少し穏やかな飲み口が好みです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:240:3",
+          "month": 240,
+          "text": "AmberTime・第1回のお客さん「私には少し刺激が強いかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:257:3",
+          "month": 257,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:271:3",
+          "month": 271,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:284:3",
+          "month": 284,
+          "text": "AmberTime・第1回のお客さん「もう少し穏やかな飲み口が好みです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:305:3",
+          "month": 305,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:323:3",
+          "month": 323,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:341:3",
+          "month": 341,
+          "text": "AmberTime・第1回のお客さん「もう少し穏やかな飲み口が好みです。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "late-fruit",
+      "recipe": {
+        "id": "late-fruit",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 75,
+        "end": 99,
+        "cask": "refill"
+      },
+      "seed": 20261021,
+      "fit": 0.43705348357,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 3,
+      "descriptions": 17,
+      "unique": [
+        "「けっこう刺激がありますね。」",
+        "「力強い飲み口ですね。」",
+        "「もう少し穏やかな飲み口が好みです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:23:3",
+          "month": 23,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:41:3",
+          "month": 41,
+          "text": "AmberTime・第1回のお客さん「もう少し穏やかな飲み口が好みです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:67:3",
+          "month": 67,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:85:3",
+          "month": 85,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:104:3",
+          "month": 104,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:126:3",
+          "month": 126,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:140:3",
+          "month": 140,
+          "text": "AmberTime・第1回のお客さん「もう少し穏やかな飲み口が好みです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:157:3",
+          "month": 157,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:171:3",
+          "month": 171,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:184:3",
+          "month": 184,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:207:3",
+          "month": 207,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:221:3",
+          "month": 221,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:243:3",
+          "month": 243,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:265:3",
+          "month": 265,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:287:3",
+          "month": 287,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:306:3",
+          "month": 306,
+          "text": "AmberTime・第1回のお客さん「もう少し穏やかな飲み口が好みです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:324:3",
+          "month": 324,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:342:3",
+          "month": 342,
+          "text": "AmberTime・第1回のお客さん「けっこう刺激がありますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:359:3",
+          "month": 359,
+          "text": "AmberTime・第1回のお客さん「力強い飲み口ですね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "果実・3年リフィル",
+      "recipe": {
+        "name": "果実・3年リフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "refill",
+        "age": 36
+      },
+      "seed": 1,
+      "fit": 0.605349428035,
+      "receiptRows": 360,
+      "before": 21,
+      "after": 21,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 2,
+      "descriptions": 19,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:27:3",
+          "month": 27,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:45:3",
+          "month": 45,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:63:3",
+          "month": 63,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:81:3",
+          "month": 81,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:100:3",
+          "month": 100,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:117:3",
+          "month": 117,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:131:3",
+          "month": 131,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:144:3",
+          "month": 144,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:166:3",
+          "month": 166,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:180:3",
+          "month": 180,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:197:3",
+          "month": 197,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:214:3",
+          "month": 214,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:236:3",
+          "month": 236,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:250:3",
+          "month": 250,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:269:3",
+          "month": 269,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:283:3",
+          "month": 283,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:302:3",
+          "month": 302,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:319:3",
+          "month": 319,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:337:3",
+          "month": 337,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:355:3",
+          "month": 355,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "果実・3年リフィル",
+      "recipe": {
+        "name": "果実・3年リフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "refill",
+        "age": 36
+      },
+      "seed": 42,
+      "fit": 0.605349428035,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 5,
+      "descriptions": 15,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:26:3",
+          "month": 26,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:40:3",
+          "month": 40,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:57:3",
+          "month": 57,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:71:3",
+          "month": 71,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:84:3",
+          "month": 84,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:107:3",
+          "month": 107,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:121:3",
+          "month": 121,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:143:3",
+          "month": 143,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:165:3",
+          "month": 165,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:187:3",
+          "month": 187,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:204:3",
+          "month": 204,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:226:3",
+          "month": 226,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:240:3",
+          "month": 240,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:257:3",
+          "month": 257,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:271:3",
+          "month": 271,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:284:3",
+          "month": 284,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:305:3",
+          "month": 305,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:323:3",
+          "month": 323,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:341:3",
+          "month": 341,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "果実・3年リフィル",
+      "recipe": {
+        "name": "果実・3年リフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "refill",
+        "age": 36
+      },
+      "seed": 20261021,
+      "fit": 0.605349428035,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 3,
+      "descriptions": 17,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:23:3",
+          "month": 23,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:41:3",
+          "month": 41,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:67:3",
+          "month": 67,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:85:3",
+          "month": 85,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:104:3",
+          "month": 104,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:126:3",
+          "month": 126,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:140:3",
+          "month": 140,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:157:3",
+          "month": 157,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:171:3",
+          "month": 171,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:184:3",
+          "month": 184,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:207:3",
+          "month": 207,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:221:3",
+          "month": 221,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:243:3",
+          "month": 243,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:265:3",
+          "month": 265,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:287:3",
+          "month": 287,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:306:3",
+          "month": 306,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:324:3",
+          "month": 324,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:342:3",
+          "month": 342,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:359:3",
+          "month": 359,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "同じ果実・3年1stフィル",
+      "recipe": {
+        "name": "同じ果実・3年1stフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "bourbon",
+        "age": 36
+      },
+      "seed": 1,
+      "fit": 0.664895135979,
+      "receiptRows": 360,
+      "before": 21,
+      "after": 21,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 2,
+      "descriptions": 19,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:27:3",
+          "month": 27,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:45:3",
+          "month": 45,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:63:3",
+          "month": 63,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:81:3",
+          "month": 81,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:100:3",
+          "month": 100,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:117:3",
+          "month": 117,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:131:3",
+          "month": 131,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:144:3",
+          "month": 144,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:166:3",
+          "month": 166,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:180:3",
+          "month": 180,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:197:3",
+          "month": 197,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:214:3",
+          "month": 214,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:236:3",
+          "month": 236,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:250:3",
+          "month": 250,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:269:3",
+          "month": 269,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:283:3",
+          "month": 283,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:302:3",
+          "month": 302,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:319:3",
+          "month": 319,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:337:3",
+          "month": 337,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:355:3",
+          "month": 355,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "同じ果実・3年1stフィル",
+      "recipe": {
+        "name": "同じ果実・3年1stフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "bourbon",
+        "age": 36
+      },
+      "seed": 42,
+      "fit": 0.664895135979,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 5,
+      "descriptions": 15,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:26:3",
+          "month": 26,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:40:3",
+          "month": 40,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:57:3",
+          "month": 57,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:71:3",
+          "month": 71,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:84:3",
+          "month": 84,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:107:3",
+          "month": 107,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:121:3",
+          "month": 121,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:143:3",
+          "month": 143,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:165:3",
+          "month": 165,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:187:3",
+          "month": 187,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:204:3",
+          "month": 204,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:226:3",
+          "month": 226,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:240:3",
+          "month": 240,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:257:3",
+          "month": 257,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:271:3",
+          "month": 271,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:284:3",
+          "month": 284,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:305:3",
+          "month": 305,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:323:3",
+          "month": 323,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:341:3",
+          "month": 341,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "同じ果実・3年1stフィル",
+      "recipe": {
+        "name": "同じ果実・3年1stフィル",
+        "malt": "plain",
+        "ferment": "long",
+        "start": 40,
+        "end": 58,
+        "cask": "bourbon",
+        "age": 36
+      },
+      "seed": 20261021,
+      "fit": 0.664895135979,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 3,
+      "descriptions": 17,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」",
+        "「果実の香りがよく出ていますね。」",
+        "「こういう果実の香り、好きです。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:23:3",
+          "month": 23,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:41:3",
+          "month": 41,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:67:3",
+          "month": 67,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:85:3",
+          "month": 85,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:104:3",
+          "month": 104,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:126:3",
+          "month": 126,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:140:3",
+          "month": 140,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:157:3",
+          "month": 157,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:171:3",
+          "month": 171,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:184:3",
+          "month": 184,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:207:3",
+          "month": 207,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:221:3",
+          "month": 221,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:243:3",
+          "month": 243,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:265:3",
+          "month": 265,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:287:3",
+          "month": 287,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:306:3",
+          "month": 306,
+          "text": "AmberTime・第1回のお客さん「こういう果実の香り、好きです。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:324:3",
+          "month": 324,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:342:3",
+          "month": 342,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:359:3",
+          "month": 359,
+          "text": "AmberTime・第1回のお客さん「果実の香りがよく出ていますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit smoke boundary",
+      "recipe": null,
+      "seed": 1,
+      "fit": 0.204143283153,
+      "receiptRows": 360,
+      "before": 21,
+      "after": 21,
+      "occurrencesMatch": true,
+      "variants": 4,
+      "preferences": 3,
+      "descriptions": 18,
+      "unique": [
+        "「けっこうスモーキーですね。」",
+        "「煙の香りがはっきりしますね。」",
+        "「煙の香りは、私には少し強いかな。」",
+        "「私は煙の香りが控えめな方が好きかな。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:27:3",
+          "month": 27,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:45:3",
+          "month": 45,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:63:3",
+          "month": 63,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:81:3",
+          "month": 81,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:100:3",
+          "month": 100,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:117:3",
+          "month": 117,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:131:3",
+          "month": 131,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:144:3",
+          "month": 144,
+          "text": "AmberTime・第1回のお客さん「煙の香りは、私には少し強いかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:166:3",
+          "month": 166,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:180:3",
+          "month": 180,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:197:3",
+          "month": 197,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:214:3",
+          "month": 214,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:236:3",
+          "month": 236,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:250:3",
+          "month": 250,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:269:3",
+          "month": 269,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:283:3",
+          "month": 283,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:302:3",
+          "month": 302,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:319:3",
+          "month": 319,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:337:3",
+          "month": 337,
+          "text": "AmberTime・第1回のお客さん「私は煙の香りが控えめな方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:355:3",
+          "month": 355,
+          "text": "AmberTime・第1回のお客さん「煙の香りは、私には少し強いかな。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit smoke boundary",
+      "recipe": null,
+      "seed": 42,
+      "fit": 0.204143283153,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 4,
+      "preferences": 6,
+      "descriptions": 14,
+      "unique": [
+        "「けっこうスモーキーですね。」",
+        "「煙の香りがはっきりしますね。」",
+        "「私は煙の香りが控えめな方が好きかな。」",
+        "「煙の香りは、私には少し強いかな。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:26:3",
+          "month": 26,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:40:3",
+          "month": 40,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:57:3",
+          "month": 57,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:71:3",
+          "month": 71,
+          "text": "AmberTime・第1回のお客さん「私は煙の香りが控えめな方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:84:3",
+          "month": 84,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:107:3",
+          "month": 107,
+          "text": "AmberTime・第1回のお客さん「煙の香りは、私には少し強いかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:121:3",
+          "month": 121,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:143:3",
+          "month": 143,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:165:3",
+          "month": 165,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:187:3",
+          "month": 187,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:204:3",
+          "month": 204,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:226:3",
+          "month": 226,
+          "text": "AmberTime・第1回のお客さん「私は煙の香りが控えめな方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:240:3",
+          "month": 240,
+          "text": "AmberTime・第1回のお客さん「煙の香りは、私には少し強いかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:257:3",
+          "month": 257,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:271:3",
+          "month": 271,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:284:3",
+          "month": 284,
+          "text": "AmberTime・第1回のお客さん「私は煙の香りが控えめな方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:305:3",
+          "month": 305,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:323:3",
+          "month": 323,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:341:3",
+          "month": 341,
+          "text": "AmberTime・第1回のお客さん「私は煙の香りが控えめな方が好きかな。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit smoke boundary",
+      "recipe": null,
+      "seed": 20261021,
+      "fit": 0.204143283153,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 3,
+      "descriptions": 17,
+      "unique": [
+        "「けっこうスモーキーですね。」",
+        "「煙の香りがはっきりしますね。」",
+        "「私は煙の香りが控えめな方が好きかな。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:23:3",
+          "month": 23,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:41:3",
+          "month": 41,
+          "text": "AmberTime・第1回のお客さん「私は煙の香りが控えめな方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:67:3",
+          "month": 67,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:85:3",
+          "month": 85,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:104:3",
+          "month": 104,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:126:3",
+          "month": 126,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:140:3",
+          "month": 140,
+          "text": "AmberTime・第1回のお客さん「私は煙の香りが控えめな方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:157:3",
+          "month": 157,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:171:3",
+          "month": 171,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:184:3",
+          "month": 184,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:207:3",
+          "month": 207,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:221:3",
+          "month": 221,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:243:3",
+          "month": 243,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:265:3",
+          "month": 265,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:287:3",
+          "month": 287,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:306:3",
+          "month": 306,
+          "text": "AmberTime・第1回のお客さん「私は煙の香りが控えめな方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:324:3",
+          "month": 324,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:342:3",
+          "month": 342,
+          "text": "AmberTime・第1回のお客さん「けっこうスモーキーですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:359:3",
+          "month": 359,
+          "text": "AmberTime・第1回のお客さん「煙の香りがはっきりしますね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit gentle legacy",
+      "recipe": null,
+      "seed": 1,
+      "fit": 0.140155886616,
+      "receiptRows": 360,
+      "before": 21,
+      "after": 21,
+      "occurrencesMatch": true,
+      "variants": 4,
+      "preferences": 3,
+      "descriptions": 18,
+      "unique": [
+        "「刺激が控えめですね。」",
+        "「穏やかな飲み口ですね。」",
+        "「私はもう少し刺激がある方が好きかな。」",
+        "「私には少し穏やかすぎるかな。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:27:3",
+          "month": 27,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:45:3",
+          "month": 45,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:63:3",
+          "month": 63,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:81:3",
+          "month": 81,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:100:3",
+          "month": 100,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:117:3",
+          "month": 117,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:131:3",
+          "month": 131,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:144:3",
+          "month": 144,
+          "text": "AmberTime・第1回のお客さん「私はもう少し刺激がある方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:166:3",
+          "month": 166,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:180:3",
+          "month": 180,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:197:3",
+          "month": 197,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:214:3",
+          "month": 214,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:236:3",
+          "month": 236,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:250:3",
+          "month": 250,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:269:3",
+          "month": 269,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:283:3",
+          "month": 283,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:302:3",
+          "month": 302,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:319:3",
+          "month": 319,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:337:3",
+          "month": 337,
+          "text": "AmberTime・第1回のお客さん「私には少し穏やかすぎるかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:355:3",
+          "month": 355,
+          "text": "AmberTime・第1回のお客さん「私はもう少し刺激がある方が好きかな。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit gentle legacy",
+      "recipe": null,
+      "seed": 42,
+      "fit": 0.140155886616,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 4,
+      "preferences": 6,
+      "descriptions": 14,
+      "unique": [
+        "「刺激が控えめですね。」",
+        "「穏やかな飲み口ですね。」",
+        "「私には少し穏やかすぎるかな。」",
+        "「私はもう少し刺激がある方が好きかな。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:26:3",
+          "month": 26,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:40:3",
+          "month": 40,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:57:3",
+          "month": 57,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:71:3",
+          "month": 71,
+          "text": "AmberTime・第1回のお客さん「私には少し穏やかすぎるかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:84:3",
+          "month": 84,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:107:3",
+          "month": 107,
+          "text": "AmberTime・第1回のお客さん「私はもう少し刺激がある方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:121:3",
+          "month": 121,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:143:3",
+          "month": 143,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:165:3",
+          "month": 165,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:187:3",
+          "month": 187,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:204:3",
+          "month": 204,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:226:3",
+          "month": 226,
+          "text": "AmberTime・第1回のお客さん「私には少し穏やかすぎるかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:240:3",
+          "month": 240,
+          "text": "AmberTime・第1回のお客さん「私はもう少し刺激がある方が好きかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:257:3",
+          "month": 257,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:271:3",
+          "month": 271,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:284:3",
+          "month": 284,
+          "text": "AmberTime・第1回のお客さん「私には少し穏やかすぎるかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:305:3",
+          "month": 305,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:323:3",
+          "month": 323,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:341:3",
+          "month": 341,
+          "text": "AmberTime・第1回のお客さん「私には少し穏やかすぎるかな。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit gentle legacy",
+      "recipe": null,
+      "seed": 20261021,
+      "fit": 0.140155886616,
+      "receiptRows": 360,
+      "before": 20,
+      "after": 20,
+      "occurrencesMatch": true,
+      "variants": 3,
+      "preferences": 3,
+      "descriptions": 17,
+      "unique": [
+        "「刺激が控えめですね。」",
+        "「穏やかな飲み口ですね。」",
+        "「私には少し穏やかすぎるかな。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:23:3",
+          "month": 23,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:41:3",
+          "month": 41,
+          "text": "AmberTime・第1回のお客さん「私には少し穏やかすぎるかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:67:3",
+          "month": 67,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:85:3",
+          "month": 85,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:104:3",
+          "month": 104,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:126:3",
+          "month": 126,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:140:3",
+          "month": 140,
+          "text": "AmberTime・第1回のお客さん「私には少し穏やかすぎるかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:157:3",
+          "month": 157,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:171:3",
+          "month": 171,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:184:3",
+          "month": 184,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:207:3",
+          "month": 207,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:221:3",
+          "month": 221,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:243:3",
+          "month": 243,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:265:3",
+          "month": 265,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:287:3",
+          "month": 287,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:306:3",
+          "month": 306,
+          "text": "AmberTime・第1回のお客さん「私には少し穏やかすぎるかな。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:324:3",
+          "month": 324,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:342:3",
+          "month": 342,
+          "text": "AmberTime・第1回のお客さん「刺激が控えめですね。」",
+          "releaseId": 1
+        },
+        {
+          "id": "customer:retail:359:3",
+          "month": 359,
+          "text": "AmberTime・第1回のお客さん「穏やかな飲み口ですね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit fruit singleton",
+      "recipe": null,
+      "seed": 1,
+      "fit": 0.333812852945,
+      "receiptRows": 360,
+      "before": 1,
+      "after": 1,
+      "occurrencesMatch": true,
+      "variants": 1,
+      "preferences": 0,
+      "descriptions": 1,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:1:3",
+          "month": 1,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit fruit singleton",
+      "recipe": null,
+      "seed": 42,
+      "fit": 0.333812852945,
+      "receiptRows": 360,
+      "before": 1,
+      "after": 1,
+      "occurrencesMatch": true,
+      "variants": 1,
+      "preferences": 0,
+      "descriptions": 1,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:6:3",
+          "month": 6,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        }
+      ]
+    },
+    {
+      "name": "low-fit fruit singleton",
+      "recipe": null,
+      "seed": 20261021,
+      "fit": 0.333812852945,
+      "receiptRows": 360,
+      "before": 1,
+      "after": 1,
+      "occurrencesMatch": true,
+      "variants": 1,
+      "preferences": 0,
+      "descriptions": 1,
+      "unique": [
+        "「このウイスキー、果実の香りが豊かですね。」"
+      ],
+      "comments": [
+        {
+          "id": "customer:retail:5:3",
+          "month": 5,
+          "text": "AmberTime・第1回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+          "releaseId": 1
+        }
+      ]
+    }
+  ]
+}

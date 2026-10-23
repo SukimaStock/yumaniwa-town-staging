@@ -60,11 +60,12 @@ function displayHash(seed,key){
  for(const char of key)hash=Math.imul(hash^char.charCodeAt(0),16777619)>>>0;
  return hash;
 }
-function commentLines(release){
+function commentLines(release,context){
  const profile=release.profile,flavor=profile?.flavor,raw=flavor?.version===1?flavor.profile:null;
  if(!profile||!['roughness','character','wood'].every(k=>Number.isFinite(profile[k])))return [];
  const rough=raw?.rough??profile.roughness,wood=raw?Math.max(raw.wood,raw.vanilla):profile.wood;
  const fit=townAffinity('town',release).fit;
+ if(context)Object.assign(context,{raw,rough,wood,fit});
  if(fit<.5){
   if(raw?.smoke>=.55)return ['煙の香りは、私には少し強いかな。','私は煙の香りが控えめな方が好きかな。'];
   if(rough<.22)return ['私はもう少し刺激がある方が好きかな。','私には少し穏やかすぎるかな。'];
@@ -83,9 +84,53 @@ function commentLines(release){
  return [];
 }
 
+// Display-only variation. These descriptions also serve the low-affinity
+// branch: noticing an aroma does not imply liking it. Preferences never cross
+// the existing fit<.5 / fit>=.5 boundary.
+const commentStyles={
+ smoke:{descriptions:['けっこうスモーキーですね。','煙の香りがはっきりしますね。'],preference:'この煙の香り、好きです。'},
+ fruit:{descriptions:['このウイスキー、果実の香りが豊かですね。','果実の香りがよく出ていますね。'],preference:'こういう果実の香り、好きです。'},
+ body:{descriptions:['しっかりした飲みごたえですね。','口に含むと厚みがありますね。'],preference:'こういう飲みごたえが好みです。'},
+ grain:{descriptions:['麦の香りがよく分かりますね。','麦の香りがしっかりしますね。'],preference:'この麦の香り、好きです。'},
+ wood:{descriptions:['樽の香りがよく出ていますね。','樽の香りがはっきりしますね。'],preference:'この樽の香りが好みです。'},
+ gentle:{descriptions:['軽い飲み口ですね。','穏やかな飲み口ですね。'],preference:'この穏やかな飲み口、好きです。'},
+ rough:{descriptions:['けっこう刺激がありますね。','力強い飲み口ですね。'],preference:'この力強い飲み口が好みです。'}
+};
+function commentStyle(legacy,{raw,rough,wood,fit}){
+ const low=fit<.5;
+ let key;
+ if(low){
+  if(raw?.smoke>=.55)key='smoke';
+  else if(rough<.22)key='gentle';
+  else if(rough>=.55)key='rough';
+  else if(wood>=.65)key='wood';
+  else if(raw?.fruit>=.6)key='fruit';
+ }else{
+  if(raw?.smoke>=.55&&raw.smoke>=Math.max(raw.fruit,raw.grain))key='smoke';
+  else if(raw?.fruit>=.6&&raw.fruit>=Math.max(raw.smoke,raw.grain))key='fruit';
+  else if(raw?.body>=.6&&raw.body>=Math.max(raw.fruit,raw.grain,raw.smoke))key='body';
+  else if(raw?.grain>=.55&&raw.grain>=Math.max(raw.fruit,raw.smoke))key='grain';
+  else if(wood>=.55)key='wood';
+  else if(rough<=.18&&(!raw||raw.body<.45))key='gentle';
+  else if(rough>=.65)key='rough';
+ }
+ const style=commentStyles[key];
+ return style?{descriptions:low&&key==='gentle'?['刺激が控えめですね。','穏やかな飲み口ですね。']:style.descriptions,preferences:low?legacy:[style.preference]}:{descriptions:legacy,preferences:[]};
+}
+function commentWording(game,receipt,legacy,context,previous){
+ const style=commentStyle(legacy,context),hash=displayHash(game.seed,'customer-wording:'+receipt.id);
+ // Low bits correlate with the existing hash%8 occurrence filter. Use high
+ // bits for the occasional preference and separate bits for the wording.
+ const pool=(hash>>>16)%4===0?style.preferences:style.descriptions;
+ let lines=pool.filter(line=>line!==previous);
+ if(!lines.length)lines=style.descriptions.filter(line=>line!==previous);
+ if(!lines.length)lines=[...style.descriptions,...style.preferences];
+ return lines[(hash>>>8)%lines.length];
+}
+
 export function customerComments(game){
  const town=townOf(game);if(!town)return [];
- const out=[];let lastMonth=-Infinity,lastLine=null;
+ const out=[];let lastMonth=-Infinity,lastLine=null,lastDisplayedLine=null;
  // These are factual retail sales, not deliveries or people who only heard a rumor.
  for(const receipt of town.shipments??[]){
   if(!receipt.id?.startsWith('retail:')||!(receipt.count>0)||receipt.month-lastMonth<12)continue;
@@ -93,11 +138,14 @@ export function customerComments(game){
   if(hash%8!==0)continue;
   const part=receipt.parts?.find(p=>p.count>0),release=part?mainRelease(game,{releaseId:part.releaseId}):null;
   if(!release)continue;
-  const lines=commentLines(release).filter(line=>line!==lastLine);
+  const context={},legacy=commentLines(release,context),lines=legacy.filter(line=>line!==lastLine);
   if(!lines.length)continue;
-  const line=lines[Math.floor(hash/8)%lines.length];
+  // Keep the original line-selection state for eligibility, including the
+  // singleton mismatch branch. Display variety must not add/suppress events.
+  const legacyLine=lines[Math.floor(hash/8)%lines.length];
+  const line=commentWording(game,receipt,legacy,context,lastDisplayedLine);
   out.push({id:'customer:'+receipt.id,month:receipt.month,text:productTitle(game,release)+'のお客さん「'+line+'」',releaseId:release.id});
-  lastMonth=receipt.month;lastLine=line;
+  lastMonth=receipt.month;lastLine=legacyLine;lastDisplayedLine=line;
  }
  return out;
 }

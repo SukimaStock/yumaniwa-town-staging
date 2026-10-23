@@ -1,11 +1,11 @@
-import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback} from './flavor-feedback-view.mjs?v=0.25.3';
+import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback} from './flavor-feedback-view.mjs?v=0.25.4';
 import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=0.25.2';
 import {RuntimeClock} from './runtime-clock.mjs?v=0.25.1';
 import {caskDetailProfile} from './cask-detail-view.mjs?v=start-map-ui-r1';
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
 import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapSeenBaseline,STAGES as MAP_STAGES} from './world-map-view.mjs?v=start-map-ui-r1';
 import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard} from './brewing-cards.mjs?v=adjust-c-r1';
-import {playerMilestones} from './player-news.mjs?v=adjust-a-r1';
+import {playerMilestones} from './player-news.mjs?v=0.25.4';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
 import {buildShopLedger} from './shop-ledger.mjs?v=0.68-ui-refinements';
 import {buildReleaseLedger} from './ledger-view.mjs?v=0.63-ledger';

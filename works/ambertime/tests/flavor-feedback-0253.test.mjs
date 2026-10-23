@@ -25,17 +25,17 @@ test('monthly cache survives repeated cloned extraction renders and invalidates 
 });
 test('confirmed name history only, initial/pending name is not a change; sampled facts are no longer cues',()=>{
  const c=cask(),s=state(c);c.flavor.pending={label:'まだ候補'};assert.equal(caskFeedback(s,c),null);
- c.flavor.history.push({months:30,label:'丸み'});let f=caskFeedback(s,c);assert.equal(f.kind,'name');assert.equal(f.month,30);
+ c.flavor.history.push({months:35,label:'丸み'});let f=caskFeedback(s,c);assert.equal(f.kind,'name');assert.equal(f.month,35);
  s.notesById[1].samples=[{age:36,profile:{character:.8,wood:.1,roughness:.3}}];assert.equal(caskFeedback(s,c),null);
 });
 test('observations preserve meaning without pretending rough is rounded; current barrels only, at most one',()=>{
- const c=cask(),s=state(c);s.notesById[1].observations=[{age:24,month:24,eventId:'rough',title:'若い原酒のまま、少し先へ'},{age:30,month:30,eventId:'manual-cool',title:'移した'}];
- assert.equal(caskFeedback(s,c).text,'若い原酒');const b=cask(2);s.core.casks.push(b);s.notesById[2]={observations:[{age:32,month:32,eventId:'wood',title:'原酒の色が深くなってきた'}]};assert.equal(warehouseFeedback(s).caskId,2);assert.equal(typeof warehouseFeedback(s),'object');
+ const c=cask(),s=state(c);s.notesById[1].observations=[{age:35,month:35,eventId:'rough',title:'若い原酒のまま、少し先へ'},{age:30,month:30,eventId:'manual-cool',title:'移した'}];
+ assert.equal(caskFeedback(s,c).text,'若い原酒');const b=cask(2);s.core.casks.push(b);s.notesById[2]={observations:[{age:36,month:36,eventId:'wood',title:'原酒の色が深くなってきた'}]};assert.equal(warehouseFeedback(s).caskId,2);assert.equal(typeof warehouseFeedback(s),'object');
  s.core.casks=[];assert.equal(warehouseFeedback(s),null);
 });
 test('existing previous-taste thresholds: small delta quiet, meaningful change visible, no previous taste safe',()=>{
  const c=cask(),s=state(c);assert.equal(caskFeedback(s,c),null);s.notesById[1].samples=[{age:30,profile:{character:.81,wood:.09,roughness:.31}}];assert.equal(caskFeedback(s,c),null);
- s.notesById[1].samples[0].profile={character:.9,wood:.01,roughness:.4};const f=caskFeedback(s,c);assert.equal(f.kind,'sample');assert(f.text.includes('香りが落ち着いた'));assert(f.text.includes('シゲキがやわらいだ'));
+ s.notesById[1].samples[0].profile={character:.9,wood:.01,roughness:.4};s.notesById[1].observations=[{age:35,month:35,eventId:'wood',title:'原酒の色が深くなってきた'}];const f=caskFeedback(s,c);assert.equal(f.kind,'sample');assert(f.text.includes('香りが落ち着いた'));assert(f.text.includes('シゲキがやわらいだ'));
  const before=JSON.stringify(s);warehouseFeedback(s);assert.equal(JSON.stringify(s),before);
 });
 test('feedback geometry is optional, one room control, clear of room and management navigation',()=>{
@@ -43,10 +43,10 @@ test('feedback geometry is optional, one room control, clear of room and managem
 });
 test('legal saves and calculation sources stay identical; no view timers/validation/clones and617 helper untouched',()=>{
  const s=D.newConnectedDistillery(42),raw=D.serializeDistillery(s);createFeedbackComments().read(s);warehouseFeedback(s);assert.equal(D.serializeDistillery(s),raw);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
- const base='1d5c2dbeaddfb10fecf8e8241d00e293910b798a';for(const f of ['partner-orders.mjs','player-news.mjs','monthly.mjs','tasting-view.mjs','character.mjs','lab-flavor.mjs','shop-demand.mjs','shop-model.mjs','shop-order-view.mjs','runtime-clock.mjs','room-motion.mjs','town-connection.mjs','model.mjs'])assert.equal(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'),execFileSync('git',['show',base+':works/ambertime/'+f],{encoding:'utf8',maxBuffer:4e6}));
+ const base='1d5c2dbeaddfb10fecf8e8241d00e293910b798a';for(const f of ['partner-orders.mjs','monthly.mjs','tasting-view.mjs','character.mjs','lab-flavor.mjs','shop-demand.mjs','shop-model.mjs','shop-order-view.mjs','runtime-clock.mjs','room-motion.mjs','town-connection.mjs','model.mjs'])assert.equal(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'),execFileSync('git',['show',base+':works/ambertime/'+f],{encoding:'utf8',maxBuffer:4e6}));
  const source=fs.readFileSync(new URL('../flavor-feedback-view.mjs',import.meta.url),'utf8');assert(!/structuredClone\(|validate\w*\(|setTimeout\(|requestAnimationFrame\(|localStorage/.test(source));
 });
 test('incomplete old fields remain unknown and four live slots still select only one factual cue',()=>{
- const c=cask(),s=state(c);c.flavor.history.push({label:'月の記録なし'});assert.equal(caskFeedback(s,c),null);c.flavor.history.push({months:35,label:'記録済み'});c.filledMonth=undefined;const f=caskFeedback(s,c);assert.equal(f.month,null);
+ const c=cask(),s=state(c);c.flavor.history.push({label:'月の記録なし'});assert.equal(caskFeedback(s,c),null);c.flavor.history.push({months:35,label:'記録済み'});c.filledMonth=undefined;assert.equal(caskFeedback(s,c),null);c.filledMonth=0;
  s.core.casks=Array.from({length:4},(_,i)=>({...c,id:i+1}));const fact=warehouseFeedback(s);assert.equal(fact.caskId,1);assert.equal(Array.isArray(fact),false);
 });
