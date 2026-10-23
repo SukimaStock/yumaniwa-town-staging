@@ -1,0 +1,173 @@
+{
+  "url": "local",
+  "browser": "153.0.8010.0",
+  "physicalIPhone": false,
+  "widths": [
+    375,
+    390
+  ],
+  "checks": [
+    {
+      "name": "no new fact / expired / already tasted stays quiet after restore",
+      "fixture": "initial",
+      "width": 375
+    },
+    {
+      "name": "no new fact / expired / already tasted stays quiet after restore",
+      "fixture": "expired",
+      "width": 375
+    },
+    {
+      "name": "no new fact / expired / already tasted stays quiet after restore",
+      "fixture": "sampled",
+      "width": 375
+    },
+    {
+      "name": "recent fact / changed name / next fact opens existing optional tasting",
+      "fixture": "fresh",
+      "width": 375,
+      "fact": {
+        "kind": "observation",
+        "age": 6,
+        "month": 6,
+        "text": "かおりが広がる",
+        "priority": 1,
+        "tie": "fruit:0",
+        "caskId": 2
+      }
+    },
+    {
+      "name": "recent fact / changed name / next fact opens existing optional tasting",
+      "fixture": "named",
+      "width": 375,
+      "fact": {
+        "kind": "name",
+        "age": 59,
+        "month": 59,
+        "text": "風味の名前が変わりました。",
+        "priority": 3,
+        "tie": "name:1",
+        "caskId": 2
+      }
+    },
+    {
+      "name": "recent fact / changed name / next fact opens existing optional tasting",
+      "fixture": "next",
+      "width": 375,
+      "fact": {
+        "kind": "observation",
+        "age": 41,
+        "month": 41,
+        "text": "少しずつ、減っていく",
+        "priority": 1,
+        "tie": "loss:1",
+        "caskId": 2
+      }
+    },
+    {
+      "name": "native2x expiry at month9 without popup or cue-induced pause",
+      "width": 375
+    },
+    {
+      "name": "sales cue and release ledger share deterministic factual comment, read-only",
+      "width": 375,
+      "comment": {
+        "id": "customer:retail:125:27",
+        "month": 125,
+        "text": "AmberTime・第9回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+        "releaseId": 9
+      }
+    },
+    {
+      "name": "original recipe navigation and restored comment unchanged; no repeat toast",
+      "width": 375
+    },
+    {
+      "name": "no new fact / expired / already tasted stays quiet after restore",
+      "fixture": "initial",
+      "width": 390
+    },
+    {
+      "name": "no new fact / expired / already tasted stays quiet after restore",
+      "fixture": "expired",
+      "width": 390
+    },
+    {
+      "name": "no new fact / expired / already tasted stays quiet after restore",
+      "fixture": "sampled",
+      "width": 390
+    },
+    {
+      "name": "recent fact / changed name / next fact opens existing optional tasting",
+      "fixture": "fresh",
+      "width": 390,
+      "fact": {
+        "kind": "observation",
+        "age": 6,
+        "month": 6,
+        "text": "かおりが広がる",
+        "priority": 1,
+        "tie": "fruit:0",
+        "caskId": 2
+      }
+    },
+    {
+      "name": "recent fact / changed name / next fact opens existing optional tasting",
+      "fixture": "named",
+      "width": 390,
+      "fact": {
+        "kind": "name",
+        "age": 59,
+        "month": 59,
+        "text": "風味の名前が変わりました。",
+        "priority": 3,
+        "tie": "name:1",
+        "caskId": 2
+      }
+    },
+    {
+      "name": "recent fact / changed name / next fact opens existing optional tasting",
+      "fixture": "next",
+      "width": 390,
+      "fact": {
+        "kind": "observation",
+        "age": 41,
+        "month": 41,
+        "text": "少しずつ、減っていく",
+        "priority": 1,
+        "tie": "loss:1",
+        "caskId": 2
+      }
+    },
+    {
+      "name": "native2x expiry at month9 without popup or cue-induced pause",
+      "width": 390
+    },
+    {
+      "name": "sales cue and release ledger share deterministic factual comment, read-only",
+      "width": 390,
+      "comment": {
+        "id": "customer:retail:125:27",
+        "month": 125,
+        "text": "AmberTime・第9回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+        "releaseId": 9
+      }
+    },
+    {
+      "name": "original recipe navigation and restored comment unchanged; no repeat toast",
+      "width": 390
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "shop-app.mjs": "74e5de3db8d4b22b43e6b7a8ac77ceab252f9f86022937b129ad246bfe1ea5d2",
+    "flavor-feedback-view.mjs": "62037719e7822f266dd3fff6e3e5da1771601e73e7ba687b320a94c410d20513",
+    "player-news.mjs": "8647a27eacf7425199cf2526f43c541f9481f514a3ba994cf8de02443a5d7641",
+    "index.html": "3caedf1a0664cc142ba1c0909f7ee16935cd5b6d34b5b0799ea1172959098b89",
+    "monthly.mjs": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2",
+    "runtime-clock.mjs": "c5e3c7ed4ad6f4ec723cc157681c15ec1b7907cc21d5ce8141ac1314aff67550",
+    "canvas-scene.mjs": "d6b5a4692382dfde14724746e139cdf736c85f2b8a0659ae10521474c4383465",
+    "shop-order-view.mjs": "04f2b6cfd27db7fd958f274794cb68537af6218887eec67f039281afdafb80e3"
+  },
+  "publishedHashes": {}
+}

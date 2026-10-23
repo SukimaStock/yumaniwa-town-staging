@@ -1,0 +1,42 @@
+[
+  {
+    "fixture": "initial",
+    "seed": 42,
+    "month": 2,
+    "bytes": 10065,
+    "sha256": "925d5ba6b4c4b41ff3564455bde1d2ad9a55e33f54161415f5f8ff028b48259e",
+    "equal": true
+  },
+  {
+    "fixture": "fresh",
+    "seed": 42,
+    "month": 8,
+    "bytes": 11225,
+    "sha256": "66f43395d656c5c38aab83cebfe017241c37372b4d94a4b37b531854966c3c59",
+    "equal": true
+  },
+  {
+    "fixture": "named",
+    "seed": 42,
+    "month": 61,
+    "bytes": 20126,
+    "sha256": "54f192fc42564764f39ec27e0bfcb12b973718eb0797514614859d12dc9500cb",
+    "equal": true
+  },
+  {
+    "fixture": "next",
+    "seed": 42,
+    "month": 43,
+    "bytes": 17317,
+    "sha256": "6f2e596f06f837adcdd8f3ded3c8ac71c1a4f48888cc1dd5846e693ed82190b7",
+    "equal": true
+  },
+  {
+    "fixture": "sales",
+    "seed": 42,
+    "month": 143,
+    "bytes": 1342140,
+    "sha256": "c774afd6a296ff3e743a8121f5820d29c6294b4988da16628effa82d95735f78",
+    "equal": true
+  }
+]
