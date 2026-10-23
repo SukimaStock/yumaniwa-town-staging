@@ -253,3 +253,5 @@ svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:no
 .world-map-controls{display:grid;grid-template-columns:46px minmax(0,1fr) 46px;align-items:center;width:222px;max-width:100%;gap:8px}
 .world-map-controls button{width:46px;min-width:46px;height:45px;padding:0!important;font-size:20px!important}
 .world-map-controls span{font-size:15px!important;white-space:nowrap;text-align:center;min-width:0;overflow:hidden}
+
+#action-dialog[data-kind=world-map] .map-introduction{margin:0!important;max-width:100%;font-size:16px!important;line-height:24px;text-align:center;overflow-wrap:anywhere}
