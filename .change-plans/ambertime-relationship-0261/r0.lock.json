@@ -1,0 +1,146 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e3720a722df1d09de7e6dec14c9d6d74d29d5b6212e0fc1b76b0fac08f76cafd",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-relationship-0261",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Audit shop relationship and automation boundaries, compare A/B/C and mixed policies with independent v02 and three rumor adapters; no main integration.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "70d618067ee2e79685587998deb391ae52b7c87b",
+    "canonicalSources": [
+      "User AmberTime0.26 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/experiments/reputation/v03/model.mjs",
+      "works/ambertime/experiments/reputation/v05/core.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/design/gameplay-audit-20261023.md",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "PR614/617/618/619"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-relationship-0261/r0.lock.json",
+      "works/ambertime/design/shop-relationship-redesign-0261.md",
+      "works/ambertime/experiments/shop-expansion/v02/**",
+      "works/ambertime-shop-relationship-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Audit current brand-offer/newest-reference-demand/oldest-stock-fulfillment and department reservation using exact code references.",
+      "Pure independent v02: A uses unchanged normalShopOrders/planShopFulfillment for ordinary stores; B pin release, C anchored flavor family+8profile+3axis distance gate and fixed-anchor/no drift; mixed with explicit extra rule cost.",
+      "Common exogenous supply/release/seed and monthly request tape; actual stocks/caps/min quantities/listing nextmonth, stated extension assumptions for proposed outlets. No claimed full economy simulation.",
+      "Explicit scripted player acceptance/known recipe renewal/wait/proposal policy with counted decisions; optional real user selection. Never optimize hidden affinity.",
+      "Separate native rumor receipt adapter, pooled monthly signal and chance budget, contact-based bounded per-quarter engagement trial with existing role/fit/root. Counterfactual only, no existing code edits.",
+      "Matched samebottles/months flavor source and split count/store identities experiment for rumor, separate from shipment differences of A/B/C.",
+      "Finite multi-seed10/20/30 comparisons and logs, pilot beforeexpanded runs, quiet periods/mismatch/hold/continuity/decision costs, sensitivity of C taste threshold.",
+      "DotUI, export/replay and target browser tests; protectedblob hashes, native planner parity, independentreview, lifecycle/generatedLAB registration, PR/CI/Staging/publicverify."
+    ],
+    "ownerDecisions": [
+      "User0.26.1 authorizes design audit and independentLab comparison plusStaging. No main implementation, existingLab/model/save/Production changes."
+    ],
+    "hqDecisions": [
+      "Existing contracts remain; new logic confined to v02. MainordinaryA projection reused read-only with constructed valid shape, not asserted full playablegame.",
+      "Demand tape common across policies for allocation isolation; demand product mismatch recorded. Newstore demands anddepartment scheduled5 spot are explicit experimental extensions, not mainequivalence.",
+      "C does not equate maxcharacter with aroma; require family and bounded eight-feature/three-axis deviation, original anchor retained. Threshold sensitivity and exact-recipe conservative variant evaluated; no optimal recipe selection.",
+      "NativeTown reactions can be reused with external receipts; pooled/contact adapters may alter only v02-owned candidate pending/packet inputs before monthly advance. Preserve factual shipment records and explicitly export exposure/trial lineage.",
+      "Scope includes necessary new launcher/lifecycle/PrototypeBench registration; existingv01 launcher/entries unchanged."
+    ],
+    "rulesApplied": [
+      "Locked r0 first commit; full risk review for new executable/LAB registration.",
+      "Reuse existing lifecycle schema/launcher/PrototypeBench; generated lab/index only via --write-lab.",
+      "Expression audit six points: concrete shop-handler speech, no praise of sales or invented consumers, no decorative slogan or internal numerical scores on normal screen."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent audit/model/evidence review.",
+      "375/390 UI A/B/C modes, currenttarget vs actualshipment, shortage/policydecision/history/export/replay, LAB return.",
+      "PublicStaging source/data hashes and basic operations."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v02, newlauncher, report and registration/generated files only. No state migration.",
+    "outOfScope": [
+      "Main integration/newstores/model/save changes",
+      "ExistingLabs includingv01 andoldlauncher",
+      "Production, comprehensiveE2E, optimal recipes/qualityscore/economicbonuses"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari and author design adoption",
+      "Full main economy/cask/finance feasibility",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Assume C is best",
+      "Tune hidden tastes or give optimal production guidance",
+      "Monthlymanual shipping",
+      "Treat order profile as requested SKU in baseline",
+      "Compare reputation solely from unequal shipment counts"
+    ],
+    "boundaryCases": [
+      "Same/changed/parallel/shortage supply, no eligible listing, minlot and held5, oldest vs pinned SKU, deptspecialspot",
+      "No unapproved switch, C family/8axis mismatch and gradual drift, genuine no-similar-stock",
+      "Scripted wait vs knownrecipe renewal vs fixed-time proposal, no lookahead",
+      "Same quantity/month source split/role/per-store cooldown, distinct contact vs actual trade",
+      "Replaytamper, idle no-storage/timer,375/390 layout, baseprotected files"
+    ],
+    "testPlan": [
+      "Native normalShopOrders/planShopFulfillment parity,7nativeflavors reusedv01, exact pinned/C gate/conservation/caps/listing/hold/priority anddecision reasons.",
+      "Paired supply/demand tapes and rumor-only controlled exposures, multiple fixedseeds10/20/30 plus Cthreshold sensitivity; reproduciblelogs and no universal qualityscores.",
+      "Independent model/reportreview, targetedmobile browser, Lifecyclegenerator/tests, ScopeRiskImpact/syntax/CI/Pages/publichash."
+    ],
+    "problem": "Taste-triggered shop relation and brand-wide oldest-stock automation do not express player delivery intent.",
+    "currentContract": "Main brand relations and economic/rumor calculations unchanged; independent experiments are evidence only.",
+    "whyExistingIsInsufficient": "A trade can start from one flavor while next delivery is unrelated; v01 did not compare player decisions vs automation.",
+    "design": "Read-only native projection adapter plus isolated policy/rumor experiments with recorded decision policies and controlled tapes.",
+    "migration": "None. New active staging-only Lab registration using existing schema.",
+    "compatibility": "No main/oldLab data access or source changes; new log schema/version replay only within this Lab.",
+    "promotionRisk": "Staging-only, not adopted for main or Production."
+  }
+}
