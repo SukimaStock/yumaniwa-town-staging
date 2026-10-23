@@ -401,6 +401,12 @@
       "path": "works/ambertime-world-map-lab",
       "status": "active",
       "title": "AmberTime 世界マップ Lab 0.1"
+    },
+    {
+      "id": "ambertime-shop-expansion-lab",
+      "path": "works/ambertime-shop-expansion-lab",
+      "status": "active",
+      "title": "AmberTime 新しい取扱店 Lab 0.1"
     }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "base": "d3776bd9e3af6b376c068f78e4c7a0a7178c69a9",
+  "pilotRuns": 99,
+  "fullRuns": 792,
+  "conditions": 33,
+  "seeds": 24,
+  "pilotOverlapExact": 99,
+  "allConservationValid": true,
+  "fullLogsReplayed": [
+    "log-42-discovery-fruit-same.json.gz",
+    "log-42-discovery-fruit-switch.json.gz",
+    "log-42-open-wood-same.json.gz"
+  ],
+  "checkpoints": 2376,
+  "relatedTests": 76,
+  "browserChecks": 14
+}
