@@ -15,6 +15,7 @@ export function layoutScene(view={}){
  const management=['open-ledger',...(view.staffAvailable?['open-staff-panel']:[]),...(view.room==='sales'?['shop-offer']:[]),'open-aux-menu'];
  let nextX=18;
  for(const key of management){const w=66;add(key,'#'+key,nextX,520,w,54);nextX+=w;}
+ if(view.feedback)add('room-feedback','#room-feedback',18,447,324,69);
  const caskSlots=Array.from({length:4},(_,i)=>({x:60+(i%2)*132,y:180+Math.floor(i/2)*144,w:108,h:120,base:234+Math.floor(i/2)*144}));
  const productSlots=caskSlots.map((s,i)=>({...s,y:144+Math.floor(i/2)*144,h:144,base:234+Math.floor(i/2)*144}));
  if(view.room==='warehouse'){

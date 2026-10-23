@@ -1,0 +1,189 @@
+{
+  "url": "local",
+  "seed": 42,
+  "browser": "153.0.8010.0",
+  "physicalIPhone": false,
+  "widths": [
+    375,
+    390
+  ],
+  "checks": [
+    {
+      "name": "no customer comment produces no room cue",
+      "width": 375
+    },
+    {
+      "name": "latest actual retail comment opens exact release, read-only",
+      "width": 375,
+      "comment": {
+        "id": "customer:retail:125:27",
+        "month": 125,
+        "text": "AmberTime・第9回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+        "releaseId": 9
+      }
+    },
+    {
+      "name": "comment to existing release/cask Worker/recipe cards and cut; no recipe mutation",
+      "width": 375
+    },
+    {
+      "name": "reload and back do not create new toast or duplicate control",
+      "width": 375
+    },
+    {
+      "name": "existing aging cue / optional tasting / return",
+      "fixture": "early",
+      "width": 375,
+      "fact": {
+        "kind": "observation",
+        "age": 6,
+        "month": 149,
+        "text": "かおりが広がる",
+        "priority": 1,
+        "caskId": 36
+      }
+    },
+    {
+      "name": "existing aging cue / optional tasting / return",
+      "fixture": "aging",
+      "width": 375,
+      "fact": {
+        "kind": "observation",
+        "age": 60,
+        "month": 203,
+        "text": "香りの移り変わり",
+        "priority": 1,
+        "caskId": 36
+      }
+    },
+    {
+      "name": "existing aging cue / optional tasting / return",
+      "fixture": "previous",
+      "width": 375,
+      "fact": {
+        "kind": "sample",
+        "age": 63,
+        "month": 204,
+        "text": "前回から：木の余韻が増した",
+        "priority": 2,
+        "caskId": 32
+      }
+    },
+    {
+      "name": "existing aging cue / optional tasting / return",
+      "fixture": "automatic",
+      "width": 375,
+      "fact": {
+        "kind": "observation",
+        "age": 60,
+        "month": 203,
+        "text": "香りの移り変わり",
+        "priority": 1,
+        "caskId": 36
+      }
+    },
+    {
+      "name": "staff request remains explicit confirmation",
+      "width": 375
+    },
+    {
+      "name": "1x/2x and explicit pause with passive cue",
+      "width": 375
+    },
+    {
+      "name": "no customer comment produces no room cue",
+      "width": 390
+    },
+    {
+      "name": "latest actual retail comment opens exact release, read-only",
+      "width": 390,
+      "comment": {
+        "id": "customer:retail:125:27",
+        "month": 125,
+        "text": "AmberTime・第9回のお客さん「このウイスキー、果実の香りが豊かですね。」",
+        "releaseId": 9
+      }
+    },
+    {
+      "name": "comment to existing release/cask Worker/recipe cards and cut; no recipe mutation",
+      "width": 390
+    },
+    {
+      "name": "reload and back do not create new toast or duplicate control",
+      "width": 390
+    },
+    {
+      "name": "existing aging cue / optional tasting / return",
+      "fixture": "early",
+      "width": 390,
+      "fact": {
+        "kind": "observation",
+        "age": 6,
+        "month": 149,
+        "text": "かおりが広がる",
+        "priority": 1,
+        "caskId": 36
+      }
+    },
+    {
+      "name": "existing aging cue / optional tasting / return",
+      "fixture": "aging",
+      "width": 390,
+      "fact": {
+        "kind": "observation",
+        "age": 60,
+        "month": 203,
+        "text": "香りの移り変わり",
+        "priority": 1,
+        "caskId": 36
+      }
+    },
+    {
+      "name": "existing aging cue / optional tasting / return",
+      "fixture": "previous",
+      "width": 390,
+      "fact": {
+        "kind": "sample",
+        "age": 63,
+        "month": 204,
+        "text": "前回から：木の余韻が増した",
+        "priority": 2,
+        "caskId": 32
+      }
+    },
+    {
+      "name": "existing aging cue / optional tasting / return",
+      "fixture": "automatic",
+      "width": 390,
+      "fact": {
+        "kind": "observation",
+        "age": 60,
+        "month": 203,
+        "text": "香りの移り変わり",
+        "priority": 1,
+        "caskId": 36
+      }
+    },
+    {
+      "name": "staff request remains explicit confirmation",
+      "width": 390
+    },
+    {
+      "name": "1x/2x and explicit pause with passive cue",
+      "width": 390
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "shop-app.mjs": "43d25cfa01b48503d75e047f209778cfc2ed30b2032432d0af7cde9f841cfa58",
+    "flavor-feedback-view.mjs": "10b6fa2ecdb9dcd4542c6781b2fdf0221d0a5403b94064c685dcf3eede3250e5",
+    "canvas-layout.mjs": "7b2816d40bfec1b80b767e0466dae81bbc61075774bb6035e65867ec66154469",
+    "canvas-scene.mjs": "d6b5a4692382dfde14724746e139cdf736c85f2b8a0659ae10521474c4383465",
+    "index.html": "ebc8b6a0b4db7c1bc443a51c7e59089308f3df073189e23e8f1fae8268b14547",
+    "player-news.mjs": "3cf68801121451c82cd7b8e9a66fd20d7ba6e4ab6f303de306f42fdf800a22ed",
+    "monthly.mjs": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2",
+    "runtime-clock.mjs": "c5e3c7ed4ad6f4ec723cc157681c15ec1b7907cc21d5ce8141ac1314aff67550",
+    "shop-order-view.mjs": "04f2b6cfd27db7fd958f274794cb68537af6218887eec67f039281afdafb80e3"
+  },
+  "publishedHashes": {}
+}

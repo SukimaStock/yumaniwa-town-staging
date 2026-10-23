@@ -1,0 +1,34 @@
+[
+  {
+    "key": "sales",
+    "seed": 42,
+    "month": 143,
+    "bytes": 1342140,
+    "sha256": "c774afd6a296ff3e743a8121f5820d29c6294b4988da16628effa82d95735f78",
+    "equal": true
+  },
+  {
+    "key": "aging",
+    "seed": 42,
+    "month": 206,
+    "bytes": 1568210,
+    "sha256": "c2b1a9d217f45f08c76df62b2c97e9a092c0a471886424d198c88cd3fa1b1487",
+    "equal": true
+  },
+  {
+    "key": "previous",
+    "seed": 42,
+    "month": 206,
+    "bytes": 1569163,
+    "sha256": "0cf210ab296661f5cd28846acc1bde987ab1bac77f22531a210c399864bf5ec8",
+    "equal": true
+  },
+  {
+    "key": "automatic",
+    "seed": 42,
+    "month": 207,
+    "bytes": 1578623,
+    "sha256": "3f3eb6c4bded24edd24e2fa889201f514baf0027268ae2b7f491143d15d5448b",
+    "equal": true
+  }
+]
