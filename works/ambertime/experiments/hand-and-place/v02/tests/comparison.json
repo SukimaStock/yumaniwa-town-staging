@@ -1,0 +1,490 @@
+[
+  {
+    "allocation": "free",
+    "month": 3,
+    "warehouse": [
+      {
+        "id": 1,
+        "stock": 12
+      },
+      {
+        "id": 2,
+        "stock": 0
+      },
+      {
+        "id": 3,
+        "stock": 12
+      }
+    ],
+    "board": [
+      {
+        "shopId": "diner",
+        "name": "食堂",
+        "lotId": 2,
+        "label": "煙の香りが豊か",
+        "ageMonths": 24,
+        "stock": 0,
+        "openedMonth": 0,
+        "autoContinue": true,
+        "held": 0,
+        "dueMonth": 4,
+        "lastShipment": {
+          "month": 2,
+          "lotId": 2,
+          "count": 2
+        },
+        "nextCount": 0,
+        "shortage": true
+      },
+      {
+        "shopId": "bar",
+        "name": "路地のバー",
+        "lotId": 2,
+        "label": "煙の香りが豊か",
+        "ageMonths": 24,
+        "stock": 0,
+        "openedMonth": 0,
+        "autoContinue": true,
+        "held": 0,
+        "dueMonth": 4,
+        "lastShipment": {
+          "month": 2,
+          "lotId": 2,
+          "count": 2
+        },
+        "nextCount": 0,
+        "shortage": true
+      },
+      {
+        "shopId": "specialist",
+        "name": "専門酒店",
+        "lotId": 2,
+        "label": "煙の香りが豊か",
+        "ageMonths": 24,
+        "stock": 0,
+        "openedMonth": 0,
+        "autoContinue": true,
+        "held": 0,
+        "dueMonth": 4,
+        "lastShipment": {
+          "month": 2,
+          "lotId": 2,
+          "count": 2
+        },
+        "nextCount": 0,
+        "shortage": true
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    },
+    "observations": [
+      {
+        "chosen": {
+          "lotId": 1,
+          "shopId": "diner"
+        },
+        "outcome": "placed",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 1,
+          "month": 0
+        },
+        "linkedRebrew": null
+      },
+      {
+        "chosen": {
+          "lotId": 1,
+          "shopId": "bar"
+        },
+        "outcome": "rejected",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": null
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "specialist"
+        },
+        "outcome": "placed",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "diner"
+        },
+        "outcome": "pending",
+        "nextAction": {
+          "type": "resolve",
+          "replace": false,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "diner"
+        },
+        "outcome": "kept",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "diner"
+        },
+        "outcome": "pending",
+        "nextAction": {
+          "type": "resolve",
+          "replace": true,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "diner"
+        },
+        "outcome": "replaced",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "bar"
+        },
+        "outcome": "placed",
+        "nextAction": {
+          "type": "rebrew",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": null
+        },
+        "outcome": "rebrew",
+        "nextAction": {
+          "type": "step",
+          "months": 1,
+          "month": 1
+        },
+        "linkedRebrew": null
+      }
+    ]
+  },
+  {
+    "allocation": "reserve",
+    "month": 3,
+    "warehouse": [
+      {
+        "id": 1,
+        "stock": 12
+      },
+      {
+        "id": 2,
+        "stock": 0
+      },
+      {
+        "id": 3,
+        "stock": 12
+      }
+    ],
+    "board": [
+      {
+        "shopId": "diner",
+        "name": "食堂",
+        "lotId": 2,
+        "label": "煙の香りが豊か",
+        "ageMonths": 24,
+        "stock": 0,
+        "openedMonth": 0,
+        "autoContinue": true,
+        "held": 0,
+        "dueMonth": 4,
+        "lastShipment": {
+          "month": 2,
+          "lotId": 2,
+          "count": 2
+        },
+        "nextCount": 0,
+        "shortage": true
+      },
+      {
+        "shopId": "bar",
+        "name": "路地のバー",
+        "lotId": 2,
+        "label": "煙の香りが豊か",
+        "ageMonths": 24,
+        "stock": 0,
+        "openedMonth": 0,
+        "autoContinue": true,
+        "held": 0,
+        "dueMonth": 4,
+        "lastShipment": {
+          "month": 2,
+          "lotId": 2,
+          "count": 2
+        },
+        "nextCount": 0,
+        "shortage": true
+      },
+      {
+        "shopId": "specialist",
+        "name": "専門酒店",
+        "lotId": 2,
+        "label": "煙の香りが豊か",
+        "ageMonths": 24,
+        "stock": 0,
+        "openedMonth": 0,
+        "autoContinue": true,
+        "held": 0,
+        "dueMonth": 4,
+        "lastShipment": {
+          "month": 2,
+          "lotId": 2,
+          "count": 2
+        },
+        "nextCount": 0,
+        "shortage": true
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    },
+    "observations": [
+      {
+        "chosen": {
+          "lotId": 1,
+          "shopId": "diner"
+        },
+        "outcome": "placed",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 1,
+          "month": 0
+        },
+        "linkedRebrew": null
+      },
+      {
+        "chosen": {
+          "lotId": 1,
+          "shopId": "bar"
+        },
+        "outcome": "rejected",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": null
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "specialist"
+        },
+        "outcome": "placed",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "diner"
+        },
+        "outcome": "pending",
+        "nextAction": {
+          "type": "resolve",
+          "replace": false,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "diner"
+        },
+        "outcome": "kept",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "diner"
+        },
+        "outcome": "pending",
+        "nextAction": {
+          "type": "resolve",
+          "replace": true,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "diner"
+        },
+        "outcome": "replaced",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": "bar"
+        },
+        "outcome": "placed",
+        "nextAction": {
+          "type": "rebrew",
+          "lotId": 2,
+          "month": 0
+        },
+        "linkedRebrew": {
+          "actionIndex": 20,
+          "month": 0,
+          "lotId": 2
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 2,
+          "shopId": null
+        },
+        "outcome": "rebrew",
+        "nextAction": {
+          "type": "step",
+          "months": 1,
+          "month": 1
+        },
+        "linkedRebrew": null
+      }
+    ]
+  },
+  {
+    "scenario": "wood-only",
+    "replies": [
+      {
+        "chosen": {
+          "lotId": 1,
+          "shopId": "bar"
+        },
+        "outcome": "rejected",
+        "reply": "この店では、もう少し力強い口当たりを探しています。",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 1,
+          "month": 0
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 1,
+          "shopId": "specialist"
+        },
+        "outcome": "rejected",
+        "reply": "うちで扱うなら、樽の香りはもう少し控えめがよさそうです。",
+        "nextAction": {
+          "type": "rebrew",
+          "lotId": 1,
+          "month": 0
+        }
+      },
+      {
+        "chosen": {
+          "lotId": 1,
+          "shopId": null
+        },
+        "outcome": "rebrew",
+        "reply": "発売#1の製法で、もう一度造ります。仕込みに1か月、その後に熟成します。",
+        "nextAction": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,69 @@
+// Isolated v02 experiment. Flavor chemistry and shop preferences remain read-only.
+import * as F from '../../../../ambertime-flavor-lab-v02/model.mjs';
+import {FLAVORS, SHOPS, fitDetails, comment, checksum} from '../../shop-expansion/v01/model.mjs';
+export {F};
+export const VERSION='ambertime-hand-and-place/0.2';
+const clone=x=>structuredClone(x),assert=(ok,text)=>{if(!ok)throw Error(text);};
+const hints={diner:'食事に合わせる果実香。樽の香りは控えめ。',bar:'煙の香りと、力強い口当たり。',specialist:'原酒の個性がはっきりした一本。樽香はほどほど。'};
+export const STORES=SHOPS.filter(n=>Object.hasOwn(hints,n.id)).map(n=>({id:n.id,name:n.name,hint:hints[n.id]}));
+const store=id=>STORES.find(n=>n.id===id),lot=(s,id)=>s.lots.find(l=>l.id===id),key=r=>JSON.stringify([r.malt,r.ferment,r.start,r.end,r.cask]);
+const record=(s,type,text,fields={})=>s.events.push({id:s.events.length+1,month:s.month,type,text,...fields});
+export function create({seed=42,allocation='free',scenario='full'}={}){
+ assert(Number.isInteger(seed)&&seed>0&&seed<=4294967295&&['free','reserve'].includes(allocation)&&['full','wood-only'].includes(scenario),'実験条件を確認してください。');
+ const lots=(scenario==='wood-only'?['wood']:['fruit','smoke','wood']).map((id,i)=>{const f=FLAVORS.find(x=>x.id===id);return {id:i+1,recipeId:id,recipe:clone(f.recipe),ageMonths:f.ageMonths,label:f.label,profile:clone(f.profile),product:clone(f.product),stock:12,count:12,bottledMonth:-1,sourceId:null};});
+ return {seed,allocation,initialAllocation:allocation,scenario,initialScenario:scenario,month:0,mode:'cards',gate:'try',lots,jobs:[],relations:{},events:[],actions:[],selectedLotId:null,selectedShopId:null,pending:null,holds:{},observations:[]};
+}
+export const fit=(shopId,l)=>fitDetails(shopId,l);
+export const reaction=(s,shopId,l)=>comment({options:{seed:s.seed}},shopId,l,`hand:${s.month}:${s.actions.length}:${l.id}`).text;
+export function stockView(s,lotId,exceptShopId=null){const l=lot(s,lotId);assert(l,'発売回を確認してください。');const held=Object.entries(s.holds).filter(([id,h])=>id!==exceptShopId&&h.lotId===lotId).reduce((n,[,h])=>n+h.count,0);return {warehouse:l.stock,held,free:Math.max(0,l.stock-held)};}
+export function supplyView(s,lotId){const shops=STORES.filter(n=>s.relations[n.id]?.selectedId===lotId).map(n=>n.id),monthly=shops.length*2;return {shops,monthly,months:monthly?Math.floor(lot(s,lotId).stock/monthly):null};}
+export function candidates(s,shopId){const r=s.relations[shopId];if(!r)return [];const a=lot(s,r.anchorId);return s.lots.filter(l=>l.id!==r.selectedId&&l.stock>0&&key(l.recipe)===key(a.recipe));}
+export function recipeText(item){const r=item.recipe;return [F.CARDS.malt.find(x=>x.id===r.malt)?.name,F.CARDS.ferment.find(x=>x.id===r.ferment)?.name,`採取 ${Math.round(r.start*99)}–${Math.round(r.end*99)}`,F.CARDS.cask.find(x=>x.id===r.cask)?.name,`熟成 ${item.targetAge??item.ageMonths}か月`].join('・');}
+export function boardSnapshot(s){return STORES.map(n=>{const r=s.relations[n.id],l=r&&lot(s,r.selectedId),last=[...s.events].reverse().find(e=>e.type==='shipment'&&e.shopId===n.id),h=s.holds[n.id];return {shopId:n.id,name:n.name,lotId:l?.id??null,label:l?.label??null,ageMonths:l?.ageMonths??null,stock:l?.stock??0,openedMonth:r?.openedMonth??null,autoContinue:r?.autoContinue??false,held:h?.count??0,dueMonth:s.month+1,lastShipment:last?{month:last.month,lotId:last.lotId,count:last.count}:null,nextCount:l?(s.allocation==='reserve'?h?.count??0:Math.min(2,l.stock)):0,shortage:!!l&&(s.allocation==='reserve'?(h?.count??0)<2:l.stock<2)};});}
+function compact(s){return {month:s.month,hand:s.lots.map(l=>({id:l.id,stock:l.stock,label:l.label,ageMonths:l.ageMonths,recipeId:l.recipeId,profile:clone(l.profile)})),board:boardSnapshot(s)};}
+function releaseHold(s,shopId){const h=s.holds[shopId];if(h){record(s,'release-hold',`${store(shopId).name}の予約${h.count}本を戻しました。`,{shopId,lotId:h.lotId,count:h.count});delete s.holds[shopId];}}
+function reserve(s){if(s.allocation!=='reserve')return;
+ // Keep every existing owner's rights before allocating any remaining free stock.
+ for(const [id,h]of Object.entries(s.holds)){if(s.relations[id]?.selectedId!==h.lotId||h.dueMonth!==s.month+1)releaseHold(s,id);}
+ for(const n of STORES){const r=s.relations[n.id];if(!r)continue;const l=lot(s,r.selectedId),old=s.holds[n.id]?.count??0,available=stockView(s,l.id,n.id).free,count=Math.min(2,available);if(count>old){s.holds[n.id]={lotId:l.id,count,dueMonth:s.month+1};record(s,'hold',`${n.name}へ翌月分${count}本を予約しました。`,{shopId:n.id,lotId:l.id,count,added:count-old,dueMonth:s.month+1});}}
+}
+function place(s,shopId,l,autoContinue=true){releaseHold(s,shopId);const old=s.relations[shopId];s.relations[shopId]={anchorId:l.id,selectedId:l.id,autoContinue,openedMonth:old?.openedMonth??s.month};record(s,old?'replace':'place',`${store(shopId).name}で発売#${l.id}を扱います。`,{shopId,lotId:l.id,previousId:old?.selectedId??null});reserve(s);}
+function offer(s,shopId,lotId,autoContinue=true){const n=store(shopId),l=lot(s,lotId);assert(n&&l,'カードと店を選んでください。');const reply=reaction(s,n.id,l),d=fit(n.id,l),r=s.relations[n.id];
+ if(!d.liked){record(s,'rejected',reply,{shopId,lotId});return {text:reply,outcome:'rejected',shopId,lotId,affinity:d.fit};}
+ if(r?.selectedId===l.id)return {text:'この一本を引き続き扱っています。',outcome:'same',shopId,lotId,affinity:d.fit};
+ if(s.allocation==='reserve'&&stockView(s,l.id,shopId).free<2||l.stock<1){const text='翌月分の在庫を確保できません。現在の取扱いを続けます。';record(s,'reserved-out',text,{shopId,lotId});return {text,outcome:'reserved-out',shopId,lotId,affinity:d.fit};}
+ if(r){s.pending={shopId,lotId,previousId:r.selectedId,autoContinue,month:s.month};return {text:reply+' 今の一本と入れ替えますか？',outcome:'pending',shopId,lotId,affinity:d.fit};}
+ place(s,shopId,l,autoContinue);return {text:reply,outcome:'placed',shopId,lotId,affinity:d.fit};
+}
+function step(s){assert(s.month<1200,'このLabは100年までです。');s.month++;
+ for(const n of STORES){const r=s.relations[n.id];if(!r||r.openedMonth>=s.month)continue;let l=lot(s,r.selectedId);const a=lot(s,r.anchorId);
+  if(l.stock===0&&r.autoContinue){const next=candidates(s,n.id).find(x=>x.bottledMonth<s.month&&x.ageMonths===a.ageMonths&&fit(n.id,x).liked&&(s.allocation==='free'||stockView(s,x.id,n.id).free>0));if(next){releaseHold(s,n.id);r.selectedId=next.id;l=next;record(s,'continue',`${n.name}で発売#${l.id}の取扱いを続けます。`,{shopId:n.id,lotId:l.id,anchorId:r.anchorId});}}
+  const available=s.allocation==='reserve'?stockView(s,l.id,n.id).free:l.stock,count=l.bottledMonth<s.month?Math.min(2,available):0;
+  if(count){l.stock-=count;const h=s.holds[n.id];if(h){const used=Math.min(h.count,count);record(s,'consume-hold',`${n.name}の予約${used}本を発送しました。`,{shopId:n.id,lotId:l.id,count:used});delete s.holds[n.id];}record(s,'shipment',`${n.name}へ発売#${l.id}を${count}本届けました。`,{shopId:n.id,lotId:l.id,count,anchorId:r.anchorId});}
+  else record(s,'shortage',`${n.name}は発売#${l.id}の補充待ちです。`,{shopId:n.id,lotId:l.id});
+ }
+ for(const j of s.jobs){if(j.stage==='preparing'){j.stage='aging';record(s,'prepared',`仕込み#${j.id}が終わり、熟成を始めました。`,{jobId:j.id});}else{j.flavorState=F.advance(j.flavorState,1);j.ageMonths++;}}
+ record(s,'month',`${s.month}か月目になりました。`);reserve(s);
+}
+export function dispatch(s,action){assert(action&&typeof action.type==='string','操作を確認してください。');const a=clone(action),observed=['propose','resolve','rebrew','bottle','continuation'].includes(a.type),before=observed?compact(s):null,chosen={lotId:s.pending?.lotId??s.selectedLotId,shopId:s.pending?.shopId??s.selectedShopId};let result={text:'',outcome:a.type};
+ switch(a.type){
+ case 'select-card': assert(lot(s,a.lotId),'カードを選んでください。');s.selectedLotId=a.lotId;result.text=`発売#${a.lotId}を選びました。`;break;
+ case 'select-shop': assert(store(a.shopId),'店を選んでください。');s.selectedShopId=a.shopId;result.text=`${store(a.shopId).name}を選びました。`;break;
+ case 'propose': assert(!s.pending,'先に入替えを決めてください。');result=offer(s,s.selectedShopId,s.selectedLotId,true);s.selectedLotId=null;s.selectedShopId=null;break;
+ case 'resolve': {assert(typeof a.replace==='boolean'&&s.pending,'確認中の入替えを選んでください。');const p=s.pending,l=lot(s,p.lotId);result={text:'現在の一本を続けます。',outcome:'kept',shopId:p.shopId,lotId:p.lotId};if(a.replace){if(p.month!==s.month||s.relations[p.shopId]?.selectedId!==p.previousId){result.text='場が変わりました。もう一度カードと店を選んでください。';result.outcome='stale';}else if(!l||!fit(p.shopId,l).liked||(s.allocation==='reserve'?stockView(s,l.id,p.shopId).free<2:l.stock<1)){result.text='在庫が変わり、入れ替えられません。今の一本を続けます。';result.outcome='reserved-out';}else{place(s,p.shopId,l,p.autoContinue);result.text='提案した一本に入れ替えました。';result.outcome='replaced';}}s.pending=null;record(s,result.outcome,result.text,{shopId:p.shopId,lotId:p.lotId});break;}
+ case 'rebrew': {const l=lot(s,a.lotId);assert(l,'元のカードを選んでください。');assert(s.jobs.length<4,'仕込みと熟成は合わせて4樽までです。');const id=1+Math.max(0,...s.events.filter(e=>e.type==='rebrew').map(e=>e.jobId));s.jobs.push({id,sourceId:l.id,recipeId:l.recipeId,recipe:clone(l.recipe),targetAge:l.ageMonths,stage:'preparing',ageMonths:0,flavorState:F.fill(F.initial(),l.recipe)});result.text=`発売#${l.id}の製法で、もう一度造ります。仕込みに1か月、その後に熟成します。`;result.lotId=l.id;record(s,'rebrew',result.text,{jobId:id,lotId:l.id});break;}
+ case 'bottle': {const j=s.jobs.find(x=>x.id===a.jobId);assert(j&&j.stage==='aging'&&j.ageMonths>=1,'1か月以上熟成した樽を選んでください。');const id=s.lots.length+1,b=j.flavorState.barrels[0],profile=F.profileFor(b),product={roughness:profile.rough,character:Math.max(profile.fruit,profile.grain,profile.smoke,profile.body),wood:Math.max(profile.wood,profile.vanilla),age:j.ageMonths,price:30,aromaFamily:F.summaryFor(b)[0].key,label:b.label};s.lots.push({id,recipeId:j.recipeId,recipe:clone(j.recipe),ageMonths:j.ageMonths,label:b.label,profile,product,stock:12,count:12,bottledMonth:s.month,sourceId:j.sourceId});s.jobs.splice(s.jobs.indexOf(j),1);result.text=`発売#${id}を12本、瓶詰めしました。納品は翌月からです。`;result.lotId=id;record(s,'bottle',result.text,{jobId:j.id,lotId:id,sourceId:j.sourceId});reserve(s);break;}
+ case 'step': assert(a.months===undefined||a.months===1,'1か月ずつ進めてください。');step(s);result.text='1か月進めました。';break;
+ case 'continuation': {const r=s.relations[a.shopId];assert(r&&candidates(s,a.shopId).some(l=>l.id===a.lotId),'同じ製法の補充候補を選んでください。');assert(!s.pending,'先に入替えを決めてください。');result=offer(s,a.shopId,a.lotId,r.autoContinue);break;}
+ case 'policy': {const r=s.relations[a.shopId];assert(r&&typeof a.autoContinue==='boolean','取扱中の店と継続方針を選んでください。');r.autoContinue=a.autoContinue;result.text=a.autoContinue?'同じ製法・同じ熟成年数の次回も任せます。':'次の発売回は自分で選びます。';record(s,'policy',result.text,{shopId:a.shopId,autoContinue:a.autoContinue});break;}
+ case 'inspect': assert(lot(s,a.lotId),'カードを選んでください。');result.text=recipeText(lot(s,a.lotId));break;
+ case 'browse': assert(typeof a.kind==='string'&&a.kind.length<=80,'操作記録を確認してください。');result.text='表示を開きました。';break;
+ default: throw Error('この操作には対応していません。');
+ }
+ const actionIndex=s.actions.length;s.actions.push({...a,month:s.month});
+ if(observed){const lotId=result.lotId??a.lotId??chosen.lotId,shopId=result.shopId??a.shopId??chosen.shopId,l=lot(s,lotId);s.observations.push({actionIndex,action:a.type,chosen:{lotId:lotId??null,shopId:shopId??null},before,after:compact(s),affinity:shopId&&l?fit(shopId,l).fit:null,reply:result.text,outcome:result.outcome,options:{cards:before.hand.map(x=>({id:x.id,stock:x.stock})),shops:STORES.map(n=>({id:n.id,...(l?{liked:fit(n.id,l).liked}: {})}))}});}
+ return result;
+}
+export function validate(s){const errors=[],shipped=s.events.filter(e=>e.type==='shipment');for(const l of s.lots){if(!Number.isInteger(l.stock)||l.stock<0||l.stock+shipped.filter(e=>e.lotId===l.id).reduce((n,e)=>n+e.count,0)!==l.count)errors.push('stock');if(!F.valid(l.recipe)||!Number.isInteger(l.ageMonths)||l.ageMonths<1)errors.push('recipe');if(l.sourceId!==null&&(!lot(s,l.sourceId)||key(l.recipe)!==key(lot(s,l.sourceId).recipe)))errors.push('lineage');if(stockView(s,l.id).held>l.stock)errors.push('over-reserved');}for(const e of shipped){const l=lot(s,e.lotId);if(!l||l.bottledMonth>=e.month||e.count<1||e.count>2||!fit(e.shopId,l).liked)errors.push('shipment');}if(s.jobs.length>4||s.jobs.some(j=>!lot(s,j.sourceId)||j.ageMonths!==j.flavorState.barrels[0].months))errors.push('jobs');for(const [id,r]of Object.entries(s.relations))if(!store(id)||!lot(s,r.anchorId)||!lot(s,r.selectedId)||key(lot(s,r.anchorId).recipe)!==key(lot(s,r.selectedId).recipe))errors.push('relation');for(const [id,h]of Object.entries(s.holds))if(s.allocation!=='reserve'||!Number.isInteger(h.count)||h.count<1||h.count>2||s.relations[id]?.selectedId!==h.lotId||h.dueMonth!==s.month+1)errors.push('hold');if(s.observations.some(o=>!s.actions[o.actionIndex]))errors.push('observation');return {ok:errors.length===0,errors:[...new Set(errors)]};}
+export function exportLog(s){const observations=s.observations.map(o=>{const next=s.actions[o.actionIndex+1]??null,linked=s.actions.findIndex((a,i)=>i>o.actionIndex&&a.type==='rebrew'&&a.lotId===o.chosen.lotId);return {...clone(o),nextAction:next?clone(next):null,subsequentLinkedRebrew:linked<0?null:{actionIndex:linked,month:s.actions[linked].month,lotId:o.chosen.lotId}};});const snapshot=clone(s);delete snapshot.observations;const data={schema:VERSION,initial:{seed:s.seed,allocation:s.initialAllocation,scenario:s.initialScenario},state:snapshot,observations,validation:validate(s)};return {...data,checksum:checksum(data)};}
+export function replay(log){assert(log?.schema===VERSION,'このLabの操作ログを選んでください。');const {checksum:hash,...data}=log;assert(checksum(data)===hash,'ログが変更されています。');const s=create(log.initial);for(const a of log.state.actions){const {month,...action}=a;dispatch(s,action);assert(s.month===month,'操作の月が一致しません。');}assert(checksum(exportLog(s))===checksum(log),'再現結果が一致しません。');return s;}
