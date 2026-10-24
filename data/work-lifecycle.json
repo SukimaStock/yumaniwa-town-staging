@@ -443,6 +443,12 @@
       "path": "works/ambertime-hand-and-place-v05-lab",
       "status": "active",
       "title": "AmberTime 手札と場 Lab 0.5 — 時間と店の動き"
+    },
+    {
+      "id": "ambertime-hand-and-place-v06-lab",
+      "path": "works/ambertime-hand-and-place-v06-lab",
+      "status": "active",
+      "title": "AmberTime 手札と場 Lab 0.6 — 在庫の行き先と自由な取引"
     }
   ]
 }
