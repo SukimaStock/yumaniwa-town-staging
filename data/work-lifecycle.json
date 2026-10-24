@@ -437,6 +437,12 @@
       "path": "works/ambertime-hand-and-place-v04-lab",
       "status": "active",
       "title": "AmberTime 手札と場 Lab 0.4 — 店からの注文"
+    },
+    {
+      "id": "ambertime-hand-and-place-v05-lab",
+      "path": "works/ambertime-hand-and-place-v05-lab",
+      "status": "active",
+      "title": "AmberTime 手札と場 Lab 0.5 — 時間と店の動き"
     }
   ]
 }

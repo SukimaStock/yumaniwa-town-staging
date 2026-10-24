@@ -1,0 +1,82 @@
+{
+  "ok": true,
+  "widths": [
+    360,
+    375,
+    390,
+    768
+  ],
+  "comparisons": [
+    {
+      "mode": "A",
+      "renders": 5,
+      "writes": {
+        "shop:restaurant": 3,
+        "hand:1": 1,
+        "selection": 2,
+        "barrel-hint": 2,
+        "counts": 4,
+        "pair": 2,
+        "decline": 1,
+        "deliver": 2,
+        "detail": 2,
+        "result": 5,
+        "date": 2
+      },
+      "motions": 0,
+      "cancelled": 0,
+      "pausedRenders": 0,
+      "pausedWrites": 0,
+      "activeMotion": 0,
+      "clockPending": false
+    },
+    {
+      "mode": "B",
+      "renders": 5,
+      "writes": {
+        "shop:restaurant": 3,
+        "hand:1": 1,
+        "selection": 2,
+        "barrel-hint": 2,
+        "counts": 4,
+        "pair": 2,
+        "decline": 1,
+        "deliver": 2,
+        "detail": 2,
+        "result": 5,
+        "date": 2
+      },
+      "motions": 0,
+      "cancelled": 0,
+      "pausedRenders": 0,
+      "pausedWrites": 0,
+      "activeMotion": 0,
+      "clockPending": false
+    },
+    {
+      "mode": "C",
+      "renders": 5,
+      "writes": {
+        "shop:restaurant": 3,
+        "hand:1": 1,
+        "selection": 2,
+        "barrel-hint": 2,
+        "counts": 4,
+        "pair": 2,
+        "decline": 1,
+        "deliver": 2,
+        "detail": 2,
+        "result": 5,
+        "date": 2
+      },
+      "motions": 4,
+      "cancelled": 2,
+      "pausedRenders": 0,
+      "pausedWrites": 0,
+      "activeMotion": 0,
+      "clockPending": false
+    }
+  ],
+  "errors": [],
+  "notes": "Actual Chromium; synthetic visibility event; no physicalpower/heat or comprehensiveE2E."
+}
