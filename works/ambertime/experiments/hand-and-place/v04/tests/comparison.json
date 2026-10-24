@@ -1,0 +1,328 @@
+[
+  {
+    "scenario": "standard",
+    "month": 27,
+    "orders": [
+      {
+        "id": 1,
+        "shopId": "restaurant",
+        "count": 2,
+        "status": "fulfilled",
+        "reason": {
+          "code": "initial",
+          "sourceDeliveryId": null,
+          "sourceLotId": null
+        }
+      },
+      {
+        "id": 2,
+        "shopId": "liquor",
+        "count": 2,
+        "status": "fulfilled",
+        "reason": {
+          "code": "initial",
+          "sourceDeliveryId": null,
+          "sourceLotId": null
+        }
+      },
+      {
+        "id": 3,
+        "shopId": "restaurant",
+        "count": 3,
+        "status": "fulfilled",
+        "reason": {
+          "code": "same",
+          "wish": null,
+          "reasonCode": "restaurant-ordinary",
+          "sourceDeliveryId": 1,
+          "sourceLotId": 1
+        }
+      },
+      {
+        "id": 4,
+        "shopId": "liquor",
+        "count": 2,
+        "status": "declined",
+        "reason": {
+          "code": "different",
+          "wish": "younger",
+          "reasonCode": "liquor-aged-wood",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3
+        }
+      },
+      {
+        "id": 5,
+        "shopId": "liquor",
+        "count": 2,
+        "status": "open",
+        "reason": {
+          "code": "declined",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3,
+          "wish": "younger"
+        }
+      },
+      {
+        "id": 6,
+        "shopId": "restaurant",
+        "count": 3,
+        "status": "fulfilled",
+        "reason": {
+          "code": "same",
+          "wish": null,
+          "reasonCode": "restaurant-ordinary",
+          "sourceDeliveryId": 3,
+          "sourceLotId": 1
+        }
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "orderId": 1,
+        "shopId": "restaurant",
+        "lotId": 1,
+        "count": 2,
+        "handBefore": 6,
+        "handAfter": 4,
+        "plan": {
+          "kind": "same",
+          "wish": null,
+          "usageEvery": 1,
+          "nextCount": 3,
+          "reasonCode": "restaurant-ordinary"
+        }
+      },
+      {
+        "id": 2,
+        "orderId": 2,
+        "shopId": "liquor",
+        "lotId": 3,
+        "count": 2,
+        "handBefore": 6,
+        "handAfter": 4,
+        "plan": {
+          "kind": "different",
+          "wish": "younger",
+          "usageEvery": 1,
+          "nextCount": 2,
+          "reasonCode": "liquor-aged-wood"
+        }
+      },
+      {
+        "id": 3,
+        "orderId": 3,
+        "shopId": "restaurant",
+        "lotId": 1,
+        "count": 3,
+        "handBefore": 4,
+        "handAfter": 1,
+        "plan": {
+          "kind": "same",
+          "wish": null,
+          "usageEvery": 1,
+          "nextCount": 3,
+          "reasonCode": "restaurant-ordinary"
+        }
+      },
+      {
+        "id": 4,
+        "orderId": 6,
+        "shopId": "restaurant",
+        "lotId": 4,
+        "count": 3,
+        "handBefore": 6,
+        "handAfter": 3,
+        "plan": {
+          "kind": "same",
+          "wish": null,
+          "usageEvery": 1,
+          "nextCount": 3,
+          "reasonCode": "restaurant-ordinary"
+        }
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "scenario": "scarce",
+    "month": 27,
+    "orders": [
+      {
+        "id": 1,
+        "shopId": "restaurant",
+        "count": 2,
+        "status": "partial",
+        "reason": {
+          "code": "initial",
+          "sourceDeliveryId": null,
+          "sourceLotId": null
+        }
+      },
+      {
+        "id": 2,
+        "shopId": "liquor",
+        "count": 2,
+        "status": "fulfilled",
+        "reason": {
+          "code": "initial",
+          "sourceDeliveryId": null,
+          "sourceLotId": null
+        }
+      },
+      {
+        "id": 3,
+        "shopId": "restaurant",
+        "count": 2,
+        "status": "fulfilled",
+        "reason": {
+          "code": "same",
+          "wish": null,
+          "reasonCode": "restaurant-ordinary",
+          "sourceDeliveryId": 1,
+          "sourceLotId": 1
+        }
+      },
+      {
+        "id": 4,
+        "shopId": "liquor",
+        "count": 2,
+        "status": "declined",
+        "reason": {
+          "code": "different",
+          "wish": "younger",
+          "reasonCode": "liquor-aged-wood",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3
+        }
+      },
+      {
+        "id": 5,
+        "shopId": "liquor",
+        "count": 2,
+        "status": "open",
+        "reason": {
+          "code": "declined",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3,
+          "wish": "younger"
+        }
+      },
+      {
+        "id": 6,
+        "shopId": "restaurant",
+        "count": 2,
+        "status": "fulfilled",
+        "reason": {
+          "code": "different",
+          "wish": "lighter",
+          "reasonCode": "restaurant-strong",
+          "sourceDeliveryId": 3,
+          "sourceLotId": 2
+        }
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "orderId": 1,
+        "shopId": "restaurant",
+        "lotId": 1,
+        "count": 1,
+        "handBefore": 1,
+        "handAfter": 0,
+        "plan": {
+          "kind": "same",
+          "wish": null,
+          "usageEvery": 1,
+          "nextCount": 2,
+          "reasonCode": "restaurant-ordinary"
+        }
+      },
+      {
+        "id": 2,
+        "orderId": 2,
+        "shopId": "liquor",
+        "lotId": 3,
+        "count": 2,
+        "handBefore": 2,
+        "handAfter": 0,
+        "plan": {
+          "kind": "different",
+          "wish": "younger",
+          "usageEvery": 1,
+          "nextCount": 2,
+          "reasonCode": "liquor-aged-wood"
+        }
+      },
+      {
+        "id": 3,
+        "orderId": 3,
+        "shopId": "restaurant",
+        "lotId": 2,
+        "count": 2,
+        "handBefore": 2,
+        "handAfter": 0,
+        "plan": {
+          "kind": "different",
+          "wish": "lighter",
+          "usageEvery": 2,
+          "nextCount": 2,
+          "reasonCode": "restaurant-strong"
+        }
+      },
+      {
+        "id": 4,
+        "orderId": 6,
+        "shopId": "restaurant",
+        "lotId": 4,
+        "count": 2,
+        "handBefore": 6,
+        "handAfter": 4,
+        "plan": {
+          "kind": "same",
+          "wish": null,
+          "usageEvery": 1,
+          "nextCount": 3,
+          "reasonCode": "restaurant-ordinary"
+        }
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "scenario": "slow-restaurant",
+    "waiting": {
+      "month": 3,
+      "stock": 1,
+      "orderId": null
+    },
+    "nextOrder": {
+      "id": 3,
+      "shopId": "restaurant",
+      "month": 4,
+      "count": 2,
+      "text": "前の一本はゆっくり出しました。次はもう少し軽い味を2本、お願いできますか。",
+      "reason": {
+        "code": "different",
+        "wish": "lighter",
+        "reasonCode": "restaurant-strong",
+        "sourceDeliveryId": 1,
+        "sourceLotId": 2
+      },
+      "status": "open",
+      "deliveredCount": 0
+    },
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  }
+]

@@ -431,6 +431,12 @@
       "path": "works/ambertime-hand-and-place-v03-lab",
       "status": "active",
       "title": "AmberTime 手札と場 Lab 0.3 — 一本へのさまざまな反応"
+    },
+    {
+      "id": "ambertime-hand-and-place-v04-lab",
+      "path": "works/ambertime-hand-and-place-v04-lab",
+      "status": "active",
+      "title": "AmberTime 手札と場 Lab 0.4 — 店からの注文"
     }
   ]
 }
