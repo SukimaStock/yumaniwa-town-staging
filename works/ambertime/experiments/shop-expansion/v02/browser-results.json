@@ -1,0 +1,73 @@
+{
+  "origin": "http://127.0.0.1:37361/yumaniwa-town-staging",
+  "checks": [
+    {
+      "width": 375,
+      "name": "A offered smoke and actual oldest fruit remain distinct; no fictitious SKU order"
+    },
+    {
+      "width": 375,
+      "name": "B exact pin, explicit new proposal records choice but does not ship or produce"
+    },
+    {
+      "width": 375,
+      "name": "actual JSON download and manual-action replay"
+    },
+    {
+      "width": 375,
+      "name": "B+ same-recipe continuation at10years fits touch screen"
+    },
+    {
+      "width": 375,
+      "name": "C native near-cut profiles continue with fixed anchor"
+    },
+    {
+      "width": 375,
+      "name": "no idle progression or main-save API access"
+    },
+    {
+      "width": 390,
+      "name": "A offered smoke and actual oldest fruit remain distinct; no fictitious SKU order"
+    },
+    {
+      "width": 390,
+      "name": "B exact pin, explicit new proposal records choice but does not ship or produce"
+    },
+    {
+      "width": 390,
+      "name": "actual JSON download and manual-action replay"
+    },
+    {
+      "width": 390,
+      "name": "B+ same-recipe continuation at10years fits touch screen"
+    },
+    {
+      "width": 390,
+      "name": "C native near-cut profiles continue with fixed anchor"
+    },
+    {
+      "width": 390,
+      "name": "no idle progression or main-save API access"
+    },
+    {
+      "width": 1280,
+      "name": "20/30year controls and desktop layout"
+    },
+    {
+      "name": "separate LAB entry, v01 entry preserved"
+    }
+  ],
+  "errors": [],
+  "hashes": {
+    "works/ambertime/experiments/shop-expansion/v02/index.html": "29c85370485d0ac7c6ca9ba53d37fe49c300c271b2308e7375a0c7afcc13e498",
+    "works/ambertime/experiments/shop-expansion/v02/style.css": "4fe5887d6fa379e456688da048d054b3c4a032b4db6422105b4de6305eda49de",
+    "works/ambertime/experiments/shop-expansion/v02/app.mjs": "74ce9b77322e3341da34642773486c15ff528fb936ae62709d15d0af36d82f16",
+    "works/ambertime/experiments/shop-expansion/v02/model.mjs": "df43eb282713da6d4541248f3226ec076bcb46ec687ab7a033b9a59222f500c0",
+    "works/ambertime/experiments/shop-expansion/v02/rumor.mjs": "b5f43ec93cd43e4db108ad8cf6a37eb85b1fb33bd09167aeb2efb27e6e7dd7cf",
+    "lab/index.html": "97fa019a9909187e668ebcf0888aa69df70e5072107be514725459f7401d42c7",
+    "works/ambertime-shop-relationship-lab/index.html": "a5529e9e18e4f69e31a7b36fe2af60ae0cce8287fdc52aa300b782873dcfa115",
+    "works/ambertime/shop-demand.mjs": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893",
+    "works/ambertime/experiments/shop-expansion/v01/model.mjs": "0dbcbd22d9cdfa7b330a62197104c79f2aa33bddf04b3db2a69f77d514c3b2b1"
+  },
+  "physicalIPhone": false
+}

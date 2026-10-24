@@ -1,0 +1,28 @@
+import fs from 'node:fs/promises';import {gzipSync} from 'node:zlib';import {Worker,isMainThread,parentPort,workerData} from 'node:worker_threads';
+import * as M from './model.mjs';import * as R from './rumor.mjs';
+export const SEEDS=[42,20261021,997];
+const dir=new URL('./results/',import.meta.url);await fs.mkdir(dir,{recursive:true});
+const conditions=[];for(const mode of M.MODES)for(const scenario of M.SCENARIOS)conditions.push({mode:mode.id,scenario:scenario.id,policy:'renew',rumor:'pooled',threshold:.12});
+for(const mode of ['B','C','E'])for(const policy of ['wait','propose'])conditions.push({mode,scenario:'parallel',policy,rumor:'pooled',threshold:.12});
+for(const threshold of [.06,.18])conditions.push({mode:'C',scenario:'variation',policy:'renew',rumor:'pooled',threshold});
+const quiet=s=>{const x=M.summary(s);return {...x,shops:x.shops.map(({history,...rest})=>rest),recent:undefined};};
+async function run(seed,condition){const s=M.create({seed,...condition}),checkpoints={};for(const y of [10,20,30]){M.advance(s,y*12);checkpoints[y]=quiet(s);}const validation=M.validate(s);if(!validation.ok)throw Error(JSON.stringify(validation));
+ if(seed===42&&condition.policy==='renew'&&condition.threshold===.12&&condition.scenario==='parallel')await fs.writeFile(new URL('log-'+condition.mode+'.json.gz',dir),gzipSync(JSON.stringify(M.exportLog(s)),{level:9}));
+ return {seed,...condition,supplySignature:M.checksum(s.lots.map(({stock,...l})=>l)),demandSignature:M.checksum(s.orders.filter(o=>['town-liquor','supermarket'].includes(o.to)).map(o=>[o.month,o.to,o.requested,o.referenceId])),checkpoints,validation};}
+async function control(seed,kind,distribution){const r=R.createReaction(seed),count=720;R.register(r,{externalId:1,count,product:M.FLAVORS.find(f=>f.id==='smoke').product});const checkpoints={};for(let month=1;month<=360;month++){R.advanceReaction(r,month);if(month%3===0){const ids=distribution==='single'?['town']:distribution==='same-store-split'?['town','town']:['town','diner','bar','specialist','super','department'],total=6,parts=ids.length;R.receiveBatch(r,ids.map((to,i)=>({id:`month:${month}:part:${i}`,to,count:total/parts,releaseId:1})),kind);}R.finishMonth(r,kind);if(month%120===0){const first=level=>r.town.arrivals.find(e=>M.STORES.find(n=>n.node===e.to)?.id===undefined&&((e.to.startsWith('overseas')?'overseas':e.to.startsWith('national')?'national':e.to.startsWith('near')?'near':null)===level))?.month??null;checkpoints[month/12]={firstReach:{near:first('near'),national:first('national'),overseas:first('overseas')},rumors:r.town.events.filter(e=>e.type==='rumor').length,interest:r.town.events.filter(e=>e.type==='interest').length,inquiries:r.town.events.filter(e=>e.type==='inquiry').length,visits:r.town.events.filter(e=>e.type==='visit').length,signal:r.exposures.reduce((n,e)=>n+e.strength,0),exposureCount:r.exposures.length,receiptCount:r.town.shipments.length};}}
+ return {seed,kind,distribution,checkpoints,delivered:r.town.shipments.reduce((n,d)=>n+d.count,0)};}
+if(!isMainThread){parentPort.postMessage(workerData.control?await control(...workerData.control):await run(workerData.seed,workerData.condition));}
+else{
+ const started=Date.now(),jobs=SEEDS.flatMap(seed=>conditions.map(condition=>({seed,condition}))),rows=[];
+ // Pilot all38conditions on the first fixed seed before remaining seeds.
+ async function batch(list,label){let index=0,done=0;const out=[];async function lane(){while(index<list.length){const data=list[index++];const row=await new Promise((resolve,reject)=>{const w=new Worker(new URL(import.meta.url),{workerData:data});w.once('message',resolve);w.once('error',reject);w.once('exit',code=>{if(code)reject(Error('Worker '+code));});});out.push(row);if(++done%10===0)console.log(JSON.stringify({phase:label,done,total:list.length}));}}await Promise.all(Array.from({length:4},lane));return out;}
+ const pilot=await batch(jobs.filter(j=>j.seed===42),'pilot');rows.push(...pilot);await fs.writeFile(new URL('pilot.json.gz',dir),gzipSync(JSON.stringify(pilot),{level:9}));rows.push(...await batch(jobs.filter(j=>j.seed!==42),'full'));
+ const controls=await batch(SEEDS.flatMap(seed=>R.RUMORS.flatMap(r=>['single','same-store-split','six-stores'].map(d=>({control:[seed,r.id,d]})))),'rumor-controls');
+ rows.sort((a,b)=>a.seed-b.seed||JSON.stringify(a).localeCompare(JSON.stringify(b)));
+ const data={base:M.BASE,seeds:SEEDS,conditionCount:conditions.length,runs:rows.length,years:[10,20,30],conditions,rows,controls,elapsedMs:Date.now()-started};
+ // Common supply per scenario, policy and seed. Demand rows may differ only when a
+ // scenario has no relation yet; compare native ordinary-store requests explicitly.
+ for(const seed of SEEDS)for(const scenario of M.SCENARIOS){const rs=rows.filter(r=>r.seed===seed&&r.scenario===scenario.id&&r.policy==='renew'&&r.threshold===.12);if(new Set(rs.map(r=>r.supplySignature)).size!==1||new Set(rs.map(r=>r.demandSignature)).size!==1)throw Error('Unmatched input tapes');}
+ await fs.writeFile(new URL('comparison.json.gz',dir),gzipSync(JSON.stringify(data)+'\n'));
+ const csv=['seed,mode,scenario,policy,threshold,year,supplied,delivered,inventory,choices,stockChecks,nonNearBottles,unfilledOrders,near,national,overseas,quiet'];for(const r of rows)for(const year of [10,20,30]){const x=r.checkpoints[year];csv.push([r.seed,r.mode,r.scenario,r.policy,r.threshold,year,x.produced,x.delivered,x.inventory,x.decisions,x.checks,x.mismatch,x.skipped,x.firstReach.near??'',x.firstReach.national??'',x.firstReach.overseas??'',x.quietMonths].join(','));}await fs.writeFile(new URL('checkpoints.csv',dir),csv.join('\n')+'\n');console.log(JSON.stringify({runs:rows.length,controls:controls.length,elapsedMs:data.elapsedMs}));
+}

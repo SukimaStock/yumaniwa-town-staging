@@ -1,0 +1,33 @@
+{
+  "base": "70d618067ee2e79685587998deb391ae52b7c87b",
+  "protectedFiles": 1848,
+  "relatedTests": 38,
+  "browserChecks": 14,
+  "replay": [
+    {
+      "mode": "A",
+      "shipments": 1489,
+      "exact": true
+    },
+    {
+      "mode": "B",
+      "shipments": 565,
+      "exact": true
+    },
+    {
+      "mode": "C",
+      "shipments": 565,
+      "exact": true
+    },
+    {
+      "mode": "D",
+      "shipments": 1074,
+      "exact": true
+    },
+    {
+      "mode": "E",
+      "shipments": 565,
+      "exact": true
+    }
+  ]
+}

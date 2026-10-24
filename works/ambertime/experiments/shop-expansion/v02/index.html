@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>AmberTime｜取扱関係 Lab 0.2</title><meta name="description" content="ブランド、発売回、風味の近さで取扱関係を分け、納品と次の判断を比べる独立実験。"><link rel="stylesheet" href="./style.css"></head><body>
+<header><h1>AmberTime <span>取扱関係 Lab 0.2</span></h1><nav aria-label="関連ページ"><a href="../../../design/shop-relationship-redesign-0261.md">レポート</a><a href="../v01/">0.1へ</a><a href="../../../../../lab/">LABへ</a></nav></header>
+<main><p class="limit">本編とは別の比較実験です。店頭販売や飲んだ客の感想は計算しません。</p>
+<details id="conditions"><summary>実験条件</summary><form id="settings">
+<label>シード<input id="seed" name="seed" type="number" min="1" max="4294967295" value="42" required></label>
+<label>取扱方式<select id="mode" name="mode"></select></label>
+<label>造る味と在庫<select id="scenario" name="scenario"></select></label>
+<label>比較用の判断方針<select id="policy" name="policy"></select></label>
+<label>口コミの入力方法<select id="rumor" name="rumor"></select></label>
+<label id="threshold-label">風味の近さの幅<select id="threshold" name="threshold"><option value="0.06">狭め</option><option value="0.12" selected>基準</option><option value="0.18">広め</option></select></label>
+<button type="submit" id="reset">この条件で最初から</button></form><p class="detail-note">判断方針は比較用の操作列です。最適な選択を教えるものではありません。詳しい条件と内部値はJSONで確認できます。</p></details>
+<section class="time-panel" aria-label="時間の操作"><div class="clock"><strong id="date">0年0か月</strong><span id="stock"></span></div><div class="controls"><button id="next-month" type="button">1か月進める</button><button type="button" data-year="10">10年</button><button type="button" data-year="20">20年</button><button type="button" data-year="30">30年</button></div><p id="status" role="status" aria-live="polite"></p></section>
+<div class="layout"><section class="stores"><h2>取扱店</h2><div id="shops" aria-label="店を選ぶ"></div></section>
+<div class="observations"><section class="shop-detail"><div class="section-heading"><h2 id="shop-name"></h2><span id="shop-mode"></span></div><p id="relationship"></p><dl class="comparison"><div><dt>関係のきっかけ</dt><dd id="anchor"></dd></div><div><dt>現在選んでいる発売回</dt><dd id="selection"></dd></div><div><dt>最後に届いた発売回</dt><dd id="actual"></dd></div></dl><p id="shipping-reason"></p>
+<form id="release-choice"><label>別の発売回を選ぶ<select id="release" name="release"></select></label><button type="submit" id="select-release">この発売回を選ぶ</button><p class="detail-note">選択だけを記録します。今すぐ納品したり、新しい仕込みを始めたりはしません。</p></form>
+<h3>この店への実際の納品</h3><ol id="shipments"></ol><details><summary>この店での判断</summary><ol id="decisions"></ol></details></section></div></div>
+<section class="lower"><div><h2>比較用の発売回と風味</h2><div id="products"></div></div><div><h2>最近の出来事</h2><ol id="events"></ol><h3>口コミの初到達</h3><ul id="regions"></ul></div></section>
+<footer><button type="button" id="download">JSONを保存</button><label class="file-button" for="import-log">JSONから再現<input type="file" id="import-log" accept="application/json,.json"></label><p class="detail-note">このLab専用の記録です。本編のセーブデータは使用しません。</p></footer></main><script type="module" src="./app.mjs"></script></body></html>
