@@ -1,0 +1,142 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4ade8b8c571d160359e617ecba14fcb5e660ef3e37952a236cbe48ac1462e1ec",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-place-v04",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent v04: two shops issue small orders, manual hand delivery reduces stock immediately, and prior delivery plus remaining shop stock determines the next request.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "0d58fdb189bec9c6f3ca2f62c71aa2177ab26116",
+    "canonicalSources": [
+      "User Hand and Place Lab0.4 full request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "works/ambertime/experiments/hand-and-place/v02/REPORT.md",
+      "works/ambertime/experiments/hand-and-place/v03/REPORT.md",
+      "PR624/625",
+      "works/ambertime-flavor-lab-v02/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-place-v04/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v04/**",
+      "works/ambertime-hand-and-place-v04-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/**",
+      "works/ambertime/experiments/hand-and-place/v03/**",
+      "works/ambertime-hand-and-place-v03-lab/**"
+    ],
+    "expectedChanges": [
+      "Fresh simple manual-order model with restaurant and liquor shop only; no handling gate, stock holds or automated delivery.",
+      "Three native flavor lots with6 bottles each, scarce variant, and one explicitly pre-aged barrel allow shortage/reproduction/bottling loop.",
+      "Select order then lot then deliver min(requested,available); full/partial closes order, no hidden debt or auto fulfillment; optional decline and waiting.",
+      "One shop batch with simple1-per-1or2month consumption; repeat or different preference only after stock empties; next quantity1..3 references actual prior delivery.",
+      "Few deterministic feature/store rules make next order causal, requests not hard eligibility or missions; manual allstages except time/aging and simple shop use.",
+      "Compact action/order/delivery/use log with source order/delivery/release IDs, before/after stocks, nextaction, fixedseed multipleinitial scenarios and replay.",
+      "Phone orders+hand+shop status, short actual quantity feedback, past recipe access; related tests/CI/LAB registration/PR/safe staging merge/public verify."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes independent v04 Staging publication; preserve all existing Labs/main game/save/Production; author assesses playfeel/manualwork burden."
+    ],
+    "hqDecisions": [
+      "Existing contracts unchanged. Fresh v04 rules with native chemistry/recipe imports read-only, no production integration.",
+      "Two shop batches and one openorder each; all delivery explicit and atomic, partial closes without accumulating debt.",
+      "Next same/different request after prior shopbatch used; slow use explains noorders, not arbitrary fail cooldown. Decline optional with short deterministic retry and no penalties.",
+      "Pre-aged barrel is explicit initial fixture, not free instant reproduction; new rebrew still1prepmonth/native aging/explicit bottle.",
+      "No prices, demandcurve, scores, ranks, rewards, automatic shipping/acceptance, recipe editor or newrumor."
+    ],
+    "rulesApplied": [
+      "Full locked r0 before implementation, existing lifecycle generation.",
+      "Expression audit: only necessary operation cues and concrete shop speech; no ornamental copy or quality scores."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone order selection/card/deliver, immediate6to4 hand and store2, no input-driven time; partial and decline.",
+      "Repeated order origin and different request, noorder while stock remains; two store sharedstock and finite use.",
+      "Pastrecipe rebrew, pre-aged barrel/bottling, manual stock loop, source log replay; publicStaging exactsource/basic operations."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v02, newlauncher, report and registration/generated files only. No state migration.",
+    "outOfScope": [
+      "Existing Labs, main game, chemistry, saves, Production edits",
+      "Automatic delivery/acceptance, holds, large distribution/economic/customer calculations, points/mission/rewards/newrumor/newshops",
+      "Comprehensive E2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari and author design adoption",
+      "Full main economy/cask/finance feasibility",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Shrink existing distribution/holds instead of rebuilding around orders",
+      "Strict flavor matching, points or obligation to clear allorders",
+      "Automatic free finished stock or automatic shipment ontime"
+    ],
+    "boundaryCases": [
+      "Atomic full/partial/empty/duplicateorder fulfill, sharedstock and decline no debt.",
+      "Noorder while previousbatch remains, usage follows deliverymonth not unrelated randomness, duplicate notifications.",
+      "Same order accepts different taste; nextrequest from actual delivered release/quantity not requestedone.",
+      "Initial pre-aged barrel distinct from newrebrew,4jobs, source history afterstock0, native age behavior.",
+      "Export/replay selected/pendingorders and subsequentaction attribution, multipleinitialconditions, mobile focus and pause."
+    ],
+    "testPlan": [
+      "Related order/model invariants and five scenarios, conservation warehouse/store/used, source linkage and deterministic replay.",
+      "Targeted phone basicorder/partial/decline/reorder/differentrequest/wait/rebrew/bottle, lifecycle checks/ScopeRiskImpact and mandatory CI."
+    ],
+    "problem": "v03 reaction remains speech and automatic distribution obscures choosing and handing over one whiskey.",
+    "currentContract": "All existing games/Labs remain read-only; only new v02 plus standard lifecycle/LAB registration.",
+    "whyExistingIsInsufficient": "Changing owner remarks does not change player next action or reduce hand immediately.",
+    "design": "Manual small order fulfillment and a single finite stock batch per shop; next request is derived from prior delivered flavor, actual quantity and empty stock.",
+    "migration": "None.",
+    "compatibility": "Existing main storage untouched; only new Lab log schema.",
+    "promotionRisk": "Staging experiment only."
+  }
+}
