@@ -8,6 +8,10 @@ function stop(){playing=false;clearTimeout(timer);timer=null;$('play').textConte
 function tick(){if(!playing)return;act({type:'step',months:1});if(state.month>=1200){stop();return;}timer=setTimeout(tick,3000);}
 function bars(l){return [['fruit','果実'],['smoke','煙'],['wood','樽香'],['rough','刺激'],['character','原酒香']].map(([k,n])=>`<div class="flavor"><span>${n}</span><i aria-label="${n} ${Math.round((l.profile[k]??l.product[k])*100)}%"><b style="width:${Math.round((l.profile[k]??l.product[k])*100)}%"></b></i></div>`).join('');}
 function render(){
+ // Card/store/job nodes are replaced below; preserve the active control's identity.
+ const active=document.activeElement;
+ const focusSelector=active?.matches('button,input')&&Object.keys(active.dataset).length
+  ? active.tagName.toLowerCase()+Object.entries(active.dataset).map(([key,value])=>`[data-${key.replace(/[A-Z]/g,c=>'-'+c.toLowerCase())}="${CSS.escape(value)}"]`).join('') : null;
  $('date').textContent=age(state.month);$('seed').textContent=state.seed;$('mode').value=state.mode;$('gate').value=state.gate;
  const chosen=lot(selected);
  $('stores').innerHTML=M.STORES.map(s=>{const r=state.relations[s.id],p=r&&lot(r.selectedId),last=state.events.findLast(e=>e.type==='shipment'&&e.shopId===s.id),can=chosen&&chosen.stock>0&&(state.gate!=='block'||M.fit(s.id,chosen).liked);return `<article class="store"><div class="shop-icon" aria-hidden="true"></div><h3>${esc(s.name)}</h3><p>${esc(s.hint)}</p><p class="placed">${p?`#${p.id} ${esc(p.label)}<br>${p.stock?'取扱い中':'補充待ち'}`:'取扱い前'}</p>${last?`<p>最終納品 #${last.lotId}<br>${age(last.month)}・${last.count}本</p>`:''}<button data-place="${s.id}" ${can?'':'disabled'}>${r?'この手札に切替':'この店に出す'}</button>${r?`<label><input type="checkbox" data-policy="${s.id}" ${r.autoContinue?'checked':''}>同じ製法・月齢を継続</label><button data-candidates="${s.id}">補充候補 ${M.candidates(state,s.id).length}</button>`:''}</article>`;}).join('');
@@ -17,6 +21,7 @@ function render(){
  $('jobs').innerHTML=state.jobs.length?state.jobs.map(j=>`<article class="job"><p>#${j.sourceId}からの仕込み ${j.id}</p><p>${j.stage==='preparing'?'仕込み中（1か月）':`熟成 ${age(j.ageMonths)} ／ 元の一本 ${age(j.targetAge)}`}</p><progress aria-label="元の熟成月数まで" max="${j.targetAge}" value="${j.ageMonths}"></progress><button data-bottle="${j.id}" ${j.stage==='aging'&&j.ageMonths>=1?'':'disabled'}>今の味で瓶詰めする</button></article>`).join(''):'<p>仕込みなし</p>';
  $('counts').textContent=`記録した操作 ${state.actions.length}回（時間進行を含む）。配置・再現・表示比較をログで確認できます。`;
  $('history').innerHTML=state.events.slice(-12).reverse().map(e=>`<p>${age(e.month)} ${esc(e.text??e.type)}</p>`).join('');
+ if(focusSelector&&!active.isConnected)document.querySelector(focusSelector)?.focus({preventScroll:true});
 }
 function open(html){stop();$('detail-body').innerHTML=html;if(!$('detail').open)$('detail').showModal();}
 function detail(id){const l=lot(id);act({type:'inspect',lotId:l.id});open(`<h2>#${l.id} ${esc(l.label)}</h2><p>${age(l.ageMonths)}・在庫 ${l.stock}本</p>${bars(l)}<h3>元の製法</h3><p>${esc(M.recipeText(l))}</p><p>発売回 #${l.id}${l.sourceId?` ／ 再現元 #${l.sourceId}`:''}。製法はカードに記録されています。</p><button data-rebrew="${l.id}">もう一度造る</button><p>仕込み1か月＋熟成${age(l.ageMonths)}。樽は4つまで。瓶詰めの時期は自分で選べます。</p>`);}
