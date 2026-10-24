@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cd2e3bd78ba19a2551addd5da9e21317c9d5fe80ef171dd3a3db4aed68f9e199",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-place-v02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent Hand and Place v02: consider hand and board, propose one release, retain shelf result and compare free placement with finite next-month stock reservation.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2e33a053f6d2fd7febc354887e187aa49c3de06a",
+    "canonicalSources": [
+      "User Hand and Place Lab0.2 full request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "works/ambertime/experiments/hand-and-place/v01/REPORT.md",
+      "PR620/621/622/623",
+      "works/ambertime-flavor-lab-v02/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-place-v02/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**"
+    ],
+    "expectedChanges": [
+      "Compact phone hand+board; select card, select shop, explicit proposal, persistent shelf and short actual-taste reply.",
+      "Existing release/recipe/maturation chemistry read-only; reproduce then explicit bottling adds cards.",
+      "Compare A v01 free shared stock and B explicit next-month two-bottle reservations protected from other stores; no currency/AP/turn/rarity/bonuses.",
+      "Reject proposal preserves shelf; accepted different release requires explicit replace/keep choice.",
+      "Record hand/board before+after, chosen release/shop, reaction/fit, inventory/available options and subsequent action, export/replay fixed seed.",
+      "Report five scenarios including honestly noting D no fully unmatched shop in initial hand; no fabricated mismatch/new taste model.",
+      "Targeted browser/model/lifecycle checks, mandatory CI, safe staging merge and public-source/operation checks."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes independent v02 Staging publication and PR; preserve v01/main game/save/Production; author evaluates playfeel."
+    ],
+    "hqDecisions": [
+      "No existing contracts changed; new independent log schema and v02 fork reuse native chemistry/affinity read-only.",
+      "A native free sharedstock; B warehouse reservations for next monthly2 not fictitious action cost; no taste adjustment.",
+      "New active launcher via existing Prototype Bench schema; no existing entry redirected."
+    ],
+    "rulesApplied": [
+      "Full locked r0 before implementation, existing lifecycle generation.",
+      "Expression audit: only necessary operation cues and concrete shop speech; no ornamental copy or quality scores."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone hand and all three shops simultaneously visible, tap selection/proposal/shelf feedback, replacement/keep/rejection, multiple-store finite stock.",
+      "Reproduce/bottle/continuity preserved; export/replay targets and keyboardfocus, hidden page clock pause.",
+      "Exact publicStaging source and basic operations."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v02, newlauncher, report and registration/generated files only. No state migration.",
+    "outOfScope": [
+      "Main game, v01 or other existing Lab edits",
+      "Taste model/save/Production changes",
+      "Comprehensive E2E or new cardgame/economic/rumor systems"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari and author design adoption",
+      "Full main economy/cask/finance feasibility",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "More long-term shop story as main improvement",
+      "Effects without meaningful persistent state",
+      "New affinity/optimal recipes/AP/turns"
+    ],
+    "boundaryCases": [
+      "One release suits several stores, rejected replacement preserves shelf, accepted replacement can be kept or committed.",
+      "Repeated same card proposal, sharedstock double reservation, nextmonth eligibility, exactage continuation and alteredage explicit.",
+      "Replay tamper, before/after snapshots and nextaction, phone allstores+hand, keyboard focus and reducedmotion."
+    ],
+    "testPlan": [
+      "Relevant v02 rules and native parity; finite stock, reservations/replacements, observation lineage and replay.",
+      "Targeted 360/375/390 mobile flows and lifecycle24 tests; ScopeRiskImpact, syntax and mandatory CI."
+    ],
+    "problem": "v01 offers a match verdict but weak visual choice and persistent board feedback.",
+    "currentContract": "All existing games/Labs remain read-only; only new v02 plus standard lifecycle/LAB registration.",
+    "whyExistingIsInsufficient": "The moment of choosing and placing is not yet represented as a board with physical shelf state and visible next choices.",
+    "design": "V02-owned presentation and isolated state model using native chemistry/fit with explicit pending replacement and optional stock holds.",
+    "migration": "None.",
+    "compatibility": "Existing main storage untouched; only new Lab log schema.",
+    "promotionRisk": "Staging experiment only."
+  }
+}

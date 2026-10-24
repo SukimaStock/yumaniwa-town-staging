@@ -419,6 +419,12 @@
       "path": "works/ambertime-hand-and-place-lab",
       "status": "active",
       "title": "AmberTime 手札と場 Lab 0.1"
+    },
+    {
+      "id": "ambertime-hand-and-place-v02-lab",
+      "path": "works/ambertime-hand-and-place-v02-lab",
+      "status": "active",
+      "title": "AmberTime 手札と場 Lab 0.2 — 一枚を出す瞬間"
     }
   ]
 }
