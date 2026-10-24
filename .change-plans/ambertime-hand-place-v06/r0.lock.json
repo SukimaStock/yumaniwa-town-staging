@@ -1,0 +1,151 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "853aa28c7af688d8602e0b428beefd0e4d725557db483a03d762339d15304992",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-place-v06",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent v06: automatic allocated self-retail and voluntary manual store delivery, reassignable unsold inventory, A native v05/B allocation/C reclaim comparison.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "a880d68e8ff89fb2c2559e42701ed8e93bf0931e",
+    "canonicalSources": [
+      "User full Hand and Place Lab0.6 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "works/ambertime/experiments/hand-and-place/v04/REPORT.md",
+      "works/ambertime/experiments/hand-and-place/v05/REPORT.md",
+      "PR626/627",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime-flavor-lab-v02/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-place-v06/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v06/**",
+      "works/ambertime-hand-and-place-v06-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/**",
+      "works/ambertime/experiments/hand-and-place/v03/**",
+      "works/ambertime-hand-and-place-v03-lab/**",
+      "works/ambertime/experiments/hand-and-place/v04/**",
+      "works/ambertime-hand-and-place-v04-lab/**",
+      "works/ambertime/experiments/hand-and-place/v05/**",
+      "works/ambertime-hand-and-place-v05-lab/**"
+    ],
+    "expectedChanges": [
+      "New independentv06 log/model using native v04 chemistry/recipe/rebrew/aging/bottling, all new bottles first to unallocatedhand.",
+      "A delegates nativev04/v05 order baseline with sameinitialresource; B permits allocatedselfsale and manualstoreamount, C additionally unsoldretail reclaim; changing mechanism resets explicitly.",
+      "Selfretail sells only allocatedinventory at fixedtotal1/month, oldestactiveallocation first; no sales of unallocatedhands, no prices/reputation/economy.",
+      "Manualdestinationandquantity, defaults currentorder count or2, partial optional and non-expiring onecurrentwish/store. No automaticshipping/acceptance.",
+      "Voluntarydeliveries allowedwithnoorders; small perdelivery batches preserve priorstorestock, taste, usageclock, sourcednextwish when allbatchesempty.",
+      "Mainstoreview noexactcounts or decrementingbottles, one representativebottle and factualstatus/currentwish. Handavailable/unsoldretail clear; compact selectedcard controls and activeallocation summary.",
+      "Only short realdelivery/order motion retained; keyedupdates, singlegameclock, hidden/offscreen/reduced cancellation; no continuousmotion.",
+      "v06specific deterministiclogs with before/afterstocks, allocations/sales/reclaims/deliveries/wishsource/rebrew, model conservation and UI/scenario comparisonREPORT, lifecycle/generator/requiredCI/PR/Staging."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes independentv06 Stagingpublication and A/B/Cmechanismcomparison, C candidate only; protectexistingLabs/game/save/Production; author assesses freedom vs management."
+    ],
+    "hqDecisions": [
+      "No existingcontracts changed. A uses nativebaseline; B/C newlocalinventory accounting, nativechemistry unchanged.",
+      "Stock=hand+unsoldretail+retailsold+delivered. Storebatches retain transferredgoods untilused; cannot reclaim sold or deliveredgoods.",
+      "Noorderexpiry/penalty/backlog, actualquantity/taste govern nextwish. Singlewish/store; explicit orderId links response, unsolicitednull preserves existingwish.",
+      "One unit total selfretail/month and atmostone use/store/month FIFO with native1or2monthinterval perbatch. Waitallbatchesempty to nextwish from actuallastused delivery.",
+      "Bounded animations/viewonly, no prices,demandcurve,autodelivery,contracts,points,warnings,rank,missions."
+    ],
+    "rulesApplied": [
+      "Full Plan Lock before implementation; existing lifecycle registration/generator.",
+      "Expression audit: necessary stock/source/order/status only, no added ambientcopy or fictional sales claims."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone card/destination/amount manualdelivery, initialcurrentwish optional, partial/noorder delivery and noexactstorestock UI.",
+      "C allocate/sale/reclaim/storetransfer actualbeforeafter, B cannotreclaim, unallocatedhand neversells; two stores cannotdoublespend.",
+      "Ignoredwish remains while aging/sales proceed; mixedbatch priorstock/time/source conserved; nextbrew/nativebottle tohand.",
+      "A baselineparity, sameinitialresource/time comparisonlogs, focus/replay/hidden/reduced/performance proxies and publicsource/basicops."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only newv06, launcher, lifecycleentry/generatedLAB and lock. No migration.",
+    "outOfScope": [
+      "ExistingLabs/main/save/chemistry/Production edits",
+      "Autodelivery/periodicreplenishment/reservations/warnings/deadlines/price/profit/reputation/newshops/demandcurve/quests",
+      "ComprehensiveE2E/physicalheatmeasurement"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/VoiceOver, author playfeel/designadoption, power/heat",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Auto-consume all inventory or autoshiporders",
+      "Overwrite oldstorebatch when anotherwhiskeyarrives",
+      "Detailedallocationmatrix/mandatorybottlingdistribution or micromanagingeverystorecount"
+    ],
+    "boundaryCases": [
+      "Atomic allocate/return/deliver integer bounds and repeatedinput; no negatives/doublespend.",
+      "Sold goods and deliveredbatches neverreturn; C allretailwith0hand stillvisible/reclaimable; B allocationnotreversible.",
+      "Openwish indefinitely ignored, actualpartialcloses withoutdebt, unsoliciteddoesnoterasewish, onlyone/store.",
+      "Additionalmixedbatches preserve oldclock and oldgoods; FIFOuses max1/month, no newwish whilebatchremaining.",
+      "A nativebaseline equivalent; seed/mode/scenario/actionreplay; newbottle allhand,4jobs/native100yearagingcap.",
+      "No exactshopstock onscreen, stablefocus/mobileflow, vieweffects nevergameinput and hidden/reduced stops."
+    ],
+    "testPlan": [
+      "Newmodel allocation/reclaim/sale/manualdelivery/mixedbatch/wishprovenance invariants, nativebaselineparity/recipeaging/logreplay, fixedseedmultipleconditionscomparison.",
+      "Targetedphone flow/quantities/focus/manualpartial/retailreassign/freeproposal/brewbottle/log/motionclock; Lifecycle24/syntax/ScopeRiskImpact and mandatoryCI."
+    ],
+    "problem": "Order-per-delivery can become replenishment work; all inventory needs freely reconsidered destinations while selfretail runs automatically.",
+    "currentContract": "All existingLabs/game/save/model files immutable; onlynewv06 plus standardlauncher/Lifecycle/LAB.",
+    "whyExistingIsInsufficient": "v05 visualshopstock encourages refilling; no independentselfsale or reclaimableunsold allocation.",
+    "design": "Finite inventory buckets with manual decisions and automatic allocatedretail; existingshoptraits determine sourcedoptional wishes, currentshopquantityhidden.",
+    "migration": "None. New independentv06 log only; existingformats unchanged.",
+    "compatibility": "Nativev04recipe/aging/bottling read-only; A nativebaseline state. No mainpersistence access.",
+    "promotionRisk": "Staging-only experiment."
+  }
+}

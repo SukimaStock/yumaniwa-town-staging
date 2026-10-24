@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "widths": [
+    360,
+    375,
+    390,
+    768
+  ],
+  "flows": [
+    {
+      "mode": "C",
+      "flow": "allocate/sale/ignore/reclaim/overfill/unsolicited/mixed/native-rebrew/bottle",
+      "month": 27,
+      "actions": 42
+    },
+    {
+      "mode": "B",
+      "flow": "irreversibleallocation",
+      "month": 1,
+      "actions": 4
+    },
+    {
+      "mode": "A",
+      "flow": "nativeorderbaseline",
+      "month": 2,
+      "actions": 5
+    }
+  ],
+  "errors": [],
+  "physicalDevice": false
+}

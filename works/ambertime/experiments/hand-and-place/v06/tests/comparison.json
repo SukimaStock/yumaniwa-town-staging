@@ -1,0 +1,603 @@
+[
+  {
+    "mode": "A",
+    "scenario": "standard",
+    "month": 27,
+    "actions": 35,
+    "decisions": 4,
+    "hand": [
+      {
+        "id": 1,
+        "stock": 4,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 2,
+        "stock": 6,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 3,
+        "stock": 4,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 4,
+        "stock": 6,
+        "retail": 0,
+        "sold": 0
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "lotId": 1,
+        "shopId": "restaurant",
+        "count": 2,
+        "orderId": 1
+      },
+      {
+        "id": 2,
+        "lotId": 3,
+        "shopId": "liquor",
+        "count": 2,
+        "orderId": 2
+      }
+    ],
+    "openWishes": [
+      {
+        "id": 3,
+        "shopId": "restaurant",
+        "month": 2,
+        "count": 3,
+        "text": "前の「果実香が強い」、食後に合ったので、また3本お願いできますか。",
+        "reason": {
+          "code": "same",
+          "wish": null,
+          "reasonCode": "restaurant-ordinary",
+          "sourceDeliveryId": 1,
+          "sourceLotId": 1
+        },
+        "status": "open",
+        "deliveredCount": 0
+      },
+      {
+        "id": 4,
+        "shopId": "liquor",
+        "month": 2,
+        "count": 2,
+        "text": "前の一本と同じ製法の、もう少し若いものを2本、試してみたいです。",
+        "reason": {
+          "code": "different",
+          "wish": "younger",
+          "reasonCode": "liquor-aged-wood",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3
+        },
+        "status": "open",
+        "deliveredCount": 0
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "mode": "B",
+    "scenario": "standard",
+    "month": 27,
+    "actions": 33,
+    "decisions": 6,
+    "hand": [
+      {
+        "id": 1,
+        "stock": 4,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 2,
+        "stock": 3,
+        "retail": 0,
+        "sold": 3
+      },
+      {
+        "id": 3,
+        "stock": 4,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 4,
+        "stock": 5,
+        "retail": 1,
+        "sold": 0
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "lotId": 1,
+        "shopId": "restaurant",
+        "count": 2,
+        "orderId": 1
+      },
+      {
+        "id": 2,
+        "lotId": 3,
+        "shopId": "liquor",
+        "count": 2,
+        "orderId": 2
+      }
+    ],
+    "openWishes": [
+      {
+        "id": 3,
+        "shopId": "restaurant",
+        "month": 2,
+        "count": 3,
+        "text": "前に渡してもらった「果実香が強い」を、また3本お願いします。",
+        "reason": {
+          "code": "same",
+          "wish": null,
+          "reasonCode": "restaurant-ordinary",
+          "sourceDeliveryId": 1,
+          "sourceLotId": 1
+        },
+        "status": "open",
+        "deliveredCount": 0
+      },
+      {
+        "id": 4,
+        "shopId": "liquor",
+        "month": 2,
+        "count": 2,
+        "text": "前と同じ製法の、もう少し若い一本を2本、試してみたいです。",
+        "reason": {
+          "code": "different",
+          "wish": "younger",
+          "reasonCode": "liquor-aged-wood",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3
+        },
+        "status": "open",
+        "deliveredCount": 0
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "mode": "C",
+    "scenario": "standard",
+    "month": 27,
+    "actions": 35,
+    "decisions": 8,
+    "hand": [
+      {
+        "id": 1,
+        "stock": 4,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 2,
+        "stock": 3,
+        "retail": 0,
+        "sold": 2
+      },
+      {
+        "id": 3,
+        "stock": 4,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 4,
+        "stock": 5,
+        "retail": 1,
+        "sold": 0
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "lotId": 1,
+        "shopId": "restaurant",
+        "count": 2,
+        "orderId": 1
+      },
+      {
+        "id": 2,
+        "lotId": 3,
+        "shopId": "liquor",
+        "count": 2,
+        "orderId": 2
+      },
+      {
+        "id": 3,
+        "lotId": 2,
+        "shopId": "restaurant",
+        "count": 1,
+        "orderId": 3
+      }
+    ],
+    "openWishes": [
+      {
+        "id": 4,
+        "shopId": "liquor",
+        "month": 2,
+        "count": 2,
+        "text": "前と同じ製法の、もう少し若い一本を2本、試してみたいです。",
+        "reason": {
+          "code": "different",
+          "wish": "younger",
+          "reasonCode": "liquor-aged-wood",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3
+        },
+        "status": "open",
+        "deliveredCount": 0
+      },
+      {
+        "id": 5,
+        "shopId": "restaurant",
+        "month": 4,
+        "count": 1,
+        "text": "次はもう少し軽い味を1本、試してみたいです。",
+        "reason": {
+          "code": "different",
+          "wish": "lighter",
+          "reasonCode": "restaurant-strong",
+          "sourceDeliveryId": 3,
+          "sourceLotId": 2
+        },
+        "status": "open",
+        "deliveredCount": 0
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "mode": "A",
+    "scenario": "scarce",
+    "month": 27,
+    "actions": 35,
+    "decisions": 4,
+    "hand": [
+      {
+        "id": 1,
+        "stock": 0,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 2,
+        "stock": 2,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 3,
+        "stock": 0,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 4,
+        "stock": 6,
+        "retail": 0,
+        "sold": 0
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "lotId": 1,
+        "shopId": "restaurant",
+        "count": 1,
+        "orderId": 1
+      },
+      {
+        "id": 2,
+        "lotId": 3,
+        "shopId": "liquor",
+        "count": 2,
+        "orderId": 2
+      }
+    ],
+    "openWishes": [
+      {
+        "id": 3,
+        "shopId": "restaurant",
+        "month": 1,
+        "count": 2,
+        "text": "前の「果実香が強い」、食後に合ったので、また2本お願いできますか。",
+        "reason": {
+          "code": "same",
+          "wish": null,
+          "reasonCode": "restaurant-ordinary",
+          "sourceDeliveryId": 1,
+          "sourceLotId": 1
+        },
+        "status": "open",
+        "deliveredCount": 0
+      },
+      {
+        "id": 4,
+        "shopId": "liquor",
+        "month": 2,
+        "count": 2,
+        "text": "前の一本と同じ製法の、もう少し若いものを2本、試してみたいです。",
+        "reason": {
+          "code": "different",
+          "wish": "younger",
+          "reasonCode": "liquor-aged-wood",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3
+        },
+        "status": "open",
+        "deliveredCount": 0
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "mode": "B",
+    "scenario": "scarce",
+    "month": 27,
+    "actions": 33,
+    "decisions": 6,
+    "hand": [
+      {
+        "id": 1,
+        "stock": 0,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 2,
+        "stock": 0,
+        "retail": 0,
+        "sold": 2
+      },
+      {
+        "id": 3,
+        "stock": 0,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 4,
+        "stock": 5,
+        "retail": 1,
+        "sold": 0
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "lotId": 1,
+        "shopId": "restaurant",
+        "count": 1,
+        "orderId": 1
+      },
+      {
+        "id": 2,
+        "lotId": 3,
+        "shopId": "liquor",
+        "count": 2,
+        "orderId": 2
+      }
+    ],
+    "openWishes": [
+      {
+        "id": 3,
+        "shopId": "restaurant",
+        "month": 1,
+        "count": 2,
+        "text": "前に渡してもらった「果実香が強い」を、また2本お願いします。",
+        "reason": {
+          "code": "same",
+          "wish": null,
+          "reasonCode": "restaurant-ordinary",
+          "sourceDeliveryId": 1,
+          "sourceLotId": 1
+        },
+        "status": "open",
+        "deliveredCount": 0
+      },
+      {
+        "id": 4,
+        "shopId": "liquor",
+        "month": 2,
+        "count": 2,
+        "text": "前と同じ製法の、もう少し若い一本を2本、試してみたいです。",
+        "reason": {
+          "code": "different",
+          "wish": "younger",
+          "reasonCode": "liquor-aged-wood",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3
+        },
+        "status": "open",
+        "deliveredCount": 0
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "mode": "C",
+    "scenario": "scarce",
+    "month": 27,
+    "actions": 33,
+    "decisions": 6,
+    "hand": [
+      {
+        "id": 1,
+        "stock": 0,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 2,
+        "stock": 0,
+        "retail": 0,
+        "sold": 2
+      },
+      {
+        "id": 3,
+        "stock": 0,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 4,
+        "stock": 5,
+        "retail": 1,
+        "sold": 0
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "lotId": 1,
+        "shopId": "restaurant",
+        "count": 1,
+        "orderId": 1
+      },
+      {
+        "id": 2,
+        "lotId": 3,
+        "shopId": "liquor",
+        "count": 2,
+        "orderId": 2
+      }
+    ],
+    "openWishes": [
+      {
+        "id": 3,
+        "shopId": "restaurant",
+        "month": 1,
+        "count": 2,
+        "text": "前に渡してもらった「果実香が強い」を、また2本お願いします。",
+        "reason": {
+          "code": "same",
+          "wish": null,
+          "reasonCode": "restaurant-ordinary",
+          "sourceDeliveryId": 1,
+          "sourceLotId": 1
+        },
+        "status": "open",
+        "deliveredCount": 0
+      },
+      {
+        "id": 4,
+        "shopId": "liquor",
+        "month": 2,
+        "count": 2,
+        "text": "前と同じ製法の、もう少し若い一本を2本、試してみたいです。",
+        "reason": {
+          "code": "different",
+          "wish": "younger",
+          "reasonCode": "liquor-aged-wood",
+          "sourceDeliveryId": 2,
+          "sourceLotId": 3
+        },
+        "status": "open",
+        "deliveredCount": 0
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "mode": "C",
+    "scenario": "standard",
+    "month": 5,
+    "actions": 8,
+    "decisions": 3,
+    "hand": [
+      {
+        "id": 1,
+        "stock": 0,
+        "retail": 0,
+        "sold": 3
+      },
+      {
+        "id": 2,
+        "stock": 6,
+        "retail": 0,
+        "sold": 0
+      },
+      {
+        "id": 3,
+        "stock": 6,
+        "retail": 0,
+        "sold": 0
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "lotId": 1,
+        "shopId": "liquor",
+        "count": 3,
+        "orderId": 2
+      }
+    ],
+    "openWishes": [
+      {
+        "id": 1,
+        "shopId": "restaurant",
+        "month": 0,
+        "count": 2,
+        "text": "食後に出せるウイスキーを2本、お願いできますか。",
+        "reason": {
+          "code": "initial",
+          "sourceDeliveryId": null,
+          "sourceLotId": null
+        },
+        "status": "open",
+        "deliveredCount": 0
+      },
+      {
+        "id": 3,
+        "shopId": "liquor",
+        "month": 4,
+        "count": 3,
+        "text": "次は前と違う一本を3本、試してみたいです。",
+        "reason": {
+          "code": "different",
+          "wish": "other",
+          "reasonCode": "liquor-other",
+          "sourceDeliveryId": 1,
+          "sourceLotId": 1
+        },
+        "status": "open",
+        "deliveredCount": 0
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  }
+]
