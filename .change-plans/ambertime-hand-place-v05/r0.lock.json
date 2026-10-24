@@ -1,0 +1,144 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "769c546dae65c085eabc0c9e6300d6c73a5332ddafe7dca8a7b8ef39e1323b47",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-place-v05",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent v05 presentation experiment: A numeric, B static bottle objects, C short event motion, using unchanged v04 model and log schema.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "c2be544f835f238702996104984754cdccd570c9",
+    "canonicalSources": [
+      "User complete Hand and Place Lab0.5 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "works/ambertime/experiments/hand-and-place/v04/REPORT.md",
+      "PR626",
+      "works/ambertime/design/performance-improvement-0251.md",
+      "works/ambertime/design/time-line-sales/REPORT.md",
+      "works/ambertime/design/small-motion/review.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-place-v05/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v05/**",
+      "works/ambertime-hand-and-place-v05-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/**",
+      "works/ambertime/experiments/hand-and-place/v03/**",
+      "works/ambertime-hand-and-place-v03-lab/**",
+      "works/ambertime/experiments/hand-and-place/v04/**",
+      "works/ambertime-hand-and-place-v04-lab/**"
+    ],
+    "expectedChanges": [
+      "Read-only direct import of v04 model: identical orders, stock, recipe, native aging and log schema; no model fork.",
+      "A numeric baseline, B capped bottle objects, C finite local event animation; B default, view switches never dispatch model actions.",
+      "Keyed DOM regions patched only when content changes; preserve selection/focus, two shops/hand/clock visible on phone.",
+      "Delivery updates hand and shop immediately; use affects only relevant shop; persistent order mark and once-only arrival pulse from actual new event.",
+      "No RAF loop, no decoration timer, one existing3s game clock; hidden/modal/offscreen/reduced motion cancel or suppress event motion with static state intact.",
+      "Remove misleading maturation progress toward source age; retain actual age and explicit bottling.",
+      "Fixed seed/scenarios and logs reused; same actions produce identical state across views; render update/motion counts plus bounded browser basic-operation checks.",
+      "REPORT comparesA/B/C observation/performance proxies, author playfeel and physicalheat unverified; lifecycle generated registration, mandatoryCI, PR/Staging publish."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes v05 independent Staging publication, A/B/C view comparison, unchanged A/B game rules and protected existingLabs/game/save/Production; author decides playfeel."
+    ],
+    "hqDecisions": [
+      "No contract/model/schema changes; direct immutable dependency on v04 model, view state never saved into game log.",
+      "View-only pure diff uses new actual events and old/current inventories; baseline reset on initial/import, no replay animations.",
+      "C animations finite, parallel/non-blocking, target-only; static B remains complete; no continuous rendering/timing loop beyond existing game clock."
+    ],
+    "rulesApplied": [
+      "Full Plan Lock before implementation; existing lifecycle registration/generator.",
+      "Expression audit: necessary stock/source/order/status only, no added ambientcopy or fictional sales claims."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Same initial/actions inA/B/C: delivery6to4/shop2, use2to1, empty/restockorder3; hand unchanged ontime.",
+      "Two stores different usage schedule, scarce partial, no reanimation on selection/view/import; keyboard focus retained.",
+      "Motion completion/stop/restart/offscreen/hidden/reduced, idle DOM/motion zero; phone overview and no overflow.",
+      "Source recipe/rebrew/bottle remains functional, log replay exact; publicStaging resources/basic operations."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert new v05, launcher, lifecycle entry and generatedLAB only. No migration.",
+    "outOfScope": [
+      "All existingLabs, main game, model/order/chemistry/save rules and Production edits",
+      "New shops/demand/delivery/autoacceptance/price/reputation/mission/decorationloops",
+      "ComprehensiveE2E and physicalpower/heat measurement"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/VoiceOver, actualpower/heat and author adoption",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Fork or tune demand/usage to make display moreactive",
+      "Permanent motion or sequential input-blocking delivery cutscene",
+      "Maturation completion countdown or autosuccess atsource age"
+    ],
+    "boundaryCases": [
+      "0stock hides card but source/history remains; partial delivery shown with actual amount.",
+      "Neworder event once; initial/replay/viewtoggle/selection notnew event.",
+      "Shopunchanged in slow month, handunchanged withtime; static reducedmotion complete.",
+      "Parallel or rapid events finite, cancel stale motions ontarget change/reset/hidden/offscreen/stop.",
+      "Stable keys/focus and modal production age, nofull clock-driven DOMrebuild."
+    ],
+    "testPlan": [
+      "Pure view mapping/event diff/cap tests and v04 state/log invariance acrossviews; run existing v04model tests as related contract check.",
+      "Targeted browser A/B/C stock/event/replay/phone/focus/accessibility/performance proxies; Lifecycle24, syntax/ScopeRiskImpact and mandatoryCI."
+    ],
+    "problem": "v04 causal changes are mostly numbers and text; player cannot readily see where handover and time affected shops.",
+    "currentContract": "All existingLabs/game/save immutable; v05 direct imports v04model unchanged.",
+    "whyExistingIsInsufficient": "Numeric feedback does not make physical stock/time changes easy to scan.",
+    "design": "Keyed event-driven DOM with capped pixel bottles and optional finite motion; modes share one unchanged game state.",
+    "migration": "None; v04 log schema preserved.",
+    "compatibility": "Both v04 and v05 use identical exported game log; view choice transient only.",
+    "promotionRisk": "Staging-only visual experiment."
+  }
+}
