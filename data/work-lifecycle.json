@@ -413,6 +413,12 @@
       "path": "works/ambertime-shop-relationship-lab",
       "status": "active",
       "title": "AmberTime 取扱関係 Lab 0.2"
+    },
+    {
+      "id": "ambertime-hand-and-place-lab",
+      "path": "works/ambertime-hand-and-place-lab",
+      "status": "active",
+      "title": "AmberTime 手札と場 Lab 0.1"
     }
   ]
 }

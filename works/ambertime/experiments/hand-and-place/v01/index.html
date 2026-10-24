@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>AmberTime 手札と場 Lab 0.1</title><link rel="stylesheet" href="style.css"></head>
+<body><main><header><a href="../../../../../lab/">LABへ</a><h1>手札と場 <small>Lab 0.1</small></h1><span id="date"></span></header>
+<div class="clock"><button id="play" aria-pressed="false">時間を流す</button><button id="step">1か月進める</button><span>1か月＝3秒</span></div>
+<p id="notice" role="status" aria-live="polite">手札を選んで、店に出してみましょう。</p>
+<section aria-labelledby="place-title"><h2 id="place-title">場</h2><div id="stores"></div></section>
+<section aria-labelledby="hand-title"><div class="section-head"><h2 id="hand-title">手札</h2><label><input type="checkbox" id="archive">過去のカード</label></div><div id="hand"></div></section>
+<section id="production" aria-labelledby="production-title"><h2 id="production-title">仕込みと熟成</h2><div id="jobs"></div></section>
+<details id="compare"><summary>操作を比べる・記録</summary><div class="settings"><label>表示 <select id="mode"><option value="cards">手札から選ぶ</option><option value="list">商品一覧から選ぶ</option></select></label><label>合わない組合せ <select id="gate"><option value="try">試して返事を聞く</option><option value="block">選択できない</option></select></label></div><button id="ledger">製法記録から造る</button><p id="counts"></p><button id="export">操作ログを書き出す</button><label class="file">ログを再現<input id="import" type="file" accept="application/json,.json"></label><button id="reset">最初から</button><p>固定シード <span id="seed">42</span>。売上・費用・口コミは計算しません。各店は毎月2本、瓶詰めは12本です。</p><a href="REPORT.md">検証レポート</a><div id="history"></div></details>
+</main><dialog id="detail"><div id="detail-body"></div><button id="close">閉じる</button></dialog><script type="module" src="app.mjs"></script></body></html>
