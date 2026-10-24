@@ -1,0 +1,1208 @@
+[
+  {
+    "responseMode": "A",
+    "allocation": "free",
+    "results": [
+      {
+        "outcome": "placed",
+        "shopId": "diner",
+        "lotId": 1,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit",
+          "fit": 0.803107158146
+        }
+      },
+      {
+        "outcome": "pending",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.588002078635
+        }
+      },
+      {
+        "outcome": "replaced",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.588002078635
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "bar",
+        "lotId": 2,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.509424246139
+        }
+      },
+      {
+        "outcome": "rejected",
+        "shopId": "specialist",
+        "lotId": 3,
+        "ownerKind": "declined",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit",
+          "fit": 0.497267524676
+        }
+      },
+      {
+        "outcome": "rejected",
+        "shopId": "bar",
+        "lotId": 3,
+        "ownerKind": "declined",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit",
+          "fit": 0.428465803698
+        }
+      }
+    ],
+    "introductions": [
+      {
+        "id": 1,
+        "shopId": "diner",
+        "lotId": 1,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit",
+          "fit": 0.803107158146
+        },
+        "later": null
+      },
+      {
+        "id": 2,
+        "shopId": "diner",
+        "lotId": 2,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.588002078635
+        },
+        "later": null
+      },
+      {
+        "id": 3,
+        "shopId": "bar",
+        "lotId": 2,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.509424246139
+        },
+        "later": null
+      },
+      {
+        "id": 4,
+        "shopId": "specialist",
+        "lotId": 3,
+        "kind": "declined",
+        "accepted": false,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit",
+          "fit": 0.497267524676
+        },
+        "later": null
+      },
+      {
+        "id": 5,
+        "shopId": "bar",
+        "lotId": 3,
+        "kind": "declined",
+        "accepted": false,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit",
+          "fit": 0.428465803698
+        },
+        "later": null
+      }
+    ],
+    "stock": [
+      {
+        "id": 1,
+        "stock": 12
+      },
+      {
+        "id": 2,
+        "stock": 0
+      },
+      {
+        "id": 3,
+        "stock": 12
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "responseMode": "B",
+    "allocation": "free",
+    "results": [
+      {
+        "outcome": "placed",
+        "shopId": "diner",
+        "lotId": 1,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "ordinary",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit"
+        }
+      },
+      {
+        "outcome": "pending",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "different",
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "replaced",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "different",
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "bar",
+        "lotId": 2,
+        "ownerKind": "enthusiastic",
+        "wish": "same",
+        "reason": {
+          "code": "smoke-owner",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "specialist",
+        "lotId": 3,
+        "ownerKind": "younger",
+        "wish": "younger",
+        "reason": {
+          "code": "aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        }
+      },
+      {
+        "outcome": "rejected",
+        "shopId": "bar",
+        "lotId": 3,
+        "ownerKind": "declined",
+        "wish": null,
+        "reason": {
+          "code": "bar-aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        }
+      }
+    ],
+    "introductions": [
+      {
+        "id": 1,
+        "shopId": "diner",
+        "lotId": 1,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "ordinary",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      },
+      {
+        "id": 2,
+        "shopId": "diner",
+        "lotId": 2,
+        "kind": "different",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        },
+        "later": null
+      },
+      {
+        "id": 3,
+        "shopId": "bar",
+        "lotId": 2,
+        "kind": "enthusiastic",
+        "accepted": true,
+        "wish": "same",
+        "reason": {
+          "code": "smoke-owner",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        },
+        "later": null
+      },
+      {
+        "id": 4,
+        "shopId": "specialist",
+        "lotId": 3,
+        "kind": "younger",
+        "accepted": true,
+        "wish": "younger",
+        "reason": {
+          "code": "aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      },
+      {
+        "id": 5,
+        "shopId": "bar",
+        "lotId": 3,
+        "kind": "declined",
+        "accepted": false,
+        "wish": null,
+        "reason": {
+          "code": "bar-aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      }
+    ],
+    "stock": [
+      {
+        "id": 1,
+        "stock": 12
+      },
+      {
+        "id": 2,
+        "stock": 0
+      },
+      {
+        "id": 3,
+        "stock": 6
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "responseMode": "C",
+    "allocation": "free",
+    "results": [
+      {
+        "outcome": "placed",
+        "shopId": "diner",
+        "lotId": 1,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "ordinary",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit"
+        }
+      },
+      {
+        "outcome": "pending",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "different",
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "replaced",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "different",
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "bar",
+        "lotId": 2,
+        "ownerKind": "enthusiastic",
+        "wish": "same",
+        "reason": {
+          "code": "smoke-owner",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "specialist",
+        "lotId": 3,
+        "ownerKind": "younger",
+        "wish": "younger",
+        "reason": {
+          "code": "aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        }
+      },
+      {
+        "outcome": "rejected",
+        "shopId": "bar",
+        "lotId": 3,
+        "ownerKind": "declined",
+        "wish": null,
+        "reason": {
+          "code": "bar-aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        }
+      }
+    ],
+    "introductions": [
+      {
+        "id": 1,
+        "shopId": "diner",
+        "lotId": 1,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "ordinary",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      },
+      {
+        "id": 2,
+        "shopId": "diner",
+        "lotId": 2,
+        "kind": "different",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        },
+        "later": {
+          "text": "食後に飲んだお客さんが、この煙の香りを面白がっていました。私とは好みが違うみたいです。",
+          "month": 1,
+          "kind": "customer-interested",
+          "reason": {
+            "code": "diner-smoke",
+            "sourceIntroId": 2,
+            "deliveredLotId": 2,
+            "activatedMonth": 0,
+            "shipmentId": 12
+          }
+        }
+      },
+      {
+        "id": 3,
+        "shopId": "bar",
+        "lotId": 2,
+        "kind": "enthusiastic",
+        "accepted": true,
+        "wish": "same",
+        "reason": {
+          "code": "smoke-owner",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        },
+        "later": null
+      },
+      {
+        "id": 4,
+        "shopId": "specialist",
+        "lotId": 3,
+        "kind": "younger",
+        "accepted": true,
+        "wish": "younger",
+        "reason": {
+          "code": "aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        },
+        "later": {
+          "text": "これを飲んだお客さんから、同じ製法の若い一本も試してみたいと聞きました。",
+          "month": 1,
+          "kind": "customer-younger",
+          "reason": {
+            "code": "aged-wood",
+            "sourceIntroId": 4,
+            "deliveredLotId": 3,
+            "activatedMonth": 0,
+            "shipmentId": 14
+          }
+        }
+      },
+      {
+        "id": 5,
+        "shopId": "bar",
+        "lotId": 3,
+        "kind": "declined",
+        "accepted": false,
+        "wish": null,
+        "reason": {
+          "code": "bar-aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      }
+    ],
+    "stock": [
+      {
+        "id": 1,
+        "stock": 12
+      },
+      {
+        "id": 2,
+        "stock": 0
+      },
+      {
+        "id": 3,
+        "stock": 6
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "responseMode": "A",
+    "allocation": "reserve",
+    "results": [
+      {
+        "outcome": "placed",
+        "shopId": "diner",
+        "lotId": 1,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit",
+          "fit": 0.803107158146
+        }
+      },
+      {
+        "outcome": "pending",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.588002078635
+        }
+      },
+      {
+        "outcome": "replaced",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.588002078635
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "bar",
+        "lotId": 2,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.509424246139
+        }
+      },
+      {
+        "outcome": "rejected",
+        "shopId": "specialist",
+        "lotId": 3,
+        "ownerKind": "declined",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit",
+          "fit": 0.497267524676
+        }
+      },
+      {
+        "outcome": "rejected",
+        "shopId": "bar",
+        "lotId": 3,
+        "ownerKind": "declined",
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit",
+          "fit": 0.428465803698
+        }
+      }
+    ],
+    "introductions": [
+      {
+        "id": 1,
+        "shopId": "diner",
+        "lotId": 1,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit",
+          "fit": 0.803107158146
+        },
+        "later": null
+      },
+      {
+        "id": 2,
+        "shopId": "diner",
+        "lotId": 2,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.588002078635
+        },
+        "later": null
+      },
+      {
+        "id": 3,
+        "shopId": "bar",
+        "lotId": 2,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke",
+          "fit": 0.509424246139
+        },
+        "later": null
+      },
+      {
+        "id": 4,
+        "shopId": "specialist",
+        "lotId": 3,
+        "kind": "declined",
+        "accepted": false,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit",
+          "fit": 0.497267524676
+        },
+        "later": null
+      },
+      {
+        "id": 5,
+        "shopId": "bar",
+        "lotId": 3,
+        "kind": "declined",
+        "accepted": false,
+        "wish": null,
+        "reason": {
+          "code": "native-fit",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit",
+          "fit": 0.428465803698
+        },
+        "later": null
+      }
+    ],
+    "stock": [
+      {
+        "id": 1,
+        "stock": 12
+      },
+      {
+        "id": 2,
+        "stock": 0
+      },
+      {
+        "id": 3,
+        "stock": 12
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "responseMode": "B",
+    "allocation": "reserve",
+    "results": [
+      {
+        "outcome": "placed",
+        "shopId": "diner",
+        "lotId": 1,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "ordinary",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit"
+        }
+      },
+      {
+        "outcome": "pending",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "different",
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "replaced",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "different",
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "bar",
+        "lotId": 2,
+        "ownerKind": "enthusiastic",
+        "wish": "same",
+        "reason": {
+          "code": "smoke-owner",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "specialist",
+        "lotId": 3,
+        "ownerKind": "younger",
+        "wish": "younger",
+        "reason": {
+          "code": "aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        }
+      },
+      {
+        "outcome": "rejected",
+        "shopId": "bar",
+        "lotId": 3,
+        "ownerKind": "declined",
+        "wish": null,
+        "reason": {
+          "code": "bar-aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        }
+      }
+    ],
+    "introductions": [
+      {
+        "id": 1,
+        "shopId": "diner",
+        "lotId": 1,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "ordinary",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      },
+      {
+        "id": 2,
+        "shopId": "diner",
+        "lotId": 2,
+        "kind": "different",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        },
+        "later": null
+      },
+      {
+        "id": 3,
+        "shopId": "bar",
+        "lotId": 2,
+        "kind": "enthusiastic",
+        "accepted": true,
+        "wish": "same",
+        "reason": {
+          "code": "smoke-owner",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        },
+        "later": null
+      },
+      {
+        "id": 4,
+        "shopId": "specialist",
+        "lotId": 3,
+        "kind": "younger",
+        "accepted": true,
+        "wish": "younger",
+        "reason": {
+          "code": "aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      },
+      {
+        "id": 5,
+        "shopId": "bar",
+        "lotId": 3,
+        "kind": "declined",
+        "accepted": false,
+        "wish": null,
+        "reason": {
+          "code": "bar-aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      }
+    ],
+    "stock": [
+      {
+        "id": 1,
+        "stock": 12
+      },
+      {
+        "id": 2,
+        "stock": 0
+      },
+      {
+        "id": 3,
+        "stock": 6
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  {
+    "responseMode": "C",
+    "allocation": "reserve",
+    "results": [
+      {
+        "outcome": "placed",
+        "shopId": "diner",
+        "lotId": 1,
+        "ownerKind": "ordinary",
+        "wish": null,
+        "reason": {
+          "code": "ordinary",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit"
+        }
+      },
+      {
+        "outcome": "pending",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "different",
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "replaced",
+        "shopId": "diner",
+        "lotId": 2,
+        "ownerKind": "different",
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "bar",
+        "lotId": 2,
+        "ownerKind": "enthusiastic",
+        "wish": "same",
+        "reason": {
+          "code": "smoke-owner",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        }
+      },
+      {
+        "outcome": "placed",
+        "shopId": "specialist",
+        "lotId": 3,
+        "ownerKind": "younger",
+        "wish": "younger",
+        "reason": {
+          "code": "aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        }
+      },
+      {
+        "outcome": "rejected",
+        "shopId": "bar",
+        "lotId": 3,
+        "ownerKind": "declined",
+        "wish": null,
+        "reason": {
+          "code": "bar-aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        }
+      }
+    ],
+    "introductions": [
+      {
+        "id": 1,
+        "shopId": "diner",
+        "lotId": 1,
+        "kind": "ordinary",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "ordinary",
+          "smoke": 0.05445048194438743,
+          "wood": 0.05600173717907771,
+          "ageMonths": 24,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      },
+      {
+        "id": 2,
+        "shopId": "diner",
+        "lotId": 2,
+        "kind": "different",
+        "accepted": true,
+        "wish": null,
+        "reason": {
+          "code": "diner-smoke",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        },
+        "later": {
+          "text": "食後に飲んだお客さんが、この煙の香りを面白がっていました。私とは好みが違うみたいです。",
+          "month": 1,
+          "kind": "customer-interested",
+          "reason": {
+            "code": "diner-smoke",
+            "sourceIntroId": 2,
+            "deliveredLotId": 2,
+            "activatedMonth": 0,
+            "shipmentId": 18
+          }
+        }
+      },
+      {
+        "id": 3,
+        "shopId": "bar",
+        "lotId": 2,
+        "kind": "enthusiastic",
+        "accepted": true,
+        "wish": "same",
+        "reason": {
+          "code": "smoke-owner",
+          "smoke": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "ageMonths": 24,
+          "aromaFamily": "smoke"
+        },
+        "later": null
+      },
+      {
+        "id": 4,
+        "shopId": "specialist",
+        "lotId": 3,
+        "kind": "younger",
+        "accepted": true,
+        "wish": "younger",
+        "reason": {
+          "code": "aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        },
+        "later": {
+          "text": "これを飲んだお客さんから、同じ製法の若い一本も試してみたいと聞きました。",
+          "month": 1,
+          "kind": "customer-younger",
+          "reason": {
+            "code": "aged-wood",
+            "sourceIntroId": 4,
+            "deliveredLotId": 3,
+            "activatedMonth": 0,
+            "shipmentId": 22
+          }
+        }
+      },
+      {
+        "id": 5,
+        "shopId": "bar",
+        "lotId": 3,
+        "kind": "declined",
+        "accepted": false,
+        "wish": null,
+        "reason": {
+          "code": "bar-aged-wood",
+          "smoke": 0.05242463341571814,
+          "wood": 0.5438589379331431,
+          "ageMonths": 144,
+          "aromaFamily": "fruit"
+        },
+        "later": null
+      }
+    ],
+    "stock": [
+      {
+        "id": 1,
+        "stock": 12
+      },
+      {
+        "id": 2,
+        "stock": 0
+      },
+      {
+        "id": 3,
+        "stock": 6
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    }
+  }
+]
