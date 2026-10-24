@@ -1,0 +1,140 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e79d1d220ef565e19c8a1f093990e669883f84feb1e32bfc90b422bce68b126e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-place-v03",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent v03: broad handling acceptance with concrete owner remarks and a few next-month customer responses linked to the original introduction.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "dc58d560740717161e3ba042a71a1e69b8392963",
+    "canonicalSources": [
+      "User Hand and Place Lab0.3 full request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "works/ambertime/experiments/hand-and-place/v02/REPORT.md",
+      "PR624",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "works/ambertime/experiments/shop-expansion/v01/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-place-v03/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v03/**",
+      "works/ambertime-hand-and-place-v03-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/**"
+    ],
+    "expectedChanges": [
+      "Keep v02 hand/board/tap/replacement/rebrew/stock/clock UI and free versus reserve comparison.",
+      "Separate new responseMode A native binary, B broader immediate owner remarks, C plus finite delayed customer anecdotes; identical input/operations.",
+      "Reuse native eight flavor values, age, current shelf; limited deterministic Lab-only rules, no global chemistry/fit change.",
+      "One introduction ID per actual proposal; accepted shelf activation plus one-shot delayed event only after actual delivery, nextmonth or later. Suppress displaced introductions, do not repeat on identical reoffer.",
+      "Owner preference is not quality or acceptance grade; same-bottle/younger wishes have no reward, obligation or automatic extra shipping.",
+      "Shelf and existing reply show shop + release + source introduction. Compact action/reason/result lineage export/replay, fixed seed conditions.",
+      "Targeted model/browser/lifecycle checks, report actual limitations, PR/mandatory CI/safe staging merge/public verification."
+    ],
+    "ownerDecisions": [
+      "User authorizes independent v03 and Staging publication; preserve all existing Labs/main game/save/Production; author assesses playfeel."
+    ],
+    "hqDecisions": [
+      "Existing contracts unchanged. New v03 model/data isolated, imports chemistry and existing affinity read-only.",
+      "Three response modes separate from free/reserve placement. Broad acceptance and few explainable flavor/age rules; no added scores, customer segments, demand or rumor.",
+      "Delayed anecdotal outcomes are small experimental conditions, only after actual supply; not native sales simulation.",
+      "New introduction IDs plus activation/source links are minimum attribution state; identical reoffer cannot farm events.",
+      "Same bottle wish is a request only and never changes native finite shipment quantity."
+    ],
+    "rulesApplied": [
+      "Full locked r0 before implementation, existing lifecycle generation.",
+      "Expression audit: only necessary operation cues and concrete shop speech; no ornamental copy or quality scores."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone unchanged overview and tap controls; different owner remarks/acceptance/defer, keep/replace decisions.",
+      "Nextmonth actual receipt gates, source attribution, no duplicate events, replacement silence for old source, samebottle reoffer and continuation.",
+      "A/B/C separate from free/reserve, rebrew/bottle, logs pending/delayed replay, publicStaging exact source/basic operation."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v02, newlauncher, report and registration/generated files only. No state migration.",
+    "outOfScope": [
+      "Existing Labs, main game, chemistry, saves, Production edits",
+      "Ranks/points/AP/currency/missions/rewards/recipe editor/newshops/customer segments/newrumor/largeUIchanges",
+      "Comprehensive E2E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari and author design adoption",
+      "Full main economy/cask/finance feasibility",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Five independently accumulating reaction systems",
+      "Random events for variety",
+      "Owner/customer quality scores or fulfilling wish guarantees",
+      "Automatically increasing demand when owner likes a release"
+    ],
+    "boundaryCases": [
+      "A native parity; B/C same immediate reply; fruit/smoke distinguish through existing profile.",
+      "Defer leaves shelf, pending keep/replace activation, zero supply versus real supply; repeated same introduction no farming.",
+      "Old source after swap, same recipe auto continuation, no duplicate eachmonth, same release in multiple shops.",
+      "Free/reserve conservation, pending log replay, source IDs and reasons, no future results shown before earned."
+    ],
+    "testPlan": [
+      "Targeted A/B/C rules and sharedstock invariants, six author cases, lineage/delivery timing/dedup/replacement and replay.",
+      "Phone overview/reply/nextmonth/source/keep/switch, comparison controls, rebrew, logs; lifecycle checks and mandatory CI."
+    ],
+    "problem": "Binary acceptance creates correct-answer matching; enrich the observable result without adding management systems.",
+    "currentContract": "All existing games/Labs remain read-only; only new v02 plus standard lifecycle/LAB registration.",
+    "whyExistingIsInsufficient": "v02 equates owner fit with handling, and has no delayed attributed customer counterpoint.",
+    "design": "Isolated v03 fork reuses v02 placement and stock. Owner remark+optional wish are one response object; accepted activation may yield one deterministic delayed anecdote with origin ID.",
+    "migration": "None.",
+    "compatibility": "Existing main storage untouched; only new Lab log schema.",
+    "promotionRisk": "Staging experiment only."
+  }
+}
