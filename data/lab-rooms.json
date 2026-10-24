@@ -126,6 +126,10 @@
           "note": "店ごとの好みと、同じ本数を届ける先・回数の違いを比べる実験。"
         },
         {
+          "work": "ambertime-shop-relationship-lab",
+          "note": "扱ってもらう一本と自動配送の役割、品切れ時の判断を比べる実験。"
+        },
+        {
           "work": "ambertime-world-map-lab",
           "note": "蒸留所から地球まで、6段階の視点を比べる試作。"
         },

@@ -407,6 +407,12 @@
       "path": "works/ambertime-shop-expansion-lab",
       "status": "active",
       "title": "AmberTime 新しい取扱店 Lab 0.1"
+    },
+    {
+      "id": "ambertime-shop-relationship-lab",
+      "path": "works/ambertime-shop-relationship-lab",
+      "status": "active",
+      "title": "AmberTime 取扱関係 Lab 0.2"
     }
   ]
 }
