@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9bd5f33a15db11bc88c7c69455cac77976e8a20ca62abcf696be36eea48b312a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-and-place-v01",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent Hand and Place Lab: choose release cards, place with shops, reproduce recipes and sustain supply.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "9a7599dbf11eed787970e6d460fa2ab13e220fd0",
+    "canonicalSources": [
+      "User AmberTime0.26 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/experiments/reputation/v03/model.mjs",
+      "works/ambertime/experiments/reputation/v05/core.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/design/gameplay-audit-20261023.md",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "PR614/617/618/619",
+      "User Hand and Place Lab request",
+      "works/ambertime/design/shop-relationship-redesign-0261.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-and-place-v01/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Release cards retain recipe and age lineage; three native flavor fixtures and native shop affinity.",
+      "Explicit placement and finite monthly automated orders; shortage waits; same recipe and age auto continuation only with consent, changed age requires explicit approval.",
+      "One-step delegated rebrew, one month preparation then native maturation and explicit bottling; four cask limit and no free finished stock.",
+      "Card and conventional UI comparison with interaction logs, seed and deterministic replay.",
+      "Targeted tests, phone browser checks, report and LAB entry; no main or existing Lab changes."
+    ],
+    "ownerDecisions": [
+      "User full Hand and Place Lab request authorizes independent staging implementation, PR and publication; main adoption awaits author playtest."
+    ],
+    "hqDecisions": [
+      "No existing contracts changed. New log is isolated and memory-only, export/replay explicit.",
+      "Native flavor chemistry and shop fit read-only. Fixed 2 bottles/store/month, 12 per bottling, no finances or rumor.",
+      "New Lab launcher and Prototype Bench entry under existing lifecycle schema."
+    ],
+    "rulesApplied": [
+      "Full locked r0 before implementation, existing lifecycle generation.",
+      "Expression audit: only necessary operation cues and concrete shop speech; no ornamental copy or quality scores."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone layout and card/place/reproduce/bottle/continuation flow; conventional comparison; export/replay and return.",
+      "Public staging resources and basic interactions."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v02, newlauncher, report and registration/generated files only. No state migration.",
+    "outOfScope": [
+      "Main/old Labs/save/Production changes",
+      "Comprehensive E2E, battle/deck/rarity/combo/ranks/currency/new rumor/complex economy/automatic optimal selection"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari and author design adoption",
+      "Full main economy/cask/finance feasibility",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Automatic optimal selection",
+      "Free immediate reproduction",
+      "Automatic substitution with changed age or flavor"
+    ],
+    "boundaryCases": [
+      "Empty stock, failed fit, repeat placement, multiple stores sharing stock, replacement rejection preserves existing placement",
+      "Rebrew source sold out, cask capacity, preparation maturity and bottling boundaries, distinct release IDs, changed age",
+      "Replay tamper, hidden page pause, tap layout and modal scrolling"
+    ],
+    "testPlan": [
+      "Native fixture parity and affinity matrix; placement preserves rejected existing relation; conservation and monthly shipment boundaries.",
+      "Rebrew exact provenance, maturation, manual bottling, candidate approval, fixed-seed replay.",
+      "Targeted phone browser tests, lifecycle regression and mandatory CI."
+    ],
+    "problem": "Taste does not consistently determine placement and dispatch; reproduce and continue a chosen whiskey with little management.",
+    "currentContract": "Existing AmberTime and all old Labs remain read-only.",
+    "whyExistingIsInsufficient": "Prior comparison Labs do not offer a player-controlled release-to-recipe-to-next-release loop.",
+    "design": "Memory-only isolated playable card and conventional presentation over one deterministic rules model.",
+    "migration": "None.",
+    "compatibility": "Existing main storage untouched; only new Lab log schema.",
+    "promotionRisk": "Staging experiment only."
+  }
+}

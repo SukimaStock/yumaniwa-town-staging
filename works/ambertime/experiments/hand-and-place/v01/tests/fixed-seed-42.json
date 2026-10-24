@@ -1,0 +1,1144 @@
+{
+  "schema": "ambertime-hand-and-place/0.1",
+  "initial": {
+    "seed": 42,
+    "mode": "cards",
+    "gate": "try"
+  },
+  "state": {
+    "seed": 42,
+    "mode": "cards",
+    "gate": "try",
+    "initialMode": "cards",
+    "initialGate": "try",
+    "month": 40,
+    "lots": [
+      {
+        "id": 1,
+        "recipeId": "fruit",
+        "recipe": {
+          "malt": "plain",
+          "ferment": "long",
+          "start": 0.12121212121212122,
+          "end": 0.40404040404040403,
+          "cask": "refill",
+          "collectionVersion": 2
+        },
+        "ageMonths": 24,
+        "label": "果実香が強い",
+        "profile": {
+          "fruit": 0.8542797744459617,
+          "grain": 0.37793027145662506,
+          "smoke": 0.05445048194438743,
+          "body": 0.20568861734295096,
+          "spice": 0.10878387105437451,
+          "rough": 0.3594219227254326,
+          "wood": 0.05600173717907771,
+          "vanilla": 0.03623641817469733
+        },
+        "product": {
+          "roughness": 0.3594219227254326,
+          "character": 0.8542797744459617,
+          "wood": 0.05600173717907771,
+          "age": 24,
+          "price": 30,
+          "aromaFamily": "fruit",
+          "label": "果実香が強い"
+        },
+        "stock": 0,
+        "count": 12,
+        "bottledMonth": -1,
+        "sourceId": null
+      },
+      {
+        "id": 2,
+        "recipeId": "smoke",
+        "recipe": {
+          "malt": "peat",
+          "ferment": "long",
+          "start": 0.10101010101010101,
+          "end": 0.9090909090909091,
+          "cask": "refill",
+          "collectionVersion": 2
+        },
+        "ageMonths": 24,
+        "label": "煙の香りが豊か",
+        "profile": {
+          "fruit": 0.5883194244696502,
+          "grain": 0.4602027750029201,
+          "smoke": 0.6750377413013966,
+          "body": 0.5714341588508121,
+          "spice": 0.28378729178368023,
+          "rough": 0.3126017848494846,
+          "wood": 0.05837717038313414,
+          "vanilla": 0.037773463189086795
+        },
+        "product": {
+          "roughness": 0.3126017848494846,
+          "character": 0.6750377413013966,
+          "wood": 0.05837717038313414,
+          "age": 24,
+          "price": 30,
+          "aromaFamily": "smoke",
+          "label": "煙の香りが豊か"
+        },
+        "stock": 12,
+        "count": 12,
+        "bottledMonth": -1,
+        "sourceId": null
+      },
+      {
+        "id": 3,
+        "recipeId": "wood",
+        "recipe": {
+          "malt": "plain",
+          "ferment": "long",
+          "start": 0.12121212121212122,
+          "end": 0.40404040404040403,
+          "cask": "first",
+          "collectionVersion": 2
+        },
+        "ageMonths": 144,
+        "label": "果実香と樽の甘い香り",
+        "profile": {
+          "fruit": 0.800781940859577,
+          "grain": 0.3604110723736231,
+          "smoke": 0.05242463341571814,
+          "body": 0.19950317621717378,
+          "spice": 0.10006356081296783,
+          "rough": 0.178712081858299,
+          "wood": 0.5438589379331431,
+          "vanilla": 0.512703486940765
+        },
+        "product": {
+          "roughness": 0.178712081858299,
+          "character": 0.800781940859577,
+          "wood": 0.5438589379331431,
+          "age": 144,
+          "price": 30,
+          "aromaFamily": "fruit",
+          "label": "果実香と樽の甘い香り"
+        },
+        "stock": 12,
+        "count": 12,
+        "bottledMonth": -1,
+        "sourceId": null
+      },
+      {
+        "id": 4,
+        "recipeId": "fruit",
+        "recipe": {
+          "malt": "plain",
+          "ferment": "long",
+          "start": 0.12121212121212122,
+          "end": 0.40404040404040403,
+          "cask": "refill",
+          "collectionVersion": 2
+        },
+        "ageMonths": 24,
+        "label": "果実香が強い",
+        "profile": {
+          "fruit": 0.8542797744459617,
+          "grain": 0.37793027145662506,
+          "smoke": 0.05445048194438743,
+          "body": 0.20568861734295096,
+          "spice": 0.10878387105437451,
+          "rough": 0.3594219227254326,
+          "wood": 0.05600173717907771,
+          "vanilla": 0.03623641817469733
+        },
+        "product": {
+          "roughness": 0.3594219227254326,
+          "character": 0.8542797744459617,
+          "wood": 0.05600173717907771,
+          "age": 24,
+          "price": 30,
+          "aromaFamily": "fruit",
+          "label": "果実香が強い"
+        },
+        "stock": 0,
+        "count": 12,
+        "bottledMonth": 25,
+        "sourceId": 1
+      },
+      {
+        "id": 5,
+        "recipeId": "fruit",
+        "recipe": {
+          "malt": "plain",
+          "ferment": "long",
+          "start": 0.12121212121212122,
+          "end": 0.40404040404040403,
+          "cask": "refill",
+          "collectionVersion": 2
+        },
+        "ageMonths": 12,
+        "label": "果実香が強い",
+        "profile": {
+          "fruit": 0.8617039781642721,
+          "grain": 0.3802782840444305,
+          "smoke": 0.05471801214009041,
+          "body": 0.20656497119045075,
+          "spice": 0.1100832141064237,
+          "rough": 0.4008058410854732,
+          "wood": 0.02939974648168137,
+          "vanilla": 0.019023365370499708
+        },
+        "product": {
+          "roughness": 0.4008058410854732,
+          "character": 0.8617039781642721,
+          "wood": 0.02939974648168137,
+          "age": 12,
+          "price": 30,
+          "aromaFamily": "fruit",
+          "label": "果実香が強い"
+        },
+        "stock": 10,
+        "count": 12,
+        "bottledMonth": 39,
+        "sourceId": 4
+      }
+    ],
+    "jobs": [],
+    "relations": {
+      "diner": {
+        "anchorId": 5,
+        "selectedId": 5,
+        "autoContinue": true,
+        "openedMonth": 0
+      }
+    },
+    "events": [
+      {
+        "id": 1,
+        "month": 0,
+        "type": "rejected",
+        "text": "この店では、もう少し樽の香りがある味を探しています。",
+        "shopId": "bar",
+        "lotId": 1
+      },
+      {
+        "id": 2,
+        "month": 0,
+        "type": "place",
+        "text": "食堂で発売#1の取扱いが始まります。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 3,
+        "month": 0,
+        "type": "rebrew",
+        "text": "発売#1の製法で、もう一度造ります。仕込みに1か月、その後に熟成します。",
+        "jobId": 1,
+        "lotId": 1
+      },
+      {
+        "id": 4,
+        "month": 1,
+        "type": "shipment",
+        "text": "食堂へ発売#1を2本届けました。",
+        "shopId": "diner",
+        "lotId": 1,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 5,
+        "month": 1,
+        "type": "prepared",
+        "text": "仕込み#1が終わり、熟成を始めました。",
+        "jobId": 1
+      },
+      {
+        "id": 6,
+        "month": 1,
+        "type": "month",
+        "text": "1か月目になりました。"
+      },
+      {
+        "id": 7,
+        "month": 2,
+        "type": "shipment",
+        "text": "食堂へ発売#1を2本届けました。",
+        "shopId": "diner",
+        "lotId": 1,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 8,
+        "month": 2,
+        "type": "month",
+        "text": "2か月目になりました。"
+      },
+      {
+        "id": 9,
+        "month": 3,
+        "type": "shipment",
+        "text": "食堂へ発売#1を2本届けました。",
+        "shopId": "diner",
+        "lotId": 1,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 10,
+        "month": 3,
+        "type": "month",
+        "text": "3か月目になりました。"
+      },
+      {
+        "id": 11,
+        "month": 4,
+        "type": "shipment",
+        "text": "食堂へ発売#1を2本届けました。",
+        "shopId": "diner",
+        "lotId": 1,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 12,
+        "month": 4,
+        "type": "month",
+        "text": "4か月目になりました。"
+      },
+      {
+        "id": 13,
+        "month": 5,
+        "type": "shipment",
+        "text": "食堂へ発売#1を2本届けました。",
+        "shopId": "diner",
+        "lotId": 1,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 14,
+        "month": 5,
+        "type": "month",
+        "text": "5か月目になりました。"
+      },
+      {
+        "id": 15,
+        "month": 6,
+        "type": "shipment",
+        "text": "食堂へ発売#1を2本届けました。",
+        "shopId": "diner",
+        "lotId": 1,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 16,
+        "month": 6,
+        "type": "month",
+        "text": "6か月目になりました。"
+      },
+      {
+        "id": 17,
+        "month": 7,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 18,
+        "month": 7,
+        "type": "month",
+        "text": "7か月目になりました。"
+      },
+      {
+        "id": 19,
+        "month": 8,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 20,
+        "month": 8,
+        "type": "month",
+        "text": "8か月目になりました。"
+      },
+      {
+        "id": 21,
+        "month": 9,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 22,
+        "month": 9,
+        "type": "month",
+        "text": "9か月目になりました。"
+      },
+      {
+        "id": 23,
+        "month": 10,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 24,
+        "month": 10,
+        "type": "month",
+        "text": "10か月目になりました。"
+      },
+      {
+        "id": 25,
+        "month": 11,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 26,
+        "month": 11,
+        "type": "month",
+        "text": "11か月目になりました。"
+      },
+      {
+        "id": 27,
+        "month": 12,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 28,
+        "month": 12,
+        "type": "month",
+        "text": "12か月目になりました。"
+      },
+      {
+        "id": 29,
+        "month": 13,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 30,
+        "month": 13,
+        "type": "month",
+        "text": "13か月目になりました。"
+      },
+      {
+        "id": 31,
+        "month": 14,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 32,
+        "month": 14,
+        "type": "month",
+        "text": "14か月目になりました。"
+      },
+      {
+        "id": 33,
+        "month": 15,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 34,
+        "month": 15,
+        "type": "month",
+        "text": "15か月目になりました。"
+      },
+      {
+        "id": 35,
+        "month": 16,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 36,
+        "month": 16,
+        "type": "month",
+        "text": "16か月目になりました。"
+      },
+      {
+        "id": 37,
+        "month": 17,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 38,
+        "month": 17,
+        "type": "month",
+        "text": "17か月目になりました。"
+      },
+      {
+        "id": 39,
+        "month": 18,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 40,
+        "month": 18,
+        "type": "month",
+        "text": "18か月目になりました。"
+      },
+      {
+        "id": 41,
+        "month": 19,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 42,
+        "month": 19,
+        "type": "month",
+        "text": "19か月目になりました。"
+      },
+      {
+        "id": 43,
+        "month": 20,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 44,
+        "month": 20,
+        "type": "month",
+        "text": "20か月目になりました。"
+      },
+      {
+        "id": 45,
+        "month": 21,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 46,
+        "month": 21,
+        "type": "month",
+        "text": "21か月目になりました。"
+      },
+      {
+        "id": 47,
+        "month": 22,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 48,
+        "month": 22,
+        "type": "month",
+        "text": "22か月目になりました。"
+      },
+      {
+        "id": 49,
+        "month": 23,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 50,
+        "month": 23,
+        "type": "month",
+        "text": "23か月目になりました。"
+      },
+      {
+        "id": 51,
+        "month": 24,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 52,
+        "month": 24,
+        "type": "month",
+        "text": "24か月目になりました。"
+      },
+      {
+        "id": 53,
+        "month": 25,
+        "type": "shortage",
+        "text": "食堂は発売#1の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 1
+      },
+      {
+        "id": 54,
+        "month": 25,
+        "type": "month",
+        "text": "25か月目になりました。"
+      },
+      {
+        "id": 55,
+        "month": 25,
+        "type": "bottle",
+        "text": "発売#4を12本、瓶詰めしました。納品は翌月からです。",
+        "jobId": 1,
+        "lotId": 4,
+        "sourceId": 1
+      },
+      {
+        "id": 56,
+        "month": 26,
+        "type": "continue",
+        "text": "食堂で発売#4の取扱いを続けます。",
+        "shopId": "diner",
+        "lotId": 4,
+        "anchorId": 1
+      },
+      {
+        "id": 57,
+        "month": 26,
+        "type": "shipment",
+        "text": "食堂へ発売#4を2本届けました。",
+        "shopId": "diner",
+        "lotId": 4,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 58,
+        "month": 26,
+        "type": "month",
+        "text": "26か月目になりました。"
+      },
+      {
+        "id": 59,
+        "month": 26,
+        "type": "rebrew",
+        "text": "発売#4の製法で、もう一度造ります。仕込みに1か月、その後に熟成します。",
+        "jobId": 2,
+        "lotId": 4
+      },
+      {
+        "id": 60,
+        "month": 27,
+        "type": "shipment",
+        "text": "食堂へ発売#4を2本届けました。",
+        "shopId": "diner",
+        "lotId": 4,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 61,
+        "month": 27,
+        "type": "prepared",
+        "text": "仕込み#2が終わり、熟成を始めました。",
+        "jobId": 2
+      },
+      {
+        "id": 62,
+        "month": 27,
+        "type": "month",
+        "text": "27か月目になりました。"
+      },
+      {
+        "id": 63,
+        "month": 28,
+        "type": "shipment",
+        "text": "食堂へ発売#4を2本届けました。",
+        "shopId": "diner",
+        "lotId": 4,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 64,
+        "month": 28,
+        "type": "month",
+        "text": "28か月目になりました。"
+      },
+      {
+        "id": 65,
+        "month": 29,
+        "type": "shipment",
+        "text": "食堂へ発売#4を2本届けました。",
+        "shopId": "diner",
+        "lotId": 4,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 66,
+        "month": 29,
+        "type": "month",
+        "text": "29か月目になりました。"
+      },
+      {
+        "id": 67,
+        "month": 30,
+        "type": "shipment",
+        "text": "食堂へ発売#4を2本届けました。",
+        "shopId": "diner",
+        "lotId": 4,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 68,
+        "month": 30,
+        "type": "month",
+        "text": "30か月目になりました。"
+      },
+      {
+        "id": 69,
+        "month": 31,
+        "type": "shipment",
+        "text": "食堂へ発売#4を2本届けました。",
+        "shopId": "diner",
+        "lotId": 4,
+        "count": 2,
+        "anchorId": 1
+      },
+      {
+        "id": 70,
+        "month": 31,
+        "type": "month",
+        "text": "31か月目になりました。"
+      },
+      {
+        "id": 71,
+        "month": 32,
+        "type": "shortage",
+        "text": "食堂は発売#4の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 4
+      },
+      {
+        "id": 72,
+        "month": 32,
+        "type": "month",
+        "text": "32か月目になりました。"
+      },
+      {
+        "id": 73,
+        "month": 33,
+        "type": "shortage",
+        "text": "食堂は発売#4の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 4
+      },
+      {
+        "id": 74,
+        "month": 33,
+        "type": "month",
+        "text": "33か月目になりました。"
+      },
+      {
+        "id": 75,
+        "month": 34,
+        "type": "shortage",
+        "text": "食堂は発売#4の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 4
+      },
+      {
+        "id": 76,
+        "month": 34,
+        "type": "month",
+        "text": "34か月目になりました。"
+      },
+      {
+        "id": 77,
+        "month": 35,
+        "type": "shortage",
+        "text": "食堂は発売#4の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 4
+      },
+      {
+        "id": 78,
+        "month": 35,
+        "type": "month",
+        "text": "35か月目になりました。"
+      },
+      {
+        "id": 79,
+        "month": 36,
+        "type": "shortage",
+        "text": "食堂は発売#4の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 4
+      },
+      {
+        "id": 80,
+        "month": 36,
+        "type": "month",
+        "text": "36か月目になりました。"
+      },
+      {
+        "id": 81,
+        "month": 37,
+        "type": "shortage",
+        "text": "食堂は発売#4の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 4
+      },
+      {
+        "id": 82,
+        "month": 37,
+        "type": "month",
+        "text": "37か月目になりました。"
+      },
+      {
+        "id": 83,
+        "month": 38,
+        "type": "shortage",
+        "text": "食堂は発売#4の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 4
+      },
+      {
+        "id": 84,
+        "month": 38,
+        "type": "month",
+        "text": "38か月目になりました。"
+      },
+      {
+        "id": 85,
+        "month": 39,
+        "type": "shortage",
+        "text": "食堂は発売#4の補充待ちです。",
+        "shopId": "diner",
+        "lotId": 4
+      },
+      {
+        "id": 86,
+        "month": 39,
+        "type": "month",
+        "text": "39か月目になりました。"
+      },
+      {
+        "id": 87,
+        "month": 39,
+        "type": "bottle",
+        "text": "発売#5を12本、瓶詰めしました。納品は翌月からです。",
+        "jobId": 2,
+        "lotId": 5,
+        "sourceId": 4
+      },
+      {
+        "id": 88,
+        "month": 39,
+        "type": "continuation",
+        "text": "食堂へ発売#5を選びました。",
+        "shopId": "diner",
+        "lotId": 5
+      },
+      {
+        "id": 89,
+        "month": 40,
+        "type": "shipment",
+        "text": "食堂へ発売#5を2本届けました。",
+        "shopId": "diner",
+        "lotId": 5,
+        "count": 2,
+        "anchorId": 5
+      },
+      {
+        "id": 90,
+        "month": 40,
+        "type": "month",
+        "text": "40か月目になりました。"
+      }
+    ],
+    "actions": [
+      {
+        "type": "browse",
+        "kind": "select-card",
+        "lotId": 1,
+        "month": 0
+      },
+      {
+        "type": "place",
+        "shopId": "bar",
+        "lotId": 1,
+        "autoContinue": true,
+        "month": 0
+      },
+      {
+        "type": "place",
+        "shopId": "diner",
+        "lotId": 1,
+        "autoContinue": true,
+        "month": 0
+      },
+      {
+        "type": "inspect",
+        "lotId": 1,
+        "month": 0
+      },
+      {
+        "type": "rebrew",
+        "lotId": 1,
+        "month": 0
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 1
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 2
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 3
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 4
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 5
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 6
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 7
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 8
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 9
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 10
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 11
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 12
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 13
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 14
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 15
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 16
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 17
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 18
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 19
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 20
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 21
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 22
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 23
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 24
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 25
+      },
+      {
+        "type": "bottle",
+        "jobId": 1,
+        "month": 25
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 26
+      },
+      {
+        "type": "inspect",
+        "lotId": 4,
+        "month": 26
+      },
+      {
+        "type": "rebrew",
+        "lotId": 4,
+        "month": 26
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 27
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 28
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 29
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 30
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 31
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 32
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 33
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 34
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 35
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 36
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 37
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 38
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 39
+      },
+      {
+        "type": "bottle",
+        "jobId": 2,
+        "month": 39
+      },
+      {
+        "type": "continuation",
+        "shopId": "diner",
+        "lotId": 5,
+        "month": 39
+      },
+      {
+        "type": "step",
+        "months": 1,
+        "month": 40
+      }
+    ]
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  },
+  "checksum": "7295892f"
+}
