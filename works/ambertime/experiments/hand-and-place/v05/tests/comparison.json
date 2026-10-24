@@ -1,0 +1,126 @@
+[
+  {
+    "seed": 42,
+    "scenario": "standard",
+    "kind": "first-reorder",
+    "results": [
+      {
+        "mode": "A",
+        "checksum": "129a3155",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      },
+      {
+        "mode": "B",
+        "checksum": "129a3155",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      },
+      {
+        "mode": "C",
+        "checksum": "129a3155",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      }
+    ]
+  },
+  {
+    "seed": 42,
+    "scenario": "standard",
+    "kind": "different-periods",
+    "results": [
+      {
+        "mode": "A",
+        "checksum": "39f7d8ee",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      },
+      {
+        "mode": "B",
+        "checksum": "39f7d8ee",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      },
+      {
+        "mode": "C",
+        "checksum": "39f7d8ee",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      }
+    ]
+  },
+  {
+    "seed": 42,
+    "scenario": "scarce",
+    "kind": "first-reorder",
+    "results": [
+      {
+        "mode": "A",
+        "checksum": "4602ff42",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      },
+      {
+        "mode": "B",
+        "checksum": "4602ff42",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      },
+      {
+        "mode": "C",
+        "checksum": "4602ff42",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      }
+    ]
+  },
+  {
+    "seed": 42,
+    "scenario": "scarce",
+    "kind": "different-periods",
+    "results": [
+      {
+        "mode": "A",
+        "checksum": "a5143eab",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      },
+      {
+        "mode": "B",
+        "checksum": "a5143eab",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      },
+      {
+        "mode": "C",
+        "checksum": "a5143eab",
+        "validation": {
+          "ok": true,
+          "errors": []
+        }
+      }
+    ]
+  }
+]
