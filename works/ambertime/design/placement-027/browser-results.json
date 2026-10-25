@@ -1,0 +1,63 @@
+{
+  "ok": true,
+  "checks": [
+    "A actual main GUI distillation, collection, filling, aging, brand and bottling five to hand; no allocation popup",
+    "B/D/G main allocation3/manualtown2/hand1 paid receipt and strictreload exact, actual taste unrestricted, oldkey canaries preserved",
+    "E/F native retail sales/cash/reputation use allocated only; native monthly wish ignored, town auto off",
+    "failed save conflict preserves live game/ops and external saved bytes, stops instead of committing",
+    "G same brand different age/release identity; independent serial/nearby/worker cold native replay accepts placement op",
+    "native1x/2x month rate and pause retained; close stops finite placement motion",
+    "long real brand shortened only on shelf, two actual different-age releases distinct; full modal identity preserved",
+    "both mode mismatches stop and preserve saved bytes",
+    "H ordinary main old save/month retail/autoshipping/cash/ledger/serialized game exact base bytes"
+  ],
+  "measurements": [
+    {
+      "width": 360,
+      "phase": "initial",
+      "height": 605,
+      "bodyScroll": 0,
+      "inside": true
+    },
+    {
+      "width": 360,
+      "phase": "placed",
+      "height": 653,
+      "bodyScroll": 0,
+      "inside": true
+    },
+    {
+      "width": 375,
+      "phase": "initial",
+      "height": 605,
+      "bodyScroll": 0,
+      "inside": true
+    },
+    {
+      "width": 375,
+      "phase": "placed",
+      "height": 653,
+      "bodyScroll": 0,
+      "inside": true
+    },
+    {
+      "width": 390,
+      "phase": "initial",
+      "height": 581,
+      "bodyScroll": 0,
+      "inside": true
+    },
+    {
+      "width": 390,
+      "phase": "placed",
+      "height": 629,
+      "bodyScroll": 0,
+      "inside": true
+    }
+  ],
+  "errors": [],
+  "legacyParity": true,
+  "oldKeyCanary": true,
+  "nativeModelOnly": true,
+  "historyCacheSeparateCheck": "history-cache-results.json"
+}

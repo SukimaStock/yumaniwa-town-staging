@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "source": "targeted separate browser check after P2 query-only fix",
+  "baseOldModel": "8ec6e12f79d02322561ebf284c90fc3605412942",
+  "oldURL": "partner-orders.mjs?v=adjust-b-r1",
+  "oldURLResponse": "exact old Git blob through intercepted route",
+  "historyResult": {
+    "ok": true,
+    "deliveries": 1
+  },
+  "oldModelRequests": 0,
+  "mainHistoryShowsDelivery": true,
+  "stateAndSaveUnchanged": true,
+  "errors": []
+}
