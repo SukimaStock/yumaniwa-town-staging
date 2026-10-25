@@ -1,0 +1,141 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "aa8a4fb82f1fe642ff09197c6c2e1475315414c0a0a0e6b91a6a06f691faf27f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-place-v072",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent v072 one-confirm absolute retail and two-store allocation over unchanged v07 session.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "abd0b1d42099318b71836136b03d324611bb9fd1",
+    "canonicalSources": [
+      "User full v072 allocation request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "works/ambertime/experiments/hand-and-place/v07/model.mjs",
+      "works/ambertime/experiments/hand-and-place/v071/app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-place-v072/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v072/**",
+      "works/ambertime-hand-and-place-v072-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/**",
+      "works/ambertime/experiments/hand-and-place/v03/**",
+      "works/ambertime-hand-and-place-v03-lab/**",
+      "works/ambertime/experiments/hand-and-place/v04/**",
+      "works/ambertime-hand-and-place-v04-lab/**",
+      "works/ambertime/experiments/hand-and-place/v05/**",
+      "works/ambertime-hand-and-place-v05-lab/**",
+      "works/ambertime/experiments/hand-and-place/v06/**",
+      "works/ambertime-hand-and-place-v06-lab/**",
+      "works/ambertime/experiments/hand-and-place/v07/**",
+      "works/ambertime-hand-and-place-v07-lab/**",
+      "works/ambertime/experiments/hand-and-place/v071/**",
+      "works/ambertime-hand-and-place-v071-lab/**"
+    ],
+    "expectedChanges": [
+      "New atomic adapter clones v07 session, validates absolute unsold-retail plus explicit store counts and optional current wishes, commits one outer command only after all native operations succeed.",
+      "One product modal: absolute self-retail and this-time delivery counts for two stores, auto hand remainder, +/- and direct input, one confirmation.",
+      "Open/close/source UI does not mutate state/log; input keeps DOM/focus; upper-limit rejection preserves other rows.",
+      "Native shelf/details/shop entry/time/rebrew/assets retained; measure operations/height/scroll against v071 and public staging."
+    ],
+    "ownerDecisions": [
+      "User v072 request authorizes independent Lab, atomic allocation adapter, targeted tests, PR and Staging publication; existing works/save/Production protected."
+    ],
+    "hqDecisions": [
+      "Pure adapter only; native v07/v06 chemistry, demand, sales, time and records unchanged."
+    ],
+    "rulesApplied": [
+      "Full Plan Lock before implementation; existing lifecycle registration/generator.",
+      "Expression audit: necessary stock/source/order/status only, no added ambientcopy or fictional sales claims."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390 shelf/product/store entry, no input DOM reconstruction, upper-limit preserves row values and focus, no state/log on open/close.",
+      "Combined retail/store allocation vs old explicit native sequence; atomic invalid count/order/stock, sold stock protected, noop and replay.",
+      "Existing time/rebrew/bottle/archive and current source identity; public bytes/basic browser."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only new v072, launcher, lifecycle entry/generated LAB and lock; no migration.",
+    "outOfScope": [
+      "Existing Labs/main/save/Production edits",
+      "New demand/flavor/economy/autodelivery",
+      "Physical Safari/VoiceOver/heat verification"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver/feel/heat and author adoption",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Mutate existing v071/v07/v06",
+      "Partial apply before later delivery failure",
+      "Implicitly reclaim sold or delivered stock",
+      "Auto delivery, new taste/demand/economy, exhaustive E2E"
+    ],
+    "boundaryCases": [
+      "Absolute retail unchanged vs reducing to hand vs allocating; store quantities actual deliveries, wish optional and closed only when explicitly answered.",
+      "Sum integers bounded by hand plus unsold retail, never sold; failures preserve entire session and command logs; noop adds no record.",
+      "Open/close or editing drafts never dispatches select-card/inspect; same handler from shelf or store; directinput remains connected.",
+      "One clock and no hidden/reduced repeated motion, unchanged oldfiles and save."
+    ],
+    "testPlan": [
+      "Atomic adapter tests plus native adapter regression/lifecycle; targeted browser at360/375/390; exactSHA Scope/Risk/Impact and required CI."
+    ],
+    "problem": "Sequential destination/source switching makes allocation of a single release long and fragmented.",
+    "currentContract": "v07 session model and all existing Labs/main/save/Production are immutable.",
+    "whyExistingIsInsufficient": "v071 performs each destination separately and switches hand versus unsold sources explicitly.",
+    "design": "New v072 pure transaction adapter over v07 plus one draft modal with three rows and a hand remainder.",
+    "migration": "No main-save migration. v072 deterministic outer logs; safe native v07 imports.",
+    "compatibility": "Native v07 operations remain read-only dependencies; matched old-sequence native state/records equal.",
+    "promotionRisk": "Staging-only screenexperiment, authorintegrationdecisionlater."
+  }
+}
