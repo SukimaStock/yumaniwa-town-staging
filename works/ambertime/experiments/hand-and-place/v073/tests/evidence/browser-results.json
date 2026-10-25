@@ -1,0 +1,234 @@
+{
+  "ok": true,
+  "widths": [
+    360,
+    375,
+    390
+  ],
+  "measurements": [
+    {
+      "width": 360,
+      "version": "v073",
+      "phase": "initial",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 360,
+      "version": "v073",
+      "phase": "placed",
+      "height": 657,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "version": "v073",
+      "phase": "initial",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "version": "v073",
+      "phase": "placed",
+      "height": 657,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "version": "v073",
+      "phase": "initial",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "version": "v073",
+      "phase": "placed",
+      "height": 657,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 360,
+      "viewportHeight": 700,
+      "version": "v073",
+      "phase": "initial-short",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 360,
+      "viewportHeight": 700,
+      "version": "v073",
+      "phase": "placed-short",
+      "height": 657,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "viewportHeight": 700,
+      "version": "v073",
+      "phase": "initial-short",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "viewportHeight": 700,
+      "version": "v073",
+      "phase": "placed-short",
+      "height": 657,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "viewportHeight": 700,
+      "version": "v073",
+      "phase": "initial-short",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "viewportHeight": 700,
+      "version": "v073",
+      "phase": "placed-short",
+      "height": 657,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 360,
+      "viewportHeight": 650,
+      "version": "v073",
+      "phase": "initial-short",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 360,
+      "viewportHeight": 650,
+      "version": "v073",
+      "phase": "placed-short",
+      "height": 626,
+      "scroll": 0,
+      "bodyScroll": 31
+    },
+    {
+      "width": 375,
+      "viewportHeight": 650,
+      "version": "v073",
+      "phase": "initial-short",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "viewportHeight": 650,
+      "version": "v073",
+      "phase": "placed-short",
+      "height": 626,
+      "scroll": 0,
+      "bodyScroll": 31
+    },
+    {
+      "width": 390,
+      "viewportHeight": 650,
+      "version": "v073",
+      "phase": "initial-short",
+      "height": 623,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "viewportHeight": 650,
+      "version": "v073",
+      "phase": "placed-short",
+      "height": 626,
+      "scroll": 0,
+      "bodyScroll": 31
+    },
+    {
+      "width": 360,
+      "version": "v072",
+      "phase": "initial",
+      "height": 598,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "version": "v072",
+      "phase": "initial",
+      "height": 598,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "version": "v072",
+      "phase": "initial",
+      "height": 598,
+      "scroll": 0,
+      "bodyScroll": 0
+    }
+  ],
+  "errors": [],
+  "scenarios": "A-H passed",
+  "parity": "v072 full session/native/exportLog exact",
+  "thirty": {
+    "total": 30,
+    "allocation": {
+      "retail": 15,
+      "restaurant": 2,
+      "liquor": 13
+    },
+    "remaining": 0,
+    "nodes": 3,
+    "afterNodes": 3
+  },
+  "motion": {
+    "duration": 240,
+    "noAlwaysRAF": true,
+    "rapidMaxPerTarget": 1,
+    "reducedHiddenCloseOffscreenStopped": true,
+    "draftNoFullRender": true
+  },
+  "operations": {
+    "definition": "one click or one quantity fill, no closing or focus clicks",
+    "A": {
+      "v072": 5,
+      "v073": 6
+    },
+    "B": {
+      "v072": 3,
+      "v073": 5
+    },
+    "C": {
+      "v072": 3,
+      "v073": 4
+    },
+    "D": {
+      "v072": 5,
+      "v073": 6
+    },
+    "E": {
+      "v072": 4,
+      "v073": 6
+    }
+  }
+}
