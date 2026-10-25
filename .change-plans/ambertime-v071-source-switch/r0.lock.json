@@ -1,0 +1,151 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9dee5d64d8cc1138d99377bf48170078068e948bd920628bc85033133fd54dd3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v071-source-switch",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preserve explicit hand-source switch when selected unsold retail inventory reaches zero after delivery.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2c460792230773023988a2fccdf3b27b037b2760",
+    "canonicalSources": [
+      "User full Hand and Place Lab0.7 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "PR628",
+      "works/ambertime/experiments/hand-and-place/v06/REPORT.md",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "User v071 full UI reduction request",
+      "works/ambertime/experiments/hand-and-place/v07/app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v071-source-switch/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v071/app.mjs",
+      "works/ambertime/experiments/hand-and-place/v071/tests/browser.cjs",
+      "works/ambertime/experiments/hand-and-place/v071/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/**",
+      "works/ambertime/experiments/hand-and-place/v03/**",
+      "works/ambertime-hand-and-place-v03-lab/**",
+      "works/ambertime/experiments/hand-and-place/v04/**",
+      "works/ambertime-hand-and-place-v04-lab/**",
+      "works/ambertime/experiments/hand-and-place/v05/**",
+      "works/ambertime-hand-and-place-v05-lab/**",
+      "works/ambertime/experiments/hand-and-place/v06/**",
+      "works/ambertime-hand-and-place-v06-lab/**",
+      "works/ambertime/experiments/hand-and-place/v07/**",
+      "works/ambertime-hand-and-place-v07-lab/**"
+    ],
+    "expectedChanges": [
+      "Selected retail source retains explicit hand-source switch when retail=0; no automatic source change.",
+      "Targeted regression retail3 exhausted, source switch state unchanged, remaining hand1 delivery, full native v07 session/log parity.",
+      "Record PR630 P2 and fix in existing report."
+    ],
+    "ownerDecisions": [
+      "User latest v071 request authorizes independent UI/Staging/PR, old main/Labs/save/Production protected."
+    ],
+    "hqDecisions": [
+      "No new model or mixed source semantics; read-only v07 model direct import."
+    ],
+    "rulesApplied": [
+      "Full Plan Lock before implementation; existing lifecycle registration/generator.",
+      "Expression audit: necessary stock/source/order/status only, no added ambientcopy or fictional sales claims."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Retail-only full depletion then explicit hand switch and hand delivery; switch does not mutate model; v07 full session parity."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this lock and the three declared source/test/report changes. No migration.",
+    "outOfScope": [
+      "ExistingLabs/main/model/art/CSS/save/Production edits",
+      "Newgame/demand/flavor/shops/brands, actualmainintegration or ledger rewrite, dragdrop/autodelivery",
+      "Full manualdistillationreimplementation/comprehensiveE2E/physicalheatmeasurement"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Authornativefeel/integrationadoption, physicaliPhoneSafari/VoiceOver/heat-power",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Import live shop-app with mainstorage sideeffects",
+      "Forknativeinventory/order/chemistry for presentation",
+      "Partiallycommit reclaim thenfailed delivery, or silentlyconsume unsoldpool",
+      "Retain cardframes/allocationmatrix or introduce newbrand simulation"
+    ],
+    "boundaryCases": [
+      "Invaliddirectcount/source/order/shop preserves inventory,wish,logs,commands; no reclaimdelivered/soldgoods.",
+      "Directfullgame equals oldtwoactions; normalfullgame equalsv06; owncommands replay allsteps deterministically.",
+      "Multiple releases same recipe with differingage/label/id; page/archive/rebrew exactidentity.",
+      "Modal closes/bottling do not forceallocation; focus restored when controls rebuilt or roomchanges.",
+      "Stock-onlysales do not redrawnativebackground/objects; finite effects cancelhidden/modal/offscreen/reduced, initial/import/modeswitch notnew events.",
+      "Independentstorage no accesswrites to main saves; sourceprops purelyread-only."
+    ],
+    "testPlan": [
+      "Relevant browser scenario passed at360/375/390; syntax/diff and lockedScopeRiskImpact/TrustedStatic/mandatoryCI."
+    ],
+    "problem": "PR630 P2: source-switch button disappears when selected retail stock is exhausted while hand inventory remains.",
+    "currentContract": "v071 uses read-only v07 model; source switches are UI-only, stock deducted only on explicit confirmation.",
+    "whyExistingIsInsufficient": "Bounded classifier rejected nested experiment edit; follow conventional locked route without weakening checks.",
+    "design": "Keep hand switch visible while retail source selected; one condition and targeted regression.",
+    "migration": "None. Read-only v07 model and unchanged schema.",
+    "compatibility": "Read-onlynativeasset/modeldependencies; normalgame stateexactv06C. Oldv06logs can be replayed viawrapper. No mainstorage access.",
+    "promotionRisk": "Staging-only screenexperiment, authorintegrationdecisionlater."
+  }
+}
