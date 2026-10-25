@@ -44,7 +44,7 @@ function renderModal(){if(!modal)return;if(modal.kind==='job'&&!state.jobs.some(
   if(m.destination){
    const destination=m.destination==='retail'?'自家販売へ':m.destination==='hand'?'手元へ戻す':shop(m.destination).name+'へ';
    body+=`<p class="chosen-destination">${destination}${source==='retail'?'・未販売分から':''}</p>`;
-   if(isStore&&view==='C'&&l.retail>0)body+=source==='retail'?button('手元から渡す','source','hand'):button('未販売分から渡す','source','retail');
+   if(isStore&&view==='C'&&(l.retail>0||source==='retail'))body+=source==='retail'?button('手元から渡す','source','hand'):button('未販売分から渡す','source','retail');
    body+=`<div class="quantity-row"><label for="quantity">本数</label><input id="quantity" type="number" min="1" max="${Math.max(1,max)}" step="1" inputmode="numeric" value="${m.count}">${button('全部','all')}</div>`;
    actions=button('','confirm',l.id,'data-confirm')+button('戻る','back','','data-return="true"');
   }else actions=button('戻る','back','','data-return="true"');
