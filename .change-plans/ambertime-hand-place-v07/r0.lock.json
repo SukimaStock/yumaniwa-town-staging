@@ -1,0 +1,161 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "43a6070a3ae0a45bb1f10720b27497c6a9b4fc076cf633075539c910cb289726",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-place-v07",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent v07 native sales-room shelf and modal over unchanged v06 C; explicit atomic unsold-retail direct delivery adapter; integration research only.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f60b6186ab51d58f755c7670df28e47a27c0f54b",
+    "canonicalSources": [
+      "User full Hand and Place Lab0.7 request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "PR628",
+      "works/ambertime/experiments/hand-and-place/v06/REPORT.md",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-demand.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-place-v07/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v07/**",
+      "works/ambertime-hand-and-place-v07-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/**",
+      "works/ambertime/experiments/hand-and-place/v03/**",
+      "works/ambertime-hand-and-place-v03-lab/**",
+      "works/ambertime/experiments/hand-and-place/v04/**",
+      "works/ambertime-hand-and-place-v04-lab/**",
+      "works/ambertime/experiments/hand-and-place/v05/**",
+      "works/ambertime-hand-and-place-v05-lab/**",
+      "works/ambertime/experiments/hand-and-place/v06/**",
+      "works/ambertime-hand-and-place-v06-lab/**"
+    ],
+    "expectedChanges": [
+      "Native salesroom four-perpage shelf geometry, originalbottle/cask/still/pixelicons/font/CSS reuse with read-onlyimports; retain distill/warehouse/sales navigation without reimplementingdistillation.",
+      "Bottle opens native-size modal with brandgroup/release/age/flavor/hand/unsold and destination/quantity confirmation; no cardpanels, mainallocationtable or requiredpostbottlingpopup.",
+      "All normal actions delegate unchangedv06C and preserve exactstate. A baseline existingv06C link, B shelf oldreclaim flow, C same shelf plus explicitunsoldsource directdelivery; UIcomparisonstate independent.",
+      "Atomic retail-deliver on clonedgame via existingreclaim+deliver+validate, commit onlyafterbothsuccess; internalnativeactions retained and wrappercommandlog trackscompoundintent.",
+      "v07 log/schema keeps game nativev06 state and outercommands; v06logs mayimport without changingoldformat. Directpath same fullgame as equivalentoldcommands; invalid leaveswholewrapper unchanged.",
+      "Two stores via existingmodal/storeicon, representativebottle/factualstatus/currentwish/source release; same deliverhandler frombothentrypoints, no exactshopcount.",
+      "Keyed/regioncached displays and single3sclock, finite realevent effects only, reduced/hidden/offscreen/modal handling; no unnecessarywhole-room updatesonsale.",
+      "REPORT A/B/C comparison plus maininventory/autoship/brand-release/ledger/save integrationmap; fixedlogs/targetedtests/phonechecks/lifecycle/CI/PR/Stagingpublication."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes independentv07Staging publication, nativeUI/source reuse, atomicdirectUI experiment; no currentmain/Labs/save/Production edits. Author will judgeintegration/design."
+    ],
+    "hqDecisions": [
+      "No existingcontract/modelchanges. Read-only nativeart/style/layout imported; do not importshop-app or storageinitializers intoLab.",
+      "v06C is preservednormalgame; newouterv07 session{game,commands} logs compositeactions separately without overwritingnativeactionindices.",
+      "Directunsoldsourcemustbeexplicitandconfirmed; clone/reclaim/deliver/validate thenonecommit; no silenthandtopup/retailborrowing or newinventorymodel.",
+      "Mainv06hasrecipegroup notrealmainbrands: derive stable displaygroup/releaseNo from existingrecipeId+origin for comparison, no newbrandcreation/savefields.",
+      "No autonomousdeliveries, extra simulation, points or mainintegration. ShelfUI paging and archive distinguish multipleactualreleaseIDs."
+    ],
+    "rulesApplied": [
+      "Full Plan Lock before implementation; existing lifecycle registration/generator.",
+      "Expression audit: necessary stock/source/order/status only, no added ambientcopy or fictional sales claims."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Native shelf/modal 360/375/390px, brandgroup/release/age/stock differentiation, top-rightclose/bottomrightback, roomnavigation and keyboard focus.",
+      "Normalv06Acomparison vs B commonactions fullgamestate; C direct2unsold→store withatomicfailures, optionalwish/noorder/mixedsource unchanged.",
+      "Bottlepreparedjob→shelf noforceddestinationpopup, differentage releases selectcorrectid, replay/import/export exact and no repeatedmotions.",
+      "Selfsale allocatedonly; pause/hidden/reduced/oneclock and nofullshelf churn forstockonlyupdate; storagecanaryunchanged and publicbytes/basicops."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only newv07, launcher, lifecycleentry/generatedLAB and lock. No migration.",
+    "outOfScope": [
+      "ExistingLabs/main/model/art/CSS/save/Production edits",
+      "Newgame/demand/flavor/shops/brands, actualmainintegration or ledger rewrite, dragdrop/autodelivery",
+      "Full manualdistillationreimplementation/comprehensiveE2E/physicalheatmeasurement"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Authornativefeel/integrationadoption, physicaliPhoneSafari/VoiceOver/heat-power",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Import live shop-app with mainstorage sideeffects",
+      "Forknativeinventory/order/chemistry for presentation",
+      "Partiallycommit reclaim thenfailed delivery, or silentlyconsume unsoldpool",
+      "Retain cardframes/allocationmatrix or introduce newbrand simulation"
+    ],
+    "boundaryCases": [
+      "Invaliddirectcount/source/order/shop preserves inventory,wish,logs,commands; no reclaimdelivered/soldgoods.",
+      "Directfullgame equals oldtwoactions; normalfullgame equalsv06; owncommands replay allsteps deterministically.",
+      "Multiple releases same recipe with differingage/label/id; page/archive/rebrew exactidentity.",
+      "Modal closes/bottling do not forceallocation; focus restored when controls rebuilt or roomchanges.",
+      "Stock-onlysales do not redrawnativebackground/objects; finite effects cancelhidden/modal/offscreen/reduced, initial/import/modeswitch notnew events.",
+      "Independentstorage no accesswrites to main saves; sourceprops purelyread-only."
+    ],
+    "testPlan": [
+      "Adapteratomic success/fail/nativeparity/directtwoactionequivalence/v06andv07logreplay/tamper/recipeage fixtures.",
+      "Relatedphone shelf/modal/destination/source/quantity/wish/rooms/newrelease/focus/storage/motion/clock; Lifecycle24/syntax/ScopeRiskImpact/mandatoryCI and publicsourcechecks."
+    ],
+    "problem": "v06freedom works but cardlikeUI doesnotfeel like AmberTime native salesroom; reclaim-first route addsmanagementsteps.",
+    "currentContract": "Existingcode/art/styles/models/saves immutable; v07read-onlyreusespure source and wrapsnativev06C.",
+    "whyExistingIsInsufficient": "Cardselectionandvisibleallocationcontrols do notmatch native bottle shelf/modal or directexplicitredirection.",
+    "design": "Native roomlayout/art and originalmodalCSS with shelf-drivenidentity; clone-basedatomiccompositeadapter, no neweconomiclogic.",
+    "migration": "None. v07outercommandlog only; main/v06formats unchanged.",
+    "compatibility": "Read-onlynativeasset/modeldependencies; normalgame stateexactv06C. Oldv06logs can be replayed viawrapper. No mainstorage access.",
+    "promotionRisk": "Staging-only screenexperiment, authorintegrationdecisionlater."
+  }
+}
