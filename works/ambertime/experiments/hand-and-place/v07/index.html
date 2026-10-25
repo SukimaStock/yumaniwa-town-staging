@@ -1,0 +1,13 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>AmberTime 販売室 Lab 0.7</title><link rel="stylesheet" href="../../../shop.css"><link rel="stylesheet" href="../../../room-scene.css"><link rel="stylesheet" href="style.css"></head><body data-room="sales">
+<div id="scene-root" role="region" aria-label="販売室"><main id="room-surface">
+<div id="backdrop" aria-hidden="true"></div><header id="scene-hud"><span id="calendar">0年</span><span>AmberTime</span></header>
+<div id="clock-controls"><button id="step" aria-label="1か月進める">1か月</button><span id="time-status">停止中</span><button id="play" aria-label="時間を流す" aria-pressed="false"></button></div>
+<h1 id="room-title">販売室</h1><div id="shelf-pages"><button data-page="-1" aria-label="棚の前のページ">前</button><span id="page-label"></span><button data-page="1" aria-label="棚の次のページ">次</button></div>
+<div id="product-shelf" aria-label="発売回の瓶棚"></div><div id="cask-rack" aria-label="熟成中の樽"></div>
+<div id="still-art" aria-hidden="true"></div><button id="recipes">製法から仕込む</button><p id="empty-room"></p>
+<p id="scene-message" role="status" aria-live="polite"></p>
+<div id="room-tools"><button id="shops" aria-label="取扱店を開く"></button><button id="settings" aria-label="条件と操作ログを開く">…</button></div>
+<nav id="room-nav" aria-label="蒸留所の部屋"><button data-room="distill" aria-pressed="false">蒸留室</button><button data-room="warehouse" aria-pressed="false">貯蔵庫</button><button data-room="sales" aria-pressed="true">販売室</button></nav>
+</main></div>
+<dialog id="action-dialog"><div class="dialog-heading"><h2 id="dialog-title"></h2><button id="close-dialog" aria-label="閉じる"></button></div><p id="dialog-error" role="status" hidden></p><div id="dialog-body"></div><div id="dialog-actions"></div></dialog>
+<script type="module" src="app.mjs"></script></body></html>
