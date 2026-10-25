@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "widths": [
+    360,
+    375,
+    390
+  ],
+  "normalActualV06Parity": true,
+  "directActualOldPathParity": true,
+  "stockOnlyBackgroundWrites": 0,
+  "stockOnlyObjectCreates": 0,
+  "storageWrites": [],
+  "errors": [],
+  "physicalDevice": false,
+  "syntheticVisibility": true
+}

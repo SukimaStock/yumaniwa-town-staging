@@ -1,0 +1,1728 @@
+{
+  "schema": "ambertime-hand-and-place/0.7",
+  "initial": {
+    "seed": 42,
+    "scenario": "standard"
+  },
+  "commands": [
+    {
+      "type": "select-card",
+      "lotId": 1
+    },
+    {
+      "type": "inspect",
+      "lotId": 1
+    },
+    {
+      "type": "allocate",
+      "lotId": 1,
+      "count": 3
+    },
+    {
+      "type": "step",
+      "months": 1
+    },
+    {
+      "type": "select-card",
+      "lotId": 1
+    },
+    {
+      "type": "inspect",
+      "lotId": 1
+    },
+    {
+      "type": "retail-deliver",
+      "shopId": "liquor",
+      "lotId": 1,
+      "count": 2,
+      "orderId": 2
+    },
+    {
+      "type": "select-card",
+      "lotId": 2
+    },
+    {
+      "type": "inspect",
+      "lotId": 2
+    },
+    {
+      "type": "deliver",
+      "shopId": "restaurant",
+      "lotId": 2,
+      "count": 2,
+      "orderId": 1
+    },
+    {
+      "type": "step",
+      "months": 1
+    },
+    {
+      "type": "step",
+      "months": 1
+    },
+    {
+      "type": "step",
+      "months": 1
+    },
+    {
+      "type": "step",
+      "months": 1
+    },
+    {
+      "type": "step",
+      "months": 1
+    },
+    {
+      "type": "bottle",
+      "jobId": 1
+    },
+    {
+      "type": "select-card",
+      "lotId": 4
+    },
+    {
+      "type": "inspect",
+      "lotId": 4
+    },
+    {
+      "type": "deliver",
+      "shopId": "restaurant",
+      "lotId": 4,
+      "count": 1,
+      "orderId": 4
+    },
+    {
+      "type": "rebrew",
+      "lotId": 1
+    },
+    {
+      "type": "step",
+      "months": 1
+    },
+    {
+      "type": "step",
+      "months": 1
+    },
+    {
+      "type": "bottle",
+      "jobId": 2
+    },
+    {
+      "type": "select-card",
+      "lotId": 5
+    },
+    {
+      "type": "inspect",
+      "lotId": 5
+    }
+  ],
+  "native": {
+    "schema": "ambertime-hand-and-place/0.6",
+    "initial": {
+      "seed": 42,
+      "scenario": "standard",
+      "mode": "C"
+    },
+    "state": {
+      "seed": 42,
+      "scenario": "standard",
+      "initialScenario": "standard",
+      "month": 8,
+      "lots": [
+        {
+          "id": 1,
+          "recipeId": "fruit",
+          "recipe": {
+            "malt": "plain",
+            "ferment": "long",
+            "start": 0.12121212121212122,
+            "end": 0.40404040404040403,
+            "cask": "refill",
+            "collectionVersion": 2
+          },
+          "ageMonths": 24,
+          "label": "果実香が強い",
+          "profile": {
+            "fruit": 0.8542797744459617,
+            "grain": 0.37793027145662506,
+            "smoke": 0.05445048194438743,
+            "body": 0.20568861734295096,
+            "spice": 0.10878387105437451,
+            "rough": 0.3594219227254326,
+            "wood": 0.05600173717907771,
+            "vanilla": 0.03623641817469733
+          },
+          "product": {
+            "roughness": 0.3594219227254326,
+            "character": 0.8542797744459617,
+            "wood": 0.05600173717907771,
+            "age": 24,
+            "price": 30,
+            "aromaFamily": "fruit",
+            "label": "果実香が強い"
+          },
+          "stock": 3,
+          "count": 6,
+          "bottledMonth": -1,
+          "sourceId": null,
+          "retail": 0,
+          "retailSold": 1,
+          "retailSince": null
+        },
+        {
+          "id": 2,
+          "recipeId": "smoke",
+          "recipe": {
+            "malt": "peat",
+            "ferment": "long",
+            "start": 0.10101010101010101,
+            "end": 0.9090909090909091,
+            "cask": "refill",
+            "collectionVersion": 2
+          },
+          "ageMonths": 24,
+          "label": "煙の香りが豊か",
+          "profile": {
+            "fruit": 0.5883194244696502,
+            "grain": 0.4602027750029201,
+            "smoke": 0.6750377413013966,
+            "body": 0.5714341588508121,
+            "spice": 0.28378729178368023,
+            "rough": 0.3126017848494846,
+            "wood": 0.05837717038313414,
+            "vanilla": 0.037773463189086795
+          },
+          "product": {
+            "roughness": 0.3126017848494846,
+            "character": 0.6750377413013966,
+            "wood": 0.05837717038313414,
+            "age": 24,
+            "price": 30,
+            "aromaFamily": "smoke",
+            "label": "煙の香りが豊か"
+          },
+          "stock": 4,
+          "count": 6,
+          "bottledMonth": -1,
+          "sourceId": null,
+          "retail": 0,
+          "retailSold": 0,
+          "retailSince": null
+        },
+        {
+          "id": 3,
+          "recipeId": "wood",
+          "recipe": {
+            "malt": "plain",
+            "ferment": "long",
+            "start": 0.12121212121212122,
+            "end": 0.40404040404040403,
+            "cask": "first",
+            "collectionVersion": 2
+          },
+          "ageMonths": 144,
+          "label": "果実香と樽の甘い香り",
+          "profile": {
+            "fruit": 0.800781940859577,
+            "grain": 0.3604110723736231,
+            "smoke": 0.05242463341571814,
+            "body": 0.19950317621717378,
+            "spice": 0.10006356081296783,
+            "rough": 0.178712081858299,
+            "wood": 0.5438589379331431,
+            "vanilla": 0.512703486940765
+          },
+          "product": {
+            "roughness": 0.178712081858299,
+            "character": 0.800781940859577,
+            "wood": 0.5438589379331431,
+            "age": 144,
+            "price": 30,
+            "aromaFamily": "fruit",
+            "label": "果実香と樽の甘い香り"
+          },
+          "stock": 6,
+          "count": 6,
+          "bottledMonth": -1,
+          "sourceId": null,
+          "retail": 0,
+          "retailSold": 0,
+          "retailSince": null
+        },
+        {
+          "id": 4,
+          "recipeId": "fruit",
+          "recipe": {
+            "malt": "plain",
+            "ferment": "long",
+            "start": 0.12121212121212122,
+            "end": 0.40404040404040403,
+            "cask": "refill",
+            "collectionVersion": 2
+          },
+          "ageMonths": 28,
+          "label": "果実香が強い",
+          "profile": {
+            "fruit": 0.8519063785202898,
+            "grain": 0.3771761443669666,
+            "smoke": 0.05436438879520732,
+            "body": 0.20540924411861983,
+            "spice": 0.10837249795415356,
+            "rough": 0.34713866882317135,
+            "wood": 0.06429411501469531,
+            "vanilla": 0.04160207442127343
+          },
+          "product": {
+            "roughness": 0.34713866882317135,
+            "character": 0.8519063785202898,
+            "wood": 0.06429411501469531,
+            "age": 28,
+            "price": 30,
+            "aromaFamily": "fruit",
+            "label": "果実香が強い"
+          },
+          "stock": 5,
+          "count": 6,
+          "bottledMonth": 6,
+          "sourceId": 1,
+          "retail": 0,
+          "retailSold": 0,
+          "retailSince": null
+        },
+        {
+          "id": 5,
+          "recipeId": "fruit",
+          "recipe": {
+            "malt": "plain",
+            "ferment": "long",
+            "start": 0.12121212121212122,
+            "end": 0.40404040404040403,
+            "cask": "refill",
+            "collectionVersion": 2
+          },
+          "ageMonths": 1,
+          "label": "果実香が強い",
+          "profile": {
+            "fruit": 0.8689293875664761,
+            "grain": 0.38254828008520836,
+            "smoke": 0.05497593001661928,
+            "body": 0.20742126870596161,
+            "spice": 0.11136534824873844,
+            "rough": 0.44554786200892815,
+            "wood": 0.0025638216986893386,
+            "vanilla": 0.001658943452093101
+          },
+          "product": {
+            "roughness": 0.44554786200892815,
+            "character": 0.8689293875664761,
+            "wood": 0.0025638216986893386,
+            "age": 1,
+            "price": 30,
+            "aromaFamily": "fruit",
+            "label": "果実香が強い"
+          },
+          "stock": 6,
+          "count": 6,
+          "bottledMonth": 8,
+          "sourceId": 1,
+          "retail": 0,
+          "retailSold": 0,
+          "retailSince": null
+        }
+      ],
+      "jobs": [],
+      "shops": {
+        "restaurant": {
+          "id": "restaurant",
+          "stock": 0,
+          "lotId": 4,
+          "lastDeliveryId": 3,
+          "usageEvery": 1,
+          "retryAt": null,
+          "orderId": 5,
+          "lastUsedDeliveryId": 3
+        },
+        "liquor": {
+          "id": "liquor",
+          "stock": 0,
+          "lotId": 1,
+          "lastDeliveryId": 1,
+          "usageEvery": 1,
+          "retryAt": null,
+          "orderId": 3,
+          "lastUsedDeliveryId": 1
+        }
+      },
+      "orders": [
+        {
+          "id": 1,
+          "shopId": "restaurant",
+          "month": 0,
+          "count": 2,
+          "text": "食後に出せるウイスキーを2本、お願いできますか。",
+          "reason": {
+            "code": "initial",
+            "sourceDeliveryId": null,
+            "sourceLotId": null
+          },
+          "status": "fulfilled",
+          "deliveredCount": 2
+        },
+        {
+          "id": 2,
+          "shopId": "liquor",
+          "month": 0,
+          "count": 2,
+          "text": "店頭で紹介する一本を試したいので、2本お願いできますか。",
+          "reason": {
+            "code": "initial",
+            "sourceDeliveryId": null,
+            "sourceLotId": null
+          },
+          "status": "fulfilled",
+          "deliveredCount": 2
+        },
+        {
+          "id": 3,
+          "shopId": "liquor",
+          "month": 3,
+          "count": 2,
+          "text": "次は前と違う一本を2本、試してみたいです。",
+          "reason": {
+            "code": "different",
+            "wish": "other",
+            "reasonCode": "liquor-other",
+            "sourceDeliveryId": 1,
+            "sourceLotId": 1
+          },
+          "status": "open",
+          "deliveredCount": 0
+        },
+        {
+          "id": 4,
+          "shopId": "restaurant",
+          "month": 5,
+          "count": 2,
+          "text": "次はもう少し軽い味を2本、試してみたいです。",
+          "reason": {
+            "code": "different",
+            "wish": "lighter",
+            "reasonCode": "restaurant-strong",
+            "sourceDeliveryId": 2,
+            "sourceLotId": 2
+          },
+          "status": "partial",
+          "deliveredCount": 1
+        },
+        {
+          "id": 5,
+          "shopId": "restaurant",
+          "month": 7,
+          "count": 2,
+          "text": "前に渡してもらった「果実香が強い」を、また2本お願いします。",
+          "reason": {
+            "code": "same",
+            "wish": null,
+            "reasonCode": "restaurant-ordinary",
+            "sourceDeliveryId": 3,
+            "sourceLotId": 4
+          },
+          "status": "open",
+          "deliveredCount": 0
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "month": 1,
+          "orderId": 2,
+          "shopId": "liquor",
+          "lotId": 1,
+          "count": 2,
+          "remaining": 0,
+          "handBefore": 5,
+          "handAfter": 3,
+          "shopBefore": 0,
+          "shopAfter": 2,
+          "reply": "ありがとうございます。この一本を受け取ります。",
+          "plan": {
+            "kind": "different",
+            "wish": "other",
+            "usageEvery": 1,
+            "nextCount": 2,
+            "reasonCode": "liquor-other"
+          }
+        },
+        {
+          "id": 2,
+          "month": 1,
+          "orderId": 1,
+          "shopId": "restaurant",
+          "lotId": 2,
+          "count": 2,
+          "remaining": 0,
+          "handBefore": 6,
+          "handAfter": 4,
+          "shopBefore": 0,
+          "shopAfter": 2,
+          "reply": "ありがとうございます。この一本を受け取ります。",
+          "plan": {
+            "kind": "different",
+            "wish": "lighter",
+            "usageEvery": 2,
+            "nextCount": 2,
+            "reasonCode": "restaurant-strong"
+          }
+        },
+        {
+          "id": 3,
+          "month": 6,
+          "orderId": 4,
+          "shopId": "restaurant",
+          "lotId": 4,
+          "count": 1,
+          "remaining": 0,
+          "handBefore": 6,
+          "handAfter": 5,
+          "shopBefore": 0,
+          "shopAfter": 1,
+          "reply": "ありがとうございます。この一本を受け取ります。",
+          "plan": {
+            "kind": "same",
+            "wish": null,
+            "usageEvery": 1,
+            "nextCount": 2,
+            "reasonCode": "restaurant-ordinary"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": 1,
+          "month": 0,
+          "type": "prepared-fixture",
+          "text": "試遊用に22か月熟成済みの果実香の樽を1つ用意しました。",
+          "jobId": 1,
+          "sourceId": 1,
+          "ageMonths": 22
+        },
+        {
+          "id": 2,
+          "month": 0,
+          "type": "order",
+          "text": "レストラン：食後に出せるウイスキーを2本、お願いできますか。",
+          "orderId": 1,
+          "shopId": "restaurant",
+          "count": 2,
+          "reason": {
+            "code": "initial",
+            "sourceDeliveryId": null,
+            "sourceLotId": null
+          }
+        },
+        {
+          "id": 3,
+          "month": 0,
+          "type": "order",
+          "text": "酒屋：店頭で紹介する一本を試したいので、2本お願いできますか。",
+          "orderId": 2,
+          "shopId": "liquor",
+          "count": 2,
+          "reason": {
+            "code": "initial",
+            "sourceDeliveryId": null,
+            "sourceLotId": null
+          }
+        },
+        {
+          "id": 4,
+          "month": 0,
+          "type": "allocate",
+          "text": "発売#1を3本、自店に配分しました。",
+          "lotId": 1,
+          "count": 3,
+          "handAfter": 3,
+          "retailAfter": 3
+        },
+        {
+          "id": 5,
+          "month": 1,
+          "type": "retail-sale",
+          "text": "自店で発売#1が1本売れました。",
+          "lotId": 1,
+          "count": 1,
+          "retailBefore": 3,
+          "retailAfter": 2
+        },
+        {
+          "id": 6,
+          "month": 1,
+          "type": "month",
+          "text": "1か月目になりました。"
+        },
+        {
+          "id": 7,
+          "month": 1,
+          "type": "reclaim",
+          "text": "発売#1の未販売分2本を手元に戻しました。",
+          "lotId": 1,
+          "count": 2,
+          "handAfter": 5,
+          "retailAfter": 0
+        },
+        {
+          "id": 8,
+          "month": 1,
+          "type": "delivery",
+          "text": "酒屋へ発売#1を2本渡しました。",
+          "deliveryId": 1,
+          "orderId": 2,
+          "shopId": "liquor",
+          "lotId": 1,
+          "count": 2,
+          "reply": "ありがとうございます。この一本を受け取ります。",
+          "plan": {
+            "kind": "different",
+            "wish": "other",
+            "usageEvery": 1,
+            "nextCount": 2,
+            "reasonCode": "liquor-other"
+          }
+        },
+        {
+          "id": 9,
+          "month": 1,
+          "type": "delivery",
+          "text": "レストランへ発売#2を2本渡しました。",
+          "deliveryId": 2,
+          "orderId": 1,
+          "shopId": "restaurant",
+          "lotId": 2,
+          "count": 2,
+          "reply": "ありがとうございます。この一本を受け取ります。",
+          "plan": {
+            "kind": "different",
+            "wish": "lighter",
+            "usageEvery": 2,
+            "nextCount": 2,
+            "reasonCode": "restaurant-strong"
+          }
+        },
+        {
+          "id": 10,
+          "month": 2,
+          "type": "use",
+          "text": "酒屋で1本使われました。",
+          "shopId": "liquor",
+          "lotId": 1,
+          "deliveryId": 1,
+          "count": 1,
+          "remaining": 1,
+          "deliveryRemaining": 1
+        },
+        {
+          "id": 11,
+          "month": 2,
+          "type": "month",
+          "text": "2か月目になりました。"
+        },
+        {
+          "id": 12,
+          "month": 3,
+          "type": "use",
+          "text": "レストランで1本使われました。",
+          "shopId": "restaurant",
+          "lotId": 2,
+          "deliveryId": 2,
+          "count": 1,
+          "remaining": 1,
+          "deliveryRemaining": 1
+        },
+        {
+          "id": 13,
+          "month": 3,
+          "type": "use",
+          "text": "酒屋で1本使われました。",
+          "shopId": "liquor",
+          "lotId": 1,
+          "deliveryId": 1,
+          "count": 1,
+          "remaining": 0,
+          "deliveryRemaining": 0
+        },
+        {
+          "id": 14,
+          "month": 3,
+          "type": "order",
+          "text": "酒屋：次は前と違う一本を2本、試してみたいです。",
+          "orderId": 3,
+          "shopId": "liquor",
+          "count": 2,
+          "reason": {
+            "code": "different",
+            "wish": "other",
+            "reasonCode": "liquor-other",
+            "sourceDeliveryId": 1,
+            "sourceLotId": 1
+          }
+        },
+        {
+          "id": 15,
+          "month": 3,
+          "type": "month",
+          "text": "3か月目になりました。"
+        },
+        {
+          "id": 16,
+          "month": 4,
+          "type": "month",
+          "text": "4か月目になりました。"
+        },
+        {
+          "id": 17,
+          "month": 5,
+          "type": "use",
+          "text": "レストランで1本使われました。",
+          "shopId": "restaurant",
+          "lotId": 2,
+          "deliveryId": 2,
+          "count": 1,
+          "remaining": 0,
+          "deliveryRemaining": 0
+        },
+        {
+          "id": 18,
+          "month": 5,
+          "type": "order",
+          "text": "レストラン：次はもう少し軽い味を2本、試してみたいです。",
+          "orderId": 4,
+          "shopId": "restaurant",
+          "count": 2,
+          "reason": {
+            "code": "different",
+            "wish": "lighter",
+            "reasonCode": "restaurant-strong",
+            "sourceDeliveryId": 2,
+            "sourceLotId": 2
+          }
+        },
+        {
+          "id": 19,
+          "month": 5,
+          "type": "month",
+          "text": "5か月目になりました。"
+        },
+        {
+          "id": 20,
+          "month": 6,
+          "type": "month",
+          "text": "6か月目になりました。"
+        },
+        {
+          "id": 21,
+          "month": 6,
+          "type": "bottle",
+          "text": "発売#4を6本、瓶詰めしました。手渡す一本に選べます。",
+          "jobId": 1,
+          "lotId": 4,
+          "sourceId": 1
+        },
+        {
+          "id": 22,
+          "month": 6,
+          "type": "delivery",
+          "text": "レストランへ発売#4を1本渡しました。",
+          "deliveryId": 3,
+          "orderId": 4,
+          "shopId": "restaurant",
+          "lotId": 4,
+          "count": 1,
+          "reply": "ありがとうございます。この一本を受け取ります。",
+          "plan": {
+            "kind": "same",
+            "wish": null,
+            "usageEvery": 1,
+            "nextCount": 2,
+            "reasonCode": "restaurant-ordinary"
+          }
+        },
+        {
+          "id": 23,
+          "month": 6,
+          "type": "rebrew",
+          "text": "発売#1の製法で、もう一度造ります。仕込みに1か月、その後に熟成します。",
+          "lotId": 1,
+          "jobId": 2
+        },
+        {
+          "id": 24,
+          "month": 7,
+          "type": "use",
+          "text": "レストランで1本使われました。",
+          "shopId": "restaurant",
+          "lotId": 4,
+          "deliveryId": 3,
+          "count": 1,
+          "remaining": 0,
+          "deliveryRemaining": 0
+        },
+        {
+          "id": 25,
+          "month": 7,
+          "type": "order",
+          "text": "レストラン：前に渡してもらった「果実香が強い」を、また2本お願いします。",
+          "orderId": 5,
+          "shopId": "restaurant",
+          "count": 2,
+          "reason": {
+            "code": "same",
+            "wish": null,
+            "reasonCode": "restaurant-ordinary",
+            "sourceDeliveryId": 3,
+            "sourceLotId": 4
+          }
+        },
+        {
+          "id": 26,
+          "month": 7,
+          "type": "prepared",
+          "text": "仕込み#2が終わり、熟成を始めました。",
+          "jobId": 2
+        },
+        {
+          "id": 27,
+          "month": 7,
+          "type": "month",
+          "text": "7か月目になりました。"
+        },
+        {
+          "id": 28,
+          "month": 8,
+          "type": "month",
+          "text": "8か月目になりました。"
+        },
+        {
+          "id": 29,
+          "month": 8,
+          "type": "bottle",
+          "text": "発売#5を6本、瓶詰めしました。手渡す一本に選べます。",
+          "jobId": 2,
+          "lotId": 5,
+          "sourceId": 1
+        }
+      ],
+      "actions": [
+        {
+          "type": "select-card",
+          "lotId": 1,
+          "month": 0
+        },
+        {
+          "type": "inspect",
+          "lotId": 1,
+          "month": 0
+        },
+        {
+          "type": "allocate",
+          "lotId": 1,
+          "count": 3,
+          "month": 0
+        },
+        {
+          "type": "step",
+          "months": 1,
+          "month": 1
+        },
+        {
+          "type": "select-card",
+          "lotId": 1,
+          "month": 1
+        },
+        {
+          "type": "inspect",
+          "lotId": 1,
+          "month": 1
+        },
+        {
+          "type": "reclaim",
+          "lotId": 1,
+          "count": 2,
+          "month": 1
+        },
+        {
+          "type": "deliver",
+          "lotId": 1,
+          "shopId": "liquor",
+          "count": 2,
+          "orderId": 2,
+          "month": 1
+        },
+        {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 1
+        },
+        {
+          "type": "inspect",
+          "lotId": 2,
+          "month": 1
+        },
+        {
+          "type": "deliver",
+          "shopId": "restaurant",
+          "lotId": 2,
+          "count": 2,
+          "orderId": 1,
+          "month": 1
+        },
+        {
+          "type": "step",
+          "months": 1,
+          "month": 2
+        },
+        {
+          "type": "step",
+          "months": 1,
+          "month": 3
+        },
+        {
+          "type": "step",
+          "months": 1,
+          "month": 4
+        },
+        {
+          "type": "step",
+          "months": 1,
+          "month": 5
+        },
+        {
+          "type": "step",
+          "months": 1,
+          "month": 6
+        },
+        {
+          "type": "bottle",
+          "jobId": 1,
+          "month": 6
+        },
+        {
+          "type": "select-card",
+          "lotId": 4,
+          "month": 6
+        },
+        {
+          "type": "inspect",
+          "lotId": 4,
+          "month": 6
+        },
+        {
+          "type": "deliver",
+          "shopId": "restaurant",
+          "lotId": 4,
+          "count": 1,
+          "orderId": 4,
+          "month": 6
+        },
+        {
+          "type": "rebrew",
+          "lotId": 1,
+          "month": 6
+        },
+        {
+          "type": "step",
+          "months": 1,
+          "month": 7
+        },
+        {
+          "type": "step",
+          "months": 1,
+          "month": 8
+        },
+        {
+          "type": "bottle",
+          "jobId": 2,
+          "month": 8
+        },
+        {
+          "type": "select-card",
+          "lotId": 5,
+          "month": 8
+        },
+        {
+          "type": "inspect",
+          "lotId": 5,
+          "month": 8
+        }
+      ],
+      "selectedOrderId": null,
+      "selectedLotId": 5,
+      "mode": "C",
+      "initialMode": "C"
+    },
+    "observations": [
+      {
+        "actionIndex": 2,
+        "action": "allocate",
+        "lotId": 1,
+        "shopId": null,
+        "orderId": null,
+        "deliveryId": null,
+        "sourceDeliveryId": null,
+        "sourceLotId": null,
+        "before": {
+          "month": 0,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 2,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "after": {
+          "month": 0,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 3,
+              "retailSold": 0
+            },
+            {
+              "id": 2,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "outcome": "allocated",
+        "reply": "発売#1を3本、自店に配分しました。",
+        "nextAction": {
+          "type": "step",
+          "months": 1,
+          "month": 1
+        }
+      },
+      {
+        "actionIndex": 6,
+        "action": "reclaim",
+        "lotId": 1,
+        "shopId": null,
+        "orderId": null,
+        "deliveryId": null,
+        "sourceDeliveryId": null,
+        "sourceLotId": null,
+        "before": {
+          "month": 1,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 2,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "after": {
+          "month": 1,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 5,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "outcome": "reclaimed",
+        "reply": "発売#1の未販売分2本を手元に戻しました。",
+        "nextAction": {
+          "type": "deliver",
+          "lotId": 1,
+          "shopId": "liquor",
+          "count": 2,
+          "orderId": 2,
+          "month": 1
+        }
+      },
+      {
+        "actionIndex": 7,
+        "action": "deliver",
+        "lotId": 1,
+        "shopId": "liquor",
+        "orderId": 2,
+        "deliveryId": 1,
+        "sourceDeliveryId": null,
+        "sourceLotId": null,
+        "before": {
+          "month": 1,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 5,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "after": {
+          "month": 1,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 2,
+              "batches": [
+                {
+                  "deliveryId": 1,
+                  "lotId": 1,
+                  "remaining": 2
+                }
+              ]
+            }
+          }
+        },
+        "outcome": "fulfilled",
+        "reply": "ありがとうございます。この一本を受け取ります。",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 2,
+          "month": 1
+        }
+      },
+      {
+        "actionIndex": 10,
+        "action": "deliver",
+        "lotId": 2,
+        "shopId": "restaurant",
+        "orderId": 1,
+        "deliveryId": 2,
+        "sourceDeliveryId": null,
+        "sourceLotId": null,
+        "before": {
+          "month": 1,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 2,
+              "batches": [
+                {
+                  "deliveryId": 1,
+                  "lotId": 1,
+                  "remaining": 2
+                }
+              ]
+            }
+          }
+        },
+        "after": {
+          "month": 1,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 2,
+              "batches": [
+                {
+                  "deliveryId": 2,
+                  "lotId": 2,
+                  "remaining": 2
+                }
+              ]
+            },
+            "liquor": {
+              "stock": 2,
+              "batches": [
+                {
+                  "deliveryId": 1,
+                  "lotId": 1,
+                  "remaining": 2
+                }
+              ]
+            }
+          }
+        },
+        "outcome": "fulfilled",
+        "reply": "ありがとうございます。この一本を受け取ります。",
+        "nextAction": {
+          "type": "step",
+          "months": 1,
+          "month": 2
+        }
+      },
+      {
+        "actionIndex": 16,
+        "action": "bottle",
+        "lotId": 4,
+        "shopId": null,
+        "orderId": null,
+        "deliveryId": null,
+        "sourceDeliveryId": null,
+        "sourceLotId": 1,
+        "before": {
+          "month": 6,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "after": {
+          "month": 6,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 4,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "outcome": "bottle",
+        "reply": "発売#4を6本、瓶詰めしました。手渡す一本に選べます。",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 4,
+          "month": 6
+        }
+      },
+      {
+        "actionIndex": 19,
+        "action": "deliver",
+        "lotId": 4,
+        "shopId": "restaurant",
+        "orderId": 4,
+        "deliveryId": 3,
+        "sourceDeliveryId": 2,
+        "sourceLotId": 2,
+        "before": {
+          "month": 6,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 4,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "after": {
+          "month": 6,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 4,
+              "stock": 5,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 1,
+              "batches": [
+                {
+                  "deliveryId": 3,
+                  "lotId": 4,
+                  "remaining": 1
+                }
+              ]
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "outcome": "partial",
+        "reply": "ありがとうございます。この一本を受け取ります。",
+        "nextAction": {
+          "type": "rebrew",
+          "lotId": 1,
+          "month": 6
+        }
+      },
+      {
+        "actionIndex": 20,
+        "action": "rebrew",
+        "lotId": 1,
+        "shopId": null,
+        "orderId": null,
+        "deliveryId": null,
+        "sourceDeliveryId": null,
+        "sourceLotId": 1,
+        "before": {
+          "month": 6,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 4,
+              "stock": 5,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 1,
+              "batches": [
+                {
+                  "deliveryId": 3,
+                  "lotId": 4,
+                  "remaining": 1
+                }
+              ]
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "after": {
+          "month": 6,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 4,
+              "stock": 5,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 1,
+              "batches": [
+                {
+                  "deliveryId": 3,
+                  "lotId": 4,
+                  "remaining": 1
+                }
+              ]
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "outcome": "rebrew",
+        "reply": "発売#1の製法で、もう一度造ります。仕込みに1か月、その後に熟成します。",
+        "nextAction": {
+          "type": "step",
+          "months": 1,
+          "month": 7
+        }
+      },
+      {
+        "actionIndex": 23,
+        "action": "bottle",
+        "lotId": 5,
+        "shopId": null,
+        "orderId": null,
+        "deliveryId": null,
+        "sourceDeliveryId": null,
+        "sourceLotId": 1,
+        "before": {
+          "month": 8,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 4,
+              "stock": 5,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "after": {
+          "month": 8,
+          "hand": [
+            {
+              "id": 1,
+              "stock": 3,
+              "retail": 0,
+              "retailSold": 1
+            },
+            {
+              "id": 2,
+              "stock": 4,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 3,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 4,
+              "stock": 5,
+              "retail": 0,
+              "retailSold": 0
+            },
+            {
+              "id": 5,
+              "stock": 6,
+              "retail": 0,
+              "retailSold": 0
+            }
+          ],
+          "shops": {
+            "restaurant": {
+              "stock": 0,
+              "batches": []
+            },
+            "liquor": {
+              "stock": 0,
+              "batches": []
+            }
+          }
+        },
+        "outcome": "bottle",
+        "reply": "発売#5を6本、瓶詰めしました。手渡す一本に選べます。",
+        "nextAction": {
+          "type": "select-card",
+          "lotId": 5,
+          "month": 8
+        }
+      }
+    ],
+    "validation": {
+      "ok": true,
+      "errors": []
+    },
+    "checksum": "f271082e"
+  },
+  "checksum": "c543fc3b"
+}

@@ -449,6 +449,12 @@
       "path": "works/ambertime-hand-and-place-v06-lab",
       "status": "active",
       "title": "AmberTime 手札と場 Lab 0.6 — 在庫の行き先と自由な取引"
+    },
+    {
+      "id": "ambertime-hand-and-place-v07-lab",
+      "path": "works/ambertime-hand-and-place-v07-lab",
+      "status": "active",
+      "title": "AmberTime 手札と場 Lab 0.7 — 販売室への落とし込み"
     }
   ]
 }

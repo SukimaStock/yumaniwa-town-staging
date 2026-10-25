@@ -1,0 +1,75 @@
+[
+  {
+    "scenario": "standard",
+    "seed": 42,
+    "month": 1,
+    "commands": [
+      {
+        "type": "allocate",
+        "lotId": 1,
+        "count": 3
+      },
+      {
+        "type": "step"
+      },
+      {
+        "type": "retail-deliver",
+        "lotId": 1,
+        "shopId": "liquor",
+        "count": 2,
+        "orderId": 2
+      },
+      {
+        "type": "bottle",
+        "jobId": 1
+      }
+    ],
+    "nativeValidation": {
+      "ok": true,
+      "errors": []
+    },
+    "nativeEqualsOldPath": true,
+    "release": {
+      "id": 4,
+      "sourceId": 1,
+      "ageMonths": 23,
+      "hand": 6,
+      "retail": 0
+    }
+  },
+  {
+    "scenario": "scarce",
+    "seed": 42,
+    "month": 0,
+    "commands": [
+      {
+        "type": "allocate",
+        "lotId": 1,
+        "count": 1
+      },
+      {
+        "type": "retail-deliver",
+        "lotId": 1,
+        "shopId": "liquor",
+        "count": 1,
+        "orderId": 2
+      },
+      {
+        "type": "bottle",
+        "jobId": 1
+      }
+    ],
+    "nativeValidation": {
+      "ok": true,
+      "errors": []
+    },
+    "nativeEqualsOldPath": true,
+    "release": {
+      "id": 4,
+      "sourceId": 1,
+      "ageMonths": 23,
+      "hand": 6,
+      "retail": 0
+    }
+  }
+]
