@@ -1,0 +1,158 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c6854cbf6743926850a71ce260e274ea1c96e36447d6536719118fdff763b6d4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-main-placement-027",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Explicit opt-in AmberTime0.27 native allocation/manual-town-delivery integration, legacy v20 and save preserved.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8ec6e12f79d02322561ebf284c90fc3605412942",
+    "canonicalSources": [
+      "User full AmberTime0.27 native integration request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "PR633",
+      "PR634",
+      "works/ambertime/experiments/hand-and-place/v073/REPORT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-main-placement-027/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/tests/placement-*.mjs",
+      "works/ambertime/tests/fixtures/placement-*.json",
+      "works/ambertime/design/placement-027/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/experiments/**",
+      "works/ambertime-hand-and-place*/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/generations.mjs",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "main.js"
+    ],
+    "expectedChanges": [
+      "Explicit ?placement=1 native main startup with independent trial savekey and newgame, bidirectional modeguard; legacy SAVE_KEY/version20/normalboot/results unchanged.",
+      "Native logged enable/allocation opcodes, product.stock total plus optin retail map, strict serialize/restore replay including full allocation/delivery transaction; no validation bypass.",
+      "Retail sales limited via existing economicMonthly heldCounts, quantity sold decrements retail map; existing demand/prices/cash/reputation/ledger/town used.",
+      "Town-liquor only manual selected realproduct/release/brand, native relation/month/price/cap checks, allinteger q in newmode, no listed prerequisite for manualhanddelivery; oldmode unchanged.",
+      "Townauto stopped onlyoptin, supermarket/department/contracts preserved with retail/departmenthold protection againstdoubleconsumption.",
+      "Main native shelf/modal 1/2/ceilhalf/all placement/undo/reset/redistribute and1confirm, draft dispatchnone, new bottleshand/no forcedallocationpopup; price/details remain.",
+      "Related replay-reader importquery alignment, A-H/legacyparity/storagecanary/1x2x/phone/performance tests, REPORT11items and publicStaging."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes main works/ambertime opt-in integration, isolated trial save, PR/CI/safeStagingpublication; existingLabs/Production protected."
+    ],
+    "hqDecisions": [
+      "Root independentdesignreview approved nativeD ownership, no parallelLabmodel, stocktotal/retailsubset, existingheldCounts hook, strictopreplay, save-modeguard.",
+      "Root approved newmode town manual eligibility withoutlisted prerequisite, retaining bottling/relationprior-month; retail firstallocation/listing still nextmonth.",
+      "Root approved minimum cache-query alignment for main caskserial/nearby/ledgerworker replay readers, no readerlogicchange."
+    ],
+    "rulesApplied": [
+      "Full Plan Lock before implementation; existing lifecycle registration/generator.",
+      "Expression audit: necessary stock/source/order/status only, no added ambientcopy or fictional sales claims."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "A actualmain distill/age/bottle/shelf; B allocate3retail thenexistingpaidmonthly; C establishednativebrandrelation selectedrelease manualtown; D6bottlesretail3/town2/hand1; Eafterretailsold reclaimremainingandtown; Fignorewishmainworkcontinues; Gsamebranddifferentage releases; Hlegacyfullsave/ops/results exact.",
+      "360/375/390mainmodal/timer/1x2x/hidden/reduced/rapid/focus, nofullscenechurn inUI draft, real brand/release/product identity and source details.",
+      "Oldkey/mapcanaries untouched innewmode; newkeynormalmodeguard; invalidsavepreservedstop; strictrestore/allstateatomicfailure; publicbytes/basicops."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert scoped main changes and new modules/tests/report/lock. Normal old SAVE_KEY remains untouched; trial save retained separately and never loaded by oldmode.",
+    "outOfScope": [
+      "Production andexistingLabs edits",
+      "Oldsave automaticmigration/fullautoshipredesign/newdemand/newprice/newreputation/newshop",
+      "Core distillation/flavor/aging/staff/generation redesign",
+      "ComprehensiveE2E/physicalSafari/VoiceOver/heat verification"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/VoiceOver/feel/heat, authoradoption andfuturemigration",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "Modify oldsave or copy/repair oldstate into newkey",
+      "Parallel Labmodel in main",
+      "Retailcap implemented by replacing demand/price/reputation",
+      "Unconditionaldisable allautoshops or newrestaurant",
+      "Manualtown tied to retail-listing prerequisite",
+      "Recursive validation inside replay transaction"
+    ],
+    "boundaryCases": [
+      "Legacy state/version20/fields/operations/result/savebytes unchanged; newmode has optional marker via loggedenable only and separate key, no migration/copy.",
+      "pool=stock-departmentheld; retail<=pool; hand=pool-retail; sold/deliveredstock cannotreturn; newbottle absentretail0; manualbottledmonthblocked andrelationprior-month.",
+      "Newmode town integerq and placementcap use samequote; retail/listing cannotbypassmanualeligibility; other shop paths protectallocatedretail.",
+      "One cloned whole-state transaction checks IDs/quantity/mode/stock/q then nativecash/receipts/contracts/brands strictvalidate; failed state/ops/save exactunchanged; replayinternal function avoidsrecursivefullvalidate.",
+      "Newsave restore no repair, malformed/mode-mismatch stops without write; ordinary restore remains existingcontract.",
+      "No newshop/recipe/demand/price/reputation/ledger/save migration; protected existingLabs/Production."
+    ],
+    "testPlan": [
+      "Native newmode unit/integration: retailpaid/cash/reputation, manualcashledger, doublespendatomicity, stockconservation, townautoonlystop, otherautos/holds, monthtiming, multirelease, strictsave/coldreplay/worker.",
+      "Legacy deterministic savedfixture/base-vs-candidate operation/output/serializedbytes parity plus relevant existingmainregression; no comprehensiveE2E.",
+      "Phone targetedbrowserand1x2x/performance/mainstoragecanary; staged evidence design→UI→retail→town→public.",
+      "Full Lock before implementation; exactSHA Scope/Risk/Impact/Trusted Static, requiredCI/reviewcompleted/safemerge/Pages/publicbytes/browser."
+    ],
+    "problem": "v073 placement works only in isolatedLab; native main still sells unallocated stock and auto-ships town products.",
+    "currentContract": "Native product.stock total, main v20 strict operation replay and paid sales/shipping receipts authoritative. Normal startup/SAVE_KEY/saves and existingLabs/Production protected.",
+    "whyExistingIsInsufficient": "Labmodelcannotprove native cash/reputation/brand/release/ledger/save integration; stock/auto shipping conflict with explicitplacement.",
+    "design": "Opt-in marker and retail subset in nativeD, heldCounts existingeconomic hook, native town manualquote/receipt, atomicD operation, pureUI draft over actualproducts.",
+    "migration": "No oldsave migration. Separate opt-in freshgame/key; report future mapping of stock/relations/history/offers/orders/cash/reputation/generations and rollback limits.",
+    "compatibility": "Legacy code branches are unchanged except newmode guards; normal allfield/op/serialize parity tested. Newmode only uses native loggedmodel, no validation bypass.",
+    "promotionRisk": "Staging-only screenexperiment, authorintegrationdecisionlater."
+  }
+}
