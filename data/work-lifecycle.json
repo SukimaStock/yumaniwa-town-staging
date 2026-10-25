@@ -455,6 +455,12 @@
       "path": "works/ambertime-hand-and-place-v07-lab",
       "status": "active",
       "title": "AmberTime 手札と場 Lab 0.7 — 販売室への落とし込み"
+    },
+    {
+      "id": "ambertime-hand-and-place-v071-lab",
+      "path": "works/ambertime-hand-and-place-v071-lab",
+      "status": "active",
+      "title": "AmberTime 手札と場 Lab 0.7.1"
     }
   ]
 }
