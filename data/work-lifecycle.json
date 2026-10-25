@@ -461,6 +461,12 @@
       "path": "works/ambertime-hand-and-place-v071-lab",
       "status": "active",
       "title": "AmberTime 手札と場 Lab 0.7.1"
+    },
+    {
+      "id": "ambertime-hand-and-place-v072-lab",
+      "path": "works/ambertime-hand-and-place-v072-lab",
+      "status": "active",
+      "title": "AmberTime 手札と場 Lab 0.7.2"
     }
   ]
 }
