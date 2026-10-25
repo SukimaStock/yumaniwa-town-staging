@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "widths": [
+    360,
+    375,
+    390
+  ],
+  "measurements": [
+    {
+      "width": 360,
+      "version": "v071",
+      "phase": "initial",
+      "height": 443,
+      "bodyHeight": 246,
+      "bodyScroll": 246,
+      "dialogScroll": 437,
+      "dialogClient": 437
+    },
+    {
+      "width": 360,
+      "version": "v071",
+      "phase": "quantity",
+      "height": 489,
+      "bodyHeight": 233,
+      "bodyScroll": 233,
+      "dialogScroll": 483,
+      "dialogClient": 483
+    },
+    {
+      "width": 375,
+      "version": "v071",
+      "phase": "initial",
+      "height": 443,
+      "bodyHeight": 246,
+      "bodyScroll": 246,
+      "dialogScroll": 437,
+      "dialogClient": 437
+    },
+    {
+      "width": 375,
+      "version": "v071",
+      "phase": "quantity",
+      "height": 489,
+      "bodyHeight": 233,
+      "bodyScroll": 233,
+      "dialogScroll": 483,
+      "dialogClient": 483
+    },
+    {
+      "width": 390,
+      "version": "v071",
+      "phase": "initial",
+      "height": 443,
+      "bodyHeight": 246,
+      "bodyScroll": 246,
+      "dialogScroll": 437,
+      "dialogClient": 437
+    },
+    {
+      "width": 390,
+      "version": "v071",
+      "phase": "quantity",
+      "height": 489,
+      "bodyHeight": 233,
+      "bodyScroll": 233,
+      "dialogScroll": 483,
+      "dialogClient": 483
+    },
+    {
+      "width": 390,
+      "version": "v07",
+      "phase": "initial",
+      "height": 627,
+      "bodyHeight": 339,
+      "bodyScroll": 339,
+      "dialogScroll": 621,
+      "dialogClient": 621
+    }
+  ],
+  "errors": [],
+  "parity": "v07 full session exact after allocation and direct delivery",
+  "inputDOMPreserved": true
+}
