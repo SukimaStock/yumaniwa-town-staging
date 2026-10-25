@@ -194,3 +194,22 @@ body.is-tasting #hero #glass-button svg.pixel-glass{width:32px;height:48px}
 .staff-source-art svg.pixel-cask{width:48px;height:48px}
 .recipe-origin-art svg.pixel-cask{width:32px;height:32px}
 body[data-room].is-tasting #glass .pixel-glass .sample-liquid{transform-origin:8px 17px}
+/* Opt-in 0.27 only. Ordinary main keeps its existing modal and inventory rules. */
+body[data-placement="1"] #action-dialog .placement-portions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(108px,1.8fr);gap:4px;margin:4px 0}
+body[data-placement="1"] #action-dialog .placement-portions button{min-width:0;padding:3px;white-space:nowrap;min-height:44px}
+body[data-placement="1"] #action-dialog .placement-portions [aria-pressed=true]{border-color:#f7cd58;background:#554b38}
+body[data-placement="1"] #action-dialog .placement-hand{font-size:20px!important;line-height:28px!important;margin:6px 0!important}
+body[data-placement="1"] #action-dialog .placement-targets{display:grid;gap:6px}
+body[data-placement="1"] #action-dialog .placement-target{display:flex;align-items:center;gap:8px;width:100%;min-height:68px;margin:0;padding:4px 8px;text-align:left}
+body[data-placement="1"] .placement-target>span:first-child{flex:1;min-width:0;display:grid;grid-template-columns:24px 1fr;align-items:center;gap:0 6px}
+body[data-placement="1"] .placement-target small{grid-column:1/-1;font-size:16px!important;line-height:24px!important}
+body[data-placement="1"] .placement-target .pixel-icon{width:24px;height:24px}
+body[data-placement="1"] .placement-bottle{width:24px;flex:0 0 24px;opacity:.35}
+body[data-placement="1"] .placement-bottle svg{width:24px;height:36px;margin:0;max-width:none;image-rendering:pixelated}
+body[data-placement="1"] .has-bottle .placement-bottle{opacity:1}
+body[data-placement="1"] .placement-target output{font-size:24px;white-space:nowrap;min-width:48px;text-align:right}
+body[data-placement="1"] #action-dialog .placement-tools{display:flex;gap:6px;margin-top:8px}
+body[data-placement="1"] #action-dialog .placement-tools button{flex:1;min-width:0;margin:0;padding:3px;min-height:44px;font-size:20px!important;line-height:28px!important;white-space:nowrap}
+body[data-placement="1"] #placement-receipt{border-left:3px solid #ae8d60;padding-left:9px}
+body[data-placement="1"] #action-dialog:has(.placement-targets) #dialog-actions{grid-template-columns:minmax(0,1fr) 76px}
+body[data-placement="1"] #action-dialog:has(.placement-targets) #dialog-actions button{white-space:nowrap}
