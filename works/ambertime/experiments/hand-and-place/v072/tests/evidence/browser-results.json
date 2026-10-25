@@ -1,0 +1,118 @@
+{
+  "ok": true,
+  "widths": [
+    360,
+    375,
+    390
+  ],
+  "measurements": [
+    {
+      "width": 360,
+      "version": "v072",
+      "phase": "initial",
+      "height": 598,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 360,
+      "version": "v072",
+      "phase": "edited",
+      "height": 626,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "version": "v072",
+      "phase": "initial",
+      "height": 598,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "version": "v072",
+      "phase": "edited",
+      "height": 626,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "version": "v072",
+      "phase": "initial",
+      "height": 598,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "version": "v072",
+      "phase": "edited",
+      "height": 626,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 360,
+      "version": "v071",
+      "phase": "initial",
+      "height": 443,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 360,
+      "version": "v071",
+      "phase": "quantity",
+      "height": 489,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "version": "v071",
+      "phase": "initial",
+      "height": 443,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 375,
+      "version": "v071",
+      "phase": "quantity",
+      "height": 489,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "version": "v071",
+      "phase": "initial",
+      "height": 443,
+      "scroll": 0,
+      "bodyScroll": 0
+    },
+    {
+      "width": 390,
+      "version": "v071",
+      "phase": "quantity",
+      "height": 489,
+      "scroll": 0,
+      "bodyScroll": 0
+    }
+  ],
+  "errors": [],
+  "operations": {
+    "definition": "one click or one quantity fill; no closing or focus clicks",
+    "threeDestinations": {
+      "v071": 10,
+      "v072": 5
+    }
+  },
+  "inputDOMPreserved": true,
+  "openCloseNoMutation": true,
+  "nativeGameAndRecordsParity": true,
+  "atomicModelTests": "12 passed separately"
+}
