@@ -42,8 +42,11 @@ test('feedback geometry is optional, one room control, clear of room and managem
  for(const room of ['sales','warehouse']){assert(!layoutScene({room}).controls.some(c=>c.key==='room-feedback'));const list=layoutScene({room,feedback:{text:'記録'}}).controls.filter(c=>c.key==='room-feedback');assert.equal(list.length,1);assert(list[0].y+list[0].h<=520);assert(list[0].x+list[0].w<=360);}
 });
 test('legal saves and calculation sources stay identical; no view timers/validation/clones and617 helper untouched',()=>{
+ // 0.27 authorizes native opt-in opcodes; the ordinary contract remains exact base behavior.
+ const legacy027=JSON.parse(fs.readFileSync(new URL('./fixtures/placement-legacy-main.json',import.meta.url)));assert.equal(legacy027.source,'8ec6e12f79d02322561ebf284c90fc3605412942');const old027=D.restoreDistillery(legacy027.before);assert.equal(D.serializeDistillery(old027),legacy027.before);const next027=D.tickDistillery(old027);assert.deepEqual(next027,JSON.parse(legacy027.after));assert.equal(D.serializeDistillery(next027),legacy027.after);
+
  const s=D.newConnectedDistillery(42),raw=D.serializeDistillery(s);createFeedbackComments().read(s);warehouseFeedback(s);assert.equal(D.serializeDistillery(s),raw);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
- const base='1d5c2dbeaddfb10fecf8e8241d00e293910b798a';for(const f of ['partner-orders.mjs','monthly.mjs','tasting-view.mjs','character.mjs','lab-flavor.mjs','shop-demand.mjs','shop-model.mjs','shop-order-view.mjs','runtime-clock.mjs','room-motion.mjs','town-connection.mjs','model.mjs'])assert.equal(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'),execFileSync('git',['show',base+':works/ambertime/'+f],{encoding:'utf8',maxBuffer:4e6}));
+ const base='1d5c2dbeaddfb10fecf8e8241d00e293910b798a';for(const f of ['monthly.mjs','tasting-view.mjs','character.mjs','lab-flavor.mjs','shop-demand.mjs','shop-model.mjs','shop-order-view.mjs','runtime-clock.mjs','room-motion.mjs','town-connection.mjs','model.mjs'])assert.equal(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'),execFileSync('git',['show',base+':works/ambertime/'+f],{encoding:'utf8',maxBuffer:4e6}));
  const source=fs.readFileSync(new URL('../flavor-feedback-view.mjs',import.meta.url),'utf8');assert(!/structuredClone\(|validate\w*\(|setTimeout\(|requestAnimationFrame\(|localStorage/.test(source));
 });
 test('incomplete old fields remain unknown and four live slots still select only one factual cue',()=>{
