@@ -1,0 +1,147 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d87a47f80855d627c0f21466b684b5a0089ce1b9e5c4ae0335ce664115aeece0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-place-v073",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent v073 bottle placement draft UI, directly reusing unchanged v072 atomic model and log schema.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f71a0cd7895b23e5d39e0fccfe0153da010e8f80",
+    "canonicalSources": [
+      "User full v073 bottle placement request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "PR633",
+      "works/ambertime/experiments/hand-and-place/v072/REPORT.md",
+      "works/ambertime/experiments/hand-and-place/v072/model.mjs",
+      "works/ambertime/experiments/hand-and-place/v072/app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-place-v073/r0.lock.json",
+      "works/ambertime/experiments/hand-and-place/v073/**",
+      "works/ambertime-hand-and-place-v073-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/experiments/shop-expansion/v01/**",
+      "works/ambertime/experiments/reputation/**",
+      "works/ambertime/experiments/town-simulation/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/hand-and-place/v01/**",
+      "works/ambertime-hand-and-place-lab/**",
+      "works/ambertime/experiments/hand-and-place/v02/**",
+      "works/ambertime-hand-and-place-v02-lab/**",
+      "works/ambertime/experiments/hand-and-place/v03/**",
+      "works/ambertime-hand-and-place-v03-lab/**",
+      "works/ambertime/experiments/hand-and-place/v04/**",
+      "works/ambertime-hand-and-place-v04-lab/**",
+      "works/ambertime/experiments/hand-and-place/v05/**",
+      "works/ambertime-hand-and-place-v05-lab/**",
+      "works/ambertime/experiments/hand-and-place/v06/**",
+      "works/ambertime-hand-and-place-v06-lab/**",
+      "works/ambertime/experiments/hand-and-place/v07/**",
+      "works/ambertime-hand-and-place-v07-lab/**",
+      "works/ambertime/experiments/hand-and-place/v071/**",
+      "works/ambertime-hand-and-place-v071-lab/**",
+      "works/ambertime/experiments/hand-and-place/v072/**",
+      "works/ambertime-hand-and-place-v072-lab/**"
+    ],
+    "expectedChanges": [
+      "Use v072 model directly with unchanged logs; opening/placing/undo/reset/redistribute is pure UI until final allocate-all.",
+      "Native bottle/count destination targets, quantity1/2/ceil current hand half/all, repeated clamped placement, undo last draft and reset initial or all-hand redistribution.",
+      "Real current wishes shown briefly; optional numeric details; same window from stores; primaryこれで決める and one result sentence.",
+      "One finite <=360ms motion per target, cancel earlier same target, no lock/RAF/per-bottle DOM; hidden/offscreen/reduced/close cancellation.",
+      "Test A-H including30 pure UI fixture only, full v072 session/native/log parity, targeted360/375/390 and operations/height/performance report."
+    ],
+    "ownerDecisions": [
+      "User v073 request authorizes independent placementUI Lab, targeted tests, PR and Staging publication; existing works/save/Production protected."
+    ],
+    "hqDecisions": [
+      "No new adapter/game/log schema. Read-only v072 import; pure draft helper only."
+    ],
+    "rulesApplied": [
+      "Full Plan Lock before implementation; existing lifecycle registration/generator.",
+      "Expression audit: necessary stock/source/order/status only, no added ambientcopy or fictional sales claims."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390 shelf/modal tapping, quantity targets, repeated placement/undo/reset/redistribute, same-store entry and keyboard focus.",
+      "A6bottles3/2/1; B1bottle3taps; Call; Dundo redirect; Ehand3retail3→retail1restaurant2; Fopenclose unchanged; Gdifferentflavor; H30UIfixture.",
+      "<=360ms finite motion, same-target cancellation, hidden/offscreen/reduced/pause, no full-shelf churn or per-bottle nodes; publicbytes/basicops."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only new v073, launcher, lifecycle entry/generated LAB and lock; no migration.",
+    "outOfScope": [
+      "ExistingLabs/main/save/Production edits",
+      "New demand/flavor/economy/autodelivery/model/schema",
+      "ComprehensiveE2E/physicalSafari/heat verification"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/VoiceOver/feel/heat and authoradoption",
+      "Production"
+    ],
+    "alternativesRejected": [
+      "New adapter/logschema or nativegame changes",
+      "Restore hand-vs-unsold source selection",
+      "Perbottle animatedDOM/RAF/taplock/motionqueue",
+      "Thirty-bottle normalproduction fixture"
+    ],
+    "boundaryCases": [
+      "Quantity1/2/ceil currenthandhalf/all dynamicallyclamped,0remaining noop; invaliddraft no mutation, undo lastallocation and resetinitial, redistribute allavailablehand only UI.",
+      "Initialretail currentunsold/stores0, closediscardnoactions, finalsame actionexactv072 fullsession/log, sold/shipped neverreturned.",
+      "Motion same-target cancel <=360ms, rapidtap no lock/queue, reduced/hidden/offscreen/modalclose cancel, noRAF/perbottleDOM.",
+      "30UIfixture only, normal6bottles unchanged; sourceexactrelease acrossage/paging/history and rebrew."
+    ],
+    "testPlan": [
+      "Pure draft helper tests plus46 existing native/lifecycle cases; matched v072 fullsession/exportlog exact; targetedbrowser360/375/390, motion diagnostics and30 fixture.",
+      "ExactSHA Scope/Risk/Impact/Trusted Static, requiredCI, autoreviewcompleted, stagingmerge/Pages/publicbytes/browser."
+    ],
+    "problem": "Numeric allocation feels like management; try choosing a portion and placing a bottle at its destination.",
+    "currentContract": "v072 atomic model/log and all oldLabs/main/save/Production immutable.",
+    "whyExistingIsInsufficient": "v072 exposes number editing as the main interaction and does not show a placement moment.",
+    "design": "Pure UI draft helper and native bottle destination targets over directly imported v072 model, one final allocate-all.",
+    "migration": "None; v072 schema and replay exactly reused.",
+    "compatibility": "Matched final actions/session/native/exportLog exactly v072; no new storage/game state.",
+    "promotionRisk": "Staging-only screenexperiment, authorintegrationdecisionlater."
+  }
+}
