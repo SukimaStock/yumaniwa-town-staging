@@ -247,11 +247,11 @@ svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:no
 
 /* Compact pixel-map overlay. Game clock is paused by the existing modal. */
 #action-dialog[data-kind=world-map]{width:min(316px,calc(var(--scene-width) - 24px),calc(var(--view-width) - 24px))}
-#action-dialog[data-kind=world-map] #dialog-actions{display:none}
+#action-dialog[data-kind=world-map] #dialog-actions{display:flex;justify-content:flex-end}
 .world-map-view{display:flex;flex-direction:column;align-items:center;gap:11px}
 #world-map-canvas{display:block;width:222px;height:222px;max-width:100%;aspect-ratio:1;image-rendering:pixelated;image-rendering:crisp-edges;background:#263d40;border:3px solid #858995;max-height:none;object-fit:contain}
-.world-map-controls{display:grid;grid-template-columns:46px minmax(0,1fr) 46px;align-items:center;width:222px;max-width:100%;gap:8px}
-.world-map-controls button{width:46px;min-width:46px;height:45px;padding:0!important;font-size:20px!important}
+.world-map-controls{display:grid;grid-template-columns:60px minmax(0,1fr) 60px;align-items:center;width:222px;max-width:100%;gap:8px}
+.world-map-controls button{width:60px;min-width:60px;height:45px;padding:0!important;font-size:20px!important}
 .world-map-controls span{font-size:15px!important;white-space:nowrap;text-align:center;min-width:0;overflow:hidden}
 
 #action-dialog[data-kind=world-map] .map-introduction{margin:0!important;max-width:100%;font-size:16px!important;line-height:24px;text-align:center;overflow-wrap:anywhere}
