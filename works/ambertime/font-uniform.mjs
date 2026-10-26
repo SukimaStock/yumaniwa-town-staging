@@ -1,7 +1,8 @@
 import {BODY_SIZE,pixelTypography} from './text-metrics.mjs?v=0.24-type-ui-1';
 
-// Presentation only. Reuse the normal Canvas body's integral physical font dots.
-export const uniformRequested=search=>new URLSearchParams(search).get('font-uniform')==='1';
+// Current main presentation default. Explicit 0 keeps the former size comparison.
+// Reuse the normal Canvas body's integral physical font dots.
+export const uniformRequested=search=>new URLSearchParams(search).get('font-uniform')!=='0';
 export function uniformMetrics(viewport){
  const {scale,dpr}=viewport,body=pixelTypography(BODY_SIZE,scale*dpr),dot=body.pixels/8;
  const linePixels=10*dot;
