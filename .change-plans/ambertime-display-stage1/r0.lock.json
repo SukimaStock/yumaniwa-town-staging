@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8952e89b0d22d03504375eca4524368d4465cba8966e65e6d019aab3f690b57b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-display-stage1",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "9912a48c755174fe309eb2b17194609e1bc17c77",
+    "change": "Stage1: center fill/empty-cellar labels, integral countdown shadow, remove legacy tasting ground line, audit extraction display semantics",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User new three-stage request; stage1 only No1/2/7/8/10",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "Current main source and native model contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-display-stage1/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/display-stage1.test.mjs",
+      "works/ambertime/tests/font-uniform.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/design/display-stage1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/formal-save.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/message-view.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "No1/7: use existing actual glyph-bounds centering only for open-fill and go-distill; preserve hitboxes/frames/sprites.",
+      "No8: integral physical glyph-dot shadow behind countdown; foreground font/position/timing unchanged.",
+      "No10: remove only obsolete inline object-ground pseudo-element in overlay; retain tasting bars/previous markers/dividers.",
+      "No2: read-only audit stopAt82/99 versus old/current collection ranges, records/comparison/delegation/save.",
+      "shop-app only changed Canvas import cache query; no display form, price, save, game-state, action or clock logic changes. index local resource cache versions only."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused360/375/390 Chromium fill-ready, empty warehouse, countdown, previous tasting; compare only changed visual regions and old/new same native state. Physical Safari unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User expressly requests new stage1 implementation from latest main; no push/cherry-pick/restore of prior candidate; stage2 must wait stage1 publication."
+    ],
+    "hqDecisions": [
+      "Existing renderer font metrics and pure view changes only; one app import query is indispensable cache bookkeeping, all operational code unchanged. Any safety rejection stops this stage and blocks later stages."
+    ],
+    "rulesApplied": [
+      "Fresh lock-only first commit",
+      "Single integral Misaki font; limited related tests; no broad E2E",
+      "No artificial helper split or alternate API to bypass prior review"
+    ],
+    "rollback": "Revert this stage1 view/cache change; no persisted state changes or migration.",
+    "outOfScope": [
+      "Stage2/3 work before this stage completes",
+      "Production",
+      "Model/save/clock/shipping calculations",
+      "Old candidate restoration or cherry-pick",
+      "Other labels/layout/font sizes"
+    ],
+    "promotion": "Stage1 PR, required CI/review, safe Staging merge and public verification before stage2.",
+    "unverified": [
+      "Physical Safari/VoiceOver/touch assessment"
+    ],
+    "problem": "Existing two button labels use a fixed baseline, countdown lacks pixel shadow, obsolete ground pseudo-element overlaps previous tasting text; raw extraction positions require semantic audit.",
+    "currentContract": "Current main uses shared Misaki integral text metrics and overlay panels. Native model/save/clock/shipping remain authoritative.",
+    "whyExistingIsInsufficient": "The fixed baseline does not center actual glyph height; legacy absolute pseudo-element belongs to old inline object layout. Raw stopAt alone does not encode modern collection start.",
+    "design": "Extend current centered-label branch to exactly the two requested controls, draw one finite shadow using physical glyph dot, suppress obsolete ground pseudo-element in current room, document No2 without editing calculations.",
+    "alternativesRejected": [
+      "Changing font size, button bounds or countdown timing",
+      "Rewriting renderer or model",
+      "Moving operational app code to evade a safety decision",
+      "Applying the prior candidate mechanically"
+    ],
+    "migration": "None.",
+    "compatibility": "All operational source and persistent facts unchanged. Changed renderer/CSS use fresh local cache identifiers.",
+    "boundaryCases": [
+      "Three phone widths and DPR3 integral glyph dots",
+      "Ready-to-fill versus empty warehouse controls",
+      "Countdown1/2/3 foreground position unchanged",
+      "Previous tasting at low/zero flavor values and existing dividers",
+      "Old recipe choices versus full-range collectionVersion2 and missing choice fallback"
+    ],
+    "testPlan": [
+      "Focused new view tests, existing uniform/cache tests, restricted browser checks, independent review, Scope/Risk/Impact and required trusted CI, Pages and public basic display verification."
+    ],
+    "promotionRisk": "Reversible Staging-only stage1 visual correction."
+  }
+}
