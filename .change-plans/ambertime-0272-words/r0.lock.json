@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1342c0260c2d3f373c35a5a960ce460eba6a3e198c112d58f0e34ff054cc123c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-0272-words",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "cc29e8ccf7bdcd69d272d2b31987c5bfab784d1c",
+    "change": "Shorten opt-in placement wording and expose undo/redistribute as two buttons",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.27.2 request",
+      "IMG_6319.png (viewed)",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR638/639",
+      "Native placement draft undo/redistribute/reset and model ageLabel"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-0272-words/r0.lock.json",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/placement-0271.test.mjs"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "works/ambertime/shop.css",
+        "condition": "Only if two labels need minimum scoped spacing adjustment on360px; retain44px targets and existing font/borders."
+      }
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-ledger.mjs"
+    ],
+    "expectedChanges": [
+      "Use existing model ageLabel and inventory.available for age/count without explanatory words.",
+      "Shorten hand label to 手元. Rename undo to ひとつ戻す and redistribute to 全部分け直す; remove reset UI entry only.",
+      "Keep draft/model/save/motion/shelf/old UI logic unchanged; update changed module cache queries.",
+      "Focused UI regression and phone widths360/375/390; existing8 requested scenarios."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "View shared IMG6319 and compare matching2month11bottle scene; widths360/375/390; undo repeated placement and redistribute; close no save; single commit; public smoke. Physical Safari unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User0.27.2 explicitly specifies exact labels, two buttons and Staging reflection."
+    ],
+    "hqDecisions": [
+      "Existing ageLabel formatting and pure draft helpers reused; no new game or storage contract."
+    ],
+    "rulesApplied": [
+      "WORK Full lock because cache fingerprint imports and existing formatter import match conservative contract-review signal; implementation remains a local UI change.",
+      "Expression audit removes redundant words and reset entry; no new explanation or icons.",
+      "Targeted regressions and required CI only; no broadE2E."
+    ],
+    "rollback": "Revert this UI wording/import/cache/test change; no save migration.",
+    "outOfScope": [
+      "Production",
+      "Normal UI",
+      "Existing Labs",
+      "Calculation/model/save/history/draft helper changes",
+      "Shelf or motion redesign",
+      "New persistent state",
+      "ComprehensiveE2E"
+    ],
+    "promotion": "Staging PR and safe merge only; Production not authorized.",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver"
+    ],
+    "problem": "Opt-in display says 使える and 手元に残す; three similar undo/reset/redistribute labels confuse the otherwise working placement.",
+    "currentContract": "PR638/639: pure UI drafts; undo restores one previous allocation including redistribute; close discards drafts; commit persists atomically before feedback.",
+    "whyExistingIsInsufficient": "Extra words and a separate reset entry require interpreting three similar commands.",
+    "design": "Display formatted age and available count only, 手元 count; retain existing undo/redistribute actions under exact new labels, hide reset button; use unchanged flex layout unless sizing proves insufficient.",
+    "alternativesRejected": [
+      "New help prose or icons",
+      "Deleting reset helper or changing draft semantics",
+      "Changing calculations or saves"
+    ],
+    "migration": "None; preserve all save formats and operations.",
+    "compatibility": "Normal version and existing helpers unchanged; new UI/entrypoint resource query fingerprints.",
+    "boundaryCases": [
+      "2months11bottles and long age1year2months",
+      "Undo empty disabled",
+      "Repeated2+2 placements undo only last2",
+      "Redistribute existing unsold retail to draft hand, undo restores previous draft",
+      "Close preserves state/ops/save",
+      "Confirm one allocation and240ms result unchanged"
+    ],
+    "testPlan": [
+      "Existing placement tests plus focused label/age/undo regression; phone360/375/390 targeted8 cases; Scope/Risk/Impact and requiredCI; public bytes and smoke."
+    ],
+    "promotionRisk": "Staging-only reversible UI change. No Production."
+  }
+}
