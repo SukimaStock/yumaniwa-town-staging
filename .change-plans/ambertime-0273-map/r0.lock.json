@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "862cbd1298179218846ec16c3222fcc7c7ebbf4e50feaa72a3ecee9e47821b33",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-0273-map",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "52155659d82976c44a65b168376b1bc945fc647b",
+    "change": "Separate map unlock presentation from menu browsing, simplify closing and retain compatible UI notice history",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime0.27.3 request",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR604(681190fd)/606(08544cb3)/610(c7bc1809)/612(4e424669)",
+      "Native mapProgress/mapIntroduction/mapStep and existing144px map renderer",
+      "Existing MAP_NOTICE_KEY and original game save/clock/modal contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-0273-map/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/world-map-view.test.mjs",
+      "works/ambertime/tests/start-map-ui-browser.mjs",
+      "works/ambertime/design/map-0273/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "expectedChanges": [
+      "Common world-map modal with unlock/menu transient source. Latest unlocked stage once for unlock, factual caption and continue; menu opens max, quiet near/far scale name, returns to menu with focus.",
+      "Keep mapProgress/mapIntroduction/mapStep/drawGameMap and map geometry/color unmodified. UI cap only from progress, not history.",
+      "Remove slideshow timers and hide/resume reanimation. Respect existing userPaused/elapsed and no monthly operation from close.",
+      "Use same MAP_NOTICE_KEY; compatible UI metadata v2 shown and announced, v1 shown migrates to both; no new game save fields. Close does not claim unseen target stages.",
+      "Focused unit/browser bothmodes,360/375/390, same-scene before/after evidence and REPORT; mandatoryCI and Staging public confirmation."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "A-I: actual first bottling once, both closes, menu max/view controls/return/focus, coalesced latest stage, reload and v1 compatibility, hidden/reduced behavior, clock pause/resume. Normal andplacement URLs at360/375/390. PhysicalSafari unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User0.27.3 explicitly specifies both modes, latest-stage direct reveal, menu return behavior, same key compatible notice metadata and Staging reflection."
+    ],
+    "hqDecisions": [
+      "Only UI notice metadata evolves under existing key; model/save/history/clock calculations and renderer remain canonical and unchanged. No new notification subsystem."
+    ],
+    "rulesApplied": [
+      "Full WORK lock for modal-routing, UI metadata compatibility, cache fingerprints and multi-file checks.",
+      "Expression audit: factual short introduction only on automatic unlock; no explanation cards, missions, progress digits or new icons.",
+      "Relatedtests and focused browser only; no comprehensiveE2E."
+    ],
+    "rollback": "Revert UI,metadata-reader/cache changes; v2 still exposes shown for old reader; game save unchanged.",
+    "outOfScope": [
+      "Production",
+      "Any simulation/unlock/price/economic calculation",
+      "Map artwork or renderer changes",
+      "New stages or missions",
+      "New game save fields or operations",
+      "Existing Labs",
+      "New animation/timer or comprehensiveE2E"
+    ],
+    "promotion": "Staging PR and safe merge only; Production not authorized.",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver; creator touch evaluation"
+    ],
+    "problem": "Map reveal and menu share controls; slideshow and generic close conflate unlocked/seen/notified stages, and menu closes return to game instead of menu.",
+    "currentContract": "PR604/606/610/612: six map scales and factual unlock conditions; common world-map modal; separate UI MAP_NOTICE_KEY; game save/clock/model canonical unchanged.",
+    "whyExistingIsInsufficient": "mapShown also expands available range; auto-close marks an unseen final target; slideshow repeats scale changes and menu lacks return context.",
+    "design": "Latest-stage direct unlock modal with short factual caption/continue; quiet menu modal with near/name/far and parent aux-panel return/focus. Read v1 shown as already announced, track shown only at drawing, maintain announced independently; mapProgress alone caps UI. Remove all slideshow timing.",
+    "alternativesRejected": [
+      "New map screen/notification subsystem",
+      "Slideshow or new timers",
+      "Changing unlock conditions or map data",
+      "New game save fields or synthetic export/foreign-sale claims"
+    ],
+    "migration": "Same UI notice key: legacy v1 shown copied into shown and announced; existing no-record legacy baseline retained; v2 shown remains readable by old code. No game-save migration.",
+    "compatibility": "Normal andplacement independent SAVE_KEY-derived notice records. Existing seen history suppresses repeated announcements but never unlocks unavailable scales.",
+    "boundaryCases": [
+      "Newbottle stage1 one time",
+      "Several levels coalesce to latest factual stage",
+      "Legacyshown6/currentmax1 does not unlock6 but no replay",
+      "shown/announced separate; close cannot mark future stage",
+      "Menu returns to aux-panel and focuses map without clock restart",
+      "Paused stays paused, running waits untilmenu closes, hidden/reduced creates no slideshow",
+      "Old no-record save and malformed notice data",
+      "Both URL modes independent metadata",
+      "All6stage bounds; geometry144Canvas72cells unchanged"
+    ],
+    "testPlan": [
+      "Related map/state/clock unit regressions; focused A-I browser bothmodes and360/375/390; before/after images; strict model/renderer/conditions parity review; Scope/Risk/Impact, mandatoryCI and public bytes/actions."
+    ],
+    "promotionRisk": "Staging-only reversible map UI and metadata compatibility change; no Production."
+  }
+}
