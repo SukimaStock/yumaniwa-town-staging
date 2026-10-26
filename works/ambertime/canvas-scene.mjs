@@ -1,3 +1,4 @@
+import{installUniformTypography}from'./font-uniform.mjs?v=font-uniform-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
 import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=0.25.3-feedback';
@@ -17,6 +18,7 @@ function sprite(markup,collection=1,active=false,frame=0){
 }
 export class CanvasScene{
  constructor(){
+  this.uniformTypography=installUniformTypography($('font-uniform-style')?location.search:'',document.documentElement);
   this.root=$('scene-root');this.canvas=$('scene-canvas');this.ctx=this.canvas.getContext('2d');this.world=document.createElement('canvas');this.world.width=120;this.world.height=214;this.worldCtx=this.world.getContext('2d');this.controlRoot=$('scene-controls');this.view=null;this.frame=0;this.pressed=null;this.fontSettled=false;this.selectionTimer=null;this.hintTimer=null;this.motionTimer=null;this.motion=new RoomMotion();this.idleSince=performance.now();this.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');this.resetIdle=()=>{this.idleSince=performance.now();this.queue();};this.reducedMotion.addEventListener('change',this.resetIdle);
   for(const event of ['pointerdown','keydown'])document.addEventListener(event,this.resetIdle,true);
   document.addEventListener('visibilitychange',this.resetIdle);
@@ -39,7 +41,7 @@ export class CanvasScene{
    const visible={width:vv?.width??innerWidth,height:vv?.height??innerHeight,left:vv?.offsetLeft??0,top:vv?.offsetTop??0};
    const zoomed=vv?.scale>1.01;this.root.dataset.zoomed=String(!!zoomed);
    const scene=zoomed?{width:document.documentElement.clientWidth,height:innerHeight,left:0,top:0}:{width:visible.width,height:visible.height,left:0,top:0};
-   this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');document.documentElement.style.setProperty('--pixel',Math.round(3*v.scale*v.dpr)/v.dpr+'px');document.documentElement.style.setProperty('--icon-cell',Math.round(3*v.scale*v.dpr)/v.dpr+'px');this.root.dataset.viewport=JSON.stringify(v);this.alignDialog();this.queue();};
+   this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;this.uniformTypography?.resize(v);Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');document.documentElement.style.setProperty('--pixel',Math.round(3*v.scale*v.dpr)/v.dpr+'px');document.documentElement.style.setProperty('--icon-cell',Math.round(3*v.scale*v.dpr)/v.dpr+'px');this.root.dataset.viewport=JSON.stringify(v);this.alignDialog();this.queue();};
   new MutationObserver(()=>this.queue()).observe($('automatic-news'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});
   window.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('scroll',this.resize);this.resize();
   installSceneInput(this.root,$('action-dialog'),()=>{this.pressed=null;this.queue();});
@@ -82,12 +84,13 @@ export class CanvasScene{
 
  }
  // Text is rasterized at integral physical dots, independently of the room scale.
- textMetrics(size=BODY_SIZE){return pixelTypography(size,this.viewport.scale*this.viewport.dpr,document.documentElement.dataset.fontState==='ready');}
+ textMetrics(size=BODY_SIZE){return pixelTypography(this.uniformTypography?BODY_SIZE:size,this.viewport.scale*this.viewport.dpr,document.documentElement.dataset.fontState==='ready');}
  runs(text,size=BODY_SIZE){const c=this.ctx,m=this.textMetrics(size);return textRuns(text).map(run=>{const pixels=run.number?m.numberPixels:m.pixels;c.font=`400 ${pixels}px ${FONT_STACK}`;return{...run,pixels,width:c.measureText(run.text).width,drop:run.number?m.numberDrop:0};});}
  measure(text,size=BODY_SIZE){return this.runs(text,size).reduce((sum,run)=>sum+run.width,0)/this.textMetrics(size).unit;}
  text(text,x,y,size=BODY_SIZE,align='left',color=ink,suffix=null){const c=this.ctx,v=this.viewport,runs=this.runs(text,size),width=runs.reduce((sum,run)=>sum+run.width,0);let px=Math.round((v.offsetX+x*v.scale)*v.dpr)-(align==='center'?width/2:align==='right'?width:0);const py=Math.round((v.offsetY+y*v.scale)*v.dpr);c.save();c.setTransform(1,0,0,1,0,0);c.textAlign='left';c.textBaseline='alphabetic';c.fillStyle=color;for(const run of runs){c.font=`400 ${run.pixels}px ${FONT_STACK}`;if(suffix&&run.text.endsWith(suffix.text)){const prefix=run.text.slice(0,-suffix.text.length);c.fillText(prefix,Math.round(px),py+run.drop);c.fillStyle=suffix.color;c.fillText(suffix.text,Math.round(px+c.measureText(prefix).width),py+run.drop);c.fillStyle=color;}else c.fillText(run.text,Math.round(px),py+run.drop);px+=run.width;}c.restore();}
  lines(text,x,y,width,size=BODY_SIZE,max=2,align='left'){
-  const result=[];let line='';for(const piece of textPieces(text)){const parts=this.measure(piece,size)>width?Array.from(piece):[piece];for(const ch of parts){if(ch==='\n'){result.push(line);line='';continue;}if(this.measure(line+ch,size)>width&&line){result.push(line);line='';}line+=ch;}}if(line)result.push(line);const shown=result.slice(0,max);if(result.length>max){let last=Array.from(shown.at(-1));while(last.length&&this.measure(last.join('')+'…',size)>width)last.pop();shown[shown.length-1]=last.join('')+'…';}const step=Math.max(size+4,this.textMetrics(size).logical+4);shown.forEach((s,i)=>this.text(s,x,y+i*step,size,align));return shown.length;
+  if(this.uniformTypography)size=BODY_SIZE;
+  const result=[];let line='';for(const piece of textPieces(text)){const parts=this.measure(piece,size)>width?Array.from(piece):[piece];for(const ch of parts){if(ch==='\n'){result.push(line);line='';continue;}if(this.measure(line+ch,size)>width&&line){result.push(line);line='';}line+=ch;}}if(line)result.push(line);const shown=result.slice(0,max);if(result.length>max){let last=Array.from(shown.at(-1));while(last.length&&this.measure(last.join('')+'…',size)>width)last.pop();shown[shown.length-1]=last.join('')+'…';}const step=this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(size+4,this.textMetrics(size).logical+4);shown.forEach((s,i)=>this.text(s,x,y+i*step,size,align));return shown.length;
  }
  pixelRect(x,y,w,h,color){const c=this.ctx,v=this.viewport,left=Math.round((v.offsetX+x*v.scale)*v.dpr),top=Math.round((v.offsetY+y*v.scale)*v.dpr);c.save();c.setTransform(1,0,0,1,0,0);c.fillStyle=color;c.fillRect(left,top,Math.round((v.offsetX+(x+w)*v.scale)*v.dpr)-left,Math.round((v.offsetY+(y+h)*v.scale)*v.dpr)-top);c.restore();}
  window(x,y,w,h,fill='#2e3143',border='#6c707b'){this.pixelRect(x+3,y+3,w,h,shadow);this.pixelRect(x,y,w,h,border);this.pixelRect(x+3,y+3,w-6,h-6,fill);}
@@ -121,7 +124,7 @@ export class CanvasScene{
 
   this.window(6,6,348,39,'#292b39','#d8d5df');
   let headerSize=BODY_SIZE;
-  while(headerSize>8&&this.measure(view.calendar+' '+view.generation,headerSize)+this.measure(view.cash,headerSize)>312)headerSize--;
+  while(!this.uniformTypography&&headerSize>8&&this.measure(view.calendar+' '+view.generation,headerSize)+this.measure(view.cash,headerSize)>312)headerSize--;
   const calendarRight=15+this.measure(view.calendar,headerSize),generationX=calendarRight+this.measure(' ',headerSize),generationRight=generationX+this.measure(view.generation,headerSize),cashWidth=this.measure(view.cash,headerSize);
   this.text(view.calendar,15,32,headerSize);this.text(view.generation,generationX,32,headerSize);this.text(view.cash,345,32,headerSize,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY:32,calendarRight,generationRight,cashLeft:345-cashWidth,size:headerSize,blocks:[{x:6,y:6,w:348,h:39}]});
   // Target two CSS pixels, aligned to physical dots and flush with the calendar frame.
@@ -129,10 +132,10 @@ export class CanvasScene{
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
   const salesText=[],reservationLayout=[],cooledLayout=[];
   items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2,sales=view.room==='sales';
-   if(sales){const stock=item.stock??Number(item.state.split('本')[0]),status=item.saleState??item.state.split(' · ')[1]??'',countX=mid-24,countY=p.base-39,dateY=p.base+30,date=item.releaseDate??item.name.split('\n').at(-1).split(' · ')[0],dateText=this.measure(date)>132?date.replace('年','年\n'):date,dateLines=this.lines(dateText,mid,dateY,132,BODY_SIZE,2,'center'),statusY=dateY+dateLines*Math.max(BODY_SIZE+4,this.textMetrics().logical+4);
+   if(sales){const stock=item.stock??Number(item.state.split('本')[0]),status=item.saleState??item.state.split(' · ')[1]??'',countX=mid-24,countY=p.base-39,dateY=p.base+30,date=item.releaseDate??item.name.split('\n').at(-1).split(' · ')[0],dateText=this.measure(date)>132?date.replace('年','年\n'):date,dateLines=this.lines(dateText,mid,dateY,132,BODY_SIZE,2,'center'),statusY=dateY+dateLines*(this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(BODY_SIZE+4,this.textMetrics().logical+4));
     this.text(stock+'本',countX,countY,16,'right');this.text(status,mid,statusY,BODY_SIZE,'center',status==='販売中'?'#efae95':['保管','保管中'].includes(status)?'#c0bfbb':ink);
     salesText.push({id:item.id,stock,status,count:{x:countX,y:countY,align:'right',size:16},date:{text:date,lines:dateLines,x:mid,y:dateY,size:BODY_SIZE},statusLabel:{x:mid,y:statusY,align:'center',size:BODY_SIZE},bottle:{x:mid-18,y:p.base-33,w:36,h:33}});
-   }else{const titleY=p.base+27,lines=this.lines(uiText(item.name),mid,titleY,132,BODY_SIZE,item.flavorName?2:1,'center'),detailY=titleY+lines*Math.max(26,this.textMetrics().logical+4);this.text(item.age,mid,detailY,BODY_SIZE,'center');
+   }else{const titleY=p.base+27,lines=this.lines(uiText(item.name),mid,titleY,132,BODY_SIZE,item.flavorName?2:1,'center'),detailY=titleY+lines*(this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(26,this.textMetrics().logical+4));this.text(item.age,mid,detailY,BODY_SIZE,'center');
     if(item.cooled){const x=mid-45,y=p.base-33;/* Separate left-hand snow crystal, no change to the cask sprite. */for(const [dx,dy,w,h] of [[9,0,3,21],[0,9,21,3],[3,3,3,3],[15,3,3,3],[3,15,3,3],[15,15,3,3]])this.pixelRect(x+dx,y+dy,w,h,'#a8c5cf');cooledLayout.push({id:item.id,x,y,w:21,h:21});}
     if(item.reservationIcon){const x=mid+30,y=p.base-33,color=({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink;drawSymbol(c,item.reservationIcon,x,y,3,color);reservationLayout.push({id:item.id,kind:item.reservationIcon,x,y,w:21,h:21,color,cask:{x:mid-24,y:p.base-45,w:48,h:45}});}
    }
@@ -153,7 +156,7 @@ export class CanvasScene{
    for(const n of [g.start,g.end])if(n!==null)for(let row=0;row<4;row++)this.pixelRect(point(n)-3+row,g.y-10+row,7-row*2,1,'#f0e6c8');
    this.root.dataset.collectionBar=JSON.stringify(g);
   }else delete this.root.dataset.collectionBar;
-  const noticeStep=Math.max(26,this.textMetrics().logical+4),metrics=this.textMetrics();
+  const noticeStep=this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(26,this.textMetrics().logical+4),metrics=this.textMetrics();
   // The same normal scene font and wrapping apply to both transient notice paths.
   if(view.notice){const n=noticeLayout(view.notice,t=>this.measure(t),{step:noticeStep});this.window(n.x,n.y,n.w,n.h,'#2e3143','#858995');
    c.save();c.font=`400 ${metrics.pixels}px ${FONT_STACK}`;const bounds=c.measureText('国Ag');c.restore();const baseline=(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/metrics.unit/2;

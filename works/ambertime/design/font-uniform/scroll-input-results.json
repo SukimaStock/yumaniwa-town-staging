@@ -1,0 +1,225 @@
+{
+  "ok": true,
+  "baseline": false,
+  "public": false,
+  "checks": [
+    {
+      "width": 375,
+      "uniform": false,
+      "dpr": 3,
+      "scenes": 2
+    },
+    {
+      "width": 375,
+      "uniform": true,
+      "dpr": 3,
+      "scenes": 2
+    }
+  ],
+  "errors": [],
+  "physicalSafari": "UNVERIFIED",
+  "voiceOver": "UNVERIFIED",
+  "measurements": [
+    {
+      "width": 375,
+      "uniform": false,
+      "dpr": 3,
+      "phase": "comparison",
+      "expectedPhysical": 64,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 218,
+      "domSizes": {
+        "24": {
+          "count": 38,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "比べる",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LABEL",
+              "id": "",
+              "text": "比べる仕込み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "STRONG",
+              "id": "",
+              "text": "たる No.",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": true
+    },
+    {
+      "width": 375,
+      "uniform": false,
+      "dpr": 3,
+      "phase": "input-value",
+      "expectedPhysical": 64,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 12,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LABEL",
+              "id": "",
+              "text": "ブランド名",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LEGEND",
+              "id": "",
+              "text": "ビン",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "INPUT",
+              "id": "brand-name",
+              "text": "麦𠮷🙂é",
+              "size": 20,
+              "line": "30px",
+              "family": "system-ui, -apple-system, sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 375,
+      "uniform": true,
+      "dpr": 3,
+      "phase": "comparison",
+      "expectedPhysical": 64,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 91,
+      "domSizes": {
+        "21.3333": {
+          "count": 38,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "比べる",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LABEL",
+              "id": "",
+              "text": "比べる仕込み",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "STRONG",
+              "id": "",
+              "text": "たる No.",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": true
+    },
+    {
+      "width": 375,
+      "uniform": true,
+      "dpr": 3,
+      "phase": "input-value",
+      "expectedPhysical": 64,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "21.3333": {
+          "count": 13,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LABEL",
+              "id": "",
+              "text": "ブランド名",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LEGEND",
+              "id": "",
+              "text": "ビン",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    }
+  ]
+}

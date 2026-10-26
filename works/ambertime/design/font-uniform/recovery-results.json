@@ -1,0 +1,127 @@
+{
+  "ok": true,
+  "baseline": false,
+  "public": false,
+  "checks": [
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 3,
+      "scenes": 1
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 3,
+      "scenes": 1
+    }
+  ],
+  "errors": [],
+  "physicalSafari": "UNVERIFIED",
+  "voiceOver": "UNVERIFIED",
+  "measurements": [
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 3,
+      "phase": "recovery",
+      "expectedPhysical": 64,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "13": {
+          "count": 2,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "",
+              "text": "元の保存を残したまま、進行を止めています。",
+              "size": 13,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "storage-notice",
+              "text": "この保存は開けません。元の記録を残して停止しています。書き出して保管し、再読み込みしてください。",
+              "size": 13,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "14": {
+          "count": 2,
+          "examples": [
+            {
+              "tag": "BUTTON",
+              "id": "retry-save",
+              "text": "保存を再確認する",
+              "size": 14,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "recovery-export",
+              "text": "書き出す",
+              "size": 14,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {},
+      "buttonMinHeight": 50,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 3,
+      "phase": "recovery",
+      "expectedPhysical": 64,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "21.3333": {
+          "count": 4,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "",
+              "text": "元の保存を残したまま、進行を止めています。",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "retry-save",
+              "text": "保存を再確認する",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "recovery-export",
+              "text": "書き出す",
+              "size": 21.3333,
+              "line": "26.6667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {},
+      "buttonMinHeight": 45,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    }
+  ]
+}

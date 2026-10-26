@@ -1,0 +1,122 @@
+{
+  "base": "1fa5383b29004de406fbd77da7ed398456ce29af",
+  "pairs": [
+    {
+      "phase": "allocation",
+      "identical": true
+    },
+    {
+      "phase": "automatic-notice",
+      "identical": true
+    },
+    {
+      "phase": "bottling",
+      "identical": true
+    },
+    {
+      "phase": "brand-input",
+      "identical": true
+    },
+    {
+      "phase": "brewing",
+      "identical": true
+    },
+    {
+      "phase": "cask-detail",
+      "identical": true
+    },
+    {
+      "phase": "common-settings",
+      "identical": true
+    },
+    {
+      "phase": "comparison",
+      "identical": true
+    },
+    {
+      "phase": "countdown",
+      "identical": true
+    },
+    {
+      "phase": "distill",
+      "identical": true
+    },
+    {
+      "phase": "distilling",
+      "identical": true
+    },
+    {
+      "phase": "error",
+      "identical": true
+    },
+    {
+      "phase": "fill",
+      "identical": true
+    },
+    {
+      "phase": "generation-notice",
+      "identical": true
+    },
+    {
+      "phase": "generation-review",
+      "identical": true
+    },
+    {
+      "phase": "history",
+      "identical": true
+    },
+    {
+      "phase": "ledger",
+      "identical": true
+    },
+    {
+      "phase": "map",
+      "identical": true
+    },
+    {
+      "phase": "menu",
+      "identical": true
+    },
+    {
+      "phase": "receipt",
+      "identical": true
+    },
+    {
+      "phase": "recipe-record",
+      "identical": true
+    },
+    {
+      "phase": "save-choice",
+      "identical": true
+    },
+    {
+      "phase": "save",
+      "identical": true
+    },
+    {
+      "phase": "shelf",
+      "identical": true
+    },
+    {
+      "phase": "staff-request",
+      "identical": true
+    },
+    {
+      "phase": "staff",
+      "identical": true
+    },
+    {
+      "phase": "store",
+      "identical": true
+    },
+    {
+      "phase": "tasting",
+      "identical": true
+    },
+    {
+      "phase": "warehouse",
+      "identical": true
+    }
+  ],
+  "identical": 29
+}
