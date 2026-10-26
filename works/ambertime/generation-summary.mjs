@@ -1,4 +1,4 @@
-import {replayDistilleryOperations} from './partner-orders.mjs?v=0.27-placement';
+import {replayDistilleryOperations} from './partner-orders.mjs?v=formal-copy-r1';
 
 // Ephemeral projection over public transaction boundaries; never saved or replayed as an action.
 const copy=x=>x==null?null:structuredClone(x);

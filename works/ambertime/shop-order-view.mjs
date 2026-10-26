@@ -24,7 +24,7 @@ export function shopOrderReason(order,minQuantity){
  if(order.reason==='no-eligible-release')return '発送条件に合う発売回がありませんでした。';
  if(order.unmet===0)return '';
  switch(order.reason){
-  case 'insufficient-stock':return '在庫が足りませんでした。';
+  case 'insufficient-stock':return '在庫不足';
   case 'minimum-lot':return Number.isInteger(minQuantity)&&minQuantity>0?'未発送分は、発売回ごとの最低'+minQuantity+'本に届きませんでした。':'未発送分は最低納品本数に届きませんでした。';
   case 'stock-or-capacity':return '在庫または月の受入上限による制約がありました。';
   case 'delivery-ledger-full':return '納品記録の上限に達し、未発送分を送れませんでした。';
@@ -32,12 +32,12 @@ export function shopOrderReason(order,minQuantity){
  }
 }
 export function shopOrderMarkup(state,shopId,{monthLabel,minQuantity}={}){
- if(!ordinary(shopId))return '';
+ if(!ordinary(shopId)||(shopId==='town-liquor'&&state?.placement?.version===1))return '';
  const order=latestShopOrder(state,shopId);
- if(!order)return '<section class="shop-order-result" aria-label="直近の発送結果"><p class="quiet">直近の注文記録はありません。</p></section>';
+ if(!order)return '<section class="shop-order-result" aria-label="直近の発送結果"><p class="quiet">注文記録なし</p></section>';
  const date=typeof monthLabel==='function'?monthLabel(order.month):order.month+'か月目';
  const empty=order.requested===0&&order.shipped===0&&order.unmet===0;
- const shipment=order.unmet===0?order.shipped+'本発送しました。':(order.shipped?order.shipped+'本発送':'発送なし')+'・'+order.unmet+'本未発送';
+ const shipment=order.unmet===0?'発送 '+order.shipped+'本':(order.shipped?'発送 '+order.shipped+'本':'発送なし')+'・'+order.unmet+'本未発送';
  const reason=shopOrderReason(order,minQuantity);
- return '<section class="shop-order-result" aria-label="直近の発送結果" data-order-month="'+order.month+'"><p class="quiet">'+esc(date)+'の発送結果</p><p>'+(empty?'注文なし':'注文 '+order.requested+'本<br>'+shipment)+'</p>'+(reason?'<p class="quiet">'+esc(reason)+'</p>':'')+'</section>';
+ return '<section class="shop-order-result" aria-label="直近の発送結果" data-order-month="'+order.month+'"><p class="quiet">'+esc(date)+'</p><p>'+(empty?'注文なし':'注文 '+order.requested+'本<br>'+shipment)+'</p>'+(reason?'<p class="quiet">'+esc(reason)+'</p>':'')+'</section>';
 }

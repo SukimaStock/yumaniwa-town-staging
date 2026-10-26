@@ -29,6 +29,8 @@ test('first manual UI is short without mutating default/old save; three usable c
  assert.deepEqual(chooseManualCard(s,'malt','peat'),{malt:'peat',ferment:'short'});assert(chooseManualCard(s,'ferment','short'));
  assert.equal(chooseManualCard(s,'ferment','long'),null);assert.equal(chooseManualCard(s,'other','long'),null);
  const html=brewingCardsMarkup(s);assert.equal((html.match(/<button /g)||[]).length,4);assert.equal((html.match(/ disabled /g)||[]).length,1);assert.match(html,/card-lock/);assert.match(html,/data-id="short" aria-pressed="true"/);assert.match(html,/初めて自分でたる詰めすると解放/);
+ for(const label of ['ふつう','ピート','短め','長め'])assert.ok(html.includes('<span class="brewing-name">'+label+'</span>'));
+ assert.deepEqual(BREWING_CARDS.map(c=>c.label),['ふつうの麦芽','ピート麦芽','短い発酵','長い発酵']);
  assert.equal(D.serializeDistillery(s),raw);assert.equal(D.serializeDistillery(cold(s)),raw);
  const started=start(s);assert.equal(started.still.distillation.labChoice.ferment,'short');assert.equal(longFermentationUnlocked(started),false);
 });

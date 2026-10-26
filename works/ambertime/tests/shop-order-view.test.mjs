@@ -18,26 +18,26 @@ test('ordinary relationship labels ignore inventory and manual-delivery eligibil
  s.shop.offer={shopId:'town-liquor'};assert.equal(shopRelationshipLabel(s,'town-liquor'),'申し出あり');s.shop.offer=null;s.shop.pendingOffers=[{shopId:'town-liquor'}];assert.equal(shopRelationshipLabel(s,'town-liquor'),'申し出あり');s.shop.pendingOffers=[];assert.equal(shopRelationshipLabel(s,'town-liquor'),'取扱前');s.shop.relations.push({brandId:1});assert.equal(shopRelationshipLabel(s,'town-liquor'),'取扱中');assert.equal(shopRelationshipLabel(s,'department'),null);assert.equal(view(s,'department'),'');
 });
 test('missing records differ from a recorded zero; use actual recorded absolute month',()=>{
- const s=state([]);assert.match(view(s),/注文記録はありません/);assert.doesNotMatch(view(s),/注文なし/);
- s.shopDemand.lastOrders=[row('zero-demand',0,0,0)];s.core.month=30;const html=view(s);assert.match(html,/注文なし/);assert(html.includes(monthLabel(17)+'の発送結果'));assert(!html.includes(monthLabel(30)+'の発送結果'));assert(!html.includes('先月'));s.shopDemand.lastOrders=[{...row(),month:31}];assert.equal(latestShopOrder(s,'supermarket'),null);
- const other=state([{...row(),shopId:'town-liquor'}]);assert.equal(latestShopOrder(other,'supermarket'),null);assert.match(view(other),/注文記録はありません/);
+ const s=state([]);assert.match(view(s),/注文記録なし/);assert.doesNotMatch(view(s),/注文なし/);
+ s.shopDemand.lastOrders=[row('zero-demand',0,0,0)];s.core.month=30;const html=view(s);assert.match(html,/注文なし/);assert(html.includes('<p class="quiet">'+monthLabel(17)+'</p>'));assert(!html.includes('<p class="quiet">'+monthLabel(30)+'</p>'));assert(!html.includes('先月'));s.shopDemand.lastOrders=[{...row(),month:31}];assert.equal(latestShopOrder(s,'supermarket'),null);
+ const other=state([{...row(),shopId:'town-liquor'}]);assert.equal(latestShopOrder(other,'supermarket'),null);assert.match(view(other),/注文記録なし/);
 });
 test('recorded reason codes distinguish partial minimums, shortage, combined limits and ledger full',()=>{
- for(const [reason,text]of [['insufficient-stock',/在庫が足りません/],['minimum-lot',/未発送分.*発売回ごとの最低10本/],['stock-or-capacity',/在庫または月の受入上限/],['delivery-ledger-full',/納品記録の上限/],['future-reason',/詳しい理由は表示できません/]]){
-  const s=state([row(reason,20,10,10)]),before=JSON.stringify(s),html=view(s);assert.match(html,/注文 20本/);assert.match(html,/10本発送・10本未発送/);assert.match(html,text);assert.equal(JSON.stringify(s),before);assert(!html.includes('999'));
+ for(const [reason,text]of [['insufficient-stock',/在庫不足/],['minimum-lot',/未発送分.*発売回ごとの最低10本/],['stock-or-capacity',/在庫または月の受入上限/],['delivery-ledger-full',/納品記録の上限/],['future-reason',/詳しい理由は表示できません/]]){
+  const s=state([row(reason,20,10,10)]),before=JSON.stringify(s),html=view(s);assert.match(html,/注文 20本/);assert.match(html,/発送 10本・10本未発送/);assert.match(html,text);assert.equal(JSON.stringify(s),before);assert(!html.includes('999'));
  }
  const noEligible=view(state([row('no-eligible-release',0,0,0)]));assert.match(noEligible,/注文なし/);assert.match(noEligible,/発送条件に合う発売回がありません/);
- assert.match(view(state([row('fulfilled',6,6,0)])),/6本発送しました/);assert.doesNotMatch(view(state([row('fulfilled',6,6,0)])),/在庫が足りません/);
+ assert.match(view(state([row('fulfilled',6,6,0)])),/発送 6本/);assert.doesNotMatch(view(state([row('fulfilled',6,6,0)])),/在庫不足/);
 });
 test('formatter output is escaped; unknown/malformed receipt is not invented',()=>{
  assert.match(shopOrderMarkup(state([row()]),'supermarket',{monthLabel:()=>'<img onerror="bad">',minQuantity:10}),/&lt;img/);assert.doesNotMatch(shopOrderMarkup(state([row()]),'supermarket',{monthLabel:()=>'<img>'}),/<img>/);
- const s=state([{...row(),requested:undefined}]);assert.equal(latestShopOrder(s,'supermarket'),null);assert.match(view(s),/注文記録はありません/);
+ const s=state([{...row(),requested:undefined}]);assert.equal(latestShopOrder(s,'supermarket'),null);assert.match(view(s),/注文記録なし/);
 });
 test('all1776 audit shop-month rows retain exact quantities and do not name demand-reference products',()=>{
  const lines=fs.readFileSync(new URL('../design/gameplay-audit-20261023/delivery-monthly.csv',import.meta.url),'utf8').trimEnd().split('\n'),header=lines.shift().split(',');let count=0;
  // The archived audit writes every data cell quoted; preserve embedded JSON commas.
  for(const line of lines){const cells=[...line.matchAll(/"((?:[^"]|"")*)"(?:,|$)/g)].map(m=>m[1].replaceAll('""','"'));assert.equal(cells.length,header.length);const data=Object.fromEntries(header.map((h,i)=>[h,cells[i]]));const r={shopId:data.shopId,month:+data.month,requested:+data.requested,shipped:+data.shipped,unmet:+data.unmet,reason:data.reason},s=state([r]);s.core.month=r.month;const before=JSON.stringify(s),html=view(s,r.shopId);assert.equal(JSON.stringify(s),before);assert.equal(r.requested,r.shipped+r.unmet);
-  if(r.requested===0)assert.match(html,/注文なし/);else {assert(html.includes('注文 '+r.requested+'本'));assert(html.includes(r.unmet?(r.shipped?r.shipped+'本発送':'発送なし')+'・'+r.unmet+'本未発送':r.shipped+'本発送しました。'));}count++;
+  if(r.requested===0)assert.match(html,/注文なし/);else {assert(html.includes('注文 '+r.requested+'本'));assert(html.includes(r.unmet?(r.shipped?'発送 '+r.shipped+'本':'発送なし')+'・'+r.unmet+'本未発送':'発送 '+r.shipped+'本'));}count++;
  }
  assert.equal(count,1776);
 });
@@ -49,7 +49,7 @@ test('audit stock9/10, split5+5 and held-five edges match unchanged fulfillment 
 });
 test('lawful old save: manual quote rejects auto mode, relationship stays active, real next-month receipt agrees with ledger',()=>{
  const before=D.enableShopDemand(D.restoreDistillery(fixture.before));assert.equal(D.shopQuote(before,8,'town-liquor').ok,false);assert.equal(shopRelationshipLabel(before,'town-liquor'),'取扱中');assert.equal(latestShopOrder(before,'town-liquor'),null);
- const s=D.tickDistillery(before),raw=D.serializeDistillery(s),o=latestShopOrder(s,'town-liquor');assert.equal(o.shipped,2);assert.equal(o.month,s.core.month);const ledger=buildShopLedger(s);assert(ledger);const deliveries=s.shop.deliveries.filter(d=>d.shopId==='town-liquor'&&d.month===o.month);assert.equal(deliveries.reduce((n,d)=>n+d.count,0),o.shipped);for(let i=0;i<10;i++){assert.match(view(s,'town-liquor'),/2本発送しました/);shopRelationshipLabel(s,'town-liquor');}assert.equal(D.serializeDistillery(s),raw);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
+ const s=D.tickDistillery(before),raw=D.serializeDistillery(s),o=latestShopOrder(s,'town-liquor');assert.equal(o.shipped,2);assert.equal(o.month,s.core.month);const ledger=buildShopLedger(s);assert(ledger);const deliveries=s.shop.deliveries.filter(d=>d.shopId==='town-liquor'&&d.month===o.month);assert.equal(deliveries.reduce((n,d)=>n+d.count,0),o.shipped);for(let i=0;i<10;i++){assert.match(view(s,'town-liquor'),/発送 2本/);shopRelationshipLabel(s,'town-liquor');}assert.equal(D.serializeDistillery(s),raw);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
 });
 test('calculation/save sources and clock/animation/progress paths remain identical to616',()=>{
  // 0.27 authorizes native opt-in opcodes; the ordinary contract remains exact base behavior.
@@ -69,4 +69,12 @@ test('simultaneous ordinary-store rows and retail-first audit examples keep stor
  const pair=[...groups.values()].find(g=>g.length===2&&g.every(x=>+x.requested>0));assert(pair);const rows=pair.map(d=>({shopId:d.shopId,month:+d.month,requested:+d.requested,shipped:+d.shipped,unmet:+d.unmet,reason:d.reason})),s=state(rows);s.core.month=rows[0].month;
  for(const r of rows){const {shopId,...facts}=r;assert.deepEqual(latestShopOrder(s,shopId),facts);assert(view(s,r.shopId).includes('注文 '+r.requested+'本'));}
  const retail=audit.examples.retailCompetition.find(r=>r.retailSold>0&&r.unmet>0);assert(retail);const r={shopId:retail.shopId,month:retail.month,requested:retail.requested,shipped:retail.shipped,unmet:retail.unmet,reason:retail.reason},rs=state([r]);rs.core.month=r.month;const html=view(rs,r.shopId);assert(html.includes(r.unmet+'本未発送'));assert(!html.includes('自家販売のため'));
+});
+
+test('placement town manual delivery omits automatic order UI without deleting historical facts',()=>{
+ const s=state([{...row(),shopId:'town-liquor'},row()]);s.placement={version:1};
+ const before=JSON.stringify(s),facts=latestShopOrder(s,'town-liquor');
+ assert.equal(view(s,'town-liquor'),'');assert.match(view(s,'supermarket'),/注文 10本<br>発送 10本/);
+ assert.deepEqual(latestShopOrder(s,'town-liquor'),facts);assert.equal(JSON.stringify(s),before);
+ delete s.placement;assert.match(view(s,'town-liquor'),/注文 10本<br>発送 10本/);
 });

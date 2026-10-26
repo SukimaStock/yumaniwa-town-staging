@@ -1,0 +1,2520 @@
+{
+  "ok": true,
+  "baseline": false,
+  "public": false,
+  "checks": [
+    {
+      "width": 360,
+      "alias": false,
+      "baseline": false,
+      "product": true,
+      "undo": true,
+      "atomicCommit": true,
+      "uncommittedClose": true,
+      "ledgerWorkers": true,
+      "cask": true,
+      "bottling": true,
+      "brewing": true,
+      "map": true,
+      "saveChoice": true
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "baseline": false,
+      "product": true,
+      "undo": true,
+      "atomicCommit": true,
+      "uncommittedClose": true,
+      "ledgerWorkers": true,
+      "cask": true,
+      "bottling": true,
+      "brewing": true,
+      "map": true,
+      "saveChoice": true
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "baseline": false,
+      "product": true,
+      "undo": true,
+      "atomicCommit": true,
+      "uncommittedClose": true,
+      "ledgerWorkers": true,
+      "cask": true,
+      "bottling": true,
+      "brewing": true,
+      "map": true,
+      "saveChoice": true
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "baseline": false,
+      "product": true,
+      "undo": true,
+      "atomicCommit": true,
+      "uncommittedClose": true,
+      "ledgerWorkers": true,
+      "cask": true,
+      "bottling": true,
+      "brewing": true,
+      "map": true,
+      "saveChoice": false
+    }
+  ],
+  "measurements": [
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "product",
+      "open": true,
+      "w": 336,
+      "h": 549,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "1本",
+          "overflow": false
+        },
+        {
+          "text": "2本",
+          "overflow": false
+        },
+        {
+          "text": "半分",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "自家販売0本",
+          "overflow": false
+        },
+        {
+          "text": "ひとつ戻す",
+          "overflow": false
+        },
+        {
+          "text": "全部分け直す",
+          "overflow": false
+        },
+        {
+          "text": "元の記録",
+          "overflow": false
+        },
+        {
+          "text": "低め£16.00",
+          "overflow": false
+        },
+        {
+          "text": "ふつう£16.00",
+          "overflow": false
+        },
+        {
+          "text": "高め£19.84",
+          "overflow": false
+        },
+        {
+          "text": "これで決める",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "receipt",
+      "open": true,
+      "w": 336,
+      "h": 626,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "1本",
+          "overflow": false
+        },
+        {
+          "text": "2本",
+          "overflow": false
+        },
+        {
+          "text": "半分",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "自家販売1本",
+          "overflow": false
+        },
+        {
+          "text": "ひとつ戻す",
+          "overflow": false
+        },
+        {
+          "text": "全部分け直す",
+          "overflow": false
+        },
+        {
+          "text": "元の記録",
+          "overflow": false
+        },
+        {
+          "text": "低め£16.00",
+          "overflow": false
+        },
+        {
+          "text": "ふつう£16.00",
+          "overflow": false
+        },
+        {
+          "text": "高め£19.84",
+          "overflow": false
+        },
+        {
+          "text": "これで決める",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "staff",
+      "open": true,
+      "w": 336,
+      "h": 491,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "依頼",
+          "overflow": false
+        },
+        {
+          "text": "設定",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "staff-request",
+      "open": true,
+      "w": 336,
+      "h": 451,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "製法",
+          "overflow": false
+        },
+        {
+          "text": "次のたるを任せる",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "staff-bottling",
+      "open": true,
+      "w": 336,
+      "h": 699,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "保存",
+          "overflow": false
+        },
+        {
+          "text": "自分で行う",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "ledger-recipes",
+      "open": true,
+      "w": 336,
+      "h": 432,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "ledger-aging",
+      "open": true,
+      "w": 336,
+      "h": 400,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "ledger-releases",
+      "open": true,
+      "w": 336,
+      "h": 820,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "2026年12月 · #3たる No.1 · 6本保管中",
+          "overflow": false
+        },
+        {
+          "text": "2026年9月 · #2たる No.1 · 20本完売",
+          "overflow": false
+        },
+        {
+          "text": "2026年7月 · #1たる No.1 · 20本完売",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "ledger-shops",
+      "open": true,
+      "w": 336,
+      "h": 508,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "町の酒店取扱開始 2026年12月",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "shop-record",
+      "open": true,
+      "w": 336,
+      "h": 296,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "history",
+      "open": true,
+      "w": 336,
+      "h": 269,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "2026年",
+          "overflow": false
+        },
+        {
+          "text": "帳面へ戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "cask-detail",
+      "open": true,
+      "w": 336,
+      "h": 553,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "試す",
+          "overflow": false
+        },
+        {
+          "text": "ビン詰め",
+          "overflow": false
+        },
+        {
+          "text": "冷暗所へ",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "bottling",
+      "open": true,
+      "w": 336,
+      "h": 648,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "設定を直す",
+          "overflow": false
+        },
+        {
+          "text": "−",
+          "overflow": false
+        },
+        {
+          "text": "＋",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "ビン詰め",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "brewing",
+      "open": true,
+      "w": 336,
+      "h": 529,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "ふつう",
+          "overflow": false
+        },
+        {
+          "text": "ピート",
+          "overflow": false
+        },
+        {
+          "text": "短め",
+          "overflow": false
+        },
+        {
+          "text": "長め",
+          "overflow": false
+        },
+        {
+          "text": "蒸留",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "map",
+      "open": true,
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "−",
+          "overflow": false
+        },
+        {
+          "text": "＋",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "alias": false,
+      "phase": "save",
+      "open": true,
+      "w": 336,
+      "h": 324,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "書き出す",
+          "overflow": false
+        },
+        {
+          "text": "新しい蒸留所で始める",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "product",
+      "open": true,
+      "w": 351,
+      "h": 549,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "1本",
+          "overflow": false
+        },
+        {
+          "text": "2本",
+          "overflow": false
+        },
+        {
+          "text": "半分",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "自家販売0本",
+          "overflow": false
+        },
+        {
+          "text": "ひとつ戻す",
+          "overflow": false
+        },
+        {
+          "text": "全部分け直す",
+          "overflow": false
+        },
+        {
+          "text": "元の記録",
+          "overflow": false
+        },
+        {
+          "text": "低め£16.00",
+          "overflow": false
+        },
+        {
+          "text": "ふつう£16.00",
+          "overflow": false
+        },
+        {
+          "text": "高め£19.84",
+          "overflow": false
+        },
+        {
+          "text": "これで決める",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "receipt",
+      "open": true,
+      "w": 351,
+      "h": 602,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "1本",
+          "overflow": false
+        },
+        {
+          "text": "2本",
+          "overflow": false
+        },
+        {
+          "text": "半分",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "自家販売1本",
+          "overflow": false
+        },
+        {
+          "text": "ひとつ戻す",
+          "overflow": false
+        },
+        {
+          "text": "全部分け直す",
+          "overflow": false
+        },
+        {
+          "text": "元の記録",
+          "overflow": false
+        },
+        {
+          "text": "低め£16.00",
+          "overflow": false
+        },
+        {
+          "text": "ふつう£16.00",
+          "overflow": false
+        },
+        {
+          "text": "高め£19.84",
+          "overflow": false
+        },
+        {
+          "text": "これで決める",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "staff",
+      "open": true,
+      "w": 351,
+      "h": 491,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "依頼",
+          "overflow": false
+        },
+        {
+          "text": "設定",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "staff-request",
+      "open": true,
+      "w": 351,
+      "h": 451,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "製法",
+          "overflow": false
+        },
+        {
+          "text": "次のたるを任せる",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "staff-bottling",
+      "open": true,
+      "w": 351,
+      "h": 699,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "保存",
+          "overflow": false
+        },
+        {
+          "text": "自分で行う",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "ledger-recipes",
+      "open": true,
+      "w": 351,
+      "h": 432,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "ledger-aging",
+      "open": true,
+      "w": 351,
+      "h": 400,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "ledger-releases",
+      "open": true,
+      "w": 351,
+      "h": 820,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "2026年12月 · #3たる No.1 · 6本保管中",
+          "overflow": false
+        },
+        {
+          "text": "2026年9月 · #2たる No.1 · 20本完売",
+          "overflow": false
+        },
+        {
+          "text": "2026年7月 · #1たる No.1 · 20本完売",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "ledger-shops",
+      "open": true,
+      "w": 351,
+      "h": 508,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "町の酒店取扱開始 2026年12月",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "shop-record",
+      "open": true,
+      "w": 351,
+      "h": 296,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "history",
+      "open": true,
+      "w": 351,
+      "h": 269,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "2026年",
+          "overflow": false
+        },
+        {
+          "text": "帳面へ戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "cask-detail",
+      "open": true,
+      "w": 351,
+      "h": 553,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "試す",
+          "overflow": false
+        },
+        {
+          "text": "ビン詰め",
+          "overflow": false
+        },
+        {
+          "text": "冷暗所へ",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "bottling",
+      "open": true,
+      "w": 351,
+      "h": 648,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "設定を直す",
+          "overflow": false
+        },
+        {
+          "text": "−",
+          "overflow": false
+        },
+        {
+          "text": "＋",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "ビン詰め",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "brewing",
+      "open": true,
+      "w": 351,
+      "h": 529,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "ふつう",
+          "overflow": false
+        },
+        {
+          "text": "ピート",
+          "overflow": false
+        },
+        {
+          "text": "短め",
+          "overflow": false
+        },
+        {
+          "text": "長め",
+          "overflow": false
+        },
+        {
+          "text": "蒸留",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "map",
+      "open": true,
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "−",
+          "overflow": false
+        },
+        {
+          "text": "＋",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": false,
+      "phase": "save",
+      "open": true,
+      "w": 351,
+      "h": 324,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "書き出す",
+          "overflow": false
+        },
+        {
+          "text": "新しい蒸留所で始める",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "product",
+      "open": true,
+      "w": 366,
+      "h": 549,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "1本",
+          "overflow": false
+        },
+        {
+          "text": "2本",
+          "overflow": false
+        },
+        {
+          "text": "半分",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "自家販売0本",
+          "overflow": false
+        },
+        {
+          "text": "ひとつ戻す",
+          "overflow": false
+        },
+        {
+          "text": "全部分け直す",
+          "overflow": false
+        },
+        {
+          "text": "元の記録",
+          "overflow": false
+        },
+        {
+          "text": "低め£16.00",
+          "overflow": false
+        },
+        {
+          "text": "ふつう£16.00",
+          "overflow": false
+        },
+        {
+          "text": "高め£19.84",
+          "overflow": false
+        },
+        {
+          "text": "これで決める",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "receipt",
+      "open": true,
+      "w": 366,
+      "h": 602,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "1本",
+          "overflow": false
+        },
+        {
+          "text": "2本",
+          "overflow": false
+        },
+        {
+          "text": "半分",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "自家販売1本",
+          "overflow": false
+        },
+        {
+          "text": "ひとつ戻す",
+          "overflow": false
+        },
+        {
+          "text": "全部分け直す",
+          "overflow": false
+        },
+        {
+          "text": "元の記録",
+          "overflow": false
+        },
+        {
+          "text": "低め£16.00",
+          "overflow": false
+        },
+        {
+          "text": "ふつう£16.00",
+          "overflow": false
+        },
+        {
+          "text": "高め£19.84",
+          "overflow": false
+        },
+        {
+          "text": "これで決める",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "staff",
+      "open": true,
+      "w": 366,
+      "h": 491,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "依頼",
+          "overflow": false
+        },
+        {
+          "text": "設定",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "staff-request",
+      "open": true,
+      "w": 366,
+      "h": 451,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "製法",
+          "overflow": false
+        },
+        {
+          "text": "次のたるを任せる",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "staff-bottling",
+      "open": true,
+      "w": 366,
+      "h": 699,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "保存",
+          "overflow": false
+        },
+        {
+          "text": "自分で行う",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "ledger-recipes",
+      "open": true,
+      "w": 366,
+      "h": 432,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "ledger-aging",
+      "open": true,
+      "w": 366,
+      "h": 400,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "ledger-releases",
+      "open": true,
+      "w": 366,
+      "h": 820,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "2026年12月 · #3たる No.1 · 6本保管中",
+          "overflow": false
+        },
+        {
+          "text": "2026年9月 · #2たる No.1 · 20本完売",
+          "overflow": false
+        },
+        {
+          "text": "2026年7月 · #1たる No.1 · 20本完売",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "ledger-shops",
+      "open": true,
+      "w": 366,
+      "h": 508,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "町の酒店取扱開始 2026年12月",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "shop-record",
+      "open": true,
+      "w": 366,
+      "h": 296,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "history",
+      "open": true,
+      "w": 366,
+      "h": 269,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "2026年",
+          "overflow": false
+        },
+        {
+          "text": "帳面へ戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "cask-detail",
+      "open": true,
+      "w": 366,
+      "h": 553,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "試す",
+          "overflow": false
+        },
+        {
+          "text": "ビン詰め",
+          "overflow": false
+        },
+        {
+          "text": "冷暗所へ",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "bottling",
+      "open": true,
+      "w": 366,
+      "h": 648,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "設定を直す",
+          "overflow": false
+        },
+        {
+          "text": "−",
+          "overflow": false
+        },
+        {
+          "text": "＋",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "ビン詰め",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "brewing",
+      "open": true,
+      "w": 366,
+      "h": 529,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "ふつう",
+          "overflow": false
+        },
+        {
+          "text": "ピート",
+          "overflow": false
+        },
+        {
+          "text": "短め",
+          "overflow": false
+        },
+        {
+          "text": "長め",
+          "overflow": false
+        },
+        {
+          "text": "蒸留",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "map",
+      "open": true,
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "−",
+          "overflow": false
+        },
+        {
+          "text": "＋",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "alias": false,
+      "phase": "save",
+      "open": true,
+      "w": 366,
+      "h": 324,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "書き出す",
+          "overflow": false
+        },
+        {
+          "text": "新しい蒸留所で始める",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "product",
+      "open": true,
+      "w": 351,
+      "h": 549,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "1本",
+          "overflow": false
+        },
+        {
+          "text": "2本",
+          "overflow": false
+        },
+        {
+          "text": "半分",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "自家販売0本",
+          "overflow": false
+        },
+        {
+          "text": "ひとつ戻す",
+          "overflow": false
+        },
+        {
+          "text": "全部分け直す",
+          "overflow": false
+        },
+        {
+          "text": "元の記録",
+          "overflow": false
+        },
+        {
+          "text": "低め£16.00",
+          "overflow": false
+        },
+        {
+          "text": "ふつう£16.00",
+          "overflow": false
+        },
+        {
+          "text": "高め£19.84",
+          "overflow": false
+        },
+        {
+          "text": "これで決める",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "receipt",
+      "open": true,
+      "w": 351,
+      "h": 602,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "1本",
+          "overflow": false
+        },
+        {
+          "text": "2本",
+          "overflow": false
+        },
+        {
+          "text": "半分",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "自家販売1本",
+          "overflow": false
+        },
+        {
+          "text": "ひとつ戻す",
+          "overflow": false
+        },
+        {
+          "text": "全部分け直す",
+          "overflow": false
+        },
+        {
+          "text": "元の記録",
+          "overflow": false
+        },
+        {
+          "text": "低め£16.00",
+          "overflow": false
+        },
+        {
+          "text": "ふつう£16.00",
+          "overflow": false
+        },
+        {
+          "text": "高め£19.84",
+          "overflow": false
+        },
+        {
+          "text": "これで決める",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "staff",
+      "open": true,
+      "w": 351,
+      "h": 491,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "依頼",
+          "overflow": false
+        },
+        {
+          "text": "設定",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "staff-request",
+      "open": true,
+      "w": 351,
+      "h": 451,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "製法",
+          "overflow": false
+        },
+        {
+          "text": "次のたるを任せる",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "staff-bottling",
+      "open": true,
+      "w": 351,
+      "h": 699,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "保存",
+          "overflow": false
+        },
+        {
+          "text": "自分で行う",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "ledger-recipes",
+      "open": true,
+      "w": 351,
+      "h": 432,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "ledger-aging",
+      "open": true,
+      "w": 351,
+      "h": 400,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "ledger-releases",
+      "open": true,
+      "w": 351,
+      "h": 820,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "2026年12月 · #3たる No.1 · 6本保管中",
+          "overflow": false
+        },
+        {
+          "text": "2026年9月 · #2たる No.1 · 20本完売",
+          "overflow": false
+        },
+        {
+          "text": "2026年7月 · #1たる No.1 · 20本完売",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "ledger-shops",
+      "open": true,
+      "w": 351,
+      "h": 508,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "仕込み",
+          "overflow": false
+        },
+        {
+          "text": "たる",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "取扱店",
+          "overflow": false
+        },
+        {
+          "text": "町の酒店取扱開始 2026年12月",
+          "overflow": false
+        },
+        {
+          "text": "発売",
+          "overflow": false
+        },
+        {
+          "text": "歩み",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "shop-record",
+      "open": true,
+      "w": 351,
+      "h": 296,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "history",
+      "open": true,
+      "w": 351,
+      "h": 269,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "2026年",
+          "overflow": false
+        },
+        {
+          "text": "帳面へ戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "cask-detail",
+      "open": true,
+      "w": 351,
+      "h": 553,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "試す",
+          "overflow": false
+        },
+        {
+          "text": "ビン詰め",
+          "overflow": false
+        },
+        {
+          "text": "冷暗所へ",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "bottling",
+      "open": true,
+      "w": 351,
+      "h": 648,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "設定を直す",
+          "overflow": false
+        },
+        {
+          "text": "−",
+          "overflow": false
+        },
+        {
+          "text": "＋",
+          "overflow": false
+        },
+        {
+          "text": "残り全部",
+          "overflow": false
+        },
+        {
+          "text": "ビン詰め",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "brewing",
+      "open": true,
+      "w": 351,
+      "h": 529,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "ふつう",
+          "overflow": false
+        },
+        {
+          "text": "ピート",
+          "overflow": false
+        },
+        {
+          "text": "短め",
+          "overflow": false
+        },
+        {
+          "text": "長め",
+          "overflow": false
+        },
+        {
+          "text": "蒸留",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "map",
+      "open": true,
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "−",
+          "overflow": false
+        },
+        {
+          "text": "＋",
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "alias": true,
+      "phase": "save",
+      "open": true,
+      "w": 351,
+      "h": 324,
+      "inside": true,
+      "horizontal": false,
+      "buttons": [
+        {
+          "text": "",
+          "overflow": false
+        },
+        {
+          "text": "書き出す",
+          "overflow": false
+        },
+        {
+          "text": "新しい蒸留所で始める",
+          "overflow": false
+        },
+        {
+          "text": "閉じる",
+          "overflow": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "physicalSafari": "UNVERIFIED",
+  "voiceOver": "UNVERIFIED"
+}

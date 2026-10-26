@@ -217,3 +217,20 @@ body[data-placement="1"] #action-dialog:has(.placement-targets) #dialog-actions 
 body[data-placement="1"] #dialog-actions #placement-receipt{grid-column:1/-1;margin:0;padding:6px 8px;background:#343c2c;border-left:3px solid #d2bc7e;font-size:18px;line-height:24px;text-align:left}
 body[data-placement="1"] #dialog-actions #placement-receipt:empty{display:none}
 body[data-placement="1"] #dialog-actions #placement-receipt[data-changed="false"]{background:transparent;border-color:#858995}
+
+/* One-time source choice; old saves are never write targets. */
+#save-choice{width:min(340px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;padding:12px;border:3px solid #858995;background:#2e3143;color:#e8dfbd;font:18px/1.5 AmberMisaki,system-ui,-apple-system,sans-serif}
+#save-choice::backdrop{background:#0009}
+#save-choice h2{font:inherit;font-size:24px;margin:0 0 8px}
+#save-choice p{margin:6px 0 10px}
+#save-choice .save-source{border-top:1px solid #858995;padding:8px 0}
+#save-choice .save-source label{display:flex;align-items:flex-start;min-height:44px;cursor:pointer}
+#save-choice .save-source small{display:block;margin-left:24px;font-size:16px}
+#save-choice button{font:inherit;min-height:44px;padding:6px 10px;white-space:normal}
+#save-choice fieldset{border:1px solid #858995;padding:6px;margin:8px 0}
+#save-choice fieldset[hidden]{display:none}
+#save-choice fieldset label{display:inline-flex;align-items:center;min-height:44px;margin-right:6px}
+#save-choice .save-choice-actions{display:flex;gap:8px;margin-top:8px}
+#save-choice .save-choice-actions button{flex:1;min-width:0}
+#save-choice input{width:20px;height:20px;min-height:20px;margin:4px 8px 0 0;flex:0 0 20px}
+#save-choice-error{color:#ffcfb5}

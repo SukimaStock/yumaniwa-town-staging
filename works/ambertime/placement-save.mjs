@@ -25,3 +25,40 @@ export function writeCandidate(storage,key,expected,text){
  assert(storage.getItem(key)===text,'保存を確認できません。進行を止めています。');
  return text;
 }
+
+// Standard play copies a chosen older record into a separate destination.
+// Neither source key is a write target, and an existing destination never falls back.
+export const FORMAL_SAVE_KEY='sukimastock.ambertime.main.v1';
+export const FORMAL_SOURCES=Object.freeze([
+ Object.freeze({id:'legacy',key:LEGACY_SAVE_KEY,label:'これまでの記録',enabled:false}),
+ Object.freeze({id:'placement',key:PLACEMENT_SAVE_KEY,label:'配分版の記録',enabled:true})
+]);
+export function formalSources(storage,options){
+ return FORMAL_SOURCES.flatMap(source=>{
+  const raw=storage.getItem(source.key);if(raw===null)return [];
+  try{return [{...source,raw,session:readSession(raw,{...options,enabled:source.enabled}),error:null}];}
+  catch(error){return [{...source,raw,session:null,error:error.message}];}
+ });
+}
+export function copyToFormal(storage,source,{policy='listed',prepare,adopt,serialize,...options}={}){
+ const known=FORMAL_SOURCES.find(x=>x.id===source?.id&&x.key===source?.key);
+ assert(known&&typeof source.raw==='string','引きつぐ記録を確認してください。元の記録は残っています。');
+ assert(storage.getItem(FORMAL_SAVE_KEY)===null,'正式版の保存が見つかりました。上書きせず停止しています。再読み込みしてください。');
+ const session=readSession(source.raw,{...options,enabled:known.enabled});
+ let text=source.raw;
+ if(!known.enabled){
+  assert(typeof prepare==='function'&&typeof adopt==='function'&&typeof serialize==='function','引きつぎの準備ができません。元の記録は残っています。');
+  const game=adopt(prepare(session.game),policy);
+  text=JSON.stringify({version:2,game:JSON.parse(serialize(game)),userPaused:session.userPaused,elapsed:session.elapsed});
+ }
+ // Validate the exact candidate before storage and before live state is assigned.
+ readSession(text,{...options,enabled:true});
+ assert(storage.getItem(known.key)===source.raw,'元の記録が別の画面で変わりました。引きつがず停止しています。再読み込みしてください。');
+ writeCandidate(storage,FORMAL_SAVE_KEY,null,text);
+ // Map notices are UI metadata. Their failure cannot overwrite either game source.
+ let mapCopied=false;
+ try{const raw=storage.getItem(known.key+'.map-reveal.v1'),meta=JSON.parse(raw),valid=n=>Number.isInteger(n)&&n>=0&&n<=6;
+  if(raw!==null&&valid(meta?.shown)&&(meta.version===1||meta.version===2&&valid(meta.announced))&&storage.getItem(FORMAL_SAVE_KEY+'.map-reveal.v1')===null){storage.setItem(FORMAL_SAVE_KEY+'.map-reveal.v1',raw);mapCopied=true;}
+ }catch{}
+ return {text,mapCopied};
+}
