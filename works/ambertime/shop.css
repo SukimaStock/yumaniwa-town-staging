@@ -213,3 +213,7 @@ body[data-placement="1"] #action-dialog .placement-tools button{flex:1;min-width
 body[data-placement="1"] #placement-receipt{border-left:3px solid #ae8d60;padding-left:9px}
 body[data-placement="1"] #action-dialog:has(.placement-targets) #dialog-actions{grid-template-columns:minmax(0,1fr) 76px}
 body[data-placement="1"] #action-dialog:has(.placement-targets) #dialog-actions button{white-space:nowrap}
+
+body[data-placement="1"] #dialog-actions #placement-receipt{grid-column:1/-1;margin:0;padding:6px 8px;background:#343c2c;border-left:3px solid #d2bc7e;font-size:18px;line-height:24px;text-align:left}
+body[data-placement="1"] #dialog-actions #placement-receipt:empty{display:none}
+body[data-placement="1"] #dialog-actions #placement-receipt[data-changed="false"]{background:transparent;border-color:#858995}

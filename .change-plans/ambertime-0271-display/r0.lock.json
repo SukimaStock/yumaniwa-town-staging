@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "de119d2ebe0b19fc5f759e2c10497465a87211f77102b5c64bf57d382df66f68",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-0271-display",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "4a01ad27e7bcd8983e19794f1411d4a774e6063c",
+    "change": "Reduce opt-in placement UI information, hide unrelated shop targets, add saved commit feedback, clarify bottle shelf",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User AmberTime 0.27.1 request",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR #637",
+      "works/ambertime/design/placement-027/REPORT.md",
+      "Native brand relations, release/source/comparison records and unchanged placement transaction"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-0271-display/r0.lock.json",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/placement-0271.test.mjs",
+      "works/ambertime/design/placement-0271/**"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "works/ambertime/room-scene.css",
+        "condition": "Only if opt-in shelf/modal layout requires CSS not expressible in shop.css; no ordinary-mode style change."
+      }
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-ledger.mjs"
+    ],
+    "expectedChanges": [
+      "Hide town-liquor target and its reason unless selected release brand has actual native shop relation; preserve offers and quote gates.",
+      "Replace detailed character stack with concise real-data summary plus existing comparison/source access; price separate, other destination actions separate.",
+      "Show single inline accessible actual allocation/delivery result only after successful changed commit; 200–300ms finite optional effect, no persistent state/history.",
+      "Opt-in shelf brand wrapping and one available count, optional release number, preserving existing coordinates/art and ordinary mode.",
+      "Update changed local resource cache queries and record focused phone-width before/after checks."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Targeted widths360/375/390: initial no shop, actual matching brand shop, retail/shop commit feedback/nochange/failure, details/price/source/comparison access, multi-release shelf; normal UI isolation; physical Safari unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User 0.27.1 explicitly authorizes these display changes and Staging publication, no Production or selling rule changes."
+    ],
+    "hqDecisions": [
+      "Retain existing atomic commit and save boundary, native brand relation and quote computation; ephemeral UI only; no new model or storage contract."
+    ],
+    "rulesApplied": [
+      "Full WORK lock before implementation because UI spans more than four files and published cache resources.",
+      "Expression audit: delete duplicate explanations, retain necessary actions and accessible receipt.",
+      "Focused related tests and mandatory CI only; no comprehensive E2E."
+    ],
+    "rollback": "Revert opt-in work UI and cache query changes; model and all save formats remain unchanged.",
+    "outOfScope": [
+      "Production",
+      "Sales/allocation/quote/economic/bottling/flavor/aging calculations",
+      "New save field or operation",
+      "Legacy normal UI changes",
+      "Existing Lab changes",
+      "Continuous animation, new clocks or broad E2E"
+    ],
+    "promotion": "Staging PR and safe merge only; Production not authorized.",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver; creator touch assessment"
+    ],
+    "problem": "Placement0.27 shows an unhandled shop, repeats flavor/process detail, has weak save feedback and duplicates shelf count/status.",
+    "currentContract": "PR637 opt-in placement uses native brand/release/product identities, pure draft, atomic allocation with successful save before live-state replacement; ordinary mode and save separated.",
+    "whyExistingIsInsufficient": "The UI displays quote reasons for unrelated brands and detailed process/legacy shipping prose beside the allocation task; successful commits do not stand out and shelf brand names truncate too early.",
+    "design": "Filter shop markup by selected release brand native relation; compact real-data flavor summary with existing source/comparison links, separate prices; accessible inline saved receipt beside confirm with finite240ms reaction; full shelf brand wrapping and optional release serial, single count.",
+    "alternativesRejected": [
+      "New detail screen, popup or persistent game history",
+      "Changing allocation, shop conditions, prices or monthly sales",
+      "Global shelf rewrite, continuous animation or new clocks"
+    ],
+    "migration": "None; preserve all save formats and operations.",
+    "compatibility": "Ordinary mode output and model/transaction remain unchanged; changed local resources use new query fingerprints.",
+    "boundaryCases": [
+      "First release before shop relation",
+      "Relation for other brand must not reveal target",
+      "Existing relation temporarily undeliverable retains reason",
+      "Nochange/save failure/validation failure no success reaction",
+      "Changed retail and actual shop delivery receipt",
+      "Multiple release shelf long name wrap",
+      "Reduced motion, close, scroll, accessible live status"
+    ],
+    "testPlan": [
+      "Related placement draft/model/save and UI regressions; focused browser checks at360/375/390; scope/risk/impact/trusted syntax; required CI; Staging bytes and basic operation."
+    ],
+    "promotionRisk": "Staging-only reversible UI change. No Production."
+  }
+}
