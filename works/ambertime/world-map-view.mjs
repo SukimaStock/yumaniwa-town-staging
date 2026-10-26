@@ -52,6 +52,14 @@ export function mapSeenBaseline(progress,stored,restored){
  if(Number.isInteger(stored?.shown)&&stored.shown>=0&&stored.shown<=6)return stored.shown;
  return restored?progress.max:0;
 }
+// UI-only notice history. Legacy shown stages already consumed their introduction.
+export function mapNoticeBaseline(progress,stored,restored){
+ if(!restored)return {shown:0,announced:0};
+ const valid=n=>Number.isInteger(n)&&n>=0&&n<=6;
+ if(stored?.version===2&&valid(stored.shown)&&valid(stored.announced))return {shown:stored.shown,announced:stored.announced};
+ const shown=mapSeenBaseline(progress,stored,restored);
+ return {shown,announced:shown};
+}
 // Pure UI display boundary; no game or town-model mutation.
 export const newlyUnlocked=(shown,max)=>Math.max(0,Math.min(6,max))>Math.max(0,Math.min(6,shown));
 export const revealStart=(shown,max)=>Math.min(Math.max(1,shown),Math.max(1,max));

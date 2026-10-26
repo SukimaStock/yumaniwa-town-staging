@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mapProgress,mapStep,drawGameMap,newlyUnlocked,revealStart,mapIntroduction,mapSeenBaseline} from '../world-map-view.mjs';
+import {mapProgress,mapStep,drawGameMap,newlyUnlocked,revealStart,mapIntroduction,mapSeenBaseline,mapNoticeBaseline} from '../world-map-view.mjs';
 const make=(arrivals=[],shipments=[],deliveries=[],relations=[],events=[])=>({
  labConnection:{version:1,town:{arrivals,shipments,events}},shop:{deliveries,relations}
 });
@@ -79,17 +79,15 @@ test('actual scene drawing keeps selection blink visible but stops it behind a d
  scene.draw();assert.equal(c.jobs.size,1,'visible selected object still blinks');dialog.open=true;scene.draw();assert.equal(c.jobs.size,0,'dialog leaves no scene timer');
  dialog.open=false;scene.draw();assert.equal(c.jobs.size,1,'closing dialog restores selection motion');scene.reducedMotion.matches=true;scene.draw();assert.equal(c.jobs.size,0);
 });
-test('actual map reveal pauses, resumes one chain, cancels and ends at its target',()=>{
- const c=clock(),document={hidden:false},sandbox={document,setTimeout:c.set,clearTimeout:c.clear,renders:0,render(){sandbox.renders++;}};
- const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),start=source.indexOf('function stopMapReveal('),end=source.indexOf('function tryShowMapReveal(');
- vm.runInNewContext('let mapShown=1;function mapNoticeSave(){};let mapFrame=null,mapRevealTarget=null,worldMapStage=1,modal={kind:"world-map"};'+source.slice(start,end)+';globalThis.state=()=>({target:mapRevealTarget,stage:worldMapStage});globalThis.pause=()=>stopMapReveal(true);globalThis.resume=()=>{if(mapRevealTarget!==null)animateMapReveal(mapRevealTarget);};globalThis.close=()=>{modal=null;stopMapReveal();};',sandbox);
- sandbox.animateMapReveal(6);assert.equal(c.jobs.size,1);c.step();assert.equal(sandbox.state().stage,2);
- document.hidden=true;sandbox.pause();assert.equal(c.jobs.size,0);assert.equal(sandbox.state().target,6);assert.equal(sandbox.state().stage,2);
- sandbox.resume();assert.equal(c.jobs.size,0,'resume while hidden cannot schedule');document.hidden=false;sandbox.resume();sandbox.resume();assert.equal(c.jobs.size,1);
- for(let n=0;n<8&&c.jobs.size;n++)c.step();assert.equal(sandbox.state().stage,6);assert.equal(sandbox.state().target,null);assert.equal(c.jobs.size,0);assert.equal(sandbox.renders,5);
- sandbox.animateMapReveal(6);sandbox.close();assert.equal(c.jobs.size,0);assert.equal(sandbox.state().target,null);
+test('map reveal coalesces to the latest stage, records announcement separately and has no timer',()=>{
+ const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),c=clock();
+ const game={...make([arrived('overseas-craft')],[],[],[],[{type:'visit',from:'overseas-craft',to:'distillery'}]),releases:[{bottles:3}],tastingId:null,decisions:[],trade:{offer:null},still:{phase:'ready'}};
+ const sandbox={game,document:{hidden:false},countdown:{active:false},mapProgress,newlyUnlocked,setTimeout:c.set,clearTimeout:c.clear,mapNoticeSave(){},stopClock(){},generationState:()=>({phase:'working'})};
+ vm.runInNewContext('let mapShown=1,mapAnnounced=1,mapPending=0,worldMapStage=1,modal=null,runtimeHalted=false,preview=true,canSave=true;'+source.slice(source.indexOf('function noteMapReach('),source.indexOf('let modalReturnFocus'))+';globalThis.state=()=>({mapShown,mapAnnounced,worldMapStage,modal});globalThis.close=()=>{modal=null;};',sandbox);
+ sandbox.noteMapReach();sandbox.document.hidden=true;assert.equal(sandbox.tryShowMapReveal(),false);assert.equal(c.jobs.size,0);
+ sandbox.document.hidden=false;assert.equal(sandbox.tryShowMapReveal(),true);assert.equal(sandbox.state().worldMapStage,6);assert.equal(sandbox.state().modal.source,'unlock');assert.equal(sandbox.state().mapShown,1,'opening does not claim an undrawn stage');assert.equal(sandbox.state().mapAnnounced,6);assert.equal(c.jobs.size,0);
+ sandbox.close();sandbox.noteMapReach();assert.equal(sandbox.tryShowMapReveal(),false);assert.equal(c.jobs.size,0);assert.doesNotMatch(source,/mapFrame|animateMapReveal|mapRevealTarget/);
 });
-
 
 test('first bottle opens only one; factual shipment opens two and keeps saves read-only',()=>{
  const bottle={...make(),releases:[{id:1,bottles:3}]},before=JSON.stringify(bottle);
@@ -120,13 +118,32 @@ test('introduction captions distinguish rumor, delivery, inquiry and overseas vi
  assert.equal(mapIntroduction(make([],[],[],[],[{type:'inquiry',to:'overseas-food'}]),6),'海外から問い合わせが届きました。');
  for(const stage of [2,3,4])assert.match(mapIntroduction(far,stage),/地図も見られます/);
 });
-test('actual first introduction starts one even when several stages unlock together',()=>{
+test('first introduction also shows latest unlocked stage immediately and never changes game',()=>{
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),c=clock();
- const game={...make([arrived('overseas-craft')],[],[],[],[{type:'visit',from:'overseas-craft',to:'distillery'}]),releases:[{bottles:3}],tastingId:null,decisions:[],trade:{offer:null},still:{phase:'ready'}};
- const sandbox={game,document:{hidden:false},countdown:{active:false},mapProgress,newlyUnlocked,setTimeout:c.set,clearTimeout:c.clear,render(){},mapNoticeSave(){},stopClock(){},generationState:()=>({phase:'working'})};
- const context=vm.createContext(sandbox);
- vm.runInContext('let mapShown=0,mapPending=0,mapFrame=null,mapRevealTarget=null,worldMapStage=1,modal=null,runtimeHalted=false,preview=true,canSave=true;'+source.slice(source.indexOf('function noteMapReach('),source.indexOf('let modalReturnFocus'))+';globalThis.state=()=>({mapShown,worldMapStage,modal});',context);
- sandbox.noteMapReach();assert.equal(sandbox.tryShowMapReveal(),true);assert.equal(sandbox.state().worldMapStage,1);assert.equal(sandbox.state().modal.introduction,true);assert.equal(c.jobs.size,1);
- c.step();assert.equal(sandbox.state().worldMapStage,2);assert.equal(sandbox.state().mapShown,2);
- sandbox.stopMapReveal();assert.equal(c.jobs.size,0);
+ const game={...make([arrived('overseas-craft')],[],[],[],[{type:'visit',from:'overseas-craft',to:'distillery'}]),releases:[{bottles:3}],tastingId:null,decisions:[],trade:{offer:null},still:{phase:'ready'}},before=JSON.stringify(game);
+ const sandbox={game,document:{hidden:false},countdown:{active:false},mapProgress,newlyUnlocked,setTimeout:c.set,clearTimeout:c.clear,mapNoticeSave(){},stopClock(){},generationState:()=>({phase:'working'})};
+ vm.runInNewContext('let mapShown=0,mapAnnounced=0,mapPending=0,worldMapStage=1,modal=null,runtimeHalted=false,preview=true,canSave=true;'+source.slice(source.indexOf('function noteMapReach('),source.indexOf('let modalReturnFocus'))+';globalThis.state=()=>({mapShown,mapAnnounced,worldMapStage,modal});',sandbox);
+ sandbox.noteMapReach();assert.equal(sandbox.tryShowMapReveal(),true);assert.equal(sandbox.state().worldMapStage,6);assert.equal(sandbox.state().mapShown,0);assert.equal(sandbox.state().mapAnnounced,6);assert.equal(c.jobs.size,0);assert.equal(JSON.stringify(game),before);
+});
+test('notice v1 and old no-key saves migrate without replay; v2 keeps drawn and announced independent',()=>{
+ const p=mapProgress({...make(),releases:[{bottles:3}]});
+ assert.deepEqual(mapNoticeBaseline(p,{version:1,shown:1},true),{shown:1,announced:1});
+ assert.deepEqual(mapNoticeBaseline({...p,max:5},{version:1,shown:6},true),{shown:6,announced:6});
+ assert.deepEqual(mapNoticeBaseline({...p,max:6},{version:2,shown:2,announced:6},true),{shown:2,announced:6});
+ assert.deepEqual(mapNoticeBaseline(p,{version:2,shown:1,announced:0},true),{shown:1,announced:0});
+ assert.deepEqual(mapNoticeBaseline(p,null,true),{shown:1,announced:1});
+ assert.deepEqual(mapNoticeBaseline({...p,max:6},null,true),{shown:6,announced:6});
+ assert.deepEqual(mapNoticeBaseline(p,{version:2,shown:6,announced:6},false),{shown:0,announced:0});
+ assert.deepEqual(mapNoticeBaseline(p,{version:1,shown:0},true),{shown:0,announced:0});
+ assert.deepEqual(mapNoticeBaseline(p,{version:2,shown:9,announced:'bad'},true),{shown:1,announced:1});
+});
+test('map history cannot unlock scales and close routes do not mark future stages',()=>{
+ const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
+ const sandbox={game:make(),mapProgress,mapShown:6};vm.runInNewContext(source.match(/const mapViewMax=.*?;/)[0]+'globalThis.maximum=mapViewMax;',sandbox);assert.equal(sandbox.maximum(),1);
+ assert.match(source,/drawGameMap\(canvas,game,worldMapStage\)/);
+ const target={focused:false,focus(){this.focused=true}},x={placementUI:null,comparisonKinds:[],render(){},schedule(){x.scheduled++},scheduled:0,$:()=>target};
+ const fn=source.slice(source.indexOf('function closeModal('),source.indexOf('function trial('));
+ vm.runInNewContext('let modal={kind:"world-map",source:"menu",parent:{kind:"aux-panel",marker:3}},mapShown=2,mapAnnounced=6;'+fn+'globalThis.state=()=>({modal,mapShown,mapAnnounced});globalThis.unlock=()=>{modal={kind:"world-map",source:"unlock"};};',x);
+ x.closeModal();assert.equal(x.state().modal.kind,'aux-panel');assert.equal(x.state().modal.marker,3);assert(target.focused);assert.equal(x.scheduled,0);assert.equal(x.state().mapShown,2);assert.equal(x.state().mapAnnounced,6);
+ x.unlock();x.closeModal();assert.equal(x.state().modal,null);assert.equal(x.scheduled,1);assert.equal(x.state().mapShown,2);assert.equal(x.state().mapAnnounced,6);
 });

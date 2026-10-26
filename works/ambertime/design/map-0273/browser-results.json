@@ -1,0 +1,675 @@
+{
+  "ok": true,
+  "baseline": false,
+  "public": false,
+  "checks": [
+    "normal-360: first introduction once, close/reload preserves game and no repeat",
+    "normal-360: lawful max6 latest unlock and menu scale bounds/routes",
+    "normal-360: v1 seen6 compatibility suppresses replay without unlocking6",
+    "normal-360: old save without notice metadata opens quietly",
+    "normal-360: paused/running clocks respected, map→menu does not restart clock",
+    "normal-375: first introduction once, close/reload preserves game and no repeat",
+    "normal-375: lawful max6 latest unlock and menu scale bounds/routes",
+    "normal-375: v1 seen6 compatibility suppresses replay without unlocking6",
+    "normal-375: old save without notice metadata opens quietly",
+    "normal-375: paused/running clocks respected, map→menu does not restart clock",
+    "normal-390: actual first bottling UI opens distillery map once",
+    "normal-390: first introduction once, close/reload preserves game and no repeat",
+    "normal-390: lawful max6 latest unlock and menu scale bounds/routes",
+    "normal-390: v1 seen6 compatibility suppresses replay without unlocking6",
+    "normal-390: old save without notice metadata opens quietly",
+    "normal-390: paused/running clocks respected, map→menu does not restart clock",
+    "normal-390: hidden deferral, reduced motion and pagehide/pageshow do not duplicate or animate maps",
+    "trial-360: first introduction once, close/reload preserves game and no repeat",
+    "trial-360: lawful max6 latest unlock and menu scale bounds/routes",
+    "trial-360: v1 seen6 compatibility suppresses replay without unlocking6",
+    "trial-360: old save without notice metadata opens quietly",
+    "trial-360: paused/running clocks respected, map→menu does not restart clock",
+    "trial-375: first introduction once, close/reload preserves game and no repeat",
+    "trial-375: lawful max6 latest unlock and menu scale bounds/routes",
+    "trial-375: v1 seen6 compatibility suppresses replay without unlocking6",
+    "trial-375: old save without notice metadata opens quietly",
+    "trial-375: paused/running clocks respected, map→menu does not restart clock",
+    "trial-390: actual first bottling UI opens distillery map once",
+    "trial-390: first introduction once, close/reload preserves game and no repeat",
+    "trial-390: lawful max6 latest unlock and menu scale bounds/routes",
+    "trial-390: v1 seen6 compatibility suppresses replay without unlocking6",
+    "trial-390: old save without notice metadata opens quietly",
+    "trial-390: paused/running clocks respected, map→menu does not restart clock",
+    "trial-390: hidden deferral, reduced motion and pagehide/pageshow do not duplicate or animate maps"
+  ],
+  "measurements": [
+    {
+      "trial": false,
+      "width": 360,
+      "phase": "first-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": false,
+      "width": 360,
+      "phase": "wide-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": false,
+      "width": 360,
+      "phase": "menu",
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "近く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "遠く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "w": 78,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": false,
+      "width": 375,
+      "phase": "first-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": false,
+      "width": 375,
+      "phase": "wide-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": false,
+      "width": 375,
+      "phase": "menu",
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "近く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "遠く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "w": 78,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": false,
+      "width": 390,
+      "phase": "first-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": false,
+      "width": 390,
+      "phase": "wide-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": false,
+      "width": 390,
+      "phase": "menu",
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "近く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "遠く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "w": 78,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 360,
+      "phase": "first-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 360,
+      "phase": "wide-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 360,
+      "phase": "menu",
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "近く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "遠く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "w": 78,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 375,
+      "phase": "first-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 375,
+      "phase": "wide-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 375,
+      "phase": "menu",
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "近く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "遠く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "w": 78,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 390,
+      "phase": "first-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 390,
+      "phase": "wide-unlock",
+      "w": 316,
+      "h": 429,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "つづける",
+          "w": 286,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "trial": true,
+      "width": 390,
+      "phase": "menu",
+      "w": 316,
+      "h": 453,
+      "inside": true,
+      "bodyScroll": 0,
+      "horizontal": false,
+      "canvas": {
+        "width": 144,
+        "height": 144
+      },
+      "buttons": [
+        {
+          "text": "",
+          "w": 48,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "近く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "遠く",
+          "w": 60,
+          "h": 48,
+          "inside": true,
+          "overflow": false
+        },
+        {
+          "text": "戻る",
+          "w": 78,
+          "h": 50,
+          "inside": true,
+          "overflow": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "fixtureSource": "nativeD cold-replayable legal operations only",
+  "wideStages": {
+    "normal": 6,
+    "trial": 6
+  },
+  "physicalSafari": "UNVERIFIED",
+  "voiceOver": "UNVERIFIED"
+}
