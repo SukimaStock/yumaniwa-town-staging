@@ -1,5 +1,5 @@
 import {requested,assertMode,readSession,writeCandidate,LEGACY_SAVE_KEY,PLACEMENT_SAVE_KEY} from './placement-save.mjs?v=0.27-placement';
-import {createPlacementUI} from './placement-ui.mjs?v=0.27.1-display';
+import {createPlacementUI} from './placement-ui.mjs?v=0.27.2-words';
 import {symbolMarkup} from './pixel-symbols.mjs?v=0.27-placement';
 import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback} from './flavor-feedback-view.mjs?v=0.25.4';
 import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=0.25.2';
