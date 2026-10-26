@@ -519,7 +519,7 @@ function commitPlacement(selection){
  catch{canSave=false;stopClock();storageNotice('保存できません。元の記録を残して停止しています。');$('dialog-error').textContent=$('storage-notice').textContent;$('dialog-error').hidden=false;return {ok:false};}}
  game=next;runtimeHalted=false;$('save-status').textContent=preview?'試遊中 · 保存しません':'保存しました';noteMapReach();const changed=old.retail!==selection.retail;
  const parts=[];if(changed)parts.push(selection.retail>old.retail?'自家販売へ'+(selection.retail-old.retail)+'本回しました':'自家販売から'+(old.retail-selection.retail)+'本戻しました');if(selection.shopCount)parts.push('町の酒店へ'+selection.shopCount+'本届けました');
- return {ok:true,changed:true,text:parts.join('。')+'。'};
+ return {ok:true,changed:true,text:parts.map((part,i)=>i<parts.length-1?part.replace(/ました$/,'、'):part).join('')+'。'};
 }
 // Event presentation is transient and created only after the operation is saved.
 function finishDistillation(){
