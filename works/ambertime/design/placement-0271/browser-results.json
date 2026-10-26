@@ -1,0 +1,88 @@
+{
+  "ok": true,
+  "baseline": false,
+  "checks": [
+    "360/375/390: first release, retail6, native handled brand3retail/2delivery, inline visible results",
+    "compact character summary has native record link; existing source detail opens",
+    "price controls accessible outside character details",
+    "save conflict preserves live game/ops and external bytes, no success receipt",
+    "actual long brand and two different-age releases retain full name data and distinct serial labels"
+  ],
+  "measurements": [
+    {
+      "width": 360,
+      "phase": "first",
+      "height": 549,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 360,
+      "phase": "confirmed",
+      "height": 626,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 360,
+      "phase": "confirmed",
+      "height": 742,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 375,
+      "phase": "first",
+      "height": 549,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 375,
+      "phase": "confirmed",
+      "height": 602,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 375,
+      "phase": "confirmed",
+      "height": 718,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 390,
+      "phase": "first",
+      "height": 549,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 390,
+      "phase": "confirmed",
+      "height": 602,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 390,
+      "phase": "confirmed",
+      "height": 718,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    }
+  ],
+  "errors": [],
+  "physicalSafari": "UNVERIFIED",
+  "voiceOver": "UNVERIFIED"
+}

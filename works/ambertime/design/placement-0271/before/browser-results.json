@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "baseline": true,
+  "checks": [
+    "360/375/390: first release, retail6, native handled brand3retail/2delivery, inline visible results",
+    "actual long brand and two different-age releases retain full name data and distinct serial labels"
+  ],
+  "measurements": [
+    {
+      "width": 360,
+      "phase": "first",
+      "height": 693,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 375,
+      "phase": "first",
+      "height": 693,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    },
+    {
+      "width": 390,
+      "phase": "first",
+      "height": 669,
+      "bodyScroll": 0,
+      "inside": true,
+      "receiptInside": true
+    }
+  ],
+  "errors": [],
+  "physicalSafari": "UNVERIFIED",
+  "voiceOver": "UNVERIFIED"
+}
