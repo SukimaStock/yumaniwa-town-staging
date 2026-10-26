@@ -81,3 +81,11 @@ test('cold strict restore reproduces flavor readings and previous markers withou
  const script=`import fs from 'node:fs';import * as D from ${JSON.stringify(new URL('../partner-orders.mjs?v=0.18-nearby',import.meta.url).href)};import {FLAVOR_AXES,flavorMeter} from ${JSON.stringify(new URL('../flavor-view.mjs',import.meta.url).href)};const s=D.restoreDistillery(fs.readFileSync(0,'utf8')),c=D.comparison(s,${id});process.stdout.write(JSON.stringify({html:FLAVOR_AXES.map(a=>flavorMeter(c.current?.profile,a.key,{previousProfile:c.previous?.profile})).join(''),raw:D.serializeDistillery(s)}));`;
  const actual=JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',script],{input:raw,encoding:'utf8'}));assert.equal(actual.html,expected);assert.equal(actual.raw,raw);
 });
+
+test('modern moderate tasting copy is short and detail can hide visible phrases without losing readings',()=>{
+ const profile={flavor:{version:1,primary:'fruit',profile:{fruit:.5,grain:.2,smoke:0,body:.1,rough:.4,spice:.1,wood:.1,vanilla:.1},history:[]}},before=JSON.stringify(profile);
+ const phrase=flavorPhrase(profile,'character'),visible=flavorMeter(profile,'character'),hidden=flavorMeter(profile,'character',{hidePhrase:true});
+ assert.equal(phrase,'原酒：果実の香り · ほどよい');assert.ok(visible.includes('<small class="flavor-phrase">'+phrase+'</small>'));
+ assert.ok(!hidden.includes('class="flavor-phrase"'));assert.equal(attributes(hidden)['aria-valuetext'],attributes(visible)['aria-valuetext']);
+ assert.equal(attributes(hidden)['aria-valuenow'],'0.5');assert.equal(JSON.stringify(profile),before);
+});

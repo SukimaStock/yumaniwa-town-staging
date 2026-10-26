@@ -1,0 +1,168 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9116e5ef42065959b14d75bfa0e7f77117d14af3277683096fa67fb95a1bef5d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-formal-copy",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "016021139581be2f27f367e1f082fc49c01d4445",
+    "change": "Apply approved103 contextual display edits and map zoom semantics; adopt placement as standard with explicit lossless save-source copy",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User confirmed full21rounds/103 wording specification and map zoom correction",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR637-641 current placement/map implementation",
+      "Existing native replay, placementInventory, legal saved fixtures, former normal/trial keys"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-formal-copy/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop.css",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/cask-detail-view.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/shop-order-view.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/tests/placement-adoption.test.mjs",
+      "works/ambertime/tests/formal-save.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/cask-detail.test.mjs",
+      "works/ambertime/tests/tasting-flavor.test.mjs",
+      "works/ambertime/tests/shop-order-view.test.mjs",
+      "works/ambertime/tests/adjust-c.test.mjs",
+      "works/ambertime/tests/stage4-flavor.test.mjs",
+      "works/ambertime/tests/flavor-feedback-0253.test.mjs",
+      "works/ambertime/tests/flavor-feedback-0254.test.mjs",
+      "works/ambertime/tests/world-map-view.test.mjs",
+      "works/ambertime/tests/placement-0271.test.mjs",
+      "works/ambertime/design/formal-copy/**"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "works/ambertime/tests/performance-0251-render.test.mjs",
+        "condition": "Only update approveddisplay label expectation if old frozenlabel conflicts; retain caching/clock assertions."
+      }
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/runtime-clock.mjs"
+    ],
+    "expectedChanges": [
+      "Implement all approved contextual wording without blanket rewriting user names/savedprose/history/flavor/storecomments; trace coverage manifest and actualview checks.",
+      "NormalURL and oldplacementURL use same standard placement UI and newcanonical main savekey. Remove trial-only copy and duplicate oldretail UI; retain automaticshop paths.",
+      "Explicit chooser when oldnormal/trial saves exist, summary+confirm; originals stay byte-identical. Normal adoption has explicit listed→retail or all→hand policy, excludes departmentholds, preserves cash/core/IDs/relations/notes/ops prefix. Trial copy preserves exact game/session. No merging or overwrite.",
+      "Introduce legal adopt-placement opcode as pure migration with replay validation, no generation/town/economic effects. Keep fresh enablePlacement unchanged and game/envelope versions unchanged.",
+      "Safe source/currentkey conflict checks and persist-beforelive-state, no implicit newgame fallback for unreadable saves. Copy UI mapmetadata compatibly, keep source metadata.",
+      "Leftmap− dispatches out (縮小), right＋ dispatches in (拡大), centerstage/captions/render/conditions unchanged.",
+      "Refresh cache reader chain for newopcode; retain ledger/history/comparison behavior. Focused UI+save/count tests and requiredCI, report+evidence, Staging only."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Approved21screenscope at360/375/390 with representative actualcontrol paths; bothURLaliases same canonical save. Legacy-only/trial-only/both/invalid/conflict/failure/holds/tasting/partialdistill migration; sourcekeys unchanged; record/cash/stock invariants. Mapdirection/name/bounds; historyworker/opcode cold read; publicchanges. PhysicalSafari unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User finalized103 contextual wordingchanges/mapzoom reversal and formalplacement adoption atnormalURL; authorizes safechoice-based handoff without originals overwritten and Stagingreflection."
+    ],
+    "hqDecisions": [
+      "New canonicalkey and explicit sourcecopy protect previous keys. Pure recorded adoption opcode preserves allpriorfacts; no simulationrule change. User chooses legacy initialallocation and which independent save to continue; never merge guessed progress.",
+      "Safe adoption is limited to sameversion20/session2 with existing upgrades as before; unreadable record is preserved, not reset."
+    ],
+    "rulesApplied": [
+      "FullWORK lock for migration/UI/adoption/newopcode/readers and context-specificcopy.",
+      "No broadglobal replacement: only fixed labels in appropriate views; savedtext/playernames retain exact bytes.",
+      "Relatedchecks and mandatoryCI; no comprehensiveE2E."
+    ],
+    "rollback": "Revert source/adoption/UI changes; formernormal/trial keys preserved unchanged; newcanonical key never copied back automatically.",
+    "outOfScope": [
+      "Production",
+      "Simulation/recipe/flavor/aging/economy/demand/mapunlock changes",
+      "Mutation of existing recordtext, playernames or source saves",
+      "Merging bothindependent records",
+      "Silent data deletion/reset or sourceoverwrite",
+      "New map art/stages or clocks",
+      "ComprehensiveE2E"
+    ],
+    "promotion": "Staging PR and safe merge only; Production not authorized.",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver; creator feel assessment"
+    ],
+    "problem": "Verbose systemcopy and duplicatelegacy UI obscure smallscreen operations; desiredplacement mode still requires query and uses separate unsafely interchangeable savekeys.",
+    "currentContract": "Currentmain PR641: strictversion20 native replay and4field session2; separate old/trial keys, pureplacementdraft and atomic savedallocation, sixstage read-onlymap, contextualhistory provenance.",
+    "whyExistingIsInsufficient": "CurrentenablePlacement intentionally onlyacceptsfreshgames; flippingURL default would lose or misread savedprogress. More than100approveddisplay edits need context to avoid alteringfacts.",
+    "design": "Explicit once-only sourcechoice creates newstandard save; pure adopt-placement operation with chosen initialretail policy and oldstate preservation; trial copied exactly. Reuse existing placement/auto-store UI and omit duplicatedoldretail path. Apply fixedcopy in views only, retain persistedprose and important errors.",
+    "alternativesRejected": [
+      "Changing existingenablePlacement boundary or silentlyattaching placementobject",
+      "Choosing newer save or merging records automatically",
+      "Overwriting oldkeys or auto-resetting invalidsave",
+      "GlobaluiText/DOM text replacement over records/names",
+      "Changing calculations to fit newwording"
+    ],
+    "migration": "Same gameversion20/session2; new main.v1 key. Canonicalexisting requires strictplacement restore; missingcanonical with sources requires choice/confirmation and sourceguard; sourcebytes neverwritten. Newadopt opcode preserves operationprefix and facts; explicitlisted/hand allocation respects holds. UI mapmetadata copied without altering source.",
+    "compatibility": "Oldnormal/trialkeys remain readable by oldversions. Currentreader chains refreshed for adopt opcode. Oldquery nowalias standard route, not separate save. Corehistoricalfacts/prose and IDs kept exactly.",
+    "boundaryCases": [
+      "Fresh no source",
+      "Oldnormal only, trialonly, both independentrecords",
+      "Invalidcanonical neverfallsback/reset; invalidsource remains/exportable",
+      "Conflict between sourcepreview andcommit, destinationconcurrentwriter, quota/readbackfailure",
+      "Listed/unlisted/pendingdepartmentholds, active tasting andpartialdistillation, generationatboundary",
+      "Historyworker/caskreaders cachedpreviousD URL",
+      "Stockavailable matches shelf/detail; townwish/manualdelivery separatefromautoorder/history",
+      "All103 context-specific terms, preservedprose/errors",
+      "Mapleftminusout/rightplusin; min/maxbounds unchanged"
+    ],
+    "testPlan": [
+      "RelatedexistingUI/placement/map/save/unit plus newmigration state/session tests; representative targetedbrowser360/375/390, strictcold replay/factparity, cachedreader test, sourceinvariance; Scope/Risk/Impact, requiredCI andpublicbytes/actions."
+    ],
+    "promotionRisk": "Staging-only formalUI adoption with explicit guarded copying to newkey; no automatic source migration/overwrite and noProduction."
+  }
+}

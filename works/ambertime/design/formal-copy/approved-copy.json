@@ -1,0 +1,1006 @@
+{
+  "schemaVersion": 1,
+  "purpose": "今回の承認仕様と表示呼出箇所の対応。実装の完了証明ではなく、レビュー用の有限な照合表。",
+  "source": "ユーザー「SukimaStock｜AmberTime — 全画面文言整理・配分版正式採用 確定仕様」",
+  "baseSha": "016021139581be2f27f367e1f082fc49c01d4445",
+  "count": {
+    "approvedGroupedItems": 103,
+    "expandedStringChanges": 106,
+    "mapChangeAdditional": 1,
+    "note": "ユーザーの箇条書き単位で103件。バー下の強さ3語を1件、速度2語を1件として数える。複数画面への同語適用は件数を増やさない。取扱店の記録は帳面と歩みで別の承認箇所。"
+  },
+  "globalPreserveNotes": [
+    "通常の固定UI表示だけを変える。保存データや既存の記録文は書き換えない。",
+    "味の説明、店の台詞、歴史の文章、利用者が入力した名前は一括置換しない。",
+    "戻る/閉じる、試す/試飲、希望/注文、納品/発送、保存状態/通知は用途別に区別する。",
+    "製法・熟成・風味・経済・店舗需要・地図解放の計算、帳面の記録、Productionは変更しない。",
+    "棚の瓶の名前・数量・発売回は保持。包括的なE2Eは行わない。"
+  ],
+  "entries": [
+    {
+      "id": "copy-001",
+      "round": "1–3",
+      "from": "ふつうの麦芽",
+      "to": "ふつう",
+      "scope": "麦芽・発酵の見出しがある選択カード",
+      "preserveNotes": "BREWING_CARDS・recipeCardFactsの正確な製法名は維持。",
+      "expectedCallSite": "works/ambertime/brewing-cards.mjs: brewingCardsMarkup"
+    },
+    {
+      "id": "copy-002",
+      "round": "1–3",
+      "from": "ピート麦芽",
+      "to": "ピート",
+      "scope": "麦芽・発酵の見出しがある選択カード",
+      "preserveNotes": "BREWING_CARDS・recipeCardFactsの正確な製法名は維持。",
+      "expectedCallSite": "works/ambertime/brewing-cards.mjs: brewingCardsMarkup"
+    },
+    {
+      "id": "copy-003",
+      "round": "1–3",
+      "from": "短い発酵",
+      "to": "短め",
+      "scope": "麦芽・発酵の見出しがある選択カード",
+      "preserveNotes": "BREWING_CARDS・recipeCardFactsの正確な製法名は維持。",
+      "expectedCallSite": "works/ambertime/brewing-cards.mjs: brewingCardsMarkup"
+    },
+    {
+      "id": "copy-004",
+      "round": "1–3",
+      "from": "長い発酵",
+      "to": "長め",
+      "scope": "麦芽・発酵の見出しがある選択カード",
+      "preserveNotes": "BREWING_CARDS・recipeCardFactsの正確な製法名は維持。",
+      "expectedCallSite": "works/ambertime/brewing-cards.mjs: brewingCardsMarkup"
+    },
+    {
+      "id": "copy-005",
+      "round": "1–3",
+      "from": "蒸留を始める",
+      "to": "蒸留",
+      "scope": "仕込み開始ボタン",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(flavor-cards)"
+    },
+    {
+      "id": "copy-006",
+      "round": "1–3",
+      "from": "採取見込み",
+      "to": "ここまで",
+      "scope": "蒸留中の採取量表示",
+      "preserveNotes": "今止めた場合の見込み量という計算・意味を維持。「ここから取る」「ここまで取る」は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: renderSpirit"
+    },
+    {
+      "id": "copy-007",
+      "round": "1–3",
+      "from": "できた原酒",
+      "to": "原酒",
+      "scope": "蒸留完了表示",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: renderSpirit"
+    },
+    {
+      "id": "copy-008",
+      "round": "1–3",
+      "from": "たるを選ぶ",
+      "to": "たる",
+      "scope": "たる詰め小窓の見出し",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(fill)"
+    },
+    {
+      "id": "copy-009",
+      "round": "4–6",
+      "from": "たる No.1",
+      "to": "No.1",
+      "scope": "棚のたるの絵の隣の番号。1は動的な番号の例",
+      "preserveNotes": "caskNameや帳面・来歴の識別子は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: render → scene.update casks[].name"
+    },
+    {
+      "id": "copy-010",
+      "round": "4–6",
+      "from": "蒸留室へ",
+      "to": "蒸留室",
+      "scope": "貯蔵庫から蒸留室へのボタン",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/index.html: #go-distill"
+    },
+    {
+      "id": "copy-011",
+      "round": "4–6",
+      "from": "残り ○L",
+      "to": "○L",
+      "scope": "たる詳細の残量",
+      "preserveNotes": "残量・単位・精度は維持。他画面の残りは一括置換しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: render(selected cask)"
+    },
+    {
+      "id": "copy-012",
+      "round": "4–6",
+      "from": "原酒のかおり",
+      "to": "かおり",
+      "scope": "たる詳細の風味バー見出し",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/cask-detail-view.mjs: caskDetailProfile"
+    },
+    {
+      "id": "copy-013",
+      "round": "4–6",
+      "from": "シゲキ・口当たり",
+      "to": "シゲキ",
+      "scope": "たる詳細の風味バー見出し",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/cask-detail-view.mjs: caskDetailProfile"
+    },
+    {
+      "id": "copy-014",
+      "round": "4–6",
+      "from": [
+        "ひかえめ",
+        "ほどよく感じる",
+        "豊か"
+      ],
+      "to": null,
+      "scope": "たる詳細のバー下の強さの文章のみ",
+      "preserveNotes": "バー・数値・読み上げ情報は維持。試飲の味の文章は削除しない。",
+      "expectedCallSite": "works/ambertime/cask-detail-view.mjs: caskDetailProfile → flavorMeter"
+    },
+    {
+      "id": "copy-015",
+      "round": "4–6",
+      "from": "たるの詳細",
+      "to": "詳細",
+      "scope": "たる詳細の折りたたみ見出し",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/index.html: #cask-details summary"
+    },
+    {
+      "id": "copy-016",
+      "round": "4–6",
+      "from": "ほどよく感じる",
+      "to": "ほどよい",
+      "scope": "試飲の強さの表現",
+      "preserveNotes": "味の種類と固有の短い風味文、保存済み試飲文を維持。",
+      "expectedCallSite": "works/ambertime/flavor-view.mjs: flavorPhrase"
+    },
+    {
+      "id": "copy-017",
+      "round": "4–6",
+      "from": "前回の風味は記録なし",
+      "to": "前回の味は不明",
+      "scope": "試飲比較の前回不明表示",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: render(previous tasting)"
+    },
+    {
+      "id": "copy-018",
+      "round": "7–9",
+      "from": "数量選択の下の重複した○本",
+      "to": null,
+      "scope": "ビン詰め数量選択の下のみ",
+      "preserveNotes": "数量選択・選択肢の本数・費用計算を維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(bottle), updateBottleSelection #bottle-selected"
+    },
+    {
+      "id": "copy-019",
+      "round": "7–9",
+      "from": "たるに残す ○L",
+      "to": "残り ○L",
+      "scope": "ビン詰め後のたる残量",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottleRemainder"
+    },
+    {
+      "id": "copy-020",
+      "round": "7–9",
+      "from": "ビン詰め後の資金 £○",
+      "to": "ビン詰め後 £○",
+      "scope": "ビン詰め後資金の表示",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: updateBottleSelection, syncModal(bottle) #bottle-cash"
+    },
+    {
+      "id": "copy-021",
+      "round": "7–9",
+      "from": "今月の希望 ○本",
+      "to": "希望 ○本",
+      "scope": "配分版の商品詳細の町の酒店の希望",
+      "preserveNotes": "希望・納品と自動店の注文・発送を区別。旧販売専用UIへ拡張しない。",
+      "expectedCallSite": "works/ambertime/placement-ui.mjs: wish"
+    },
+    {
+      "id": "copy-022",
+      "round": "7–9",
+      "from": "今月の希望は0本",
+      "to": "希望 0本",
+      "scope": "配分版の商品詳細の町の酒店の希望なし",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/placement-ui.mjs: wish"
+    },
+    {
+      "id": "copy-023",
+      "round": "10–11",
+      "from": "取扱開始",
+      "to": "受ける",
+      "scope": "申し出を受ける操作",
+      "preserveNotes": "「あとで」を維持。取扱開始の歴史的事実・自動店の発送説明は変更しない。町の酒店は希望・納品。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(shop-offer) accept-shop"
+    },
+    {
+      "id": "copy-024",
+      "round": "10–11",
+      "from": "やめる",
+      "to": "断る",
+      "scope": "申し出を断る操作",
+      "preserveNotes": "「あとで」を維持。取扱開始の歴史的事実・自動店の発送説明は変更しない。町の酒店は希望・納品。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(shop-offer) decline-shop"
+    },
+    {
+      "id": "copy-025",
+      "round": "10–11",
+      "from": "申し出を見る",
+      "to": "申し出",
+      "scope": "店舗の申し出ボタン",
+      "preserveNotes": "「あとで」を維持。取扱開始の歴史的事実・自動店の発送説明は変更しない。町の酒店は希望・納品。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(stockist/product)"
+    },
+    {
+      "id": "copy-026",
+      "round": "10–11",
+      "from": "相談を見る",
+      "to": "相談",
+      "scope": "店舗の相談ボタン",
+      "preserveNotes": "「あとで」を維持。取扱開始の歴史的事実・自動店の発送説明は変更しない。町の酒店は希望・納品。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(stockist/product)"
+    },
+    {
+      "id": "copy-027",
+      "round": "10–11",
+      "from": "手動納品",
+      "to": "自分で届ける",
+      "scope": "町の酒店の操作・状態",
+      "preserveNotes": "「あとで」を維持。取扱開始の歴史的事実・自動店の発送説明は変更しない。町の酒店は希望・納品。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: stockistStatus, syncModal(stockist)"
+    },
+    {
+      "id": "copy-028",
+      "round": "10–11",
+      "from": "使える ○本",
+      "to": "○本",
+      "scope": "町の酒店の納品候補本数",
+      "preserveNotes": "「あとで」を維持。取扱開始の歴史的事実・自動店の発送説明は変更しない。町の酒店は希望・納品。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(stockist) manual stock"
+    },
+    {
+      "id": "copy-029",
+      "round": "10–11",
+      "from": "取扱開始後は毎月自動で発送",
+      "to": null,
+      "scope": "町の酒店の申し出説明のみ",
+      "preserveNotes": "「あとで」を維持。取扱開始の歴史的事実・自動店の発送説明は変更しない。町の酒店は希望・納品。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(shop-offer)"
+    },
+    {
+      "id": "copy-030",
+      "round": "10–11",
+      "from": "直近の注文記録はありません。",
+      "to": "注文記録なし",
+      "scope": "自動発送の店の注文・発送結果",
+      "preserveNotes": "月・本数・失敗理由は実データのまま。町の酒店の納品履歴と混同しない。",
+      "expectedCallSite": "works/ambertime/shop-order-view.mjs: shopOrderMarkup, shopOrderReason"
+    },
+    {
+      "id": "copy-031",
+      "round": "10–11",
+      "from": "○年○月の発送結果",
+      "to": "○年○月",
+      "scope": "自動発送の店の注文・発送結果",
+      "preserveNotes": "月・本数・失敗理由は実データのまま。町の酒店の納品履歴と混同しない。",
+      "expectedCallSite": "works/ambertime/shop-order-view.mjs: shopOrderMarkup, shopOrderReason"
+    },
+    {
+      "id": "copy-032",
+      "round": "10–11",
+      "from": "○本発送しました。",
+      "to": "発送 ○本",
+      "scope": "自動発送の店の注文・発送結果",
+      "preserveNotes": "月・本数・失敗理由は実データのまま。町の酒店の納品履歴と混同しない。",
+      "expectedCallSite": "works/ambertime/shop-order-view.mjs: shopOrderMarkup, shopOrderReason"
+    },
+    {
+      "id": "copy-033",
+      "round": "10–11",
+      "from": "在庫が足りませんでした。",
+      "to": "在庫不足",
+      "scope": "自動発送の店の注文・発送結果",
+      "preserveNotes": "月・本数・失敗理由は実データのまま。町の酒店の納品履歴と混同しない。",
+      "expectedCallSite": "works/ambertime/shop-order-view.mjs: shopOrderMarkup, shopOrderReason"
+    },
+    {
+      "id": "copy-034",
+      "round": "12–14",
+      "from": "仕込みを任せられます",
+      "to": null,
+      "scope": "担当者の採用・管理UI",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(staff-opportunity)"
+    },
+    {
+      "id": "copy-035",
+      "round": "12–14",
+      "from": "ビン詰めを任せられます",
+      "to": null,
+      "scope": "担当者の採用・管理UI",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(staff-opportunity)"
+    },
+    {
+      "id": "copy-036",
+      "round": "12–14",
+      "from": "採用済み",
+      "to": null,
+      "scope": "担当者の採用・管理UI",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: staffManagerView"
+    },
+    {
+      "id": "copy-037",
+      "round": "12–14",
+      "from": "依頼・製法",
+      "to": "依頼",
+      "scope": "担当者の採用・管理UI",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: staffManagerView"
+    },
+    {
+      "id": "copy-038",
+      "round": "12–14",
+      "from": "予約・停止",
+      "to": "設定",
+      "scope": "担当者の採用・管理UI",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: staffManagerView"
+    },
+    {
+      "id": "copy-039",
+      "round": "12–14",
+      "from": "担当者へ戻る",
+      "to": "戻る",
+      "scope": "担当者の採用・管理UI",
+      "preserveNotes": "UIの固定文言のみ。保存済みの記録文・利用者入力・風味文は変更しない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(staff-request/bottling-policy)"
+    },
+    {
+      "id": "copy-040",
+      "round": "12–14",
+      "from": "仕込みを任せる",
+      "to": "仕込み",
+      "scope": "蒸留担当者への依頼UI",
+      "preserveNotes": "依頼回数・実行条件を維持。「3回まで」「続ける」は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(staff-request)"
+    },
+    {
+      "id": "copy-041",
+      "round": "12–14",
+      "from": "選んだ製法",
+      "to": "製法",
+      "scope": "蒸留担当者への依頼UI",
+      "preserveNotes": "依頼回数・実行条件を維持。「3回まで」「続ける」は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: staffRequestView"
+    },
+    {
+      "id": "copy-042",
+      "round": "12–14",
+      "from": "1回だけ",
+      "to": "1回",
+      "scope": "蒸留担当者への依頼UI",
+      "preserveNotes": "依頼回数・実行条件を維持。「3回まで」「続ける」は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: staffRequestView, staffDisplayStatus"
+    },
+    {
+      "id": "copy-043",
+      "round": "12–14",
+      "from": "貯蔵庫が満杯です。",
+      "to": "貯蔵庫が満杯",
+      "scope": "蒸留担当者への依頼UI",
+      "preserveNotes": "依頼回数・実行条件を維持。「3回まで」「続ける」は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: staffRequestView"
+    },
+    {
+      "id": "copy-044",
+      "round": "12–14",
+      "from": "今の仕込み・判断を終えてから依頼",
+      "to": "今の作業が終わってから",
+      "scope": "蒸留担当者への依頼UI",
+      "preserveNotes": "依頼回数・実行条件を維持。「3回まで」「続ける」は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(staff-request)"
+    },
+    {
+      "id": "copy-045",
+      "round": "12–14",
+      "from": "共通の条件",
+      "to": "共通設定",
+      "scope": "ビン詰め担当者の設定UI",
+      "preserveNotes": "「時期指定」「在庫連動」「自分で行う」「任せる」「予約取消」と既存予約への非適用を維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottlingPolicyView"
+    },
+    {
+      "id": "copy-046",
+      "round": "12–14",
+      "from": "条件を変える",
+      "to": "変更",
+      "scope": "ビン詰め担当者の設定UI",
+      "preserveNotes": "「時期指定」「在庫連動」「自分で行う」「任せる」「予約取消」と既存予約への非適用を維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottlerManagerView"
+    },
+    {
+      "id": "copy-047",
+      "round": "12–14",
+      "from": "ビン詰めする本数",
+      "to": "本数",
+      "scope": "ビン詰め担当者の設定UI",
+      "preserveNotes": "「時期指定」「在庫連動」「自分で行う」「任せる」「予約取消」と既存予約への非適用を維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottlingPolicyView"
+    },
+    {
+      "id": "copy-048",
+      "round": "12–14",
+      "from": "条件を保存",
+      "to": "保存",
+      "scope": "ビン詰め担当者の設定UI",
+      "preserveNotes": "「時期指定」「在庫連動」「自分で行う」「任せる」「予約取消」と既存予約への非適用を維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottlingPolicyView"
+    },
+    {
+      "id": "copy-049",
+      "round": "12–14",
+      "from": "新しい予約から適用／今の予約はそのまま",
+      "to": "次の予約から",
+      "scope": "ビン詰め担当者の設定UI",
+      "preserveNotes": "「時期指定」「在庫連動」「自分で行う」「任せる」「予約取消」と既存予約への非適用を維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottlerManagerView"
+    },
+    {
+      "id": "copy-050",
+      "round": "12–14",
+      "from": "熟成中のたるはありません",
+      "to": "たるなし",
+      "scope": "ビン詰め担当者の設定UI",
+      "preserveNotes": "「時期指定」「在庫連動」「自分で行う」「任せる」「予約取消」と既存予約への非適用を維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottlerManagerView"
+    },
+    {
+      "id": "copy-051",
+      "round": "15–17",
+      "from": "樽と熟成",
+      "to": "たる",
+      "scope": "帳面の一覧・分類",
+      "preserveNotes": "分類は「仕込み／たる／発売／取扱店」。記録本文の置換はしない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerView categories"
+    },
+    {
+      "id": "copy-052",
+      "round": "15–17",
+      "from": "ブランドの実績",
+      "to": "実績",
+      "scope": "帳面の一覧・分類",
+      "preserveNotes": "分類は「仕込み／たる／発売／取扱店」。記録本文の置換はしない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerView releases summary"
+    },
+    {
+      "id": "copy-053",
+      "round": "15–17",
+      "from": "蒸留所の歩み",
+      "to": "歩み",
+      "scope": "帳面の一覧・分類",
+      "preserveNotes": "分類は「仕込み／たる／発売／取扱店」。記録本文の置換はしない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerView history button; syncModal(history) title"
+    },
+    {
+      "id": "copy-054",
+      "round": "15–17",
+      "from": "仕込みの記録なし",
+      "to": "記録なし",
+      "scope": "帳面の一覧・分類",
+      "preserveNotes": "分類は「仕込み／たる／発売／取扱店」。記録本文の置換はしない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerRecipeList"
+    },
+    {
+      "id": "copy-055",
+      "round": "15–17",
+      "from": "たるの記録なし",
+      "to": "記録なし",
+      "scope": "帳面の一覧・分類",
+      "preserveNotes": "分類は「仕込み／たる／発売／取扱店」。記録本文の置換はしない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerCaskList"
+    },
+    {
+      "id": "copy-056",
+      "round": "15–17",
+      "from": "発売の記録はまだありません。",
+      "to": "記録なし",
+      "scope": "帳面の一覧・分類",
+      "preserveNotes": "分類は「仕込み／たる／発売／取扱店」。記録本文の置換はしない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerView releases empty state"
+    },
+    {
+      "id": "copy-057",
+      "round": "15–17",
+      "from": "取扱店はまだありません",
+      "to": "取扱店なし",
+      "scope": "帳面の一覧・分類",
+      "preserveNotes": "分類は「仕込み／たる／発売／取扱店」。記録本文の置換はしない。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerShopList"
+    },
+    {
+      "id": "copy-058",
+      "round": "15–17",
+      "from": "仕込みの記録",
+      "to": "仕込み",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(ledger-recipe), recipeSourceView"
+    },
+    {
+      "id": "copy-059",
+      "round": "15–17",
+      "from": "仕込み時の原酒",
+      "to": "原酒",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerRecipeDetail"
+    },
+    {
+      "id": "copy-060",
+      "round": "15–17",
+      "from": "この製法を使う",
+      "to": "使う",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerRecipeDetail recipe-select button"
+    },
+    {
+      "id": "copy-061",
+      "round": "15–17",
+      "from": "仕込みを比べる",
+      "to": "比べる",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerRecipeDetail, syncModal(ledger-recipe-comparison)"
+    },
+    {
+      "id": "copy-062",
+      "round": "15–17",
+      "from": "この仕込みで任せる",
+      "to": "任せる",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerRecipeDetail"
+    },
+    {
+      "id": "copy-063",
+      "round": "15–17",
+      "from": "たる・熟成の記録",
+      "to": "たるの記録",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerRecipeDetail"
+    },
+    {
+      "id": "copy-064",
+      "round": "15–17",
+      "from": "たると熟成",
+      "to": "たる",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(ledger-cask)"
+    },
+    {
+      "id": "copy-065",
+      "round": "15–17",
+      "from": "熟成記録",
+      "to": "熟成",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerCaskDetail"
+    },
+    {
+      "id": "copy-066",
+      "round": "15–17",
+      "from": "原酒量",
+      "to": "原酒",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerCaskDetail"
+    },
+    {
+      "id": "copy-067",
+      "round": "15–17",
+      "from": "関連する発売 ○回",
+      "to": "発売 ○回",
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: linkedReleases"
+    },
+    {
+      "id": "copy-068",
+      "round": "15–17",
+      "from": "関連する発売の記録なし",
+      "to": null,
+      "scope": "帳面の仕込み・たる詳細",
+      "preserveNotes": "製法・熟成・元たるの正確な記録と比較操作は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: linkedReleases"
+    },
+    {
+      "id": "copy-069",
+      "round": "15–17",
+      "from": "発売の記録",
+      "to": "発売",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(ledger-release)"
+    },
+    {
+      "id": "copy-070",
+      "round": "15–17",
+      "from": "販売価格",
+      "to": "価格",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerReleaseView"
+    },
+    {
+      "id": "copy-071",
+      "round": "15–17",
+      "from": "元たる・仕込みの記録",
+      "to": "元のたる",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerReleaseView"
+    },
+    {
+      "id": "copy-072",
+      "round": "15–17",
+      "from": "試飲・熟成の記録",
+      "to": "試飲・熟成",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerReleaseView"
+    },
+    {
+      "id": "copy-073",
+      "round": "15–17",
+      "from": "取扱店の記録",
+      "to": "取扱店",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(ledger-shop)"
+    },
+    {
+      "id": "copy-074",
+      "round": "15–17",
+      "from": "実納品 ○本",
+      "to": "納品 ○本",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerShopList"
+    },
+    {
+      "id": "copy-075",
+      "round": "15–17",
+      "from": "納品累計",
+      "to": "納品計",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerShopDetail"
+    },
+    {
+      "id": "copy-076",
+      "round": "15–17",
+      "from": "開始の記録なし",
+      "to": "開始日不明",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerShopList"
+    },
+    {
+      "id": "copy-077",
+      "round": "15–17",
+      "from": "発売の記録 #○",
+      "to": "発売 #○",
+      "scope": "帳面の発売・取扱店詳細",
+      "preserveNotes": "不完全な記録の「確認できた納品」「確認できた入金」は維持。日付・金額・在庫・記録本文は不変。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerShopDetail delivery link"
+    },
+    {
+      "id": "copy-078",
+      "round": "18",
+      "from": "初代の振り返り",
+      "to": "初代",
+      "scope": "蒸留所の歩みUI",
+      "preserveNotes": "初代は動的な世代名の例。「次の代へ引き継ぐ」・歴史の文章は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(history-generation)"
+    },
+    {
+      "id": "copy-079",
+      "round": "18",
+      "from": "ブランドの記録",
+      "to": "ブランド",
+      "scope": "蒸留所の歩みUI",
+      "preserveNotes": "初代は動的な世代名の例。「次の代へ引き継ぐ」・歴史の文章は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: historyYearEvents links; syncModal(history-brand) fallback"
+    },
+    {
+      "id": "copy-080",
+      "round": "18",
+      "from": "取扱店の記録",
+      "to": "取扱店",
+      "scope": "蒸留所の歩みUI",
+      "preserveNotes": "初代は動的な世代名の例。「次の代へ引き継ぐ」・歴史の文章は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: historyYearEvents links"
+    },
+    {
+      "id": "copy-081",
+      "round": "18",
+      "from": "前の50件",
+      "to": "前へ",
+      "scope": "蒸留所の歩みUI",
+      "preserveNotes": "初代は動的な世代名の例。「次の代へ引き継ぐ」・歴史の文章は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: historyYearEvents pagination"
+    },
+    {
+      "id": "copy-082",
+      "round": "18",
+      "from": "次の50件",
+      "to": "次へ",
+      "scope": "蒸留所の歩みUI",
+      "preserveNotes": "初代は動的な世代名の例。「次の代へ引き継ぐ」・歴史の文章は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: historyYearEvents pagination"
+    },
+    {
+      "id": "copy-083",
+      "round": "18",
+      "from": "初代の歩み",
+      "to": "初代",
+      "scope": "蒸留所の歩みUI",
+      "preserveNotes": "初代は動的な世代名の例。「次の代へ引き継ぐ」・歴史の文章は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(generation-review)"
+    },
+    {
+      "id": "copy-084",
+      "round": "18",
+      "from": "世代の記録なし",
+      "to": "記録なし",
+      "scope": "蒸留所の歩みUI",
+      "preserveNotes": "初代は動的な世代名の例。「次の代へ引き継ぐ」・歴史の文章は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: generationSummaryView"
+    },
+    {
+      "id": "copy-085",
+      "round": "18",
+      "from": "引継たる",
+      "to": "引きつぎ",
+      "scope": "蒸留所の歩みUI",
+      "preserveNotes": "初代は動的な世代名の例。「次の代へ引き継ぐ」・歴史の文章は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: generationSummaryView"
+    },
+    {
+      "id": "copy-086",
+      "round": "19",
+      "from": "保存・設定",
+      "to": "保存",
+      "scope": "メニュー・保存UI",
+      "preserveNotes": "「保存済み」は保存状態のみ。操作通知の「保存しました」は維持。保存失敗・競合・読込エラーの理由と対処法は維持。",
+      "expectedCallSite": "works/ambertime/index.html: #open-settings; works/ambertime/shop-app.mjs: syncModal(settings) title"
+    },
+    {
+      "id": "copy-087",
+      "round": "19",
+      "from": "保存を書き出す",
+      "to": "書き出す",
+      "scope": "メニュー・保存UI",
+      "preserveNotes": "「保存済み」は保存状態のみ。操作通知の「保存しました」は維持。保存失敗・競合・読込エラーの理由と対処法は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(settings)"
+    },
+    {
+      "id": "copy-088",
+      "round": "19",
+      "from": "保存しました",
+      "to": "保存済み",
+      "scope": "メニュー・保存UI",
+      "preserveNotes": "「保存済み」は保存状態のみ。操作通知の「保存しました」は維持。保存失敗・競合・読込エラーの理由と対処法は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: save, commitPlacement, render #save-status"
+    },
+    {
+      "id": "copy-089",
+      "round": "19",
+      "from": "研究所へ",
+      "to": "研究所",
+      "scope": "メニュー・保存UI",
+      "preserveNotes": "「保存済み」は保存状態のみ。操作通知の「保存しました」は維持。保存失敗・競合・読込エラーの理由と対処法は維持。",
+      "expectedCallSite": "works/ambertime/index.html: settings research link"
+    },
+    {
+      "id": "copy-090",
+      "round": "19",
+      "from": "画面を離れている間は進みません。",
+      "to": "画面を離れると停止",
+      "scope": "メニュー・保存UI",
+      "preserveNotes": "「保存済み」は保存状態のみ。操作通知の「保存しました」は維持。保存失敗・競合・読込エラーの理由と対処法は維持。",
+      "expectedCallSite": "works/ambertime/index.html: settings source notice"
+    },
+    {
+      "id": "copy-091",
+      "round": "19",
+      "from": [
+        "倍速にする",
+        "通常速度に戻す"
+      ],
+      "to": [
+        "2倍",
+        "1倍"
+      ],
+      "scope": "速度ボタンの切り替え先",
+      "preserveNotes": "表示は現在速度ではなく切り替え先。時間計算は変更しない。",
+      "expectedCallSite": "works/ambertime/index.html: #toggle-speed; works/ambertime/shop-app.mjs: render #toggle-speed"
+    },
+    {
+      "id": "copy-092",
+      "round": "20",
+      "from": "担当者を採用しました。",
+      "to": "採用しました",
+      "scope": "操作成功通知",
+      "preserveNotes": "保存済みの通知・履歴文字列は書き換えない。成功判定は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: message / hireStaff"
+    },
+    {
+      "id": "copy-093",
+      "round": "20",
+      "from": "仕込みを依頼しました。",
+      "to": "依頼しました",
+      "scope": "操作成功通知",
+      "preserveNotes": "保存済みの通知・履歴文字列は書き換えない。成功判定は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: message / staff-request action"
+    },
+    {
+      "id": "copy-094",
+      "round": "20",
+      "from": "条件を保存しました。",
+      "to": "保存しました",
+      "scope": "操作成功通知",
+      "preserveNotes": "保存済みの通知・履歴文字列は書き換えない。成功判定は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: message / save bottling policy action"
+    },
+    {
+      "id": "copy-095",
+      "round": "20",
+      "from": "ビン詰めを任せました。",
+      "to": "任せました",
+      "scope": "操作成功通知",
+      "preserveNotes": "保存済みの通知・履歴文字列は書き換えない。成功判定は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: message / bottler reserve action"
+    },
+    {
+      "id": "copy-096",
+      "round": "20",
+      "from": "予約を取り消しました。",
+      "to": "予約取消",
+      "scope": "操作成功通知",
+      "preserveNotes": "保存済みの通知・履歴文字列は書き換えない。成功判定は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: message / bottler cancel action"
+    },
+    {
+      "id": "copy-097",
+      "round": "20",
+      "from": "ビン詰めの資金が足りません。",
+      "to": "資金不足",
+      "scope": "操作不可のUI表示",
+      "preserveNotes": "モデル側の計算・保存形式は変更しない。保存失敗・別画面競合・読込不可の理由と対処法は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottle validation UI"
+    },
+    {
+      "id": "copy-098",
+      "round": "20",
+      "from": "ビン1本分の原酒がありません。",
+      "to": "原酒が1本分足りません",
+      "scope": "操作不可のUI表示",
+      "preserveNotes": "モデル側の計算・保存形式は変更しない。保存失敗・別画面競合・読込不可の理由と対処法は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottle validation UI"
+    },
+    {
+      "id": "copy-099",
+      "round": "20",
+      "from": "担当者の条件を決めてください",
+      "to": "先に共通設定を保存",
+      "scope": "操作不可のUI表示",
+      "preserveNotes": "モデル側の計算・保存形式は変更しない。保存失敗・別画面競合・読込不可の理由と対処法は維持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: bottler action validation UI"
+    },
+    {
+      "id": "copy-100",
+      "round": "21",
+      "from": "所持金",
+      "to": "資金",
+      "scope": "同じ用途の全画面の固定UI",
+      "preserveNotes": "一括変換器は使わない。味・台詞・歴史・保存済み記録文・利用者の名前を保持。",
+      "expectedCallSite": "works/ambertime/index.html: #cash label; works/ambertime/shop-app.mjs: fixed UI cash labels"
+    },
+    {
+      "id": "copy-101",
+      "round": "21",
+      "from": "瓶詰め済み",
+      "to": "ビン詰め済み",
+      "scope": "同じ用途の全画面の固定UI",
+      "preserveNotes": "一括変換器は使わない。味・台詞・歴史・保存済み記録文・利用者の名前を保持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerCaskStatus"
+    },
+    {
+      "id": "copy-102",
+      "round": "21",
+      "from": "選んだ製法で任せる",
+      "to": "任せる",
+      "scope": "同じ用途の全画面の固定UI",
+      "preserveNotes": "一括変換器は使わない。味・台詞・歴史・保存済み記録文・利用者の名前を保持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerView recipes ledger-request button"
+    },
+    {
+      "id": "copy-103",
+      "round": "21",
+      "from": "元たる",
+      "to": "元のたる",
+      "scope": "同じ用途の全画面の固定UI",
+      "preserveNotes": "一括変換器は使わない。味・台詞・歴史・保存済み記録文・利用者の名前を保持。",
+      "expectedCallSite": "works/ambertime/shop-app.mjs: ledgerCask fallback, ledgerReleaseView, releaseSource / fixed UI labels"
+    }
+  ],
+  "mapZoom": {
+    "id": "map-zoom",
+    "round": "19追加",
+    "from": [
+      "左: 近く",
+      "右: 遠く"
+    ],
+    "to": [
+      "左: −（縮小・遠く）",
+      "右: ＋（拡大・近く）"
+    ],
+    "scope": "メニューから開く地図の縮尺操作",
+    "preserveNotes": "中央の縮尺名、解放時の一言・つづける、6段階の描画・解放条件・町の計算は維持。",
+    "expectedCallSite": "works/ambertime/shop-app.mjs: syncModal(world-map), world-map-out / world-map-in",
+    "actions": {
+      "left": {
+        "text": "−",
+        "action": "world-map-out",
+        "ariaLabel": "縮小"
+      },
+      "right": {
+        "text": "＋",
+        "action": "world-map-in",
+        "ariaLabel": "拡大"
+      }
+    }
+  },
+  "formalAdoption": {
+    "id": "placement-formal",
+    "scope": "通常URLと旧 ?placement=1 入口からの配分UI正式採用",
+    "expectedCallSite": [
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/placement-ui.mjs"
+    ],
+    "requirements": [
+      "通常URLで配分UIを利用できる。重複する旧販売UIと試遊専用表示を整理する。",
+      "1本・2本・半分・残り全部、行き先への仮置き、ひとつ戻す、全部分け直す、これで決めるを維持する。",
+      "元の通常保存と試遊保存を区別し、明示的に選べる安全な引き継ぎを行う。",
+      "保存元の自動初期化・上書き・黙った破棄を行わない。",
+      "既存記録・資金・在庫・ブランド発売回・店舗関係を保持する。",
+      "棚と詳細の配分可能本数を一致させる。",
+      "町の酒店の希望・手動納品と自動店の注文・発送を区別する。",
+      "保存成功後のみ確定の反応を出す。失敗・競合・検証不備では元の状態を保つ。"
+    ],
+    "preserveNotes": "仮置き・配分計算・原子的確定・月次販売・需要・風味・熟成・地図・ゲーム本体保存形式を変更しない。Productionは変更しない。"
+  }
+}

@@ -53,7 +53,7 @@ export function brewingCardsMarkup(state){
  const cards=manualCards(state),unlocked=longFermentationUnlocked(state);
  return '<div class="flavor-cards">'+[['malt','麦芽'],['ferment','発酵']].map(([group,label])=>'<h3>'+label+'</h3>'+BREWING_CARDS.filter(c=>c.group===group).map(c=>{
   const locked=c.value==='long'&&!unlocked;
-  return '<button type="button" data-action="flavor-card" data-group="'+group+'" data-id="'+c.value+'" aria-pressed="'+(cards[group]===c.value)+'"'+(locked?' disabled title="初めて自分でたる詰めすると解放" aria-label="長い発酵・初めて自分でたる詰めすると解放"':'')+'><canvas class="brewing-icon" width="16" height="16" data-brewing-icon="'+c.value+'" aria-hidden="true"></canvas><span class="brewing-name">'+c.label+'</span>'+(locked?'<canvas class="card-lock" width="7" height="8" aria-hidden="true"></canvas>':'')+'</button>';
+  return '<button type="button" data-action="flavor-card" data-group="'+group+'" data-id="'+c.value+'" aria-pressed="'+(cards[group]===c.value)+'"'+(locked?' disabled title="初めて自分でたる詰めすると解放" aria-label="長い発酵・初めて自分でたる詰めすると解放"':'')+'><canvas class="brewing-icon" width="16" height="16" data-brewing-icon="'+c.value+'" aria-hidden="true"></canvas><span class="brewing-name">'+({plain:'ふつう',peat:'ピート',short:'短め',long:'長め'}[c.value])+'</span>'+(locked?'<canvas class="card-lock" width="7" height="8" aria-hidden="true"></canvas>':'')+'</button>';
  }).join('')).join('')+'</div>';
 }
 export function renderBrewingIcons(root){
