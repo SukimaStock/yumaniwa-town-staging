@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3e2199dcc56f6c3cdfcd6ab6a8e077613179f0ebd52375ff4bbbe772c6a9284b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-font-uniform",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "1fa5383b29004de406fbd77da7ed398456ce29af",
+    "change": "Opt-in all-screen uniform typography comparison using existing Canvas body pixel metrics; normal presentation and game/save rules unchanged",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User font audit stage1 specification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "Current main PR642/643 formal placement",
+      "text-metrics.mjs BODY_SIZE20 pixelTypography and current viewport/DOM cascade"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-font-uniform/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/tests/font-uniform.test.mjs",
+      "works/ambertime/design/font-uniform/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/usual.css",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/font-loader.mjs",
+      "works/ambertime/fonts/**"
+    ],
+    "expectedChanges": [
+      "Only exact font-uniform=1 enables ephemeral presentation mode, no game/save flags or separate key. Shared normal URL and placement aliases retain their existing game state.",
+      "Derive one common physical font size from existing BODY_SIZE20 pixelTypography(viewport.scale*dpr). Use the same physical integer font dots for all Canvas runs and DOM forms/notices/dialogs. Shared CSS variables update only in the existing resize path.",
+      "Normalize all Canvas requested sizes including16,48countdown and header shrink only in comparison mode; use normalized measuring and wrapping. Preserve normal pixel output, geometry, sprites, art, colors, text and timings.",
+      "Add explicit opt-in-only CSS coverage of current text roots and inputs with sufficient cascade specificity; no normal CSS edits or selectors leaking to normal. Keep Misaki and supported glyph fallback, no CSS transform scaling.",
+      "Focused normal/baseline pixel parity, uniform computed sizes and raster font draws, same-state screens at360/375/390 DPR3 plus DPR1/2 probes, quantity/input/scroll/button/map/allocation/basic save parity. Report objective observations and layout limitations without adopting a hierarchy or fixing wording.",
+      "Staging PR, required CI, source/HTML/CSS public proof and both URLs; Production unchanged."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Normal and uniform same-state scenes across key requested rooms/dialogs/countdown/notices/input/error/save-choice at iPhone widths360/375/390; Canvas and DOM physical font size parity; no user data/text changes; normal baseline screenshots identical; public ordinary/comparison URLs; physical Safari and VoiceOver unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly requests opt-in all-screen single-size comparison at font-uniform=1, including countdown/headings, with ordinary mode unchanged; adoption decision deferred."
+    ],
+    "hqDecisions": [
+      "Presentation review: opt-in query affects only local renderer and scoped CSS. Reuse existing BODY_SIZE pixel quantization; no game/save or shared-runtime contract changes. All text sizes including countdown normalize only in comparison mode; ordinary rendering must match baseline byte/pixel evidence."
+    ],
+    "rulesApplied": [
+      "Work-local multi-file presentation comparison: Full lock for explicit opt-in query/Canvas+DOM/normal parity evidence; no common runtime or model contracts changed.",
+      "Expression audit: no new product copy, banners, stories, hierarchy or invented records. Report factual differences and unverified device limits.",
+      "Related tests/limited UI comparisons and requiredCI; no comprehensive gameplayE2E."
+    ],
+    "rollback": "Revert scoped presentation/CSS/import changes; no persistent state, migration or new keys.",
+    "outOfScope": [
+      "Production",
+      "Normal font size changes",
+      "Wording/messages/punctuation/order changes",
+      "Calculations/time/saves/migration/new game features",
+      "Existing Labs and old versions",
+      "Sprite/art/color/frame redesign",
+      "Automatic adoption of uniform size",
+      "ComprehensiveE2E"
+    ],
+    "promotion": "Staging only. The experiment is not formal adoption.",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver/nativeOS picker glyph behavior; author aesthetic judgment"
+    ],
+    "problem": "Current Canvas requested sizes and DOM cascade differ; a unified visual comparison is required before choosing any hierarchy.",
+    "currentContract": "Current formal placement on normal URL uses main.v1; BODY_SIZE20 is quantized to physical multiples of8 using viewport scale and clamped DPR. DOM24px important rules, input20px/system font and component overrides coexist.",
+    "whyExistingIsInsufficient": "Literal CSS20px does not match rendered Canvas dots; DOM-only override misses Canvas countdown, shelf quantities, adaptive header and other Canvas sizes.",
+    "design": "Scoped transient flag in renderer initialization. New pure shared helper derives uniform font/line metrics from existing BODY_SIZE/pixelTypography. Canvas normal path unchanged; uniform measuring/drawing/wrapping uses body metrics. Scoped CSS variables/roots enforce identical DOM size/family, preserving control minima and sprite geometry.",
+    "alternativesRejected": [
+      "Changing normal CSS defaults",
+      "Separate save or game mode",
+      "DOM-only blanket footer override",
+      "CSS transforms or raster sprite rescaling",
+      "Keeping large countdown or small helper exceptions",
+      "Layout redesign or message edits during font comparison"
+    ],
+    "migration": "None. Same canonical key and serialization; only ephemeral display state.",
+    "compatibility": "No changes to game model, existing source keys, normal styles, font asset or loader. Remove query to restore original presentation. Refresh current app/Canvas entry cache only.",
+    "boundaryCases": [
+      "DPR1/2/3 viewport sizes/rotation and existing resize",
+      "Japanese/Latin/digits/currency/unit/symbol widths and integral physical glyph scale",
+      "Input/select/textarea and save-choice dialog outside main action-dialog",
+      "Automatic-news inlinefont and high-specificity important milestone/placement CSS",
+      "Header fit loops and countdown48 must not escape uniform size",
+      "Long names, quantities, multiline notifications, scrolling, native control minima",
+      "Missing font transient fallback and reduced motion/hidden state without new clocks",
+      "Both URLs preserve exact save bytes and gameplay operations"
+    ],
+    "testPlan": [
+      "New pure metrics/cascade/Canvas mode tests and related existing text/performance tests. Focused real UI browser same-state screenshots with physical draw instrumentation, normal-vs-base pixel parity and save equality; requiredCI and live normal/comparison URLs."
+    ],
+    "promotionRisk": "Staging opt-in reversible typography only; no save/model/rule mutations and noProduction."
+  }
+}
