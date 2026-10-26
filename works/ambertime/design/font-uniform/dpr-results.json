@@ -1,0 +1,4090 @@
+{
+  "ok": true,
+  "baseline": false,
+  "public": false,
+  "checks": [
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "scenes": 24
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "scenes": 24
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "scenes": 24
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "scenes": 24
+    }
+  ],
+  "errors": [],
+  "physicalSafari": "UNVERIFIED",
+  "voiceOver": "UNVERIFIED",
+  "measurements": [
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "distill",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "brewing",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 9,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "仕込み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H3",
+              "id": "",
+              "text": "麦芽",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "ふつう",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "countdown",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12,
+        "56px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 1
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "distilling",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 22
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "warehouse",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "cask-detail",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "たる No.",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "リフィル",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "tasting",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "たる No.",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "リフィル",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "brand-input",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 12,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LABEL",
+              "id": "",
+              "text": "ブランド名",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LEGEND",
+              "id": "",
+              "text": "ビン",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "INPUT",
+              "id": "brand-name",
+              "text": "AmberTime",
+              "size": 20,
+              "line": "30px",
+              "family": "system-ui, -apple-system, sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "bottling",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 30,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "AmberTime",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "設定を直す",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "shelf",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 11,
+        "16px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 2
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "allocation",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 33,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "AmberTime 第",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "回",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 4,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "",
+              "text": "手元",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "本",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "ひとつ戻す",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 11,
+        "16px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 2
+      },
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "receipt",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 37,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "AmberTime 第",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "回",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 4,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "",
+              "text": "手元",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "本",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "ひとつ戻す",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 11,
+        "16px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 2
+      },
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "store",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "町の酒店",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "「いらっしゃいませ。」",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "自分で届ける · 月",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14,
+        "16px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 2
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "staff",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 14,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "担当者",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H3",
+              "id": "",
+              "text": "蒸留担当者",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "給与",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "staff-request",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "蒸留担当者",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "製法",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "前回の手動仕込み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "common-settings",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 21,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め担当者",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "給与",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "£",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 2,
+          "examples": [
+            {
+              "tag": "INPUT",
+              "id": "bottling-condition",
+              "text": "24",
+              "size": 20,
+              "line": "30px",
+              "family": "system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "INPUT",
+              "id": "bottling-quantity",
+              "text": "10",
+              "size": 20,
+              "line": "30px",
+              "family": "system-ui, -apple-system, sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "ledger",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 13,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "帳面",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "ledger-section-recipes",
+              "text": "仕込み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "ledger-section-aging",
+              "text": "たる",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "history",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 22,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "歩み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "7",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "年",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "map",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 5,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "地図",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "−",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "日本",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "menu",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 5,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "メニュー",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "open-world-map",
+              "text": "地図",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "2",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "save",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 51,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "保存",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "維持費",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "£",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "automatic-notice",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "DIV",
+              "id": "automatic-news",
+              "text": "2026年7月 発送 11本",
+              "size": 24,
+              "line": "28.3333px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "error",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "13": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "storage-notice",
+              "text": "保存できません。元の記録を残して停止しています。",
+              "size": 13,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 1,
+      "phase": "save-choice",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "save-choice-title",
+              "text": "記録を選ぶ",
+              "size": 24,
+              "line": "36px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            }
+          ]
+        },
+        "18": {
+          "count": 11,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "",
+              "text": "引きつぐ記録を選んでください。",
+              "size": 18,
+              "line": "27px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "元の記録は残ります。",
+              "size": 18,
+              "line": "27px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "これまでの記録",
+              "size": 18,
+              "line": "27px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            }
+          ]
+        },
+        "16": {
+          "count": 4,
+          "examples": [
+            {
+              "tag": "SMALL",
+              "id": "",
+              "text": "2027年2月 · £1,517",
+              "size": 16,
+              "line": "24px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "SMALL",
+              "id": "",
+              "text": "ビン 23本",
+              "size": 16,
+              "line": "24px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "SMALL",
+              "id": "",
+              "text": "2026年3月 · £1,323",
+              "size": 16,
+              "line": "24px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {},
+      "buttonMinHeight": 45,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "distill",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "brewing",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 9,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "仕込み",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H3",
+              "id": "",
+              "text": "麦芽",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "ふつう",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "countdown",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 13
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "distilling",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 22
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "warehouse",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "cask-detail",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "たる No.",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "リフィル",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "tasting",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "たる No.",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "リフィル",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "brand-input",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 13,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LABEL",
+              "id": "",
+              "text": "ブランド名",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LEGEND",
+              "id": "",
+              "text": "ビン",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "bottling",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 30,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "AmberTime",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "設定を直す",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "shelf",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 13
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "allocation",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 37,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "AmberTime 第",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "回",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 13
+      },
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "receipt",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 41,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "AmberTime 第",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "回",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 13
+      },
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "store",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "町の酒店",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "「いらっしゃいませ。」",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "自分で届ける · 月",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 16
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "staff",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 14,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "担当者",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H3",
+              "id": "",
+              "text": "蒸留担当者",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "給与",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "staff-request",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "蒸留担当者",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "製法",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "前回の手動仕込み",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "common-settings",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 23,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め担当者",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "給与",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "£",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "ledger",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 13,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "帳面",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "ledger-section-recipes",
+              "text": "仕込み",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "ledger-section-aging",
+              "text": "たる",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "history",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 22,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "歩み",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "7",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "年",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "map",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 5,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "地図",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "−",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "日本",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "menu",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 5,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "メニュー",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "open-world-map",
+              "text": "地図",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "2",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "save",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 51,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "保存",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "維持費",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "£",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "automatic-notice",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "DIV",
+              "id": "automatic-news",
+              "text": "2026年7月 発送 11本",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "error",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "storage-notice",
+              "text": "保存できません。元の記録を残して停止しています。",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "24px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 1,
+      "phase": "save-choice",
+      "expectedPhysical": 24,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 16,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "save-choice-title",
+              "text": "記録を選ぶ",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "引きつぐ記録を選んでください。",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "元の記録は残ります。",
+              "size": 24,
+              "line": "30px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {},
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "distill",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "brewing",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 9,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "仕込み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H3",
+              "id": "",
+              "text": "麦芽",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "ふつう",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "countdown",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12,
+        "104px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 1
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "distilling",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 22
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "warehouse",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "cask-detail",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "たる No.",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "リフィル",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "tasting",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "たる No.",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "リフィル",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "brand-input",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 12,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LABEL",
+              "id": "",
+              "text": "ブランド名",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LEGEND",
+              "id": "",
+              "text": "ビン",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "INPUT",
+              "id": "brand-name",
+              "text": "AmberTime",
+              "size": 20,
+              "line": "30px",
+              "family": "system-ui, -apple-system, sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "bottling",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 30,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "AmberTime",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "設定を直す",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "shelf",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 11,
+        "32px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 2
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "allocation",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 33,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "AmberTime 第",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "回",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 4,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "",
+              "text": "手元",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "本",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "ひとつ戻す",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 11,
+        "32px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 2
+      },
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "receipt",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 37,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "AmberTime 第",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "回",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 4,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "",
+              "text": "手元",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "本",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "ひとつ戻す",
+              "size": 20,
+              "line": "28px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 11,
+        "32px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 2
+      },
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "store",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "町の酒店",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "「いらっしゃいませ。」",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "自分で届ける · 月",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14,
+        "32px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 2
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "staff",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 14,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "担当者",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H3",
+              "id": "",
+              "text": "蒸留担当者",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "給与",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "staff-request",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "蒸留担当者",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "製法",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "前回の手動仕込み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "common-settings",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 21,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め担当者",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "給与",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "£",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        },
+        "20": {
+          "count": 2,
+          "examples": [
+            {
+              "tag": "INPUT",
+              "id": "bottling-condition",
+              "text": "24",
+              "size": 20,
+              "line": "30px",
+              "family": "system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "INPUT",
+              "id": "bottling-quantity",
+              "text": "10",
+              "size": 20,
+              "line": "30px",
+              "family": "system-ui, -apple-system, sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "ledger",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 13,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "帳面",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "ledger-section-recipes",
+              "text": "仕込み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "ledger-section-aging",
+              "text": "たる",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "history",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 22,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "歩み",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "7",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "年",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "map",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 5,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "地図",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "−",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "日本",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "menu",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 5,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "メニュー",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "open-world-map",
+              "text": "地図",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "2",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "save",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 51,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "保存",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "維持費",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "£",
+              "size": 24,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "automatic-notice",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "DIV",
+              "id": "automatic-news",
+              "text": "2026年7月 発送 11本",
+              "size": 20,
+              "line": "28.1667px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "error",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "13": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "storage-notice",
+              "text": "保存できません。元の記録を残して停止しています。",
+              "size": 13,
+              "line": "32px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": false,
+      "dpr": 2,
+      "phase": "save-choice",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "24": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "save-choice-title",
+              "text": "記録を選ぶ",
+              "size": 24,
+              "line": "36px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            }
+          ]
+        },
+        "18": {
+          "count": 11,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "",
+              "text": "引きつぐ記録を選んでください。",
+              "size": 18,
+              "line": "27px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "元の記録は残ります。",
+              "size": 18,
+              "line": "27px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "これまでの記録",
+              "size": 18,
+              "line": "27px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            }
+          ]
+        },
+        "16": {
+          "count": 4,
+          "examples": [
+            {
+              "tag": "SMALL",
+              "id": "",
+              "text": "2027年2月 · £1,517",
+              "size": 16,
+              "line": "24px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "SMALL",
+              "id": "",
+              "text": "ビン 23本",
+              "size": 16,
+              "line": "24px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            },
+            {
+              "tag": "SMALL",
+              "id": "",
+              "text": "2026年3月 · £1,323",
+              "size": 16,
+              "line": "24px",
+              "family": "AmberMisaki, system-ui, -apple-system, sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {},
+      "buttonMinHeight": 45,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "distill",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "brewing",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 9,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "仕込み",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H3",
+              "id": "",
+              "text": "麦芽",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "ふつう",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 12
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "countdown",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 13
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "distilling",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 22
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "warehouse",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "cask-detail",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "たる No.",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "リフィル",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "tasting",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "たる No.",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "リフィル",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "brand-input",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 13,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LABEL",
+              "id": "",
+              "text": "ブランド名",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "LEGEND",
+              "id": "",
+              "text": "ビン",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "bottling",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 30,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "AmberTime",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "設定を直す",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 45,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "shelf",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {},
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 13
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "allocation",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 37,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "AmberTime 第",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "回",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 13
+      },
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "receipt",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 41,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "AmberTime 第",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "1",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "回",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 13
+      },
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "store",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "町の酒店",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "「いらっしゃいませ。」",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "自分で届ける · 月",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 16
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "staff",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 14,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "担当者",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "H3",
+              "id": "",
+              "text": "蒸留担当者",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "給与",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "staff-request",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 18,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "蒸留担当者",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "製法",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "前回の手動仕込み",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "common-settings",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 23,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "ビン詰め担当者",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "給与",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "£",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "ledger",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 13,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "帳面",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "ledger-section-recipes",
+              "text": "仕込み",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "ledger-section-aging",
+              "text": "たる",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 47,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "history",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 22,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "歩み",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "7",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "年",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "map",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 5,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "地図",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "−",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "日本",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "menu",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 5,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "メニュー",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "BUTTON",
+              "id": "open-world-map",
+              "text": "地図",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "2",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "save",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 51,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "dialog-title",
+              "text": "保存",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "維持費",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "SPAN",
+              "id": "",
+              "text": "£",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": 48,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "automatic-notice",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "DIV",
+              "id": "automatic-news",
+              "text": "2026年7月 発送 11本",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "error",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 1,
+          "examples": [
+            {
+              "tag": "P",
+              "id": "storage-notice",
+              "text": "保存できません。元の記録を残して停止しています。",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {
+        "40px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif": 14
+      },
+      "buttonMinHeight": null,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    },
+    {
+      "width": 390,
+      "uniform": true,
+      "dpr": 2,
+      "phase": "save-choice",
+      "expectedPhysical": 40,
+      "inside": true,
+      "horizontal": false,
+      "bodyScroll": 0,
+      "domSizes": {
+        "20": {
+          "count": 16,
+          "examples": [
+            {
+              "tag": "H2",
+              "id": "save-choice-title",
+              "text": "記録を選ぶ",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "引きつぐ記録を選んでください。",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            },
+            {
+              "tag": "P",
+              "id": "",
+              "text": "元の記録は残ります。",
+              "size": 20,
+              "line": "25px",
+              "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+            }
+          ]
+        }
+      },
+      "canvasFonts": {},
+      "buttonMinHeight": 44,
+      "buttonOverflow": 0,
+      "scrollVerified": null
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "metrics": [
+    {
+      "viewportWidth": 360,
+      "dpr": 3,
+      "width": 416,
+      "height": 80,
+      "cssSize": "21.3333px",
+      "line": "26.6667px",
+      "letterSpacing": "normal",
+      "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+      "m": {
+        "pixels": 64,
+        "dot": 8,
+        "cssSize": 21.333333333333332,
+        "cssLine": 26.666666666666668,
+        "lineLogical": 26.666666666666668
+      }
+    },
+    {
+      "viewportWidth": 375,
+      "dpr": 3,
+      "width": 416,
+      "height": 80,
+      "cssSize": "21.3333px",
+      "line": "26.6667px",
+      "letterSpacing": "normal",
+      "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+      "m": {
+        "pixels": 64,
+        "dot": 8,
+        "cssSize": 21.333333333333332,
+        "cssLine": 26.666666666666668,
+        "lineLogical": 25.6
+      }
+    },
+    {
+      "viewportWidth": 390,
+      "dpr": 3,
+      "width": 416,
+      "height": 80,
+      "cssSize": "21.3333px",
+      "line": "26.6667px",
+      "letterSpacing": "normal",
+      "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+      "m": {
+        "pixels": 64,
+        "dot": 8,
+        "cssSize": 21.333333333333332,
+        "cssLine": 26.666666666666668,
+        "lineLogical": 24.615384615384617
+      }
+    },
+    {
+      "viewportWidth": 390,
+      "dpr": 1,
+      "width": 156,
+      "height": 30,
+      "cssSize": "24px",
+      "line": "30px",
+      "letterSpacing": "normal",
+      "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+      "m": {
+        "pixels": 24,
+        "dot": 3,
+        "cssSize": 24,
+        "cssLine": 30,
+        "lineLogical": 27.692307692307693
+      }
+    },
+    {
+      "viewportWidth": 390,
+      "dpr": 2,
+      "width": 260,
+      "height": 50,
+      "cssSize": "20px",
+      "line": "25px",
+      "letterSpacing": "normal",
+      "family": "AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif",
+      "m": {
+        "pixels": 40,
+        "dot": 5,
+        "cssSize": 20,
+        "cssLine": 25,
+        "lineLogical": 23.07692307692308
+      }
+    }
+  ],
+  "isolatedGlyphMasks": 50,
+  "allIdentical": true,
+  "method": "国Ag012£％L本 individual white glyph masks: trim blank margin/DOM screenshot edge; same shape and physical dots. Whole-line baseline/advance placement is not asserted identical."
+}
