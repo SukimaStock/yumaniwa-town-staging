@@ -1,0 +1,4237 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "width": 360,
+      "case": "same-save default/1/0/default",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "case": "draft undo/atomic save/no-change no write",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "case": "save error keeps state/bytes and clears success",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "case": "real monthly sold-out transition brand notification",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "case": "real manual shop delivery result",
+      "pass": true
+    },
+    {
+      "width": 375,
+      "case": "same-save default/1/0/default",
+      "pass": true
+    },
+    {
+      "width": 375,
+      "case": "draft undo/atomic save/no-change no write",
+      "pass": true
+    },
+    {
+      "width": 375,
+      "case": "save error keeps state/bytes and clears success",
+      "pass": true
+    },
+    {
+      "width": 375,
+      "case": "real monthly sold-out transition brand notification",
+      "pass": true
+    },
+    {
+      "width": 375,
+      "case": "real manual shop delivery result",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "case": "same-save default/1/0/default",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "case": "draft undo/atomic save/no-change no write",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "case": "save error keeps state/bytes and clears success",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "case": "real monthly sold-out transition brand notification",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "case": "real manual shop delivery result",
+      "pass": true
+    }
+  ],
+  "captures": [
+    {
+      "width": 360,
+      "name": "default",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "explicit-uniform",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "former-size",
+      "flag": null,
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "countdown",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "unchanged",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "変更なし",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "allocation-saved",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "10",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売へ",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "回しました。",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "save-error",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "保存できません。元の記録を残して停止しています。",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "9",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        },
+        {
+          "text": "保存できません。元の記録を残して停止しています。",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "manual-bottling",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,341",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "5",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "ビン詰め完了 5本",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "sold-out",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "7",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,451",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "No.",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "6",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "か月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 完売",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "automatic-bottling",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2033",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "2",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3,453",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "No.",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "8",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "か月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "ビン詰め完了 3本 · たる No.8 残り 32.2L",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 360,
+      "name": "shop-delivery",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2027",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,751",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "試遊",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "5",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "第",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "回",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "試遊 第",
+          "size": 21.3333
+        },
+        {
+          "text": "3",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "5",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "5",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "町の酒店",
+          "size": 21.3333
+        },
+        {
+          "text": "希望",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "前と比べる",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "町の酒店へ",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "届けました。",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "default",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "explicit-uniform",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "former-size",
+      "flag": null,
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "countdown",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "unchanged",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "変更なし",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "allocation-saved",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "10",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売へ",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "回しました。",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "save-error",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "保存できません。元の記録を残して停止しています。",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "9",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        },
+        {
+          "text": "保存できません。元の記録を残して停止しています。",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "manual-bottling",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,341",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "5",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "ビン詰め完了 5本",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "sold-out",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "7",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,451",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "No.",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "6",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "か月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 完売",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "automatic-bottling",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2033",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "2",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3,453",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "No.",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "8",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "か月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "ビン詰め完了 3本 · たる No.8 残り 32.2L",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 375,
+      "name": "shop-delivery",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2027",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,751",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "試遊",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "5",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "第",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "回",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "試遊 第",
+          "size": 21.3333
+        },
+        {
+          "text": "3",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "5",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "5",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "町の酒店",
+          "size": 21.3333
+        },
+        {
+          "text": "希望",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "前と比べる",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "町の酒店へ",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "届けました。",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "default",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "explicit-uniform",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "former-size",
+      "flag": null,
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "countdown",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,600",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留 £",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "120",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "unchanged",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "変更なし",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "allocation-saved",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "10",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売へ",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "回しました。",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "save-error",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,323",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "11",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 第",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "保存できません。元の記録を残して停止しています。",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "9",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        },
+        {
+          "text": "保存できません。元の記録を残して停止しています。",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "manual-bottling",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,341",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "AmberTime",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "5",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "ビン詰め完了 5本",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "sold-out",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2026",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "7",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,451",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "No.",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "6",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "か月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "AmberTime 完売",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "automatic-bottling",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2033",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "2",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3,453",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "No.",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "8",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "か月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "ビン詰め完了 3本 · たる No.8 残り 32.2L",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    },
+    {
+      "width": 390,
+      "name": "shop-delivery",
+      "flag": "1",
+      "draws": [
+        {
+          "text": "2027",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "年",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "月",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "初代",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "£",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "1,751",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "試遊",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "5",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "本",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "第",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "3",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "回",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "蒸留室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "貯蔵庫",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        },
+        {
+          "text": "販売室",
+          "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+        }
+      ],
+      "texts": [
+        {
+          "text": "試遊 第",
+          "size": 21.3333
+        },
+        {
+          "text": "3",
+          "size": 21.3333
+        },
+        {
+          "text": "回",
+          "size": 21.3333
+        },
+        {
+          "text": "11",
+          "size": 21.3333
+        },
+        {
+          "text": "か月",
+          "size": 21.3333
+        },
+        {
+          "text": "・",
+          "size": 21.3333
+        },
+        {
+          "text": "5",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "2",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "半分",
+          "size": 21.3333
+        },
+        {
+          "text": "残り全部",
+          "size": 21.3333
+        },
+        {
+          "text": "手元",
+          "size": 21.3333
+        },
+        {
+          "text": "5",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "自家販売",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "町の酒店",
+          "size": 21.3333
+        },
+        {
+          "text": "希望",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "0",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "ひとつ戻す",
+          "size": 21.3333
+        },
+        {
+          "text": "全部分け直す",
+          "size": 21.3333
+        },
+        {
+          "text": "個性と仕込み",
+          "size": 21.3333
+        },
+        {
+          "text": "果実香が強い",
+          "size": 21.3333
+        },
+        {
+          "text": "元の記録",
+          "size": 21.3333
+        },
+        {
+          "text": "前と比べる",
+          "size": 21.3333
+        },
+        {
+          "text": "価格",
+          "size": 21.3333
+        },
+        {
+          "text": "低め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "ふつう",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "16.00",
+          "size": 21.3333
+        },
+        {
+          "text": "高め",
+          "size": 21.3333
+        },
+        {
+          "text": "£",
+          "size": 21.3333
+        },
+        {
+          "text": "19.84",
+          "size": 21.3333
+        },
+        {
+          "text": "町の酒店へ",
+          "size": 21.3333
+        },
+        {
+          "text": "1",
+          "size": 21.3333
+        },
+        {
+          "text": "本",
+          "size": 21.3333
+        },
+        {
+          "text": "届けました。",
+          "size": 21.3333
+        },
+        {
+          "text": "これで決める",
+          "size": 21.3333
+        },
+        {
+          "text": "戻る",
+          "size": 21.3333
+        }
+      ],
+      "inside": true,
+      "horizontal": false,
+      "buttonOverflow": []
+    }
+  ],
+  "errors": [],
+  "physicalSafari": "UNVERIFIED",
+  "scope": "changed displays and related basic actions only"
+}

@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a68a9f6cd559eb1bc1d4291008b6721ee0f6f6f50f454cd2f3f0bda552dbde80",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-uniform-messages",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "ad1970efc86653b60a844ff7b5fa9e73fe5b82dd",
+    "change": "Adopt existing uniform pixel typography by default and unify live message wording without changing saved facts or notification conditions",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "Current user specification: formal adoption of PR644 typography and six-category live message audit",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR644 exact main baseline",
+      "Current display adapters and save/notification callsites"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-uniform-messages/r0.lock.json",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/message-view.mjs",
+      "works/ambertime/tests/font-uniform.test.mjs",
+      "works/ambertime/tests/message-view.test.mjs",
+      "works/ambertime/tests/event-notices.test.mjs",
+      "works/ambertime/design/uniform-messages/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/text-metrics.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/shop.css",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/usual.css",
+      "works/ambertime/fonts/**"
+    ],
+    "expectedChanges": [
+      "Current main entry uses existing uniform Canvas/DOM metric by default; font-uniform=0 preserves former typography for verification, font-uniform=1 remains alias. Old/Lab entries without main style marker unchanged.",
+      "Change live text only: brand-led sold-out identity with actual release/product IDs and safe legacy fallbacks; uniform bottling completion, reservation result, loading status, unchanged allocation, greeting punctuation, structured generation labels. Never replace player names or saved prose.",
+      "Six-category inventory records source, current text, condition, proposed text, reason and changed/retained/internal status. Preserve shop/customer/aging/history personality and important errors.",
+      "No change to event membership, timing, queue/duration, transaction, save key/schema/bytes or calculations. Focused identity/notification/parity tests and live basic UI/public proof only.",
+      "Staging PR required CI and public verification; author layout checklist only, no local font exceptions, new line breaks or spacing changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Default/explicit uniform/old-size at iPhone widths; changed live messages and save-failure/no-change behavior; public Staging main and comparison URLs; physical Safari unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Current user explicitly adopts PR644 single size on normal URL, countdown included, and requests live message unification; author device spacing/wrapping review deferred."
+    ],
+    "hqDecisions": [
+      "Work-local presentation review: retain exact uniformMetrics and scoped CSS; default only current main entry via existing marker. Message identity resolves exact product/release facts, never dates as identity; no saved data mutation or change to detector predicates."
+    ],
+    "rulesApplied": [
+      "AGENTS delegation used for independent read-only inventory and review; main owns shared source integration.",
+      "Expression audit: preserve actual shop/customer/aging prose and safety instructions, no invented events or extra explanatory UI.",
+      "Full scope lock for multi-file presentation audit and new pure display helper; focused related verification only."
+    ],
+    "rollback": "Revert source display changes together; no migration rollback needed.",
+    "outOfScope": [
+      "Production",
+      "Calculations/demand/unlock/time",
+      "Save format/keys/migration/past records/player names",
+      "Notification conditions/count/timing",
+      "Layout/spacing/manual line breaks/font exceptions",
+      "ComprehensiveE2E"
+    ],
+    "promotion": "Staging only; user has adopted uniform size but device layout review remains unverified.",
+    "unverified": [
+      "Physical Safari/VoiceOver and author line-wrap/spacing/local-size judgment"
+    ],
+    "problem": "Adopt comparison already approved by author and remove identified inconsistent live message formats.",
+    "currentContract": "PR644 opts into integral uniform Canvas+DOM typography; notification adapters receive saved transitions and existing shop-app display callsites.",
+    "whyExistingIsInsufficient": "Default still uses old sizes and sold-out uses release date labels; message variants differ by operation route.",
+    "design": "Default uniform at marked main entry, explicit old-size query for diagnostics. Pure message identity helper and fixed source-local live wording edits, with detector event shape/IDs preserved except display label.",
+    "alternativesRejected": [
+      "Global replacement of saved text/player names",
+      "Model/schema changes",
+      "New popups/timing/notifications",
+      "Font size exceptions/layout redesign"
+    ],
+    "migration": "None; save keys and serialized game untouched.",
+    "compatibility": "Same saves for all typography URLs; current main marker isolates historical HTML. Legacy identity uses factual product ID fallback without claiming a brand.",
+    "boundaryCases": [
+      "Multiple brands and releases, same month, pruned empty products, missing legacy brand/release, renamed/HTML-like player names",
+      "No-change allocation does not save or animate",
+      "Ordinary and automatic bottling; reservation three result paths; both shop greeting routes",
+      "Save failure/conflict/import errors retained",
+      "Default and explicit uniform exact prior comparison metrics; legacy comparison restores previous main typography"
+    ],
+    "testPlan": [
+      "Focused unit tests for font mode and message identities/formats, event shape/predicate and state purity; related event/free-aging/placement/save tests. Scoped browser at360/375/390, basic operation and error checks; requiredCI/public."
+    ],
+    "promotionRisk": "Presentation-only reversible changes, no data rewrite."
+  }
+}

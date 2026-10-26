@@ -1,4 +1,4 @@
-import{installUniformTypography}from'./font-uniform.mjs?v=font-uniform-r1';
+import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
 import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=0.25.3-feedback';
@@ -18,7 +18,7 @@ function sprite(markup,collection=1,active=false,frame=0){
 }
 export class CanvasScene{
  constructor(){
-  this.uniformTypography=installUniformTypography($('font-uniform-style')?location.search:'',document.documentElement);
+  this.uniformTypography=$('font-uniform-style')?installUniformTypography(location.search,document.documentElement):null;
   this.root=$('scene-root');this.canvas=$('scene-canvas');this.ctx=this.canvas.getContext('2d');this.world=document.createElement('canvas');this.world.width=120;this.world.height=214;this.worldCtx=this.world.getContext('2d');this.controlRoot=$('scene-controls');this.view=null;this.frame=0;this.pressed=null;this.fontSettled=false;this.selectionTimer=null;this.hintTimer=null;this.motionTimer=null;this.motion=new RoomMotion();this.idleSince=performance.now();this.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');this.resetIdle=()=>{this.idleSince=performance.now();this.queue();};this.reducedMotion.addEventListener('change',this.resetIdle);
   for(const event of ['pointerdown','keydown'])document.addEventListener(event,this.resetIdle,true);
   document.addEventListener('visibilitychange',this.resetIdle);

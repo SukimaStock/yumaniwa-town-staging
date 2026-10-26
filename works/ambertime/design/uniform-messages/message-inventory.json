@@ -1,0 +1,1569 @@
+{
+  "schemaVersion": 1,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "categories": [
+    "結果通知",
+    "操作結果",
+    "状態",
+    "店客台詞",
+    "出来事",
+    "保存エラー"
+  ],
+  "scope": "本編index→shop-appの現在表示経路。Labs/旧独立ページ/内部ログは対象外。現行正式版で到達しない旧モード文言は条件に明記。",
+  "limitations": [
+    "表示元ごとの変種グループ。全てのメッセージ発火を実機で確認したものではない。",
+    "proposalはこのPRの確定文。維持行も意図を明記し、未採用の調査候補は含めない。",
+    "現行UIで到達しない旧モード条件はconditionに明記。モデル検証文とworker診断はerror-inventory.jsonへ分離。"
+  ],
+  "excluded": [
+    {
+      "source": "shop-app.mjs:224 historyEventText / recordText / recordTimeline",
+      "kind": "saved-prose-projection",
+      "policy": "記録済みdescription、sample.text、観察title、歴史本文、利用者ブランド名を原文維持。固定見出しのみ別扱い。"
+    },
+    {
+      "source": "partner-orders.mjs / model.mjs / monthly.mjs / town-connection.mjs",
+      "kind": "simulation-and-persisted-records",
+      "policy": "経済・月次・注文履歴・イベント履歴・操作履歴の生成文やデータを書換えない。"
+    },
+    {
+      "source": "shop-app.mjs diagnostics / Canvas root dataset / worker diagnostics",
+      "kind": "internal-diagnostics",
+      "policy": "プレイヤー向けメッセージではない。文字監査の短縮対象外。"
+    }
+  ],
+  "entries": [
+    {
+      "id": "msg-001",
+      "category": "結果通知",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 517,
+      "current": [
+        "自家販売へ{本数}本回しました。",
+        "自家販売から{本数}本戻しました。",
+        "町の酒店へ{本数}本届けました。"
+      ],
+      "condition": "commitPlacement: allocate検証・保存成功後。複数結果は一文に連結。",
+      "proposal": [
+        "自家販売へ{本数}本回しました。",
+        "自家販売から{本数}本戻しました。",
+        "町の酒店へ{本数}本届けました。"
+      ],
+      "reason": "配分変更と実納品、保存成功の事実を短く伝える。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-002",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 512,
+      "current": "配分は変わっていません。",
+      "condition": "allocateProductが同一stateを返す。成功演出なし。",
+      "proposal": "変更なし",
+      "reason": "配分が同じときの短い状態表示。保存や成功演出は追加しない。",
+      "persistence": "display-only",
+      "decision": "変更"
+    },
+    {
+      "id": "msg-003",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 892,
+      "current": "採用しました",
+      "condition": "担当者採用操作",
+      "proposal": "採用しました",
+      "reason": "操作通知は保存状態表示「保存済み」と区別。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-004",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 979,
+      "current": "依頼しました",
+      "condition": "蒸留担当者への依頼",
+      "proposal": "依頼しました",
+      "reason": "操作通知は保存状態表示「保存済み」と区別。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-005",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 956,
+      "current": "保存しました",
+      "condition": "ビン詰め共通設定の保存",
+      "proposal": "保存しました",
+      "reason": "操作通知は保存状態表示「保存済み」と区別。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-006",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 960,
+      "current": "任せました",
+      "condition": "ビン詰め担当者へ委任",
+      "proposal": "任せました",
+      "reason": "操作通知は保存状態表示「保存済み」と区別。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-007",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 962,
+      "current": [
+        "予約取消",
+        "予約を停止しました。",
+        "予約を再開しました。"
+      ],
+      "condition": "ビン詰め予約の取消・停止・再開",
+      "proposal": [
+        "予約取消",
+        "予約停止",
+        "予約再開"
+      ],
+      "reason": "既存の結果通知を「予約＋操作」に統一。現行管理スイッチの無通知動作には通知を足さない。",
+      "persistence": "display-only",
+      "decision": "変更"
+    },
+    {
+      "id": "msg-008",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 893,
+      "current": [
+        "今回で終了",
+        "依頼を停止しました。"
+      ],
+      "condition": "蒸留担当者の継続依頼終了/待機予約取消",
+      "proposal": [
+        "今回で終了",
+        "依頼を停止しました。"
+      ],
+      "reason": "今回の作業を完遂する終了予約と即停止を区別。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-009",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 1012,
+      "current": "{世代}へ引き継ぎました。",
+      "condition": "世代引き継ぎ確定成功",
+      "proposal": "{世代}へ引き継ぎました。",
+      "reason": "重要な不可逆操作の完了確認を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-010",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 1023,
+      "current": [
+        "取扱いの相談を残しました。",
+        "{店名}で取扱いが始まりました。",
+        "今回は見送りました。"
+      ],
+      "condition": "shop-accept/decline。酒店/スーパー受諾時は挨拶台詞へ切替。",
+      "proposal": [
+        "取扱いの相談を残しました。",
+        "{店名}で取扱いが始まりました。",
+        "今回は見送りました。"
+      ],
+      "reason": "受諾・関係成立・見送りは別の結果。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-011",
+      "category": "操作結果",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 909,
+      "current": "相談を終えました。",
+      "condition": "デパート相談取消（旧ledger入口も含む）",
+      "proposal": "相談を終えました。",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-012",
+      "category": "結果通知",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 1024,
+      "current": "翌月5本納品",
+      "condition": "デパート採用承認直後。実際は翌月納品予定。",
+      "proposal": "翌月5本納品",
+      "reason": "「翌月」で予定と示され、実納品通知とは条件が別。既存の5本納品予定を示す内容を維持する。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-013",
+      "category": "結果通知",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 1030,
+      "current": "{本数}本納品\n£{金額} 入金",
+      "condition": "通常手動納品の保存成功後。正式配分酒店は別commitPlacement経路。",
+      "proposal": "{本数}本納品\n£{金額} 入金",
+      "reason": "納品と入金の実績をそのまま表示。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-014",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 475,
+      "current": "保存済み",
+      "condition": "保存成功の状態表示",
+      "proposal": "保存済み",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-015",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 476,
+      "current": "未保存",
+      "condition": "保存失敗",
+      "proposal": "未保存",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-016",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 473,
+      "current": "試遊中 · 保存しません",
+      "condition": "preview=1のみ",
+      "proposal": "試遊中 · 保存しません",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-017",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 206,
+      "current": "販売記録を読込中",
+      "condition": "発売比較worker読込中",
+      "proposal": "販売記録を読んでいます…",
+      "reason": "帳面の「記録を読んでいます…」と自然な読み込み状態にそろえる。",
+      "persistence": "display-only",
+      "decision": "変更"
+    },
+    {
+      "id": "msg-018",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 116,
+      "current": "記録を読んでいます…",
+      "condition": "帳面/歩みworker読込中",
+      "proposal": "記録を読んでいます…",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-019",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 111,
+      "current": "記録を読めませんでした。",
+      "condition": "worker読込失敗。もう一度読む操作あり",
+      "proposal": "記録を読めませんでした。",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-020",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 497,
+      "current": "資金を残して停止しています。たる詰めや販売を確かめられます。",
+      "condition": "月次が進まない資金保護停止",
+      "proposal": "資金を残して停止しています。たる詰めや販売を確かめられます。",
+      "reason": "停止中の状態と、資金を残して確認できる操作を正確に案内する安全文として維持する。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-021",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 850,
+      "current": [
+        "保存エラー・停止中",
+        "確認中・停止中",
+        "試飲中・停止中",
+        "画面を離れて停止中",
+        "資金を残して停止中",
+        "停止中",
+        "2倍速で進行中",
+        "進行中"
+      ],
+      "condition": "時計UIの保存/小窓/試飲/非表示/資金/一時停止/速度条件",
+      "proposal": [
+        "保存エラー・停止中",
+        "確認中・停止中",
+        "試飲中・停止中",
+        "画面を離れて停止中",
+        "資金を残して停止中",
+        "停止中",
+        "2倍速で進行中",
+        "進行中"
+      ],
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-022",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 572,
+      "current": [
+        "自分で行う · 完了",
+        "採用待ち",
+        "任せる",
+        "停止",
+        "{月齢}か月で一度だけ · {本数}本",
+        "販売中在庫全体 {閾値}本以下で{本数}本",
+        "{lastError}"
+      ],
+      "condition": "ビン詰め予約の現状と条件。lastErrorは保存済み理由。",
+      "proposal": [
+        "自分で行う · 完了",
+        "採用待ち",
+        "任せる",
+        "停止",
+        "{月齢}か月で一度だけ · {本数}本",
+        "販売中在庫全体 {閾値}本以下で{本数}本",
+        "{lastError}"
+      ],
+      "reason": "条件数値と理由を保持。lastError本文の保存内容を置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-023",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 822,
+      "current": [
+        "3回まで\n残り{回数}回",
+        "続ける",
+        "1回",
+        "今回で終了"
+      ],
+      "condition": "蒸留担当者の依頼回数・終了予約",
+      "proposal": [
+        "3回まで\n残り{回数}回",
+        "続ける",
+        "1回",
+        "今回で終了"
+      ],
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-024",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 821,
+      "current": [
+        "仕込み中",
+        "空き待ち",
+        "判断待ち",
+        "資金待ち",
+        "依頼済み"
+      ],
+      "condition": "担当者の進行阻害/予約状態",
+      "proposal": [
+        "仕込み中",
+        "空き待ち",
+        "判断待ち",
+        "資金待ち",
+        "依頼済み"
+      ],
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-025",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 812,
+      "current": "旧予約は継続。新規依頼から給与がかかります。",
+      "condition": "旧予約移行の一時表示",
+      "proposal": "旧予約は継続。新規依頼から給与がかかります。",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-026",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 797,
+      "current": [
+        "{世代}の最後の仕込み · {年月}まで",
+        "{世代}の歩みを確認します。"
+      ],
+      "condition": "世代last-batch/review状態",
+      "proposal": [
+        "{世代}の最後の仕込み · {年月}まで",
+        "{世代}の歩みを確認します。"
+      ],
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-027",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 54,
+      "current": "先に共通設定を保存",
+      "condition": "委任前に共通設定がない",
+      "proposal": "先に共通設定を保存",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-028",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 54,
+      "current": [
+        "資金不足",
+        "原酒が1本分足りません",
+        "貯蔵庫が満杯"
+      ],
+      "condition": "UI境界でモデルreasonを短縮。原文保存や計算は変更しない。",
+      "proposal": [
+        "資金不足",
+        "原酒が1本分足りません",
+        "貯蔵庫が満杯"
+      ],
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-029",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 601,
+      "current": [
+        "本数を選んでください。",
+        "今の資金で {本数}本まで"
+      ],
+      "condition": "瓶詰め本数無効/予算上限",
+      "proposal": [
+        "本数を選んでください。",
+        "今の資金で {本数}本まで"
+      ],
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-030",
+      "category": "状態",
+      "source": "works/ambertime/brand-identity.mjs",
+      "line": 8,
+      "current": [
+        "ブランド名を入力してください。",
+        "ブランド名は1〜40文字で入力してください。"
+      ],
+      "condition": "初回ブランド名入力の不足・長さ・制御文字検証",
+      "proposal": [
+        "ブランド名を入力してください。",
+        "ブランド名は1〜40文字で入力してください。"
+      ],
+      "reason": "正しい入力方法の案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-031",
+      "category": "状態",
+      "source": "works/ambertime/placement-ui.mjs",
+      "line": 15,
+      "current": "未販売の{本数}本を変更",
+      "condition": "仮配分が現行自家販売未販売数より少ない場合",
+      "proposal": "未販売の{本数}本を変更",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-032",
+      "category": "状態",
+      "source": "works/ambertime/placement-ui.mjs",
+      "line": 15,
+      "current": "納品した分は戻せません",
+      "condition": "酒店への仮置きa.shop>0。まだ確定・実納品前。",
+      "proposal": "納品した分は戻せません",
+      "reason": "納品後の不可逆性を伝える既存の警告。仮置き自体を禁止する文にはせず、確定後に戻せない説明として維持する。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-033",
+      "category": "状態",
+      "source": "works/ambertime/placement-ui.mjs",
+      "line": 12,
+      "current": [
+        "希望 {本数}本",
+        "希望 0本"
+      ],
+      "condition": "該当ブランド取扱い成立後の町の酒店のみ",
+      "proposal": [
+        "希望 {本数}本",
+        "希望 0本"
+      ],
+      "reason": "自動店の注文と区別。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-034",
+      "category": "結果通知",
+      "source": "works/ambertime/shop-order-view.mjs",
+      "line": 40,
+      "current": [
+        "発送 {本数}本",
+        "発送なし・{未発送数}本未発送",
+        "在庫不足",
+        "注文なし",
+        "注文記録なし"
+      ],
+      "condition": "自動発送店の既存注文結果。placement酒店はmarkupを返さない。",
+      "proposal": [
+        "発送 {本数}本",
+        "発送なし・{未発送数}本未発送",
+        "在庫不足",
+        "注文なし",
+        "注文記録なし"
+      ],
+      "reason": "希望/納品と注文/発送の区別、正確な数値を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-035",
+      "category": "結果通知",
+      "source": "works/ambertime/event-notices.mjs",
+      "line": 39,
+      "current": [
+        "仕込み完了 {数}たる",
+        "ビン詰め {数}本",
+        "ビン詰め完了 {数}本 · {たる名} 残り {量}L",
+        "{発売名} 完売",
+        "販売 {数}本 · 入金 £{金額}",
+        "発送 {数}本",
+        "注文 {数}本 · 発送 {数}本 · 未発送 {数}本"
+      ],
+      "condition": "保存成功遷移の集約通知。正式版freeAgingは通常販売/発送トーストを抑制するため後半3種は旧モードのみ。",
+      "proposal": [
+        "仕込み完了 {数}たる",
+        "ビン詰め完了 {数}本",
+        "ビン詰め完了 {数}本 · {たる名} 残り {量}L",
+        "{ブランド名}[・発売 #実ID] 完売（欠損時は実IDで区別）",
+        "販売 {数}本 · 入金 £{金額}",
+        "発送 {数}本",
+        "注文 {数}本 · 発送 {数}本 · 未発送 {数}本"
+      ],
+      "reason": "ビン詰め完了の書式を統一。完売の主語を年月からブランドへ変更し、実IDで発売を区別。検出条件・件数・順番・数値・残量・通常販売/発送の静かな扱いは維持。",
+      "persistence": "display-only",
+      "decision": "一部変更"
+    },
+    {
+      "id": "msg-036",
+      "category": "出来事",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 44,
+      "current": [
+        "{地域}へ「{ブランド・発売回}」の口コミが届きました。{紹介者}からの紹介です。",
+        "{地域}から「{ブランド・発売回}」の取扱いについて問い合わせがありました。"
+      ],
+      "condition": "直接販売を除くarrival/町以外inquiry、ブランド地域ごと初回だけ",
+      "proposal": [
+        "{地域}へ「{ブランド・発売回}」の口コミが届きました。{紹介者}からの紹介です。",
+        "{地域}から「{ブランド・発売回}」の取扱いについて問い合わせがありました。"
+      ],
+      "reason": "口コミ・問い合わせを販売/輸出と混同しない。display projectionのみ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-037",
+      "category": "出来事",
+      "source": "works/ambertime/flavor-feedback-view.mjs",
+      "line": 33,
+      "current": "風味の名前が変わりました。",
+      "condition": "最近3か月の記録済み風味名変化、未試飲以後",
+      "proposal": "風味の名前が変わりました。",
+      "reason": "記録のある変化だけ表示。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-038",
+      "category": "出来事",
+      "source": "works/ambertime/flavor-feedback-view.mjs",
+      "line": 45,
+      "current": "前回から：{短い味の変化}",
+      "condition": "最近の記録を基点とした前回試飲との差",
+      "proposal": "前回から：{短い味の変化}",
+      "reason": "味の意味と観察時点を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-039",
+      "category": "出来事",
+      "source": "works/ambertime/flavor-feedback-view.mjs",
+      "line": 37,
+      "current": "{既存観察のtitle}",
+      "condition": "最近3か月の記録済みwood/fading/rough/fruit/rounded/loss観察",
+      "proposal": "{既存観察のtitle}",
+      "reason": "本文はnotes.observationsの保存済み事実。表示整理を保存文章に波及させない。",
+      "persistence": "saved-prose-projection",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-040",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 3,
+      "current": "いらっしゃいませ。",
+      "condition": "town-liquor shopRemark key=neutral; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "いらっしゃいませ。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-041",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 3,
+      "current": "ウイスキー、届きました。",
+      "condition": "town-liquor shopRemark key=first; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "ウイスキー、届きました。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-042",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 3,
+      "current": "少しずつ届けてもらいましたね。",
+      "condition": "town-liquor shopRemark key=repeat; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "少しずつ届けてもらいましたね。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-043",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 3,
+      "current": "何度も届けてくれましたね。",
+      "condition": "town-liquor shopRemark key=long; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "何度も届けてくれましたね。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-044",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 3,
+      "current": "しばらく届いていませんね。",
+      "condition": "town-liquor shopRemark key=gap; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "しばらく届いていませんね。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-045",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 4,
+      "current": "いらっしゃいませ。",
+      "condition": "supermarket shopRemark key=pre; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "いらっしゃいませ。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-046",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 4,
+      "current": "取扱いを始めました。",
+      "condition": "supermarket shopRemark key=await; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "取扱いを始めました。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-047",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 4,
+      "current": "ウイスキーを受け取りました。",
+      "condition": "supermarket shopRemark key=received; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "ウイスキーを受け取りました。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-048",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 4,
+      "current": "何度か届けてもらいましたね。",
+      "condition": "supermarket shopRemark key=repeat; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "何度か届けてもらいましたね。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-049",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 3,
+      "current": "しばらく届いていませんね。",
+      "condition": "supermarket shopRemark key=gap; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "しばらく届いていませんね。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-050",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 4,
+      "current": "いらっしゃいませ。",
+      "condition": "department shopRemark key=pre; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "いらっしゃいませ。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-051",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 5,
+      "current": "この発売回が気になっています。",
+      "condition": "department shopRemark key=offer; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "この発売回が気になっています。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-052",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 5,
+      "current": "5本、お待ちしています。",
+      "condition": "department shopRemark key=pending; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "5本、お待ちしています。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-053",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 5,
+      "current": "5本、受け取りました。",
+      "condition": "department shopRemark key=received; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "5本、受け取りました。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-054",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-remarks.mjs",
+      "line": 5,
+      "current": "こちらの発売回も、気になります。",
+      "condition": "department shopRemark key=reoffer; classifyShopRemarkは店舗関係、実納品回数、間隔、デパート採用事実から選択。",
+      "proposal": "こちらの発売回も、気になります。",
+      "reason": "店の一言として維持。未納品/実績/希望を混同しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-055",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 70,
+      "current": "煙の香りは、私には少し強いかな。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "煙の香りは、私には少し強いかな。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-056",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 70,
+      "current": "私は煙の香りが控えめな方が好きかな。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "私は煙の香りが控えめな方が好きかな。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-057",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 71,
+      "current": "私はもう少し刺激がある方が好きかな。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "私はもう少し刺激がある方が好きかな。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-058",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 71,
+      "current": "私には少し穏やかすぎるかな。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "私には少し穏やかすぎるかな。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-059",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 72,
+      "current": "私には少し刺激が強いかな。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "私には少し刺激が強いかな。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-060",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 72,
+      "current": "もう少し穏やかな飲み口が好みです。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "もう少し穏やかな飲み口が好みです。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-061",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 73,
+      "current": "私には樽の香りが強いかな。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "私には樽の香りが強いかな。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-062",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 73,
+      "current": "樽の香りは、もう少し控えめな方が好きかな。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "樽の香りは、もう少し控えめな方が好きかな。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-063",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 74,
+      "current": "果実の香りはしますね。私の好みとは少し違うかな。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "果実の香りはしますね。私の好みとは少し違うかな。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-064",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 77,
+      "current": "けっこうスモーキーですね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "けっこうスモーキーですね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-065",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 77,
+      "current": "煙の香りがはっきりしますね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "煙の香りがはっきりしますね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-066",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 78,
+      "current": "このウイスキー、果実の香りが豊かですね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "このウイスキー、果実の香りが豊かですね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-067",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 78,
+      "current": "果実の香りがよく出ていますね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "果実の香りがよく出ていますね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-068",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 79,
+      "current": "しっかりした飲みごたえですね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "しっかりした飲みごたえですね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-069",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 79,
+      "current": "口に含むと厚みがありますね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "口に含むと厚みがありますね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-070",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 80,
+      "current": "麦の香りがよく分かりますね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "麦の香りがよく分かりますね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-071",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 80,
+      "current": "麦の香りがしっかりしますね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "麦の香りがしっかりしますね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-072",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 81,
+      "current": "樽の香りがよく出ていますね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "樽の香りがよく出ていますね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-073",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 81,
+      "current": "樽の香りがはっきりしますね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "樽の香りがはっきりしますね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-074",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 82,
+      "current": "軽い飲み口ですね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "軽い飲み口ですね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-075",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 82,
+      "current": "穏やかな飲み口ですね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "穏やかな飲み口ですね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-076",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 83,
+      "current": "けっこう刺激がありますね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "けっこう刺激がありますね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-077",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 83,
+      "current": "力強い飲み口ですね。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "力強い飲み口ですね。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-078",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 91,
+      "current": "この煙の香り、好きです。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "この煙の香り、好きです。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-079",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 92,
+      "current": "こういう果実の香り、好きです。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "こういう果実の香り、好きです。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-080",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 93,
+      "current": "こういう飲みごたえが好みです。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "こういう飲みごたえが好みです。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-081",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 94,
+      "current": "この麦の香り、好きです。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "この麦の香り、好きです。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-082",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 95,
+      "current": "この樽の香りが好みです。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "この樽の香りが好みです。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-083",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 96,
+      "current": "この穏やかな飲み口、好きです。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "この穏やかな飲み口、好きです。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-084",
+      "category": "店客台詞",
+      "source": "works/ambertime/player-news.mjs",
+      "line": 97,
+      "current": "この力強い飲み口が好みです。",
+      "condition": "customerComments: retail実売上、12か月間隔、既存hash発生条件。風味/相性に応じた台詞変種。",
+      "proposal": "この力強い飲み口が好みです。",
+      "reason": "味の想像や客の好みを表す文章なので短縮・一括置換しない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-085",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 678,
+      "current": [
+        "これからよろしくお願いします",
+        "これからよろしくお願いします。"
+      ],
+      "condition": "酒店/スーパー取扱受諾直後",
+      "proposal": "これからよろしくお願いします。",
+      "reason": "酒店とスーパー、商品小窓と取扱店の両経路で同じ挨拶の句点を一致させる。台詞の内容・個性は変えない。",
+      "persistence": "display-only",
+      "decision": "一部変更"
+    },
+    {
+      "id": "msg-086",
+      "category": "店客台詞",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 691,
+      "current": [
+        "こちらでも扱ってみたいのですが",
+        "{ブランド名}の名前を聞きました。"
+      ],
+      "condition": "スーパー/酒店の申し出",
+      "proposal": [
+        "こちらでも扱ってみたいのですが",
+        "{ブランド名}の名前を聞きました。"
+      ],
+      "reason": "問い合わせと関係成立を区別する。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-087",
+      "category": "出来事",
+      "source": "works/ambertime/world-map-view.mjs",
+      "line": 37,
+      "current": [
+        "最初の一本ができました。",
+        "蒸留所の地図です。",
+        "ウイスキーが届きました。",
+        "近所の地図も見られます。",
+        "うわさが町に広がりました。",
+        "町の地図も見られます。",
+        "うわさが周辺の地域に届きました。",
+        "周辺の地図も見られます。",
+        "うわさが全国に届きました。",
+        "うわさが海外に届きました。",
+        "日本の地図も見られます。",
+        "海外から問い合わせが届きました。",
+        "海外から訪問がありました。",
+        "地球の地図です。"
+      ],
+      "condition": "解放時だけ。既存mapProgressの事実と最新stageに対応。メニュー閲覧では非表示。",
+      "proposal": [
+        "最初の一本ができました。",
+        "蒸留所の地図です。",
+        "ウイスキーが届きました。",
+        "近所の地図も見られます。",
+        "うわさが町に広がりました。",
+        "町の地図も見られます。",
+        "うわさが周辺の地域に届きました。",
+        "周辺の地図も見られます。",
+        "うわさが全国に届きました。",
+        "うわさが海外に届きました。",
+        "日本の地図も見られます。",
+        "海外から問い合わせが届きました。",
+        "海外から訪問がありました。",
+        "地球の地図です。"
+      ],
+      "reason": "未発生の販売/輸出を語らない。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-088",
+      "category": "保存エラー",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 476,
+      "current": "保存できません。元の記録を残して停止しています。",
+      "condition": "save/配分commitのstorage失敗",
+      "proposal": "保存できません。元の記録を残して停止しています。",
+      "reason": "原因/元記録の保全/停止/対処法の安全情報を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-089",
+      "category": "保存エラー",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 1055,
+      "current": "別の画面で保存が変わりました。再読み込みしてください。",
+      "condition": "storageイベントで保存競合",
+      "proposal": "別の画面で保存が変わりました。再読み込みしてください。",
+      "reason": "原因/元記録の保全/停止/対処法の安全情報を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-090",
+      "category": "保存エラー",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 1056,
+      "current": "保存を確認できないため初期化していません。",
+      "condition": "新規開始前の保存読取り失敗",
+      "proposal": "保存を確認できないため初期化していません。",
+      "reason": "原因/元記録の保全/停止/対処法の安全情報を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-091",
+      "category": "保存エラー",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 1090,
+      "current": "この保存は開けません。元の記録を残して停止しています。書き出して保管し、再読み込みしてください。",
+      "condition": "boot保存読取り・strict restore失敗",
+      "proposal": "この保存は開けません。元の記録を残して停止しています。書き出して保管し、再読み込みしてください。",
+      "reason": "原因/元記録の保全/停止/対処法の安全情報を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-092",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 7,
+      "current": "この保存は別の方式のものです。元の記録を残して停止しています。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "この保存は別の方式のものです。元の記録を残して停止しています。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-093",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 11,
+      "current": "保存を読み取れません。元の記録は残しています。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "保存を読み取れません。元の記録は残しています。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-094",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 12,
+      "current": "時間の設定を確認できません。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "時間の設定を確認できません。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-095",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 15,
+      "current": "この保存は開けません。元の記録を残して停止しています。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "この保存は開けません。元の記録を残して停止しています。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-096",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 22,
+      "current": "保存の指定を確認できません。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "保存の指定を確認できません。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-097",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 23,
+      "current": "別の画面で保存が変わりました。元の記録を残して停止しています。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "別の画面で保存が変わりました。元の記録を残して停止しています。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-098",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 25,
+      "current": "保存を確認できません。進行を止めています。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "保存を確認できません。進行を止めています。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-099",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 45,
+      "current": "引きつぐ記録を確認してください。元の記録は残っています。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "引きつぐ記録を確認してください。元の記録は残っています。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-100",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 46,
+      "current": "正式版の保存が見つかりました。上書きせず停止しています。再読み込みしてください。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "正式版の保存が見つかりました。上書きせず停止しています。再読み込みしてください。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-101",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 50,
+      "current": "引きつぎの準備ができません。元の記録は残っています。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "引きつぎの準備ができません。元の記録は残っています。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-102",
+      "category": "保存エラー",
+      "source": "works/ambertime/placement-save.mjs",
+      "line": 56,
+      "current": "元の記録が別の画面で変わりました。引きつがず停止しています。再読み込みしてください。",
+      "condition": "readSession/writeCandidate/copyToFormalの該当検証失敗。sourceError/boot/commit経路で表示。",
+      "proposal": "元の記録が別の画面で変わりました。引きつがず停止しています。再読み込みしてください。",
+      "reason": "保存の種類・原本保全・競合・停止・再読み込み案内を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-103",
+      "category": "保存エラー",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 157,
+      "current": "{検証・操作例外のe.message}",
+      "condition": "act/schedule catch。モデルのErrorメッセージを表示。",
+      "proposal": "{検証・操作例外のe.message}",
+      "reason": "通常操作エラーも原文維持。静的到達依存386箇所と動的8箇所をerror-inventory.jsonに分け、UIへ通る例外と復旧時の固定文・内部診断を区別。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-104",
+      "category": "保存エラー",
+      "source": "works/ambertime/index.html",
+      "line": 113,
+      "current": "元の保存を残したまま、進行を止めています。",
+      "condition": "recoveryが表示された場合",
+      "proposal": "元の保存を残したまま、進行を止めています。",
+      "reason": "保全と停止状態の説明を維持。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-105",
+      "category": "状態",
+      "source": "works/ambertime/index.html",
+      "line": 134,
+      "current": "引きつぐ記録を選んでください。\n元の記録は残ります。",
+      "condition": "正式版保存なし、旧版/試遊保存が見つかった場合",
+      "proposal": "引きつぐ記録を選んでください。\n元の記録は残ります。",
+      "reason": "保存元を明示的に選択する安全な引き継ぎ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-106",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 1065,
+      "current": "この記録は開けません",
+      "condition": "保存選択画面でsource読取不可。書き出すは可能。",
+      "proposal": "この記録は開けません",
+      "reason": "現在の意味を保つ。",
+      "persistence": "display-only",
+      "decision": "維持"
+    },
+    {
+      "id": "msg-107",
+      "category": "状態",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 289,
+      "current": [
+        "未完成の原酒を引継ぎ"
+      ],
+      "proposal": [
+        "未完成の原酒を引きつぎ"
+      ],
+      "condition": "世代の最後の仕込みがunfinishedのとき。",
+      "reason": "名詞の固定表示を「引きつぎ」にそろえる。重要操作「次の代へ引き継ぐ」と完了文「引き継ぎました」は動詞として維持。記録本文は原文保持。",
+      "persistence": "display-only structured-facts projection",
+      "decision": "変更"
+    },
+    {
+      "id": "msg-108",
+      "category": "出来事",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 226,
+      "current": [
+        "{前世代}から{次世代}へ引継ぎ"
+      ],
+      "proposal": [
+        "{前世代}から{次世代}へ引きつぎ"
+      ],
+      "condition": "歩みのgeneration-handoverを構造化項目から表示。保存本文の置換ではない。",
+      "reason": "名詞の固定表示を「引きつぎ」にそろえる。重要操作「次の代へ引き継ぐ」と完了文「引き継ぎました」は動詞として維持。記録本文は原文保持。",
+      "persistence": "display-only structured-facts projection",
+      "decision": "変更"
+    },
+    {
+      "id": "msg-109",
+      "category": "出来事",
+      "source": "works/ambertime/shop-app.mjs",
+      "line": 665,
+      "current": [
+        "未完成の原酒も引継ぎ",
+        "繰り返し依頼は引継ぎ時に終了",
+        "仕込み予約は次の代へ引継ぎ"
+      ],
+      "proposal": [
+        "未完成の原酒も引きつぎ",
+        "繰り返し依頼は引きつぎ時に終了",
+        "仕込み予約は次の代へ引きつぎ"
+      ],
+      "condition": "世代案内・引きつぎ前の既存条件分岐。",
+      "reason": "名詞の固定表示を「引きつぎ」にそろえる。重要操作「次の代へ引き継ぐ」と完了文「引き継ぎました」は動詞として維持。記録本文は原文保持。",
+      "persistence": "display-only structured-facts projection",
+      "decision": "変更"
+    }
+  ],
+  "counts": {
+    "messageGroups": 109,
+    "byCategory": {
+      "結果通知": 5,
+      "状態": 24,
+      "操作結果": 9,
+      "出来事": 7,
+      "店客台詞": 47,
+      "保存エラー": 17
+    },
+    "changedGroups": 8
+  },
+  "priorityFindings": [
+    "msg-012",
+    "msg-032"
+  ],
+  "sourceSha": "ad1970efc86653b60a844ff7b5fa9e73fe5b82dd"
+}
