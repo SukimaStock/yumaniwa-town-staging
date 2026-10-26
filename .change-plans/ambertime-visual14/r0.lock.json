@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5003bba3a5a4baabd7e4c92eaeb3645860e5ae1cc013ed4f77c81baf433c58ac",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-visual14",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "9912a48c755174fe309eb2b17194609e1bc17c77",
+    "change": "Apply fourteen requested local visual corrections and audit existing extraction, map, bottling and supermarket semantics",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User fourteen-item AmberTime visual correction request",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR645/main baseline",
+      "Existing native model, distribution, clock, history and save contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-visual14/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/message-view.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/tests/visual-14.test.mjs",
+      "works/ambertime/tests/message-view.test.mjs",
+      "works/ambertime/tests/placement-0271.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/font-uniform.test.mjs",
+      "works/ambertime/design/visual-14/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "data/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/formal-save.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/bottling-policy.mjs",
+      "works/ambertime/shop-demand.mjs"
+    ],
+    "expectedChanges": [
+      "No1/7 optical vertical button centering only; No6 shelf quantity fourCSSpx right with actual Canvas scaling; No8 integral dot countdown shadow.",
+      "No3 brand edit wording; No4 always visible current price separate expandable controls; No9 true brand release ordinal or factual legacy ID fallback.",
+      "No10 remove identified unwanted thin line near previous tasting marker only; No11 receipt below action buttons preserving accessible success boundary; No14 disable no-op redistribute while retaining existing retail recovery entrance.",
+      "Audit No2 extraction legacy/range semantics, No5 map arrival wording only if condition supports town scope, No12 precise existing bottling policy language/layout and truthful automatic output wording, No13 supermarket existing delivery conditions and future integration implications.",
+      "Keep single integral Misaki font, all model/save/clock/shipping behavior and stored prose, sprites/colors/frames/hitboxes except requested text offsets unchanged; update changed local cache queries."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Targeted360/375/390 Chromium beforeafter: relevant buttons, price/receipt/source/tasting, shelf offset, countdown, redistribution initial/changed/reset/retail-existing; physical Safari unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes fourteen local fixes and semantics audits through Staging; symptoms may substitute unavailable shared screenshots; no Production."
+    ],
+    "hqDecisions": [
+      "Display adapters and ephemeral UI only. Existing native saved facts, allocation, demand, automatic shipping and atomic success boundary remain canonical. Existing-retail redistribution entrance is retained as a necessary exception to initial disabling."
+    ],
+    "rulesApplied": [
+      "Full lock first commit before implementation; limited related tests and focused browser checks, no broad E2E.",
+      "Expression audit: no unrelated copy or permanent UI; report uncertainties and physical Safari without claiming verification."
+    ],
+    "rollback": "Revert work-local display changes and cache fingerprints; no migration or persisted changes introduced.",
+    "outOfScope": [
+      "Production",
+      "Game calculations and save formats/history",
+      "Clock and shipment behavior",
+      "Unrequested design/font/sprite/layout changes",
+      "Comprehensive E2E"
+    ],
+    "promotion": "Staging PR/CI safe merge and public verification only.",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver/touch assessment"
+    ],
+    "problem": "Uniform typography revealed optical alignment, repeated or missing price/result feedback and ambiguous legacy labels; several existing model semantics need audit before wording is changed.",
+    "currentContract": "Formal placement and uniform Misaki typography are current main; allocation/save atomicity, model and automatic shipping already work and must remain unchanged.",
+    "whyExistingIsInsufficient": "Requested visible defects persist under the uniform font and generic text baselines; source and policy language need their real data semantics distinguished from internal IDs or old shipping behavior.",
+    "design": "Use current Canvas glyph metrics and integral physical dots for requested offsets/shadow, current release brand identity for ordinal labels, existing price actions and transient placement UI; audit without changing model contracts.",
+    "alternativesRejected": [
+      "Changing calculations/save or shipping to fit display prose",
+      "Changing font sizes or general layout",
+      "Disabling the only recovery entrance for retail-only existing inventory",
+      "Guessing release ordinals for incomplete legacy identity"
+    ],
+    "migration": "None.",
+    "compatibility": "Preserve stored text and all replay/model semantics; legacy uncertain identity falls back to actual ID.",
+    "boundaryCases": [
+      "Canvas scale/DPR360375390",
+      "No existing allocation versus existing retail with hand0",
+      "Initial/changed/returned/no-op draft",
+      "Success/save failure and result below buttons onscreen",
+      "Interleaved brand releases and incomplete/same-name legacy brands",
+      "Tasting previous profile and bars retained",
+      "Stock policy versus age policy exact meanings"
+    ],
+    "testPlan": [
+      "Related display/model-boundary tests and existing regressions, limited browser comparisons, independent review, Scope/Risk/Impact/trusted checks, required CI, Pages and public resource/basic UI verification."
+    ],
+    "promotionRisk": "Reversible Staging-only display change; no Production."
+  }
+}
