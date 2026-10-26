@@ -64,3 +64,9 @@
 製法・熟成・風味・販売価格式・月次・店舗需要・手動納品条件・自動発送・地図解放・町の計算・瓶棚のCanvas描画は未変更。既存記録は保持。配分の計算、仮置き、1本・2本・半分・残り全部、ひとつ戻す・全部分け直す、保存成功後だけの240ms反応も維持する。既存Lab、旧版、Productionは未変更。
 
 独立レビューで移行・競合・数量・cold reader・地図方向を確認し、重大な指摘なし。Scope→Risk→Impact、必須CI、Stagingの公開配信・操作結果は、この変更のPR証拠コメントに対象SHAとともに記録する。Change Verificationの正式状態は契約どおりUNVERIFIEDであり、CIを実機確認やProduction公開の証明として扱わない。
+
+## CI・Staging公開の結果
+
+PR #642 は必須CIの3件（plan-risk-gate、trusted-mechanical-evidence、validate）がすべて成功し、GitHubレビューも指摘なしで完了した。対象sourceは `548ed9ac91c0f1dc82f81c3506a223dfb31d3904`、mainへの反映は `67e97500b3474ef86850c13aba50ee82d1c738b0`。Pagesのbuild・deployとmainのRelease Validator Testsも成功。
+
+公開された通常入口と既存query入口を375pxで計32場面確認し、すべて成功した。横はみ出し・小窓の画面外配置・ボタン内文字あふれ・JS例外は0。変更した配信ファイル16件も検証済みの内容と全件一致した。詳細はPR #642の検証証拠コメント（6420283125）と公開確認コメント（6420384850）を参照。実機Safari・VoiceOver・実指の感触は未確認。Productionは未変更。
