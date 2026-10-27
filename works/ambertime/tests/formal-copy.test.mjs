@@ -57,8 +57,9 @@ test('ordinary URL uses native placement and the product modal has no duplicate 
  contains(product,["x.shop.id!=='town-liquor'",'departmentDestination','releaseComparisonButton','<summary>価格</summary>']);
 });
 test('cache reader chain updates every changed helper and worker entry',()=>{
- contains(html,['shop-app.mjs?v=formal-copy-r1','shop.css?v=formal-copy-r1']);
- for(const helper of ['placement-save','placement-ui','shop-order-view','cask-detail-view','brewing-cards','flavor-view','cask-serials','nearby-comparison','partner-orders','history-worker','cask-ledger-worker'])contains(app,[helper+'.mjs?v=formal-copy-r1']);
+ contains(html,['shop-app.mjs?v=visual14-r1','shop.css?v=formal-copy-r1']);
+ for(const helper of ['placement-save','shop-order-view','cask-detail-view','brewing-cards','flavor-view','cask-serials','nearby-comparison','partner-orders','history-worker','cask-ledger-worker'])contains(app,[helper+'.mjs?v=formal-copy-r1']);
+ contains(app,['placement-ui.mjs?v=visual14-r1']);
  contains(read('cask-detail-view.mjs'),['flavor-view.mjs?v=formal-copy-r1']);
  for(const worker of ['history-worker.mjs','cask-ledger-worker.mjs'])assert.match(read(worker),/\?v=formal-copy-r1/);
 });

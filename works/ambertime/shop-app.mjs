@@ -1,6 +1,6 @@
-import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=uniform-messages-r1';
+import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {readSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} from './placement-save.mjs?v=formal-copy-r1';
-import {createPlacementUI} from './placement-ui.mjs?v=formal-copy-r1';
+import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=0.27-placement';
 import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback} from './flavor-feedback-view.mjs?v=0.25.4';
 import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=formal-copy-r1';
@@ -17,7 +17,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-messages-r1';
-import {CanvasScene} from './canvas-scene.mjs?v=uniform-messages-r1';
+import {CanvasScene} from './canvas-scene.mjs?v=visual14-r1';
 import * as D from './partner-orders.mjs?v=formal-copy-r1';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
@@ -578,10 +578,10 @@ function reservationLabel(id){
 }
 function reservationSymbol(id){const r=D.bottlingReservation(game,id);return r?.status==='paused'||r?.status==='active'&&!D.bottlingStaffStatus(game).hired?'pause':r?.status==='active'?(r.mode==='age'?'clock':'stock'):null;}
 function validPlanDraft(d){return !!d&&['age','stock'].includes(d.mode)&&Number.isInteger(d.count)&&d.count>=1&&d.count<=Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)&&Number.isInteger(d[d.mode==='age'?'age':'threshold'])&&d[d.mode==='age'?'age':'threshold']>=0&&d[d.mode==='age'?'age':'threshold']<=(d.mode==='age'?1200:999);}
-const policyLabel=r=>r.mode==='age'?r.age+'か月で一度だけ · '+r.count+'本':'販売中在庫全体 '+r.threshold+'本以下で'+r.count+'本';
+const policyLabel=r=>r.mode==='age'?'熟成'+r.age+'か月以上で一度 · '+r.count+'本':'販売登録済みのビン全体 '+r.threshold+'本以下で'+r.count+'本';
 function bottlingPolicyView(){
  const draft=modal.planDraft??(modal.planDraft={...D.operationDefaults(game).auto,...D.commonBottlingPolicy(game)});
- return '<div class="bottling-plan"><label for="bottling-mode">共通設定</label><select id="bottling-mode"><option value="age"'+(draft.mode==='age'?' selected':'')+'>時期指定</option><option value="stock"'+(draft.mode==='stock'?' selected':'')+'>在庫連動</option></select><div class="bottling-plan-fields"><label for="bottling-condition">'+(draft.mode==='age'?(draft.age??'')+'か月で一度だけ':'販売中在庫全体（本以下）')+'</label><input id="bottling-condition" data-policy-field="'+(draft.mode==='age'?'age':'threshold')+'" type="number" inputmode="numeric" min="0" max="'+(draft.mode==='age'?1200:999)+'" step="1" value="'+(draft.mode==='age'?draft.age:draft.threshold)+'"><label for="bottling-quantity">本数</label><input id="bottling-quantity" type="number" inputmode="numeric" min="1" max="'+Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)+'" step="1" value="'+draft.count+'"></div><p class="quiet">ふつうの価格で販売開始</p>'+button('保存','bottling-policy-save','',validPlanDraft(draft)?'':'disabled')+'</div>';
+ return '<div class="bottling-plan"><label for="bottling-mode">共通設定</label><select id="bottling-mode"><option value="age"'+(draft.mode==='age'?' selected':'')+'>時期指定</option><option value="stock"'+(draft.mode==='stock'?' selected':'')+'>在庫連動</option></select><div class="bottling-plan-fields"><label for="bottling-condition">'+(draft.mode==='age'?'熟成':'販売登録済みのビンが')+'</label><input id="bottling-condition" data-policy-field="'+(draft.mode==='age'?'age':'threshold')+'" type="number" inputmode="numeric" min="0" max="'+(draft.mode==='age'?1200:999)+'" step="1" value="'+(draft.mode==='age'?draft.age:draft.threshold)+'"><span>'+(draft.mode==='age'?'か月以上になったら':'本以下になったら')+'</span></div><div class="bottling-plan-fields bottling-quantity"><label for="bottling-quantity">ビン詰め</label><input id="bottling-quantity" type="number" inputmode="numeric" min="1" max="'+Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)+'" step="1" value="'+draft.count+'"><span>本</span></div><p class="quiet">ふつうの価格でビン詰め。行き先はあとで配分</p>'+button('保存','bottling-policy-save','',validPlanDraft(draft)?'':'disabled')+'</div>';
 }
 function bottlingChoiceView(id){
  const r=D.bottlingReservation(game,id),policy=D.commonBottlingPolicy(game);
@@ -590,7 +590,7 @@ function bottlingChoiceView(id){
 function firstBrandDraft(){return modal.brandDraft??(modal.brandDraft=identityDefaults());}
 function brandSetupView(){
  if(!D.needsBrandSetup(game)){const brand=game.brands[0];return '<div class="brand-readout">'+brandArt(0,brand)+'<span>'+esc(brand.name)+'</span></div>';}
- const draft=firstBrandDraft();if(modal.brandDraftConfirmed)return '<div class="brand-readout">'+brandArt(0,draft)+'<span>'+esc(draft.name.trim())+'</span>'+button('設定を直す','brand-edit')+'</div>';
+ const draft=firstBrandDraft();if(modal.brandDraftConfirmed)return '<div class="brand-readout">'+brandArt(0,draft)+'<span>'+esc(draft.name.trim())+'</span>'+button('やり直す','brand-edit')+'</div>';
  return '<div class="first-brand"><label for="brand-name">ブランド名</label><input id="brand-name" type="text" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" aria-describedby="brand-name-error" value="'+esc(draft.name)+'"><p id="brand-name-error" role="status">'+esc(brandNameError(draft.name))+'</p><fieldset><legend>ビン</legend><div class="brand-bottles">'+IDENTITY_BOTTLES.map(b=>button(brandArt(0,{...draft,bottle:b.id})+'<span>'+esc(b.name.replace(/ビン$/,''))+'</span>','brand-bottle',b.id,'aria-pressed="'+(draft.bottle===b.id)+'"')).join('')+'</div></fieldset><fieldset><legend>ラベル</legend><div class="brand-labels">'+IDENTITY_LABELS.map(l=>button(brandArt(0,{...draft,label:l.id})+'<span>'+esc(l.name)+'</span>','brand-label',l.id,'aria-pressed="'+(draft.label===l.id)+'"')).join('')+'</div></fieldset></div>';
 }
 function bottleSelection(id){
@@ -724,7 +724,7 @@ function syncModal(){
    }else modal.placementLegacy=false;
   }
   if(!modal.placementLegacy){
-   const priceMarkup='<details><summary>価格</summary><div class="price-options">'+['low','standard','high'].map((tier,i)=>button(['低め','ふつう','高め'][i]+'<span>'+unit(prices[tier])+'</span>','price',id,'data-tier="'+tier+'" aria-pressed="'+(meta.selectedPrice===tier)+'"')).join('')+'</div></details>';
+   const priceMarkup='<p class="placement-current-price">価格 '+unit(prices[meta.selectedPrice])+' / 本</p><details><summary>価格</summary><div class="price-options">'+['low','standard','high'].map((tier,i)=>button(['低め','ふつう','高め'][i]+'<span>'+unit(prices[tier])+'</span>','price',id,'data-tier="'+tier+'" aria-pressed="'+(meta.selectedPrice===tier)+'"')).join('')+'</div></details>';
    const otherMarkup=destinations.filter(x=>x.shop.id!=='town-liquor').map(x=>button(x.shop.name,'placement-existing',x.shop.id)).join('')+destinations.filter(x=>x.invitation&&x.shop.id==='town-liquor').map(x=>button('町の酒店の申し出','shop-open-offer')).join('');
    title=(brandFor(id)?.name??'この一本')+' 第'+placementReleaseNumber(p)+'回';
    const entry=ledgerData().entries.find(e=>e.releaseId===release?.id),summary=flavorTypeView(release?.profile).replace(/<small>[\s\S]*?<\/small>/g,'');
