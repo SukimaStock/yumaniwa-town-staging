@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f71040cce91cd8a750795635d279abcf7be0ee0a1fd71eee7adcb122ae496ccb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-continuous-trade-lab-v01b",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "cd27422232e51b7f3daaf6d97c0de2f3c1ee8a45",
+    "change": "Add an isolated interactive continuous-trade Lab with four one-screen placement gestures and auto-restocking-by-recipe simulation",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "User request to build a one-screen, low-tap continuous-trade Lab",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/hand-and-place/v073/REPORT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-continuous-trade-lab-v01b/r0.lock.json",
+      "works/ambertime/experiments/continuous-trade/v01/index.html",
+      "works/ambertime/experiments/continuous-trade/v01/README.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/index.html",
+      "data/**",
+      "engine/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Add standalone HTML/CSS/JS Lab in new experiment directory; no native game imports, save, or distribution",
+      "Compare tap, slider, drag and draw-line gestures with a common relation-establishment outcome",
+      "Simulate recurring shipment from same-recipe lots across release batches; stockout pauses but retains relation; distinct recipe requires explicit new offer",
+      "Show one-screen shelf/store relation, month advance, same-recipe new bottling, operation counts and replayable JSON export",
+      "Do not imply mock demand/stock values match production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Open standalone Lab at 360/375/390 CSS widths",
+      "Try all four gestures including touch and reduced motion",
+      "Advance months, run out of stock, create new same-recipe release; verify relationship remains",
+      "Confirm no native saved-state writes; iPhone Safari still unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User authorized an exploratory trade Lab with fewer taps, unified shop handling and gesture comparison; does not authorize native integration or Production"
+    ],
+    "hqDecisions": [
+      "Simulated trade data only; no native save or shipping semantics. Existing continuous trade rules are not modified."
+    ],
+    "rulesApplied": [
+      "Full Plan Lock first",
+      "Limited validation, related browser/manual checks, required CI",
+      "Keep prior Lab untouched; no production changes"
+    ],
+    "rollback": "Revert only added experiment directory and Plan Lock; no saved data affected.",
+    "outOfScope": [
+      "Production",
+      "Main game implementation",
+      "Existing Lab changes",
+      "Real shop model and real saved state",
+      "Remote data/network calls",
+      "Permanent storefront navigation changes"
+    ],
+    "promotion": "Staging isolated experiment page only; author will evaluate touch feel before possible integration.",
+    "unverified": [
+      "Physical iPhone Safari, VoiceOver, reduced motion and long play are not yet tested"
+    ],
+    "problem": "Manual placement and shop-specific shipping introduce repetitive actions and do not scale as shops increase. Need test more tactile one-screen gestures and persistent trade relations.",
+    "currentContract": "Existing Lab v073 allocates bottles explicitly to restaurants/liquor with a confirm; production separate supermarket automatic shipment. Both preserved unchanged.",
+    "whyExistingIsInsufficient": "Current Lab cannot compare drag/line/slider to tap for one-time trade initiation or continuity across release sellout.",
+    "design": "Use an isolated deterministic mock simulator: minimal initial delivery per shop, recurring recipe-bound shipments without manual replenishment, stand-by when unavailable, resume when same recipe returns.",
+    "alternativesRejected": [
+      "Direct integration into production placement model without player validation",
+      "Per-release manual recontracting",
+      "Auto-switching to unrelated recipe",
+      "Per-shop dedicated forms"
+    ],
+    "migration": "None.",
+    "compatibility": "No imports/exports shared with native game; HTML page is self-contained.",
+    "boundaryCases": [
+      "Insufficient initial lot quantity",
+      "Stockout and restocking same recipe",
+      "New flavor explicitly replacing shop relation",
+      "Multiple shops sharing recipe and depleting stock",
+      "Touch cancel and no store target",
+      "Repeated linking same recipe is a no-op"
+    ],
+    "testPlan": [
+      "Independent source syntax check",
+      "Focused manual interaction comparison in responsive browser",
+      "Required CI and Pages success before marking Staging published"
+    ],
+    "promotionRisk": "Isolated Staging-only interactive mock has no save or production writes; limited runtime and touch accessibility risk. No shared runtime changes; browser interactions require device verification before any game integration."
+  }
+}
