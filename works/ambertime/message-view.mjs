@@ -23,7 +23,10 @@ export function soldOutLabel(after,productId,before={}){
  if(!brand?.name)return 'ウイスキー（'+identity+'）';
  let label=brand.name;
  if([...brands.values()].some(b=>b.id!==brandId&&b.name===brand.name))label+='（ブランド #'+brandId+'）';
- // Use the recorded release ID, not a reconstructed ordinal for sparse old ledgers.
- if(!release||[...releases.values()].filter(r=>r.brandId===brandId).length>1)label+='・'+identity;
+ // Only a complete native release sequence proves the per-brand ordinal.
+ const ordered=[...releases.values()].sort((a,b)=>a.id-b.id),complete=ordered.length>0&&ordered.every((r,i)=>r.id===i+1&&Number.isInteger(r.brandId));
+ const sameBrand=ordered.filter(r=>r.brandId===brandId),ordinal=sameBrand.findIndex(r=>r.id===release?.id)+1;
+ if(complete&&ordinal>0)label+=' 第'+ordinal+'回';
+ else if(!release||sameBrand.length>1)label+='・'+identity;
  return label;
 }

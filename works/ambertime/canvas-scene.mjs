@@ -132,7 +132,7 @@ export class CanvasScene{
   const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
   const salesText=[],reservationLayout=[],cooledLayout=[];
   items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2,sales=view.room==='sales';
-   if(sales){const stock=item.stock??Number(item.state.split('本')[0]),status=item.saleState??item.state.split(' · ')[1]??'',countX=mid-24,countY=p.base-39,dateY=p.base+30,date=item.releaseDate??item.name.split('\n').at(-1).split(' · ')[0],dateText=this.measure(date)>132?date.replace('年','年\n'):date,dateLines=this.lines(dateText,mid,dateY,132,BODY_SIZE,2,'center'),statusY=dateY+dateLines*(this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(BODY_SIZE+4,this.textMetrics().logical+4));
+   if(sales){const stock=item.stock??Number(item.state.split('本')[0]),status=item.saleState??item.state.split(' · ')[1]??'',countX=mid-24+4/v.scale,countY=p.base-39,dateY=p.base+30,date=item.releaseDate??item.name.split('\n').at(-1).split(' · ')[0],dateText=this.measure(date)>132?date.replace('年','年\n'):date,dateLines=this.lines(dateText,mid,dateY,132,BODY_SIZE,2,'center'),statusY=dateY+dateLines*(this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(BODY_SIZE+4,this.textMetrics().logical+4));
     this.text(stock+'本',countX,countY,16,'right');this.text(status,mid,statusY,BODY_SIZE,'center',status==='販売中'?'#efae95':['保管','保管中'].includes(status)?'#c0bfbb':ink);
     salesText.push({id:item.id,stock,status,count:{x:countX,y:countY,align:'right',size:16},date:{text:date,lines:dateLines,x:mid,y:dateY,size:BODY_SIZE},statusLabel:{x:mid,y:statusY,align:'center',size:BODY_SIZE},bottle:{x:mid-18,y:p.base-33,w:36,h:33}});
    }else{const titleY=p.base+27,lines=this.lines(uiText(item.name),mid,titleY,132,BODY_SIZE,item.flavorName?2:1,'center'),detailY=titleY+lines*(this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(26,this.textMetrics().logical+4));this.text(item.age,mid,detailY,BODY_SIZE,'center');
@@ -146,7 +146,7 @@ export class CanvasScene{
   if(view.room==='distill'&&view.spirit){const p=view.spirit;if(p.compact){this.window(72,216+spiritOffset,216,36,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,180,240+spiritOffset,16,'center');}else{this.window(24,141+spiritOffset,312,p.phrase&&p.axes.length?114:102,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,164+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=192+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(p.phrase)this.lines(p.phrase,36,(p.axes.length?244:195)+spiritOffset,288,16,1);}}
   if(view.room==='distill'&&Number.isInteger(view.countdown)&&view.countdown>=1&&view.countdown<=3){
    // One repaint per digit, using the scene's existing pixel font.
-   this.text(String(view.countdown),180,228,48,'center');this.root.dataset.countdown=String(view.countdown);
+   const dot=this.textMetrics(48).pixels/8/this.textMetrics(48).unit;this.text(String(view.countdown),180+dot,228+dot,48,'center',shadow);this.text(String(view.countdown),180,228,48,'center');this.root.dataset.countdown=String(view.countdown);
   }else delete this.root.dataset.countdown;
   if(view.room==='distill'){
    const g=collectionGeometry(view.cutRange),point=n=>g.x+Math.round(n*g.w);
@@ -188,7 +188,7 @@ export class CanvasScene{
    else if(pressed){c.fillStyle='#414350';c.fillRect(a.x,a.y,a.w,a.h);}
    if(a.key==='toggle-time'){const kind=view.running?(view.playbackRate===2?'fast':'play'):'pause';this.root.dataset.timeIcon=kind;this.root.dataset.playbackRate=String(view.playbackRate);const unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit));c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(a.x+a.w/2)*v.scale)*v.dpr-3.5*cell),Math.round((v.offsetY+(a.y+a.h/2)*v.scale)*v.dpr-3.5*cell),cell,ink);c.restore();if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}continue;}
    const label=a.key==='trade-info'?'取引':a.key==='shop-offer'?'取扱店':a.key==='toggle-time'?a.label.replace('蒸留を再開する','蒸留を再開'):a.label;
-   if(['start-distill','stop-distill'].includes(a.key)){this.runs(label);const bounds=c.measureText(label),baseline=a.y+a.h/2+(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/(2*this.textMetrics().unit);this.text(label,a.x+a.w/2,baseline,BODY_SIZE,'center');}
+   if(['start-distill','stop-distill','open-fill','go-distill'].includes(a.key)){this.runs(label);const bounds=c.measureText(label),baseline=a.y+a.h/2+(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/(2*this.textMetrics().unit);this.text(label,a.x+a.w/2,baseline,BODY_SIZE,'center');}
    else this.lines(label,a.x+a.w/2,a.y+27,a.w-12,BODY_SIZE,2,'center');
    if(a.node.disabled){c.fillStyle='#292b3966';c.fillRect(a.x+3,a.y+3,a.w-6,a.h-6);}
   }

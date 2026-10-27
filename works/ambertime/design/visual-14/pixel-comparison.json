@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "shelf": [
+    {
+      "width": 360,
+      "countCssDx": 4.0,
+      "bottleUnchanged": true,
+      "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+    },
+    {
+      "width": 375,
+      "countCssDx": 4.0,
+      "bottleUnchanged": true,
+      "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+    },
+    {
+      "width": 390,
+      "countCssDx": 4.0,
+      "bottleUnchanged": true,
+      "font": "64px AmberMisaki, system-ui, -apple-system, \"Noto Sans JP\", sans-serif"
+    }
+  ]
+}

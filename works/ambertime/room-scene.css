@@ -255,3 +255,14 @@ svg[data-codea="bottle"]{width:36px!important;height:36px!important;max-width:no
 .world-map-controls span{font-size:15px!important;white-space:nowrap;text-align:center;min-width:0;overflow:hidden}
 
 #action-dialog[data-kind=world-map] .map-introduction{margin:0!important;max-width:100%;font-size:16px!important;line-height:24px;text-align:center;overflow-wrap:anywhere}
+
+/* Old inline object ground line otherwise anchors to the overlay hero. */
+body[data-room] #hero .objects::after{content:none}
+.bottling-plan-fields{grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr)}
+.bottling-plan-fields label{grid-column:1/-1}
+.bottling-plan-fields input{grid-column:1}
+.bottling-plan-fields>span{grid-column:2/-1}
+.bottling-quantity{grid-template-columns:auto 88px auto}
+.bottling-quantity label{grid-column:auto}
+.bottling-quantity input{grid-column:auto}
+.bottling-quantity>span{grid-column:auto}
