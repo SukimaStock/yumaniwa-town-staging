@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>糸の端｜おやすみ工房</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e8e3d7;color:#48483f;font-family:-apple-system,"Hiragino Kaku Gothic ProN",sans-serif}.wrap{max-width:460px;min-height:100dvh;margin:auto;background:#f6f0e6;padding:25px 20px}.sub{font-size:11px;color:#897f70;letter-spacing:.12em}h1{font-size:24px;margin:12px 0}p{font-size:13px;line-height:1.8;color:#716b5f;margin:10px 0 20px}.stage{position:relative;background:#eee5d5;border:1px solid #dbd0bc}canvas{display:block;width:100%;aspect-ratio:360/320;touch-action:none;user-select:none;-webkit-user-select:none}.hint{position:absolute;bottom:9px;left:12px;font-size:11px;color:#807366;pointer-events:none}.status{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d7cebd;font-size:13px}.actions{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:12px}button{border:1px solid #b6a993;background:transparent;border-radius:30px;padding:10px 18px;color:inherit;font:inherit;font-size:13px}#message{color:#81776c;font-size:12px}
+</style></head><body><main class="wrap"><div class="sub">OYASUMI KOBO / 01</div><h1>糸の端</h1><p>布の右側から糸を引く。左へ戻すと編み目も戻ります。</p>
+<div class="stage"><canvas id="scene" width="360" height="320" aria-label="布の右側を左右になぞるかタップするとほどけます"></canvas><div class="hint">右側を左右になぞる・タップでもほどける</div></div>
+<div class="status"><span>ほどけた編み目</span><b id="count">0 / 28</b></div><div class="actions"><span id="message">糸の先に触れてみる</span><button id="reset">はじめから</button></div></main>
+<script>
+(()=>{
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),count=document.querySelector('#count'),message=document.querySelector('#message');
+const N=28,X=26,Y=61,step=7;let n=0,held=false,pid=null,start=0,initial=0,moved=false;
+const clamp=v=>Math.max(0,Math.min(N,Math.round(v)));
+function draw(){
+ctx.fillStyle='#eee5d5';ctx.fillRect(0,0,360,320);
+ctx.fillStyle='#baa182';ctx.fillRect(X-3,Y-3,209,209);
+ctx.fillStyle='#d9bd96';ctx.fillRect(X,Y,203,203);
+for(let y=0;y<29;y++)for(let x=0;x<29;x++){
+ const px=X+x*step,py=Y+y*step,unraveled=y===14&&x>=29-n;
+ if(unraveled){ctx.fillStyle='#8c725d';ctx.fillRect(px,py+2,7,3);continue}
+ const shift=y>=12&&y<=16&&x>28-n?Math.sin(x+y)*2:0;
+ ctx.fillStyle=(x+y)%2?'#e8cba2':'#f0d5ae';ctx.fillRect(px+1,py+2+shift,6,2);
+ ctx.fillStyle=(x+y)%2?'#b79a76':'#c8aa86';ctx.fillRect(px+3,py+1+shift,2,5);
+}
+const ty=Y+101,ex=Math.min(340,255+n*3);
+ctx.beginPath();ctx.moveTo(X+203-n*7,ty);ctx.lineTo(233,ty);ctx.quadraticCurveTo(244,ty+12,253,ty+3);ctx.lineTo(ex,ty);ctx.strokeStyle='#765747';ctx.lineWidth=4;ctx.stroke();
+ctx.strokeStyle='#e4bf98';ctx.lineWidth=2;ctx.stroke();
+ctx.fillStyle='#b97d61';ctx.fillRect(ex-5,ty-5,11,11);
+count.textContent=n+' / '+N;message.textContent=n===0?'糸の先に触れてみる':n===N?'一本、ほどけた':n<12?'すこし、ゆるんだ':'布目がずれてきた';
+}
+function pos(e){const r=canvas.getBoundingClientRect();return (e.clientX-r.left)*360/r.width}
+function change(v){const next=clamp(v);if(next!==n){n=next;draw()}}
+canvas.addEventListener('pointerdown',e=>{const x=pos(e);if(x<115)return;e.preventDefault();held=true;pid=e.pointerId;start=x;initial=n;moved=false;try{canvas.setPointerCapture(pid)}catch(_){}});
+canvas.addEventListener('pointermove',e=>{if(!held||e.pointerId!==pid)return;const delta=pos(e)-start;if(Math.abs(delta)>6)moved=true;change(initial+delta/5.5)});
+function end(e){if(!held||e.pointerId!==pid)return;if(e.type==='pointerup'&&!moved)change(n===N?0:n+1);held=false;pid=null;draw()}
+canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);canvas.addEventListener('lostpointercapture',()=>{held=false;pid=null;draw()});
+document.querySelector('#reset').addEventListener('click',()=>{n=0;draw()});draw();
+})();
+</script></body></html>
