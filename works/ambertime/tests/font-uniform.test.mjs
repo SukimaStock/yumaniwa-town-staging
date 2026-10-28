@@ -22,8 +22,8 @@ test('uniform sizes include small labels/countdown and measure matches draw metr
 });
 test('CSS is attribute-scoped, handles every live text root and leaves sprite/icon geometry untouched',()=>{
  const css=read('font-uniform.css');
- assert(css.includes('html[data-font-uniform="1"]'));for(const id of ['action-dialog','dialog-body','dialog-actions','dialog-title','save-choice','automatic-news','storage-notice','recovery','settings-source'])assert(css.includes('#'+id));
+ assert(css.includes('html[data-font-uniform="1"]'));for(const id of ['action-dialog','dialog-body','dialog-actions','dialog-title','save-choice','automatic-news','storage-notice','recovery','settings-source','market-board'])assert(css.includes('#'+id));
  assert(css.includes(':not(svg,svg *)'));assert(!/(?:^|[;{]\s*)(width|height|padding|margin|transform|display|border|color|background)\s*:/.test(css));assert(css.includes('font-size:var(--uniform-font-size)!important'));assert(css.includes('AmberMisaki'));
  const helper=read('font-uniform.mjs');assert(!/localStorage|sessionStorage|setTimeout|requestAnimationFrame|serialize|saveKey/.test(helper));
- assert(read('index.html').includes('id="font-uniform-style"'));assert(read('canvas-scene.mjs').includes("$('font-uniform-style')?installUniformTypography(location.search,document.documentElement):null"));assert(read('index.html').includes('./font-uniform.css?v=font-uniform-r1'));assert(read('shop-app.mjs').includes('./canvas-scene.mjs?v=visual14-r1'));
+ assert(read('index.html').includes('id="font-uniform-style"'));assert(read('canvas-scene.mjs').includes("$('font-uniform-style')?installUniformTypography(location.search,document.documentElement):null"));assert(read('index.html').includes('./font-uniform.css?v=store-market-main-r1'));assert(read('shop-app.mjs').includes('./canvas-scene.mjs?v=store-market-main-r1'));
 });
