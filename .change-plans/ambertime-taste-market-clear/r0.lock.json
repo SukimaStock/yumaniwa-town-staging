@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cd70f2ea0f88224979a4b954a3f0ab78696eeb9040db000a279d002553916976",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-taste-market-clear",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "89d95a6b24025fc4ee771cce760a29eb9344f951",
+    "change": "Simplify existing taste-market v02 UI and show every assigned release at each shop, with per-release sales animation and tappable return details.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "Current user conversation and uploaded IMG_6543.png",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/taste-market/v02/model.mjs",
+      "works/ambertime/experiments/taste-market/v02/app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-taste-market-clear/r0.lock.json",
+      "works/ambertime/experiments/taste-market/v02/index.html",
+      "works/ambertime/experiments/taste-market/v02/style.css",
+      "works/ambertime/experiments/taste-market/v02/app.mjs",
+      "works/ambertime/experiments/taste-market/v02/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Show every reserved release as a bottle with release number and remaining quantity at each store, independent of current release selection.",
+      "Remove duplicated selected-release name, card sold totals, all-release counts, zero-sale lines, persistent return buttons and preference text from main screen.",
+      "Tap a reserved bottle for return action; separate store details disclose taste preference. Preserve placement feedback and monthly direct sales; animate from correct release row and briefly show positive sold counts next to that release, including sold-out rows.",
+      "Move cumulative sales to existing records. Keep 16px Misaki, touch targets, focus/reduced-motion behavior; no changes to model economics, saves, old Labs or Production."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Existing model tests (model unchanged)",
+      "Public Chrome mixed releases at one shop, return specific release, sell-out result, focus, records and no app exceptions",
+      "CSS mobile constraints inspection; physical iPhone Safari and 360/375/390 emulation unavailable unless browser provides it",
+      "Expression audit six criteria and lifecycle/LAB check"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Current conversation user: reduce information while identifying which of multiple tastes sold; accepted proposal with これで再度お願いします. Staging upload/publication previously explicitly authorized."
+    ],
+    "hqDecisions": [
+      "Standalone simulation only: no main-model formula or save semantics, no new work id; use existing LAB work entry as navigable parent link"
+    ],
+    "rulesApplied": [
+      "Independent staging-only Lab; no persistence or external services",
+      "Minimal Japanese operational copy; audit six expression criteria",
+      "No Production or main game changes"
+    ],
+    "rollback": "Revert four UI/report changes; model and existing state schema unchanged",
+    "outOfScope": [
+      "Production",
+      "Main game and other Labs",
+      "Model formulas, demand, prices, persistence",
+      "New work or navigation registration"
+    ],
+    "promotion": "Staging PR/CI/Pages only; author play acceptance later",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Use as proof of balancing or integration with real AmberTime economics"
+    ]
+  }
+}
