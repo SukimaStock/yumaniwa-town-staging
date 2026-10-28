@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f8f0d5cdd0d6e4aadafaf70e2aac2640579aa73c72cc45fbc95b333e993a0628",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-ui-continuity",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Hide unavailable store shelves; keep real remaining count separate from sale feedback; make left-side placement buttons discoverable.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "3f3fe1c6b5d04246a359dd45f5b2468d23f9b348",
+    "canonicalSources": [
+      "Current user screenshot IMG_6594.png and three feedback points",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "Current market UI and actual shop.relations",
+      "User follow-up: 色々調整したことが毎回反映のたびに戻るのはどういうこと？"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-ui-continuity/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market-affordance*.mjs",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/market-rules-ui.test.mjs",
+      "works/ambertime/tests/market-rules-browser.test.mjs",
+      "works/ambertime/design/market-affordance/**",
+      "works/ambertime/tests/market-compact-browser.test.mjs",
+      "works/ambertime/AGENTS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "expectedChanges": [
+      "Show retail and only actual contracted shop relations; offers remain discoverable via existing native shop-offer entry. Hidden shops reject stale actions.",
+      "Always show actual remaining bottle count including brief sold-out receipt; sale count and income appear in a separate concise venue notification. Remove negative quantity replacement.",
+      "Frame left targets as buttons and label 置く with directional arrow, keeping taste hints and existing direct bottle/1-5-all/return controls. Shorten hand header so three 88px rows fit one normal viewport.",
+      "Update only UI/cache entry fingerprints and related regression expectations; tests unlocked/locked/offer-only, sale remaining/feedback, pointer/keyboard and phone viewport. PR/CI/Staging merge/public verification.",
+      "Record already accepted AmberTime UI requirements and targeted required regression commands in local AGENTS.md so future Lab adoption does not silently reintroduce rejected UI. No root/shared instruction changes."
+    ],
+    "ownerDecisions": [
+      "User explicitly reports unlocked shops, ambiguous -4 bottles and unclear left tap target; fix within ongoing Staging task."
+    ],
+    "hqDecisions": [
+      "UI-only derived filtering and presentation; no model/save/rule changes. Contracted relations are source of shop availability; offer-only is not contracted."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone4 sizes with 1/2/3 outlets and normal typography, framed target/1-5-all/return, sale4 leaves real residual count.",
+      "Public exact modified bytes and normal sales room; Safari actual device unverified."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this UI/filter/label/cache change; model and rules reader remain intact.",
+    "outOfScope": [
+      "Production",
+      "Model/economic parameters",
+      "Save schema/key/boundaries",
+      "Lab/audit changes",
+      "New unlock conditions"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author subjective feel and physical iPhone Safari",
+      "Universal economic safety outside sampled policies"
+    ],
+    "alternativesRejected": [
+      "Show locked placeholders",
+      "Replace remaining with negative sold count",
+      "Add persistent tutorial card"
+    ],
+    "boundaryCases": [
+      "No contracts, offer-only, one/two contracts, multiple brands, stale hidden actions",
+      "Sale partial/complete, feedback timer, reduced motion, keyboard focus, no-hand disabled placement",
+      "1/2/3 rows at small phone viewport"
+    ],
+    "testPlan": [
+      "Targeted UI and formal/cache regressions; browser actual native contracts, sales and phone geometry",
+      "Scope→Risk→Impact/syntax/diff, independent review, required CI and Staging public verification"
+    ],
+    "problem": "Uncontracted shops clutter normal board and sale delta looks like negative stock; unframed left labels conceal placement action.",
+    "currentContract": "Native shop.relations proves available outlets, physical inventory holds true remaining quantities; sale feedback is transient.",
+    "whyExistingIsInsufficient": "UI displays all ordinary venues and substitutes negative sold delta for remaining count.",
+    "design": "Derived visible outlets and separate permanent remaining count/transient sale notification; framed labeled left targets.",
+    "migration": "None; display-only.",
+    "compatibility": "Native saves/rules/replay untouched.",
+    "promotionRisk": "Staging only; no economic changes."
+  }
+}
