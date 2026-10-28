@@ -1,0 +1,149 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3ecc0e146ce8c01f525d786457670a3aa70173034409e94fc40b0d61055dae35",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-main-store-market",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "4df047df06a001c7222c22c9e36cac3553ec4200",
+    "change": "Integrate adopted taste-market placement/direct-sales/return/fixed-horizontal shelves into real AmberTime main sales room with logged opt-in owned allocations and backward-compatible native saves.",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "Current conversation user-approved Lab mechanics and main integration request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/taste-market/v02",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-main-store-market/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/store-market-main.test.mjs",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/canvas-layout.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/font-uniform.test.mjs",
+      "works/ambertime/design/store-market-main.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/shop-model.mjs"
+    ],
+    "expectedChanges": [
+      "Logged optional storeMarket v1 activated by main UI only. Native core stock remains owner total; shop allocations exclude retail/dept/other auto paths. Assign and return never cash/sold; monthly actual sales use native price, real per-release taste affinity, real brand relations/eligibility. Small1/2/5 allocations replace ordinary min10 only in new mode.",
+      "New logged enable/assign/return operations preserve all old operation meanings and exact replay. Existing adoption preserves all historical stock/cash/deliveries/retail/generation/town. Default new main games adopt new mode; model fixture constructors remain legacy.",
+      "Actual monthly sales reuse native delivery receipt bookkeeping only at sale, preserve distinction between retail reputation and stockist sales, no duplicate town/ledger. Department exact5 project path remains separate.",
+      "Sales room uses real release selector, self-retail and ordinary store shelves fixed144px with horizontal position preservation, real bottle art, per-release saved-sale suction and details/return. Keep native clock and room navigation live, suppress covered legacy Canvas sale targets/rendering.",
+      "Minimal copy, existing Misaki uniform font, accessible focus/scroll/reduced-motion. Product details/prices/stockist offers/department remain reachable. Save failure suppresses success animations."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "New owned-allocation/save/replay/tamper/migration/dept protection/demand tests, old placement/formal-save/shop/economy regressions",
+      "Native Canvas layout absence of covered targets and DOM board controls, saved monthly sales, focus/scroll/cancellation/reduced-motion logic",
+      "Public main boot/new game/existing-save adoption, actual mixed bottles/return/sales and time behavior if browser permits setup",
+      "Physical iPhone Safari, exact360/375/390 emulation and author adoption unverified unless actually observed"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User 2026-10-28 accepted taste-market v02 placement/sales/return and horizontal shelves, asked 本番にも反映お願いします. Interpreted as AmberTime main integration in existing Staging development; Production has no AmberTime and remains outside this change."
+    ],
+    "hqDecisions": [
+      "Work-local opt-in append-only storeMarket state and new logged operations; unchanged old replay constructors/operations. No new storage key or shared runtime schema.",
+      "Integrate non-modal sales-room DOM board so existing clock runs; explicitly remove old sales controls/hit areas in that view. Native ordinary shops only, preserve special department5 ordering, no toy flavors/stores/prices.",
+      "Read-only model/UI audits completed; identified min10, early stall, generation mutation, double-allocation and persistence-before-animation boundaries handled by design."
+    ],
+    "rulesApplied": [
+      "Full locked plan for work-local save semantics and cross-cutting UI/model integration",
+      "Scope→Risk→Impact; independent model/UI ownership, meaningful regression and independent review",
+      "Staging only; no Production/lifecycle promotion or other Lab changes",
+      "Expression audit6: operational copy only, preserve native uniform font"
+    ],
+    "rollback": "Revert isolated main integration commit set; new fields/opcodes require current reader, so preserve pre-adoption save backup in existing export/old sources. Do not rewrite historical saves or replace original storage sources.",
+    "outOfScope": [
+      "Production repository/promotion",
+      "Other Labs and main economy/model formulas",
+      "Department exact5 project redesign",
+      "New store identities, toy inventory/flavors/prices",
+      "Shared town/engine/routing or save keys"
+    ],
+    "promotion": "Staging PR/required CI/review/safe merge/Pages only. Production publication remains separate.",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Subjective long-term balance",
+      "Production publication"
+    ],
+    "problem": "Accepted Lab mechanics are disconnected from native main products, saves, economy and live sales room.",
+    "currentContract": "Main placementv1 retail bucket + immediate town-shop delivery; supermarket automatic shipments; department approved5. Native operation replay validates exact state.",
+    "whyExistingIsInsufficient": "Immediate delivery consumes stock and pays before later sale, cannot return; old product modal pauses time and cannot show actual monthly sale motion.",
+    "design": "Append logged storeMarket state/maps with real owned reservations, native monthly settlement and saved-sale receipts; non-modal real-product board in existing sales room; preserve old code paths behind new flag.",
+    "alternativesRejected": [
+      "Copy toy Lab state or prices into main",
+      "Rewrite old product-allocation or old shipment history",
+      "Merge department projects into freely returned ordinary shelves",
+      "Put sales in ordinary modal that pauses native clock",
+      "Cover invisible old Canvas targets without suppressing them"
+    ],
+    "migration": "Append enable-store-market operation to valid existing placement state, initial shop allocations empty, old retail bucket/historical receipts unchanged; no action() generation side effects. Boot persists adoption before interaction. All old ops and fixture constructors retain legacy semantics.",
+    "compatibility": "Native save key/envelope unchanged; old save replay preserved. New mode uses additional recognized logged operations and optional state; old app should use pre-adoption exported original record, not new-op saves.",
+    "boundaryCases": [
+      "Zero/one/many products and stock split among retail/ordinary/dept",
+      "Pending department5, auto shipment and held stock",
+      "Same month bottle/relationship and zero demand; superclass minimum10 bypass newmode only",
+      "Migration at generation360 and funds/stall boundary without listed retail",
+      "Partial sales, soldout, return/reassign and duplicate replay",
+      "Save failure/conflicting tab, UI hidden/resized/closed during animation",
+      "Old fixture history/cash/town/reputation unchanged",
+      "Clock live in sales board, paused for details and source decisions"
+    ],
+    "testPlan": [
+      "New core market regression for conservation, no assign cash, monthly sales, price/fit, shared demand, returns, exact replay and save tamper",
+      "Migration no-op repeat and historical stock/cash/retail/generation/town conservation; legacy placement and department regressions",
+      "Canvas/UI integration and saved-only receipt replay/cancellation/focus",
+      "Related native test suites + Scope/Risk/Impact/Lifecycle and public HTTP/browser verification"
+    ],
+    "promotionRisk": "Staging main behavior changes after logged adoption; keep original source saves/export and validate exact replay. No Production promotion."
+  }
+}
