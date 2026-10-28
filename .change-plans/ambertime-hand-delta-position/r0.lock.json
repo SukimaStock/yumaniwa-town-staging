@@ -1,0 +1,83 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "576a27fc6ff22b33079339f8b03c52215e75ea3d6683ba2a280c99547f3d4d6d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hand-delta-position",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "d3adcb8304720a00f303e14dc24dc8358884b50e",
+    "change": "Reposition only the hand quantity decrease so it clears portion controls and hand text",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop.css",
+      "works/ambertime/placement-ui.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hand-delta-position/r0.lock.json",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/hand-delta-browser.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Position hand delta beside hand quantity using a dedicated CSS override; preserve destination delta, animation, font and game logic",
+      "Refresh CSS reference and add focused viewport regression"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390 viewport overlap and portion/undo/redistribute checks; real Safari unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User requested only decrement position adjustment and Staging PR, CI and publication"
+    ],
+    "rulesApplied": [
+      "Keep existing formal placement, native model, atomic save boundary and recorded prose unchanged",
+      "Implement reversible visual-only feedback; no new standing animation or non-integer bitmap scaling",
+      "The normal Change Plan Lock / Scope / Risk / Impact review is required before publication"
+    ],
+    "promotion": "Staging PR, mandatory CI and public verification only; Production excluded",
+    "rollback": "Revert this presentation-only change",
+    "outOfScope": [
+      "Production",
+      "Saved state and economy",
+      "Changes to shop-app.mjs or actual shipping",
+      "New distribution options or permanent UI panels"
+    ],
+    "unverified": [
+      "Physical iPhone Safari touch/feel verification"
+    ]
+  }
+}
