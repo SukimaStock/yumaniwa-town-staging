@@ -746,6 +746,8 @@ function syncModal(){
   const prices=D.salePrices(game,id),inv=D.storeMarketInventory(game,id),entry=ledgerData().entries.find(e=>e.releaseId===r.id);
   title=(brandFor(id)?.name??'AmberTime')+' 第'+placementReleaseNumber(p)+'回';
   body='<div class="product-overview"><div class="modal-bottle">'+productArt(p)+'</div><p>'+ageLabel(p.age)+' · 手元 '+inv.hand+'本</p></div>'+flavorTypeView(r.profile)+'<p>価格 '+unit(prices[meta.selectedPrice])+' / 本</p><div class="price-options">'+['low','standard','high'].map((tier,i)=>button(['低め','ふつう','高め'][i]+'<span>'+unit(prices[tier])+'</span>','price',id,'data-tier="'+tier+'" aria-pressed="'+(meta.selectedPrice===tier)+'"')).join('')+'</div>'+(entry?button('元の記録','ledger-release',entry.key):'')+releaseComparisonButton(r);
+  const invitation=shopOffers().find(x=>x.brandId===r.brandId&&x.shopId==='department');
+  if(D.departmentInterests(game,r.brandId).length||D.departmentAdoptions(game,r.brandId).length||invitation)body+=departmentDestination(p,r,invitation);
   actions=button('閉じる','cancel');
  }else if(kind==='product'){
   const p=game.core.products.find(x=>x.id===id),meta=game.productsById[id];if(!p){modal=null;render();return;}
