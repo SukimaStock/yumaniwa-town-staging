@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "url": "http://127.0.0.1:37171/works/ambertime/experiments/market-design/v01/",
+  "widths": [
+    360,
+    375,
+    390
+  ],
+  "measurements": [
+    {
+      "width": 360,
+      "height": 844,
+      "pageHeight": 844,
+      "horizontalOverflow": false,
+      "normalButtonVisible": true,
+      "minButton": 44
+    },
+    {
+      "width": 375,
+      "height": 844,
+      "pageHeight": 844,
+      "horizontalOverflow": false,
+      "normalButtonVisible": true,
+      "minButton": 44
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pageHeight": 844,
+      "horizontalOverflow": false,
+      "normalButtonVisible": true,
+      "minButton": 44
+    },
+    {
+      "width": 360,
+      "height": 700,
+      "pageHeight": 700,
+      "horizontalOverflow": false,
+      "normalButtonVisible": true
+    }
+  ],
+  "checks": [
+    "direct bottle selection",
+    "1/5/all amounts",
+    "deliver no income",
+    "per-product shelves and sales",
+    "withdraw and reposition no income",
+    "reload exact",
+    "failed save atomic transfer and month",
+    "same setup current/candidate",
+    "native current sales plan",
+    "young scenario and supermarket minimum age",
+    "unconfirmed scenario cannot alter mode comparison",
+    "reduced motion",
+    "no dropdown, raw IDs or unavailable store labels"
+  ],
+  "errors": []
+}

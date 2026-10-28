@@ -1,0 +1,26 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {planSales,affinity,profileKey,VENUES} from './sales.mjs';
+const bottle={age:12,roughness:.2,character:.7,wood:.3,flavor:{fruit:.1,grain:.1,smoke:.6,body:.5},price:16};
+function trajectory(n,venue,options={}){let items=Array.from({length:n},(_,id)=>({...bottle,id:id+1,count:48/n})),ledger={},rows=[];for(let month=1;month<=24;month++){const p=planSales(items,venue,ledger,{...options,month});ledger=p.ledger;for(const s of p.sales)items.find(i=>i.id===s.id).count-=s.count;rows.push(p.sold);}return rows;}
+test('same bottles split 1/2/4/8 have identical 24-month sales in every venue and method',()=>{for(const v of VENUES)for(const method of ['carry','seeded'])for(const n of [2,4,8])assert.deepEqual(trajectory(n,v.id,{method}),trajectory(1,v.id,{method}));});
+test('same month and JSON save/reload returns exact proposal, rejects changed retry',()=>{const items=[{...bottle,id:1,count:48}],p=planSales(items,'retail',{}, {month:1});assert.deepEqual(planSales(items,'retail',JSON.parse(JSON.stringify(p.ledger)),{month:1}),p);assert.throws(()=>planSales([{...items[0],count:47}],'retail',p.ledger,{month:1}),/already planned/);assert.throws(()=>planSales(items,'retail',p.ledger,{month:0}),/earlier/);});
+test('failed customers consume one shared budget across distinct products',()=>{const items=Array.from({length:8},(_,id)=>({...bottle,id,count:100,wood:id/10}));const p=planSales(items,'town-liquor',{}, {month:1,multiplier:0});assert.equal(p.attempted,8);assert.equal(p.sold,0);assert.equal(p.groups.reduce((n,g)=>n+g.attempts,0),8);});
+test('fractional young demand produces sales across months without minimum-per-month guarantee',()=>{const rows=trajectory(1,'retail',{multiplier:.125});assert(rows.some(n=>n===0));assert(rows.reduce((n,a)=>n+a,0)>0);let ledger={},sold=0;for(let month=1;month<=12;month++){const p=planSales([{...bottle,age:1,id:1,count:48-sold}],'retail',ledger,{month,multiplier:.125});ledger=p.ledger;sold+=p.sold;}assert.equal(sold,2);});
+test('preferences oppose each other and fit has a substantial sales effect',()=>{const smoke={...bottle,id:1,count:48},fruit={...smoke,flavor:{fruit:.6,grain:.5,smoke:.1,body:.1}};assert(affinity('town-liquor',smoke)>.9);assert(affinity('supermarket',smoke)<.1);assert(affinity('supermarket',fruit)>.9);});
+test('proposal never mutates inputs, exceeds stock/budget, or banks absent stock credit',()=>{let items=[{...bottle,id:1,count:1}],before=structuredClone(items);let p=planSales(items,'retail',{}, {month:1});assert.deepEqual(items,before);assert(p.sold<=1);p=planSales([],'retail',p.ledger,{month:2});assert.deepEqual(p.ledger.credits,{});assert.equal(p.opportunities,0);});
+test('identities and labels excluded from grouping key, economic profile retained',()=>{assert.equal(profileKey({...bottle,id:1,name:'A'}),profileKey({...bottle,id:99,name:'B'}));assert.notEqual(profileKey(bottle),profileKey({...bottle,price:17}));});
+
+test('persistent tiny profile receives customers and sells beside replenished large profile',()=>{
+ let ledger={},minorityAttempts=0,minoritySold=0,maxCredit=0;
+ for(let month=1;month<=120;month++){const items=[{...bottle,id:1,age:1,count:1},{...bottle,id:2,count:100}],p=planSales(items,'retail',ledger,{month});ledger=p.ledger;const small=p.groups.find(g=>g.key===profileKey(items[0]));minorityAttempts+=small.attempts;minoritySold+=p.sales.find(s=>s.id===1)?.count??0;for(const n of Object.values(ledger.opportunityCredits))maxCredit=Math.max(maxCredit,Math.abs(n));assert.equal(p.attempted,6);assert(p.groups.every(g=>g.attempts<=items.find(i=>profileKey(i)===g.key).count));}
+ assert(minorityAttempts>=6,`tiny shelf received ${minorityAttempts} attempts`);assert(minoritySold>=1);assert(maxCredit<2);
+});
+test('opportunity deficits survive save/reload and vanish with absent/depleted profiles',()=>{
+ const items=[{...bottle,id:1,age:1,count:1},{...bottle,id:2,count:100}],first=planSales(items,'retail',{}, {month:1});const copy=JSON.parse(JSON.stringify(first.ledger));assert.deepEqual(planSales(items,'retail',copy,{month:2}),planSales(items,'retail',first.ledger,{month:2}));const empty=planSales([],'retail',copy,{month:2});assert.deepEqual(empty.ledger.opportunityCredits,{});assert.deepEqual(empty.ledger.credits,{});assert.throws(()=>planSales(items,'retail',{version:1},{month:2}),/Unsupported/);
+});
+test('mixed-profile opportunity and purchase ledgers are invariant to splitting either release',()=>{
+ function run(n,venue,method){let ledger={},items=[...Array.from({length:n},(_,i)=>({...bottle,id:i+1,count:48/n})),{...bottle,id:99,age:1,count:48,flavor:{fruit:.6,grain:.5,smoke:.1,body:.1}}],rows=[];
+  for(let month=1;month<=24;month++){const p=planSales(items,venue,ledger,{month,method});ledger=p.ledger;for(const sale of p.sales)items.find(i=>i.id===sale.id).count-=sale.count;rows.push({sold:p.sold,attempted:p.attempted,groups:p.groups.map(({key,attempts,sold,credit,opportunityCredit})=>({key,attempts,sold,credit,opportunityCredit}))});}return rows;}
+ for(const venue of VENUES)for(const method of ['carry','seeded'])for(const n of [2,4,8])assert.deepEqual(run(n,venue.id,method),run(1,venue.id,method));
+});
