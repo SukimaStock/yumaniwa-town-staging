@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "11f8f7212f6af9fb1af6d05ba959d84f75920910229de24a3492a42527ddb3e8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-balance-audit",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "ea734452823f6162fa08e7671c38fa1a0cf33dc1",
+    "change": "Audit stricter sales against actual native production limits, costs, cash reserves and stall risk; reproduce baseline and isolated counterfactual simulations without changing the playable game.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "Current user asks audit of how much sales can be reduced while cash remains viable",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "Native partner-orders/economy/parameters/store-market/town-affinity and current tests"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-balance-audit/r0.lock.json",
+      "works/ambertime/design/market-balance-audit/run.mjs",
+      "works/ambertime/design/market-balance-audit/results.json",
+      "works/ambertime/design/market-balance-audit/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "Read actual native parameters and cost/timing/reserve/sales equations; distinguish profit, liquidity, restartability, guardedstalls and apparent no-bankruptcy.",
+      "Reproducible independent temporary-module counterfactual runs for meaningful sales reductions/policies/seeds with literalbaseline, no hiddenstate mutation or actualsavewrites. Report assumptions, rounding/floors, limits and observed counts; no model parameter adoption.",
+      "Audit source/result/report confined to design directory, record testedSHA and reproducibility; suggest safe experiment ranges rather than promise safety for untestedplay."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Actual source/formula review by independent agents, baseline conservation/source-identity checks, reproducibility and scenario metric crosschecks including non-advancing stops.",
+      "Scope→Risk→Impact/Lifecycle/syntax/diff and requiredCI; noUIgamechanges so no newUI/screenshot/productiontest."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly requested audit before choosing stricter market design. No authorization inferred to alter production/save/economy knobs."
+    ],
+    "hqDecisions": [
+      "Read-only playable game; temporary copies used solely for labelled counterfactual analysis, new changed-rule states are never originalsavecompatibility evidence."
+    ],
+    "rulesApplied": [
+      "Independent staging-only Lab; no persistence or external services",
+      "Minimal Japanese operational copy; audit six expression criteria",
+      "No Production or main game changes"
+    ],
+    "rollback": "Remove audit directory; playable game bytes/data unchanged.",
+    "outOfScope": [
+      "Production",
+      "Any playablegame/economy/save/UIchange",
+      "Adopting proposedbalance",
+      "Promotion/newwork/navigation"
+    ],
+    "promotion": "Staging PR/CI/Pages only; author play acceptance later",
+    "unverified": [
+      "Untestedplayerpolicies/extremeflavors/seeds",
+      "Subjectivefun",
+      "Any future adoptedparametercompatibility"
+    ]
+  }
+}
