@@ -211,6 +211,8 @@ body[data-placement="1"] .placement-target output{font-size:24px;white-space:now
 /* Preset 5: deltas are visual-only and do not change button layout. */
 body[data-placement="1"] :is(.placement-target,.placement-hand) output{position:relative}
 body[data-placement="1"] .placement-delta{position:absolute;right:0;top:-19px;color:#f7cd58;white-space:nowrap;pointer-events:none;z-index:2;font:inherit;line-height:inherit}
+/* Keep the decrease beside 手元 N本, below the portion-button row. */
+body[data-placement="1"] #placement-hand .placement-delta{left:calc(100% + 1.5em);right:auto;top:0}
 body[data-placement="1"] #action-dialog .placement-tools{display:flex;gap:6px;margin-top:8px}
 body[data-placement="1"] #action-dialog .placement-tools button{flex:1;min-width:0;margin:0;padding:3px;min-height:44px;font-size:20px!important;line-height:28px!important;white-space:nowrap}
 body[data-placement="1"] #placement-receipt{border-left:3px solid #ae8d60;padding-left:9px}
