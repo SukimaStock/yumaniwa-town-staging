@@ -75,6 +75,28 @@ test('persistent funds and generation notices render above operable shelves and 
 });
 
 
+test('compact native select keeps real brand/release identity, three quantities and separate details',()=>{
+ const h=harness();h.ui.update({visible:true});
+ assert.match(h.root.innerHTML,/id="market-release-select"/);assert.match(h.root.innerHTML,/AmberTime 第1回 果実/);
+ assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);
+ assert.doesNotMatch(h.root.innerHTML,/data-market-portion="(?:2|half)"/);
+ assert.match(h.root.innerHTML,/data-market-details="product"/);assert.match(h.root.innerHTML,/data-market-details="department"/);
+ h.listeners.get('change')({target:{id:'market-release-select',value:'9'}});assert.equal(h.ui.diagnostics().selected,9);
+ h.listeners.get('change')({target:{id:'market-release-select',value:'999'}});assert.equal(h.ui.diagnostics().selected,9);
+ h.click({marketStock:'town-liquor:7'});assert.match(h.root.innerHTML,/class="market-content" inert/);
+ h.listeners.get('change')({target:{id:'market-release-select',value:'7'}});assert.equal(h.ui.diagnostics().selected,9);
+ h.click({marketCancel:'return'});assert.doesNotMatch(h.root.innerHTML,/class="market-content" inert/);
+});
+
+test('saved revenue remains native precision and per-release decrements do not replace recorded remaining inventory',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});const h=harness();h.ui.update({visible:true});
+ const before=fixture(),after=structuredClone(before);after.core.month=5;after.core.lastMonth={month:5,sales:[{id:7,sold:1,revenue:12.8,channel:'stockist',shopId:'town-liquor'}]};
+ h.ui.consume(before,after);assert.match(h.root.innerHTML,/class="market-income"[^>]*>\+£12.8/);assert.match(h.root.innerHTML,/class="market-sold">−1本/);assert.match(h.root.innerHTML,/残り2本 1本売れた/);
+ assert.equal(h.read().assigned[7],2);await Promise.resolve();await Promise.resolve();t.mock.timers.tick(2401);
+ assert.doesNotMatch(h.root.innerHTML,/class="market-sold"/);assert.equal(h.read().assigned[7],2);
+});
+
+
 function nativeTransaction({failWrite=false,conflict=false,invalid=false}={}){
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
  const start=source.indexOf('function actMarket(fn){'),end=source.indexOf('function commitPlacement(',start);

@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4dec909ca8c768bd78f2d612c46f0680c12dc5c838e0bd15ff9b5b1d9414f4a8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-main-market-compact",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "56a6af47f7eb2f4defe231a457b225b4ca344dae",
+    "change": "Adopt accepted Lab0.3 compact release row,1/5/all quantities and three shop rows into native Staging sales room, preserving actual inventory/transactions/clock.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "Current user: これはいいですよ！staging反映お願いします",
+      "Accepted taste-market/v03 layout and motion",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "Native market-ui and saved-only transaction contract"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-main-market-compact/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/market-compact-browser.test.mjs",
+      "works/ambertime/design/store-market-main.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs"
+    ],
+    "expectedChanges": [
+      "Use actual bottle, selected-release native menu and available hand count in one row; reduce quantities to1/5/all. Move existing product and department details to compact footer.",
+      "Three horizontal shop rows fit existing417logicalpx board; keep native uniform font and management/navigation/clock geometry. Shelf contents use compact bottle+release/count, horizontal scrolling and saved receipts including soldout. No normal board/page vertical scrolling.",
+      "Transfer from actual selected hand bottle to actual store shelf after saved assignment; actual saved sales from matching shelf bottle into store with per-release decrement and per-store native revenue. Preserve scroll/focus/swipe/reduced motion/cancellation.",
+      "Return confirmation overlays board while existing editing flag pauses clock; important native notices remain accessible, exceptional long notices may scroll. Cache-bust only changed UI/style/root entry. Do not alter economics, save migration/operations or native store identity/eligibility."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Target model/UI/formal-copy/font regressions, actual browser mounted controller geometry at mobile360/375/390/430 including notice, many releases, return overlay, saved-only actual operations, sale/transfer cancellation and reduced motion.",
+      "Native preview fixture boot/return/sales and modal/native room navigation in public browser where available. Scope→Risk→Impact/Lifecycle, independent UI review, CI/Pages/public byte equality. Physical iPhone Safari remains unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User adopted Lab0.3 and explicitly requested Staging integration; preserve main native game/store/clock/save contracts."
+    ],
+    "hqDecisions": [
+      "Presentation-only adoption into existing board; no new save or shared runtime contract. Native retailers and department remain native."
+    ],
+    "rulesApplied": [
+      "Independent staging-only Lab; no persistence or external services",
+      "Minimal Japanese operational copy; audit six expression criteria",
+      "No Production or main game changes"
+    ],
+    "rollback": "Revert UI/entry cache references; save data/model unchanged.",
+    "outOfScope": [
+      "Production",
+      "Economy/inventory/save/reader semantics",
+      "Other rooms/Labs/shared runtime",
+      "New store or registered work"
+    ],
+    "promotion": "Staging PR/CI/Pages only; author play acceptance later",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author native touch acceptance"
+    ]
+  }
+}
