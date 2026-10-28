@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "486cf9a15cd876b9d1146db535392339cb4d8b1072172acdb09d0cae055da969",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-taste-market-shelves",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "69609ae2bea1c87a31ab88c7af3fdab95b3d2245",
+    "change": "Keep each store shelf at a fixed height; lay assigned release bottles horizontally with swipe/keyboard navigation and scroll the actual sold release into view before flight.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "Current user conversation: fixed-height horizontal shelves approved with これで反映お願いします",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/taste-market/v02"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-taste-market-shelves/r0.lock.json",
+      "works/ambertime/experiments/taste-market/v02/index.html",
+      "works/ambertime/experiments/taste-market/v02/style.css",
+      "works/ambertime/experiments/taste-market/v02/app.mjs",
+      "works/ambertime/experiments/taste-market/v02/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Maintain three side-by-side shops with fixed-height horizontally scrollable release shelves, including empty and sold feedback states. Bottles show release number and count below.",
+      "Preserve independent scroll positions across re-renders and selected-release changes; swipe and keyboard focus make all bottles reachable. Provide compact overflow hint without adding long copy.",
+      "On sales, scroll each affected shelf to the actual release before suction, one event per store at a time; prevent programmatic scroll from moving the page. Preserve reduced-motion and cancellation behavior.",
+      "Keep return dialog, placement feedback, model, prices, demand, persistence, other Labs and Production unchanged."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Existing model8 tests and syntax; fixed-height CSS geometry and focus/scroll logic review",
+      "Public browser many releases at one store, horizontal keyboard navigation, return, placement scroll preservation and offscreen-sale source",
+      "Expression audit six criteria, Lifecycle/LAB and exact HTTP bytes; physical iPhone Safari and exact360/375/390 emulation remain unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly approved fixed-height horizontal store shelves while preserving three-shop comparison, existing operations, and sale-source reveal. Current staging scope includes PR/CI/safe publication."
+    ],
+    "hqDecisions": [
+      "Standalone simulation only: no main-model formula or save semantics, no new work id; use existing LAB work entry as navigable parent link"
+    ],
+    "rulesApplied": [
+      "Independent staging-only Lab; no persistence or external services",
+      "Minimal Japanese operational copy; audit six expression criteria",
+      "No Production or main game changes"
+    ],
+    "rollback": "Revert four UI/report files. No model or state-schema changes.",
+    "outOfScope": [
+      "Production",
+      "Main game and other Labs",
+      "Model formulas, demand, prices, persistence",
+      "New work or navigation registration"
+    ],
+    "promotion": "Staging PR/CI/Pages only; author play acceptance later",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Use as proof of balancing or integration with real AmberTime economics"
+    ]
+  }
+}

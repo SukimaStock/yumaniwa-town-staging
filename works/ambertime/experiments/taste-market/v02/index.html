@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>AmberTime｜味と店 Lab 0.2</title><meta name="description" content="発売回の瓶を店へ割り当て、どの瓶が売れたかを見ながら次の味を造る独立Lab。"><link rel="stylesheet" href="style.css?v=mixed-r1"></head>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>AmberTime｜味と店 Lab 0.2</title><meta name="description" content="発売回の瓶を店へ割り当て、どの瓶が売れたかを見ながら次の味を造る独立Lab。"><link rel="stylesheet" href="style.css?v=shelf-r1"></head>
 <body><main><header><a href="../v01/">← Lab 0.1</a><h1>AmberTime <span>味と店 Lab 0.2</span></h1></header>
 <div class="clock"><span id="date"></span><span id="cash" aria-label="累計売上"></span><button id="month">1か月進める</button></div>
 <section aria-label="発売回"><div id="releases" class="releases"></div><p class="hand">手元 <output id="hand"></output>本</p><div id="portions" class="buttons" aria-label="一度に置く本数"></div></section>
@@ -7,4 +7,4 @@
 <p id="notice" role="status" aria-live="polite"></p>
 <section><h2>次の一本を造る</h2><div id="brew" class="buttons"></div></section>
 <details class="records"><summary>記録と実験条件</summary><h2>発売回ごとの販売</h2><ul id="totals"></ul><h2>最近の記録</h2><ol id="history"></ol><div class="buttons"><button id="export">ログを書き出す</button><label class="import">ログを再現<input id="import" type="file" accept="application/json,.json"></label><button id="reset">最初から</button></div><p class="hint">1回18本、1本£12の仮モデル。本編の保存・経済には接続しません。</p><a href="REPORT.md">実験条件</a></details>
-</main><dialog id="detail" aria-labelledby="detail-title"><h2 id="detail-title"></h2><p id="detail-text"></p><div class="buttons"><button id="take-back">手元へ戻す</button><button id="detail-close">閉じる</button></div></dialog><script type="module" src="app.mjs?v=mixed-r1"></script></body></html>
+</main><dialog id="detail" aria-labelledby="detail-title"><h2 id="detail-title"></h2><p id="detail-text"></p><div class="buttons"><button id="take-back">手元へ戻す</button><button id="detail-close">閉じる</button></div></dialog><script type="module" src="app.mjs?v=shelf-r1"></script></body></html>

@@ -4,8 +4,9 @@ const shortFlavor=id=>({fruit:'果実',smoke:'煙',wood:'樽'})[id];
 const bottle=id=>`<span class="bottle" style="--bottle:${M.flavor(id).color}" aria-hidden="true"></span>`;
 const shopName=id=>M.SHOPS.find(s=>s.id===id).name;
 let state=M.create(),selected=1,portion='1',busy=false,feedback=[],feedbackTimer,noticeTimer,returnTo=null;
+const shelfOffsets=new Map(),scrollTasks=new Set();let motionEpoch=0;
 const motions=new Set(),reduced=matchMedia('(prefers-reduced-motion: reduce)');
-function cancelMotion(){for(const a of motions)a.cancel();motions.clear();document.querySelectorAll('.flight,.delta').forEach(e=>e.remove());}
+function cancelMotion(){motionEpoch++;for(const stop of [...scrollTasks])stop();for(const a of motions)a.cancel();motions.clear();document.querySelectorAll('.flight,.delta').forEach(e=>e.remove());}
 function clearFeedback(){clearTimeout(feedbackTimer);feedback=[];}
 function announce(text){clearTimeout(noticeTimer);$('notice').textContent=text;noticeTimer=setTimeout(()=>{$('notice').textContent='';},2600);}
 function animate(el,frames,options){
@@ -16,7 +17,7 @@ function animate(el,frames,options){
 function focusKey(){
  const a=document.activeElement;
  for(const key of ['release','portion','place','stock','details','brew'])if(a?.dataset?.[key])return {key,value:a.dataset[key]};
- return a?.id==='month'?{id:'month'}:null;
+ return a?.id==='month'||a?.id?.startsWith('shelf-')?{id:a.id}:null;
 }
 function focusControl(saved){
  if(!saved)return;
@@ -26,9 +27,10 @@ function focusControl(saved){
   e=shop?document.querySelector(`[data-place="${shop}"]`):null;
   if(!e||e.disabled)e=document.querySelector(`[data-release="${selected}"]`);
  }
- if(e&&!e.disabled)e.focus({preventScroll:true});
+ if(e&&!e.disabled){e.focus({preventScroll:true});if(e.dataset.stock)alignShelf(e.closest('.stock-row'));}
 }
 function render({restore=true}={}){
+ for(const shelf of document.querySelectorAll('.stock-list'))shelfOffsets.set(shelf.id,shelf.scrollLeft);
  const focused=restore?focusKey():null,r=state.releases.find(x=>x.id===selected);
  $('date').textContent=`${Math.floor(state.month/12)}年${state.month%12}か月`;
  $('cash').textContent=`£${state.cash}`;$('month').disabled=busy;$('hand').textContent=r.hand;
@@ -36,7 +38,7 @@ function render({restore=true}={}){
  $('portions').innerHTML=[['1','1本'],['2','2本'],['5','5本'],['half','半分'],['all','全部']].map(([id,label])=>`<button data-portion="${id}" aria-pressed="${portion===id}" ${busy?'disabled':''}>${label}</button>`).join('');
  $('shops').innerHTML=M.SHOPS.map(shop=>{
   const rows=state.releases.filter(x=>x.assigned[shop.id]>0||feedback.some(e=>e.shopId===shop.id&&e.releaseId===x.id));
-  return `<section class="shop" data-shop="${shop.id}" aria-label="${shop.name}"><button class="target" data-place="${shop.id}" aria-label="${shop.name}へ第${r.id}回を割り当てる" ${busy||!r.hand?'disabled':''}><span class="store-icon" aria-hidden="true"></span><strong>${shop.name}</strong></button><button class="shop-details" data-details="${shop.id}" aria-label="${shop.name}の詳細" ${busy?'disabled':''}>…</button><div class="stock-list">${rows.map(x=>{
+  return `<section class="shop" data-shop="${shop.id}" aria-label="${shop.name}"><button class="target" data-place="${shop.id}" aria-label="${shop.name}へ第${r.id}回を割り当てる" ${busy||!r.hand?'disabled':''}><span class="store-icon" aria-hidden="true"></span><strong>${shop.name}</strong></button><button class="shop-details" data-details="${shop.id}" aria-label="${shop.name}の詳細" ${busy?'disabled':''}>…</button><div class="stock-list" id="shelf-${shop.id}" tabindex="0" role="group" aria-label="${shop.name}の瓶棚。横に送れます">${rows.map(x=>{
    const sold=feedback.find(e=>e.shopId===shop.id&&e.releaseId===x.id)?.count??0;
    return `<div class="stock-row" id="stock-${shop.id}-${x.id}"><button class="stock" data-stock="${shop.id}:${x.id}" aria-label="${shop.name} 第${x.id}回 ${M.flavor(x.flavorId).name} 残り${x.assigned[shop.id]}本${sold?' '+sold+'本売れた':''}。手元へ戻す" ${busy||!x.assigned[shop.id]?'disabled':''}>${bottle(x.flavorId)}<span>第${x.id}回</span><span>${x.assigned[shop.id]}本</span></button>${sold?`<span class="sale-result" aria-hidden="true">売れた${sold}本</span>`:''}</div>`;
   }).join('')||'<span class="empty" aria-label="割り当てなし">—</span>'}</div></section>`;
@@ -45,6 +47,7 @@ function render({restore=true}={}){
  $('totals').innerHTML=state.releases.map(x=>`<li>第${x.id}回 ${M.flavor(x.flavorId).name}：${x.sold}本販売</li>`).join('');
  $('history').innerHTML=state.history.slice(-30).reverse().map(e=>`<li>${e.month}か月目 ${shopName(e.shopId)} 第${e.releaseId}回 ${e.count}本 £${e.revenue}</li>`).join('');
  $('reset').disabled=busy;$('import').disabled=busy;$('export').disabled=busy;
+ for(const shelf of document.querySelectorAll('.stock-list'))shelf.scrollLeft=shelfOffsets.get(shelf.id)??0;
  if(restore)focusControl(focused);
 }
 function delta(el,value){
@@ -53,17 +56,49 @@ function delta(el,value){
  animate(d,[{opacity:1},{opacity:1,offset:.65},{opacity:0}],{duration:650}).then(()=>d.remove());
 }
 function placed(shopId,n){
- const row=$(`stock-${shopId}-${selected}`),target=document.querySelector(`[data-place="${shopId}"]`);
+ const row=$(`stock-${shopId}-${selected}`),target=document.querySelector(`[data-place="${shopId}"]`);alignShelf(row);
  animate(row.querySelector('.bottle'),[{transform:'translateY(-6px)'},{transform:'translateY(0)'},{transform:'translateY(-3px)'},{transform:'translateY(0)'}],{duration:210,easing:'steps(3,end)'});
  animate(target,[{outline:'3px solid #e4bc66',outlineOffset:'0px'},{outline:'3px solid transparent',outlineOffset:'2px'}],{duration:160});delta(row,n);delta($('hand'),-n);
+}
+// Only the shelf scrolls. Neither selection nor sales scroll the document.
+function shelfTarget(row){
+ const shelf=row.closest('.stock-list'),r=row.getBoundingClientRect(),v=shelf.getBoundingClientRect();
+ let left=shelf.scrollLeft;
+ if(r.left<v.left+2)left+=r.left-v.left-2;
+ else if(r.right>v.right-2)left+=r.right-v.right+2;
+ return {shelf,left:Math.max(0,Math.min(left,shelf.scrollWidth-shelf.clientWidth))};
+}
+function alignShelf(row){const {shelf,left}=shelfTarget(row);shelf.scrollLeft=left;}
+async function revealSale(row,epoch){
+ const {shelf,left}=shelfTarget(row),from=shelf.scrollLeft;
+ if(Math.abs(left-from)<1)return;
+
+ if(reduced.matches||document.hidden){shelf.scrollLeft=left;return;}
+ await new Promise(resolve=>{
+  let frame,start,done=false;
+  const stop=()=>{if(done)return;done=true;cancelAnimationFrame(frame);scrollTasks.delete(stop);resolve();};
+  scrollTasks.add(stop);
+  const step=now=>{
+   if(done)return;
+   if(epoch!==motionEpoch||document.hidden){stop();return;}
+   if(reduced.matches){shelf.scrollLeft=left;stop();return;}
+   start??=now;const progress=Math.min(1,(now-start)/180);
+   shelf.scrollLeft=from+(left-from)*(1-(1-progress)**3);
+   if(progress<1)frame=requestAnimationFrame(step);else stop();
+  };
+  frame=requestAnimationFrame(step);
+ });
 }
 async function fly(events){
  if(reduced.matches||document.hidden)return;
  // Each flight starts at the actual release row, even when another release is selected.
+ const epoch=motionEpoch;
  await Promise.all(M.SHOPS.map(async shop=>{
   for(const event of events.filter(e=>e.shopId===shop.id)){
-   if(reduced.matches||document.hidden)break;
-   const row=$(`stock-${shop.id}-${event.releaseId}`),source=row.querySelector('.bottle').getBoundingClientRect(),target=document.querySelector(`[data-shop="${shop.id}"] .store-icon`).getBoundingClientRect();
+   if(reduced.matches||document.hidden||epoch!==motionEpoch)break;
+   const row=$(`stock-${shop.id}-${event.releaseId}`);await revealSale(row,epoch);
+   if(epoch!==motionEpoch||reduced.matches||document.hidden)break;
+   const source=row.querySelector('.bottle').getBoundingClientRect(),target=document.querySelector(`[data-shop="${shop.id}"] .store-icon`).getBoundingClientRect();
    if(source.bottom<0||source.top>innerHeight||target.bottom<0||target.top>innerHeight)continue;
    const ghost=document.createElement('span');ghost.innerHTML=bottle(state.releases.find(r=>r.id===event.releaseId).flavorId);
    const el=ghost.firstElementChild;el.classList.add('flight');el.style.left=source.left+'px';el.style.top=source.top+'px';document.body.append(el);
@@ -102,8 +137,13 @@ document.addEventListener('click',async e=>{
  }
  if(b.id==='reset'){
   if(!confirm('このLabを最初から試しますか？'))return;
-  cancelMotion();clearFeedback();state=M.create();selected=1;portion='1';render();announce('');
+  cancelMotion();clearFeedback();shelfOffsets.clear();document.querySelectorAll('.stock-list').forEach(e=>e.scrollLeft=0);state=M.create();selected=1;portion='1';render();announce('');
  }
+});
+document.addEventListener('keydown',e=>{
+ const shelf=e.target.closest('.stock-list');if(!shelf||e.target!==shelf||busy)return;
+ if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+ e.preventDefault();cancelMotion();shelf.scrollLeft=e.key==='Home'?0:e.key==='End'?shelf.scrollWidth:shelf.scrollLeft+(e.key==='ArrowLeft'?-84:84);
 });
 $('detail').addEventListener('cancel',e=>{e.preventDefault();closeDetail();});
 $('export').addEventListener('click',()=>{
@@ -112,7 +152,7 @@ $('export').addEventListener('click',()=>{
 });
 $('import').addEventListener('change',async e=>{
  const file=e.target.files?.[0];if(!file)return;
- try{if(file.size>1000000)throw Error('ログが大きすぎます');const next=M.replay(JSON.parse(await file.text()));if(busy)return;cancelMotion();clearFeedback();state=next;selected=1;render();announce('ログを再現しました');}
+ try{if(file.size>1000000)throw Error('ログが大きすぎます');const next=M.replay(JSON.parse(await file.text()));if(busy)return;cancelMotion();clearFeedback();shelfOffsets.clear();document.querySelectorAll('.stock-list').forEach(e=>e.scrollLeft=0);state=next;selected=1;render();announce('ログを再現しました');}
  catch(error){announce(error.message);}finally{e.target.value='';}
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelMotion();});window.addEventListener('resize',cancelMotion);window.addEventListener('pagehide',cancelMotion);reduced.addEventListener('change',cancelMotion);
