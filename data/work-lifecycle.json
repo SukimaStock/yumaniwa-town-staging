@@ -473,6 +473,12 @@
       "path": "works/ambertime-hand-and-place-v073-lab",
       "status": "active",
       "title": "AmberTime 手札と場 Lab 0.7.3"
+    },
+    {
+      "id": "ambertime-market-design-lab",
+      "path": "works/ambertime-market-design-lab",
+      "status": "active",
+      "title": "AmberTime 販売設計 Lab"
     }
   ]
 }
