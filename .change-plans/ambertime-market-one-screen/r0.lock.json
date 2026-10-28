@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1ab95ee6f0332f3c4b6c5e9bb58d31aed6e69134659bf94eb26ea469ca1dcffe",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-one-screen",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "31410b20ace979af613c8f0c2106223e8dd890a9",
+    "change": "Add comparable standalone taste-market v03: compact release selector, three quantities and three horizontal shop rows fitting one mobile viewport.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "Current user approval: 試しましょう。お願いします; accepted decomposition in current conversation",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/taste-market/v02"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-one-screen/r0.lock.json",
+      "works/ambertime/experiments/taste-market/v02/index.html",
+      "works/ambertime/experiments/taste-market/v03/index.html",
+      "works/ambertime/experiments/taste-market/v03/app.mjs",
+      "works/ambertime/experiments/taste-market/v03/style.css",
+      "works/ambertime/experiments/taste-market/v03/REPORT.md",
+      "works/ambertime/experiments/taste-market/v03/tests/layout.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Keep v02 and native game intact; add v03 using unchanged v02 simulation model and a link from existing v02 entry. Existing parent LAB connection remains.",
+      "One selected release with native selection menu and hand count; quantities1/5/all; three compact shop rows with fixed-height horizontal shelves. Main screen no vertical scroll at normal phone viewport; detail/records/brewing dialogs accessible.",
+      "Animate transfer from selected bottle to matching shop shelf, then actual sold release from shelf into store; show exact per-release sold counts/revenue, including soldout, and cash only on sales. Preserve return, import/export, reduced motion, cancellation, keyboard and drag/swipe safety."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Existing model tests plus browser layout/interaction at360/375/390/430 widths, short viewport, many releases, selection, quantities, assignment, return and actual sale; import/export compatibility.",
+      "Scope/Risk/Impact/Lifecycle, expression audit6, PR requiredCI, Pages and exact HTTP bytes. Physical iPhone Safari remains unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User accepted compact selected bottle,1/5/all quantities,3 shop rows in a separate comparable Lab. Authorization includes necessary staging PR/CI/safe merge."
+    ],
+    "hqDecisions": [
+      "No new work identity or shared runtime; existing nested Lab navigation gains v03 link. v03 imports unchanged v02 model, no save/economy changes."
+    ],
+    "rulesApplied": [
+      "Independent staging-only Lab; no persistence or external services",
+      "Minimal Japanese operational copy; audit six expression criteria",
+      "No Production or main game changes"
+    ],
+    "rollback": "Remove v03 and its v02 link. No saved data or native game changes.",
+    "outOfScope": [
+      "Production",
+      "Native game UI/models/saves",
+      "v01 and v02 behavior/model",
+      "New work registration or shared runtime"
+    ],
+    "promotion": "Staging PR/CI/Pages only; author play acceptance later",
+    "unverified": [
+      "Physical iPhone Safari touch feel",
+      "Author adoption",
+      "Real main game economics"
+    ]
+  }
+}
