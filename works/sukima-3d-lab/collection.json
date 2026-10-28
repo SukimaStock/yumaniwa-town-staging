@@ -1484,6 +1484,56 @@
       "id": "street-fire-hydrant",
       "file": "objects/street-fire-hydrant.json",
       "number": 300
+    },
+    {
+      "id": "stone-window-well",
+      "file": "objects/stone-window-well.json",
+      "number": 301
+    },
+    {
+      "id": "street-tree-grille",
+      "file": "objects/street-tree-grille.json",
+      "number": 302
+    },
+    {
+      "id": "sidewalk-menu-easel",
+      "file": "objects/sidewalk-menu-easel.json",
+      "number": 303
+    },
+    {
+      "id": "market-wooden-crate",
+      "file": "objects/market-wooden-crate.json",
+      "number": 304
+    },
+    {
+      "id": "bicycle-front-wheel",
+      "file": "objects/bicycle-front-wheel.json",
+      "number": 305
+    },
+    {
+      "id": "flowerpot-lavender",
+      "file": "objects/flowerpot-lavender.json",
+      "number": 306
+    },
+    {
+      "id": "pebble-stepping-path",
+      "file": "objects/pebble-stepping-path.json",
+      "number": 307
+    },
+    {
+      "id": "street-utility-box",
+      "file": "objects/street-utility-box.json",
+      "number": 308
+    },
+    {
+      "id": "stone-well-bucket",
+      "file": "objects/stone-well-bucket.json",
+      "number": 309
+    },
+    {
+      "id": "corner-street-signpost",
+      "file": "objects/corner-street-signpost.json",
+      "number": 310
     }
   ]
 }
