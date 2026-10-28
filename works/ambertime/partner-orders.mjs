@@ -2,8 +2,10 @@ import {attachFlavor,setFlavorCask,flavorName} from './lab-flavor.mjs?v=stage4-r
 import {createTown,recordBottle,receiveActual,advanceTown,townNews} from './town-connection.mjs?v=stage4-r2';
 import {brandIdentityMode,needsBrandSetup,checkedBrandDraft} from './brand-identity.mjs?v=0.58-first-brand';
 export {brandIdentityMode,needsBrandSetup} from './brand-identity.mjs?v=0.58-first-brand';
-import {placementMode,placementInventory} from './placement-mode.mjs?v=0.27-placement';
-export {placementMode,placementInventory} from './placement-mode.mjs?v=0.27-placement';
+import {placementMode,placementInventory} from './placement-mode.mjs?v=store-market-main-r1';
+export {placementMode,placementInventory} from './placement-mode.mjs?v=store-market-main-r1';
+import {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows,planStoreMarketSales} from './store-market.mjs?v=store-market-main-r1';
+export {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows} from './store-market.mjs?v=store-market-main-r1';
 import {NORMAL_SHOP_DEMAND,normalShopOrders,planShopFulfillment} from './shop-demand.mjs?v=adjust-b-r1';
 import {PARTIAL_BOTTLING,partialMode,DELEGATION,delegationMode} from './partial-bottling.mjs?v=0.41-delegation';
 export {PARTIAL_BOTTLING,partialMode,DELEGATION,delegationMode} from './partial-bottling.mjs?v=0.41-delegation';
@@ -70,6 +72,37 @@ export function adoptPlacement(s,policy='listed'){
  const j=adoptPlacementTransaction(s,policy);
  if(j!==s)validateDistillery(j);
  return j;
+}
+
+// A logged migration enables future store reservations; every older fact stays intact.
+function enableStoreMarketTransaction(s){
+ if(storeMarketMode(s))return s;
+ assert(placementMode(s)&&stage4Mode(s),'配分に対応した本編の記録を確認してください。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ const j=clone(s);j.storeMarket={version:1,byShop:{'town-liquor':{},supermarket:{}},startedMonth:s.core.month};
+ j.operations.push({key:'enable-store-market',value:{progress:shopProgress(s),tastingId:s.tastingId}});return j;
+}
+export function enableStoreMarket(s){validateDistillery(s);const j=enableStoreMarketTransaction(s);if(j!==s)validateDistillery(j);return j;}
+export const newStoreMarketDistillery=seed=>enableStoreMarket(newPlacementDistillery(seed));
+function storeAssignmentTransaction(s,value,returning=false){
+ const {productId,shopId,count}=value??{},p=s.core.products.find(p=>p.id===productId),r=s.releases.find(r=>r.productId===productId);
+ assert(storeMarketMode(s)&&p&&r&&['town-liquor','supermarket'].includes(shopId),'割り当てる発売回と店を確認してください。');
+ assert(s.tastingId===null&&s.trade.offer===null,'先に試飲・卸売の申し出を確認します。');
+ const current=s.storeMarket.byShop[shopId][productId]??0;
+ if(returning){if(!current)return s;}
+ else{
+  assert(Number.isInteger(count)&&count>=0,'本数は0以上の整数で指定してください。');if(!count)return s;
+  const q=storeMarketQuote(s,productId,shopId);assert(q.ok&&count<=q.maxCount,q.reason||'手元の本数を確認してください。');
+ }
+ const j=clone(s);
+ if(returning)delete j.storeMarket.byShop[shopId][productId];else j.storeMarket.byShop[shopId][productId]=current+count;
+ return action(j,returning?'store-return':'store-assign',{productId,shopId,...(returning?{}:{count}),progress:shopProgress(s)});
+}
+export function assignStoreProduct(s,value){validateDistillery(s);const j=storeAssignmentTransaction(s,value);if(j!==s)validateDistillery(j);return j;}
+export function returnStoreProduct(s,value){validateDistillery(s);const j=storeAssignmentTransaction(s,value,true);if(j!==s)validateDistillery(j);return j;}
+export function setMarketRetail(s,{productId,count}={}){
+ assert(storeMarketMode(s),'店の棚に対応した記録を確認してください。');const r=s.releases.find(r=>r.productId===productId);assert(r,'発売回を確認してください。');
+ return allocateProduct(s,{productId,releaseId:r.id,brandId:r.brandId,retail:count,shopCount:0});
 }
 
 export function placementWish(s){return placementMode(s)?normalShopOrders(s,s.core.month,s.shopDemand.mode).find(o=>o.shopId===SHOP.id)??null:null;}
@@ -547,7 +580,26 @@ function fulfillNormalOrders(j,orders){
  }
  return j;
 }
+function settleStoreMarket(j){
+ j.shopDemand.lastOrders=[];
+ for(const plan of planStoreMarketSales(j,j.core.month)){
+  let shipped=0,ledgerFull=false;
+  for(const line of plan.shipments){
+   if(j.shop.deliveries.length+pendingDepartmentCount(j)>=SHOP.maxDeliveries){ledgerFull=true;break;}
+   j.storeMarket.byShop[plan.shopId][line.productId]-=line.count;
+   if(!j.storeMarket.byShop[plan.shopId][line.productId])delete j.storeMarket.byShop[plan.shopId][line.productId];
+   deliverShopInto(j,line.productId,line.count,line.unitPrice,plan.shopId);const item=clone(j.shop.deliveries.at(-1));
+   j.automation.lastShipments.push(item);shipped+=item.count;advanceGeneration(j,'stockist-deliver');
+   j.core.lastMonth.revenue=round(j.core.lastMonth.revenue+item.revenue);j.core.lastMonth.bottles+=item.count;
+   j.core.lastMonth.sales.push({id:item.productId,sold:item.count,revenue:item.revenue,channel:'stockist',shopId:plan.shopId});
+  }
+  const {shipments,...summary}=plan;
+  j.shopDemand.lastOrders.push({...summary,shipped,unmet:Math.max(0,plan.requested-plan.alreadyShipped-shipped),reason:ledgerFull?'delivery-ledger-full':plan.reason});
+ }
+ return j;
+}
 function automaticShipping(j,orders){
+ if(storeMarketMode(j))return settleStoreMarket(j);
  if(shopDemandMode(j))return fulfillNormalOrders(j,orders??normalShopOrders(j,j.core.month));
  if(!monthlyTimingMode(j))j.automation.lastShipments=[];
  // Fixed priority: retail (already settled), town liquor, supermarket; oldest lot first.
@@ -717,6 +769,7 @@ function stockistQuote(s,productId,shopId,offered=false){
  const accepted=!!r&&s.shop.relations.some(x=>x.brandId===r.brandId&&x.shopId===shopId),invited=!!r&&s.shop.offer?.shopId===shopId&&s.shop.offer.brandId===r.brandId&&!accepted;
  let reason='';
  if(!store||!r||!(offered?invited:accepted))reason='この銘柄はまだ取扱い前です。';
+ else if(storeMarketMode(s))reason='店の棚へ割り当てます。';
  else if(shopDemandMode(s)&&!(placementMode(s)&&shopId===SHOP.id))reason='商店へは月ごとに自動発送します。';
  else if(monthlyTimingMode(s)&&(!(placementMode(s)&&shopId===SHOP.id?p&&p.bottledMonth<s.core.month:salesEligible(s,productId))||offered||!s.shop.relations.some(x=>x.brandId===r.brandId&&x.shopId===shopId&&x.startedMonth<s.core.month)))reason='翌月から発送します。';
  else if(bottleActionBlocked(s))reason='先に試飲・樽の判断・卸売の申し出を確認します。';
@@ -739,13 +792,13 @@ function departmentQuote(s,productId,offered=false){
  else if(delegationMode(s)&&r?.id!==o.sourceReleaseId)reason='申し出の発売回を選びます。';
  else if(!r||!departmentReleaseEligible(r)||shopProductCondition(s,productId,'department'))reason=shopProductCondition(s,productId,'department')||'対象の発売回を選びます。';
  else if(departmentUsedRelease(s,r.id))reason='今回の企画は完了しました。';
- else if(!p||(!bottleStorageMode(s)&&!s.productsById[productId]?.listed)||p.stock-(placementMode(s)?placementInventory(s,p.id).retail:0)<5)reason='5本以上の在庫が必要です。';
+ else if(!p||(!bottleStorageMode(s)&&!s.productsById[productId]?.listed)||p.stock-(placementMode(s)?placementInventory(s,p.id).retail+(storeMarketMode(s)?placementInventory(s,p.id).assigned:0):0)<5)reason='5本以上の在庫が必要です。';
  else if(s.shop.deliveries.length+pendingDepartmentCount(s)>=SHOP.maxDeliveries)reason='納品帳がいっぱいです。';
  return {shopId:'department',ok:!reason,reason,unitPrice,quantities:reason?[]:[5],remaining:reason?0:5,selectionId:o?.selectionId,sourceReleaseId:o?.sourceReleaseId,releaseId:r?.id,projectId:DEPARTMENT.projectId};
 }
 function deliverShopInto(j,productId,count,unitPrice,shopId){
  const p=j.core.products.find(p=>p.id===productId),r=j.releases.find(r=>r.productId===productId),revenue=round(unitPrice*count);
- if(placementMode(j))assert(p.stock-count>=placementInventory(j,productId).retail,'自家販売へ配分した在庫は納品できません。');
+ if(placementMode(j)){const inv=placementInventory(j,productId),reserved=inv.retail+(storeMarketMode(j)?inv.assigned+(shopId==='department'?0:inv.held):0);assert(p.stock-count>=reserved,'他の販売先へ割り当てた瓶は納品できません。');}
  const selection=departmentMode(j)&&shopId==='department'?departmentSelection(j,r.brandId):null;
  if(departmentMode(j)&&shopId==='department')assert(selection&&count===5&&!departmentUsedRelease(j,r.id),'この企画は完了しました。');
  const item={id:(j.shop.deliveries.at(-1)?.id??0)+1,month:j.core.month,brandId:r.brandId,releaseId:r.id,productId,count,unitPrice,revenue};
@@ -1134,9 +1187,9 @@ function settle(s){
 
 export function tickDistillery(s,expectedMonth=s.core.month){
  assert(Number.isInteger(expectedMonth)&&expectedMonth===s.core.month,'月次処理の対象月が一致しません。');if(blocked(s)||generationMode(s)&&s.generations.active.phase==='review')return s;
- const empty=s.still.phase==='ready'&&!s.core.spirit&&!s.core.casks.length&&!s.core.products.some(p=>p.stock>0&&s.productsById[p.id]?.listed)&&!(monthlyTimingMode(s)&&s.department.interests.some(o=>o.pendingDelivery));if(empty&&s.core.cash-E.upkeep(s)<canStart(s).minimum)return generationStalled(s);
+ const empty=s.still.phase==='ready'&&!s.core.spirit&&!s.core.casks.length&&!s.core.products.some(p=>p.stock>0&&(s.productsById[p.id]?.listed||storeMarketMode(s)&&placementInventory(s,p.id).assigned>0))&&!(monthlyTimingMode(s)&&s.department.interests.some(o=>o.pendingDelivery));if(empty&&s.core.cash-E.upkeep(s)<canStart(s).minimum)return generationStalled(s);
  const timing=monthlyTimingMode(s)?{eligibleProductIds:s.core.products.filter(p=>salesEligible(s,p.id,expectedMonth+1)).map(p=>p.id),heldCounts:Object.fromEntries(s.core.products.map(p=>[p.id,placementMode(s)?p.stock-Math.min(placementInventory(s,p.id).retail,Math.max(0,p.stock-heldDepartmentCount(s,p.id))):heldDepartmentCount(s,p.id)]))}:undefined;
- const orders=shopDemandMode(s)?normalShopOrders(s,expectedMonth+1,s.shopDemand.mode):undefined;
+ const orders=shopDemandMode(s)&&!storeMarketMode(s)?normalShopOrders(s,expectedMonth+1,s.shopDemand.mode):undefined;
  let j=E.economicMonthly(s,expectedMonth,reputationMode(s)?retailReputationFactors(s):null,timing);if(placementMode(j))for(const sale of j.core.lastMonth.sales)j.placement.retailByProduct[sale.id]=Math.max(0,(j.placement.retailByProduct[sale.id]??0)-sale.sold);if(monthlyTimingMode(j))j.automation.lastShipments=[];j.trade.lastShipments=[];j.trade.lastObservations=[];observePromisedChanges(j);
  const ids=j.core.casks.map(c=>c.id).sort((a,b)=>a-b),cents=Math.round(j.core.lastMonth.upkeep*100),share=ids.length?Math.floor(cents/ids.length):0;
  for(let i=0;i<ids.length;i++)j.batchesById[ids[i]].upkeep=round(j.batchesById[ids[i]].upkeep+(share+(i<cents-share*ids.length?1:0))/100);
@@ -1146,7 +1199,13 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(s.still.distillation?.collectionVersion!==2||s.still.distillation.collectStart!==null||value<=88,'採取できる範囲を過ぎています。');assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'adopt-placement':
+function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-store-market':
+ if(o.value?.progress!==null)s=progress(s,o.value?.progress);
+ if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
+ return enableStoreMarketTransaction(s);
+ case 'store-assign':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return storeAssignmentTransaction(s,o.value);
+ case 'store-return':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return storeAssignmentTransaction(s,o.value,true);
+ case 'adopt-placement':
  if(o.value?.progress!==null)s=progress(s,o.value?.progress);
  if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
  return adoptPlacementTransaction(s,o.value?.policy);
@@ -1261,6 +1320,19 @@ export function createProjectionReplay(s,observer,previousToken){
 export function replayDistilleryOperations(s,observer){return createProjectionReplay(s,observer).manualSources;}
 
 // Recover the validated pre-connection state for rollback without a second save key.
+export function preStoreMarketState(s){
+ validateDistillery(s);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),context=emptyReplayContext();
+ for(let index=0;index<s.operations.length;index++){
+  const op=s.operations[index];
+  if(op.key==='enable-store-market'){
+   if(op.value?.progress!==null)j=progress(j,op.value.progress);
+   if(op.value?.tastingId!==null)j=sampleDistillery(j,op.value.tastingId);
+   validateDistillery(j);return j;
+  }
+  j=apply(j,op,context,index);
+ }
+ return clone(s);
+}
 export function preStage4State(s){
  validateDistillery(s);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),context=emptyReplayContext();
  for(let index=0;index<s.operations.length;index++){const op=s.operations[index];if(op.key==='enable-stage4'){if(op.value?.progress!==null)j=progress(j,op.value.progress);return j;}j=apply(j,op,context,index);}

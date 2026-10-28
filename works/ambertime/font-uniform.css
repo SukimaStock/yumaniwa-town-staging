@@ -6,8 +6,8 @@ html[data-font-uniform="1"] body,
 html[data-font-uniform="1"] #action-dialog,
 html[data-font-uniform="1"] #action-dialog :is(#dialog-title,#dialog-body,#dialog-context,#dialog-error,#dialog-actions),
 html[data-font-uniform="1"] #action-dialog :is(#dialog-body,#dialog-actions,.dialog-heading) :not(svg,svg *),
-html[data-font-uniform="1"] :is(#save-choice,#storage-notice,#recovery,#automatic-news,#settings-source,#scene-access,#legacy-interface),
-html[data-font-uniform="1"] :is(#save-choice,#storage-notice,#recovery,#automatic-news,#settings-source,#scene-access,#legacy-interface) :not(svg,svg *){
+html[data-font-uniform="1"] :is(#save-choice,#storage-notice,#recovery,#automatic-news,#settings-source,#scene-access,#legacy-interface,#market-board),
+html[data-font-uniform="1"] :is(#save-choice,#storage-notice,#recovery,#automatic-news,#settings-source,#scene-access,#legacy-interface,#market-board) :not(svg,svg *){
  font-size:var(--uniform-font-size)!important;
  line-height:var(--uniform-line-height)!important;
  font-family:AmberMisaki,system-ui,-apple-system,"Noto Sans JP",sans-serif!important;

@@ -1,7 +1,7 @@
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=0.25.3-feedback';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
@@ -60,7 +60,7 @@ export class CanvasScene{
  }
  drawWorld(){
   const c=this.worldCtx,v=this.view,l=this.layout;
-  const items=v.room==='warehouse'?v.casks:v.room==='sales'?v.products:[];
+  const items=v.room==='warehouse'?v.casks:v.room==='sales'&&!v.marketMode?v.products:[];
   const key=JSON.stringify([v.room,l,items,v.inspectId,this.reducedMotion.matches,items.some(item=>item.selected)?Math.floor(performance.now()/900)%2:0,this.arrival,v.room==='distill'?[v.collection,v.phase,this.stillFrame]:null]);
   if(key===this.worldKey)return;this.worldKey=key;
   c.clearRect(0,0,120,214);c.fillStyle='#41414b';c.fillRect(0,0,120,214);
@@ -71,14 +71,14 @@ export class CanvasScene{
   r(0,l.floorY,360,640-l.floorY,'#644632');for(let x=0;x<360;x+=36){r(x,l.floorY,3,640-l.floorY,'#3c281e');r(x+3,l.floorY,3,640-l.floorY,'#a0785a');}for(let y=l.floorY+90;y<640;y+=90)r(0,y,360,3,'#a0785a');r(0,l.floorY,360,6,shadow);
   const rail=(x,y,w)=>{r(x+3,y+3,w,9,shadow);r(x,y,w,9,shadow);r(x+3,y+3,w-6,3,'#a0785a');};
   const post=(x,y,w,h)=>{r(x,y,w,h,shadow);r(x+3,y+3,w-6,h-6,'#a0785a');};
-  if(v.room==='warehouse'||v.room==='sales'){
+  if(v.room==='warehouse'||v.room==='sales'&&!v.marketMode){
    // WarehouseShelves:draw uses palette10/11/12/16 from upper plane to underside.
    // Keep the existing four-native-row footprint and the separate bench rail intact.
    const shelfRail=(x,y,w)=>{r(x+3,y+3,w,9,shadow);r(x,y,w,3,'#3c281e');r(x,y+3,w,3,'#644632');r(x,y+6,w,3,'#a0785a');r(x,y+9,w,3,shadow);};
    const s=l.shelf;post(s.x,s.y,9,s.h);post(s.x+s.w-6,s.y,9,s.h);for(const y of s.rails)shelfRail(s.x,y,s.w);
    const items=v.room==='warehouse'?v.casks:v.products,slots=v.room==='warehouse'?l.caskSlots:l.productSlots;
    items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand,item.priceTier):bottleArt(item.wood,item.priceTier)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.contentBottom;if(item.selected){c.save();c.globalAlpha=this.reducedMotion.matches||Math.floor(performance.now()/900)%2===0?1:.35;c.fillStyle=ink;for(let row=0;row<4;row++)c.fillRect(Math.round((pos.x+pos.w/2)/3)-3+row,y-7+row,7-row*2,1);c.restore();}const arrival=this.arrival,identity=v.room==='warehouse'?item.id:item.releaseId,belongs=arrival.room===v.room&&arrival.ids.includes(identity);if(!(belongs&&arrival.blinkId===identity&&arrival.hidden))c.drawImage(image,x,y);if(belongs&&arrival.staticIds.includes(identity)){c.fillStyle=ink;c.fillRect(x-1,y,1,2);c.fillRect(x,y-1,2,1);c.fillRect(x+image.width-2,y-1,2,1);c.fillRect(x+image.width,y,1,2);}if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
-  }else{
+  }else if(v.room==='distill'){
    const e=l.equipment;post(72,e.benchY+6,9,l.floorY-e.benchY-6);post(282,e.benchY+6,9,l.floorY-e.benchY-6);rail(72,e.benchY,216);const image=sprite(stillArt(),v.collection,v.phase==='distilling',this.stillFrame);c.drawImage(image,e.x/3,e.y/3);
   }
 
@@ -129,7 +129,7 @@ export class CanvasScene{
   this.text(view.calendar,15,32,headerSize);this.text(view.generation,generationX,32,headerSize);this.text(view.cash,345,32,headerSize,'right','#e6c77a');this.root.dataset.headerLayout=JSON.stringify({cashWidth,cashY:32,calendarRight,generationRight,cashLeft:345-cashWidth,size:headerSize,blocks:[{x:6,y:6,w:348,h:39}]});
   // Target two CSS pixels, aligned to physical dots and flush with the calendar frame.
   this.drawTimeBar();
-  const items=view.room==='warehouse'?view.casks:view.room==='sales'?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
+  const items=view.room==='warehouse'?view.casks:view.room==='sales'&&!view.marketMode?view.products:[],slots=view.room==='warehouse'?l.caskSlots:l.productSlots;
   const salesText=[],reservationLayout=[],cooledLayout=[];
   items.forEach((item,i)=>{const p=slots[i];if(!p)return;const mid=p.x+p.w/2,sales=view.room==='sales';
    if(sales){const stock=item.stock??Number(item.state.split('本')[0]),status=item.saleState??item.state.split(' · ')[1]??'',countX=mid-24+4/v.scale,countY=p.base-39,dateY=p.base+30,date=item.releaseDate??item.name.split('\n').at(-1).split(' · ')[0],dateText=this.measure(date)>132?date.replace('年','年\n'):date,dateLines=this.lines(dateText,mid,dateY,132,BODY_SIZE,2,'center'),statusY=dateY+dateLines*(this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(BODY_SIZE+4,this.textMetrics().logical+4));
@@ -140,7 +140,7 @@ export class CanvasScene{
     if(item.reservationIcon){const x=mid+30,y=p.base-33,color=({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[item.reservationIcon]??ink;drawSymbol(c,item.reservationIcon,x,y,3,color);reservationLayout.push({id:item.id,kind:item.reservationIcon,x,y,w:21,h:21,color,cask:{x:mid-24,y:p.base-45,w:48,h:45}});}
    }
   });this.root.dataset.cooledLayout=JSON.stringify(cooledLayout);this.root.dataset.salesText=JSON.stringify(salesText);this.root.dataset.reservationLayout=JSON.stringify(reservationLayout);
-  if(view.room==='sales'&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
+  if(view.room==='sales'&&!view.marketMode&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0,readout=view.room==='distill'?view.spirit:null;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:readout?(readout.compact?216:141)+spiritOffset:null,spiritBottom:readout?(readout.compact?252:readout.phrase&&readout.axes.length?255:243)+spiritOffset:null,equipmentTop:l.equipment.y});
   if(view.room==='distill'&&view.spirit){const p=view.spirit;if(p.compact){this.window(72,216+spiritOffset,216,36,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,180,240+spiritOffset,16,'center');}else{this.window(24,141+spiritOffset,312,p.phrase&&p.axes.length?114:102,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,164+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=192+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(p.phrase)this.lines(p.phrase,36,(p.axes.length?244:195)+spiritOffset,288,16,1);}}

@@ -15,16 +15,16 @@ export function layoutScene(view={}){
  const management=['open-ledger',...(view.staffAvailable?['open-staff-panel']:[]),...(view.room==='sales'?['shop-offer']:[]),'open-aux-menu'];
  let nextX=18;
  for(const key of management){const w=66;add(key,'#'+key,nextX,520,w,54);nextX+=w;}
- if(view.feedback)add('room-feedback','#room-feedback',18,447,324,69);
+ if(view.feedback&&!(view.room==='sales'&&view.marketMode))add('room-feedback','#room-feedback',18,447,324,69);
  const caskSlots=Array.from({length:4},(_,i)=>({x:60+(i%2)*132,y:180+Math.floor(i/2)*144,w:108,h:120,base:234+Math.floor(i/2)*144}));
  const productSlots=caskSlots.map((s,i)=>({...s,y:144+Math.floor(i/2)*144,h:144,base:234+Math.floor(i/2)*144}));
  if(view.room==='warehouse'){
   (view.casks??[]).forEach((c,i)=>{const r=caskSlots[i];if(r)add('cask-'+c.id,'#cask-rack [data-cask-id="'+c.id+'"]',r.x,r.y,r.w,r.h);});
   if(!view.casks?.length)add('go-distill','#go-distill',126,408,108);
- }else if(view.room==='sales'){
+ }else if(view.room==='sales'&&!view.marketMode){
   (view.products??[]).forEach((p,i)=>{const r=productSlots[i];if(r)add('product-'+p.id,'#product-shelf [data-product-id="'+p.id+'"]',r.x,r.y,r.w,r.h);});
   add('shelf-prev','#shelf-pages [data-page-step="-1"]',12,111,96);add('shelf-next','#shelf-pages [data-page-step="1"]',252,111,96);
- }else{
+ }else if(view.room==='distill'||!view.room){
   for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,id==='stop-distill'?90:126,414,id==='stop-distill'?180:108);
  }
  return{width:360,height:640,floorY:468,shelf:{x:48,y:165,w:264,h:267,rails:[234,378]},equipment:{x:90,y:270,w:180,h:108,benchY:378},caskSlots,productSlots,controls};

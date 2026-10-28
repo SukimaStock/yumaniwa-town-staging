@@ -19,3 +19,13 @@ test('notice windows center variable measured widths and wrap within scene',()=>
  for(const n of [short,long]){assert.equal(n.x+n.w/2,180);assert(n.x>=12&&n.x+n.w<=348);assert(n.lines.every(t=>measure(t)<=318));assert.equal(n.h,n.padding*2+n.lines.length*n.step);assert(n.y+n.h<=514);}
  assert(short.w<long.w);assert(long.lines.length>1);
 });
+
+test('native market owns sales content without invisible old product/page/feedback hits',()=>{
+ const legacy=layoutScene({room:'sales',products:[{id:8}],feedback:true});
+ assert(legacy.controls.some(c=>c.key==='product-8'));
+ const market=layoutScene({room:'sales',marketMode:true,products:[{id:8}],feedback:true});
+ assert(!market.controls.some(c=>/^(product-|shelf-)|room-feedback|start-distill|stop-distill|open-fill/.test(c.key)));
+ for(const key of ['toggle-time','room-distill','room-warehouse','room-sales','shop-offer','open-ledger','open-aux-menu'])assert(market.controls.some(c=>c.key===key),key);
+ const board={x:12,y:99,w:336,h:417};
+ for(const c of market.controls)assert(c.x+c.w<=board.x||c.x>=board.x+board.w||c.y+c.h<=board.y||c.y>=board.y+board.h,`native control ${c.key} overlaps market board`);
+});
