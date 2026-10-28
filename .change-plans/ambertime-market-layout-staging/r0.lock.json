@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0623dd6b2c21a057f4b6666cc103f5e128610209503df863c8dbb86a989e6d50",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-layout-staging",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Apply approved market layout: framed here-to-place targets, named venue information, preferences in details only and content-sized panel revealing existing room.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8022ca61ef6d9e0828dc40d1cbff597b9fcd80bf",
+    "canonicalSources": [
+      "Current user approved illustrative layout/mockup and concrete no-arrow/details/panel proposal",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR670 existing UI and native scene/detail flows"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-layout-staging/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/market-rules-ui.test.mjs",
+      "works/ambertime/tests/market-rules-browser.test.mjs",
+      "works/ambertime/tests/market-compact-browser.test.mjs",
+      "works/ambertime/design/market-layout-staging/**",
+      "works/ambertime/AGENTS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "expectedChanges": [
+      "Left neutral framed store target has name and ここに置く with no arrow; keep existing icon as motion destination. Remove preference text from normal board.",
+      "Right shows actual bottle/remaining/date and separate per-product sale notice. Name all venue information actions 店情報; existing ordinary store detail retains cumulative facts and gains rules-accurate taste preference. Retail venue info retains existing selected product price/history route through explicit action.",
+      "Panel natural height follows actual visible1/2/3 shoprows with417logical maxheight. Lower unused area reveals existing native room. Preserve notice scrolling and return panel/hit geometry without generated assets.",
+      "Retain direct selection, heading-only hand,1/5/all, selected-only gold/neutralstorebuttons, actualcontracts-only venues, no#N/dept, saved-only silentplacement status and native transactions.",
+      "UI/cache/test/localAGENTS/report only. Targeted regression and both actual browser suites4sizes+DPR1/3 plus concrete detail/price route. Root independentreview, requiredCI, exactheadmerge/Pages/public bytes/screenshot."
+    ],
+    "ownerDecisions": [
+      "Current user explicitly approved latest illustrative mockup implementation in existing style, no arrow/preference clutter, concrete store information and panel ending after actual rows."
+    ],
+    "hqDecisions": [
+      "Derived UI layout/details only; native inventory, sales, save and scene contracts unchanged. Retail information preserves existing price/history action rather than mislabeling product controls."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Native1/2/3 visibleoutlets panelheight and roomreveal, 4phone sizesDPR1/3 normalfont including salecaptions/return/notices, directall/failedsaved status.",
+      "Store information taste/cumulativefacts and retailselectedbottle price route, hiddenuncontracted outlets/no#N/dept. Publicbyteexact and browser screenshot."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert UI/layout/details/cache changes only; keep native rules readers and prior accepted inventory/filter/save invariants.",
+    "outOfScope": [
+      "Production",
+      "Model/economic parameters",
+      "Save schema/key/boundaries",
+      "ExistingLab/audit",
+      "Generatedart/sceneassets/Canvaslayout",
+      "Unlockconditions"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver, author subjective feel"
+    ],
+    "alternativesRejected": [
+      "Generatedart or scene redesign",
+      "Fixed blank panel below actual rows",
+      "Remove useful product price/history path",
+      "Move preference into another permanent normalboard label"
+    ],
+    "boundaryCases": [
+      "No/one/two storecontracts =>1/2/3 visibleoutlets and increasing naturalheight; offer-only hidden",
+      "Sale partial/complete separate notice, no arrow/preference normalboard, per-product true remaining",
+      "Emptyretail info vs selectedproduct price route; unknown hiddenvenue detail rejected",
+      "Notice wrapping/scroll maxheight, short1row returnpanel, originalscenecontrols/hitregions"
+    ],
+    "testPlan": [
+      "Targeted31+new UI/formal/cache tests; actual Chromium2 suites4phone sizesDPR1/3,1/2/3 venues/sale notice/return/panelroom/detailprice flow",
+      "Scope→Risk→Impact/syntax/diff, Root independentreview, requiredCI/exactheadmerge/Pages/publicbyte/browserproof"
+    ],
+    "problem": "Normal board repeats preferences, unnamed ellipsis hides useful details and fixed panel leaves unused blank space.",
+    "currentContract": "Actual shop.relations controls rows; actual remaining and saved-only motion stay source of truth; shop/product detail already owns useful price/history flows.",
+    "whyExistingIsInsufficient": "Fixed417 panel continues below fewer rows, left arrow/preferences add clutter, unnamed ellipsis mismatches concrete information intent.",
+    "design": "Content-sized board capped at native room bounds, named venue information preserving price/history, minimal left placement wording and existing assets.",
+    "migration": "None; UI/details/layout only.",
+    "compatibility": "Native saves/model/rules/replay remain unchanged.",
+    "promotionRisk": "Staging-only visual adoption; no Production modifications."
+  }
+}
