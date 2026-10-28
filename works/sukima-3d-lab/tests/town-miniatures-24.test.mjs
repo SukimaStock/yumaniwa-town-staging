@@ -8,13 +8,13 @@ const root=new URL('../',import.meta.url),read=p=>JSON.parse(readFileSync(new UR
 const manifest=read('collection.json'),baseline=read('tests/collection23-baseline.json');
 const expected=["carpenter-try-square", "cobbler-stitching-awl", "flat-head-screwdriver", "flat-paintbrush", "mason-pointing-trowel", "plasterers-hawk", "plastering-float", "rubber-squeegee", "short-hand-saw", "wooden-marking-gauge"];
 const definitions=manifest.items.slice(259,269).map(i=>read(i.file));
-test('immutable259: every complete original entry and JSON byte hash remains; missing16/order and current300 stop cap',()=>{
+test('immutable259: every complete original entry and JSON byte hash remains; missing16/order and strict1000 cap',()=>{
  assert.equal(baseline.specimens.length,259);
  for(const [i,b] of baseline.specimens.entries()){
   assert.deepEqual(manifest.items[i],b.entry);
   assert.equal(createHash('sha256').update(readFileSync(new URL(b.entry.file,root))).digest('hex'),b.source);
  }
- assert.equal(manifest.items.length,300);assert.ok(manifest.items.length<=300);
+ assert.equal(manifest.items.length,310);assert.ok(manifest.items.length<=1000);
  const nums=manifest.items.map((i,n)=>i.number??n);
  assert.equal(new Set(nums).size,manifest.items.length);assert.equal(new Set(manifest.items.map(i=>i.id)).size,manifest.items.length);
  assert.ok(!nums.includes(16));assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:manifest.items.length-16},(_,i)=>i+17)]);
