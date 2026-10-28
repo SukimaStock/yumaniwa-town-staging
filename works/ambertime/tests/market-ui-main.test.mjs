@@ -4,9 +4,9 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {writeCandidate} from '../placement-save.mjs';
 import {createMarketUI,savedMarketSales,visibleMarketRows} from '../market-ui.mjs';
-const fixture=()=>({core:{month:4,products:[{id:7,stock:5,flavor:{primary:'fruit',label:'果実香が強い'}},{id:9,stock:4,flavor:{primary:'smoke',label:'煙の香り'}}]},releases:[{id:3,productId:7,brandId:1},{id:4,productId:9,brandId:1}],brands:[{id:1,name:'AmberTime'}],productsById:{},shop:{relations:[{shopId:'town-liquor',brandId:1}]},retail:{7:1,9:0},assigned:{7:2,9:1}});
+const fixture=()=>({core:{month:4,products:[{id:7,stock:5,flavor:{primary:'fruit',label:'果実香が強い'}},{id:9,stock:4,flavor:{primary:'smoke',label:'煙の香り'}}]},releases:[{id:3,productId:7,brandId:1,bottledMonth:2},{id:4,productId:9,brandId:1,bottledMonth:3}],brands:[{id:1,name:'AmberTime'}],productsById:{},shop:{relations:[{shopId:'town-liquor',brandId:1}]},retail:{7:1,9:0},assigned:{7:2,9:1}});
 const model={
- storeMarketInventory:(s,id)=>({hand:s.core.products.find(p=>p.id===id).stock-(s.retail[id]??0)-(s.assigned[id]??0),retail:s.retail[id]??0,shops:{'town-liquor':s.assigned[id]??0,supermarket:0}}),
+ storeMarketInventory:(s,id)=>({hand:s.core.products.find(p=>p.id===id).stock-(s.retail[id]??0)-(s.assigned[id]??0)-(s.held?.[id]??0),retail:s.retail[id]??0,shops:{'town-liquor':s.assigned[id]??0,supermarket:0}}),
  storeMarketRows:(s,shop)=>shop==='town-liquor'?Object.entries(s.assigned).filter(([,n])=>n>0).map(([id,count])=>({productId:Number(id),count})):[],
  storeMarketQuote:()=>({ok:true}),
  assignStoreProduct:(s,{productId,count})=>({...s,assigned:{...s.assigned,[productId]:(s.assigned[productId]??0)+count}}),
@@ -75,17 +75,31 @@ test('persistent funds and generation notices render above operable shelves and 
 });
 
 
-test('compact native select keeps real brand/release identity, three quantities and separate details',()=>{
+test('hand bottles use real release dates without brand select, serials, locked badges or special footer',()=>{
  const h=harness();h.ui.update({visible:true});
- assert.match(h.root.innerHTML,/id="market-release-select"/);assert.match(h.root.innerHTML,/AmberTime 第1回 果実/);
+ assert.match(h.root.innerHTML,/data-market-release="7"/);assert.match(h.root.innerHTML,/class="market-date">2026\/3/);
  assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);
- assert.doesNotMatch(h.root.innerHTML,/data-market-portion="(?:2|half)"/);
- assert.match(h.root.innerHTML,/data-market-details="product"/);assert.match(h.root.innerHTML,/data-market-details="department"/);
- h.listeners.get('change')({target:{id:'market-release-select',value:'9'}});assert.equal(h.ui.diagnostics().selected,9);
- h.listeners.get('change')({target:{id:'market-release-select',value:'999'}});assert.equal(h.ui.diagnostics().selected,9);
+ assert.doesNotMatch(h.root.innerHTML,/<select|#\d|第\d+回|取扱前|デパート|瓶詰めした一本が並びます/);
+ assert.match(h.root.innerHTML,/data-market-details="retail"/);
+ h.click({marketRelease:'9'});assert.equal(h.ui.diagnostics().selected,9);
+ h.click({marketRelease:'999'});assert.equal(h.ui.diagnostics().selected,9);
  h.click({marketStock:'town-liquor:7'});assert.match(h.root.innerHTML,/class="market-content" inert/);
- h.listeners.get('change')({target:{id:'market-release-select',value:'7'}});assert.equal(h.ui.diagnostics().selected,9);
+ h.click({marketRelease:'7'});assert.equal(h.ui.diagnostics().selected,9);
  h.click({marketCancel:'return'});assert.doesNotMatch(h.root.innerHTML,/class="market-content" inert/);
+});
+
+test('placing all targets the original bottle even when the hand selection moves, and return restores it independently',()=>{
+ const h=harness();h.ui.update({visible:true});h.click({marketPortion:'all'});h.click({marketPlace:'town-liquor'});
+ assert.equal(h.read().assigned[7],4);assert.equal(h.read().assigned[9],1);assert.equal(h.ui.diagnostics().selected,9);
+ assert.doesNotMatch(h.root.innerHTML,/data-market-release="7"/);assert.match(h.root.innerHTML,/data-market-stock="town-liquor:7"/);
+ h.click({marketStock:'town-liquor:7'});h.click({marketConfirm:'return'});assert.match(h.root.innerHTML,/data-market-release="7"/);assert.equal(h.read().assigned[9],1);
+});
+
+test('releasing a department hold repaints direct hand bottles even when owned stock and ordinary shelves do not change',()=>{
+ const h=harness();h.read().held={7:2,9:3};h.ui.update({visible:true});
+ assert.doesNotMatch(h.root.innerHTML,/data-market-release=/);assert.match(h.root.innerHTML,/<span>0本<\/span>/);
+ h.read().held[7]=0;h.ui.update({visible:true});assert.match(h.root.innerHTML,/data-market-release="7"/);assert.match(h.root.innerHTML,/手元2本/);
+ assert.equal(h.read().core.products[0].stock,5);assert.equal(h.read().assigned[7],2);
 });
 
 test('saved revenue remains native precision and per-release decrements do not replace recorded remaining inventory',async t=>{
