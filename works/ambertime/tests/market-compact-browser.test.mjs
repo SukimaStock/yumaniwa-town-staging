@@ -2,6 +2,7 @@
 // AMBER_BROWSER_MODULE=/absolute/path/playwright-core/index.mjs
 // AMBER_BROWSER_EXECUTABLE=/absolute/path/chromium node --test <this file>
 import test from 'node:test';
+import * as D from '../partner-orders.mjs';
 import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
@@ -38,7 +39,7 @@ test('native compact market browser: short phones, saved real inventory, many re
  }catch{res.writeHead(404);res.end();}});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const {chromium}=await import(process.env.AMBER_BROWSER_MODULE);let browser;
- const errors=[],checks=[];
+ const errors=[],checks=[];let expectedShops=2;
  try{
   const launch=()=>chromium.launch({executablePath:process.env.AMBER_BROWSER_EXECUTABLE,headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--no-zygote','--single-process','--disable-gpu','--disable-software-rasterizer']});
   const base=`http://127.0.0.1:${server.address().port}`;
@@ -50,7 +51,7 @@ test('native compact market browser: short phones, saved real inventory, many re
     const board=document.querySelector('#market-board'),rect=e=>e?e.getBoundingClientRect().toJSON():null;return {width:innerWidth,height:innerHeight,pageWidth:document.documentElement.scrollWidth,pageHeight:document.documentElement.scrollHeight,board:rect(board),boardClient:board.clientHeight,boardScroll:board.scrollHeight,shops:[...document.querySelectorAll('.market-shop')].map(rect),targets:[...document.querySelectorAll('[data-market-place]')].map(rect),selected:rect(document.querySelector('.market-selected-bottle')),footer:[...document.querySelectorAll('.market-special button')].map(rect),stocks:[...document.querySelectorAll('.market-stock')].map(e=>({bottle:rect(e.querySelector('.market-bottle')),button:rect(e),shelf:rect(e.closest('.market-stock-list'))}))};
    });
    assert(g.pageWidth<=width,JSON.stringify(g));assert(g.pageHeight<=height,JSON.stringify(g));assert(g.boardScroll<=g.boardClient+1,JSON.stringify(g));
-   assert(g.board.top>=0&&g.board.bottom<=height+1,JSON.stringify(g));assert.equal(g.shops.length,3);assert(g.shops[0].top<g.shops[1].top&&g.shops[1].top<g.shops[2].top,JSON.stringify(g));
+   assert(g.board.top>=0&&g.board.bottom<=height+1,JSON.stringify(g));assert.equal(g.shops.length,expectedShops);assert(g.shops.every((r,i)=>i===0||g.shops[i-1].top<r.top),JSON.stringify(g));
    assert(g.targets.every(r=>r.width>0&&r.height>0&&r.top>=g.board.top&&r.bottom<=g.board.bottom+1),JSON.stringify(g));
    assert(g.stocks.every(x=>x.button.top>=x.shelf.top-1&&x.button.bottom<=x.shelf.bottom+1&&x.bottle.top>=x.shelf.top-1&&x.bottle.bottom<=x.shelf.bottom+1),JSON.stringify(g));
    if(g.selected)assert(g.selected.top>=g.board.top&&g.selected.bottom<=g.board.bottom+1,JSON.stringify(g));assert(g.footer.every(r=>r.bottom<=g.board.bottom+1),JSON.stringify(g));return g;
@@ -90,13 +91,15 @@ test('native compact market browser: short phones, saved real inventory, many re
     // sold by the ordinary native clock, not by a UI-only fake receipt.
     await page.locator('[data-market-portion="all"]').click();await page.locator('[data-market-place="town-liquor"]').click();const reserved=await state();assert.equal(reserved.storeMarket.byShop['town-liquor'][id],5);assert.equal(reserved.core.cash,before.core.cash);
     await page.locator('#toggle-time').click();await page.waitForFunction(month=>window.amberPlacement.snapshot().core.month===month+1,reserved.core.month,{timeout:12000});await dismissIntro(page);await page.locator('#toggle-time').click();
-    const soldState=await state(),sales=soldState.core.lastMonth.sales.filter(x=>x.id===id),shopSales=sales.filter(x=>x.channel==='stockist'&&x.shopId==='town-liquor');assert(shopSales.some(x=>x.sold>0));
+    const soldState=await state(),sales=soldState.core.lastMonth.sales.filter(x=>x.id===id),shopSales=sales.filter(x=>x.channel==='stockist'&&x.shopId==='town-liquor');assert.deepEqual(sales,D.tickDistillery(reserved).core.lastMonth.sales.filter(x=>x.id===id));
     const shopSold=shopSales.reduce((n,x)=>n+x.sold,0);assert.equal(reserved.storeMarket.byShop['town-liquor'][id]-(soldState.storeMarket.byShop['town-liquor'][id]??0),shopSold);assert.equal(reserved.core.products.find(p=>p.id===id).stock-soldState.core.products.find(p=>p.id===id).stock,sales.reduce((n,x)=>n+x.sold,0));
-    const net=soldState.core.totals.revenue-reserved.core.totals.revenue-(soldState.core.totals.costs-reserved.core.totals.costs)-(soldState.core.totals.upkeep-reserved.core.totals.upkeep);assert.equal(Math.round((soldState.core.cash-reserved.core.cash)*100),Math.round(net*100));assert(soldState.shop.deliveries.length>reserved.shop.deliveries.length);await geometry(page,390,680);actualMonthlySale={month:soldState.core.month,shopSold,retailSold:sales.filter(x=>x.channel!=='stockist').reduce((n,x)=>n+x.sold,0)};
+    const net=soldState.core.totals.revenue-reserved.core.totals.revenue-(soldState.core.totals.costs-reserved.core.totals.costs)-(soldState.core.totals.upkeep-reserved.core.totals.upkeep);assert.equal(Math.round((soldState.core.cash-reserved.core.cash)*100),Math.round(net*100));assert.deepEqual(soldState.shop.deliveries,D.tickDistillery(reserved).shop.deliveries);await geometry(page,390,680);actualMonthlySale={month:soldState.core.month,shopSold,retailSold:sales.filter(x=>x.channel!=='stockist').reduce((n,x)=>n+x.sold,0)};
    }
    checks.push({native:true,dpr,viewports,originalStock,assignment:5,returnCount:6,actualMonthlySale});
    if(process.env.AMBER_SCREENSHOT&&dpr===3)await page.screenshot({path:process.env.AMBER_SCREENSHOT});await browser.close();browser=null;
   }
+  browser=await launch();{const freshContext=await browser.newContext({viewport:{width:360,height:568},deviceScaleFactor:3,hasTouch:true});const fresh=await freshContext.newPage();await fresh.goto(base+'/works/ambertime/?preview=1');await fresh.waitForFunction(()=>window.amberPlacement?.snapshot()?.marketRules);await dismissIntro(fresh);await fresh.locator('#room-nav [data-room="sales"]').click();assert.equal(await fresh.locator('.market-shop').count(),1);assert.equal(await fresh.locator('[data-market-shop="town-liquor"],[data-market-shop="supermarket"]').count(),0);await fresh.close();}await browser.close();browser=null;
+  expectedShops=3;
   // A display-only harness stresses all release choices, off-screen receipts and
   // swipe cancellation using the real controller, assets, CSS and native font metrics.
   browser=await launch();const context=await browser.newContext({viewport:{width:390,height:680},deviceScaleFactor:3,hasTouch:true});const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));page.setDefaultTimeout(12000);await page.goto(base+'/__market_harness__/');await page.waitForFunction(()=>document.documentElement.dataset.harnessReady==='true');
@@ -105,8 +108,8 @@ test('native compact market browser: short phones, saved real inventory, many re
   const sourceArt=await page.locator('[data-market-release="12"] .market-bottle').innerHTML();await page.locator('[data-market-portion="all"]').click();await page.locator('[data-market-place="town-liquor"]').click();assert.equal(await page.locator('[data-market-release="12"]').count(),0);assert.equal(await page.locator('[data-market-release][aria-pressed="true"]').getAttribute('data-market-release'),'1');assert.equal((await page.evaluate(()=>window.marketHarness.state())).assigned[12],20);await page.waitForFunction(()=>window.marketHarness.flights.length>0);assert.equal(await page.evaluate(()=>window.marketHarness.flights.at(-1)),sourceArt);await geometry(page,360,568);
   await page.locator('[data-market-stock="town-liquor:12"]').evaluate(e=>{e.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerId:1,clientX:100,clientY:200,isPrimary:true}));e.dispatchEvent(new PointerEvent('pointermove',{bubbles:true,pointerId:1,clientX:60,clientY:200,isPrimary:true}));e.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:1,clientX:60,clientY:200,isPrimary:true}));e.dispatchEvent(new MouseEvent('click',{bubbles:true,detail:1}));});assert.equal(await page.locator('.market-return').count(),0);
   await page.locator('[data-market-stock="town-liquor:12"]').focus();await page.keyboard.press('Enter');assert(await page.locator('.market-return').isVisible());await page.keyboard.press('Escape');assert.equal(await page.locator('.market-return').count(),0);
-  await page.emulateMedia({reducedMotion:'reduce'});await page.evaluate(()=>window.marketHarness.sale());await page.waitForFunction(()=>document.querySelectorAll('.market-sold').length===2);
-  assert(await page.locator('.market-sold').evaluateAll(es=>es.every(e=>{const r=e.getBoundingClientRect(),s=e.closest('.market-stock-list').getBoundingClientRect();return r.top>=s.top-1&&r.bottom<=s.bottom+1;})));
+  await page.emulateMedia({reducedMotion:'reduce'});await page.evaluate(()=>window.marketHarness.sale());await page.waitForFunction(()=>document.querySelectorAll('.market-sale-notice').length===2);
+  assert(await page.locator('.market-stock .market-count').evaluateAll(es=>es.every(e=>{const r=e.getBoundingClientRect(),s=e.closest('.market-stock-list').getBoundingClientRect();return r.top>=s.top-1&&r.bottom<=s.bottom+1;})));
   await geometry(page,360,568);assert.equal(await page.locator('.market-flight').count(),0);assert.equal((await page.evaluate(()=>window.marketHarness.state())).core.cash,1024);
   checks.push({displayHarness:true,releaseCount:12,saleReceipts:2,reducedMotion:true});await browser.close();browser=null;assert.deepEqual(errors,[]);console.log(JSON.stringify({passed:true,checks,physicalSafari:false}));
  }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}

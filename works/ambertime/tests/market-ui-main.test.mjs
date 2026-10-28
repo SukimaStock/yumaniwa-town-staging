@@ -27,13 +27,13 @@ test('sale feedback accepts only a newly persisted month and ordinary channels, 
 });
 function harness({saved=true}={}){
  globalThis.matchMedia=()=>({matches:true,addEventListener(){}});globalThis.window={addEventListener(){}};
- let current=fixture(),editing=false;const notices=[],listeners=new Map();
+ let current=fixture(),editing=false;const notices=[],opened=[],listeners=new Map();
  const root={hidden:true,style:{setProperty(){}},scrollTop:0,innerHTML:'',contains:()=>true,querySelector:()=>null,querySelectorAll:()=>[],addEventListener:(type,fn,capture=false)=>listeners.set(type+(capture?':capture':''),fn)};
  const scene={dataset:{viewport:JSON.stringify({scale:1,offsetX:0,offsetY:0})}};
  const doc={hidden:false,activeElement:null,body:{append:node=>assert.equal(node,root)},getElementById:id=>id==='market-board'?root:id==='scene-root'?scene:null,addEventListener(){}};
- const ui=createMarketUI({document:doc,model,state:()=>current,art:()=>'<svg></svg>',act:fn=>{const next=fn(current);if(saved)current=next;return saved;},openProduct(){},openStockist(){},announce:t=>notices.push(t),setEditing:v=>editing=v});
+ const ui=createMarketUI({document:doc,model,state:()=>current,art:()=>'<svg></svg>',act:fn=>{const next=fn(current);if(saved)current=next;return saved;},openProduct(){},openStockist:id=>opened.push(id),announce:t=>notices.push(t),setEditing:v=>editing=v});
  function click(dataset){listeners.get('click')({target:{closest:()=>({dataset,disabled:false})}});}
- return {ui,root,scene,click,read:()=>current,editing:()=>editing,notices,listeners};
+ return {ui,root,scene,click,read:()=>current,editing:()=>editing,notices,opened,listeners};
 }
 test('a failed transaction does not create a placement success; a valid return uses its own action channel',()=>{
  const failed=harness({saved:false});failed.ui.update({visible:true});failed.click({marketPlace:'town-liquor'});assert.equal(failed.read().assigned[7],2);assert.deepEqual(failed.notices,[]);assert.equal(failed.ui.diagnostics().motions,0);
@@ -105,9 +105,9 @@ test('releasing a department hold repaints direct hand bottles even when owned s
 test('saved revenue remains native precision and per-release decrements do not replace recorded remaining inventory',async t=>{
  t.mock.timers.enable({apis:['setTimeout']});const h=harness();h.ui.update({visible:true});
  const before=fixture(),after=structuredClone(before);after.core.month=5;after.core.lastMonth={month:5,sales:[{id:7,sold:1,revenue:12.8,channel:'stockist',shopId:'town-liquor'}]};
- h.ui.consume(before,after);assert.match(h.root.innerHTML,/class="market-income"[^>]*>\+£12.8/);assert.match(h.root.innerHTML,/class="market-sold">−1本/);assert.match(h.root.innerHTML,/残り2本 1本売れた/);
+ h.ui.consume(before,after);assert.match(h.root.innerHTML,/class="market-sale-notice"[^>]*title="1本売れた \+£12.8">1本売れた/);assert.match(h.root.innerHTML,/class="market-count">2本/);assert.doesNotMatch(h.root.innerHTML,/−1本/);assert.match(h.root.innerHTML,/残り2本 1本売れた/);
  assert.equal(h.read().assigned[7],2);await Promise.resolve();await Promise.resolve();t.mock.timers.tick(2401);
- assert.doesNotMatch(h.root.innerHTML,/class="market-sold"/);assert.equal(h.read().assigned[7],2);
+ assert.doesNotMatch(h.root.innerHTML,/class="market-sale-notice"/);assert.equal(h.read().assigned[7],2);
 });
 
 
@@ -136,3 +136,15 @@ test('quota, conflict and invalid state never publish market inventory or succes
   assert.equal(h.stored(),options.conflict?'another-tab':'old');
  }
 });
+
+// Accepted product decisions: keep these across future Lab/main adoptions.
+test('unavailable and offer-only shops are absent; actual contracts reveal only their own shelf',()=>{
+ const h=harness();h.read().shop.relations=[];h.read().shop.offer={shopId:'supermarket'};h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/data-market-shop=/g)||[]).length,1);assert.match(h.root.innerHTML,/data-market-shop="retail"/);assert.doesNotMatch(h.root.innerHTML,/data-market-shop="(?:town-liquor|supermarket)"/);
+ h.click({marketPlace:'supermarket'});h.click({marketDetails:'town-liquor'});assert.deepEqual(h.opened,[]);assert.equal(h.read().assigned[7],2);
+ h.read().shop.relations=[{shopId:'town-liquor',brandId:1}];h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/data-market-shop=/g)||[]).length,2);assert.doesNotMatch(h.root.innerHTML,/data-market-shop="supermarket"/);
+ h.read().shop.relations.push({shopId:'supermarket',brandId:2});h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/data-market-shop=/g)||[]).length,3);
+});
+test('four sold is a separate notification while the bottle always shows one actually remaining',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});const h=harness();h.read().core.products[0].stock=10;h.read().assigned[7]=5;h.ui.update({visible:true});const before=structuredClone(h.read());h.read().core.month++;h.read().assigned[7]=1;h.read().core.products[0].stock-=4;h.read().core.lastMonth={month:h.read().core.month,sales:[{id:7,sold:4,revenue:64,channel:'stockist',shopId:'town-liquor'}]};h.ui.consume(before,h.read());assert.match(h.root.innerHTML,/4本売れた \+£64/);assert.match(h.root.innerHTML,/残り1本 4本売れた/);assert.doesNotMatch(h.root.innerHTML,/−4本|-4本|market-sold/);assert.match(h.root.innerHTML,/class="market-count">1本/);await Promise.resolve();await Promise.resolve();t.mock.timers.tick(2401);assert.doesNotMatch(h.root.innerHTML,/4本売れた/);assert.equal(h.read().assigned[7],1);
+});
+test('left placement target has a visible action and still preserves minimal bottle controls',()=>{const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/class="market-place-label"/);assert.match(h.root.innerHTML,/置く →/);assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);assert.doesNotMatch(h.root.innerHTML,/<select|取扱前|デパート|#\d+|第\d+回/);});
