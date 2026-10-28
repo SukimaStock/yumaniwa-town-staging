@@ -22,7 +22,7 @@ import {CanvasScene} from './canvas-scene.mjs?v=store-market-main-r1';
 import * as D from './partner-orders.mjs?v=store-market-main-r1';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
-import {createCaskSerials} from './cask-serials.mjs?v=formal-copy-r1';
+import {createCaskSerials} from './cask-serials.mjs?v=store-market-main-r1';
 import {distillationReadout,spiritProfile} from './spirit-view.mjs?v=distill-ui-r1';
 import {brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
@@ -32,7 +32,7 @@ import {glass,bottleArt,brandArt,stillArt} from './room-object-art.mjs?v=0.62-bo
 import {shortTaste,shortChange} from './tasting-view.mjs?v=stage4-r2';
 import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=stage4-r2';
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=formal-copy-r1';
-import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=formal-copy-r1';
+import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=store-market-main-r1';
 import {uiText,agingEventText} from './ui-text.mjs?v=stage4-r2';
 // Resolve structured cask IDs only; saved prose and player names stay verbatim.
 const caskSerials=createCaskSerials();
@@ -122,7 +122,7 @@ function readHistory(){
   historyLoading=false;historyData=data;historyError=error?'記録を読めませんでした。':'';historyWorker?.terminate();historyWorker=null;
   if(historyVisible()){render();restoreLedger(active?.id);if(action)queueMicrotask(()=>$('action-dialog').querySelector('[data-action="'+CSS.escape(action)+'"][data-id="'+CSS.escape(target??'')+'"]')?.focus({preventScroll:true}));}
  };
- try{const worker=new Worker(new URL('./history-worker.mjs?v=formal-copy-r1',import.meta.url),{type:'module'});historyWorker=worker;worker.onmessage=({data})=>{if(data.requestId===requestId)finish(data.history??null,data.error||!data.history);};worker.onerror=e=>{e.preventDefault();finish(null,true);};worker.postMessage({requestId,state:snapshot});}catch{finish(null,true);}
+ try{const worker=new Worker(new URL('./history-worker.mjs?v=store-market-main-r1',import.meta.url),{type:'module'});historyWorker=worker;worker.onmessage=({data})=>{if(data.requestId===requestId)finish(data.history??null,data.error||!data.history);};worker.onerror=e=>{e.preventDefault();finish(null,true);};worker.postMessage({requestId,state:snapshot});}catch{finish(null,true);}
 }
 function historyWaiting(){readHistory();return historyLoading?'<p role="status" data-history-loading>記録を読んでいます…</p>':historyError?'<p role="alert">'+esc(historyError)+'</p>'+button('もう一度読む','history-retry'):null;}
 function openHistory(){
@@ -380,7 +380,7 @@ function caskData(){
  if(caskSnapshot!==game){
   const snapshot=game,requestId=++caskRequest;caskSnapshot=snapshot;caskProjection=emptyCaskView(true);caskWorker?.terminate();caskWorker=null;
   try{
-   const worker=new Worker(new URL('./cask-ledger-worker.mjs?v=formal-copy-r1',import.meta.url),{type:'module'});caskWorker=worker;
+   const worker=new Worker(new URL('./cask-ledger-worker.mjs?v=store-market-main-r1',import.meta.url),{type:'module'});caskWorker=worker;
    const current=()=>caskWorker===worker&&caskSnapshot===snapshot&&game===snapshot;
    const finish=()=>{worker.terminate();if(caskWorker===worker)caskWorker=null;};
    const redraw=()=>{if(caskModalVisible()){

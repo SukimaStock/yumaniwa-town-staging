@@ -1,4 +1,4 @@
-import * as D from './partner-orders.mjs?v=formal-copy-r1';
+import * as D from './partner-orders.mjs?v=store-market-main-r1';
 import {buildCaskLedger} from './cask-ledger.mjs?v=stage4-r3';
 
 // Validation and full historical replay stay off the rendering thread.
