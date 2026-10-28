@@ -1123,7 +1123,7 @@ async function boot(){
   try{
    if(query.get('market-fixture')==='established'){
     const response=await fetch('./tests/fixtures/placement-established-six.json');if(!response.ok)throw Error('試遊用の記録を開けません。');
-    const fixture=await response.json(),session=readSession(fixture.raw,{...sessionOptions,enabled:true});game=D.enableStoreMarket(D.enableStage4(session.game));userPaused=true;elapsed=session.elapsed;
+    const fixture=await response.json();game=D.enableStoreMarket(D.enableStage4(D.restoreDistillery(fixture.raw)));userPaused=true;elapsed=0;
    }else game=newNativeGame();
    mapNoticeLoad(false);save();render();schedule();
   }catch(error){canSave=false;game=null;storageNotice(error.message);$('recovery').hidden=false;}
