@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>AmberTime｜味と店 Lab 0.1</title>
+<meta name="description" content="発売回ごとの味と店の好みを比べる独立Lab。契約中の店へ毎月自動で納品され、店ごとの売れ方が変わります。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header>
+  <a href="../../hand-and-place/v07/">← 販売室 Lab</a>
+  <h1>AmberTime <span>味と店 Lab 0.1</span></h1>
+</header>
+<p class="intro">同じブランドの3つの発売回。店との契約は続き、毎月の希望に合わせて自動で届けます。</p>
+<section class="clock" aria-label="時間操作">
+  <div class="date-line"><strong id="date">0年0か月</strong><span id="inventory"></span></div>
+  <div class="buttons"><button type="button" id="month">1か月進める</button><button type="button" id="year">1年進める</button><button type="button" id="reset">最初から</button></div>
+  <p id="notice" role="status" aria-live="polite"></p>
+</section>
+<section aria-labelledby="shops-title">
+  <h2 id="shops-title">取扱店 <small>3店とも契約中</small></h2>
+  <div id="shops" class="shops"></div>
+  <div id="shop-detail" class="shop-detail" aria-live="polite"></div>
+</section>
+<section aria-labelledby="releases-title">
+  <h2 id="releases-title">発売回 <small>味はそれぞれ違う</small></h2>
+  <div id="releases" class="releases" aria-label="発売回を選んで詳しく見る"></div>
+  <div id="release-detail" class="release-detail"></div>
+</section>
+<section aria-labelledby="next-title">
+  <h2 id="next-title">次の一本を造る</h2>
+  <p class="hint">店の反応を見て、次に造る味を選べます。18本を追加するLab用の簡易操作です。</p>
+  <div class="buttons brew-buttons">
+    <button type="button" data-brew="fruit">果実の香り</button>
+    <button type="button" data-brew="smoke">煙の香り</button>
+    <button type="button" data-brew="wood">樽の香り</button>
+  </div>
+</section>
+<details class="records">
+  <summary>記録と比較</summary>
+  <p class="hint">相性は優劣ではなく、その店で売れる速さに影響します。</p>
+  <div class="table-wrap"><table><thead><tr><th>発売回</th><th>町の酒店</th><th>スーパー</th><th>路地のバー</th></tr></thead><tbody id="fit-grid"></tbody></table></div>
+  <h2>最近の記録</h2>
+  <ol id="history"></ol>
+  <div class="buttons"><button type="button" id="export">ログを書き出す</button><label class="import-file">ログを再現<input type="file" id="import" accept=".json,application/json"></label></div>
+  <p class="hint">固定シード42。Lab独自の簡易モデルです。本編の価格・経済・セーブや口コミには接続しません。</p>
+  <a href="REPORT.md">実験条件と検証項目</a>
+</details>
+</main>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>
