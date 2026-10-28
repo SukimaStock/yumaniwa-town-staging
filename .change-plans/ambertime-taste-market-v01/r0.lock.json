@@ -1,0 +1,97 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c54cc413090d18cdf5879a193b65f031ab64c2438fdaba2dbb57ce738b35d879",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-taste-market-v01",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "5ed482df1590aef7220f9f20f996cce9e73159e8",
+    "change": "Create independent AmberTime taste × shops Lab 0.1: three releases, three shops, branded contracts, automatic monthly supply, observable compatibility/sales and next-flavor choice",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "User 2026-10-28 product/taste/store direction",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/experiments/hand-and-place/v01/",
+      "works/ambertime/experiments/shop-expansion/v01/",
+      "AmberTime existing Misaki font"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-taste-market-v01/r0.lock.json",
+      "works/ambertime/experiments/taste-market/v01/index.html",
+      "works/ambertime/experiments/taste-market/v01/style.css",
+      "works/ambertime/experiments/taste-market/v01/model.mjs",
+      "works/ambertime/experiments/taste-market/v01/app.mjs",
+      "works/ambertime/experiments/taste-market/v01/tests/model.test.mjs",
+      "works/ambertime/experiments/taste-market/v01/REPORT.md",
+      "works/ambertime/experiments/hand-and-place/v07/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Standalone Lab with three distinct tastes, three shop-specific preferences and brand-level contracts that persist through lot sell-out",
+      "Monthly automatic store order and allocations from unassigned stock; store shelf sales respond to taste affinity without rank scores or forced shipping minimums",
+      "Visible sale vs delivery, per-release records, current store feedback and next release creation; deterministic trace/export and replay",
+      "Accessible 360/375/390 mobile UI using existing pixel font and clear navigation from an already-listed Lab. No main game state/save/routing changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Local module tests, deterministic replay, conservation and contract tests",
+      "Desktop 360/375/390 visual and interaction if browser is available; iPhone Safari unverified",
+      "Verify Lab entry through existing linked hand-and-place lab; no new work id required"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User requested new Lab to compare three release tastes and three stores; brand contracts continue and automated monthly shipping, not manual reorder"
+    ],
+    "hqDecisions": [
+      "Standalone simulation only: no main-model formula or save semantics, no new work id; use existing LAB work entry as navigable parent link"
+    ],
+    "rulesApplied": [
+      "Separate experiment from main AmberTime",
+      "Keep three store personalities; do not make a right/wrong flavor",
+      "Use current project font and minimal copy; no persistent storage or online services",
+      "No Production promotion"
+    ],
+    "rollback": "Revert Lab subtree and its navigation link; existing AmberTime untouched",
+    "outOfScope": [
+      "Production",
+      "Existing AmberTime game model, save and store contract",
+      "Changing other Lab behavior or lifecycle list",
+      "New soundtrack or assets"
+    ],
+    "promotion": "Staging PR/CI/Pages only; author play acceptance later",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Use as proof of balancing or integration with real AmberTime economics"
+    ]
+  }
+}
