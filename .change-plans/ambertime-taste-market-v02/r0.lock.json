@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "05fef3cce318d779b3b80da361d1b0c0f50ff8c19060a1521efc935300c8edd3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-taste-market-v02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "97155a68498e5e659f144f8da79adcbb378c7947",
+    "change": "Independent taste-market Lab 0.2: assign bottles to a specific shop with placement feedback; monthly taste/demand sells assigned bottles directly with suction animation and revenue; return unsold bottles.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "Current conversation user approved Lab scope",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/experiments/taste-market/v01"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-taste-market-v02/r0.lock.json",
+      "works/ambertime/experiments/taste-market/v02/index.html",
+      "works/ambertime/experiments/taste-market/v02/style.css",
+      "works/ambertime/experiments/taste-market/v02/model.mjs",
+      "works/ambertime/experiments/taste-market/v02/app.mjs",
+      "works/ambertime/experiments/taste-market/v02/tests/model.test.mjs",
+      "works/ambertime/experiments/taste-market/v02/REPORT.md",
+      "works/ambertime/experiments/hand-and-place/v07/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Select release and portion, tap specific shop to assign with preset5 bounce/frame/deltas; unsold allocation can be returned.",
+      "Taste and shop demand determine monthly direct sales: assigned bottles suck into store, sold count and revenue update with no separate shelf/delivery stage.",
+      "Three flavors and three stores, next-flavor creation, deterministic state, inventory conservation tests, mobile/reduced-motion accessibility.",
+      "Link v02 from existing LAB-listed hand-and-place/v07; existing Lab and main runtime/save unchanged."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Model conservation, returns, shop demand and deterministic tests",
+      "360/375/390 mobile browser interactions and reduced motion; physical Safari unverified",
+      "Existing LAB navigation link and lifecycle check"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User 2026-10-28: 特定の店へ割り当て、店と客を近くし、瓶が吸い込まれる瞬間を実売とする簡潔なLabを作成お願いします。"
+    ],
+    "hqDecisions": [
+      "Standalone simulation only: no main-model formula or save semantics, no new work id; use existing LAB work entry as navigable parent link"
+    ],
+    "rulesApplied": [
+      "Independent staging-only Lab; no persistence or external services",
+      "Minimal Japanese operational copy; audit six expression criteria",
+      "No Production or main game changes"
+    ],
+    "rollback": "Revert Lab subtree and its navigation link; existing AmberTime untouched",
+    "outOfScope": [
+      "Production",
+      "Existing Lab behavior",
+      "Main economy/save/store contracts",
+      "New lifecycle work ID"
+    ],
+    "promotion": "Staging PR/CI/Pages only; author play acceptance later",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Use as proof of balancing or integration with real AmberTime economics"
+    ]
+  }
+}
