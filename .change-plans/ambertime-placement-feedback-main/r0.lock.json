@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ead32f76e356aa065a0681b7dfdd002c20e39530342710158a1f5ed0a135e36c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-placement-feedback-main",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "df09de1b2831179cd218aa1c8e7a0240e1c35cdd",
+    "change": "Adopt the player-selected Lab 0.2 preset 5 bottle, frame and count feedback for AmberTime's existing allocation UI",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/tests/placement-0271.test.mjs",
+      "Player-selected placement feedback Lab 0.2 preset 5"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-placement-feedback-main/r0.lock.json",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/placement-0271.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/placement-draft.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Visually bounce the placed bottle (210 ms), briefly outline the destination frame (160 ms), and show short +N/-N numeric deltas (650 ms), matching Lab 0.2 preset 5",
+      "Trigger effects only for a successful changed pre-commit allocation, never delay numeric updates; cancel effects on repeated actions, undo, reset and hiding",
+      "Respect prefers-reduced-motion and preserve focus, accessibility, hitboxes, game state, saves, prices and deliveries",
+      "Refresh only related resource fingerprints and add focused regression tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Focused unit tests on changed placement UI and existing allocation invariants",
+      "Browser checks at widths 360, 375 and 390: bottle/frame/number, repeated taps, undo, disabled place, reduced motion; real Safari left unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "The user tested Lab 0.2 and chose preset 5 with all three effects for the main AmberTime placement UI, Staging only"
+    ],
+    "rulesApplied": [
+      "Keep existing formal placement, native model, atomic save boundary and recorded prose unchanged",
+      "Implement reversible visual-only feedback; no new standing animation or non-integer bitmap scaling",
+      "The normal Change Plan Lock / Scope / Risk / Impact review is required before publication"
+    ],
+    "promotion": "Staging PR, mandatory CI and public verification only; Production excluded",
+    "rollback": "Revert the Staging-only four-file presentation diff; no stored data or migrations",
+    "outOfScope": [
+      "Production",
+      "Saved state and economy",
+      "Changes to shop-app.mjs or actual shipping",
+      "New distribution options or permanent UI panels"
+    ],
+    "unverified": [
+      "Physical iPhone Safari touch/feel verification"
+    ]
+  }
+}
