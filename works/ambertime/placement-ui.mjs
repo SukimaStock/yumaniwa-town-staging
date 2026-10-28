@@ -4,7 +4,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 export function createPlacementUI({document:doc,model:D,state,art,icon,commit,render}){
  let current=null;const motions=new Map(),reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const $=id=>doc.getElementById(id),text=(id,t)=>{const e=$(id);if(e&&e.textContent!==String(t))e.textContent=t;};
- function cancel(){for(const a of motions.values())a.cancel();motions.clear();}
+ function cancel(){for(const a of motions.values())a.cancel();motions.clear();doc.querySelectorAll('.placement-delta').forEach(el=>el.remove());}
  function reset(){cancel();current=null;}
  function context(id){const s=state(),inventory=D.placementInventory(s,id),r=s.releases.find(r=>r.productId===id),p=s.core.products.find(p=>p.id===id),signature=JSON.stringify([id,inventory.available,inventory.retail]);if(!current||current.signature!==signature)current={id,signature,draft:Draft.createDraft(inventory),portion:'1',receipt:''};return {s,p,r,inventory,c:current};}
  function button(label,action,id='',extra=''){return `<button data-action="placement-${action}" data-id="${id}" ${extra}>${label}</button>`;}
@@ -15,8 +15,31 @@ export function createPlacementUI({document:doc,model:D,state,art,icon,commit,re
   for(const b of doc.querySelectorAll('[data-action="placement-portion"]'))b.setAttribute('aria-pressed',String(b.dataset.id===c.portion));doc.querySelector('[data-action="placement-undo"]').disabled=!c.draft.history.length;doc.querySelector('[data-action="placement-redistribute"]').disabled=a.retail===0&&a.shop===0;const notes=[];if(a.retail<inventory.retail)notes.push(`未販売の${inventory.retail-a.retail}本を変更`);if(a.shop)notes.push('納品した分は戻せません');text('placement-note',notes.join('。'));$('placement-note').hidden=!notes.length;
  }
  function visible(e){if(!e?.isConnected||doc.hidden||reduced.matches||!$('action-dialog').open)return false;const r=e.getBoundingClientRect(),b=$('dialog-body').getBoundingClientRect();return r.width>0&&r.height>0&&r.bottom>Math.max(0,b.top)&&r.top<Math.min(innerHeight,b.bottom);}
- function motion(target){const old=motions.get(target);if(old){motions.delete(target);old.cancel();}const e=$('placement-'+target)?.previousElementSibling;if(!visible(e))return;const a=e.animate([{transform:'translateY(-6px)',opacity:.5},{transform:'translateY(0)',opacity:1}],{duration:240,iterations:1});motions.set(target,a);a.onfinish=a.oncancel=()=>{if(motions.get(target)===a)motions.delete(target);};}
- function handle(e){const b=e.target.closest('[data-action^="placement-"]');if(!b||b.disabled||!current)return false;const kind=b.dataset.action.slice(10),id=b.dataset.id,c=current;if(kind==='portion'){c.portion=id;update();return true;}if(kind==='close'){reset();return false;}if(kind==='confirm'){const hadFocus=doc.activeElement===b;c.receipt='';text('placement-receipt','');cancel();const {r}=context(c.id),a=c.draft.allocation,result=commit({productId:c.id,releaseId:r.id,brandId:r.brandId,retail:a.retail,shopCount:a.shop});if(result?.ok){const receipt=result.text;cancel();current=null;context(c.id);current.receipt=receipt;current.changed=!!result.changed;render();if(hadFocus)doc.querySelector('[data-action="placement-confirm"]')?.focus({preventScroll:true});if(result.changed&&!reduced.matches){const e=$('placement-receipt');if(e?.animate){const a=e.animate([{backgroundColor:'#806c39'},{backgroundColor:'#343c2c'}],{duration:240,iterations:1});motions.set('receipt',a);a.onfinish=a.oncancel=()=>{if(motions.get('receipt')===a)motions.delete('receipt');};}}}return true;}let result;if(kind==='place'){const q=D.placementQuote(state(),c.id,{retail:c.draft.allocation.retail});result=Draft.place(c.draft,id,c.portion,q.ok?q.maxCount:0);}else if(['undo','reset','redistribute'].includes(kind))result=Draft[kind](c.draft);else return false;c.receipt='';text('placement-receipt','');update();if(result.changed&&kind==='place')motion(id);return true;}
+ function motion(target,count){
+  const output=$('placement-'+target),button=output?.closest('button'),bottle=output?.previousElementSibling,hand=$('placement-hand');
+  if(!button||!output||!hand||!Number.isInteger(count)||count<=0||!visible(bottle))return;
+  const play=(key,element,frames,duration,done)=>{
+   motions.get(key)?.cancel();
+   const a=element.animate(frames,{duration,iterations:1,easing:'steps(3,end)'});
+   motions.set(key,a);
+   const finish=()=>{if(motions.get(key)===a)motions.delete(key);done?.();};
+   a.onfinish=a.oncancel=finish;
+  };
+  // Lab 0.2 preset 5: bottle bounce, frame response, numeric deltas.
+  play('bottle-'+target,bottle,[{transform:'translateY(-6px)'},{transform:'translateY(0)'},{transform:'translateY(-3px)'},{transform:'translateY(0)'}],210);
+  play('frame-'+target,button,[{outline:'3px solid #c4bfae',outlineOffset:'0px'},{outline:'3px solid #c4bfae',outlineOffset:'2px'},{outline:'3px solid transparent',outlineOffset:'0px'}],160);
+  const delta=(name,element,value)=>{
+   const span=doc.createElement('span');
+   span.className='placement-delta';
+   span.setAttribute('aria-hidden','true');
+   span.textContent=(value>0?'+':'')+value;
+   element.append(span);
+   play('delta-'+name,span,[{opacity:1},{opacity:1,offset:.65},{opacity:0}],650,()=>span.remove());
+  };
+  delta(target,output,count);
+  delta('hand',hand,-count);
+ }
+ function handle(e){const b=e.target.closest('[data-action^="placement-"]');if(!b||b.disabled||!current)return false;const kind=b.dataset.action.slice(10),id=b.dataset.id,c=current;if(kind==='portion'){c.portion=id;update();return true;}if(kind==='close'){reset();return false;}if(kind==='confirm'){const hadFocus=doc.activeElement===b;c.receipt='';text('placement-receipt','');cancel();const {r}=context(c.id),a=c.draft.allocation,result=commit({productId:c.id,releaseId:r.id,brandId:r.brandId,retail:a.retail,shopCount:a.shop});if(result?.ok){const receipt=result.text;cancel();current=null;context(c.id);current.receipt=receipt;current.changed=!!result.changed;render();if(hadFocus)doc.querySelector('[data-action="placement-confirm"]')?.focus({preventScroll:true});if(result.changed&&!reduced.matches){const e=$('placement-receipt');if(e?.animate){const a=e.animate([{backgroundColor:'#806c39'},{backgroundColor:'#343c2c'}],{duration:240,iterations:1});motions.set('receipt',a);a.onfinish=a.oncancel=()=>{if(motions.get('receipt')===a)motions.delete('receipt');};}}}return true;}let result;if(kind==='place'){const q=D.placementQuote(state(),c.id,{retail:c.draft.allocation.retail});result=Draft.place(c.draft,id,c.portion,q.ok?q.maxCount:0);}else if(['undo','reset','redistribute'].includes(kind))result=Draft[kind](c.draft);else return false;if(result.changed)cancel();c.receipt='';text('placement-receipt','');update();if(result.changed&&kind==='place')motion(id,result.count);return true;}
  doc.addEventListener('visibilitychange',()=>{if(doc.hidden)cancel();});reduced.addEventListener('change',cancel);window.addEventListener('resize',cancel);window.addEventListener('pagehide',cancel);doc.addEventListener('scroll',cancel,{capture:true,passive:true});
  return {markup,update,handle,reset,cancel,diagnostics:()=>({motions:motions.size,draft:current?structuredClone(current.draft):null})};
 }
