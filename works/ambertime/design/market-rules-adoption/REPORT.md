@@ -30,7 +30,7 @@
 
 ## 経済計算の照合
 
-`validation.mjs` は本編の新constructorを正規APIで使い、PR667に保存済みの結果と27要約項目・月ごとの13経済項目を照合する。4条件・275か月すべて一致し、各末尾のcold serialize/replayも成功。`financial-results.json`へ保存した。全84条件の再実行ではない。
+`validation.mjs` は本編の新constructorを正規APIで使い、PR667に保存済みの結果と24要約項目・月ごとの13経済項目を照合する。4条件・275か月すべて一致し、各末尾のcold serialize/replayも成功。`financial-results.json`へ保存した。全84条件の再実行ではない。
 
 | seed42・条件 | 到達月 | 最低資金 | 期末資金 | 販売本数 |
 |---|---:|---:|---:|---:|
