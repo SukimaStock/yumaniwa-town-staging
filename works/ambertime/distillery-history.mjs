@@ -1,5 +1,5 @@
-import {createGenerationSummary} from './generation-summary.mjs?v=store-market-main-r1';
-import {replayDistilleryOperations} from './partner-orders.mjs?v=store-market-main-r1';
+import {createGenerationSummary} from './generation-summary.mjs?v=market-rules-r1';
+import {replayDistilleryOperations} from './partner-orders.mjs?v=market-rules-r1';
 import {generationMode} from './generations.mjs?v=0.48-free-aging';
 
 // This is a disposable view projection, not a second saved event ledger.

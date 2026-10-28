@@ -36,3 +36,6 @@
 #market-board .market-flight{position:fixed;z-index:10;pointer-events:none;display:block;margin:0}
 #market-board .market-flight svg{display:block;width:100%;height:100%;max-width:none;image-rendering:pixelated}
 @media(prefers-reduced-motion:reduce){#market-board *,#market-board *::before,#market-board *::after{animation:none!important;transition:none!important}}
+
+#market-board .market-preference{display:block;color:#c8c0ae;font-size:calc(12px * var(--market-scale,1));line-height:calc(16px * var(--market-scale,1));white-space:nowrap}
+#market-board:has(.market-preference) .market-store-icon{height:calc(16px * var(--market-scale,1))}

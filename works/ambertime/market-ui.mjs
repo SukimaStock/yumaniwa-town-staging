@@ -9,6 +9,20 @@ const releaseFor=(s,id)=>s.releases.find(r=>r.productId===id);
 const releaseDate=(s,id)=>{const month=releaseFor(s,id)?.bottledMonth??s.core.products.find(p=>p.id===id)?.bottledMonth;return Number.isInteger(month)&&month>=0?monthLabel(month).replace('年','/').replace('月',''):'発売日不明';};
 const brandName=(s,id)=>s.brands.find(b=>b.id===releaseFor(s,id)?.brandId)?.name??'AmberTime';
 const tasteLabel=p=>p?.flavor?.label??flavorType(p)?.label??'個性';
+// Back up the exact old formal envelope before publishing a future-rules boundary.
+// A failed backup or concurrent save never writes the formal destination.
+export function commitMarketRulesUpdate(storage,key,expected,text){
+ if(typeof expected!=='string'||typeof text!=='string'||storage.getItem(key)!==expected)throw Error('別の画面で保存が変わりました。再読み込みしてください。');
+ let hash=2166136261;for(const c of expected)hash=Math.imul(hash^c.charCodeAt(0),16777619)>>>0;
+ const backupKey=key+'.before-market-rules.v1.'+expected.length+'.'+hash.toString(16),prior=storage.getItem(backupKey);
+ if(prior!==null&&prior!==expected)throw Error('切替前の保存を確認できません。');
+ if(prior===null)storage.setItem(backupKey,expected);
+ if(storage.getItem(backupKey)!==expected)throw Error('切替前の保存を残せないため、変更していません。');
+ if(storage.getItem(key)!==expected)throw Error('別の画面で保存が変わりました。再読み込みしてください。');
+ storage.setItem(key,text);
+ if(storage.getItem(key)!==text)throw Error('保存を確認できません。切替前の記録は残っています。');
+ return {text,backupKey};
+}
 export function savedMarketSales(before,after){
  if(!before||!after||after.core.month<=before.core.month||after.core.lastMonth?.month!==after.core.month)return [];
  const rows=[];
@@ -78,7 +92,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   const handTotal=handProducts.reduce((n,p)=>n+D.storeMarketInventory(s,p.id).hand,0);
   const p=product(selected),inventory=p?D.storeMarketInventory(s,p.id):{hand:0};
   const rows=ordinary.map(shop=>visibleMarketRows(s,D,shop.id,feedback));
-  const nextSignature=JSON.stringify([products,s.releases,s.brands,s.productsById,s.shop.relations,s.shop.offer,selected,portion,rows,feedback,handProducts.map(p=>[p.id,D.storeMarketInventory(s,p.id).hand]),editing,notice]);
+  const nextSignature=JSON.stringify([products,s.releases,s.brands,s.productsById,s.shop.relations,s.shop.offer,s.marketRules?.version,selected,portion,rows,feedback,handProducts.map(p=>[p.id,D.storeMarketInventory(s,p.id).hand]),editing,notice]);
   if(nextSignature===signature)return;
   const focused=activeKey(),top=root.scrollTop;
   for(const shelf of all('.market-stock-list,.market-hand-list'))positions.set(shelf.id,shelf.scrollLeft);
@@ -90,7 +104,8 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   const returnPane=editing?`<section class="market-return" role="group" aria-label="瓶を手元へ戻す"><p>${esc(ordinary.find(x=>x.id===editing.shopId)?.name)} · ${esc(releaseDate(s,editing.productId))} ${esc(tasteLabel(product(editing.productId)))} · ${editing.count}本</p><div class="market-buttons">${button('手元へ戻す','confirm','return')}${button('やめる','cancel','return')}</div></section>`:'';
   root.innerHTML=`<div class="market-content" ${editing?'inert':''}>${notice?`<p class="market-notice" role="status" aria-live="polite" tabindex="0">${esc(notice)}</p>`:''}<div class="market-releases" aria-label="手元の瓶"><span class="market-hand"><span>手元</span><span>${handTotal}本</span></span><div class="market-hand-list" id="market-shelf-hand" role="group" tabindex="0" aria-label="手元の瓶棚。横に送れます">${productsMarkup}</div></div><div class="market-portions" role="group" aria-label="一度に渡す本数">${[['1','1本'],['5','5本'],['all','全部']].map(([value,label])=>button(label,'portion',value,`aria-pressed="${portion===value}" ${handTotal>0?'':'disabled'}`)).join('')}</div><div class="market-shops">${ordinary.map((shop,index)=>{
    const revenue=feedback.filter(e=>e.shopId===shop.id).reduce((n,e)=>n+e.revenue,0);
-   return `<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}">${button(`<span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span>${shop.name}</span>${revenue?`<span class="market-income" title="+${esc(revenueLabel(revenue))}" aria-hidden="true">+${esc(revenueLabel(revenue))}</span>`:''}`,'place',shop.id,`class="market-target" ${!p||inventory.hand<1?'disabled':''} aria-label="${esc(shop.name+'へ'+(p?releaseDate(s,p.id)+'の瓶':'瓶')+'を渡す')}"`)}<div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の瓶棚。横に送れます">${rows[index].map(row=>{
+   const preference=D.marketRulesMode?.(s)?({'retail':'少量ずつ','town-liquor':'煙・厚み','supermarket':'麦・果実'}[shop.id]):'';
+   return `<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}">${button(`<span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span>${shop.name}</span>${preference?`<span class="market-preference">${preference}</span>`:''}${revenue?`<span class="market-income" title="+${esc(revenueLabel(revenue))}" aria-hidden="true">+${esc(revenueLabel(revenue))}</span>`:''}`,'place',shop.id,`class="market-target" ${!p||inventory.hand<1?'disabled':''} aria-label="${esc(shop.name+'へ'+(p?releaseDate(s,p.id)+'の瓶':'瓶')+'を渡す'+(preference?'。'+preference:''))}"`)}<div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の瓶棚。横に送れます">${rows[index].map(row=>{
     const item=s.core.products.find(x=>x.id===row.productId);if(!item)return '';
     return `<div class="market-stock-row" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date">${esc(releaseDate(s,item.id))}</span><span class="${row.sold?'market-sold':'market-count'}">${row.sold?'−'+row.sold:row.count}本</span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+'。手元へ戻す')}"`)}</div>`;
    }).join('')||'<span class="market-empty" aria-label="割り当てなし">—</span>'}</div>${button('…','details',shop.id,`class="market-shop-details" aria-label="${shop.name}の詳細"`)}</section>`;

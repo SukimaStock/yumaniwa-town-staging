@@ -1,4 +1,4 @@
-import {createProjectionReplay} from './partner-orders.mjs?v=adjust-b-r1';
+import {createProjectionReplay} from './partner-orders.mjs?v=market-rules-r1';
 
 // Disposable read models. Nothing here is written to the save or replay ledger.
 const copy=x=>structuredClone(x),round=x=>Math.round(x*100)/100;

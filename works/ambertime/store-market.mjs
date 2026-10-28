@@ -1,3 +1,4 @@
+import {planSales,affinity,RULES as MARKET_RULES} from './market-sales.mjs?v=market-rules-r1';
 // Pure reservations and a deterministic monthly demand projection for the main game.
 // The host transaction owns cash, durable receipts, history and replay.
 import {placementInventory,storeMarketMode} from './placement-mode.mjs?v=store-market-main-r1';
@@ -20,18 +21,29 @@ export function storeMarketQuote(s,productId,shopId){
  else if(shopProductCondition(s,productId,shopId))reason=shopProductCondition(s,productId,shopId);
  else if(inv.hand<1)reason='手元の瓶を割り当てます。';
  else if(s.shop.deliveries.length>=SHOP.maxDeliveries)reason='納品帳がいっぱいです。';
- const assigned=inv.shops?.[shopId]??0,unitPrice=store&&p&&r?normalShopUnitPrice(s,productId,shopId):0,fit=store&&r?townAffinity(shopId,r).fit:0;
+ const assigned=inv.shops?.[shopId]??0,unitPrice=store&&p&&r?normalShopUnitPrice(s,productId,shopId):0,fit=store&&r?(s.marketRules?.version===1&&s.marketRules.rules===MARKET_RULES?affinity(shopId,p):townAffinity(shopId,r).fit):0;
  return {shopId,ok:!reason,reason,available:inv.hand,maxCount:reason?0:inv.hand,assigned,unitPrice,fit};
 }
 export function storeMarketRows(s,shopId){
  if(!storeMarketMode(s)||!STORE_MARKET_SHOPS.some(x=>x.id===shopId))return [];
  return s.releases.flatMap(r=>{
   const count=s.storeMarket.byShop[shopId]?.[r.productId]??0;if(!count)return [];
-  return [{productId:r.productId,releaseId:r.id,brandId:r.brandId,count,flavorLabel:r.profile?.flavor?.label??r.flavorName??'',age:r.age,fit:townAffinity(shopId,r).fit}];
+  return [{productId:r.productId,releaseId:r.id,brandId:r.brandId,count,flavorLabel:r.profile?.flavor?.label??r.flavorName??'',age:r.age,fit:s.marketRules?.version===1&&s.marketRules.rules===MARKET_RULES?affinity(shopId,s.core.products.find(p=>p.id===r.productId)):townAffinity(shopId,r).fit}];
+ });
+}
+function planMarketRuleSales(s,month){
+ return STORE_MARKET_SHOPS.filter(store=>s.shop.relations.some(r=>r.shopId===store.id&&r.startedMonth<month)).map(store=>{
+  const rows=storeMarketRows(s,store.id).map(row=>({...row,p:s.core.products.find(p=>p.id===row.productId),r:s.releases.find(r=>r.id===row.releaseId)})).filter(row=>qualified(s,row.p,row.r,store,month));
+  const items=rows.map(row=>({...row.p,count:Math.min(row.count,row.p.stock),price:normalShopUnitPrice(s,row.productId,store.id),referencePrice:NORMAL_SHOP_DEMAND.referencePaidPrice[store.id]}));
+  const result=planSales(items,store.id,s.marketRules.ledgers[store.id]??{}, {month,seed:s.seed});
+  const shipments=result.sales.map(x=>{const row=rows.find(r=>r.productId===x.id);return {productId:x.id,releaseId:row.releaseId,count:x.count,unitPrice:normalShopUnitPrice(s,x.id,store.id),fit:affinity(store.id,row.p)};});
+  const planned=shipments.reduce((n,x)=>n+x.count,0),requested=result.opportunities;
+  return {shopId:store.id,month,count:requested,requested,alreadyShipped:0,planned,unmet:Math.max(0,requested-planned),available:items.reduce((n,p)=>n+p.count,0),belowMinimum:0,profileProductId:rows[0]?.productId??null,unitPrice:shipments[0]?.unitPrice??null,reason:!rows.length?'no-assigned-stock':planned?'market-sales':'waiting-for-customers',components:{candidate:true},shipments,marketRulesLedger:result.ledger};
  });
 }
 export function planStoreMarketSales(s,month=s.core.month){
  if(!storeMarketMode(s)||!Number.isInteger(month)||month<0)throw Error('店の販売月を確認してください。');
+ if(s.marketRules?.version===1&&s.marketRules.rules===MARKET_RULES)return planMarketRuleSales(s,month);
  return STORE_MARKET_SHOPS.filter(store=>s.shop.relations.some(r=>r.shopId===store.id&&r.startedMonth<month)).map(store=>{
   const already=s.shop.deliveries.filter(x=>(x.shopId??SHOP.id)===store.id&&x.month===month).reduce((n,x)=>n+x.count,0);
   const base=NORMAL_SHOP_DEMAND.base[store.id],mode=s.shopDemand.mode;

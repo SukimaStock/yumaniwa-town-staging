@@ -1,0 +1,114 @@
+{
+  "pass": true,
+  "measurements": [
+    {
+      "width": 360,
+      "height": 568,
+      "client": 370,
+      "scroll": 370,
+      "page": 360,
+      "targets": [
+        {
+          "height": 69.3125,
+          "scroll": 69,
+          "client": 69
+        },
+        {
+          "height": 69.328125,
+          "scroll": 69,
+          "client": 69
+        },
+        {
+          "height": 69.3125,
+          "scroll": 69,
+          "client": 69
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "client": 404,
+      "scroll": 404,
+      "page": 375,
+      "targets": [
+        {
+          "height": 75.8125,
+          "scroll": 76,
+          "client": 76
+        },
+        {
+          "height": 75.828125,
+          "scroll": 76,
+          "client": 76
+        },
+        {
+          "height": 75.8125,
+          "scroll": 76,
+          "client": 76
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "client": 443,
+      "scroll": 443,
+      "page": 390,
+      "targets": [
+        {
+          "height": 81.34375,
+          "scroll": 81,
+          "client": 81
+        },
+        {
+          "height": 81.359375,
+          "scroll": 81,
+          "client": 81
+        },
+        {
+          "height": 81.34375,
+          "scroll": 81,
+          "client": 81
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "height": 740,
+      "client": 482,
+      "scroll": 482,
+      "page": 430,
+      "targets": [
+        {
+          "height": 88.875,
+          "scroll": 89,
+          "client": 89
+        },
+        {
+          "height": 88.890625,
+          "scroll": 89,
+          "client": 89
+        },
+        {
+          "height": 88.875,
+          "scroll": 89,
+          "client": 89
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "phone typography/layout",
+    "legacy boot unchanged",
+    "backup failure leaves state/save exact",
+    "explicit update backs up before write",
+    "reload exact candidate state",
+    "real allocation no revenue",
+    "native monthly sale and ledger",
+    "ledger reader",
+    "pre-boundary export available"
+  ],
+  "errors": [],
+  "physicalSafari": false
+}
