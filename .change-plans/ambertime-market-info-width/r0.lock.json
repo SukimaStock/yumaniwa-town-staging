@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "14b1c33ae3a6ab1bba0a932afe4f1d9b38d3f7261d877bdcba4d7fab9b4f3497",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-info-width",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep approved 店情報 label on one line at integral pixel font sizes; minimal post-deploy layout correction.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "dd99d82e870ee5da1c8a9294ac706097f16fe3ea",
+    "canonicalSources": [
+      "Current user approved layout; Root authorized concrete post-deploy wrapping fix without further approval",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR671 deployed screenshot shows 店情報 wrapping"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-info-width/r0.lock.json",
+      "works/ambertime/market.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/market-compact-browser.test.mjs",
+      "works/ambertime/design/market-info-width/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "expectedChanges": [
+      "Widen information column64→72logical and prevent wrapping; preserve left120 and right physical bottle/remaining/date.",
+      "Refresh CSS URL only; related cache regression and browser check actual info label scrollWidth/clientWidth and bounds at4sizes/DPR1/3.",
+      "No model/save/JSruntime/scene changes. Fresh Plan/PR/requiredCI/exactheadmerge/Pages/publicbyte/screenshot."
+    ],
+    "ownerDecisions": [
+      "User approved horizontal 店情報 layout; observed wrap is an implementation defect within authorized Staging scope."
+    ],
+    "hqDecisions": [
+      "CSS-only geometry correction; native data and operations unchanged."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Single-line readable 店情報 at4phone sizes/DPR1/3, actual text width and row containment, previous shelf/return/sale regressions.",
+      "Public exact CSS/index and screenshot; physical iPhone unverified."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert CSS width/nowrap and CSS cache URL; no saved state changes.",
+    "outOfScope": [
+      "Production",
+      "JSruntime/model/save/economy",
+      "ExistingLab/audit/sceneassets",
+      "Otherlayoutchanges"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver, author subjective feel"
+    ],
+    "alternativesRejected": [
+      "Generatedart or scene redesign",
+      "Fixed blank panel below actual rows",
+      "Remove useful product price/history path",
+      "Move preference into another permanent normalboard label"
+    ],
+    "boundaryCases": [
+      "DPR1 integral font step at390px; DPR3 four sizes",
+      "1/2/3 venues and sale/return/tap geometry after information column expansion"
+    ],
+    "testPlan": [
+      "Targeted UI/formal/cache plus compact actualbrowser4sizes/DPR1/3 with information text width",
+      "Scope→Risk→Impact/syntax/diff, Rootreview, requiredCI/exactheadmerge/Pages/public bytes/screenshot"
+    ],
+    "problem": "Deployed integral font makes three-character 店情報 wrap in64logical column.",
+    "currentContract": "Approved 店情報 label should remain readable in one horizontal line.",
+    "whyExistingIsInsufficient": "Prior browser checked target labels but omitted information action intrinsic width.",
+    "design": "72logical information column plus nowrap; assert actual text width rather than only outer box.",
+    "migration": "None; UI/details/layout only.",
+    "compatibility": "Native saves/model/rules/replay remain unchanged.",
+    "promotionRisk": "Staging-only visual adoption; no Production modifications."
+  }
+}
