@@ -20,7 +20,7 @@ section{margin:16px 0}.clock{display:flex;gap:12px;align-items:center;flex-wrap:
 .target{display:flex;width:100%;min-height:105px;align-items:center;justify-content:center;flex-direction:column;gap:4px;background:transparent;border:0;padding:12px 0 4px}
 .target strong{font-weight:normal;white-space:nowrap}
 .shop-details{position:absolute;top:0;right:0;width:44px;min-height:44px;padding:0;border:0;background:transparent}
-.store-icon{display:block;width:35px;height:27px;background:#8eaa9d;border:3px solid #18222a;box-shadow:0 -5px #ae7d5d,4px 4px #151c23;margin:6px 0}
+.store-icon{display:block;width:35px;height:27px;background:#8eaa9d;border:3px solid #18222a;box-shadow:0 -5px #ae7d5d,4px 4px #151c23;margin:6px 0 6px 8px;align-self:flex-start}
 .store-icon:after{content:'';display:block;width:10px;height:14px;background:#37414a;margin:7px auto 0}
 .shop[data-shop=super] .store-icon{background:#d3b77a}.shop[data-shop=bar] .store-icon{background:#a48dab}
 .stock-list{display:grid;gap:4px;border-top:1px solid #6d6254;padding-top:6px}
