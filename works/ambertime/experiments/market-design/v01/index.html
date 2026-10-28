@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>AmberTime 販売設計 Lab</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.mjs"></script>
+</head>
+<body>
+<main>
+<header><a class="back" href="../../../../../lab/" aria-label="LABへ戻る">‹</a><h1>AmberTime <small>販売設計 Lab</small></h1><button id="settings" aria-label="条件と検証値を開く">条件</button></header>
+<div class="mode-switch" aria-label="販売ルール"><button data-mode="current">現行</button><button data-mode="candidate">候補</button></div>
+<p class="mode-note">切替時は同じ初期条件から</p>
+<div class="ledger"><span><small>経過</small><strong id="month"></strong></span><span><small>資金</small><strong id="cash"></strong></span><span><small>累計売上</small><strong id="revenue"></strong></span></div>
+<section class="hand-section" aria-labelledby="hand-title"><div class="shelf-heading"><h2 id="hand-title">手元</h2><span id="hand-total"></span></div><div id="hand" class="hand-shelf"></div></section>
+<div id="outlets"></div>
+<div class="month-action"><p id="result" role="status" aria-live="polite"></p><button id="month-step">1か月進める →</button></div>
+</main>
+<dialog id="bottle-dialog" aria-labelledby="bottle-title"><div class="dialog-header"><h2 id="bottle-title"></h2><button data-close="bottle-dialog" aria-label="閉じる">×</button></div><div id="bottle-overview"></div><div class="quantities" aria-label="動かす本数"><button data-quantity="1">1本</button><button data-quantity="5">5本</button><button data-quantity="all">全部</button></div><fieldset><legend>移す前の場所</legend><div id="sources"></div></fieldset><div id="destinations"></div><p id="transfer-result" role="status" aria-live="polite"></p><button class="dialog-back" data-close="bottle-dialog">戻る</button></dialog>
+<dialog id="settings-dialog" aria-labelledby="settings-title"><div class="dialog-header"><h2 id="settings-title">条件と検証値</h2><button data-close="settings-dialog" aria-label="閉じる">×</button></div><p>2店を開放した棚の比較です。生産と店の解放は別の資金検証で確認します。</p><fieldset><legend>初期条件</legend><div class="scenario-buttons"><button data-scenario="matched">異なる味</button><button data-scenario="young">若い瓶</button></div></fieldset><button id="reset">この条件で最初から</button><details><summary>詳細な検証値</summary><pre id="diagnostics"></pre></details><p><a href="REPORT.md" target="_blank" rel="noopener">設計比較と資金検証</a></p><p id="settings-error" role="status"></p><button class="dialog-back" data-close="settings-dialog">戻る</button></dialog>
+</body>
+</html>
