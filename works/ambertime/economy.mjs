@@ -1,3 +1,4 @@
+import {planSales,RULES as MARKET_RULES} from './market-sales.mjs?v=market-rules-r1';
 import * as M from './model.mjs?v=stage4-r2';
 import * as D from './distillery.mjs?v=stage4-r2';
 import {mixSeed,sampleCharacter,endCharacterTasting,chooseCharacter,comparisons,sampleOf,profile} from './character.mjs?v=stage4-r2';
@@ -46,14 +47,22 @@ export function economicMonthly(s,expectedMonth,retailFactors=null,timing={}){
  const j=advanceMonthly(clone(s),{expectedMonth,listedProductIds:[]});
  const eligible=timing.eligibleProductIds===undefined?null:new Set(timing.eligibleProductIds),available=p=>Math.max(0,p.stock-(timing.heldCounts?.[p.id]??0));
  const stocked=j.core.products.filter(p=>available(p)>0&&s.productsById[p.id]?.listed&&(!eligible||eligible.has(p.id)));
+ let counts;
+ if(s.marketRules?.version===1&&s.marketRules.rules===MARKET_RULES){
+  const plan=planSales(stocked.map(p=>({...p,count:available(p),referencePrice:marketValue(p)})),'retail',s.marketRules.ledgers.retail??{}, {month:j.core.month,seed:s.seed});
+  j.marketRules={...s.marketRules,ledgers:{...s.marketRules.ledgers,retail:plan.ledger}};
+  counts=stocked.map(p=>plan.sales.find(x=>x.id===p.id)?.count??0);
+ }else{
  const youngCount=stocked.filter(p=>p.age<P.youngDemandMonths).length;
  const wishes=stocked.map(p=>Math.min(available(p),(p.age<P.youngDemandMonths?P.youngDemand/youngCount:10+6*p.character)*(0.80+0.20*p.character)*Math.exp(CORE.priceElasticity*(1-p.price/marketValue(p)))*(retailFactors?.get(p.id)??1)));
  const sum=wishes.reduce((a,b)=>a+b,0),scale=Math.min(1,CORE.monthlyCustomers/Math.max(sum,1));
- const quotas=wishes.map(w=>w*scale),counts=quotas.map(Math.floor),target=Math.floor(quotas.reduce((a,b)=>a+b,0)+1e-9);
- let remaining=target-counts.reduce((a,b)=>a+b,0);
+ const quotas=wishes.map(w=>w*scale),legacyCounts=quotas.map(Math.floor),target=Math.floor(quotas.reduce((a,b)=>a+b,0)+1e-9);
+ let remaining=target-legacyCounts.reduce((a,b)=>a+b,0);
  // Largest remainders prevent multiple small lots from all rounding to zero.
- const order=stocked.map((p,i)=>({i,fraction:quotas[i]-counts[i],id:p.id})).sort((a,b)=>b.fraction-a.fraction||a.id-b.id);
- for(const {i} of order)if(remaining>0&&counts[i]<available(stocked[i])){counts[i]++;remaining--;}
+ const order=stocked.map((p,i)=>({i,fraction:quotas[i]-legacyCounts[i],id:p.id})).sort((a,b)=>b.fraction-a.fraction||a.id-b.id);
+ for(const {i} of order)if(remaining>0&&legacyCounts[i]<available(stocked[i])){legacyCounts[i]++;remaining--;}
+ counts=legacyCounts;
+ }
  let revenue=0,bottles=0;const sales=[];
  for(let i=0;i<stocked.length;i++){const p=stocked[i],sold=counts[i];p.stock-=sold;p.sold+=sold;p.lastSold=sold;p.lastRevenue=round(sold*p.price);p.revenue=round(p.revenue+p.lastRevenue);revenue=round(revenue+p.lastRevenue);bottles+=sold;sales.push({id:p.id,sold,revenue:p.lastRevenue});}
  const maintenance=upkeep(j);j.core.cash=round(before.cash+revenue-maintenance);j.core.totals.revenue=round(before.totals.revenue+revenue);j.core.totals.upkeep=round(before.totals.upkeep+maintenance);j.core.totals.bottlesSold=before.totals.bottlesSold+bottles;

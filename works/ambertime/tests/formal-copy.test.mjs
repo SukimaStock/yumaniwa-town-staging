@@ -51,18 +51,18 @@ test('map symbols use conventional direction, accessible names, current name and
  for(let max=1;max<=6;max++)for(let current=1;current<=max;current++){assert.equal(mapStep(current,'out',max),Math.min(current+1,max));assert.equal(mapStep(current,'in',max),Math.max(current-1,1));}
 });
 test('ordinary URL uses native store market and preserves legacy placement details',()=>{
- contains(app,['const placementEnabled=true;','export const SAVE_KEY=FORMAL_SAVE_KEY','D.newStoreMarketDistillery(seed)','placementUI.markup(id']);
+ contains(app,['const placementEnabled=true;','export const SAVE_KEY=FORMAL_SAVE_KEY','D.newMarketRulesDistillery(seed)','placementUI.markup(id']);
  const product=section("}else if(kind==='product'){",'const activeCask=');
  assert.ok(!/D\.listBottles|button\([^\n]*'list'|sales-destination-choice|自家販売を始める/.test(product));
  contains(product,["x.shop.id!=='town-liquor'",'departmentDestination','releaseComparisonButton','<summary>価格</summary>']);
 });
 test('cache reader chain updates every changed helper and worker entry',()=>{
- contains(html,['shop-app.mjs?v=market-bottles-r1','shop.css?v=placement-hand-delta-r2','market.css?v=market-bottles-r1']);
+ contains(html,['shop-app.mjs?v=market-rules-r1','shop.css?v=placement-hand-delta-r2','market.css?v=market-rules-r1']);
  for(const helper of ['placement-save','shop-order-view','cask-detail-view','brewing-cards','flavor-view'])contains(app,[helper+'.mjs?v=formal-copy-r1']);
- for(const helper of ['cask-serials','nearby-comparison','history-worker','cask-ledger-worker'])contains(app,[helper+'.mjs?v=store-market-main-r1']);
- contains(app,['placement-ui.mjs?v=visual14-r1','partner-orders.mjs?v=store-market-main-r1','market-ui.mjs?v=market-bottles-r1']);
+ for(const helper of ['cask-serials','nearby-comparison','history-worker','cask-ledger-worker'])contains(app,[helper+'.mjs?v=market-rules-r1']);
+ contains(app,['placement-ui.mjs?v=visual14-r1','partner-orders.mjs?v=market-rules-r1','market-ui.mjs?v=market-rules-r1']);
  contains(read('cask-detail-view.mjs'),['flavor-view.mjs?v=formal-copy-r1']);
- contains(read('history-worker.mjs'),['distillery-history.mjs?v=store-market-main-r1']);
- contains(read('distillery-history.mjs'),['generation-summary.mjs?v=store-market-main-r1','partner-orders.mjs?v=store-market-main-r1']);
- for(const helper of ['cask-serials.mjs','nearby-comparison.mjs','generation-summary.mjs','cask-ledger-worker.mjs'])contains(read(helper),['partner-orders.mjs?v=store-market-main-r1']);
+ contains(read('history-worker.mjs'),['distillery-history.mjs?v=market-rules-r1']);
+ contains(read('distillery-history.mjs'),['generation-summary.mjs?v=market-rules-r1','partner-orders.mjs?v=market-rules-r1']);
+ for(const helper of ['cask-serials.mjs','nearby-comparison.mjs','generation-summary.mjs','cask-ledger-worker.mjs'])contains(read(helper),['partner-orders.mjs?v=market-rules-r1']);
 });

@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7eaa23cb369f33a148077f32c9947e8004593bf83b231da64425afdd8dc1f764",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-rules-staging",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Adopt reviewed Lab shared sales rules in AmberTime Staging with explicit future-only save boundary; preserve legacy replay and native economics.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "ae65684c23fddf7d2515358d804ae2775cc51ee4",
+    "canonicalSources": [
+      "Current user: ではこれをstagingに反映してみましょう",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR667",
+      "works/ambertime/experiments/market-design/v01/REPORT.md",
+      "Native partner-orders/economy/store-market and formal save contract"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-rules-staging/r0.lock.json",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/comparison-model.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/tests/market-rules*.mjs",
+      "works/ambertime/design/market-rules-adoption/**",
+      "works/ambertime/tests/formal-copy.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "expectedChanges": [
+      "Copy exact reviewed Lab pure shared sales module into native versioned module; marker-only retail/store branch, native accounting/reserve/unlock/prices unchanged.",
+      "Logged explicit version boundary with month, factual snapshot hash and zero ledgers; old states/history remain legacy. Fresh native UI games use new constructor; existing games choose settings update with durable original backup before save; no automatic migration.",
+      "Compact board retains direct bottle/1-5-all/three rows and adds only minimal shop taste hints for adopted rules; no number/brand dropdown/dept clutter.",
+      "Cache fingerprint full native reader closure (including workers and projections), legacy replay/new boundary/rollback/failed-save/reservation/conservation tests, Lab proposal parity and representative native cash trajectories, independent review, required CI, PR and Staging publish verification.",
+      "Update existing formal-copy regression assertions for the deliberate factory and cache fingerprint changes; no unrelated expected behavior changes."
+    ],
+    "ownerDecisions": [
+      "User 2026-10-28 explicitly requests reflecting reviewed PR667 candidate into Staging main game. Production excluded."
+    ],
+    "hqDecisions": [
+      "Future-only logged rules boundary; native save key/envelope retained. Existing saves opt in from existing settings and retain durable pre-boundary backup. All historical operations dispatched under their original marker state."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone viewport direct bottles/delivery/return/sale and shop preference hints; existing-save explicit update backup/save failure; reload, workers and history.",
+      "Public exact bytes and deployed basic operation; physical iPhone/Safari remains unverified."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert UI/new default only for new games; retain new version reader for any already adopted saves. Pre-boundary exports/backups permit explicit restore without reinterpreting facts.",
+    "outOfScope": [
+      "Production",
+      "Changing reviewed Lab or audit",
+      "Changing prices/costs/capital/unlock/reputation thresholds",
+      "General economy rebalance or subsidies"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author subjective feel and physical iPhone Safari",
+      "Universal economic safety outside sampled policies"
+    ],
+    "alternativesRejected": [
+      "Silently enable on boot",
+      "Recompute historical months",
+      "Change constructor used by old audits/Labs",
+      "Finance rescue or unlock changes"
+    ],
+    "boundaryCases": [
+      "Legacy fixture roundtrip/projection; adopted serialize/replay/tamper/version; pending department/staff; history active tasting/distilling boundary",
+      "Cash rollback resets sales ledgers; full delivery ledger; split profile invariant and Lab parity",
+      "Save/backup write failure and cross-tab conflict; existing save stays original"
+    ],
+    "testPlan": [
+      "Targeted native and UI tests plus reviewed pure sales tests; original formulas unchanged for unmarked states; candidate matches Lab native baseline careers",
+      "Scope→Risk→Impact/syntax/diff, independent review, required CI, Staging exact deployed reader closure and browser checks"
+    ],
+    "problem": "Reviewed Lab now approved for Staging main trial; need native integration without reinterpreting old saves.",
+    "currentContract": "Old logs replay legacy formulas; allocations and pending deliveries are physical stock; monthly funds rollback must also rollback demand ledgers.",
+    "whyExistingIsInsufficient": "Lab currently isolated and no native sales rules boundary exists.",
+    "design": "Pure reviewed shared market ledger, explicit logged future boundary, marker dispatch, atomic host save and pre-change backup.",
+    "migration": "New optional logged enable-market-rules operation with version/month/hash; old saves remain legacy until explicit UI action. New games enable from month0. Unknown versions rejected; replay old operations first.",
+    "compatibility": "Same native envelope/key; old objects byte-equivalent when replayed. Copy sales pure code to native and leave Lab immutable.",
+    "promotionRisk": "Staging-only. Known weak-fit/overinvestment stops not rescued; no claim of universal economic safety."
+  }
+}

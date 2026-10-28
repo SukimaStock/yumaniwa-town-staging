@@ -1,11 +1,12 @@
+import {RULES as MARKET_RULES} from './market-sales.mjs?v=market-rules-r1';
 import {attachFlavor,setFlavorCask,flavorName} from './lab-flavor.mjs?v=stage4-r2';
 import {createTown,recordBottle,receiveActual,advanceTown,townNews} from './town-connection.mjs?v=stage4-r2';
 import {brandIdentityMode,needsBrandSetup,checkedBrandDraft} from './brand-identity.mjs?v=0.58-first-brand';
 export {brandIdentityMode,needsBrandSetup} from './brand-identity.mjs?v=0.58-first-brand';
 import {placementMode,placementInventory} from './placement-mode.mjs?v=store-market-main-r1';
 export {placementMode,placementInventory} from './placement-mode.mjs?v=store-market-main-r1';
-import {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows,planStoreMarketSales} from './store-market.mjs?v=store-market-main-r1';
-export {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows} from './store-market.mjs?v=store-market-main-r1';
+import {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows,planStoreMarketSales} from './store-market.mjs?v=market-rules-r1';
+export {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows} from './store-market.mjs?v=market-rules-r1';
 import {NORMAL_SHOP_DEMAND,normalShopOrders,planShopFulfillment} from './shop-demand.mjs?v=adjust-b-r1';
 import {PARTIAL_BOTTLING,partialMode,DELEGATION,delegationMode} from './partial-bottling.mjs?v=0.41-delegation';
 export {PARTIAL_BOTTLING,partialMode,DELEGATION,delegationMode} from './partial-bottling.mjs?v=0.41-delegation';
@@ -19,7 +20,7 @@ import {BOTTLE_STORAGE,bottleStorageMode} from './bottle-storage.mjs?v=0.41-dele
 export {BOTTLE_STORAGE,bottleStorageMode} from './bottle-storage.mjs?v=0.41-delegation';
 // New execution contract. The complete v0.9 reader remains frozen.
 import * as V09 from './trade.mjs?v=adjust-b-r1';
-import * as E from './economy.mjs?v=adjust-b-r1';
+import * as E from './economy.mjs?v=market-rules-r1';
 import * as M from './model.mjs?v=stage4-r2';
 import {mixSeed,CHARACTER_PARAMETERS as CHARACTER,profile as characterProfile} from './character.mjs?v=stage4-r2';
 import {PARALLEL_PARAMETERS as P,ECONOMY_PARAMETERS as C} from './economy-parameters.mjs';
@@ -32,7 +33,7 @@ import {DEPARTMENT,departmentMode,departmentReleaseEligible,departmentUsedReleas
 export {DEPARTMENT,departmentMode,departmentInterests,departmentAdoptions,departmentStatus} from './department-projects.mjs?v=0.44-monthly-timing';
 import {brandReputation,retailReputationFactors} from './brand-reputation.mjs?v=0.12';
 export {SPECIAL_ORDER} from './partner-parameters.mjs';
-export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting} from './economy.mjs?v=adjust-b-r1';
+export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting} from './economy.mjs?v=market-rules-r1';
 const clone=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
 const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
 const blocked=s=>s.tastingId!==null||s.decisions.length>0||s.trade.offer!==null;
@@ -84,6 +85,24 @@ function enableStoreMarketTransaction(s){
 }
 export function enableStoreMarket(s){validateDistillery(s);const j=enableStoreMarketTransaction(s);if(j!==s)validateDistillery(j);return j;}
 export const newStoreMarketDistillery=seed=>enableStoreMarket(newPlacementDistillery(seed));
+// Only this recorded boundary opts future months into the fixed market rule.
+export const marketRulesMode=s=>s?.marketRules?.version===1&&s.marketRules.rules===MARKET_RULES;
+function marketBoundaryDigest(s){
+ const facts=JSON.stringify({month:s.core.month,cash:s.core.cash,totals:s.core.totals,products:s.core.products,placement:s.placement,storeMarket:s.storeMarket,reservations:s.department?.interests?.map(o=>({selectionId:o.selectionId,pendingDelivery:o.pendingDelivery??null}))??[]});
+ let hash=2166136261;for(const c of facts)hash=Math.imul(hash^c.charCodeAt(0),16777619)>>>0;
+ return 'fnv1a32:'+hash.toString(16).padStart(8,'0');
+}
+function enableMarketRulesTransaction(s,value=null){
+ if(s.marketRules!==undefined){assert(marketRulesMode(s),'対応していない販売ルールです。');return s;}
+ assert(storeMarketMode(s)&&stage4Mode(s),'店の棚に対応した記録を確認してください。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ const boundary={version:1,rules:MARKET_RULES,boundaryMonth:s.core.month,boundaryDigest:marketBoundaryDigest(s),progress:shopProgress(s),tastingId:s.tastingId};
+ if(value!==null)assert(JSON.stringify(value)===JSON.stringify(boundary),'販売ルールの切替記録が一致しません。');
+ const j=clone(s);j.marketRules={version:1,rules:MARKET_RULES,boundaryMonth:boundary.boundaryMonth,boundaryDigest:boundary.boundaryDigest,ledgers:{}};
+ j.operations.push({key:'enable-market-rules',value:boundary});return j;
+}
+export function enableMarketRules(s){validateDistillery(s);const j=enableMarketRulesTransaction(s);if(j!==s)validateDistillery(j);return j;}
+export const newMarketRulesDistillery=seed=>enableMarketRules(newStoreMarketDistillery(seed));
 function storeAssignmentTransaction(s,value,returning=false){
  const {productId,shopId,count}=value??{},p=s.core.products.find(p=>p.id===productId),r=s.releases.find(r=>r.productId===productId);
  assert(storeMarketMode(s)&&p&&r&&['town-liquor','supermarket'].includes(shopId),'割り当てる発売回と店を確認してください。');
@@ -584,7 +603,13 @@ function settleStoreMarket(j){
  j.shopDemand.lastOrders=[];
  for(const plan of planStoreMarketSales(j,j.core.month)){
   let shipped=0,ledgerFull=false;
-  for(const line of plan.shipments){
+  // A venue proposal and its carry are one transaction. Do not spend purchase
+  // credit on unfulfilled lines when the durable delivery journal is full.
+  const candidate=plan.marketRulesLedger!==undefined,slots=SHOP.maxDeliveries-j.shop.deliveries.length-pendingDepartmentCount(j);
+  const blockedPlan=candidate&&(slots<=0||plan.shipments.length>slots);
+  if(candidate&&!blockedPlan)j.marketRules.ledgers[plan.shopId]=plan.marketRulesLedger;
+  if(blockedPlan)ledgerFull=true;
+  for(const line of blockedPlan?[]:plan.shipments){
    if(j.shop.deliveries.length+pendingDepartmentCount(j)>=SHOP.maxDeliveries){ledgerFull=true;break;}
    j.storeMarket.byShop[plan.shopId][line.productId]-=line.count;
    if(!j.storeMarket.byShop[plan.shopId][line.productId])delete j.storeMarket.byShop[plan.shopId][line.productId];
@@ -593,7 +618,7 @@ function settleStoreMarket(j){
    j.core.lastMonth.revenue=round(j.core.lastMonth.revenue+item.revenue);j.core.lastMonth.bottles+=item.count;
    j.core.lastMonth.sales.push({id:item.productId,sold:item.count,revenue:item.revenue,channel:'stockist',shopId:plan.shopId});
   }
-  const {shipments,...summary}=plan;
+  const {shipments,marketRulesLedger,...summary}=plan;
   j.shopDemand.lastOrders.push({...summary,shipped,unmet:Math.max(0,plan.requested-plan.alreadyShipped-shipped),reason:ledgerFull?'delivery-ledger-full':plan.reason});
  }
  return j;
@@ -1199,7 +1224,11 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(s.still.distillation?.collectionVersion!==2||s.still.distillation.collectStart!==null||value<=88,'採取できる範囲を過ぎています。');assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-store-market':
+function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-market-rules':
+ if(o.value?.progress!==null)s=progress(s,o.value?.progress);
+ if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
+ return enableMarketRulesTransaction(s,o.value);
+ case 'enable-store-market':
  if(o.value?.progress!==null)s=progress(s,o.value?.progress);
  if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
  return enableStoreMarketTransaction(s);
@@ -1320,6 +1349,19 @@ export function createProjectionReplay(s,observer,previousToken){
 export function replayDistilleryOperations(s,observer){return createProjectionReplay(s,observer).manualSources;}
 
 // Recover the validated pre-connection state for rollback without a second save key.
+export function preMarketRulesState(s){
+ validateDistillery(s);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),context=emptyReplayContext();
+ for(let index=0;index<s.operations.length;index++){
+  const op=s.operations[index];
+  if(op.key==='enable-market-rules'){
+   if(op.value?.progress!==null)j=progress(j,op.value.progress);
+   if(op.value?.tastingId!==null)j=sampleDistillery(j,op.value.tastingId);
+   validateDistillery(j);return j;
+  }
+  j=apply(j,op,context,index);
+ }
+ return clone(s);
+}
 export function preStoreMarketState(s){
  validateDistillery(s);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),context=emptyReplayContext();
  for(let index=0;index<s.operations.length;index++){
