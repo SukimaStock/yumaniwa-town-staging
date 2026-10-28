@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2b97336385b504c5f7bc0a5648a645b4d3acd87e863952f52864320cd5fa5723",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-design-lab",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Compare sales roles and prototype split-invariant shared market, native economic validation and isolated interactive Lab; Staging only.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "3031554e5e115cb1c4c0bf13715ea761646f840b",
+    "canonicalSources": [
+      "Current user market-design request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR666",
+      "works/ambertime/design/market-balance-audit/REPORT.md",
+      "works/ambertime/design/market-balance-audit/run.mjs",
+      "works/ambertime/experiments/hand-and-place/v073/REPORT.md",
+      "Native economy, store-market, partner-orders and shop model"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-design-lab/r0.lock.json",
+      "works/ambertime/experiments/market-design/v01/**",
+      "works/ambertime-market-design-lab/index.html",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/experiments/hand-and-place/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Compare 2-3 roles; implement one candidate after grouping equivalent releases, shared venue opportunities, differentiated tastes, fractional carry versus probability comparison, then calibrate sales without increasing capital/prices or cutting costs.",
+      "New pure sales module shared by isolated Lab and temporary native runtime financial runner. Old audit source/results immutable and its source guard retained; baseline and candidate clearly labeled.",
+      "Native financial scenarios compared with 216 audit references plus recipes/prices/young/mature/long/direct/shop/mixed/reposition/split diagnostics, 3/6/12 snapshots, liquidity/restart/stalls/unlock/forced bottling metrics.",
+      "Interactive current/candidate same-condition Lab with direct bottle selection,1/5/all, actual shelves/withdrawal, per-product sales and money/month; optional diagnostics, atomic save before UI commit and isolated versioned storage.",
+      "Reproducible tests, independent review, lifecycle/LAB connection, required CI, Staging merge/Pages/public URL verification and report with migration design."
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes design comparison, financial prototype, isolated Lab, PR/CI and Staging publication; final main-game adoption and Production are excluded."
+    ],
+    "hqDecisions": [
+      "Only new isolated market Lab schema and owned storage key. Native modules copied and transformed only in owned temporary directories for experiments. No shared/runtime/save contract changes."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone-sized normal operation and per-product shelf delivery/sales/withdrawal/reposition; current/candidate matched setup; 1/5/all; no raw sequence labels/dropdown/unavailable department.",
+      "Persistence failure rollback, reload determinism, monthly retry, conservation including reservations; public deployed bytes and basic operations."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert new Lab, launcher, lifecycle/generated LAB and lock; main game and existing saves unchanged.",
+    "outOfScope": [
+      "Production",
+      "Adoption into main game",
+      "Old audit result/source overwrite",
+      "Existing Lab changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author subjective feel and physical iPhone Safari",
+      "Universal economic safety outside sampled policies"
+    ],
+    "alternativesRejected": [
+      "Uniform multiplier first",
+      "Capital/subsidy/price/cost rescue before sales validation",
+      "Silently replay old saves under new rules"
+    ],
+    "boundaryCases": [
+      "1/2/4/8 identical release splits; shared failed opportunities; low affinity leftovers versus integer-zero trap",
+      "Cash nonnegative but cannot restart; month rollback with fractional carry; forced bottling; delayed store unlock",
+      "Save failure/reload/retry, inventory hand+retail+shops+reserved+sold conservation"
+    ],
+    "testPlan": [
+      "Sales structural/property and save/replay/atomicity tests; isolated native baseline source identity and candidate economic matrix with reproducible results",
+      "Targeted browser phone/desktop, lifecycle regression, Scope/Risk/Impact/syntax/diff, requiredCI and Staging deployment check"
+    ],
+    "problem": "Current split-dependent sales and weak store differentiation make destination choice shallow; stricter sales can strand early cash.",
+    "currentContract": "Main native production/economy and audit remain immutable; Lab explicitly separate rule version and save.",
+    "whyExistingIsInsufficient": "Audit establishes structural and liquidity risks but no playable corrected sales design.",
+    "design": "Shared venue opportunities over equivalent economic profiles; differentiated affinities; compare carry/probability; pure module shared with Lab and native financial experiment adapter.",
+    "migration": "Design only: keep old rule histories and readers; future explicit boundary event with old factual state and future new-rule ledger; no adoption this PR.",
+    "compatibility": "Lab accepts only its own versioned envelope; never reads/writes main storage or imports old logs.",
+    "promotionRisk": "Staging-only; no automatic main game adoption or Production permission."
+  }
+}
