@@ -1,6 +1,6 @@
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {readSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} from './placement-save.mjs?v=formal-copy-r1';
-import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=market-organize-r1';
+import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=market-layout-r1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=0.27-placement';
 import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback} from './flavor-feedback-view.mjs?v=0.25.4';
@@ -61,6 +61,7 @@ let marketEditing=false,marketMessageId=0;
 const placementUI=placementEnabled?createPlacementUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),commit:commitPlacement,render:()=>{render();schedule();}}):null;
 const marketUI=createMarketUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),act:actMarket,
  openProduct:id=>{selectedProductId=id;openModal('product',id);},
+ openRetailInfo:id=>{selectedProductId=id;openModal('market-retail-info',id);},
  openStockist:shopId=>{if(!game||modal)return;marketUI.cancel();stopClock();modal={kind:'stockist',shopId};render();schedule();},
  announce:text=>{if(text)automaticNews.push([{id:'market-message:'+(++marketMessageId),kind:'message',priority:1,text}]);},
  announceSaved:text=>{const status=$('market-action-status');status.textContent='';queueMicrotask(()=>{status.textContent=text;});},
@@ -698,10 +699,15 @@ function syncModal(){
   title='取扱店';const shops=knownStockists();
   body=shops.length?'<div class="stockist-list">'+shops.map(shop=>button(esc(shop.name)+'<small>'+stockistStatus(shop.id)+'</small>','stockist-open',shop.id)).join('')+'</div>':'<p>取扱店なし</p>';
   actions=button('戻る','cancel');
+ }else if(kind==='market-retail-info'){
+  const p=game.core.products.find(x=>x.id===id),sold=game.releases.reduce((n,r)=>n+r.sold,0),revenue=game.releases.reduce((n,r)=>n+r.revenue,0);
+  title='自家販売';body='<p>売れ方：少しずつ直接販売</p><p>累計販売 '+sold+'本 · '+unit(revenue)+'</p>'+(p?button('選んだ瓶の価格・情報','market-retail-product',p.id):'');
+  actions=button('閉じる','cancel');
  }else if(kind==='stockist'&&D.storeMarketMode(game)&&modal.shopId!=='department'){
   const store=SHOPS.find(x=>x.id===modal.shopId),offer=game.shop.offer?.shopId===modal.shopId?game.shop.offer:null,relations=game.shop.relations.filter(x=>x.shopId===modal.shopId);
-  title=store?.name??'取扱店';body=offer?button('申し出を見る','stockist-offer',offer.id):relations.length?'<p>販売室で瓶を置けます。</p>':'<p>取扱いの申し出を待っています。</p>';
-  if(relations.length){const history=game.shop.deliveries.filter(x=>x.shopId===modal.shopId);body+='<p>'+history.reduce((n,x)=>n+x.count,0)+'本販売 · '+unit(history.reduce((n,x)=>n+x.revenue,0))+'</p>';}
+  title=store?.name??'取扱店';const preference=D.marketRulesMode(game)?({'town-liquor':'煙・厚み','supermarket':'麦・果実'}[modal.shopId]):'麦';body=offer?button('申し出を見る','stockist-offer',offer.id):relations.length?'':'<p>取扱いの申し出を待っています。</p>';
+  if(preference)body+='<p>好み：'+preference+'</p>';
+  if(relations.length){const history=game.shop.deliveries.filter(x=>x.shopId===modal.shopId);body+='<p>累計販売 '+history.reduce((n,x)=>n+x.count,0)+'本 · '+unit(history.reduce((n,x)=>n+x.revenue,0))+'</p>';}
   actions=button('閉じる','cancel');
  }else if(kind==='stockist'){
   if(!knownStockists().some(s=>s.id===modal.shopId)){modal={kind:'stockists'};render();return;}
@@ -1014,6 +1020,7 @@ function handleModal(e){
   modal.deliveryProductId=id;modal.deliveryShopId=shopId;modal.deliveryCount=n;deliveryNotice='';render();
   if(!pointerInteraction)queueMicrotask(()=>document.querySelector('[data-action="delivery-select"][data-count="'+n+'"]')?.focus({preventScroll:true}));return;
  }
+ if(a==='market-retail-product'&&kind==='market-retail-info'&&game.core.products.some(p=>p.id===id)){selectedProductId=id;modal={kind:'product',id};render();return;}
  if(a==='settings-reset'&&kind==='settings'){$('reset').click();return;}
  if(a==='staff-back'&&kind==='staff-request'){closeComparison();return;}
  if(a==='staff-hire-request'&&kind==='staff-request'){act(s=>D.hireStaff(D.endTasting(s)),()=>message('採用しました'));return;}
