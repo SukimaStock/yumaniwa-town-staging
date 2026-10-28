@@ -68,11 +68,11 @@ function shelfTarget(row){
  else if(r.right>v.right-2)left+=r.right-v.right+2;
  return {shelf,left:Math.max(0,Math.min(left,shelf.scrollWidth-shelf.clientWidth))};
 }
-function alignShelf(row){const {shelf,left}=shelfTarget(row);shelf.style.scrollSnapType='none';shelf.scrollLeft=left;}
+function alignShelf(row){const {shelf,left}=shelfTarget(row);shelf.scrollLeft=left;}
 async function revealSale(row,epoch){
  const {shelf,left}=shelfTarget(row),from=shelf.scrollLeft;
  if(Math.abs(left-from)<1)return;
- shelf.style.scrollSnapType='none';
+
  if(reduced.matches||document.hidden){shelf.scrollLeft=left;return;}
  await new Promise(resolve=>{
   let frame,start,done=false;
