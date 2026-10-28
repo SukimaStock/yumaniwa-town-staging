@@ -16,7 +16,7 @@ test('immutable300 baseline, new registration, order and 1000 ceiling',()=>{
  }
  const last=manifest.items[299];assert.deepEqual(last,{id:'street-fire-hydrant',file:'objects/street-fire-hydrant.json',number:300});
  const raw=readFileSync(new URL(last.file,root));
- assert.equal(createHash('sha1').update(Buffer.from('blob '+raw.length+'\\0')).update(raw).digest('hex'),'13c945a4f31df1e7a778ee597bada1deace32661');
+ assert.equal(createHash('sha1').update(Buffer.from('blob '+raw.length+'\0')).update(raw).digest('hex'),'13c945a4f31df1e7a778ee597bada1deace32661');
  assert.equal(manifest.items.length,310);assert.ok(manifest.items.length<=1000);
  const nums=manifest.items.map((v,i)=>v.number??i);
  assert.equal(new Set(nums).size,310);assert.equal(new Set(manifest.items.map(x=>x.id)).size,310);
