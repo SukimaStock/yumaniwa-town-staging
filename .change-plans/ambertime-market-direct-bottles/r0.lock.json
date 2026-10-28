@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "469de1b4a02be0287f9b9441ec05763e9c1cd9a14072a34314f4d57dd42ec5a7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-direct-bottles",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "235acfaafff01981f0c6e1758055ece379fc0e0e",
+    "change": "Remove rejected #release/brand-select/locked badge/department footer from native sales board; restore direct hand bottles with actual release date and counts.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "Current user screenshots and explicit corrections: no取扱前/dept/#10, brand selector confusing",
+      "Personal Context recovered no#number/product-name main shelf decision; bottle/count/release date as core",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "Current native UI/model/save contracts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-direct-bottles/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/market-compact-browser.test.mjs",
+      "works/ambertime/design/store-market-main.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs"
+    ],
+    "expectedChanges": [
+      "Remove取扱前 badge and always-visible department/product footer. Department and product details stay reachable through existing native stockists/product dialogs/retail ellipsis; no feature/model removal.",
+      "Replace brand dropdown with actual available hand bottles as direct tappable objects. Label actual bottle count and release date, no visible brand/#/第N回. Empty hand is simply0 bottles, never false bottling instruction. Date/flavor in accessible labels/return confirmation preserve identity without merging products.",
+      "Capture assignment source and exact productId before transaction so last-bottle/all placement can animate from removed hand bottle to correct store even when selection moves. Preserve conditional saved-success, native sale source, returns, shelf positions/focus/reduced motion/cancel and one normal viewport.",
+      "Keep 1/5/all and3 native store rows. Use existing native management/details for special operations. Root changes UI import query only; CSS/entry cache queries updated. No economy/save/model/clock or Labs changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Target UI/formal-copy/font/native-model regressions; browser at4mobile sizes DPR1/3, direct hand12releases, last/all placement, return/reselection, real native sales, no selector/#/locked/deptfooter/false empty hint, detail access.",
+      "Scope→Risk→Impact/Lifecycle/syntax/diff, independent review, exact tree/CI/Pages/public source and UI. Physical Safari touch feel unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Current explicit UI correction in ongoing authorized Staging work; remove erroneous display and misleading selector. Earlier no# decision recovered; do not replace #N with 第N in main board."
+    ],
+    "hqDecisions": [
+      "Presentation-only direct bottles. Preserve per-product identities and exact operations; no automatic aggregation/reservation semantics."
+    ],
+    "rulesApplied": [
+      "Independent staging-only Lab; no persistence or external services",
+      "Minimal Japanese operational copy; audit six expression criteria",
+      "No Production or main game changes"
+    ],
+    "rollback": "Revert UI and cache-query changes; all stored data remains unchanged.",
+    "outOfScope": [
+      "Production",
+      "Native model/economy/save/replay semantics",
+      "Special department model removal",
+      "Labs or other rooms/shared runtime"
+    ],
+    "promotion": "Staging PR/CI/Pages only; author play acceptance later",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author adoption of corrected direct-bottle presentation"
+    ]
+  }
+}
