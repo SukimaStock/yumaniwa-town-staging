@@ -76,7 +76,7 @@ function openStock(key){
  const [shopId,id]=key.split(':'),r=state.releases.find(x=>x.id===Number(id));
  returnTo={key:'stock',value:key};$('detail-title').textContent=shopName(shopId);
  $('detail-text').textContent=`第${r.id}回 ${M.flavor(r.flavorId).name} · ${r.assigned[shopId]}本`;
- $('take-back').hidden=false;$('take-back').dataset.shop=shopId;$('take-back').dataset.release=r.id;$('detail').showModal();
+ $('take-back').hidden=false;$('take-back').dataset.shop=shopId;$('take-back').dataset.releaseId=r.id;$('detail').showModal();
 }
 document.addEventListener('click',async e=>{
  const b=e.target.closest('button');if(!b||b.disabled||busy)return;
@@ -89,7 +89,7 @@ document.addEventListener('click',async e=>{
  }
  if(b.id==='detail-close'){closeDetail();return;}
  if(b.id==='take-back'){
-  const n=M.takeBack(state,Number(b.dataset.release),b.dataset.shop);cancelMotion();render({restore:false});closeDetail();announce(`${n}本を手元へ`);return;
+  const n=M.takeBack(state,Number(b.dataset.releaseId),b.dataset.shop);cancelMotion();render({restore:false});closeDetail();announce(`${n}本を手元へ`);return;
  }
  if(b.dataset.brew){cancelMotion();selected=M.brew(state,b.dataset.brew);render();announce(`第${selected}回を18本ビン詰め`);return;}
  if(b.id==='month'){
