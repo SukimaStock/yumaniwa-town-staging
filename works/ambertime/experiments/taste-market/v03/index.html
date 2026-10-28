@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>AmberTime｜味と店 Lab 0.3</title><meta name="description" content="瓶を店に渡し、棚から売れていく流れを1画面で試す独立Lab。"><link rel="stylesheet" href="style.css?v=compact-r1"></head>
+<body><main>
+<header><h1>AmberTime <span>Lab 0.3</span></h1><button id="options" aria-label="記録と実験条件を開く">…</button></header>
+<div class="clock"><span id="date"></span><span id="cash" aria-label="累計売上"></span><button id="month">1か月進める</button></div>
+<section class="hand-line" aria-label="渡す瓶"><span id="selected-bottle" aria-hidden="true"></span><select id="releases" aria-label="渡す発売回"></select><span class="hand">手元 <output id="hand"></output>本</span></section>
+<div id="portions" class="buttons" aria-label="一度に渡す本数"></div>
+<section id="shops" class="shops" aria-label="店の棚"></section>
+<p id="notice" role="status" aria-live="polite"></p>
+<button id="new-brew">次の一本を造る</button>
+</main>
+<dialog id="detail" aria-labelledby="detail-title"><h2 id="detail-title"></h2><p id="detail-text"></p><div class="buttons"><button id="take-back">手元へ戻す</button><button id="detail-close">閉じる</button></div></dialog>
+<dialog id="brew-dialog" aria-labelledby="brew-title"><h2 id="brew-title">次の一本を造る</h2><div id="brew" class="buttons"></div><button data-close="brew-dialog">閉じる</button></dialog>
+<dialog id="records" aria-labelledby="records-title"><h2 id="records-title">記録と実験条件</h2><h3>発売回ごとの販売</h3><ul id="totals"></ul><h3>最近の記録</h3><ol id="history"></ol><div class="buttons"><button id="export">ログを書き出す</button><label class="import">ログを再現<input id="import" type="file" accept="application/json,.json"></label><button id="reset">最初から</button></div><p>1回18本・1本£12の仮モデル。本編の保存には接続しません。</p><nav><a href="../v02/">Lab 0.2と比較</a><a href="REPORT.md">実験条件</a></nav><button data-close="records">閉じる</button></dialog>
+<script type="module" src="app.mjs?v=compact-r1"></script></body></html>
