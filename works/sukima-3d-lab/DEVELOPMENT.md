@@ -1,3 +1,11 @@
+# Collection 29 · restart toward 1,000 — 2026-10-28
+
+The author's new instruction on 2026-10-28 supersedes the old 2026-10-13 final-stop at 300 recorded below. All 300 original entries and JSON source bytes, numbering and the missing 16 remain unchanged. This batch adds exactly ten distinct schema-v2 STATIC town miniatures numbered 301–310. Former exact-current-count tests change only 300 to 310 and obsolete local 300 ceilings return to the established 1000 collection cap; historical fixed ranges and baselines remain intact. No runtime, generator, shared engine, town placement or Production changes.
+
+New items: 301 stone-window-well (地下窓の石囲い); 302 street-tree-grille (街路樹の根元); 303 sidewalk-menu-easel (路地の黒板立て); 304 market-wooden-crate (市場の木箱); 305 bicycle-front-wheel (古い自転車の前輪); 306 flowerpot-lavender (鉢植えのラベンダー); 307 pebble-stepping-path (庭の飛び石); 308 street-utility-box (道路脇の配電箱); 309 stone-well-bucket (井戸と木桶); 310 corner-street-signpost (角の道しるべ).
+
+The new regression protects all previous 300 entries and source bytes and the next ten identities, preview and rotation/reset. Browser WebGL appearance, real iPhone/iPad Safari touches, measured performance, public delivery and author adoption remain unverified unless separately observed. Formal next index after verified delivery is 311 (690 remaining). Stop at total 1000. Old DEVELOPMENT entries below remain historical context.
+
 # Collection 28 · final saved hydrant300 and hard stop — 2026-10-13
 
 Parent explicitly authorized only saved300,then300 performance milestone and final stop. **No301 planning/generation/registration/continuation.** Clean base50c5a173d778f64901c8b6f6e58a9a23694c485a (PR350); Plan-only83c695e,digestea47f9324a2937ffd01a1fdecd8306300d5a2c37cbdee0f2125cfcc491de1641 precedes implementation. Existing AGENTS/guide/verification,active/staging-only unchanged; no .agents/skills. No engine/runtime/schema/gates/town/otherwork/Production change.

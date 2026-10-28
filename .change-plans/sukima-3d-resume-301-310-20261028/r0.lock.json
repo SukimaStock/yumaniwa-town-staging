@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3db37b14a730b4908952fad1a9e70b762176d72dc8783672561adbd884098eac",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-resume-301-310-20261028",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Extend existing SukimaStock 3D staging collection from 300 to 310 toward user-authorized 1000 total; preserve old specimens",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "89d95a6b24025fc4ee771cce760a29eb9344f951",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/tests/town-miniatures-28.test.mjs",
+      "User instruction 2026-10-28: cumulative target 1000 supersedes older 300 stop"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-resume-301-310-20261028/r0.lock.json",
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/DEVELOPMENT.md",
+      "works/sukima-3d-lab/objects/stone-window-well.json",
+      "works/sukima-3d-lab/objects/street-tree-grille.json",
+      "works/sukima-3d-lab/objects/sidewalk-menu-easel.json",
+      "works/sukima-3d-lab/objects/market-wooden-crate.json",
+      "works/sukima-3d-lab/objects/bicycle-front-wheel.json",
+      "works/sukima-3d-lab/objects/flowerpot-lavender.json",
+      "works/sukima-3d-lab/objects/pebble-stepping-path.json",
+      "works/sukima-3d-lab/objects/street-utility-box.json",
+      "works/sukima-3d-lab/objects/stone-well-bucket.json",
+      "works/sukima-3d-lab/objects/corner-street-signpost.json",
+      "works/sukima-3d-lab/tests/town-miniatures-29.test.mjs",
+      "works/sukima-3d-lab/tests/free-forms.test.mjs",
+      "works/sukima-3d-lab/tests/manipulation.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-06.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-07.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-08.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-09.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-10.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-11.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-12.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-13.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-14.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-15.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-16.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-17.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-18.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-19.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-20.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-21.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-22.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-23.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-24.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-25.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-26.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-27.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-28.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "works/sukima-3d-lab/engine/**",
+      "works/sukima-3d-lab/app.js",
+      "works/sukima-3d-lab/index.html",
+      "works/sukima-3d-lab/style.css",
+      "works/sukima-3d-lab/preview.js",
+      "works/sukima-3d-lab/collection.js",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/tests/measure-collection.cjs",
+      "works/sukima-3d-lab/objects/street-fire-hydrant.json"
+    ],
+    "expectedChanges": [
+      "Append at most ten distinct static v2 town miniatures 301..310 without modifying existing objects",
+      "Update old exact-total assertions only from 300 to 310 and 300-local stopping bounds to established <=1000, preserving historical fixed slices, hashes and goldens",
+      "Add a focused immutable-300 and exact-new-batch regression and a short new DEVELOPMENT checkpoint",
+      "No changes to runtime, town, LAB navigation, application, Production or existing specimen data"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests continuation toward 1000 on 2026-10-28, overriding prior 2026-10-13 stop at 300; one batch max10; Staging-only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Data-only v2 STATIC shapes; unique identity and displayed numbering; preserve gap16; no special-case runtime",
+      "All prior source bytes and existing tests protected; 300 exact totals are updated only to reflect new registry count"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Registry validation and immutable existing 300 specimen source verification",
+      "Shape validation and CPU preview for all new objects",
+      "Touch input regressions for existing objects and fresh static rotating/reset",
+      "Related local tests and required GitHub CI, safe merge only after verified checks",
+      "Public exact-SHA Staging accessibility; physical iPhone Safari remains unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only continuation PR, keeping preexisting 300 and all files unchanged",
+    "outOfScope": [
+      "Production changes",
+      "Runtime, shared engine, town placement, new features, all old object edits",
+      "Tests weakened to pass invalid shapes or missing objects"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad/Safari",
+      "Author adoption and touch feel",
+      "No claim of public WebGL quality without observed browser evidence"
+    ]
+  }
+}
