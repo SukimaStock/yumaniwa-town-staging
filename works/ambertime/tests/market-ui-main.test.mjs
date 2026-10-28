@@ -62,7 +62,7 @@ test('published Canvas viewport realigns a paused board after window or visual v
   // Canvas updates after the board's window listener and also publishes visual
   // viewport-only changes, without any game operation or clock tick.
   h.scene.dataset.viewport=JSON.stringify({scale:2,offsetX:30,offsetY:14});callback();
-  assert.equal(h.root.style.left,'54px');assert.equal(h.root.style.top,'212px');assert.equal(h.root.style.width,'672px');assert.equal(h.root.style.height,'834px');
+  assert.equal(h.root.style.left,'54px');assert.equal(h.root.style.top,'212px');assert.equal(h.root.style.width,'672px');assert.equal(h.root.style.height,'auto');assert.equal(h.root.style.maxHeight,'834px');
  }finally{if(previous===undefined)delete globalThis.MutationObserver;else globalThis.MutationObserver=previous;}
 });
 
@@ -147,7 +147,7 @@ test('unavailable and offer-only shops are absent; actual contracts reveal only 
 test('four sold is a separate notification while the bottle always shows one actually remaining',async t=>{
  t.mock.timers.enable({apis:['setTimeout']});const h=harness();h.read().core.products[0].stock=10;h.read().assigned[7]=5;h.ui.update({visible:true});const before=structuredClone(h.read());h.read().core.month++;h.read().assigned[7]=1;h.read().core.products[0].stock-=4;h.read().core.lastMonth={month:h.read().core.month,sales:[{id:7,sold:4,revenue:64,channel:'stockist',shopId:'town-liquor'}]};h.ui.consume(before,h.read());assert.match(h.root.innerHTML,/4本売れた \+£64/);assert.match(h.root.innerHTML,/残り1本 4本売れた/);assert.doesNotMatch(h.root.innerHTML,/−4本|-4本|market-sold/);assert.match(h.root.innerHTML,/class="market-count">1本/);await Promise.resolve();await Promise.resolve();t.mock.timers.tick(2401);assert.doesNotMatch(h.root.innerHTML,/4本売れた/);assert.equal(h.read().assigned[7],1);
 });
-test('left placement target has a visible action and still preserves minimal bottle controls',()=>{const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/class="market-place-label"/);assert.match(h.root.innerHTML,/置く →/);assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);assert.doesNotMatch(h.root.innerHTML,/<select|取扱前|デパート|#\d+|第\d+回/);});
+test('left placement target has a visible action and still preserves minimal bottle controls',()=>{const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/class="market-place-label"/);assert.match(h.root.innerHTML,/ここに置く/);assert.doesNotMatch(h.root.innerHTML,/置く →|market-preference|少量ずつ|煙・厚み|麦・果実/);assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);assert.doesNotMatch(h.root.innerHTML,/<select|取扱前|デパート|#\d+|第\d+回/);});
 
 
 test('hand heading avoids duplicate aggregate and successful saved placement uses accessible status only',()=>{
@@ -159,4 +159,10 @@ test('normal placement targets stay neutral and the saved status has a dedicated
  const read=name=>fs.readFileSync(new URL('../'+name,import.meta.url),'utf8'),css=read('market.css'),app=read('shop-app.mjs'),html=read('index.html');
  const targetRule=css.match(/#market-board \.market-target:not\(:disabled\)\{([^}]+)\}/)[1];assert.doesNotMatch(targetRule,/#e4bc66|#57472e/);assert.match(css,/button\[aria-pressed=true\][^}]+#e4bc66/);assert.match(css,/market-target[^}]+border:[^}]+#858995/);
  assert.match(html,/id="market-action-status" class="sr-only" role="status" aria-live="polite"/);assert.match(app,/announceSaved:text=>/);assert.match(app,/document.body.append\(\$\('automatic-news'\),\$\('market-action-status'\)\)/);
+});
+
+
+test('venue information is explicitly named and content-sized panel reveals the native room below',()=>{
+ const h=harness();h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/>店情報<\/button>/g)||[]).length,2);assert.doesNotMatch(h.root.innerHTML,/>…<\/button>/);assert.equal(h.root.style.height,'auto');assert.equal(h.root.style.maxHeight,'417px');
+ const css=fs.readFileSync(new URL('../market.css',import.meta.url),'utf8');assert.match(css,/market-content[^}]*height:auto/);assert.match(css,/market-shops[^}]*flex:none/);
 });
