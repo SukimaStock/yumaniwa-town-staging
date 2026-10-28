@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ba5c402563486260e8c882278f983daf28d8d09785e1fa11f189cb6e361722bf",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-reader-cache",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "137fb7f83ec2e1dfd28ff7aa97b00489cb1d27fa",
+    "change": "Cache-only follow-up: align every native main replay reader and worker dependency with the new store-market operation reader, so recently cached clients do not read new saves with old model modules.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "Current user main integration request",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "PR661 native store-market integration",
+      "Current native replay-reader import graph"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-reader-cache/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Update only existing native main import/worker query references for cask serials, nearby comparison, history/generation and cask ledger validation to store-market-main-r1. Main entry gets reader-r2 to invalidate the recently served loader.",
+      "Update cache-chain assertions while leaving all helper function bodies, game state, economics, native save data and old experimental app entries unchanged.",
+      "Do not alter worker logic or add new runtime/saves/dependencies; public native preview and normal saved game remain functional."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Cache chain closure and query-only diff review",
+      "Formal-copy/cask-serial/nearby/history/generation/worker tests as relevant",
+      "Scope/Risk/Impact/Lifecycle and public HTTP bytes/main boot",
+      "Physical Safari old-cache exercise unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Same authorized main integration follow-up; no new product behavior or Production publication."
+    ],
+    "hqDecisions": [
+      "Cache-only dependency references necessary for newly recorded opcodes; preserve all code bodies and values. No new contract decision."
+    ],
+    "rulesApplied": [
+      "Full locked plan for work-local save semantics and cross-cutting UI/model integration",
+      "Scope→Risk→Impact; independent model/UI ownership, meaningful regression and independent review",
+      "Staging only; no Production/lifecycle promotion or other Lab changes",
+      "Expression audit6: operational copy only, preserve native uniform font"
+    ],
+    "rollback": "Revert query-only follow-up; no state data changed",
+    "outOfScope": [
+      "Production",
+      "Any formulas/state/operation semantics/UI behavior",
+      "Experimental and legacy app imports",
+      "Changes to unrelated old failing tests"
+    ],
+    "promotion": "Staging PR/CI/review/safe merge/Pages only.",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Subjective long-term balance",
+      "Production publication"
+    ],
+    "problem": "Accepted Lab mechanics are disconnected from native main products, saves, economy and live sales room.",
+    "currentContract": "Main placementv1 retail bucket + immediate town-shop delivery; supermarket automatic shipments; department approved5. Native operation replay validates exact state.",
+    "whyExistingIsInsufficient": "Immediate delivery consumes stock and pays before later sale, cannot return; old product modal pauses time and cannot show actual monthly sale motion.",
+    "design": "Append logged storeMarket state/maps with real owned reservations, native monthly settlement and saved-sale receipts; non-modal real-product board in existing sales room; preserve old code paths behind new flag.",
+    "alternativesRejected": [
+      "Copy toy Lab state or prices into main",
+      "Rewrite old product-allocation or old shipment history",
+      "Merge department projects into freely returned ordinary shelves",
+      "Put sales in ordinary modal that pauses native clock",
+      "Cover invisible old Canvas targets without suppressing them"
+    ],
+    "migration": "None: only reader URL queries change.",
+    "compatibility": "Native save key/envelope unchanged; old save replay preserved. New mode uses additional recognized logged operations and optional state; old app should use pre-adoption exported original record, not new-op saves.",
+    "boundaryCases": [
+      "Zero/one/many products and stock split among retail/ordinary/dept",
+      "Pending department5, auto shipment and held stock",
+      "Same month bottle/relationship and zero demand; superclass minimum10 bypass newmode only",
+      "Migration at generation360 and funds/stall boundary without listed retail",
+      "Partial sales, soldout, return/reassign and duplicate replay",
+      "Save failure/conflicting tab, UI hidden/resized/closed during animation",
+      "Old fixture history/cash/town/reputation unchanged",
+      "Clock live in sales board, paused for details and source decisions"
+    ],
+    "testPlan": [
+      "New core market regression for conservation, no assign cash, monthly sales, price/fit, shared demand, returns, exact replay and save tamper",
+      "Migration no-op repeat and historical stock/cash/retail/generation/town conservation; legacy placement and department regressions",
+      "Canvas/UI integration and saved-only receipt replay/cancellation/focus",
+      "Related native test suites + Scope/Risk/Impact/Lifecycle and public HTTP/browser verification"
+    ],
+    "promotionRisk": "Staging main behavior changes after logged adoption; keep original source saves/export and validate exact replay. No Production promotion."
+  }
+}
