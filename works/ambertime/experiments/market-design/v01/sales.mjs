@@ -34,24 +34,30 @@ export function planSales(items,venue,ledger={},options={}){
  const month=options.month??((ledger.month??0)+1),seed=options.seed??42,multiplier=options.multiplier??1,method=options.method??'carry';
  assert(Number.isInteger(month)&&month>=0&&Number.isFinite(multiplier)&&multiplier>=0&&['carry','seeded'].includes(method),'Invalid monthly options');
  assert(Array.isArray(items),'Items required');
+ assert(ledger.version===undefined||ledger.version===2,'Unsupported candidate opportunity ledger');
  const ids=new Set();for(const i of items){assert((typeof i.id==='string'||Number.isInteger(i.id))&&!ids.has(i.id),'Unique item IDs required');ids.add(i.id);assert(Number.isInteger(i.count)&&i.count>=0&&Number.isFinite(i.price)&&i.price>0&&Number.isFinite(i.age)&&i.age>=0,'Invalid item');}
  const fingerprint=JSON.stringify([venue,month,seed,multiplier,method,items.map(i=>[i.id,i.count,profileKey(i)]).sort((a,b)=>String(a[0]).localeCompare(String(b[0])))]);
  if(ledger.month===month){assert(ledger.fingerprint===fingerprint,'This month was already planned with different conditions');return {...structuredClone(ledger.result),ledger:structuredClone(ledger)};}
  assert(ledger.month===undefined||month>ledger.month,'Cannot replay an earlier month');
  const grouped=new Map();for(const i of items.filter(i=>i.count>0)){const key=profileKey(i);let g=grouped.get(key);if(!g){g={key,item:i,count:0,items:[]};grouped.set(key,g);}g.count+=i.count;g.items.push(i);}
  const groups=[...grouped.values()].sort((a,b)=>a.key.localeCompare(b.key)),total=groups.reduce((n,g)=>n+g.count,0),opportunities=Math.min(definition.opportunities,total);
- for(const g of groups){const quota=opportunities*g.count/total;g.attempts=Math.floor(quota);g.remainder=quota-g.attempts;}
- let extra=opportunities-groups.reduce((n,g)=>n+g.attempts,0);for(const g of [...groups].sort((a,b)=>b.remainder-a.remainder||a.key.localeCompare(b.key)))if(extra>0){g.attempts++;extra--;}
- const sales=[],credits={},details=[];let slot=0;
+ // Persistent deficit scheduling carries fractional CUSTOMER opportunities too.
+ // Monthly largest remainders alone can permanently starve a small profile.
+ // Center retained deficits after a profile appears/disappears; common shifts
+ // preserve priority while preventing absent shelves from banking entitlement.
+ const center=groups.length?groups.reduce((n,g)=>n+num(ledger.opportunityCredits?.[g.key]),0)/groups.length:0;
+ for(const g of groups){g.attempts=0;g.opportunityCredit=num(ledger.opportunityCredits?.[g.key])-center+opportunities*g.count/total;}
+ for(let i=0;i<opportunities;i++){const eligible=groups.filter(g=>g.attempts<g.count).sort((a,b)=>b.opportunityCredit-a.opportunityCredit||a.key.localeCompare(b.key));assert(eligible.length>0,'Customer opportunity exceeds physical stock');const g=eligible[0];g.attempts++;g.opportunityCredit-=1;}
+ const sales=[],credits={},opportunityCredits={},details=[];let slot=0;
  for(const g of groups){const probability=acceptance(venue,g.item,multiplier),prior=clamp(num(ledger.credits?.[g.key]),0,.999999999999),raw=prior+g.attempts*probability;let sold;
   if(method==='carry')sold=Math.min(g.count,Math.floor(raw+1e-10));else{sold=0;for(let i=0;i<g.attempts;i++)if(unit(seed,`${RULES}:${venue}:${month}:${slot+i}`)<probability)sold++;}
   slot+=g.attempts;const credit=method==='carry'?Math.max(0,raw-Math.floor(raw+1e-10)):0;
   // Credits never exceed one and disappear with a depleted/absent profile.
-  if(sold<g.count&&credit>0)credits[g.key]=credit;
+  if(sold<g.count){if(credit>0)credits[g.key]=credit;opportunityCredits[g.key]=g.opportunityCredit;}
   let remaining=sold;for(const i of g.items.slice().sort((a,b)=>String(a.id).localeCompare(String(b.id),undefined,{numeric:true}))){const count=Math.min(i.count,remaining);if(count)sales.push({id:i.id,count});remaining-=count;}
-  details.push({key:g.key,fit:affinity(venue,g.item),probability,attempts:g.attempts,sold,credit:credits[g.key]??0});
+  details.push({key:g.key,fit:affinity(venue,g.item),probability,attempts:g.attempts,sold,credit:credits[g.key]??0,opportunityCredit:opportunityCredits[g.key]??0});
  }
  const result={venue,month,opportunities,attempted:slot,sold:sales.reduce((n,s)=>n+s.count,0),sales,groups:details};
- const next={version:1,month,credits,fingerprint,result:structuredClone(result)};
+ const next={version:2,month,credits,opportunityCredits,fingerprint,result:structuredClone(result)};
  return {...result,ledger:next};
 }
