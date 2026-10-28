@@ -1,11 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createPlacementUI} from '../placement-ui.mjs';
-function harness(relations=[],result={ok:true,changed:true,text:'自家販売へ1本回しました。'},{age=12,available=6,retail=0}={}){
- globalThis.matchMedia=()=>({matches:false,addEventListener(){}});globalThis.window={addEventListener(){}};
- const elements=new Map(),animations=[];
- const element=id=>{if(!elements.has(id))elements.set(id,{_text:'',get textContent(){return this._text},set textContent(value){this._text=String(value)},hidden:false,dataset:{},classList:{toggle(){}},closest(){return this},setAttribute(){},animate(){const a={cancel(){this.oncancel?.()}};animations.push(a);return a;}});return elements.get(id)};
- const doc={getElementById:element,addEventListener(){},querySelectorAll:()=>[],querySelector:()=>element('undo')};
+function harness(relations=[],result={ok:true,changed:true,text:'自家販売へ1本回しました。'},{age=12,available=6,retail=0,motionVisible=false,reducedMotion=false}={}){
+ globalThis.matchMedia=()=>({matches:reducedMotion,addEventListener(){}});globalThis.window={addEventListener(){}};globalThis.innerHeight=844;
+ const elements=new Map(),animations=[];let nextSpan=0;
+ const makeElement=id=>({_text:'',children:[],id,hidden:false,isConnected:true,dataset:{},classList:{toggle(){}},
+  get textContent(){return this._text+this.children.map(x=>x.textContent).join('')},set textContent(value){this._text=String(value);this.children=[]},
+  closest(){return this},setAttribute(){},querySelector(){return null},append(x){this.children.push(x)},remove(){this.removed=true},
+  getBoundingClientRect(){return {width:100,height:40,top:120,bottom:160,left:0,right:100}},
+  animate(frames,options){const a={frames,options,node:id,cancel(){this.oncancel?.()}};animations.push(a);return a;}
+ });
+ const element=id=>{if(!elements.has(id))elements.set(id,makeElement(id));return elements.get(id)};
+ const doc={hidden:!motionVisible,getElementById:element,createElement:()=>makeElement('span-'+(++nextSpan)),addEventListener(){},querySelectorAll:()=>[],querySelector:()=>element('undo')};
+ element('action-dialog').open=true;element('placement-retail').previousElementSibling=element('bottle-retail');element('placement-shop').previousElementSibling=element('bottle-shop');
  let state={shop:{relations},core:{products:[{id:1,age}]},releases:[{id:2,productId:1,brandId:3}]};
  let answer=result;
  const model={placementInventory:()=>({available,retail}),placementQuote:()=>({ok:false,reason:'今月は納品できません',maxCount:0}),placementWish:()=>null};
@@ -41,4 +48,33 @@ test('0.27.2 existing undo removes one tap and restores redistribution of unsold
  const h=harness([],undefined,{age:2,available:11});h.ui.markup(1);h.action('place','retail');assert.equal(h.element('placement-hand').textContent,'10');h.action('undo');assert.equal(h.element('placement-hand').textContent,'11');
  h.action('portion','2');h.action('place','retail');h.action('place','retail');assert.equal(h.element('placement-retail').textContent,'4本');h.action('undo');assert.equal(h.element('placement-retail').textContent,'2本');assert.equal(h.element('placement-hand').textContent,'9');
  const r=harness([],undefined,{available:11,retail:3});r.ui.markup(1);r.action('place','retail');const before=r.ui.diagnostics().draft.allocation;r.action('redistribute');assert.equal(r.element('placement-hand').textContent,'11');assert.equal(r.element('placement-retail').textContent,'0本');r.action('undo');assert.deepEqual(r.ui.diagnostics().draft.allocation,before);assert.equal(r.element('placement-hand').textContent,'7');
+});
+
+test('Lab 0.2 preset 5 animates bottle, frame and two factual deltas only for successful placement',()=>{
+ const h=harness([],undefined,{available:12,motionVisible:true});
+ h.ui.markup(1);
+ h.action('place','retail');
+ assert.equal(h.element('placement-retail').textContent,'1本+1');
+ assert.equal(h.element('placement-hand').textContent,'11-1');
+ assert.deepEqual(h.animations.map(x=>x.options.duration),[210,160,650,650]);
+ assert.equal(h.animations[0].frames[2].transform,'translateY(-3px)');
+ assert.equal(h.animations[1].frames[1].outlineOffset,'2px');
+ assert.equal(h.ui.diagnostics().motions,4);
+ h.action('undo');
+ assert.equal(h.element('placement-retail').textContent,'0本');
+ assert.equal(h.element('placement-hand').textContent,'12');
+ assert.equal(h.ui.diagnostics().motions,0);
+ const before=h.animations.length;h.action('redistribute');
+ assert.equal(h.animations.length,before);
+ h.action('place','retail');h.action('place','retail');
+ assert.equal(h.ui.diagnostics().motions,4);
+ assert.equal(h.element('placement-retail').textContent,'2本+1');
+});
+test('reduced motion keeps immediate allocation changes but removes transient feedback',()=>{
+ const h=harness([],undefined,{available:12,motionVisible:true,reducedMotion:true});
+ h.ui.markup(1);h.action('place','retail');
+ assert.equal(h.element('placement-retail').textContent,'1本');
+ assert.equal(h.element('placement-hand').textContent,'11');
+ assert.equal(h.animations.length,0);
+ assert.equal(h.ui.diagnostics().motions,0);
 });
