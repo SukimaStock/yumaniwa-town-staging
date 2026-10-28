@@ -27,13 +27,13 @@ test('sale feedback accepts only a newly persisted month and ordinary channels, 
 });
 function harness({saved=true}={}){
  globalThis.matchMedia=()=>({matches:true,addEventListener(){}});globalThis.window={addEventListener(){}};
- let current=fixture(),editing=false;const notices=[],opened=[],listeners=new Map();
+ let current=fixture(),editing=false;const notices=[],savedNotices=[],opened=[],listeners=new Map();
  const root={hidden:true,style:{setProperty(){}},scrollTop:0,innerHTML:'',contains:()=>true,querySelector:()=>null,querySelectorAll:()=>[],addEventListener:(type,fn,capture=false)=>listeners.set(type+(capture?':capture':''),fn)};
  const scene={dataset:{viewport:JSON.stringify({scale:1,offsetX:0,offsetY:0})}};
  const doc={hidden:false,activeElement:null,body:{append:node=>assert.equal(node,root)},getElementById:id=>id==='market-board'?root:id==='scene-root'?scene:null,addEventListener(){}};
- const ui=createMarketUI({document:doc,model,state:()=>current,art:()=>'<svg></svg>',act:fn=>{const next=fn(current);if(saved)current=next;return saved;},openProduct(){},openStockist:id=>opened.push(id),announce:t=>notices.push(t),setEditing:v=>editing=v});
+ const ui=createMarketUI({document:doc,model,state:()=>current,art:()=>'<svg></svg>',act:fn=>{const next=fn(current);if(saved)current=next;return saved;},openProduct(){},openStockist:id=>opened.push(id),announce:t=>notices.push(t),announceSaved:t=>savedNotices.push(t),setEditing:v=>editing=v});
  function click(dataset){listeners.get('click')({target:{closest:()=>({dataset,disabled:false})}});}
- return {ui,root,scene,click,read:()=>current,editing:()=>editing,notices,opened,listeners};
+ return {ui,root,scene,click,read:()=>current,editing:()=>editing,notices,savedNotices,opened,listeners};
 }
 test('a failed transaction does not create a placement success; a valid return uses its own action channel',()=>{
  const failed=harness({saved:false});failed.ui.update({visible:true});failed.click({marketPlace:'town-liquor'});assert.equal(failed.read().assigned[7],2);assert.deepEqual(failed.notices,[]);assert.equal(failed.ui.diagnostics().motions,0);
@@ -97,7 +97,7 @@ test('placing all targets the original bottle even when the hand selection moves
 
 test('releasing a department hold repaints direct hand bottles even when owned stock and ordinary shelves do not change',()=>{
  const h=harness();h.read().held={7:2,9:3};h.ui.update({visible:true});
- assert.doesNotMatch(h.root.innerHTML,/data-market-release=/);assert.match(h.root.innerHTML,/<span>0本<\/span>/);
+ assert.doesNotMatch(h.root.innerHTML,/data-market-release=/);assert.match(h.root.innerHTML,/<span class="market-hand">手元<\/span>/);
  h.read().held[7]=0;h.ui.update({visible:true});assert.match(h.root.innerHTML,/data-market-release="7"/);assert.match(h.root.innerHTML,/手元2本/);
  assert.equal(h.read().core.products[0].stock,5);assert.equal(h.read().assigned[7],2);
 });
@@ -148,3 +148,15 @@ test('four sold is a separate notification while the bottle always shows one act
  t.mock.timers.enable({apis:['setTimeout']});const h=harness();h.read().core.products[0].stock=10;h.read().assigned[7]=5;h.ui.update({visible:true});const before=structuredClone(h.read());h.read().core.month++;h.read().assigned[7]=1;h.read().core.products[0].stock-=4;h.read().core.lastMonth={month:h.read().core.month,sales:[{id:7,sold:4,revenue:64,channel:'stockist',shopId:'town-liquor'}]};h.ui.consume(before,h.read());assert.match(h.root.innerHTML,/4本売れた \+£64/);assert.match(h.root.innerHTML,/残り1本 4本売れた/);assert.doesNotMatch(h.root.innerHTML,/−4本|-4本|market-sold/);assert.match(h.root.innerHTML,/class="market-count">1本/);await Promise.resolve();await Promise.resolve();t.mock.timers.tick(2401);assert.doesNotMatch(h.root.innerHTML,/4本売れた/);assert.equal(h.read().assigned[7],1);
 });
 test('left placement target has a visible action and still preserves minimal bottle controls',()=>{const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/class="market-place-label"/);assert.match(h.root.innerHTML,/置く →/);assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);assert.doesNotMatch(h.root.innerHTML,/<select|取扱前|デパート|#\d+|第\d+回/);});
+
+
+test('hand heading avoids duplicate aggregate and successful saved placement uses accessible status only',()=>{
+ const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/<span class="market-hand">手元<\/span>/);assert.match(h.root.innerHTML,/class="market-count">2本/);assert.doesNotMatch(h.root.innerHTML,/<span>5本<\/span>/);
+ h.click({marketPlace:'town-liquor'});assert.deepEqual(h.notices,[]);assert.deepEqual(h.savedNotices,['町の酒店に1本置きました。']);assert.equal(h.read().assigned[7],3);
+ const failed=harness({saved:false});failed.ui.update({visible:true});failed.click({marketPlace:'town-liquor'});assert.deepEqual(failed.savedNotices,[]);assert.deepEqual(failed.notices,[]);
+});
+test('normal placement targets stay neutral and the saved status has a dedicated hidden live region',()=>{
+ const read=name=>fs.readFileSync(new URL('../'+name,import.meta.url),'utf8'),css=read('market.css'),app=read('shop-app.mjs'),html=read('index.html');
+ const targetRule=css.match(/#market-board \.market-target:not\(:disabled\)\{([^}]+)\}/)[1];assert.doesNotMatch(targetRule,/#e4bc66|#57472e/);assert.match(css,/button\[aria-pressed=true\][^}]+#e4bc66/);assert.match(css,/market-target[^}]+border:[^}]+#858995/);
+ assert.match(html,/id="market-action-status" class="sr-only" role="status" aria-live="polite"/);assert.match(app,/announceSaved:text=>/);assert.match(app,/document.body.append\(\$\('automatic-news'\),\$\('market-action-status'\)\)/);
+});
