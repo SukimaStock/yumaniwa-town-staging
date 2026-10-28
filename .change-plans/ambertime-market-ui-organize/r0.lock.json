@@ -1,0 +1,124 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "49708add729eab8941181666afe082c7255edff22cf6aadf4ac6909896baa0cd",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-ui-organize",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Organize accepted market UI: hand heading without duplicate total, neutral placement buttons, aligned bottles and saved-success accessible status without duplicate visual toast.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "09beeacc3db0f69f325579198c5e5d920f42a5e4",
+    "canonicalSources": [
+      "User approved market UI organization proposal in current session",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "PR669 accepted market filtering/remaining/sale notification"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-ui-organize/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/market-rules-ui.test.mjs",
+      "works/ambertime/tests/market-rules-browser.test.mjs",
+      "works/ambertime/tests/market-compact-browser.test.mjs",
+      "works/ambertime/design/market-ui-organize/**",
+      "works/ambertime/AGENTS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "expectedChanges": [
+      "Show hand heading only; retain per-bottle actual counts/date, direct selection and 1/5/all. Neutral framed store buttons with 置く→; gold only selected bottle/quantity and transient placement flash.",
+      "Preserve secondary taste hints, aligned bottle/count/date, actual remaining and separate per-product sale notice; no locked outlets/dept/serial/brand dropdown regressions.",
+      "Successful place keeps saved-only bottle transfer/flash and an accessible hidden status, without duplicate visual toast; failed operation does not announce success. Return/error messages retain existing behavior.",
+      "Update UI-only cache closure, targeted29 plus meaningful new UI/browser regressions, accepted local instructions and short report; requiredCI/exacthead merge/Pages/public bytes and screenshot."
+    ],
+    "ownerDecisions": [
+      "Current user approved the concrete UI organization: heading-only hand, neutral store targets, secondary preference, aligned bottles, remove duplicate visual placement toast while preserving accessible saved-success."
+    ],
+    "hqDecisions": [
+      "No model/save/economic or migration changes. Hidden status is transient presentation only and published strictly after host transaction success."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone4 sizes with normal font and1/2/3 outlets, selected bottle/quantity gold only, neutral framed targets, sale captions and correct remaining.",
+      "Successful/failed saved placement status, direct all/return, actual native monthly sale, public exact modified bytes and screenshot."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this UI-only organization; retain accepted filtering and native rules.",
+    "outOfScope": [
+      "Production",
+      "Model/economic parameters",
+      "Save schema/key/boundaries",
+      "Lab/audit changes",
+      "Unlock changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver and author subjective feel"
+    ],
+    "alternativesRejected": [
+      "Permanent gold for every actionable target",
+      "Duplicate visible saved-placement toast",
+      "Drop accessible success feedback",
+      "Restore locked placeholders or negative remaining count"
+    ],
+    "boundaryCases": [
+      "No/one/two store contracts, selected bottle, hand empty, all placement changes selection",
+      "Save failure/no success status; repeated successful place; reduce-motion and hidden page",
+      "Partial/complete sales per-product caption, aligned date/count, 4 phone sizes1/2/3 outlets"
+    ],
+    "testPlan": [
+      "Targeted market-ui/formal/cache tests and both actual browser suites, exact UI-only diff, Scope→Risk→Impact/syntax/diff",
+      "PR requiredCI, expectedhead merge, Pages, public modified bytes and actual visible operation screenshot"
+    ],
+    "problem": "Duplicate hand aggregate and permanent gold store targets overload hierarchy; visual placement toast repeats the saved bottle movement.",
+    "currentContract": "Actual bottle counts/date and direct selection identify stock; store targets are actions, not selected choices; success feedback follows durable save.",
+    "whyExistingIsInsufficient": "Current hand aggregate repeats bottle counts, all enabled targets gold, successful place invokes duplicate visual announcement.",
+    "design": "Heading-only hand; neutral enabled targets with existing frames/action; hidden saved-success status, unchanged physical transactions.",
+    "migration": "None; UI-only.",
+    "compatibility": "Native save/model/replay unchanged.",
+    "promotionRisk": "Staging-only local UI trial; no Production changes."
+  }
+}

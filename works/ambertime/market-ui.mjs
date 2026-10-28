@@ -45,7 +45,7 @@ export function visibleMarketRows(s,model,shopId,feedback=[]){
  }
  return [...byId.values()].sort((a,b)=>a.productId-b.productId);
 }
-export function createMarketUI({document:doc,model:D,state,art,icon='',act,openProduct,openStockist,announce=()=>{},setEditing=()=>{}}){
+export function createMarketUI({document:doc,model:D,state,art,icon='',act,openProduct,openStockist,announce=()=>{},announceSaved=()=>{},setEditing=()=>{}}){
  const root=doc.getElementById('market-board');doc.body.append(root);
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let selected=null,portion='1',visible=false,notice='',signature='',editing=null,feedback=[],feedbackTimer=null,epoch=0,lastConsumed=null;
@@ -103,7 +103,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
    return button(`<span class="market-bottle ${item.id===selected?'market-selected-bottle':''}" aria-hidden="true">${art(item)}</span><span class="market-count">${count}本</span><span class="market-date">${esc(date)}</span>`,'release',item.id,`class="market-release" aria-pressed="${item.id===selected}" aria-label="${esc(date+' '+tasteLabel(item)+' 手元'+count+'本')}"`);
   }).join('');
   const returnPane=editing?`<section class="market-return" role="group" aria-label="瓶を手元へ戻す"><p>${esc(ordinary.find(x=>x.id===editing.shopId)?.name)} · ${esc(releaseDate(s,editing.productId))} ${esc(tasteLabel(product(editing.productId)))} · ${editing.count}本</p><div class="market-buttons">${button('手元へ戻す','confirm','return')}${button('やめる','cancel','return')}</div></section>`:'';
-  root.innerHTML=`<div class="market-content" ${editing?'inert':''}>${notice?`<p class="market-notice" role="status" aria-live="polite" tabindex="0">${esc(notice)}</p>`:''}<div class="market-releases" aria-label="手元の瓶"><span class="market-hand"><span>手元</span><span>${handTotal}本</span></span><div class="market-hand-list" id="market-shelf-hand" role="group" tabindex="0" aria-label="手元の瓶棚。横に送れます">${productsMarkup}</div></div><div class="market-portions" role="group" aria-label="一度に渡す本数">${[['1','1本'],['5','5本'],['all','全部']].map(([value,label])=>button(label,'portion',value,`aria-pressed="${portion===value}" ${handTotal>0?'':'disabled'}`)).join('')}</div><div class="market-shops">${shops.map((shop,index)=>{
+  root.innerHTML=`<div class="market-content" ${editing?'inert':''}>${notice?`<p class="market-notice" role="status" aria-live="polite" tabindex="0">${esc(notice)}</p>`:''}<div class="market-releases" aria-label="手元の瓶"><span class="market-hand">手元</span><div class="market-hand-list" id="market-shelf-hand" role="group" tabindex="0" aria-label="手元の瓶棚。横に送れます">${productsMarkup}</div></div><div class="market-portions" role="group" aria-label="一度に渡す本数">${[['1','1本'],['5','5本'],['all','全部']].map(([value,label])=>button(label,'portion',value,`aria-pressed="${portion===value}" ${handTotal>0?'':'disabled'}`)).join('')}</div><div class="market-shops">${shops.map((shop,index)=>{
 
    const preference=D.marketRulesMode?.(s)?({'retail':'少量ずつ','town-liquor':'煙・厚み','supermarket':'麦・果実'}[shop.id]):'';
    return `<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}">${button(`<span>${shop.name}</span>${preference?`<span class="market-preference">${preference}</span>`:''}<span class="market-place-label"><span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span>置く →</span></span>`,'place',shop.id,`class="market-target" ${!p||inventory.hand<1?'disabled':''} aria-label="${esc(shop.name+'へ'+(p?releaseDate(s,p.id)+'の瓶':'瓶')+'を渡す'+(preference?'。'+preference:''))}"`)}<div class="market-shelf-body"><div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の瓶棚。横に送れます">${rows[index].map(row=>{
@@ -196,7 +196,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
    }
    const source=query(`[data-market-release="${p.id}"] .market-bottle`),origin=source?{rect:source.getBoundingClientRect(),art:source.innerHTML}:null;
    const ok=act(before=>shopId==='retail'?D.setMarketRetail(before,{productId:p.id,count:inv.retail+count}):D.assignStoreProduct(before,{productId:p.id,shopId,count}));
-   if(ok){signature='';update({visible});placed(shopId,count,p.id,origin);announce(`${ordinary.find(x=>x.id===shopId).name}に${count}本`);}
+   if(ok){signature='';update({visible});placed(shopId,count,p.id,origin);announceSaved(`${ordinary.find(x=>x.id===shopId).name}に${count}本置きました。`);}
   }
  });
  root.addEventListener('keydown',event=>{
