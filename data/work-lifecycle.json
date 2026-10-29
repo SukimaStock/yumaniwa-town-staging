@@ -479,6 +479,13 @@
       "path": "works/ambertime-market-design-lab",
       "status": "active",
       "title": "AmberTime 販売設計 Lab"
+    },
+    {
+      "id": "ambertime-whisky-evaluation-lab",
+      "path": "works/ambertime-whisky-evaluation-lab",
+      "status": "active",
+      "title": "AmberTime 評価 Lab 0.1",
+      "theme": "味・熟成・届ける店による一本の評価を比べる。"
     }
   ]
 }
