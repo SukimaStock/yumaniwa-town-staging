@@ -196,6 +196,10 @@
         {
           "work": "ambertime-whisky-evaluation-lab-v02",
           "note": "瓶を配分し、売上と客の評価を見て次の一本を試す。"
+        },
+        {
+          "work": "ambertime-whisky-evaluation-lab-v03",
+          "note": "前の一本を覚える店へ、次のウイスキーを届ける。"
         }
       ]
     },
