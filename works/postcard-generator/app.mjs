@@ -1,8 +1,8 @@
-import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.1';
-import {renderSVG} from './renderer.mjs?v=0.2.1';
+import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.2';
+import {renderSVG} from './renderer.mjs?v=0.2.2';
 import {downloadBlob,svgBlob,pngBlob} from './exporter.mjs';
 const $ = id => document.getElementById(id);
-const keys=['scene','palette','density','composition','roofs','windows','colorMode','version'];
+const keys=['scene','palette','density','composition','roofs','windows','colorMode','facade','sky','version'];
 const sceneNames=Object.fromEntries(SCENES.map(s=>[s.id,s.name]));
 const addOptions=(id,values)=>{for(const item of values){const o=document.createElement('option');o.value=item.id;o.textContent=item.name;$(id).append(o);}};
 addOptions('scene',SCENES);addOptions('palette',PALETTES);
@@ -26,7 +26,7 @@ function urlFor(seed,config){
 function reflect(config){
   for(const key of keys) $(key).value=config[key] ?? (key==='version'?VERSION:'auto');
   const legacy=config.version==='0.1';
-  for(const key of ['scene','roofs','windows','colorMode']) $(key).disabled=legacy;
+  for(const key of ['scene','roofs','windows','colorMode','facade','sky']) $(key).disabled=legacy;
   $('composition').disabled=!legacy&&current.mode!=='waterfront';
   for(const option of $('palette').options) option.disabled=legacy&&!['auto','harbor','apricot','garden'].includes(option.value);
 }

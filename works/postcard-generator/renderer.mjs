@@ -14,9 +14,14 @@ function roof(b){const{x,y,width:w,roofHeight:h,roofColor:c}=b;
  return poly([[x,y],[x+w*.5,y-h],[x+w,y]],c);
 }
 function windowSVG(shape,x,y,w,h,b){
- if(shape==='arch')return arch(x,y,w,h,b.windowColor);
- if(shape==='paired')return rect(x-w*.11,y,w*.48,h,b.windowColor)+rect(x+w*.63,y,w*.48,h,b.windowColor);
- return rect(x,y,w,h,b.windowColor);
+ if(shape==='paired')return windowSVG('rect',x-w*.11,y,w*.48,h,b)+windowSVG('rect',x+w*.63,y,w*.48,h,b);
+ let out=shape==='arch'?arch(x,y,w,h,b.windowColor):rect(x,y,w,h,b.windowColor);
+ if(b.windowGrid){
+  const top=shape==='arch'?y+w/2:y,span=y+h-top;
+  out+=rect(x+w*.46,top,w*.08,span,b.trim);
+  for(let i=1;i<b.windowGrid;i++)out+=rect(x,top+span*i/b.windowGrid-h*.025,w,h*.05,b.trim);
+ }
+ return out;
 }
 function buildingSVG(b){const{x,y,width:w,height:h}=b;
  let out=rect(x,y,w,h,b.wall)+roof(b)+rect(x,y,w,Math.max(3,w*.015),b.trim);
@@ -26,6 +31,11 @@ function buildingSVG(b){const{x,y,width:w,height:h}=b;
    const wx=x+margin+gap*(c+.5)-ww/2,wy=top+r*rowGap;
    out+=windowSVG(b.windowShape,wx,wy,ww,wh,b);
    if(b.balcony&&r===b.rows-2)out+=rect(wx-ww*.3,wy+wh+3,ww*1.6,3,b.windowColor)+path(`M${n(wx-ww*.25)} ${n(wy+wh-7)}v10m${n(ww*1.5)} -10v10`,b.windowColor,2);
+ }
+ if(b.terrace){
+  const floor=top+(b.rows-2)*rowGap+wh+5,left=x+w*.1,right=x+w*.9,railHeight=Math.min(20,rowGap*.3);
+  out+='<g data-terrace="true">'+rect(left-3,floor,right-left+6,5,b.trim)+path(`M${n(left)} ${n(floor-railHeight)}H${n(right)}`,b.windowColor,2);
+  const posts=Math.max(4,b.cols*2);for(let i=0;i<=posts;i++)out+=path(`M${n(left+(right-left)*i/posts)} ${n(floor-railHeight)}V${n(floor)}`,b.windowColor,1.8);out+='</g>';
  }
  if(b.door!==false){const dw=Math.min(39,w*.18),dh=Math.min(78,h*.22);out+=arch(x+w*.5-dw/2,b.base-dh,dw,dh,b.windowColor);}
  return `<g data-building="${esc(b.id)}">${out}</g>`;
@@ -39,6 +49,7 @@ function boat(b,p){const{x,y,width:w,height:h}=b;let out=poly([[x+8,y+13],[x+w*.
 const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道'};
 export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p=s.palette;
  let out=`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="${esc(names[s.mode]+'・'+s.seed)}"><title>${esc('Postcard '+s.seed)}</title><desc>${esc(names[s.mode]+'。図形と反復する窓で描いた街。'+p.name+'。')}</desc><metadata>${esc(JSON.stringify({version:s.version,seed:s.seed,settings:s.settings}))}</metadata>`+rect(0,0,800,1000,p.sky);
+ for(const c of s.clouds||[]){const{x,y,width:w,height:h}=c;out+=`<g data-cloud="true">${rect(x,y+h*.55,w,h*.45,p.light)+circle(x+w*.22,y+h*.55,h*.45,p.light)+circle(x+w*.48,y+h*.48,h*.48,p.light)+circle(x+w*.73,y+h*.6,h*.4,p.light)}</g>`;}
  if(s.mode==='waterfront'){
   for(const b of s.blocks){out+=poly([...b.ground,[800,s.shoreY+1],[0,s.shoreY+1]],b.groundColor);for(const house of b.buildings)out+=buildingSVG(house);if(b.layer===0)out+=tower(s.landmark);}
   out+=rect(0,s.shoreY,800,35,p.quay)+rect(0,s.shoreY+30,800,7,p.ink)+rect(0,s.shoreY+37,800,1000-s.shoreY-37,p.water);

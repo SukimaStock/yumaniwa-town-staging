@@ -14,7 +14,7 @@ const n=v=>Math.round(v*100)/100, clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pick=
 const lum=h=>[1,3,5].reduce((s,i,j)=>s+parseInt(h.slice(i,i+2),16)*[.2126,.7152,.0722][j],0);
 export function normalizeSettings(s={}){
  if(s.version==='0.1'){const old=legacy.normalizeSettings(s);return {version:'0.1',scene:'waterfront',...old,roofs:'auto',windows:'auto',colorMode:'auto'};}
- return {version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
+ return {facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
 }
 function house(id,x,base,width,height,layer=0){
  width=n(width);height=n(height);base=n(base);
@@ -90,7 +90,30 @@ export function generateScene(seed,settings={}){
    s.stairs={direction,points:buildings.flatMap(b=>[[b.x,b.base+17],[b.x+b.width,b.base+17]])};
    s.trees=[{x:direction===1?67:725,y:934,radius:42}];s.people=[{x:390,y:n(buildings[Math.floor(count/2)].base+42),color:p.ink,scale:1.6}];
  }
- s.layerCount=s.blocks.length;return style(s,settings);
+ s.layerCount=s.blocks.length;return details(style(s,settings),settings);
+}
+// Detail streams never consume layout, palette or existing style random numbers.
+function details(s,settings){
+ const all=s.blocks.flatMap(b=>b.buildings),near=Math.max(...all.map(b=>b.layer));
+ const family=randomStream(s.seed,'facade-family')(),kind=settings.facade==='auto'?(family<.35?'plain':family<.7?'grid':'terrace'):settings.facade;
+ for(const b of all){
+  const r=randomStream(s.seed,'facade-'+b.id),eligible=(s.mode==='square'?b.layer>0:b.layer===near)&&b.width>=90&&b.height>=170;
+  b.windowGrid=eligible&&kind==='grid'?(r()<.5?2:3):0;
+  b.terrace=eligible&&kind==='terrace'&&b.width>=115&&b.rows>=3;
+  if(b.terrace)b.balcony=false;
+ }
+ s.clouds=[];
+ const r=randomStream(s.seed,'sky-clouds'),enabled=settings.sky==='clouds'||settings.sky==='auto'&&r()<.6;
+ // A conservative whole-scene skyline envelope leaves towers and roofs unobscured.
+ const ceiling=Math.min(...all.map(b=>b.y-b.roofHeight),s.landmark?s.landmark.y:1000)-24;
+ if(enabled&&ceiling>85){
+  const count=1+Math.floor(r()*3),cell=740/count;
+  for(let i=0;i<count;i++){
+   const width=n(Math.min(150,cell*.7)*( .7+r()*.3)),height=n(18+r()*14);
+   s.clouds.push({x:n(30+i*cell+(cell-width)*r()),y:n(32+r()*Math.max(0,ceiling-height-32)),width,height});
+  }
+ }
+ return s;
 }
 export function validateScene(scene){
  if(scene.version==='0.1')return legacy.validateScene(scene);
@@ -103,6 +126,7 @@ export function validateScene(scene){
    if(Math.abs(b.y+b.height-b.base)>.03)errors.push(`unsupported:${b.id}`);
    if(!ROOFS.includes(b.roof)||!WINDOWS.includes(b.windowShape))errors.push(`style:${b.id}`);
  }
+ for(const c of scene.clouds||[])if(c.x<0||c.x+c.width>800||c.y<0||c.y+c.height>Math.min(...all.map(b=>b.y-b.roofHeight),scene.landmark?.y??1000)-23)errors.push('cloud-bounds');
  if(scene.mode==='square'&&scene.plaza.right-scene.plaza.left<330)errors.push('plaza-closed');
  if(scene.mode==='hillside'){
    const bases=all.map(b=>b.base);if(Math.max(...bases)-Math.min(...bases)<200)errors.push('flat-hillside');
