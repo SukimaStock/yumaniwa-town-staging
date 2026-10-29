@@ -51,3 +51,23 @@ test('crosswalk has five horizontal bars, stable x and separate y positions, wit
  }
  assert.ok(checked>20);
 });
+
+test('facade and cloud streams preserve layout and replay all settings',()=>{
+ for(const {id}of SCENES)for(const facade of ['plain','grid','terrace'])for(const sky of ['clear','clouds']){
+  const settings={scene:id,facade,sky,windows:'rect'},s=generateScene('facade-example',settings);
+  assert.deepEqual(geometry(s),geometry(generateScene(s.seed,{scene:id})));
+  assert.deepEqual(s,generateScene(s.seed,JSON.parse(JSON.stringify(s.settings))));
+  assert.deepEqual(validateScene(s).errors,[]);
+  const all=s.blocks.flatMap(b=>b.buildings),svg=renderSVG(s);
+  if(facade==='plain')assert.ok(all.every(b=>!b.windowGrid&&!b.terrace));
+  if(facade==='grid'&&id==='closeup')assert.ok(all.some(b=>b.windowGrid));
+  if(facade==='terrace'&&id==='closeup')assert.equal((svg.match(/data-terrace/g)||[]).length,all.length);
+  if(sky==='clear')assert.equal(s.clouds.length,0);
+  for(const b of all)if(b.windowGrid||b.terrace){if(id==='square')assert.ok(b.layer>0);else assert.equal(b.layer,Math.max(...all.map(b=>b.layer)));}
+ }
+});
+test('clouds are bounded away from skyline over 500 seeds and all scene modes',()=>{
+ let clouds=0,grids=0,terraces=0;
+ for(let i=0;i<500;i++)for(const {id}of SCENES){const s=generateScene('details-'+i,{scene:id,sky:'clouds'});assert.deepEqual(validateScene(s).errors,[]);clouds+=s.clouds.length;for(const b of s.blocks.flatMap(b=>b.buildings)){grids+=!!b.windowGrid;terraces+=!!b.terrace;}}
+ assert.ok(clouds>1000&&grids>100&&terraces>100);
+});
