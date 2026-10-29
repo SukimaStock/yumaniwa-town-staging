@@ -14,7 +14,7 @@ const n=v=>Math.round(v*100)/100, clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pick=
 const lum=h=>[1,3,5].reduce((s,i,j)=>s+parseInt(h.slice(i,i+2),16)*[.2126,.7152,.0722][j],0);
 export function normalizeSettings(s={}){
  if(s.version==='0.1'){const old=legacy.normalizeSettings(s);return {version:'0.1',scene:'waterfront',...old,roofs:'auto',windows:'auto',colorMode:'auto'};}
- return {accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
+ return {corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
 }
 function house(id,x,base,width,height,layer=0){
  width=n(width);height=n(height);base=n(base);
@@ -90,7 +90,26 @@ export function generateScene(seed,settings={}){
    s.stairs={direction,points:buildings.flatMap(b=>[[b.x,b.base+17],[b.x+b.width,b.base+17]])};
    s.trees=[{x:direction===1?67:725,y:934,radius:42}];s.people=[{x:390,y:n(buildings[Math.floor(count/2)].base+42),color:p.ink,scale:1.6}];
  }
- s.layerCount=s.blocks.length;return accents(groundDetails(details(style(s,settings),settings),settings),settings);
+ s.layerCount=s.blocks.length;return accents(groundDetails(details(cornerBuildings(style(s,settings),settings),settings),settings),settings);
+}
+// One front/side split remains inside the original plot; ground and neighbors stay fixed.
+const mix=(a,b,t)=>'#'+[1,3,5].map(i=>Math.round(parseInt(a.slice(i,i+2),16)*(1-t)+parseInt(b.slice(i,i+2),16)*t).toString(16).padStart(2,'0')).join('');
+function cornerBuildings(s,settings){
+ if(!['closeup','street','square'].includes(s.mode)||settings.corners==='plain')return s;
+ const r=randomStream(s.seed,'corner-selection');
+ if(settings.corners==='auto'&&r()<.3)return s;
+ const side=settings.corners==='auto'?(r()<.5?'left':'right'):settings.corners;
+ const all=s.blocks.flatMap(block=>block.buildings),near=Math.max(...all.map(b=>b.layer));
+ const eligible=all.filter(b=>(s.mode==='square'?b.layer>0:b.layer===near)&&b.width>=100&&b.height>=180).sort((a,b)=>a.x-b.x);
+ if(!eligible.length)return s;
+ // Face the open plaza/camera interior; street ends keep their outer side visible.
+ const chooseFirst=s.mode==='street'?side==='left':side==='right';
+ const b=eligible[chooseFirst?0:eligible.length-1],plotX=b.x,plotWidth=b.width,width=n(plotWidth*(.18+randomStream(s.seed,'corner-proportion')()*.08));
+ b.corner={side,plotX,plotWidth,width,roofEnvelope:b.roofHeight,rise:n(Math.min(14,width*.23)),wall:mix(b.wall,s.palette.ink,.18),roof:mix(b.roofColor,s.palette.ink,.14),band:mix(b.bandColor||b.wall,s.palette.ink,.18)};
+ b.width=n(plotWidth-width);if(side==='left')b.x=n(plotX+width);
+ b.cols=clamp(Math.round(b.cols*b.width/plotWidth),2,5);
+ b.roofHeight=n(b.roof==='flat'?Math.min(12,b.width*.08):Math.min(70,b.width*.24));
+ return s;
 }
 // Detail streams never consume layout, palette or existing style random numbers.
 function details(s,settings){
@@ -105,7 +124,7 @@ function details(s,settings){
  s.clouds=[];
  const r=randomStream(s.seed,'sky-clouds'),enabled=settings.sky==='clouds'||settings.sky==='auto'&&r()<.6;
  // A conservative whole-scene skyline envelope leaves towers and roofs unobscured.
- const ceiling=Math.min(...all.map(b=>b.y-b.roofHeight),s.landmark?s.landmark.y:1000)-24;
+ const ceiling=Math.min(...all.map(b=>b.y-(b.corner?.roofEnvelope??b.roofHeight)),s.landmark?s.landmark.y:1000)-24;
  if(enabled&&ceiling>85){
   const count=1+Math.floor(r()*3),cell=740/count;
   for(let i=0;i<count;i++){
@@ -163,6 +182,7 @@ export function validateScene(scene){
    if(b.width<=0||b.height<=0||b.cols<1||b.cols>5||b.rows<1||b.rows>5)errors.push(`dimensions:${b.id}`);
    if(b.y-b.roofHeight<30||b.base>930||(!scene.crop&&(b.x<0||b.x+b.width>800.03)))errors.push(`bounds:${b.id}`);
    if(Math.abs(b.y+b.height-b.base)>.03)errors.push(`unsupported:${b.id}`);
+   if(b.corner){const c=b.corner;if(!['closeup','street','square'].includes(scene.mode)||!['left','right'].includes(c.side)||Math.abs(b.width+c.width-c.plotWidth)>.03||c.width/c.plotWidth<.179||c.width/c.plotWidth>.261||c.rise<=0||c.rise>14||Math.abs(b.x-(c.plotX+(c.side==='left'?c.width:0)))>.03||(!scene.crop&&(c.plotX<0||c.plotX+c.plotWidth>800.03)))errors.push(`corner-footprint:${b.id}`);}
    if(b.plants)for(const p of b.plants)if(!Number.isInteger(p.row)||!Number.isInteger(p.col)||p.row<0||p.row>=b.rows-1||p.col<0||p.col>=b.cols||p.size<=0||p.size>5||p.placement!=='inside')errors.push(`plant-anchor:${b.id}`);
    if(b.shade&&(![-1,1].includes(b.shade.direction)||b.shade.direction!==scene.lightDirection||b.shade.points.some(([x,y])=>x<b.x-.01||x>b.x+b.width+.01||y<b.y||y>b.base)||b.shade.opacity<=0||b.shade.opacity>.2))errors.push(`wall-shadow:${b.id}`);
    if(b.shade){
@@ -173,6 +193,7 @@ export function validateScene(scene){
    if(b.groundFloor){const g=b.groundFloor;if(!['arcade','awning'].includes(g.kind)||g.height<=0||g.height>b.height*.5||g.count<2||g.count>5||b.width<110||b.height<180)errors.push(`ground-floor:${b.id}`);}
    if(!ROOFS.includes(b.roof)||!WINDOWS.includes(b.windowShape))errors.push(`style:${b.id}`);
  }
+ if(all.filter(b=>b.corner).length>1)errors.push('corner-density');
  if(all.reduce((sum,b)=>sum+(b.plants?.length||0),0)>3||all.filter(b=>b.shade).length>3)errors.push('accent-density');
  for(const c of scene.clouds||[])if(c.x<0||c.x+c.width>800||c.y<0||c.y+c.height>Math.min(...all.map(b=>b.y-b.roofHeight),scene.landmark?.y??1000)-23)errors.push('cloud-bounds');
  if(scene.mode==='square'&&scene.plaza.right-scene.plaza.left<330)errors.push('plaza-closed');
@@ -182,6 +203,6 @@ export function validateScene(scene){
  }
  let visibleTower=null;if(scene.landmark){const t=scene.landmark;visibleTower=n(Math.min(...all.filter(b=>b.x<t.x+t.width+45&&b.x+b.width>t.x-45).map(b=>b.y-b.roofHeight))-t.y);if(visibleTower<50)errors.push('hidden-landmark');}
  for(const b of scene.boats)if(b.x<0||b.x+b.width>800||b.y-b.height*(b.sail?1.62:.79)<scene.shoreY+37||b.y+19>975)errors.push('boat-bounds');
- const counts={};for(const b of all)counts[b.wall]=(counts[b.wall]||0)+b.width*b.height;const total=Object.values(counts).reduce((a,b)=>a+b,0),maxColorShare=n(Math.max(...Object.values(counts))/total);
+ const counts={};for(const b of all)counts[b.wall]=(counts[b.wall]||0)+(b.corner?.plotWidth??b.width)*b.height;const total=Object.values(counts).reduce((a,b)=>a+b,0),maxColorShare=n(Math.max(...Object.values(counts))/total);
  return {errors,warnings,metrics:{buildings:all.length,layers:scene.blocks.length,visibleTower,maxColorShare,heightRange:n(Math.max(...all.map(b=>b.height))-Math.min(...all.map(b=>b.height))),estimatedElements:all.reduce((n,b)=>n+8+b.cols*b.rows*5,0)+150}};
 }

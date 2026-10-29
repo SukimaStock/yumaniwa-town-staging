@@ -29,11 +29,36 @@ function windowSVG(shape,x,y,w,h,b,plant=null){
  return plant?`<g data-interior-window="${shape}" data-window-bounds="${[x,y,w,h].map(n).join(',')}">${out}</g>`:out;
 }
 function shadowSVG(b){return '<g data-wall-shadow="'+b.shade.direction+'" data-shadow-source="'+b.shade.source+'">'+poly(b.shade.points,b.shade.color,b.shade.opacity)+'</g>';}
+function windowLayout(b){
+ const w=b.width,h=b.height,margin=w*.18,gap=(w-margin*2)/b.cols,ww=Math.min(w>180?33:19,gap*.47),wh=Math.min(w>180?56:29,h/(b.rows+1)*.5),offset=Math.max(16,h*.13),top=b.y+offset,doorHeight=b.groundFloor?.height??Math.min(78,h*.22),rowGap=(h-offset-doorHeight-18-wh)/Math.max(1,b.rows-1);
+ return {margin,gap,ww,wh,top,rowGap};
+}
+function cornerSVG(b){
+ const c=b.corner,{x,y,width:w,base}=b,dir=c.side==='right'?1:-1,seam=c.side==='right'?x+w:x,outer=seam+dir*c.width,left=Math.min(seam,outer),right=Math.max(seam,outer),trim=Math.max(3,w*.015);
+ const shift=t=>c.rise*(c.side==='right'?t:1-t);
+ let out=`<g data-corner="${c.side}">`+poly([[seam,y],[outer,y+c.rise],[outer,base],[seam,base]],c.wall);
+ if(b.band)out+=rect(left,base-b.height*.26,c.width,b.height*.26,c.band);
+ const {wh,top,rowGap}=windowLayout(b),sw=Math.min(14,c.width*.44),sx=(left+right-sw)/2;
+ for(let r=0;r<b.rows;r++){
+  const wy=top+r*rowGap+wh*.2,dy1=shift((sx-left)/c.width),dy2=shift((sx+sw-left)/c.width);
+  out+=poly([[sx,wy+dy1],[sx+sw,wy+dy2],[sx+sw,wy+wh*.8+dy2],[sx,wy+wh*.8+dy1]],b.windowColor);
+ }
+ let ridge=seam,ridgeY=y-b.roofHeight;
+ if(b.roof==='gable'||b.roof==='round')ridge=x+w*.5;
+ if(b.roof==='hip')ridge=x+w*(c.side==='right'?.76:.22);
+ if(b.roof==='shed')ridgeY=y-b.roofHeight*(c.side==='right'?.2:1);
+ if(b.roof==='round'){
+  const ctrl=x+w*(c.side==='right'?.75:.25);
+  out+=`<path d="M${n(ridge)} ${n(ridgeY)}Q${n(ctrl)} ${n(ridgeY)} ${n(seam)} ${n(y)}L${n(outer)} ${n(y+c.rise)}Q${n(ctrl+dir*c.width)} ${n(ridgeY+c.rise)} ${n(ridge+dir*c.width)} ${n(ridgeY+c.rise)}Z" fill="${c.roof}"/>`;
+ }else out+=poly([[ridge,ridgeY],[seam,y],[outer,y+c.rise],[ridge+dir*c.width,ridgeY+c.rise]],c.roof);
+ out+=poly([[seam,y],[outer,y+c.rise],[outer,y+c.rise+trim],[seam,y+trim]],b.trim);
+ return out+'</g>';
+}
 function buildingSVG(b){const{x,y,width:w,height:h}=b;
- let out=rect(x,y,w,h,b.wall)+roof(b)+rect(x,y,w,Math.max(3,w*.015),b.trim);
+ let out=(b.corner?cornerSVG(b):'')+rect(x,y,w,h,b.wall)+roof(b)+rect(x,y,w,Math.max(3,w*.015),b.trim);
  if(b.band)out+=rect(x,b.base-h*.26,w,h*.26,b.bandColor);
  if(b.shade?.source==='eave')out+=shadowSVG(b);
- const margin=w*.18,gap=(w-margin*2)/b.cols,ww=Math.min(w>180?33:19,gap*.47),wh=Math.min(w>180?56:29,h/(b.rows+1)*.5),offset=Math.max(16,h*.13),top=y+offset,doorHeight=b.groundFloor?.height??Math.min(78,h*.22),rowGap=(h-offset-doorHeight-18-wh)/Math.max(1,b.rows-1);
+ const {margin,gap,ww,wh,top,rowGap}=windowLayout(b);
  for(let r=0;r<b.rows;r++)for(let c=0;c<b.cols;c++){
    const wx=x+margin+gap*(c+.5)-ww/2,wy=top+r*rowGap;
    const plant=(b.plants||[]).find(p=>p.row===r&&p.col===c);
