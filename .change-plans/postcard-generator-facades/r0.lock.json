@@ -1,0 +1,79 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3d7811f8bb9525998f083390d1ed3cd21938bb2e4cf6873ad82f6aa6198c49cb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-facades",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "9dbad594b02caa66c06a23901abcf63f1dcc3b3e",
+    "change": "Stage 1: constrained window grids, continuous terraces and sky clouds with reproducible settings and comparison samples",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-facades/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Introduce facade and sky options with independent seeded streams; preserve building placement and legacy0.1 replay",
+      "Draw internal rectangular window grids, one continuous terrace on eligible near buildings, and 1–3 clouds above skyline",
+      "Compare at least30 seeds, test settings reproduction, export and mobile widths, publish to Staging"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review at least30 varied seeds and forced detail examples",
+      "Browser SVG/PNG export, replay/share, comparison and360/375/390px layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User authorizes staged introduction of proposed postcard patterns; begin with grids, clouds, continuous terraces; Staging only"
+    ],
+    "rulesApplied": [
+      "Keep rejected round windows, shutters and stepped roofs excluded",
+      "Preserve simple operation; details adapt to building scale; no decorative copy"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works",
+      "Legacy0.1 implementation",
+      "Later proposed patterns such as arcades, awnings and new scenes"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
