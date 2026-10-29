@@ -492,6 +492,13 @@
       "path": "works/postcard-generator",
       "status": "active",
       "title": "Postcard Generator Lab 0.1"
+    },
+    {
+      "id": "ambertime-whisky-evaluation-lab-v011",
+      "path": "works/ambertime-whisky-evaluation-lab-v011",
+      "status": "active",
+      "title": "AmberTime 評価 Lab 0.1.1",
+      "theme": "同じ一本と同じ客で、評価モデルの偏りと改善前後を比べる。"
     }
   ]
 }

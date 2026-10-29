@@ -1,0 +1,3254 @@
+{
+  "schema": "whisky-evaluation-v011-causal-audit/1",
+  "sourceVersion": "whisky-evaluation/0.1",
+  "sourceBaseSha": "bdb683ec07b41b9507294b81d4a37ef01e2b9556",
+  "seeds": [
+    20261029,
+    42,
+    1,
+    7,
+    31
+  ],
+  "reproduction": {
+    "checkedConditions": 2160,
+    "summaryFieldsCompared": "all saved fields, including bottle/recipe/profile, counts, aggregate numeric values, median guest, reaction and fan reaction",
+    "mismatches": [],
+    "baselineWins": {
+      "support": 398,
+      "strong": 461,
+      "both": 359
+    }
+  },
+  "interventions": [
+    {
+      "id": "baseline",
+      "factor": "none",
+      "description": "v01そのまま",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 21,
+            "strong": 77,
+            "both": 10
+          },
+          "smoke": {
+            "support": 142,
+            "strong": 27,
+            "both": 16
+          },
+          "deep": {
+            "support": 0,
+            "strong": 2,
+            "both": 0
+          },
+          "balanced": {
+            "support": 398,
+            "strong": 461,
+            "both": 359
+          }
+        }
+      },
+      "meanSupport": 0.33470679012345744,
+      "meanStrong": 0.06998456790123497,
+      "meanScore": 0.5589673935758304,
+      "meanRawScore": 0.559325654343076,
+      "ceilingPeople": 1653,
+      "ceilingRate": 0.006377314814814815,
+      "anyCeilingConditions": 533,
+      "rawAboveOne": 1653,
+      "positiveImpression": 0.13887726673210962,
+      "negativeImpression": 0.10527495855606575,
+      "neutralImpression": 0.08640421435595394,
+      "scoreQuantiles": [
+        0.37536226710592474,
+        0.5428864641528817,
+        0.7671085334132485
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 11,
+                "both": 0
+              },
+              "smoke": {
+                "support": 44,
+                "strong": 10,
+                "both": 5
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 70,
+                "strong": 94,
+                "both": 60
+              }
+            }
+          },
+          "ceilingRate": 0.008024691358024692
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 20,
+                "strong": 15,
+                "both": 10
+              },
+              "smoke": {
+                "support": 12,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 81,
+                "strong": 95,
+                "both": 76
+              }
+            }
+          },
+          "ceilingRate": 0.0056905864197530865
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 1,
+                "strong": 22,
+                "both": 0
+              },
+              "smoke": {
+                "support": 53,
+                "strong": 1,
+                "both": 1
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 63,
+                "strong": 87,
+                "both": 63
+              }
+            }
+          },
+          "ceilingRate": 0.005748456790123457
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 25,
+                "both": 0
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 2,
+                "both": 0
+              },
+              "balanced": {
+                "support": 108,
+                "strong": 88,
+                "both": 88
+              }
+            }
+          },
+          "ceilingRate": 0.006867283950617284
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 4,
+                "both": 0
+              },
+              "smoke": {
+                "support": 33,
+                "strong": 13,
+                "both": 10
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 76,
+                "strong": 97,
+                "both": 72
+              }
+            }
+          },
+          "ceilingRate": 0.005555555555555556
+        }
+      }
+    },
+    {
+      "id": "cohort-uniform",
+      "factor": "cohort mixture only",
+      "description": "嗜好4群を均等化。他の個人差・関心・重み・式は同一",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 48,
+            "strong": 45,
+            "both": 0
+          },
+          "smoke": {
+            "support": 81,
+            "strong": 10,
+            "both": 5
+          },
+          "deep": {
+            "support": 0,
+            "strong": 0,
+            "both": 0
+          },
+          "balanced": {
+            "support": 439,
+            "strong": 513,
+            "both": 420
+          }
+        }
+      },
+      "meanSupport": 0.3200964506172843,
+      "meanStrong": 0.07075617283950665,
+      "meanScore": 0.5524005084481406,
+      "meanRawScore": 0.5528079843459617,
+      "ceilingPeople": 1846,
+      "ceilingRate": 0.007121913580246914,
+      "anyCeilingConditions": 548,
+      "rawAboveOne": 1846,
+      "positiveImpression": 0.13530455465370167,
+      "negativeImpression": 0.11078093679974328,
+      "neutralImpression": 0.08483435261756546,
+      "scoreQuantiles": [
+        0.3667872293120509,
+        0.5330026415766547,
+        0.7662548561660384
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 1,
+                "strong": 8,
+                "both": 0
+              },
+              "smoke": {
+                "support": 44,
+                "strong": 5,
+                "both": 5
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 72,
+                "strong": 99,
+                "both": 67
+              }
+            }
+          },
+          "ceilingRate": 0.008950617283950617
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 11,
+                "strong": 0,
+                "both": 0
+              },
+              "smoke": {
+                "support": 9,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 92,
+                "strong": 108,
+                "both": 92
+              }
+            }
+          },
+          "ceilingRate": 0.00621141975308642
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 14,
+                "strong": 6,
+                "both": 0
+              },
+              "smoke": {
+                "support": 4,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 98,
+                "strong": 107,
+                "both": 97
+              }
+            }
+          },
+          "ceilingRate": 0.005979938271604938
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 3,
+                "strong": 21,
+                "both": 0
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 108,
+                "strong": 98,
+                "both": 98
+              }
+            }
+          },
+          "ceilingRate": 0.008005401234567902
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 19,
+                "strong": 10,
+                "both": 0
+              },
+              "smoke": {
+                "support": 24,
+                "strong": 5,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 69,
+                "strong": 101,
+                "both": 66
+              }
+            }
+          },
+          "ceilingRate": 0.006462191358024691
+        }
+      }
+    },
+    {
+      "id": "weights-uniform",
+      "factor": "weights only",
+      "description": "8軸の重みを全て1とする",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 37,
+            "strong": 67,
+            "both": 7
+          },
+          "smoke": {
+            "support": 138,
+            "strong": 29,
+            "both": 20
+          },
+          "deep": {
+            "support": 0,
+            "strong": 2,
+            "both": 0
+          },
+          "balanced": {
+            "support": 397,
+            "strong": 463,
+            "both": 359
+          }
+        }
+      },
+      "meanSupport": 0.32651620370370443,
+      "meanStrong": 0.06761188271604984,
+      "meanScore": 0.5547963917418387,
+      "meanRawScore": 0.5551323125360935,
+      "ceilingPeople": 1582,
+      "ceilingRate": 0.006103395061728395,
+      "anyCeilingConditions": 511,
+      "rawAboveOne": 1582,
+      "positiveImpression": 0.13512379627493784,
+      "negativeImpression": 0.11008129450416376,
+      "neutralImpression": 0.08447548001181267,
+      "scoreQuantiles": [
+        0.3712122005563439,
+        0.5377521795770058,
+        0.7642558169420707
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "smoke": {
+                "support": 39,
+                "strong": 9,
+                "both": 4
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 78,
+                "strong": 99,
+                "both": 72
+              }
+            }
+          },
+          "ceilingRate": 0.00787037037037037
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 24,
+                "strong": 13,
+                "both": 6
+              },
+              "smoke": {
+                "support": 6,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 2,
+                "both": 0
+              },
+              "balanced": {
+                "support": 87,
+                "strong": 96,
+                "both": 78
+              }
+            }
+          },
+          "ceilingRate": 0.005227623456790124
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 3,
+                "strong": 26,
+                "both": 0
+              },
+              "smoke": {
+                "support": 60,
+                "strong": 8,
+                "both": 8
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 55,
+                "strong": 80,
+                "both": 52
+              }
+            }
+          },
+          "ceilingRate": 0.005767746913580247
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 9,
+                "strong": 21,
+                "both": 1
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 1,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 103,
+                "strong": 90,
+                "both": 86
+              }
+            }
+          },
+          "ceilingRate": 0.006828703703703704
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 1,
+                "strong": 4,
+                "both": 0
+              },
+              "smoke": {
+                "support": 33,
+                "strong": 11,
+                "both": 8
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 74,
+                "strong": 98,
+                "both": 71
+              }
+            }
+          },
+          "ceilingRate": 0.004822530864197531
+        }
+      }
+    },
+    {
+      "id": "weights-salient",
+      "factor": "weights only",
+      "description": "各客が最も好む香味軸の重みだけ4倍。刺激軸は主軸選択から除く",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 12,
+            "strong": 91,
+            "both": 6
+          },
+          "smoke": {
+            "support": 189,
+            "strong": 21,
+            "both": 18
+          },
+          "deep": {
+            "support": 0,
+            "strong": 15,
+            "both": 0
+          },
+          "balanced": {
+            "support": 352,
+            "strong": 441,
+            "both": 310
+          }
+        }
+      },
+      "meanSupport": 0.3450270061728411,
+      "meanStrong": 0.08710648148148183,
+      "meanScore": 0.5297251565896148,
+      "meanRawScore": 0.5302278898465953,
+      "ceilingPeople": 2152,
+      "ceilingRate": 0.00830246913580247,
+      "anyCeilingConditions": 666,
+      "rawAboveOne": 2152,
+      "positiveImpression": 0.14706380794202317,
+      "negativeImpression": 0.1441506341124944,
+      "neutralImpression": 0.060325222245478524,
+      "scoreQuantiles": [
+        0.2884926134992271,
+        0.5258744536358207,
+        0.7859943035070116
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 8,
+                "both": 0
+              },
+              "smoke": {
+                "support": 64,
+                "strong": 12,
+                "both": 12
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 45,
+                "strong": 94,
+                "both": 45
+              }
+            }
+          },
+          "ceilingRate": 0.009780092592592592
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 6,
+                "strong": 25,
+                "both": 4
+              },
+              "smoke": {
+                "support": 20,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 8,
+                "both": 0
+              },
+              "balanced": {
+                "support": 92,
+                "strong": 89,
+                "both": 76
+              }
+            }
+          },
+          "ceilingRate": 0.007253086419753086
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 24,
+                "both": 0
+              },
+              "smoke": {
+                "support": 69,
+                "strong": 3,
+                "both": 3
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 41,
+                "strong": 81,
+                "both": 41
+              }
+            }
+          },
+          "ceilingRate": 0.007156635802469136
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 6,
+                "strong": 25,
+                "both": 2
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 102,
+                "strong": 80,
+                "both": 76
+              }
+            }
+          },
+          "ceilingRate": 0.009992283950617284
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 9,
+                "both": 0
+              },
+              "smoke": {
+                "support": 36,
+                "strong": 3,
+                "both": 3
+              },
+              "deep": {
+                "support": 0,
+                "strong": 7,
+                "both": 0
+              },
+              "balanced": {
+                "support": 72,
+                "strong": 97,
+                "both": 72
+              }
+            }
+          },
+          "ceilingRate": 0.0073302469135802465
+        }
+      }
+    },
+    {
+      "id": "fit-rms",
+      "factor": "fit distance aggregation only",
+      "description": "重み付きL1距離を重み付きRMS距離に置換。指数係数は2.65のまま",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 76,
+            "strong": 49,
+            "both": 25
+          },
+          "smoke": {
+            "support": 42,
+            "strong": 19,
+            "both": 3
+          },
+          "deep": {
+            "support": 0,
+            "strong": 13,
+            "both": 0
+          },
+          "balanced": {
+            "support": 438,
+            "strong": 525,
+            "both": 436
+          }
+        }
+      },
+      "meanSupport": 0.19243055555555572,
+      "meanStrong": 0.032183641975308604,
+      "meanScore": 0.4811845544057906,
+      "meanRawScore": 0.481292351155959,
+      "ceilingPeople": 601,
+      "ceilingRate": 0.002318672839506173,
+      "anyCeilingConditions": 288,
+      "rawAboveOne": 601,
+      "positiveImpression": 0.07669019305709737,
+      "negativeImpression": 0.17904295158406225,
+      "neutralImpression": 0.06473528702994404,
+      "scoreQuantiles": [
+        0.3049841474625353,
+        0.45445620066799014,
+        0.6969567873778115
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 3,
+                "strong": 3,
+                "both": 0
+              },
+              "smoke": {
+                "support": 9,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 101,
+                "strong": 108,
+                "both": 101
+              }
+            }
+          },
+          "ceilingRate": 0.0033179012345679014
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 27,
+                "strong": 8,
+                "both": 5
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "balanced": {
+                "support": 81,
+                "strong": 103,
+                "both": 81
+              }
+            }
+          },
+          "ceilingRate": 0.0016589506172839507
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 10,
+                "strong": 10,
+                "both": 3
+              },
+              "smoke": {
+                "support": 8,
+                "strong": 6,
+                "both": 3
+              },
+              "deep": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "balanced": {
+                "support": 97,
+                "strong": 106,
+                "both": 95
+              }
+            }
+          },
+          "ceilingRate": 0.0021219135802469135
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 25,
+                "strong": 14,
+                "both": 9
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 6,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "balanced": {
+                "support": 83,
+                "strong": 105,
+                "both": 83
+              }
+            }
+          },
+          "ceilingRate": 0.0027391975308641977
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 11,
+                "strong": 14,
+                "both": 8
+              },
+              "smoke": {
+                "support": 25,
+                "strong": 4,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 4,
+                "both": 0
+              },
+              "balanced": {
+                "support": 76,
+                "strong": 103,
+                "both": 76
+              }
+            }
+          },
+          "ceilingRate": 0.0017554012345679013
+        }
+      }
+    },
+    {
+      "id": "maturity-zero",
+      "factor": "maturity coefficient only",
+      "description": "熟成加点係数.36だけ0とする",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 51,
+            "strong": 103,
+            "both": 14
+          },
+          "smoke": {
+            "support": 103,
+            "strong": 70,
+            "both": 9
+          },
+          "deep": {
+            "support": 0,
+            "strong": 25,
+            "both": 0
+          },
+          "balanced": {
+            "support": 408,
+            "strong": 472,
+            "both": 389
+          }
+        }
+      },
+      "meanSupport": 0.24959876543209908,
+      "meanStrong": 0.008248456790123452,
+      "meanScore": 0.5283893922511884,
+      "meanRawScore": 0.5283893922511884,
+      "ceilingPeople": 0,
+      "ceilingRate": 0,
+      "anyCeilingConditions": 0,
+      "rawAboveOne": 0,
+      "positiveImpression": 0.09516896710540096,
+      "negativeImpression": 0.11473907449755238,
+      "neutralImpression": 0.1039472810218017,
+      "scoreQuantiles": [
+        0.3732416835892639,
+        0.5222306271033627,
+        0.6939040802145724
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 6,
+                "both": 0
+              },
+              "smoke": {
+                "support": 30,
+                "strong": 7,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 88,
+                "strong": 100,
+                "both": 80
+              }
+            }
+          },
+          "ceilingRate": 0
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 26,
+                "strong": 8,
+                "both": 0
+              },
+              "smoke": {
+                "support": 2,
+                "strong": 13,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 8,
+                "both": 0
+              },
+              "balanced": {
+                "support": 82,
+                "strong": 105,
+                "both": 79
+              }
+            }
+          },
+          "ceilingRate": 0
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 3,
+                "strong": 39,
+                "both": 0
+              },
+              "smoke": {
+                "support": 35,
+                "strong": 12,
+                "both": 3
+              },
+              "deep": {
+                "support": 0,
+                "strong": 9,
+                "both": 0
+              },
+              "balanced": {
+                "support": 79,
+                "strong": 89,
+                "both": 76
+              }
+            }
+          },
+          "ceilingRate": 0
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 22,
+                "strong": 24,
+                "both": 14
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 29,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 8,
+                "both": 0
+              },
+              "balanced": {
+                "support": 86,
+                "strong": 95,
+                "both": 81
+              }
+            }
+          },
+          "ceilingRate": 0
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 26,
+                "both": 0
+              },
+              "smoke": {
+                "support": 36,
+                "strong": 9,
+                "both": 6
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 73,
+                "strong": 83,
+                "both": 73
+              }
+            }
+          },
+          "ceilingRate": 0
+        }
+      }
+    },
+    {
+      "id": "attention-zero",
+      "factor": "attention coefficient only",
+      "description": "低関心減点係数.24だけ0とする",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 15,
+            "strong": 63,
+            "both": 0
+          },
+          "smoke": {
+            "support": 172,
+            "strong": 28,
+            "both": 3
+          },
+          "deep": {
+            "support": 0,
+            "strong": 0,
+            "both": 0
+          },
+          "balanced": {
+            "support": 373,
+            "strong": 466,
+            "both": 317
+          }
+        }
+      },
+      "meanSupport": 0.4504282407407411,
+      "meanStrong": 0.10774305555555584,
+      "meanScore": 0.6144583826799936,
+      "meanRawScore": 0.6149071306694154,
+      "ceilingPeople": 2143,
+      "ceilingRate": 0.008267746913580247,
+      "anyCeilingConditions": 585,
+      "rawAboveOne": 2143,
+      "positiveImpression": 0.18613118905807916,
+      "negativeImpression": 0.05192543356320704,
+      "neutralImpression": 0.09901348100938943,
+      "scoreQuantiles": [
+        0.44719707298449296,
+        0.5986934834387513,
+        0.8064849967003087
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 1,
+                "both": 0
+              },
+              "smoke": {
+                "support": 57,
+                "strong": 6,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 54,
+                "strong": 105,
+                "both": 51
+              }
+            }
+          },
+          "ceilingRate": 0.009722222222222222
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 7,
+                "strong": 17,
+                "both": 0
+              },
+              "smoke": {
+                "support": 34,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 76,
+                "strong": 92,
+                "both": 60
+              }
+            }
+          },
+          "ceilingRate": 0.006867283950617284
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 17,
+                "both": 0
+              },
+              "smoke": {
+                "support": 56,
+                "strong": 6,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 56,
+                "strong": 86,
+                "both": 49
+              }
+            }
+          },
+          "ceilingRate": 0.007407407407407408
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 4,
+                "strong": 21,
+                "both": 0
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 2,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 106,
+                "strong": 89,
+                "both": 87
+              }
+            }
+          },
+          "ceilingRate": 0.009683641975308643
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 4,
+                "strong": 7,
+                "both": 0
+              },
+              "smoke": {
+                "support": 25,
+                "strong": 14,
+                "both": 3
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 81,
+                "strong": 94,
+                "both": 70
+              }
+            }
+          },
+          "ceilingRate": 0.007658179012345679
+        }
+      }
+    },
+    {
+      "id": "ease-zero",
+      "factor": "ease coefficient only",
+      "description": "全員共通の刺激低下加点.06だけ0とする",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 48,
+            "strong": 96,
+            "both": 15
+          },
+          "smoke": {
+            "support": 100,
+            "strong": 55,
+            "both": 16
+          },
+          "deep": {
+            "support": 0,
+            "strong": 30,
+            "both": 0
+          },
+          "balanced": {
+            "support": 399,
+            "strong": 468,
+            "both": 371
+          }
+        }
+      },
+      "meanSupport": 0.2409760802469137,
+      "meanStrong": 0.039726080246913764,
+      "meanScore": 0.5131346701869278,
+      "meanRawScore": 0.5132664057118371,
+      "ceilingPeople": 739,
+      "ceilingRate": 0.00285108024691358,
+      "anyCeilingConditions": 316,
+      "rawAboveOne": 739,
+      "positiveImpression": 0.10058734989818312,
+      "negativeImpression": 0.14605999851167953,
+      "neutralImpression": 0.08046504753438286,
+      "scoreQuantiles": [
+        0.3326823797339883,
+        0.49623778060058754,
+        0.7186003097752808
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 15,
+                "both": 0
+              },
+              "smoke": {
+                "support": 33,
+                "strong": 7,
+                "both": 3
+              },
+              "deep": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "balanced": {
+                "support": 77,
+                "strong": 98,
+                "both": 72
+              }
+            }
+          },
+          "ceilingRate": 0.003993055555555555
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 26,
+                "strong": 19,
+                "both": 10
+              },
+              "smoke": {
+                "support": 6,
+                "strong": 9,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 12,
+                "both": 0
+              },
+              "balanced": {
+                "support": 78,
+                "strong": 97,
+                "both": 73
+              }
+            }
+          },
+          "ceilingRate": 0.0022569444444444442
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 5,
+                "strong": 25,
+                "both": 0
+              },
+              "smoke": {
+                "support": 28,
+                "strong": 10,
+                "both": 5
+              },
+              "deep": {
+                "support": 0,
+                "strong": 5,
+                "both": 0
+              },
+              "balanced": {
+                "support": 77,
+                "strong": 90,
+                "both": 75
+              }
+            }
+          },
+          "ceilingRate": 0.002623456790123457
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 16,
+                "strong": 24,
+                "both": 5
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 19,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 8,
+                "both": 0
+              },
+              "balanced": {
+                "support": 92,
+                "strong": 88,
+                "both": 76
+              }
+            }
+          },
+          "ceilingRate": 0.00310570987654321
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 1,
+                "strong": 13,
+                "both": 0
+              },
+              "smoke": {
+                "support": 33,
+                "strong": 10,
+                "both": 8
+              },
+              "deep": {
+                "support": 0,
+                "strong": 2,
+                "both": 0
+              },
+              "balanced": {
+                "support": 75,
+                "strong": 95,
+                "both": 75
+              }
+            }
+          },
+          "ceilingRate": 0.0022762345679012345
+        }
+      }
+    },
+    {
+      "id": "thresholds-higher",
+      "factor": "verdict thresholds only",
+      "description": "支持.62→.65、強い支持.80→.85。score計算は同一",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 36,
+            "strong": 88,
+            "both": 10
+          },
+          "smoke": {
+            "support": 108,
+            "strong": 52,
+            "both": 12
+          },
+          "deep": {
+            "support": 0,
+            "strong": 30,
+            "both": 0
+          },
+          "balanced": {
+            "support": 416,
+            "strong": 482,
+            "both": 394
+          }
+        }
+      },
+      "meanSupport": 0.27305941358024677,
+      "meanStrong": 0.039537037037037245,
+      "meanScore": 0.5589673935758304,
+      "meanRawScore": 0.559325654343076,
+      "ceilingPeople": 1653,
+      "ceilingRate": 0.006377314814814815,
+      "anyCeilingConditions": 533,
+      "rawAboveOne": 1653,
+      "positiveImpression": 0.11888772515894054,
+      "negativeImpression": 0.10527495855606575,
+      "neutralImpression": 0.1063937559291227,
+      "scoreQuantiles": [
+        0.37536226710592474,
+        0.5428864641528817,
+        0.7671085334132485
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 14,
+                "both": 0
+              },
+              "smoke": {
+                "support": 34,
+                "strong": 7,
+                "both": 1
+              },
+              "deep": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "balanced": {
+                "support": 86,
+                "strong": 102,
+                "both": 83
+              }
+            }
+          },
+          "ceilingRate": 0.008024691358024692
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 24,
+                "strong": 16,
+                "both": 7
+              },
+              "smoke": {
+                "support": 7,
+                "strong": 7,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 11,
+                "both": 0
+              },
+              "balanced": {
+                "support": 78,
+                "strong": 102,
+                "both": 77
+              }
+            }
+          },
+          "ceilingRate": 0.0056905864197530865
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 23,
+                "both": 0
+              },
+              "smoke": {
+                "support": 34,
+                "strong": 8,
+                "both": 3
+              },
+              "deep": {
+                "support": 0,
+                "strong": 5,
+                "both": 0
+              },
+              "balanced": {
+                "support": 77,
+                "strong": 90,
+                "both": 77
+              }
+            }
+          },
+          "ceilingRate": 0.005748456790123457
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 12,
+                "strong": 21,
+                "both": 3
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 19,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 8,
+                "both": 0
+              },
+              "balanced": {
+                "support": 97,
+                "strong": 90,
+                "both": 82
+              }
+            }
+          },
+          "ceilingRate": 0.006867283950617284
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 14,
+                "both": 0
+              },
+              "smoke": {
+                "support": 33,
+                "strong": 11,
+                "both": 8
+              },
+              "deep": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "balanced": {
+                "support": 78,
+                "strong": 98,
+                "both": 75
+              }
+            }
+          },
+          "ceilingRate": 0.005555555555555556
+        }
+      }
+    },
+    {
+      "id": "cap-unclamped",
+      "factor": "upper/lower score cap only",
+      "description": "飽和前rawScoreをscoreとして保持。他の係数・閾値は同一",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 21,
+            "strong": 77,
+            "both": 10
+          },
+          "smoke": {
+            "support": 142,
+            "strong": 27,
+            "both": 16
+          },
+          "deep": {
+            "support": 0,
+            "strong": 2,
+            "both": 0
+          },
+          "balanced": {
+            "support": 398,
+            "strong": 461,
+            "both": 359
+          }
+        }
+      },
+      "meanSupport": 0.33470679012345744,
+      "meanStrong": 0.06998456790123497,
+      "meanScore": 0.559325654343076,
+      "meanRawScore": 0.559325654343076,
+      "ceilingPeople": 0,
+      "ceilingRate": 0,
+      "anyCeilingConditions": 0,
+      "rawAboveOne": 1653,
+      "positiveImpression": 0.1391065536231466,
+      "negativeImpression": 0.10527495855606575,
+      "neutralImpression": 0.08640421435595394,
+      "scoreQuantiles": [
+        0.37536226710592474,
+        0.5428864641528817,
+        0.7671085334132485
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 11,
+                "both": 0
+              },
+              "smoke": {
+                "support": 44,
+                "strong": 10,
+                "both": 5
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 70,
+                "strong": 94,
+                "both": 60
+              }
+            }
+          },
+          "ceilingRate": 0
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 20,
+                "strong": 15,
+                "both": 10
+              },
+              "smoke": {
+                "support": 12,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 81,
+                "strong": 95,
+                "both": 76
+              }
+            }
+          },
+          "ceilingRate": 0
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 1,
+                "strong": 22,
+                "both": 0
+              },
+              "smoke": {
+                "support": 53,
+                "strong": 1,
+                "both": 1
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 63,
+                "strong": 87,
+                "both": 63
+              }
+            }
+          },
+          "ceilingRate": 0
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 25,
+                "both": 0
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 2,
+                "both": 0
+              },
+              "balanced": {
+                "support": 108,
+                "strong": 88,
+                "both": 88
+              }
+            }
+          },
+          "ceilingRate": 0
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 4,
+                "both": 0
+              },
+              "smoke": {
+                "support": 33,
+                "strong": 13,
+                "both": 10
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 76,
+                "strong": 97,
+                "both": 72
+              }
+            }
+          },
+          "ceilingRate": 0
+        }
+      }
+    },
+    {
+      "id": "impression-signed",
+      "factor": "impression data representation only",
+      "description": "同じ印象値を好意・否定・中立に分離。scoreと判定は同一",
+      "conditions": 2160,
+      "people": 259200,
+      "winners": {
+        "groups": 540,
+        "bySample": {
+          "sweet": {
+            "support": 21,
+            "strong": 77,
+            "both": 10
+          },
+          "smoke": {
+            "support": 142,
+            "strong": 27,
+            "both": 16
+          },
+          "deep": {
+            "support": 0,
+            "strong": 2,
+            "both": 0
+          },
+          "balanced": {
+            "support": 398,
+            "strong": 461,
+            "both": 359
+          }
+        }
+      },
+      "meanSupport": 0.33470679012345744,
+      "meanStrong": 0.06998456790123497,
+      "meanScore": 0.5589673935758304,
+      "meanRawScore": 0.559325654343076,
+      "ceilingPeople": 1653,
+      "ceilingRate": 0.006377314814814815,
+      "anyCeilingConditions": 533,
+      "rawAboveOne": 1653,
+      "positiveImpression": 0.13887726673210962,
+      "negativeImpression": 0.10527495855606575,
+      "neutralImpression": 0.08640421435595394,
+      "scoreQuantiles": [
+        0.37536226710592474,
+        0.5428864641528817,
+        0.7671085334132485
+      ],
+      "bySeed": {
+        "1": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 11,
+                "both": 0
+              },
+              "smoke": {
+                "support": 44,
+                "strong": 10,
+                "both": 5
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 70,
+                "strong": 94,
+                "both": 60
+              }
+            }
+          },
+          "ceilingRate": 0.008024691358024692
+        },
+        "7": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 20,
+                "strong": 15,
+                "both": 10
+              },
+              "smoke": {
+                "support": 12,
+                "strong": 0,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 81,
+                "strong": 95,
+                "both": 76
+              }
+            }
+          },
+          "ceilingRate": 0.0056905864197530865
+        },
+        "31": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 1,
+                "strong": 22,
+                "both": 0
+              },
+              "smoke": {
+                "support": 53,
+                "strong": 1,
+                "both": 1
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 63,
+                "strong": 87,
+                "both": 63
+              }
+            }
+          },
+          "ceilingRate": 0.005748456790123457
+        },
+        "42": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 25,
+                "both": 0
+              },
+              "smoke": {
+                "support": 0,
+                "strong": 3,
+                "both": 0
+              },
+              "deep": {
+                "support": 0,
+                "strong": 2,
+                "both": 0
+              },
+              "balanced": {
+                "support": 108,
+                "strong": 88,
+                "both": 88
+              }
+            }
+          },
+          "ceilingRate": 0.006867283950617284
+        },
+        "20261029": {
+          "winners": {
+            "groups": 108,
+            "bySample": {
+              "sweet": {
+                "support": 0,
+                "strong": 4,
+                "both": 0
+              },
+              "smoke": {
+                "support": 33,
+                "strong": 13,
+                "both": 10
+              },
+              "deep": {
+                "support": 0,
+                "strong": 0,
+                "both": 0
+              },
+              "balanced": {
+                "support": 76,
+                "strong": 97,
+                "both": 72
+              }
+            }
+          },
+          "ceilingRate": 0.005555555555555556
+        }
+      }
+    }
+  ],
+  "axisDistances": [
+    {
+      "key": "sweet|diner|fruit",
+      "n": 21600,
+      "meanDistance": 0.2066487156574597,
+      "meanWeightedContribution": 0.20816264614974309
+    },
+    {
+      "key": "sweet|diner|grain",
+      "n": 21600,
+      "meanDistance": 0.16204815600832623,
+      "meanWeightedContribution": 0.16196689012840584
+    },
+    {
+      "key": "sweet|diner|smoke",
+      "n": 21600,
+      "meanDistance": 0.1401995553968211,
+      "meanWeightedContribution": 0.14210239234070138
+    },
+    {
+      "key": "sweet|diner|body",
+      "n": 21600,
+      "meanDistance": 0.2957475408659866,
+      "meanWeightedContribution": 0.2963666879324915
+    },
+    {
+      "key": "sweet|diner|rough",
+      "n": 21600,
+      "meanDistance": 0.14277041579034708,
+      "meanWeightedContribution": 0.17846301973792805
+    },
+    {
+      "key": "sweet|diner|spice",
+      "n": 21600,
+      "meanDistance": 0.2043627076634625,
+      "meanWeightedContribution": 0.2028617483888213
+    },
+    {
+      "key": "sweet|diner|wood",
+      "n": 21600,
+      "meanDistance": 0.1931244002543345,
+      "meanWeightedContribution": 0.1920536735233155
+    },
+    {
+      "key": "sweet|diner|vanilla",
+      "n": 21600,
+      "meanDistance": 0.17757039257290935,
+      "meanWeightedContribution": 0.17538464580229782
+    },
+    {
+      "key": "sweet|bar|fruit",
+      "n": 21600,
+      "meanDistance": 0.27512235013533726,
+      "meanWeightedContribution": 0.2723347482811316
+    },
+    {
+      "key": "sweet|bar|grain",
+      "n": 21600,
+      "meanDistance": 0.15795473080164874,
+      "meanWeightedContribution": 0.1562349131645054
+    },
+    {
+      "key": "sweet|bar|smoke",
+      "n": 21600,
+      "meanDistance": 0.2588297345372895,
+      "meanWeightedContribution": 0.26086630881190637
+    },
+    {
+      "key": "sweet|bar|body",
+      "n": 21600,
+      "meanDistance": 0.38653721320565176,
+      "meanWeightedContribution": 0.3859830101727467
+    },
+    {
+      "key": "sweet|bar|rough",
+      "n": 21600,
+      "meanDistance": 0.13082368099181452,
+      "meanWeightedContribution": 0.1635296012397637
+    },
+    {
+      "key": "sweet|bar|spice",
+      "n": 21600,
+      "meanDistance": 0.2883762496366165,
+      "meanWeightedContribution": 0.28707873662551403
+    },
+    {
+      "key": "sweet|bar|wood",
+      "n": 21600,
+      "meanDistance": 0.18415545963909158,
+      "meanWeightedContribution": 0.18252027777013785
+    },
+    {
+      "key": "sweet|bar|vanilla",
+      "n": 21600,
+      "meanDistance": 0.1639596605087236,
+      "meanWeightedContribution": 0.1631089293757848
+    },
+    {
+      "key": "sweet|specialist|fruit",
+      "n": 21600,
+      "meanDistance": 0.3050415318651905,
+      "meanWeightedContribution": 0.30782449670926604
+    },
+    {
+      "key": "sweet|specialist|grain",
+      "n": 21600,
+      "meanDistance": 0.17166316338168663,
+      "meanWeightedContribution": 0.16886289914772856
+    },
+    {
+      "key": "sweet|specialist|smoke",
+      "n": 21600,
+      "meanDistance": 0.2592147035602193,
+      "meanWeightedContribution": 0.2618298272432461
+    },
+    {
+      "key": "sweet|specialist|body",
+      "n": 21600,
+      "meanDistance": 0.4398695222652981,
+      "meanWeightedContribution": 0.4350643987727203
+    },
+    {
+      "key": "sweet|specialist|rough",
+      "n": 21600,
+      "meanDistance": 0.12114217900332583,
+      "meanWeightedContribution": 0.15142772375415625
+    },
+    {
+      "key": "sweet|specialist|spice",
+      "n": 21600,
+      "meanDistance": 0.3378907672268005,
+      "meanWeightedContribution": 0.33895077536060014
+    },
+    {
+      "key": "sweet|specialist|wood",
+      "n": 21600,
+      "meanDistance": 0.17499982445390688,
+      "meanWeightedContribution": 0.17515566115802128
+    },
+    {
+      "key": "sweet|specialist|vanilla",
+      "n": 21600,
+      "meanDistance": 0.15565408037258702,
+      "meanWeightedContribution": 0.15514193484290997
+    },
+    {
+      "key": "smoke|diner|fruit",
+      "n": 21600,
+      "meanDistance": 0.16098241908438107,
+      "meanWeightedContribution": 0.1633823897189309
+    },
+    {
+      "key": "smoke|diner|grain",
+      "n": 21600,
+      "meanDistance": 0.1298637691423459,
+      "meanWeightedContribution": 0.12989080114567345
+    },
+    {
+      "key": "smoke|diner|smoke",
+      "n": 21600,
+      "meanDistance": 0.5181682191007927,
+      "meanWeightedContribution": 0.5234427725623463
+    },
+    {
+      "key": "smoke|diner|body",
+      "n": 21600,
+      "meanDistance": 0.16874000631556868,
+      "meanWeightedContribution": 0.16796041703239206
+    },
+    {
+      "key": "smoke|diner|rough",
+      "n": 21600,
+      "meanDistance": 0.12194314062007106,
+      "meanWeightedContribution": 0.1524289257750767
+    },
+    {
+      "key": "smoke|diner|spice",
+      "n": 21600,
+      "meanDistance": 0.14720018274008054,
+      "meanWeightedContribution": 0.14605020767468807
+    },
+    {
+      "key": "smoke|diner|wood",
+      "n": 21600,
+      "meanDistance": 0.20150175948453264,
+      "meanWeightedContribution": 0.20063328535393554
+    },
+    {
+      "key": "smoke|diner|vanilla",
+      "n": 21600,
+      "meanDistance": 0.1971149028030212,
+      "meanWeightedContribution": 0.19710998617598002
+    },
+    {
+      "key": "smoke|bar|fruit",
+      "n": 21600,
+      "meanDistance": 0.16196524665700143,
+      "meanWeightedContribution": 0.16112661534343758
+    },
+    {
+      "key": "smoke|bar|grain",
+      "n": 21600,
+      "meanDistance": 0.13163489182713223,
+      "meanWeightedContribution": 0.13014191288431268
+    },
+    {
+      "key": "smoke|bar|smoke",
+      "n": 21600,
+      "meanDistance": 0.41934657573278694,
+      "meanWeightedContribution": 0.4207879274216227
+    },
+    {
+      "key": "smoke|bar|body",
+      "n": 21600,
+      "meanDistance": 0.17334866321085682,
+      "meanWeightedContribution": 0.17315508212119068
+    },
+    {
+      "key": "smoke|bar|rough",
+      "n": 21600,
+      "meanDistance": 0.11623288507806331,
+      "meanWeightedContribution": 0.14529110634757425
+    },
+    {
+      "key": "smoke|bar|spice",
+      "n": 21600,
+      "meanDistance": 0.17951243773050793,
+      "meanWeightedContribution": 0.17909125438686366
+    },
+    {
+      "key": "smoke|bar|wood",
+      "n": 21600,
+      "meanDistance": 0.2658508586504378,
+      "meanWeightedContribution": 0.2646768368448815
+    },
+    {
+      "key": "smoke|bar|vanilla",
+      "n": 21600,
+      "meanDistance": 0.20642572133429954,
+      "meanWeightedContribution": 0.20628713432936602
+    },
+    {
+      "key": "smoke|specialist|fruit",
+      "n": 21600,
+      "meanDistance": 0.16995887888091615,
+      "meanWeightedContribution": 0.17173604115623667
+    },
+    {
+      "key": "smoke|specialist|grain",
+      "n": 21600,
+      "meanDistance": 0.1459092750076967,
+      "meanWeightedContribution": 0.14371864858717118
+    },
+    {
+      "key": "smoke|specialist|smoke",
+      "n": 21600,
+      "meanDistance": 0.4100595088018192,
+      "meanWeightedContribution": 0.4095340410514769
+    },
+    {
+      "key": "smoke|specialist|body",
+      "n": 21600,
+      "meanDistance": 0.19240851528992595,
+      "meanWeightedContribution": 0.19055672950677535
+    },
+    {
+      "key": "smoke|specialist|rough",
+      "n": 21600,
+      "meanDistance": 0.11047529038929634,
+      "meanWeightedContribution": 0.13809411298661964
+    },
+    {
+      "key": "smoke|specialist|spice",
+      "n": 21600,
+      "meanDistance": 0.2209117536322493,
+      "meanWeightedContribution": 0.22208338249782114
+    },
+    {
+      "key": "smoke|specialist|wood",
+      "n": 21600,
+      "meanDistance": 0.3084130253614606,
+      "meanWeightedContribution": 0.3095179869916339
+    },
+    {
+      "key": "smoke|specialist|vanilla",
+      "n": 21600,
+      "meanDistance": 0.22271754302266158,
+      "meanWeightedContribution": 0.2232708708917382
+    },
+    {
+      "key": "deep|diner|fruit",
+      "n": 21600,
+      "meanDistance": 0.5049967944207912,
+      "meanWeightedContribution": 0.5107995122321349
+    },
+    {
+      "key": "deep|diner|grain",
+      "n": 21600,
+      "meanDistance": 0.12539067931638667,
+      "meanWeightedContribution": 0.12558118886265288
+    },
+    {
+      "key": "deep|diner|smoke",
+      "n": 21600,
+      "meanDistance": 0.1401995553968211,
+      "meanWeightedContribution": 0.14210239234070138
+    },
+    {
+      "key": "deep|diner|body",
+      "n": 21600,
+      "meanDistance": 0.432064110904801,
+      "meanWeightedContribution": 0.43057295521516087
+    },
+    {
+      "key": "deep|diner|rough",
+      "n": 21600,
+      "meanDistance": 0.20962072132086712,
+      "meanWeightedContribution": 0.2620259016510935
+    },
+    {
+      "key": "deep|diner|spice",
+      "n": 21600,
+      "meanDistance": 0.3977427560979467,
+      "meanWeightedContribution": 0.3952296225391112
+    },
+    {
+      "key": "deep|diner|wood",
+      "n": 21600,
+      "meanDistance": 0.18706587448092765,
+      "meanWeightedContribution": 0.1862391812414519
+    },
+    {
+      "key": "deep|diner|vanilla",
+      "n": 21600,
+      "meanDistance": 0.18265572748895473,
+      "meanWeightedContribution": 0.1824087788387775
+    },
+    {
+      "key": "deep|bar|fruit",
+      "n": 21600,
+      "meanDistance": 0.4313371321873197,
+      "meanWeightedContribution": 0.43017516888601726
+    },
+    {
+      "key": "deep|bar|grain",
+      "n": 21600,
+      "meanDistance": 0.1289463954595203,
+      "meanWeightedContribution": 0.12741670718684606
+    },
+    {
+      "key": "deep|bar|smoke",
+      "n": 21600,
+      "meanDistance": 0.2588297345372895,
+      "meanWeightedContribution": 0.26086630881190637
+    },
+    {
+      "key": "deep|bar|body",
+      "n": 21600,
+      "meanDistance": 0.34415376316054,
+      "meanWeightedContribution": 0.34331476093329294
+    },
+    {
+      "key": "deep|bar|rough",
+      "n": 21600,
+      "meanDistance": 0.18549925416887797,
+      "meanWeightedContribution": 0.23187406771109664
+    },
+    {
+      "key": "deep|bar|spice",
+      "n": 21600,
+      "meanDistance": 0.321515924393657,
+      "meanWeightedContribution": 0.3210711296982758
+    },
+    {
+      "key": "deep|bar|wood",
+      "n": 21600,
+      "meanDistance": 0.24261141549030668,
+      "meanWeightedContribution": 0.24139132555328366
+    },
+    {
+      "key": "deep|bar|vanilla",
+      "n": 21600,
+      "meanDistance": 0.18923877837163086,
+      "meanWeightedContribution": 0.1889764927869379
+    },
+    {
+      "key": "deep|specialist|fruit",
+      "n": 21600,
+      "meanDistance": 0.40217956309574204,
+      "meanWeightedContribution": 0.4063250461563053
+    },
+    {
+      "key": "deep|specialist|grain",
+      "n": 21600,
+      "meanDistance": 0.1421228060307887,
+      "meanWeightedContribution": 0.1399954870209999
+    },
+    {
+      "key": "deep|specialist|smoke",
+      "n": 21600,
+      "meanDistance": 0.2592147035602193,
+      "meanWeightedContribution": 0.2618298272432461
+    },
+    {
+      "key": "deep|specialist|body",
+      "n": 21600,
+      "meanDistance": 0.29769181910749815,
+      "meanWeightedContribution": 0.2975361294378405
+    },
+    {
+      "key": "deep|specialist|rough",
+      "n": 21600,
+      "meanDistance": 0.16946077454472583,
+      "meanWeightedContribution": 0.21182596818091085
+    },
+    {
+      "key": "deep|specialist|spice",
+      "n": 21600,
+      "meanDistance": 0.28199067253669036,
+      "meanWeightedContribution": 0.28384107233887396
+    },
+    {
+      "key": "deep|specialist|wood",
+      "n": 21600,
+      "meanDistance": 0.2790390410840291,
+      "meanWeightedContribution": 0.28002344055567285
+    },
+    {
+      "key": "deep|specialist|vanilla",
+      "n": 21600,
+      "meanDistance": 0.20361169830785414,
+      "meanWeightedContribution": 0.20411552308967632
+    },
+    {
+      "key": "balanced|diner|fruit",
+      "n": 21600,
+      "meanDistance": 0.1465593643009919,
+      "meanWeightedContribution": 0.14831336997595612
+    },
+    {
+      "key": "balanced|diner|grain",
+      "n": 21600,
+      "meanDistance": 0.1345551579741368,
+      "meanWeightedContribution": 0.13540476664152043
+    },
+    {
+      "key": "balanced|diner|smoke",
+      "n": 21600,
+      "meanDistance": 0.1401995553968211,
+      "meanWeightedContribution": 0.14210239234070138
+    },
+    {
+      "key": "balanced|diner|body",
+      "n": 21600,
+      "meanDistance": 0.17948068748391932,
+      "meanWeightedContribution": 0.17857923837612524
+    },
+    {
+      "key": "balanced|diner|rough",
+      "n": 21600,
+      "meanDistance": 0.09275980873104867,
+      "meanWeightedContribution": 0.11594976091381183
+    },
+    {
+      "key": "balanced|diner|spice",
+      "n": 21600,
+      "meanDistance": 0.15868899323248306,
+      "meanWeightedContribution": 0.1574595541262854
+    },
+    {
+      "key": "balanced|diner|wood",
+      "n": 21600,
+      "meanDistance": 0.1963744718915738,
+      "meanWeightedContribution": 0.19551971025075304
+    },
+    {
+      "key": "balanced|diner|vanilla",
+      "n": 21600,
+      "meanDistance": 0.19228122281767793,
+      "meanWeightedContribution": 0.19220672446319764
+    },
+    {
+      "key": "balanced|bar|fruit",
+      "n": 21600,
+      "meanDistance": 0.1707578433895748,
+      "meanWeightedContribution": 0.16952996401252096
+    },
+    {
+      "key": "balanced|bar|grain",
+      "n": 21600,
+      "meanDistance": 0.1398280558509746,
+      "meanWeightedContribution": 0.13791706709192225
+    },
+    {
+      "key": "balanced|bar|smoke",
+      "n": 21600,
+      "meanDistance": 0.2588297345372895,
+      "meanWeightedContribution": 0.26086630881190637
+    },
+    {
+      "key": "balanced|bar|body",
+      "n": 21600,
+      "meanDistance": 0.17558558995660928,
+      "meanWeightedContribution": 0.1754182988510161
+    },
+    {
+      "key": "balanced|bar|rough",
+      "n": 21600,
+      "meanDistance": 0.10306352903721298,
+      "meanWeightedContribution": 0.1288294112965171
+    },
+    {
+      "key": "balanced|bar|spice",
+      "n": 21600,
+      "meanDistance": 0.21940070832314737,
+      "meanWeightedContribution": 0.21849242832720814
+    },
+    {
+      "key": "balanced|bar|wood",
+      "n": 21600,
+      "meanDistance": 0.25806600826334086,
+      "meanWeightedContribution": 0.25687919529072895
+    },
+    {
+      "key": "balanced|bar|vanilla",
+      "n": 21600,
+      "meanDistance": 0.20073838774214134,
+      "meanWeightedContribution": 0.2005634541059524
+    },
+    {
+      "key": "balanced|specialist|fruit",
+      "n": 21600,
+      "meanDistance": 0.19023585799114223,
+      "meanWeightedContribution": 0.19222473613249724
+    },
+    {
+      "key": "balanced|specialist|grain",
+      "n": 21600,
+      "meanDistance": 0.15063617966710954,
+      "meanWeightedContribution": 0.1485747449930347
+    },
+    {
+      "key": "balanced|specialist|smoke",
+      "n": 21600,
+      "meanDistance": 0.2592147035602193,
+      "meanWeightedContribution": 0.2618298272432461
+    },
+    {
+      "key": "balanced|specialist|body",
+      "n": 21600,
+      "meanDistance": 0.1893092041786921,
+      "meanWeightedContribution": 0.18768452995357746
+    },
+    {
+      "key": "balanced|specialist|rough",
+      "n": 21600,
+      "meanDistance": 0.10838024854096326,
+      "meanWeightedContribution": 0.1354753106762079
+    },
+    {
+      "key": "balanced|specialist|spice",
+      "n": 21600,
+      "meanDistance": 0.2677427798784842,
+      "meanWeightedContribution": 0.26864702292134585
+    },
+    {
+      "key": "balanced|specialist|wood",
+      "n": 21600,
+      "meanDistance": 0.29880337802783374,
+      "meanWeightedContribution": 0.29987734937381233
+    },
+    {
+      "key": "balanced|specialist|vanilla",
+      "n": 21600,
+      "meanDistance": 0.21646068936040297,
+      "meanWeightedContribution": 0.21700025952273466
+    }
+  ],
+  "archetypeResults": [
+    {
+      "key": "sweet|diner|0",
+      "n": 10836,
+      "support": 0.4466592838685862,
+      "strong": 0.01744186046511628,
+      "score": 0.5979312373036683,
+      "fit": 0.6432683326749105
+    },
+    {
+      "key": "sweet|diner|3",
+      "n": 2808,
+      "support": 0,
+      "strong": 0,
+      "score": 0.36354656876339486,
+      "fit": 0.4386478567008756
+    },
+    {
+      "key": "sweet|diner|1",
+      "n": 6048,
+      "support": 0.646494708994709,
+      "strong": 0.07324735449735449,
+      "score": 0.6583357286494468,
+      "fit": 0.6986810600983548
+    },
+    {
+      "key": "sweet|diner|2",
+      "n": 1908,
+      "support": 0,
+      "strong": 0,
+      "score": 0.39622315613198855,
+      "fit": 0.4739934012132124
+    },
+    {
+      "key": "sweet|bar|0",
+      "n": 5796,
+      "support": 0.5785024154589372,
+      "strong": 0.05883367839889579,
+      "score": 0.6339872155634814,
+      "fit": 0.634183214381848
+    },
+    {
+      "key": "sweet|bar|3",
+      "n": 4716,
+      "support": 0.002332485156912638,
+      "strong": 0,
+      "score": 0.3968144043777787,
+      "fit": 0.4352637934424009
+    },
+    {
+      "key": "sweet|bar|1",
+      "n": 4860,
+      "support": 0.8088477366255145,
+      "strong": 0.2331275720164609,
+      "score": 0.721510508847135,
+      "fit": 0.6977757813866866
+    },
+    {
+      "key": "sweet|bar|2",
+      "n": 6228,
+      "support": 0.006583172768143866,
+      "strong": 0,
+      "score": 0.44328977782918166,
+      "fit": 0.4758690357637
+    },
+    {
+      "key": "sweet|specialist|3",
+      "n": 7236,
+      "support": 0.005666113875069099,
+      "strong": 0,
+      "score": 0.42384333238755445,
+      "fit": 0.43731336245294644
+    },
+    {
+      "key": "sweet|specialist|1",
+      "n": 4824,
+      "support": 0.8743781094527363,
+      "strong": 0.396558872305141,
+      "score": 0.7671872220320692,
+      "fit": 0.7041552695110287
+    },
+    {
+      "key": "sweet|specialist|2",
+      "n": 6264,
+      "support": 0.033365261813537675,
+      "strong": 0,
+      "score": 0.4744994668460523,
+      "fit": 0.4794363081083121
+    },
+    {
+      "key": "sweet|specialist|0",
+      "n": 3276,
+      "support": 0.7844932844932845,
+      "strong": 0.1163003663003663,
+      "score": 0.6886586478034614,
+      "fit": 0.6403401934385397
+    },
+    {
+      "key": "smoke|diner|0",
+      "n": 10836,
+      "support": 0.33637873754152825,
+      "strong": 0.010981912144702842,
+      "score": 0.5847315482920384,
+      "fit": 0.6276816464389652
+    },
+    {
+      "key": "smoke|diner|3",
+      "n": 2808,
+      "support": 0,
+      "strong": 0,
+      "score": 0.3922843231138588,
+      "fit": 0.46406946478052225
+    },
+    {
+      "key": "smoke|diner|1",
+      "n": 6048,
+      "support": 0.03819444444444445,
+      "strong": 0.000496031746031746,
+      "score": 0.4906652215280437,
+      "fit": 0.551791898804143
+    },
+    {
+      "key": "smoke|diner|2",
+      "n": 1908,
+      "support": 0.49056603773584906,
+      "strong": 0.04245283018867924,
+      "score": 0.6249198965999683,
+      "fit": 0.6716117181284083
+    },
+    {
+      "key": "smoke|bar|0",
+      "n": 5796,
+      "support": 0.5279503105590062,
+      "strong": 0.04520358868184955,
+      "score": 0.6295317465328001,
+      "fit": 0.6263020731991121
+    },
+    {
+      "key": "smoke|bar|3",
+      "n": 4716,
+      "support": 0.010814249363867684,
+      "strong": 0.0019083969465648854,
+      "score": 0.4384633012813232,
+      "fit": 0.47034863953573797
+    },
+    {
+      "key": "smoke|bar|1",
+      "n": 4860,
+      "support": 0.18888888888888888,
+      "strong": 0.00720164609053498,
+      "score": 0.5447519611194847,
+      "fit": 0.5549208552750686
+    },
+    {
+      "key": "smoke|bar|2",
+      "n": 6228,
+      "support": 0.7585099550417469,
+      "strong": 0.13503532434168272,
+      "score": 0.6914397078022476,
+      "fit": 0.6726804114101
+    },
+    {
+      "key": "smoke|specialist|3",
+      "n": 7236,
+      "support": 0.028606965174129355,
+      "strong": 0,
+      "score": 0.4601253201480707,
+      "fit": 0.46709089663273873
+    },
+    {
+      "key": "smoke|specialist|1",
+      "n": 4824,
+      "support": 0.1888474295190713,
+      "strong": 0.004353233830845771,
+      "score": 0.55498434849018,
+      "fit": 0.5404019383706535
+    },
+    {
+      "key": "smoke|specialist|2",
+      "n": 6264,
+      "support": 0.8638250319284803,
+      "strong": 0.24632822477650063,
+      "score": 0.7323817755445032,
+      "fit": 0.6746804782642353
+    },
+    {
+      "key": "smoke|specialist|0",
+      "n": 3276,
+      "support": 0.702075702075702,
+      "strong": 0.12301587301587301,
+      "score": 0.6809222291993132,
+      "fit": 0.6275299510440351
+    },
+    {
+      "key": "deep|diner|0",
+      "n": 10836,
+      "support": 0.0011074197120708748,
+      "strong": 0,
+      "score": 0.42164672091060734,
+      "fit": 0.4929442682065435
+    },
+    {
+      "key": "deep|diner|3",
+      "n": 2808,
+      "support": 0.3896011396011396,
+      "strong": 0.02849002849002849,
+      "score": 0.5967681318266208,
+      "fit": 0.6457032688610271
+    },
+    {
+      "key": "deep|diner|1",
+      "n": 6048,
+      "support": 0.000496031746031746,
+      "strong": 0,
+      "score": 0.3543578748345059,
+      "fit": 0.4345630373875268
+    },
+    {
+      "key": "deep|diner|2",
+      "n": 1908,
+      "support": 0.0031446540880503146,
+      "strong": 0,
+      "score": 0.38992377795644023,
+      "fit": 0.47057784161369054
+    },
+    {
+      "key": "deep|bar|0",
+      "n": 5796,
+      "support": 0.026742581090407176,
+      "strong": 0.0005175983436853002,
+      "score": 0.45317715296661465,
+      "fit": 0.4894913500519115
+    },
+    {
+      "key": "deep|bar|3",
+      "n": 4716,
+      "support": 0.6034775233248516,
+      "strong": 0.1041136556403732,
+      "score": 0.653593847008239,
+      "fit": 0.6467818705519284
+    },
+    {
+      "key": "deep|bar|1",
+      "n": 4860,
+      "support": 0.00823045267489712,
+      "strong": 0,
+      "score": 0.4043434675332661,
+      "fit": 0.4428507500721976
+    },
+    {
+      "key": "deep|bar|2",
+      "n": 6228,
+      "support": 0.025048169556840076,
+      "strong": 0,
+      "score": 0.44202479273064477,
+      "fit": 0.4757274979003529
+    },
+    {
+      "key": "deep|specialist|3",
+      "n": 7236,
+      "support": 0.6659756771697071,
+      "strong": 0.16556108347153123,
+      "score": 0.6807625882604069,
+      "fit": 0.6397831237386821
+    },
+    {
+      "key": "deep|specialist|1",
+      "n": 4824,
+      "support": 0.006840796019900498,
+      "strong": 0,
+      "score": 0.4081797316887265,
+      "fit": 0.4254966637313589
+    },
+    {
+      "key": "deep|specialist|2",
+      "n": 6264,
+      "support": 0.054757343550447,
+      "strong": 0.0036717752234993613,
+      "score": 0.4666925535431721,
+      "fit": 0.4736817704228243
+    },
+    {
+      "key": "deep|specialist|0",
+      "n": 3276,
+      "support": 0.07814407814407814,
+      "strong": 0.001221001221001221,
+      "score": 0.5003124773115265,
+      "fit": 0.4962080749758328
+    },
+    {
+      "key": "balanced|diner|0",
+      "n": 10836,
+      "support": 0.9207272056109266,
+      "strong": 0.2532299741602067,
+      "score": 0.7436519194265289,
+      "fit": 0.7605572112704293
+    },
+    {
+      "key": "balanced|diner|3",
+      "n": 2808,
+      "support": 0.037037037037037035,
+      "strong": 0,
+      "score": 0.4633896605667671,
+      "fit": 0.5223946809116499
+    },
+    {
+      "key": "balanced|diner|1",
+      "n": 6048,
+      "support": 0.38938492063492064,
+      "strong": 0.019014550264550265,
+      "score": 0.597870685568312,
+      "fit": 0.6406454681084498
+    },
+    {
+      "key": "balanced|diner|2",
+      "n": 1908,
+      "support": 0.05293501048218029,
+      "strong": 0.0031446540880503146,
+      "score": 0.4666923591514439,
+      "fit": 0.5298835304824726
+    },
+    {
+      "key": "balanced|bar|0",
+      "n": 5796,
+      "support": 0.972912353347136,
+      "strong": 0.42167011732229126,
+      "score": 0.7975451265764141,
+      "fit": 0.7600538415983821
+    },
+    {
+      "key": "balanced|bar|3",
+      "n": 4716,
+      "support": 0.05937234944868533,
+      "strong": 0.0019083969465648854,
+      "score": 0.5042854062260943,
+      "fit": 0.520720487820149
+    },
+    {
+      "key": "balanced|bar|1",
+      "n": 4860,
+      "support": 0.679835390946502,
+      "strong": 0.10740740740740741,
+      "score": 0.6689366736936452,
+      "fit": 0.6500933269707075
+    },
+    {
+      "key": "balanced|bar|2",
+      "n": 6228,
+      "support": 0.11624919717405266,
+      "strong": 0.005619781631342325,
+      "score": 0.5201271595087922,
+      "fit": 0.5322241686131169
+    },
+    {
+      "key": "balanced|specialist|3",
+      "n": 7236,
+      "support": 0.12935323383084577,
+      "strong": 0.0031785516860143724,
+      "score": 0.5297403481907659,
+      "fit": 0.5182192975400322
+    },
+    {
+      "key": "balanced|specialist|1",
+      "n": 4824,
+      "support": 0.7189054726368159,
+      "strong": 0.1256218905472637,
+      "score": 0.683909347737589,
+      "fit": 0.6349112570596507
+    },
+    {
+      "key": "balanced|specialist|2",
+      "n": 6264,
+      "support": 0.20977011494252873,
+      "strong": 0.010217113665389528,
+      "score": 0.5526792927177534,
+      "fit": 0.5340145379561844
+    },
+    {
+      "key": "balanced|specialist|0",
+      "n": 3276,
+      "support": 0.9990842490842491,
+      "strong": 0.6275946275946276,
+      "score": 0.8475905538341914,
+      "fit": 0.7561518645502706
+    }
+  ],
+  "fixedAgeFocus": [
+    {
+      "conditions": {
+        "sample": "balanced",
+        "years": 1,
+        "shop": "diner",
+        "model": "B",
+        "aging": "fixed",
+        "referenceYears": 6,
+        "seed": 20261029
+      },
+      "support": 0.7083333333333334,
+      "strong": 0.11666666666666667,
+      "peak": 0.8917514645973106,
+      "counts": {
+        "strong": 14,
+        "like": 71,
+        "neutral": 30,
+        "miss": 5
+      },
+      "reaction": {
+        "text": "口当たりが穏やかで飲みやすいですね。",
+        "reasons": [
+          "スパイスが控えめなところが、この客の好みに近い。",
+          "熟成年数より、今回の味の相性が評価の中心。"
+        ],
+        "hint": "同じ仕込みをもう少し熟成して比べてみる。"
+      }
+    },
+    {
+      "conditions": {
+        "sample": "balanced",
+        "years": 3,
+        "shop": "diner",
+        "model": "B",
+        "aging": "fixed",
+        "referenceYears": 6,
+        "seed": 20261029
+      },
+      "support": 0.675,
+      "strong": 0.125,
+      "peak": 0.9329669623201443,
+      "counts": {
+        "strong": 15,
+        "like": 66,
+        "neutral": 28,
+        "miss": 11
+      },
+      "reaction": {
+        "text": "口当たりが穏やかで飲みやすいですね。",
+        "reasons": [
+          "穀物がほどよくあるところが、この客の好みに近い。",
+          "熟成年数より、今回の味の相性が評価の中心。"
+        ],
+        "hint": null
+      }
+    },
+    {
+      "conditions": {
+        "sample": "balanced",
+        "years": 6,
+        "shop": "diner",
+        "model": "B",
+        "aging": "fixed",
+        "referenceYears": 6,
+        "seed": 20261029
+      },
+      "support": 0.6083333333333333,
+      "strong": 0.15,
+      "peak": 0.9741824600429781,
+      "counts": {
+        "strong": 18,
+        "like": 55,
+        "neutral": 31,
+        "miss": 16
+      },
+      "reaction": {
+        "text": "口当たりが穏やかで飲みやすいですね。",
+        "reasons": [
+          "樽香が控えめなところが、この客の好みに近い。",
+          "熟成年数より、今回の味の相性が評価の中心。"
+        ],
+        "hint": null
+      }
+    },
+    {
+      "conditions": {
+        "sample": "balanced",
+        "years": 10,
+        "shop": "diner",
+        "model": "B",
+        "aging": "fixed",
+        "referenceYears": 6,
+        "seed": 20261029
+      },
+      "support": 0.5916666666666667,
+      "strong": 0.175,
+      "peak": 1,
+      "counts": {
+        "strong": 21,
+        "like": 50,
+        "neutral": 30,
+        "miss": 19
+      },
+      "reaction": {
+        "text": "口当たりが穏やかで飲みやすいですね。",
+        "reasons": [
+          "煙が控えめなところが、この客の好みに近い。",
+          "熟成年数より、今回の味の相性が評価の中心。"
+        ],
+        "hint": null
+      }
+    },
+    {
+      "conditions": {
+        "sample": "balanced",
+        "years": 15,
+        "shop": "diner",
+        "model": "B",
+        "aging": "fixed",
+        "referenceYears": 6,
+        "seed": 20261029
+      },
+      "support": 0.5333333333333333,
+      "strong": 0.2,
+      "peak": 1,
+      "counts": {
+        "strong": 24,
+        "like": 40,
+        "neutral": 31,
+        "miss": 25
+      },
+      "reaction": {
+        "text": "口当たりが穏やかで飲みやすいですね。",
+        "reasons": [
+          "樽香が控えめなところが、この客の好みに近い。",
+          "熟成への関心が低く、この場では気軽さを優先した。"
+        ],
+        "hint": null
+      }
+    },
+    {
+      "conditions": {
+        "sample": "balanced",
+        "years": 20,
+        "shop": "diner",
+        "model": "B",
+        "aging": "fixed",
+        "referenceYears": 6,
+        "seed": 20261029
+      },
+      "support": 0.5,
+      "strong": 0.2,
+      "peak": 1,
+      "counts": {
+        "strong": 24,
+        "like": 36,
+        "neutral": 31,
+        "miss": 29
+      },
+      "reaction": {
+        "text": "口当たりが穏やかで飲みやすいですね。",
+        "reasons": [
+          "樽香が控えめなところが、この客の好みに近い。",
+          "熟成への関心が低く、この場では気軽さを優先した。"
+        ],
+        "hint": null
+      }
+    }
+  ],
+  "notes": [
+    "Uniform mixture changes cohort type only; exact same hash draws for every other attribute. Other interventions use original v01 cohorts unchanged.",
+    "Weights-salient applies a preferred-axis weight, not a recipe identity bonus. No candidate is selected in this causal audit.",
+    "Threshold and clipping ablations are measurement sensitivity checks, not a recommendation to equalise recipe wins.",
+    "Impression sign split does not alter support or scores; legacy impression magnitude remains the same."
+  ]
+}

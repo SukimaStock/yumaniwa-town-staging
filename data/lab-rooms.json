@@ -188,6 +188,10 @@
         {
           "work": "ambertime-whisky-evaluation-lab",
           "note": "一本の味・熟成年数・届ける店と、客の反応を比べる。"
+        },
+        {
+          "work": "ambertime-whisky-evaluation-lab-v011",
+          "note": "評価モデルの改善前後・支持分布・年数の効果を比較する。"
         }
       ]
     },
