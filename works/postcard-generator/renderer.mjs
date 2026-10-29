@@ -11,13 +11,11 @@ function roof(b){const{x,y,width:w,roofHeight:h,roofColor:c}=b;
  if(b.roof==='hip')return poly([[x,y],[x+w*.22,y-h],[x+w*.76,y-h],[x+w,y]],c);
  if(b.roof==='shed')return poly([[x,y],[x,y-h],[x+w,y-h*.2],[x+w,y]],c);
  if(b.roof==='round')return `<path d="M${n(x)} ${n(y)}Q${n(x+w*.5)} ${n(y-h*2)} ${n(x+w)} ${n(y)}Z" fill="${c}"/>`;
- return poly([[x,y],[x,y-h*.28],[x+w*.18,y-h*.28],[x+w*.18,y-h*.62],[x+w*.36,y-h*.62],[x+w*.36,y-h],[x+w*.65,y-h],[x+w*.65,y-h*.62],[x+w*.82,y-h*.62],[x+w*.82,y-h*.28],[x+w,y-h*.28],[x+w,y]],c);
+ return poly([[x,y],[x+w*.5,y-h],[x+w,y]],c);
 }
 function windowSVG(shape,x,y,w,h,b){
- if(shape==='round')return circle(x+w/2,y+h/2,Math.min(w,h)/2,b.windowColor);
  if(shape==='arch')return arch(x,y,w,h,b.windowColor);
  if(shape==='paired')return rect(x-w*.11,y,w*.48,h,b.windowColor)+rect(x+w*.63,y,w*.48,h,b.windowColor);
- if(shape==='shutters')return rect(x,y,w,h,b.windowColor)+rect(x-w*.46,y,w*.32,h,b.shutterColor)+rect(x+w*1.14,y,w*.32,h,b.shutterColor);
  return rect(x,y,w,h,b.windowColor);
 }
 function buildingSVG(b){const{x,y,width:w,height:h}=b;
@@ -53,7 +51,7 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
    for(let y=650;y<1000;y+=67)out+=path(`M${n(s.plaza.left-(y-585)*.15)} ${y}H${n(s.plaza.right+(y-585)*.15)}`,p.quay,2);
   }
   for(const b of s.blocks){if(s.mode==='hillside')out+=poly([...b.ground,[800,1000],[0,1000]],p.quay);for(const house of b.buildings)out+=buildingSVG(house);}
-  if(s.road){out+=rect(0,s.road.y-5,800,5,p.light);const y=s.road.y+(1000-s.road.y)*.55;for(let x=25;x<800;x+=150)out+=rect(x,y,80,5,p.light);if(s.road.crosswalk)for(let i=0;i<5;i++)out+=rect(601+i*24,s.road.y+12,12,1000-s.road.y-24,p.quay);}
+  if(s.road){out+=rect(0,s.road.y-5,800,5,p.light);const y=s.road.y+(1000-s.road.y)*.55;for(let x=25;x<800;x+=150){if(s.road.crosswalk&&x<709&&x+80>601)continue;out+=rect(x,y,80,5,p.light);}if(s.road.crosswalk){const step=(1000-s.road.y-28)/5;out+='<g data-crosswalk="true">';for(let i=0;i<5;i++)out+=rect(601,s.road.y+14+i*step,108,Math.min(16,step*.5),p.quay);out+='</g>';}}
   if(s.stairs){const points=s.stairs.points;let d=`M${n(points[0][0])} ${n(points[0][1])}`;for(let i=1;i<points.length;i++){d+=`H${n(points[i][0])}V${n(points[i][1])}`;}out+=path(d,p.light,9);for(let i=1;i<points.length-1;i+=2){const a=points[i],b=points[i+1],steps=Math.max(2,Math.ceil(Math.abs(b[1]-a[1])/12));for(let j=1;j<steps;j++)out+=path(`M${n(a[0]-7)} ${n(a[1]+(b[1]-a[1])*j/steps)}h${n(b[0]-a[0]+14)}`,p.roofs[1],2);}}
  }
  for(const t of s.trees||[]){out+=rect(t.x-4,t.y-t.radius*1.2,8,t.radius*1.2,p.ink)+circle(t.x,t.y-t.radius*1.8,t.radius,p.walls[3])+circle(t.x-t.radius*.35,t.y-t.radius*1.95,t.radius*.65,p.terraces[0]);}

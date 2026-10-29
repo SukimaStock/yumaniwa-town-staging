@@ -31,3 +31,23 @@ test('validation catches broken placement and plaza obstruction without a beauty
 test('SVG metadata contains full settings, input is escaped, unknown settings normalize',()=>{
  const seed='<script>&"';const s=generateScene(seed,{scene:'square',roofs:'step',windows:'round',palette:'blue',colorMode:'accent'}),svg=renderSVG(s);assert.match(svg,/&lt;script&gt;/);assert.doesNotMatch(svg,/<script>/);assert.match(svg,/version.*0.2.*seed.*settings/);assert.equal(normalizeSettings({scene:'unknown',version:'unknown',windows:'weird'}).scene,'auto');assert.equal(normalizeSettings({scene:'unknown',version:'unknown',windows:'weird'}).version,'0.2');
 });
+
+test('author cleanup excludes retired window and roof types even from previous explicit URLs',()=>{
+ assert.deepEqual(WINDOWS,['rect','arch','paired']);assert.deepEqual(ROOFS,['gable','hip','flat','shed','round']);
+ for(const windows of ['round','shutters'])assert.equal(normalizeSettings({windows}).windows,'rect');
+ assert.equal(normalizeSettings({roofs:'step'}).roofs,'gable');
+ for(let i=0;i<100;i++)for(const{ id}of SCENES){const s=generateScene('cleanup-'+i,{scene:id});assert.ok(s.blocks.flatMap(b=>b.buildings).every(b=>!['round','shutters'].includes(b.windowShape)&&b.roof!=='step'));}
+ const html=fs.readFileSync(new URL('./index.html',import.meta.url),'utf8');assert.doesNotMatch(html,/<option value="step">|丸窓|雨戸/);assert.match(html,/丸屋根/);
+});
+test('crosswalk has five horizontal bars, stable x and separate y positions, within the road',()=>{
+ let checked=0;
+ for(let i=0;i<100;i++){
+  const s=generateScene('crosswalk-'+i,{scene:'street'});if(!s.road.crosswalk)continue;
+  const svg=renderSVG(s),group=svg.match(/<g data-crosswalk="true">(.*?)<\/g>/)[1];
+  const rects=[...group.matchAll(/<rect x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)"/g)].map(m=>m.slice(1).map(Number));
+  assert.equal(rects.length,5);assert.equal(new Set(rects.map(r=>r[0])).size,1);assert.equal(new Set(rects.map(r=>r[1])).size,5);
+  for(const[x,y,w,h]of rects){assert.ok(w>h*5);assert.ok(x>=0&&x+w<=800);assert.ok(y>s.road.y&&y+h<1000);}
+  for(let j=1;j<rects.length;j++)assert.ok(rects[j][1]>rects[j-1][1]+rects[j-1][3]);checked++;
+ }
+ assert.ok(checked>20);
+});
