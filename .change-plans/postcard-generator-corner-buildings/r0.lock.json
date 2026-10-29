@@ -1,0 +1,85 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e96436ea461cec187c1facb5d103f124cef4b61fd7cc5096d2318836438e7a13",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-corner-buildings",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "577abd31b020ad614fb408873c0ff869f1f41a20",
+    "change": "Stage4: one restrained two-face corner building in closeup, street and square scenes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-corner-buildings/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add corners auto/plain/left/right setting with independent selection and previous0.2 missing-setting replay",
+      "Split one eligible building footprint into front and18–26% side face without moving neighbors or changing ground/plaza extent",
+      "Reuse all5roof grammars and front window/grids/terraces/ground floors/indoor plants/shadows; side gets one simpler window column",
+      "Validate36seeds, all roof/window combinations, actual footprint/ground support and side geometry; export/mobile regression",
+      "PR required CI, safe Staging merge and publication verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review36seeds and roof/side combinations, existing patterns together",
+      "Cloud browser settings/export/comparison and360/375/390px layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User approves proposed corner buildings for closeup/street/square and ongoing Staging publication"
+    ],
+    "rulesApplied": [
+      "Keep rejected round windows, shutters and stepped roofs excluded",
+      "Preserve simple operation; details adapt to building scale; no decorative copy"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works",
+      "Legacy0.1 sources",
+      "Alley scene",
+      "Water reflections",
+      "New roof/window types",
+      "Strict3D perspective",
+      "Ground/road layout changes"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
