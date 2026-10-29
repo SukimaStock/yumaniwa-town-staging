@@ -192,6 +192,10 @@
         {
           "work": "ambertime-whisky-evaluation-lab-v011",
           "note": "評価モデルの改善前後・支持分布・年数の効果を比較する。"
+        },
+        {
+          "work": "ambertime-whisky-evaluation-lab-v02",
+          "note": "瓶を配分し、売上と客の評価を見て次の一本を試す。"
         }
       ]
     },
