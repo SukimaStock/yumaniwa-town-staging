@@ -486,6 +486,12 @@
       "status": "active",
       "title": "AmberTime 評価 Lab 0.1",
       "theme": "味・熟成・届ける店による一本の評価を比べる。"
+    },
+    {
+      "id": "postcard-generator",
+      "path": "works/postcard-generator",
+      "status": "active",
+      "title": "Postcard Generator Lab 0.1"
     }
   ]
 }

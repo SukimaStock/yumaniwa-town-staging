@@ -1,0 +1,614 @@
+[
+  {
+    "seed": "postcard-01",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 672.75,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 115.69,
+      "maxColorShare": 0.29,
+      "visibleTower": 129.25,
+      "estimatedElements": 640
+    },
+    "svgElements": 610
+  },
+  {
+    "seed": "postcard-02",
+    "composition": "valley",
+    "palette": "apricot",
+    "shoreY": 688.18,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 115.54,
+      "maxColorShare": 0.22,
+      "visibleTower": 112.49,
+      "estimatedElements": 727
+    },
+    "svgElements": 633
+  },
+  {
+    "seed": "postcard-03",
+    "composition": "hill",
+    "palette": "apricot",
+    "shoreY": 666.23,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 117.29,
+      "maxColorShare": 0.31,
+      "visibleTower": 113.56,
+      "estimatedElements": 717
+    },
+    "svgElements": 639
+  },
+  {
+    "seed": "postcard-04",
+    "composition": "valley",
+    "palette": "garden",
+    "shoreY": 722.18,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 130.24,
+      "maxColorShare": 0.26,
+      "visibleTower": 133.18,
+      "estimatedElements": 706
+    },
+    "svgElements": 602
+  },
+  {
+    "seed": "postcard-05",
+    "composition": "slope",
+    "palette": "harbor",
+    "shoreY": 682.22,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "heightRange": 111.93,
+      "maxColorShare": 0.26,
+      "visibleTower": 145.04,
+      "estimatedElements": 781
+    },
+    "svgElements": 648
+  },
+  {
+    "seed": "postcard-06",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 670.01,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "heightRange": 122.18,
+      "maxColorShare": 0.23,
+      "visibleTower": 128.39,
+      "estimatedElements": 689
+    },
+    "svgElements": 620
+  },
+  {
+    "seed": "postcard-07",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 671.34,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 114.8,
+      "maxColorShare": 0.24,
+      "visibleTower": 100.01,
+      "estimatedElements": 720
+    },
+    "svgElements": 640
+  },
+  {
+    "seed": "postcard-08",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 678.05,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 109.81,
+      "maxColorShare": 0.25,
+      "visibleTower": 106.51,
+      "estimatedElements": 733
+    },
+    "svgElements": 641
+  },
+  {
+    "seed": "postcard-09",
+    "composition": "hill",
+    "palette": "garden",
+    "shoreY": 692.77,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 48,
+      "layers": 4,
+      "heightRange": 126.79,
+      "maxColorShare": 0.18,
+      "visibleTower": 115.94,
+      "estimatedElements": 860
+    },
+    "svgElements": 825
+  },
+  {
+    "seed": "postcard-10",
+    "composition": "slope",
+    "palette": "garden",
+    "shoreY": 694.61,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 123.15,
+      "maxColorShare": 0.27,
+      "visibleTower": 141.1,
+      "estimatedElements": 685
+    },
+    "svgElements": 622
+  },
+  {
+    "seed": "postcard-11",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 669.75,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 121.89,
+      "maxColorShare": 0.21,
+      "visibleTower": 113.89,
+      "estimatedElements": 713
+    },
+    "svgElements": 639
+  },
+  {
+    "seed": "postcard-12",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 667.74,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 48,
+      "layers": 4,
+      "heightRange": 114.7,
+      "maxColorShare": 0.21,
+      "visibleTower": 139.47,
+      "estimatedElements": 932
+    },
+    "svgElements": 856
+  },
+  {
+    "seed": "postcard-13",
+    "composition": "valley",
+    "palette": "garden",
+    "shoreY": 682.37,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 39,
+      "layers": 3,
+      "heightRange": 114.65,
+      "maxColorShare": 0.25,
+      "visibleTower": 104.51,
+      "estimatedElements": 676
+    },
+    "svgElements": 620
+  },
+  {
+    "seed": "postcard-14",
+    "composition": "valley",
+    "palette": "garden",
+    "shoreY": 720.89,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 122.95,
+      "maxColorShare": 0.29,
+      "visibleTower": 132.21,
+      "estimatedElements": 751
+    },
+    "svgElements": 651
+  },
+  {
+    "seed": "postcard-15",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 682.11,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 47,
+      "layers": 4,
+      "heightRange": 118.69,
+      "maxColorShare": 0.22,
+      "visibleTower": 133.97,
+      "estimatedElements": 843
+    },
+    "svgElements": 834
+  },
+  {
+    "seed": "postcard-16",
+    "composition": "hill",
+    "palette": "garden",
+    "shoreY": 723.03,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 114.17,
+      "maxColorShare": 0.25,
+      "visibleTower": 172.13,
+      "estimatedElements": 731
+    },
+    "svgElements": 644
+  },
+  {
+    "seed": "postcard-17",
+    "composition": "slope",
+    "palette": "harbor",
+    "shoreY": 714,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 122.41,
+      "maxColorShare": 0.32,
+      "visibleTower": 138.11,
+      "estimatedElements": 703
+    },
+    "svgElements": 630
+  },
+  {
+    "seed": "postcard-18",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 709.96,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 119.98,
+      "maxColorShare": 0.2,
+      "visibleTower": 147.26,
+      "estimatedElements": 669
+    },
+    "svgElements": 620
+  },
+  {
+    "seed": "postcard-19",
+    "composition": "valley",
+    "palette": "apricot",
+    "shoreY": 677.35,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 48,
+      "layers": 4,
+      "heightRange": 103.19,
+      "maxColorShare": 0.22,
+      "visibleTower": 125.45,
+      "estimatedElements": 911
+    },
+    "svgElements": 844
+  },
+  {
+    "seed": "postcard-20",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 670.67,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 48,
+      "layers": 4,
+      "heightRange": 117.87,
+      "maxColorShare": 0.25,
+      "visibleTower": 133.64,
+      "estimatedElements": 880
+    },
+    "svgElements": 827
+  },
+  {
+    "seed": "postcard-21",
+    "composition": "slope",
+    "palette": "harbor",
+    "shoreY": 712.48,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 46,
+      "layers": 4,
+      "heightRange": 122.56,
+      "maxColorShare": 0.24,
+      "visibleTower": 143.04,
+      "estimatedElements": 796
+    },
+    "svgElements": 788
+  },
+  {
+    "seed": "postcard-22",
+    "composition": "slope",
+    "palette": "harbor",
+    "shoreY": 662.79,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "heightRange": 107.48,
+      "maxColorShare": 0.2,
+      "visibleTower": 110.18,
+      "estimatedElements": 703
+    },
+    "svgElements": 620
+  },
+  {
+    "seed": "postcard-23",
+    "composition": "valley",
+    "palette": "harbor",
+    "shoreY": 720.62,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 118.44,
+      "maxColorShare": 0.25,
+      "visibleTower": 139.34,
+      "estimatedElements": 774
+    },
+    "svgElements": 658
+  },
+  {
+    "seed": "postcard-24",
+    "composition": "valley",
+    "palette": "apricot",
+    "shoreY": 710.2,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 48,
+      "layers": 4,
+      "heightRange": 113.07,
+      "maxColorShare": 0.22,
+      "visibleTower": 131.93,
+      "estimatedElements": 897
+    },
+    "svgElements": 836
+  },
+  {
+    "seed": "postcard-25",
+    "composition": "valley",
+    "palette": "garden",
+    "shoreY": 678.24,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "heightRange": 123.2,
+      "maxColorShare": 0.25,
+      "visibleTower": 120.01,
+      "estimatedElements": 661
+    },
+    "svgElements": 628
+  },
+  {
+    "seed": "postcard-26",
+    "composition": "valley",
+    "palette": "apricot",
+    "shoreY": 702.94,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 118.35,
+      "maxColorShare": 0.32,
+      "visibleTower": 133.56,
+      "estimatedElements": 644
+    },
+    "svgElements": 588
+  },
+  {
+    "seed": "postcard-27",
+    "composition": "slope",
+    "palette": "apricot",
+    "shoreY": 675.99,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 47,
+      "layers": 4,
+      "heightRange": 104.1,
+      "maxColorShare": 0.23,
+      "visibleTower": 112.22,
+      "estimatedElements": 781
+    },
+    "svgElements": 785
+  },
+  {
+    "seed": "postcard-28",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 692.66,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 50,
+      "layers": 4,
+      "heightRange": 115.18,
+      "maxColorShare": 0.29,
+      "visibleTower": 132.13,
+      "estimatedElements": 825
+    },
+    "svgElements": 816
+  },
+  {
+    "seed": "postcard-29",
+    "composition": "hill",
+    "palette": "harbor",
+    "shoreY": 676.06,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 46,
+      "layers": 4,
+      "heightRange": 124.24,
+      "maxColorShare": 0.23,
+      "visibleTower": 110.18,
+      "estimatedElements": 856
+    },
+    "svgElements": 824
+  },
+  {
+    "seed": "postcard-30",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 713.29,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 124.51,
+      "maxColorShare": 0.25,
+      "visibleTower": 131.32,
+      "estimatedElements": 701
+    },
+    "svgElements": 619
+  },
+  {
+    "seed": "postcard-31",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 669.59,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 129.07,
+      "maxColorShare": 0.25,
+      "visibleTower": 119.87,
+      "estimatedElements": 719
+    },
+    "svgElements": 631
+  },
+  {
+    "seed": "postcard-32",
+    "composition": "twin",
+    "palette": "garden",
+    "shoreY": 683.18,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 122.42,
+      "maxColorShare": 0.27,
+      "visibleTower": 119.81,
+      "estimatedElements": 665
+    },
+    "svgElements": 632
+  },
+  {
+    "seed": "postcard-33",
+    "composition": "slope",
+    "palette": "garden",
+    "shoreY": 706.33,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 124.33,
+      "maxColorShare": 0.25,
+      "visibleTower": 141.66,
+      "estimatedElements": 692
+    },
+    "svgElements": 613
+  },
+  {
+    "seed": "postcard-34",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 703.2,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 116.09,
+      "maxColorShare": 0.34,
+      "visibleTower": 119.33,
+      "estimatedElements": 690
+    },
+    "svgElements": 615
+  },
+  {
+    "seed": "postcard-35",
+    "composition": "hill",
+    "palette": "garden",
+    "shoreY": 685.85,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 125.78,
+      "maxColorShare": 0.24,
+      "visibleTower": 109.81,
+      "estimatedElements": 730
+    },
+    "svgElements": 626
+  },
+  {
+    "seed": "postcard-36",
+    "composition": "slope",
+    "palette": "garden",
+    "shoreY": 681.81,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 123.67,
+      "maxColorShare": 0.21,
+      "visibleTower": 135.18,
+      "estimatedElements": 654
+    },
+    "svgElements": 598
+  }
+]

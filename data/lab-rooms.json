@@ -256,6 +256,10 @@
           "work": "rakugaki-template-test",
           "stored": true,
           "note": "新しい筐体を作るための雛形。"
+        },
+        {
+          "work": "postcard-generator",
+          "note": "図形と配色の文法から水辺の街を生成し、並べて選び、SVG・PNGで保存する。"
         }
       ]
     }
