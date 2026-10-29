@@ -1,0 +1,758 @@
+[
+  {
+    "seed": "ground-001",
+    "config": {
+      "scene": "closeup",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.7,
+      "heightRange": 57.75,
+      "estimatedElements": 374
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-002",
+    "config": {
+      "scene": "street",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.34,
+      "heightRange": 99.3,
+      "estimatedElements": 658
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-003",
+    "config": {
+      "scene": "square",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.35,
+      "heightRange": 197.29,
+      "estimatedElements": 696
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-004",
+    "config": {
+      "scene": "hillside",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.42,
+      "heightRange": 43.17,
+      "estimatedElements": 550
+    },
+    "clouds": 3,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-005",
+    "config": {
+      "scene": "closeup",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.36,
+      "heightRange": 89.68,
+      "estimatedElements": 354
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-006",
+    "config": {
+      "scene": "street",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.38,
+      "heightRange": 99.21,
+      "estimatedElements": 618
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-007",
+    "config": {
+      "scene": "square",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.36,
+      "heightRange": 210.63,
+      "estimatedElements": 666
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-008",
+    "config": {
+      "scene": "hillside",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.25,
+      "heightRange": 98.09,
+      "estimatedElements": 490
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-009",
+    "config": {
+      "scene": "closeup",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.41,
+      "heightRange": 158.18,
+      "estimatedElements": 394
+    },
+    "clouds": 3,
+    "terraces": 3
+  },
+  {
+    "seed": "ground-010",
+    "config": {
+      "scene": "street",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 106.53,
+      "estimatedElements": 668
+    },
+    "clouds": 3,
+    "terraces": 4
+  },
+  {
+    "seed": "ground-011",
+    "config": {
+      "scene": "square",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.47,
+      "heightRange": 196.79,
+      "estimatedElements": 626
+    },
+    "clouds": 3,
+    "terraces": 2
+  },
+  {
+    "seed": "ground-012",
+    "config": {
+      "scene": "hillside",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.45,
+      "heightRange": 85.08,
+      "estimatedElements": 550
+    },
+    "clouds": 1,
+    "terraces": 5
+  },
+  {
+    "seed": "ground-013",
+    "config": {
+      "scene": "closeup",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.36,
+      "heightRange": 71.78,
+      "estimatedElements": 369
+    },
+    "clouds": 3,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-014",
+    "config": {
+      "scene": "street",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 66.88,
+      "estimatedElements": 728
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-015",
+    "config": {
+      "scene": "square",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.4,
+      "heightRange": 176.08,
+      "estimatedElements": 616
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-016",
+    "config": {
+      "scene": "hillside",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.41,
+      "heightRange": 87.07,
+      "estimatedElements": 550
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-017",
+    "config": {
+      "scene": "closeup",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.69,
+      "heightRange": 126.52,
+      "estimatedElements": 389
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-018",
+    "config": {
+      "scene": "street",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.35,
+      "heightRange": 110.08,
+      "estimatedElements": 663
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-019",
+    "config": {
+      "scene": "square",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.46,
+      "heightRange": 197.66,
+      "estimatedElements": 681
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-020",
+    "config": {
+      "scene": "hillside",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.39,
+      "heightRange": 92.4,
+      "estimatedElements": 490
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-021",
+    "config": {
+      "scene": "closeup",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 55.56,
+      "estimatedElements": 394
+    },
+    "clouds": 1,
+    "terraces": 3
+  },
+  {
+    "seed": "ground-022",
+    "config": {
+      "scene": "street",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.39,
+      "heightRange": 129.57,
+      "estimatedElements": 603
+    },
+    "clouds": 2,
+    "terraces": 6
+  },
+  {
+    "seed": "ground-023",
+    "config": {
+      "scene": "square",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.33,
+      "heightRange": 154.01,
+      "estimatedElements": 731
+    },
+    "clouds": 3,
+    "terraces": 2
+  },
+  {
+    "seed": "ground-024",
+    "config": {
+      "scene": "hillside",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.22,
+      "heightRange": 45.16,
+      "estimatedElements": 530
+    },
+    "clouds": 3,
+    "terraces": 5
+  },
+  {
+    "seed": "ground-025",
+    "config": {
+      "scene": "closeup",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.38,
+      "heightRange": 134.68,
+      "estimatedElements": 369
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-026",
+    "config": {
+      "scene": "street",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.38,
+      "heightRange": 134.7,
+      "estimatedElements": 658
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-027",
+    "config": {
+      "scene": "square",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.34,
+      "heightRange": 192.62,
+      "estimatedElements": 581
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-028",
+    "config": {
+      "scene": "hillside",
+      "facade": "plain",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.41,
+      "heightRange": 37.99,
+      "estimatedElements": 490
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-029",
+    "config": {
+      "scene": "closeup",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.64,
+      "heightRange": 118.12,
+      "estimatedElements": 369
+    },
+    "clouds": 0,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-030",
+    "config": {
+      "scene": "street",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.35,
+      "heightRange": 75.88,
+      "estimatedElements": 693
+    },
+    "clouds": 2,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-031",
+    "config": {
+      "scene": "square",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.31,
+      "heightRange": 197.82,
+      "estimatedElements": 616
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-032",
+    "config": {
+      "scene": "hillside",
+      "facade": "grid",
+      "sky": "clouds",
+      "groundFloor": "awning"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.4,
+      "heightRange": 74.88,
+      "estimatedElements": 530
+    },
+    "clouds": 1,
+    "terraces": 0
+  },
+  {
+    "seed": "ground-033",
+    "config": {
+      "scene": "closeup",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.36,
+      "heightRange": 40.9,
+      "estimatedElements": 354
+    },
+    "clouds": 1,
+    "terraces": 3
+  },
+  {
+    "seed": "ground-034",
+    "config": {
+      "scene": "street",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.36,
+      "heightRange": 116.98,
+      "estimatedElements": 638
+    },
+    "clouds": 1,
+    "terraces": 6
+  },
+  {
+    "seed": "ground-035",
+    "config": {
+      "scene": "square",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.33,
+      "heightRange": 164.93,
+      "estimatedElements": 596
+    },
+    "clouds": 2,
+    "terraces": 2
+  },
+  {
+    "seed": "ground-036",
+    "config": {
+      "scene": "hillside",
+      "facade": "terrace",
+      "sky": "clouds",
+      "groundFloor": "arcade"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.41,
+      "heightRange": 77.99,
+      "estimatedElements": 490
+    },
+    "clouds": 2,
+    "terraces": 4
+  }
+]

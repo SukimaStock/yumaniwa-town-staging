@@ -71,3 +71,48 @@ test('clouds are bounded away from skyline over 500 seeds and all scene modes',(
  for(let i=0;i<500;i++)for(const {id}of SCENES){const s=generateScene('details-'+i,{scene:id,sky:'clouds'});assert.deepEqual(validateScene(s).errors,[]);clouds+=s.clouds.length;for(const b of s.blocks.flatMap(b=>b.buildings)){grids+=!!b.windowGrid;terraces+=!!b.terrace;}}
  assert.ok(clouds>1000&&grids>100&&terraces>100);
 });
+
+test('ground floors reproduce and leave layout, stage1 details and palette unchanged',()=>{
+ for(const {id}of SCENES)for(const facade of ['plain','grid','terrace'])for(const groundFloor of ['plain','arcade','awning']){
+  const base=generateScene('ground-replay',{scene:id,facade,sky:'clouds',groundFloor:'plain'}),s=generateScene(base.seed,{...base.settings,groundFloor});
+  assert.deepEqual(geometry(s),geometry(base));assert.deepEqual(s.clouds,base.clouds);
+  assert.deepEqual(s,generateScene(s.seed,JSON.parse(JSON.stringify(s.settings))));
+  const all=s.blocks.flatMap(b=>b.buildings),before=base.blocks.flatMap(b=>b.buildings);
+  for(const [i,b]of all.entries())for(const key of ['wall','roof','roofColor','windowShape','windowGrid','terrace'])assert.equal(b[key],before[i][key]);
+  if(groundFloor==='plain')assert.ok(all.every(b=>b.groundFloor===null));
+  else if(id==='closeup')assert.ok(all.every(b=>b.groundFloor.kind===groundFloor));
+  const svg=renderSVG(s);assert.doesNotMatch(svg,/NaN|Infinity|undefined/);assert.deepEqual(validateScene(s).errors,[]);
+  assert.equal((svg.match(/data-ground-floor=/g)||[]).length,all.filter(b=>b.groundFloor).length);
+ }
+});
+test('ground floor matrix stays beneath upper windows and within supported facades',()=>{
+ for(let i=0;i<100;i++)for(const {id}of SCENES)for(const groundFloor of ['arcade','awning']){
+  const s=generateScene('ground-audit-'+i,{scene:id,groundFloor,facade:i%2?'grid':'terrace'});
+  assert.deepEqual(validateScene(s).errors,[]);
+  for(const b of s.blocks.flatMap(b=>b.buildings))if(b.groundFloor){
+   const g=b.groundFloor;assert.ok(b.width>=110&&b.height>=180);
+   if(id==='square')assert.ok(b.layer>0);else assert.equal(b.layer,s.blocks.length-1);
+   assert.ok(g.height>b.width*.8/g.count*.68/2,'arch can fit in reserved floor');
+   // Read actual window positions from a standalone rendered facade, before its ground-floor group.
+   const one={...s,mode:'closeup',blocks:[{...s.blocks[0],buildings:[b]}],surfaces:[],trees:[],lamps:[],benches:[],people:[]};
+   const body=renderSVG(one).split('<g data-building=')[1].split('<g data-ground-floor=')[0];
+   const windows=[...body.matchAll(/<rect x="[^"]+" y="([^"]+)" width="[^"]+" height="([^"]+)" fill="([^"]+)"/g)].filter(m=>m[3]===b.windowColor);
+   for(const m of windows)assert.ok(Number(m[1])+Number(m[2])<=b.base-g.height-12,'window/rail ends above ground-floor opening');
+  }
+ }
+ const bad=generateScene('broken-ground',{scene:'closeup',groundFloor:'arcade'});bad.blocks[0].buildings[0].groundFloor.height=0;assert.ok(validateScene(bad).errors.some(e=>e.startsWith('ground-floor:')));
+ assert.equal(normalizeSettings({groundFloor:'unknown'}).groundFloor,'auto');
+});
+
+test('pre-stage2 normalized settings preserve old ground floors while fresh generation opts in',()=>{
+ const previous={version:'0.2',scene:'closeup',facade:'grid',sky:'clouds',windows:'arch',palette:'blue'};
+ assert.equal(normalizeSettings(previous).groundFloor,'plain');assert.equal(normalizeSettings({}).groundFloor,'auto');
+ const old=generateScene('ground-history',previous);assert.ok(old.blocks.flatMap(b=>b.buildings).every(b=>b.groundFloor===null));
+ assert.equal(normalizeSettings({...previous,groundFloor:'auto'}).groundFloor,'auto');
+});
+
+test('light shopfronts retain contrasting internal divisions on dark walls',()=>{
+ const s=generateScene('ground-audit-0',{scene:'closeup',groundFloor:'awning'}),b=s.blocks[0].buildings.find(b=>b.windowColor===b.trim);
+ assert.ok(b);const one={...s,blocks:[{...s.blocks[0],buildings:[b]}]};const g=renderSVG(one).match(/<g data-ground-floor="awning">(.*?)<\/g>/)[1];
+ assert.equal((g.match(new RegExp('height="'+Math.round(Math.min(78,b.height*.22)*100)/100+'" fill="'+b.wall+'"','g'))||[]).length,2);
+});

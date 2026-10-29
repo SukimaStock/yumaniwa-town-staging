@@ -26,7 +26,7 @@ function windowSVG(shape,x,y,w,h,b){
 function buildingSVG(b){const{x,y,width:w,height:h}=b;
  let out=rect(x,y,w,h,b.wall)+roof(b)+rect(x,y,w,Math.max(3,w*.015),b.trim);
  if(b.band)out+=rect(x,b.base-h*.26,w,h*.26,b.bandColor);
- const margin=w*.18,gap=(w-margin*2)/b.cols,ww=Math.min(w>180?33:19,gap*.47),wh=Math.min(w>180?56:29,h/(b.rows+1)*.5),offset=Math.max(16,h*.13),top=y+offset,doorHeight=Math.min(78,h*.22),rowGap=(h-offset-doorHeight-18-wh)/Math.max(1,b.rows-1);
+ const margin=w*.18,gap=(w-margin*2)/b.cols,ww=Math.min(w>180?33:19,gap*.47),wh=Math.min(w>180?56:29,h/(b.rows+1)*.5),offset=Math.max(16,h*.13),top=y+offset,doorHeight=b.groundFloor?.height??Math.min(78,h*.22),rowGap=(h-offset-doorHeight-18-wh)/Math.max(1,b.rows-1);
  for(let r=0;r<b.rows;r++)for(let c=0;c<b.cols;c++){
    const wx=x+margin+gap*(c+.5)-ww/2,wy=top+r*rowGap;
    out+=windowSVG(b.windowShape,wx,wy,ww,wh,b);
@@ -37,8 +37,26 @@ function buildingSVG(b){const{x,y,width:w,height:h}=b;
   out+='<g data-terrace="true">'+rect(left-3,floor,right-left+6,5,b.trim)+path(`M${n(left)} ${n(floor-railHeight)}H${n(right)}`,b.windowColor,2);
   const posts=Math.max(4,b.cols*2);for(let i=0;i<=posts;i++)out+=path(`M${n(left+(right-left)*i/posts)} ${n(floor-railHeight)}V${n(floor)}`,b.windowColor,1.8);out+='</g>';
  }
- if(b.door!==false){const dw=Math.min(39,w*.18),dh=Math.min(78,h*.22);out+=arch(x+w*.5-dw/2,b.base-dh,dw,dh,b.windowColor);}
+ if(b.groundFloor){out+=groundFloorSVG(b);}
+ else if(b.door!==false){const dw=Math.min(39,w*.18),dh=Math.min(78,h*.22);out+=arch(x+w*.5-dw/2,b.base-dh,dw,dh,b.windowColor);}
  return `<g data-building="${esc(b.id)}">${out}</g>`;
+}
+function groundFloorSVG(b){
+ const g=b.groundFloor,{x,width:w,base}=b,left=x+w*.1,span=w*.8;
+ if(g.kind==='arcade'){
+  const cell=span/g.count,opening=cell*.68;
+  let out='<g data-ground-floor="arcade">';
+  for(let i=0;i<g.count;i++)out+=arch(left+cell*i+(cell-opening)/2,base-g.height,opening,g.height,b.windowColor);
+  return out+'</g>';
+ }
+ const door=Math.min(78,b.height*.22),canopy=Math.min(20,w*.065),top=base-g.height,frontX=x+w*.19,frontW=w*.62;
+ let out='<g data-ground-floor="awning">'+rect(frontX,base-door,frontW,door,b.windowColor);
+ // One shopfront, divided into equal panes; no side shutter ornaments.
+ for(let i=1;i<3;i++)out+=rect(frontX+frontW*i/3-1,base-door,2,door,b.windowColor===b.trim?b.wall:b.trim);
+ const count=g.striped?g.count*2:1;
+ for(let i=0;i<count;i++)out+=poly([[left+2+(span-4)*i/count,top],[left+2+(span-4)*(i+1)/count,top],[left+span*(i+1)/count,top+canopy],[left+span*i/count,top+canopy]],i%2?g.light:g.color);
+ out+=rect(left,top+canopy,span,4,g.color);
+ return out+'</g>';
 }
 function tower(t){const{x,y,width:w,height:h}=t;return `<g data-landmark="tower">${rect(x,y+w*.7,w,h-w*.7,t.wall)+poly([[x-w*.08,y+w*.7],[x+w*.5,y],[x+w*1.08,y+w*.7]],t.roofColor)+arch(x+w*.32,y+w*.95,w*.36,w*.72,t.windowColor)+rect(x-w*.08,y+w*1.85,w*1.16,5,t.roofColor)+arch(x+w*.38,y+w*2.25,w*.24,w*.59,t.windowColor)}</g>`;}
 function boat(b,p){const{x,y,width:w,height:h}=b;let out=poly([[x+8,y+13],[x+w*.8,y+13],[x+w*.96,y+7],[x+w*.83,y+19],[x+w*.2,y+19]],p.ink)+poly([[x,y-h*.25],[x+w*.87,y-h*.25],[x+w,y-h*.39],[x+w*.84,y],[x+w*.2,y]],b.hull)+poly([[x+5,y-h*.27],[x+w*.88,y-h*.27],[x+w*.94,y-h*.33],[x+14,y-h*.33]],b.deck);
