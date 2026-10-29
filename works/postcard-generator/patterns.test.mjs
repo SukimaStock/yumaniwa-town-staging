@@ -169,3 +169,34 @@ test('every cast shadow begins on a roof eave or actual awning underside',()=>{
  assert.deepEqual([...sources].sort(),['awning','eave']);
  const s=generateScene('disconnected-shadow',{scene:'closeup',accents:'shade'}),b=s.blocks[0].buildings.find(b=>b.shade);b.shade.points[0][1]+=8;assert.ok(validateScene(s).errors.some(e=>e.startsWith('shadow-source:')));
 });
+
+test('corner fronts and sides share original plots without moving neighbors or ground',()=>{
+ const plots=s=>s.blocks.map(block=>block.buildings.map(b=>({id:b.id,x:b.corner?.plotX??b.x,width:b.corner?.plotWidth??b.width,y:b.y,height:b.height,base:b.base,wall:b.wall,roof:b.roof,windowShape:b.windowShape})));
+ const surroundings=s=>[s.blocks.map(b=>b.ground),s.surfaces,s.road,s.plaza,s.clouds,s.people,s.boats];
+ for(const scene of ['closeup','street','square'])for(let i=0;i<80;i++)for(const corners of ['left','right']){
+  const config={scene,facade:'terrace',groundFloor:'awning',accents:'both',sky:'clouds'},plain=generateScene('corner-audit-'+i,{...config,corners:'plain'}),s=generateScene(plain.seed,{...config,corners});
+  assert.deepEqual(plots(s),plots(plain));assert.deepEqual(surroundings(s),surroundings(plain));assert.deepEqual(s,generateScene(s.seed,JSON.parse(JSON.stringify(s.settings))));assert.deepEqual(validateScene(s).errors,[]);
+  const all=s.blocks.flatMap(b=>b.buildings),one=all.filter(b=>b.corner);assert.equal(one.length,1);
+  const b=one[0],c=b.corner;assert.equal(c.side,corners);assert.ok(c.width>=c.plotWidth*.18-.01&&c.width<=c.plotWidth*.26+.01);assert.ok(c.wall!==b.wall);
+  const svg=renderSVG(s),m=svg.match(/<g data-corner="(left|right)"><polygon points="([^"]+)"/);assert.ok(m);const points=m[2].split(' ').map(p=>p.split(',').map(Number));
+  assert.equal(points.length,4);assert.equal(points[2][1],b.base);assert.equal(points[3][1],b.base);
+  for(const[x,y]of points)assert.ok(x>=c.plotX-.03&&x<=c.plotX+c.plotWidth+.03&&y>=b.y&&y<=b.base);
+  assert.equal((svg.match(/data-corner=/g)||[]).length,1);assert.doesNotMatch(svg,/NaN|Infinity|undefined|<filter|<image/);
+ }
+});
+test('all corner roof/window/side combinations render inside supported scene bounds',()=>{
+ for(const scene of ['closeup','street','square'])for(const roofs of ROOFS)for(const windows of WINDOWS)for(const corners of ['left','right'])for(const density of ['open','normal','dense']){
+  const s=generateScene('corner-styles',{scene,roofs,windows,corners,density,facade:'grid',groundFloor:'arcade',accents:'both'});assert.deepEqual(validateScene(s).errors,[]);const svg=renderSVG(s);assert.doesNotMatch(svg,/NaN|Infinity|undefined/);assert.ok(svg.length<180000);assert.ok((svg.match(/</g)||[]).length<2400);
+ }
+ for(const scene of ['waterfront','hillside'])assert.ok(generateScene('no-corner',{scene,corners:'right'}).blocks.flatMap(b=>b.buildings).every(b=>!b.corner));
+ assert.equal(normalizeSettings({version:'0.2'}).corners,'plain');assert.equal(normalizeSettings({}).corners,'auto');
+ const bad=generateScene('bad-corner',{scene:'closeup',corners:'left'}),b=bad.blocks[0].buildings.find(b=>b.corner);b.corner.width+=20;assert.ok(validateScene(bad).errors.some(e=>e.startsWith('corner-footprint:')));
+});
+test('automatic corner can be fixed to its selected side without changing the city',()=>{
+ let checked=0,plain=0;
+ for(let i=0;i<80;i++){
+  const s=generateScene('auto-corner-'+i,{scene:'closeup',corners:'auto'}),b=s.blocks.flatMap(b=>b.buildings).find(b=>b.corner);if(!b){plain++;continue;}
+  const fixed=generateScene(s.seed,{...s.settings,corners:b.corner.side});assert.deepEqual(s.blocks,fixed.blocks);assert.deepEqual(s.clouds,fixed.clouds);checked++;
+ }
+ assert.ok(checked>20&&plain>5);
+});
