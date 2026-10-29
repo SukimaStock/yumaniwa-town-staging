@@ -116,3 +116,36 @@ test('light shopfronts retain contrasting internal divisions on dark walls',()=>
  assert.ok(b);const one={...s,blocks:[{...s.blocks[0],buildings:[b]}]};const g=renderSVG(one).match(/<g data-ground-floor="awning">(.*?)<\/g>/)[1];
  assert.equal((g.match(new RegExp('height="'+Math.round(Math.min(78,b.height*.22)*100)/100+'" fill="'+b.wall+'"','g'))||[]).length,2);
 });
+
+test('accent settings reproduce and preserve all previous geometry and feature streams',()=>{
+ for(const {id}of SCENES)for(const facade of ['plain','grid','terrace'])for(const groundFloor of ['plain','arcade','awning']){
+  const base=generateScene('accent-streams',{scene:id,facade,groundFloor,sky:'clouds',accents:'plain'});
+  const original=s=>({blocks:s.blocks.map(block=>block.buildings.map(({plants,shade,...rest})=>rest)),clouds:s.clouds,boats:s.boats,people:s.people,palette:s.palette});
+  for(const accents of ['plants','shade','both']){const s=generateScene(base.seed,{...base.settings,accents});assert.deepEqual(geometry(s),geometry(base));assert.deepEqual(original(s),original(base));assert.deepEqual(s,generateScene(s.seed,JSON.parse(JSON.stringify(s.settings))));assert.deepEqual(validateScene(s).errors,[]);}
+  const plants=generateScene(base.seed,{...base.settings,accents:'plants'}),both=generateScene(base.seed,{...base.settings,accents:'both'}),shade=generateScene(base.seed,{...base.settings,accents:'shade'});
+  assert.deepEqual(plants.blocks.map(b=>b.buildings.map(b=>b.plants)),both.blocks.map(b=>b.buildings.map(b=>b.plants)));
+  assert.deepEqual(shade.blocks.map(b=>b.buildings.map(b=>b.shade)),both.blocks.map(b=>b.buildings.map(b=>b.shade)));
+ }
+});
+test('2000 accent scenes have bounded shadows and supported sparse plants',()=>{
+ let plants=0,shadows=0,sills=0,terraces=0;
+ for(let i=0;i<200;i++)for(const {id}of SCENES)for(const facade of ['grid','terrace']){
+  const s=generateScene('accent-audit-'+i,{scene:id,facade,groundFloor:i%2?'arcade':'awning',accents:'both'}),all=s.blocks.flatMap(b=>b.buildings);
+  assert.deepEqual(validateScene(s).errors,[],`${i}/${id}`);assert.ok(all.reduce((n,b)=>n+b.plants.length,0)<=3);assert.ok(all.filter(b=>b.shade).length<=3);
+  const svg=renderSVG(s);assert.doesNotMatch(svg,/NaN|Infinity|undefined|<filter|<linearGradient|<image/);assert.ok(svg.length<180000);assert.ok((svg.match(/</g)||[]).length<2400);
+  for(const b of all){for(const p of b.plants){assert.ok(p.row<b.rows-1&&p.col<b.cols);assert.ok(p.size<=5);if(p.placement==='terrace'){assert.ok(b.terrace);assert.equal(p.row,b.rows-2);terraces++;}else sills++;plants++;}if(b.shade){assert.equal(b.shade.direction,s.lightDirection);shadows++;}}
+ }
+ assert.ok(plants>1000&&shadows>1000&&sills>100&&terraces>100);
+});
+test('old0.2 settings keep accents absent and validator catches malformed anchors/shadows',()=>{
+ assert.equal(normalizeSettings({version:'0.2'}).accents,'plain');assert.equal(normalizeSettings({}).accents,'auto');
+ const s=generateScene('accent-bad',{scene:'closeup',facade:'terrace',accents:'both'}),b=s.blocks[0].buildings.find(b=>b.plants.length);b.plants[0].row=b.rows;
+ assert.ok(validateScene(s).errors.some(e=>e.startsWith('plant-anchor:')));b.plants[0].row=b.rows-2;b.shade.points[0][0]=b.x-10;assert.ok(validateScene(s).errors.some(e=>e.startsWith('wall-shadow:')));
+ const plain=generateScene('plain-accents',{scene:'closeup',accents:'plain'});assert.doesNotMatch(renderSVG(plain),/data-plant=|data-wall-shadow=/);
+});
+test('a plant on another floor still receives a sill in a balcony building',()=>{
+ const s=generateScene('plants-review-1',{scene:'square',accents:'plants',facade:'plain',groundFloor:'plain'}),b=s.blocks.flatMap(b=>b.buildings).find(b=>b.balcony&&b.plants.some(p=>p.row!==b.rows-2));
+ assert.ok(b,'fixture has a pot away from the balcony');
+ const one={...s,mode:'closeup',blocks:[{...s.blocks[0],buildings:[b]}],surfaces:[],trees:[],lamps:[],benches:[],people:[]};
+ assert.match(renderSVG(one),/<g data-plant="sill"><rect /);
+});
