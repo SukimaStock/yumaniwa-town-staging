@@ -1,8 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createRequire} from 'node:module';
-import {generateScene,validateScene} from '../engine.mjs';
-import {renderSVG} from '../renderer.mjs';
+import {generateScene,validateScene} from '../versions/0.1/engine.mjs';
+import {renderSVG} from '../versions/0.1/renderer.mjs';
 const require=createRequire(import.meta.url);
 const sharp=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'sharp'));
 const out=new URL('./',import.meta.url);

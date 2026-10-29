@@ -1,0 +1,2164 @@
+[
+  {
+    "id": "waterfront-001",
+    "seed": "waterfront-001",
+    "settings": {
+      "version": "0.2",
+      "scene": "waterfront"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "waterfront",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "waterfront",
+    "composition": "slope",
+    "palette": "rose",
+    "svgElements": 913,
+    "svgBytes": 62267,
+    "svgSHA256": "073f6e9eadcaaf5e060e445b6e2447fc40d870682bf2a3e08202f4f8d77d8392",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "visibleTower": 82.19,
+      "maxColorShare": 0.23,
+      "heightRange": 112.87,
+      "estimatedElements": 1981
+    }
+  },
+  {
+    "id": "waterfront-002",
+    "seed": "waterfront-002",
+    "settings": {
+      "version": "0.2",
+      "scene": "waterfront"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "waterfront",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "waterfront",
+    "composition": "twin",
+    "palette": "rose",
+    "svgElements": 996,
+    "svgBytes": 71327,
+    "svgSHA256": "eb373c1d58f6343410f95ebb2cb69386ccffae61f623467d7f56cb4709c1671d",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "visibleTower": 75,
+      "maxColorShare": 0.21,
+      "heightRange": 112.5,
+      "estimatedElements": 1883
+    }
+  },
+  {
+    "id": "waterfront-003",
+    "seed": "waterfront-003",
+    "settings": {
+      "version": "0.2",
+      "scene": "waterfront"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "waterfront",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "waterfront",
+    "composition": "slope",
+    "palette": "harbor",
+    "svgElements": 617,
+    "svgBytes": 40793,
+    "svgSHA256": "b8430b2a5c4b88b6d76979c36423a3680c6081621ed1298fd4314ac1547782aa",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "visibleTower": 75,
+      "maxColorShare": 0.35,
+      "heightRange": 86.83,
+      "estimatedElements": 1883
+    }
+  },
+  {
+    "id": "waterfront-004",
+    "seed": "waterfront-004",
+    "settings": {
+      "version": "0.2",
+      "scene": "waterfront"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "waterfront",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "waterfront",
+    "composition": "twin",
+    "palette": "garden",
+    "svgElements": 671,
+    "svgBytes": 47096,
+    "svgSHA256": "bac6247b4c226a318f831bf3ee4adf10de7dc27bec46c84cf937163ae5e4220b",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "visibleTower": 75,
+      "maxColorShare": 0.26,
+      "heightRange": 107.95,
+      "estimatedElements": 1980
+    }
+  },
+  {
+    "id": "waterfront-005",
+    "seed": "waterfront-005",
+    "settings": {
+      "version": "0.2",
+      "scene": "waterfront"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "waterfront",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "waterfront",
+    "composition": "twin",
+    "palette": "garden",
+    "svgElements": 616,
+    "svgBytes": 42190,
+    "svgSHA256": "72e6a2cfa0ef46dbc37ae2906de3ded5e86aefc1c828227fc2275cabb788968e",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "visibleTower": 65.17,
+      "maxColorShare": 0.22,
+      "heightRange": 74.82,
+      "estimatedElements": 1803
+    }
+  },
+  {
+    "id": "waterfront-006",
+    "seed": "waterfront-006",
+    "settings": {
+      "version": "0.2",
+      "scene": "waterfront"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "waterfront",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "waterfront",
+    "composition": "slope",
+    "palette": "clay",
+    "svgElements": 629,
+    "svgBytes": 43415,
+    "svgSHA256": "029ecdc90cc0c9528683a0b1e7817ecf491bca02281e3d2d6d077841ae4c7de2",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "visibleTower": 75,
+      "maxColorShare": 0.22,
+      "heightRange": 72.1,
+      "estimatedElements": 1870
+    }
+  },
+  {
+    "id": "waterfront-007",
+    "seed": "waterfront-007",
+    "settings": {
+      "version": "0.2",
+      "scene": "waterfront"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "waterfront",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "waterfront",
+    "composition": "twin",
+    "palette": "clay",
+    "svgElements": 1171,
+    "svgBytes": 80280,
+    "svgSHA256": "25c5297a947440149bbac6f1167e18a927ef96be6962f7759d683b8701cb8718",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 50,
+      "layers": 4,
+      "visibleTower": 75,
+      "maxColorShare": 0.25,
+      "heightRange": 82.7,
+      "estimatedElements": 2725
+    }
+  },
+  {
+    "id": "waterfront-008",
+    "seed": "waterfront-008",
+    "settings": {
+      "version": "0.2",
+      "scene": "waterfront"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "waterfront",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "waterfront",
+    "composition": "hill",
+    "palette": "apricot",
+    "svgElements": 872,
+    "svgBytes": 60792,
+    "svgSHA256": "58c99e04cd164678b6c9f3f04a7c0e4a5d14958a34fa1301590a499fd56e690c",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 49,
+      "layers": 4,
+      "visibleTower": 60.79,
+      "maxColorShare": 0.27,
+      "heightRange": 94.5,
+      "estimatedElements": 2657
+    }
+  },
+  {
+    "id": "closeup-001",
+    "seed": "closeup-001",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "hill",
+    "palette": "harbor",
+    "svgElements": 98,
+    "svgBytes": 6418,
+    "svgSHA256": "da7fe1d80b0f733dba6ffb615336a872a2fe57d15a4dc908cfc48b18a1870cbb",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.35,
+      "heightRange": 95.99,
+      "estimatedElements": 389
+    }
+  },
+  {
+    "id": "closeup-002",
+    "seed": "closeup-002",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "slope",
+    "palette": "blue",
+    "svgElements": 107,
+    "svgBytes": 7881,
+    "svgSHA256": "f8f439fe2911d816558b2bafc9712193f46f9b3d904a22fb7d6db15dcaf27abc",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.4,
+      "heightRange": 100.77,
+      "estimatedElements": 374
+    }
+  },
+  {
+    "id": "closeup-003",
+    "seed": "closeup-003",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "valley",
+    "palette": "clay",
+    "svgElements": 73,
+    "svgBytes": 4919,
+    "svgSHA256": "bac7b21fcbd3c4869bcc520bbc22edf50d2d4da12a585ec054dc8506db1de5a6",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.39,
+      "heightRange": 92.08,
+      "estimatedElements": 374
+    }
+  },
+  {
+    "id": "closeup-004",
+    "seed": "closeup-004",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "twin",
+    "palette": "harbor",
+    "svgElements": 139,
+    "svgBytes": 9462,
+    "svgSHA256": "2aca04c19307e6491998af910385fab315937d09dda026d6bf6bb839653f5008",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.4,
+      "heightRange": 51.5,
+      "estimatedElements": 394
+    }
+  },
+  {
+    "id": "closeup-005",
+    "seed": "closeup-005",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "valley",
+    "palette": "apricot",
+    "svgElements": 133,
+    "svgBytes": 9170,
+    "svgSHA256": "73c5ae1e36494e9b459396de36016e44f64ea8a6eef21621abf007030aff6a1e",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.34,
+      "heightRange": 48.42,
+      "estimatedElements": 369
+    }
+  },
+  {
+    "id": "closeup-006",
+    "seed": "closeup-006",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "slope",
+    "palette": "harbor",
+    "svgElements": 76,
+    "svgBytes": 4713,
+    "svgSHA256": "db51a36f2d19a1ed17cb79a5733de066699a7a97929515a215fea767ae89fd24",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 78.47,
+      "estimatedElements": 354
+    }
+  },
+  {
+    "id": "closeup-007",
+    "seed": "closeup-007",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "twin",
+    "palette": "apricot",
+    "svgElements": 123,
+    "svgBytes": 8605,
+    "svgSHA256": "5baf6bed4932780b8e6ba8478a9e0f3b179e6f40359adfc81ad4ba7f8e2d67de",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.36,
+      "heightRange": 50.32,
+      "estimatedElements": 369
+    }
+  },
+  {
+    "id": "closeup-008",
+    "seed": "closeup-008",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "valley",
+    "palette": "harbor",
+    "svgElements": 94,
+    "svgBytes": 6892,
+    "svgSHA256": "1de2c20d4b51b13d7cae11542627dd218100a68aa62bc64705cffeafd28688f3",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.41,
+      "heightRange": 50.74,
+      "estimatedElements": 409
+    }
+  },
+  {
+    "id": "street-001",
+    "seed": "street-001",
+    "settings": {
+      "version": "0.2",
+      "scene": "street"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "clay",
+    "svgElements": 195,
+    "svgBytes": 13646,
+    "svgSHA256": "36da9fe0d030b605427db9711f4043a5de89bf5e910548e2f02dfec276eabf09",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.48,
+      "heightRange": 127.51,
+      "estimatedElements": 653
+    }
+  },
+  {
+    "id": "street-002",
+    "seed": "street-002",
+    "settings": {
+      "version": "0.2",
+      "scene": "street"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "hill",
+    "palette": "apricot",
+    "svgElements": 205,
+    "svgBytes": 14257,
+    "svgSHA256": "2a3de52761aa14fda143bc27abf48a7d6d42f7e15f1cc42981fdeb657aa8a376",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.39,
+      "heightRange": 96.72,
+      "estimatedElements": 653
+    }
+  },
+  {
+    "id": "street-003",
+    "seed": "street-003",
+    "settings": {
+      "version": "0.2",
+      "scene": "street"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "slope",
+    "palette": "clay",
+    "svgElements": 318,
+    "svgBytes": 21414,
+    "svgSHA256": "2e20d4301c3f5ca48f87fbf9f9970cb2a36de441010dd1bf66c071a3b64483e7",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.3,
+      "heightRange": 96.92,
+      "estimatedElements": 693
+    }
+  },
+  {
+    "id": "street-004",
+    "seed": "street-004",
+    "settings": {
+      "version": "0.2",
+      "scene": "street"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "harbor",
+    "svgElements": 316,
+    "svgBytes": 21697,
+    "svgSHA256": "8d71f3ca030a6795ac8ea8d329e2ae10858dfc62e34121695d03fd3d84c9efcd",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.39,
+      "heightRange": 84.12,
+      "estimatedElements": 603
+    }
+  },
+  {
+    "id": "street-005",
+    "seed": "street-005",
+    "settings": {
+      "version": "0.2",
+      "scene": "street"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "slope",
+    "palette": "harbor",
+    "svgElements": 189,
+    "svgBytes": 12833,
+    "svgSHA256": "98464f74c057b7629c87206424396b9fd669e3bf5ad643acd13230fa3d6a7fb7",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 73.06,
+      "estimatedElements": 608
+    }
+  },
+  {
+    "id": "street-006",
+    "seed": "street-006",
+    "settings": {
+      "version": "0.2",
+      "scene": "street"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "blue",
+    "svgElements": 275,
+    "svgBytes": 18516,
+    "svgSHA256": "4dfa04950ea56dc8b05931215a2327202c7424a2633a674388a7a78d1b3364ed",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.33,
+      "heightRange": 116.51,
+      "estimatedElements": 633
+    }
+  },
+  {
+    "id": "street-007",
+    "seed": "street-007",
+    "settings": {
+      "version": "0.2",
+      "scene": "street"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "hill",
+    "palette": "blue",
+    "svgElements": 262,
+    "svgBytes": 18354,
+    "svgSHA256": "74804aa3ca704a1ef64df92362ada2f28718526e62f879c04a4f5c8f24603bd6",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.35,
+      "heightRange": 105.8,
+      "estimatedElements": 673
+    }
+  },
+  {
+    "id": "street-008",
+    "seed": "street-008",
+    "settings": {
+      "version": "0.2",
+      "scene": "street"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "rose",
+    "svgElements": 279,
+    "svgBytes": 19303,
+    "svgSHA256": "8ed720b8f5133e9fd9fc8daf95dde8ad337ae3755da4a8fadef24b3f4799f124",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.41,
+      "heightRange": 140.87,
+      "estimatedElements": 698
+    }
+  },
+  {
+    "id": "square-001",
+    "seed": "square-001",
+    "settings": {
+      "version": "0.2",
+      "scene": "square"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "hill",
+    "palette": "apricot",
+    "svgElements": 169,
+    "svgBytes": 10417,
+    "svgSHA256": "735bd7ddcef03fedcfc9fdc89a40ead9b837f2f0d5fe0b0e646873ff63fbfb8c",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.33,
+      "heightRange": 142.02,
+      "estimatedElements": 576
+    }
+  },
+  {
+    "id": "square-002",
+    "seed": "square-002",
+    "settings": {
+      "version": "0.2",
+      "scene": "square"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "twin",
+    "palette": "blue",
+    "svgElements": 172,
+    "svgBytes": 11581,
+    "svgSHA256": "f9171920a379c1b0c9b5533c0ad4a7335e92ae25619fc5004a6a05ed3471a7f1",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.33,
+      "heightRange": 213.03,
+      "estimatedElements": 571
+    }
+  },
+  {
+    "id": "square-003",
+    "seed": "square-003",
+    "settings": {
+      "version": "0.2",
+      "scene": "square"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "slope",
+    "palette": "rose",
+    "svgElements": 185,
+    "svgBytes": 11229,
+    "svgSHA256": "24de393f0ee6a7ed1059fb89f40fd44ee91f536199cfadd63aad7f233035703a",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.23,
+      "heightRange": 166.74,
+      "estimatedElements": 626
+    }
+  },
+  {
+    "id": "square-004",
+    "seed": "square-004",
+    "settings": {
+      "version": "0.2",
+      "scene": "square"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "hill",
+    "palette": "rose",
+    "svgElements": 181,
+    "svgBytes": 12837,
+    "svgSHA256": "1d609ec07f7fd1f2e1c8e68e85a910b21fd912361bfdd0e5e4de6dda74f9956e",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.44,
+      "heightRange": 199.22,
+      "estimatedElements": 656
+    }
+  },
+  {
+    "id": "square-005",
+    "seed": "square-005",
+    "settings": {
+      "version": "0.2",
+      "scene": "square"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "valley",
+    "palette": "blue",
+    "svgElements": 284,
+    "svgBytes": 19123,
+    "svgSHA256": "b7de52532698cc209d935b945d95073d00b48694b7a301abc60741df80a3d4bd",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.44,
+      "heightRange": 187.36,
+      "estimatedElements": 731
+    }
+  },
+  {
+    "id": "square-006",
+    "seed": "square-006",
+    "settings": {
+      "version": "0.2",
+      "scene": "square"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "valley",
+    "palette": "harbor",
+    "svgElements": 186,
+    "svgBytes": 11188,
+    "svgSHA256": "f07f4dd6365755be440704fcb86ed1c6e4c78d958fba8a65d0e8e49d1ee45101",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.33,
+      "heightRange": 176.16,
+      "estimatedElements": 671
+    }
+  },
+  {
+    "id": "square-007",
+    "seed": "square-007",
+    "settings": {
+      "version": "0.2",
+      "scene": "square"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "slope",
+    "palette": "rose",
+    "svgElements": 280,
+    "svgBytes": 19827,
+    "svgSHA256": "f3523e876080be3aace37a949f0b1894f217231a0a4991a4983096713893c1de",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.36,
+      "heightRange": 208.45,
+      "estimatedElements": 631
+    }
+  },
+  {
+    "id": "square-008",
+    "seed": "square-008",
+    "settings": {
+      "version": "0.2",
+      "scene": "square"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "valley",
+    "palette": "clay",
+    "svgElements": 227,
+    "svgBytes": 15358,
+    "svgSHA256": "5d4d9150f1c411f0bfadd08252f07775ad686215c85883557a7b0388028984eb",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.45,
+      "heightRange": 174.54,
+      "estimatedElements": 556
+    }
+  },
+  {
+    "id": "hillside-001",
+    "seed": "hillside-001",
+    "settings": {
+      "version": "0.2",
+      "scene": "hillside"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "hillside",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "hillside",
+    "composition": "valley",
+    "palette": "garden",
+    "svgElements": 167,
+    "svgBytes": 12347,
+    "svgSHA256": "071b47a18696c5ddb55683e13a1f5c1483818796308b8caf081c788308c4e795",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.38,
+      "heightRange": 85.35,
+      "estimatedElements": 490
+    }
+  },
+  {
+    "id": "hillside-002",
+    "seed": "hillside-002",
+    "settings": {
+      "version": "0.2",
+      "scene": "hillside"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "hillside",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "hillside",
+    "composition": "twin",
+    "palette": "clay",
+    "svgElements": 147,
+    "svgBytes": 9613,
+    "svgSHA256": "8777c3a6aa18fa3de10bce64a1009b6b8e4e41e980310e2850258a4c4cbbe650",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.39,
+      "heightRange": 57.62,
+      "estimatedElements": 510
+    }
+  },
+  {
+    "id": "hillside-003",
+    "seed": "hillside-003",
+    "settings": {
+      "version": "0.2",
+      "scene": "hillside"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "hillside",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "hillside",
+    "composition": "slope",
+    "palette": "garden",
+    "svgElements": 235,
+    "svgBytes": 16987,
+    "svgSHA256": "3076b81624fd41cce81976b0b1e8ce3f2e70bc83417d00cb9709ad2c83e3bf2a",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.24,
+      "heightRange": 65.75,
+      "estimatedElements": 510
+    }
+  },
+  {
+    "id": "hillside-004",
+    "seed": "hillside-004",
+    "settings": {
+      "version": "0.2",
+      "scene": "hillside"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "hillside",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "hillside",
+    "composition": "hill",
+    "palette": "blue",
+    "svgElements": 159,
+    "svgBytes": 11004,
+    "svgSHA256": "c41253ff6c5c9196dc28372db23c427457e63964285a4e22d98305095d5db774",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.57,
+      "heightRange": 54.97,
+      "estimatedElements": 450
+    }
+  },
+  {
+    "id": "hillside-005",
+    "seed": "hillside-005",
+    "settings": {
+      "version": "0.2",
+      "scene": "hillside"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "hillside",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "hillside",
+    "composition": "valley",
+    "palette": "garden",
+    "svgElements": 155,
+    "svgBytes": 10572,
+    "svgSHA256": "2a7275d5268bb4047f3c25af34e0fc9fc083006f293fe5da248ad784ad3cead6",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.38,
+      "heightRange": 60.53,
+      "estimatedElements": 470
+    }
+  },
+  {
+    "id": "hillside-006",
+    "seed": "hillside-006",
+    "settings": {
+      "version": "0.2",
+      "scene": "hillside"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "hillside",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "hillside",
+    "composition": "twin",
+    "palette": "garden",
+    "svgElements": 159,
+    "svgBytes": 10644,
+    "svgSHA256": "52da04b886e3b999cc140907ca70ead146683614e34ed995a8198a8634650e06",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.44,
+      "heightRange": 79.03,
+      "estimatedElements": 530
+    }
+  },
+  {
+    "id": "hillside-007",
+    "seed": "hillside-007",
+    "settings": {
+      "version": "0.2",
+      "scene": "hillside"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "hillside",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "hillside",
+    "composition": "twin",
+    "palette": "garden",
+    "svgElements": 155,
+    "svgBytes": 11693,
+    "svgSHA256": "73ccd19ecca81371dd4760bfa069a9ab1d9ac9bca8441cbeeffe4190e6776105",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.4,
+      "heightRange": 63.37,
+      "estimatedElements": 510
+    }
+  },
+  {
+    "id": "hillside-008",
+    "seed": "hillside-008",
+    "settings": {
+      "version": "0.2",
+      "scene": "hillside"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "hillside",
+      "palette": "auto",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "auto"
+    },
+    "version": "0.2",
+    "mode": "hillside",
+    "composition": "twin",
+    "palette": "garden",
+    "svgElements": 139,
+    "svgBytes": 9012,
+    "svgSHA256": "078f3dcc65548e21f1ff7862316cd33133c319e54570f7055e97eecf4552a148",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 5,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.39,
+      "heightRange": 81.87,
+      "estimatedElements": 510
+    }
+  },
+  {
+    "id": "roof-gable",
+    "seed": "roof-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "gable",
+      "windows": "rect",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "gable",
+      "windows": "rect",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "hill",
+    "palette": "harbor",
+    "svgElements": 92,
+    "svgBytes": 6457,
+    "svgSHA256": "49688422aad8b1871017c81e906b54415d622f4e4fe27c9eebb0d266949ec183",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.46,
+      "heightRange": 120.81,
+      "estimatedElements": 394
+    }
+  },
+  {
+    "id": "roof-hip",
+    "seed": "roof-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "hip",
+      "windows": "rect",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "hip",
+      "windows": "rect",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "hill",
+    "palette": "harbor",
+    "svgElements": 92,
+    "svgBytes": 6496,
+    "svgSHA256": "f6f1620379b6d17432ae19503c53ee628cffcba2ee23d485db34016a0b2e5db7",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.46,
+      "heightRange": 120.81,
+      "estimatedElements": 394
+    }
+  },
+  {
+    "id": "roof-flat",
+    "seed": "roof-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "flat",
+      "windows": "rect",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "flat",
+      "windows": "rect",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "hill",
+    "palette": "harbor",
+    "svgElements": 92,
+    "svgBytes": 6444,
+    "svgSHA256": "040d3f5110e8dfb14cd3ec01a98a92ca9036b5d9cf5f58eaffb13463ee9506a6",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.46,
+      "heightRange": 120.81,
+      "estimatedElements": 394
+    }
+  },
+  {
+    "id": "roof-shed",
+    "seed": "roof-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "shed",
+      "windows": "rect",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "shed",
+      "windows": "rect",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "hill",
+    "palette": "harbor",
+    "svgElements": 92,
+    "svgBytes": 6492,
+    "svgSHA256": "b32aa63393310db5c7f5c1bde344eef68f28913e145117775c8f9bf24e281ab8",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.46,
+      "heightRange": 120.81,
+      "estimatedElements": 394
+    }
+  },
+  {
+    "id": "roof-step",
+    "seed": "roof-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "step",
+      "windows": "rect",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "step",
+      "windows": "rect",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "hill",
+    "palette": "harbor",
+    "svgElements": 92,
+    "svgBytes": 6820,
+    "svgSHA256": "ee0ac53d3e6578e4b9239d6874e0ae6eb664a50de083494778ab41bdde11d960",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.46,
+      "heightRange": 120.81,
+      "estimatedElements": 394
+    }
+  },
+  {
+    "id": "roof-round",
+    "seed": "roof-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "round",
+      "windows": "rect",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "round",
+      "windows": "rect",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "hill",
+    "palette": "harbor",
+    "svgElements": 92,
+    "svgBytes": 6438,
+    "svgSHA256": "58f42cb80a2c02d4e0d22f0da3adde9df0c9e5a1d258c67fdd66e4b72a02849e",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.46,
+      "heightRange": 120.81,
+      "estimatedElements": 394
+    }
+  },
+  {
+    "id": "window-rect",
+    "seed": "window-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "gable",
+      "windows": "rect",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "gable",
+      "windows": "rect",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "twin",
+    "palette": "harbor",
+    "svgElements": 88,
+    "svgBytes": 6079,
+    "svgSHA256": "ed70549714c50b442bfe0b7b63e6319881be94fcfa44b37d06b304474006e73f",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 34.33,
+      "estimatedElements": 374
+    }
+  },
+  {
+    "id": "window-arch",
+    "seed": "window-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "gable",
+      "windows": "arch",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "gable",
+      "windows": "arch",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "twin",
+    "palette": "harbor",
+    "svgElements": 88,
+    "svgBytes": 6517,
+    "svgSHA256": "d7d70d36a703a1ce69b410f0b87ca96a49b6803b9d70a7c91adf2e18a85a9005",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 34.33,
+      "estimatedElements": 374
+    }
+  },
+  {
+    "id": "window-round",
+    "seed": "window-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "gable",
+      "windows": "round",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "gable",
+      "windows": "round",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "twin",
+    "palette": "harbor",
+    "svgElements": 88,
+    "svgBytes": 5576,
+    "svgSHA256": "1c0d8bdf77da72ae257ffbfff548c1379cbca9b8076a996693be687fcd4ac27a",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 34.33,
+      "estimatedElements": 374
+    }
+  },
+  {
+    "id": "window-paired",
+    "seed": "window-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "gable",
+      "windows": "paired",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "gable",
+      "windows": "paired",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "twin",
+    "palette": "harbor",
+    "svgElements": 128,
+    "svgBytes": 8846,
+    "svgSHA256": "8c0f87c9fe6200c25fb090b5f7a1a0ed9f77e861e359922edc0ab7d5b4c6b52d",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 34.33,
+      "estimatedElements": 374
+    }
+  },
+  {
+    "id": "window-shutters",
+    "seed": "window-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "roofs": "gable",
+      "windows": "shutters",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "closeup",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "gable",
+      "windows": "shutters",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "closeup",
+    "composition": "twin",
+    "palette": "harbor",
+    "svgElements": 168,
+    "svgBytes": 11565,
+    "svgSHA256": "a0fff11ebbca3132c980bba11c2244ecdcd289253f5f57262b8587ca90818a9b",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 3,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.37,
+      "heightRange": 34.33,
+      "estimatedElements": 374
+    }
+  },
+  {
+    "id": "palette-harbor",
+    "seed": "palette-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "harbor",
+    "svgElements": 158,
+    "svgBytes": 11056,
+    "svgSHA256": "34e07f3c196690820ee41ff6944ba8a527379ea7b2bdc59158457e93f00ad3f8",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.2,
+      "heightRange": 116.57,
+      "estimatedElements": 628
+    }
+  },
+  {
+    "id": "palette-apricot",
+    "seed": "palette-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "apricot",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "apricot",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "apricot",
+    "svgElements": 158,
+    "svgBytes": 11060,
+    "svgSHA256": "dd4404fc817dce9a9e2e4490d8ff5245e7ff8d4ae944e7a2f3024e3f5e0aec01",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.2,
+      "heightRange": 116.57,
+      "estimatedElements": 628
+    }
+  },
+  {
+    "id": "palette-garden",
+    "seed": "palette-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "garden",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "garden",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "garden",
+    "svgElements": 158,
+    "svgBytes": 11056,
+    "svgSHA256": "991a78ca7e2921cccc6374d595dbcb49691d0228cbecba8f90a462c96f6c618f",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.2,
+      "heightRange": 116.57,
+      "estimatedElements": 628
+    }
+  },
+  {
+    "id": "palette-clay",
+    "seed": "palette-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "clay",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "clay",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "clay",
+    "svgElements": 158,
+    "svgBytes": 11060,
+    "svgSHA256": "3fb1bd57d8f0f729c921f472d2b00a35241f5110dcd7ba03b23f021e30ffef6b",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.2,
+      "heightRange": 116.57,
+      "estimatedElements": 628
+    }
+  },
+  {
+    "id": "palette-blue",
+    "seed": "palette-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "blue",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "blue",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "blue",
+    "svgElements": 158,
+    "svgBytes": 11054,
+    "svgSHA256": "414f15955378199982a7218b1694059a782465ae598863f7c3e1f128f7ae1c60",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.2,
+      "heightRange": 116.57,
+      "estimatedElements": 628
+    }
+  },
+  {
+    "id": "palette-rose",
+    "seed": "palette-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "rose",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "street",
+      "palette": "rose",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "street",
+    "composition": "twin",
+    "palette": "rose",
+    "svgElements": 158,
+    "svgBytes": 11057,
+    "svgSHA256": "c069788731382b3fb9feb17d23fe2d86fb8450256fd4310d9c06024e0883f808",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 6,
+      "layers": 1,
+      "visibleTower": null,
+      "maxColorShare": 0.2,
+      "heightRange": 116.57,
+      "estimatedElements": 628
+    }
+  },
+  {
+    "id": "color-varied",
+    "seed": "color-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "harbor",
+      "colorMode": "varied"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "varied"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "slope",
+    "palette": "harbor",
+    "svgElements": 234,
+    "svgBytes": 15802,
+    "svgSHA256": "a5f5d0bcf5733582c999556b19a2070fa57df6c6f7c6ec450d50f990c7f14533",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.29,
+      "heightRange": 170.14,
+      "estimatedElements": 631
+    }
+  },
+  {
+    "id": "color-tonal",
+    "seed": "color-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "harbor",
+      "colorMode": "tonal"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "tonal"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "slope",
+    "palette": "harbor",
+    "svgElements": 234,
+    "svgBytes": 15801,
+    "svgSHA256": "864100ee2667bb54496a4efdbbe75d0fecd4e07362853a93b897497f50ddfd4b",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.49,
+      "heightRange": 170.14,
+      "estimatedElements": 631
+    }
+  },
+  {
+    "id": "color-accent",
+    "seed": "color-comparison",
+    "settings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "harbor",
+      "colorMode": "accent"
+    },
+    "normalizedSettings": {
+      "version": "0.2",
+      "scene": "square",
+      "palette": "harbor",
+      "density": "normal",
+      "composition": "auto",
+      "roofs": "auto",
+      "windows": "auto",
+      "colorMode": "accent"
+    },
+    "version": "0.2",
+    "mode": "square",
+    "composition": "slope",
+    "palette": "harbor",
+    "svgElements": 234,
+    "svgBytes": 15802,
+    "svgSHA256": "de93d4ba6fffc0783933a230a90d3fddb6bf3461abe9adfaae1e416982f4e396",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 7,
+      "layers": 3,
+      "visibleTower": null,
+      "maxColorShare": 0.35,
+      "heightRange": 170.14,
+      "estimatedElements": 631
+    }
+  }
+]
