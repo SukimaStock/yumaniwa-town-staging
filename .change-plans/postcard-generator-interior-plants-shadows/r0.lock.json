@@ -1,0 +1,82 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "780783b18a8d7bae3a5fd91fbcc774f9b173f8b095d689a16ad4ab129fc480e6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-interior-plants-shadows",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "48bc2891d362c0d48d85991cf301866cd04fbc33",
+    "change": "Author correction: move potted plants inside windows and anchor cast shadows to eaves or awnings",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-interior-plants-shadows/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Move pots inside actual window panes, behind grid bars, with no exterior sill/terrace pot placements",
+      "Replace arbitrary mid-wall shadow starts with narrow eave/awning shadows connected to their casting edges",
+      "Keep all unrelated scene/layout/color/feature streams,0.1 replay and accents=plain drawings unchanged",
+      "Regenerate36current examples, compare before/after, validate window containment and shadow source attachment, exports and mobile",
+      "PR required CI, safe Staging merge and publication verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare same seeds before/after for interior plants and source-connected shadows",
+      "Cloud browser settings/export/compare and360/375/390px layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User prefers plants indoors and points out unnatural shadow origins; correction and ongoing Staging scope authorized"
+    ],
+    "rulesApplied": [
+      "Keep rejected round windows, shutters and stepped roofs excluded",
+      "Preserve simple operation; details adapt to building scale; no decorative copy"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works",
+      "Legacy0.1 sources",
+      "New pattern controls",
+      "New scene types"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
