@@ -1,0 +1,461 @@
+{
+  "version": "whisky-visual/0.4",
+  "modelVersion": "whisky-reputation/0.3",
+  "sourceBase": "577abd31b020ad614fb408873c0ff869f1f41a20",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100
+  ],
+  "shops": [
+    "bar",
+    "diner",
+    "specialist"
+  ],
+  "scenarios": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "framesPerHistory": 10,
+  "histories": 1200,
+  "checks": {
+    "canonicalFinalEquality": 1200,
+    "exactStock": 12000,
+    "positiveRecordSources": 24181,
+    "storeIsolation": 24000,
+    "pureDeterministicProjection": 12000,
+    "viewStateEquality": 36000,
+    "saleFrames": 6000,
+    "deliveryFrames": 6000,
+    "emptyGaps": 300
+  },
+  "totals": {
+    "deliveryBottles": 30000,
+    "postSaleBottles": 6778,
+    "positiveRecords": 24181,
+    "excludedNonpositiveRecords": 11819,
+    "excludedUnsoldRecords": 6501,
+    "excludedNonpositivePurchases": 5318,
+    "emptySalesFrames": 3080,
+    "maxVisibleStock": 5,
+    "maxHiddenStock": 0,
+    "maxMemoryCount": 5,
+    "maxSvgElements": 466
+  },
+  "byShop": {
+    "bar": {
+      "delivery": 10000,
+      "afterSale": 0,
+      "memories": 9276,
+      "frames": 4000
+    },
+    "diner": {
+      "delivery": 10000,
+      "afterSale": 3622,
+      "memories": 6615,
+      "frames": 4000
+    },
+    "specialist": {
+      "delivery": 10000,
+      "afterSale": 3156,
+      "memories": 8290,
+      "frames": 4000
+    }
+  },
+  "samples": [
+    {
+      "phase": "delivery",
+      "release": 1,
+      "shopId": "bar",
+      "month": 1,
+      "stockCount": 5,
+      "draftCount": 0,
+      "memories": [],
+      "links": [],
+      "expectationStrength": 0
+    },
+    {
+      "phase": "sales",
+      "release": 1,
+      "shopId": "bar",
+      "month": 7,
+      "stockCount": 0,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [],
+      "expectationStrength": 0.17685114062932894
+    },
+    {
+      "phase": "delivery",
+      "release": 2,
+      "shopId": "bar",
+      "month": 7,
+      "stockCount": 5,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [
+        {
+          "productId": 3,
+          "priorProductId": 2,
+          "strength": 0.17685114062932894
+        }
+      ],
+      "expectationStrength": 0.17685114062932894
+    },
+    {
+      "phase": "sales",
+      "release": 2,
+      "shopId": "bar",
+      "month": 13,
+      "stockCount": 0,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 3,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [],
+      "expectationStrength": 0.5097019822877231
+    },
+    {
+      "phase": "delivery",
+      "release": 3,
+      "shopId": "bar",
+      "month": 13,
+      "stockCount": 5,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 3,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [],
+      "expectationStrength": 0.5097019822877231
+    },
+    {
+      "phase": "sales",
+      "release": 3,
+      "shopId": "bar",
+      "month": 19,
+      "stockCount": 0,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 4,
+          "years": 3,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 3,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [],
+      "expectationStrength": 0.6846154978745751
+    },
+    {
+      "phase": "delivery",
+      "release": 4,
+      "shopId": "bar",
+      "month": 19,
+      "stockCount": 5,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 4,
+          "years": 3,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 3,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [
+        {
+          "productId": 5,
+          "priorProductId": 4,
+          "strength": 0.3078982131783463
+        }
+      ],
+      "expectationStrength": 0.6846154978745751
+    },
+    {
+      "phase": "sales",
+      "release": 4,
+      "shopId": "bar",
+      "month": 25,
+      "stockCount": 0,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 5,
+          "years": 3,
+          "sold": 5,
+          "supportCount": 2
+        },
+        {
+          "productId": 4,
+          "years": 3,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 3,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [],
+      "expectationStrength": 0.7576325629845405
+    },
+    {
+      "phase": "delivery",
+      "release": 5,
+      "shopId": "bar",
+      "month": 25,
+      "stockCount": 5,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 5,
+          "years": 3,
+          "sold": 5,
+          "supportCount": 2
+        },
+        {
+          "productId": 4,
+          "years": 3,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 3,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [
+        {
+          "productId": 6,
+          "priorProductId": 3,
+          "strength": 0.2288387244966211
+        }
+      ],
+      "expectationStrength": 0.7576325629845405
+    },
+    {
+      "phase": "sales",
+      "release": 5,
+      "shopId": "bar",
+      "month": 31,
+      "stockCount": 0,
+      "draftCount": 0,
+      "memories": [
+        {
+          "productId": 6,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 2
+        },
+        {
+          "productId": 5,
+          "years": 3,
+          "sold": 5,
+          "supportCount": 2
+        },
+        {
+          "productId": 4,
+          "years": 3,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 3,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 3
+        },
+        {
+          "productId": 2,
+          "years": 20,
+          "sold": 5,
+          "supportCount": 1
+        }
+      ],
+      "links": [],
+      "expectationStrength": 0.7954688072649313
+    }
+  ],
+  "performance": {
+    "unit": "ms; projection + 3 SVG strings + structural checks, Node host; not iPhone rendering",
+    "count": 12000,
+    "min": 0.38995300000169664,
+    "median": 4.085199000001012,
+    "p90": 10.935435000021243,
+    "max": 171.41925599999377
+  }
+}

@@ -513,6 +513,13 @@
       "status": "active",
       "title": "AmberTime 評判 Lab 0.3",
       "theme": "店の記憶と期待が、次の一本への反応にどう残るかを試す。"
+    },
+    {
+      "id": "ambertime-whisky-visual-lab-v04",
+      "path": "works/ambertime-whisky-visual-lab-v04",
+      "status": "active",
+      "title": "AmberTime 視覚 Lab 0.4",
+      "theme": "実売と過去の好評を、店頭の景色の3案で見比べる。"
     }
   ]
 }
