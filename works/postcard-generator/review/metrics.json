@@ -1,0 +1,614 @@
+[
+  {
+    "seed": "harbour-001",
+    "composition": "slope",
+    "palette": "garden",
+    "shoreY": 684.86,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 47,
+      "layers": 4,
+      "heightRange": 81.97,
+      "maxColorShare": 0.23,
+      "visibleTower": 64.17,
+      "estimatedElements": 758
+    },
+    "svgElements": 751
+  },
+  {
+    "seed": "harbour-002",
+    "composition": "hill",
+    "palette": "garden",
+    "shoreY": 713.78,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 51,
+      "layers": 4,
+      "heightRange": 103.17,
+      "maxColorShare": 0.21,
+      "visibleTower": 93.25,
+      "estimatedElements": 779
+    },
+    "svgElements": 813
+  },
+  {
+    "seed": "harbour-003",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 677.47,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 96.42,
+      "maxColorShare": 0.35,
+      "visibleTower": 71.6,
+      "estimatedElements": 650
+    },
+    "svgElements": 602
+  },
+  {
+    "seed": "harbour-004",
+    "composition": "twin",
+    "palette": "apricot",
+    "shoreY": 721.19,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 134.54,
+      "maxColorShare": 0.23,
+      "visibleTower": 84.78,
+      "estimatedElements": 591
+    },
+    "svgElements": 588
+  },
+  {
+    "seed": "harbour-005",
+    "composition": "twin",
+    "palette": "garden",
+    "shoreY": 702.21,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 93.64,
+      "maxColorShare": 0.24,
+      "visibleTower": 68.53,
+      "estimatedElements": 628
+    },
+    "svgElements": 572
+  },
+  {
+    "seed": "harbour-006",
+    "composition": "slope",
+    "palette": "apricot",
+    "shoreY": 663.69,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 34,
+      "layers": 3,
+      "heightRange": 86.41,
+      "maxColorShare": 0.24,
+      "visibleTower": 71.47,
+      "estimatedElements": 625
+    },
+    "svgElements": 584
+  },
+  {
+    "seed": "harbour-007",
+    "composition": "slope",
+    "palette": "apricot",
+    "shoreY": 719.73,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 95.2,
+      "maxColorShare": 0.24,
+      "visibleTower": 75.16,
+      "estimatedElements": 620
+    },
+    "svgElements": 580
+  },
+  {
+    "seed": "harbour-008",
+    "composition": "hill",
+    "palette": "apricot",
+    "shoreY": 701.75,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "heightRange": 76.12,
+      "maxColorShare": 0.19,
+      "visibleTower": 76.58,
+      "estimatedElements": 680
+    },
+    "svgElements": 600
+  },
+  {
+    "seed": "harbour-009",
+    "composition": "slope",
+    "palette": "garden",
+    "shoreY": 689.4,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 99.43,
+      "maxColorShare": 0.21,
+      "visibleTower": 65.44,
+      "estimatedElements": 628
+    },
+    "svgElements": 580
+  },
+  {
+    "seed": "harbour-010",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 689.38,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "heightRange": 116.89,
+      "maxColorShare": 0.22,
+      "visibleTower": 65.19,
+      "estimatedElements": 725
+    },
+    "svgElements": 611
+  },
+  {
+    "seed": "harbour-011",
+    "composition": "twin",
+    "palette": "garden",
+    "shoreY": 719.06,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 111.47,
+      "maxColorShare": 0.2,
+      "visibleTower": 67.47,
+      "estimatedElements": 645
+    },
+    "svgElements": 602
+  },
+  {
+    "seed": "harbour-012",
+    "composition": "hill",
+    "palette": "harbor",
+    "shoreY": 703.32,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 73.18,
+      "maxColorShare": 0.24,
+      "visibleTower": 84.16,
+      "estimatedElements": 587
+    },
+    "svgElements": 559
+  },
+  {
+    "seed": "harbour-013",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 718.61,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 34,
+      "layers": 3,
+      "heightRange": 81.93,
+      "maxColorShare": 0.23,
+      "visibleTower": 84.8,
+      "estimatedElements": 644
+    },
+    "svgElements": 580
+  },
+  {
+    "seed": "harbour-014",
+    "composition": "hill",
+    "palette": "harbor",
+    "shoreY": 687.76,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "heightRange": 88.33,
+      "maxColorShare": 0.26,
+      "visibleTower": 76.16,
+      "estimatedElements": 623
+    },
+    "svgElements": 564
+  },
+  {
+    "seed": "harbour-015",
+    "composition": "twin",
+    "palette": "garden",
+    "shoreY": 688.17,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 78.44,
+      "maxColorShare": 0.21,
+      "visibleTower": 58,
+      "estimatedElements": 602
+    },
+    "svgElements": 589
+  },
+  {
+    "seed": "harbour-016",
+    "composition": "slope",
+    "palette": "garden",
+    "shoreY": 692.64,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 108.86,
+      "maxColorShare": 0.23,
+      "visibleTower": 94.31,
+      "estimatedElements": 693
+    },
+    "svgElements": 619
+  },
+  {
+    "seed": "harbour-017",
+    "composition": "slope",
+    "palette": "apricot",
+    "shoreY": 719.31,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 86.78,
+      "maxColorShare": 0.23,
+      "visibleTower": 111.65,
+      "estimatedElements": 602
+    },
+    "svgElements": 571
+  },
+  {
+    "seed": "harbour-018",
+    "composition": "valley",
+    "palette": "harbor",
+    "shoreY": 674.27,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 49,
+      "layers": 4,
+      "heightRange": 103.97,
+      "maxColorShare": 0.2,
+      "visibleTower": 86.87,
+      "estimatedElements": 865
+    },
+    "svgElements": 822
+  },
+  {
+    "seed": "harbour-019",
+    "composition": "slope",
+    "palette": "harbor",
+    "shoreY": 665.78,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 49,
+      "layers": 4,
+      "heightRange": 104.61,
+      "maxColorShare": 0.26,
+      "visibleTower": 86.85,
+      "estimatedElements": 832
+    },
+    "svgElements": 824
+  },
+  {
+    "seed": "harbour-020",
+    "composition": "valley",
+    "palette": "apricot",
+    "shoreY": 706.89,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 111.45,
+      "maxColorShare": 0.27,
+      "visibleTower": 70.6,
+      "estimatedElements": 648
+    },
+    "svgElements": 612
+  },
+  {
+    "seed": "harbour-021",
+    "composition": "hill",
+    "palette": "apricot",
+    "shoreY": 701.05,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 49,
+      "layers": 4,
+      "heightRange": 78.76,
+      "maxColorShare": 0.21,
+      "visibleTower": 73.21,
+      "estimatedElements": 821
+    },
+    "svgElements": 797
+  },
+  {
+    "seed": "harbour-022",
+    "composition": "slope",
+    "palette": "garden",
+    "shoreY": 718.75,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 48,
+      "layers": 4,
+      "heightRange": 106.84,
+      "maxColorShare": 0.19,
+      "visibleTower": 79.09,
+      "estimatedElements": 852
+    },
+    "svgElements": 807
+  },
+  {
+    "seed": "harbour-023",
+    "composition": "twin",
+    "palette": "garden",
+    "shoreY": 680.55,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 92.18,
+      "maxColorShare": 0.27,
+      "visibleTower": 77.52,
+      "estimatedElements": 608
+    },
+    "svgElements": 592
+  },
+  {
+    "seed": "harbour-024",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 696.5,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 48,
+      "layers": 4,
+      "heightRange": 97.61,
+      "maxColorShare": 0.23,
+      "visibleTower": 66.85,
+      "estimatedElements": 834
+    },
+    "svgElements": 818
+  },
+  {
+    "seed": "harbour-025",
+    "composition": "hill",
+    "palette": "garden",
+    "shoreY": 712.15,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 99.09,
+      "maxColorShare": 0.25,
+      "visibleTower": 90.09,
+      "estimatedElements": 581
+    },
+    "svgElements": 553
+  },
+  {
+    "seed": "harbour-026",
+    "composition": "hill",
+    "palette": "garden",
+    "shoreY": 691.99,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 86.86,
+      "maxColorShare": 0.23,
+      "visibleTower": 88.02,
+      "estimatedElements": 635
+    },
+    "svgElements": 583
+  },
+  {
+    "seed": "harbour-027",
+    "composition": "hill",
+    "palette": "harbor",
+    "shoreY": 685.68,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 113.85,
+      "maxColorShare": 0.25,
+      "visibleTower": 89.55,
+      "estimatedElements": 605
+    },
+    "svgElements": 565
+  },
+  {
+    "seed": "harbour-028",
+    "composition": "twin",
+    "palette": "harbor",
+    "shoreY": 724.19,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 77.76,
+      "maxColorShare": 0.24,
+      "visibleTower": 94.75,
+      "estimatedElements": 566
+    },
+    "svgElements": 567
+  },
+  {
+    "seed": "harbour-029",
+    "composition": "slope",
+    "palette": "garden",
+    "shoreY": 687.72,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 39,
+      "layers": 3,
+      "heightRange": 77.86,
+      "maxColorShare": 0.21,
+      "visibleTower": 90.28,
+      "estimatedElements": 653
+    },
+    "svgElements": 622
+  },
+  {
+    "seed": "harbour-030",
+    "composition": "valley",
+    "palette": "harbor",
+    "shoreY": 694.7,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 49,
+      "layers": 4,
+      "heightRange": 103.82,
+      "maxColorShare": 0.2,
+      "visibleTower": 91.6,
+      "estimatedElements": 918
+    },
+    "svgElements": 831
+  },
+  {
+    "seed": "harbour-031",
+    "composition": "valley",
+    "palette": "garden",
+    "shoreY": 695.06,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 36,
+      "layers": 3,
+      "heightRange": 101.23,
+      "maxColorShare": 0.28,
+      "visibleTower": 65.27,
+      "estimatedElements": 599
+    },
+    "svgElements": 571
+  },
+  {
+    "seed": "harbour-032",
+    "composition": "valley",
+    "palette": "garden",
+    "shoreY": 699.82,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 37,
+      "layers": 3,
+      "heightRange": 76.55,
+      "maxColorShare": 0.25,
+      "visibleTower": 93.13,
+      "estimatedElements": 617
+    },
+    "svgElements": 582
+  },
+  {
+    "seed": "harbour-033",
+    "composition": "twin",
+    "palette": "garden",
+    "shoreY": 676.62,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 38,
+      "layers": 3,
+      "heightRange": 90.99,
+      "maxColorShare": 0.26,
+      "visibleTower": 93.47,
+      "estimatedElements": 662
+    },
+    "svgElements": 631
+  },
+  {
+    "seed": "harbour-034",
+    "composition": "hill",
+    "palette": "apricot",
+    "shoreY": 689.07,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 49,
+      "layers": 4,
+      "heightRange": 123.35,
+      "maxColorShare": 0.24,
+      "visibleTower": 58,
+      "estimatedElements": 865
+    },
+    "svgElements": 794
+  },
+  {
+    "seed": "harbour-035",
+    "composition": "slope",
+    "palette": "harbor",
+    "shoreY": 723.1,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 35,
+      "layers": 3,
+      "heightRange": 132.22,
+      "maxColorShare": 0.23,
+      "visibleTower": 102.29,
+      "estimatedElements": 654
+    },
+    "svgElements": 582
+  },
+  {
+    "seed": "harbour-036",
+    "composition": "valley",
+    "palette": "garden",
+    "shoreY": 694.18,
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "buildings": 47,
+      "layers": 4,
+      "heightRange": 92.87,
+      "maxColorShare": 0.24,
+      "visibleTower": 93.35,
+      "estimatedElements": 864
+    },
+    "svgElements": 792
+  }
+]

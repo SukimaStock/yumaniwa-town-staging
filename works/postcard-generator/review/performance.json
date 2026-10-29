@@ -1,0 +1,10 @@
+{
+  "environment": "Node v24.22.1, container CPU; not phone timing",
+  "scenes": 300,
+  "generateAndRenderMedianMs": 1.92,
+  "generateAndRenderP95Ms": 5.76,
+  "codeHashes": {
+    "engine.mjs": "110c8206ff0d47da24fb1ec113b621a60d268cd211f258fe6350c2dd357d037b",
+    "renderer.mjs": "fae0096673fb1e06ab7016e81caa03acf7bc2ce110696bcc7281f98f9e29df29"
+  }
+}
