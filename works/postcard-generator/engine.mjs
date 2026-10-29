@@ -14,7 +14,7 @@ const n=v=>Math.round(v*100)/100, clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pick=
 const lum=h=>[1,3,5].reduce((s,i,j)=>s+parseInt(h.slice(i,i+2),16)*[.2126,.7152,.0722][j],0);
 export function normalizeSettings(s={}){
  if(s.version==='0.1'){const old=legacy.normalizeSettings(s);return {version:'0.1',scene:'waterfront',...old,roofs:'auto',windows:'auto',colorMode:'auto'};}
- return {facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
+ return {groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
 }
 function house(id,x,base,width,height,layer=0){
  width=n(width);height=n(height);base=n(base);
@@ -90,7 +90,7 @@ export function generateScene(seed,settings={}){
    s.stairs={direction,points:buildings.flatMap(b=>[[b.x,b.base+17],[b.x+b.width,b.base+17]])};
    s.trees=[{x:direction===1?67:725,y:934,radius:42}];s.people=[{x:390,y:n(buildings[Math.floor(count/2)].base+42),color:p.ink,scale:1.6}];
  }
- s.layerCount=s.blocks.length;return details(style(s,settings),settings);
+ s.layerCount=s.blocks.length;return groundDetails(details(style(s,settings),settings),settings);
 }
 // Detail streams never consume layout, palette or existing style random numbers.
 function details(s,settings){
@@ -115,6 +115,20 @@ function details(s,settings){
  }
  return s;
 }
+// Ground floors use their own stream and reserve vertical space in the renderer.
+function groundDetails(s,settings){
+ const all=s.blocks.flatMap(b=>b.buildings),near=Math.max(...all.map(b=>b.layer));
+ const family=pick(randomStream(s.seed,'ground-floor-family'),['arcade','awning']);
+ for(const b of all){
+  b.groundFloor=null;
+  const r=randomStream(s.seed,'ground-floor-'+b.id),eligible=(s.mode==='square'?b.layer>0:b.layer===near)&&b.width>=110&&b.height>=180;
+  const kind=settings.groundFloor==='auto'?(r()<.56?'plain':family):settings.groundFloor;
+  if(!eligible||kind==='plain')continue;
+  const doorHeight=Math.min(78,b.height*.22),count=clamp(Math.floor(b.width/60),2,5);
+  b.groundFloor={kind,height:n(kind==='arcade'?Math.min(92,b.height*.24):doorHeight+Math.min(20,b.width*.065)+8),count,striped:kind==='awning'&&r()<.55,color:b.roofColor,light:b.trim};
+ }
+ return s;
+}
 export function validateScene(scene){
  if(scene.version==='0.1')return legacy.validateScene(scene);
  const errors=[],warnings=[];const finite=(v,path)=>{if(typeof v==='number'&&!Number.isFinite(v))errors.push(`non-finite:${path}`);else if(v&&typeof v==='object')for(const[k,x]of Object.entries(v))finite(x,`${path}.${k}`);};finite(scene,'scene');
@@ -124,6 +138,7 @@ export function validateScene(scene){
    if(b.width<=0||b.height<=0||b.cols<1||b.cols>5||b.rows<1||b.rows>5)errors.push(`dimensions:${b.id}`);
    if(b.y-b.roofHeight<30||b.base>930||(!scene.crop&&(b.x<0||b.x+b.width>800.03)))errors.push(`bounds:${b.id}`);
    if(Math.abs(b.y+b.height-b.base)>.03)errors.push(`unsupported:${b.id}`);
+   if(b.groundFloor){const g=b.groundFloor;if(!['arcade','awning'].includes(g.kind)||g.height<=0||g.height>b.height*.5||g.count<2||g.count>5||b.width<110||b.height<180)errors.push(`ground-floor:${b.id}`);}
    if(!ROOFS.includes(b.roof)||!WINDOWS.includes(b.windowShape))errors.push(`style:${b.id}`);
  }
  for(const c of scene.clouds||[])if(c.x<0||c.x+c.width>800||c.y<0||c.y+c.height>Math.min(...all.map(b=>b.y-b.roofHeight),scene.landmark?.y??1000)-23)errors.push('cloud-bounds');
