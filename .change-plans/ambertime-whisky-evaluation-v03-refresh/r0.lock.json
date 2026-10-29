@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "21bb24e3983bede05bae7a9f953ccc20367871444ce064570db220c6d8183cb0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-whisky-evaluation-v03-refresh",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "独立評判Lab0.3で実売評価から店ごとの記憶・期待・支持・認知を作り次の一本へ接続",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "4779498615069f34bebf22ec8e113e04da2c0dd4",
+    "canonicalSources": [
+      "works/ambertime/experiments/whisky-evaluation/v02/model.mjs",
+      "works/ambertime/experiments/whisky-evaluation/v02/REPORT.md",
+      "works/ambertime/experiments/whisky-evaluation/v011/model.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime-flavor-lab-v02/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-whisky-evaluation-v03-refresh/r0.lock.json",
+      "works/ambertime/experiments/whisky-evaluation/v03/**",
+      "works/ambertime-whisky-evaluation-lab-v03/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/experiments/hand-and-place/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/whisky-evaluation/v01/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime-whisky-evaluation-lab/**",
+      "works/ambertime/experiments/whisky-evaluation/v011/**",
+      "works/ambertime/experiments/whisky-evaluation/v02/**"
+    ],
+    "expectedChanges": [
+      "既存v02の配分・販売・在庫・客評価をread-only再利用する独立v03。店ごとに受領記録と実売に基づく記憶を分け、認知・支持・期待・過去評価を別々に保持",
+      "強い支持/印象/反復の記憶仮説を比較し、継続・徐変・方向転換・復活の4シナリオを同初期条件seedで比較。月/年単位の空白と古い記録と現在の関係を検証",
+      "実履歴と計算根拠による短い反応・店舗詳細、100seed以上の分布と端条件・自動テスト・再現JSON/CSV・日本語REPORT・LAB接続・PR/CI/マージ/Staging操作確認"
+    ],
+    "ownerDecisions": [
+      "2026-10-29ユーザー依頼「評判Lab0.3 店が前の一本を覚えている」：独立Labの設計実装・計算問題の修正再検証・通常PR/必須CI/マージ/Staging公開を許可。本編・旧Lab・Productionは不変。体験A/B/Cは作者判断。"
+    ],
+    "hqDecisions": [
+      "店の履歴と現在の期待/支持を別データにし、実売のみを評価証拠にする。記憶は店の文脈評価と期待・支持計算に反映するが、元の客評価・販売確率へ上書きしない。方向の違い自体を罰しない。期待は複数の好評風味を保持。",
+      "月次受領件数を点稼ぎにしない。負の印象は記憶として残しても好評証拠に混ぜない。全国評判/伝播/地図/世代交代を接続しない。"
+    ],
+    "rulesApplied": [
+      "AGENTS/Change OS/実装前Plan Lock/Scope→Risk→Impact/既存LAB generator",
+      "表現監査：操作と結果の具体情報だけ表示し、次作の正解・クエスト・意欲の成立を断言しない",
+      "登録済みtrusted static node-syntax、作品固有の動作/保存則/再現性/表示は関連回帰として検証",
+      "root AGENTSの分担指示に従い既存販売調査と独立モデルレビューを委任。共有path統合はメインが担当。Sites skillは内部previewに使用し公開は既存GitHub Pages手順。",
+      "検証中にPostcard0.2がmainへ反映。AmberTime依存と運用規則は不変。最新mainからfresh Lock/branchを作り最新台帳を保持してLAB再生成。"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390幅でv02配分販売回収・複数回試作・店の記憶反応・4シナリオ・時間空白・ログ保存再現",
+      "Staging公開後基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "今回のv03/launcher/台帳/生成LAB/lockを通常revert。旧Labと本編は不変",
+    "outOfScope": [
+      "本編/旧Lab/Productionの変更",
+      "本編保存・経済・購入者評価・販売式の変更",
+      "全国海外口コミ・地図解放・世代交代",
+      "体験の面白さ・意欲・自由さを計算で成立と断定"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者A店が覚える実感/B次の一本への動機/C自由な方向転換",
+      "実機iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "方向転換を一律減点",
+      "単一評判ポイント・クエスト",
+      "未販売から飲用感想を生成",
+      "悪い強印象を好評へ加算",
+      "過去記録の消去と現在期待の減衰の混同"
+    ],
+    "boundaryCases": [
+      "受領のみ/実売ゼロ/再納品・回収・月別分割/店舗独立",
+      "一度の低評価/強い負印象/新風味成功/過去レシピ復活/複数年空白",
+      "同seed操作再現/4シナリオ同初期条件/多数seedと極端例"
+    ],
+    "testPlan": [
+      "v02と全販売在庫売上客評価の一致・実売のみの記憶証拠・店舗独立・JSON完全再現",
+      "100seed以上で4経過・複数味年齢店・空白/復活・記憶3仮説を比較。支持急消失/期待固定/分割や再配置の点稼ぎ/反応矛盾を検出修正",
+      "360/375/390・LAB・Scope/Risk/Impact・必須CI・Staging公開後操作"
+    ],
+    "problem": "v02では店が過去を記録しても次の商品を文脈で受け止める関係計算がない",
+    "currentContract": "v02の有限在庫・native販売・v011客評価は不変。受領と実売、過去の記録と現在の支持を分ける",
+    "whyExistingIsInsufficient": "商品単位の結果比較だけでは店が以前を覚え次の一本への期待を形成できない",
+    "design": "v02状態を包む独立モデル。実売イベントを店別発売記憶に集約し、正負証拠・現在の減衰支持・複数期待を計算。店の文脈評価と短い反応へ記憶を利用。4経過と時間空白を同条件で検証",
+    "migration": "なし。統合しない",
+    "compatibility": "旧Labの純粋関数をimport、v03専用ログと操作再現。本編localStorage/保存は非使用",
+    "promotionRisk": "Stagingのみ。作者の採用と実機判断は未確認"
+  }
+}
