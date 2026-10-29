@@ -1,0 +1,124 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7dd5d76ed50dd823e663953b3967b328776638e240023c1ad89bb62c53281aeb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-whisky-evaluation-v011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "評価Lab0.1の偏りを再現・単要因分析し、独立v011で最小修正と同条件・拡張seed比較を行う",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "bdb683ec07b41b9507294b81d4a37ef01e2b9556",
+    "canonicalSources": [
+      "works/ambertime/experiments/whisky-evaluation/v01/model.mjs",
+      "works/ambertime/experiments/whisky-evaluation/v01/REPORT.md",
+      "works/ambertime/experiments/whisky-evaluation/v01/results.json",
+      "works/ambertime-flavor-lab-v02/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-whisky-evaluation-v011/r0.lock.json",
+      "works/ambertime/experiments/whisky-evaluation/v011/**",
+      "works/ambertime-whisky-evaluation-lab-v011/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/experiments/hand-and-place/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/whisky-evaluation/v01/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime-whisky-evaluation-lab/**"
+    ],
+    "expectedChanges": [
+      "v01を変更せず5seed2160条件の完全再現と客層・重み・相性・熟成・減点・閾値・上限・印象の単要因分析",
+      "2-3改善案を同じ瓶・seed・客で比較。30-100seedと代表以外の現行製法で再検証し、設計意図に合う最小案をv011に採用",
+      "計算値・正負印象・支持分布・飽和前の値・反応根拠を保持。v01/v011比較画面、JSON/CSV・比較グラフ・日本語REPORT、LAB接続、通常PR/CI/マージ/Staging公開"
+    ],
+    "ownerDecisions": [
+      "2026-10-29のユーザー依頼：計算上の偏り・上限飽和・再現性・反応不一致はAIが原因分析と修正再検証する。v011のみStaging公開。面白さや次を造りたくなるかは後続体験Labで作者が判断。"
+    ],
+    "hqDecisions": [
+      "評価の局所仮説のみ比較・修正。本編・v01・現行風味関数・保存・経済を保護し独立計算モジュールとする。単一最高点ではなく分布と正負印象を出力。UIは既存の構造を維持。"
+    ],
+    "rulesApplied": [
+      "AGENTS/Change OS/実装前Plan Lock/Scope→Risk→Impact/既存LAB generator",
+      "表現監査：評価の計算根拠と変化だけを示し、面白さや意欲を数値で代弁しない",
+      "trusted staticは既存node-syntaxのみ。モデル・シミュレーション・表示・グラフ検証はローカルと通常CIの証拠に分離"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390幅の操作・比較条件固定・ログ出力・再試行・初期化",
+      "Staging公開URLと配信内容"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "新v011/launcher/台帳/生成LAB/lockの変更単位をrevert。v01と本編は無変更",
+    "outOfScope": [
+      "本編・v01の変更",
+      "経済・保存・販売・地域伝播・世代交代",
+      "Production",
+      "ゲームの面白さの成立判定",
+      "後続体験Labの実装"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者の次の一本を試したくなる感触",
+      "実機iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "年数の無条件加点",
+      "店ごと一つの正解味",
+      "ランダム反応文",
+      "実熟成と年数効果の混同"
+    ],
+    "boundaryCases": [
+      "高相性短熟/低相性長熟/煙嫌いと煙不足/全客上昇の有無",
+      "評価上限と強い支持/負の印象/中央値の反応が同じだが分布が異なる",
+      "代表以外の製法・複数seed/同条件の候補比較"
+    ],
+    "testPlan": [
+      "v01全2160条件再現、単要因比較、2-3候補同条件比較、30-100seed外挿と代表以外の製法holdout",
+      "分布・正負印象・飽和前値・方向付き反応・年数単独と実熟成・条件不変量・ログ再現をテスト",
+      "360/375/390幅比較UI・CSV/JSON・graph・Lifecycle/LAB・差分・必須CI・Staging実URL確認"
+    ],
+    "problem": "バランス型優位、長熟上限飽和、年数寄与と反応の変化が読み取りにくい",
+    "currentContract": "v01を比較基準として不変。本編の8風味生成をread-only再利用",
+    "whyExistingIsInsufficient": "5seedでバランス型の優位と長熟飽和が確認されたが原因分解と修正が未実施",
+    "design": "元モデルを再現しアブレーションから最小の改善仮説を比較。嗜好の重要軸と不一致の扱い、熟成価値・分布・正負印象を同条件で検証する",
+    "migration": "なし。統合しない",
+    "compatibility": "現行風味モデルの純粋関数をimportするのみ。既存保存のread/writeなし",
+    "promotionRisk": "Stagingのみ。作者の採用と実機判断は未確認"
+  }
+}
