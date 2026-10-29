@@ -1,0 +1,84 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "884a951c76635f7af57fcd95a81f32927507268cabee671fd1717bfc8a348e14",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-plants-shade",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "99bd3afb07fbb48997c06562aec91d45382d32c5",
+    "change": "Stage3: sparse sill/terrace potted plants and coherent flat wall shadows",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-plants-shade/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add one accents selector auto/plain/plants/shade/both; preserve previous0.2 URLs and savedsettings when omitted",
+      "Generate at most3 planted near buildings using window/terrace anchors and dedicated leaf palette roles",
+      "Generate bounded simple wall shadow polygons with one scene-wide direction and flat opacity, no filters/gradients",
+      "Keep all layout, palette, roof/window/facade/ground-floor/sky streams independent; validate36seeds and combined patterns",
+      "Run regression, mobile/export checks, required CI, merge and Staging validation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review36distinct seeds and plants/shadows with previous patterns",
+      "Cloud browser settings/replay/comparison/export and360/375/390px layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User requests next stage after arcades and awnings; staged postcard patterns and Staging publication remain authorized"
+    ],
+    "rulesApplied": [
+      "Keep rejected round windows, shutters and stepped roofs excluded",
+      "Preserve simple operation; details adapt to building scale; no decorative copy"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works",
+      "Legacy0.1 sources",
+      "New scene types",
+      "New roof/window types",
+      "Animation",
+      "Additional UI outside folded settings"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
