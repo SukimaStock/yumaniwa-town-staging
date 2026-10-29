@@ -133,7 +133,7 @@ test('2000 accent scenes have bounded shadows and supported sparse plants',()=>{
   const s=generateScene('accent-audit-'+i,{scene:id,facade,groundFloor:i%2?'arcade':'awning',accents:'both'}),all=s.blocks.flatMap(b=>b.buildings);
   assert.deepEqual(validateScene(s).errors,[],`${i}/${id}`);assert.ok(all.reduce((n,b)=>n+b.plants.length,0)<=3);assert.ok(all.filter(b=>b.shade).length<=3);
   const svg=renderSVG(s);assert.doesNotMatch(svg,/NaN|Infinity|undefined|<filter|<linearGradient|<image/);assert.ok(svg.length<180000);assert.ok((svg.match(/</g)||[]).length<2400);
-  for(const b of all){for(const p of b.plants){assert.ok(p.row<b.rows-1&&p.col<b.cols);assert.ok(p.size<=5);if(p.placement==='terrace'){assert.ok(b.terrace);assert.equal(p.row,b.rows-2);terraces++;}else sills++;plants++;}if(b.shade){assert.equal(b.shade.direction,s.lightDirection);shadows++;}}
+  for(const b of all){for(const p of b.plants){assert.ok(p.row<b.rows-1&&p.col<b.cols);assert.ok(p.size<=5);assert.equal(p.placement,'inside');if(b.terrace){assert.equal(p.row,b.rows-2);terraces++;}else sills++;plants++;}if(b.shade){assert.equal(b.shade.direction,s.lightDirection);shadows++;}}
  }
  assert.ok(plants>1000&&shadows>1000&&sills>100&&terraces>100);
 });
@@ -143,9 +143,29 @@ test('old0.2 settings keep accents absent and validator catches malformed anchor
  assert.ok(validateScene(s).errors.some(e=>e.startsWith('plant-anchor:')));b.plants[0].row=b.rows-2;b.shade.points[0][0]=b.x-10;assert.ok(validateScene(s).errors.some(e=>e.startsWith('wall-shadow:')));
  const plain=generateScene('plain-accents',{scene:'closeup',accents:'plain'});assert.doesNotMatch(renderSVG(plain),/data-plant=|data-wall-shadow=/);
 });
-test('a plant on another floor still receives a sill in a balcony building',()=>{
- const s=generateScene('plants-review-1',{scene:'square',accents:'plants',facade:'plain',groundFloor:'plain'}),b=s.blocks.flatMap(b=>b.buildings).find(b=>b.balcony&&b.plants.some(p=>p.row!==b.rows-2));
- assert.ok(b,'fixture has a pot away from the balcony');
- const one={...s,mode:'closeup',blocks:[{...s.blocks[0],buildings:[b]}],surfaces:[],trees:[],lamps:[],benches:[],people:[]};
- assert.match(renderSVG(one),/<g data-plant="sill"><rect /);
+test('pots and foliage fit completely inside rectangular, arched and paired panes',()=>{
+ let checked=0;
+ for(const windows of WINDOWS)for(let i=0;i<40;i++){
+  const s=generateScene('interior-'+i,{scene:i%2?'closeup':'square',windows,facade:i%3?'grid':'terrace',groundFloor:'awning',accents:'plants'}),svg=renderSVG(s);
+  assert.doesNotMatch(svg,/data-plant="(?:sill|terrace)"/);
+  for(const m of svg.matchAll(/<g data-interior-window="(rect|arch)" data-window-bounds="([^"]+)">([\s\S]*?<g data-plant="inside">.*?)<\/g>/g)){
+   const [x,y,w,h]=m[2].split(',').map(Number),top=y+(m[1]==='arch'?w/2:0),body=m[3];
+   for(const c of body.matchAll(/<circle cx="([^"]+)" cy="([^"]+)" r="([^"]+)"/g)){const [cx,cy,r]=c.slice(1).map(Number);assert.ok(cx-r>=x-.02&&cx+r<=x+w+.02);assert.ok(cy-r>=top-.02&&cy+r<=y+h+.02);}
+   const points=body.match(/<polygon points="([^"]+)"/)[1].split(' ').map(p=>p.split(',').map(Number));
+   for(const [px,py]of points)assert.ok(px>=x&&px<=x+w&&py>=top&&py<=y+h-0.95);
+   const plantEnd=svg.indexOf('</g>',m.index+svg.slice(m.index).indexOf('data-plant="inside"'));
+   if(i%3){const after=svg.slice(plantEnd+4,svg.indexOf('</g>',plantEnd+4));assert.match(after,/^<rect /,'grid bars are drawn in front of indoor plant');}checked++;
+  }
+ }
+ assert.ok(checked>200);
+});
+test('every cast shadow begins on a roof eave or actual awning underside',()=>{
+ const sources=new Set();
+ for(let i=0;i<100;i++){
+  const s=generateScene('shadow-source-'+i,{scene:'closeup',accents:'shade',groundFloor:'awning'});
+  for(const b of s.blocks[0].buildings)if(b.shade){const q=b.shade;sources.add(q.source);const top=q.source==='eave'?b.y+Math.max(3,b.width*.015):b.base-b.groundFloor.height+Math.min(20,b.width*.065)+4;assert.ok(Math.abs(q.points[0][1]-top)<.03);assert.ok(Math.abs(q.points[1][1]-top)<.03);assert.ok(q.points[2][1]-top<=14.03);}
+  assert.deepEqual(validateScene(s).errors,[]);
+ }
+ assert.deepEqual([...sources].sort(),['awning','eave']);
+ const s=generateScene('disconnected-shadow',{scene:'closeup',accents:'shade'}),b=s.blocks[0].buildings.find(b=>b.shade);b.shade.points[0][1]+=8;assert.ok(validateScene(s).errors.some(e=>e.startsWith('shadow-source:')));
 });
