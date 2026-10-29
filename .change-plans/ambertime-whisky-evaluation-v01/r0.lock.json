@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "248c53aef946bec0588295a4b70d00fa42c66a9b8b034e75a8d9ba84e0fa8304",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-whisky-evaluation-v01",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "独立した一本の評価Lab：8風味軸・客の分布・熟成価値3式と反応の同条件比較",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8bd15572e10b4dc51fca2c1c3cc025668719caab",
+    "canonicalSources": [
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/experiments/reputation/v03/model.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-whisky-evaluation-v01/r0.lock.json",
+      "works/ambertime/experiments/whisky-evaluation/v01/**",
+      "works/ambertime-whisky-evaluation-lab/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/experiments/hand-and-place/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "現行風味モデルをread-only importし独立した一本の評価モデル、客層分布、年数3式を実装",
+      "実熟成と年数固定風味比較、味・店の一変数比較、再試行と初期化、JSON/CSV出力",
+      "固定seed検証・日本語レポート・既存generatorによるLAB接続・通常PR/CI/Staging公開"
+    ],
+    "ownerDecisions": [
+      "2026-10-29ユーザー依頼：評価Lab0.1の設計比較・実装・検証・PR・マージ・Staging公開。本編採用とProductionは含まない"
+    ],
+    "hqDecisions": [
+      "新規の独立評価モジュールのみ。既存8軸風味モデルはread-only。計算は味相性・相性依存熟成価値・印象に分離。保存は持たず本編storageに触れない。"
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "evaluation-model-tests",
+      "evaluation-matrix",
+      "lifecycle-lab-check"
+    ],
+    "manualChecks": [
+      "360/375/390幅の操作・比較条件固定・ログ出力・再試行・初期化",
+      "Staging公開URLと配信内容"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "追加Lab/launcher/registry/generated LAB/lockを同じ変更単位でrevert",
+    "outOfScope": [
+      "本編コードと保存形式と経済",
+      "評判蓄積・地域伝播・店解放・世代交代",
+      "Production",
+      "既存Lab編集"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者の次の一本を試したくなる感触",
+      "実機iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "年数の無条件加点",
+      "店ごと一つの正解味",
+      "ランダム反応文",
+      "実熟成と年数効果の混同"
+    ],
+    "boundaryCases": [
+      "味不一致の20年・相性一致の1年",
+      "同一seed同一客、比較順序独立",
+      "風味固定の年数・モデル変更、同年同店の味比較"
+    ],
+    "testPlan": [
+      "固定seedモデル・分布・反応理由・比較不変量テスト",
+      "全4味×6年×3店×3式×2熟成モード＋追加seed検証",
+      "phone表示と操作・出力・再現・必須CI"
+    ],
+    "problem": "長熟の価値と支持の幅を独立して観察したい",
+    "currentContract": "本編現行モデル・保存・経済を変更しない",
+    "whyExistingIsInsufficient": "既存店や口コミLabは一本の評価の客層分布・年数価値の比較を分離していない",
+    "design": "共通seedから客個人を生成し8軸相性、年数への関心、強い味への許容を計算。年数価値は相性でgate。支持幅・強い支持・印象を別表示。",
+    "migration": "なし。統合しない",
+    "compatibility": "現行風味モデルの純粋関数をimportするのみ。既存保存のread/writeなし",
+    "promotionRisk": "Stagingのみ。作者の採用と実機判断は未確認"
+  }
+}
