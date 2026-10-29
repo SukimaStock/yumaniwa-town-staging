@@ -506,6 +506,13 @@
       "status": "active",
       "title": "AmberTime 評価 Lab 0.2",
       "theme": "限られた瓶を届け、販売と評価から次の一本を試す。"
+    },
+    {
+      "id": "ambertime-whisky-evaluation-lab-v03",
+      "path": "works/ambertime-whisky-evaluation-lab-v03",
+      "status": "active",
+      "title": "AmberTime 評判 Lab 0.3",
+      "theme": "店の記憶と期待が、次の一本への反応にどう残るかを試す。"
     }
   ]
 }
