@@ -1,0 +1,81 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "21807998974f643055f6fb93553182df7cb34d7e17e74c32669864e41a404015",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-ground-floor",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "69537beeb201447cad24e49c96da0fde5bdcd8a1",
+    "change": "Stage2: continuous ground-floor arcades and shop awnings with deterministic composition and comparison samples",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-ground-floor/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add independent groundFloor auto/plain/arcade/awning setting and model grammar for eligible near buildings",
+      "Reserve ground-floor area to prevent arches/awnings overlapping upper windows, preserve walls/roofs/palette and stage1 detail streams",
+      "Render simple arches and solid/striped awnings, retain old saved comparisons and0.1 exact replay",
+      "Generate36 varied seed comparisons, mobile/export/replay regression, PR CI merge and Staging validation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review36seeds and forced combinations with grids and terraces",
+      "Cloud browser selectors, replay, comparison and SVG/PNG export;360/375/390px layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User requests next stage after stage1; staged postcard pattern introduction and Staging scope remain authorized"
+    ],
+    "rulesApplied": [
+      "Keep rejected round windows, shutters and stepped roofs excluded",
+      "Preserve simple operation; details adapt to building scale; no decorative copy"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works",
+      "Legacy0.1 sources",
+      "New scene types",
+      "Plants and shadows reserved for later stages"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
