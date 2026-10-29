@@ -1534,6 +1534,56 @@
       "id": "corner-street-signpost",
       "file": "objects/corner-street-signpost.json",
       "number": 310
+    },
+    {
+      "id": "courtyard-rain-barrel",
+      "file": "objects/courtyard-rain-barrel.json",
+      "number": 311
+    },
+    {
+      "id": "canal-lifebuoy-stand",
+      "file": "objects/canal-lifebuoy-stand.json",
+      "number": 312
+    },
+    {
+      "id": "street-drainpipe",
+      "file": "objects/street-drainpipe.json",
+      "number": 313
+    },
+    {
+      "id": "garden-compost-bin",
+      "file": "objects/garden-compost-bin.json",
+      "number": 314
+    },
+    {
+      "id": "park-seed-feeder",
+      "file": "objects/park-seed-feeder.json",
+      "number": 315
+    },
+    {
+      "id": "pavement-hopscotch",
+      "file": "objects/pavement-hopscotch.json",
+      "number": 316
+    },
+    {
+      "id": "roadside-traffic-mirror",
+      "file": "objects/roadside-traffic-mirror.json",
+      "number": 317
+    },
+    {
+      "id": "garden-hose-reel",
+      "file": "objects/garden-hose-reel.json",
+      "number": 318
+    },
+    {
+      "id": "stair-iron-handrail",
+      "file": "objects/stair-iron-handrail.json",
+      "number": 319
+    },
+    {
+      "id": "park-rope-swing",
+      "file": "objects/park-rope-swing.json",
+      "number": 320
     }
   ]
 }
