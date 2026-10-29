@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6232979bb5d514b24acbceb5ff29e04c9ca316702f4d39637c40a507d63249fb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-patterns-02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "6f7b63ff24c6bb339da3c4888de5070ef902e35f",
+    "change": "Expand Postcard Generator Lab 0.2 with closeup, street, square and hillside scenes, roof/window/color grammars and backward seed replay",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "User approved 4 scene expansion and roof/window/color pattern implementation"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-patterns-02/r0.lock.json",
+      "works/postcard-generator/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add four distinct scene grammars, retain waterfront, expand roofs/windows/palettes and color relations",
+      "Preserve immutable v0.1 engine/renderer for old versioned seeds; new default v0.2 is deterministic with responsibility-separated random streams",
+      "Keep primary generator simple: scene and palette, optional secondary settings; reproduce all settings in URL and SVG/JSON, exports and bounded36 gallery",
+      "Inspect at least40 seeded scenes including all modes and stress cases; shared-rule fixes without seed exceptions; independent review",
+      "Update existing lifecycle title/garage entry to Lab0.2 and regenerate LAB using existing contracts"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect multi-scene contact sheet and failures; compare with v0.1 family",
+      "Browser generate/replay/scene/palette/gallery/version0.1/exports at360375390 CSS viewports; Safari hardware unverified",
+      "Garage entry/back links and expression audit"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User liked Lab0.1, requested broader patterns and explicitly approved implementation after four-scene proposal. Staging scope persists; aesthetic adoption remains author decision."
+    ],
+    "hqDecisions": [
+      "Existing standalone work and LAB registry contracts suffice. Backward v0.1 replay is work-local dispatch, not a shared storage/runtime/launch change. Full floor covers existing JSON registries and generated LAB only."
+    ],
+    "rulesApplied": [
+      "No external imagery, imageAI, dependency or permanent animation",
+      "Reuse shape vocabulary; scene grammar controls density, negative space, ground and crop",
+      "Keep old visual review assets as versioned evidence, add0.2 review separately",
+      "No unnecessary prose or decorative UI; accessible labels and state only"
+    ],
+    "problem": "Waterfront-only series needs genuinely distinct framing, ground, building density and reusable roof/window/color variations",
+    "currentContract": "Buildless HTML CSS ES modules, plain scene data->SVG, URL seed/settings/version, SVG/PNG/JSON exports and garage entry",
+    "whyExistingIsInsufficient": "Existing skyline variation does not produce closeup/street/plaza/hillside; extend local grammar only",
+    "design": "Scene mode chooses envelope and ground before building generation; roof/window/color streams independently decorate data; scene-aware validators and controlled closeup crop",
+    "alternativesRejected": [
+      "Unconstrained scatter of extra assets",
+      "Changing only palette",
+      "Breaking old versioned seed URLs",
+      "Complex editing application"
+    ],
+    "migration": "No stored state migration; old URL v0.1 routes to preserved engine",
+    "compatibility": "Existing waterfront defaults remain available; explicit old versions replay exactly; old comparison SVGs retained",
+    "boundaryCases": [
+      "All5scene modes and densities",
+      "Intentional closeup cropping vs invalid accidental clipping",
+      "Sparse scenes with no tower/boats",
+      "Shape/colors overrides leave layout invariant",
+      "Long seed/invalid settings/history/PNG during scene change/gallery restore"
+    ],
+    "testPlan": [
+      "Preserved0.1 baseline byte equality and legacy regressions",
+      "New reproducibility/geometry independence/mode structural tests over many seeds",
+      "40+ visually inspected renders all modes and XML parse",
+      "Browser action/export/mobile dimensions and lifecycle regressions",
+      "Scope Risk Impact and mandatory CI before safe merge"
+    ],
+    "promotionRisk": "Staging only, no Production permission",
+    "rollback": "Revert0.2 runtime/UI, registry title and generatedLAB; preserved0.1 outputs remain recoverable",
+    "promotion": "none; staging only",
+    "outOfScope": [
+      "Production",
+      "Shared runtime/contracts",
+      "Other works",
+      "Realcity/3D/imageAI/animation"
+    ],
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author aesthetic adoption"
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {generateScene,validateScene,normalizeSettings,PALETTES,COMPOSITIONS} from './engine.mjs';
-import {renderSVG} from './renderer.mjs';
+import {generateScene,validateScene,normalizeSettings,PALETTES,COMPOSITIONS} from './versions/0.1/engine.mjs';
+import {renderSVG} from './versions/0.1/renderer.mjs';
 
 test('identical seeds and normalized settings reproduce plain scene data and SVG',()=>{
   const a=generateScene('a shared harbor',{palette:'garden',density:'dense'});
