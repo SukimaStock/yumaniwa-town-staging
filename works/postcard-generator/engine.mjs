@@ -141,14 +141,18 @@ function accents(s,settings){
  const rank=stream=>[...candidates].sort((a,b)=>randomStream(s.seed,stream+a.id)()-randomStream(s.seed,stream+b.id)());
  if(leafy)for(const b of rank('plant-rank-').slice(0,3)){
   const r=randomStream(s.seed,'plant-anchor-'+b.id),row=b.terrace?b.rows-2:Math.floor(r()*(b.rows-1));
-  b.plants=[{row,col:Math.floor(r()*b.cols),size:n(Math.min(5,b.width*.018)),placement:b.terrace?'terrace':'sill',leaf,pot:s.palette.accent,stem:s.palette.ink}];
+  b.plants=[{row,col:Math.floor(r()*b.cols),size:n(Math.min(5,b.width*.018)),placement:'inside',leaf,pot:s.palette.accent,stem:s.palette.ink}];
  }
  if(shady)for(const b of rank('shade-rank-').slice(0,3)){
-  const r=randomStream(s.seed,'shade-shape-'+b.id),width=b.width*(.24+r()*.12),top=b.y+b.height*(.17+r()*.12),slope=b.height*.16;
-  const edge=s.lightDirection===1?b.x:b.x+b.width,inside=edge+s.lightDirection*width;
-  b.shade={direction:s.lightDirection,points:[[edge,n(top)],[n(inside),n(top+slope)],[n(inside),b.base],[edge,b.base]],color:s.palette.ink,opacity:.14};
+  const r=randomStream(s.seed,'shade-shape-'+b.id),source=b.groundFloor?.kind==='awning'&&r()<.55?'awning':'eave';
+  const edge=shadowEdge(b,source),depth=n(Math.min(source==='awning'?10:14,Math.max(5,b.width*.04)));
+  b.shade={source,direction:s.lightDirection,points:[[n(edge.left),n(edge.top)],[n(edge.right),n(edge.top)],[n(edge.right-(s.lightDirection===1?depth:0)),n(edge.top+depth)],[n(edge.left+(s.lightDirection===-1?depth:0)),n(edge.top+depth)]],color:s.palette.ink,opacity:.14};
  }
  return s;
+}
+function shadowEdge(b,source){
+ if(source==='awning')return {left:b.x+b.width*.1,right:b.x+b.width*.9,top:b.base-b.groundFloor.height+Math.min(20,b.width*.065)+4};
+ return {left:b.x,right:b.x+b.width,top:b.y+Math.max(3,b.width*.015)};
 }
 export function validateScene(scene){
  if(scene.version==='0.1')return legacy.validateScene(scene);
@@ -159,8 +163,13 @@ export function validateScene(scene){
    if(b.width<=0||b.height<=0||b.cols<1||b.cols>5||b.rows<1||b.rows>5)errors.push(`dimensions:${b.id}`);
    if(b.y-b.roofHeight<30||b.base>930||(!scene.crop&&(b.x<0||b.x+b.width>800.03)))errors.push(`bounds:${b.id}`);
    if(Math.abs(b.y+b.height-b.base)>.03)errors.push(`unsupported:${b.id}`);
-   if(b.plants)for(const p of b.plants)if(!Number.isInteger(p.row)||!Number.isInteger(p.col)||p.row<0||p.row>=b.rows-1||p.col<0||p.col>=b.cols||p.size<=0||p.size>5||!['sill','terrace'].includes(p.placement)||p.placement==='terrace'&&(!b.terrace||p.row!==b.rows-2))errors.push(`plant-anchor:${b.id}`);
+   if(b.plants)for(const p of b.plants)if(!Number.isInteger(p.row)||!Number.isInteger(p.col)||p.row<0||p.row>=b.rows-1||p.col<0||p.col>=b.cols||p.size<=0||p.size>5||p.placement!=='inside')errors.push(`plant-anchor:${b.id}`);
    if(b.shade&&(![-1,1].includes(b.shade.direction)||b.shade.direction!==scene.lightDirection||b.shade.points.some(([x,y])=>x<b.x-.01||x>b.x+b.width+.01||y<b.y||y>b.base)||b.shade.opacity<=0||b.shade.opacity>.2))errors.push(`wall-shadow:${b.id}`);
+   if(b.shade){
+    const q=b.shade;
+    if(!['eave','awning'].includes(q.source)||q.source==='awning'&&b.groundFloor?.kind!=='awning'||q.points.length!==4)errors.push(`shadow-source:${b.id}`);
+    else {const edge=shadowEdge(b,q.source),[a,c,d,e]=q.points;if(Math.abs(a[0]-edge.left)>.03||Math.abs(c[0]-edge.right)>.03||Math.abs(a[1]-edge.top)>.03||Math.abs(c[1]-edge.top)>.03||d[1]<=edge.top||d[1]>edge.top+14.03||Math.abs(d[1]-e[1])>.03)errors.push(`shadow-source:${b.id}`);}
+   }
    if(b.groundFloor){const g=b.groundFloor;if(!['arcade','awning'].includes(g.kind)||g.height<=0||g.height>b.height*.5||g.count<2||g.count>5||b.width<110||b.height<180)errors.push(`ground-floor:${b.id}`);}
    if(!ROOFS.includes(b.roof)||!WINDOWS.includes(b.windowShape))errors.push(`style:${b.id}`);
  }

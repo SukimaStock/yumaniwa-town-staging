@@ -13,29 +13,31 @@ function roof(b){const{x,y,width:w,roofHeight:h,roofColor:c}=b;
  if(b.roof==='round')return `<path d="M${n(x)} ${n(y)}Q${n(x+w*.5)} ${n(y-h*2)} ${n(x+w)} ${n(y)}Z" fill="${c}"/>`;
  return poly([[x,y],[x+w*.5,y-h],[x+w,y]],c);
 }
-function windowSVG(shape,x,y,w,h,b){
- if(shape==='paired')return windowSVG('rect',x-w*.11,y,w*.48,h,b)+windowSVG('rect',x+w*.63,y,w*.48,h,b);
+function windowSVG(shape,x,y,w,h,b,plant=null){
+ if(shape==='paired')return windowSVG('rect',x-w*.11,y,w*.48,h,b)+windowSVG('rect',x+w*.63,y,w*.48,h,b,plant);
  let out=shape==='arch'?arch(x,y,w,h,b.windowColor):rect(x,y,w,h,b.windowColor);
+ if(plant){
+  // Fit the whole pot and foliage into the straight portion of this pane.
+  const size=Math.min(plant.size,w*.27,(h-(shape==='arch'?w/2:0)-2)/4.1);
+  out+=plantSVG({...plant,size},x+w*.5,y+h-1);
+ }
  if(b.windowGrid){
   const top=shape==='arch'?y+w/2:y,span=y+h-top;
   out+=rect(x+w*.46,top,w*.08,span,b.trim);
   for(let i=1;i<b.windowGrid;i++)out+=rect(x,top+span*i/b.windowGrid-h*.025,w,h*.05,b.trim);
  }
- return out;
+ return plant?`<g data-interior-window="${shape}" data-window-bounds="${[x,y,w,h].map(n).join(',')}">${out}</g>`:out;
 }
+function shadowSVG(b){return '<g data-wall-shadow="'+b.shade.direction+'" data-shadow-source="'+b.shade.source+'">'+poly(b.shade.points,b.shade.color,b.shade.opacity)+'</g>';}
 function buildingSVG(b){const{x,y,width:w,height:h}=b;
  let out=rect(x,y,w,h,b.wall)+roof(b)+rect(x,y,w,Math.max(3,w*.015),b.trim);
  if(b.band)out+=rect(x,b.base-h*.26,w,h*.26,b.bandColor);
- if(b.shade)out+='<g data-wall-shadow="'+b.shade.direction+'">'+poly(b.shade.points,b.shade.color,b.shade.opacity)+'</g>';
- let plants='';
+ if(b.shade?.source==='eave')out+=shadowSVG(b);
  const margin=w*.18,gap=(w-margin*2)/b.cols,ww=Math.min(w>180?33:19,gap*.47),wh=Math.min(w>180?56:29,h/(b.rows+1)*.5),offset=Math.max(16,h*.13),top=y+offset,doorHeight=b.groundFloor?.height??Math.min(78,h*.22),rowGap=(h-offset-doorHeight-18-wh)/Math.max(1,b.rows-1);
  for(let r=0;r<b.rows;r++)for(let c=0;c<b.cols;c++){
    const wx=x+margin+gap*(c+.5)-ww/2,wy=top+r*rowGap;
-   out+=windowSVG(b.windowShape,wx,wy,ww,wh,b);
-   for(const p of b.plants||[])if(p.row===r&&p.col===c){
-    const base=wy+wh+(p.placement==='terrace'?5:3);
-    plants+=plantSVG(p,wx+ww*.7,base,b.trim,p.placement==='sill'&&!(b.balcony&&r===b.rows-2));
-   }
+   const plant=(b.plants||[]).find(p=>p.row===r&&p.col===c);
+   out+=windowSVG(b.windowShape,wx,wy,ww,wh,b,plant);
    if(b.balcony&&r===b.rows-2)out+=rect(wx-ww*.3,wy+wh+3,ww*1.6,3,b.windowColor)+path(`M${n(wx-ww*.25)} ${n(wy+wh-7)}v10m${n(ww*1.5)} -10v10`,b.windowColor,2);
  }
  if(b.terrace){
@@ -45,11 +47,12 @@ function buildingSVG(b){const{x,y,width:w,height:h}=b;
  }
  if(b.groundFloor){out+=groundFloorSVG(b);}
  else if(b.door!==false){const dw=Math.min(39,w*.18),dh=Math.min(78,h*.22);out+=arch(x+w*.5-dw/2,b.base-dh,dw,dh,b.windowColor);}
- return `<g data-building="${esc(b.id)}">${out+plants}</g>`;
+ if(b.shade?.source==='awning')out+=shadowSVG(b);
+ return `<g data-building="${esc(b.id)}">${out}</g>`;
 }
-function plantSVG(p,x,y,trim,sill){
+function plantSVG(p,x,y){
  const u=p.size;
- return `<g data-plant="${p.placement}">`+(sill?rect(x-u*1.4,y,u*2.8,2,trim):'')+path(`M${n(x)} ${n(y-u*1.2)}V${n(y-u*3)}`,p.stem,n(u*.3))+circle(x,y-u*3,u*1.1,p.leaf)+circle(x-u*.8,y-u*2.5,u*.8,p.leaf)+circle(x+u*.8,y-u*2.5,u*.8,p.leaf)+poly([[x-u,y-u*1.3],[x+u,y-u*1.3],[x+u*.7,y],[x-u*.7,y]],p.pot)+'</g>';
+ return `<g data-plant="inside">`+path(`M${n(x)} ${n(y-u*1.2)}V${n(y-u*3)}`,p.stem,n(u*.3))+circle(x,y-u*3,u*1.1,p.leaf)+circle(x-u*.8,y-u*2.5,u*.8,p.leaf)+circle(x+u*.8,y-u*2.5,u*.8,p.leaf)+poly([[x-u,y-u*1.3],[x+u,y-u*1.3],[x+u*.7,y],[x-u*.7,y]],p.pot)+'</g>';
 }
 function groundFloorSVG(b){
  const g=b.groundFloor,{x,width:w,base}=b,left=x+w*.1,span=w*.8;
