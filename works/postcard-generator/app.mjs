@@ -1,8 +1,8 @@
-import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.3';
-import {renderSVG} from './renderer.mjs?v=0.2.3';
+import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.4';
+import {renderSVG} from './renderer.mjs?v=0.2.4';
 import {downloadBlob,svgBlob,pngBlob} from './exporter.mjs';
 const $ = id => document.getElementById(id);
-const keys=['scene','palette','density','composition','roofs','windows','colorMode','facade','sky','groundFloor','version'];
+const keys=['scene','palette','density','composition','roofs','windows','colorMode','facade','sky','groundFloor','accents','version'];
 const sceneNames=Object.fromEntries(SCENES.map(s=>[s.id,s.name]));
 const addOptions=(id,values)=>{for(const item of values){const o=document.createElement('option');o.value=item.id;o.textContent=item.name;$(id).append(o);}};
 addOptions('scene',SCENES);addOptions('palette',PALETTES);
@@ -15,6 +15,7 @@ function readURL() {
   const values=Object.fromEntries(keys.map(key=>[key,query.get(key)||'auto']));
   // Previously shared seed URLs predate ground-floor grammar.
   if(query.has('seed')&&!query.has('groundFloor'))values.groundFloor='plain';
+  if(query.has('seed')&&!query.has('accents'))values.accents='plain';
   values.version=query.get('v')==='0.1'?'0.1':VERSION;
   const config=normalizeSettings(values);
   for(const key of keys) $(key).value=config[key] ?? (key==='version'?values.version:'auto');
@@ -28,7 +29,7 @@ function urlFor(seed,config){
 function reflect(config){
   for(const key of keys) $(key).value=config[key] ?? (key==='version'?VERSION:'auto');
   const legacy=config.version==='0.1';
-  for(const key of ['scene','roofs','windows','colorMode','facade','sky','groundFloor']) $(key).disabled=legacy;
+  for(const key of ['scene','roofs','windows','colorMode','facade','sky','groundFloor','accents']) $(key).disabled=legacy;
   $('composition').disabled=!legacy&&current.mode!=='waterfront';
   for(const option of $('palette').options) option.disabled=legacy&&!['auto','harbor','apricot','garden'].includes(option.value);
 }
