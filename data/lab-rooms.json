@@ -184,6 +184,10 @@
           "stored": true,
           "entryOptional": true,
           "note": "時間を早送りする小さな時計。"
+        },
+        {
+          "work": "ambertime-whisky-evaluation-lab",
+          "note": "一本の味・熟成年数・届ける店と、客の反応を比べる。"
         }
       ]
     },

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>AmberTime 評価 Lab 0.1</title><meta name="description" content="一本の味、熟成年数、届ける店による評価を比べる独立Lab。"><link rel="stylesheet" href="style.css"></head>
+<body><main>
+<header><a href="../../../../../lab/">LABへ</a><h1>評価 Lab <small>0.1</small></h1></header>
+<section aria-label="届ける一本"><div class="bottle-line"><div id="bottle-art"></div><div><h2 id="bottle-title"></h2><p id="features"></p><small id="flavor-source"></small></div></div>
+<fieldset><legend>一本を選ぶ</legend><div id="samples" class="choices four"></div></fieldset>
+<fieldset><legend>熟成年数</legend><div id="ages" class="choices six"></div></fieldset>
+<fieldset><legend>届ける店</legend><div id="shops" class="choices three"></div></fieldset>
+<button id="deliver" class="primary">この一本を届ける</button></section>
+<section id="result" aria-label="届いた反応" hidden></section>
+<section aria-label="比較"><h2>条件をひとつ変えて比べる</h2>
+<label class="line">比べるもの<select id="dimension"><option value="years">熟成年数</option><option value="sample">味</option><option value="shop">店</option><option value="model">熟成価値の3モデル</option></select></label>
+<label class="line">熟成の扱い<select id="aging"><option value="actual">実熟成（味も変わる）</option><option value="fixed">年数だけ（味は固定）</option></select></label>
+<p class="caption" id="fixed-note"></p>
+<button id="compare">この条件で比較する</button>
+<div id="comparison" aria-live="polite"></div></section>
+<details id="settings"><summary>モデル・シード・詳細値・ログ</summary>
+<label class="line">熟成価値<select id="model"><option value="A">A 直線型</option><option value="B" selected>B 逓減型</option><option value="C">C 段階型</option></select></label>
+<label class="line">固定する風味の年数<select id="reference"></select></label>
+<label class="line">シード<input id="seed" type="number" min="1" max="4294967295" step="1" value="20261029"></label>
+<p>各店120人。同じシードでは同じ客が比べます。支持は販売本数ではありません。価格・販売・評判の蓄積は今回の計算に含みません。</p>
+<div id="diagnostics"></div><div class="actions"><button id="json">JSONを書き出す</button><button id="csv">CSVを書き出す</button></div>
+<label class="file">JSONから再現<input id="import" type="file" accept=".json,application/json"></label>
+<p><a href="REPORT.md">設計・検証レポート</a> · <a href="results.json">固定シードの比較データ</a></p></details>
+<div class="actions"><button id="again">もう一度</button><button id="reset">初期状態に戻す</button></div>
+<p id="status" role="status"></p><footer>AmberTime本編へは接続していません。</footer>
+</main><script type="module" src="app.mjs"></script></body></html>
