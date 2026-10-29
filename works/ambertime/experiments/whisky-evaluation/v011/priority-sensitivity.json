@@ -1,0 +1,83 @@
+[
+  {
+    "id": "retain",
+    "other": 1,
+    "guard": 0,
+    "wins": {
+      "support": [
+        16,
+        318,
+        0,
+        223
+      ],
+      "strong": [
+        83,
+        73,
+        11,
+        398
+      ],
+      "both": [
+        14,
+        73,
+        0,
+        223
+      ]
+    },
+    "lowStrong": 1727,
+    "missToSupport": 0
+  },
+  {
+    "id": "moderate",
+    "other": 0.7,
+    "guard": 0,
+    "wins": {
+      "support": [
+        22,
+        352,
+        2,
+        192
+      ],
+      "strong": [
+        83,
+        95,
+        15,
+        370
+      ],
+      "both": [
+        10,
+        95,
+        0,
+        192
+      ]
+    },
+    "lowStrong": 2290,
+    "missToSupport": 8
+  },
+  {
+    "id": "protected",
+    "other": 0.35,
+    "guard": 0.2,
+    "wins": {
+      "support": [
+        83,
+        204,
+        26,
+        246
+      ],
+      "strong": [
+        97,
+        61,
+        22,
+        379
+      ],
+      "both": [
+        42,
+        58,
+        14,
+        246
+      ]
+    },
+    "lowStrong": 910,
+    "missToSupport": 0
+  }
+]
