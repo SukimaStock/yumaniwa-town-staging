@@ -238,4 +238,4 @@ node works/ambertime/experiments/whisky-evaluation/v03/run.mjs
 
 ## 公開用baseの更新
 
-計算基準6f7b63ff以降に、Postcard Generator 0.2がPR #679でmainへ反映された。公開用baseは4779498615069f34bebf22ec8e113e04da2c0dd4。差分にはAmberTimeの依存コード・運用規則の変更がなく、計算を変更せず既存の検証証拠を維持した。最新の台帳を取り込み、v03だけを加えてLABを再生成した。fresh Plan Lockを新しいブランチの最初のcommitへ固定し、並行作品の変更を保持する。
+計算基準6f7b63ff以降に、Postcard Generator 0.2がPR #679でmainへ反映された。台帳の更新基準は4779498615069f34bebf22ec8e113e04da2c0dd4。その後のPR #680もPostcard固有の修正だけだったため、最終公開用baseをc9710f58460d88807a1f1da5ab00a3a88dbbd8c7とした。差分にはAmberTimeの依存コード・運用規則の変更がなく、計算を変更せず既存の検証証拠を維持した。最新の台帳を取り込み、v03だけを加えてLABを再生成した。fresh Plan Lockを新しいブランチの最初のcommitへ固定し、並行作品の変更を保持する。
