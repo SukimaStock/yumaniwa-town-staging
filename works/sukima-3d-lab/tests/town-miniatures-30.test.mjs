@@ -19,7 +19,7 @@ test('Collection 30: all 310 prior registrations remain, prior ten object bytes 
     const id=oldIds[i],entry=manifest.items[i+300];
     assert.deepEqual(entry,{id,file:'objects/'+id+'.json',number:301+i});
     const raw=readFileSync(new URL(entry.file,root));
-    const blob=createHash('sha1').update(Buffer.from('blob '+raw.length+'\\0')).update(raw).digest('hex');
+    const blob=createHash('sha1').update(Buffer.from('blob '+raw.length+'\0')).update(raw).digest('hex');
     assert.equal(blob,oldBlobs[i],id+' must not change');
   }
   const nums=manifest.items.map((e,i)=>e.number??i);
