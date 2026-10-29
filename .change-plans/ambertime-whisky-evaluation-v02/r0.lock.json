@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "30cdbac58c9cd782b39fea7eaa25af1bf93883a04c6c0cd57b699d1cdecb3808",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-whisky-evaluation-v02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "独立評価Lab0.2で有限在庫の配分・販売・購入後評価・次の製法の循環を検証する",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "82d93017725760e9f4c441386de6ea3f267bbb80",
+    "canonicalSources": [
+      "works/ambertime/experiments/whisky-evaluation/v011/model.mjs",
+      "works/ambertime/experiments/whisky-evaluation/v011/REPORT.md",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/experiments/market-design/v01/model.mjs",
+      "works/ambertime-flavor-lab-v02/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-whisky-evaluation-v02/r0.lock.json",
+      "works/ambertime/experiments/whisky-evaluation/v02/**",
+      "works/ambertime-whisky-evaluation-lab-v02/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/experiments/hand-and-place/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/whisky-evaluation/v01/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime-whisky-evaluation-lab/**",
+      "works/ambertime/experiments/whisky-evaluation/v011/**"
+    ],
+    "expectedChanges": [
+      "現行販売と風味・改善評価をread-only再利用。独立Labの手元・仮置き・店頭・販売済み・回収済みの数量、月単位販売と売上、実売瓶の購入者評価を接続",
+      "瓶5本から3店へ仮置き・取消・確定、1/複数月進行、回収再配置、結果履歴を見ながら次の製法/年数/価格/販売先を試すスマートフォン画面",
+      "100以上固定seedの味・年数・店・価格比較、自動テスト・JSON再現/CSV・日本語REPORT・LAB接続・PR/CI/マージ/Staging操作確認"
+    ],
+    "ownerDecisions": [
+      "2026-10-29ユーザー依頼「評価Lab0.2 販売から次の一本へ」：独立Labの実装・計算修正再検証・通常PR/CI/マージ/Staging公開を許可。本編とProductionは変更しない。試遊A/B/Cは作者が判断する。"
+    ],
+    "hqDecisions": [
+      "評価v011と販売の純粋関数を再利用し、本編保存は読書きしない。支持率を販売確率へ変換しない。購入者選択・3店変換・小規模試遊に必要な仮説を明示し、原価/熟成待ちの経営全体や長期評判は対象外。"
+    ],
+    "rulesApplied": [
+      "AGENTS/Change OS/実装前Plan Lock/Scope→Risk→Impact/既存LAB generator",
+      "表現監査：操作と結果の具体情報だけ表示し、次作の正解・クエスト・意欲の成立を断言しない",
+      "登録済みtrusted static node-syntax、作品固有の動作/保存則/再現性/表示は関連回帰として検証",
+      "root AGENTSの分担指示に従い既存販売調査と独立モデルレビューを委任。共有path統合はメインが担当。Sites skillは内部previewに使用し公開は既存GitHub Pages手順。"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390幅（通常360x568/375x620/390x680も確認）で配置・取消・確定・時間・回収・次の一本・JSON保存再現",
+      "Staging公開と公開後の基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "v02/launcher/台帳/生成LAB/lockを通常revert。旧Labと本編は無変更",
+    "outOfScope": [
+      "本編と旧Lab変更",
+      "本編保存・経済バランスの変更",
+      "Production",
+      "地域拡大・全国口コミ・地図解放・長期評判・世代交代",
+      "面白さや次作意欲の数値による成立判定"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者の試遊A店を選ぶ意味/B次の一本への動機/C作業感",
+      "実機iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "支持率を販売確率へ直結",
+      "置いただけの瓶に評価発生",
+      "無限自動在庫と回収による複製",
+      "店ごと固定の正解味",
+      "常時分析ダッシュボード"
+    ],
+    "boundaryCases": [
+      "未販売・全部売却・高価格の売れ残り・回収再配分・複数商品",
+      "保存失敗・壊れたログ・同seed同操作・複数月と1月反復",
+      "短熟/長熟と個性・100seed・極端条件・負の評価と支持の区別"
+    ],
+    "testPlan": [
+      "有限在庫保存則/売上/評価人数/未販売ゼロ評価/取消回収再配置/JSON完全再現を自動検証",
+      "100seed以上の複数味・年数・店舗・価格で平均/分布/端条件/集中/短長熟/副作用を分析、問題を原因特定し修正再検証",
+      "関連UI・360/375/390・必須CI・LAB生成・公開URL/公開後基本操作"
+    ],
+    "problem": "計算評価Labだけでは販売結果が次の一本を試す動機につながるかを操作で確かめられない",
+    "currentContract": "既存8風味生成・v011評価・販売純粋関数を保持。旧Lab/本編/保存/経済は無変更",
+    "whyExistingIsInsufficient": "評価比較のみで有限瓶の配分・売上・実購入者の感想と次作選択が接続していない",
+    "design": "有限在庫の取引と月次販売に、実売瓶ごとの客の評価を接続。配分と回収は既存操作を利用し、前作の結果を残したまま次の味・年数を選ぶ。最小の販売接続仮説は独立関数と報告で識別。",
+    "migration": "なし。統合しない",
+    "compatibility": "本編/旧Labへのread-only importのみ。Lab専用schemaとJSON操作リプレイ。既存localStorageキー非使用",
+    "promotionRisk": "Stagingのみ。作者の採用と実機判断は未確認"
+  }
+}
