@@ -1,12 +1,12 @@
 {
   "independentSceneCases": 1500,
-  "independentStyleCases": 600,
+  "independentStyleCases": 510,
   "legacySavedSVGMatches": 36,
   "failures": [],
   "hashes": {
-    "engine.mjs": "65c6ca3d5152c20cb1c81d1d268468a30a1958f038cdee164d04ab0f2d7c9b83",
-    "renderer.mjs": "b26991e8fa9a081898214a1b36a7d09ee4cea5efea13bdee9e5879f1e1d7cd40",
-    "app.mjs": "a24606626ba49d7cfa31f71bd9bc4346e5f5ca3289cda9f3fde37772cc5fa98b",
+    "engine.mjs": "3c45e9ddcbb45ad81e8edab36f85388dc0eca20d1f9ec1d73a1cd617f02fef1e",
+    "renderer.mjs": "dba8b895b42ae74840f955bd5b83f5d47a719099a849dd10fe2f129daf3fd2f2",
+    "app.mjs": "60d3898bcfb9f6addba7ec3662d76f642cf9db3b930b2140c32618fcd333029e",
     "exporter.mjs": "4b7f7c27b2910fee8ba1cfcff5b2d40564672d45346983a4d7941221afd039ea"
   }
 }

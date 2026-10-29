@@ -1,0 +1,82 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fb29bc9081283eee81696d0ceb6b651f0cbe68f8261e4dfb5f0301a724e94d80",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-visual-cleanup",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "4779498615069f34bebf22ec8e113e04da2c0dd4",
+    "change": "Remove round and shutter windows and stepped roofs from current Postcard Generator, draw horizontal crosswalk stripes and refresh current comparison samples",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs",
+      "User feedback with IMG_6612/6613/6614 screenshots"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-visual-cleanup/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Exclude round windows/shutters/stepped roofs from current generation and selectors; normalize old explicit unsupported settings to rectangular windows/gable roof",
+      "Render crosswalk on same right-hand road region as horizontal bars stacked vertically",
+      "Regenerate current40scene and supportedstyle comparison SVGs/contact sheets, remove retired pattern samples and update current design/review counts",
+      "Preserve0.1 replay, scene layouts, existing role palettes, exports and no continuous rendering"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review screenshot-matched closeup005/street001/square007 and40scene sheet",
+      "Browser selectors/crosswalk at mobile CSS widths; existing export smoke as appropriate"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly requests no round windows, no side narrow window type(shutters visible in supplied closeup), no stepped roofs, horizontal crosswalk lines; Staging publication authorized in ongoing task"
+    ],
+    "rulesApplied": [
+      "Keep other window shapes including paired equal windows and roof types including round roofs",
+      "Use structural tests for excluded generation variants and crosswalk bar geometry; visual review for result",
+      "Do not alter shared infrastructure or introduce decorative copy"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works",
+      "Legacy0.1 implementation",
+      "New scene or palette additions"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}

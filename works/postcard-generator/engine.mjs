@@ -7,14 +7,14 @@ export const PALETTES=[...legacy.PALETTES,
  {id:'rose',name:'桃と赤茶',sky:'#eee0d4',water:'#6a8190',walls:['#e9b3a1','#b96158','#f6e7d3','#d49384','#c7c3af','#8c9994'],roofs:['#794d4b','#ac6357','#566b69'],ink:'#554f4d',light:'#fff0da',quay:'#d6bca2',terraces:['#b9afa0','#cdb39f','#d6bca2'],ripple:'#a5b9bd',accent:'#b55547'}].map(p=>({...p,tonal:({harbor:['#d4e8df','#afd1c9','#7ab0ad','#4a8a93'],apricot:['#f3d5be','#e8b99d','#d6957d','#b9766c'],garden:['#d9e2c8','#b8ccad','#97b191','#718e72'],clay:['#ecc4a0','#d7a57f','#bf8162','#a9654c'],blue:['#e5eef0','#bfd9e1','#8ab6cb','#5d91b1'],rose:['#f1dbcf','#dfbaaf','#cc9a91','#b87973']})[p.id]}));
 export const SCENES=[{id:'waterfront',name:'水辺'},{id:'closeup',name:'建物アップ'},{id:'street',name:'道路沿い'},{id:'square',name:'広場'},{id:'hillside',name:'坂道'}];
 export const COMPOSITIONS=legacy.COMPOSITIONS;
-export const ROOFS=['gable','hip','flat','shed','step','round'];
-export const WINDOWS=['rect','arch','round','paired','shutters'];
+export const ROOFS=['gable','hip','flat','shed','round'];
+export const WINDOWS=['rect','arch','paired'];
 export const randomStream=legacy.randomStream;
 const n=v=>Math.round(v*100)/100, clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pick=(r,a)=>a[Math.floor(r()*a.length)];
 const lum=h=>[1,3,5].reduce((s,i,j)=>s+parseInt(h.slice(i,i+2),16)*[.2126,.7152,.0722][j],0);
 export function normalizeSettings(s={}){
  if(s.version==='0.1'){const old=legacy.normalizeSettings(s);return {version:'0.1',scene:'waterfront',...old,roofs:'auto',windows:'auto',colorMode:'auto'};}
- return {version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:ROOFS.includes(s.roofs)?s.roofs:'auto',windows:WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
+ return {version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
 }
 function house(id,x,base,width,height,layer=0){
  width=n(width);height=n(height);base=n(base);
