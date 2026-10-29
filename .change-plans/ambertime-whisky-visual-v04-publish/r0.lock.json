@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f71ca0fa9d914b62c8a47b06f78ec8155e9c80718537ebc86292d13cbae8d058",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-whisky-visual-v04-publish",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "独立視覚Lab0.4で実在庫・過去の好評・現在の関係を本編描画素材で3案比較",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "15e7fd7844a64ff1b475acf5642ac97a59276d60",
+    "canonicalSources": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/experiments/whisky-evaluation/v03/model.mjs",
+      "works/ambertime/experiments/whisky-evaluation/v03/memory.mjs",
+      "works/ambertime/experiments/whisky-evaluation/v03/app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-whisky-visual-v04-publish/r0.lock.json",
+      "works/ambertime/experiments/whisky-evaluation/v04-visual/**",
+      "works/ambertime-whisky-visual-lab-v04/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/experiments/hand-and-place/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/whisky-evaluation/v01/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime-whisky-evaluation-lab/**",
+      "works/ambertime/experiments/whisky-evaluation/v011/**",
+      "works/ambertime/experiments/whisky-evaluation/v02/**",
+      "works/ambertime/experiments/whisky-evaluation/v03/**"
+    ],
+    "expectedChanges": [
+      "本編Canvas/SVG/DOM/CSSの役割を調査し既存瓶・棚・symbol・font・paletteを再利用。バーの棚中心/店内中心/瓶と記録中心3案を同一状態で比較してから3店舗へ展開",
+      "v03モデルを変更せずimportし実在庫と仮置きと好評記録を分離する純粋な情景投影。現在の期待と過去の固定記録を分離。支持ポイントによる豪華化は設けない",
+      "v03操作・直接反応・4経過・厳密JSON再現を維持。短いイベント反応/reduced-motion/非アクティブ時停止。固定seed多数履歴テスト・360/375/390表示負荷・日本語REPORT・LAB接続・PR/CI/merge/Staging公開確認"
+    ],
+    "ownerDecisions": [
+      "2026-10-29ユーザー依頼「視覚Lab0.4 店の記憶が景色に残る」：独立Lab実装・通常PR/必須CI/merge/Staging公開を許可。画像生成AI/外部画像不使用。本編・旧Lab・Production不変。3案の採用/遊び心地は作者判断。"
+    ],
+    "hqDecisions": [
+      "v03販売評価記憶の状態をread-onlyで情景へ投影し、描画から計算・保存を変更しない。実在庫は本数通り、記憶は台紙/輪郭と区画で記録と明示。好意的実売評価がある商品だけを好評記録へ表示",
+      "バーの3案の静的構造と状態接続を先に検証してから食堂と専門酒店へ展開。店ごとに食卓/カウンター/展示棚を構成。関係は期待に合う過去の記録との配置で表し、ポイント閾値のアップグレードはしない"
+    ],
+    "rulesApplied": [
+      "AGENTS/Change OS/実装前Plan Lock/Scope→Risk→Impact/既存LAB generator",
+      "表現監査：情景の区画と操作に必要な語だけ。雰囲気コピー・クエスト・意欲の断定を追加しない",
+      "root AGENTSによる調査/独立レビュー分担。描画調査はread-only、他の書込pathを分離する。Sites skillは内部previewのみ、既存GitHub Pagesへ公開",
+      "既存SVGピクセル行列とDOM/CSSの整数グリッドを再利用、Canvas本編部屋描画との役割をREPORTに記録。描画エンジン/外部画像は追加しない",
+      "mainのPostcard角建物更新15e7fd7を照合。AmberTime依存/運用/共有台帳は不変。fresh基準へ同一実装を載せ、並行変更を保持。"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390幅で在庫と記憶の識別・3案/3店・配分販売回収・次の試作・4経過・JSON保存再現・描画負荷/reduced-motion",
+      "Staging公開後基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "v04/launcher/台帳/生成LAB/lockを通常revert。旧Labと本編は不変",
+    "outOfScope": [
+      "本編/旧Lab/Production/共通描画処理の変更",
+      "販売評価記憶の数式/保存/経済の変更",
+      "画像生成AI/外部画像/地域拡大/世代交代",
+      "見た目の好みや遊び心地を計算で成立と判断"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者A店が育つ実感/B過去の一本の存在感/C見た目と操作のバランス",
+      "実機iPhone Safari・端末温度"
+    ],
+    "alternativesRejected": [
+      "独自描画エンジン/画像生成/外部画像",
+      "記憶を現物在庫として描く",
+      "未販売/悪評価だけの商品を好評展示",
+      "人気ゲージや豪華さの段階アップグレード",
+      "常時animationと毎frame再描画"
+    ],
+    "boundaryCases": [
+      "初納品/仮置き/取消/実売減少/回収/全売切/多商品",
+      "好評/負印象/同製法/新風味成功/過去味復活/数年空白/店舗独立",
+      "3案同状態・視覚切替の計算不変・同seed再現・360x568と375x620と390x680"
+    ],
+    "testPlan": [
+      "情景投影の実在庫総数/販売回収消失/正の実売証拠/記憶店舗独立/純粋性/再現性/多商品と長期空白を検証",
+      "v03の既存回帰と同一履歴モデル一致。固定seedの4経過と3店・負評価/未販売/回収再配置・ログ完全一致",
+      "バー3案を確認後に食堂/専門酒店展開、360/375/390の切れ/重なり/操作/負荷/reduced-motionをブラウザー確認、必須CI・Staging公開後操作"
+    ],
+    "problem": "v03の店の記憶が文章中心で、過去と現在の関係が景色から分からない",
+    "currentContract": "v03の販売・在庫・評価・店記憶・保存を変更しない。旧Labを保持し本編に接続しない",
+    "whyExistingIsInsufficient": "テキストだけでは実在庫と過去の支持、期待の繋がりを一目で比較できない",
+    "design": "v03をread-only importするv04専用UIと純粋情景投影。既存codea瓶を整数pixelのSVG/DOMで構成。現在の販売瓶と過去の記録を別区画へ描画し、同履歴3案を切替。イベント発生時のみ描画",
+    "migration": "なし。統合しない",
+    "compatibility": "v03 JSONと操作履歴をそのまま再利用。視覚案/表示店/比較段階はUI状態のみ。本編localStorageなし",
+    "promotionRisk": "Stagingのみ。作者の採用と実機判断は未確認"
+  }
+}
