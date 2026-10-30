@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e77974c48409c32f38cceb7fd387f67e1c4e0c25ebe31082ca42ea1900e6f3a5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-grouped-colors",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2b0baeb0c36d59462cb19c4fadb8700e6d1f76a5",
+    "change": "Group existing facade palette colors by left/right districts or waterfront depth without changing geometry",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-grouped-colors/r0.lock.json",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/app.mjs",
+      "works/postcard-generator/index.html",
+      "works/postcard-generator/grouped-colors.test.mjs",
+      "works/postcard-generator/GROUPED-COLORS.md",
+      "works/postcard-generator/mobile-check.html",
+      "works/postcard-generator/review-grouped-colors/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add explicit colorMode=grouped in existing color relationship selector; retain original auto/varied/tonal/accent outputs and defaults",
+      "Use curated families of existing wall colors, by left/right for streets/alleys/plazas/closeups/hillsides and rear/front for waterfront; preserve neighboring contrast and roof/window contrast",
+      "Preserve all positions, sizes, roof/window shapes, detail anchors, terrain, boats and ripples; matched reflection colors follow actual walls",
+      "Compare at least 36 seeds in varied/tonal/grouped across all six compositions/palettes; meaningful tests, independent review, Plan gates, PR required CI safe Staging merge and Pages/browser validation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review at least 36 seeds in varied/tonal/grouped and document strong/limited examples",
+      "Published color mode/replay/export/36 gallery and 360/375/390px checks"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user: 良くなりました！次に進んでください — continue to the previously proposed third stage, color groupings by district/depth"
+    ],
+    "rulesApplied": [
+      "Only reuse curated existing palette colors; no new props, automatically generated wall colors or aesthetic scores",
+      "Extend existing color-mode selector only; automatic selection and old URLs/JSON retain their existing outputs",
+      "Use all existing six compositions, staggered alley and matched water reflection without changing their geometry"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works/shared town/LAB configuration",
+      "versions/0.1",
+      "New palette colors or props",
+      "Changes to alley or reflection geometry",
+      "Chimneys",
+      "Physical lighting simulation"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
