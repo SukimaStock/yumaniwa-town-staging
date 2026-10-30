@@ -1,0 +1,82 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "adfcd243dac5ae548d7104e3cf3a4e9ce58986051d1e150651ea6703693b2f1c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-hilltown-stairs",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "ac6811c01fd7b5b6e2ad4575947bb34924a6459a",
+    "change": "Replace wavy hill town stair ribbon with straight flights and flat landings; preserve all houses",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-hilltown-stairs/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Replace hilltown staircase only with three constant-width straight flights and flat horizontal landings",
+      "Connect upper landing to rear terrace under houses via short entry lane; no visible house crossings",
+      "Keep hilltown buildings, colors, tower, people and all other scenes unchanged",
+      "36seed render comparison, staircase geometry/negative tests, oldscene exact regression, independent review, requiredCI and Staging public verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review36old/new hilltown seeds for straight stair flights, blank level landings, connected top and house occlusion",
+      "Published hilltown replay/export/gallery and360/375/390px"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user: 階段だけ不自然; approved proposal straight flights separated by flat landings with お願いします"
+    ],
+    "rulesApplied": [
+      "No new controls or assets",
+      "Direction changes on landings only; fixed tread width/spacing within each flight",
+      "House placement/colors/tower and people preserved; short entry lane drawn behind houses"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Shared files/other works",
+      "versions/0.1",
+      "House placement or palette changes",
+      "Other scene changes"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
