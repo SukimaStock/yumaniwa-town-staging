@@ -27,17 +27,24 @@ export function renderSVG(scene){
   }
   let shape='';
   if(o.kind==='cloth')shape=paint(path(o.outline),c.cloth)+paint(path(o.fold),c.fold);
-  if(o.kind==='bottle')shape=paint(path(o.outline),c.bottle)+paint(path(o.side),c.bottleSide)+paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx+2,o.mouth.ry+1),c.bottleLip)+paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx-5,o.mouth.ry-2),c.bottleMouth);
-  if(o.kind==='glass'||o.kind==='beer-glass'){
+  if(o.kind==='bottle'){
+   const l=o.label;
+   shape=`<g transform="translate(257 0) scale(${o.widthScale} 1) translate(-257 0)">${paint(path(o.outline),c.bottle)}${paint(path(o.side),c.bottleSide)}${paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx+2,o.mouth.ry+1),c.bottleLip)}${paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx-5,o.mouth.ry-2),c.bottleMouth)}${paint(`<rect x="${l.x}" y="${l.y}" width="${l.width}" height="${l.height}"/>`,c.label)}</g>`;
+  }
+  if(o.kind==='beer-glass'){
+   // A single pale silhouette, amber surface and quiet foam cap; no rim/base rings.
+   shape=paint(path(o.outline),c.glassLine);
+   shape+=paint(path(o.liquid),c.wine);
+   shape+=paint(path(o.foam),c.foam);
+  }
+  if(o.kind==='glass'){
    const id='drink-bowl';defs+=`<clipPath id="${id}">${path(o.outline)}</clipPath>`;
-   if(o.kind==='glass')shape=paint(ellipse(o.x,o.base,46,9),c.glassLine)+paint(`<rect x="${o.x-3}" y="458" width="6" height="${o.base-458}"/>`,c.glassLine);
+   shape=paint(ellipse(o.x,o.base,46,9),c.glassLine)+paint(`<rect x="${o.x-3}" y="458" width="6" height="${o.base-458}"/>`,c.glassLine);
    shape+=`<g opacity=".36">${paint(path(o.outline),c.glass)}</g>`;
-   let liquid=paint(path(o.liquid),c.wine)+paint(ellipse(o.x,o.level,49,11),c.wineTop);
-   if(o.kind==='beer-glass')liquid+=paint(path('M717 355 Q730 345 743 353 Q758 344 772 352 Q787 345 801 353 Q815 346 827 357 L825 392 Q811 399 798 393 Q785 400 772 394 Q759 399 746 393 Q732 399 719 392 Z'),c.foam);
+   const liquid=paint(path(o.liquid),c.wine)+paint(ellipse(o.x,o.level,49,11),c.wineTop);
    shape+=`<g clip-path="url(#${id})">${liquid}</g>`;
    shape+=`<path d="${o.sides}" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
-   shape+=`<ellipse cx="${o.x}" cy="${o.top}" rx="${o.kind==='glass'?54:56}" ry="12" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
-   if(o.kind==='beer-glass')shape+=`<ellipse cx="${o.x}" cy="590" rx="44" ry="5" fill="none" stroke="${c.glassLine}" stroke-width="2"/>`;
+   shape+=`<ellipse cx="${o.x}" cy="${o.top}" rx="54" ry="12" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
   }
   if(o.kind==='cork')shape=`<g transform="translate(${o.x} ${o.y}) rotate(${o.angle})">${paint('<path d="M-24.5 -11 H18 Q24.5 -11 24.5 0 Q24.5 11 18 11 H-24.5 Z"/>',c.cork,true)}${paint(ellipse(-24.5,0,4,11),c.corkEnd,true)}</g>`;
   if(o.kind==='cap'){
