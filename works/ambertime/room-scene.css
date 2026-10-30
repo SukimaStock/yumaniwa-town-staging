@@ -266,3 +266,26 @@ body[data-room] #hero .objects::after{content:none}
 .bottling-quantity label{grid-column:auto}
 .bottling-quantity input{grid-column:auto}
 .bottling-quantity>span{grid-column:auto}
+
+/* Read-only sales overlay; centres use the existing native map markers. */
+.world-map-surface{position:relative;width:222px;height:222px;max-width:100%;flex:none;border:3px solid #858995;box-sizing:content-box}
+.world-map-surface #world-map-canvas{width:100%;height:100%;border:0}
+#dialog-body .map-shop-hit{position:absolute;width:44px!important;height:44px!important;min-width:44px;min-height:44px;padding:0!important;transform:translate(-50%,-50%);border:1px solid transparent;background:transparent;box-shadow:none;z-index:2}
+#dialog-body .map-shop-hit[aria-pressed=true],#dialog-body .map-shop-hit:focus-visible{border-color:#ffe19c;background:#e6d49e22}
+#dialog-body .map-shop-label{position:absolute;transform:translate(-50%,-50%);padding:2px 4px!important;min-width:0;min-height:0;height:auto;width:max-content;max-width:108px;background:#25383dee;border:1px solid #858995;color:#f5e6be;line-height:16px;font-size:14px!important;text-align:center;z-index:3}
+.map-shop-label span,.map-shop-label small{display:block;white-space:nowrap;font-size:14px!important;line-height:16px}
+#dialog-body .map-shop-label[aria-pressed=true]{border-color:#ffe19c}
+#dialog-body .map-sales-period,#dialog-body .map-retail-total{margin:0;font-size:13px!important;line-height:17px;text-align:center}
+.map-shop-report{width:100%;max-height:130px;overflow:auto;overscroll-behavior:contain;border-top:1px solid #858995;padding-top:5px;box-sizing:border-box}
+#dialog-body .map-shop-report h3{margin:0;font-size:16px!important;line-height:20px}
+#dialog-body .map-shop-report p{margin:3px 0;font-size:14px!important;line-height:18px;overflow-wrap:anywhere}
+#dialog-body .map-shop-report button{min-height:44px}
+#action-dialog[data-kind=world-map] #dialog-actions{gap:8px;flex-wrap:wrap}
+#action-dialog[data-kind=world-map] .world-map-view{gap:7px}
+#action-dialog[data-kind=world-map] .world-map-surface[data-selected=true]{width:160px;height:160px}
+#action-dialog[data-kind=world-map] .world-map-view{gap:4px}
+#action-dialog[data-kind=world-map] .map-shop-report{max-height:92px}
+#action-dialog[data-kind=world-map] :is(.map-shop-label,.map-shop-label span,.map-shop-label small){font-size:14px!important;line-height:16px!important}
+#action-dialog[data-kind=world-map] #dialog-actions{display:grid;grid-template-columns:1fr 1fr}
+#action-dialog[data-kind=world-map] #dialog-actions button{font-size:16px!important;line-height:24px;min-width:0;padding:4px;white-space:nowrap}
+#action-dialog[data-kind=world-map] #dialog-actions [data-return=true]{grid-column:auto;justify-self:stretch;width:auto;margin:0}
