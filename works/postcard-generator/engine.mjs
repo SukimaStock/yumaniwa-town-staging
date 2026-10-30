@@ -14,7 +14,7 @@ const n=v=>Math.round(v*100)/100, clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pick=
 const lum=h=>[1,3,5].reduce((s,i,j)=>s+parseInt(h.slice(i,i+2),16)*[.2126,.7152,.0722][j],0);
 export function normalizeSettings(s={}){
  if(s.version==='0.1'){const old=legacy.normalizeSettings(s);return {version:'0.1',scene:'waterfront',...old,roofs:'auto',windows:'auto',colorMode:'auto'};}
- return {corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
+ return {reflection:['plain','short','varied'].includes(s.reflection)?s.reflection:s.version==='0.2'&&s.reflection===undefined?'plain':'varied',corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
 }
 function house(id,x,base,width,height,layer=0){
  width=n(width);height=n(height);base=n(base);
@@ -105,7 +105,20 @@ export function generateScene(seed,settings={}){
    s.stairs={direction,points:buildings.flatMap(b=>[[b.x,b.base+17],[b.x+b.width,b.base+17]])};
    s.trees=[{x:direction===1?67:725,y:934,radius:42}];s.people=[{x:390,y:n(buildings[Math.floor(count/2)].base+42),color:p.ink,scale:1.6}];
  }
- s.layerCount=s.blocks.length;return accents(groundDetails(details(cornerBuildings(style(s,settings),settings),settings),settings),settings);
+ s.layerCount=s.blocks.length;return waterReflections(accents(groundDetails(details(cornerBuildings(style(s,settings),settings),settings),settings),settings));
+}
+// Sample only the shore-facing row. This stream never changes the city or boats.
+function waterReflections(s){
+ if(s.mode!=='waterfront'||s.settings.reflection==='plain')return s;
+ const front=s.blocks[s.blocks.length-1].buildings,count=Math.min(7,front.length),waterTop=n(s.shoreY+37);
+ s.reflections=[];
+ for(let i=0;i<count;i++){
+  const b=front[Math.floor((i+.5)*front.length/count)],r=randomStream(s.seed,'water-reflection-'+b.id);
+  const width=n(b.width*(.64+r()*.2)),x=n(b.x+(b.width-width)/2);
+  const depth=s.settings.reflection==='short'?38+r()*30:64+r()*82;
+  s.reflections.push({source:b.id,x,y:waterTop,width,height:n(Math.min(depth,975-waterTop)),color:b.wall,opacity:.3});
+ }
+ return s;
 }
 // One front/side split remains inside the original plot; ground and neighbors stay fixed.
 const mix=(a,b,t)=>'#'+[1,3,5].map(i=>Math.round(parseInt(a.slice(i,i+2),16)*(1-t)+parseInt(b.slice(i,i+2),16)*t).toString(16).padStart(2,'0')).join('');
@@ -207,6 +220,16 @@ export function validateScene(scene){
    }
    if(b.groundFloor){const g=b.groundFloor;if(!['arcade','awning'].includes(g.kind)||g.height<=0||g.height>b.height*.5||g.count<2||g.count>5||b.width<110||b.height<180)errors.push(`ground-floor:${b.id}`);}
    if(!ROOFS.includes(b.roof)||!WINDOWS.includes(b.windowShape))errors.push(`style:${b.id}`);
+ }
+ if(Array.isArray(scene.reflections)){
+   const front=scene.blocks[scene.blocks.length-1].buildings,seen=new Set();
+   if(scene.mode!=='waterfront'||scene.settings.reflection==='plain'||scene.reflections.length>7)errors.push('reflection-mode');
+   for(const q of scene.reflections){
+    const b=front.find(b=>b.id===q.source);
+    if(!b||seen.has(q.source)||q.color!==b.wall)errors.push('reflection-source');
+    seen.add(q.source);
+    if(!b||q.x<b.x-.03||q.x+q.width>b.x+b.width+.03||q.width<=0||q.width>b.width||Math.abs(q.y-(scene.shoreY+37))>.03||q.height<=0||q.y+q.height>975.03||q.opacity<=0||q.opacity>.35)errors.push('reflection-bounds');
+   }
  }
  if(all.filter(b=>b.corner).length>1)errors.push('corner-density');
  if(all.reduce((sum,b)=>sum+(b.plants?.length||0),0)>3||all.filter(b=>b.shade).length>3)errors.push('accent-density');
