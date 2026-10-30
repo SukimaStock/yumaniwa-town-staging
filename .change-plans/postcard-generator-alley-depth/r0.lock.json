@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a37d021c71f7cce7d1d9e96b927ea1a703463e9bf20872037c6c402b477da0fc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-alley-depth",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "727cdada8ffef77f7f8a20b7deaef23b009e821c",
+    "change": "Stagger alley banks and expose middle facades with a ground corridor joined to actual feet",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-alley-depth/r0.lock.json",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs",
+      "works/postcard-generator/app.mjs",
+      "works/postcard-generator/index.html",
+      "works/postcard-generator/patterns.test.mjs",
+      "works/postcard-generator/alley-depth.test.mjs",
+      "works/postcard-generator/ALLEY-DEPTH.md",
+      "works/postcard-generator/mobile-check.html",
+      "works/postcard-generator/review-alley-depth/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add staggered alley layout: expose middle facades, retreat one near bank and opposite middle bank; ground follows actual bank feet",
+      "Use existing 3 layers, roofs/windows/colors and one corner face; retain open corridor and no floating buildings",
+      "Fresh alley uses staggered; old seeded URLs/settings without alleyDepth use classic; all other scenes and matched water reflections remain unchanged",
+      "At least 36 paired seed comparisons, meaningful structural/regression tests, independent review, scope/risk/impact, PR required CI safe Staging merge and Pages confirmation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review 36 before/after seed pairs across densities/palettes/roofs and document readable/limited examples",
+      "Published layout/replay/export/36 gallery and 360/375/390px checks"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user: 良くなりました！次に進んでください — proceed to previously proposed next stage: alley overlaps and visible middle distance"
+    ],
+    "rulesApplied": [
+      "Reuse basic shapes and existing detail rules; no new decorative objects or copy",
+      "Choose continuous corridor first and attach feet to it; no aesthetic scoring or seed exclusions",
+      "Keep previous seed/settings replay and immutable0.1, matched reflections"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works/shared town/LAB configuration",
+      "versions/0.1",
+      "Water reflections changes",
+      "Grouped color distribution",
+      "Chimneys",
+      "Physical 3D perspective"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
