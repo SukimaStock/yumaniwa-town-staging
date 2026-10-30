@@ -1,0 +1,88 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5e9e8816afcbd087abc8db0135b4f3997091737ef38f7348961e01e4f667ef7c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-matched-reflections",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "f8189d08691daf59af14b0c2858bec353829db0a",
+    "change": "Align water reflections to every shoreline building width and wall height with a shared fit scale",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-matched-reflections/r0.lock.json",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/app.mjs",
+      "works/postcard-generator/index.html",
+      "works/postcard-generator/reflections.test.mjs",
+      "works/postcard-generator/WATER-REFLECTIONS.md",
+      "works/postcard-generator/mobile-check.html",
+      "works/postcard-generator/review-reflections/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add matched reflection mode: all shore-facing buildings, exact x/width/color, wall heights scaled by one shared factor only if needed to fit water",
+      "Fresh generation uses matched; keep plain/short/varied URLs and normalized saved settings byte-compatible, no other scene or legacy changes",
+      "Compare at least 36 seeds including palette/density/color-mode variations and supplied screenshot seeds; test widths, height ratios, all buildings, bounds, replay and invalid scene rejection",
+      "Related regression tests, independent review, Scope/Risk/Impact and mandatory CI; safely merge PR and verify Staging Pages, exports and mobile widths"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review at least 36 seeds comparing none/previous/matched and document readable/limited examples",
+      "Browser matched control, replay, export and mobile 360/375/390px"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user approved proposal: 横位置と幅を真上の建物にそろえ、高さ由来の長さで岸沿いの全棟を映す。必要時だけ全棟を同じ倍率で縮小。User: これで反映してください"
+    ],
+    "rulesApplied": [
+      "Wall color panels only; no reflected windows or roofs",
+      "No independent random width or length in matched mode",
+      "Keep old reflection modes for existing links; no unrelated scenery or UI redesign"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Shared files and other works",
+      "Legacy0.1 sources",
+      "Reflected windows and roofs",
+      "Alley layout, grouped colors and chimneys"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
