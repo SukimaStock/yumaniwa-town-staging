@@ -5,7 +5,7 @@ export const random=legacy.random;
 const finishes=['original','print','watercolor'];
 export function normalizeSettings(input={}) {
  if(input.version===1||input.version==='1'||input.v==='1')return legacy.normalizeSettings(input);
- return {version:2,study:input.study==='lemon-01'?'lemon-01':'wine-lemon-01',texture:finishes.includes(input.texture)?input.texture:'original'};
+ return {version:2,study:['lemon-01','wine-lemon-01'].includes(input.study)?input.study:'wine-lemon-02',texture:finishes.includes(input.texture)?input.texture:'original'};
 }
 export function generateScene(input={}) {
  const settings=normalizeSettings(input);
@@ -22,7 +22,7 @@ export function generateScene(input={}) {
    {id:'bowl-front',kind:'bowl',z:5,base:613,outline:'M376 466 C391 493 467 505 550 505 C634 505 709 493 724 466 C713 541 673 600 608 613 L492 613 C426 599 388 541 376 466 Z',rim:'M376 466 C398 490 470 500 550 500 C631 500 702 490 724 466 L722 474 C694 499 625 510 550 510 C475 510 406 499 378 474 Z'},
    {id:'lemon-front',kind:'lemon',z:6,x:715,y:630,rx:66,ry:43,angle:-16,color:'lemonLight',support:'table',base:674}
   ]};
- if(settings.study==='wine-lemon-01'){
+ if(settings.study==='wine-lemon-01'||settings.study==='wine-lemon-02'){
   Object.assign(scene.colors,{glass:'#eff0dd',glassLine:'#faf3de',wine:'#d7b96c',cork:'#b88b58',corkEnd:'#957047'});
   const object=id=>scene.objects.find(o=>o.id===id);
   object('bottle').opened=true;
@@ -34,6 +34,19 @@ export function generateScene(input={}) {
   scene.objects.push({id:'removed-cork',kind:'cork',x:345,y:632,angle:14,bottle:'bottle',width:49,height:22});
   object('lemon-front').x=690;object('lemon-front').y=650;object('lemon-front').base=695;
   scene.objects.forEach((o,z)=>{o.z=z;});
+ }
+ if(settings.study==='wine-lemon-02'){
+  const object=id=>scene.objects.find(o=>o.id===id);
+  // Main mass: wider bowl and its contents move as one vessel, keeping occlusion intact.
+  const bowlFrame={scale:1.08,x:-144,y:-33.28};
+  for(const id of ['bowl-back','lemon-in-left','lemon-in-right','bowl-front'])object(id).frame={...bowlFrame};
+  // Bottle recedes behind the bowl; the glass balances it without hugging the right edge.
+  object('bottle').frame={scale:.78,x:29.54,y:87.6};
+  object('wine-glass').frame={scale:.88,x:36.64,y:-3.6};
+  object('cloth').outline='M244 490 L635 468 L760 720 L160 720 Z';
+  object('cloth').fold='M622 469 L635 468 L760 720 L742 720 Z';
+  Object.assign(object('lemon-front'),{x:600,y:654,rx:60,ry:40,angle:-25,base:699});
+  Object.assign(object('removed-cork'),{x:277,y:606,angle:-18});
  }
  return scene;
 }
