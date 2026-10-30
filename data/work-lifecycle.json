@@ -533,7 +533,7 @@
       "path": "works/tabletop-generator",
       "status": "active",
       "title": "器と食卓 Generator Lab 0.1",
-      "theme": "単純な形と配色から、真上の食卓と横から見た静物画を生成する。"
+      "theme": "構図と物の関係を保ちながら、配色・飲みもの・果物・質感を選ぶ食卓の絵。"
     }
   ]
 }

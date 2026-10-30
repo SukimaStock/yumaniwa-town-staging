@@ -1,7 +1,7 @@
 import {createHash} from 'node:crypto';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {generateScene,normalizeSettings} from './engine.mjs';
+import {generateScene,normalizeSettings} from './versions/0.2/engine.mjs';
 import {generateScene as oldScene} from './versions/0.1/engine.mjs';
 import {renderSVG} from './renderer.mjs';
 test('fixed study ignores random generation inputs and keeps exactly three lemons',()=>{
