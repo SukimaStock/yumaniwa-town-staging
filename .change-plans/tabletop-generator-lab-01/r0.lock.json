@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7c456bcf06c66bfb5e4b4409d112d245b8c3e88c10f434f9c86fa9363a4090b1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tabletop-generator-lab-01",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "cf5da34295c103d793738cd37c6f916751cb4945",
+    "change": "器と食卓 Generator Lab 0.1: independent top-down and side still-life SVG generator with reproducible materials and exports",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/postcard-generator/TEXTURES.md",
+      "User 器と食卓 brief"
+    ],
+    "allowedPaths": [
+      ".change-plans/tabletop-generator-lab-01/r0.lock.json",
+      "works/tabletop-generator/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "works/postcard-generator/**",
+      "works/ambertime/**",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Independent deterministic scene data: two viewpoints, six shape families, five role palettes, three densities; intentional overlap and cropping",
+      "Original/print/watercolor with embedded CC0 material assets and provenance; same geometry across finishes",
+      "Responsive generate, seed replay, URL sharing, SVG/PNG/JSON exports and JSON import; multiple seed comparison",
+      "36 seed visual review, three finishes, export and viewport checks; active staging-only Tool Garage entry"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "36-seed and same-seed finish visual inspection",
+      "SVG PNG JSON actual export/replay; 360 375 390 controls",
+      "Tool Garage entry/return; expression audit; Staging actions"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly requests named independent Lab, 30-seed comparison, PR, CI, safe merge and Staging publication; final aesthetic adoption and Production remain user decisions"
+    ],
+    "hqDecisions": [
+      "Existing standalone work and LAB generator contracts suffice; no shared runtime, launch, storage, API, analytics or hosting changes. Full floor covers existing JSON registries and generated lab HTML; no new contract proposed."
+    ],
+    "rulesApplied": [
+      "Use existing lifecycle schema and garage room; no new rooms or town persistent UI",
+      "Only title, actions and needed labels on screen; no decorative prose",
+      "Seed series independent by responsibility; structural validation is not an aesthetic score"
+    ],
+    "problem": "Generate coherent food-table pictures from simple shapes and limited colors",
+    "currentContract": "Independent works served statically; lifecycle active staging-only; LAB generated from canonical registries",
+    "whyExistingIsInsufficient": "New subject requires separate composition grammar; existing delivery contracts suffice",
+    "design": "Primary vessel first; anchored secondary slots with typed parent containment, depth order and consistent viewpoint",
+    "alternativesRejected": [
+      "Random independent shapes",
+      "Image generation and external building assets",
+      "Shared runtime or Production changes"
+    ],
+    "migration": "None; no existing state changes",
+    "compatibility": "Buildless HTML CSS ES modules SVG; canvas only on explicit PNG export",
+    "boundaryCases": [
+      "Seeds with markup/unicode/empty inputs",
+      "Extreme supported density and composition",
+      "Repeated generation and gallery memory bounds",
+      "Export failure, invalid URL settings and browser history"
+    ],
+    "testPlan": [
+      "Determinism and JSON roundtrip",
+      "Containment and grounding checks across36seeds",
+      "Visual finish/export/mobile checks",
+      "Lifecycle regression and requiredCI"
+    ],
+    "promotionRisk": "Staging only; Production excluded",
+    "rollback": "Revert work, lifecycle/garage entry and generated LAB as a unit; no migrations",
+    "promotion": "none",
+    "outOfScope": [
+      "Production",
+      "Existing works or shared runtime",
+      "New town scene or UI",
+      "Complex food and people"
+    ],
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author aesthetic acceptance"
+    ]
+  }
+}

@@ -527,6 +527,13 @@
       "status": "active",
       "title": "AmberTime マップ Lab 0.5",
       "theme": "地図から取扱状況と店の報告を、数字・印・短い言葉で比べる。"
+    },
+    {
+      "id": "tabletop-generator",
+      "path": "works/tabletop-generator",
+      "status": "active",
+      "title": "器と食卓 Generator Lab 0.1",
+      "theme": "単純な形と配色から、真上の食卓と横から見た静物画を生成する。"
     }
   ]
 }
