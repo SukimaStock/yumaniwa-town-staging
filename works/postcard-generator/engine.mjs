@@ -14,7 +14,7 @@ const n=v=>Math.round(v*100)/100, clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pick=
 const lum=h=>[1,3,5].reduce((s,i,j)=>s+parseInt(h.slice(i,i+2),16)*[.2126,.7152,.0722][j],0);
 export function normalizeSettings(s={}){
  if(s.version==='0.1'){const old=legacy.normalizeSettings(s);return {version:'0.1',scene:'waterfront',...old,roofs:'auto',windows:'auto',colorMode:'auto'};}
- return {reflection:['plain','short','varied','matched'].includes(s.reflection)?s.reflection:s.version==='0.2'&&s.reflection===undefined?'plain':'matched',corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
+ return {alleyDepth:['classic','staggered'].includes(s.alleyDepth)?s.alleyDepth:s.version==='0.2'&&s.alleyDepth===undefined?'classic':'staggered',reflection:['plain','short','varied','matched'].includes(s.reflection)?s.reflection:s.version==='0.2'&&s.reflection===undefined?'plain':'matched',corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
 }
 function house(id,x,base,width,height,layer=0){
  width=n(width);height=n(height);base=n(base);
@@ -97,6 +97,7 @@ export function generateScene(seed,settings={}){
    s.alley={farY,middleY,nearY,farCenter,nearCenter,farHalf,nearHalf,middleCenter,middleHalf,bottomCenter,bottomHalf};
    s.surfaces=[{type:'sidewalk',y:farY,height:1000-farY}];
    s.people=[{x:n(farCenter+12),y:farY+65,color:p.ink,scale:1.1},{x:n(nearCenter-24),y:nearY+30,color:p.accent,scale:2}];
+   if(settings.alleyDepth==='staggered')staggerAlley(s);
  }else{
    const count={open:4,normal:5,dense:6}[settings.density],direction=layout()<.5?1:-1,left=25,gap=12,width=(750-gap*(count-1))/count;
    const low=810+layout()*35,high=535+layout()*40,buildings=[];
@@ -106,6 +107,28 @@ export function generateScene(seed,settings={}){
    s.trees=[{x:direction===1?67:725,y:934,radius:42}];s.people=[{x:390,y:n(buildings[Math.floor(count/2)].base+42),color:p.ink,scale:1.6}];
  }
  s.layerCount=s.blocks.length;return waterReflections(accents(groundDetails(details(cornerBuildings(style(s,settings),settings),settings),settings),settings));
+}
+// Coordinates along either bank's actual ground edge, including its staggered feet.
+function alleyX(points,y){
+ const i=points.findIndex((p,j)=>j>0&&y<=p[1]),end=i<0?points.length-1:i,start=end-1;
+ const a=points[start],b=points[end],t=clamp((y-a[1])/(b[1]-a[1]),0,1);return a[0]+(b[0]-a[0])*t;
+}
+function staggerAlley(s){
+ const a=s.alley,middle=s.blocks[1].buildings,near=s.blocks[2].buildings,r=randomStream(s.seed,'alley-depth'),retreat=r()<.5?0:1;
+ // Keep the front opening; reserve a visible strip of each middle facade inside it.
+ const visible=n(Math.min(190,2*(a.nearHalf-a.farHalf)-24)),leftShare=retreat===0?.6:.4;
+ const left=n(a.nearCenter-a.nearHalf+visible*leftShare),right=n(a.nearCenter+a.nearHalf-visible*(1-leftShare));
+ const replot=(b,x,width,base)=>{b.x=n(x);b.width=n(width);b.base=n(base);b.y=n(base-b.height);b.cols=clamp(Math.floor(b.width/(b.width>180?67:32)),2,5);};
+ replot(middle[0],-28,left+28,middle[0].base-(retreat===1?24+r()*16:0));
+ replot(middle[1],right,828-right,middle[1].base-(retreat===0?24+r()*16:0));
+ const front=near[retreat];front.base=n(front.base-55-r()*20);front.y=n(front.base-front.height);
+ a.layout='staggered';a.retreat=retreat;a.middleCenter=n((left+right)/2);a.middleHalf=n((right-left)/2);
+ a.feet=[middle.map(b=>b.base),near.map(b=>b.base)];
+ a.leftPath=[[n(a.farCenter-a.farHalf),a.farY],[left,middle[0].base],[n(a.nearCenter-a.nearHalf),near[0].base],[n(a.bottomCenter-a.bottomHalf),1000]];
+ a.rightPath=[[n(a.farCenter+a.farHalf),a.farY],[right,middle[1].base],[n(a.nearCenter+a.nearHalf),near[1].base],[n(a.bottomCenter+a.bottomHalf),1000]];
+ a.corridor=[...a.leftPath,...[...a.rightPath].reverse()];
+ a.paving=[a.farY+65,(Math.max(...a.feet[0])+Math.min(...a.feet[1]))/2].map(y=>[n(alleyX(a.leftPath,y)),n(y),n(alleyX(a.rightPath,y))]);
+ for(const [i,q]of s.people.entries()){const left=alleyX(a.leftPath,q.y),right=alleyX(a.rightPath,q.y);q.x=n(left+(right-left)*(i===0?.55:.44));}
 }
 // Sample only the shore-facing row. This stream never changes the city or boats.
 function waterReflections(s){
@@ -253,7 +276,27 @@ export function validateScene(scene){
      const banks=scene.blocks[layer].buildings;
      if(banks.length!==2)errors.push('alley-banks');
      else {const [left,right]=banks,plot=b=>({x:b.corner?.plotX??b.x,width:b.corner?.plotWidth??b.width});
-      if(Math.abs(plot(left).x+plot(left).width-(center-half))>.04||Math.abs(plot(right).x-(center+half))>.04||banks.some(b=>Math.abs(b.base-base)>.03))errors.push('alley-banks');
+      if(Math.abs(plot(left).x+plot(left).width-(center-half))>.04||Math.abs(plot(right).x-(center+half))>.04||banks.some((b,i)=>Math.abs(b.base-(a.layout==='staggered'?a.feet?.[layer-1]?.[i]:base))>.03))errors.push('alley-banks');
+     }
+    }
+    if(scene.settings.alleyDepth==='staggered'){
+     const paths=[a.leftPath,a.rightPath],valid=Array.isArray(a.feet)&&a.feet.length===2&&a.feet.every(p=>Array.isArray(p)&&p.length===2&&p.every(Number.isFinite))&&paths.every(p=>Array.isArray(p)&&p.length===4&&p.every((q,i)=>Array.isArray(q)&&q.length===2&&q[0]>=0&&q[0]<=800&&(i===0||q[1]>p[i-1][1])));
+     if(a.layout!=='staggered'||!valid)errors.push('alley-depth-path');
+     else {
+      for(let side=0;side<2;side++){
+       const direction=side===0?-1:1,path=paths[side];
+       if(Math.abs(path[0][0]-(a.farCenter+direction*a.farHalf))>.03||path[0][1]!==a.farY||Math.abs(path[3][0]-(a.bottomCenter+direction*a.bottomHalf))>.03||path[3][1]!==1000)errors.push('alley-depth-endpoint');
+      }
+      for(let side=0;side<2;side++)for(let layer=1;layer<=2;layer++){
+       const b=scene.blocks[layer].buildings[side],x=b.corner?.plotX??b.x,w=b.corner?.plotWidth??b.width,[px,py]=paths[side][layer];
+       if(Math.abs(px-(side===0?x+w:x))>.04||Math.abs(py-b.base)>.03)errors.push('alley-depth-anchor');
+      }
+      if(JSON.stringify(a.corridor)!==JSON.stringify([...a.leftPath,...[...a.rightPath].reverse()]))errors.push('alley-depth-polygon');
+      for(const y of paths.flatMap(p=>p.map(q=>q[1])))if(alleyX(a.rightPath,y)-alleyX(a.leftPath,y)<90)errors.push('alley-depth-closed');
+      if(a.leftPath[1][0]-a.leftPath[2][0]<30||a.rightPath[2][0]-a.rightPath[1][0]<30)errors.push('alley-middle-hidden');
+      if(Math.abs(a.feet[1][0]-a.feet[1][1])<50||Math.abs(a.feet[0][0]-a.feet[0][1])<20)errors.push('alley-depth-feet');
+      for(const q of scene.people)if(q.x<=alleyX(a.leftPath,q.y)+10||q.x>=alleyX(a.rightPath,q.y)-10)errors.push('alley-person');
+      if(!Array.isArray(a.paving)||a.paving.length!==2||a.paving.some(q=>!Array.isArray(q)||q.length!==3||!q.every(Number.isFinite)||q[1]<a.farY||q[1]>1000||Math.abs(q[0]-alleyX(a.leftPath,q[1]))>.03||Math.abs(q[2]-alleyX(a.rightPath,q[1]))>.03))errors.push('alley-paving');
      }
     }
     const rear=scene.blocks[0].buildings,mid=scene.blocks[1].buildings,near=scene.blocks[2].buildings;
