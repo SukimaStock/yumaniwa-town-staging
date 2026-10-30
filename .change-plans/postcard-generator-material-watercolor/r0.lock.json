@@ -1,0 +1,83 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "aab8d7be5d9e71148c1a0381f4991235f84cc40ae34e1342a53c438d7cf99bf7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-material-watercolor",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "003d15e38b7e824c968ce59d3c8b21c647b5eb2d",
+    "change": "Compare original, preserved code watercolor and real-paper hybrid watercolor",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-material-watercolor/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Reuse primary-source CC0 real coldpressed paper; verify any pigment asset provenance before use, otherwise honest procedural wash hybrid",
+      "Add watercolor-material finish with coherent translucent washes, edge pooling and restrained bleed; preserve all existing finishes/URLs/geometry/palettes",
+      "36 seeds x original/code-watercolor/material-watercolor comparison and rendered review, deterministic embedded standalone SVG/PNG/replay and old output exact regression",
+      "Independent review, required CI, safe Staging merge and Pages/browser/export/mobile verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review108renders and parent representative3way before publication",
+      "Published3way108images,PNG/SVG/JSON/replay and360375390px"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user likes real-material print and requests 水彩画風もお願いします; authorized Staging development/publication"
+    ],
+    "rulesApplied": [
+      "User asks watercolor style after material print; no imagegen city/core, no new parts/towns/stairs",
+      "Actual paper plus real permitted pigment if available, otherwise clearly procedural pigment hybrid",
+      "One additional finish option and comparison link only; no poeticcopy"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Sharedfiles/otherworks",
+      "versions/0.1",
+      "Basegeometry/palette changes",
+      "Existing finish output changes"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
