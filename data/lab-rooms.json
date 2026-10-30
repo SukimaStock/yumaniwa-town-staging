@@ -280,6 +280,10 @@
         {
           "work": "postcard-generator",
           "note": "水辺・建物アップ・道路沿い・広場・坂道を、図形と配色の文法で生成。SVG・PNGで保存する。"
+        },
+        {
+          "work": "tabletop-generator",
+          "note": "器・果物・布の形と配色を選び、食卓の絵を生成・比較・保存する。"
         }
       ]
     }
