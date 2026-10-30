@@ -289,3 +289,8 @@ body[data-room] #hero .objects::after{content:none}
 #action-dialog[data-kind=world-map] #dialog-actions{display:grid;grid-template-columns:1fr 1fr}
 #action-dialog[data-kind=world-map] #dialog-actions button{font-size:16px!important;line-height:24px;min-width:0;padding:4px;white-space:nowrap}
 #action-dialog[data-kind=world-map] #dialog-actions [data-return=true]{grid-column:auto;justify-self:stretch;width:auto;margin:0}
+/* The native uniform rule has two IDs. Keep fixed-size map labels legible even
+   when the room uses a larger desktop font; no common typography is changed. */
+html[data-font-uniform="1"] #action-dialog #dialog-body :is(.map-shop-label,.map-shop-label span,.map-shop-label small){font-size:16px!important;line-height:20px!important}
+html[data-font-uniform="1"] #action-dialog #dialog-body :is(.map-sales-period,.map-retail-total,.map-shop-report h3,.map-shop-report p,.map-shop-report span,.map-shop-report button){font-size:16px!important;line-height:20px!important}
+html[data-font-uniform="1"] #action-dialog #dialog-actions button[data-action^="map-"]{font-size:16px!important;line-height:24px!important}

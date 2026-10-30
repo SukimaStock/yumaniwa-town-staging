@@ -602,8 +602,8 @@ function mapSalesMarkup(data,selected){
   const label=count+stock,active=selected===p.id;
   // Label positions are independent of hit positions; native markers never move.
   const labelX=p.id==='supermarket'?105:p.id==='department'?49:worldMapStage===2?85:40;
-  const labelY=p.id==='supermarket'?85:p.id==='department'?131:worldMapStage===2?42:46;
-  return '<button type="button" class="map-shop-hit" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+p.x/144*100+'%;top:'+p.y/144*100+'%" aria-label="'+esc(p.name+' '+label)+'" aria-pressed="'+active+'"></button><button type="button" class="map-shop-label" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+(selected?Math.max(49,Math.min(95,labelX)):labelX)/144*100+'%;top:'+(selected?Math.min(126,labelY):labelY)/144*100+'%" aria-pressed="'+active+'"><span>'+esc(label)+'</span><small>'+esc(p.status)+'</small></button>';
+  const labelY=p.id==='supermarket'?85:p.id==='department'?128:worldMapStage===2?42:46;
+  return '<button type="button" class="map-shop-hit" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+p.x/144*100+'%;top:'+p.y/144*100+'%" aria-label="'+esc(p.name+' '+label)+'" aria-pressed="'+active+'"></button><button type="button" class="map-shop-label" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+(selected?Math.max(49,Math.min(95,labelX)):labelX)/144*100+'%;top:'+(selected?(worldMapStage===3?({"town-liquor":30,supermarket:76,department:122}[p.id]):Math.min(122,labelY)):labelY)/144*100+'%" aria-pressed="'+active+'"><span>'+esc(label)+'</span><small>'+esc(p.status)+'</small></button>';
  }).join('');
  return pins;
 }
