@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9e3de9c6123c081ef05784b2c91b260c1b24cd90b8566bd2044d6cd3dcaec092",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-whisky-map-v05-publish",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "独立マップLab0.5でv03の実売・在庫・評価報告・店の記憶を本編Canvas地図の3案に表示",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "496f914282a400775a9dfe4557b685c8fd6029bf",
+    "canonicalSources": [
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/whisky-evaluation/v03/model.mjs",
+      "works/ambertime/experiments/whisky-evaluation/v03/memory.mjs",
+      "works/ambertime/experiments/whisky-evaluation/v04-visual/timeline.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/pixel-symbols.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-whisky-map-v05-publish/r0.lock.json",
+      "works/ambertime/experiments/whisky-evaluation/v05-map/**",
+      "works/ambertime-whisky-map-lab-v05/index.html",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/experiments/hand-and-place/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/ambertime/experiments/whisky-evaluation/v01/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime-whisky-evaluation-lab/**",
+      "works/ambertime/experiments/whisky-evaluation/v011/**",
+      "works/ambertime/experiments/whisky-evaluation/v02/**",
+      "works/ambertime/experiments/whisky-evaluation/v03/**",
+      "works/ambertime/experiments/whisky-evaluation/v04-visual/**"
+    ],
+    "expectedChanges": [
+      "本編144Canvasの近所/町renderMapとセル・配色・fontを再利用。仮配置のLab3店overlayを正本mapから分離し、正式位置や解放を変更しない",
+      "v03を変更せずimport。店別全商品累計実売/現在店頭残数と伝わった実購入評価・過去記録だけを純粋投影。未納品はmap印なし、認知/支持率/期待内部値/未伝播口コミを並べない",
+      "販売室から任意開閉し、店タップで短い反応/記憶/期待の出典を確認。A数字/B印/C数字と一つの変化を同履歴で比較、v03四経過の時間切片を再生。固定seedテスト・JSON/CSV・360/375/390・描画負荷・日本語REPORT・LAB接続・PR/CI/merge/公開確認"
+    ],
+    "ownerDecisions": [
+      "2026-10-30ユーザー依頼「マップLab0.5 町の地図に評判が現れる」：独立Lab/通常PR/必須CI/merge/Staging公開を許可。本編・旧Lab・販売/評判式・保存・経済・Production不変。店内常時表示をせず任意mapで管理状況を確認。採用と体験A/B/Cは作者判断。"
+    ],
+    "hqDecisions": [
+      "ネイティブrenderMap(ctx,2/3)だけを再利用し、本編の解放/口コミ/関係を偽造してdrawGameMapを呼ばない。3店はLab既存の試遊先であり全て仮配置、バーretail対応と本編barノードを区別する",
+      "実納品のある店だけにoverlay。売は全商品開始からの累計実売、残は現在全商品店頭残数と凡例で期間を明示。印と短文は実売・好意的評価・過去記録の因果参照に基づく。開閉/切替はUIだけで時を進めない"
+    ],
+    "rulesApplied": [
+      "AGENTS/Change OS/実装前Plan Lock/Scope→Risk→Impact/既存LAB generator",
+      "表現監査：管理情報の期間/仮配置/操作に必要な短い案内のみ。未観測の心理/要求/噂/豪華化を追加しない",
+      "root AGENTSに従いread-only map調査・投影/描画・独立レビューを分担、書込path分離。Sites skillは内部QAのみ、公開は既存GitHub Pages",
+      "native店マーカーと背景建物中心には座標差があるため正式位置と断定せずLab配置を別データ化しREPORTで根拠を説明",
+      "main更新496f914はPostcard水面反射のみ。AmberTime依存・運用・共有台帳に変更なし。fresh基準へ同一実装を載せ並行変更を保持。"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390でCanvas座標と44px以上の店タップ対象・3案/近所/町・任意開閉・配分販売回収・4経過・JSON再現・描画負荷/reduced-motion",
+      "Staging公開後基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "v05/launcher/台帳/生成LAB/lockを通常revert。旧Lab/本編/Productionは不変",
+    "outOfScope": [
+      "本編/旧Lab/正式地図位置/共通描画/Production変更",
+      "販売評判/経済/保存/解放/伝播の変更",
+      "店内常時表示/全国海外/世代交代/画像生成外部画像",
+      "体験の成立を計算だけで判断"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者A町への広がり/B店との関係/C販売室とmap操作の自然さ",
+      "実機Safari/端末温度/OSのreduced-motion設定"
+    ],
+    "alternativesRejected": [
+      "店内の常時覗き見",
+      "native地図/正式店位置/解放ルールの変更",
+      "未納品を取扱店にする",
+      "内部支持率や未伝播口コミを全て見せる",
+      "売と残の期間/SKU範囲混在",
+      "map開閉で月進行/全国海外/段階豪華化/画像生成外部画像"
+    ],
+    "boundaryCases": [
+      "未納品/仮置き/取消/納品/実売ゼロ/回収再配置/複数商品全数",
+      "好意的評価なし/負印象だけ/過去の同製法/方向転換/長期空白/店舗独立",
+      "近所町の座標/タップ一致/3案同状態/履歴断面に未来を混入させない/ログ再現"
+    ],
+    "testPlan": [
+      "純粋投影の実売/現在庫/納品条件/正負報告/過去出典/店舗独立/再現性/非変更・Canvasネイティブ背景一致・44px店タップ位置を検査",
+      "固定複数seed四経過三店・各発売前後・複数SKU・回収再配置・空白をv03と同一保存結果で照合。native/旧Labは不変",
+      "360/375/390の販売室/map/情報窓・タップ・任意開閉・再生解除・ログ保存再現・idle描画/負荷/reduced-motion。必須CI/公開操作"
+    ],
+    "problem": "店内情景の常時表示は蒸留所経営者の視点と合わない。町から取扱状況と報告を確認する視覚案が必要",
+    "currentContract": "v03の在庫販売評価記憶保存とnative地図背景/正式位置/表示解放を変更しない。独立Labの既存3試遊先だけを仮配置",
+    "whyExistingIsInsufficient": "v04の内観では経営者の把握する管理情報と世界内視点が一致しない",
+    "design": "nativeCanvas近所/町にread-onlyの店別投影を重ね、DOM44pxタップ操作を同じanchorへ配置。累計売/現在残と根拠のある一つの印、選択時のみ店報告を表示。mapの状態はUIのみ",
+    "migration": "なし。統合しない",
+    "compatibility": "v03 JSONを変更せず保存/厳密再現、v04の同一操作timelineをread-only再利用。UIの表示店/段階/案は保存状態を変更しない。本編localStorageを使わない",
+    "promotionRisk": "Stagingのみ。作者の採用と実機判断は未確認"
+  }
+}
