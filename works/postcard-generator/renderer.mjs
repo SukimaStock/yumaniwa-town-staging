@@ -175,6 +175,14 @@ function bridgeSVG(s){
  for(let i=0;i<=5;i++){const x=a[0]+(c[0]-a[0])*i/5;out+=path(`M${n(x)} ${n(b.top-12)}V${n(b.top)}`,p.ink,2);}
  return out+'</g>';
 }
+// Keep the existing foot anchor y+5*scale and overall height13*scale.
+function personSVG(q,pose){
+ const u=q.scale||1,step=pose==='step';
+ const garment=step?'M-1.05 -4.35Q-2.1 -4.15 -2.25 -2.6L-1.55 .65Q0 1.1 1.55 .65L2.25 -2.6Q2.1 -4.15 1.05 -4.35Z':'M-1.05 -4.35Q-2 -4.15 -2.15 -2.6L-1.8 .8Q0 1.1 1.8 .8L2.15 -2.6Q2 -4.15 1.05 -4.35Z';
+ const arms=step?'M-1.9 -3.2Q-2.7 -1.5 -2.4 -.1M1.9 -3.2Q2.1 -1.4 1.65 .65':'M-1.9 -3.2Q-2.1 -1.5 -1.9 .5M1.9 -3.2Q2.5 -1.4 2.6 .7';
+ const left=step?'M-1.4 .25L-.1 .25L-.05 4.4L-1.05 4.4Z':'M-1.4 .25L-.1 .25L-.45 5L-1.5 5Z',right=step?'M.1 .25L1.4 .25L2.25 5L1.2 5Z':'M.1 .25L1.4 .25L1.8 5L.75 5Z';
+ return `<g data-person="true" data-pose="${pose}" data-foot="${n(q.x)},${n(q.y+5*u)}" transform="translate(${n(q.x)} ${n(q.y)}) scale(${n(u)})" fill="${q.color}"><circle cx="0" cy="-6.3" r="1.7"/><rect x="-.45" y="-5.05" width=".9" height="1.2"/><path data-garment="true" d="${garment}"/><path data-arms="true" d="${arms}" fill="none" stroke="${q.color}" stroke-width="1.05" stroke-linecap="round"/><path data-leg="left" d="${left}"/><path data-leg="right" d="${right}"/></g>`;
+}
 const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道',alley:'路地',canal:'運河の町',hilltown:'丘に重なる町'};
 export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p=s.palette;
  let out=`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="${esc(names[s.mode]+'・'+s.seed)}"><title>${esc('Postcard '+s.seed)}</title><desc>${esc(names[s.mode]+'。図形と反復する窓で描いた街。'+p.name+'。')}</desc><metadata>${esc(JSON.stringify({version:s.version,seed:s.seed,settings:s.settings}))}</metadata>`+finishDefs(s)+rect(0,0,800,1000,p.sky);
@@ -208,7 +216,7 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
  for(const t of s.trees||[]){out+=rect(t.x-4,t.y-t.radius*1.2,8,t.radius*1.2,p.ink)+circle(t.x,t.y-t.radius*1.8,t.radius,p.walls[3])+circle(t.x-t.radius*.35,t.y-t.radius*1.95,t.radius*.65,p.terraces[0]);}
  for(const l of s.lamps||[])out+=rect(l.x-2,l.y-l.height,4,l.height,p.ink)+path(`M${n(l.x-18)} ${n(l.y-l.height)}h36`,p.ink,4)+rect(l.x-15,l.y-l.height-12,30,12,p.light);
  for(const b of s.benches||[])out+=rect(b.x,b.y,b.width,7,p.roofs[1])+rect(b.x+9,b.y+7,5,13,p.ink)+rect(b.x+b.width-14,b.y+7,5,13,p.ink)+rect(b.x,b.y-16,b.width,9,p.roofs[1]);
- for(const q of s.people){const scale=q.scale||1;out+=circle(q.x,q.y-6*scale,2*scale,q.color)+rect(q.x-1.6*scale,q.y-3*scale,3.2*scale,8*scale,q.color);}
+ for(const [i,q]of s.people.entries())out+=personSVG(q,randomStream(s.seed,'human-pose-'+i)()<.5?'stand':'step');
  if(s.settings.finish)out+='<rect data-paper-grain="true" x="0" y="0" width="800" height="1000" fill="url(#finish-paper)"/>';
  return (['print-material','watercolor-material'].includes(s.settings.finish)?out.replace('<svg xmlns=', '<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns='):out)+'</svg>';
 }
