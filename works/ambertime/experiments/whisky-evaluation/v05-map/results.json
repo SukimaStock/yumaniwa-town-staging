@@ -1,0 +1,393 @@
+{
+  "version": "whisky-map/0.5",
+  "modelVersion": "whisky-reputation/0.3",
+  "sourceBase": "f8189d08691daf59af14b0c2858bec353829db0a",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100
+  ],
+  "shops": [
+    "bar",
+    "diner",
+    "specialist"
+  ],
+  "scenarios": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "stages": [
+    2,
+    3
+  ],
+  "framesPerHistory": 10,
+  "histories": 1200,
+  "checks": {
+    "canonicalFinalEquality": 1200,
+    "frameFacts": 12000,
+    "stageFacts": 24000,
+    "viewNonmutation": 72000,
+    "positiveEvidence": 22275,
+    "storeIsolation": 24000,
+    "pastSources": 9592,
+    "deterministic": 24000,
+    "nativeCanvasPrefix": 240,
+    "emptyGap": 300,
+    "multipleStoreFixtures": 100,
+    "multipleStoreFacts": 300
+  },
+  "totals": {
+    "deliveryFrames": 6000,
+    "salesFrames": 6000,
+    "unsoldReportFrames": 6131,
+    "nonpositiveReportFrames": 1066,
+    "positiveReportFrames": 4803,
+    "maxPins": 3,
+    "maxCanvasRects": 338
+  },
+  "samples": [
+    {
+      "phase": "delivery",
+      "release": 1,
+      "month": 1,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 0,
+          "remaining": 5,
+          "positiveCount": 0,
+          "reportProductId": 2,
+          "pastMemory": null,
+          "change": "店頭あり"
+        }
+      ]
+    },
+    {
+      "phase": "sales",
+      "release": 1,
+      "month": 7,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 5,
+          "remaining": 0,
+          "positiveCount": 1,
+          "reportProductId": 2,
+          "pastMemory": null,
+          "change": "好む客"
+        }
+      ]
+    },
+    {
+      "phase": "delivery",
+      "release": 2,
+      "month": 7,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 5,
+          "remaining": 5,
+          "positiveCount": 1,
+          "reportProductId": 3,
+          "pastMemory": {
+            "productId": 2,
+            "name": "煙",
+            "sample": "smoke",
+            "years": 20,
+            "createdMonth": 1,
+            "sold": 5,
+            "supportCount": 1,
+            "lastSale": 2
+          },
+          "change": "前の一本"
+        }
+      ]
+    },
+    {
+      "phase": "sales",
+      "release": 2,
+      "month": 13,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 10,
+          "remaining": 0,
+          "positiveCount": 4,
+          "reportProductId": 3,
+          "pastMemory": {
+            "productId": 2,
+            "name": "煙",
+            "sample": "smoke",
+            "years": 20,
+            "createdMonth": 1,
+            "sold": 5,
+            "supportCount": 1,
+            "lastSale": 2
+          },
+          "change": "好む客"
+        }
+      ]
+    },
+    {
+      "phase": "delivery",
+      "release": 3,
+      "month": 13,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 10,
+          "remaining": 5,
+          "positiveCount": 4,
+          "reportProductId": 4,
+          "pastMemory": {
+            "productId": 3,
+            "name": "煙",
+            "sample": "smoke",
+            "years": 20,
+            "createdMonth": 7,
+            "sold": 5,
+            "supportCount": 3,
+            "lastSale": 10
+          },
+          "change": "前の一本"
+        }
+      ]
+    },
+    {
+      "phase": "sales",
+      "release": 3,
+      "month": 19,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 15,
+          "remaining": 0,
+          "positiveCount": 7,
+          "reportProductId": 4,
+          "pastMemory": {
+            "productId": 3,
+            "name": "煙",
+            "sample": "smoke",
+            "years": 20,
+            "createdMonth": 7,
+            "sold": 5,
+            "supportCount": 3,
+            "lastSale": 10
+          },
+          "change": "好む客"
+        }
+      ]
+    },
+    {
+      "phase": "delivery",
+      "release": 4,
+      "month": 19,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 15,
+          "remaining": 5,
+          "positiveCount": 7,
+          "reportProductId": 5,
+          "pastMemory": {
+            "productId": 4,
+            "name": "バランス",
+            "sample": "balanced",
+            "years": 3,
+            "createdMonth": 13,
+            "sold": 5,
+            "supportCount": 3,
+            "lastSale": 14
+          },
+          "change": "前の一本"
+        }
+      ]
+    },
+    {
+      "phase": "sales",
+      "release": 4,
+      "month": 25,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 20,
+          "remaining": 0,
+          "positiveCount": 9,
+          "reportProductId": 5,
+          "pastMemory": {
+            "productId": 4,
+            "name": "バランス",
+            "sample": "balanced",
+            "years": 3,
+            "createdMonth": 13,
+            "sold": 5,
+            "supportCount": 3,
+            "lastSale": 14
+          },
+          "change": "好む客"
+        }
+      ]
+    },
+    {
+      "phase": "delivery",
+      "release": 5,
+      "month": 25,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 20,
+          "remaining": 5,
+          "positiveCount": 9,
+          "reportProductId": 6,
+          "pastMemory": {
+            "productId": 3,
+            "name": "煙",
+            "sample": "smoke",
+            "years": 20,
+            "createdMonth": 7,
+            "sold": 5,
+            "supportCount": 3,
+            "lastSale": 10
+          },
+          "change": "前の一本"
+        }
+      ]
+    },
+    {
+      "phase": "sales",
+      "release": 5,
+      "month": 31,
+      "pins": [
+        {
+          "id": "bar",
+          "sold": 25,
+          "remaining": 0,
+          "positiveCount": 11,
+          "reportProductId": 6,
+          "pastMemory": {
+            "productId": 3,
+            "name": "煙",
+            "sample": "smoke",
+            "years": 20,
+            "createdMonth": 7,
+            "sold": 5,
+            "supportCount": 3,
+            "lastSale": 10
+          },
+          "change": "好む客"
+        }
+      ]
+    }
+  ],
+  "performance": {
+    "unit": "ms; map projections, six DOM strings and assertion checks on Node host; not iPhone rendering",
+    "count": 12000,
+    "min": 0.14700399999856018,
+    "median": 4.4279350000142585,
+    "p90": 13.203026000002865,
+    "max": 315.975265999994
+  },
+  "verificationScope": {
+    "nativeCanvasPrefix": "seed1 × 4経過 × 3店 × 10時点 × 2段階。全seedの投影とmarkupは別途検証",
+    "multipleStoreFixture": "各seedで甘い香り8年と深み15年を全3店へ配分。100seed時は100fixture/300店舗照合"
+  }
+}

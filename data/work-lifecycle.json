@@ -520,6 +520,13 @@
       "status": "active",
       "title": "AmberTime 視覚 Lab 0.4",
       "theme": "実売と過去の好評を、店頭の景色の3案で見比べる。"
+    },
+    {
+      "id": "ambertime-whisky-map-lab-v05",
+      "path": "works/ambertime-whisky-map-lab-v05",
+      "status": "active",
+      "title": "AmberTime マップ Lab 0.5",
+      "theme": "地図から取扱状況と店の報告を、数字・印・短い言葉で比べる。"
     }
   ]
 }

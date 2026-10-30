@@ -204,6 +204,10 @@
         {
           "work": "ambertime-whisky-visual-lab-v04",
           "note": "店頭の瓶と、過去に好まれた一本の記録を3案で比べる。"
+        },
+        {
+          "work": "ambertime-whisky-map-lab-v05",
+          "note": "販売室から町の地図を開き、店の売上・残数・前の一本を確認する。"
         }
       ]
     },
