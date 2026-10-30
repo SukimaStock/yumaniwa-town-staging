@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import {generateScene,normalizeSettings,PALETTES} from './engine.mjs';
+import {generateScene,normalizeSettings,PALETTES} from './versions/0.1/engine.mjs';
 import {renderSVG} from './renderer.mjs';
 import {paperGrain,inkBreak} from './material-assets.mjs';
 import {washLight,washDensity} from './watercolor-assets.mjs';

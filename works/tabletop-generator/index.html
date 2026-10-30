@@ -1,22 +1,9 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="器・果物・布を単純な形と配色で描く、seed付き食卓ジェネレータ。SVGとPNGで保存できます。"><title>器と食卓 Generator Lab 0.1</title><link rel="stylesheet" href="style.css"></head>
-<body><main>
-<header><a class="back" href="../../lab/#room-garage">← LAB</a><h1>器と食卓 <span>Generator Lab 0.1</span></h1></header>
-<div class="workspace">
-<section class="picture" aria-label="生成した絵"><div id="art"></div><p id="caption"></p></section>
-<form id="controls">
-<div class="choices">
-<label>構図<select id="composition"><option value="top">真上の食卓</option><option value="side">横からの静物画</option></select></label>
-<label>配色<select id="palette"><option value="cream">クリームと青緑</option><option value="teal">青緑と朱</option><option value="rust">朱とクリーム</option><option value="olive">黄土とオリーブ</option><option value="blue">群青と桃</option></select></label>
-<label>物の量<select id="density"><option value="few">少なめ</option><option value="normal" selected>標準</option><option value="many">多め</option></select></label>
-<label>質感<select id="texture"><option value="original">原画</option><option value="print">印刷風</option><option value="watercolor">水彩画風</option></select></label>
-</div>
-<div class="seed-row"><label for="seed">seed</label><input id="seed" maxlength="80" autocomplete="off" spellcheck="false" value="table-001"><button type="submit">再表示</button></div>
-<button id="generate" class="primary" type="button">新しい絵を生成</button>
-<div class="exports"><button id="share" type="button">URL共有</button><button id="svg" type="button">SVG保存</button><button id="png" type="button">PNG保存</button><button id="json" type="button">設定JSON保存</button></div>
-<div class="secondary"><button id="import" type="button">設定JSON読込</button><input id="file" type="file" accept="application/json,.json" hidden><button id="compare" type="button">6枚を比較</button></div>
-<p id="status" role="status" aria-live="polite"></p>
-</form></div>
-<section id="comparison" hidden aria-label="同じ条件のseed比較"><div class="gallery-heading"><h2>同じ条件で比較</h2><button id="close" type="button">閉じる</button></div><div id="gallery"></div></section>
-<footer><a href="MATERIALS.md">素材・出典</a> · <a href="review/">比較シート</a></footer>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="瓶、ボウル、3個のレモン、布。固定した食卓の構図を原画・印刷風・水彩画風で比較する習作。"><title>器と食卓 — レモンのある食卓</title><link rel="stylesheet" href="style.css"></head>
+<body><main><header><a href="../../lab/#room-garage">← LAB</a><h1>器と食卓 <span>習作 01</span></h1></header>
+<section class="picture" aria-label="食卓の絵"><div id="art"></div><p id="caption">レモンのある食卓</p></section>
+<div id="controls"><label for="texture">質感</label><select id="texture"><option value="original">原画</option><option value="print">印刷風</option><option value="watercolor">水彩画風</option></select>
+<button id="share" type="button">URL共有</button><button id="svg" type="button">SVG保存</button><button id="png" type="button">PNG保存</button><button id="json" type="button">設定JSON保存</button>
+<button id="import" type="button">設定JSON読込</button><input id="file" type="file" accept="application/json,.json" hidden><button id="reset" type="button" hidden>習作に戻る</button></div>
+<p id="status" role="status" aria-live="polite"></p><footer><a href="MATERIALS.md">素材・出典</a> · <a href="review/">初版の比較記録</a></footer>
 </main><script type="module" src="app.mjs"></script></body></html>
