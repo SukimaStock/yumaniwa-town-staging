@@ -40,9 +40,13 @@ export function generateScene(input={}){
   glass.kind='beer-glass';glass.top=345;glass.level=390;
   glass.outline='M716 345 L828 345 L823 584 Q823 595 812 595 H732 Q721 595 720 584 Z';
   glass.sides='M716 345 L720 584 Q721 595 732 595 H812 Q823 595 823 584 L828 345';
-  glass.liquid='M722 390 H822 L817 582 Q817 589 809 589 H735 Q728 589 727 582 Z';
+  glass.liquid='M719 348 H825 L820 583 Q820 592 811 592 H733 Q724 592 723 583 Z';
+  glass.foam='M719 348 H825 L824 380 Q772 390 720 380 Z';
   stopper.kind='cap';stopper.angle=0;stopper.base=615;
  }
+ // Keep the slender bottle partly behind the bowl; label follows the bottle surface.
+ bottle.widthScale=.72;bottle.frame.x+=16;
+ bottle.label={x:190,y:settings.drink==='beer'?400:385,width:134,height:110};c.label=c.bowl;
  for(const [i,id]of ['lemon-in-left','lemon-in-right','lemon-front'].entries()){
   const fruit=object(id);fruit.id=['fruit-in-left','fruit-in-right','fruit-front'][i];fruit.kind='fruit';fruit.variety=settings.fruit;fruit.color=i===1?settings.fruit:settings.fruit+'Light';fruit.leaf=false;
   if(settings.fruit==='orange'){fruit.rx=i===2?49:52;fruit.ry=i===2?46:49;fruit.angle=i===0?-7:i===1?9:0;}

@@ -1,5 +1,5 @@
-import {normalizeSettings,generateScene,DRINKS,FRUITS,TABLE_PALETTES} from './engine.mjs?variants=03';
-import {renderSVG} from './renderer.mjs?variants=03';
+import {normalizeSettings,generateScene,DRINKS,FRUITS,TABLE_PALETTES} from './engine.mjs?variants=04';
+import {renderSVG} from './renderer.mjs?variants=04';
 import {download,svgBlob,pngBlob} from './exporter.mjs';
 const $=id=>document.getElementById(id);
 let settings,scene,svg;

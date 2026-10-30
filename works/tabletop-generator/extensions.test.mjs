@@ -16,7 +16,7 @@ test('36 authored settings keep support, hierarchy and drink relationships in al
    assert.equal(glass.bottle,'bottle');assert.equal(stopper.bottle,'bottle');assert.ok(glass.top<glass.level&&glass.level<glass.base);
    assert.deepEqual(generateScene(JSON.parse(JSON.stringify(scene.settings))),scene);
    if(first){assert.deepEqual(scene.objects,first.objects);assert.deepEqual(scene.colors,first.colors);}first=scene;
-   const svg=renderSVG(scene),text=svg.replace(/data:image\/png;base64,[A-Za-z0-9+/=]+/g,'');assert.ok(!/NaN|undefined|<script/.test(text));assert.ok(svg.includes('clip-path="url(#drink-bowl)"'));
+   const svg=renderSVG(scene),text=svg.replace(/data:image\/png;base64,[A-Za-z0-9+/=]+/g,'');assert.ok(!/NaN|undefined|<script/.test(text));if(drink.id!=='beer')assert.ok(svg.includes('clip-path="url(#drink-bowl)"'));
    const svgIds=[...svg.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(svgIds.length,new Set(svgIds).size);
    for(const m of svg.matchAll(/xlink:href="([^"]+)"/g))assert.ok(m[1].startsWith('data:image/png;base64,')||svgIds.includes(m[1].slice(1)));
   }
@@ -34,5 +34,14 @@ const previousHashes={"lemon-01":{"original":"ebceaebef16e4aa728ce8fa294ac6d2199
 test('all nine prior version2 artworks replay byte for byte',()=>{
  for(const [study,finishes]of Object.entries(previousHashes))for(const [texture,hash]of Object.entries(finishes)){
   assert.equal(createHash('sha256').update(renderSVG(generateScene({version:2,study,texture}))).digest('hex'),hash);
+ }
+});
+
+test('slender labeled bottles and beer surfaces keep simple geometry',()=>{
+ for(const drink of DRINKS){
+  const scene=generateScene({drink:drink.id}),bottle=scene.objects.find(o=>o.id==='bottle');
+  assert.equal(bottle.widthScale,.72);assert.ok(bottle.label.x>171&&bottle.label.x+bottle.label.width<346);assert.ok(bottle.label.y>377&&bottle.label.y+bottle.label.height<580);
+  const svg=renderSVG(scene),glass=svg.split('data-object="drink-glass"')[1].split('data-object=')[0];
+  if(drink.id==='beer'){assert.ok(!/<ellipse|stroke=/.test(glass));}
  }
 });
