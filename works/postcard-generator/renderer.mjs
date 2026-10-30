@@ -102,7 +102,7 @@ function boat(b,p){const{x,y,width:w,height:h}=b;let out=poly([[x+8,y+13],[x+w*.
  else out+=rect(x+w*.29,y-h*.73,w*.33,h*.4,p.walls[0])+rect(x+w*.25,y-h*.79,w*.41,h*.08,p.roofs[0])+rect(x+w*.35,y-h*.65,w*.1,h*.17,p.ink)+rect(x+w*.5,y-h*.65,w*.08,h*.17,p.ink);
  return `<g data-boat="true">${out}</g>`;
 }
-const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道'};
+const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道',alley:'路地'};
 export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p=s.palette;
  let out=`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="${esc(names[s.mode]+'・'+s.seed)}"><title>${esc('Postcard '+s.seed)}</title><desc>${esc(names[s.mode]+'。図形と反復する窓で描いた街。'+p.name+'。')}</desc><metadata>${esc(JSON.stringify({version:s.version,seed:s.seed,settings:s.settings}))}</metadata>`+rect(0,0,800,1000,p.sky);
  for(const c of s.clouds||[]){const{x,y,width:w,height:h}=c;out+=`<g data-cloud="true">${rect(x,y+h*.55,w,h*.45,p.light)+circle(x+w*.22,y+h*.55,h*.45,p.light)+circle(x+w*.48,y+h*.48,h*.48,p.light)+circle(x+w*.73,y+h*.6,h*.4,p.light)}</g>`;}
@@ -113,6 +113,12 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
   for(const b of s.boats)out+=boat(b,p);
  }else{
   for(const surface of s.surfaces){if(surface.type==='hill')out+=poly(surface.points,p.quay);else out+=rect(0,surface.y,800,surface.height,surface.type==='road'?p.roofs[2]:p.quay);}
+  if(s.mode==='alley'){
+   const a=s.alley,points=[[a.farCenter-a.farHalf,a.farY],[a.farCenter+a.farHalf,a.farY],[a.nearCenter+a.nearHalf,a.nearY],[a.bottomCenter+a.bottomHalf,1000],[a.bottomCenter-a.bottomHalf,1000],[a.nearCenter-a.nearHalf,a.nearY]];
+   out+='<g data-alley="true">'+poly(points,p.light);
+   for(const t of [.28,.53,.78]){const y=a.farY+(a.nearY-a.farY)*t,center=a.farCenter+(a.nearCenter-a.farCenter)*t,half=a.farHalf+(a.nearHalf-a.farHalf)*t;out+=path(`M${n(center-half)} ${n(y)}H${n(center+half)}`,p.quay,2);}
+   out+='</g>';
+  }
   if(s.mode==='square'){
    out+=poly([[s.plaza.left,585],[s.plaza.right,585],[s.plaza.right+70,1000],[s.plaza.left-70,1000]],p.light);
    for(let y=650;y<1000;y+=67)out+=path(`M${n(s.plaza.left-(y-585)*.15)} ${y}H${n(s.plaza.right+(y-585)*.15)}`,p.quay,2);
