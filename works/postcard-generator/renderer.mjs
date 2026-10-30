@@ -138,11 +138,11 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
    out+=poly([[s.plaza.left,585],[s.plaza.right,585],[s.plaza.right+70,1000],[s.plaza.left-70,1000]],p.light);
    for(let y=650;y<1000;y+=67)out+=path(`M${n(s.plaza.left-(y-585)*.15)} ${y}H${n(s.plaza.right+(y-585)*.15)}`,p.quay,2);
   }
-  for(const b of s.blocks){if(s.mode==='hillside'||s.mode==='hilltown')out+=poly([...b.ground,[800,1000],[0,1000]],s.mode==='hilltown'?b.groundColor:p.quay);for(const house of b.buildings)out+=buildingSVG(house);if(s.mode==='hilltown'&&b.layer===0)out+=tower(s.landmark);}
+  for(const b of s.blocks){if(s.mode==='hillside'||s.mode==='hilltown')out+=poly([...b.ground,[800,1000],[0,1000]],s.mode==='hilltown'?b.groundColor:p.quay);if(s.mode==='hilltown'&&b.layer===0){const e=s.hilltown.entry;out+='<g data-hilltown-entry="true">'+rect(e.x,e.y,e.width,e.height,p.light)+'</g>';}for(const house of b.buildings)out+=buildingSVG(house);if(s.mode==='hilltown'&&b.layer===0)out+=tower(s.landmark);}
   if(s.mode==='hilltown'){
-   const h=s.hilltown,half=h.stairWidth/2;
-   out+='<g data-hilltown-stairs="true">'+poly([...h.route.map(([x,y])=>[x-half,y]),...[...h.route].reverse().map(([x,y])=>[x+half,y])],p.light);
-   for(let i=1;i<h.route.length;i++){const [ax,ay]=h.route[i-1],[bx,by]=h.route[i],steps=Math.ceil((by-ay)/13);for(let j=1;j<=steps;j++){const t=j/steps,x=ax+(bx-ax)*t,y=ay+(by-ay)*t;out+=path(`M${n(x-half)} ${n(y)}h${h.stairWidth}`,p.quay,2);}}
+   const h=s.hilltown;out+='<g data-hilltown-stairs="true">';
+   for(const l of h.landings)out+='<g data-hilltown-landing="true">'+rect(l.x,l.y,l.width,l.height,p.light)+'</g>';
+   for(const f of h.flights){out+='<g data-hilltown-flight="true">'+rect(f.x,f.y,f.width,f.height,p.light);for(let y=f.y+f.spacing;y<f.y+f.height-.01;y+=f.spacing)out+=path(`M${n(f.x)} ${n(y)}h${f.width}`,p.quay,2);out+='</g>';}
    out+='</g>';
   }
   if(s.mode==='canal'){out+=bridgeSVG(s);for(const b of s.boats)out+=boat(b,p);}

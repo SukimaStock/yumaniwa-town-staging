@@ -124,8 +124,13 @@ export function generateScene(seed,settings={}){
    const nearby=blocks.flatMap(b=>b.buildings).filter(b=>b.x<x+width+30&&b.x+b.width>x-30),y=n(Math.max(65,Math.min(...nearby.map(b=>b.y-Math.min(70,b.width*.24)))-100));
    s.landmark={type:'tower',x,y,width,height:n(host.base-y),base:host.base,host:host.id,layer:0};
    const top=n(Math.max(rear[leftCount-1].base,rear[leftCount].base)+10),bottom=975;
-   const route=Array.from({length:6},(_,i)=>[n(center+(i===0||i===5?0:(i%2?11:-11))),n(top+(bottom-top)*i/5)]);
-   s.hilltown={direction,center,half,route,top,bottom,stairWidth:56};
+   // Straight flights change horizontal position only across blank flat landings.
+   const entry={x:n(center-70),y:top,width:84,height:20};
+   const landingY=blocks.slice(1).map(block=>n(Math.max(block.buildings[leftCount-1].base,block.buildings[leftCount].base)+10));
+   const landings=landingY.map(y=>({x:n(center-38),y,width:76,height:20}));
+   const flight=(offset,y,end)=>({x:n(center+offset-24),y:n(y),width:48,height:n(end-y),spacing:12});
+   const flights=[flight(-10,top+20,landings[0].y),flight(10,landings[0].y+20,landings[1].y),flight(0,landings[1].y+20,bottom)];
+   s.hilltown={direction,center,half,top,bottom,entry,flights,landings};
    s.people=[{x:center,y:n(bottom-12),color:p.ink,scale:1.5}];
  }else if(mode==='canal'){
    const shift=n((layout()-.5)*44),farY=470,middleY=650,nearY=850;
@@ -409,10 +414,16 @@ export function validateScene(scene){
  }
  if(scene.mode==='canal')validateCanal(scene,errors);
  if(scene.mode==='hilltown'){
-  const h=scene.hilltown,t=scene.landmark,valid=h&&[-1,1].includes(h.direction)&&Number.isFinite(h.center)&&h.half===50&&h.stairWidth===56&&Array.isArray(h.route)&&h.route.length===6&&h.route.every((q,i)=>Array.isArray(q)&&q.length===2&&q.every(Number.isFinite)&&Math.abs(q[0]-h.center)<=12&&(i===0||q[1]>h.route[i-1][1]));
-  if(!valid)errors.push('hilltown-route');
+  const h=scene.hilltown,t=scene.landmark,rect=q=>q&&typeof q==='object'&&[q.x,q.y,q.width,q.height].every(Number.isFinite)&&q.width>0&&q.height>0;
+  const valid=h&&[-1,1].includes(h.direction)&&Number.isFinite(h.center)&&h.half===50&&Number.isFinite(h.top)&&h.bottom===975&&rect(h.entry)&&Array.isArray(h.flights)&&h.flights.length===3&&h.flights.every(rect)&&Array.isArray(h.landings)&&h.landings.length===2&&h.landings.every(rect);
+  if(!valid)errors.push('hilltown-stair-data');
   else {
-   if(h.route[0][1]!==h.top||h.route.at(-1)[1]!==h.bottom||h.bottom!==975)errors.push('hilltown-stair-end');
+   const bottom=q=>n(q.y+q.height),connected=(flight,landing)=>flight.x>=landing.x-.03&&flight.x+flight.width<=landing.x+landing.width+.03;
+   if(h.entry.y!==h.top||Math.abs(bottom(h.entry)-h.flights[0].y)>.03||!connected(h.flights[0],h.entry)||Math.abs(bottom(h.flights[2])-h.bottom)>.03)errors.push('hilltown-stair-end');
+   for(const [i,f]of h.flights.entries()){
+    if(f.width!==48||f.spacing!==12||f.x<h.center-h.half||f.x+f.width>h.center+h.half||f.height<24)errors.push('hilltown-stair-flight');
+    if(i<2){const l=h.landings[i],next=h.flights[i+1];if(l.width!==76||l.height!==20||Math.abs(bottom(f)-l.y)>.03||Math.abs(bottom(l)-next.y)>.03||!connected(f,l)||!connected(next,l)||l.x<h.center-h.half||l.x+l.width>h.center+h.half)errors.push('hilltown-stair-landing');}
+   }
    for(const b of all)if(b.x<h.center+h.half-.02&&b.x+b.width>h.center-h.half+.02)errors.push('hilltown-stair-house');
    if(scene.blocks.length!==3||scene.blocks.some(b=>b.buildings.length!=={open:4,normal:5,dense:6}[scene.settings.density]))errors.push('hilltown-layers');
   }
