@@ -17,10 +17,10 @@ test('immutable300 baseline, new registration, order and 1000 ceiling',()=>{
  const last=manifest.items[299];assert.deepEqual(last,{id:'street-fire-hydrant',file:'objects/street-fire-hydrant.json',number:300});
  const raw=readFileSync(new URL(last.file,root));
  assert.equal(createHash('sha1').update(Buffer.from('blob '+raw.length+'\0')).update(raw).digest('hex'),'13c945a4f31df1e7a778ee597bada1deace32661');
- assert.equal(manifest.items.length,320);assert.ok(manifest.items.length<=1000);
+ assert.equal(manifest.items.length,330);assert.ok(manifest.items.length<=1000);
  const nums=manifest.items.map((v,i)=>v.number??i);
- assert.equal(new Set(nums).size,320);assert.equal(new Set(manifest.items.map(x=>x.id)).size,320);
- assert.ok(!nums.includes(16));assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:304},(_,i)=>i+17)]);
+ assert.equal(new Set(nums).size,330);assert.equal(new Set(manifest.items.map(x=>x.id)).size,330);
+ assert.ok(!nums.includes(16));assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:314},(_,i)=>i+17)]);
  for(const e of manifest.items){assert.equal(e.file,'objects/'+e.id+'.json');assert.equal(read(e.file).id,e.id);}
 });
 test('Collection29 exact ten distinct STATIC models',()=>{
