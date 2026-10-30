@@ -1,0 +1,85 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "528cbfe46937eeaef03dff7c250113efcb9c8a454ab07bceeab1c6799cf0fa7f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-alley",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "176de14bf5efdb02327a8e8c0cee451ddcc4a9a7",
+    "change": "Stage5: framed alley composition with receding banks and a small rear streetscape",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-alley/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add explicit alley scene using existing five roofs, three windows and palette grammar",
+      "Compose rear row, middle banks and near banks around a constrained walkable corridor before generating details",
+      "Support one corner face and existing facade/ground-floor/indoor-plant/source-shadow grammars at near scale",
+      "Preserve all existing seed/settings renderings including auto scene choice and immutable0.1",
+      "Review36seeds, structural and boundary tests, SVG/PNG and360/375/390px; PR CI and Staging publish"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review36alley seeds including low/high density and dark palettes",
+      "Browser scene selection/replay/export/comparison and360/375/390px layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User asks to proceed to next stage after completed corner buildings; implement proposed alley composition as reversible Staging trial"
+    ],
+    "rulesApplied": [
+      "Keep rejected round windows, shutters and stepped roofs excluded",
+      "Only add existing scene selector option; no new controls or decorative copy",
+      "Existing auto scene selection remains stable; alley explicitly selectable"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works",
+      "Legacy0.1 sources",
+      "Water reflections",
+      "New roof/window types",
+      "Strict3D perspective",
+      "Shared town navigation"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
