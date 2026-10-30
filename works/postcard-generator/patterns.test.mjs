@@ -10,11 +10,11 @@ test('0.1 dispatch retains exact scene data and all36 saved vector outputs',()=>
 test('new version plain scene and SVG reproduce from seed and normalized settings',()=>{
  for(const {id}of SCENES){const a=generateScene('a shared town',{scene:id});assert.deepEqual(a,JSON.parse(JSON.stringify(a)));assert.deepEqual(a,generateScene('a shared town',{scene:id}));assert.equal(renderSVG(a),renderSVG(generateScene('a shared town',{scene:id})));}
 });
-test('3000 scenes have finite supported buildings and mode-specific counts/bounds',()=>{
+test('3600 scenes have finite supported buildings and mode-specific counts/bounds',()=>{
  for(let i=0;i<200;i++)for(const {id}of SCENES)for(const density of ['open','normal','dense']){const s=generateScene(`patterns-audit-${i}`,{scene:id,density});assert.deepEqual(validateScene(s).errors,[],`${i}/${id}/${density}`);const svg=renderSVG(s);assert.doesNotMatch(svg,/NaN|Infinity|undefined|<image|<script|<foreignObject|url\(/);assert.ok(svg.length<180000);assert.ok((svg.match(/</g)||[]).length<2400);}
 });
-test('scene types differ in layout, density changes house counts, automatic seed selects allfive',()=>{
- const scenes=SCENES.map(({id})=>generateScene('five-scene',{scene:id}));assert.equal(new Set(scenes.map(s=>JSON.stringify(geometry(s)))).size,5);
+test('scene types differ in layout, density changes house counts, automatic choice preserves original five',()=>{
+ const scenes=SCENES.map(({id})=>generateScene('five-scene',{scene:id}));assert.equal(new Set(scenes.map(s=>JSON.stringify(geometry(s)))).size,SCENES.length);
  for(const{ id}of SCENES.filter(s=>s.id!=='waterfront')){const count=d=>generateScene('density',{scene:id,density:d}).blocks.flatMap(b=>b.buildings).length;assert.ok(count('open')<count('dense'),id);}
  assert.equal(new Set(Array.from({length:100},(_,i)=>generateScene('auto-'+i).mode)).size,5);
 });
@@ -199,4 +199,39 @@ test('automatic corner can be fixed to its selected side without changing the ci
   const fixed=generateScene(s.seed,{...s.settings,corners:b.corner.side});assert.deepEqual(s.blocks,fixed.blocks);assert.deepEqual(s.clouds,fixed.clouds);checked++;
  }
  assert.ok(checked>20&&plain>5);
+});
+
+test('alley corridor stays open between three supported scales over 900 seeds/settings',()=>{
+ const signatures=new Set();
+ for(let i=0;i<300;i++)for(const density of ['open','normal','dense']){
+  const s=generateScene('alley-audit-'+i,{scene:'alley',density,corners:['plain','left','right'][i%3],accents:'both',groundFloor:i%2?'awning':'arcade',facade:i%2?'terrace':'grid'}),a=s.alley;
+  assert.deepEqual(validateScene(s).errors,[],`${i}/${density}`);
+  assert.equal(s.blocks.length,3);assert.equal(s.blocks.flatMap(b=>b.buildings).length,{open:7,normal:8,dense:9}[density]);
+  assert.deepEqual(s,generateScene(s.seed,JSON.parse(JSON.stringify(s.settings))));
+  for(const[layer,y,center,half]of [[1,a.middleY,a.middleCenter,a.middleHalf],[2,a.nearY,a.nearCenter,a.nearHalf]]){
+   const[left,right]=s.blocks[layer].buildings;
+   assert.ok(Math.abs((left.corner?.plotX??left.x)+(left.corner?.plotWidth??left.width)-(center-half))<.04);
+   assert.ok(Math.abs((right.corner?.plotX??right.x)-(center+half))<.04);
+   assert.equal(left.base,y);assert.equal(right.base,y);
+   const t=(y-a.farY)/(a.nearY-a.farY);
+   assert.ok(Math.abs(center-(a.farCenter+(a.nearCenter-a.farCenter)*t))<.03);
+   assert.ok(Math.abs(half-(a.farHalf+(a.nearHalf-a.farHalf)*t))<.03);
+  }
+  for(const q of s.people){
+   const near=q.y>a.nearY,t=(q.y-a.farY)/(a.nearY-a.farY),center=near?a.nearCenter:a.farCenter+(a.nearCenter-a.farCenter)*t,half=near?a.nearHalf:a.farHalf+(a.nearHalf-a.farHalf)*t;
+   assert.ok(q.x>center-half+10&&q.x<center+half-10);
+  }
+  const svg=renderSVG(s),m=svg.match(/<g data-alley="true"><polygon points="([^"]+)"/);assert.ok(m);
+  const polygon=m[1].split(' ').map(p=>p.split(',').map(Number));assert.equal(polygon.length,6);
+  assert.deepEqual(polygon[0],[Number((a.farCenter-a.farHalf).toFixed(2)),a.farY]);assert.equal(polygon[3][1],1000);
+  assert.ok(svg.indexOf('data-alley=')<svg.indexOf('data-building='),'ground before facades');
+  signatures.add(JSON.stringify([a,s.blocks.flatMap(b=>b.buildings).map(b=>b.height)]));
+ }
+ assert.ok(signatures.size>850);
+});
+test('alley validator rejects a closed corridor, displaced banks and reversed scale',()=>{
+ const base=generateScene('alley-bad',{scene:'alley'});
+ const closed=structuredClone(base);closed.alley.nearHalf=10;assert.ok(validateScene(closed).errors.includes('alley-corridor'));
+ const displaced=structuredClone(base);displaced.blocks[1].buildings[0].width+=40;assert.ok(validateScene(displaced).errors.includes('alley-banks'));
+ const reversed=structuredClone(base);reversed.blocks[0].buildings[0].height=700;assert.ok(validateScene(reversed).errors.includes('alley-scale'));
 });
