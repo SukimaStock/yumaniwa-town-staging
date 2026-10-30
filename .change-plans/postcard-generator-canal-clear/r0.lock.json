@@ -1,0 +1,88 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c0a470e917456edd4c9bdc958476bcaad1865b419263eefc6ca69533e1d01791",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-canal-clear",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "1bec29458e5be80c23dc83647d8c9001a7f1b632",
+    "change": "Remove canal reflection panels and simplify its review to36seeds",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-canal-clear/r0.lock.json",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs",
+      "works/postcard-generator/app.mjs",
+      "works/postcard-generator/index.html",
+      "works/postcard-generator/canal.test.mjs",
+      "works/postcard-generator/CANAL.md",
+      "works/postcard-generator/review-canal/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Canal always uses plain water with existing ripples; disable reflection control for canal",
+      "Show36canal images without duplicate reflection comparisons",
+      "Preserve all noncanal scene/SVG output, test1800canal conditions, render36seeds and verify published UI after requiredCI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review36canal seeds for bank/bridge connections, roof/window constraints, water/boat/person bounds and representative limitations",
+      "Published scene controls/replay/export/36gallery and360/375/390px display"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user: 運河らしくなりました。写り込みは要らなそうです。次に進みましょう。"
+    ],
+    "rulesApplied": [
+      "Basic JS/SVG shapes only; no image generation or external images",
+      "First canal composition only; other town themes and a full town-type×composition selector are future work",
+      "Existing rejected windows/roof forms, indoor plants and connected shade constraints maintained"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works/shared town/LAB configuration",
+      "versions/0.1",
+      "Other town themes or complete town-type/composition matrix",
+      "Physical3D reflections",
+      "New palette colors or outside assets"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
