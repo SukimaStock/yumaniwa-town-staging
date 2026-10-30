@@ -1,6 +1,6 @@
-import {generateScene,validateScene} from '../engine.mjs?v=0.2.8';
-import {renderSVG} from '../renderer.mjs?v=0.2.8';
-import {cases,modes} from './cases.mjs';
+import {generateScene,validateScene} from '../engine.mjs?v=0.2.9';
+import {renderSVG} from '../renderer.mjs?v=0.2.9';
+import {cases,modes} from './cases.mjs?v=0.2.9';
 const cards=document.getElementById('cards'),urls=[];
 try{
  for(const {seed,settings} of cases){
@@ -17,6 +17,6 @@ try{
   }
   section.append(title,row);cards.append(section);
  }
- document.getElementById('status').textContent='36 seed・108枚を生成しました。';
+ document.getElementById('status').textContent=`${cases.length} seed・${cases.length*modes.length}枚を生成しました。`;
 }catch(error){document.getElementById('status').textContent=error.message;}
 window.addEventListener('unload',()=>urls.forEach(url=>URL.revokeObjectURL(url)));
