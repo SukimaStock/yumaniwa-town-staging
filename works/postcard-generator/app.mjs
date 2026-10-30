@@ -1,5 +1,5 @@
-import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.18';
-import {renderSVG} from './renderer.mjs?v=0.2.18';
+import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.19';
+import {renderSVG} from './renderer.mjs?v=0.2.19';
 import {downloadBlob,svgBlob,pngBlob} from './exporter.mjs';
 const $ = id => document.getElementById(id);
 const keys=['scene','palette','density','composition','roofs','windows','colorMode','facade','sky','groundFloor','accents','corners','reflection','alleyDepth','finish','version'];

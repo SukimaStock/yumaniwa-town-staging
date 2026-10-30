@@ -1,0 +1,83 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2c99b13f636ae330eae408ac997fcbb121d337940635f7dd261e40f318edabcc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-material-print",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "993b157f84ff4ff3c30c3c987c46fa5ba2c17cbe",
+    "change": "Compare original, preserved code print and embedded scanned-paper material print",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-material-print/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Acquire primary-source CC0 scanned paper, document provenance/license/hash and derived processing",
+      "Add print-material finish using offline embedded raster paper and ink coverage masks; preserve existing finishes/URLs/settings exactly",
+      "36 seeds x original/code-print/material-print gallery and rendered review; deterministic self-contained SVG/PNG exports, old scene/SVG exact regression",
+      "Independent review, required CI, safe Staging merge and Pages/browser/export/mobile verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review108renders and parent representative3way before publication",
+      "Published3way,PNG/SVG/JSON/replay and360375390px"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user approves real-material print comparison after current procedural texture criticism; Staging only"
+    ],
+    "rulesApplied": [
+      "Author explicitly permits real texture assets; keep JS/SVG city geometry and palettes",
+      "No imagegen city/core; no new parts or towns; no watercolor changes",
+      "One additional finish selector option, no extra knobs or poeticcopy"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Sharedfiles/otherworks",
+      "versions/0.1",
+      "Basegeometry/palette changes",
+      "Watercolor changes"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}

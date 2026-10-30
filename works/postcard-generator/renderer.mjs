@@ -1,3 +1,4 @@
+import {paperGrain,inkBreak} from './material-assets.mjs';
 import {randomStream} from './versions/0.1/engine.mjs';
 import {renderSVG as renderLegacy} from './versions/0.1/renderer.mjs';
 const n=v=>Number(v.toFixed(2)),esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
@@ -34,7 +35,7 @@ function windowLayout(b){
  const w=b.width,h=b.height,margin=w*.18,gap=(w-margin*2)/b.cols,ww=Math.min(w>180?33:19,gap*.47),wh=Math.min(w>180?56:29,h/(b.rows+1)*.5),offset=Math.max(16,h*.13),top=b.y+offset,doorHeight=b.groundFloor?.height??Math.min(78,h*.22),rowGap=(h-offset-doorHeight-18-wh)/Math.max(1,b.rows-1);
  return {margin,gap,ww,wh,top,rowGap};
 }
-function cornerSVG(b){
+function cornerSVG(b,onlyRoof=false){
  const c=b.corner,{x,y,width:w,base}=b,dir=c.side==='right'?1:-1,seam=c.side==='right'?x+w:x,outer=seam+dir*c.width,left=Math.min(seam,outer),right=Math.max(seam,outer),trim=Math.max(3,w*.015);
  const shift=t=>c.rise*(c.side==='right'?t:1-t);
  let out=`<g data-corner="${c.side}">`+poly([[seam,y],[outer,y+c.rise],[outer,base],[seam,base]],c.wall);
@@ -48,10 +49,12 @@ function cornerSVG(b){
  if(b.roof==='gable'||b.roof==='round')ridge=x+w*.5;
  if(b.roof==='hip')ridge=x+w*(c.side==='right'?.76:.22);
  if(b.roof==='shed')ridgeY=y-b.roofHeight*(c.side==='right'?.2:1);
+ const roofStart=out.length;
  if(b.roof==='round'){
   const ctrl=x+w*(c.side==='right'?.75:.25);
   out+=`<path d="M${n(ridge)} ${n(ridgeY)}Q${n(ctrl)} ${n(ridgeY)} ${n(seam)} ${n(y)}L${n(outer)} ${n(y+c.rise)}Q${n(ctrl+dir*c.width)} ${n(ridgeY+c.rise)} ${n(ridge+dir*c.width)} ${n(ridgeY+c.rise)}Z" fill="${c.roof}"/>`;
  }else out+=poly([[ridge,ridgeY],[seam,y],[outer,y+c.rise],[ridge+dir*c.width,ridgeY+c.rise]],c.roof);
+ if(onlyRoof)return out.slice(roofStart);
  out+=poly([[seam,y],[outer,y+c.rise],[outer,y+c.rise+trim],[seam,y+trim]],b.trim);
  return out+'</g>';
 }
@@ -59,7 +62,8 @@ function buildingSVG(b,finish,seed){const{x,y,width:w,height:h}=b;
  let out=(b.corner?cornerSVG(b):'')+rect(x,y,w,h,b.wall)+roof(b)+rect(x,y,w,Math.max(3,w*.015),b.trim);
  if(b.band)out+=rect(x,b.base-h*.26,w,h*.26,b.bandColor);
  if(b.shade?.source==='eave')out+=shadowSVG(b);
- if(finish)out+=wallFinish(b,finish,seed);
+ if(finish==='print-material')out+=materialBuilding(b);
+ else if(finish)out+=wallFinish(b,finish,seed);
  const {margin,gap,ww,wh,top,rowGap}=windowLayout(b);
  for(let r=0;r<b.rows;r++)for(let c=0;c<b.cols;c++){
    const wx=x+margin+gap*(c+.5)-ww/2,wy=top+r*rowGap;
@@ -77,6 +81,21 @@ function buildingSVG(b,finish,seed){const{x,y,width:w,height:h}=b;
  if(b.shade?.source==='awning')out+=shadowSVG(b);
  return `<g data-building="${esc(b.id)}">${out}</g>`;
 }
+function materialBuilding(b){
+ const id='material-shape-'+b.id,c=b.corner,seam=c?.side==='right'?b.x+b.width:b.x,outer=c?seam+(c.side==='right'?c.width:-c.width):seam,left=Math.min(b.x,outer),right=Math.max(b.x+b.width,outer);
+ const faces=rect(b.x,b.y,b.width,b.height,'#fff')+roof(b)+(c?poly([[seam,b.y],[outer,b.y+c.rise],[outer,b.base],[seam,b.base]],'#fff')+cornerSVG(b,true):'');
+ let windows='';
+ if(c){const {wh,top,rowGap}=windowLayout(b),sw=Math.min(14,c.width*.44),sx=(Math.min(seam,outer)+Math.max(seam,outer)-sw)/2,shift=t=>c.rise*(c.side==='right'?t:1-t),edge=Math.min(seam,outer);
+  for(let r=0;r<b.rows;r++){const wy=top+r*rowGap+wh*.2,dy1=shift((sx-edge)/c.width),dy2=shift((sx+sw-edge)/c.width);windows+=poly([[sx,wy+dy1],[sx+sw,wy+dy2],[sx+sw,wy+wh*.8+dy2],[sx,wy+wh*.8+dy1]],b.windowColor);}
+ }
+ const edges=faces.replace(/fill="[^"]*"/g,`fill="none" stroke="${b.trim}" stroke-width="4"`);
+ // Fixed paper coordinates connect the ink loss on adjacent printed faces.
+ return `<g data-material-ink="${esc(b.id)}"><defs><clipPath id="${esc(id)}">${faces}</clipPath></defs><g mask="url(#material-ink-mask)" clip-path="url(#${esc(id)})"><rect x="${n(left)}" y="${n(b.y-b.roofHeight*2)}" width="${n(right-left)}" height="${n(b.height+b.roofHeight*2)}" fill="${b.trim}"/>${edges}</g>${windows?'<g data-material-side-windows="true">'+windows+'</g>':''}</g>`;
+}
+function materialDefs(s){
+ const r=randomStream(s.seed,'material-paper'),x=n(r()*400),y=n(r()*400),size=400;
+ return `<defs data-finish="print-material"><pattern id="finish-paper" width="${size}" height="${size}" x="${x}" y="${y}" patternUnits="userSpaceOnUse"><image xlink:href="${paperGrain}" width="${size}" height="${size}"/></pattern><pattern id="material-break" width="${size}" height="${size}" x="${x}" y="${y}" patternUnits="userSpaceOnUse"><image xlink:href="${inkBreak}" width="${size}" height="${size}"/></pattern><mask id="material-ink-mask" x="0" y="0" width="800" height="1000" maskUnits="userSpaceOnUse" mask-type="alpha"><rect width="800" height="1000" fill="url(#material-break)"/></mask></defs>`;
+}
 // Local seeded marks never alter geometry or consume generation streams.
 function wallFinish(b,finish,seed){
  const r=randomStream(seed,'finish-wall-'+b.id),{x,y,width:w,height:h}=b;let out='<g data-wall-finish="'+finish+'">';
@@ -93,7 +112,7 @@ function wallFinish(b,finish,seed){
  return out+'</g>';
 }
 function finishDefs(s){
- const finish=s.settings.finish;if(!finish)return '';
+ const finish=s.settings.finish;if(!finish)return '';if(finish==='print-material')return materialDefs(s);
  const r=randomStream(s.seed,'finish-paper'),ink=s.palette.ink;let out=`<defs data-finish="${finish}"><pattern id="finish-paper" width="128" height="128" patternUnits="userSpaceOnUse">`;
  for(let i=0;i<90;i++){const x=n(r()*128),y=n(r()*128),size=n(.3+r()*.9);out+=`<circle cx="${x}" cy="${y}" r="${size}" fill="${ink}" fill-opacity="${finish==='print'?'.12':'.07'}"/>`;}
  out+='</pattern>';
@@ -173,5 +192,5 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
  for(const b of s.benches||[])out+=rect(b.x,b.y,b.width,7,p.roofs[1])+rect(b.x+9,b.y+7,5,13,p.ink)+rect(b.x+b.width-14,b.y+7,5,13,p.ink)+rect(b.x,b.y-16,b.width,9,p.roofs[1]);
  for(const q of s.people){const scale=q.scale||1;out+=circle(q.x,q.y-6*scale,2*scale,q.color)+rect(q.x-1.6*scale,q.y-3*scale,3.2*scale,8*scale,q.color);}
  if(s.settings.finish)out+='<rect data-paper-grain="true" x="0" y="0" width="800" height="1000" fill="url(#finish-paper)"/>';
- return out+'</svg>';
+ return (s.settings.finish==='print-material'?out.replace('<svg xmlns=', '<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns='):out)+'</svg>';
 }
