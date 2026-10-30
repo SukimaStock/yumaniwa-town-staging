@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "47d2f5ed1f1f89f38dd4d5a859ee7f51e21ec44ff104ff570da9d992f42bdcd9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tabletop-drinks-fruit",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2627e974c54541d44b7056ab35a425b817216234",
+    "change": "Extend authored tabletop composition with coordinated palette/drink/fruit choices",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/tabletop-generator/engine.mjs",
+      "works/tabletop-generator/renderer.mjs",
+      "User expansion request"
+    ],
+    "allowedPaths": [
+      ".change-plans/tabletop-drinks-fruit/r0.lock.json",
+      "works/tabletop-generator/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "works/postcard-generator/**",
+      "works/ambertime/**",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Version3 high-level choices:4rolepalettes, white/red wine/beer, lemon/orange/pear,3finishes; fixed composition maintained",
+      "Red wine and beer change liquid/bottle/glass/stopper coherently; fruits retain bowl occlusion and table contact",
+      "Version1/2 saved URLs and JSON reproduce exact prior artwork through versioned modules",
+      "Update lifecycle theme/LAB note and regenerate;36combinations and3finishes, mobile/download/roundtrip QA, independent review, PR CI safe Staging merge"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Visual36combinations and same-scene3finishes, fruit contours and grounding",
+      "Select3drinks/fruits/palettes and download/import SVG PNG JSON; oldURL replay",
+      "360/375/390 layout and LAB entry"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User likes current composition and explicitly requests colors/redwine/beer/fruits expansion. Existing composition remains basis; aesthetic adoption and Production remain author decisions"
+    ],
+    "hqDecisions": [
+      "Existing work-local SVG/JSON/export and LAB registry contracts suffice; no shared runtime or new external service"
+    ],
+    "rulesApplied": [
+      "Use existing lifecycle schema and garage room; no new rooms or town persistent UI",
+      "Only title, actions and needed labels on screen; no decorative prose",
+      "Seed series independent by responsibility; structural validation is not an aesthetic score"
+    ],
+    "problem": "Fixed accepted artwork needs meaningful controlled variations without reverting to random object placement",
+    "currentContract": "Independent works served statically; lifecycle active staging-only; LAB generated from canonical registries",
+    "whyExistingIsInsufficient": "New subject requires separate composition grammar; existing delivery contracts suffice",
+    "design": "Version3 semantic role palettes and coordinated drink/fruit grammars atop fixed authored composition; versioned legacy modules preserve prior settings",
+    "alternativesRejected": [
+      "Random independent shapes",
+      "Image generation and external building assets",
+      "Shared runtime or Production changes"
+    ],
+    "migration": "None; no existing state changes",
+    "compatibility": "Buildless HTML CSS ES modules SVG; canvas only on explicit PNG export",
+    "boundaryCases": [
+      "Seeds with markup/unicode/empty inputs",
+      "Extreme supported density and composition",
+      "Repeated generation and gallery memory bounds",
+      "Export failure, invalid URL settings and browser history"
+    ],
+    "testPlan": [
+      "36configurations×3finishes structural/safeSVG/roundtrip checks",
+      "Old1/2 exactSVG replay",
+      "Coherent glass-liquid-stopper relationships and fruit support/occlusion",
+      "Browser visual/mobile/export and lifecycle regression"
+    ],
+    "promotionRisk": "Staging only; Production excluded",
+    "rollback": "Revert work, lifecycle/garage entry and generated LAB as a unit; no migrations",
+    "promotion": "none",
+    "outOfScope": [
+      "Production",
+      "Existing postcard and shared runtime",
+      "New random composition families"
+    ],
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author aesthetic adoption"
+    ]
+  }
+}
