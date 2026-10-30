@@ -8,7 +8,8 @@ import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=for
 import {RuntimeClock} from './runtime-clock.mjs?v=0.25.1';
 import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1';
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
-import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.27.3-map';
+import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map';
+import {mapSalesProjection} from './map-sales-view.mjs?v=0.28.0-map';
 import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard} from './brewing-cards.mjs?v=formal-copy-r1';
 import {playerMilestones} from './player-news.mjs?v=0.25.4';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
@@ -593,7 +594,30 @@ function departmentDestination(p,release,invitation){
  else body+='<p>'+(adopted?'今回の企画は完了':adoptions.length?'過去に採用実績あり':'申し出待ち')+'</p><p>5本 '+unit(q.unitPrice)+'/本</p><p class="quiet">'+esc(displayReason(q.reason)??shopTerms('department'))+'</p>';
  body+=D.departmentAdoptions(game,release?.brandId).length?'<p class="quiet">採用歴は記録へ</p>':'';return body+'</section>';
 }
-function closeModal(){placementUI?.reset();if(modal?.kind==='world-map'){const fromMenu=modal.source==='menu';modal=fromMenu?modal.parent??{kind:'aux-panel'}:null;render();if(fromMenu)$('open-world-map').focus({preventScroll:true});else schedule();return;}if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='inspect'&&modal.ledgerParent){finishLedgerTasting();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){if(modal.parent){closeComparison();return;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
+const mapNumber=n=>n>999?'999+':String(n);
+function mapSalesMarkup(data,selected){
+ const pins=data.pins.map(p=>{
+  const count=p.recentSold===null?'納'+mapNumber(p.recentDelivered):'売'+mapNumber(p.recentSold);
+  const stock=p.currentStock===null?'':' 残'+mapNumber(p.currentStock);
+  const label=count+stock,active=selected===p.id;
+  // Label positions are independent of hit positions; native markers never move.
+  const labelX=p.id==='supermarket'?105:p.id==='department'?49:worldMapStage===2?85:40;
+  const labelY=p.id==='supermarket'?85:p.id==='department'?131:worldMapStage===2?42:46;
+  return '<button type="button" class="map-shop-hit" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+p.x/144*100+'%;top:'+p.y/144*100+'%" aria-label="'+esc(p.name+' '+label)+'" aria-pressed="'+active+'"></button><button type="button" class="map-shop-label" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+(selected?Math.max(49,Math.min(95,labelX)):labelX)/144*100+'%;top:'+(selected?Math.min(126,labelY):labelY)/144*100+'%" aria-pressed="'+active+'"><span>'+esc(label)+'</span><small>'+esc(p.status)+'</small></button>';
+ }).join('');
+ return pins;
+}
+function mapSalesReport(data,id){
+ const p=data.pins.find(p=>p.id===id);if(!p)return '';
+ const details=p.currentStock===null?'店頭残数の記録なし':'店頭残 '+p.currentStock+'本';
+ const sales=p.totalSold===null?'累計納品 '+p.totalDelivered+'本':'累計販売 '+p.totalSold+'本';
+ const recent='直近12か月 '+(p.recentSold===null?'納品 '+p.recentDelivered:'販売 '+p.recentSold)+'本';
+ const latest=p.latestMonth===null?'':'直近取引 '+monthLabel(p.latestMonth)+' · '+p.latestCount+'本';
+ const old=p.mode==='store-market'&&p.historicalDelivered?'旧方式の納品 '+p.historicalDelivered+'本':'';
+ const products=(p.products??[]).map(x=>esc(x.name??'ウイスキー')+' '+(x.bottledMonth===null?'':esc(monthLabel(x.bottledMonth))+'発売 ') +x.count+'本').join(' / ');
+ return '<section class="map-shop-report" aria-label="'+esc(p.name)+'の記録"><h3>'+esc(p.name)+'</h3><p>'+esc([recent,sales,details,old,latest].filter(Boolean).join(' · '))+'</p>'+(products?'<p>'+products+'</p>':'')+(p.remark?'<p>「'+esc(typeof p.remark==='string'?p.remark:p.remark.text)+'」</p>':'')+button('店情報','map-shop-info',p.id)+'</section>';
+}
+function closeModal(){placementUI?.reset();if(modal?.mapParent){modal=modal.mapParent;render();return;}if(modal?.kind==='world-map'){const fromMenu=modal.source==='menu';modal=fromMenu?modal.parent??{kind:'aux-panel'}:null;render();if(fromMenu)$('open-world-map').focus({preventScroll:true});else schedule();return;}if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='inspect'&&modal.ledgerParent){finishLedgerTasting();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){if(modal.parent){closeComparison();return;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
 function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();if(game.tastingId!==null&&game.tastingId!==id)endTaste();selectedCaskId=id;room='warehouse';modal={kind:'inspect',id};act(s=>D.sampleDistillery(s,id));}
 function quoteModal(id){if(!D.currentCask(game,id))return;stopClock();if(D.bottlingReservation(game,id)?.status==='active')act(s=>D.pauseBottling(D.endTasting(s),id,true),()=>{modal={kind:'quote',id};});else{modal={kind:'quote',id};render();}}
 function reservationLabel(id){
@@ -669,8 +693,9 @@ function syncModal(){
  }else if(kind==='aux-panel'){title='メニュー';
  }else if(kind==='world-map'){
   worldMapStage=Math.max(1,Math.min(worldMapStage,mapViewMax()));const introduction=modal.source==='unlock';
-  title='地図';body='<div class="world-map-view">'+(introduction?'<p class="map-introduction" role="status">'+esc(mapIntroduction(game,worldMapStage))+'</p>':'')+'<canvas id="world-map-canvas" width="144" height="144" role="img" aria-label="'+esc(MAP_STAGES[worldMapStage-1])+'の地図"></canvas>'+(introduction?'':'<div class="world-map-controls">'+button('−','world-map-out','',worldMapStage>=mapViewMax()?'disabled aria-label="縮小"':'aria-label="縮小"')+'<span role="status">'+esc(MAP_STAGES[worldMapStage-1])+'</span>'+button('＋','world-map-in','',worldMapStage===1?'disabled aria-label="拡大"':'aria-label="拡大"')+'</div>')+'</div>';
-  actions=button(introduction?'つづける':'戻る',introduction?'map-continue':'map-back');
+  const data=mapSalesProjection(game,worldMapStage);const selected=modal.selectedShop;
+  title='地図';body='<div class="world-map-view">'+(introduction?'<p class="map-introduction" role="status">'+esc(mapIntroduction(game,worldMapStage))+'</p>':'')+'<div class="world-map-surface" data-selected="'+!!selected+'"><canvas id="world-map-canvas" width="144" height="144" role="img" aria-label="'+esc(MAP_STAGES[worldMapStage-1])+'の地図"></canvas>'+(!introduction?mapSalesMarkup(data,selected):'')+'</div>'+(introduction?'':'<div class="world-map-controls">'+button('−','world-map-out','',worldMapStage>=mapViewMax()?'disabled aria-label="縮小"':'aria-label="縮小"')+'<span role="status">'+esc(MAP_STAGES[worldMapStage-1])+'</span>'+button('＋','world-map-in','',worldMapStage===1?'disabled aria-label="拡大"':'aria-label="拡大"')+'</div><p class="map-sales-period">売・納：直近12か月／残：現在</p>'+mapSalesReport(data,selected)+(!selected?'<p class="map-retail-total">自家販売 累計'+data.retail.totalSold+'本（蒸留所）</p>':''))+'</div>';
+  actions=(!introduction?button('販売室へ','map-sales-room'):'')+button(introduction?'つづける':'戻る',introduction?'map-continue':'map-back');
  }else if(kind==='staff-manager'){title='担当者';body=staffManagerView();actions=button('閉じる','cancel');
  }else if(kind==='staff-opportunity'){title=jobName(modal.job);const status=jobStatus(modal.job);body=staffCostView(modal.job);actions=button('採用','staff-opportunity-hire',modal.job,status.canHire?'':'disabled')+button('見送る','staff-opportunity-later');
  }else if(kind==='bottler-panel'){title='ビン詰め担当者';body=bottlerManagerView();actions=button('戻る','staff-manage-back');
@@ -787,12 +812,12 @@ function syncModal(){
   if(kind==='inspect'){for(const id of ['free-actions','tasting-actions'])if($(id).parentElement!==$('dialog-actions'))$('dialog-actions').append($(id));}
   else $('dialog-actions').innerHTML=actions;
  }else{vaultPanels();
-  $('dialog-body').innerHTML=body;
+  if(kind!=='world-map'||!$('world-map-canvas')||$('dialog-body').dataset.mapMarkup!==body){$('dialog-body').innerHTML=body;delete $('dialog-body').dataset.mapMarkup;if(kind==='world-map')$('dialog-body').dataset.mapMarkup=body;}
   $('dialog-actions').innerHTML=actions;
  }
  if(kind==='product'&&placementEnabled&&!D.storeMarketMode(game)&&!modal.placementLegacy)placementUI.update();
  if(kind==='flavor-cards')renderBrewingIcons($('dialog-body'));
- if(kind==='world-map'){const canvas=$('world-map-canvas');if(canvas){const shown=drawGameMap(canvas,game,worldMapStage);if(!document.hidden&&shown>mapShown){mapShown=shown;mapNoticeSave();}}}
+ if(kind==='world-map'){const canvas=$('world-map-canvas');if(canvas){const key=JSON.stringify([worldMapStage,mapProgress(game).max,[...mapProgress(game).activeShops]]);const shown=canvas.dataset.paintKey===key?worldMapStage:drawGameMap(canvas,game,worldMapStage);canvas.dataset.paintKey=key;if(!document.hidden&&shown>mapShown){mapShown=shown;mapNoticeSave();}}}
  dialog.dataset.kind=kind;$('close-dialog').hidden=kind==='decision'||kind==='generation-review';
  if(!dialog.open){$('dialog-title').removeAttribute('tabindex');dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}
  else if(previousKind!==kind&&['stockists','stockist','stockist-delivery'].includes(kind)){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else document.querySelector('#dialog-body button:not(:disabled), #dialog-actions button')?.focus({preventScroll:true});}
@@ -983,8 +1008,16 @@ function handleModal(e){
  if(kind==='quote'&&D.needsBrandSetup(game)&&a==='brand-next'){if(!brandNameError(firstBrandDraft().name)){modal.brandDraftConfirmed=true;render();}return;}
  if(kind==='quote'&&D.needsBrandSetup(game)&&a==='brand-edit'){modal.brandDraftConfirmed=false;render();return;}
  if(kind==='quote'&&D.needsBrandSetup(game)&&['brand-bottle','brand-label'].includes(a)){const field=a==='brand-bottle'?'bottle':'label',choices=field==='bottle'?IDENTITY_BOTTLES:IDENTITY_LABELS;if(choices.some(x=>x.id===b.dataset.id)){firstBrandDraft()[field]=b.dataset.id;render();}return;}
+ if(kind==='world-map'&&modal.source==='menu'&&a==='map-shop'){
+  if(mapSalesProjection(game,worldMapStage).pins.some(p=>p.id===b.dataset.id)){modal.selectedShop=b.dataset.id;render();}return;
+ }
+ if(kind==='world-map'&&modal.source==='menu'&&a==='map-shop-info'){
+  if(mapSalesProjection(game,worldMapStage).pins.some(p=>p.id===b.dataset.id)){modal={kind:'stockist',shopId:b.dataset.id,mapParent:modal};render();}return;
+ }
+ if(kind==='stockist'&&modal.mapParent&&a==='stockists-back'){closeModal();return;}
+ if(kind==='world-map'&&modal.source==='menu'&&a==='map-sales-room'){modal=null;room='sales';render();schedule();return;}
  if(kind==='world-map'&&['map-continue','map-back'].includes(a)){closeModal();return;}
- if(kind==='world-map'&&modal.source==='menu'&&['world-map-in','world-map-out'].includes(a)){worldMapStage=mapStep(worldMapStage,a==='world-map-out'?'out':'in',mapViewMax());render();return;}
+ if(kind==='world-map'&&modal.source==='menu'&&['world-map-in','world-map-out'].includes(a)){worldMapStage=mapStep(worldMapStage,a==='world-map-out'?'out':'in',mapViewMax());modal.selectedShop=null;render();return;}
   if(a==='staff-opportunity-later'&&kind==='staff-opportunity'){closeModal();return;}
  if(a==='staff-opportunity-hire'&&kind==='staff-opportunity'&&b.dataset.id===modal.job){const target=modal.returnModal??null,job=modal.job;act(job==='distill'?D.hireStaff:D.hireBottlingStaff,()=>{modal=target;});return;}
  if(a==='staff-job-hire'&&kind==='staff-manager'&&['distill','bottling'].includes(b.dataset.id)){act(b.dataset.id==='distill'?D.hireStaff:D.hireBottlingStaff);return;}
