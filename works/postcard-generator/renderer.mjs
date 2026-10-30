@@ -1,3 +1,4 @@
+import {washLight,washDensity} from './watercolor-assets.mjs';
 import {paperGrain,inkBreak} from './material-assets.mjs';
 import {randomStream} from './versions/0.1/engine.mjs';
 import {renderSVG as renderLegacy} from './versions/0.1/renderer.mjs';
@@ -63,6 +64,7 @@ function buildingSVG(b,finish,seed){const{x,y,width:w,height:h}=b;
  if(b.band)out+=rect(x,b.base-h*.26,w,h*.26,b.bandColor);
  if(b.shade?.source==='eave')out+=shadowSVG(b);
  if(finish==='print-material')out+=materialBuilding(b);
+ else if(finish==='watercolor-material')out+=watercolorBuilding(b);
  else if(finish)out+=wallFinish(b,finish,seed);
  const {margin,gap,ww,wh,top,rowGap}=windowLayout(b);
  for(let r=0;r<b.rows;r++)for(let c=0;c<b.cols;c++){
@@ -92,6 +94,21 @@ function materialBuilding(b){
  // Fixed paper coordinates connect the ink loss on adjacent printed faces.
  return `<g data-material-ink="${esc(b.id)}"><defs><clipPath id="${esc(id)}">${faces}</clipPath></defs><g mask="url(#material-ink-mask)" clip-path="url(#${esc(id)})"><rect x="${n(left)}" y="${n(b.y-b.roofHeight*2)}" width="${n(right-left)}" height="${n(b.height+b.roofHeight*2)}" fill="${b.trim}"/>${edges}</g>${windows?'<g data-material-side-windows="true">'+windows+'</g>':''}</g>`;
 }
+function watercolorBuilding(b){
+ const id='watercolor-shape-'+b.id,c=b.corner,seam=c?.side==='right'?b.x+b.width:b.x,outer=c?seam+(c.side==='right'?c.width:-c.width):seam,left=Math.min(b.x,outer),right=Math.max(b.x+b.width,outer),top=b.y-b.roofHeight*2;
+ const faces=rect(b.x,b.y,b.width,b.height,'#fff')+roof(b)+(c?poly([[seam,b.y],[outer,b.y+c.rise],[outer,b.base],[seam,b.base]],'#fff')+cornerSVG(b,true):'');
+ const edges=faces.replace(/fill="([^"]*)"/g,(_,color)=>`fill="none" stroke="${color==='#fff'?b.wall:color}" stroke-width="1.6" stroke-opacity=".48"`);
+ let windows='';
+ if(c){const {wh,top,rowGap}=windowLayout(b),sw=Math.min(14,c.width*.44),sx=(Math.min(seam,outer)+Math.max(seam,outer)-sw)/2,shift=t=>c.rise*(c.side==='right'?t:1-t),edge=Math.min(seam,outer);
+  for(let r=0;r<b.rows;r++){const wy=top+r*rowGap+wh*.2,dy1=shift((sx-edge)/c.width),dy2=shift((sx+sw-edge)/c.width);windows+=poly([[sx,wy+dy1],[sx+sw,wy+dy2],[sx+sw,wy+wh*.8+dy2],[sx,wy+wh*.8+dy1]],b.windowColor);}
+ }
+ const bleed=faces.replace(/fill="([^"]*)"/g,(_,color)=>`fill="none" stroke="${color==='#fff'?b.wall:color}" stroke-width="4" stroke-opacity=".07"`);
+ return `<g data-watercolor-material="${esc(b.id)}"><defs><clipPath id="${esc(id)}">${faces}</clipPath></defs><g data-watercolor-bleed="true">${bleed}</g><g clip-path="url(#${esc(id)})"><rect x="${n(left)}" y="${n(top)}" width="${n(right-left)}" height="${n(b.base-top)}" fill="${b.trim}" mask="url(#watercolor-light-mask)"/><rect x="${n(left)}" y="${n(top)}" width="${n(right-left)}" height="${n(b.base-top)}" fill="${b.windowColor}" fill-opacity=".11" mask="url(#watercolor-density-mask)"/>${edges}</g>${windows?'<g data-watercolor-side-windows="true">'+windows+'</g>':''}</g>`;
+}
+function watercolorDefs(s){
+ const r=randomStream(s.seed,'watercolor-material'),x=n(-r()*800),y=n(-r()*600),size=1600;
+ return `<defs data-finish="watercolor-material"><pattern id="finish-paper" width="400" height="400" x="${x}" y="${y}" patternUnits="userSpaceOnUse"><image xlink:href="${paperGrain}" width="400" height="400"/></pattern><pattern id="watercolor-light" width="${size}" height="${size}" x="${x}" y="${y}" patternUnits="userSpaceOnUse"><image xlink:href="${washLight}" width="${size}" height="${size}"/></pattern><pattern id="watercolor-density" width="${size}" height="${size}" x="${x}" y="${y}" patternUnits="userSpaceOnUse"><image xlink:href="${washDensity}" width="${size}" height="${size}"/></pattern><mask id="watercolor-light-mask" x="0" y="0" width="800" height="1000" maskUnits="userSpaceOnUse" mask-type="alpha"><rect width="800" height="1000" fill="url(#watercolor-light)"/></mask><mask id="watercolor-density-mask" x="0" y="0" width="800" height="1000" maskUnits="userSpaceOnUse" mask-type="alpha"><rect width="800" height="1000" fill="url(#watercolor-density)"/></mask></defs>`;
+}
 function materialDefs(s){
  const r=randomStream(s.seed,'material-paper'),x=n(r()*400),y=n(r()*400),size=400;
  return `<defs data-finish="print-material"><pattern id="finish-paper" width="${size}" height="${size}" x="${x}" y="${y}" patternUnits="userSpaceOnUse"><image xlink:href="${paperGrain}" width="${size}" height="${size}"/></pattern><pattern id="material-break" width="${size}" height="${size}" x="${x}" y="${y}" patternUnits="userSpaceOnUse"><image xlink:href="${inkBreak}" width="${size}" height="${size}"/></pattern><mask id="material-ink-mask" x="0" y="0" width="800" height="1000" maskUnits="userSpaceOnUse" mask-type="alpha"><rect width="800" height="1000" fill="url(#material-break)"/></mask></defs>`;
@@ -112,7 +129,7 @@ function wallFinish(b,finish,seed){
  return out+'</g>';
 }
 function finishDefs(s){
- const finish=s.settings.finish;if(!finish)return '';if(finish==='print-material')return materialDefs(s);
+ const finish=s.settings.finish;if(!finish)return '';if(finish==='print-material')return materialDefs(s);if(finish==='watercolor-material')return watercolorDefs(s);
  const r=randomStream(s.seed,'finish-paper'),ink=s.palette.ink;let out=`<defs data-finish="${finish}"><pattern id="finish-paper" width="128" height="128" patternUnits="userSpaceOnUse">`;
  for(let i=0;i<90;i++){const x=n(r()*128),y=n(r()*128),size=n(.3+r()*.9);out+=`<circle cx="${x}" cy="${y}" r="${size}" fill="${ink}" fill-opacity="${finish==='print'?'.12':'.07'}"/>`;}
  out+='</pattern>';
@@ -161,6 +178,7 @@ function bridgeSVG(s){
 const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道',alley:'路地',canal:'運河の町',hilltown:'丘に重なる町'};
 export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p=s.palette;
  let out=`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="${esc(names[s.mode]+'・'+s.seed)}"><title>${esc('Postcard '+s.seed)}</title><desc>${esc(names[s.mode]+'。図形と反復する窓で描いた街。'+p.name+'。')}</desc><metadata>${esc(JSON.stringify({version:s.version,seed:s.seed,settings:s.settings}))}</metadata>`+finishDefs(s)+rect(0,0,800,1000,p.sky);
+ if(s.settings.finish==='watercolor-material')out+=`<rect data-watercolor-sky="true" width="800" height="1000" fill="${p.light}" fill-opacity=".5" mask="url(#watercolor-light-mask)"/>`;
  for(const c of s.clouds||[]){const{x,y,width:w,height:h}=c;out+=`<g data-cloud="true">${rect(x,y+h*.55,w,h*.45,p.light)+circle(x+w*.22,y+h*.55,h*.45,p.light)+circle(x+w*.48,y+h*.48,h*.48,p.light)+circle(x+w*.73,y+h*.6,h*.4,p.light)}</g>`;}
  if(s.mode==='waterfront'){
   for(const b of s.blocks){out+=poly([...b.ground,[800,s.shoreY+1],[0,s.shoreY+1]],b.groundColor);for(const house of b.buildings)out+=buildingSVG(house,s.settings.finish,s.seed);if(b.layer===0)out+=tower(s.landmark);}
@@ -192,5 +210,5 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
  for(const b of s.benches||[])out+=rect(b.x,b.y,b.width,7,p.roofs[1])+rect(b.x+9,b.y+7,5,13,p.ink)+rect(b.x+b.width-14,b.y+7,5,13,p.ink)+rect(b.x,b.y-16,b.width,9,p.roofs[1]);
  for(const q of s.people){const scale=q.scale||1;out+=circle(q.x,q.y-6*scale,2*scale,q.color)+rect(q.x-1.6*scale,q.y-3*scale,3.2*scale,8*scale,q.color);}
  if(s.settings.finish)out+='<rect data-paper-grain="true" x="0" y="0" width="800" height="1000" fill="url(#finish-paper)"/>';
- return (s.settings.finish==='print-material'?out.replace('<svg xmlns=', '<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns='):out)+'</svg>';
+ return (['print-material','watercolor-material'].includes(s.settings.finish)?out.replace('<svg xmlns=', '<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns='):out)+'</svg>';
 }
