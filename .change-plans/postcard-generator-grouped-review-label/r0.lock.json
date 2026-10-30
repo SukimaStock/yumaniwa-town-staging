@@ -1,0 +1,78 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "101090b764d7aa8b14f630aee049e9fb3ae4c8660c3bcde003ec741713b3c0af",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-grouped-review-label",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2abdf35f0bddcc681d845784c34cb23231b7bcac",
+    "change": "Fix grouped comparison heading to show scene rather than missing base colorMode",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-grouped-review-label/r0.lock.json",
+      "works/postcard-generator/review-grouped-colors/index.html",
+      "works/postcard-generator/review-grouped-colors/review.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Replace missing settings.colorMode in comparison heading with existing settings.scene",
+      "Bump only comparison script cache URL; generation, settings, images and exports unchanged",
+      "Check syntax and published36 headings/108images after mandatory CI and safe Staging merge"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Published grouped comparison has36 correct headings with no undefined and108images"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Within authorized grouped color stage: fix clear display defect found during published browser verification"
+    ],
+    "rulesApplied": [
+      "Only correct the comparison label; no new UI, generation or schema changes"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "All generator/runtime geometry/color/settings changes",
+      "Other works/shared files",
+      "versions/0.1"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}

@@ -5,7 +5,7 @@ const cards=document.getElementById('cards'),urls=[];
 try{
  for(const {seed,settings} of cases){
   const section=document.createElement('section'),title=document.createElement('h2'),row=document.createElement('div');row.className='row';
-  title.textContent=`${seed} / ${settings.palette} / ${settings.density} / ${settings.colorMode}`;
+  title.textContent=`${seed} / ${settings.scene} / ${settings.palette} / ${settings.density}`;
   for(const [colorMode,label] of modes){
    const scene=generateScene(seed,{...settings,colorMode}),errors=validateScene(scene).errors;
    if(errors.length)throw new Error(`${seed}: ${errors.join(', ')}`);
