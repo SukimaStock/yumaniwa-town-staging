@@ -1,5 +1,5 @@
-import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.14';
-import {renderSVG} from './renderer.mjs?v=0.2.14';
+import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.15';
+import {renderSVG} from './renderer.mjs?v=0.2.15';
 import {downloadBlob,svgBlob,pngBlob} from './exporter.mjs';
 const $ = id => document.getElementById(id);
 const keys=['scene','palette','density','composition','roofs','windows','colorMode','facade','sky','groundFloor','accents','corners','reflection','alleyDepth','version'];
@@ -34,7 +34,7 @@ function reflect(config){
   const legacy=config.version==='0.1';
   for(const key of ['scene','roofs','windows','colorMode','facade','sky','groundFloor','accents','corners']) $(key).disabled=legacy;
   $('alleyDepth').disabled=legacy||current.mode!=='alley';
-  $('reflection').disabled=legacy||!['waterfront','canal'].includes(current.mode);
+  $('reflection').disabled=legacy||current.mode!=='waterfront';
   $('composition').disabled=!legacy&&current.mode!=='waterfront';
   $('corners').disabled=legacy||!['closeup','street','square','alley','canal'].includes(current.mode);
   for(const option of $('palette').options) option.disabled=legacy&&!['auto','harbor','apricot','garden'].includes(option.value);

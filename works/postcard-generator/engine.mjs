@@ -185,16 +185,6 @@ function canalTown(s){
  const q0=s.people[0];q0.x=n((lt+rt)/2);q0.y=n(top-5*q0.scale);q0.placement='bridge';
  const q1=s.people[1],foot=q1.y+5*q1.scale,[,waterRight]=canalEdges(c,foot),bankRight=alleyX(right,foot);q1.x=n((alleyX(c.quayRight,foot)+bankRight)/2);q1.placement='bank-right';
 }
-function canalReflections(s){
- const c=s.canal;c.reflections=[];if(s.settings.reflection==='plain')return s;
- const sources=s.blocks.slice(1).flatMap(block=>block.buildings),depthFit=Math.min(1,...sources.map(b=>(975-b.base-4)/b.height)),factor=s.settings.reflection==='short'?.55:s.settings.reflection==='varied'?.8:1;
- const verticalScale=depthFit*factor;
- const spans=sources.map(b=>{const from=n(b.base+4),to=n(from+b.height*verticalScale),ys=[from,...[...c.leftPath,...c.rightPath].map(q=>q[1]).filter(y=>y>from&&y<to),to].sort((a,b)=>a-b);return {b,from,to,ys:[...new Set(ys)]};});
- const widthScale=Math.min(1,...spans.map(({b,ys})=>Math.min(...ys.map(y=>{const [l,r]=canalEdges(c,y);return (r-l)*.4/b.width;}))));
- c.reflectionScale={width:widthScale,height:verticalScale};
- for(const {b,from,to,ys}of spans){const side=b.id.endsWith('left')?0:1,width=n(b.width*widthScale),outer=ys.map(y=>[n(canalEdges(c,y)[side]),y]),inner=ys.map(y=>[n(canalEdges(c,y)[side]+(side===0?width:-width)),y]);c.reflections.push({source:b.id,side,fromY:from,height:n(to-from),width,points:[...outer,...inner.reverse()],color:b.wall,opacity:.3});}
- return s;
-}
 function validateCanal(s,errors){
  const c=s.canal,a=s.alley,validPath=p=>Array.isArray(p)&&p.length===4&&p.every((q,i)=>Array.isArray(q)&&q.length===2&&q.every(Number.isFinite)&&q[0]>=0&&q[0]<=800&&(i===0||q[1]>p[i-1][1]));
  if(!a||!c||![c.bankLeft,c.bankRight,c.leftPath,c.rightPath].every(validPath)){errors.push('canal-path');return;}
@@ -211,15 +201,11 @@ function validateCanal(s,errors){
  for(const q of s.people){const foot=q.y+5*(q.scale||1);if(q.placement==='bridge'){if(Math.abs(foot-b.top)>.03||q.x<=b.face[0][0]+10||q.x>=b.face[1][0]-10)errors.push('canal-person');}else if(q.placement==='bank-right'){const [,wr]=canalEdges(c,foot);if(q.x<alleyX(c.quayRight,foot)+3||q.x>alleyX(right,foot)-3)errors.push('canal-person');}else errors.push('canal-person');}
  for(const boat of s.boats)for(const y of [boat.y-boat.height*.79,boat.y+19]){const [wl,wr]=canalEdges(c,y);if(boat.x<wl+2||boat.x+boat.width>wr-2||y<=b.bottom+10)errors.push('canal-boat');}
  for(const q of s.waterlines){const [wl,wr]=canalEdges(c,q.y);if(q.y<a.farY||q.y>975||q.x<wl||q.x+q.width>wr||q.width<=0)errors.push('canal-ripple');}
- if(!Array.isArray(c.reflections)||c.reflections.length!==(s.settings.reflection==='plain'?0:4)){errors.push('canal-reflections');return;}
- const seen=new Set();for(const q of c.reflections){if(!q||typeof q.source!=='string'){errors.push('canal-reflection-source');continue;}const source=s.blocks.slice(1).flatMap(b=>b.buildings).find(b=>b.id===q.source);if(!source||seen.has(q.source)||q.color!==source.wall||![0,1].includes(q.side)||q.side!==(q.source.endsWith('left')?0:1))errors.push('canal-reflection-source');seen.add(q.source);
-  if(!Array.isArray(q.points)||q.points.length<4||!q.points.every(point)||q.fromY!==n((source?.base??0)+4)||![q.fromY,q.height,q.width,q.opacity].every(Number.isFinite)||q.height<=0||q.width<=0||q.fromY+q.height>975.03||q.opacity<=0||q.opacity>.35){errors.push('canal-reflection-bounds');continue;}
-  for(const [x,y]of q.points){const [wl,wr]=canalEdges(c,y);if(y<q.fromY-.03||y>q.fromY+q.height+.03||x<wl-.03||x>wr+.03)errors.push('canal-reflection-bounds');}
- }
+ if(!Array.isArray(c.reflections)||c.reflections.length!==0)errors.push('canal-reflections');
 }
 // Sample only the shore-facing row. This stream never changes the city or boats.
 function waterReflections(s){
- if(s.mode==='canal')return canalReflections(s);
+ if(s.mode==='canal')return s;
  if(s.mode!=='waterfront'||s.settings.reflection==='plain')return s;
  const front=s.blocks[s.blocks.length-1].buildings,count=Math.min(7,front.length),waterTop=n(s.shoreY+37);
  if(s.settings.reflection==='matched'){
