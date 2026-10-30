@@ -114,7 +114,7 @@ function bridgeSVG(s){
  for(let i=0;i<=5;i++){const x=a[0]+(c[0]-a[0])*i/5;out+=path(`M${n(x)} ${n(b.top-12)}V${n(b.top)}`,p.ink,2);}
  return out+'</g>';
 }
-const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道',alley:'路地',canal:'運河の町'};
+const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道',alley:'路地',canal:'運河の町',hilltown:'丘に重なる町'};
 export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p=s.palette;
  let out=`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="${esc(names[s.mode]+'・'+s.seed)}"><title>${esc('Postcard '+s.seed)}</title><desc>${esc(names[s.mode]+'。図形と反復する窓で描いた街。'+p.name+'。')}</desc><metadata>${esc(JSON.stringify({version:s.version,seed:s.seed,settings:s.settings}))}</metadata>`+rect(0,0,800,1000,p.sky);
  for(const c of s.clouds||[]){const{x,y,width:w,height:h}=c;out+=`<g data-cloud="true">${rect(x,y+h*.55,w,h*.45,p.light)+circle(x+w*.22,y+h*.55,h*.45,p.light)+circle(x+w*.48,y+h*.48,h*.48,p.light)+circle(x+w*.73,y+h*.6,h*.4,p.light)}</g>`;}
@@ -138,7 +138,13 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
    out+=poly([[s.plaza.left,585],[s.plaza.right,585],[s.plaza.right+70,1000],[s.plaza.left-70,1000]],p.light);
    for(let y=650;y<1000;y+=67)out+=path(`M${n(s.plaza.left-(y-585)*.15)} ${y}H${n(s.plaza.right+(y-585)*.15)}`,p.quay,2);
   }
-  for(const b of s.blocks){if(s.mode==='hillside')out+=poly([...b.ground,[800,1000],[0,1000]],p.quay);for(const house of b.buildings)out+=buildingSVG(house);}
+  for(const b of s.blocks){if(s.mode==='hillside'||s.mode==='hilltown')out+=poly([...b.ground,[800,1000],[0,1000]],s.mode==='hilltown'?b.groundColor:p.quay);for(const house of b.buildings)out+=buildingSVG(house);if(s.mode==='hilltown'&&b.layer===0)out+=tower(s.landmark);}
+  if(s.mode==='hilltown'){
+   const h=s.hilltown,half=h.stairWidth/2;
+   out+='<g data-hilltown-stairs="true">'+poly([...h.route.map(([x,y])=>[x-half,y]),...[...h.route].reverse().map(([x,y])=>[x+half,y])],p.light);
+   for(let i=1;i<h.route.length;i++){const [ax,ay]=h.route[i-1],[bx,by]=h.route[i],steps=Math.ceil((by-ay)/13);for(let j=1;j<=steps;j++){const t=j/steps,x=ax+(bx-ax)*t,y=ay+(by-ay)*t;out+=path(`M${n(x-half)} ${n(y)}h${h.stairWidth}`,p.quay,2);}}
+   out+='</g>';
+  }
   if(s.mode==='canal'){out+=bridgeSVG(s);for(const b of s.boats)out+=boat(b,p);}
   if(s.road){out+=rect(0,s.road.y-5,800,5,p.light);const y=s.road.y+(1000-s.road.y)*.55;for(let x=25;x<800;x+=150){if(s.road.crosswalk&&x<709&&x+80>601)continue;out+=rect(x,y,80,5,p.light);}if(s.road.crosswalk){const step=(1000-s.road.y-28)/5;out+='<g data-crosswalk="true">';for(let i=0;i<5;i++)out+=rect(601,s.road.y+14+i*step,108,Math.min(16,step*.5),p.quay);out+='</g>';}}
   if(s.stairs){const points=s.stairs.points;let d=`M${n(points[0][0])} ${n(points[0][1])}`;for(let i=1;i<points.length;i++){d+=`H${n(points[i][0])}V${n(points[i][1])}`;}out+=path(d,p.light,9);for(let i=1;i<points.length-1;i+=2){const a=points[i],b=points[i+1],steps=Math.max(2,Math.ceil(Math.abs(b[1]-a[1])/12));for(let j=1;j<steps;j++)out+=path(`M${n(a[0]-7)} ${n(a[1]+(b[1]-a[1])*j/steps)}h${n(b[0]-a[0]+14)}`,p.roofs[1],2);}}

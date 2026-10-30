@@ -5,7 +5,7 @@ export const PALETTES=[...legacy.PALETTES,
  {id:'clay',name:'赤土と青緑',sky:'#f0cba8',water:'#447c83',walls:['#b95543','#db8b69','#f0d4ad','#829b83','#d9b258','#ad6254'],roofs:['#75483f','#b65b42','#415d61'],ink:'#454e49',light:'#f8e5c4',quay:'#dfbb90',terraces:['#af9476','#caab83','#dfbb90'],ripple:'#8ab2ac',accent:'#b54837'},
  {id:'blue',name:'白と青',sky:'#d8e8e8',water:'#2b6e9d',walls:['#f4eee0','#a2cad7','#548fb2','#e2d1ae','#3c718f','#bfd8d9'],roofs:['#365c77','#698c9b','#b48867'],ink:'#284f6c',light:'#fff6e3',quay:'#ddd0b3',terraces:['#b9c9c5','#d1c9b5','#ddd0b3'],ripple:'#8cbed1',accent:'#db714f'},
  {id:'rose',name:'桃と赤茶',sky:'#eee0d4',water:'#6a8190',walls:['#e9b3a1','#b96158','#f6e7d3','#d49384','#c7c3af','#8c9994'],roofs:['#794d4b','#ac6357','#566b69'],ink:'#554f4d',light:'#fff0da',quay:'#d6bca2',terraces:['#b9afa0','#cdb39f','#d6bca2'],ripple:'#a5b9bd',accent:'#b55547'}].map(p=>({...p,tonal:({harbor:['#d4e8df','#afd1c9','#7ab0ad','#4a8a93'],apricot:['#f3d5be','#e8b99d','#d6957d','#b9766c'],garden:['#d9e2c8','#b8ccad','#97b191','#718e72'],clay:['#ecc4a0','#d7a57f','#bf8162','#a9654c'],blue:['#e5eef0','#bfd9e1','#8ab6cb','#5d91b1'],rose:['#f1dbcf','#dfbaaf','#cc9a91','#b87973']})[p.id]}));
-export const SCENES=[{id:'waterfront',name:'水辺'},{id:'closeup',name:'建物アップ'},{id:'street',name:'道路沿い'},{id:'square',name:'広場'},{id:'hillside',name:'坂道'},{id:'alley',name:'路地'},{id:'canal',name:'運河の町'}];
+export const SCENES=[{id:'waterfront',name:'水辺'},{id:'closeup',name:'建物アップ'},{id:'street',name:'道路沿い'},{id:'square',name:'広場'},{id:'hillside',name:'坂道'},{id:'alley',name:'路地'},{id:'canal',name:'運河の町'},{id:'hilltown',name:'丘に重なる町'}];
 export const COMPOSITIONS=legacy.COMPOSITIONS;
 export const ROOFS=['gable','hip','flat','shed','round'];
 export const WINDOWS=['rect','arch','paired'];
@@ -78,7 +78,7 @@ export function generateScene(seed,settings={}){
  settings=normalizeSettings(settings);
  if(settings.version==='0.1')return legacy.generateScene(seed,settings);
  seed=String(seed===undefined?'harbour-001':seed).slice(0,120)||'harbour-001';
- const layout=randomStream(seed,'v02-layout'),props=randomStream(seed,'v02-props'),mode=settings.scene==='auto'?pick(randomStream(seed,'v02-scene'),SCENES.filter(s=>!['alley','canal'].includes(s.id))).id:settings.scene;
+ const layout=randomStream(seed,'v02-layout'),props=randomStream(seed,'v02-props'),mode=settings.scene==='auto'?pick(randomStream(seed,'v02-scene'),SCENES.filter(s=>!['alley','canal','hilltown'].includes(s.id))).id:settings.scene;
  const p=PALETTES.find(p=>p.id===settings.palette)||pick(randomStream(seed,'v02-palette'),PALETTES);
  let s={version:VERSION,seed,settings,mode,palette:p,width:800,height:1000,composition:settings.composition==='auto'?pick(randomStream(seed,'v02-contour'),COMPOSITIONS):settings.composition,blocks:[],landmark:null,boats:[],people:[],waterlines:[],surfaces:[],trees:[],lamps:[],benches:[],crop:false};
  if(mode==='waterfront'){
@@ -107,6 +107,26 @@ export function generateScene(seed,settings={}){
    s.surfaces=[{type:'plaza',y:550,height:450}];s.plaza={left:n(left.x+left.width),right:n(right.x),top:585,bottom:970};
    s.trees=[{x:238,y:730,radius:43},{x:586,y:838,radius:39}];s.benches=[{x:211,y:803,width:90},{x:490,y:885,width:90}];
    s.people=[{x:409,y:764,color:p.ink,scale:1.7},{x:432,y:775,color:p.accent,scale:1.7},{x:346,y:900,color:p.ink,scale:1.7}];
+ }else if(mode==='hilltown'){
+   const r=randomStream(seed,'hilltown-layout'),direction=r()<.5?-1:1,center=n(345+r()*110),half=50;
+   const count={open:4,normal:5,dense:6}[settings.density],leftCount=Math.ceil(count/2),rightCount=count-leftCount,blocks=[];
+   for(let layer=0;layer<3;layer++){
+    const base=[550,720,895][layer],minHeight=[125,155,180][layer],maxHeight=[165,200,225][layer];
+    const left=row(r,leftCount,15,center-half,base,minHeight,maxHeight,layer),right=row(r,rightCount,center+half,785,base,minHeight,maxHeight,layer);
+    for(const [i,b]of [...left,...right].entries()){
+     b.id=`b${layer}-${i}`;b.base=n(base+direction*(b.x+b.width/2-400)*.10);b.y=n(b.base-b.height);
+     b.cols=clamp(Math.floor(b.width/48),2,4);b.rows=layer===0?2:3;
+    }
+    blocks.push(block(layer,[...left,...right]));
+   }
+   s.blocks=blocks;s.crop=false;s.shoreY=1000;
+   const rear=blocks[0].buildings,host=rear[direction===1?0:rear.length-1],width=n(Math.min(46,host.width*.5)),x=n(host.x+(host.width-width)/2);
+   const nearby=blocks.flatMap(b=>b.buildings).filter(b=>b.x<x+width+30&&b.x+b.width>x-30),y=n(Math.max(65,Math.min(...nearby.map(b=>b.y-Math.min(70,b.width*.24)))-100));
+   s.landmark={type:'tower',x,y,width,height:n(host.base-y),base:host.base,host:host.id,layer:0};
+   const top=n(Math.max(rear[leftCount-1].base,rear[leftCount].base)+10),bottom=975;
+   const route=Array.from({length:6},(_,i)=>[n(center+(i===0||i===5?0:(i%2?11:-11))),n(top+(bottom-top)*i/5)]);
+   s.hilltown={direction,center,half,route,top,bottom,stairWidth:56};
+   s.people=[{x:center,y:n(bottom-12),color:p.ink,scale:1.5}];
  }else if(mode==='canal'){
    const shift=n((layout()-.5)*44),farY=470,middleY=650,nearY=850;
    const left=[[n(290+shift),farY],[n(225+shift),middleY],[n(150+shift),nearY],[70,1000]],right=[[n(510+shift),farY],[n(575+shift),middleY],[n(650+shift),nearY],[730,1000]];
@@ -307,7 +327,7 @@ function shadowEdge(b,source){
 export function validateScene(scene){
  if(scene.version==='0.1')return legacy.validateScene(scene);
  const errors=[],warnings=[];const finite=(v,path)=>{if(typeof v==='number'&&!Number.isFinite(v))errors.push(`non-finite:${path}`);else if(v&&typeof v==='object')for(const[k,x]of Object.entries(v))finite(x,`${path}.${k}`);};finite(scene,'scene');
- const all=scene.blocks.flatMap(b=>b.buildings),min={waterfront:20,closeup:2,street:5,square:6,hillside:4,alley:7,canal:7}[scene.mode],max={waterfront:90,closeup:4,street:8,square:8,hillside:6,alley:9,canal:9}[scene.mode];
+ const all=scene.blocks.flatMap(b=>b.buildings),min={waterfront:20,closeup:2,street:5,square:6,hillside:4,alley:7,canal:7,hilltown:12}[scene.mode],max={waterfront:90,closeup:4,street:8,square:8,hillside:6,alley:9,canal:9,hilltown:18}[scene.mode];
  if(all.length<min||all.length>max)errors.push('building-count');
  for(const b of all){
    if(b.width<=0||b.height<=0||b.cols<1||b.cols>5||b.rows<1||b.rows>5)errors.push(`dimensions:${b.id}`);
@@ -388,6 +408,17 @@ export function validateScene(scene){
    }
  }
  if(scene.mode==='canal')validateCanal(scene,errors);
+ if(scene.mode==='hilltown'){
+  const h=scene.hilltown,t=scene.landmark,valid=h&&[-1,1].includes(h.direction)&&Number.isFinite(h.center)&&h.half===50&&h.stairWidth===56&&Array.isArray(h.route)&&h.route.length===6&&h.route.every((q,i)=>Array.isArray(q)&&q.length===2&&q.every(Number.isFinite)&&Math.abs(q[0]-h.center)<=12&&(i===0||q[1]>h.route[i-1][1]));
+  if(!valid)errors.push('hilltown-route');
+  else {
+   if(h.route[0][1]!==h.top||h.route.at(-1)[1]!==h.bottom||h.bottom!==975)errors.push('hilltown-stair-end');
+   for(const b of all)if(b.x<h.center+h.half-.02&&b.x+b.width>h.center-h.half+.02)errors.push('hilltown-stair-house');
+   if(scene.blocks.length!==3||scene.blocks.some(b=>b.buildings.length!=={open:4,normal:5,dense:6}[scene.settings.density]))errors.push('hilltown-layers');
+  }
+  const host=scene.blocks[0]?.buildings.find(b=>b.id===t?.host);
+  if(!host||!t||t.layer!==0||Math.abs(t.base-host.base)>.03||t.x<host.x||t.x+t.width>host.x+host.width||Math.abs(t.y+t.height-t.base)>.03)errors.push('hilltown-tower-foot');
+ }
  if(scene.mode==='hillside'){
    const bases=all.map(b=>b.base);if(Math.max(...bases)-Math.min(...bases)<200)errors.push('flat-hillside');
    for(let i=1;i<all.length;i++)if(all[i].x<all[i-1].x+all[i-1].width)errors.push('hillside-overlap');
