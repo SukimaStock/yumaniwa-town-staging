@@ -1,0 +1,82 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "45a99ae36e0dd5b88878f84ad86b99aa66362e33e6a392f2a65933e7dcbf80ca",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-free-controls",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "1f2f4cfacf6db02f4f75ca67fefd7993012bd9a3",
+    "change": "Expose existing postcard composition, building, color and adopted material finish controls",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-free-controls/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Keep scene/palette/finish always visible; organize existing selectors into visible groups with concise friendly labels",
+      "Preserve scene-specific disabled states, legacy0.1 controls, all engine/renderer outputs and settings/URL/export compatibility",
+      "Include chosen finish in36card comparison context; verify every control through realbrowser and representative36seed outputs",
+      "Independent UI review, requiredCI, safeStagingmerge and Pages/browser/export/mobile verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Realbrowser allselectors/settingspreservation,36card comparison,exports/replay",
+      "Published primaryfinish selection and360375390px display"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user 色々と自由に選択できるようにしてください after adopting both material finishes"
+    ],
+    "rulesApplied": [
+      "User adopts materialprint/materialwatercolor and asks freelyselectexistingoptions",
+      "No new parts/towns/settingsgrammar or engine/renderer changes",
+      "Readable selections and meaningful disabled states, no poeticcopy or redundant instructional cards"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Sharedfiles/otherworks",
+      "versions/0.1",
+      "Engine/renderer changes",
+      "Newparts/newtowns"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}

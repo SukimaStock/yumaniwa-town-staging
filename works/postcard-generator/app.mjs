@@ -1,5 +1,5 @@
-import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.20';
-import {renderSVG} from './renderer.mjs?v=0.2.20';
+import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.21';
+import {renderSVG} from './renderer.mjs?v=0.2.21';
 import {downloadBlob,svgBlob,pngBlob} from './exporter.mjs';
 const $ = id => document.getElementById(id);
 const keys=['scene','palette','density','composition','roofs','windows','colorMode','facade','sky','groundFloor','accents','corners','reflection','alleyDepth','finish','version'];
@@ -38,6 +38,12 @@ function reflect(config){
   $('composition').disabled=!legacy&&current.mode!=='waterfront';
   $('corners').disabled=legacy||!['closeup','street','square','alley','canal'].includes(current.mode);
   for(const option of $('palette').options) option.disabled=legacy&&!['auto','harbor','apricot','garden'].includes(option.value);
+  const note=(id,message)=>{$(id).textContent=message;$(id).hidden=!message;};
+  note('composition-note',$('composition').disabled?'水辺で選べます。':'');
+  note('alley-note',$('alleyDepth').disabled?(legacy?'0.2の路地で選べます。':'路地で選べます。'):'');
+  note('reflection-note',$('reflection').disabled?(legacy?'0.2の水辺で選べます。':'水辺で選べます。'):'');
+  note('corners-note',$('corners').disabled?(legacy?'0.2で選べます。':'建物アップ・道路沿い・広場・路地・運河の町で選べます。'):'');
+  note('finish-note',legacy?'質感は0.2で選べます。':'');
 }
 function show(seed,config=settings(),push=true){
   try{
@@ -82,7 +88,8 @@ async function compare(config=settings()){
       if(i%6===5)await new Promise(resolve=>requestAnimationFrame(resolve));
     }
     $('gallery').replaceChildren(fragment);galleryURLs.forEach(url=>URL.revokeObjectURL(url));galleryURLs=urls;gallery=next;
-    $('gallery-config').textContent=`${config.version==='0.1'?'0.1 水辺':config.scene==='auto'?'風景おまかせ':sceneNames[config.scene]} / ${config.palette==='auto'?'配色おまかせ':PALETTES.find(p=>p.id===config.palette)?.name||config.palette}`;
+    const finishName=config.version==='0.1'?'原画':[...$('finish').options].find(o=>o.value===(config.finish||'original'))?.textContent;
+    $('gallery-config').textContent=`${config.version==='0.1'?'0.1 水辺':config.scene==='auto'?'風景おまかせ':sceneNames[config.scene]} / ${config.palette==='auto'?'配色おまかせ':PALETTES.find(p=>p.id===config.palette)?.name||config.palette} / ${finishName}`;
     status('36枚を生成しました。');
   }catch(error){urls.forEach(url=>URL.revokeObjectURL(url));status(error.message);}finally{buildingGallery=false;$('compare').disabled=false;}
 }
