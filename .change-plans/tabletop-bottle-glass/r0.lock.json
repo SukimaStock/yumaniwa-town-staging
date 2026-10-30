@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e2035ff5ec6aa92e685734a464751ce4a66f6e28b61f8cc54b62fc3499af2470",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tabletop-bottle-glass",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2963b8e6c56d45cd20b741dd2f176bba59f2803e",
+    "change": "Refine slender labeled bottles and simplify beer glass",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/tabletop-generator/engine.mjs",
+      "works/tabletop-generator/renderer.mjs",
+      "User expansion request"
+    ],
+    "allowedPaths": [
+      ".change-plans/tabletop-bottle-glass/r0.lock.json",
+      "works/tabletop-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "works/postcard-generator/**",
+      "works/ambertime/**",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Narrow bottle silhouettes with modest repositioning to preserve bowl overlap; plain paper labels",
+      "Beer glass uses broad amber and foam shapes without elliptical rims or double contours",
+      "Keep existing controls/export/legacy v1/v2; targeted tests and visual validation then CI and Staging"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Visual36combinations and same-scene3finishes, fruit contours and grounding",
+      "Select3drinks/fruits/palettes and download/import SVG PNG JSON; oldURL replay",
+      "360/375/390 layout and LAB entry"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly requests thinner bottles, labels and simpler beer glass; reversible Staging scope"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Use existing lifecycle schema and garage room; no new rooms or town persistent UI",
+      "Only title, actions and needed labels on screen; no decorative prose",
+      "Seed series independent by responsibility; structural validation is not an aesthetic score"
+    ],
+    "problem": "Bottle width and detailed beer contours distract from the accepted painting composition",
+    "currentContract": "Independent works served statically; lifecycle active staging-only; LAB generated from canonical registries",
+    "whyExistingIsInsufficient": "New subject requires separate composition grammar; existing delivery contracts suffice",
+    "design": "Local geometry and SVG surface refinements only; established settings/export and runtime unchanged",
+    "alternativesRejected": [
+      "Random independent shapes",
+      "Image generation and external building assets",
+      "Shared runtime or Production changes"
+    ],
+    "migration": "None; no existing state changes",
+    "compatibility": "Buildless HTML CSS ES modules SVG; canvas only on explicit PNG export",
+    "boundaryCases": [
+      "Seeds with markup/unicode/empty inputs",
+      "Extreme supported density and composition",
+      "Repeated generation and gallery memory bounds",
+      "Export failure, invalid URL settings and browser history"
+    ],
+    "testPlan": [
+      "Related41 tests plus label/silhouette checks",
+      "Visual drinks across palettes,3finishes,mobile",
+      "Public SVG/PNG exports and CI"
+    ],
+    "promotionRisk": "Staging only; Production excluded",
+    "rollback": "Revert work, lifecycle/garage entry and generated LAB as a unit; no migrations",
+    "promotion": "none",
+    "outOfScope": [
+      "Production",
+      "Existing postcard and shared runtime",
+      "New random composition families"
+    ],
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author aesthetic adoption"
+    ]
+  }
+}
