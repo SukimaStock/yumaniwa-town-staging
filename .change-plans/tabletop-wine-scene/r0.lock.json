@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cc802f3492d85ec957802f16479c4b51ad315ed7eab21b442de26de8e54fffec",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tabletop-wine-scene",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "1e4374285d3299cacc17695ff0ac8807d1a0f37d",
+    "change": "Seat lemons behind bowl front and make opened wine with poured glass and removed cork a coherent fixed scene",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/tabletop-generator/engine.mjs",
+      "works/tabletop-generator/renderer.mjs",
+      "User approved fixed lemon study"
+    ],
+    "allowedPaths": [
+      ".change-plans/tabletop-wine-scene/r0.lock.json",
+      "works/tabletop-generator/**",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "works/postcard-generator/**",
+      "works/ambertime/**",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Lower bowl lemons behind its front; clear occlusion",
+      "Add opened wine bottle relationship, poured stemmed glass and removed cork as one fixed scene; no random variants",
+      "New named version2 study preserves lemon-01 URL/JSON and v1 scenes",
+      "Update LAB note; browser art/mobile/export checks, related tests, PR CI safe Staging merge"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Original art: lemon occlusion, glass wine level/stem/foot, bottle-cork relationship, support planes",
+      "3textures and mobile layout",
+      "New and previous study JSON/URL replay, actual exports, LAB link"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User requests partly hidden bowl lemons, cork and wine glass, visual story through relationships rather than isolated symbols; Staging iteration authorized"
+    ],
+    "hqDecisions": [
+      "Existing standalone work and LAB generator contracts suffice; no shared runtime, launch, storage, API, analytics or hosting changes. Full floor covers existing JSON registries and generated lab HTML; no new contract proposed."
+    ],
+    "rulesApplied": [
+      "Use existing lifecycle schema and garage room; no new rooms or town persistent UI",
+      "Only title, actions and needed labels on screen; no decorative prose",
+      "Seed series independent by responsibility; structural validation is not an aesthetic score"
+    ],
+    "problem": "Lemons look floating; objects lack a readable use relationship",
+    "currentContract": "Independent works served statically; lifecycle active staging-only; LAB generated from canonical registries",
+    "whyExistingIsInsufficient": "New subject requires separate composition grammar; existing delivery contracts suffice",
+    "design": "Fixed opened-wine setting, wine in glass, cork beside bottle; bowl front occludes lower lemon silhouettes; no narrative copy",
+    "alternativesRejected": [
+      "Random independent shapes",
+      "Image generation and external building assets",
+      "Shared runtime or Production changes"
+    ],
+    "migration": "None; no existing state changes",
+    "compatibility": "Buildless HTML CSS ES modules SVG; canvas only on explicit PNG export",
+    "boundaryCases": [
+      "Seeds with markup/unicode/empty inputs",
+      "Extreme supported density and composition",
+      "Repeated generation and gallery memory bounds",
+      "Export failure, invalid URL settings and browser history"
+    ],
+    "testPlan": [
+      "Occlusion/order and story object relationships",
+      "Historical named study and v1 replay",
+      "Texture/export safety and browser/mobile checks"
+    ],
+    "promotionRisk": "Staging only; Production excluded",
+    "rollback": "Revert work, lifecycle/garage entry and generated LAB as a unit; no migrations",
+    "promotion": "none",
+    "outOfScope": [
+      "Production",
+      "Existing postcard and shared runtime",
+      "New random composition families"
+    ],
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author aesthetic adoption"
+    ]
+  }
+}

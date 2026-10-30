@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateScene,normalizeSettings} from './engine.mjs';
@@ -25,4 +26,16 @@ test('old shared URLs and JSON replay unchanged instead of becoming fixed study'
  assert.deepEqual(generateScene({...old,version:'1'}),oldScene(old));
  assert.deepEqual(generateScene({...old,version:undefined,v:'1'}),oldScene(old));
  assert.deepEqual(normalizeSettings({version:'2',study:'lemon-01',texture:'print'}),{version:2,study:'lemon-01',texture:'print'});
+});
+test('wine scene seats two lemons behind bowl front and connects a poured glass and removed cork',()=>{
+ const s=generateScene(),byId=id=>s.objects.find(o=>o.id===id),back=byId('bowl-back'),front=byId('bowl-front');
+ assert.equal(s.settings.study,'wine-lemon-01');assert.ok(byId('bottle').opened);
+ for(const id of ['lemon-in-left','lemon-in-right']){const lemon=byId(id);assert.ok(back.z<lemon.z&&lemon.z<front.z);assert.ok(lemon.y>back.y);assert.ok(lemon.y+lemon.ry>510);assert.ok(lemon.y-lemon.ry<490);}
+ const glass=byId('wine-glass'),cork=byId('removed-cork');assert.equal(glass.bottle,'bottle');assert.equal(cork.bottle,'bottle');assert.ok(glass.top<glass.level&&glass.level<458&&458<glass.base);assert.ok(glass.z<front.z);assert.ok(cork.y>byId('bottle').base);
+ const svg=renderSVG(s);assert.ok(svg.includes('clip-path="url(#wine-bowl)"'));assert.ok(svg.indexOf('data-object="wine-glass"')<svg.indexOf('data-object="bowl-front"'));
+});
+
+test('previous named lemon study keeps all three exact SVGs',()=>{
+ const expected={"original": "ebceaebef16e4aa728ce8fa294ac6d219901f4ac1c3d247c42c2895a9f0fd1c6", "print": "0c06501f34be76433feba19353a9bbc7ed3d39c537b00e91906a647aa0fb19e2", "watercolor": "a96c6b8a820e1f17e4d6120024b7ae0192bf064d0ec1440942788deb79ee7e1b"};
+ for(const [texture,hash]of Object.entries(expected))assert.equal(createHash('sha256').update(renderSVG(generateScene({study:'lemon-01',texture}))).digest('hex'),hash);
 });

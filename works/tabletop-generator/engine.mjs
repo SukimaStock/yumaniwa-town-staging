@@ -5,13 +5,13 @@ export const random=legacy.random;
 const finishes=['original','print','watercolor'];
 export function normalizeSettings(input={}) {
  if(input.version===1||input.version==='1'||input.v==='1')return legacy.normalizeSettings(input);
- return {version:2,study:'lemon-01',texture:finishes.includes(input.texture)?input.texture:'original'};
+ return {version:2,study:input.study==='lemon-01'?'lemon-01':'wine-lemon-01',texture:finishes.includes(input.texture)?input.texture:'original'};
 }
 export function generateScene(input={}) {
  const settings=normalizeSettings(input);
  if(settings.version===1)return legacy.generateScene(settings);
  // One authored composition. Geometry, subject and colors do not consume a seed.
- return {settings,study:true,width:900,height:720,
+ const scene={settings,study:true,width:900,height:720,
   colors:{paper:'#eee6d3',table:'#ce937a',cloth:'#7d9f96',fold:'#71938b',bottle:'#315f70',bottleSide:'#2c5665',bottleMouth:'#244c5b',bowl:'#f7efd9',inside:'#d7d0b7',rim:'#fff7e4',lemon:'#e4b444',lemonLight:'#edc453',leaf:'#5d7453'},
   objects:[
    {id:'cloth',kind:'cloth',z:0,outline:'M343 485 L769 505 L876 720 L399 720 Z',fold:'M754 505 L769 505 L876 720 L856 720 Z'},
@@ -22,4 +22,18 @@ export function generateScene(input={}) {
    {id:'bowl-front',kind:'bowl',z:5,base:613,outline:'M376 466 C391 493 467 505 550 505 C634 505 709 493 724 466 C713 541 673 600 608 613 L492 613 C426 599 388 541 376 466 Z',rim:'M376 466 C398 490 470 500 550 500 C631 500 702 490 724 466 L722 474 C694 499 625 510 550 510 C475 510 406 499 378 474 Z'},
    {id:'lemon-front',kind:'lemon',z:6,x:715,y:630,rx:66,ry:43,angle:-16,color:'lemonLight',support:'table',base:674}
   ]};
+ if(settings.study==='wine-lemon-01'){
+  Object.assign(scene.colors,{glass:'#eff0dd',glassLine:'#faf3de',wine:'#d7b96c',cork:'#b88b58',corkEnd:'#957047'});
+  const object=id=>scene.objects.find(o=>o.id===id);
+  object('bottle').opened=true;
+  // The bowl's front is painted after the two lemons; their lower halves sit inside it.
+  object('lemon-in-left').leaf=false;object('lemon-in-left').y=481;object('lemon-in-left').x=485;
+  object('lemon-in-right').y=476;object('lemon-in-right').x=606;
+  // One glass behind the bowl, a removed cork close to the opened bottle.
+  scene.objects.splice(2,0,{id:'wine-glass',kind:'glass',bottle:'bottle',x:772,top:314,base:595,level:385,outline:'M718 314 C716 368 728 425 748 449 Q772 470 796 449 C816 425 828 368 826 314 Z',liquid:'M723 385 C729 416 738 439 752 450 Q772 464 792 450 C806 439 815 416 821 385 Z'});
+  scene.objects.push({id:'removed-cork',kind:'cork',x:345,y:632,angle:14,bottle:'bottle',width:49,height:22});
+  object('lemon-front').x=690;object('lemon-front').y=650;object('lemon-front').base=695;
+  scene.objects.forEach((o,z)=>{o.z=z;});
+ }
+ return scene;
 }
