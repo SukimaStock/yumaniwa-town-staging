@@ -14,7 +14,7 @@ const n=v=>Math.round(v*100)/100, clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pick=
 const lum=h=>[1,3,5].reduce((s,i,j)=>s+parseInt(h.slice(i,i+2),16)*[.2126,.7152,.0722][j],0);
 export function normalizeSettings(s={}){
  if(s.version==='0.1'){const old=legacy.normalizeSettings(s);return {version:'0.1',scene:'waterfront',...old,roofs:'auto',windows:'auto',colorMode:'auto'};}
- return {reflection:['plain','short','varied'].includes(s.reflection)?s.reflection:s.version==='0.2'&&s.reflection===undefined?'plain':'varied',corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
+ return {reflection:['plain','short','varied','matched'].includes(s.reflection)?s.reflection:s.version==='0.2'&&s.reflection===undefined?'plain':'matched',corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
 }
 function house(id,x,base,width,height,layer=0){
  width=n(width);height=n(height);base=n(base);
@@ -111,6 +111,12 @@ export function generateScene(seed,settings={}){
 function waterReflections(s){
  if(s.mode!=='waterfront'||s.settings.reflection==='plain')return s;
  const front=s.blocks[s.blocks.length-1].buildings,count=Math.min(7,front.length),waterTop=n(s.shoreY+37);
+ if(s.settings.reflection==='matched'){
+  // Preserve the whole row's proportions; never cap or randomize individual heights.
+  const scale=Math.min(1,(975-waterTop)/Math.max(...front.map(b=>b.height)));
+  s.reflections=front.map(b=>({source:b.id,x:b.x,y:waterTop,width:b.width,height:n(b.height*scale),color:b.wall,opacity:.3}));
+  return s;
+ }
  s.reflections=[];
  for(let i=0;i<count;i++){
   const b=front[Math.floor((i+.5)*front.length/count)],r=randomStream(s.seed,'water-reflection-'+b.id);
@@ -223,11 +229,14 @@ export function validateScene(scene){
  }
  if(Array.isArray(scene.reflections)){
    const front=scene.blocks[scene.blocks.length-1].buildings,seen=new Set();
-   if(scene.mode!=='waterfront'||scene.settings.reflection==='plain'||scene.reflections.length>7)errors.push('reflection-mode');
+   if(scene.mode!=='waterfront'||scene.settings.reflection==='plain'||scene.reflections.length>(scene.settings.reflection==='matched'?front.length:7))errors.push('reflection-mode');
+   const matched=scene.mode==='waterfront'&&scene.settings.reflection==='matched',scale=matched?Math.min(1,(975-n(scene.shoreY+37))/Math.max(...front.map(b=>b.height))):1;
+   if(matched&&scene.reflections.length!==front.length)errors.push('reflection-count');
    for(const q of scene.reflections){
     const b=front.find(b=>b.id===q.source);
     if(!b||seen.has(q.source)||q.color!==b.wall)errors.push('reflection-source');
     seen.add(q.source);
+    if(matched&&b&&(Math.abs(q.x-b.x)>.03||Math.abs(q.width-b.width)>.03||Math.abs(q.height-n(b.height*scale))>.03))errors.push('reflection-alignment');
     if(!b||q.x<b.x-.03||q.x+q.width>b.x+b.width+.03||q.width<=0||q.width>b.width||Math.abs(q.y-(scene.shoreY+37))>.03||q.height<=0||q.y+q.height>975.03||q.opacity<=0||q.opacity>.35)errors.push('reflection-bounds');
    }
  }

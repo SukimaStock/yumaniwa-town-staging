@@ -36,7 +36,7 @@ test('short and varied use the same sources and widths; only depth changes',()=>
   assert.deepEqual(a.map(({height,...q})=>q),b.map(({height,...q})=>q));assert.ok(a.every((q,i)=>q.height<b[i].height));}
 });
 test('settings compatibility, non-waterfront and legacy never acquire bands',()=>{
- assert.equal(normalizeSettings({}).reflection,'varied');assert.equal(normalizeSettings({version:'0.2'}).reflection,'plain');
+ assert.equal(normalizeSettings({}).reflection,'matched');assert.equal(normalizeSettings({version:'0.2'}).reflection,'plain');
  for(const {id:scene} of SCENES.filter(s=>s.id!=='waterfront')){const a=generateScene('protected',{scene,reflection:'plain'}),b=generateScene('protected',{scene,reflection:'varied'});assert.equal(b.reflections,undefined);assert.equal(drawing(renderSVG(a)),drawing(renderSVG(b)));}
  const a=generateScene('protected',{version:'0.1'}),b=generateScene('protected',{version:'0.1',reflection:'varied'});assert.deepEqual(a,b);assert.equal(renderSVG(a),renderSVG(b));
  const app=fs.readFileSync(new URL('./app.mjs',import.meta.url),'utf8');assert.match(app,/query\.has\('seed'\)&&!query\.has\('reflection'\).*reflection='plain'/);
@@ -45,5 +45,30 @@ test('validator rejects floating bands, wrong colors, rear sources, duplicate an
  const source=generateScene('invalid-water',{scene:'waterfront',reflection:'varied'});
  for(const mutate of [s=>s.reflections[0].y+=3,s=>s.reflections[0].color='#000000',s=>s.reflections[0].source=s.blocks[0].buildings[0].id,s=>s.reflections[0].height=1000,s=>s.reflections[0].width=1000,s=>s.reflections.push({...s.reflections[0]}),s=>s.reflections[0].opacity=1]){
   const s=structuredClone(source);mutate(s);assert.ok(validateScene(s).errors.some(e=>e.startsWith('reflection-')));
+ }
+});
+
+test('matched mode reflects every shore wall at exact x/width and one shared height scale',()=>{
+ let fitted=0,unfitted=0;
+ for(let i=0;i<100;i++)for(const {id:palette} of PALETTES)for(const density of ['open','normal','dense']){
+  const s=generateScene('matched-'+i,{scene:'waterfront',palette,density,reflection:'matched',colorMode:['varied','tonal','accent'][i%3]}),front=s.blocks.at(-1).buildings;
+  assert.deepEqual(validateScene(s).errors,[],`${i}/${palette}/${density}`);
+  const scale=Math.min(1,(975-Math.round((s.shoreY+37)*100)/100)/Math.max(...front.map(b=>b.height)));
+  if(scale<1)fitted++;else unfitted++;
+  assert.equal(s.reflections.length,front.length);
+  for(let j=0;j<front.length;j++){
+   const q=s.reflections[j],b=front[j];assert.equal(q.source,b.id);assert.equal(q.x,b.x);assert.equal(q.width,b.width);assert.equal(q.color,b.wall);assert.equal(q.height,Math.round(b.height*scale*100)/100);
+   assert.ok(q.y+q.height<=975.03);
+   if(j)assert.ok(Math.abs(s.reflections[j-1].x+s.reflections[j-1].width-q.x)<.03);
+  }
+  const svg=renderSVG(s);assert.equal((svg.match(/data-water-reflection=/g)||[]).length,front.length);
+  assert.ok(svg.lastIndexOf('data-water-reflection=')<svg.indexOf('data-boat='));
+ }
+ assert.ok(fitted>0,'shared fitting branch exercised');assert.ok(unfitted>0,'full height branch exercised');
+});
+test('matched mode validation rejects missing walls, narrowed widths and independently stretched heights',()=>{
+ const base=generateScene('matched-negative',{scene:'waterfront',reflection:'matched'});
+ for(const mutate of [s=>s.reflections.pop(),s=>s.reflections[0].width-=1,s=>s.reflections[0].x+=1,s=>s.reflections[0].height-=1]){
+  const s=structuredClone(base);mutate(s);assert.ok(validateScene(s).errors.some(e=>['reflection-count','reflection-alignment','reflection-bounds'].includes(e)));
  }
 });
