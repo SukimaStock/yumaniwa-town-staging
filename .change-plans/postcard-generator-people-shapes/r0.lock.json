@@ -1,0 +1,82 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a1b1c33fe832c3833daecf9d9e3e934bc453ae682f95760401187e1549995e8c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-people-shapes",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "31f1374ec86e8f36646eea8de6fbd7863e0b7638",
+    "change": "Replace 0.2 symbolic people marks with small supported human silhouettes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-people-shapes/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Renderer-only0.2 people with small shoulders/garment/arms/twolegs; preserve head/footbounds location scale color count and allsceneJSON",
+      "Keep0.1 byteexact and compare SVG remainder excluding changedpeople overallscenes/finishes",
+      "36seed old/new comparison with5finishes, actualPNGvisualreview includingbridge/bank/farpeople and boundedSVGfeettests",
+      "Independent review requiredCI expectedheadStagingmerge Pagesbrowserexports/replay/mobile"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "36seedold/newrenderreview with5finishes andlargecrops beforepublish",
+      "Publishedgenerator exports/replay and360375390px"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user 人だけが記号的すぎるので改善できますか authorizes people improvement"
+    ],
+    "rulesApplied": [
+      "Existingpeopleimprovement only no newparts/settings/faces",
+      "Bridgefoot staysdeck and bankfootstaysdry; keepq.y+5scalefootanchor",
+      "NoProduction/shared/versions0.1 changes; noimagegen"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Sharedfiles/otherworks",
+      "versions/0.1",
+      "Engine placement/sceneJSON changes",
+      "Newparts/newsettings"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
