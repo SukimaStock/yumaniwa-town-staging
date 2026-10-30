@@ -1,0 +1,84 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c498607a1e1f517f47a665082cf0500a822e6ab190c6976b8d86e8bac485849f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-finishes",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "4c349e7371ffa85b82d80b1534fd1a23138a8064",
+    "change": "Remove hill town stairs and add deterministic original/print/watercolor SVG finishes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-finishes/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Remove hilltown stair model and visuals without moving houses,tower,colors or people",
+      "Add one finish selector original/print/watercolor; original missing-field settings and all0.1 remain compatible",
+      "Generate restrained SVG papergrain/inkbreak and soft pigment variation/edge pooling from independent seed streams; no external assets",
+      "36seed three-way108render comparison acrossallscenes/palettes; deterministic,replay,standalone exports and originalotheroutput exact regression",
+      "Independentreview,requiredCI,safeStagingmerge,Pages/browser/3width verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review108rendered examples for restrained finish and legible geometry",
+      "Published original/print/watercolor replay,exports,108review and360375390px"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user clarified 階段 not カレンダー, rejects hilltownstairs and approves removal plus original/print/watercolor texture comparison"
+    ],
+    "rulesApplied": [
+      "Keep houses,tower,palette fixed; no more newparts/towns",
+      "No imagegen/external bitmapassets; SVG-only deterministic finish",
+      "One finish selector; no poeticcopy or multiple knobs",
+      "Original default and missing field preserve priororiginaloutputs except authorizedstairremoval"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Sharedfiles/otherworks",
+      "versions/0.1",
+      "Newhouses/parts/towns",
+      "Basegeometry/palette changes"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
