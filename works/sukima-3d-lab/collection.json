@@ -1584,6 +1584,56 @@
       "id": "park-rope-swing",
       "file": "objects/park-rope-swing.json",
       "number": 320
+    },
+    {
+      "id": "neighborhood-noticeboard",
+      "file": "objects/neighborhood-noticeboard.json",
+      "number": 321
+    },
+    {
+      "id": "park-seesaw",
+      "file": "objects/park-seesaw.json",
+      "number": 322
+    },
+    {
+      "id": "harbor-windsock",
+      "file": "objects/harbor-windsock.json",
+      "number": 323
+    },
+    {
+      "id": "sidewalk-tactile-paving",
+      "file": "objects/sidewalk-tactile-paving.json",
+      "number": 324
+    },
+    {
+      "id": "bakery-pushcart",
+      "file": "objects/bakery-pushcart.json",
+      "number": 325
+    },
+    {
+      "id": "old-gas-streetlamp",
+      "file": "objects/old-gas-streetlamp.json",
+      "number": 326
+    },
+    {
+      "id": "market-hanging-scale",
+      "file": "objects/market-hanging-scale.json",
+      "number": 327
+    },
+    {
+      "id": "park-drinking-fountain",
+      "file": "objects/park-drinking-fountain.json",
+      "number": 328
+    },
+    {
+      "id": "park-sandpit",
+      "file": "objects/park-sandpit.json",
+      "number": 329
+    },
+    {
+      "id": "courtyard-ping-pong",
+      "file": "objects/courtyard-ping-pong.json",
+      "number": 330
     }
   ]
 }

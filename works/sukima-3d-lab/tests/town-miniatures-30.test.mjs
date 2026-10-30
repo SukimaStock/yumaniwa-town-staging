@@ -13,7 +13,7 @@ const names=["courtyard-rain-barrel","canal-lifebuoy-stand","street-drainpipe","
 const specimens=manifest.items.slice(310,320).map(e=>read(e.file));
 
 test('Collection 30: all 310 prior registrations remain, prior ten object bytes immutable',()=>{
-  assert.equal(manifest.items.length,320);
+  assert.equal(manifest.items.length,330);
   assert.ok(manifest.items.length<=1000);
   for(let i=0;i<oldIds.length;i++){
     const id=oldIds[i],entry=manifest.items[i+300];
@@ -23,10 +23,10 @@ test('Collection 30: all 310 prior registrations remain, prior ten object bytes 
     assert.equal(blob,oldBlobs[i],id+' must not change');
   }
   const nums=manifest.items.map((e,i)=>e.number??i);
-  assert.equal(new Set(nums).size,320);
-  assert.equal(new Set(manifest.items.map(e=>e.id)).size,320);
+  assert.equal(new Set(nums).size,330);
+  assert.equal(new Set(manifest.items.map(e=>e.id)).size,330);
   assert.ok(!nums.includes(16));
-  assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:304},(_,i)=>i+17)]);
+  assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:314},(_,i)=>i+17)]);
 });
 test('Collection 30: exact ten new STATIC identities and registration positions',()=>{
   assert.deepEqual(manifest.items.slice(310,320),names.map((id,i)=>({id,file:'objects/'+id+'.json',number:311+i})));
