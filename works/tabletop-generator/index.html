@@ -1,9 +1,12 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="栓を抜いた瓶、ワインの入ったグラス、器のレモン。固定した食卓の構図を原画・印刷風・水彩画風で比較する習作。"><title>器と食卓 — ワインとレモン</title><link rel="stylesheet" href="style.css"></head>
-<body><main><header><a href="../../lab/#room-garage">← LAB</a><h1>器と食卓 <span>習作 01</span></h1></header>
-<section class="picture" aria-label="食卓の絵"><div id="art"></div><p id="caption">ワインとレモン</p></section>
-<div id="controls"><label for="texture">質感</label><select id="texture"><option value="original">原画</option><option value="print">印刷風</option><option value="watercolor">水彩画風</option></select>
-<button id="share" type="button">URL共有</button><button id="svg" type="button">SVG保存</button><button id="png" type="button">PNG保存</button><button id="json" type="button">設定JSON保存</button>
-<button id="import" type="button">設定JSON読込</button><input id="file" type="file" accept="application/json,.json" hidden><button id="reset" type="button" hidden>現在の習作へ</button></div>
-<p id="status" role="status" aria-live="polite"></p><footer><a href="MATERIALS.md">素材・出典</a> · <a href="review/">初版の比較記録</a></footer>
-</main><script type="module" src="app.mjs?composition=02"></script></body></html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="構図を保ちながら、白ワイン・赤ワイン・ビール、果物、配色を選ぶ食卓の絵。SVG・PNGで保存できます。"><title>器と食卓</title><link rel="stylesheet" href="style.css?variants=03"></head>
+<body><main><header><a href="../../lab/#room-garage">← LAB</a><h1>器と食卓 <span>Generator Lab</span></h1></header>
+<section class="picture" aria-label="食卓の絵"><div id="art"></div><p id="caption"></p></section>
+<div id="controls"><div class="choices">
+<label id="drink-control">飲みもの<select id="drink"></select></label>
+<label id="fruit-control">果物<select id="fruit"></select></label>
+<label id="palette-control">配色<select id="palette"></select></label>
+<label>質感<select id="texture"><option value="original">原画</option><option value="print">印刷風</option><option value="watercolor">水彩画風</option></select></label></div>
+<div class="actions"><button id="share" type="button">URL共有</button><button id="svg" type="button">SVG保存</button><button id="png" type="button">PNG保存</button><button id="json" type="button">設定JSON保存</button><button id="import" type="button">設定JSON読込</button><input id="file" type="file" accept="application/json,.json" hidden><button id="reset" type="button" hidden>現在の食卓へ</button></div></div>
+<p id="status" role="status" aria-live="polite"></p><footer><a href="MATERIALS.md">素材・出典</a> · <a href="review/variants.html">組合せの比較</a> · <a href="review/">初版の記録</a></footer>
+</main><script type="module" src="app.mjs?variants=03"></script></body></html>

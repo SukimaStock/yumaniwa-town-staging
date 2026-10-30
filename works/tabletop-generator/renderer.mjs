@@ -1,8 +1,9 @@
-import {renderSVG as legacyRender} from './versions/0.1/renderer.mjs';
+import {renderSVG as legacyRender} from './versions/0.2/renderer.mjs';
 import {paperGrain,inkBreak} from './material-assets.mjs';
 import {washLight,washDensity} from './watercolor-assets.mjs';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
 export function renderSVG(scene){
- if(!scene.study)return legacyRender(scene);
+ if(scene.settings.version!==3)return legacyRender(scene);
  const {colors:c,settings:s,width,height}=scene;
  let defs='',index=0;
  const ellipse=(x,y,rx,ry)=>`<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/>`;
@@ -19,33 +20,34 @@ export function renderSVG(scene){
   }
   return content;
  }
- function lemon(o){
-  const r=o.rx,h=o.ry;
-  // Rounded shoulders and short tips distinguish a lemon without an outline.
-  const contour=`M${-r} 0 C${-r*.91} ${-h*.17} ${-r*.94} ${-h*.2} ${-r*.82} ${-h*.3} C${-r*.59} ${-h*.92} ${-r*.2} ${-h*1.07} ${r*.18} ${-h*.97} C${r*.55} ${-h*.94} ${r*.8} ${-h*.53} ${r*.9} ${-h*.17} L${r} 0 L${r*.9} ${h*.15} C${r*.77} ${h*.65} ${r*.4} ${h} 0 ${h} C${-r*.42} ${h} ${-r*.72} ${h*.74} ${-r*.85} ${h*.28} Z`;
-  const leaf=o.leaf?`<path d="M-20 -34 C-42 -58 -57 -57 -66 -52 C-60 -32 -42 -28 -20 -34Z" fill="${c.leaf}"/>`:'';
-  return `<g data-object="${o.id}" transform="${frame(o)}translate(${o.x} ${o.y}) rotate(${o.angle})">${paint(path(contour),c[o.color],true)}${leaf}</g>`;
- }
  let body=paint(`<rect width="${width}" height="${height}"/>`,c.paper)+paint(`<rect y="432" width="900" height="288"/>`,c.table);
  for(const o of scene.objects){
-  if(o.kind==='lemon'){body+=lemon(o);continue;}
+  if(o.kind==='fruit'){
+   body+=`<g data-object="${o.id}" transform="${frame(o)}translate(${o.x} ${o.y}) rotate(${o.angle})">${paint(path(o.outline),c[o.color],true)}${o.stem?paint(path(o.stem),c.stem,true):''}</g>`;continue;
+  }
   let shape='';
   if(o.kind==='cloth')shape=paint(path(o.outline),c.cloth)+paint(path(o.fold),c.fold);
-  if(o.kind==='bottle')shape=paint(path(o.outline),c.bottle)+paint(path(o.side),c.bottleSide)+(o.opened?paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx+2,o.mouth.ry+1),'#648a91')+paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx-5,o.mouth.ry-2),c.bottleMouth):paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx,o.mouth.ry),c.bottleMouth));
-  if(o.kind==='glass'){
-   // Thin glass is translucent; the liquid and its level are clipped to the bowl.
-   const id='wine-bowl';defs+=`<clipPath id="${id}">${path(o.outline)}</clipPath>`;
-   shape=paint(ellipse(o.x,o.base,46,9),c.glassLine)+paint(`<rect x="${o.x-3}" y="458" width="6" height="${o.base-458}"/>`,c.glassLine);
+  if(o.kind==='bottle')shape=paint(path(o.outline),c.bottle)+paint(path(o.side),c.bottleSide)+paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx+2,o.mouth.ry+1),c.bottleLip)+paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx-5,o.mouth.ry-2),c.bottleMouth);
+  if(o.kind==='glass'||o.kind==='beer-glass'){
+   const id='drink-bowl';defs+=`<clipPath id="${id}">${path(o.outline)}</clipPath>`;
+   if(o.kind==='glass')shape=paint(ellipse(o.x,o.base,46,9),c.glassLine)+paint(`<rect x="${o.x-3}" y="458" width="6" height="${o.base-458}"/>`,c.glassLine);
    shape+=`<g opacity=".36">${paint(path(o.outline),c.glass)}</g>`;
-   shape+=`<g clip-path="url(#${id})">${paint(path(o.liquid),c.wine)}${paint(ellipse(o.x,o.level,49,11),'#e6ce89')}</g>`;
-   shape+=`<path d="M718 314 C716 368 728 425 748 449 Q772 470 796 449 C816 425 828 368 826 314" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
-   shape+=`<ellipse cx="${o.x}" cy="${o.top}" rx="54" ry="12" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
+   let liquid=paint(path(o.liquid),c.wine)+paint(ellipse(o.x,o.level,49,11),c.wineTop);
+   if(o.kind==='beer-glass')liquid+=paint(path('M717 355 Q730 345 743 353 Q758 344 772 352 Q787 345 801 353 Q815 346 827 357 L825 392 Q811 399 798 393 Q785 400 772 394 Q759 399 746 393 Q732 399 719 392 Z'),c.foam);
+   shape+=`<g clip-path="url(#${id})">${liquid}</g>`;
+   shape+=`<path d="${o.sides}" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
+   shape+=`<ellipse cx="${o.x}" cy="${o.top}" rx="${o.kind==='glass'?54:56}" ry="12" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
+   if(o.kind==='beer-glass')shape+=`<ellipse cx="${o.x}" cy="590" rx="44" ry="5" fill="none" stroke="${c.glassLine}" stroke-width="2"/>`;
   }
   if(o.kind==='cork')shape=`<g transform="translate(${o.x} ${o.y}) rotate(${o.angle})">${paint('<path d="M-24.5 -11 H18 Q24.5 -11 24.5 0 Q24.5 11 18 11 H-24.5 Z"/>',c.cork,true)}${paint(ellipse(-24.5,0,4,11),c.corkEnd,true)}</g>`;
+  if(o.kind==='cap'){
+   const outline=Array.from({length:32},(_,i)=>{const a=i*Math.PI/16,r=i%2?.87:1;return `${i?'L':'M'}${(Math.cos(a)*17*r).toFixed(3)} ${(Math.sin(a)*9*r).toFixed(3)}`;}).join(' ')+'Z';
+   shape=`<g transform="translate(${o.x} ${o.y})">${paint(path(outline),c.capEdge,true)}<g transform="translate(0 -3)">${paint(path(outline),c.cap,true)}</g>${paint(ellipse(0,-3,11,5),c.cap,true)}</g>`;
+  }
   if(o.kind==='ellipse')shape=paint(ellipse(o.x,o.y,o.rx,o.ry),c[o.color]);
   if(o.kind==='bowl')shape=paint(path(o.outline),c.bowl)+paint(path(o.rim),c.rim);
-  body+=`<g data-object="${o.id}"${o.frame?` transform="${frame(o).trim()}"`: ''}>${shape}</g>`;
+  body+=`<g data-object="${o.id}"${o.frame?` transform="${frame(o).trim()}"`:''}>${shape}</g>`;
  }
  if(s.texture!=='original')body+=`<use xlink:href="#paperGrain" opacity="${s.texture==='print'?.14:.09}"/>`;
- return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="720" viewBox="0 0 900 720" role="img" aria-labelledby="art-title"><title id="art-title">${s.study.startsWith('wine-lemon-')?'ワインとレモン':'レモンのある食卓'}</title><metadata>${JSON.stringify(s)}</metadata><defs>${defs}</defs>${body}</svg>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="720" viewBox="0 0 900 720" role="img" aria-labelledby="art-title"><title id="art-title">${esc(scene.title)}</title><metadata>${esc(JSON.stringify(s))}</metadata><defs>${defs}</defs>${body}</svg>`;
 }
