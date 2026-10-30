@@ -1,0 +1,84 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "600b8ffede28e74acb0634eed24d3730c336d4cb9f039213fa1a931faf303b3d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-hilltown",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "62f84053c5f8470aa84c65f2a0ca68d860cf6c16",
+    "change": "Add explicit hill town: low houses layered along a slope, reserved stairs, grounded distant tower",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-hilltown/r0.lock.json",
+      "works/postcard-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add hilltown explicit scene without changing original five auto scene choices",
+      "Compose three sloped house rows around reserved stairs, terrace ground and visibly grounded distant tower",
+      "Reuse existing roofs/windows/colors/near-house details; no new controls besides scene option",
+      "Review36seeds, structural/negative tests and exact old data/SVG regression including canal; required CI safe Staging merge and Pages verification"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review36hilltown seeds including all palettes/densities and representative good/limited examples",
+      "Published scene selection,replay,exports,comparison and360/375/390px layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user authorized next proposal: 丘に重なる町, low layered houses on slope, stairs through gaps, distant tower visible over roofs; implement and publish Staging"
+    ],
+    "rulesApplied": [
+      "No imagegen or external image assets; existing basic SVG grammar",
+      "Stairs corridor reserved before buildings; no houses crossed by stairs",
+      "Tower belongs to rear terrace, not floating; roof visibility inspected",
+      "Auto remains originalfive scenes; oldscene SVG/data and versions/0.1 unchanged"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Shared files/other works",
+      "versions/0.1",
+      "New roof/window forms",
+      "New palettes",
+      "Canal/water reflection redesign"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
