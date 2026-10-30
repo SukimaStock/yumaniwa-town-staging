@@ -1,8 +1,8 @@
-import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.17';
-import {renderSVG} from './renderer.mjs?v=0.2.17';
+import {VERSION,generateScene,validateScene,PALETTES,SCENES,normalizeSettings} from './engine.mjs?v=0.2.18';
+import {renderSVG} from './renderer.mjs?v=0.2.18';
 import {downloadBlob,svgBlob,pngBlob} from './exporter.mjs';
 const $ = id => document.getElementById(id);
-const keys=['scene','palette','density','composition','roofs','windows','colorMode','facade','sky','groundFloor','accents','corners','reflection','alleyDepth','version'];
+const keys=['scene','palette','density','composition','roofs','windows','colorMode','facade','sky','groundFloor','accents','corners','reflection','alleyDepth','finish','version'];
 const sceneNames=Object.fromEntries(SCENES.map(s=>[s.id,s.name]));
 const addOptions=(id,values)=>{for(const item of values){const o=document.createElement('option');o.value=item.id;o.textContent=item.name;$(id).append(o);}};
 addOptions('scene',SCENES);addOptions('palette',PALETTES);
@@ -21,7 +21,7 @@ function readURL() {
   if(query.has('seed')&&!query.has('alleyDepth'))values.alleyDepth='classic';
   values.version=query.get('v')==='0.1'?'0.1':VERSION;
   const config=normalizeSettings(values);
-  for(const key of keys) $(key).value=config[key] ?? (key==='version'?values.version:'auto');
+  for(const key of keys) $(key).value=config[key] ?? (key==='finish'?'original':key==='version'?values.version:'auto');
   return {seed:query.get('seed')?.slice(0,100)||'harbour-001',config};
 }
 function urlFor(seed,config){
@@ -30,9 +30,9 @@ function urlFor(seed,config){
   url.searchParams.set('v',config.version||VERSION);return url;
 }
 function reflect(config){
-  for(const key of keys) $(key).value=config[key] ?? (key==='version'?VERSION:'auto');
+  for(const key of keys) $(key).value=config[key] ?? (key==='finish'?'original':key==='version'?VERSION:'auto');
   const legacy=config.version==='0.1';
-  for(const key of ['scene','roofs','windows','colorMode','facade','sky','groundFloor','accents','corners']) $(key).disabled=legacy;
+  for(const key of ['scene','roofs','windows','colorMode','facade','sky','groundFloor','accents','corners','finish']) $(key).disabled=legacy;
   $('alleyDepth').disabled=legacy||current.mode!=='alley';
   $('reflection').disabled=legacy||current.mode!=='waterfront';
   $('composition').disabled=!legacy&&current.mode!=='waterfront';

@@ -1,3 +1,4 @@
+import {randomStream} from './versions/0.1/engine.mjs';
 import {renderSVG as renderLegacy} from './versions/0.1/renderer.mjs';
 const n=v=>Number(v.toFixed(2)),esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
 const rect=(x,y,w,h,c)=>`<rect x="${n(x)}" y="${n(y)}" width="${n(w)}" height="${n(h)}" fill="${c}"/>`;
@@ -54,10 +55,11 @@ function cornerSVG(b){
  out+=poly([[seam,y],[outer,y+c.rise],[outer,y+c.rise+trim],[seam,y+trim]],b.trim);
  return out+'</g>';
 }
-function buildingSVG(b){const{x,y,width:w,height:h}=b;
+function buildingSVG(b,finish,seed){const{x,y,width:w,height:h}=b;
  let out=(b.corner?cornerSVG(b):'')+rect(x,y,w,h,b.wall)+roof(b)+rect(x,y,w,Math.max(3,w*.015),b.trim);
  if(b.band)out+=rect(x,b.base-h*.26,w,h*.26,b.bandColor);
  if(b.shade?.source==='eave')out+=shadowSVG(b);
+ if(finish)out+=wallFinish(b,finish,seed);
  const {margin,gap,ww,wh,top,rowGap}=windowLayout(b);
  for(let r=0;r<b.rows;r++)for(let c=0;c<b.cols;c++){
    const wx=x+margin+gap*(c+.5)-ww/2,wy=top+r*rowGap;
@@ -74,6 +76,29 @@ function buildingSVG(b){const{x,y,width:w,height:h}=b;
  else if(b.door!==false){const dw=Math.min(39,w*.18),dh=Math.min(78,h*.22);out+=arch(x+w*.5-dw/2,b.base-dh,dw,dh,b.windowColor);}
  if(b.shade?.source==='awning')out+=shadowSVG(b);
  return `<g data-building="${esc(b.id)}">${out}</g>`;
+}
+// Local seeded marks never alter geometry or consume generation streams.
+function wallFinish(b,finish,seed){
+ const r=randomStream(seed,'finish-wall-'+b.id),{x,y,width:w,height:h}=b;let out='<g data-wall-finish="'+finish+'">';
+ if(finish==='print'){
+  const count=Math.min(48,Math.max(8,Math.floor(w*h/1400)));
+  for(let i=0;i<count;i++)out+=`<rect x="${n(x+2+r()*Math.max(1,w-14))}" y="${n(y+3+r()*(h-7))}" width="${n(2+r()*9)}" height="${n(.6+r()*1.8)}" fill="${b.trim}" fill-opacity=".5"/>`;
+ }else if(finish==='watercolor'){
+  for(let i=0;i<4;i++){
+   const rx=w*(.22+r()*.2),ry=Math.min(h*.2,w*(.2+r()*.25)),cx=x+rx+r()*(w-rx*2),cy=y+ry+r()*(h-ry*2);
+   out+=`<path d="M${n(cx-rx)} ${n(cy)}C${n(cx-rx)} ${n(cy-ry*.8)} ${n(cx-rx*.3)} ${n(cy-ry)} ${n(cx)} ${n(cy-ry*.8)}S${n(cx+rx)} ${n(cy-ry*.5)} ${n(cx+rx)} ${n(cy)}S${n(cx+rx*.4)} ${n(cy+ry)} ${n(cx)} ${n(cy+ry*.8)}S${n(cx-rx)} ${n(cy+ry*.5)} ${n(cx-rx)} ${n(cy)}Z" fill="url(#finish-pigment)"/>`;
+  }
+  out+=`<path d="M${n(x+w*.12)} ${n(y+h-2)}Q${n(x+w*.4)} ${n(y+h-4)} ${n(x+w*.7)} ${n(y+h-1)}" fill="none" stroke="${b.windowColor}" stroke-width="1.5" stroke-opacity=".08"/>`;
+ }
+ return out+'</g>';
+}
+function finishDefs(s){
+ const finish=s.settings.finish;if(!finish)return '';
+ const r=randomStream(s.seed,'finish-paper'),ink=s.palette.ink;let out=`<defs data-finish="${finish}"><pattern id="finish-paper" width="128" height="128" patternUnits="userSpaceOnUse">`;
+ for(let i=0;i<90;i++){const x=n(r()*128),y=n(r()*128),size=n(.3+r()*.9);out+=`<circle cx="${x}" cy="${y}" r="${size}" fill="${ink}" fill-opacity="${finish==='print'?'.12':'.07'}"/>`;}
+ out+='</pattern>';
+ if(finish==='watercolor')out+=`<radialGradient id="finish-pigment"><stop offset="0" stop-color="${ink}" stop-opacity=".16"/><stop offset=".6" stop-color="${ink}" stop-opacity=".06"/><stop offset="1" stop-color="${ink}" stop-opacity="0"/></radialGradient>`;
+ return out+'</defs>';
 }
 function plantSVG(p,x,y){
  const u=p.size;
@@ -116,10 +141,10 @@ function bridgeSVG(s){
 }
 const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道',alley:'路地',canal:'運河の町',hilltown:'丘に重なる町'};
 export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p=s.palette;
- let out=`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="${esc(names[s.mode]+'・'+s.seed)}"><title>${esc('Postcard '+s.seed)}</title><desc>${esc(names[s.mode]+'。図形と反復する窓で描いた街。'+p.name+'。')}</desc><metadata>${esc(JSON.stringify({version:s.version,seed:s.seed,settings:s.settings}))}</metadata>`+rect(0,0,800,1000,p.sky);
+ let out=`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="${esc(names[s.mode]+'・'+s.seed)}"><title>${esc('Postcard '+s.seed)}</title><desc>${esc(names[s.mode]+'。図形と反復する窓で描いた街。'+p.name+'。')}</desc><metadata>${esc(JSON.stringify({version:s.version,seed:s.seed,settings:s.settings}))}</metadata>`+finishDefs(s)+rect(0,0,800,1000,p.sky);
  for(const c of s.clouds||[]){const{x,y,width:w,height:h}=c;out+=`<g data-cloud="true">${rect(x,y+h*.55,w,h*.45,p.light)+circle(x+w*.22,y+h*.55,h*.45,p.light)+circle(x+w*.48,y+h*.48,h*.48,p.light)+circle(x+w*.73,y+h*.6,h*.4,p.light)}</g>`;}
  if(s.mode==='waterfront'){
-  for(const b of s.blocks){out+=poly([...b.ground,[800,s.shoreY+1],[0,s.shoreY+1]],b.groundColor);for(const house of b.buildings)out+=buildingSVG(house);if(b.layer===0)out+=tower(s.landmark);}
+  for(const b of s.blocks){out+=poly([...b.ground,[800,s.shoreY+1],[0,s.shoreY+1]],b.groundColor);for(const house of b.buildings)out+=buildingSVG(house,s.settings.finish,s.seed);if(b.layer===0)out+=tower(s.landmark);}
   out+=rect(0,s.shoreY,800,35,p.quay)+rect(0,s.shoreY+30,800,7,p.ink)+rect(0,s.shoreY+37,800,1000-s.shoreY-37,p.water);
   for(const q of s.reflections||[])out+=`<g data-water-reflection="${esc(q.source)}" fill-opacity="${q.opacity}">${rect(q.x,q.y,q.width,q.height,q.color)}</g>`;
   for(const r of s.waterlines)out+=path(`M${n(r.x)} ${n(r.y)}h${n(r.width)}`,p.ripple,2);
@@ -138,13 +163,7 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
    out+=poly([[s.plaza.left,585],[s.plaza.right,585],[s.plaza.right+70,1000],[s.plaza.left-70,1000]],p.light);
    for(let y=650;y<1000;y+=67)out+=path(`M${n(s.plaza.left-(y-585)*.15)} ${y}H${n(s.plaza.right+(y-585)*.15)}`,p.quay,2);
   }
-  for(const b of s.blocks){if(s.mode==='hillside'||s.mode==='hilltown')out+=poly([...b.ground,[800,1000],[0,1000]],s.mode==='hilltown'?b.groundColor:p.quay);if(s.mode==='hilltown'&&b.layer===0){const e=s.hilltown.entry;out+='<g data-hilltown-entry="true">'+rect(e.x,e.y,e.width,e.height,p.light)+'</g>';}for(const house of b.buildings)out+=buildingSVG(house);if(s.mode==='hilltown'&&b.layer===0)out+=tower(s.landmark);}
-  if(s.mode==='hilltown'){
-   const h=s.hilltown;out+='<g data-hilltown-stairs="true">';
-   for(const l of h.landings)out+='<g data-hilltown-landing="true">'+rect(l.x,l.y,l.width,l.height,p.light)+'</g>';
-   for(const f of h.flights){out+='<g data-hilltown-flight="true">'+rect(f.x,f.y,f.width,f.height,p.light);for(let y=f.y+f.spacing;y<f.y+f.height-.01;y+=f.spacing)out+=path(`M${n(f.x)} ${n(y)}h${f.width}`,p.quay,2);out+='</g>';}
-   out+='</g>';
-  }
+  for(const b of s.blocks){if(s.mode==='hillside'||s.mode==='hilltown')out+=poly([...b.ground,[800,1000],[0,1000]],s.mode==='hilltown'?b.groundColor:p.quay);for(const house of b.buildings)out+=buildingSVG(house,s.settings.finish,s.seed);if(s.mode==='hilltown'&&b.layer===0)out+=tower(s.landmark);}
   if(s.mode==='canal'){out+=bridgeSVG(s);for(const b of s.boats)out+=boat(b,p);}
   if(s.road){out+=rect(0,s.road.y-5,800,5,p.light);const y=s.road.y+(1000-s.road.y)*.55;for(let x=25;x<800;x+=150){if(s.road.crosswalk&&x<709&&x+80>601)continue;out+=rect(x,y,80,5,p.light);}if(s.road.crosswalk){const step=(1000-s.road.y-28)/5;out+='<g data-crosswalk="true">';for(let i=0;i<5;i++)out+=rect(601,s.road.y+14+i*step,108,Math.min(16,step*.5),p.quay);out+='</g>';}}
   if(s.stairs){const points=s.stairs.points;let d=`M${n(points[0][0])} ${n(points[0][1])}`;for(let i=1;i<points.length;i++){d+=`H${n(points[i][0])}V${n(points[i][1])}`;}out+=path(d,p.light,9);for(let i=1;i<points.length-1;i+=2){const a=points[i],b=points[i+1],steps=Math.max(2,Math.ceil(Math.abs(b[1]-a[1])/12));for(let j=1;j<steps;j++)out+=path(`M${n(a[0]-7)} ${n(a[1]+(b[1]-a[1])*j/steps)}h${n(b[0]-a[0]+14)}`,p.roofs[1],2);}}
@@ -153,5 +172,6 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
  for(const l of s.lamps||[])out+=rect(l.x-2,l.y-l.height,4,l.height,p.ink)+path(`M${n(l.x-18)} ${n(l.y-l.height)}h36`,p.ink,4)+rect(l.x-15,l.y-l.height-12,30,12,p.light);
  for(const b of s.benches||[])out+=rect(b.x,b.y,b.width,7,p.roofs[1])+rect(b.x+9,b.y+7,5,13,p.ink)+rect(b.x+b.width-14,b.y+7,5,13,p.ink)+rect(b.x,b.y-16,b.width,9,p.roofs[1]);
  for(const q of s.people){const scale=q.scale||1;out+=circle(q.x,q.y-6*scale,2*scale,q.color)+rect(q.x-1.6*scale,q.y-3*scale,3.2*scale,8*scale,q.color);}
+ if(s.settings.finish)out+='<rect data-paper-grain="true" x="0" y="0" width="800" height="1000" fill="url(#finish-paper)"/>';
  return out+'</svg>';
 }
