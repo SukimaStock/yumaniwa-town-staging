@@ -7,6 +7,7 @@ export function renderSVG(scene){
  let defs='',index=0;
  const ellipse=(x,y,rx,ry)=>`<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/>`;
  const path=d=>`<path d="${d}"/>`;
+ const frame=o=>o.frame?`matrix(${o.frame.scale} 0 0 ${o.frame.scale} ${o.frame.x} ${o.frame.y}) `:'';
  const assets=s.texture==='print'?{inkBreak,paperGrain}:s.texture==='watercolor'?{washLight,washDensity,paperGrain}:{};
  for(const [id,data]of Object.entries(assets))defs+=`<image id="${id}" x="-100" y="-100" width="1100" height="920" preserveAspectRatio="none" xlink:href="${data}"/>`;
  function paint(shape,color,local=false){
@@ -23,7 +24,7 @@ export function renderSVG(scene){
   // Rounded shoulders and short tips distinguish a lemon without an outline.
   const contour=`M${-r} 0 C${-r*.91} ${-h*.17} ${-r*.94} ${-h*.2} ${-r*.82} ${-h*.3} C${-r*.59} ${-h*.92} ${-r*.2} ${-h*1.07} ${r*.18} ${-h*.97} C${r*.55} ${-h*.94} ${r*.8} ${-h*.53} ${r*.9} ${-h*.17} L${r} 0 L${r*.9} ${h*.15} C${r*.77} ${h*.65} ${r*.4} ${h} 0 ${h} C${-r*.42} ${h} ${-r*.72} ${h*.74} ${-r*.85} ${h*.28} Z`;
   const leaf=o.leaf?`<path d="M-20 -34 C-42 -58 -57 -57 -66 -52 C-60 -32 -42 -28 -20 -34Z" fill="${c.leaf}"/>`:'';
-  return `<g data-object="${o.id}" transform="translate(${o.x} ${o.y}) rotate(${o.angle})">${paint(path(contour),c[o.color],true)}${leaf}</g>`;
+  return `<g data-object="${o.id}" transform="${frame(o)}translate(${o.x} ${o.y}) rotate(${o.angle})">${paint(path(contour),c[o.color],true)}${leaf}</g>`;
  }
  let body=paint(`<rect width="${width}" height="${height}"/>`,c.paper)+paint(`<rect y="432" width="900" height="288"/>`,c.table);
  for(const o of scene.objects){
@@ -43,8 +44,8 @@ export function renderSVG(scene){
   if(o.kind==='cork')shape=`<g transform="translate(${o.x} ${o.y}) rotate(${o.angle})">${paint('<path d="M-24.5 -11 H18 Q24.5 -11 24.5 0 Q24.5 11 18 11 H-24.5 Z"/>',c.cork,true)}${paint(ellipse(-24.5,0,4,11),c.corkEnd,true)}</g>`;
   if(o.kind==='ellipse')shape=paint(ellipse(o.x,o.y,o.rx,o.ry),c[o.color]);
   if(o.kind==='bowl')shape=paint(path(o.outline),c.bowl)+paint(path(o.rim),c.rim);
-  body+=`<g data-object="${o.id}">${shape}</g>`;
+  body+=`<g data-object="${o.id}"${o.frame?` transform="${frame(o).trim()}"`: ''}>${shape}</g>`;
  }
  if(s.texture!=='original')body+=`<use xlink:href="#paperGrain" opacity="${s.texture==='print'?.14:.09}"/>`;
- return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="720" viewBox="0 0 900 720" role="img" aria-labelledby="art-title"><title id="art-title">${s.study==='wine-lemon-01'?'ワインとレモン':'レモンのある食卓'}</title><metadata>${JSON.stringify(s)}</metadata><defs>${defs}</defs>${body}</svg>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="720" viewBox="0 0 900 720" role="img" aria-labelledby="art-title"><title id="art-title">${s.study.startsWith('wine-lemon-')?'ワインとレモン':'レモンのある食卓'}</title><metadata>${JSON.stringify(s)}</metadata><defs>${defs}</defs>${body}</svg>`;
 }

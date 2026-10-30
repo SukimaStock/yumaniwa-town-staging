@@ -1,5 +1,5 @@
-import {normalizeSettings,generateScene} from './engine.mjs';
-import {renderSVG} from './renderer.mjs';
+import {normalizeSettings,generateScene} from './engine.mjs?composition=02';
+import {renderSVG} from './renderer.mjs?composition=02';
 import {download,svgBlob,pngBlob} from './exporter.mjs';
 const $=id=>document.getElementById(id);
 let settings,scene,svg;
@@ -7,7 +7,7 @@ function announce(text){$('status').textContent=text;}
 function show(input){
  settings=normalizeSettings(input);scene=generateScene(settings);svg=renderSVG(scene);
  $('art').innerHTML=svg;$('texture').value=settings.texture;
- $('caption').textContent=settings.version===1?`初版 · ${settings.seed}`:settings.study==='wine-lemon-01'?'ワインとレモン':'レモンのある食卓';$('reset').hidden=settings.version!==1&&settings.study!=='lemon-01';
+ $('caption').textContent=settings.version===1?`初版 · ${settings.seed}`:settings.study.startsWith('wine-lemon-')?'ワインとレモン':'レモンのある食卓';$('reset').hidden=settings.version!==1&&settings.study==='wine-lemon-02';
  const url=new URL(location.href);url.search='';
  for(const [key,value]of Object.entries(settings))url.searchParams.set(key,String(value));
  history.replaceState(null,'',url);
