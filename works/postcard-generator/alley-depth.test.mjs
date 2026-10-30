@@ -24,7 +24,7 @@ test('staggered alley keeps a continuous corridor attached to each foot and expo
 });
 test('depth does not change other scenes, water reflections or legacy; old settings keep classic',()=>{
  assert.equal(normalizeSettings({}).alleyDepth,'staggered');assert.equal(normalizeSettings({version:'0.2'}).alleyDepth,'classic');
- for(const {id:scene}of SCENES.filter(s=>s.id!=='alley')){const a=generateScene('depth-protected',{scene,alleyDepth:'classic'}),b=generateScene('depth-protected',{scene,alleyDepth:'staggered'});delete a.settings.alleyDepth;delete b.settings.alleyDepth;assert.deepEqual(a,b);assert.equal(renderSVG(a),renderSVG(b));}
+ for(const {id:scene}of SCENES.filter(s=>!['alley','canal'].includes(s.id))){const a=generateScene('depth-protected',{scene,alleyDepth:'classic'}),b=generateScene('depth-protected',{scene,alleyDepth:'staggered'});delete a.settings.alleyDepth;delete b.settings.alleyDepth;assert.deepEqual(a,b);assert.equal(renderSVG(a),renderSVG(b));}
  const a=generateScene('legacy-depth',{version:'0.1'}),b=generateScene('legacy-depth',{version:'0.1',alleyDepth:'staggered'});assert.deepEqual(a,b);assert.equal(renderSVG(a),renderSVG(b));
 });
 test('staggered validation rejects detached feet, closed or corrupt paths, hidden middle walls and bad paving',()=>{

@@ -37,7 +37,7 @@ test('short and varied use the same sources and widths; only depth changes',()=>
 });
 test('settings compatibility, non-waterfront and legacy never acquire bands',()=>{
  assert.equal(normalizeSettings({}).reflection,'matched');assert.equal(normalizeSettings({version:'0.2'}).reflection,'plain');
- for(const {id:scene} of SCENES.filter(s=>s.id!=='waterfront')){const a=generateScene('protected',{scene,reflection:'plain'}),b=generateScene('protected',{scene,reflection:'varied'});assert.equal(b.reflections,undefined);assert.equal(drawing(renderSVG(a)),drawing(renderSVG(b)));}
+ for(const {id:scene} of SCENES.filter(s=>!['waterfront','canal'].includes(s.id))){const a=generateScene('protected',{scene,reflection:'plain'}),b=generateScene('protected',{scene,reflection:'varied'});assert.equal(b.reflections,undefined);assert.equal(drawing(renderSVG(a)),drawing(renderSVG(b)));}
  const a=generateScene('protected',{version:'0.1'}),b=generateScene('protected',{version:'0.1',reflection:'varied'});assert.deepEqual(a,b);assert.equal(renderSVG(a),renderSVG(b));
  const app=fs.readFileSync(new URL('./app.mjs',import.meta.url),'utf8');assert.match(app,/query\.has\('seed'\)&&!query\.has\('reflection'\).*reflection='plain'/);
 });

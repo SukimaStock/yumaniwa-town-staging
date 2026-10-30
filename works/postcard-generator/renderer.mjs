@@ -102,7 +102,20 @@ function boat(b,p){const{x,y,width:w,height:h}=b;let out=poly([[x+8,y+13],[x+w*.
  else out+=rect(x+w*.29,y-h*.73,w*.33,h*.4,p.walls[0])+rect(x+w*.25,y-h*.79,w*.41,h*.08,p.roofs[0])+rect(x+w*.35,y-h*.65,w*.1,h*.17,p.ink)+rect(x+w*.5,y-h*.65,w*.08,h*.17,p.ink);
  return `<g data-boat="true">${out}</g>`;
 }
-const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道',alley:'路地'};
+function canalSVG(s){
+ const c=s.canal,p=s.palette;let out='<g data-canal="true">'+poly(c.bankPolygon,p.light)+poly(c.water,p.water);
+ for(const q of c.reflections)out+=`<g data-canal-reflection="${esc(q.source)}">${poly(q.points,q.color,q.opacity)}</g>`;
+ for(const q of s.waterlines)out+=path(`M${n(q.x)} ${n(q.y)}h${n(q.width)}`,p.ripple,2);
+ return out+'</g>';
+}
+function bridgeSVG(s){
+ const b=s.canal.bridge,p=s.palette,[a,c,d,e]=b.face,[lb,ls,peak,rs,rb]=b.opening;
+ const outer=`M${a.map(n).join(' ')}L${c.map(n).join(' ')}L${d.map(n).join(' ')}L${e.map(n).join(' ')}Z`,hole=`M${lb.map(n).join(' ')}L${ls.map(n).join(' ')}Q${peak.map(n).join(' ')} ${rs.map(n).join(' ')}L${rb.map(n).join(' ')}Z`;
+ let out='<g data-canal-bridge="true">'+`<path d="${outer}${hole}" fill="${p.quay}" fill-rule="evenodd"/>`+rect(a[0],b.top,c[0]-a[0],4,p.light)+path(`M${n(a[0])} ${n(b.top-12)}H${n(c[0])}`,p.ink,3);
+ for(let i=0;i<=5;i++){const x=a[0]+(c[0]-a[0])*i/5;out+=path(`M${n(x)} ${n(b.top-12)}V${n(b.top)}`,p.ink,2);}
+ return out+'</g>';
+}
+const names={waterfront:'水辺',closeup:'建物アップ',street:'道路沿い',square:'広場',hillside:'坂道',alley:'路地',canal:'運河の町'};
 export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p=s.palette;
  let out=`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="${esc(names[s.mode]+'・'+s.seed)}"><title>${esc('Postcard '+s.seed)}</title><desc>${esc(names[s.mode]+'。図形と反復する窓で描いた街。'+p.name+'。')}</desc><metadata>${esc(JSON.stringify({version:s.version,seed:s.seed,settings:s.settings}))}</metadata>`+rect(0,0,800,1000,p.sky);
  for(const c of s.clouds||[]){const{x,y,width:w,height:h}=c;out+=`<g data-cloud="true">${rect(x,y+h*.55,w,h*.45,p.light)+circle(x+w*.22,y+h*.55,h*.45,p.light)+circle(x+w*.48,y+h*.48,h*.48,p.light)+circle(x+w*.73,y+h*.6,h*.4,p.light)}</g>`;}
@@ -114,6 +127,7 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
   for(const b of s.boats)out+=boat(b,p);
  }else{
   for(const surface of s.surfaces){if(surface.type==='hill')out+=poly(surface.points,p.quay);else out+=rect(0,surface.y,800,surface.height,surface.type==='road'?p.roofs[2]:p.quay);}
+  if(s.mode==='canal')out+=canalSVG(s);
   if(s.mode==='alley'){
    const a=s.alley,points=a.corridor??[[a.farCenter-a.farHalf,a.farY],[a.farCenter+a.farHalf,a.farY],[a.nearCenter+a.nearHalf,a.nearY],[a.bottomCenter+a.bottomHalf,1000],[a.bottomCenter-a.bottomHalf,1000],[a.nearCenter-a.nearHalf,a.nearY]];
    out+='<g data-alley="true">'+poly(points,p.light);
@@ -126,6 +140,7 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
    for(let y=650;y<1000;y+=67)out+=path(`M${n(s.plaza.left-(y-585)*.15)} ${y}H${n(s.plaza.right+(y-585)*.15)}`,p.quay,2);
   }
   for(const b of s.blocks){if(s.mode==='hillside')out+=poly([...b.ground,[800,1000],[0,1000]],p.quay);for(const house of b.buildings)out+=buildingSVG(house);}
+  if(s.mode==='canal'){out+=bridgeSVG(s);for(const b of s.boats)out+=boat(b,p);}
   if(s.road){out+=rect(0,s.road.y-5,800,5,p.light);const y=s.road.y+(1000-s.road.y)*.55;for(let x=25;x<800;x+=150){if(s.road.crosswalk&&x<709&&x+80>601)continue;out+=rect(x,y,80,5,p.light);}if(s.road.crosswalk){const step=(1000-s.road.y-28)/5;out+='<g data-crosswalk="true">';for(let i=0;i<5;i++)out+=rect(601,s.road.y+14+i*step,108,Math.min(16,step*.5),p.quay);out+='</g>';}}
   if(s.stairs){const points=s.stairs.points;let d=`M${n(points[0][0])} ${n(points[0][1])}`;for(let i=1;i<points.length;i++){d+=`H${n(points[i][0])}V${n(points[i][1])}`;}out+=path(d,p.light,9);for(let i=1;i<points.length-1;i+=2){const a=points[i],b=points[i+1],steps=Math.max(2,Math.ceil(Math.abs(b[1]-a[1])/12));for(let j=1;j<steps;j++)out+=path(`M${n(a[0]-7)} ${n(a[1]+(b[1]-a[1])*j/steps)}h${n(b[0]-a[0]+14)}`,p.roofs[1],2);}}
  }

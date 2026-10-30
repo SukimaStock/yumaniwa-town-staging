@@ -1,0 +1,3 @@
+import {PALETTES} from '../engine.mjs?v=0.2.13';
+export const cases=Array.from({length:36},(_,i)=>({seed:'canal-'+String(i+1).padStart(3,'0'),settings:{scene:'canal',palette:PALETTES[i%6].id,density:['open','normal','dense'][Math.floor(i/6)%3],roofs:['gable','hip','flat','shed','round','auto'][Math.floor(i/6)],windows:['rect','arch','paired'][i%3],colorMode:['grouped','varied','tonal'][Math.floor(i/12)],alleyDepth:'staggered',corners:['plain','left','right'][Math.floor(i/12)],facade:i%2?'terrace':'grid',groundFloor:i%2?'awning':'arcade',sky:'clouds',accents:'both',version:'0.2'}}));
+export const modes=[['plain','反射なし'],['matched','壁の比率で映す']];

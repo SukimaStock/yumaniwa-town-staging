@@ -5,7 +5,7 @@ export const PALETTES=[...legacy.PALETTES,
  {id:'clay',name:'赤土と青緑',sky:'#f0cba8',water:'#447c83',walls:['#b95543','#db8b69','#f0d4ad','#829b83','#d9b258','#ad6254'],roofs:['#75483f','#b65b42','#415d61'],ink:'#454e49',light:'#f8e5c4',quay:'#dfbb90',terraces:['#af9476','#caab83','#dfbb90'],ripple:'#8ab2ac',accent:'#b54837'},
  {id:'blue',name:'白と青',sky:'#d8e8e8',water:'#2b6e9d',walls:['#f4eee0','#a2cad7','#548fb2','#e2d1ae','#3c718f','#bfd8d9'],roofs:['#365c77','#698c9b','#b48867'],ink:'#284f6c',light:'#fff6e3',quay:'#ddd0b3',terraces:['#b9c9c5','#d1c9b5','#ddd0b3'],ripple:'#8cbed1',accent:'#db714f'},
  {id:'rose',name:'桃と赤茶',sky:'#eee0d4',water:'#6a8190',walls:['#e9b3a1','#b96158','#f6e7d3','#d49384','#c7c3af','#8c9994'],roofs:['#794d4b','#ac6357','#566b69'],ink:'#554f4d',light:'#fff0da',quay:'#d6bca2',terraces:['#b9afa0','#cdb39f','#d6bca2'],ripple:'#a5b9bd',accent:'#b55547'}].map(p=>({...p,tonal:({harbor:['#d4e8df','#afd1c9','#7ab0ad','#4a8a93'],apricot:['#f3d5be','#e8b99d','#d6957d','#b9766c'],garden:['#d9e2c8','#b8ccad','#97b191','#718e72'],clay:['#ecc4a0','#d7a57f','#bf8162','#a9654c'],blue:['#e5eef0','#bfd9e1','#8ab6cb','#5d91b1'],rose:['#f1dbcf','#dfbaaf','#cc9a91','#b87973']})[p.id]}));
-export const SCENES=[{id:'waterfront',name:'水辺'},{id:'closeup',name:'建物アップ'},{id:'street',name:'道路沿い'},{id:'square',name:'広場'},{id:'hillside',name:'坂道'},{id:'alley',name:'路地'}];
+export const SCENES=[{id:'waterfront',name:'水辺'},{id:'closeup',name:'建物アップ'},{id:'street',name:'道路沿い'},{id:'square',name:'広場'},{id:'hillside',name:'坂道'},{id:'alley',name:'路地'},{id:'canal',name:'運河の町'}];
 export const COMPOSITIONS=legacy.COMPOSITIONS;
 export const ROOFS=['gable','hip','flat','shed','round'];
 export const WINDOWS=['rect','arch','paired'];
@@ -78,7 +78,7 @@ export function generateScene(seed,settings={}){
  settings=normalizeSettings(settings);
  if(settings.version==='0.1')return legacy.generateScene(seed,settings);
  seed=String(seed===undefined?'harbour-001':seed).slice(0,120)||'harbour-001';
- const layout=randomStream(seed,'v02-layout'),props=randomStream(seed,'v02-props'),mode=settings.scene==='auto'?pick(randomStream(seed,'v02-scene'),SCENES.filter(s=>s.id!=='alley')).id:settings.scene;
+ const layout=randomStream(seed,'v02-layout'),props=randomStream(seed,'v02-props'),mode=settings.scene==='auto'?pick(randomStream(seed,'v02-scene'),SCENES.filter(s=>!['alley','canal'].includes(s.id))).id:settings.scene;
  const p=PALETTES.find(p=>p.id===settings.palette)||pick(randomStream(seed,'v02-palette'),PALETTES);
  let s={version:VERSION,seed,settings,mode,palette:p,width:800,height:1000,composition:settings.composition==='auto'?pick(randomStream(seed,'v02-contour'),COMPOSITIONS):settings.composition,blocks:[],landmark:null,boats:[],people:[],waterlines:[],surfaces:[],trees:[],lamps:[],benches:[],crop:false};
  if(mode==='waterfront'){
@@ -107,7 +107,7 @@ export function generateScene(seed,settings={}){
    s.surfaces=[{type:'plaza',y:550,height:450}];s.plaza={left:n(left.x+left.width),right:n(right.x),top:585,bottom:970};
    s.trees=[{x:238,y:730,radius:43},{x:586,y:838,radius:39}];s.benches=[{x:211,y:803,width:90},{x:490,y:885,width:90}];
    s.people=[{x:409,y:764,color:p.ink,scale:1.7},{x:432,y:775,color:p.accent,scale:1.7},{x:346,y:900,color:p.ink,scale:1.7}];
- }else if(mode==='alley'){
+ }else if(mode==='alley'||mode==='canal'){
    // Choose the corridor envelope first; two banks recede towards a smaller rear row.
    const farY=n(572+layout()*35),middleY=n(736+layout()*20),nearY=n(896+layout()*25);
    const farCenter=n(320+layout()*160),nearCenter=n(350+layout()*100);
@@ -123,6 +123,7 @@ export function generateScene(seed,settings={}){
    s.surfaces=[{type:'sidewalk',y:farY,height:1000-farY}];
    s.people=[{x:n(farCenter+12),y:farY+65,color:p.ink,scale:1.1},{x:n(nearCenter-24),y:nearY+30,color:p.accent,scale:2}];
    if(settings.alleyDepth==='staggered')staggerAlley(s);
+   if(mode==='canal')canalTown(s);
  }else{
    const count={open:4,normal:5,dense:6}[settings.density],direction=layout()<.5?1:-1,left=25,gap=12,width=(750-gap*(count-1))/count;
    const low=810+layout()*35,high=535+layout()*40,buildings=[];
@@ -155,8 +156,56 @@ function staggerAlley(s){
  a.paving=[a.farY+65,(Math.max(...a.feet[0])+Math.min(...a.feet[1]))/2].map(y=>[n(alleyX(a.leftPath,y)),n(y),n(alleyX(a.rightPath,y))]);
  for(const [i,q]of s.people.entries()){const left=alleyX(a.leftPath,q.y),right=alleyX(a.rightPath,q.y);q.x=n(left+(right-left)*(i===0?.55:.44));}
 }
+function bankPaths(a){return [a.leftPath??[[n(a.farCenter-a.farHalf),a.farY],[n(a.middleCenter-a.middleHalf),a.middleY],[n(a.nearCenter-a.nearHalf),a.nearY],[n(a.bottomCenter-a.bottomHalf),1000]],a.rightPath??[[n(a.farCenter+a.farHalf),a.farY],[n(a.middleCenter+a.middleHalf),a.middleY],[n(a.nearCenter+a.nearHalf),a.nearY],[n(a.bottomCenter+a.bottomHalf),1000]]];}
+function canalEdges(c,y){return [alleyX(c.leftPath,y),alleyX(c.rightPath,y)];}
+function canalTown(s){
+ const a=s.alley,[left,right]=bankPaths(a),inset=y=>20+16*(y-a.farY)/(1000-a.farY);
+ const c=s.canal={bankLeft:left,bankRight:right,bankPolygon:[...left,...[...right].reverse()],leftPath:left.map(([x,y])=>[n(x+inset(y)),y]),rightPath:right.map(([x,y])=>[n(x-inset(y)),y]),reflections:[]};
+ c.water=[...c.leftPath,...[...c.rightPath].reverse()];
+ const mid=s.blocks[1].buildings,near=s.blocks[2].buildings,top=n((Math.max(...mid.map(b=>b.base))+Math.min(...near.map(b=>b.base)))/2),bottom=n(top+34),shoulderY=n(top+17);
+ const faceAt=y=>{const [wl,wr]=canalEdges(c,y),bl=alleyX(left,y),br=alleyX(right,y);return [n(bl+(wl-bl)*.25),n(br-(br-wr)*.25)];};
+ const [lt,rt]=faceAt(top),[lb,rb]=faceAt(bottom),[wls,wrs]=canalEdges(c,shoulderY),[wlb,wrb]=canalEdges(c,bottom);
+ c.bridge={top,bottom,face:[[lt,top],[rt,top],[rb,bottom],[lb,bottom]],opening:[[n(wlb+5),bottom],[n(wls+5),shoulderY],[n((wls+wrs)/2),n(top+3)],[n(wrs-5),shoulderY],[n(wrb-5),bottom]]};
+ const r=randomStream(s.seed,'canal-ripples');
+ s.waterlines=Array.from({length:12},(_,i)=>{const y=n(a.farY+28+(975-a.farY-28)*(i+r()*.7)/12),[wl,wr]=canalEdges(c,y),width=n(Math.min(60,(wr-wl)*.3));return {x:n(wl+3+r()*Math.max(0,wr-wl-width-6)),y,width};});
+ const boatY=n(a.nearY+25),[wl,wr]=canalEdges(c,boatY-35),width=n(Math.min(110,(wr-wl)*.42));
+ s.boats=[{x:n((wl+wr-width)/2),y:boatY,width,height:n(width*.28),sail:false}];
+ const q0=s.people[0];q0.x=n((lt+rt)/2);q0.y=n(top-5*q0.scale);q0.placement='bridge';
+ const q1=s.people[1],foot=q1.y+5*q1.scale,[,waterRight]=canalEdges(c,foot),bankRight=alleyX(right,foot);q1.x=n((waterRight+bankRight)/2);q1.placement='bank-right';
+}
+function canalReflections(s){
+ const c=s.canal;c.reflections=[];if(s.settings.reflection==='plain')return s;
+ const sources=s.blocks.slice(1).flatMap(block=>block.buildings),depthFit=Math.min(1,...sources.map(b=>(975-b.base-4)/b.height)),factor=s.settings.reflection==='short'?.55:s.settings.reflection==='varied'?.8:1;
+ const verticalScale=depthFit*factor;
+ const spans=sources.map(b=>{const from=n(b.base+4),to=n(from+b.height*verticalScale),ys=[from,...[...c.leftPath,...c.rightPath].map(q=>q[1]).filter(y=>y>from&&y<to),to].sort((a,b)=>a-b);return {b,from,to,ys:[...new Set(ys)]};});
+ const widthScale=Math.min(1,...spans.map(({b,ys})=>Math.min(...ys.map(y=>{const [l,r]=canalEdges(c,y);return (r-l)*.4/b.width;}))));
+ c.reflectionScale={width:widthScale,height:verticalScale};
+ for(const {b,from,to,ys}of spans){const side=b.id.endsWith('left')?0:1,width=n(b.width*widthScale),outer=ys.map(y=>[n(canalEdges(c,y)[side]),y]),inner=ys.map(y=>[n(canalEdges(c,y)[side]+(side===0?width:-width)),y]);c.reflections.push({source:b.id,side,fromY:from,height:n(to-from),width,points:[...outer,...inner.reverse()],color:b.wall,opacity:.3});}
+ return s;
+}
+function validateCanal(s,errors){
+ const c=s.canal,a=s.alley,validPath=p=>Array.isArray(p)&&p.length===4&&p.every((q,i)=>Array.isArray(q)&&q.length===2&&q.every(Number.isFinite)&&q[0]>=0&&q[0]<=800&&(i===0||q[1]>p[i-1][1]));
+ if(!a||!c||![c.bankLeft,c.bankRight,c.leftPath,c.rightPath].every(validPath)){errors.push('canal-path');return;}
+ const [left,right]=bankPaths(a);
+ if(JSON.stringify([left,right])!==JSON.stringify([c.bankLeft,c.bankRight])||JSON.stringify(c.bankPolygon)!==JSON.stringify([...left,...[...right].reverse()])||JSON.stringify(c.water)!==JSON.stringify([...c.leftPath,...[...c.rightPath].reverse()]))errors.push('canal-polygon');
+ for(const y of [...c.leftPath,...c.rightPath].map(q=>q[1])){const [wl,wr]=canalEdges(c,y);if(wr-wl<35||wl-alleyX(left,y)<14||alleyX(right,y)-wr<14)errors.push('canal-bank-width');}
+ const b=c.bridge,point=q=>Array.isArray(q)&&q.length===2&&q.every(Number.isFinite);
+ if(!b||!Array.isArray(b.face)||b.face.length!==4||!b.face.every(point)||!Array.isArray(b.opening)||b.opening.length!==5||!b.opening.every(point)||!Number.isFinite(b.top)||!Number.isFinite(b.bottom)||Math.abs(b.bottom-b.top-34)>.02){errors.push('canal-bridge');return;}
+ for(const [i,[x,y]]of b.face.entries()){const [wl,wr]=canalEdges(c,y);if(y!==(i<2?b.top:b.bottom)||(i===0||i===3?x<alleyX(left,y)||x>wl:x<wr||x>alleyX(right,y)))errors.push('canal-abutment');}
+ if(b.top<=Math.max(...s.blocks[1].buildings.map(b=>b.base))||b.bottom>=Math.min(...s.blocks[2].buildings.map(b=>b.base)))errors.push('canal-bridge-depth');
+ for(const [x,y]of b.opening){const [wl,wr]=canalEdges(c,y);if(y<=b.top||y>b.bottom||x<wl||x>wr)errors.push('canal-opening');}
+ for(const q of s.people){const foot=q.y+5*(q.scale||1);if(q.placement==='bridge'){if(Math.abs(foot-b.top)>.03||q.x<=b.face[0][0]+10||q.x>=b.face[1][0]-10)errors.push('canal-person');}else if(q.placement==='bank-right'){const [,wr]=canalEdges(c,foot);if(q.x<wr+2||q.x>alleyX(right,foot)-2)errors.push('canal-person');}else errors.push('canal-person');}
+ for(const boat of s.boats)for(const y of [boat.y-boat.height*.79,boat.y+19]){const [wl,wr]=canalEdges(c,y);if(boat.x<wl+2||boat.x+boat.width>wr-2||y<=b.bottom+10)errors.push('canal-boat');}
+ for(const q of s.waterlines){const [wl,wr]=canalEdges(c,q.y);if(q.y<a.farY||q.y>975||q.x<wl||q.x+q.width>wr||q.width<=0)errors.push('canal-ripple');}
+ if(!Array.isArray(c.reflections)||c.reflections.length!==(s.settings.reflection==='plain'?0:4)){errors.push('canal-reflections');return;}
+ const seen=new Set();for(const q of c.reflections){if(!q||typeof q.source!=='string'){errors.push('canal-reflection-source');continue;}const source=s.blocks.slice(1).flatMap(b=>b.buildings).find(b=>b.id===q.source);if(!source||seen.has(q.source)||q.color!==source.wall||![0,1].includes(q.side)||q.side!==(q.source.endsWith('left')?0:1))errors.push('canal-reflection-source');seen.add(q.source);
+  if(!Array.isArray(q.points)||q.points.length<4||!q.points.every(point)||q.fromY!==n((source?.base??0)+4)||![q.fromY,q.height,q.width,q.opacity].every(Number.isFinite)||q.height<=0||q.width<=0||q.fromY+q.height>975.03||q.opacity<=0||q.opacity>.35){errors.push('canal-reflection-bounds');continue;}
+  for(const [x,y]of q.points){const [wl,wr]=canalEdges(c,y);if(y<q.fromY-.03||y>q.fromY+q.height+.03||x<wl-.03||x>wr+.03)errors.push('canal-reflection-bounds');}
+ }
+}
 // Sample only the shore-facing row. This stream never changes the city or boats.
 function waterReflections(s){
+ if(s.mode==='canal')return canalReflections(s);
  if(s.mode!=='waterfront'||s.settings.reflection==='plain')return s;
  const front=s.blocks[s.blocks.length-1].buildings,count=Math.min(7,front.length),waterTop=n(s.shoreY+37);
  if(s.settings.reflection==='matched'){
@@ -177,7 +226,7 @@ function waterReflections(s){
 // One front/side split remains inside the original plot; ground and neighbors stay fixed.
 const mix=(a,b,t)=>'#'+[1,3,5].map(i=>Math.round(parseInt(a.slice(i,i+2),16)*(1-t)+parseInt(b.slice(i,i+2),16)*t).toString(16).padStart(2,'0')).join('');
 function cornerBuildings(s,settings){
- if(!['closeup','street','square','alley'].includes(s.mode)||settings.corners==='plain')return s;
+ if(!['closeup','street','square','alley','canal'].includes(s.mode)||settings.corners==='plain')return s;
  const r=randomStream(s.seed,'corner-selection');
  if(settings.corners==='auto'&&r()<.3)return s;
  const side=settings.corners==='auto'?(r()<.5?'left':'right'):settings.corners;
@@ -258,13 +307,13 @@ function shadowEdge(b,source){
 export function validateScene(scene){
  if(scene.version==='0.1')return legacy.validateScene(scene);
  const errors=[],warnings=[];const finite=(v,path)=>{if(typeof v==='number'&&!Number.isFinite(v))errors.push(`non-finite:${path}`);else if(v&&typeof v==='object')for(const[k,x]of Object.entries(v))finite(x,`${path}.${k}`);};finite(scene,'scene');
- const all=scene.blocks.flatMap(b=>b.buildings),min={waterfront:20,closeup:2,street:5,square:6,hillside:4,alley:7}[scene.mode],max={waterfront:90,closeup:4,street:8,square:8,hillside:6,alley:9}[scene.mode];
+ const all=scene.blocks.flatMap(b=>b.buildings),min={waterfront:20,closeup:2,street:5,square:6,hillside:4,alley:7,canal:7}[scene.mode],max={waterfront:90,closeup:4,street:8,square:8,hillside:6,alley:9,canal:9}[scene.mode];
  if(all.length<min||all.length>max)errors.push('building-count');
  for(const b of all){
    if(b.width<=0||b.height<=0||b.cols<1||b.cols>5||b.rows<1||b.rows>5)errors.push(`dimensions:${b.id}`);
    if(b.y-b.roofHeight<30||b.base>930||(!scene.crop&&(b.x<0||b.x+b.width>800.03)))errors.push(`bounds:${b.id}`);
    if(Math.abs(b.y+b.height-b.base)>.03)errors.push(`unsupported:${b.id}`);
-   if(b.corner){const c=b.corner;if(!['closeup','street','square','alley'].includes(scene.mode)||!['left','right'].includes(c.side)||Math.abs(b.width+c.width-c.plotWidth)>.03||c.width/c.plotWidth<.179||c.width/c.plotWidth>.261||c.rise<=0||c.rise>14||Math.abs(b.x-(c.plotX+(c.side==='left'?c.width:0)))>.03||(!scene.crop&&(c.plotX<0||c.plotX+c.plotWidth>800.03)))errors.push(`corner-footprint:${b.id}`);}
+   if(b.corner){const c=b.corner;if(!['closeup','street','square','alley','canal'].includes(scene.mode)||!['left','right'].includes(c.side)||Math.abs(b.width+c.width-c.plotWidth)>.03||c.width/c.plotWidth<.179||c.width/c.plotWidth>.261||c.rise<=0||c.rise>14||Math.abs(b.x-(c.plotX+(c.side==='left'?c.width:0)))>.03||(!scene.crop&&(c.plotX<0||c.plotX+c.plotWidth>800.03)))errors.push(`corner-footprint:${b.id}`);}
    if(b.plants)for(const p of b.plants)if(!Number.isInteger(p.row)||!Number.isInteger(p.col)||p.row<0||p.row>=b.rows-1||p.col<0||p.col>=b.cols||p.size<=0||p.size>5||p.placement!=='inside')errors.push(`plant-anchor:${b.id}`);
    if(b.shade&&(![-1,1].includes(b.shade.direction)||b.shade.direction!==scene.lightDirection||b.shade.points.some(([x,y])=>x<b.x-.01||x>b.x+b.width+.01||y<b.y||y>b.base)||b.shade.opacity<=0||b.shade.opacity>.2))errors.push(`wall-shadow:${b.id}`);
    if(b.shade){
@@ -302,7 +351,7 @@ export function validateScene(scene){
  if(all.reduce((sum,b)=>sum+(b.plants?.length||0),0)>3||all.filter(b=>b.shade).length>3)errors.push('accent-density');
  for(const c of scene.clouds||[])if(c.x<0||c.x+c.width>800||c.y<0||c.y+c.height>Math.min(...all.map(b=>b.y-b.roofHeight),scene.landmark?.y??1000)-23)errors.push('cloud-bounds');
  if(scene.mode==='square'&&scene.plaza.right-scene.plaza.left<330)errors.push('plaza-closed');
- if(scene.mode==='alley'){
+ if(['alley','canal'].includes(scene.mode)){
    const a=scene.alley;
    if(!a||scene.blocks.length!==3)errors.push('alley-layers');
    else {
@@ -338,6 +387,7 @@ export function validateScene(scene){
     if(Math.max(...rear.map(b=>b.height))>=Math.min(...mid.map(b=>b.height))||Math.max(...mid.map(b=>b.height))>=Math.min(...near.map(b=>b.height)))errors.push('alley-scale');
    }
  }
+ if(scene.mode==='canal')validateCanal(scene,errors);
  if(scene.mode==='hillside'){
    const bases=all.map(b=>b.base);if(Math.max(...bases)-Math.min(...bases)<200)errors.push('flat-hillside');
    for(let i=1;i<all.length;i++)if(all[i].x<all[i-1].x+all[i-1].width)errors.push('hillside-overlap');

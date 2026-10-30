@@ -10,7 +10,7 @@ test('0.1 dispatch retains exact scene data and all36 saved vector outputs',()=>
 test('new version plain scene and SVG reproduce from seed and normalized settings',()=>{
  for(const {id}of SCENES){const a=generateScene('a shared town',{scene:id});assert.deepEqual(a,JSON.parse(JSON.stringify(a)));assert.deepEqual(a,generateScene('a shared town',{scene:id}));assert.equal(renderSVG(a),renderSVG(generateScene('a shared town',{scene:id})));}
 });
-test('3600 scenes have finite supported buildings and mode-specific counts/bounds',()=>{
+test('4200 scenes have finite supported buildings and mode-specific counts/bounds',()=>{
  for(let i=0;i<200;i++)for(const {id}of SCENES)for(const density of ['open','normal','dense']){const s=generateScene(`patterns-audit-${i}`,{scene:id,density});assert.deepEqual(validateScene(s).errors,[],`${i}/${id}/${density}`);const svg=renderSVG(s);assert.doesNotMatch(svg,/NaN|Infinity|undefined|<image|<script|<foreignObject|url\(/);assert.ok(svg.length<180000);assert.ok((svg.match(/</g)||[]).length<2400);}
 });
 test('scene types differ in layout, density changes house counts, automatic choice preserves original five',()=>{
