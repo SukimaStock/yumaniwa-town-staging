@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0a287de82233c651aa48df4398c92b51d068641948689e04d4ca9b99e7c7d283",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tabletop-composition-study",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "c64f3abe79cf7a807137ac9ca6a92510a561008d",
+    "change": "Refine wine still-life hierarchy, eye flow and asymmetric negative space without adding subjects",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/tabletop-generator/engine.mjs",
+      "works/tabletop-generator/renderer.mjs",
+      "User approved composition direction"
+    ],
+    "allowedPaths": [
+      ".change-plans/tabletop-composition-study/r0.lock.json",
+      "works/tabletop-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "works/postcard-generator/**",
+      "works/ambertime/**",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "New fixed wine-lemon-02 composition: smaller bottle behind larger bowl, inward/rear glass, diagonal cloth and foreground lemon",
+      "No new subjects or randomization; preserve lemon occlusion and story relationships",
+      "Prior wine-lemon-01/lemon-01 exact SVG replay and v1 maintained",
+      "Original/3finishes mobile export and independent review; unchanged LAB registry checked; PR CI safe Staging merge"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare old/new original hierarchy, overlaps, support, triangle rhythm and empty area",
+      "Check3finishes and360/375/390 layout",
+      "SVG PNG JSON export/replay and LAB entrance"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User approved larger role for bowl lemons, reduced bottle, eye flow and intentionally uneven negative space; author aesthetic adoption remains pending"
+    ],
+    "hqDecisions": [
+      "Existing work-local SVG data and export contract suffice; no shared contract changed"
+    ],
+    "rulesApplied": [
+      "Use existing lifecycle schema and garage room; no new rooms or town persistent UI",
+      "Only title, actions and needed labels on screen; no decorative prose",
+      "Seed series independent by responsibility; structural validation is not an aesthetic score"
+    ],
+    "problem": "Evenly spaced tall bottle and glass dominate the bowl; upper empty area lacks compositional intent",
+    "currentContract": "Independent works served statically; lifecycle active staging-only; LAB generated from canonical registries",
+    "whyExistingIsInsufficient": "New subject requires separate composition grammar; existing delivery contracts suffice",
+    "design": "One coordinated authored transform per object family preserves containment while changing scale/overlap and visual hierarchy",
+    "alternativesRejected": [
+      "Random independent shapes",
+      "Image generation and external building assets",
+      "Shared runtime or Production changes"
+    ],
+    "migration": "None; no existing state changes",
+    "compatibility": "Buildless HTML CSS ES modules SVG; canvas only on explicit PNG export",
+    "boundaryCases": [
+      "Seeds with markup/unicode/empty inputs",
+      "Extreme supported density and composition",
+      "Repeated generation and gallery memory bounds",
+      "Export failure, invalid URL settings and browser history"
+    ],
+    "testPlan": [
+      "Historical exact SVG hashes",
+      "Transform consistency preserves lemon containment and glass continuity",
+      "No added subjects or randomization",
+      "Original/finish/mobile/export QA"
+    ],
+    "promotionRisk": "Staging only; Production excluded",
+    "rollback": "Revert work, lifecycle/garage entry and generated LAB as a unit; no migrations",
+    "promotion": "none",
+    "outOfScope": [
+      "Production",
+      "Existing postcard and shared runtime",
+      "New random composition families"
+    ],
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author aesthetic adoption"
+    ]
+  }
+}
