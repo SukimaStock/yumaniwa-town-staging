@@ -109,6 +109,7 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
  if(s.mode==='waterfront'){
   for(const b of s.blocks){out+=poly([...b.ground,[800,s.shoreY+1],[0,s.shoreY+1]],b.groundColor);for(const house of b.buildings)out+=buildingSVG(house);if(b.layer===0)out+=tower(s.landmark);}
   out+=rect(0,s.shoreY,800,35,p.quay)+rect(0,s.shoreY+30,800,7,p.ink)+rect(0,s.shoreY+37,800,1000-s.shoreY-37,p.water);
+  for(const q of s.reflections||[])out+=`<g data-water-reflection="${esc(q.source)}" fill-opacity="${q.opacity}">${rect(q.x,q.y,q.width,q.height,q.color)}</g>`;
   for(const r of s.waterlines)out+=path(`M${n(r.x)} ${n(r.y)}h${n(r.width)}`,p.ripple,2);
   for(const b of s.boats)out+=boat(b,p);
  }else{

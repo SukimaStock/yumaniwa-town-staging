@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5aa81333ec531d9c85bda7fa3a5211ad2420b32498d3fe5488f5b4b2803d3eba",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "postcard-generator-water-reflections",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "5110e09067608b4527c24fe4985beeb0e60ba907",
+    "change": "Waterfront wall-color reflections from shore-facing houses; preserve previous shared seeds",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-generator-water-reflections/r0.lock.json",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs",
+      "works/postcard-generator/app.mjs",
+      "works/postcard-generator/index.html",
+      "works/postcard-generator/patterns.test.mjs",
+      "works/postcard-generator/reflections.test.mjs",
+      "works/postcard-generator/WATER-REFLECTIONS.md",
+      "works/postcard-generator/mobile-check.html",
+      "works/postcard-generator/review-reflections/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/postcard-generator/versions/**",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Add up to seven shore-connected wall-color bands using a dedicated random stream; no mirrored windows or roofs",
+      "Offer plain, short and varied reflections; old seeded URLs/settings without reflection remain plain; non-waterfront and legacy rendering unchanged",
+      "Draw reflections below ripples and boats; constrain bounds, source color, width and depth",
+      "Review 36 seeds in all three reflection modes; palette/density/color-mode coverage, compatibility, structural negative tests, exports and mobile checks",
+      "PR, required CI, safe Staging merge and Pages confirmation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review 36 waterfront seeds with before/short/varied comparison, fix observed visual issues",
+      "Browser reflection selection/replay/export/comparison and 360/375/390px layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-30 user: 1 反映お願いします — implement proposed wall-color water reflections and Staging publication"
+    ],
+    "rulesApplied": [
+      "No external images, filters, gradients, mirrored architecture or decorative copy",
+      "Reflection colors reuse actual shore-facing wall colors and stop before screen bottom",
+      "Old shared seed URLs and normalized settings without reflection remain plain"
+    ],
+    "rollback": "Revert this work-local diff; no saved data migration",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production",
+      "Other works and shared town files",
+      "Legacy 0.1 sources",
+      "Alley layout or grouped wall colors",
+      "Chimneys",
+      "Strict physical reflections"
+    ],
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
