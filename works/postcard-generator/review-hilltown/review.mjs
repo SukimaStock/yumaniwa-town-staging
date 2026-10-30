@@ -1,6 +1,6 @@
-import {generateScene,validateScene} from '../engine.mjs?v=0.2.16';
-import {renderSVG} from '../renderer.mjs?v=0.2.16';
-import {cases} from './cases.mjs?v=0.2.16';
+import {generateScene,validateScene} from '../engine.mjs?v=0.2.17';
+import {renderSVG} from '../renderer.mjs?v=0.2.17';
+import {cases} from './cases.mjs?v=0.2.17';
 const cards=document.getElementById('cards'),urls=[];
 try{for(const {seed,settings}of cases){
  const scene=generateScene(seed,settings),errors=validateScene(scene).errors;if(errors.length)throw new Error(seed+': '+errors.join(', '));
