@@ -1,6 +1,6 @@
-import {generateScene,validateScene} from '../engine.mjs?v=0.2.13';
-import {renderSVG} from '../renderer.mjs?v=0.2.13';
-import {cases,modes} from './cases.mjs?v=0.2.13';
+import {generateScene,validateScene} from '../engine.mjs?v=0.2.14';
+import {renderSVG} from '../renderer.mjs?v=0.2.14';
+import {cases,modes} from './cases.mjs?v=0.2.14';
 const cards=document.getElementById('cards'),urls=[];
 try{
  for(const {seed,settings} of cases){

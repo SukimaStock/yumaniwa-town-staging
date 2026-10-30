@@ -103,7 +103,7 @@ function boat(b,p){const{x,y,width:w,height:h}=b;let out=poly([[x+8,y+13],[x+w*.
  return `<g data-boat="true">${out}</g>`;
 }
 function canalSVG(s){
- const c=s.canal,p=s.palette;let out='<g data-canal="true">'+poly(c.bankPolygon,p.light)+poly(c.water,p.water);
+ const c=s.canal,p=s.palette;let out='<g data-canal="true">'+poly(c.bankPolygon,p.light)+poly(c.tail,p.water)+poly(c.water,p.water)+poly([...c.quayLeft,...[...c.leftPath].reverse()],p.ink,.7)+poly([...c.quayRight,...[...c.rightPath].reverse()],p.ink,.85);
  for(const q of c.reflections)out+=`<g data-canal-reflection="${esc(q.source)}">${poly(q.points,q.color,q.opacity)}</g>`;
  for(const q of s.waterlines)out+=path(`M${n(q.x)} ${n(q.y)}h${n(q.width)}`,p.ripple,2);
  return out+'</g>';
