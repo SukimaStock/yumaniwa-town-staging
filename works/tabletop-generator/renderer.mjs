@@ -30,11 +30,21 @@ export function renderSVG(scene){
   if(o.kind==='lemon'){body+=lemon(o);continue;}
   let shape='';
   if(o.kind==='cloth')shape=paint(path(o.outline),c.cloth)+paint(path(o.fold),c.fold);
-  if(o.kind==='bottle')shape=paint(path(o.outline),c.bottle)+paint(path(o.side),c.bottleSide)+paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx,o.mouth.ry),c.bottleMouth);
+  if(o.kind==='bottle')shape=paint(path(o.outline),c.bottle)+paint(path(o.side),c.bottleSide)+(o.opened?paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx+2,o.mouth.ry+1),'#648a91')+paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx-5,o.mouth.ry-2),c.bottleMouth):paint(ellipse(o.mouth.x,o.mouth.y,o.mouth.rx,o.mouth.ry),c.bottleMouth));
+  if(o.kind==='glass'){
+   // Thin glass is translucent; the liquid and its level are clipped to the bowl.
+   const id='wine-bowl';defs+=`<clipPath id="${id}">${path(o.outline)}</clipPath>`;
+   shape=paint(ellipse(o.x,o.base,46,9),c.glassLine)+paint(`<rect x="${o.x-3}" y="458" width="6" height="${o.base-458}"/>`,c.glassLine);
+   shape+=`<g opacity=".36">${paint(path(o.outline),c.glass)}</g>`;
+   shape+=`<g clip-path="url(#${id})">${paint(path(o.liquid),c.wine)}${paint(ellipse(o.x,o.level,49,11),'#e6ce89')}</g>`;
+   shape+=`<path d="M718 314 C716 368 728 425 748 449 Q772 470 796 449 C816 425 828 368 826 314" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
+   shape+=`<ellipse cx="${o.x}" cy="${o.top}" rx="54" ry="12" fill="none" stroke="${c.glassLine}" stroke-width="3"/>`;
+  }
+  if(o.kind==='cork')shape=`<g transform="translate(${o.x} ${o.y}) rotate(${o.angle})">${paint('<path d="M-24.5 -11 H18 Q24.5 -11 24.5 0 Q24.5 11 18 11 H-24.5 Z"/>',c.cork,true)}${paint(ellipse(-24.5,0,4,11),c.corkEnd,true)}</g>`;
   if(o.kind==='ellipse')shape=paint(ellipse(o.x,o.y,o.rx,o.ry),c[o.color]);
   if(o.kind==='bowl')shape=paint(path(o.outline),c.bowl)+paint(path(o.rim),c.rim);
   body+=`<g data-object="${o.id}">${shape}</g>`;
  }
  if(s.texture!=='original')body+=`<use xlink:href="#paperGrain" opacity="${s.texture==='print'?.14:.09}"/>`;
- return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="720" viewBox="0 0 900 720" role="img" aria-labelledby="art-title"><title id="art-title">レモンのある食卓</title><metadata>${JSON.stringify(s)}</metadata><defs>${defs}</defs>${body}</svg>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="720" viewBox="0 0 900 720" role="img" aria-labelledby="art-title"><title id="art-title">${s.study==='wine-lemon-01'?'ワインとレモン':'レモンのある食卓'}</title><metadata>${JSON.stringify(s)}</metadata><defs>${defs}</defs>${body}</svg>`;
 }
