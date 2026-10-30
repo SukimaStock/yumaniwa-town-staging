@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4e940ff5aa29771664c4c3e87da67aa1835654c392ae440069aaed54f8cfa0d2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-028-map",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.28.0 正式店舗の販売記録を既存マップへ読み取り専用表示",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "62f84053c5f8470aa84c65f2a0ca68d860cf6c16",
+    "canonicalSources": [
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/player-news.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-028-map/r0.lock.json",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/map-sales*.mjs",
+      "works/ambertime/design/map-sales-028/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/engine.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/save.mjs"
+    ],
+    "expectedChanges": [
+      "既存Canvas背景/正式marker座標/解放を維持。実関係店舗に販売期間付き数字と既存事実の短い状態を表示",
+      "純粋projection、店選択で実在庫/販売記録と既存反応の出典を確認、既存店情報/販売室へ移動",
+      "新旧保存/長期/複数店舗/発売回/回収/仮置き/未解放の非変更と描画/操作回帰、PR/CI/merge/Staging公開確認"
+    ],
+    "ownerDecisions": [
+      "2026-10-30ユーザーAmberTime0.28.0本編接続依頼：C数字＋反応、通常PR/必須CI/マージ/Stagingを許可。本編表示のみ、Production/販売口コミ経済/解放/正式保存不変"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/Change OS/実装前Plan Lock/Scope→Risk→Impact",
+      "表現監査：期間・実売と納品の違い・必要操作のみ。架空の期待や支持を作らない",
+      "root AGENTSに従いread-only調査と独立レビューを分担、実装はpath所有を分離"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390/430の地図/店選択/販売室往復/在庫更新/開閉非変更",
+      "Staging公開後基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。新保存形式なし",
+    "outOfScope": [
+      "Production",
+      "販売/在庫/口コミ/評判/経済/解放条件/セーブ形式変更",
+      "Lab記憶期待支持モデル採用",
+      "正式店舗配置変更/背景再制作/全国海外の再設計"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者の体験判断",
+      "実機Safari/端末温度"
+    ],
+    "alternativesRejected": [
+      "Lab仮店舗/仮座標を本編へ移植",
+      "納品を実購入と同一視",
+      "マップ操作による月進行や記録生成"
+    ],
+    "boundaryCases": [
+      "新規/既存保存/仮置き/回収/完売/未解放/複数店舗/複数発売回/長期大数値",
+      "旧方式の納品数と現方式実売を区別、実売なし好評禁止、店の出典のない客の感想を転用しない"
+    ],
+    "testPlan": [
+      "純粋projection/描画非変更/正式店/期間/保存復元/legacy/回収と仮置きの検査",
+      "既存AmberTime関連回帰とAGENTS販売UIテスト",
+      "4幅の表示/44px操作/販売室往復/描画負荷/公開後基本操作"
+    ],
+    "problem": "本編の販売記録を既存地図から把握できない",
+    "currentContract": "既存Canvas/marker/解放条件/計算/正式保存を維持",
+    "whyExistingIsInsufficient": "Lab0.5Cは仮店舗と独立状態であり本編の実記録へ未接続",
+    "design": "正式な関係店舗の記録から読み取り専用projectionを生成し、既存CanvasへDOMの数字/短い状態と44pxtapを重ねる。店選択時に短い記録/既存店情報導線。販売期間は記録の取得可能性を監査し明示。",
+    "migration": "なし",
+    "compatibility": "新旧保存を変更せずそのまま投影。mapの選択はUIメモリのみ",
+    "promotionRisk": "Staging限定。作者のC採用を全モデル採用へ拡張しない"
+  }
+}
