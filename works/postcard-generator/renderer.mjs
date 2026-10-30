@@ -115,9 +115,10 @@ export function renderSVG(s){if(s.version==='0.1')return renderLegacy(s);const p
  }else{
   for(const surface of s.surfaces){if(surface.type==='hill')out+=poly(surface.points,p.quay);else out+=rect(0,surface.y,800,surface.height,surface.type==='road'?p.roofs[2]:p.quay);}
   if(s.mode==='alley'){
-   const a=s.alley,points=[[a.farCenter-a.farHalf,a.farY],[a.farCenter+a.farHalf,a.farY],[a.nearCenter+a.nearHalf,a.nearY],[a.bottomCenter+a.bottomHalf,1000],[a.bottomCenter-a.bottomHalf,1000],[a.nearCenter-a.nearHalf,a.nearY]];
+   const a=s.alley,points=a.corridor??[[a.farCenter-a.farHalf,a.farY],[a.farCenter+a.farHalf,a.farY],[a.nearCenter+a.nearHalf,a.nearY],[a.bottomCenter+a.bottomHalf,1000],[a.bottomCenter-a.bottomHalf,1000],[a.nearCenter-a.nearHalf,a.nearY]];
    out+='<g data-alley="true">'+poly(points,p.light);
-   for(const t of [.28,.53,.78]){const y=a.farY+(a.nearY-a.farY)*t,center=a.farCenter+(a.nearCenter-a.farCenter)*t,half=a.farHalf+(a.nearHalf-a.farHalf)*t;out+=path(`M${n(center-half)} ${n(y)}H${n(center+half)}`,p.quay,2);}
+   if(a.paving)for(const [left,y,right]of a.paving)out+=path(`M${n(left)} ${n(y)}H${n(right)}`,p.quay,2);
+   else for(const t of [.28,.53,.78]){const y=a.farY+(a.nearY-a.farY)*t,center=a.farCenter+(a.nearCenter-a.farCenter)*t,half=a.farHalf+(a.nearHalf-a.farHalf)*t;out+=path(`M${n(center-half)} ${n(y)}H${n(center+half)}`,p.quay,2);}
    out+='</g>';
   }
   if(s.mode==='square'){

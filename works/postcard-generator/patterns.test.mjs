@@ -204,7 +204,7 @@ test('automatic corner can be fixed to its selected side without changing the ci
 test('alley corridor stays open between three supported scales over 900 seeds/settings',()=>{
  const signatures=new Set();
  for(let i=0;i<300;i++)for(const density of ['open','normal','dense']){
-  const s=generateScene('alley-audit-'+i,{scene:'alley',density,corners:['plain','left','right'][i%3],accents:'both',groundFloor:i%2?'awning':'arcade',facade:i%2?'terrace':'grid'}),a=s.alley;
+  const s=generateScene('alley-audit-'+i,{scene:'alley',alleyDepth:'classic',density,corners:['plain','left','right'][i%3],accents:'both',groundFloor:i%2?'awning':'arcade',facade:i%2?'terrace':'grid'}),a=s.alley;
   assert.deepEqual(validateScene(s).errors,[],`${i}/${density}`);
   assert.equal(s.blocks.length,3);assert.equal(s.blocks.flatMap(b=>b.buildings).length,{open:7,normal:8,dense:9}[density]);
   assert.deepEqual(s,generateScene(s.seed,JSON.parse(JSON.stringify(s.settings))));
