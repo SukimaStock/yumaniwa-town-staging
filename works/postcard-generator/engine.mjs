@@ -14,7 +14,7 @@ const n=v=>Math.round(v*100)/100, clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pick=
 const lum=h=>[1,3,5].reduce((s,i,j)=>s+parseInt(h.slice(i,i+2),16)*[.2126,.7152,.0722][j],0);
 export function normalizeSettings(s={}){
  if(s.version==='0.1'){const old=legacy.normalizeSettings(s);return {version:'0.1',scene:'waterfront',...old,roofs:'auto',windows:'auto',colorMode:'auto'};}
- return {alleyDepth:['classic','staggered'].includes(s.alleyDepth)?s.alleyDepth:s.version==='0.2'&&s.alleyDepth===undefined?'classic':'staggered',reflection:['plain','short','varied','matched'].includes(s.reflection)?s.reflection:s.version==='0.2'&&s.reflection===undefined?'plain':'matched',corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent'].includes(s.colorMode)?s.colorMode:'auto'};
+ return {alleyDepth:['classic','staggered'].includes(s.alleyDepth)?s.alleyDepth:s.version==='0.2'&&s.alleyDepth===undefined?'classic':'staggered',reflection:['plain','short','varied','matched'].includes(s.reflection)?s.reflection:s.version==='0.2'&&s.reflection===undefined?'plain':'matched',corners:['plain','left','right'].includes(s.corners)?s.corners:s.version==='0.2'&&s.corners===undefined?'plain':'auto',accents:['plain','plants','shade','both'].includes(s.accents)?s.accents:s.version==='0.2'&&s.accents===undefined?'plain':'auto',groundFloor:['plain','arcade','awning'].includes(s.groundFloor)?s.groundFloor:s.version==='0.2'&&s.groundFloor===undefined?'plain':'auto',facade:['plain','grid','terrace'].includes(s.facade)?s.facade:'auto',sky:['clear','clouds'].includes(s.sky)?s.sky:'auto',version:s.version==='0.1'?'0.1':'0.2',scene:SCENES.some(x=>x.id===s.scene)?s.scene:'auto',palette:PALETTES.some(p=>p.id===s.palette)?s.palette:'auto',density:['open','normal','dense'].includes(s.density)?s.density:'normal',composition:COMPOSITIONS.includes(s.composition)?s.composition:'auto',roofs:s.roofs==='step'?'gable':ROOFS.includes(s.roofs)?s.roofs:'auto',windows:['round','shutters'].includes(s.windows)?'rect':WINDOWS.includes(s.windows)?s.windows:'auto',colorMode:['varied','tonal','accent','grouped'].includes(s.colorMode)?s.colorMode:'auto'};
 }
 function house(id,x,base,width,height,layer=0){
  width=n(width);height=n(height);base=n(base);
@@ -43,11 +43,36 @@ function style(scene,settings){
    b.band=scene.mode==='closeup'&&randomStream(scene.seed,b.id+'-band')()<.48;b.bandColor=scene.colorMode==='accent'&&i===accentIndex?p.accent:wallSet[(index+1)%wallSet.length];
    b.balcony=scene.mode!=='waterfront'&&b.width>115&&winR()<.24;
  }
+ if(scene.colorMode==='grouped')groupColors(scene);
  for(const b of scene.blocks)b.groundColor=p.terraces[Math.min(b.layer,2)];
  if(scene.landmark){scene.landmark.wall=p.walls[2];scene.landmark.roofColor=p.roofs[0];scene.landmark.windowColor=p.ink;}
  for(const b of scene.boats){b.hull=p.accent;b.deck=p.light;}
  for(const q of scene.people)q.color=q.color===legacy.PALETTES[0].accent?p.accent:p.ink;
  return scene;
+}
+// Families select existing wall swatches only; neutral/blue palettes need not be warm/cool.
+const COLOR_FAMILIES={harbor:[[0,1,3],[2,4,5]],apricot:[[0,1,3],[2,4,5]],garden:[[0,1,4],[2,3,5]],clay:[[0,1,4,5],[2,3]],blue:[[0,3],[1,2,4,5]],rose:[[0,1,3],[2,4,5]]};
+function district(s,b){
+ const plotX=b.corner?.plotX??b.x,plotWidth=b.corner?.plotWidth??b.width;
+ const region=s.mode==='waterfront'?(b.layer===s.blocks.length-1?1:0):(plotX+plotWidth/2<400?0:1);
+ return region^s.grouping.flip;
+}
+function groupColors(s){
+ const p=s.palette,r=randomStream(s.seed,'district-colors'),roofR=randomStream(s.seed,'district-roof-colors');
+ s.grouping={axis:s.mode==='waterfront'?'depth':'sides',flip:randomStream(s.seed,'district-direction')()<.5?0:1};
+ for(const block of s.blocks){
+  let previous=null;
+  for(const b of block.buildings){
+   const group=district(s,b),family=COLOR_FAMILIES[p.id][group];
+   const contrasting=(index,other)=>index!==other&&Math.abs(lum(p.walls[index])-lum(p.walls[other]))>=24;
+   let choices=previous===null?family:family.filter(i=>contrasting(i,previous));
+   if(!choices.length){const best=Math.max(...family.filter(i=>i!==previous).map(i=>Math.abs(lum(p.walls[i])-lum(p.walls[previous]))));choices=family.filter(i=>i!==previous&&Math.abs(lum(p.walls[i])-lum(p.walls[previous]))===best);}
+   const index=pick(r,choices);b.colorGroup=group;b.wallIndex=index;b.wall=p.walls[index];previous=index;
+   const bands=family.filter(i=>contrasting(i,index));b.bandColor=p.walls[pick(r,bands.length?bands:family.filter(i=>i!==index))];
+   b.windowColor=lum(b.wall)<145?p.light:p.ink;
+   const roofs=p.roofs.filter(c=>Math.abs(lum(c)-lum(b.wall))>24);b.roofColor=pick(roofR,roofs.length?roofs:p.roofs);
+  }
+ }
 }
 export function generateScene(seed,settings={}){
  settings=normalizeSettings(settings);
@@ -249,6 +274,16 @@ export function validateScene(scene){
    }
    if(b.groundFloor){const g=b.groundFloor;if(!['arcade','awning'].includes(g.kind)||g.height<=0||g.height>b.height*.5||g.count<2||g.count>5||b.width<110||b.height<180)errors.push(`ground-floor:${b.id}`);}
    if(!ROOFS.includes(b.roof)||!WINDOWS.includes(b.windowShape))errors.push(`style:${b.id}`);
+ }
+ if(scene.colorMode==='grouped'){
+  if(!scene.grouping||scene.grouping.axis!==(scene.mode==='waterfront'?'depth':'sides')||![0,1].includes(scene.grouping.flip))errors.push('color-grouping');
+  else for(const block of scene.blocks){
+   for(const [i,b]of block.buildings.entries()){
+    const group=district(scene,b),family=COLOR_FAMILIES[scene.palette.id]?.[group];
+    if(b.colorGroup!==group||!family?.some(index=>scene.palette.walls[index]===b.wall)||b.band&&!family?.some(index=>scene.palette.walls[index]===b.bandColor))errors.push('color-group-family');
+    if(i&&b.wall===block.buildings[i-1].wall)errors.push('color-group-neighbor');
+   }
+  }
  }
  if(Array.isArray(scene.reflections)){
    const front=scene.blocks[scene.blocks.length-1].buildings,seen=new Set();
