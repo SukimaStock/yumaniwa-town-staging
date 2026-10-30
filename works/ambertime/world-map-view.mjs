@@ -65,12 +65,17 @@ export const newlyUnlocked=(shown,max)=>Math.max(0,Math.min(6,max))>Math.max(0,M
 export const revealStart=(shown,max)=>Math.min(Math.max(1,shown),Math.max(1,max));
 export function mapStep(current,direction,max){const n=clampStage(current)+(direction==='out'?1:-1);return Math.max(1,Math.min(clampStage(max),n));}
 function marker(ctx,x,y,fill){const cell=(v)=>Math.floor(v/MAP_CELL)*MAP_CELL;const sx=cell(x),sy=cell(y);ctx.fillStyle='#27353b';ctx.fillRect(sx-2,sy-2,8,8);ctx.fillStyle=fill;ctx.fillRect(sx,sy,4,4);}
+// Existing marker centres, shared with read-only DOM hit targets. Buildings stay unchanged.
+const shopPositions=stage=>stage===2?{'town-liquor':[100,64],supermarket:[114,118]}:stage===3?{'town-liquor':[31,69],supermarket:[117,99],department:[41,111]}:{};
+export function mapShopPositions(stage){
+ return Object.fromEntries(Object.entries(shopPositions(stage)).map(([id,[x,y]])=>[id,[Math.floor(x/MAP_CELL)*MAP_CELL+2,Math.floor(y/MAP_CELL)*MAP_CELL+2]]));
+}
 export function drawGameMap(canvas,game,stage,seenMax=1){
  const ctx=canvas.getContext('2d',{alpha:false});
  const progress=mapProgress(game);const safe=Math.min(clampStage(stage),Math.max(progress.max,clampStage(seenMax)));
  renderMap(ctx,safe);
  if(safe===2||safe===3){
-  const pos=safe===2?{ 'town-liquor':[100,64],supermarket:[114,118]}:{'town-liquor':[31,69],supermarket:[117,99],department:[41,111]};
+  const pos=shopPositions(safe);
   for(const [shop,[x,y]] of Object.entries(pos))if(progress.activeShops.has(shop))marker(ctx,x,y,'#e6d49e');
  }else if(safe===4&&progress.reached.near){marker(ctx,88,40,'#e6d49e')}
  else if(safe===5&&progress.reached.national){marker(ctx,70,70,'#e6d49e')}
