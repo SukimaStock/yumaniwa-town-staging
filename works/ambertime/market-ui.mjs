@@ -6,6 +6,13 @@ const primaryNames={fruit:'果実',grain:'穀物',smoke:'煙',body:'コク',spic
 const portionCount=(n,choice)=>choice==='all'?n:Math.min(n,Number(choice)||0);
 const releaseFor=(s,id)=>s.releases.find(r=>r.productId===id);
 const releaseDate=(s,id)=>{const month=releaseFor(s,id)?.bottledMonth??s.core.products.find(p=>p.id===id)?.bottledMonth;return Number.isInteger(month)&&month>=0?monthLabel(month).replace('年','/').replace('月',''):'発売日不明';};
+// Short labels retain the full date in accessible names. Never collapse two
+// different centuries onto the same visible release date.
+export function compactReleaseDate(s,id){
+ const full=releaseDate(s,id),short=full.replace(/^\d{2}(\d{2}\/)/,'$1');
+ const collision=s.core.products.some(p=>p.id!==id&&releaseDate(s,p.id)!==full&&releaseDate(s,p.id).replace(/^\d{2}(\d{2}\/)/,'$1')===short);
+ return collision?full:short;
+}
 const brandName=(s,id)=>s.brands.find(b=>b.id===releaseFor(s,id)?.brandId)?.name??'AmberTime';
 const tasteLabel=p=>p?.flavor?.label??flavorType(p)?.label??'個性';
 // Back up the exact old formal envelope before publishing a future-rules boundary.
@@ -114,7 +121,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
 
    return `<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}"><header class="market-shop-heading"><span class="market-shop-name"><span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span>${shop.name}</span></span>${button('店情報 ›','details',shop.id,`class="market-shop-details" aria-label="${shop.name}の店情報"`)}</header><div class="market-shelf-body"><div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の商品一覧">${rows[index].map(row=>{
     const item=s.core.products.find(x=>x.id===row.productId);if(!item)return '';
-    return `<div class="market-stock-row" data-wide="${String(item.stock).length>=3}" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date">${esc(releaseDate(s,item.id))}</span><span class="market-count">${row.count}本</span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+'。手元へ戻す')}"`)}</div>`;
+    return `<div class="market-stock-row" data-wide="${String(row.count).length>2||!/^\d{2}\/\d{1,2}$/.test(compactReleaseDate(s,item.id))}" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date" title="${esc(releaseDate(s,item.id))}">${esc(compactReleaseDate(s,item.id))}</span><span class="market-count">${row.count}本</span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+'。手元へ戻す')}"`)}</div>`;
    }).join('')||'<span class="market-empty" aria-label="割り当てなし"></span>'}</div></div>${button('<span class="market-place-label">ここに置く</span>','place',shop.id,`class="market-target" ${!p||inventory.hand<1?'disabled':''} aria-label="${esc(shop.name+'へ'+(p?releaseDate(s,p.id)+'の瓶':'瓶')+'を渡す')}"`)}</section>`;
   }).join('')}</div></div>${returnPane}`;
   for(const shelf of all('.market-stock-list,.market-hand-list'))shelf.scrollLeft=positions.get(shelf.id)??0;
