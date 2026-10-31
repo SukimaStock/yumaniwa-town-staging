@@ -270,30 +270,29 @@ body[data-room] #hero .objects::after{content:none}
 /* Daily map: fixed plot and detail slots, independent of store selection. */
 .world-map-surface{position:relative;width:222px;height:222px;max-width:100%;flex:none;border:3px solid #858995;box-sizing:content-box}
 .world-map-surface #world-map-canvas{width:100%;height:100%;border:0}
-#action-dialog.daily-map{padding:10px;width:min(316px,calc(var(--view-width) - 24px));box-sizing:border-box}
-#action-dialog.daily-map .dialog-heading{padding:0;margin:0 0 4px;grid-template-columns:minmax(0,1fr) 44px;min-height:44px}
-#action-dialog.daily-map .dialog-heading button{width:44px;height:44px;min-height:44px;padding:0}
-#action-dialog.daily-map #dialog-body{padding:0;flex:none;overflow:visible}
-#action-dialog.daily-map #dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0 0;padding:0;overflow:visible;max-height:none}
-#action-dialog.daily-map #dialog-actions button{min-height:44px;padding:3px;white-space:nowrap}
-#action-dialog.daily-map #dialog-actions [data-return=true]{grid-column:auto;justify-self:stretch;width:auto;margin:0}
-#action-dialog.daily-map .world-map-view{gap:4px}
-.map-browse-row{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:186px;flex:none}
-#action-dialog.daily-map .world-map-surface{width:180px;height:180px}
-#action-dialog.daily-map .world-map-controls{display:flex;flex-direction:column;justify-content:center;gap:6px;width:44px;flex:none}
-#action-dialog.daily-map .world-map-controls button{width:44px;min-width:44px;height:44px;min-height:44px;padding:0!important}
-#action-dialog.daily-map .world-map-controls span{width:44px;white-space:normal;overflow:visible;min-height:40px;text-align:center;display:flex;align-items:center;justify-content:center}
+/* Reuse the dialog's shared spacing and uniform Canvas typography. */
+#action-dialog.daily-map{padding:10px;width:min(360px,calc(var(--view-width) - 24px));max-width:calc(var(--view-width) - 24px);box-sizing:border-box}
+#action-dialog.daily-map .dialog-heading{padding:0;align-items:center;margin-bottom:4px}
+#action-dialog.daily-map #dialog-body{padding:0;flex:1;display:flex;overflow:hidden}
+#action-dialog.daily-map #dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:6px;padding-top:1px}
+#action-dialog.daily-map #dialog-actions button{min-height:45px;padding:6px 9px;white-space:nowrap}
+#action-dialog.daily-map .world-map-view{gap:6px;width:100%;flex:1;min-height:0}
+.map-browse-row{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;flex:none}
+#action-dialog.daily-map .world-map-surface{width:222px;height:222px}
+#action-dialog.daily-map .world-map-controls{width:100%;grid-template-columns:52px minmax(0,1fr) 52px;gap:8px}
+#action-dialog.daily-map .world-map-controls button{width:52px;min-width:44px;min-height:45px;height:45px;padding:0!important}
+#action-dialog.daily-map .world-map-controls span{white-space:normal;overflow:visible;text-align:center}
 #action-dialog #dialog-body .map-shop-hit{position:absolute;width:44px!important;height:44px!important;min-width:44px;min-height:44px;padding:0!important;transform:translate(-50%,-50%);border:2px solid transparent;background:transparent;box-shadow:none;z-index:2}
 #action-dialog #dialog-body .map-shop-hit[aria-pressed=true],#action-dialog #dialog-body .map-shop-hit:focus-visible{border-color:#ffe19c;background:#e6d49e22}
-#action-dialog #dialog-body .map-shop-label{position:absolute;transform:translate(-50%,-50%);padding:0 2px!important;min-width:0;min-height:0;height:22px;width:max-content;max-width:108px;background:#25383dcc;border:0;box-shadow:none;color:#f5e6be;text-align:center;white-space:nowrap;z-index:3}
+#action-dialog #dialog-body .map-shop-label{position:absolute;transform:translate(-50%,-50%);padding:0 2px!important;min-width:0;min-height:0;height:auto;width:max-content;max-width:60%;background:#25383dcc;border:0;box-shadow:none;color:#f5e6be;text-align:center;white-space:normal;z-index:3}
 #action-dialog #dialog-body .map-shop-label[aria-pressed=true]{outline:1px solid #ffe19c}
-#action-dialog #dialog-body .map-sales-period{margin:0;height:20px;line-height:20px;text-align:center;white-space:nowrap}
-#action-dialog #dialog-body .map-shop-report{width:100%;height:128px;min-height:128px;max-height:128px;overflow:auto;overscroll-behavior:contain;box-sizing:border-box;border-top:1px solid #858995;padding-top:3px}
-#action-dialog #dialog-body .map-shop-report header{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px}
-#action-dialog #dialog-body .map-shop-report h3{margin:0;overflow-wrap:anywhere}
+#action-dialog #dialog-body .map-sales-period{margin:2px 0;overflow-wrap:anywhere}
+#action-dialog #dialog-body .map-shop-report{width:100%;min-height:0;flex:0 1 auto;max-height:calc(var(--uniform-line-height,32px) * 5 + 12px);overflow:auto;overscroll-behavior:contain;border-top:var(--pixel) solid #858995;padding-top:6px}
+#action-dialog #dialog-body .map-shop-report header{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:45px}
+#action-dialog #dialog-body .map-shop-report h3{margin:0;overflow-wrap:anywhere;min-width:0}
 #action-dialog #dialog-body .map-shop-report p{margin:2px 0;overflow-wrap:anywhere}
-#action-dialog #dialog-body .map-shop-report button{min-height:44px;padding:2px 4px;white-space:nowrap}
-html[data-font-uniform="1"] #action-dialog.daily-map #dialog-title,
-html[data-font-uniform="1"] #action-dialog.daily-map #dialog-body :not(svg,svg *),
-html[data-font-uniform="1"] #action-dialog.daily-map #dialog-actions button{font-size:16px!important;line-height:20px!important}
+#action-dialog #dialog-body .map-shop-report button{min-height:45px;padding:2px 4px;white-space:nowrap;flex:none}
+/* Anchor this content-sized dialog to the same top edge across selections.
+   The scene renderer otherwise recenters every dialog after a content resize. */
+#action-dialog.daily-map{top:calc(var(--view-top) + 12px)!important}
 @media(prefers-reduced-motion:reduce){#action-dialog.daily-map *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

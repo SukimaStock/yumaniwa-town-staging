@@ -1,0 +1,6491 @@
+{
+  "results": [
+    {
+      "before": true,
+      "width": 360,
+      "height": 568,
+      "name": "initial",
+      "dialog": {
+        "x": 32.328125,
+        "y": 52,
+        "width": 295.5,
+        "height": 464,
+        "right": 327.828125,
+        "bottom": 516
+      },
+      "map": {
+        "x": 62.078125,
+        "y": 112,
+        "width": 186,
+        "height": 186,
+        "right": 248.078125,
+        "bottom": 298
+      },
+      "controls": {
+        "x": 254.078125,
+        "y": 135,
+        "width": 44,
+        "height": 140,
+        "right": 298.078125,
+        "bottom": 275
+      },
+      "footer": {
+        "x": 44.328125,
+        "y": 460,
+        "width": 271.5,
+        "height": 44,
+        "right": 315.828125,
+        "bottom": 504
+      },
+      "report": {
+        "x": 44.328125,
+        "y": 326,
+        "width": 271.5,
+        "height": 128,
+        "right": 315.828125,
+        "bottom": 454
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [],
+      "buttons": [
+        {
+          "class": "",
+          "x": 271.828125,
+          "y": 64,
+          "width": 48,
+          "height": 44,
+          "right": 319.828125,
+          "bottom": 108
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 135,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 179
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 231,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 275
+        },
+        {
+          "class": "",
+          "x": 44.328125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 176.078125,
+          "bottom": 504
+        },
+        {
+          "class": "",
+          "x": 184.078125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 315.828125,
+          "bottom": 504
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 360,
+      "height": 568,
+      "name": "town",
+      "dialog": {
+        "x": 32.328125,
+        "y": 52,
+        "width": 295.5,
+        "height": 464,
+        "right": 327.828125,
+        "bottom": 516
+      },
+      "map": {
+        "x": 62.078125,
+        "y": 112,
+        "width": 186,
+        "height": 186,
+        "right": 248.078125,
+        "bottom": 298
+      },
+      "controls": {
+        "x": 254.078125,
+        "y": 135,
+        "width": 44,
+        "height": 140,
+        "right": 298.078125,
+        "bottom": 275
+      },
+      "footer": {
+        "x": 44.328125,
+        "y": 460,
+        "width": 271.5,
+        "height": 44,
+        "right": 315.828125,
+        "bottom": 504
+      },
+      "report": {
+        "x": 44.328125,
+        "y": 326,
+        "width": 271.5,
+        "height": 128,
+        "right": 315.828125,
+        "bottom": 454
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 86.078125,
+          "y": 167.75,
+          "width": 68,
+          "height": 22,
+          "right": 154.078125,
+          "bottom": 189.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 271.828125,
+          "y": 64,
+          "width": 48,
+          "height": 44,
+          "right": 319.828125,
+          "bottom": 108
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 83.0625,
+          "y": 180.5,
+          "width": 44,
+          "height": 44,
+          "right": 127.0625,
+          "bottom": 224.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 86.078125,
+          "y": 167.75,
+          "width": 68,
+          "height": 22,
+          "right": 154.078125,
+          "bottom": 189.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 190.578125,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "right": 234.578125,
+          "bottom": 262
+        },
+        {
+          "class": "map-shop-label",
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 135,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 179
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 231,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 275
+        },
+        {
+          "class": "",
+          "x": 44.328125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 176.078125,
+          "bottom": 504
+        },
+        {
+          "class": "",
+          "x": 184.078125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 315.828125,
+          "bottom": 504
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 360,
+      "height": 568,
+      "name": "shop-0",
+      "dialog": {
+        "x": 32.328125,
+        "y": 52,
+        "width": 295.5,
+        "height": 464,
+        "right": 327.828125,
+        "bottom": 516
+      },
+      "map": {
+        "x": 62.078125,
+        "y": 112,
+        "width": 186,
+        "height": 186,
+        "right": 248.078125,
+        "bottom": 298
+      },
+      "controls": {
+        "x": 254.078125,
+        "y": 135,
+        "width": 44,
+        "height": 140,
+        "right": 298.078125,
+        "bottom": 275
+      },
+      "footer": {
+        "x": 44.328125,
+        "y": 460,
+        "width": 271.5,
+        "height": 44,
+        "right": 315.828125,
+        "bottom": 504
+      },
+      "report": {
+        "x": 44.328125,
+        "y": 326,
+        "width": 271.5,
+        "height": 128,
+        "right": 315.828125,
+        "bottom": 454
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 86.078125,
+          "y": 167.75,
+          "width": 68,
+          "height": 22,
+          "right": 154.078125,
+          "bottom": 189.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 271.828125,
+          "y": 64,
+          "width": 48,
+          "height": 44,
+          "right": 319.828125,
+          "bottom": 108
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 83.0625,
+          "y": 180.5,
+          "width": 44,
+          "height": 44,
+          "right": 127.0625,
+          "bottom": 224.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 86.078125,
+          "y": 167.75,
+          "width": 68,
+          "height": 22,
+          "right": 154.078125,
+          "bottom": 189.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 190.578125,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "right": 234.578125,
+          "bottom": 262
+        },
+        {
+          "class": "map-shop-label",
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 135,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 179
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 231,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 275
+        },
+        {
+          "class": "",
+          "x": 255.828125,
+          "y": 330,
+          "width": 60,
+          "height": 44,
+          "right": 315.828125,
+          "bottom": 374
+        },
+        {
+          "class": "",
+          "x": 44.328125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 176.078125,
+          "bottom": 504
+        },
+        {
+          "class": "",
+          "x": 184.078125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 315.828125,
+          "bottom": 504
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 360,
+      "height": 568,
+      "name": "shop-1",
+      "dialog": {
+        "x": 32.328125,
+        "y": 52,
+        "width": 295.5,
+        "height": 464,
+        "right": 327.828125,
+        "bottom": 516
+      },
+      "map": {
+        "x": 62.078125,
+        "y": 112,
+        "width": 186,
+        "height": 186,
+        "right": 248.078125,
+        "bottom": 298
+      },
+      "controls": {
+        "x": 254.078125,
+        "y": 135,
+        "width": 44,
+        "height": 140,
+        "right": 298.078125,
+        "bottom": 275
+      },
+      "footer": {
+        "x": 44.328125,
+        "y": 460,
+        "width": 271.5,
+        "height": 44,
+        "right": 315.828125,
+        "bottom": 504
+      },
+      "report": {
+        "x": 44.328125,
+        "y": 326,
+        "width": 271.5,
+        "height": 128,
+        "right": 315.828125,
+        "bottom": 454
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 86.078125,
+          "y": 167.75,
+          "width": 68,
+          "height": 22,
+          "right": 154.078125,
+          "bottom": 189.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 271.828125,
+          "y": 64,
+          "width": 48,
+          "height": 44,
+          "right": 319.828125,
+          "bottom": 108
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 83.0625,
+          "y": 180.5,
+          "width": 44,
+          "height": 44,
+          "right": 127.0625,
+          "bottom": 224.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 86.078125,
+          "y": 167.75,
+          "width": 68,
+          "height": 22,
+          "right": 154.078125,
+          "bottom": 189.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 190.578125,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "right": 234.578125,
+          "bottom": 262
+        },
+        {
+          "class": "map-shop-label",
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 135,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 179
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 231,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 275
+        },
+        {
+          "class": "",
+          "x": 255.828125,
+          "y": 330,
+          "width": 60,
+          "height": 44,
+          "right": 315.828125,
+          "bottom": 374
+        },
+        {
+          "class": "",
+          "x": 44.328125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 176.078125,
+          "bottom": 504
+        },
+        {
+          "class": "",
+          "x": 184.078125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 315.828125,
+          "bottom": 504
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 360,
+      "height": 568,
+      "name": "world-map-in",
+      "dialog": {
+        "x": 32.328125,
+        "y": 52,
+        "width": 295.5,
+        "height": 464,
+        "right": 327.828125,
+        "bottom": 516
+      },
+      "map": {
+        "x": 62.078125,
+        "y": 112,
+        "width": 186,
+        "height": 186,
+        "right": 248.078125,
+        "bottom": 298
+      },
+      "controls": {
+        "x": 254.078125,
+        "y": 135,
+        "width": 44,
+        "height": 140,
+        "right": 298.078125,
+        "bottom": 275
+      },
+      "footer": {
+        "x": 44.328125,
+        "y": 460,
+        "width": 271.5,
+        "height": 44,
+        "right": 315.828125,
+        "bottom": 504
+      },
+      "report": {
+        "x": 44.328125,
+        "y": 326,
+        "width": 271.5,
+        "height": 128,
+        "right": 315.828125,
+        "bottom": 454
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 156.078125,
+          "y": 162.75,
+          "width": 68,
+          "height": 22,
+          "right": 224.078125,
+          "bottom": 184.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 271.828125,
+          "y": 64,
+          "width": 48,
+          "height": 44,
+          "right": 319.828125,
+          "bottom": 108
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 170.578125,
+          "y": 175.5,
+          "width": 44,
+          "height": 44,
+          "right": 214.578125,
+          "bottom": 219.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 156.078125,
+          "y": 162.75,
+          "width": 68,
+          "height": 22,
+          "right": 224.078125,
+          "bottom": 184.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 188.078125,
+          "y": 243,
+          "width": 44,
+          "height": 44,
+          "right": 232.078125,
+          "bottom": 287
+        },
+        {
+          "class": "map-shop-label",
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 135,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 179
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 231,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 275
+        },
+        {
+          "class": "",
+          "x": 44.328125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 176.078125,
+          "bottom": 504
+        },
+        {
+          "class": "",
+          "x": 184.078125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 315.828125,
+          "bottom": 504
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 360,
+      "height": 568,
+      "name": "world-map-out",
+      "dialog": {
+        "x": 32.328125,
+        "y": 52,
+        "width": 295.5,
+        "height": 464,
+        "right": 327.828125,
+        "bottom": 516
+      },
+      "map": {
+        "x": 62.078125,
+        "y": 112,
+        "width": 186,
+        "height": 186,
+        "right": 248.078125,
+        "bottom": 298
+      },
+      "controls": {
+        "x": 254.078125,
+        "y": 135,
+        "width": 44,
+        "height": 140,
+        "right": 298.078125,
+        "bottom": 275
+      },
+      "footer": {
+        "x": 44.328125,
+        "y": 460,
+        "width": 271.5,
+        "height": 44,
+        "right": 315.828125,
+        "bottom": 504
+      },
+      "report": {
+        "x": 44.328125,
+        "y": 326,
+        "width": 271.5,
+        "height": 128,
+        "right": 315.828125,
+        "bottom": 454
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 86.078125,
+          "y": 167.75,
+          "width": 68,
+          "height": 22,
+          "right": 154.078125,
+          "bottom": 189.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 271.828125,
+          "y": 64,
+          "width": 48,
+          "height": 44,
+          "right": 319.828125,
+          "bottom": 108
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 83.0625,
+          "y": 180.5,
+          "width": 44,
+          "height": 44,
+          "right": 127.0625,
+          "bottom": 224.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 86.078125,
+          "y": 167.75,
+          "width": 68,
+          "height": 22,
+          "right": 154.078125,
+          "bottom": 189.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 190.578125,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "right": 234.578125,
+          "bottom": 262
+        },
+        {
+          "class": "map-shop-label",
+          "x": 160.078125,
+          "y": 209,
+          "width": 60,
+          "height": 22,
+          "right": 220.078125,
+          "bottom": 231
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 135,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 179
+        },
+        {
+          "class": "",
+          "x": 254.078125,
+          "y": 231,
+          "width": 44,
+          "height": 44,
+          "right": 298.078125,
+          "bottom": 275
+        },
+        {
+          "class": "",
+          "x": 44.328125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 176.078125,
+          "bottom": 504
+        },
+        {
+          "class": "",
+          "x": 184.078125,
+          "y": 460,
+          "width": 131.75,
+          "height": 44,
+          "right": 315.828125,
+          "bottom": 504
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 375,
+      "height": 620,
+      "name": "initial",
+      "dialog": {
+        "x": 29.65625,
+        "y": 77,
+        "width": 316,
+        "height": 466,
+        "right": 345.65625,
+        "bottom": 543
+      },
+      "map": {
+        "x": 69.65625,
+        "y": 138,
+        "width": 186,
+        "height": 186,
+        "right": 255.65625,
+        "bottom": 324
+      },
+      "controls": {
+        "x": 261.65625,
+        "y": 161,
+        "width": 44,
+        "height": 140,
+        "right": 305.65625,
+        "bottom": 301
+      },
+      "footer": {
+        "x": 42.65625,
+        "y": 486,
+        "width": 290,
+        "height": 44,
+        "right": 332.65625,
+        "bottom": 530
+      },
+      "report": {
+        "x": 42.65625,
+        "y": 352,
+        "width": 290,
+        "height": 128,
+        "right": 332.65625,
+        "bottom": 480
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288.65625,
+          "y": 90,
+          "width": 48,
+          "height": 44,
+          "right": 336.65625,
+          "bottom": 134
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 161,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 205
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 257,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 301
+        },
+        {
+          "class": "",
+          "x": 42.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 183.65625,
+          "bottom": 530
+        },
+        {
+          "class": "",
+          "x": 191.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 332.65625,
+          "bottom": 530
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 375,
+      "height": 620,
+      "name": "town",
+      "dialog": {
+        "x": 29.65625,
+        "y": 77,
+        "width": 316,
+        "height": 466,
+        "right": 345.65625,
+        "bottom": 543
+      },
+      "map": {
+        "x": 69.65625,
+        "y": 138,
+        "width": 186,
+        "height": 186,
+        "right": 255.65625,
+        "bottom": 324
+      },
+      "controls": {
+        "x": 261.65625,
+        "y": 161,
+        "width": 44,
+        "height": 140,
+        "right": 305.65625,
+        "bottom": 301
+      },
+      "footer": {
+        "x": 42.65625,
+        "y": 486,
+        "width": 290,
+        "height": 44,
+        "right": 332.65625,
+        "bottom": 530
+      },
+      "report": {
+        "x": 42.65625,
+        "y": 352,
+        "width": 290,
+        "height": 128,
+        "right": 332.65625,
+        "bottom": 480
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 93.65625,
+          "y": 193.75,
+          "width": 68,
+          "height": 22,
+          "right": 161.65625,
+          "bottom": 215.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288.65625,
+          "y": 90,
+          "width": 48,
+          "height": 44,
+          "right": 336.65625,
+          "bottom": 134
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 90.640625,
+          "y": 206.5,
+          "width": 44,
+          "height": 44,
+          "right": 134.640625,
+          "bottom": 250.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 93.65625,
+          "y": 193.75,
+          "width": 68,
+          "height": 22,
+          "right": 161.65625,
+          "bottom": 215.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 198.15625,
+          "y": 244,
+          "width": 44,
+          "height": 44,
+          "right": 242.15625,
+          "bottom": 288
+        },
+        {
+          "class": "map-shop-label",
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 161,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 205
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 257,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 301
+        },
+        {
+          "class": "",
+          "x": 42.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 183.65625,
+          "bottom": 530
+        },
+        {
+          "class": "",
+          "x": 191.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 332.65625,
+          "bottom": 530
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 375,
+      "height": 620,
+      "name": "shop-0",
+      "dialog": {
+        "x": 29.65625,
+        "y": 77,
+        "width": 316,
+        "height": 466,
+        "right": 345.65625,
+        "bottom": 543
+      },
+      "map": {
+        "x": 69.65625,
+        "y": 138,
+        "width": 186,
+        "height": 186,
+        "right": 255.65625,
+        "bottom": 324
+      },
+      "controls": {
+        "x": 261.65625,
+        "y": 161,
+        "width": 44,
+        "height": 140,
+        "right": 305.65625,
+        "bottom": 301
+      },
+      "footer": {
+        "x": 42.65625,
+        "y": 486,
+        "width": 290,
+        "height": 44,
+        "right": 332.65625,
+        "bottom": 530
+      },
+      "report": {
+        "x": 42.65625,
+        "y": 352,
+        "width": 290,
+        "height": 128,
+        "right": 332.65625,
+        "bottom": 480
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 93.65625,
+          "y": 193.75,
+          "width": 68,
+          "height": 22,
+          "right": 161.65625,
+          "bottom": 215.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288.65625,
+          "y": 90,
+          "width": 48,
+          "height": 44,
+          "right": 336.65625,
+          "bottom": 134
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 90.640625,
+          "y": 206.5,
+          "width": 44,
+          "height": 44,
+          "right": 134.640625,
+          "bottom": 250.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 93.65625,
+          "y": 193.75,
+          "width": 68,
+          "height": 22,
+          "right": 161.65625,
+          "bottom": 215.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 198.15625,
+          "y": 244,
+          "width": 44,
+          "height": 44,
+          "right": 242.15625,
+          "bottom": 288
+        },
+        {
+          "class": "map-shop-label",
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 161,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 205
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 257,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 301
+        },
+        {
+          "class": "",
+          "x": 270.65625,
+          "y": 356,
+          "width": 62,
+          "height": 44,
+          "right": 332.65625,
+          "bottom": 400
+        },
+        {
+          "class": "",
+          "x": 42.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 183.65625,
+          "bottom": 530
+        },
+        {
+          "class": "",
+          "x": 191.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 332.65625,
+          "bottom": 530
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 375,
+      "height": 620,
+      "name": "shop-1",
+      "dialog": {
+        "x": 29.65625,
+        "y": 77,
+        "width": 316,
+        "height": 466,
+        "right": 345.65625,
+        "bottom": 543
+      },
+      "map": {
+        "x": 69.65625,
+        "y": 138,
+        "width": 186,
+        "height": 186,
+        "right": 255.65625,
+        "bottom": 324
+      },
+      "controls": {
+        "x": 261.65625,
+        "y": 161,
+        "width": 44,
+        "height": 140,
+        "right": 305.65625,
+        "bottom": 301
+      },
+      "footer": {
+        "x": 42.65625,
+        "y": 486,
+        "width": 290,
+        "height": 44,
+        "right": 332.65625,
+        "bottom": 530
+      },
+      "report": {
+        "x": 42.65625,
+        "y": 352,
+        "width": 290,
+        "height": 128,
+        "right": 332.65625,
+        "bottom": 480
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 93.65625,
+          "y": 193.75,
+          "width": 68,
+          "height": 22,
+          "right": 161.65625,
+          "bottom": 215.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288.65625,
+          "y": 90,
+          "width": 48,
+          "height": 44,
+          "right": 336.65625,
+          "bottom": 134
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 90.640625,
+          "y": 206.5,
+          "width": 44,
+          "height": 44,
+          "right": 134.640625,
+          "bottom": 250.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 93.65625,
+          "y": 193.75,
+          "width": 68,
+          "height": 22,
+          "right": 161.65625,
+          "bottom": 215.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 198.15625,
+          "y": 244,
+          "width": 44,
+          "height": 44,
+          "right": 242.15625,
+          "bottom": 288
+        },
+        {
+          "class": "map-shop-label",
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 161,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 205
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 257,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 301
+        },
+        {
+          "class": "",
+          "x": 270.65625,
+          "y": 356,
+          "width": 62,
+          "height": 44,
+          "right": 332.65625,
+          "bottom": 400
+        },
+        {
+          "class": "",
+          "x": 42.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 183.65625,
+          "bottom": 530
+        },
+        {
+          "class": "",
+          "x": 191.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 332.65625,
+          "bottom": 530
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 375,
+      "height": 620,
+      "name": "world-map-in",
+      "dialog": {
+        "x": 29.65625,
+        "y": 77,
+        "width": 316,
+        "height": 466,
+        "right": 345.65625,
+        "bottom": 543
+      },
+      "map": {
+        "x": 69.65625,
+        "y": 138,
+        "width": 186,
+        "height": 186,
+        "right": 255.65625,
+        "bottom": 324
+      },
+      "controls": {
+        "x": 261.65625,
+        "y": 161,
+        "width": 44,
+        "height": 140,
+        "right": 305.65625,
+        "bottom": 301
+      },
+      "footer": {
+        "x": 42.65625,
+        "y": 486,
+        "width": 290,
+        "height": 44,
+        "right": 332.65625,
+        "bottom": 530
+      },
+      "report": {
+        "x": 42.65625,
+        "y": 352,
+        "width": 290,
+        "height": 128,
+        "right": 332.65625,
+        "bottom": 480
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 163.65625,
+          "y": 188.75,
+          "width": 68,
+          "height": 22,
+          "right": 231.65625,
+          "bottom": 210.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288.65625,
+          "y": 90,
+          "width": 48,
+          "height": 44,
+          "right": 336.65625,
+          "bottom": 134
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 178.15625,
+          "y": 201.5,
+          "width": 44,
+          "height": 44,
+          "right": 222.15625,
+          "bottom": 245.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 163.65625,
+          "y": 188.75,
+          "width": 68,
+          "height": 22,
+          "right": 231.65625,
+          "bottom": 210.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 195.65625,
+          "y": 269,
+          "width": 44,
+          "height": 44,
+          "right": 239.65625,
+          "bottom": 313
+        },
+        {
+          "class": "map-shop-label",
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 161,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 205
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 257,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 301
+        },
+        {
+          "class": "",
+          "x": 42.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 183.65625,
+          "bottom": 530
+        },
+        {
+          "class": "",
+          "x": 191.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 332.65625,
+          "bottom": 530
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 375,
+      "height": 620,
+      "name": "world-map-out",
+      "dialog": {
+        "x": 29.65625,
+        "y": 77,
+        "width": 316,
+        "height": 466,
+        "right": 345.65625,
+        "bottom": 543
+      },
+      "map": {
+        "x": 69.65625,
+        "y": 138,
+        "width": 186,
+        "height": 186,
+        "right": 255.65625,
+        "bottom": 324
+      },
+      "controls": {
+        "x": 261.65625,
+        "y": 161,
+        "width": 44,
+        "height": 140,
+        "right": 305.65625,
+        "bottom": 301
+      },
+      "footer": {
+        "x": 42.65625,
+        "y": 486,
+        "width": 290,
+        "height": 44,
+        "right": 332.65625,
+        "bottom": 530
+      },
+      "report": {
+        "x": 42.65625,
+        "y": 352,
+        "width": 290,
+        "height": 128,
+        "right": 332.65625,
+        "bottom": 480
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "18.666666666666668px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 93.65625,
+          "y": 193.75,
+          "width": 68,
+          "height": 22,
+          "right": 161.65625,
+          "bottom": 215.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288.65625,
+          "y": 90,
+          "width": 48,
+          "height": 44,
+          "right": 336.65625,
+          "bottom": 134
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 90.640625,
+          "y": 206.5,
+          "width": 44,
+          "height": 44,
+          "right": 134.640625,
+          "bottom": 250.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 93.65625,
+          "y": 193.75,
+          "width": 68,
+          "height": 22,
+          "right": 161.65625,
+          "bottom": 215.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 198.15625,
+          "y": 244,
+          "width": 44,
+          "height": 44,
+          "right": 242.15625,
+          "bottom": 288
+        },
+        {
+          "class": "map-shop-label",
+          "x": 167.65625,
+          "y": 235,
+          "width": 60,
+          "height": 22,
+          "right": 227.65625,
+          "bottom": 257
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 161,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 205
+        },
+        {
+          "class": "",
+          "x": 261.65625,
+          "y": 257,
+          "width": 44,
+          "height": 44,
+          "right": 305.65625,
+          "bottom": 301
+        },
+        {
+          "class": "",
+          "x": 42.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 183.65625,
+          "bottom": 530
+        },
+        {
+          "class": "",
+          "x": 191.65625,
+          "y": 486,
+          "width": 141,
+          "height": 44,
+          "right": 332.65625,
+          "bottom": 530
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 390,
+      "height": 680,
+      "name": "initial",
+      "dialog": {
+        "x": 37,
+        "y": 107,
+        "width": 316,
+        "height": 466,
+        "right": 353,
+        "bottom": 573
+      },
+      "map": {
+        "x": 77,
+        "y": 168,
+        "width": 186,
+        "height": 186,
+        "right": 263,
+        "bottom": 354
+      },
+      "controls": {
+        "x": 269,
+        "y": 191,
+        "width": 44,
+        "height": 140,
+        "right": 313,
+        "bottom": 331
+      },
+      "footer": {
+        "x": 50,
+        "y": 516,
+        "width": 290,
+        "height": 44,
+        "right": 340,
+        "bottom": 560
+      },
+      "report": {
+        "x": 50,
+        "y": 382,
+        "width": 290,
+        "height": 128,
+        "right": 340,
+        "bottom": 510
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [],
+      "buttons": [
+        {
+          "class": "",
+          "x": 296,
+          "y": 120,
+          "width": 48,
+          "height": 44,
+          "right": 344,
+          "bottom": 164
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 191,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 235
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 287,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 331
+        },
+        {
+          "class": "",
+          "x": 50,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 191,
+          "bottom": 560
+        },
+        {
+          "class": "",
+          "x": 199,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 340,
+          "bottom": 560
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 390,
+      "height": 680,
+      "name": "town",
+      "dialog": {
+        "x": 37,
+        "y": 107,
+        "width": 316,
+        "height": 466,
+        "right": 353,
+        "bottom": 573
+      },
+      "map": {
+        "x": 77,
+        "y": 168,
+        "width": 186,
+        "height": 186,
+        "right": 263,
+        "bottom": 354
+      },
+      "controls": {
+        "x": 269,
+        "y": 191,
+        "width": 44,
+        "height": 140,
+        "right": 313,
+        "bottom": 331
+      },
+      "footer": {
+        "x": 50,
+        "y": 516,
+        "width": 290,
+        "height": 44,
+        "right": 340,
+        "bottom": 560
+      },
+      "report": {
+        "x": 50,
+        "y": 382,
+        "width": 290,
+        "height": 128,
+        "right": 340,
+        "bottom": 510
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "21.333333333333332px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 101,
+          "y": 223.75,
+          "width": 68,
+          "height": 22,
+          "right": 169,
+          "bottom": 245.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 296,
+          "y": 120,
+          "width": 48,
+          "height": 44,
+          "right": 344,
+          "bottom": 164
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 97.984375,
+          "y": 236.5,
+          "width": 44,
+          "height": 44,
+          "right": 141.984375,
+          "bottom": 280.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 101,
+          "y": 223.75,
+          "width": 68,
+          "height": 22,
+          "right": 169,
+          "bottom": 245.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 205.5,
+          "y": 274,
+          "width": 44,
+          "height": 44,
+          "right": 249.5,
+          "bottom": 318
+        },
+        {
+          "class": "map-shop-label",
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 191,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 235
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 287,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 331
+        },
+        {
+          "class": "",
+          "x": 50,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 191,
+          "bottom": 560
+        },
+        {
+          "class": "",
+          "x": 199,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 340,
+          "bottom": 560
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 390,
+      "height": 680,
+      "name": "shop-0",
+      "dialog": {
+        "x": 37,
+        "y": 107,
+        "width": 316,
+        "height": 466,
+        "right": 353,
+        "bottom": 573
+      },
+      "map": {
+        "x": 77,
+        "y": 168,
+        "width": 186,
+        "height": 186,
+        "right": 263,
+        "bottom": 354
+      },
+      "controls": {
+        "x": 269,
+        "y": 191,
+        "width": 44,
+        "height": 140,
+        "right": 313,
+        "bottom": 331
+      },
+      "footer": {
+        "x": 50,
+        "y": 516,
+        "width": 290,
+        "height": 44,
+        "right": 340,
+        "bottom": 560
+      },
+      "report": {
+        "x": 50,
+        "y": 382,
+        "width": 290,
+        "height": 128,
+        "right": 340,
+        "bottom": 510
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 101,
+          "y": 223.75,
+          "width": 68,
+          "height": 22,
+          "right": 169,
+          "bottom": 245.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 296,
+          "y": 120,
+          "width": 48,
+          "height": 44,
+          "right": 344,
+          "bottom": 164
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 97.984375,
+          "y": 236.5,
+          "width": 44,
+          "height": 44,
+          "right": 141.984375,
+          "bottom": 280.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 101,
+          "y": 223.75,
+          "width": 68,
+          "height": 22,
+          "right": 169,
+          "bottom": 245.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 205.5,
+          "y": 274,
+          "width": 44,
+          "height": 44,
+          "right": 249.5,
+          "bottom": 318
+        },
+        {
+          "class": "map-shop-label",
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 191,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 235
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 287,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 331
+        },
+        {
+          "class": "",
+          "x": 278,
+          "y": 386,
+          "width": 62,
+          "height": 44,
+          "right": 340,
+          "bottom": 430
+        },
+        {
+          "class": "",
+          "x": 50,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 191,
+          "bottom": 560
+        },
+        {
+          "class": "",
+          "x": 199,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 340,
+          "bottom": 560
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 390,
+      "height": 680,
+      "name": "shop-1",
+      "dialog": {
+        "x": 37,
+        "y": 107,
+        "width": 316,
+        "height": 466,
+        "right": 353,
+        "bottom": 573
+      },
+      "map": {
+        "x": 77,
+        "y": 168,
+        "width": 186,
+        "height": 186,
+        "right": 263,
+        "bottom": 354
+      },
+      "controls": {
+        "x": 269,
+        "y": 191,
+        "width": 44,
+        "height": 140,
+        "right": 313,
+        "bottom": 331
+      },
+      "footer": {
+        "x": 50,
+        "y": 516,
+        "width": 290,
+        "height": 44,
+        "right": 340,
+        "bottom": 560
+      },
+      "report": {
+        "x": 50,
+        "y": 382,
+        "width": 290,
+        "height": 128,
+        "right": 340,
+        "bottom": 510
+      },
+      "font": "16px",
+      "bodyFont": "16px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 101,
+          "y": 223.75,
+          "width": 68,
+          "height": 22,
+          "right": 169,
+          "bottom": 245.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 296,
+          "y": 120,
+          "width": 48,
+          "height": 44,
+          "right": 344,
+          "bottom": 164
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 97.984375,
+          "y": 236.5,
+          "width": 44,
+          "height": 44,
+          "right": 141.984375,
+          "bottom": 280.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 101,
+          "y": 223.75,
+          "width": 68,
+          "height": 22,
+          "right": 169,
+          "bottom": 245.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 205.5,
+          "y": 274,
+          "width": 44,
+          "height": 44,
+          "right": 249.5,
+          "bottom": 318
+        },
+        {
+          "class": "map-shop-label",
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 191,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 235
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 287,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 331
+        },
+        {
+          "class": "",
+          "x": 278,
+          "y": 386,
+          "width": 62,
+          "height": 44,
+          "right": 340,
+          "bottom": 430
+        },
+        {
+          "class": "",
+          "x": 50,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 191,
+          "bottom": 560
+        },
+        {
+          "class": "",
+          "x": 199,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 340,
+          "bottom": 560
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 390,
+      "height": 680,
+      "name": "world-map-in",
+      "dialog": {
+        "x": 37,
+        "y": 107,
+        "width": 316,
+        "height": 466,
+        "right": 353,
+        "bottom": 573
+      },
+      "map": {
+        "x": 77,
+        "y": 168,
+        "width": 186,
+        "height": 186,
+        "right": 263,
+        "bottom": 354
+      },
+      "controls": {
+        "x": 269,
+        "y": 191,
+        "width": 44,
+        "height": 140,
+        "right": 313,
+        "bottom": 331
+      },
+      "footer": {
+        "x": 50,
+        "y": 516,
+        "width": 290,
+        "height": 44,
+        "right": 340,
+        "bottom": 560
+      },
+      "report": {
+        "x": 50,
+        "y": 382,
+        "width": 290,
+        "height": 128,
+        "right": 340,
+        "bottom": 510
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "21.333333333333332px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 171,
+          "y": 218.75,
+          "width": 68,
+          "height": 22,
+          "right": 239,
+          "bottom": 240.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 296,
+          "y": 120,
+          "width": 48,
+          "height": 44,
+          "right": 344,
+          "bottom": 164
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 185.5,
+          "y": 231.5,
+          "width": 44,
+          "height": 44,
+          "right": 229.5,
+          "bottom": 275.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 171,
+          "y": 218.75,
+          "width": 68,
+          "height": 22,
+          "right": 239,
+          "bottom": 240.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 203,
+          "y": 299,
+          "width": 44,
+          "height": 44,
+          "right": 247,
+          "bottom": 343
+        },
+        {
+          "class": "map-shop-label",
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 191,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 235
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 287,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 331
+        },
+        {
+          "class": "",
+          "x": 50,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 191,
+          "bottom": 560
+        },
+        {
+          "class": "",
+          "x": 199,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 340,
+          "bottom": 560
+        }
+      ]
+    },
+    {
+      "before": true,
+      "width": 390,
+      "height": 680,
+      "name": "world-map-out",
+      "dialog": {
+        "x": 37,
+        "y": 107,
+        "width": 316,
+        "height": 466,
+        "right": 353,
+        "bottom": 573
+      },
+      "map": {
+        "x": 77,
+        "y": 168,
+        "width": 186,
+        "height": 186,
+        "right": 263,
+        "bottom": 354
+      },
+      "controls": {
+        "x": 269,
+        "y": 191,
+        "width": 44,
+        "height": 140,
+        "right": 313,
+        "bottom": 331
+      },
+      "footer": {
+        "x": 50,
+        "y": 516,
+        "width": 290,
+        "height": 44,
+        "right": 340,
+        "bottom": 560
+      },
+      "report": {
+        "x": 50,
+        "y": 382,
+        "width": 290,
+        "height": 128,
+        "right": 340,
+        "bottom": 510
+      },
+      "font": "16px",
+      "bodyFont": null,
+      "uniform": "21.333333333333332px",
+      "reportScroll": 127,
+      "reportClient": 127,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 101,
+          "y": 223.75,
+          "width": 68,
+          "height": 22,
+          "right": 169,
+          "bottom": 245.75,
+          "text": "売3 残69",
+          "client": 68,
+          "scroll": 68
+        },
+        {
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287,
+          "text": "売0 残0",
+          "client": 60,
+          "scroll": 60
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 296,
+          "y": 120,
+          "width": 48,
+          "height": 44,
+          "right": 344,
+          "bottom": 164
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 97.984375,
+          "y": 236.5,
+          "width": 44,
+          "height": 44,
+          "right": 141.984375,
+          "bottom": 280.5
+        },
+        {
+          "class": "map-shop-label",
+          "x": 101,
+          "y": 223.75,
+          "width": 68,
+          "height": 22,
+          "right": 169,
+          "bottom": 245.75
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 205.5,
+          "y": 274,
+          "width": 44,
+          "height": 44,
+          "right": 249.5,
+          "bottom": 318
+        },
+        {
+          "class": "map-shop-label",
+          "x": 175,
+          "y": 265,
+          "width": 60,
+          "height": 22,
+          "right": 235,
+          "bottom": 287
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 191,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 235
+        },
+        {
+          "class": "",
+          "x": 269,
+          "y": 287,
+          "width": 44,
+          "height": 44,
+          "right": 313,
+          "bottom": 331
+        },
+        {
+          "class": "",
+          "x": 50,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 191,
+          "bottom": 560
+        },
+        {
+          "class": "",
+          "x": 199,
+          "y": 516,
+          "width": 141,
+          "height": 44,
+          "right": 340,
+          "bottom": 560
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 360,
+      "height": 568,
+      "name": "initial",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 475.65625,
+        "right": 348,
+        "bottom": 487.65625
+      },
+      "map": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "right": 294,
+        "bottom": 304
+      },
+      "controls": {
+        "x": 24,
+        "y": 310,
+        "width": 312,
+        "height": 45,
+        "right": 336,
+        "bottom": 355
+      },
+      "footer": {
+        "x": 24,
+        "y": 425.65625,
+        "width": 312,
+        "height": 50,
+        "right": 336,
+        "bottom": 475.65625
+      },
+      "report": {
+        "x": 24,
+        "y": 361,
+        "width": 312,
+        "height": 58.65625,
+        "right": 336,
+        "bottom": 419.65625
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 57,
+      "reportClient": 57,
+      "overflow": 0,
+      "labels": [],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288,
+          "y": 24,
+          "width": 48,
+          "height": 48,
+          "right": 336,
+          "bottom": 72
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 76,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 284,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 336,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 426.65625,
+          "width": 244,
+          "height": 45,
+          "right": 268,
+          "bottom": 471.65625
+        },
+        {
+          "class": "",
+          "x": 276,
+          "y": 426.65625,
+          "width": 60,
+          "height": 45,
+          "right": 336,
+          "bottom": 471.65625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 360,
+      "height": 568,
+      "name": "town",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "right": 348,
+        "bottom": 512.984375
+      },
+      "map": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "right": 294,
+        "bottom": 304
+      },
+      "controls": {
+        "x": 24,
+        "y": 310,
+        "width": 312,
+        "height": 45,
+        "right": 336,
+        "bottom": 355
+      },
+      "footer": {
+        "x": 24,
+        "y": 450.984375,
+        "width": 312,
+        "height": 50,
+        "right": 336,
+        "bottom": 500.984375
+      },
+      "report": {
+        "x": 24,
+        "y": 361,
+        "width": 312,
+        "height": 83.984375,
+        "right": 336,
+        "bottom": 444.984375
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 82,
+      "reportClient": 82,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 95.828125,
+          "y": 145.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 177.828125,
+          "bottom": 169.2890625,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288,
+          "y": 24,
+          "width": 48,
+          "height": 48,
+          "right": 336,
+          "bottom": 72
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 96.328125,
+          "y": 164.90625,
+          "width": 44,
+          "height": 44,
+          "right": 140.328125,
+          "bottom": 208.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 95.828125,
+          "y": 145.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 177.828125,
+          "bottom": 169.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 228.90625,
+          "y": 211.15625,
+          "width": 44,
+          "height": 44,
+          "right": 272.90625,
+          "bottom": 255.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 76,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 284,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 336,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 451.984375,
+          "width": 244,
+          "height": 45,
+          "right": 268,
+          "bottom": 496.984375
+        },
+        {
+          "class": "",
+          "x": 276,
+          "y": 451.984375,
+          "width": 60,
+          "height": 45,
+          "right": 336,
+          "bottom": 496.984375
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 360,
+      "height": 568,
+      "name": "shop-0",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 544,
+        "right": 348,
+        "bottom": 556
+      },
+      "map": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "right": 294,
+        "bottom": 304
+      },
+      "controls": {
+        "x": 24,
+        "y": 310,
+        "width": 312,
+        "height": 45,
+        "right": 336,
+        "bottom": 355
+      },
+      "footer": {
+        "x": 24,
+        "y": 494,
+        "width": 312,
+        "height": 50,
+        "right": 336,
+        "bottom": 544
+      },
+      "report": {
+        "x": 24,
+        "y": 361,
+        "width": 312,
+        "height": 127,
+        "right": 336,
+        "bottom": 488
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 152,
+      "reportClient": 125,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 95.828125,
+          "y": 145.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 177.828125,
+          "bottom": 169.2890625,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288,
+          "y": 24,
+          "width": 48,
+          "height": 48,
+          "right": 336,
+          "bottom": 72
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 96.328125,
+          "y": 164.90625,
+          "width": 44,
+          "height": 44,
+          "right": 140.328125,
+          "bottom": 208.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 95.828125,
+          "y": 145.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 177.828125,
+          "bottom": 169.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 228.90625,
+          "y": 211.15625,
+          "width": 44,
+          "height": 44,
+          "right": 272.90625,
+          "bottom": 255.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 76,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 284,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 336,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 267,
+          "y": 369,
+          "width": 69,
+          "height": 45,
+          "right": 336,
+          "bottom": 414
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 495,
+          "width": 244,
+          "height": 45,
+          "right": 268,
+          "bottom": 540
+        },
+        {
+          "class": "",
+          "x": 276,
+          "y": 495,
+          "width": 60,
+          "height": 45,
+          "right": 336,
+          "bottom": 540
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 360,
+      "height": 568,
+      "name": "shop-1",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 544,
+        "right": 348,
+        "bottom": 556
+      },
+      "map": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "right": 294,
+        "bottom": 304
+      },
+      "controls": {
+        "x": 24,
+        "y": 310,
+        "width": 312,
+        "height": 45,
+        "right": 336,
+        "bottom": 355
+      },
+      "footer": {
+        "x": 24,
+        "y": 494,
+        "width": 312,
+        "height": 50,
+        "right": 336,
+        "bottom": 544
+      },
+      "report": {
+        "x": 24,
+        "y": 361,
+        "width": 312,
+        "height": 127,
+        "right": 336,
+        "bottom": 488
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 129,
+      "reportClient": 125,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 95.828125,
+          "y": 145.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 177.828125,
+          "bottom": 169.2890625,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288,
+          "y": 24,
+          "width": 48,
+          "height": 48,
+          "right": 336,
+          "bottom": 72
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 96.328125,
+          "y": 164.90625,
+          "width": 44,
+          "height": 44,
+          "right": 140.328125,
+          "bottom": 208.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 95.828125,
+          "y": 145.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 177.828125,
+          "bottom": 169.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 228.90625,
+          "y": 211.15625,
+          "width": 44,
+          "height": 44,
+          "right": 272.90625,
+          "bottom": 255.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 76,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 284,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 336,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 267,
+          "y": 369,
+          "width": 69,
+          "height": 45,
+          "right": 336,
+          "bottom": 414
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 495,
+          "width": 244,
+          "height": 45,
+          "right": 268,
+          "bottom": 540
+        },
+        {
+          "class": "",
+          "x": 276,
+          "y": 495,
+          "width": 60,
+          "height": 45,
+          "right": 336,
+          "bottom": 540
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 360,
+      "height": 568,
+      "name": "large-counts",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 544,
+        "right": 348,
+        "bottom": 556
+      },
+      "map": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "right": 294,
+        "bottom": 304
+      },
+      "controls": {
+        "x": 24,
+        "y": 310,
+        "width": 312,
+        "height": 45,
+        "right": 336,
+        "bottom": 355
+      },
+      "footer": {
+        "x": 24,
+        "y": 494,
+        "width": 312,
+        "height": 50,
+        "right": 336,
+        "bottom": 544
+      },
+      "report": {
+        "x": 24,
+        "y": 361,
+        "width": 312,
+        "height": 127,
+        "right": 336,
+        "bottom": 488
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 129,
+      "reportClient": 125,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 70.828125,
+          "y": 145.9609375,
+          "width": 132,
+          "height": 23.328125,
+          "right": 202.828125,
+          "bottom": 169.2890625,
+          "text": "売999+ 残999+",
+          "client": 132,
+          "scroll": 132
+        },
+        {
+          "x": 157.15625,
+          "y": 199.9140625,
+          "width": 132,
+          "height": 23.328125,
+          "right": 289.15625,
+          "bottom": 223.2421875,
+          "text": "売999+ 残999+",
+          "client": 132,
+          "scroll": 132
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288,
+          "y": 24,
+          "width": 48,
+          "height": 48,
+          "right": 336,
+          "bottom": 72
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 96.328125,
+          "y": 164.90625,
+          "width": 44,
+          "height": 44,
+          "right": 140.328125,
+          "bottom": 208.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 70.828125,
+          "y": 145.9609375,
+          "width": 132,
+          "height": 23.328125,
+          "right": 202.828125,
+          "bottom": 169.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 228.90625,
+          "y": 211.15625,
+          "width": 44,
+          "height": 44,
+          "right": 272.90625,
+          "bottom": 255.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 157.15625,
+          "y": 199.9140625,
+          "width": 132,
+          "height": 23.328125,
+          "right": 289.15625,
+          "bottom": 223.2421875
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 76,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 284,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 336,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 267,
+          "y": 369,
+          "width": 69,
+          "height": 45,
+          "right": 336,
+          "bottom": 414
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 495,
+          "width": 244,
+          "height": 45,
+          "right": 268,
+          "bottom": 540
+        },
+        {
+          "class": "",
+          "x": 276,
+          "y": 495,
+          "width": 60,
+          "height": 45,
+          "right": 336,
+          "bottom": 540
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 360,
+      "height": 568,
+      "name": "long",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 544,
+        "right": 348,
+        "bottom": 556
+      },
+      "map": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "right": 294,
+        "bottom": 304
+      },
+      "controls": {
+        "x": 24,
+        "y": 310,
+        "width": 312,
+        "height": 45,
+        "right": 336,
+        "bottom": 355
+      },
+      "footer": {
+        "x": 24,
+        "y": 494,
+        "width": 312,
+        "height": 50,
+        "right": 336,
+        "bottom": 544
+      },
+      "report": {
+        "x": 24,
+        "y": 361,
+        "width": 312,
+        "height": 127,
+        "right": 336,
+        "bottom": 488
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 574,
+      "reportClient": 125,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 70.828125,
+          "y": 145.9609375,
+          "width": 132,
+          "height": 23.328125,
+          "right": 202.828125,
+          "bottom": 169.2890625,
+          "text": "売999+ 残999+",
+          "client": 132,
+          "scroll": 132
+        },
+        {
+          "x": 157.15625,
+          "y": 199.9140625,
+          "width": 132,
+          "height": 23.328125,
+          "right": 289.15625,
+          "bottom": 223.2421875,
+          "text": "売999+ 残999+",
+          "client": 132,
+          "scroll": 132
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288,
+          "y": 24,
+          "width": 48,
+          "height": 48,
+          "right": 336,
+          "bottom": 72
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 96.328125,
+          "y": 164.90625,
+          "width": 44,
+          "height": 44,
+          "right": 140.328125,
+          "bottom": 208.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 70.828125,
+          "y": 145.9609375,
+          "width": 132,
+          "height": 23.328125,
+          "right": 202.828125,
+          "bottom": 169.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 228.90625,
+          "y": 211.15625,
+          "width": 44,
+          "height": 44,
+          "right": 272.90625,
+          "bottom": 255.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 157.15625,
+          "y": 199.9140625,
+          "width": 132,
+          "height": 23.328125,
+          "right": 289.15625,
+          "bottom": 223.2421875
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 76,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 284,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 336,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 267,
+          "y": 369,
+          "width": 69,
+          "height": 45,
+          "right": 336,
+          "bottom": 414
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 495,
+          "width": 244,
+          "height": 45,
+          "right": 268,
+          "bottom": 540
+        },
+        {
+          "class": "",
+          "x": 276,
+          "y": 495,
+          "width": 60,
+          "height": 45,
+          "right": 336,
+          "bottom": 540
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 360,
+      "height": 568,
+      "name": "world-map-in",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "right": 348,
+        "bottom": 512.984375
+      },
+      "map": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "right": 294,
+        "bottom": 304
+      },
+      "controls": {
+        "x": 24,
+        "y": 310,
+        "width": 312,
+        "height": 45,
+        "right": 336,
+        "bottom": 355
+      },
+      "footer": {
+        "x": 24,
+        "y": 450.984375,
+        "width": 312,
+        "height": 50,
+        "right": 336,
+        "bottom": 500.984375
+      },
+      "report": {
+        "x": 24,
+        "y": 361,
+        "width": 312,
+        "height": 83.984375,
+        "right": 336,
+        "bottom": 444.984375
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 82,
+      "reportClient": 82,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 182.15625,
+          "y": 139.7890625,
+          "width": 82,
+          "height": 23.328125,
+          "right": 264.15625,
+          "bottom": 163.1171875,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288,
+          "y": 24,
+          "width": 48,
+          "height": 48,
+          "right": 336,
+          "bottom": 72
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 204.25,
+          "y": 158.75,
+          "width": 44,
+          "height": 44,
+          "right": 248.25,
+          "bottom": 202.75
+        },
+        {
+          "class": "map-shop-label",
+          "x": 182.15625,
+          "y": 139.7890625,
+          "width": 82,
+          "height": 23.328125,
+          "right": 264.15625,
+          "bottom": 163.1171875
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 225.828125,
+          "y": 242,
+          "width": 44,
+          "height": 44,
+          "right": 269.828125,
+          "bottom": 286
+        },
+        {
+          "class": "map-shop-label",
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 76,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 284,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 336,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 451.984375,
+          "width": 244,
+          "height": 45,
+          "right": 268,
+          "bottom": 496.984375
+        },
+        {
+          "class": "",
+          "x": 276,
+          "y": 451.984375,
+          "width": 60,
+          "height": 45,
+          "right": 336,
+          "bottom": 496.984375
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 360,
+      "height": 568,
+      "name": "world-map-out",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "right": 348,
+        "bottom": 512.984375
+      },
+      "map": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "right": 294,
+        "bottom": 304
+      },
+      "controls": {
+        "x": 24,
+        "y": 310,
+        "width": 312,
+        "height": 45,
+        "right": 336,
+        "bottom": 355
+      },
+      "footer": {
+        "x": 24,
+        "y": 450.984375,
+        "width": 312,
+        "height": 50,
+        "right": 336,
+        "bottom": 500.984375
+      },
+      "report": {
+        "x": 24,
+        "y": 361,
+        "width": 312,
+        "height": 83.984375,
+        "right": 336,
+        "bottom": 444.984375
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 82,
+      "reportClient": 82,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 95.828125,
+          "y": 145.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 177.828125,
+          "bottom": 169.2890625,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 288,
+          "y": 24,
+          "width": 48,
+          "height": 48,
+          "right": 336,
+          "bottom": 72
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 96.328125,
+          "y": 164.90625,
+          "width": 44,
+          "height": 44,
+          "right": 140.328125,
+          "bottom": 208.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 95.828125,
+          "y": 145.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 177.828125,
+          "bottom": 169.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 228.90625,
+          "y": 211.15625,
+          "width": 44,
+          "height": 44,
+          "right": 272.90625,
+          "bottom": 255.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 187.15625,
+          "y": 199.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 259.15625,
+          "bottom": 223.2421875
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 76,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 284,
+          "y": 310,
+          "width": 52,
+          "height": 45,
+          "right": 336,
+          "bottom": 355
+        },
+        {
+          "class": "",
+          "x": 24,
+          "y": 451.984375,
+          "width": 244,
+          "height": 45,
+          "right": 268,
+          "bottom": 496.984375
+        },
+        {
+          "class": "",
+          "x": 276,
+          "y": 451.984375,
+          "width": 60,
+          "height": 45,
+          "right": 336,
+          "bottom": 496.984375
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 375,
+      "height": 620,
+      "name": "initial",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 478.65625,
+        "right": 363,
+        "bottom": 490.65625
+      },
+      "map": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 301.5,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 25,
+        "y": 311,
+        "width": 325,
+        "height": 45,
+        "right": 350,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 25,
+        "y": 427.65625,
+        "width": 325,
+        "height": 50,
+        "right": 350,
+        "bottom": 477.65625
+      },
+      "report": {
+        "x": 25,
+        "y": 362,
+        "width": 325,
+        "height": 59.65625,
+        "right": 350,
+        "bottom": 421.65625
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 57,
+      "reportClient": 57,
+      "overflow": 0,
+      "labels": [],
+      "buttons": [
+        {
+          "class": "",
+          "x": 302,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 350,
+          "bottom": 73
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 77,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 298,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 350,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 428.65625,
+          "width": 255,
+          "height": 45,
+          "right": 280,
+          "bottom": 473.65625
+        },
+        {
+          "class": "",
+          "x": 288,
+          "y": 428.65625,
+          "width": 62,
+          "height": 45,
+          "right": 350,
+          "bottom": 473.65625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 375,
+      "height": 620,
+      "name": "town",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "right": 363,
+        "bottom": 515.984375
+      },
+      "map": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 301.5,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 25,
+        "y": 311,
+        "width": 325,
+        "height": 45,
+        "right": 350,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 25,
+        "y": 452.984375,
+        "width": 325,
+        "height": 50,
+        "right": 350,
+        "bottom": 502.984375
+      },
+      "report": {
+        "x": 25,
+        "y": 362,
+        "width": 325,
+        "height": 84.984375,
+        "right": 350,
+        "bottom": 446.984375
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 82,
+      "reportClient": 82,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 103.328125,
+          "y": 146.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 185.328125,
+          "bottom": 170.2890625,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 302,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 350,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 103.828125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 147.828125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 103.328125,
+          "y": 146.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 185.328125,
+          "bottom": 170.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 236.40625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 280.40625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 77,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 298,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 350,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 453.984375,
+          "width": 255,
+          "height": 45,
+          "right": 280,
+          "bottom": 498.984375
+        },
+        {
+          "class": "",
+          "x": 288,
+          "y": 453.984375,
+          "width": 62,
+          "height": 45,
+          "right": 350,
+          "bottom": 498.984375
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 375,
+      "height": 620,
+      "name": "shop-0",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 547.65625,
+        "right": 363,
+        "bottom": 559.65625
+      },
+      "map": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 301.5,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 25,
+        "y": 311,
+        "width": 325,
+        "height": 45,
+        "right": 350,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 25,
+        "y": 496.65625,
+        "width": 325,
+        "height": 50,
+        "right": 350,
+        "bottom": 546.65625
+      },
+      "report": {
+        "x": 25,
+        "y": 362,
+        "width": 325,
+        "height": 128.65625,
+        "right": 350,
+        "bottom": 490.65625
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 129,
+      "reportClient": 126,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 103.328125,
+          "y": 146.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 185.328125,
+          "bottom": 170.2890625,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 302,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 350,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 103.828125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 147.828125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 103.328125,
+          "y": 146.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 185.328125,
+          "bottom": 170.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 236.40625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 280.40625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 77,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 298,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 350,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 279,
+          "y": 371,
+          "width": 71,
+          "height": 45,
+          "right": 350,
+          "bottom": 416
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 497.65625,
+          "width": 255,
+          "height": 45,
+          "right": 280,
+          "bottom": 542.65625
+        },
+        {
+          "class": "",
+          "x": 288,
+          "y": 497.65625,
+          "width": 62,
+          "height": 45,
+          "right": 350,
+          "bottom": 542.65625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 375,
+      "height": 620,
+      "name": "shop-1",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 547.65625,
+        "right": 363,
+        "bottom": 559.65625
+      },
+      "map": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 301.5,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 25,
+        "y": 311,
+        "width": 325,
+        "height": 45,
+        "right": 350,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 25,
+        "y": 496.65625,
+        "width": 325,
+        "height": 50,
+        "right": 350,
+        "bottom": 546.65625
+      },
+      "report": {
+        "x": 25,
+        "y": 362,
+        "width": 325,
+        "height": 128.65625,
+        "right": 350,
+        "bottom": 490.65625
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 129,
+      "reportClient": 126,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 103.328125,
+          "y": 146.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 185.328125,
+          "bottom": 170.2890625,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 302,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 350,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 103.828125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 147.828125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 103.328125,
+          "y": 146.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 185.328125,
+          "bottom": 170.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 236.40625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 280.40625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 77,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 298,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 350,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 279,
+          "y": 371,
+          "width": 71,
+          "height": 45,
+          "right": 350,
+          "bottom": 416
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 497.65625,
+          "width": 255,
+          "height": 45,
+          "right": 280,
+          "bottom": 542.65625
+        },
+        {
+          "class": "",
+          "x": 288,
+          "y": 497.65625,
+          "width": 62,
+          "height": 45,
+          "right": 350,
+          "bottom": 542.65625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 375,
+      "height": 620,
+      "name": "large-counts",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 547.65625,
+        "right": 363,
+        "bottom": 559.65625
+      },
+      "map": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 301.5,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 25,
+        "y": 311,
+        "width": 325,
+        "height": 45,
+        "right": 350,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 25,
+        "y": 496.65625,
+        "width": 325,
+        "height": 50,
+        "right": 350,
+        "bottom": 546.65625
+      },
+      "report": {
+        "x": 25,
+        "y": 362,
+        "width": 325,
+        "height": 128.65625,
+        "right": 350,
+        "bottom": 490.65625
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 129,
+      "reportClient": 126,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 78.328125,
+          "y": 146.9609375,
+          "width": 132,
+          "height": 23.328125,
+          "right": 210.328125,
+          "bottom": 170.2890625,
+          "text": "売999+ 残999+",
+          "client": 132,
+          "scroll": 132
+        },
+        {
+          "x": 164.65625,
+          "y": 200.9140625,
+          "width": 132,
+          "height": 23.328125,
+          "right": 296.65625,
+          "bottom": 224.2421875,
+          "text": "売999+ 残999+",
+          "client": 132,
+          "scroll": 132
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 302,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 350,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 103.828125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 147.828125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 78.328125,
+          "y": 146.9609375,
+          "width": 132,
+          "height": 23.328125,
+          "right": 210.328125,
+          "bottom": 170.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 236.40625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 280.40625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 164.65625,
+          "y": 200.9140625,
+          "width": 132,
+          "height": 23.328125,
+          "right": 296.65625,
+          "bottom": 224.2421875
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 77,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 298,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 350,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 279,
+          "y": 371,
+          "width": 71,
+          "height": 45,
+          "right": 350,
+          "bottom": 416
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 497.65625,
+          "width": 255,
+          "height": 45,
+          "right": 280,
+          "bottom": 542.65625
+        },
+        {
+          "class": "",
+          "x": 288,
+          "y": 497.65625,
+          "width": 62,
+          "height": 45,
+          "right": 350,
+          "bottom": 542.65625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 375,
+      "height": 620,
+      "name": "long",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 547.65625,
+        "right": 363,
+        "bottom": 559.65625
+      },
+      "map": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 301.5,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 25,
+        "y": 311,
+        "width": 325,
+        "height": 45,
+        "right": 350,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 25,
+        "y": 496.65625,
+        "width": 325,
+        "height": 50,
+        "right": 350,
+        "bottom": 546.65625
+      },
+      "report": {
+        "x": 25,
+        "y": 362,
+        "width": 325,
+        "height": 128.65625,
+        "right": 350,
+        "bottom": 490.65625
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 551,
+      "reportClient": 126,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 78.328125,
+          "y": 146.9609375,
+          "width": 132,
+          "height": 23.328125,
+          "right": 210.328125,
+          "bottom": 170.2890625,
+          "text": "売999+ 残999+",
+          "client": 132,
+          "scroll": 132
+        },
+        {
+          "x": 164.65625,
+          "y": 200.9140625,
+          "width": 132,
+          "height": 23.328125,
+          "right": 296.65625,
+          "bottom": 224.2421875,
+          "text": "売999+ 残999+",
+          "client": 132,
+          "scroll": 132
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 302,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 350,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 103.828125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 147.828125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 78.328125,
+          "y": 146.9609375,
+          "width": 132,
+          "height": 23.328125,
+          "right": 210.328125,
+          "bottom": 170.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 236.40625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 280.40625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 164.65625,
+          "y": 200.9140625,
+          "width": 132,
+          "height": 23.328125,
+          "right": 296.65625,
+          "bottom": 224.2421875
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 77,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 298,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 350,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 279,
+          "y": 371,
+          "width": 71,
+          "height": 45,
+          "right": 350,
+          "bottom": 416
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 497.65625,
+          "width": 255,
+          "height": 45,
+          "right": 280,
+          "bottom": 542.65625
+        },
+        {
+          "class": "",
+          "x": 288,
+          "y": 497.65625,
+          "width": 62,
+          "height": 45,
+          "right": 350,
+          "bottom": 542.65625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 375,
+      "height": 620,
+      "name": "world-map-in",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "right": 363,
+        "bottom": 515.984375
+      },
+      "map": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 301.5,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 25,
+        "y": 311,
+        "width": 325,
+        "height": 45,
+        "right": 350,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 25,
+        "y": 452.984375,
+        "width": 325,
+        "height": 50,
+        "right": 350,
+        "bottom": 502.984375
+      },
+      "report": {
+        "x": 25,
+        "y": 362,
+        "width": 325,
+        "height": 84.984375,
+        "right": 350,
+        "bottom": 446.984375
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 82,
+      "reportClient": 82,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 189.65625,
+          "y": 140.7890625,
+          "width": 82,
+          "height": 23.328125,
+          "right": 271.65625,
+          "bottom": 164.1171875,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 302,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 350,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 211.75,
+          "y": 159.75,
+          "width": 44,
+          "height": 44,
+          "right": 255.75,
+          "bottom": 203.75
+        },
+        {
+          "class": "map-shop-label",
+          "x": 189.65625,
+          "y": 140.7890625,
+          "width": 82,
+          "height": 23.328125,
+          "right": 271.65625,
+          "bottom": 164.1171875
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 233.328125,
+          "y": 243,
+          "width": 44,
+          "height": 44,
+          "right": 277.328125,
+          "bottom": 287
+        },
+        {
+          "class": "map-shop-label",
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 77,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 298,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 350,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 453.984375,
+          "width": 255,
+          "height": 45,
+          "right": 280,
+          "bottom": 498.984375
+        },
+        {
+          "class": "",
+          "x": 288,
+          "y": 453.984375,
+          "width": 62,
+          "height": 45,
+          "right": 350,
+          "bottom": 498.984375
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 375,
+      "height": 620,
+      "name": "world-map-out",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "right": 363,
+        "bottom": 515.984375
+      },
+      "map": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 301.5,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 25,
+        "y": 311,
+        "width": 325,
+        "height": 45,
+        "right": 350,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 25,
+        "y": 452.984375,
+        "width": 325,
+        "height": 50,
+        "right": 350,
+        "bottom": 502.984375
+      },
+      "report": {
+        "x": 25,
+        "y": 362,
+        "width": 325,
+        "height": 84.984375,
+        "right": 350,
+        "bottom": 446.984375
+      },
+      "font": "18.6667px",
+      "bodyFont": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "reportScroll": 82,
+      "reportClient": 82,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 103.328125,
+          "y": 146.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 185.328125,
+          "bottom": 170.2890625,
+          "text": "売3 残69",
+          "client": 82,
+          "scroll": 82
+        },
+        {
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875,
+          "text": "売0 残0",
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 302,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 350,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 103.828125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 147.828125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 103.328125,
+          "y": 146.9609375,
+          "width": 82,
+          "height": 23.328125,
+          "right": 185.328125,
+          "bottom": 170.2890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 236.40625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 280.40625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 194.65625,
+          "y": 200.9140625,
+          "width": 72,
+          "height": 23.328125,
+          "right": 266.65625,
+          "bottom": 224.2421875
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 77,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 298,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 350,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 25,
+          "y": 453.984375,
+          "width": 255,
+          "height": 45,
+          "right": 280,
+          "bottom": 498.984375
+        },
+        {
+          "class": "",
+          "x": 288,
+          "y": 453.984375,
+          "width": 62,
+          "height": 45,
+          "right": 350,
+          "bottom": 498.984375
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 390,
+      "height": 680,
+      "name": "initial",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 485.34375,
+        "right": 375,
+        "bottom": 497.34375
+      },
+      "map": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 309,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 28,
+        "y": 311,
+        "width": 334,
+        "height": 45,
+        "right": 362,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 28,
+        "y": 434.34375,
+        "width": 334,
+        "height": 50,
+        "right": 362,
+        "bottom": 484.34375
+      },
+      "report": {
+        "x": 28,
+        "y": 362,
+        "width": 334,
+        "height": 66.34375,
+        "right": 362,
+        "bottom": 428.34375
+      },
+      "font": "21.3333px",
+      "bodyFont": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 63,
+      "reportClient": 63,
+      "overflow": 0,
+      "labels": [],
+      "buttons": [
+        {
+          "class": "",
+          "x": 314,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 362,
+          "bottom": 73
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 80,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 310,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 362,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 435.34375,
+          "width": 260,
+          "height": 45,
+          "right": 288,
+          "bottom": 480.34375
+        },
+        {
+          "class": "",
+          "x": 296,
+          "y": 435.34375,
+          "width": 66,
+          "height": 45,
+          "right": 362,
+          "bottom": 480.34375
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 390,
+      "height": 680,
+      "name": "town",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "right": 375,
+        "bottom": 526.015625
+      },
+      "map": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 309,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 28,
+        "y": 311,
+        "width": 334,
+        "height": 45,
+        "right": 362,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 28,
+        "y": 463.015625,
+        "width": 334,
+        "height": 50,
+        "right": 362,
+        "bottom": 513.015625
+      },
+      "report": {
+        "x": 28,
+        "y": 362,
+        "width": 334,
+        "height": 95.015625,
+        "right": 362,
+        "bottom": 457.015625
+      },
+      "font": "21.3333px",
+      "bodyFont": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 92,
+      "reportClient": 92,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 106.828125,
+          "y": 145.2890625,
+          "width": 90,
+          "height": 26.671875,
+          "right": 196.828125,
+          "bottom": 171.9609375,
+          "text": "売3 残69",
+          "client": 90,
+          "scroll": 90
+        },
+        {
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625,
+          "text": "売0 残0",
+          "client": 79,
+          "scroll": 79
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 314,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 362,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 111.328125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 155.328125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 106.828125,
+          "y": 145.2890625,
+          "width": 90,
+          "height": 26.671875,
+          "right": 196.828125,
+          "bottom": 171.9609375
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 243.90625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 287.90625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 80,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 310,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 362,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 464.015625,
+          "width": 260,
+          "height": 45,
+          "right": 288,
+          "bottom": 509.015625
+        },
+        {
+          "class": "",
+          "x": 296,
+          "y": 464.015625,
+          "width": 66,
+          "height": 45,
+          "right": 362,
+          "bottom": 509.015625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 390,
+      "height": 680,
+      "name": "shop-0",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 564.328125,
+        "right": 375,
+        "bottom": 576.328125
+      },
+      "map": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 309,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 28,
+        "y": 311,
+        "width": 334,
+        "height": 45,
+        "right": 362,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 28,
+        "y": 513.328125,
+        "width": 334,
+        "height": 50,
+        "right": 362,
+        "bottom": 563.328125
+      },
+      "report": {
+        "x": 28,
+        "y": 362,
+        "width": 334,
+        "height": 145.328125,
+        "right": 362,
+        "bottom": 507.328125
+      },
+      "font": "21.3333px",
+      "bodyFont": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 166,
+      "reportClient": 142,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 106.828125,
+          "y": 145.2890625,
+          "width": 90,
+          "height": 26.671875,
+          "right": 196.828125,
+          "bottom": 171.9609375,
+          "text": "売3 残69",
+          "client": 90,
+          "scroll": 90
+        },
+        {
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625,
+          "text": "売0 残0",
+          "client": 79,
+          "scroll": 79
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 314,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 362,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 111.328125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 155.328125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 106.828125,
+          "y": 145.2890625,
+          "width": 90,
+          "height": 26.671875,
+          "right": 196.828125,
+          "bottom": 171.9609375
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 243.90625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 287.90625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 80,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 310,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 362,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 285,
+          "y": 371,
+          "width": 77,
+          "height": 45,
+          "right": 362,
+          "bottom": 416
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 514.328125,
+          "width": 260,
+          "height": 45,
+          "right": 288,
+          "bottom": 559.328125
+        },
+        {
+          "class": "",
+          "x": 296,
+          "y": 514.328125,
+          "width": 66,
+          "height": 45,
+          "right": 362,
+          "bottom": 559.328125
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 390,
+      "height": 680,
+      "name": "shop-1",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 561.015625,
+        "right": 375,
+        "bottom": 573.015625
+      },
+      "map": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 309,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 28,
+        "y": 311,
+        "width": 334,
+        "height": 45,
+        "right": 362,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 28,
+        "y": 510.015625,
+        "width": 334,
+        "height": 50,
+        "right": 362,
+        "bottom": 560.015625
+      },
+      "report": {
+        "x": 28,
+        "y": 362,
+        "width": 334,
+        "height": 142.015625,
+        "right": 362,
+        "bottom": 504.015625
+      },
+      "font": "21.3333px",
+      "bodyFont": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 139,
+      "reportClient": 139,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 106.828125,
+          "y": 145.2890625,
+          "width": 90,
+          "height": 26.671875,
+          "right": 196.828125,
+          "bottom": 171.9609375,
+          "text": "売3 残69",
+          "client": 90,
+          "scroll": 90
+        },
+        {
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625,
+          "text": "売0 残0",
+          "client": 79,
+          "scroll": 79
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 314,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 362,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 111.328125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 155.328125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 106.828125,
+          "y": 145.2890625,
+          "width": 90,
+          "height": 26.671875,
+          "right": 196.828125,
+          "bottom": 171.9609375
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 243.90625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 287.90625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 80,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 310,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 362,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 285,
+          "y": 371,
+          "width": 77,
+          "height": 45,
+          "right": 362,
+          "bottom": 416
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 511.015625,
+          "width": 260,
+          "height": 45,
+          "right": 288,
+          "bottom": 556.015625
+        },
+        {
+          "class": "",
+          "x": 296,
+          "y": 511.015625,
+          "width": 66,
+          "height": 45,
+          "right": 362,
+          "bottom": 556.015625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 390,
+      "height": 680,
+      "name": "large-counts",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 561.015625,
+        "right": 375,
+        "bottom": 573.015625
+      },
+      "map": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 309,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 28,
+        "y": 311,
+        "width": 334,
+        "height": 45,
+        "right": 362,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 28,
+        "y": 510.015625,
+        "width": 334,
+        "height": 50,
+        "right": 362,
+        "bottom": 560.015625
+      },
+      "report": {
+        "x": 28,
+        "y": 362,
+        "width": 334,
+        "height": 142.015625,
+        "right": 362,
+        "bottom": 504.015625
+      },
+      "font": "21.3333px",
+      "bodyFont": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 139,
+      "reportClient": 139,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 85.234375,
+          "y": 131.953125,
+          "width": 133.1875,
+          "height": 53.34375,
+          "right": 218.421875,
+          "bottom": 185.296875,
+          "text": "売999+ 残999+",
+          "client": 133,
+          "scroll": 133
+        },
+        {
+          "x": 171.5625,
+          "y": 185.90625,
+          "width": 133.1875,
+          "height": 53.34375,
+          "right": 304.75,
+          "bottom": 239.25,
+          "text": "売999+ 残999+",
+          "client": 133,
+          "scroll": 133
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 314,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 362,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 111.328125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 155.328125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 85.234375,
+          "y": 131.953125,
+          "width": 133.1875,
+          "height": 53.34375,
+          "right": 218.421875,
+          "bottom": 185.296875
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 243.90625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 287.90625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 171.5625,
+          "y": 185.90625,
+          "width": 133.1875,
+          "height": 53.34375,
+          "right": 304.75,
+          "bottom": 239.25
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 80,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 310,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 362,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 285,
+          "y": 371,
+          "width": 77,
+          "height": 45,
+          "right": 362,
+          "bottom": 416
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 511.015625,
+          "width": 260,
+          "height": 45,
+          "right": 288,
+          "bottom": 556.015625
+        },
+        {
+          "class": "",
+          "x": 296,
+          "y": 511.015625,
+          "width": 66,
+          "height": 45,
+          "right": 362,
+          "bottom": 556.015625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 390,
+      "height": 680,
+      "name": "long",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 564.328125,
+        "right": 375,
+        "bottom": 576.328125
+      },
+      "map": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 309,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 28,
+        "y": 311,
+        "width": 334,
+        "height": 45,
+        "right": 362,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 28,
+        "y": 513.328125,
+        "width": 334,
+        "height": 50,
+        "right": 362,
+        "bottom": 563.328125
+      },
+      "report": {
+        "x": 28,
+        "y": 362,
+        "width": 334,
+        "height": 145.328125,
+        "right": 362,
+        "bottom": 507.328125
+      },
+      "font": "21.3333px",
+      "bodyFont": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 674,
+      "reportClient": 142,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 85.234375,
+          "y": 131.953125,
+          "width": 133.1875,
+          "height": 53.34375,
+          "right": 218.421875,
+          "bottom": 185.296875,
+          "text": "売999+ 残999+",
+          "client": 133,
+          "scroll": 133
+        },
+        {
+          "x": 171.5625,
+          "y": 185.90625,
+          "width": 133.1875,
+          "height": 53.34375,
+          "right": 304.75,
+          "bottom": 239.25,
+          "text": "売999+ 残999+",
+          "client": 133,
+          "scroll": 133
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 314,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 362,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 111.328125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 155.328125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 85.234375,
+          "y": 131.953125,
+          "width": 133.1875,
+          "height": 53.34375,
+          "right": 218.421875,
+          "bottom": 185.296875
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 243.90625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 287.90625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 171.5625,
+          "y": 185.90625,
+          "width": 133.1875,
+          "height": 53.34375,
+          "right": 304.75,
+          "bottom": 239.25
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 80,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 310,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 362,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 285,
+          "y": 371,
+          "width": 77,
+          "height": 45,
+          "right": 362,
+          "bottom": 416
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 514.328125,
+          "width": 260,
+          "height": 45,
+          "right": 288,
+          "bottom": 559.328125
+        },
+        {
+          "class": "",
+          "x": 296,
+          "y": 514.328125,
+          "width": 66,
+          "height": 45,
+          "right": 362,
+          "bottom": 559.328125
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 390,
+      "height": 680,
+      "name": "world-map-in",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "right": 375,
+        "bottom": 526.015625
+      },
+      "map": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 309,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 28,
+        "y": 311,
+        "width": 334,
+        "height": 45,
+        "right": 362,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 28,
+        "y": 463.015625,
+        "width": 334,
+        "height": 50,
+        "right": 362,
+        "bottom": 513.015625
+      },
+      "report": {
+        "x": 28,
+        "y": 362,
+        "width": 334,
+        "height": 95.015625,
+        "right": 362,
+        "bottom": 457.015625
+      },
+      "font": "21.3333px",
+      "bodyFont": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 92,
+      "reportClient": 92,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 193.15625,
+          "y": 139.1171875,
+          "width": 90,
+          "height": 26.671875,
+          "right": 283.15625,
+          "bottom": 165.7890625,
+          "text": "売3 残69",
+          "client": 90,
+          "scroll": 90
+        },
+        {
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625,
+          "text": "売0 残0",
+          "client": 79,
+          "scroll": 79
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 314,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 362,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 219.25,
+          "y": 159.75,
+          "width": 44,
+          "height": 44,
+          "right": 263.25,
+          "bottom": 203.75
+        },
+        {
+          "class": "map-shop-label",
+          "x": 193.15625,
+          "y": 139.1171875,
+          "width": 90,
+          "height": 26.671875,
+          "right": 283.15625,
+          "bottom": 165.7890625
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 240.828125,
+          "y": 243,
+          "width": 44,
+          "height": 44,
+          "right": 284.828125,
+          "bottom": 287
+        },
+        {
+          "class": "map-shop-label",
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 80,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 310,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 362,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 464.015625,
+          "width": 260,
+          "height": 45,
+          "right": 288,
+          "bottom": 509.015625
+        },
+        {
+          "class": "",
+          "x": 296,
+          "y": 464.015625,
+          "width": 66,
+          "height": 45,
+          "right": 362,
+          "bottom": 509.015625
+        }
+      ]
+    },
+    {
+      "before": false,
+      "width": 390,
+      "height": 680,
+      "name": "world-map-out",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "right": 375,
+        "bottom": 526.015625
+      },
+      "map": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "right": 309,
+        "bottom": 305
+      },
+      "controls": {
+        "x": 28,
+        "y": 311,
+        "width": 334,
+        "height": 45,
+        "right": 362,
+        "bottom": 356
+      },
+      "footer": {
+        "x": 28,
+        "y": 463.015625,
+        "width": 334,
+        "height": 50,
+        "right": 362,
+        "bottom": 513.015625
+      },
+      "report": {
+        "x": 28,
+        "y": 362,
+        "width": 334,
+        "height": 95.015625,
+        "right": 362,
+        "bottom": 457.015625
+      },
+      "font": "21.3333px",
+      "bodyFont": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "reportScroll": 92,
+      "reportClient": 92,
+      "overflow": 0,
+      "labels": [
+        {
+          "x": 106.828125,
+          "y": 145.2890625,
+          "width": 90,
+          "height": 26.671875,
+          "right": 196.828125,
+          "bottom": 171.9609375,
+          "text": "売3 残69",
+          "client": 90,
+          "scroll": 90
+        },
+        {
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625,
+          "text": "売0 残0",
+          "client": 79,
+          "scroll": 79
+        }
+      ],
+      "buttons": [
+        {
+          "class": "",
+          "x": 314,
+          "y": 25,
+          "width": 48,
+          "height": 48,
+          "right": 362,
+          "bottom": 73
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 111.328125,
+          "y": 165.90625,
+          "width": 44,
+          "height": 44,
+          "right": 155.328125,
+          "bottom": 209.90625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 106.828125,
+          "y": 145.2890625,
+          "width": 90,
+          "height": 26.671875,
+          "right": 196.828125,
+          "bottom": 171.9609375
+        },
+        {
+          "class": "map-shop-hit",
+          "x": 243.90625,
+          "y": 212.15625,
+          "width": 44,
+          "height": 44,
+          "right": 287.90625,
+          "bottom": 256.15625
+        },
+        {
+          "class": "map-shop-label",
+          "x": 198.65625,
+          "y": 199.2421875,
+          "width": 79,
+          "height": 26.671875,
+          "right": 277.65625,
+          "bottom": 225.9140625
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 80,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 310,
+          "y": 311,
+          "width": 52,
+          "height": 45,
+          "right": 362,
+          "bottom": 356
+        },
+        {
+          "class": "",
+          "x": 28,
+          "y": 464.015625,
+          "width": 260,
+          "height": 45,
+          "right": 288,
+          "bottom": 509.015625
+        },
+        {
+          "class": "",
+          "x": 296,
+          "y": 464.015625,
+          "width": 66,
+          "height": 45,
+          "right": 362,
+          "bottom": 509.015625
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

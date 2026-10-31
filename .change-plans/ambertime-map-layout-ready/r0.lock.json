@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dc6a8f3e838ef4e1f7a89c8e8fa87fe0952910671cd04b3d5cbb7377efe1f119",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-layout-ready",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "地図の共通文字基準復元と横並び操作・可変情報欄",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b36748b8c5b309805e74e9f3c87e3e1381ef6325",
+    "canonicalSources": [
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-layout-ready/r0.lock.json",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/map-layout-browser.mjs",
+      "works/ambertime/design/map-layout/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css"
+    ],
+    "expectedChanges": [
+      "地図専用16px上書きを削除し既存uniform typographyを再利用",
+      "地図222pxを維持し横並び操作を下へ配置。ヘッダーとフッターを固定し情報欄だけ必要時スクロール",
+      "未選択は既存自家販売情報、店舗選択時は既存販売と反応。共通の情報高上限で大きな空欄を避ける",
+      "3幅の変更前後比較・状態不変・関連回帰・独立レビュー・PR/CI/Staging公開"
+    ],
+    "ownerDecisions": [
+      "2026-10-31本依頼全文：地図再設計第1段階の表示変更・PR・CI・main merge・Staging公開を許可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS、Change OS、表現監査。不要な説明や副題は追加しない",
+      "計算/保存/地理/閲覧範囲ロジック/専用アイコンは変更しない",
+      "元実装前Lock759de095後のmain更新は食卓生成器のみ。同一scopeのfresh r0を公開用に先行固定"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390で初期/複数店舗/範囲変更/店選択/長文/閉じる/販売室/状態不変/reduced-motion",
+      "変更前後スクリーンショットと公開版基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤",
+      "販売/需要/評価/口コミ/地域解放/経済/注文/正式保存形式変更",
+      "販売室の地図全置換/地図から納品/新しい評判モデル",
+      "正式店舗座標/背景/新地域階層/販売データの捏造"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari/端末温度/作者採否"
+    ],
+    "alternativesRejected": [
+      "文字縮小/transform縮小",
+      "右縦操作列と180px地図の継続",
+      "全情報常時表示と固定大空欄"
+    ],
+    "boundaryCases": [
+      "初期/複数店舗/未選択/店舗切替/長文/広域/短い画面/reduced-motion"
+    ],
+    "testPlan": [
+      "関連map/font/販売UI/保存回帰",
+      "100seed公共操作で変更前後保存hash一致",
+      "3幅ブラウザー表示・操作と公開版"
+    ],
+    "problem": "地図CSSの高specificity 16px!importantが共通uniform-font-sizeを上書き。180px地図と固定128px情報欄",
+    "currentContract": "0.28.0の正式販売投影/Canvas/地理解放/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "通常開閉時に最大範囲へ戻り、詳細有無でCanvasサイズが変わる。modal非表示が引取確認を消す",
+    "design": "地図222pxと横並び操作、共通文字基準、内容に応じた情報欄。少ない情報で画面を下寄せしないよう上端を安定",
+    "migration": "なし。任意の閲覧UI状態のみ正式ゲーム外で保持",
+    "compatibility": "正式セーブとnative経済操作を変更しない。既存販売/仮配分の状態は地図表示の前後で保持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
