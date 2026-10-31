@@ -1634,6 +1634,56 @@
       "id": "courtyard-ping-pong",
       "file": "objects/courtyard-ping-pong.json",
       "number": 330
+    },
+    {
+      "id": "quay-fishing-net-rack",
+      "file": "objects/quay-fishing-net-rack.json",
+      "number": 331
+    },
+    {
+      "id": "park-litter-bin",
+      "file": "objects/park-litter-bin.json",
+      "number": 332
+    },
+    {
+      "id": "street-telephone-booth",
+      "file": "objects/street-telephone-booth.json",
+      "number": 333
+    },
+    {
+      "id": "garden-watering-can",
+      "file": "objects/garden-watering-can.json",
+      "number": 334
+    },
+    {
+      "id": "market-flower-bucket",
+      "file": "objects/market-flower-bucket.json",
+      "number": 335
+    },
+    {
+      "id": "courtyard-deck-chair",
+      "file": "objects/courtyard-deck-chair.json",
+      "number": 336
+    },
+    {
+      "id": "canal-lock-handwheel",
+      "file": "objects/canal-lock-handwheel.json",
+      "number": 337
+    },
+    {
+      "id": "street-bicycle-pump",
+      "file": "objects/street-bicycle-pump.json",
+      "number": 338
+    },
+    {
+      "id": "park-chess-table",
+      "file": "objects/park-chess-table.json",
+      "number": 339
+    },
+    {
+      "id": "garden-cold-frame",
+      "file": "objects/garden-cold-frame.json",
+      "number": 340
     }
   ]
 }
