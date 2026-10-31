@@ -32,10 +32,9 @@ export function companionScene(settings,base){
  }
  if(settings.study==='sardines-beer-01'){
   scene.title='オイルサーディンとビール';scene.objects=scene.objects.filter(o=>!['pretzel','mustard-dish'].includes(o.id));
-  Object.assign(c,{tin:'#a7b5ad',tinSide:'#718d88',tinRim:'#dce1cc',oil:'#c6ac58',fish:'#c5d0c2',fishBack:'#637f7c'});
-  scene.objects.push(surface('peeled-lid',3.5,[path('M342 511 L322 459 Q318 444 334 439 L460 420 Q480 418 487 433 L513 490 L493 505 Z','tin'),path('M342 503 L329 459 Q326 450 339 447 L459 429 Q471 426 477 439 L499 486 Z','tinRim')],{attachedTo:'sardine-tin',hinge:[342,511]}));
-  scene.objects.push(surface('sardine-tin',4,[path('M337 510 Q337 492 357 492 H541 Q561 492 561 510 V567 Q561 588 541 588 H357 Q337 588 337 567 Z','tinSide'),path('M337 506 Q337 488 357 488 H541 Q561 488 561 506 V550 Q561 568 541 568 H357 Q337 568 337 550 Z','tinRim'),path('M346 507 Q346 497 359 497 H539 Q552 497 552 507 V548 Q552 559 539 559 H359 Q346 559 346 548 Z','oil')],{support:'plate',contact:{x:449,y:580},inside:{left:346,right:552,top:497,bottom:559}}));
-  for(const [i,y]of [511,530,549].entries())scene.objects.push(surface('sardine-'+i,5,[path(`M368 ${y} Q409 ${y-12} 497 ${y-5} L520 ${y-10} L514 ${y} L520 ${y+6} L497 ${y+3} Q409 ${y+10} 368 ${y} Z`,'fish'),path(`M368 ${y} Q411 ${y-12} 497 ${y-5} L490 ${y-1} Q417 ${y-6} 368 ${y} Z`,'fishBack')],{support:'sardine-tin',bounds:{left:368,right:520,top:y-12,bottom:y+10}}));
+  Object.assign(c,{tinSide:'#718d88',tinRim:'#b9c8bc',labelPaper:'#f4e9c9',labelPanel:'#356b70',labelFish:'#f1d68d',labelBand:'#c87858'});
+  scene.objects.push(surface('sardine-tin',4,[path('M337 510 Q337 492 357 492 H541 Q561 492 561 510 V567 Q561 588 541 588 H357 Q337 588 337 567 Z','tinSide'),path('M337 506 Q337 488 357 488 H541 Q561 488 561 506 V550 Q561 568 541 568 H357 Q337 568 337 550 Z','tinRim'),path('M346 507 Q346 497 359 497 H539 Q552 497 552 507 V548 Q552 559 539 559 H359 Q346 559 346 548 Z','labelPaper'),path('M351 504 H359 V552 H351 Z','labelBand'),path('M373 505 H525 Q531 505 531 511 V546 Q531 552 525 552 H373 Q367 552 367 546 V511 Q367 505 373 505 Z','labelPanel'),oval(540,506,7,4,'tinSide'),oval(540,506,4,2,'labelPaper')],{support:'plate',contact:{x:449,y:580},closed:true,label:{left:367,right:531,top:505,bottom:552}}));
+  scene.objects.push(surface('label-fish',5,[path('M399 528 C409 512 444 511 463 523 L482 516 L478 528 L482 539 L463 533 C441 546 411 543 399 528 Z','labelFish'),oval(410,526,2.2,2.2,'labelPanel')],{support:'sardine-tin',printed:true,bounds:{left:399,right:482,top:511,bottom:546}}));
  }
  scene.objects.sort((a,b)=>a.z-b.z);return scene;
 }

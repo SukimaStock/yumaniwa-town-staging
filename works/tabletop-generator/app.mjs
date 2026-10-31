@@ -1,5 +1,5 @@
-import {normalizeSettings,generateScene,DRINKS,FRUITS,TABLE_PALETTES,STUDIES} from './engine.mjs?sardines=01';
-import {renderSVG} from './renderer.mjs?sardines=01';
+import {normalizeSettings,generateScene,DRINKS,FRUITS,TABLE_PALETTES,STUDIES} from './engine.mjs?sardines=02';
+import {renderSVG} from './renderer.mjs?sardines=02';
 import {download,svgBlob,pngBlob} from './exporter.mjs';
 const $=id=>document.getElementById(id);
 let settings,scene,svg;

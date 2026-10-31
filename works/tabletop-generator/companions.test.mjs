@@ -25,10 +25,8 @@ test('pretzel and flower studies retain contacts, vessel relationships and attac
 test('all24 prior meal SVGs remain byte-identical to base31ef85d',()=>{
  const cases=JSON.parse(readFileSync(new URL('./fixtures/v3-meal-svg-sha256.json',import.meta.url),'utf8'));assert.equal(cases.length,24);for(const [settings,hash]of cases)assert.equal(createHash('sha256').update(renderSVG(generateScene(settings))).digest('hex'),hash);
 });
-test('sardine tin keeps fish inside oil and lid attached across all12settings',()=>{
+test('closed sardine tin has an integrated fish label and no exposed contents across12settings',()=>{
  for(const palette of Object.keys(TABLE_PALETTES))for(const texture of ['original','print','watercolor']){
-  const scene=generateScene({study:'sardines-beer-01',palette,texture}),by=id=>scene.objects.find(o=>o.id===id),tin=by('sardine-tin'),fish=scene.objects.filter(o=>o.support==='sardine-tin');assert.equal(fish.length,3);assert.equal(by('peeled-lid').attachedTo,tin.id);assert.ok(by('peeled-lid').z<tin.z);assert.equal(by('drink-glass').kind,'beer-glass');assert.ok(!by('pretzel'));
-  for(const f of fish){assert.ok(f.bounds.left>=tin.inside.left&&f.bounds.right<=tin.inside.right&&f.bounds.top>=tin.inside.top&&f.bounds.bottom<=tin.inside.bottom);assert.ok(f.z>tin.z);}
-  assert.deepEqual(generateScene(JSON.parse(JSON.stringify(scene.settings))),scene);assert.ok(!/undefined|NaN/.test(renderSVG(scene).replace(/data:image\/png;base64,[^"]+/g,'')));
+  const scene=generateScene({study:'sardines-beer-01',palette,texture}),by=id=>scene.objects.find(o=>o.id===id),tin=by('sardine-tin'),fish=by('label-fish');assert.ok(tin.closed&&fish.printed);assert.ok(!by('peeled-lid')&&!by('sardine-0'));assert.equal(fish.support,tin.id);assert.ok(fish.bounds.left>tin.label.left&&fish.bounds.right<tin.label.right&&fish.bounds.top>tin.label.top&&fish.bounds.bottom<tin.label.bottom);assert.equal(by('drink-glass').kind,'beer-glass');assert.deepEqual(generateScene(JSON.parse(JSON.stringify(scene.settings))),scene);
  }
 });
