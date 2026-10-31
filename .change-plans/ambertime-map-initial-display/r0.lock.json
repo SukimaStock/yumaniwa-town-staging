@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ca9e8ae1da608033b0d76b8a461316b793f67bb232224bdcd38de910baca8bc0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-initial-display",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "iPhone地図初回表示欠落の再現・原因特定・最小修正",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "ac5088ef6d36e00088458b4b65b745107e0e0add",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/font-uniform.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-initial-display/r0.lock.json",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/tests/map-initial-display*.mjs",
+      "works/ambertime/design/map-initial-display/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css"
+    ],
+    "expectedChanges": [
+      "共有実機画像と初回タップのDOM/Canvas画素/実表示サイズ/clipを照合",
+      "725/728の差分、CSSintrinsic flex/displayと描画/状態同期を再現から原因特定",
+      "原因に対応する最小修正のみ。222px/共通文字/横並び操作/安全領域/既存数字反応と選択を維持",
+      "3幅の初回/開閉/復元/店舗/範囲/販売室往復、可能ならWebKitとChromium比較",
+      "Canvas内容だけでなく画面内実可視領域と截图を回帰検査、経済保存不変"
+    ],
+    "ownerDecisions": [
+      "2026-10-31今回の地図表示不具合修正依頼。調査・Plan Lock・最小修正・回帰・PR/CI/通常merge/Staging公開を許可。Production/C段階機能なし"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS/Change OS/実装前Lock/Scope→Risk→Impact",
+      "表現監査：新コピー/演出/仮画像は追加しない",
+      "初回を閉じた後のfocus黄色枠と区別、未確認をPASSにしない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "共有2画像照合、3幅初回タップ直後Canvas実画素/可視clip/目視",
+      "初期非解放→最初の瓶→初回地図、保存復元/複数店舗/再表示/拡縮/選択/往復",
+      "WebKit実行可能性調査とChromium比較、公開版基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤",
+      "販売/需要/評価/口コミ/地域解放/経済/注文/正式保存形式変更",
+      "販売室の地図全置換/地図から納品/新しい評判モデル",
+      "正式店舗座標/背景/新地域階層/販売データの捏造"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari/端末温度/作者採否"
+    ],
+    "alternativesRejected": [
+      "仮画像/文字縮小/地図縮小",
+      "販売計算変更/保存変更/第3Lab追加"
+    ],
+    "boundaryCases": [
+      "未解放新規/初瓶/初回sales/初回map/restore/再表示/複数店",
+      "通常/縮小解放/選択/長文/安全領域/黄色focusとmodal状態"
+    ],
+    "testPlan": [
+      "初回画素/DOMclip/親サイズのブラウザー回帰",
+      "既存map/販売UI/保存回帰、正式保存と経済状態不変",
+      "3幅・安全領域・長情報を維持し截图比較"
+    ],
+    "problem": "実機Safariで初回タップ直後にタイトルとfooterだけ表示し地図本体が見えない",
+    "currentContract": "0.28.0の正式販売投影/Canvas/地理解放/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "通常開閉時に最大範囲へ戻り、詳細有無でCanvasサイズが変わる。modal非表示が引取確認を消す",
+    "design": "描画と実可視領域を両方測定し根本原因だけを修正。独立レビューと新規初回表示回帰",
+    "migration": "なし。任意の閲覧UI状態のみ正式ゲーム外で保持",
+    "compatibility": "正式セーブとnative経済操作を変更しない。既存販売/仮配分の状態は地図表示の前後で保持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
