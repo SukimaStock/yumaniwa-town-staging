@@ -273,10 +273,12 @@ body[data-room] #hero .objects::after{content:none}
 /* Reuse the dialog's shared spacing and uniform Canvas typography. */
 #action-dialog.daily-map{padding:10px;width:min(360px,calc(var(--view-width) - 24px));max-width:calc(var(--view-width) - 24px);box-sizing:border-box}
 #action-dialog.daily-map .dialog-heading{padding:0;align-items:center;margin-bottom:4px}
-#action-dialog.daily-map #dialog-body{padding:0;flex:1;display:flex;overflow:hidden}
+/* Use content sizing for the auto-height, clipped map container.
+   It may shrink for the viewport, without starting from a zero basis. */
+#action-dialog.daily-map #dialog-body{padding:0;flex:0 1 auto;display:flex;overflow:hidden}
 #action-dialog.daily-map #dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:6px;padding-top:1px}
 #action-dialog.daily-map #dialog-actions button{min-height:45px;padding:6px 9px;white-space:nowrap}
-#action-dialog.daily-map .world-map-view{gap:6px;width:100%;flex:1;min-height:0}
+#action-dialog.daily-map .world-map-view{gap:6px;width:100%;flex:0 1 auto;min-height:0}
 .map-browse-row{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;flex:none}
 #action-dialog.daily-map .world-map-surface{width:222px;height:222px}
 #action-dialog.daily-map .world-map-controls{width:100%;grid-template-columns:52px minmax(0,1fr) 52px;gap:8px}
