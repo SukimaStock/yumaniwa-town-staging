@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b092b92792d16a05a1817144b394dc7da25a984b6b8c88ca5b2982129ef75129",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tabletop-meal-scenes",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "ecb07491223805f7db7b39c6c26e827be7af0693",
+    "change": "Add authored cheese with wine and bread with coffee still lifes",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/tabletop-generator/engine.mjs",
+      "works/tabletop-generator/renderer.mjs",
+      "User expansion request"
+    ],
+    "allowedPaths": [
+      ".change-plans/tabletop-meal-scenes/r0.lock.json",
+      "works/tabletop-generator/**",
+      "data/lab-rooms.json",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "works/postcard-generator/**",
+      "works/ambertime/**",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Add study selector with existing fruit table plus cheese/wine and bread/coffee",
+      "Code-generated plate, sliced cheese, torn bread, connected cup and coffee; coherent fixed composition and palette roles",
+      "Preserve existing v1/v2/v3 fruit URLs and JSON byte-identical",
+      "Same3finishes and export/import/shared URL; gallery, regression, independent review, mobile and public Staging QA"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Visual2newstudies×4palettes and same3finishes",
+      "360/375/390 UI, subject switching, imports and downloads",
+      "LAB entrance and public rendering"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly approves implementing cheese with wine and bread with coffee after proposed scene pairings; aesthetic adoption and Production stay separate"
+    ],
+    "hqDecisions": [
+      "Existing work-local SVG/JSON/export and LAB registry contracts suffice; no shared runtime or new external service"
+    ],
+    "rulesApplied": [
+      "Use existing lifecycle schema and garage room; no new rooms or town persistent UI",
+      "Only title, actions and needed labels on screen; no decorative prose",
+      "Seed series independent by responsibility; structural validation is not an aesthetic score"
+    ],
+    "problem": "Fruit-only scene set needs meaningful food and vessel relationships",
+    "currentContract": "Independent works served statically; lifecycle active staging-only; LAB generated from canonical registries",
+    "whyExistingIsInsufficient": "New subject requires separate composition grammar; existing delivery contracts suffice",
+    "design": "Use named version3 studies for new scenes; existing table-01 settings remain unchanged. Work-local surface grammar shares existing material rendering. No shared runtime changes.",
+    "alternativesRejected": [
+      "Random independent shapes",
+      "Image generation and external building assets",
+      "Shared runtime or Production changes"
+    ],
+    "migration": "None; no existing state changes",
+    "compatibility": "Buildless HTML CSS ES modules SVG; canvas only on explicit PNG export",
+    "boundaryCases": [
+      "Unsupported study/JSON values",
+      "Changing scene while keeping palette/texture",
+      "Cup handle connection and plate containment",
+      "Standalone SVG and async PNG snapshot"
+    ],
+    "testPlan": [
+      "Old36 fruit settings×3finishes byte replay",
+      "New2studies×4palettes×3finishes containment/support/relationships and settings roundtrip",
+      "Browser visual and3mobilewidths; public SVG PNG JSON replay; lifecycle regression"
+    ],
+    "promotionRisk": "Staging only; Production excluded",
+    "rollback": "Revert work, lifecycle/garage entry and generated LAB as a unit; no migrations",
+    "promotion": "none",
+    "outOfScope": [
+      "Production",
+      "Existing postcard and shared runtime",
+      "New random composition families"
+    ],
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author aesthetic adoption"
+    ]
+  }
+}
