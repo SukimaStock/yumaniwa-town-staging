@@ -5,7 +5,7 @@ const svg=(kind,w,h,body)=>`<svg class="room-object room-${kind}" viewBox="0 0 $
 const cells=(color,areas)=>areas.map(([x,y,w,h])=>rect(x,y,w,h,color)).join('');
 const glassEdge='#b9c0aa';
 
-export function stillArt(){
+export function stillArt({interactive=false}={}){
  const dark='#503214',copper='#b87333',light='#dca050';
  // Native cells: 60 × 36. At the room's 3 px grid the whole set is 180 × 108.
  // A low, rounded pot and a separate clear receiver share the y36 bench plane.
@@ -30,7 +30,7 @@ export function stillArt(){
   +cells('#d4d7bf',[[31,28,1,3],[32,34,2,1]]);
  const stream='<g class="distill-stream">'+cells('#ded7b5',[[34,24,1,1],[34,26,1,1]])+'</g>';
  const steam='<g class="still-steam">'+cells('#c1b79a',[[15,14,1,1],[16,11,1,2],[18,9,1,1]])+'</g>';
- return svg('still',60,36,'<g class="still-pipe">'+pipe+'</g><g class="still-connection">'+connection+'</g><g class="still-pot">'+pot+fitting+'</g>'+receiver+stream+steam);
+ return svg('still',60,36,'<g class="still-pipe">'+pipe+'</g><g class="still-connection">'+connection+'</g><g class="still-pot">'+pot+fitting+'</g>'+(interactive?'':receiver)+stream+steam);
 }
 
 export function glass(wood=0,{sample=false}={}){
