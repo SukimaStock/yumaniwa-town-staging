@@ -1,0 +1,995 @@
+{
+  "engine": "chromium",
+  "nativeProgression": true,
+  "physicalSafari": false,
+  "checks": [
+    {
+      "width": 360,
+      "height": 568,
+      "name": "before",
+      "stage": 2,
+      "expected": false,
+      "month": 12,
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "plot": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "top": 76,
+        "right": 294,
+        "bottom": 304,
+        "left": 66
+      },
+      "colors": 20,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 191,
+            "y": 105,
+            "width": 72,
+            "height": 23.328125,
+            "top": 105,
+            "right": 263,
+            "bottom": 128.328125,
+            "left": 191
+          },
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "cursor": {
+        "x": 105.984375,
+        "y": 186.90625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 186.90625,
+        "right": 149.140625,
+        "bottom": 230.0625,
+        "left": 105.984375
+      }
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "name": "offered",
+      "stage": 3,
+      "expected": false,
+      "month": 37,
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "plot": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "top": 76,
+        "right": 294,
+        "bottom": 304,
+        "left": 66
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 177,
+            "y": 175,
+            "width": 72,
+            "height": 23.328125,
+            "top": 175,
+            "right": 249,
+            "bottom": 198.328125,
+            "left": 177
+          },
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 171.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 171.5,
+        "right": 167.65625,
+        "bottom": 202.328125,
+        "left": 136.828125
+      }
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "name": "pending",
+      "stage": 3,
+      "expected": false,
+      "month": 37,
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "plot": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "top": 76,
+        "right": 294,
+        "bottom": 304,
+        "left": 66
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 177,
+            "y": 175,
+            "width": 72,
+            "height": 23.328125,
+            "top": 175,
+            "right": 249,
+            "bottom": 198.328125,
+            "left": 177
+          },
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 171.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 171.5,
+        "right": 167.65625,
+        "bottom": 202.328125,
+        "left": 136.828125
+      }
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "name": "settled",
+      "stage": 3,
+      "expected": true,
+      "month": 38,
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "plot": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "top": 76,
+        "right": 294,
+        "bottom": 304,
+        "left": 66
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 177,
+            "y": 175,
+            "width": 72,
+            "height": 23.328125,
+            "top": 175,
+            "right": 249,
+            "bottom": 198.328125,
+            "left": 177
+          },
+          "client": 72,
+          "scroll": 72
+        },
+        {
+          "id": "department",
+          "text": "納5",
+          "rect": {
+            "x": 117,
+            "y": 261,
+            "width": 33,
+            "height": 23.328125,
+            "top": 261,
+            "right": 150,
+            "bottom": 284.328125,
+            "left": 117
+          },
+          "client": 33,
+          "scroll": 33
+        }
+      ],
+      "cursor": {
+        "x": 124.5,
+        "y": 242.40625,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 242.40625,
+        "right": 142.984375,
+        "bottom": 260.890625,
+        "left": 124.5
+      }
+    },
+    {
+      "width": 360,
+      "name": "settled",
+      "zoom": "town-near-town",
+      "correct": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "name": "expired",
+      "stage": 3,
+      "expected": true,
+      "month": 51,
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "plot": {
+        "x": 66,
+        "y": 76,
+        "width": 228,
+        "height": 228,
+        "top": 76,
+        "right": 294,
+        "bottom": 304,
+        "left": 66
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 177,
+            "y": 175,
+            "width": 72,
+            "height": 23.328125,
+            "top": 175,
+            "right": 249,
+            "bottom": 198.328125,
+            "left": 177
+          },
+          "client": 72,
+          "scroll": 72
+        },
+        {
+          "id": "department",
+          "text": "納0",
+          "rect": {
+            "x": 117,
+            "y": 261,
+            "width": 33,
+            "height": 23.328125,
+            "top": 261,
+            "right": 150,
+            "bottom": 284.328125,
+            "left": 117
+          },
+          "client": 33,
+          "scroll": 33
+        }
+      ],
+      "cursor": {
+        "x": 124.5,
+        "y": 242.40625,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 242.40625,
+        "right": 142.984375,
+        "bottom": 260.890625,
+        "left": 124.5
+      }
+    },
+    {
+      "width": 360,
+      "name": "expired",
+      "zoom": "town-near-town",
+      "correct": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "name": "before",
+      "stage": 2,
+      "expected": false,
+      "month": 12,
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "plot": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 301.5,
+        "bottom": 305,
+        "left": 73.5
+      },
+      "colors": 20,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 198.5,
+            "y": 106,
+            "width": 72,
+            "height": 23.328125,
+            "top": 106,
+            "right": 270.5,
+            "bottom": 129.328125,
+            "left": 198.5
+          },
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "cursor": {
+        "x": 113.484375,
+        "y": 187.90625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 187.90625,
+        "right": 156.640625,
+        "bottom": 231.0625,
+        "left": 113.484375
+      }
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "name": "offered",
+      "stage": 3,
+      "expected": false,
+      "month": 37,
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "plot": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 301.5,
+        "bottom": 305,
+        "left": 73.5
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 184.5,
+            "y": 176,
+            "width": 72,
+            "height": 23.328125,
+            "top": 176,
+            "right": 256.5,
+            "bottom": 199.328125,
+            "left": 184.5
+          },
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 175.15625,
+        "bottom": 203.328125,
+        "left": 144.328125
+      }
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "name": "pending",
+      "stage": 3,
+      "expected": false,
+      "month": 37,
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "plot": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 301.5,
+        "bottom": 305,
+        "left": 73.5
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 184.5,
+            "y": 176,
+            "width": 72,
+            "height": 23.328125,
+            "top": 176,
+            "right": 256.5,
+            "bottom": 199.328125,
+            "left": 184.5
+          },
+          "client": 72,
+          "scroll": 72
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 175.15625,
+        "bottom": 203.328125,
+        "left": 144.328125
+      }
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "name": "settled",
+      "stage": 3,
+      "expected": true,
+      "month": 38,
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "plot": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 301.5,
+        "bottom": 305,
+        "left": 73.5
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 184.5,
+            "y": 176,
+            "width": 72,
+            "height": 23.328125,
+            "top": 176,
+            "right": 256.5,
+            "bottom": 199.328125,
+            "left": 184.5
+          },
+          "client": 72,
+          "scroll": 72
+        },
+        {
+          "id": "department",
+          "text": "納5",
+          "rect": {
+            "x": 124.5,
+            "y": 262,
+            "width": 33,
+            "height": 23.328125,
+            "top": 262,
+            "right": 157.5,
+            "bottom": 285.328125,
+            "left": 124.5
+          },
+          "client": 33,
+          "scroll": 33
+        }
+      ],
+      "cursor": {
+        "x": 132,
+        "y": 243.40625,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 243.40625,
+        "right": 150.484375,
+        "bottom": 261.890625,
+        "left": 132
+      }
+    },
+    {
+      "width": 375,
+      "name": "settled",
+      "zoom": "town-near-town",
+      "correct": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "name": "expired",
+      "stage": 3,
+      "expected": true,
+      "month": 51,
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "plot": {
+        "x": 73.5,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 301.5,
+        "bottom": 305,
+        "left": 73.5
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 184.5,
+            "y": 176,
+            "width": 72,
+            "height": 23.328125,
+            "top": 176,
+            "right": 256.5,
+            "bottom": 199.328125,
+            "left": 184.5
+          },
+          "client": 72,
+          "scroll": 72
+        },
+        {
+          "id": "department",
+          "text": "納0",
+          "rect": {
+            "x": 124.5,
+            "y": 262,
+            "width": 33,
+            "height": 23.328125,
+            "top": 262,
+            "right": 157.5,
+            "bottom": 285.328125,
+            "left": 124.5
+          },
+          "client": 33,
+          "scroll": 33
+        }
+      ],
+      "cursor": {
+        "x": 132,
+        "y": 243.40625,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 243.40625,
+        "right": 150.484375,
+        "bottom": 261.890625,
+        "left": 132
+      }
+    },
+    {
+      "width": 375,
+      "name": "expired",
+      "zoom": "town-near-town",
+      "correct": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "name": "before",
+      "stage": 2,
+      "expected": false,
+      "month": 12,
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "plot": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 309,
+        "bottom": 305,
+        "left": 81
+      },
+      "colors": 20,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 202,
+            "y": 102,
+            "width": 79,
+            "height": 26.671875,
+            "top": 102,
+            "right": 281,
+            "bottom": 128.671875,
+            "left": 202
+          },
+          "client": 79,
+          "scroll": 79
+        }
+      ],
+      "cursor": {
+        "x": 120.984375,
+        "y": 187.90625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 187.90625,
+        "right": 164.140625,
+        "bottom": 231.0625,
+        "left": 120.984375
+      }
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "name": "offered",
+      "stage": 3,
+      "expected": false,
+      "month": 37,
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "plot": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 309,
+        "bottom": 305,
+        "left": 81
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 190,
+            "y": 118,
+            "width": 79,
+            "height": 26.671875,
+            "top": 118,
+            "right": 269,
+            "bottom": 144.671875,
+            "left": 190
+          },
+          "client": 79,
+          "scroll": 79
+        }
+      ],
+      "cursor": {
+        "x": 151.828125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 182.65625,
+        "bottom": 203.328125,
+        "left": 151.828125
+      }
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "name": "pending",
+      "stage": 3,
+      "expected": false,
+      "month": 37,
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "plot": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 309,
+        "bottom": 305,
+        "left": 81
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 190,
+            "y": 118,
+            "width": 79,
+            "height": 26.671875,
+            "top": 118,
+            "right": 269,
+            "bottom": 144.671875,
+            "left": 190
+          },
+          "client": 79,
+          "scroll": 79
+        }
+      ],
+      "cursor": {
+        "x": 151.828125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 182.65625,
+        "bottom": 203.328125,
+        "left": 151.828125
+      }
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "name": "settled",
+      "stage": 3,
+      "expected": true,
+      "month": 38,
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "plot": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 309,
+        "bottom": 305,
+        "left": 81
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 190,
+            "y": 118,
+            "width": 79,
+            "height": 26.671875,
+            "top": 118,
+            "right": 269,
+            "bottom": 144.671875,
+            "left": 190
+          },
+          "client": 79,
+          "scroll": 79
+        },
+        {
+          "id": "department",
+          "text": "納5",
+          "rect": {
+            "x": 130,
+            "y": 262,
+            "width": 36,
+            "height": 26.671875,
+            "top": 262,
+            "right": 166,
+            "bottom": 288.671875,
+            "left": 130
+          },
+          "client": 36,
+          "scroll": 36
+        }
+      ],
+      "cursor": {
+        "x": 139.5,
+        "y": 243.40625,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 243.40625,
+        "right": 157.984375,
+        "bottom": 261.890625,
+        "left": 139.5
+      }
+    },
+    {
+      "width": 390,
+      "name": "settled",
+      "zoom": "town-near-town",
+      "correct": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "name": "expired",
+      "stage": 3,
+      "expected": true,
+      "month": 51,
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "plot": {
+        "x": 81,
+        "y": 77,
+        "width": 228,
+        "height": 228,
+        "top": 77,
+        "right": 309,
+        "bottom": 305,
+        "left": 81
+      },
+      "colors": 18,
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売0 残0",
+          "rect": {
+            "x": 190,
+            "y": 118,
+            "width": 79,
+            "height": 26.671875,
+            "top": 118,
+            "right": 269,
+            "bottom": 144.671875,
+            "left": 190
+          },
+          "client": 79,
+          "scroll": 79
+        },
+        {
+          "id": "department",
+          "text": "納0",
+          "rect": {
+            "x": 130,
+            "y": 262,
+            "width": 36,
+            "height": 26.671875,
+            "top": 262,
+            "right": 166,
+            "bottom": 288.671875,
+            "left": 130
+          },
+          "client": 36,
+          "scroll": 36
+        }
+      ],
+      "cursor": {
+        "x": 139.5,
+        "y": 243.40625,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 243.40625,
+        "right": 157.984375,
+        "bottom": 261.890625,
+        "left": 139.5
+      }
+    },
+    {
+      "width": 390,
+      "name": "expired",
+      "zoom": "town-near-town",
+      "correct": true
+    }
+  ],
+  "errors": []
+}

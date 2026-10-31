@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {writeCandidate} from '../placement-save.mjs';
-import {createMarketUI,savedMarketSales,visibleMarketRows} from '../market-ui.mjs';
+import {createMarketUI,savedMarketSales,visibleMarketRows,compactReleaseDate} from '../market-ui.mjs';
 const fixture=()=>({core:{month:4,products:[{id:7,stock:5,flavor:{primary:'fruit',label:'果実香が強い'}},{id:9,stock:4,flavor:{primary:'smoke',label:'煙の香り'}}]},releases:[{id:3,productId:7,brandId:1,bottledMonth:2},{id:4,productId:9,brandId:1,bottledMonth:3}],brands:[{id:1,name:'AmberTime'}],productsById:{},shop:{relations:[{shopId:'town-liquor',brandId:1}]},retail:{7:1,9:0},assigned:{7:2,9:1}});
 const model={
  storeMarketInventory:(s,id)=>({hand:s.core.products.find(p=>p.id===id).stock-(s.retail[id]??0)-(s.assigned[id]??0)-(s.held?.[id]??0),retail:s.retail[id]??0,shops:{'town-liquor':s.assigned[id]??0,supermarket:0}}),
@@ -194,4 +194,11 @@ test('saved sale decrements appear once with reduced motion and cancel without s
 test('large all-placement reserves space for full signed quantity without reducing fonts',()=>{
  const h=harness();h.read().core.products[0].stock=1000;h.ui.update({visible:true});assert.match(h.root.innerHTML,/--market-delta-space:calc\(6 \* var\(--uniform-font-size,16px\)\)/);
  h.click({marketPortion:'all'});h.click({marketPlace:'town-liquor'});assert.equal(h.read().assigned[7],999);assert.match(h.root.innerHTML,/class="market-count">999本/);
+});
+
+
+test('compact shelf dates remain unambiguous across centuries and retain full accessible dates',()=>{
+ const s=fixture(),before=JSON.stringify(s);assert.equal(compactReleaseDate(s,7),'26/3');assert.equal(JSON.stringify(s),before);
+ s.releases.find(r=>r.productId===9).bottledMonth=1202;assert.equal(compactReleaseDate(s,7),'2026/3');assert.equal(compactReleaseDate(s,9),'2126/3');
+ const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/title="2026\/3">26\/3/);assert.match(h.root.innerHTML,/2026\/3.*残り2本/);
 });
