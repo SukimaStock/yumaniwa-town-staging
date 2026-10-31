@@ -285,9 +285,9 @@ body[data-room] #hero .objects::after{content:none}
 #action-dialog.daily-map .world-map-controls button{width:52px;min-width:44px;min-height:45px;height:45px;padding:0!important}
 #action-dialog.daily-map .world-map-controls span{white-space:normal;overflow:visible;text-align:center}
 #action-dialog #dialog-body .map-shop-hit{position:absolute;width:44px!important;height:44px!important;min-width:44px;min-height:44px;padding:0!important;transform:translate(-50%,-50%);border:2px solid transparent;background:transparent;box-shadow:none;z-index:2}
-#action-dialog #dialog-body .map-shop-hit[aria-pressed=true],#action-dialog #dialog-body .map-shop-hit:focus-visible{border-color:#ffe19c;background:#e6d49e22}
-#action-dialog #dialog-body .map-shop-label{position:absolute;transform:translate(-50%,-50%);padding:0 2px!important;min-width:0;min-height:0;height:auto;width:max-content;max-width:60%;background:#25383dcc;border:0;box-shadow:none;color:#f5e6be;text-align:center;white-space:normal;z-index:3}
-#action-dialog #dialog-body .map-shop-label[aria-pressed=true]{outline:1px solid #ffe19c}
+/* Four pixel corners leave the selected place unobscured. Keep the hit target. */
+#action-dialog #dialog-body .map-shop-hit[aria-pressed=true],#action-dialog #dialog-body .map-shop-hit:focus-visible{border-color:transparent;background:transparent;outline:none}
+#action-dialog #dialog-body .map-selection-cursor{position:absolute;z-index:3;pointer-events:none;background:linear-gradient(#f7cd58,#f7cd58) left top/9px 3px no-repeat,linear-gradient(#f7cd58,#f7cd58) left top/3px 9px no-repeat,linear-gradient(#f7cd58,#f7cd58) right top/9px 3px no-repeat,linear-gradient(#f7cd58,#f7cd58) right top/3px 9px no-repeat,linear-gradient(#f7cd58,#f7cd58) left bottom/9px 3px no-repeat,linear-gradient(#f7cd58,#f7cd58) left bottom/3px 9px no-repeat,linear-gradient(#f7cd58,#f7cd58) right bottom/9px 3px no-repeat,linear-gradient(#f7cd58,#f7cd58) right bottom/3px 9px no-repeat}
 #action-dialog #dialog-body .map-sales-period{margin:2px 0;overflow-wrap:anywhere}
 #action-dialog #dialog-body .map-shop-report{width:100%;min-height:0;flex:0 1 auto;max-height:calc(var(--uniform-line-height,32px) * 5 + 12px);overflow:auto;overscroll-behavior:contain;border-top:var(--pixel) solid #858995;padding-top:6px}
 #action-dialog #dialog-body .map-shop-report header{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:45px}
@@ -298,3 +298,5 @@ body[data-room] #hero .objects::after{content:none}
    The scene renderer otherwise recenters every dialog after a content resize. */
 #action-dialog.daily-map{top:calc(var(--view-top) + max(12px,env(safe-area-inset-top,0px)))!important;max-height:calc(var(--view-height) - max(12px,env(safe-area-inset-top,0px)) - max(12px,env(safe-area-inset-bottom,0px)))}
 @media(prefers-reduced-motion:reduce){#action-dialog.daily-map *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+#action-dialog #dialog-body .map-shop-hit:focus-visible{outline:2px dotted #f7cd58;outline-offset:1px}
