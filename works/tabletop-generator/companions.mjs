@@ -32,9 +32,10 @@ export function companionScene(settings,base){
  }
  if(settings.study==='sardines-beer-01'){
   scene.title='オイルサーディンとビール';scene.objects=scene.objects.filter(o=>!['pretzel','mustard-dish'].includes(o.id));
-  Object.assign(c,{tinSide:'#718d88',tinRim:'#b9c8bc',labelPaper:'#f4e9c9',labelPanel:'#356b70',labelFish:'#f1d68d',labelBand:'#c87858'});
+  const designs={cream:['#718d88','#b9c8bc','#f4e9c9','#356b70','#f1d68d','#c87858'],coast:['#778f90','#c0d0c5','#f6ecd5','#b66f50','#fff1cf','#376d76'],olive:['#7a8364','#c5c9a8','#f1e6c9','#68704c','#f5df9a','#b76f4f'],dusk:['#879ca0','#b6c4bc','#eee0c4','#d2a180','#3c5360','#677f87']};
+  ['tinSide','tinRim','labelPaper','labelPanel','labelFish','labelBand'].forEach((key,i)=>c[key]=designs[settings.palette][i]);
   scene.objects.push(surface('sardine-tin',4,[path('M337 510 Q337 492 357 492 H541 Q561 492 561 510 V567 Q561 588 541 588 H357 Q337 588 337 567 Z','tinSide'),path('M337 506 Q337 488 357 488 H541 Q561 488 561 506 V550 Q561 568 541 568 H357 Q337 568 337 550 Z','tinRim'),path('M346 507 Q346 497 359 497 H539 Q552 497 552 507 V548 Q552 559 539 559 H359 Q346 559 346 548 Z','labelPaper'),path('M351 504 H359 V552 H351 Z','labelBand'),path('M373 505 H525 Q531 505 531 511 V546 Q531 552 525 552 H373 Q367 552 367 546 V511 Q367 505 373 505 Z','labelPanel'),oval(540,506,7,4,'tinSide'),oval(540,506,4,2,'labelPaper')],{support:'plate',contact:{x:449,y:580},closed:true,label:{left:367,right:531,top:505,bottom:552}}));
-  scene.objects.push(surface('label-fish',5,[path('M399 528 C409 512 444 511 463 523 L482 516 L478 528 L482 539 L463 533 C441 546 411 543 399 528 Z','labelFish'),oval(410,526,2.2,2.2,'labelPanel')],{support:'sardine-tin',printed:true,bounds:{left:399,right:482,top:511,bottom:546}}));
+  for(const [i,x]of [401,449,497].entries())scene.objects.push(surface('label-fish-'+i,5,[path('M399 528 C409 512 444 511 463 523 L482 516 L478 528 L482 539 L463 533 C441 546 411 543 399 528 Z','labelFish'),oval(410,526,2.2,2.2,'labelPanel')],{support:'sardine-tin',printed:true,frame:{scale:.5,x:x-440.5*.5,y:265},bounds:{left:x-22,right:x+22,top:518,bottom:539}}));
  }
  scene.objects.sort((a,b)=>a.z-b.z);return scene;
 }
