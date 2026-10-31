@@ -294,9 +294,8 @@ body[data-room] #hero .objects::after{content:none}
 #action-dialog #dialog-body .map-shop-report h3{margin:0;overflow-wrap:anywhere;min-width:0}
 #action-dialog #dialog-body .map-shop-report p{margin:2px 0;overflow-wrap:anywhere}
 #action-dialog #dialog-body .map-shop-report button{min-height:45px;padding:2px 4px;white-space:nowrap;flex:none}
-/* Anchor this content-sized dialog to the same top edge across selections.
-   The scene renderer otherwise recenters every dialog after a content resize. */
-#action-dialog.daily-map{top:calc(var(--view-top) + max(12px,env(safe-area-inset-top,0px)))!important;max-height:calc(var(--view-height) - max(12px,env(safe-area-inset-top,0px)) - max(12px,env(safe-area-inset-bottom,0px)))}
+/* Reuse the scene's visualViewport centering, constrained to the safe height. */
+#action-dialog.daily-map{margin-top:calc((max(12px,env(safe-area-inset-top,0px)) - max(12px,env(safe-area-inset-bottom,0px)))/2);max-height:calc(var(--view-height) - max(12px,env(safe-area-inset-top,0px)) - max(12px,env(safe-area-inset-bottom,0px)))}
 @media(prefers-reduced-motion:reduce){#action-dialog.daily-map *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
 #action-dialog #dialog-body .map-shop-hit:focus-visible{outline:2px dotted #f7cd58;outline-offset:1px}
@@ -308,3 +307,5 @@ body[data-room] #hero .objects::after{content:none}
 
 /* Available places share quiet corners; only the current place is yellow. */
 #action-dialog #dialog-body .map-place-affordance{position:absolute;z-index:3;pointer-events:none;background:linear-gradient(#e4e2d4,#e4e2d4) left top/6px 2px no-repeat,linear-gradient(#e4e2d4,#e4e2d4) left top/2px 6px no-repeat,linear-gradient(#e4e2d4,#e4e2d4) right top/6px 2px no-repeat,linear-gradient(#e4e2d4,#e4e2d4) right top/2px 6px no-repeat,linear-gradient(#e4e2d4,#e4e2d4) left bottom/6px 2px no-repeat,linear-gradient(#e4e2d4,#e4e2d4) left bottom/2px 6px no-repeat,linear-gradient(#e4e2d4,#e4e2d4) right bottom/6px 2px no-repeat,linear-gradient(#e4e2d4,#e4e2d4) right bottom/2px 6px no-repeat}
+
+#action-dialog #dialog-body .map-shop-report .map-place-name{border:0;background:transparent;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;white-space:normal;text-align:left;cursor:pointer}
