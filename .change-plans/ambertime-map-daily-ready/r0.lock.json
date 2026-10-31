@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1873f80c468b1b5ad8dc953029ea82bc735e682cc9020725a6e6af131711e625",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-daily-ready",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "地図の専用アイコン化と固定配置・閲覧範囲保持",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b5dcfc8720ce057c3ae8608677d446cc73e1be4a",
+    "canonicalSources": [
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/player-news.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-daily-ready/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/map-daily-view.mjs",
+      "works/ambertime/tests/map-daily*.mjs",
+      "works/ambertime/design/map-daily/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css"
+    ],
+    "expectedChanges": [
+      "既存下部アイコン列に地図glyph。解放前非表示、直後/通常は直接開閉。メニュー重複を除く",
+      "既存Canvasと正式座標・販売投影を再利用。固定寸法地図と定位置の店情報、短い一行の売/残。広域は町集計と口コミ到達を分離",
+      "閲覧範囲/選択をゲームから分離し保持。初回は町または利用可能な近い範囲。初回解放案内後の新解放で閲覧範囲を飛ばさない",
+      "地図/子店情報への非表示時のみ販売室の選択・数量・引取確認/仮配分を保持。確定/納品/販売/保存を起こさない",
+      "関連テスト/独立レビュー/固定操作列保存一致/3幅/公開後確認/日本語REPORT/PR必須CI後Stagingmerge"
+    ],
+    "ownerDecisions": [
+      "2026-10-31ユーザー 地図の専用アイコン化と日常利用整理第1段階：本編UI/Plan Lock/PR/必須CI/安全merge/Staging公開を許可。販売室全置換や計算/正式保存/Production変更なし"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/Change OS/実装前Lock/Scope→Risk→Impact",
+      "表現監査：定位置空欄を説明で埋めない、事実のない広域店や販売を作らない",
+      "root AGENTSに基づき状態保持監査と独立レビューを分担",
+      "並行main更新はtabletop-generatorのみ。元Lock実装を同一scopeのfresh r0へ移す。並行変更を保持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390の専用アイコン・固定地図/短札/詳細/範囲往復・販売室の選択数量確認保持",
+      "Staging公開後基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤",
+      "販売/需要/評価/口コミ/地域解放/経済/注文/正式保存形式変更",
+      "販売室の地図全置換/地図から納品/新しい評判モデル",
+      "正式店舗座標/背景/新地域階層/販売データの捏造"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari/端末温度/作者採否"
+    ],
+    "alternativesRejected": [
+      "全店を強制的に同一画面へ収める",
+      "新解放時に普段の範囲を自動変更",
+      "口コミ到達を販売店数/地域実売へ読み替える",
+      "店選択時の地図縮小/長文説明/通知点/常時演出"
+    ],
+    "boundaryCases": [
+      "未解放/初回/通常/取引なし/複数店/売切れ/注文/回収/複数SKU",
+      "UI数量/瓶/引取確認/仮配分を地図開閉で確定・破棄しない",
+      "未選択/店切替/表示外店/新地域/再読込/不正UI状態/保存不能"
+    ],
+    "testPlan": [
+      "地図UI状態の初回/保持/範囲clamp/選択解除・集計の非変更/店舗数と販売範囲を検査",
+      "固定seed公共API操作で既存計算/正式保存結果一致、指定販売UI/market/native/save/Canvas/既存map回帰",
+      "3幅の地図座標倍率固定・タップ/アイコン非重なり・数量/瓶/引取確認/仮配分の保持、公開後確認"
+    ],
+    "problem": "地図がメニュー経由で日常確認しづらく、店の選択で縮み配置が動く",
+    "currentContract": "0.28.0の正式販売投影/Canvas/地理解放/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "通常開閉時に最大範囲へ戻り、詳細有無でCanvasサイズが変わる。modal非表示が引取確認を消す",
+    "design": "専用nativeglyph、一定Canvasと固定高さ情報、read-only広域集計、UI閲覧状態分離、mapのhideだけ既存編集を保持",
+    "migration": "なし。任意の閲覧UI状態のみ正式ゲーム外で保持",
+    "compatibility": "正式セーブとnative経済操作を変更しない。既存販売/仮配分の状態は地図表示の前後で保持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}

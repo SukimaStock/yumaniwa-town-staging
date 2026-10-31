@@ -1,13 +1,13 @@
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
-import{drawSymbol,symbolMarkup}from'./pixel-symbols.mjs?v=start-map-ui-r1';
+import{drawSymbol,symbolMarkup,SYMBOLS}from'./pixel-symbols.mjs?v=start-map-ui-r1&daily=1';
 import{uiText}from'./ui-text.mjs?v=stage4-r2';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false,frame=0){
@@ -28,7 +28,7 @@ export class CanvasScene{
   fontReady.then(()=>{this.fontSettled=true;this.queue();});
   document.addEventListener('amber-font-change',()=>this.queue());
   for(const id of['room-nav','time-controls','cask-rack','product-shelf','shelf-pages','go-distill','start-distill','stop-distill','open-fill','open-ledger','shop-offer','room-feedback'])this.controlRoot.append($(id));
-  $('management-controls').prepend($('open-ledger'));$('management-controls').append($('shop-offer'),$('open-aux-menu'));
+  $('management-controls').prepend($('open-ledger'));$('management-controls').append($('shop-offer'),$('open-world-map'),$('open-aux-menu'));
   for(const id of ['toggle-speed','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])document.body.append($(id));
   const close=$('close-dialog');close.innerHTML=symbolMarkup('close');close.setAttribute('aria-label','閉じる');
@@ -94,7 +94,7 @@ export class CanvasScene{
  }
  pixelRect(x,y,w,h,color){const c=this.ctx,v=this.viewport,left=Math.round((v.offsetX+x*v.scale)*v.dpr),top=Math.round((v.offsetY+y*v.scale)*v.dpr);c.save();c.setTransform(1,0,0,1,0,0);c.fillStyle=color;c.fillRect(left,top,Math.round((v.offsetX+(x+w)*v.scale)*v.dpr)-left,Math.round((v.offsetY+(y+h)*v.scale)*v.dpr)-top);c.restore();}
  window(x,y,w,h,fill='#2e3143',border='#6c707b'){this.pixelRect(x+3,y+3,w,h,shadow);this.pixelRect(x,y,w,h,border);this.pixelRect(x+3,y+3,w-6,h-6,fill);}
- icon(kind,x,y,w,h,color=ink){const c=this.ctx,v=this.viewport,unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit)),width=kind==='store'?11:7;c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(x+w/2)*v.scale)*v.dpr-width*cell/2),Math.round((v.offsetY+(y+h/2)*v.scale)*v.dpr-width*cell/2),cell,color);c.restore();}
+ icon(kind,x,y,w,h,color=ink){const c=this.ctx,v=this.viewport,unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit)),width=SYMBOLS[kind]?.[0]?.length??7;c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(x+w/2)*v.scale)*v.dpr-width*cell/2),Math.round((v.offsetY+(y+h/2)*v.scale)*v.dpr-width*cell/2),cell,color);c.restore();}
  // Clock-only changes touch the existing two-pixel bar. Pending arrival,
  // selection and still animations keep their own bounded presentation timers.
  updateProgress(progress){
@@ -171,13 +171,13 @@ export class CanvasScene{
   for(const a of this.activeControls){
    if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
-   if(['open-ledger','open-staff-panel','shop-offer','open-aux-menu'].includes(a.key)){
-    const kind=$('action-dialog').open?$('action-dialog').dataset.kind:'',active=a.key==='open-ledger'?kind==='ledger':a.key==='open-staff-panel'?/^(staff|bottl)/.test(kind):a.key==='shop-offer'?/^(stockist|shop-offer)/.test(kind):kind==='aux-panel',x=a.x+(a.w-54)/2;
+   if(['open-ledger','open-staff-panel','shop-offer','open-world-map','open-aux-menu'].includes(a.key)){
+    const kind=$('action-dialog').open?$('action-dialog').dataset.kind:'',active=a.key==='open-ledger'?kind==='ledger':a.key==='open-staff-panel'?/^(staff|bottl)/.test(kind):a.key==='shop-offer'?/^(stockist|shop-offer)/.test(kind):a.key==='open-world-map'?kind==='world-map':kind==='aux-panel',x=a.x+(a.w-54)/2;
     this.window(x,a.y,54,54,pressed?'#19141e':active?'#414552':'#292b39',pressed?'#f0e6c8':'#d8d5df');if(active)this.pixelRect(x+6,a.y+45,42,3,'#d8d5df');
     if(a.key==='open-ledger'){const bx=x+12,by=a.y+10.5;book(bx,by,30,33,'#6e5a42');book(bx+3,by,27,30,'#b69a65');book(bx+3,by,3,30,'#e4c58a');book(bx+6,by+3,21,24,'#e7dcc0');book(bx+9,by+6,15,3,'#9a835c');book(bx+9,by+12,15,3,'#9a835c');book(bx+9,by+18,12,3,'#9a835c');}
     else if(a.key==='open-aux-menu'){for(let i=0;i<3;i++)this.pixelRect(x+15+i*9,a.y+25.5,3,3,ink);}
-    else this.icon(a.key==='open-staff-panel'?'person':'store',x,a.y,54,54);
-    if(a.key==='open-aux-menu'&&view.staffBrief&&view.room==='distill')this.text(view.staffBrief,a.x+a.w+9,a.y+32,BODY_SIZE);
+    else this.icon(a.key==='open-staff-panel'?'person':a.key==='open-world-map'?'map':'store',x,a.y,54,54);
+    if(a.key==='open-aux-menu'&&view.staffBrief&&view.room==='distill')this.lines(view.staffBrief,a.x+a.w+9,a.y+32,Math.max(0,348-a.x-a.w-9),BODY_SIZE,1);
     continue;
    }
    if(a.key==='room-feedback'){this.window(a.x,a.y,a.w,a.h,pressed?'#19141e':'#292b39','#858995');this.lines(a.label,a.x+9,a.y+21,a.w-18,16,3);continue;}

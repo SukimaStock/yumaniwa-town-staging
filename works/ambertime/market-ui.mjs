@@ -85,7 +85,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  }
  function update(options={}){
   const wasVisible=visible;visible=options.visible??visible;notice=options.notice??notice;root.hidden=!visible;geometry();
-  if(!visible){if(wasVisible){cancel();if(editing){editing=null;setEditing(false);}}return;}
+  if(!visible){if(wasVisible){cancel();if(editing&&!options.preserveEditing){editing=null;setEditing(false);}}return;}
   const s=state();if(!s)return;
   const products=s.core.products.filter(p=>p.stock>0);
   const handProducts=products.filter(p=>D.storeMarketInventory(s,p.id).hand>0);

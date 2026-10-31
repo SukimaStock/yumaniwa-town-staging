@@ -1,0 +1,3257 @@
+{
+  "schema": "ambertime-map-daily-parity/1",
+  "sourceSha256": {
+    "partner-orders.mjs": "81c04f580cd3728ddb3b8f04a84744dcf3949a564399c18e12a6065c79f91df3",
+    "store-market.mjs": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9",
+    "market-sales.mjs": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136",
+    "economy.mjs": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037",
+    "map-sales-view.mjs": "455b393d835e952a38862b551d7249a5d478716d75193b24d0b4ce7260d761f9",
+    "map-daily-view.mjs": "4c7872de021b7efdaca5c686c96b8eda2d36430a6be63fae133163ff5e02c6e6"
+  },
+  "method": "Same native public-operation careers twice; second branch adds frozen read-only map reads. Exact JSON at tick, assignment, return, retail allocation, bottling and relationship boundaries. No altered saves.",
+  "nativeRules": "newMarketRulesDistillery",
+  "seeds": {
+    "first": 1,
+    "last": 100,
+    "count": 100
+  },
+  "horizon": 36,
+  "aggregate": {
+    "runs": 100,
+    "months": 3600,
+    "points": 4800,
+    "multipleStores": 904,
+    "multiProduct": 2600,
+    "salesObservations": 2000
+  },
+  "legacy": {
+    "fixture": "placement-established-six.json",
+    "legacySha256": "cc3a41614153659a41620c07358393e4c09825fdc04a2374d1d5b6997c6d20a3",
+    "legacyExact": true,
+    "explicitBoundaryPreserved": true,
+    "historicalDeliveryNotReclassified": true
+  },
+  "syntheticLongTerm": {
+    "kind": "synthetic-display-only-not-native-career",
+    "months": 360,
+    "receiptCount": 720,
+    "windowMonths": 12,
+    "totals": [
+      {
+        "id": "town-liquor",
+        "total": 3600,
+        "recent": 120
+      },
+      {
+        "id": "supermarket",
+        "total": 7200,
+        "recent": 240
+      }
+    ],
+    "frozenReadOnly": true,
+    "futureExcluded": true
+  },
+  "elapsedMs": 215291.23569799997,
+  "runs": [
+    {
+      "seed": 1,
+      "config": {
+        "seed": 1,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "4c059af19d645a359e3f7902d7f8960f3048a31983846aa8ba263320681ff32d",
+      "finalMapSha256": "02c1e612deb58439817d3e6410110c8835c76a69e18b401596c25237c49bc92d",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 1.0255609999999251,
+        "max": 4.373346999999967
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 2,
+      "config": {
+        "seed": 2,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "67b2387937c1c4e450c0399d0d227000f7e444993ba12f3eb1ff92a6831fe202",
+      "finalMapSha256": "d15c5dd2d401f0aeb51607c8d456cc8844641803dd2b8fe382b1cabeec2d85bb",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.8368900000004942,
+        "max": 15.68175599999995
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 3,
+      "config": {
+        "seed": 3,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "d7a9c8eb3efea52af43d3dcf9f0e748ae18f4ff462d38493965a3e6673de928c",
+      "finalMapSha256": "e76517cf43797ee000168a903185a12c5aeaeb8192de35dacbd12b5eb9cbf699",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5481970000000729,
+        "max": 17.75867399999879
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 4,
+      "config": {
+        "seed": 4,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "6a0eefc22ff9b4caaf63c3aa849061d2dea9de382029b1550e0bcdbb7d1afd1b",
+      "finalMapSha256": "279e5ad1216211113201c493f0f2eb4843f2f5d428b61c465f8123b6dde409b1",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.627357999999731,
+        "max": 3.384061999999176
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 5,
+      "config": {
+        "seed": 5,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "2c766636bc5444074c4a0341c64a2f9c6dba09dd88607b101cef144f989eefe1",
+      "finalMapSha256": "d2a663e1367baf59b8550ebf248a991414d23e496e69a64dcc5b33b3ffeb1ef7",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6423260000010487,
+        "max": 1.8089170000002923
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 6,
+      "config": {
+        "seed": 6,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "beed46eafe415afef7cb09d4331347a0135a71e1e1402f6c33263ed240ec95f9",
+      "finalMapSha256": "2f412de22ce2b8bd66fc6dde9ebb61fd14d784dc1c87235c31077f91bb7f6f02",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5433019999982207,
+        "max": 4.8335709999992105
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 7,
+      "config": {
+        "seed": 7,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "3fb876e65b3678d8b2c57535cab996434025e0d310cd743616ebf5c2cc09ca6f",
+      "finalMapSha256": "e5f3608d697b7c7c98f567088bcc0c70ee66ee70fbcfd3f01838e37d48e92fa9",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6093780000010156,
+        "max": 2.3055740000017977
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 8,
+      "config": {
+        "seed": 8,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "65515d1bb39ffed001534ea11d442d1c28a51e9f0b689fe10e45d8a36c006fe4",
+      "finalMapSha256": "5db1c263863ba469df5e4fd907f83a857c980debbf6e583538d6df52abd525c5",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6787530000001425,
+        "max": 2.0003800000013143
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 9,
+      "config": {
+        "seed": 9,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "dc5c2891d665ff94e1662d27fca8efedad457400ad0995533489ce4fba139f94",
+      "finalMapSha256": "98e2bc35b29f3fa4d23d33c4c7a67a7988e2f31f9b8cfebbae1ceb69fc778c77",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5916260000012699,
+        "max": 4.318081000001257
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 10,
+      "config": {
+        "seed": 10,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "90c2dfcd99ea1ed7574854f999f861db6025aa9c6ab41372c23ec6bfdf3c903a",
+      "finalMapSha256": "d15c5dd2d401f0aeb51607c8d456cc8844641803dd2b8fe382b1cabeec2d85bb",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.49478000000090105,
+        "max": 4.10391200000231
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 11,
+      "config": {
+        "seed": 11,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "3748ea5d87f9e185f8362d534eb3b589444615dfce9eb3615efe861488558ee8",
+      "finalMapSha256": "55e12a2edba0a6b63d36fecbe4159d0d52342d30f225ee1a1271efe212f80823",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.619356000002881,
+        "max": 1.767848999999842
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 12,
+      "config": {
+        "seed": 12,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "1a6b4d0e69f80a22a7b85d0061eb9dec6ecfe499e8ba53ae094d1c7ec4bd2e61",
+      "finalMapSha256": "ba5f7be7cbfd7c1b2814985fd5eeeccb7903ddf56685c289dda91be30faf56ae",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6237059999984922,
+        "max": 2.3961399999971036
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 13,
+      "config": {
+        "seed": 13,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "e78e68b7e59cd7cffba98c13722ef5ce1a47722571afd15c26e3e4aa6e251278",
+      "finalMapSha256": "ec09e998505249172089aeab21cf000a02d926a87dfdde88f32dc231c7166ed9",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6444499999997788,
+        "max": 1.7109530000016093
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 14,
+      "config": {
+        "seed": 14,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "4115129e6b34440f2db3e07d6f806feaa7a8b5eae00fe1d83593f70b808b0e11",
+      "finalMapSha256": "997219f9a4c666dcb4eebe9e6f5c33114a365fddb1f3c0165fdc866ec08b69c9",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6026310000015656,
+        "max": 1.9744159999972908
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 15,
+      "config": {
+        "seed": 15,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "88486e84942514e62be4a83f21f4ba9bcdcc2ce932a4a8f5fbe6a8693fca62b6",
+      "finalMapSha256": "1eed886ac5b13a81957befe157fc81552bcab27cb709af418e60aa515b729714",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6131700000041747,
+        "max": 2.391990000003716
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 16,
+      "config": {
+        "seed": 16,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "618cbcf830c4f0704215c181a9d4e48beedf19c4df1ff0adc249e9924938e1ab",
+      "finalMapSha256": "4b79da6b99ada3bd471ecae2897186a5da05bd9b7c2b2e59170d351dc74302c5",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5546390000017709,
+        "max": 2.591429000000062
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 17,
+      "config": {
+        "seed": 17,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "56179b9b1628acbc60f3b0df57ab61621e48c997cf82f75737e81686d3b140b5",
+      "finalMapSha256": "9f5fb77e82cab90f944c4f86eae7d3fe5266b841a3911a03211c4efa08aa12ad",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5717470000017784,
+        "max": 1.437206000002334
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 18,
+      "config": {
+        "seed": 18,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "61d3adbfee4a2b9a322b9549c2b63bae4a3aae3624816a86bf6da38424866b41",
+      "finalMapSha256": "3beaf55aebb7901b852fe0e0b341428141494ef4872adc97b7146232f3a6a086",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5816130000021076,
+        "max": 2.0968989999964833
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 19,
+      "config": {
+        "seed": 19,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "1be86d9c41336cf1204376a98c18dc0f7e5326147f403d76f3c82515b656e9c7",
+      "finalMapSha256": "c283e14057eb91f13e0e83f9a021645def61c09b3e5ad7cb8587604ec447fe9c",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5852989999984857,
+        "max": 7.548668999996153
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 20,
+      "config": {
+        "seed": 20,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "d2c9c33ecc736372b656ca1ed43e87620d89dc53ffb4881efdaa31a1b9029f21",
+      "finalMapSha256": "ddf01987ca4b9c2b6d28c67a20faa92e5e08e1eaf398b2c10c78697f1b67c8ed",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5797000000020489,
+        "max": 1.7185719999979483
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 21,
+      "config": {
+        "seed": 21,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "9fcd4c22a131c6b2e91f5bc519afbb4ad4ef937d92f62ee0111369abfa5a9316",
+      "finalMapSha256": "aad3711bf3135956df5b12ae1d6da9429e5e1cf4832d3dde48e020191d50e24b",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6340799999961746,
+        "max": 2.8073569999978645
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 22,
+      "config": {
+        "seed": 22,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "de3cef452823004c51e317130674441a13c20d10621849bf80459309dfe59c79",
+      "finalMapSha256": "86ea08b619067bcb057e3b7a0cb55e9a75577bf35ef1e16834ec2a10f0369c2f",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.4804230000008829,
+        "max": 2.1853310000005877
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 23,
+      "config": {
+        "seed": 23,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "efe3c14421e620d425783eb51e81adcd2b1d233a507ba97dbba577d0afcdd5d3",
+      "finalMapSha256": "01e769f97c810a517b4a002596b690acf94bc8163779a67075138810783884d2",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5470190000050934,
+        "max": 4.535689000003913
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 24,
+      "config": {
+        "seed": 24,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "7bd52aa125f8d124d40ccad33cf41b881e270cc4358eb277084d5a339f299e13",
+      "finalMapSha256": "03512aa9dec3fee276d034f9dd46a15eeccd81caa6fe756ee753904f1b27eb5f",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5372709999937797,
+        "max": 3.9282489999968675
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 25,
+      "config": {
+        "seed": 25,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "cdd867bb4d472b68794721f33bdc0aac3bccb2b073f65df6d4fe6bcf90e76c92",
+      "finalMapSha256": "89bbaf53306208357980131f108ee8abfa73b7a0c502c932e52057df908c47d4",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6557940000056988,
+        "max": 2.6449250000005122
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 26,
+      "config": {
+        "seed": 26,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "b222c21554f109de345951fd9ee03429274e74845596419e23100f7888de54fb",
+      "finalMapSha256": "3b98029204b35a52d90ff8b59aec964079f243255dcc51ac1afe93244defe02b",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6122990000003483,
+        "max": 6.860845000002882
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 27,
+      "config": {
+        "seed": 27,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "5678725ad48f82323481477b547fd5e9bde8a96b8808270b0efbe9c4fd1c3e51",
+      "finalMapSha256": "d6d1bec53909a9374c6373a0fda5a29ca0d536fa180331656dbbb7b873097e0e",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5903120000002673,
+        "max": 39.69552300000214
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 28,
+      "config": {
+        "seed": 28,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "f7454de63eb5fcd1e13f70388539cede5f0ce9d5940b32288fcfb25bb8a52ce6",
+      "finalMapSha256": "a5c24719cf9611215d72b40148c1c459c415fe8cddf89a57ee62bdf049804bb5",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.7536029999901075,
+        "max": 4.29180200000701
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 29,
+      "config": {
+        "seed": 29,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "09c7892a569bda6a2f3317cd7f2102b91997a28dc0045a7292b0d624070a219b",
+      "finalMapSha256": "d78bae0987802359983faac69e075c221cd60f174ef4c345fc9d293a5e517d1d",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5181860000011511,
+        "max": 1.9895490000053542
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 30,
+      "config": {
+        "seed": 30,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "1ca351f190d385ad1c736c77a0119b7ad5895631c5741ee5408eb52df78c927a",
+      "finalMapSha256": "cdc0b21dfd6a9cd5fd30f138327e22f6678a44bf351fc65024b2d2a695a1e104",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6490209999901708,
+        "max": 2.979427999991458
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 31,
+      "config": {
+        "seed": 31,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "d3cf88d6ec5c9718369636820630e3a72c36ab889e74d3fc1b10aee0ab5557e7",
+      "finalMapSha256": "8d7c4fa8a6dc1161425d71687a3b43e76a05c7aed06c80c13b6d127de0230c12",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.528452999991714,
+        "max": 6.433444000009331
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 32,
+      "config": {
+        "seed": 32,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "843759701919839f06c326d058a52722d202671e1eece624ac2e8126c2bfb056",
+      "finalMapSha256": "a7ac99d889384acfb5f50ccbde305d561779623babbead40baefcd316051b4ff",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5084379999898374,
+        "max": 8.606715000001714
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 33,
+      "config": {
+        "seed": 33,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "66eda2eb15e758e28610fb7bc93c030fa9e853ff1d031a30dd54a3778b61c606",
+      "finalMapSha256": "baeb5f022a6a41219e68dc1623d812708599f61d6da832594c4182a5f53ae599",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5135580000060145,
+        "max": 1.335372000001371
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 34,
+      "config": {
+        "seed": 34,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "33b8786904dbb0973d28b84da0d4cf0aa77d8cc077664ee6b3c93272914ef47a",
+      "finalMapSha256": "b718d067ded44fceedb3dbede5cb5c8534c424aaf66ca068f44c2228bece3426",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5420049999956973,
+        "max": 2.275005000003148
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 35,
+      "config": {
+        "seed": 35,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "8876cc40c120f3f68de9b6e4893f648b980ca62449c2b0e35ae9f4f9a4676cf1",
+      "finalMapSha256": "6f4a02a3ac42dab191ef4fb779cef48138c257124f4f092f7fe10694ee46301a",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.4020029999956023,
+        "max": 3.315952000004472
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 36,
+      "config": {
+        "seed": 36,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "bc6afa1072059ccf271871f5c6c45b2e2c9a67922c078bccae4da38a1b2ec1cb",
+      "finalMapSha256": "9abd42165f19aabdca86a600bd60dbdb8a380beee7fa4ce37db048c1c3fa3b14",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5700130000041099,
+        "max": 1.8003420000022743
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 37,
+      "config": {
+        "seed": 37,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "313f1729696a2aa8b9099b7c1353f3c2c8448691c5220d7e55265e8f8bb85acb",
+      "finalMapSha256": "c0d7d0d8e73290393672b7d37e46c8e19ee178b84932767d710cf13aeaa20d45",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.546040000001085,
+        "max": 2.8804460000101244
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 38,
+      "config": {
+        "seed": 38,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "04376095f254567acba88061ae5ea43ccf6a0275d687e60082ad98a5d0e82e34",
+      "finalMapSha256": "68c3454d251f3324a80b03b009d8ea4be8bc271680a328bd4e8f1d795115c704",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.49394899999606423,
+        "max": 1.4463059999980032
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 39,
+      "config": {
+        "seed": 39,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "8b03679b18a8a68a80b60d66e95f6bec2695b164a2334834b83a5589b8d3b1cb",
+      "finalMapSha256": "56062075d8de01abec881d62ef966ac26cc2c5a10cf74dc56557ab4cb5252dd1",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5659160000068368,
+        "max": 1.8034440000046743
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 40,
+      "config": {
+        "seed": 40,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "444662d6ec3964e2c1e5e24d35d3f7f901f48b84ed737e8457061fb2f07a98c7",
+      "finalMapSha256": "cb9f90dd80034acc33803931c4531f446fd47e49a7e91c28ad9a5f6119296418",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6234780000086175,
+        "max": 1.4911169999977574
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 41,
+      "config": {
+        "seed": 41,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "83860c54b7f5accfccaee7cb3449a1ed72636d6f8d78a1994924f7726f113ac8",
+      "finalMapSha256": "384b6b108caf28417c3adcfbd3e2cb7054aaef483fbd39531f124fd5e668e4a9",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.683273000002373,
+        "max": 1.9293789999937871
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 42,
+      "config": {
+        "seed": 42,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "17e5cd68877ee75863db901fe4a072e0d532b1c7945b6a616e487e139de02f91",
+      "finalMapSha256": "f51880051b8f8dbd0c65763a13abc57cc4d10cb38cdf0c88c8a66d1fb98eb13a",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6497660000022734,
+        "max": 3.6342029999941587
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 43,
+      "config": {
+        "seed": 43,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "6d175536636a1ebbbbdedc2fee24817f628c78d0cff4c6240d2529f500215ac7",
+      "finalMapSha256": "4cd5fb60760ba57b1857833597476267d430a515adda1161c841055125e77bdc",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5309649999981048,
+        "max": 2.657031000009738
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 44,
+      "config": {
+        "seed": 44,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "c46a25ae8797ef92631abd0e7231d4792057b6c3582def64e00c5d8ff9493bd8",
+      "finalMapSha256": "812212ec910a1b890bf145b45828e5295763811d5a696f57f8248311cf438e77",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5990639999945415,
+        "max": 1.4085879999911413
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 45,
+      "config": {
+        "seed": 45,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "fd5e26140d43060fc529c0de461d3be5eb8fbf8fc4f791659ee274ae8f4e72b7",
+      "finalMapSha256": "7d94d8d050b7686bf6ed3c11ad59f57dd1cbe31a018606eee9e825b1029eb467",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5789999999979045,
+        "max": 2.619644000005792
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 46,
+      "config": {
+        "seed": 46,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "985b8937df6b080ee04450d1e0144eac791569a37e76b6108cb78c71c39dd003",
+      "finalMapSha256": "e9558d69288ac26aea8ff046e0b1344eb212292d43a80b0d309610ba763a1f4b",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.597672000003513,
+        "max": 2.441651000001002
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 47,
+      "config": {
+        "seed": 47,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "035b2523a933c43ba5de06d367eeebb06701586c6bbe26efaac41a6e00b91a36",
+      "finalMapSha256": "56062075d8de01abec881d62ef966ac26cc2c5a10cf74dc56557ab4cb5252dd1",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.572465999997803,
+        "max": 2.2979140000097686
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 48,
+      "config": {
+        "seed": 48,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "4183edcf48950f5b336cdde0f7643eddfe846a0a2837c242e6e999bba2cbfc9d",
+      "finalMapSha256": "fdf98cf01337003f3bfa55fc654da550fc74228f6ae7a1177dd8c7cc99e97f46",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5045569999929285,
+        "max": 1.9692229999927804
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 49,
+      "config": {
+        "seed": 49,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "aa39391d0035c9867b2a2503cf901192e6f80071ff41ca69b3414d4fc5b3ea52",
+      "finalMapSha256": "f23d4eb478f8a20b32ef2ecdede39d0aa03f3551307d7c3548422b533d0794a7",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.509648000006564,
+        "max": 2.4790219999995315
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 50,
+      "config": {
+        "seed": 50,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "efd0400e602d31abd07e31d7e034b1cea7ff5e96ab072139f291af4103ada253",
+      "finalMapSha256": "a3936d9b01e48c4e9534a8769c1ba04c92f5ea667973009cbc62dd34f9ec31dd",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5951329999952577,
+        "max": 2.668562999999267
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 51,
+      "config": {
+        "seed": 51,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "e4fbb93ceb893fdbbaa26e520dc53ece2e65e081431d887c14923b7601d90fe9",
+      "finalMapSha256": "0f5bc5c9317005118a23617a953514e258e97438315f7966450c224a1a8631c0",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5524790000054054,
+        "max": 3.547543000007863
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 52,
+      "config": {
+        "seed": 52,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "99c7bbda88c937c7b704b457b2e6cb0b36d740a3e0dc1119ca837248ca59f3f2",
+      "finalMapSha256": "f9176cb8b4b2f97fca775192d8b1abc9f98f0ca26067d852005ec3fcec5948a8",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5134609999950044,
+        "max": 4.098240000006626
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 53,
+      "config": {
+        "seed": 53,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "1083ae933105efdeccd8d35aec9b81f4df8565ef40d9177a7510e8c93d575726",
+      "finalMapSha256": "9f2b2e95d5331d2ef4eb469a06ee020e121ef62c8155eaa250a3d1948df2d0ce",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5864130000118166,
+        "max": 2.6872650000004796
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 54,
+      "config": {
+        "seed": 54,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "15d835728c64a6f004c53af8a217d7ada34aa6114f5eab1a549ba6b7bb92767b",
+      "finalMapSha256": "a606612ed7bb602746c33aed6efdfdfb54b5c220ede0c6fc2fcc53d64e60d025",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5778170000121463,
+        "max": 2.2789210000046296
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 55,
+      "config": {
+        "seed": 55,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "8e124a924b9e9c2be7446c52caf9aef407cca0003b26fd4d2c84a9cea717f1e3",
+      "finalMapSha256": "81c3f776fafa71f598390200b2975dda552d45135e8feda0425bc32039e7db01",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6355769999936456,
+        "max": 5.409483000010368
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 56,
+      "config": {
+        "seed": 56,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "3da01a4e1ffa00b90f5ea6cfa75f992c0b6c33d3576f3f171d41205ca2d3b266",
+      "finalMapSha256": "119c1fe43b33bc861dba78042f7006e03826c1aa432adec1d802a484e578611c",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5318049999914365,
+        "max": 4.948256000003312
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 57,
+      "config": {
+        "seed": 57,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "cac5116cf7488aaf119dd44b6633f826e4b0477408d0c7d18eec774f7490eb07",
+      "finalMapSha256": "ddd99427e7f5c96850a8de334f48e961920e3e9df4782226d0763c47ae08a74d",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6040159999975003,
+        "max": 1.866743000005954
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 58,
+      "config": {
+        "seed": 58,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "d784c59dd7776b02168a95b634de20e5729593a502e8d9c55cb58f1d8fe818f9",
+      "finalMapSha256": "3b98029204b35a52d90ff8b59aec964079f243255dcc51ac1afe93244defe02b",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6304569999920204,
+        "max": 2.3092449999967357
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 59,
+      "config": {
+        "seed": 59,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "d94e7bfe493c751504ed9af74104074d27c4020ec69f58714a185db80cc93304",
+      "finalMapSha256": "ffb45de2627ceb33edda6b4fd4fc62da53849e4286006b211bd9649670cf0381",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5968600000196602,
+        "max": 1.5812409999780357
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 60,
+      "config": {
+        "seed": 60,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "1baf440b18ea5cda70218ff214ed63810aec5562bc28414acff9217ac8f558e3",
+      "finalMapSha256": "812212ec910a1b890bf145b45828e5295763811d5a696f57f8248311cf438e77",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.612924999993993,
+        "max": 2.4921099999919534
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 61,
+      "config": {
+        "seed": 61,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "1115c8a75dd1e16c898988cb235fdd9a4f04bc18905d3f4cb1c1f36f0a6c1324",
+      "finalMapSha256": "cae9a1fe1c20f7573bf5ef164bb8fdf7f168f73b61fbba88802377458b59d7d8",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5027699999918696,
+        "max": 1.5193189999845345
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 62,
+      "config": {
+        "seed": 62,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "d19900c2a4d5a6d9ec27a48f6fb6191dbaa3d641035ab0b8fb6262adeeade847",
+      "finalMapSha256": "af52aa1285acd78980886acf6dabff692ee198eb2b43446f825a5b2691421275",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5927000000083353,
+        "max": 2.986302000004798
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 63,
+      "config": {
+        "seed": 63,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "2425153043dfb7eb1e41a07d78a530c9893aed5f78105a5ba08869eab71550bf",
+      "finalMapSha256": "39d2258e5d108513e5df51de662768939d03893cdd9e872ae0da90b4faf9c49d",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5939910000015516,
+        "max": 2.356566999980714
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 64,
+      "config": {
+        "seed": 64,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "93797457ce25f9fd09807b8963948c5a8f75063f0fe104da6b359a8ef798194a",
+      "finalMapSha256": "e468f7a4cbf4a3472bf47f2934a70e1bd9e6c429884b247a725337aef6816117",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.594238999998197,
+        "max": 10.538776000001235
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 65,
+      "config": {
+        "seed": 65,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "8b61a91f4539c6fbfce3014a24407cf51893df2b7b56da4c66474ba365fbbd58",
+      "finalMapSha256": "3464195c70e7e7c7b8754b1e84b1ea13dd56ef433fae89fc7c2429503f910ad2",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6371980000112671,
+        "max": 2.6223940000054426
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 66,
+      "config": {
+        "seed": 66,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "80b3eb78dfc74bf6f4da6b6f093dc1af05d3ea19c64a456f27b40cef6cc75c43",
+      "finalMapSha256": "ee33267ad72477cc53108a7a532fd30ba677c6a6cca09faffaf085320da13557",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5594270000001416,
+        "max": 4.340689000004204
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 67,
+      "config": {
+        "seed": 67,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "110c84e654fec73c9556c9eb10981214a998b4ecbebdbe5636367be0933b47c7",
+      "finalMapSha256": "bd331b390947c1bfdd214a8d087ec23a4a48ff3852f759d69de190259e5ad8e3",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.4400510000123177,
+        "max": 36.513584000000264
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 68,
+      "config": {
+        "seed": 68,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "c7aaa451dd82446783d826ee9d8c2f683e4debc682640c73cdae4d6b9c5cedd5",
+      "finalMapSha256": "7a62d5a0948ecbea32b31d6a1dd78f8f2f6ec633fee29a60e4fece4fd48a6d3a",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.7281779999902938,
+        "max": 6.050523999991128
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 69,
+      "config": {
+        "seed": 69,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "76d1e620f9dc04dc5cc2caaee851ec9f785609e3d3f6bce489b065fc7a4761fb",
+      "finalMapSha256": "d8996100825af64a355224fe39436fd96fc95cc162f5a8cd133bfd133e6ede07",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5241129999922123,
+        "max": 1.7608860000036657
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 70,
+      "config": {
+        "seed": 70,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "4ee8cbfc6cdb8f6afb50476fd78bc5e4162c248bacedc5ee800a1786f0fc9e04",
+      "finalMapSha256": "40b75494d58e9f6f4026e8f4f7fec24fe245ade664ed365f4e48d3178bfd8094",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5327680000045802,
+        "max": 1.4221630000101868
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 71,
+      "config": {
+        "seed": 71,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "c0622a81af834e07d62d59e96256cd1856cf37d2f52840397f8742ba33f6b72a",
+      "finalMapSha256": "0a1eaca448271c1dc3850b1faddada357591ebe4485cb272b302b8bb14883827",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6400600000051782,
+        "max": 4.112848999997368
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 72,
+      "config": {
+        "seed": 72,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "a3160004a54d102e7512da3b0a095703a9ebee349354a614141669cd8c17630c",
+      "finalMapSha256": "2c4f07af32c77a0eb163fe5d9c25443c670284b3a7f5e9ff2c0308146023dcd7",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5320359999896027,
+        "max": 2.37355699998443
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 73,
+      "config": {
+        "seed": 73,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "42b0cb2c467be7e9657b7801d2556a05298a0dae238c0f3f452cd09e6b71bf53",
+      "finalMapSha256": "795590dc62573c596e26938e3455d0e7c7d8a50e2cd40d3c10dc687c296c409a",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5317470000009052,
+        "max": 2.200549000001047
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 74,
+      "config": {
+        "seed": 74,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "9273dfb905337250dab645001fbdda3824a01d27f7374bf270ec314688a18cfb",
+      "finalMapSha256": "989a095ddd2b05ad85f8699be3d3a42e95c89064e3dd58f2fd71ef1f9bb99327",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6165240000118501,
+        "max": 1.5614059999934398
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 75,
+      "config": {
+        "seed": 75,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "5eedf7b1eacb528647224a5b8e19822798e355845b0fcc4d129cfa2b3d7f660a",
+      "finalMapSha256": "bebefe61c0e093f5e25dd0e2f13219505cce495adeaabb106ed39e276c1dfc9a",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.549702000018442,
+        "max": 2.3007919999945443
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 76,
+      "config": {
+        "seed": 76,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "670bde581c5c46cc02683971bd3ffe9e18007ae39a66a500795af2c6e14f29f9",
+      "finalMapSha256": "a5c24719cf9611215d72b40148c1c459c415fe8cddf89a57ee62bdf049804bb5",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5786609999777284,
+        "max": 3.4315409999981057
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 77,
+      "config": {
+        "seed": 77,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "34b715edec3389831a1b71b526e033f6d5e8c66a20cdb350099878a5e9d587f5",
+      "finalMapSha256": "6a84eee47289922633381a1c6060639ebad303e745ce0a7017fd556456b06ec5",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6131609999865759,
+        "max": 2.6936960000020918
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 78,
+      "config": {
+        "seed": 78,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "068a1b97a1f739fab2402c801598ad9d2c303993c7cb2607ec6d8075ff7cebec",
+      "finalMapSha256": "488d34429557d6dd84f8dae0b662775f2e2d87f63ab1cad232eefd65e86efe1e",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.57531299997936,
+        "max": 3.274712999991607
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 79,
+      "config": {
+        "seed": 79,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "b8d29fe56f1655fb04c06aeb5c67b4b7d8fd3b6a8fb5345dfaf7d253e9e85c83",
+      "finalMapSha256": "f581022203a3634cb9c4ace76b42671d3813c8755e819960473eed9785179cd3",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5202630000130739,
+        "max": 1.5200330000079703
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 80,
+      "config": {
+        "seed": 80,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "da6ca16f71d44eae470331f47ef75f68db360076ec4ef734a4226821aa4f4487",
+      "finalMapSha256": "9eadb1bf598bb7e973138de49715efd0151058375d4fd385396d0b4bed74bb9f",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.4964820000168402,
+        "max": 2.2391349999816157
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 81,
+      "config": {
+        "seed": 81,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "67ca5efb1cd17929a32aa42f7ca33473c66392c4cb2195f745f57cbb8b326535",
+      "finalMapSha256": "dd48658852896e546cf9169ca1246fb8650cac8b251f25e564cc2fb4d365a128",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5800910000107251,
+        "max": 2.5417620000080206
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 82,
+      "config": {
+        "seed": 82,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "7a5fe24093bceb09efdb6872a7a35b120d1337e0737bef7220c89668ba358faa",
+      "finalMapSha256": "c7d084a14e664bb563c4e920d3de70dbd37c54c347199680aa8e7982297e5954",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6239279999863356,
+        "max": 13.83804400000372
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 83,
+      "config": {
+        "seed": 83,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "fa068cbb0c7577d931de4bc2bc7ca1b6761e606f1dcf4ea766ff8442e910d01f",
+      "finalMapSha256": "a2126402b7340f0dd842543eacbc83832b91331a0c173c1c8419f339c0a47109",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5880550000001676,
+        "max": 2.1398130000161473
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 84,
+      "config": {
+        "seed": 84,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "93196c35cc6778bafae06b7b4c2aaf54d6ae4ab5b47658e3828e36b04078e6ca",
+      "finalMapSha256": "a607ea3f7df2c7f0d9bb120edd0abdfac886c2f53086a6b3392b7b1ba491e018",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5355700000072829,
+        "max": 1.3601499999931548
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 85,
+      "config": {
+        "seed": 85,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "2d8756c4a1e2a681f4bd9fe5d17eb221758c166f38cd3a066ab55c2c79547e36",
+      "finalMapSha256": "eb9bdfe8e945bb0d4fe572da8a2f089517437a62e83e00b74be5ec597faa2564",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5014479999954347,
+        "max": 1.5670619999873452
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 86,
+      "config": {
+        "seed": 86,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "88eaf85cac4f77ca3a9056f5305d481c3c018b1eb6eb267a7386a29c6c56381e",
+      "finalMapSha256": "db3e5edb6ccd1473f5a7de38703c48b8c5b02a5528e3f28c928f89bbafa41032",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5612030000193045,
+        "max": 1.485263999988092
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 87,
+      "config": {
+        "seed": 87,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "4e46894b358e4b8d21d89f4657660714b2d69d59ef84e2ad7b21d12f69a49ef5",
+      "finalMapSha256": "84105c1dda34316d1051b64fa4a61b518dfb97ece8168b1a75d687ee783efddc",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5400190000073053,
+        "max": 1.6372869999904651
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 88,
+      "config": {
+        "seed": 88,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "2e9e59e5d88e7348bc9ce3b69c58bb6ff45405b20fcbacc7991ddcef3d02d150",
+      "finalMapSha256": "78046dfec1c08ef0c73f4f5b7c4bd28af2fbf5c17adf88b5cd22d6c89f58ff43",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5916300000099,
+        "max": 2.212266999995336
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 89,
+      "config": {
+        "seed": 89,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "2b7db4aa48e528bec598c51752b14e3ba435cc3ceab9e917519fa7458e987ebb",
+      "finalMapSha256": "208a62fa2e2d27e0b8ef718381aae2eced0ac63c453f8ba10fe7d1c2bf6f7322",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5740840000216849,
+        "max": 3.810849000001326
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 90,
+      "config": {
+        "seed": 90,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "172bea7a5ea467971088ea8bca18169fff4413e50909ba5cbfeecaa1ea4af4c4",
+      "finalMapSha256": "8ef85e15c07f4f1ca4785c18f280059723407562302439dcf3f9327d1650a64e",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.595357000012882,
+        "max": 3.751510000001872
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 91,
+      "config": {
+        "seed": 91,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "62342b83eca0202c62eb81f9afe510250869a09a2b661c1182476477bf456b05",
+      "finalMapSha256": "a2126402b7340f0dd842543eacbc83832b91331a0c173c1c8419f339c0a47109",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6251979999942705,
+        "max": 6.074534000013955
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 92,
+      "config": {
+        "seed": 92,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "0e4e1aac922367b41016c4e4b7e67055dabed659a9b3333798c9cecddae05d2f",
+      "finalMapSha256": "abaec53e58927892ed8b1af2b0901adf89568a7ca8d100b27250e4426ec07cde",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5297500000160653,
+        "max": 3.4983240000146907
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 93,
+      "config": {
+        "seed": 93,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "35d1491cd21b61cdcb2daff78cd78f9fcc152b7c9364b63e522318f6e378e451",
+      "finalMapSha256": "abe512eb6a297ee40eeff975814de885ccaad4e9c26020f24141e02bc7b00e71",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.6091430000087712,
+        "max": 1.9138770000135992
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 94,
+      "config": {
+        "seed": 94,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "768d4f55ce97a6606f00f77cf2ef36dc17dad2b79f087b40c02196e3f594eedb",
+      "finalMapSha256": "0b22c653ab86c58f0bc4986f063b95a0d090a9a4d62d691381ab73b07b1aa7c9",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5485540000081528,
+        "max": 1.2316499999724329
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 95,
+      "config": {
+        "seed": 95,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "c9a9a98ff1804094dd274440fa483c252f64af3c18e3b339edf39f3d482372a0",
+      "finalMapSha256": "8d7c4fa8a6dc1161425d71687a3b43e76a05c7aed06c80c13b6d127de0230c12",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5493689999857452,
+        "max": 5.026503000000957
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 96,
+      "config": {
+        "seed": 96,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "83e7d926bad28740b987049732dc9de3f3f4799783049e61f55393b3ec06fc41",
+      "finalMapSha256": "3966452d10ee1f8b852e2ee933840f742ec659a60e7fce927d4541e478a9472a",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5524399999994785,
+        "max": 1.486881999997422
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 97,
+      "config": {
+        "seed": 97,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "181859b22b5d09d049a40f770e96b27f0c9f730ba230ec78ccaae8b1289e8ba7",
+      "finalMapSha256": "4e6702cedf54795a0752344c105b00d094022f29393a307f200f5bb5add7b84d",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5777589999779593,
+        "max": 2.2983169999788515
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 98,
+      "config": {
+        "seed": 98,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 52,
+      "multiProduct": 26,
+      "multipleStores": 10,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "2177877c2fdee6f34f62c8bfceca361e0adb15211e6e777c26efd6b441235e92",
+      "finalMapSha256": "3b484565eae8b12f8e5359bf7e7d89339293a72927c0524d6833d1247ea3dce4",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5898160000215285,
+        "max": 2.941676999995252
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 99,
+      "config": {
+        "seed": 99,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "44adc1cc5fc637e89828bc73cfbd0ccb1a3428005945271be7a96ad92b0f14b2",
+      "finalMapSha256": "c466a1d450e361399ab1c9126f18cfdb8cbae33864c122d353fa481f6c0bb35c",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5374529999971855,
+        "max": 1.5284620000165887
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    },
+    {
+      "seed": 100,
+      "config": {
+        "seed": 100,
+        "cap": 2,
+        "age": 12,
+        "policy": "mixed",
+        "horizon": 36
+      },
+      "months": 36,
+      "stopReason": "",
+      "points": 48,
+      "pins": 50,
+      "multiProduct": 26,
+      "multipleStores": 8,
+      "sales": 20,
+      "maxRecentSold": 3,
+      "finalSaveSha256": "fd83d507258ea53dae1112ea1d40afc6ec4c7770a93e0bbacd55931f37254467",
+      "finalMapSha256": "c3db9991e6dd0ad7c3ad6ee5c575d07f01e6543c911f5b056b364684cb5ff36a",
+      "nativeResultsMatch": true,
+      "exactStateAtEveryPoint": true,
+      "restoreExact": true,
+      "timingMs": {
+        "median": 0.5647190000163391,
+        "max": 1.6886489999888
+      },
+      "unlockedStores": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "releaseCount": 4
+    }
+  ]
+}
