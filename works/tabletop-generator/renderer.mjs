@@ -8,7 +8,7 @@ export function renderSVG(scene){
  let defs='',index=0;
  const ellipse=(x,y,rx,ry)=>`<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/>`;
  const path=d=>`<path d="${d}"/>`;
- const frame=o=>o.frame?`matrix(${o.frame.scale} 0 0 ${o.frame.scale} ${o.frame.x} ${o.frame.y}) `:'';
+ const frame=o=>o.frame?`matrix(${o.frame.scale} 0 0 ${o.frame.scaleY??o.frame.scale} ${o.frame.x} ${o.frame.y}) `:'';
  const assets=s.texture==='print'?{inkBreak,paperGrain}:s.texture==='watercolor'?{washLight,washDensity,paperGrain}:{};
  for(const [id,data]of Object.entries(assets))defs+=`<image id="${id}" x="-100" y="-100" width="1100" height="920" preserveAspectRatio="none" xlink:href="${data}"/>`;
  function paint(shape,color,local=false){
@@ -26,7 +26,7 @@ export function renderSVG(scene){
    body+=`<g data-object="${o.id}" transform="${frame(o)}translate(${o.x} ${o.y}) rotate(${o.angle})">${paint(path(o.outline),c[o.color],true)}${o.stem?paint(path(o.stem),c.stem,true):''}</g>`;continue;
   }
   let shape='';
-  if(o.kind==='surface')shape=o.surfaces.map(s=>paint(s.ellipse?ellipse(...s.ellipse):path(s.d),c[s.color])).join('');
+  if(o.kind==='surface')shape=o.surfaces.map(s=>paint(s.ellipse?ellipse(...s.ellipse):s.fillRule==='evenodd'?`<path d="${s.d}" fill-rule="evenodd" clip-rule="evenodd"/>`:path(s.d),c[s.color])).join('');
   if(o.kind==='cloth')shape=paint(path(o.outline),c.cloth)+paint(path(o.fold),c.fold);
   if(o.kind==='bottle'){
    const l=o.label;
