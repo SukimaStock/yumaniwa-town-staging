@@ -48,3 +48,20 @@
 /* Store identity is outside the distinct lower-left placement action. */
 #market-board .market-shop-heading{grid-column:1/3;display:flex;align-items:center;justify-content:space-between;min-width:0}
 #market-board .market-shop-name{display:flex;align-items:center;gap:calc(4px * var(--market-scale,1));white-space:nowrap}
+
+/* Compact releases wrap within each store; the distinct action follows below. */
+#market-board{touch-action:pan-x pan-y pinch-zoom}
+#market-board .market-shops{display:flex;flex-direction:column;gap:calc(6px * var(--market-scale,1))}
+#market-board .market-shop{flex:none;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto auto;row-gap:calc(4px * var(--market-scale,1))}
+#market-board .market-shop-heading{grid-row:1}
+#market-board .market-shelf-body{grid-column:1/3;grid-row:2}
+#market-board .market-stock-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:calc(4px * var(--market-scale,1));height:auto;overflow:visible;touch-action:pan-y pinch-zoom;border:0}
+#market-board .market-stock-row{width:auto;min-width:0;max-width:100%}
+#market-board .market-stock-row[data-wide=true]{grid-column:1/-1;justify-self:start}
+#market-board .market-stock{grid-template-columns:calc(24px * var(--market-scale,1)) max-content;grid-template-rows:calc(32px * var(--market-scale,1)) var(--uniform-line-height,24px);width:max-content;max-width:100%;padding:calc(2px * var(--market-scale,1));border-bottom:calc(2px * var(--market-scale,1)) solid #6d6254}
+#market-board .market-stock .market-bottle{grid-column:1;grid-row:1}
+#market-board .market-stock .market-count{grid-column:2;grid-row:1}
+#market-board .market-stock .market-date{grid-column:1/3;grid-row:2}
+#market-board .market-empty{grid-column:1/3;min-height:0}
+#market-board .market-target{grid-column:2;grid-row:3;width:calc(120px * var(--market-scale,1));height:calc(44px * var(--market-scale,1));justify-self:end}
+#market-board .market-return{bottom:auto;min-height:calc(180px * var(--market-scale,1));max-height:calc(100% - 24px)}
