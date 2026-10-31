@@ -1,6 +1,8 @@
 import * as legacy from './versions/0.2/engine.mjs';
+import {mealScene} from './meals.mjs';
 import {fruitForm} from './fruit-forms.mjs';
 export const VERSION=3;
+export const STUDIES=[{id:'table-01',name:'果物と飲みもの'},{id:'wine-cheese-01',name:'チーズとワイン'},{id:'bread-coffee-01',name:'パンとコーヒー'}];
 export const PALETTES=legacy.PALETTES;
 export const random=legacy.random;
 export const DRINKS=[{id:'white-wine',name:'白ワイン'},{id:'red-wine',name:'赤ワイン'},{id:'beer',name:'ビール'}];
@@ -16,11 +18,13 @@ const choose=(v,choices,fallback)=>choices.includes(v)?v:fallback;
 const shade=(hex,k)=>'#'+[1,3,5].map(i=>Math.min(255,Math.round(parseInt(hex.slice(i,i+2),16)*k)).toString(16).padStart(2,'0')).join('');
 export function normalizeSettings(input={}){
  if([1,2,'1','2'].includes(input.version)||input.v==='1')return legacy.normalizeSettings(input);
+ if(['wine-cheese-01','bread-coffee-01'].includes(input.study))return {version:3,study:input.study,palette:choose(input.palette,Object.keys(TABLE_PALETTES),'cream'),texture:choose(input.texture,finishes,'original')};
  return {version:3,study:'table-01',drink:choose(input.drink,DRINKS.map(d=>d.id),'white-wine'),fruit:choose(input.fruit,FRUITS.map(f=>f.id),'lemon'),palette:choose(input.palette,Object.keys(TABLE_PALETTES),'cream'),texture:choose(input.texture,finishes,'original')};
 }
 export function generateScene(input={}){
  const settings=normalizeSettings(input);
  if(settings.version<3)return legacy.generateScene(settings);
+ if(settings.study!=='table-01')return mealScene(settings,generateScene({...settings,study:'table-01',drink:settings.study==='wine-cheese-01'?'red-wine':'white-wine',fruit:'lemon'}));
  const scene=legacy.generateScene({version:2,study:'wine-lemon-02',texture:settings.texture});
  scene.settings=settings;
  scene.title=`${DRINKS.find(d=>d.id===settings.drink).name}と${FRUITS.find(f=>f.id===settings.fruit).name}`;
