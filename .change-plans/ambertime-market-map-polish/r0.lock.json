@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "65c23b99d6c8f5180f524a028625b1f0f4419aec6b337313b520e3964230b71e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-map-polish",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "販売室カード・数量演出・地図四隅カーソルの本編改善",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "9469ee749bfdd53ad267a073b3f22e819610f144",
+    "canonicalSources": [
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-map-polish/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market*.mjs",
+      "works/ambertime/tests/map*.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/design/market-map-polish/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "expectedChanges": [
+      "店舗見出しと店情報と左下の配置ボタンを分離",
+      "保存成功後の既存数量演出を数量横へ、実販売は店舗残数横の短い減少表示。reduced motionは移動なし",
+      "地図上の数字ラベルを下部情報欄へ集約し四隅ピクセルカーソルへ",
+      "3幅/連続/実売/月跨ぎ/再表示/初回地図/保存不変を検証"
+    ],
+    "ownerDecisions": [
+      "2026-10-31今回依頼の5点を本編直接修正、PR/CI/通常merge/Stagingまで許可。旧AGENTSの販売通知文と巨大左ボタン条件は今回の明示指示で更新、実残数は保持"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,Plan Lock,Scope→Risk→Impact",
+      "表現監査：操作と数値の識別に必要な表示のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390の販売棚/数量/地図の前後画像と操作",
+      "初回地図と表示不具合対策維持、reduced-motion/連続/売切れ/店情報往復"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤",
+      "販売/評判/解放/地域/熟成/瓶詰め/保存変更",
+      "新Lab/地図表示範囲や店舗配置変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari/端末温度/作者採否"
+    ],
+    "alternativesRejected": [
+      "Lab追加",
+      "新販売計算",
+      "共通文字縮小"
+    ],
+    "boundaryCases": [
+      "全量配置/連続/0本/複数発売回/3店舗/実売/非表示/再表示/reduced motion"
+    ],
+    "testPlan": [
+      "既存販売/保存/map回帰",
+      "実販売と配置の別イベント/数量位置/カーソルのブラウザー検査"
+    ],
+    "problem": "店舗名と操作が一体に見え、数量演出と地図枠が対象を隠す",
+    "currentContract": "0.28.0の正式販売投影/Canvas/地理解放/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "巨大配置ボタンと透明店情報、手元見出しのdelta、地図上ラベルの重なり",
+    "design": "情報とボタンを分離し実残数を残した数量演出と四隅カーソルへ",
+    "migration": "なし",
+    "compatibility": "計算/保存/未解放/既存確定/222px/intrinsic flex維持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
