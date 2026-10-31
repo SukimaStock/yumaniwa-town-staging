@@ -1,9 +1,10 @@
+import{drawDistillTools,TOOL_GEOMETRY}from'./distill-tools-view.mjs?v=lever-glass-r1';
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1&tools=r1';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
-import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall';
+import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r1';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
@@ -48,20 +49,21 @@ export class CanvasScene{
   this.root.addEventListener('pointerdown',e=>{const p=toLogical(this.viewport,e.clientX,e.clientY),hit=hitTest(this.activeControls??[],p.x,p.y);this.root.dataset.lastPointer=JSON.stringify({...p,key:hit?.key??null});this.pressed=hit?.key;this.queue();});
   for(const event of['pointerup','pointercancel','focusin','focusout'])this.root.addEventListener(event,()=>{if(event.startsWith('pointer'))this.pressed=null;this.queue();});
  }
+ setToolGesture(next){const before=this.toolGesture;this.toolGesture=next;if(before?.glassOffset!=null&&next.glassOffset==null&&this.view?.tools)this.toolSlide={from:this.toolPaintX??(this.view.tools.glassPosition?237:174),to:this.view.tools.glassPosition?237:174,start:performance.now()};this.queue();}
  resetMotion(){this.motion.reset();clearTimeout(this.motionTimer);this.queue();}
- update(view){this.motion.observe(view.motionIds);if(!!view.pauseHint!==!!this.view?.pauseHint)this.idleSince=performance.now();this.view=view;this.layout=layoutScene(view);this.root.dataset.room=view.room;this.root.setAttribute('aria-label',({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[view.room]);this.root.dataset.sceneAnchors=JSON.stringify({floor:this.layout.floorY,shelf:this.layout.shelf,casks:this.layout.caskSlots,products:this.layout.productSlots,equipment:this.layout.equipment});$('scene-summary').textContent=[view.calendar,view.cash,view.generation,view.timeStatus,view.phaseSummary].filter(Boolean).join(' · ');$('scene-notice').textContent=view.notice??'';const progress=$('month-progress');progress.setAttribute('aria-valuenow',String(Math.round(100*(view.monthProgress??0))));progress.setAttribute('aria-valuetext','今月 '+Math.round(100*(view.monthProgress??0))+'％ · '+view.timeStatus);$('spirit-readout').setAttribute('aria-hidden',String(view.room!=='distill'));this.queue();}
+ update(view){this.motion.observe(view.motionIds);if(!!view.pauseHint!==!!this.view?.pauseHint)this.idleSince=performance.now();if(view.tools&&this.view?.tools&&view.tools.glassPosition!==this.view.tools.glassPosition)this.toolSlide={from:this.toolPaintX??(this.view.tools.glassPosition?237:174),to:view.tools.glassPosition?237:174,start:performance.now()};this.view=view;this.layout=layoutScene(view);this.root.dataset.room=view.room;this.root.setAttribute('aria-label',({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[view.room]);this.root.dataset.sceneAnchors=JSON.stringify({floor:this.layout.floorY,shelf:this.layout.shelf,casks:this.layout.caskSlots,products:this.layout.productSlots,equipment:this.layout.equipment});$('scene-summary').textContent=[view.calendar,view.cash,view.generation,view.timeStatus,view.phaseSummary].filter(Boolean).join(' · ');$('scene-notice').textContent=view.notice??'';const progress=$('month-progress');progress.setAttribute('aria-valuenow',String(Math.round(100*(view.monthProgress??0))));progress.setAttribute('aria-valuetext','今月 '+Math.round(100*(view.monthProgress??0))+'％ · '+view.timeStatus);$('spirit-readout').setAttribute('aria-hidden',String(view.room!=='distill'));this.queue();}
  stopDrawing(){if(this.frame)cancelAnimationFrame(this.frame);this.frame=0;for(const key of ['hintTimer','selectionTimer','motionTimer']){clearTimeout(this[key]);this[key]=null;}}
  queue(){if(document.hidden||this.suspended){this.stopDrawing();return;}if(this.frame)return;this.frame=requestAnimationFrame(()=>{this.frame=0;this.draw();});}
  controls(){
   for(const node of this.controlRoot.querySelectorAll('button'))node.dataset.sceneVisible='false';
   const active=[];
-  for(const rect of this.layout.controls){const node=document.querySelector(rect.selector);if(!node||node.closest('[hidden]'))continue;node.classList.add('scene-hit');node.dataset.sceneKey=rect.key;node.dataset.sceneVisible='true';const r=projectRect(this.viewport,rect);Object.assign(node.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px'});const name=node.textContent.replace(/\s+/g,' ').trim();if(!node.hasAttribute('data-cask-id')&&!node.hasAttribute('data-product-id'))node.setAttribute('aria-label',rect.key==='open-staff-panel'&&this.view.staffBrief?name+' · '+this.view.staffBrief:rect.key==='trade-info'?'取引':name);active.push({...rect,node,label:name});}
+  for(const rect of this.layout.controls){const node=document.querySelector(rect.selector);if(!node||node.closest('[hidden]'))continue;node.classList.add('scene-hit');node.dataset.sceneKey=rect.key;node.dataset.sceneVisible='true';const r=projectRect(this.viewport,rect);if(rect.key.startsWith('distill-')){const w=Math.max(44,r.width),h=Math.max(44,r.height);r.x-=(w-r.width)/2;r.y-=(h-r.height)/2;r.width=w;r.height=h;}Object.assign(node.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px'});const name=node.textContent.replace(/\s+/g,' ').trim();if(!rect.key.startsWith('distill-')&&!node.hasAttribute('data-cask-id')&&!node.hasAttribute('data-product-id'))node.setAttribute('aria-label',rect.key==='open-staff-panel'&&this.view.staffBrief?name+' · '+this.view.staffBrief:rect.key==='trade-info'?'取引':name);active.push({...rect,node,label:name});}
   this.activeControls=active;this.root.dataset.hitRegions=JSON.stringify(active.map(({node,label,...r})=>r));this.root.dataset.reservationIcons=JSON.stringify((this.view.casks??[]).map(x=>({id:x.id,kind:x.reservationIcon,color:({clock:'#c5b687',stock:'#a8bbb0',pause:'#b69e9c'})[x.reservationIcon]??null})));this.root.dataset.staffStatus=this.view.staffBrief??'';
  }
  drawWorld(){
   const c=this.worldCtx,v=this.view,l=this.layout;
   const items=v.room==='warehouse'?v.casks:v.room==='sales'&&!v.marketMode?v.products:[];
-  const key=JSON.stringify([v.room,l,items,v.inspectId,this.reducedMotion.matches,items.some(item=>item.selected)?Math.floor(performance.now()/900)%2:0,this.arrival,v.room==='distill'?[v.collection,v.phase,this.stillFrame]:null]);
+  const key=JSON.stringify([v.room,l,items,v.inspectId,this.reducedMotion.matches,items.some(item=>item.selected)?Math.floor(performance.now()/900)%2:0,this.arrival,v.room==='distill'?[v.collection,v.phase,this.stillFrame,v.tools,this.toolGesture?.leverStep,this.toolPaintX,this.toolArrowBright]:null]);
   if(key===this.worldKey)return;this.worldKey=key;
   c.clearRect(0,0,120,214);c.fillStyle='#41414b';c.fillRect(0,0,120,214);
   const r=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(Math.round(x/3),Math.round(y/3),Math.round(w/3),Math.round(h/3));};
@@ -79,7 +81,7 @@ export class CanvasScene{
    const items=v.room==='warehouse'?v.casks:v.products,slots=v.room==='warehouse'?l.caskSlots:l.productSlots;
    items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand,item.priceTier):bottleArt(item.wood,item.priceTier)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.contentBottom;if(item.selected){c.save();c.globalAlpha=this.reducedMotion.matches||Math.floor(performance.now()/900)%2===0?1:.35;c.fillStyle=ink;for(let row=0;row<4;row++)c.fillRect(Math.round((pos.x+pos.w/2)/3)-3+row,y-7+row,7-row*2,1);c.restore();}const arrival=this.arrival,identity=v.room==='warehouse'?item.id:item.releaseId,belongs=arrival.room===v.room&&arrival.ids.includes(identity);if(!(belongs&&arrival.blinkId===identity&&arrival.hidden))c.drawImage(image,x,y);if(belongs&&arrival.staticIds.includes(identity)){c.fillStyle=ink;c.fillRect(x-1,y,1,2);c.fillRect(x,y-1,2,1);c.fillRect(x+image.width-2,y-1,2,1);c.fillRect(x+image.width,y,1,2);}if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
   }else if(v.room==='distill'){
-   const e=l.equipment;post(72,e.benchY+6,9,l.floorY-e.benchY-6);post(282,e.benchY+6,9,l.floorY-e.benchY-6);rail(72,e.benchY,216);const image=sprite(stillArt(),v.collection,v.phase==='distilling',this.stillFrame);c.drawImage(image,e.x/3,e.y/3);
+   const e=l.equipment;post(72,e.benchY+6,9,l.floorY-e.benchY-6);post(282,e.benchY+6,9,l.floorY-e.benchY-6);rail(72,e.benchY,216);const image=sprite(stillArt({interactive:!!v.tools}),v.tools?1:v.collection,v.phase==='distilling',this.stillFrame);c.drawImage(image,e.x/3,e.y/3);if(v.tools){drawDistillTools(c,v.tools,{leverStep:this.toolGesture?.leverStep,glassX:this.toolPaintX,arrowBright:this.toolArrowBright});this.root.dataset.distillTools=JSON.stringify({...v.tools,leverStep:this.toolGesture?.leverStep??(v.tools.leverDown?2:0),glassX:this.toolPaintX});}
   }
 
  }
@@ -114,6 +116,7 @@ export class CanvasScene{
   this.stillFrame=this.stillMoving?Math.floor(now/400)%2:0;
   this.arrival=this.motion.sample({room:this.view.room,caskIds:this.view.casks.map(c=>c.id),releaseIds:this.view.products.map(p=>p.releaseId),visible,reduced:this.reducedMotion.matches,now});
   this.root.dataset.roomMotion=JSON.stringify({stillFrame:this.stillFrame,stillMoving:this.stillMoving,arrival:this.arrival});
+  const tools=this.view.tools;if(tools){const base=tools.glassPosition?237:174,drag=this.toolGesture?.glassOffset;this.toolSliding=false;if(drag!=null){this.toolPaintX=base+drag/this.viewport.scale;this.toolSlide=null;}else if(this.toolSlide&&!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible){const t=Math.min(1,(now-this.toolSlide.start)/140);this.toolPaintX=this.toolSlide.from+(this.toolSlide.to-this.toolSlide.from)*t;this.toolSliding=t<1;if(!this.toolSliding)this.toolSlide=null;}else{this.toolPaintX=base;this.toolSlide=null;}this.toolArrowBright=this.reducedMotion.matches||Math.floor(now/900)%2===0;}
   this.controls();this.drawWorld();
   // Presentation clock only: never advances, saves or changes the game state.
   const resume=this.activeControls.find(a=>a.key==='toggle-time'),hintEligible=this.view.pauseHint&&visible&&!this.reducedMotion.matches&&resume&&!resume.node.disabled;
@@ -148,6 +151,7 @@ export class CanvasScene{
    // One repaint per digit, using the scene's existing pixel font.
    const dot=this.textMetrics(48).pixels/8/this.textMetrics(48).unit;this.text(String(view.countdown),180+dot,228+dot,48,'center',shadow);this.text(String(view.countdown),180,228,48,'center');this.root.dataset.countdown=String(view.countdown);
   }else delete this.root.dataset.countdown;
+  if(view.room==='distill'&&view.tools?.hint&&!view.countdown)this.lines(view.tools.hint,180,429,318,BODY_SIZE,2,'center');
   if(view.room==='distill'){
    const g=collectionGeometry(view.cutRange),point=n=>g.x+Math.round(n*g.w);
    this.pixelRect(g.x,g.y,g.w,g.h,'#656978');
@@ -169,7 +173,7 @@ export class CanvasScene{
 
   this.window(9,582,342,45,'#292b39','#d8d5df');for(const x of[123,237])this.pixelRect(x,588,3,33,'#858995');
   for(const a of this.activeControls){
-   if(a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
+   if(a.key.startsWith('distill-')||a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
    if(['open-ledger','open-staff-panel','shop-offer','open-world-map','open-aux-menu'].includes(a.key)){
     const kind=$('action-dialog').open?$('action-dialog').dataset.kind:'',active=a.key==='open-ledger'?kind==='ledger':a.key==='open-staff-panel'?/^(staff|bottl)/.test(kind):a.key==='shop-offer'?/^(stockist|shop-offer)/.test(kind):a.key==='open-world-map'?kind==='world-map':kind==='aux-panel',x=a.x+(a.w-54)/2;
@@ -195,6 +199,6 @@ export class CanvasScene{
   c.restore();
   clearTimeout(this.hintTimer);if(hintEligible)this.hintTimer=setTimeout(()=>this.queue(),idle<12000?12000-idle:1200-(idle-12000)%1200);
   clearTimeout(this.selectionTimer);if(visible&&!this.reducedMotion.matches&&items.some(item=>item.selected))this.selectionTimer=setTimeout(()=>this.queue(),900-performance.now()%900);
-  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
+  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs,tools?.arrow&&!this.reducedMotion.matches?900-performance.now()%900:null,this.toolSliding?16:null].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
  }
 }

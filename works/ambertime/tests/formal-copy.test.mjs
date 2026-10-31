@@ -20,7 +20,7 @@ test('heading-backed selection shortens only visible names and keeps exact recip
  assert.deepEqual(BREWING_CARDS.map(x=>x.label),['ふつうの麦芽','ピート麦芽','短い発酵','長い発酵']);
  const cards=brewingCardsMarkup({labConnection:{cards:{malt:'plain',ferment:'short'}},operations:[]});
  for(const label of ['ふつう','ピート','短め','長め'])assert.ok(cards.includes('<span class="brewing-name">'+label+'</span>'));
- contains(section("if(kind==='flavor-cards')","}else if(kind==='inspect')"),["button('蒸留','flavor-start')"]);
+ contains(section("if(kind==='flavor-cards')","}else if(kind==='inspect')"),["button('決める','flavor-start')"]);
  contains(section('function renderSpirit(){','function staffDisplayStatus(){'),['ここまで','原酒']);
  contains(html,['id="go-distill" type="button">蒸留室','<summary>詳細</summary>','画面を離れると停止']);
 });
