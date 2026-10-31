@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e0d46290b70d41ca4ab108f8f46b11739e9785e48ddf27499db708f4b8fb59e1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-place-selection",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "蒸留所の再選択と選択可能な場所の可視化",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "0be25b029d59802f51708a259d9c1cc4cf461354",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-place-selection/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/map*.mjs",
+      "works/ambertime/design/map-place-selection/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "expectedChanges": [
+      "蒸留所へ戻るタップ領域と既存null選択の接続",
+      "選択可能な場所に淡い四隅、選択中は既存黄色四隅。装飾家は対象外",
+      "初回表示/再選択/開閉/拡大縮小/実描画/保存不変を回帰"
+    ],
+    "ownerDecisions": [
+      "2026-10-31作者指摘：蒸留所へ戻れず選べる店が不明。既存Staging開発公開フロー内の局所修正"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,Plan Lock,Scope→Risk→Impact",
+      "表現監査：操作名と実数値のみ。読める文字と既存演出を維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390px・Chromium/WebKitで選択可能な場所と選択状態を目視",
+      "公開Stagingで店舗→蒸留所の往復"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤",
+      "販売/評判/解放/地域/熟成/瓶詰め/保存変更",
+      "新Lab/地図表示範囲や店舗配置変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari/端末温度/作者採否"
+    ],
+    "alternativesRejected": [
+      "Lab追加",
+      "新販売計算",
+      "共通文字縮小"
+    ],
+    "boundaryCases": [
+      "初期蒸留所/店舗→蒸留所/再表示/縮尺切替/装飾家/還元モーション"
+    ],
+    "testPlan": [
+      "地図初回表示と店舗→蒸留所再選択、44px hit、印/レポート一致、保存不変",
+      "既存map/market unit、label packing、必須CI"
+    ],
+    "problem": "蒸留所にタップ領域がなく、透明店舗ボタンは背景建物と判別不能",
+    "currentContract": "地図の投影/Canvas/222px/売残/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "初期カーソルだけでは再選択できず有効な対象も視認不能",
+    "design": "既存null選択で蒸留所へ戻し、同じ四隅表現の淡色で操作可能性を示す",
+    "migration": "なし",
+    "compatibility": "計算/保存/未解放/既存確定/字体/222px/四隅/ラベル/初回intrinsic flexを維持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
