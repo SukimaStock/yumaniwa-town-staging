@@ -5,7 +5,7 @@ const surface=(id,z,surfaces,extra={})=>({id,kind:'surface',z,surfaces,...extra}
 export function companionScene(settings,base){
  const scene={...base,settings,objects:base.objects.filter(o=>o.kind==='cloth')},c=scene.colors;
  Object.assign(c,{plateWell:c.rim,pretzel:'#b4773e',pretzelLight:'#ce9250',salt:'#f8edcc',mustard:'#cba33c',stem:'#637857',flower:settings.palette==='dusk'?'#e5a17c':'#c56d53',flowerCenter:'#8b553c'});
- if(settings.study==='pretzel-beer-01'){
+ if(['pretzel-beer-01','sardines-beer-01'].includes(settings.study)){
   scene.title='プレッツェルとビール';scene.objects.push(...base.objects.filter(o=>['bottle','beer-glass','cap'].includes(o.kind)));
   scene.objects.push(surface('plate',3,[oval(443,554,218,60,'inside'),oval(443,547,218,60,'bowl'),oval(443,545,198,50,'plateWell')],{support:'table',contact:{x:443,y:614},inner:{x:443,y:545,rx:198,ry:50}}));
   const outline='M370 507 C330 481 334 436 367 422 C401 406 425 438 441 466 C458 440 479 411 511 420 C551 430 558 475 527 503 C509 520 480 531 447 532 C416 532 389 523 370 507 Z M384 475 C369 470 366 450 379 445 C393 438 405 459 415 478 C402 482 392 480 384 475 Z M474 479 C487 454 499 439 512 447 C529 461 511 479 499 483 C488 485 481 483 474 479 Z M414 502 Q444 512 474 501 L444 484 Z';
@@ -29,6 +29,13 @@ export function companionScene(settings,base){
   for(const b of blooms)scene.objects.push(surface(b.id,1,[path(b.d,'flower'),oval(b.x,b.y,6,4,'flowerCenter')],{attachedTo:stems.find(s=>s.bloom===b.id).id,center:{x:b.x,y:b.y},bounds:{left:b.x-28,right:b.x+28,top:b.y-32,bottom:b.y+18}}));
   scene.objects.push(surface('vase',3,[path('M303 366 L341 366 L343 426 C343 443 373 471 374 498 L368 549 Q366 564 351 564 H292 Q277 564 276 549 L270 503 C269 478 300 446 301 427 Z','bottle'),oval(322,366,21,6,'bottleLip'),oval(322,367,16,3,'bottleMouth')],{support:'table',contact:{x:322,y:564},mouth:{left:301,right:343,top:360,bottom:393}}));
   scene.objects.push(surface('empty-plate',4,[oval(480,607,185,50,'inside'),oval(480,600,185,50,'bowl'),oval(480,598,165,40,'plateWell')],{support:'table',contact:{x:480,y:657}}));
+ }
+ if(settings.study==='sardines-beer-01'){
+  scene.title='オイルサーディンとビール';scene.objects=scene.objects.filter(o=>!['pretzel','mustard-dish'].includes(o.id));
+  Object.assign(c,{tin:'#a7b5ad',tinSide:'#718d88',tinRim:'#dce1cc',oil:'#c6ac58',fish:'#c5d0c2',fishBack:'#637f7c'});
+  scene.objects.push(surface('peeled-lid',3.5,[path('M342 511 L322 459 Q318 444 334 439 L460 420 Q480 418 487 433 L513 490 L493 505 Z','tin'),path('M342 503 L329 459 Q326 450 339 447 L459 429 Q471 426 477 439 L499 486 Z','tinRim')],{attachedTo:'sardine-tin',hinge:[342,511]}));
+  scene.objects.push(surface('sardine-tin',4,[path('M337 510 Q337 492 357 492 H541 Q561 492 561 510 V567 Q561 588 541 588 H357 Q337 588 337 567 Z','tinSide'),path('M337 506 Q337 488 357 488 H541 Q561 488 561 506 V550 Q561 568 541 568 H357 Q337 568 337 550 Z','tinRim'),path('M346 507 Q346 497 359 497 H539 Q552 497 552 507 V548 Q552 559 539 559 H359 Q346 559 346 548 Z','oil')],{support:'plate',contact:{x:449,y:580},inside:{left:346,right:552,top:497,bottom:559}}));
+  for(const [i,y]of [511,530,549].entries())scene.objects.push(surface('sardine-'+i,5,[path(`M368 ${y} Q409 ${y-12} 497 ${y-5} L520 ${y-10} L514 ${y} L520 ${y+6} L497 ${y+3} Q409 ${y+10} 368 ${y} Z`,'fish'),path(`M368 ${y} Q411 ${y-12} 497 ${y-5} L490 ${y-1} Q417 ${y-6} 368 ${y} Z`,'fishBack')],{support:'sardine-tin',bounds:{left:368,right:520,top:y-12,bottom:y+10}}));
  }
  scene.objects.sort((a,b)=>a.z-b.z);return scene;
 }
