@@ -21,7 +21,7 @@ test('Collection32: previous 330 registrations and previous ten object blobs are
   const id=priorIds[i], entry=manifest.items[i+320];
   assert.deepEqual(entry,{id,file:'objects/'+id+'.json',number:321+i});
   const raw=readFileSync(new URL(entry.file,root));
-  assert.equal(createHash('sha1').update(Buffer.from('blob '+raw.length+'\\0')).update(raw).digest('hex'),priorBlobs[i],id+' blob unchanged');
+  assert.equal(createHash('sha1').update(Buffer.from('blob '+raw.length+'\0')).update(raw).digest('hex'),priorBlobs[i],id+' blob unchanged');
  }
  const nums=manifest.items.map((e,i)=>e.number??i);
  assert.equal(new Set(nums).size,340);
