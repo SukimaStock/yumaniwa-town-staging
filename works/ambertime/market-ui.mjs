@@ -61,13 +61,17 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  }
  function shelfTarget(row){
   const shelf=row?.closest('.market-stock-list,.market-hand-list');if(!shelf)return null;
-  const r=row.getBoundingClientRect(),v=shelf.getBoundingClientRect();let left=shelf.scrollLeft;
-  // A long dated release can exceed the shelf. Keep its bottle and quantity
-  // visible rather than aligning the date and clipping the actual inventory.
+  const r=row.getBoundingClientRect();
+  if(shelf.classList?.contains('market-stock-list')){
+   const v=root.getBoundingClientRect();let top=root.scrollTop;
+   if(r.top<v.top+8)top+=r.top-v.top-8;else if(r.bottom>v.bottom-8)top+=r.bottom-v.bottom+8;
+   return {shelf:root,axis:'scrollTop',value:Math.max(0,Math.min(top,root.scrollHeight-root.clientHeight))};
+  }
+  const v=shelf.getBoundingClientRect();let left=shelf.scrollLeft;
   if(r.width>v.width||r.left<v.left+2)left+=r.left-v.left-2;else if(r.right>v.right-2)left+=r.right-v.right+2;
-  return {shelf,left:Math.max(0,Math.min(left,shelf.scrollWidth-shelf.clientWidth))};
+  return {shelf,axis:'scrollLeft',value:Math.max(0,Math.min(left,shelf.scrollWidth-shelf.clientWidth))};
  }
- function align(row){const target=shelfTarget(row);if(target)target.shelf.scrollLeft=target.left;}
+ function align(row){const target=shelfTarget(row);if(target)target.shelf[target.axis]=target.value;}
  function restoreFocus(saved){
   if(!saved)return;
   let target=saved.id?doc.getElementById(saved.id):query(`[data-market-${saved.key}="${saved.value}"]`);
@@ -88,6 +92,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  function update(options={}){
   const wasVisible=visible;visible=options.visible??visible;notice=options.notice??notice;root.hidden=!visible;geometry();
   if(!visible){if(wasVisible){cancel();if(editing&&!options.preserveEditing){editing=null;setEditing(false);}}return;}
+  root.style.overflowY=editing?'hidden':'auto';
   const s=state();if(!s)return;
   const products=s.core.products.filter(p=>p.stock>0);
   const handProducts=products.filter(p=>D.storeMarketInventory(s,p.id).hand>0);
@@ -107,13 +112,13 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   const returnPane=editing?`<section class="market-return" role="group" aria-label="瓶を手元へ戻す"><p>${esc(ordinary.find(x=>x.id===editing.shopId)?.name)} · ${esc(releaseDate(s,editing.productId))} ${esc(tasteLabel(product(editing.productId)))} · ${editing.count}本</p><div class="market-buttons">${button('手元へ戻す','confirm','return')}${button('やめる','cancel','return')}</div></section>`:'';
   root.innerHTML=`<div class="market-content" ${editing?'inert':''}>${notice?`<p class="market-notice" role="status" aria-live="polite" tabindex="0">${esc(notice)}</p>`:''}<div class="market-releases" aria-label="手元の瓶"><span class="market-hand">手元</span><div class="market-hand-list" id="market-shelf-hand" role="group" tabindex="0" aria-label="手元の瓶棚。横に送れます">${productsMarkup}</div></div><div class="market-portions" role="group" aria-label="一度に渡す本数">${[['1','1本'],['5','5本'],['all','全部']].map(([value,label])=>button(label,'portion',value,`aria-pressed="${portion===value}" ${handTotal>0?'':'disabled'}`)).join('')}</div><div class="market-shops">${shops.map((shop,index)=>{
 
-   return `<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}"><header class="market-shop-heading"><span class="market-shop-name"><span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span>${shop.name}</span></span>${button('店情報 ›','details',shop.id,`class="market-shop-details" aria-label="${shop.name}の店情報"`)}</header>${button('<span class="market-place-label">ここに置く</span>','place',shop.id,`class="market-target" ${!p||inventory.hand<1?'disabled':''} aria-label="${esc(shop.name+'へ'+(p?releaseDate(s,p.id)+'の瓶':'瓶')+'を渡す')}"`)}<div class="market-shelf-body"><div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の瓶棚。横に送れます">${rows[index].map(row=>{
+   return `<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}"><header class="market-shop-heading"><span class="market-shop-name"><span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span>${shop.name}</span></span>${button('店情報 ›','details',shop.id,`class="market-shop-details" aria-label="${shop.name}の店情報"`)}</header><div class="market-shelf-body"><div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の商品一覧">${rows[index].map(row=>{
     const item=s.core.products.find(x=>x.id===row.productId);if(!item)return '';
-    return `<div class="market-stock-row" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date">${esc(releaseDate(s,item.id))}</span><span class="market-count">${row.count}本</span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+'。手元へ戻す')}"`)}</div>`;
-   }).join('')||'<span class="market-empty" aria-label="割り当てなし">—</span>'}</div></div></section>`;
+    return `<div class="market-stock-row" data-wide="${String(item.stock).length>=3}" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date">${esc(releaseDate(s,item.id))}</span><span class="market-count">${row.count}本</span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+'。手元へ戻す')}"`)}</div>`;
+   }).join('')||'<span class="market-empty" aria-label="割り当てなし"></span>'}</div></div>${button('<span class="market-place-label">ここに置く</span>','place',shop.id,`class="market-target" ${!p||inventory.hand<1?'disabled':''} aria-label="${esc(shop.name+'へ'+(p?releaseDate(s,p.id)+'の瓶':'瓶')+'を渡す')}"`)}</section>`;
   }).join('')}</div></div>${returnPane}`;
   for(const shelf of all('.market-stock-list,.market-hand-list'))shelf.scrollLeft=positions.get(shelf.id)??0;
-  root.scrollTop=top;restoreFocus(focused);
+  root.scrollTop=top;if(editing){const pane=query('.market-return');if(pane)pane.style.top=(root.scrollTop+12)+'px';}restoreFocus(focused);
  }
  function animate(element,frames,options){
   if(!element?.animate||reduced.matches||doc.hidden||!visible)return Promise.resolve();
@@ -149,24 +154,24 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  }
  async function reveal(row,token){
   const target=shelfTarget(row);if(!target)return;
-  const {shelf,left}=target,from=shelf.scrollLeft;if(Math.abs(left-from)<1)return;
-  if(reduced.matches||doc.hidden){shelf.scrollLeft=left;return;}
+  const {shelf,axis,value}=target,from=shelf[axis];if(Math.abs(value-from)<1)return;
+  if(reduced.matches||doc.hidden){shelf[axis]=value;return;}
   await new Promise(resolve=>{
    let frame,start,done=false;
    const stop=()=>{if(done)return;done=true;cancelAnimationFrame(frame);scrollTasks.delete(stop);resolve();};scrollTasks.add(stop);
-   const step=now=>{if(done)return;if(token!==epoch||doc.hidden||!visible){stop();return;}if(reduced.matches){shelf.scrollLeft=left;stop();return;}start??=now;const progress=Math.min(1,(now-start)/180);shelf.scrollLeft=from+(left-from)*(1-(1-progress)**3);if(progress<1)frame=requestAnimationFrame(step);else stop();};frame=requestAnimationFrame(step);
+   const step=now=>{if(done)return;if(token!==epoch||doc.hidden||!visible){stop();return;}if(reduced.matches){shelf[axis]=value;stop();return;}start??=now;const progress=Math.min(1,(now-start)/180);shelf[axis]=from+(value-from)*(1-(1-progress)**3);if(progress<1)frame=requestAnimationFrame(step);else stop();};frame=requestAnimationFrame(step);
   });
  }
  async function sold(sales,token){
   if(doc.hidden||!visible)return;
-  await Promise.all(ordinary.map(async shop=>{
+  for(const shop of ordinary){
    for(const sale of sales.filter(x=>x.shopId===shop.id)){
     if(token!==epoch||!visible||doc.hidden)break;
     const row=doc.getElementById(`market-stock-${shop.id}-${sale.productId}`);if(!row)continue;
     await reveal(row,token);if(token!==epoch||doc.hidden||!visible)break;
     await delta(row.querySelector('.market-count'),-sale.count,{kind:'sale',productId:sale.productId,shopId:shop.id});
    }
-  }));
+  }
  }
  function consume(before,after){
   const sales=savedMarketSales(before,after);if(!sales.length)return;
@@ -175,13 +180,15 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   const token=epoch;
   announceSaved(sales.map(sale=>`${ordinary.find(shop=>shop.id===sale.shopId).name}で${sale.count}本売れました。`).join(''));
   void sold(sales,token);
-  // Each shelf reveals its products in order. Keep sold-out rows only for this
+  // Store cards share one vertical scroller: reveal one sale at a time.
+  // Keep sold-out rows only for this
   // bounded presentation; rerenders never schedule another sale effect.
-  const count=Math.max(...ordinary.map(shop=>sales.filter(sale=>sale.shopId===shop.id).length));
+  const count=sales.length;
   feedbackTimer=setTimeout(()=>{cancel();feedback=[];signature='';update({visible});},count*850+650);
  }
  let gesture=null,blockedClick=false;
- root.addEventListener('pointerdown',event=>{blockedClick=false;gesture=event.isPrimary===false?null:{id:event.pointerId,x:event.clientX,y:event.clientY,drag:false};});
+ root.addEventListener('pointerdown',event=>{cancel();blockedClick=false;gesture=event.isPrimary===false?null:{id:event.pointerId,x:event.clientX,y:event.clientY,drag:false};});
+ root.addEventListener('wheel',cancel,{passive:true});
  root.addEventListener('pointermove',event=>{if(gesture?.id===event.pointerId&&Math.hypot(event.clientX-gesture.x,event.clientY-gesture.y)>10)gesture.drag=true;});
  for(const type of ['pointerup','pointercancel'])root.addEventListener(type,event=>{if(gesture?.id===event.pointerId){blockedClick=gesture.drag;gesture=null;}});
  root.addEventListener('click',event=>{if(event.detail&&blockedClick){event.preventDefault();event.stopImmediatePropagation();blockedClick=false;}},true);
@@ -217,7 +224,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  root.addEventListener('keydown',event=>{
   if(event.key==='Escape'&&editing){event.preventDefault();closeEditing();return;}
   const shelf=event.target.closest('.market-stock-list,.market-hand-list');if(!shelf||event.target!==shelf||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
-  event.preventDefault();cancel();shelf.scrollLeft=event.key==='Home'?0:event.key==='End'?shelf.scrollWidth:shelf.scrollLeft+(event.key==='ArrowLeft'?-84:84);
+  event.preventDefault();cancel();if(shelf.classList.contains('market-stock-list')){const buttons=[...shelf.querySelectorAll('button:not(:disabled)')],target=event.key==='End'?buttons.at(-1):buttons[0];target?.focus({preventScroll:true});align(target?.closest('.market-stock-row'));return;}shelf.scrollLeft=event.key==='Home'?0:event.key==='End'?shelf.scrollWidth:shelf.scrollLeft+(event.key==='ArrowLeft'?-84:84);
  });
  doc.addEventListener('visibilitychange',()=>{if(doc.hidden)cancel();});window.addEventListener('resize',cancel);window.addEventListener('pagehide',cancel);reduced.addEventListener('change',cancel);
  // Canvas publishes its final viewport after handling window/visualViewport

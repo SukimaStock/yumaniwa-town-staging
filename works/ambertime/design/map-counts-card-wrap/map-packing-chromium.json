@@ -1,0 +1,4447 @@
+{
+  "engine": "chromium",
+  "syntheticPresentation": true,
+  "checks": [
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 1,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [],
+      "cursor": {
+        "x": 146.078125,
+        "y": 155.828125,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 155.828125,
+        "right": 201.578125,
+        "bottom": 211.328125,
+        "left": 146.078125
+      },
+      "font": "18.6667px",
+      "targets": []
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 1,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [],
+      "cursor": {
+        "x": 146.078125,
+        "y": 155.828125,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 155.828125,
+        "right": 201.578125,
+        "bottom": 211.328125,
+        "left": 146.078125
+      },
+      "font": "18.6667px",
+      "targets": []
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 2,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 191,
+            "y": 89.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 89.328125,
+            "right": 263,
+            "bottom": 112.65625,
+            "left": 191
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 209,
+            "y": 181.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 181.328125,
+            "right": 281,
+            "bottom": 204.65625,
+            "left": 209
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 105.984375,
+        "y": 171.234375,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 171.234375,
+        "right": 149.140625,
+        "bottom": 214.390625,
+        "left": 105.984375
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 204.25,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 248.25,
+          "bottom": 156.234375,
+          "left": 204.25
+        },
+        {
+          "x": 222.75,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 266.75,
+          "bottom": 248.734375,
+          "left": 222.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 2,
+      "large": false,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 191,
+            "y": 89.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 89.328125,
+            "right": 263,
+            "bottom": 112.65625,
+            "left": 191
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 209,
+            "y": 181.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 181.328125,
+            "right": 281,
+            "bottom": 204.65625,
+            "left": 209
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 204.65625,
+        "y": 112.65625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 112.65625,
+        "right": 247.8125,
+        "bottom": 155.8125,
+        "left": 204.65625
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 204.25,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 248.25,
+          "bottom": 156.234375,
+          "left": 204.25
+        },
+        {
+          "x": 222.75,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 266.75,
+          "bottom": 248.734375,
+          "left": 222.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 2,
+      "large": false,
+      "selected": "supermarket",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 191,
+            "y": 89.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 89.328125,
+            "right": 263,
+            "bottom": 112.65625,
+            "left": 191
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 209,
+            "y": 181.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 181.328125,
+            "right": 281,
+            "bottom": 204.65625,
+            "left": 209
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 223.15625,
+        "y": 205.15625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 205.15625,
+        "right": 266.3125,
+        "bottom": 248.3125,
+        "left": 223.15625
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 204.25,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 248.25,
+          "bottom": 156.234375,
+          "left": 204.25
+        },
+        {
+          "x": 222.75,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 266.75,
+          "bottom": 248.734375,
+          "left": 222.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 2,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 195,
+            "y": 65.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 65.328125,
+            "right": 258,
+            "bottom": 111.984375,
+            "left": 195
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 219,
+            "y": 157.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 157.328125,
+            "right": 272,
+            "bottom": 203.984375,
+            "left": 219
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 105.984375,
+        "y": 171.234375,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 171.234375,
+        "right": 149.140625,
+        "bottom": 214.390625,
+        "left": 105.984375
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 204.25,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 248.25,
+          "bottom": 156.234375,
+          "left": 204.25
+        },
+        {
+          "x": 222.75,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 266.75,
+          "bottom": 248.734375,
+          "left": 222.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 2,
+      "large": true,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 195,
+            "y": 65.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 65.328125,
+            "right": 258,
+            "bottom": 111.984375,
+            "left": 195
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 219,
+            "y": 157.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 157.328125,
+            "right": 272,
+            "bottom": 203.984375,
+            "left": 219
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 204.65625,
+        "y": 112.65625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 112.65625,
+        "right": 247.8125,
+        "bottom": 155.8125,
+        "left": 204.65625
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 204.25,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 248.25,
+          "bottom": 156.234375,
+          "left": 204.25
+        },
+        {
+          "x": 222.75,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 266.75,
+          "bottom": 248.734375,
+          "left": 222.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 2,
+      "large": true,
+      "selected": "supermarket",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 195,
+            "y": 65.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 65.328125,
+            "right": 258,
+            "bottom": 111.984375,
+            "left": 195
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 219,
+            "y": 157.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 157.328125,
+            "right": 272,
+            "bottom": 203.984375,
+            "left": 219
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 223.15625,
+        "y": 205.15625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 205.15625,
+        "right": 266.3125,
+        "bottom": 248.3125,
+        "left": 223.15625
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 204.25,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 248.25,
+          "bottom": 156.234375,
+          "left": 204.25
+        },
+        {
+          "x": 222.75,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 266.75,
+          "bottom": 248.734375,
+          "left": 222.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 3,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 177,
+            "y": 159.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 159.328125,
+            "right": 249,
+            "bottom": 182.65625,
+            "left": 177
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 197,
+            "y": 233.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 233.328125,
+            "right": 269,
+            "bottom": 256.65625,
+            "left": 197
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 117,
+            "y": 245.328125,
+            "width": 33,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 150,
+            "bottom": 268.65625,
+            "left": 117
+          },
+          "client": 33,
+          "scroll": 33,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 155.828125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 155.828125,
+        "right": 167.65625,
+        "bottom": 186.65625,
+        "left": 136.828125
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 191.90625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 235.90625,
+          "bottom": 165.484375,
+          "left": 191.90625
+        },
+        {
+          "x": 210.40625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 254.40625,
+          "bottom": 239.484375,
+          "left": 210.40625
+        },
+        {
+          "x": 111.75,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 155.75,
+          "bottom": 257.984375,
+          "left": 111.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 3,
+      "large": false,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 177,
+            "y": 159.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 159.328125,
+            "right": 249,
+            "bottom": 182.65625,
+            "left": 177
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 197,
+            "y": 233.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 233.328125,
+            "right": 269,
+            "bottom": 256.65625,
+            "left": 197
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 117,
+            "y": 245.328125,
+            "width": 33,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 150,
+            "bottom": 268.65625,
+            "left": 117
+          },
+          "client": 33,
+          "scroll": 33,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 198.5,
+        "y": 128.078125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 128.078125,
+        "right": 229.328125,
+        "bottom": 158.90625,
+        "left": 198.5
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 191.90625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 235.90625,
+          "bottom": 165.484375,
+          "left": 191.90625
+        },
+        {
+          "x": 210.40625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 254.40625,
+          "bottom": 239.484375,
+          "left": 210.40625
+        },
+        {
+          "x": 111.75,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 155.75,
+          "bottom": 257.984375,
+          "left": 111.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 3,
+      "large": false,
+      "selected": "supermarket",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 177,
+            "y": 159.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 159.328125,
+            "right": 249,
+            "bottom": 182.65625,
+            "left": 177
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 197,
+            "y": 233.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 233.328125,
+            "right": 269,
+            "bottom": 256.65625,
+            "left": 197
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 117,
+            "y": 245.328125,
+            "width": 33,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 150,
+            "bottom": 268.65625,
+            "left": 117
+          },
+          "client": 33,
+          "scroll": 33,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 216.984375,
+        "y": 202.078125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 202.078125,
+        "right": 247.8125,
+        "bottom": 232.90625,
+        "left": 216.984375
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 191.90625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 235.90625,
+          "bottom": 165.484375,
+          "left": 191.90625
+        },
+        {
+          "x": 210.40625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 254.40625,
+          "bottom": 239.484375,
+          "left": 210.40625
+        },
+        {
+          "x": 111.75,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 155.75,
+          "bottom": 257.984375,
+          "left": 111.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 3,
+      "large": false,
+      "selected": "department",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 177,
+            "y": 159.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 159.328125,
+            "right": 249,
+            "bottom": 182.65625,
+            "left": 177
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 197,
+            "y": 233.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 233.328125,
+            "right": 269,
+            "bottom": 256.65625,
+            "left": 197
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 117,
+            "y": 245.328125,
+            "width": 33,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 150,
+            "bottom": 268.65625,
+            "left": 117
+          },
+          "client": 33,
+          "scroll": 33,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 124.5,
+        "y": 226.734375,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 226.734375,
+        "right": 142.984375,
+        "bottom": 245.21875,
+        "left": 124.5
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 191.90625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 235.90625,
+          "bottom": 165.484375,
+          "left": 191.90625
+        },
+        {
+          "x": 210.40625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 254.40625,
+          "bottom": 239.484375,
+          "left": 210.40625
+        },
+        {
+          "x": 111.75,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 155.75,
+          "bottom": 257.984375,
+          "left": 111.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 3,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 183,
+            "y": 81.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 81.328125,
+            "right": 246,
+            "bottom": 127.984375,
+            "left": 183
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 205,
+            "y": 233.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 233.328125,
+            "right": 258,
+            "bottom": 279.984375,
+            "left": 205
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 103,
+            "y": 245.328125,
+            "width": 63,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 166,
+            "bottom": 268.65625,
+            "left": 103
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 155.828125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 155.828125,
+        "right": 167.65625,
+        "bottom": 186.65625,
+        "left": 136.828125
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 191.90625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 235.90625,
+          "bottom": 165.484375,
+          "left": 191.90625
+        },
+        {
+          "x": 210.40625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 254.40625,
+          "bottom": 239.484375,
+          "left": 210.40625
+        },
+        {
+          "x": 111.75,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 155.75,
+          "bottom": 257.984375,
+          "left": 111.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 3,
+      "large": true,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 183,
+            "y": 81.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 81.328125,
+            "right": 246,
+            "bottom": 127.984375,
+            "left": 183
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 205,
+            "y": 233.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 233.328125,
+            "right": 258,
+            "bottom": 279.984375,
+            "left": 205
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 103,
+            "y": 245.328125,
+            "width": 63,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 166,
+            "bottom": 268.65625,
+            "left": 103
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 198.5,
+        "y": 128.078125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 128.078125,
+        "right": 229.328125,
+        "bottom": 158.90625,
+        "left": 198.5
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 191.90625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 235.90625,
+          "bottom": 165.484375,
+          "left": 191.90625
+        },
+        {
+          "x": 210.40625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 254.40625,
+          "bottom": 239.484375,
+          "left": 210.40625
+        },
+        {
+          "x": 111.75,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 155.75,
+          "bottom": 257.984375,
+          "left": 111.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 3,
+      "large": true,
+      "selected": "supermarket",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 183,
+            "y": 81.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 81.328125,
+            "right": 246,
+            "bottom": 127.984375,
+            "left": 183
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 205,
+            "y": 233.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 233.328125,
+            "right": 258,
+            "bottom": 279.984375,
+            "left": 205
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 103,
+            "y": 245.328125,
+            "width": 63,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 166,
+            "bottom": 268.65625,
+            "left": 103
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 216.984375,
+        "y": 202.078125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 202.078125,
+        "right": 247.8125,
+        "bottom": 232.90625,
+        "left": 216.984375
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 191.90625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 235.90625,
+          "bottom": 165.484375,
+          "left": 191.90625
+        },
+        {
+          "x": 210.40625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 254.40625,
+          "bottom": 239.484375,
+          "left": 210.40625
+        },
+        {
+          "x": 111.75,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 155.75,
+          "bottom": 257.984375,
+          "left": 111.75
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "stage": 3,
+      "large": true,
+      "selected": "department",
+      "plot": {
+        "x": 66,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 294,
+        "bottom": 288.328125,
+        "left": 66
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 183,
+            "y": 81.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 81.328125,
+            "right": 246,
+            "bottom": 127.984375,
+            "left": 183
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 205,
+            "y": 233.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 233.328125,
+            "right": 258,
+            "bottom": 279.984375,
+            "left": 205
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 103,
+            "y": 245.328125,
+            "width": 63,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 166,
+            "bottom": 268.65625,
+            "left": 103
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 124.5,
+        "y": 226.734375,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 226.734375,
+        "right": 142.984375,
+        "bottom": 245.21875,
+        "left": 124.5
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 191.90625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 235.90625,
+          "bottom": 165.484375,
+          "left": 191.90625
+        },
+        {
+          "x": 210.40625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 254.40625,
+          "bottom": 239.484375,
+          "left": 210.40625
+        },
+        {
+          "x": 111.75,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 155.75,
+          "bottom": 257.984375,
+          "left": 111.75
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 1,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [],
+      "cursor": {
+        "x": 153.578125,
+        "y": 155.828125,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 155.828125,
+        "right": 209.078125,
+        "bottom": 211.328125,
+        "left": 153.578125
+      },
+      "font": "18.6667px",
+      "targets": []
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 1,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [],
+      "cursor": {
+        "x": 153.578125,
+        "y": 155.828125,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 155.828125,
+        "right": 209.078125,
+        "bottom": 211.328125,
+        "left": 153.578125
+      },
+      "font": "18.6667px",
+      "targets": []
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 2,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 198.5,
+            "y": 89.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 89.328125,
+            "right": 270.5,
+            "bottom": 112.65625,
+            "left": 198.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 216.5,
+            "y": 181.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 181.328125,
+            "right": 288.5,
+            "bottom": 204.65625,
+            "left": 216.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 113.484375,
+        "y": 171.234375,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 171.234375,
+        "right": 156.640625,
+        "bottom": 214.390625,
+        "left": 113.484375
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 211.75,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 255.75,
+          "bottom": 156.234375,
+          "left": 211.75
+        },
+        {
+          "x": 230.25,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 274.25,
+          "bottom": 248.734375,
+          "left": 230.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 2,
+      "large": false,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 198.5,
+            "y": 89.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 89.328125,
+            "right": 270.5,
+            "bottom": 112.65625,
+            "left": 198.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 216.5,
+            "y": 181.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 181.328125,
+            "right": 288.5,
+            "bottom": 204.65625,
+            "left": 216.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 212.15625,
+        "y": 112.65625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 112.65625,
+        "right": 255.3125,
+        "bottom": 155.8125,
+        "left": 212.15625
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 211.75,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 255.75,
+          "bottom": 156.234375,
+          "left": 211.75
+        },
+        {
+          "x": 230.25,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 274.25,
+          "bottom": 248.734375,
+          "left": 230.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 2,
+      "large": false,
+      "selected": "supermarket",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 198.5,
+            "y": 89.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 89.328125,
+            "right": 270.5,
+            "bottom": 112.65625,
+            "left": 198.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 216.5,
+            "y": 181.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 181.328125,
+            "right": 288.5,
+            "bottom": 204.65625,
+            "left": 216.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 230.65625,
+        "y": 205.15625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 205.15625,
+        "right": 273.8125,
+        "bottom": 248.3125,
+        "left": 230.65625
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 211.75,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 255.75,
+          "bottom": 156.234375,
+          "left": 211.75
+        },
+        {
+          "x": 230.25,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 274.25,
+          "bottom": 248.734375,
+          "left": 230.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 2,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 202.5,
+            "y": 65.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 65.328125,
+            "right": 265.5,
+            "bottom": 111.984375,
+            "left": 202.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 226.5,
+            "y": 157.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 157.328125,
+            "right": 279.5,
+            "bottom": 203.984375,
+            "left": 226.5
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 113.484375,
+        "y": 171.234375,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 171.234375,
+        "right": 156.640625,
+        "bottom": 214.390625,
+        "left": 113.484375
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 211.75,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 255.75,
+          "bottom": 156.234375,
+          "left": 211.75
+        },
+        {
+          "x": 230.25,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 274.25,
+          "bottom": 248.734375,
+          "left": 230.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 2,
+      "large": true,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 202.5,
+            "y": 65.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 65.328125,
+            "right": 265.5,
+            "bottom": 111.984375,
+            "left": 202.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 226.5,
+            "y": 157.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 157.328125,
+            "right": 279.5,
+            "bottom": 203.984375,
+            "left": 226.5
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 212.15625,
+        "y": 112.65625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 112.65625,
+        "right": 255.3125,
+        "bottom": 155.8125,
+        "left": 212.15625
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 211.75,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 255.75,
+          "bottom": 156.234375,
+          "left": 211.75
+        },
+        {
+          "x": 230.25,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 274.25,
+          "bottom": 248.734375,
+          "left": 230.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 2,
+      "large": true,
+      "selected": "supermarket",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 202.5,
+            "y": 65.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 65.328125,
+            "right": 265.5,
+            "bottom": 111.984375,
+            "left": 202.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 226.5,
+            "y": 157.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 157.328125,
+            "right": 279.5,
+            "bottom": 203.984375,
+            "left": 226.5
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 230.65625,
+        "y": 205.15625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 205.15625,
+        "right": 273.8125,
+        "bottom": 248.3125,
+        "left": 230.65625
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 211.75,
+          "y": 112.234375,
+          "width": 44,
+          "height": 44,
+          "top": 112.234375,
+          "right": 255.75,
+          "bottom": 156.234375,
+          "left": 211.75
+        },
+        {
+          "x": 230.25,
+          "y": 204.734375,
+          "width": 44,
+          "height": 44,
+          "top": 204.734375,
+          "right": 274.25,
+          "bottom": 248.734375,
+          "left": 230.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 3,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 184.5,
+            "y": 159.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 159.328125,
+            "right": 256.5,
+            "bottom": 182.65625,
+            "left": 184.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 204.5,
+            "y": 233.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 233.328125,
+            "right": 276.5,
+            "bottom": 256.65625,
+            "left": 204.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 124.5,
+            "y": 245.328125,
+            "width": 33,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 157.5,
+            "bottom": 268.65625,
+            "left": 124.5
+          },
+          "client": 33,
+          "scroll": 33,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 155.828125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 155.828125,
+        "right": 175.15625,
+        "bottom": 186.65625,
+        "left": 144.328125
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 199.40625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 243.40625,
+          "bottom": 165.484375,
+          "left": 199.40625
+        },
+        {
+          "x": 217.90625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 261.90625,
+          "bottom": 239.484375,
+          "left": 217.90625
+        },
+        {
+          "x": 119.25,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 163.25,
+          "bottom": 257.984375,
+          "left": 119.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 3,
+      "large": false,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 184.5,
+            "y": 159.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 159.328125,
+            "right": 256.5,
+            "bottom": 182.65625,
+            "left": 184.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 204.5,
+            "y": 233.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 233.328125,
+            "right": 276.5,
+            "bottom": 256.65625,
+            "left": 204.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 124.5,
+            "y": 245.328125,
+            "width": 33,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 157.5,
+            "bottom": 268.65625,
+            "left": 124.5
+          },
+          "client": 33,
+          "scroll": 33,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 206,
+        "y": 128.078125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 128.078125,
+        "right": 236.828125,
+        "bottom": 158.90625,
+        "left": 206
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 199.40625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 243.40625,
+          "bottom": 165.484375,
+          "left": 199.40625
+        },
+        {
+          "x": 217.90625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 261.90625,
+          "bottom": 239.484375,
+          "left": 217.90625
+        },
+        {
+          "x": 119.25,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 163.25,
+          "bottom": 257.984375,
+          "left": 119.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 3,
+      "large": false,
+      "selected": "supermarket",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 184.5,
+            "y": 159.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 159.328125,
+            "right": 256.5,
+            "bottom": 182.65625,
+            "left": 184.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 204.5,
+            "y": 233.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 233.328125,
+            "right": 276.5,
+            "bottom": 256.65625,
+            "left": 204.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 124.5,
+            "y": 245.328125,
+            "width": 33,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 157.5,
+            "bottom": 268.65625,
+            "left": 124.5
+          },
+          "client": 33,
+          "scroll": 33,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 224.484375,
+        "y": 202.078125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 202.078125,
+        "right": 255.3125,
+        "bottom": 232.90625,
+        "left": 224.484375
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 199.40625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 243.40625,
+          "bottom": 165.484375,
+          "left": 199.40625
+        },
+        {
+          "x": 217.90625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 261.90625,
+          "bottom": 239.484375,
+          "left": 217.90625
+        },
+        {
+          "x": 119.25,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 163.25,
+          "bottom": 257.984375,
+          "left": 119.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 3,
+      "large": false,
+      "selected": "department",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 184.5,
+            "y": 159.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 159.328125,
+            "right": 256.5,
+            "bottom": 182.65625,
+            "left": 184.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 204.5,
+            "y": 233.328125,
+            "width": 72,
+            "height": 23.328125,
+            "top": 233.328125,
+            "right": 276.5,
+            "bottom": 256.65625,
+            "left": 204.5
+          },
+          "client": 72,
+          "scroll": 72,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 124.5,
+            "y": 245.328125,
+            "width": 33,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 157.5,
+            "bottom": 268.65625,
+            "left": 124.5
+          },
+          "client": 33,
+          "scroll": 33,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 132,
+        "y": 226.734375,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 226.734375,
+        "right": 150.484375,
+        "bottom": 245.21875,
+        "left": 132
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 199.40625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 243.40625,
+          "bottom": 165.484375,
+          "left": 199.40625
+        },
+        {
+          "x": 217.90625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 261.90625,
+          "bottom": 239.484375,
+          "left": 217.90625
+        },
+        {
+          "x": 119.25,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 163.25,
+          "bottom": 257.984375,
+          "left": 119.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 3,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 190.5,
+            "y": 81.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 81.328125,
+            "right": 253.5,
+            "bottom": 127.984375,
+            "left": 190.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 212.5,
+            "y": 233.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 233.328125,
+            "right": 265.5,
+            "bottom": 279.984375,
+            "left": 212.5
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 110.5,
+            "y": 245.328125,
+            "width": 63,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 173.5,
+            "bottom": 268.65625,
+            "left": 110.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 155.828125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 155.828125,
+        "right": 175.15625,
+        "bottom": 186.65625,
+        "left": 144.328125
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 199.40625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 243.40625,
+          "bottom": 165.484375,
+          "left": 199.40625
+        },
+        {
+          "x": 217.90625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 261.90625,
+          "bottom": 239.484375,
+          "left": 217.90625
+        },
+        {
+          "x": 119.25,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 163.25,
+          "bottom": 257.984375,
+          "left": 119.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 3,
+      "large": true,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 190.5,
+            "y": 81.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 81.328125,
+            "right": 253.5,
+            "bottom": 127.984375,
+            "left": 190.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 212.5,
+            "y": 233.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 233.328125,
+            "right": 265.5,
+            "bottom": 279.984375,
+            "left": 212.5
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 110.5,
+            "y": 245.328125,
+            "width": 63,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 173.5,
+            "bottom": 268.65625,
+            "left": 110.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 206,
+        "y": 128.078125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 128.078125,
+        "right": 236.828125,
+        "bottom": 158.90625,
+        "left": 206
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 199.40625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 243.40625,
+          "bottom": 165.484375,
+          "left": 199.40625
+        },
+        {
+          "x": 217.90625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 261.90625,
+          "bottom": 239.484375,
+          "left": 217.90625
+        },
+        {
+          "x": 119.25,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 163.25,
+          "bottom": 257.984375,
+          "left": 119.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 3,
+      "large": true,
+      "selected": "supermarket",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 190.5,
+            "y": 81.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 81.328125,
+            "right": 253.5,
+            "bottom": 127.984375,
+            "left": 190.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 212.5,
+            "y": 233.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 233.328125,
+            "right": 265.5,
+            "bottom": 279.984375,
+            "left": 212.5
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 110.5,
+            "y": 245.328125,
+            "width": 63,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 173.5,
+            "bottom": 268.65625,
+            "left": 110.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 224.484375,
+        "y": 202.078125,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 202.078125,
+        "right": 255.3125,
+        "bottom": 232.90625,
+        "left": 224.484375
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 199.40625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 243.40625,
+          "bottom": 165.484375,
+          "left": 199.40625
+        },
+        {
+          "x": 217.90625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 261.90625,
+          "bottom": 239.484375,
+          "left": 217.90625
+        },
+        {
+          "x": 119.25,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 163.25,
+          "bottom": 257.984375,
+          "left": 119.25
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "stage": 3,
+      "large": true,
+      "selected": "department",
+      "plot": {
+        "x": 73.5,
+        "y": 60.328125,
+        "width": 228,
+        "height": 228,
+        "top": 60.328125,
+        "right": 301.5,
+        "bottom": 288.328125,
+        "left": 73.5
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 190.5,
+            "y": 81.328125,
+            "width": 63,
+            "height": 46.65625,
+            "top": 81.328125,
+            "right": 253.5,
+            "bottom": 127.984375,
+            "left": 190.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 212.5,
+            "y": 233.328125,
+            "width": 53,
+            "height": 46.65625,
+            "top": 233.328125,
+            "right": 265.5,
+            "bottom": 279.984375,
+            "left": 212.5
+          },
+          "client": 53,
+          "scroll": 53,
+          "font": "18.6667px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 110.5,
+            "y": 245.328125,
+            "width": 63,
+            "height": 23.328125,
+            "top": 245.328125,
+            "right": 173.5,
+            "bottom": 268.65625,
+            "left": 110.5
+          },
+          "client": 63,
+          "scroll": 63,
+          "font": "18.6667px"
+        }
+      ],
+      "cursor": {
+        "x": 132,
+        "y": 226.734375,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 226.734375,
+        "right": 150.484375,
+        "bottom": 245.21875,
+        "left": 132
+      },
+      "font": "18.6667px",
+      "targets": [
+        {
+          "x": 199.40625,
+          "y": 121.484375,
+          "width": 44,
+          "height": 44,
+          "top": 121.484375,
+          "right": 243.40625,
+          "bottom": 165.484375,
+          "left": 199.40625
+        },
+        {
+          "x": 217.90625,
+          "y": 195.484375,
+          "width": 44,
+          "height": 44,
+          "top": 195.484375,
+          "right": 261.90625,
+          "bottom": 239.484375,
+          "left": 217.90625
+        },
+        {
+          "x": 119.25,
+          "y": 213.984375,
+          "width": 44,
+          "height": 44,
+          "top": 213.984375,
+          "right": 163.25,
+          "bottom": 257.984375,
+          "left": 119.25
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 1,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [],
+      "cursor": {
+        "x": 158.078125,
+        "y": 159.171875,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 159.171875,
+        "right": 213.578125,
+        "bottom": 214.671875,
+        "left": 158.078125
+      },
+      "font": "21.3333px",
+      "targets": []
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 1,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [],
+      "cursor": {
+        "x": 158.078125,
+        "y": 159.171875,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 159.171875,
+        "right": 213.578125,
+        "bottom": 214.671875,
+        "left": 158.078125
+      },
+      "font": "21.3333px",
+      "targets": []
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 2,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 199,
+            "y": 88.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 88.671875,
+            "right": 278,
+            "bottom": 115.34375,
+            "left": 199
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 217,
+            "y": 252.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 252.671875,
+            "right": 296,
+            "bottom": 279.34375,
+            "left": 217
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 117.984375,
+        "y": 174.578125,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 174.578125,
+        "right": 161.140625,
+        "bottom": 217.734375,
+        "left": 117.984375
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 216.25,
+          "y": 115.578125,
+          "width": 44,
+          "height": 44,
+          "top": 115.578125,
+          "right": 260.25,
+          "bottom": 159.578125,
+          "left": 216.25
+        },
+        {
+          "x": 234.75,
+          "y": 208.078125,
+          "width": 44,
+          "height": 44,
+          "top": 208.078125,
+          "right": 278.75,
+          "bottom": 252.078125,
+          "left": 234.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 2,
+      "large": false,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 199,
+            "y": 88.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 88.671875,
+            "right": 278,
+            "bottom": 115.34375,
+            "left": 199
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 217,
+            "y": 252.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 252.671875,
+            "right": 296,
+            "bottom": 279.34375,
+            "left": 217
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 216.65625,
+        "y": 116,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 116,
+        "right": 259.8125,
+        "bottom": 159.15625,
+        "left": 216.65625
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 216.25,
+          "y": 115.578125,
+          "width": 44,
+          "height": 44,
+          "top": 115.578125,
+          "right": 260.25,
+          "bottom": 159.578125,
+          "left": 216.25
+        },
+        {
+          "x": 234.75,
+          "y": 208.078125,
+          "width": 44,
+          "height": 44,
+          "top": 208.078125,
+          "right": 278.75,
+          "bottom": 252.078125,
+          "left": 234.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 2,
+      "large": false,
+      "selected": "supermarket",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 199,
+            "y": 88.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 88.671875,
+            "right": 278,
+            "bottom": 115.34375,
+            "left": 199
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 217,
+            "y": 252.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 252.671875,
+            "right": 296,
+            "bottom": 279.34375,
+            "left": 217
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 235.15625,
+        "y": 208.5,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 208.5,
+        "right": 278.3125,
+        "bottom": 251.65625,
+        "left": 235.15625
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 216.25,
+          "y": 115.578125,
+          "width": 44,
+          "height": 44,
+          "top": 115.578125,
+          "right": 260.25,
+          "bottom": 159.578125,
+          "left": 216.25
+        },
+        {
+          "x": 234.75,
+          "y": 208.078125,
+          "width": 44,
+          "height": 44,
+          "top": 208.078125,
+          "right": 278.75,
+          "bottom": 252.078125,
+          "left": 234.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 2,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 147,
+            "y": 110.671875,
+            "width": 69,
+            "height": 53.34375,
+            "top": 110.671875,
+            "right": 216,
+            "bottom": 164.015625,
+            "left": 147
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 177,
+            "y": 202.671875,
+            "width": 58,
+            "height": 53.34375,
+            "top": 202.671875,
+            "right": 235,
+            "bottom": 256.015625,
+            "left": 177
+          },
+          "client": 58,
+          "scroll": 58,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 117.984375,
+        "y": 174.578125,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 174.578125,
+        "right": 161.140625,
+        "bottom": 217.734375,
+        "left": 117.984375
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 216.25,
+          "y": 115.578125,
+          "width": 44,
+          "height": 44,
+          "top": 115.578125,
+          "right": 260.25,
+          "bottom": 159.578125,
+          "left": 216.25
+        },
+        {
+          "x": 234.75,
+          "y": 208.078125,
+          "width": 44,
+          "height": 44,
+          "top": 208.078125,
+          "right": 278.75,
+          "bottom": 252.078125,
+          "left": 234.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 2,
+      "large": true,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 147,
+            "y": 110.671875,
+            "width": 69,
+            "height": 53.34375,
+            "top": 110.671875,
+            "right": 216,
+            "bottom": 164.015625,
+            "left": 147
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 177,
+            "y": 202.671875,
+            "width": 58,
+            "height": 53.34375,
+            "top": 202.671875,
+            "right": 235,
+            "bottom": 256.015625,
+            "left": 177
+          },
+          "client": 58,
+          "scroll": 58,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 216.65625,
+        "y": 116,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 116,
+        "right": 259.8125,
+        "bottom": 159.15625,
+        "left": 216.65625
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 216.25,
+          "y": 115.578125,
+          "width": 44,
+          "height": 44,
+          "top": 115.578125,
+          "right": 260.25,
+          "bottom": 159.578125,
+          "left": 216.25
+        },
+        {
+          "x": 234.75,
+          "y": 208.078125,
+          "width": 44,
+          "height": 44,
+          "top": 208.078125,
+          "right": 278.75,
+          "bottom": 252.078125,
+          "left": 234.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 2,
+      "large": true,
+      "selected": "supermarket",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 147,
+            "y": 110.671875,
+            "width": 69,
+            "height": 53.34375,
+            "top": 110.671875,
+            "right": 216,
+            "bottom": 164.015625,
+            "left": 147
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 177,
+            "y": 202.671875,
+            "width": 58,
+            "height": 53.34375,
+            "top": 202.671875,
+            "right": 235,
+            "bottom": 256.015625,
+            "left": 177
+          },
+          "client": 58,
+          "scroll": 58,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 235.15625,
+        "y": 208.5,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 208.5,
+        "right": 278.3125,
+        "bottom": 251.65625,
+        "left": 235.15625
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 216.25,
+          "y": 115.578125,
+          "width": 44,
+          "height": 44,
+          "top": 115.578125,
+          "right": 260.25,
+          "bottom": 159.578125,
+          "left": 216.25
+        },
+        {
+          "x": 234.75,
+          "y": 208.078125,
+          "width": 44,
+          "height": 44,
+          "top": 208.078125,
+          "right": 278.75,
+          "bottom": 252.078125,
+          "left": 234.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 3,
+      "large": false,
+      "selected": null,
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 187,
+            "y": 104.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 104.671875,
+            "right": 266,
+            "bottom": 131.34375,
+            "left": 187
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 205,
+            "y": 178.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 178.671875,
+            "right": 284,
+            "bottom": 205.34375,
+            "left": 205
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 127,
+            "y": 248.671875,
+            "width": 36,
+            "height": 26.671875,
+            "top": 248.671875,
+            "right": 163,
+            "bottom": 275.34375,
+            "left": 127
+          },
+          "client": 36,
+          "scroll": 36,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 148.828125,
+        "y": 159.171875,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 159.171875,
+        "right": 179.65625,
+        "bottom": 190,
+        "left": 148.828125
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 203.90625,
+          "y": 124.828125,
+          "width": 44,
+          "height": 44,
+          "top": 124.828125,
+          "right": 247.90625,
+          "bottom": 168.828125,
+          "left": 203.90625
+        },
+        {
+          "x": 222.40625,
+          "y": 198.828125,
+          "width": 44,
+          "height": 44,
+          "top": 198.828125,
+          "right": 266.40625,
+          "bottom": 242.828125,
+          "left": 222.40625
+        },
+        {
+          "x": 123.75,
+          "y": 217.328125,
+          "width": 44,
+          "height": 44,
+          "top": 217.328125,
+          "right": 167.75,
+          "bottom": 261.328125,
+          "left": 123.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 3,
+      "large": false,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 187,
+            "y": 104.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 104.671875,
+            "right": 266,
+            "bottom": 131.34375,
+            "left": 187
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 205,
+            "y": 178.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 178.671875,
+            "right": 284,
+            "bottom": 205.34375,
+            "left": 205
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 127,
+            "y": 248.671875,
+            "width": 36,
+            "height": 26.671875,
+            "top": 248.671875,
+            "right": 163,
+            "bottom": 275.34375,
+            "left": 127
+          },
+          "client": 36,
+          "scroll": 36,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 210.5,
+        "y": 131.421875,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 131.421875,
+        "right": 241.328125,
+        "bottom": 162.25,
+        "left": 210.5
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 203.90625,
+          "y": 124.828125,
+          "width": 44,
+          "height": 44,
+          "top": 124.828125,
+          "right": 247.90625,
+          "bottom": 168.828125,
+          "left": 203.90625
+        },
+        {
+          "x": 222.40625,
+          "y": 198.828125,
+          "width": 44,
+          "height": 44,
+          "top": 198.828125,
+          "right": 266.40625,
+          "bottom": 242.828125,
+          "left": 222.40625
+        },
+        {
+          "x": 123.75,
+          "y": 217.328125,
+          "width": 44,
+          "height": 44,
+          "top": 217.328125,
+          "right": 167.75,
+          "bottom": 261.328125,
+          "left": 123.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 3,
+      "large": false,
+      "selected": "supermarket",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 187,
+            "y": 104.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 104.671875,
+            "right": 266,
+            "bottom": 131.34375,
+            "left": 187
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 205,
+            "y": 178.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 178.671875,
+            "right": 284,
+            "bottom": 205.34375,
+            "left": 205
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 127,
+            "y": 248.671875,
+            "width": 36,
+            "height": 26.671875,
+            "top": 248.671875,
+            "right": 163,
+            "bottom": 275.34375,
+            "left": 127
+          },
+          "client": 36,
+          "scroll": 36,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 228.984375,
+        "y": 205.421875,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 205.421875,
+        "right": 259.8125,
+        "bottom": 236.25,
+        "left": 228.984375
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 203.90625,
+          "y": 124.828125,
+          "width": 44,
+          "height": 44,
+          "top": 124.828125,
+          "right": 247.90625,
+          "bottom": 168.828125,
+          "left": 203.90625
+        },
+        {
+          "x": 222.40625,
+          "y": 198.828125,
+          "width": 44,
+          "height": 44,
+          "top": 198.828125,
+          "right": 266.40625,
+          "bottom": 242.828125,
+          "left": 222.40625
+        },
+        {
+          "x": 123.75,
+          "y": 217.328125,
+          "width": 44,
+          "height": 44,
+          "top": 217.328125,
+          "right": 167.75,
+          "bottom": 261.328125,
+          "left": 123.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 3,
+      "large": false,
+      "selected": "department",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残0",
+          "rect": {
+            "x": 187,
+            "y": 104.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 104.671875,
+            "right": 266,
+            "bottom": 131.34375,
+            "left": 187
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売5 残3",
+          "rect": {
+            "x": 205,
+            "y": 178.671875,
+            "width": 79,
+            "height": 26.671875,
+            "top": 178.671875,
+            "right": 284,
+            "bottom": 205.34375,
+            "left": 205
+          },
+          "client": 79,
+          "scroll": 79,
+          "font": "21.3333px"
+        },
+        {
+          "id": "department",
+          "text": "納4",
+          "rect": {
+            "x": 127,
+            "y": 248.671875,
+            "width": 36,
+            "height": 26.671875,
+            "top": 248.671875,
+            "right": 163,
+            "bottom": 275.34375,
+            "left": 127
+          },
+          "client": 36,
+          "scroll": 36,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 136.5,
+        "y": 230.078125,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 230.078125,
+        "right": 154.984375,
+        "bottom": 248.5625,
+        "left": 136.5
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 203.90625,
+          "y": 124.828125,
+          "width": 44,
+          "height": 44,
+          "top": 124.828125,
+          "right": 247.90625,
+          "bottom": 168.828125,
+          "left": 203.90625
+        },
+        {
+          "x": 222.40625,
+          "y": 198.828125,
+          "width": 44,
+          "height": 44,
+          "top": 198.828125,
+          "right": 266.40625,
+          "bottom": 242.828125,
+          "left": 222.40625
+        },
+        {
+          "x": 123.75,
+          "y": 217.328125,
+          "width": 44,
+          "height": 44,
+          "top": 217.328125,
+          "right": 167.75,
+          "bottom": 261.328125,
+          "left": 123.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 3,
+      "large": true,
+      "selected": null,
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 191,
+            "y": 76.671875,
+            "width": 69,
+            "height": 53.34375,
+            "top": 76.671875,
+            "right": 260,
+            "bottom": 130.015625,
+            "left": 191
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 171,
+            "y": 194.671875,
+            "width": 58,
+            "height": 53.34375,
+            "top": 194.671875,
+            "right": 229,
+            "bottom": 248.015625,
+            "left": 171
+          },
+          "client": 58,
+          "scroll": 58,
+          "font": "21.3333px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 111,
+            "y": 250.671875,
+            "width": 69,
+            "height": 26.671875,
+            "top": 250.671875,
+            "right": 180,
+            "bottom": 277.34375,
+            "left": 111
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 148.828125,
+        "y": 159.171875,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 159.171875,
+        "right": 179.65625,
+        "bottom": 190,
+        "left": 148.828125
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 203.90625,
+          "y": 124.828125,
+          "width": 44,
+          "height": 44,
+          "top": 124.828125,
+          "right": 247.90625,
+          "bottom": 168.828125,
+          "left": 203.90625
+        },
+        {
+          "x": 222.40625,
+          "y": 198.828125,
+          "width": 44,
+          "height": 44,
+          "top": 198.828125,
+          "right": 266.40625,
+          "bottom": 242.828125,
+          "left": 222.40625
+        },
+        {
+          "x": 123.75,
+          "y": 217.328125,
+          "width": 44,
+          "height": 44,
+          "top": 217.328125,
+          "right": 167.75,
+          "bottom": 261.328125,
+          "left": 123.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 3,
+      "large": true,
+      "selected": "town-liquor",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 191,
+            "y": 76.671875,
+            "width": 69,
+            "height": 53.34375,
+            "top": 76.671875,
+            "right": 260,
+            "bottom": 130.015625,
+            "left": 191
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 171,
+            "y": 194.671875,
+            "width": 58,
+            "height": 53.34375,
+            "top": 194.671875,
+            "right": 229,
+            "bottom": 248.015625,
+            "left": 171
+          },
+          "client": 58,
+          "scroll": 58,
+          "font": "21.3333px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 111,
+            "y": 250.671875,
+            "width": 69,
+            "height": 26.671875,
+            "top": 250.671875,
+            "right": 180,
+            "bottom": 277.34375,
+            "left": 111
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 210.5,
+        "y": 131.421875,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 131.421875,
+        "right": 241.328125,
+        "bottom": 162.25,
+        "left": 210.5
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 203.90625,
+          "y": 124.828125,
+          "width": 44,
+          "height": 44,
+          "top": 124.828125,
+          "right": 247.90625,
+          "bottom": 168.828125,
+          "left": 203.90625
+        },
+        {
+          "x": 222.40625,
+          "y": 198.828125,
+          "width": 44,
+          "height": 44,
+          "top": 198.828125,
+          "right": 266.40625,
+          "bottom": 242.828125,
+          "left": 222.40625
+        },
+        {
+          "x": 123.75,
+          "y": 217.328125,
+          "width": 44,
+          "height": 44,
+          "top": 217.328125,
+          "right": 167.75,
+          "bottom": 261.328125,
+          "left": 123.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 3,
+      "large": true,
+      "selected": "supermarket",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 191,
+            "y": 76.671875,
+            "width": 69,
+            "height": 53.34375,
+            "top": 76.671875,
+            "right": 260,
+            "bottom": 130.015625,
+            "left": 191
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 171,
+            "y": 194.671875,
+            "width": 58,
+            "height": 53.34375,
+            "top": 194.671875,
+            "right": 229,
+            "bottom": 248.015625,
+            "left": 171
+          },
+          "client": 58,
+          "scroll": 58,
+          "font": "21.3333px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 111,
+            "y": 250.671875,
+            "width": 69,
+            "height": 26.671875,
+            "top": 250.671875,
+            "right": 180,
+            "bottom": 277.34375,
+            "left": 111
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 228.984375,
+        "y": 205.421875,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 205.421875,
+        "right": 259.8125,
+        "bottom": 236.25,
+        "left": 228.984375
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 203.90625,
+          "y": 124.828125,
+          "width": 44,
+          "height": 44,
+          "top": 124.828125,
+          "right": 247.90625,
+          "bottom": 168.828125,
+          "left": 203.90625
+        },
+        {
+          "x": 222.40625,
+          "y": 198.828125,
+          "width": 44,
+          "height": 44,
+          "top": 198.828125,
+          "right": 266.40625,
+          "bottom": 242.828125,
+          "left": 222.40625
+        },
+        {
+          "x": 123.75,
+          "y": 217.328125,
+          "width": 44,
+          "height": 44,
+          "top": 217.328125,
+          "right": 167.75,
+          "bottom": 261.328125,
+          "left": 123.75
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "stage": 3,
+      "large": true,
+      "selected": "department",
+      "plot": {
+        "x": 78,
+        "y": 63.671875,
+        "width": 228,
+        "height": 228,
+        "top": 63.671875,
+        "right": 306,
+        "bottom": 291.671875,
+        "left": 78
+      },
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売999+ 残999+",
+          "rect": {
+            "x": 191,
+            "y": 76.671875,
+            "width": 69,
+            "height": 53.34375,
+            "top": 76.671875,
+            "right": 260,
+            "bottom": 130.015625,
+            "left": 191
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        },
+        {
+          "id": "supermarket",
+          "text": "売999 残999",
+          "rect": {
+            "x": 171,
+            "y": 192.671875,
+            "width": 58,
+            "height": 53.34375,
+            "top": 192.671875,
+            "right": 229,
+            "bottom": 246.015625,
+            "left": 171
+          },
+          "client": 58,
+          "scroll": 58,
+          "font": "21.3333px"
+        },
+        {
+          "id": "department",
+          "text": "納999+",
+          "rect": {
+            "x": 111,
+            "y": 248.671875,
+            "width": 69,
+            "height": 26.671875,
+            "top": 248.671875,
+            "right": 180,
+            "bottom": 275.34375,
+            "left": 111
+          },
+          "client": 69,
+          "scroll": 69,
+          "font": "21.3333px"
+        }
+      ],
+      "cursor": {
+        "x": 136.5,
+        "y": 230.078125,
+        "width": 18.484375,
+        "height": 18.484375,
+        "top": 230.078125,
+        "right": 154.984375,
+        "bottom": 248.5625,
+        "left": 136.5
+      },
+      "font": "21.3333px",
+      "targets": [
+        {
+          "x": 203.90625,
+          "y": 124.828125,
+          "width": 44,
+          "height": 44,
+          "top": 124.828125,
+          "right": 247.90625,
+          "bottom": 168.828125,
+          "left": 203.90625
+        },
+        {
+          "x": 222.40625,
+          "y": 198.828125,
+          "width": 44,
+          "height": 44,
+          "top": 198.828125,
+          "right": 266.40625,
+          "bottom": 242.828125,
+          "left": 222.40625
+        },
+        {
+          "x": 123.75,
+          "y": 217.328125,
+          "width": 44,
+          "height": 44,
+          "top": 217.328125,
+          "right": 167.75,
+          "bottom": 261.328125,
+          "left": 123.75
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

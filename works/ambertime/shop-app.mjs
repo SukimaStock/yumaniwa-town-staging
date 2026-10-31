@@ -1,6 +1,6 @@
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {readSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} from './placement-save.mjs?v=formal-copy-r1';
-import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=market-map-polish-r1';
+import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=market-counts-wrap-r1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=0.27-placement';
 import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback} from './flavor-feedback-view.mjs?v=0.25.4';
@@ -626,12 +626,39 @@ function mapVisualBounds(id,p){
  return sprites[id]??(p?[p.x-4,p.y-4,8,8]:null);
 }
 function mapCursor(bounds){if(!bounds)return '';const [x,y,w,h]=bounds;return '<span class="map-selection-cursor" aria-hidden="true" style="left:'+(x-2)/144*100+'%;top:'+(y-2)/144*100+'%;width:'+(w+4)/144*100+'%;height:'+(h+4)/144*100+'%"></span>';}
+// Label layout is presentation-only: the native projection owns every number.
 function mapSalesMarkup(data,selected){
  return data.pins.map(p=>{
-  const label=(p.recentSold===null?'納'+mapNumber(p.recentDelivered):'売'+mapNumber(p.recentSold))+(p.currentStock===null?'':' 残'+mapNumber(p.currentStock));
+  const sold=(p.recentSold===null?'納'+mapNumber(p.recentDelivered):'売'+mapNumber(p.recentSold)),stock=p.currentStock===null?'':'残'+mapNumber(p.currentStock),label=sold+(stock?' '+stock:'');
   const bounds=mapVisualBounds(p.id,p),[x,y,w,h]=bounds;
-  return '<button type="button" class="map-shop-hit" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+(x+w/2)/144*100+'%;top:'+(y+h/2)/144*100+'%" aria-label="'+esc(p.name+' '+label)+'" aria-pressed="'+(selected===p.id)+'"></button>'+(selected===p.id?mapCursor(bounds):'');
+  return '<button type="button" class="map-shop-hit" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+(x+w/2)/144*100+'%;top:'+(y+h/2)/144*100+'%" aria-label="'+esc(p.name+' '+label)+'" aria-pressed="'+(selected===p.id)+'"></button><span class="map-shop-label" data-id="'+esc(p.id)+'" data-bounds="'+bounds.join(',')+'" aria-hidden="true"><span>'+esc(sold)+'</span>'+(stock?' <span>'+esc(stock)+'</span>':'')+'</span>'+(selected===p.id?mapCursor(bounds):'');
  }).join('')+(!selected?mapCursor(mapVisualBounds('retail')):'');
+}
+let mapLabelObserver=null;
+function layoutMapLabels(){
+ const surface=document.querySelector('.world-map-surface'),labels=[...document.querySelectorAll('.map-shop-label')];if(!surface||!labels.length)return;
+ const width=surface.clientWidth,height=surface.clientHeight,selected=document.querySelector('.map-shop-hit[aria-pressed="true"]')?.dataset.id;
+ const logical=values=>{const [x,y,w,h]=values;return {left:x/144*width-3,top:y/144*height-3,right:(x+w)/144*width+3,bottom:(y+h)/144*height+3};};
+ const obstacles=labels.map(el=>logical(el.dataset.bounds.split(',').map(Number))),retail=mapVisualBounds('retail');if(retail)obstacles.push(logical(retail));
+ const occupied=[],overlap=(a,b)=>Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+ labels.sort((a,b)=>Number(b.dataset.id===selected)-Number(a.dataset.id===selected));
+ for(const el of labels){
+  const [x,y,w,h]=el.dataset.bounds.split(',').map(Number),anchor={x:(x+w/2)/144*width,y:(y+h/2)/144*height};
+  el.style.width='max-content';if(el.getBoundingClientRect().height>parseFloat(getComputedStyle(el).lineHeight)*1.5)el.style.width='min-content';
+  const rect=el.getBoundingClientRect(),lw=rect.width,lh=rect.height;let best=null;
+  for(let top=2;top<=height-lh-2;top+=2)for(let left=2;left<=width-lw-2;left+=2){
+   const box={left,top,right:left+lw,bottom:top+lh};
+   const collision=occupied.reduce((n,b)=>n+overlap(box,b),0),art=obstacles.reduce((n,b)=>n+overlap(box,b),0);
+   const distance=Math.hypot(left+lw/2-anchor.x,top+lh/2-anchor.y),score=collision*100000+art*1000+distance;
+   if(!best||score<best.score)best={...box,score};
+  }
+  if(!best)best={left:2,top:2,right:2+lw,bottom:2+lh};
+  el.style.left=best.left+'px';el.style.top=best.top+'px';occupied.push({left:best.left-2,top:best.top-2,right:best.right+2,bottom:best.bottom+2});
+ }
+}
+function observeMapLabels(){
+ mapLabelObserver?.disconnect();mapLabelObserver=null;layoutMapLabels();
+ if(typeof ResizeObserver==='function'&&document.querySelector('.map-shop-label')){mapLabelObserver=new ResizeObserver(layoutMapLabels);for(const el of document.querySelectorAll('.map-shop-label'))mapLabelObserver.observe(el);}
 }
 function mapSalesReport(data,id){
  const p=data.pins.find(p=>p.id===id);
@@ -848,6 +875,7 @@ function syncModal(){
  dialog.dataset.kind=kind;$('close-dialog').hidden=kind==='decision'||kind==='generation-review';
  if(!dialog.open){$('dialog-title').removeAttribute('tabindex');dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}
  else if(previousKind!==kind&&['stockists','stockist','stockist-delivery'].includes(kind)){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else document.querySelector('#dialog-body button:not(:disabled), #dialog-actions button')?.focus({preventScroll:true});}
+ if(kind==='world-map')observeMapLabels();else{mapLabelObserver?.disconnect();mapLabelObserver=null;}
 }
 function renderSpirit(){
  const panel=$('spirit-readout');if(!panel)return;

@@ -1,0 +1,3476 @@
+{
+  "engine": "chromium",
+  "capture": false,
+  "zeroBasis": true,
+  "checks": [
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "initial",
+      "mapUnlocked": false
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "first-bottle",
+      "tag": "first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 475.65625,
+        "top": 12,
+        "right": 348,
+        "bottom": 487.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 343.65625,
+        "top": 76,
+        "right": 336,
+        "bottom": 419.65625,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 146.078125,
+        "y": 171.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 171.5,
+        "right": 201.578125,
+        "bottom": 227,
+        "left": 146.078125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 289,
+      "pixelMatches": 288
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "first-bottle",
+      "tag": "closed",
+      "open": false,
+      "focus": "open-world-map"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "first-bottle",
+      "tag": "reopen",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 475.65625,
+        "top": 12,
+        "right": 348,
+        "bottom": 487.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 343.65625,
+        "top": 76,
+        "right": 336,
+        "bottom": 419.65625,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 146.078125,
+        "y": 171.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 171.5,
+        "right": 201.578125,
+        "bottom": 227,
+        "left": 146.078125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 289,
+      "pixelMatches": 288
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "first-bottle",
+      "tag": "room-return",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 475.65625,
+        "top": 12,
+        "right": 348,
+        "bottom": 487.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 343.65625,
+        "top": 76,
+        "right": 336,
+        "bottom": 419.65625,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 146.078125,
+        "y": 171.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 171.5,
+        "right": 201.578125,
+        "bottom": 227,
+        "left": 146.078125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 289,
+      "pixelMatches": 288
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "first-bottle",
+      "tag": "restore-first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 475.65625,
+        "top": 12,
+        "right": 348,
+        "bottom": 487.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 343.65625,
+        "top": 76,
+        "right": 336,
+        "bottom": 419.65625,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 146.078125,
+        "y": 171.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 171.5,
+        "right": 201.578125,
+        "bottom": 227,
+        "left": 146.078125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 289,
+      "pixelMatches": 288
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "top": 12,
+        "right": 348,
+        "bottom": 512.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 368.984375,
+        "top": 76,
+        "right": 336,
+        "bottom": 444.984375,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 173,
+            "y": 175,
+            "width": 82,
+            "height": 23.328125,
+            "top": 175,
+            "right": 255,
+            "bottom": 198.328125,
+            "left": 173
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 197,
+            "y": 249,
+            "width": 72,
+            "height": 23.328125,
+            "top": 249,
+            "right": 269,
+            "bottom": 272.328125,
+            "left": 197
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 171.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 171.5,
+        "right": 167.65625,
+        "bottom": 202.328125,
+        "left": 136.828125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 240
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "closed",
+      "open": false,
+      "focus": "open-world-map"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "reopen",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "top": 12,
+        "right": 348,
+        "bottom": 512.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 368.984375,
+        "top": 76,
+        "right": 336,
+        "bottom": 444.984375,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 173,
+            "y": 175,
+            "width": 82,
+            "height": 23.328125,
+            "top": 175,
+            "right": 255,
+            "bottom": 198.328125,
+            "left": 173
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 197,
+            "y": 249,
+            "width": 72,
+            "height": 23.328125,
+            "top": 249,
+            "right": 269,
+            "bottom": 272.328125,
+            "left": 197
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 171.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 171.5,
+        "right": 167.65625,
+        "bottom": 202.328125,
+        "left": 136.828125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 240
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "town-liquor",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 544,
+        "top": 12,
+        "right": 348,
+        "bottom": 556,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 412,
+        "top": 76,
+        "right": 336,
+        "bottom": 488,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 173,
+            "y": 175,
+            "width": 82,
+            "height": 23.328125,
+            "top": 175,
+            "right": 255,
+            "bottom": 198.328125,
+            "left": 173
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 197,
+            "y": 249,
+            "width": 72,
+            "height": 23.328125,
+            "top": 249,
+            "right": 269,
+            "bottom": 272.328125,
+            "left": 197
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 198.5,
+        "y": 143.75,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 143.75,
+        "right": 229.328125,
+        "bottom": 174.578125,
+        "left": 198.5
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 243
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "supermarket",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 544,
+        "top": 12,
+        "right": 348,
+        "bottom": 556,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 412,
+        "top": 76,
+        "right": 336,
+        "bottom": 488,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 173,
+            "y": 175,
+            "width": 82,
+            "height": 23.328125,
+            "top": 175,
+            "right": 255,
+            "bottom": 198.328125,
+            "left": 173
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 197,
+            "y": 249,
+            "width": 72,
+            "height": 23.328125,
+            "top": 249,
+            "right": 269,
+            "bottom": 272.328125,
+            "left": 197
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 216.984375,
+        "y": 217.75,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 217.75,
+        "right": 247.8125,
+        "bottom": 248.578125,
+        "left": 216.984375
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 243
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "world-map-in",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "top": 12,
+        "right": 348,
+        "bottom": 512.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 368.984375,
+        "top": 76,
+        "right": 336,
+        "bottom": 444.984375,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 20,
+      "draws": "2",
+      "paintKey": "[2,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 185,
+            "y": 105,
+            "width": 82,
+            "height": 23.328125,
+            "top": 105,
+            "right": 267,
+            "bottom": 128.328125,
+            "left": 185
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 209,
+            "y": 197,
+            "width": 72,
+            "height": 23.328125,
+            "top": 197,
+            "right": 281,
+            "bottom": 220.328125,
+            "left": 209
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 105.984375,
+        "y": 186.90625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 186.90625,
+        "right": 149.140625,
+        "bottom": 230.0625,
+        "left": 105.984375
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 264,
+      "pixelMatches": 237
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "world-map-out",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "top": 12,
+        "right": 348,
+        "bottom": 512.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 368.984375,
+        "top": 76,
+        "right": 336,
+        "bottom": 444.984375,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 173,
+            "y": 175,
+            "width": 82,
+            "height": 23.328125,
+            "top": 175,
+            "right": 255,
+            "bottom": 198.328125,
+            "left": 173
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 197,
+            "y": 249,
+            "width": 72,
+            "height": 23.328125,
+            "top": 249,
+            "right": 269,
+            "bottom": 272.328125,
+            "left": 197
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 171.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 171.5,
+        "right": 167.65625,
+        "bottom": 202.328125,
+        "left": 136.828125
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 240
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "safe-area",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 44,
+        "width": 336,
+        "height": 490,
+        "top": 44,
+        "right": 348,
+        "bottom": 534,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 108,
+        "width": 312,
+        "height": 358,
+        "top": 108,
+        "right": 336,
+        "bottom": 466,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 111,
+        "width": 222,
+        "height": 222,
+        "top": 111,
+        "right": 291,
+        "bottom": 333,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 111,
+        "right": 291,
+        "bottom": 333
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 173,
+            "y": 207,
+            "width": 82,
+            "height": 23.328125,
+            "top": 207,
+            "right": 255,
+            "bottom": 230.328125,
+            "left": 173
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 197,
+            "y": 281,
+            "width": 72,
+            "height": 23.328125,
+            "top": 281,
+            "right": 269,
+            "bottom": 304.328125,
+            "left": 197
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 203.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 203.5,
+        "right": 167.65625,
+        "bottom": 234.328125,
+        "left": 136.828125
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 240
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "room-return",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "top": 12,
+        "right": 348,
+        "bottom": 512.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 368.984375,
+        "top": 76,
+        "right": 336,
+        "bottom": 444.984375,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 173,
+            "y": 175,
+            "width": 82,
+            "height": 23.328125,
+            "top": 175,
+            "right": 255,
+            "bottom": 198.328125,
+            "left": 173
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 197,
+            "y": 249,
+            "width": 72,
+            "height": 23.328125,
+            "top": 249,
+            "right": 269,
+            "bottom": 272.328125,
+            "left": 197
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 171.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 171.5,
+        "right": 167.65625,
+        "bottom": 202.328125,
+        "left": 136.828125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 240
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "scenario": "multiple",
+      "tag": "restore-first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 336,
+        "height": 500.984375,
+        "top": 12,
+        "right": 348,
+        "bottom": 512.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 24,
+        "y": 76,
+        "width": 312,
+        "height": 368.984375,
+        "top": 76,
+        "right": 336,
+        "bottom": 444.984375,
+        "left": 24
+      },
+      "canvas": {
+        "x": 69,
+        "y": 79,
+        "width": 222,
+        "height": 222,
+        "top": 79,
+        "right": 291,
+        "bottom": 301,
+        "left": 69
+      },
+      "clip": {
+        "left": 69,
+        "top": 79,
+        "right": 291,
+        "bottom": 301
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 173,
+            "y": 175,
+            "width": 82,
+            "height": 23.328125,
+            "top": 175,
+            "right": 255,
+            "bottom": 198.328125,
+            "left": 173
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 197,
+            "y": 249,
+            "width": 72,
+            "height": 23.328125,
+            "top": 249,
+            "right": 269,
+            "bottom": 272.328125,
+            "left": 197
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 136.828125,
+        "y": 171.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 171.5,
+        "right": 167.65625,
+        "bottom": 202.328125,
+        "left": 136.828125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 240
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "initial",
+      "mapUnlocked": false
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "first-bottle",
+      "tag": "first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 478.65625,
+        "top": 12,
+        "right": 363,
+        "bottom": 490.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 344.65625,
+        "top": 77,
+        "right": 350,
+        "bottom": 421.65625,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 153.578125,
+        "y": 172.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 172.5,
+        "right": 209.078125,
+        "bottom": 228,
+        "left": 153.578125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 289,
+      "pixelMatches": 279
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "first-bottle",
+      "tag": "closed",
+      "open": false,
+      "focus": "open-world-map"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "first-bottle",
+      "tag": "reopen",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 478.65625,
+        "top": 12,
+        "right": 363,
+        "bottom": 490.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 344.65625,
+        "top": 77,
+        "right": 350,
+        "bottom": 421.65625,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 153.578125,
+        "y": 172.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 172.5,
+        "right": 209.078125,
+        "bottom": 228,
+        "left": 153.578125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 289,
+      "pixelMatches": 279
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "first-bottle",
+      "tag": "room-return",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 478.65625,
+        "top": 12,
+        "right": 363,
+        "bottom": 490.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 344.65625,
+        "top": 77,
+        "right": 350,
+        "bottom": 421.65625,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 153.578125,
+        "y": 172.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 172.5,
+        "right": 209.078125,
+        "bottom": 228,
+        "left": 153.578125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 289,
+      "pixelMatches": 279
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "first-bottle",
+      "tag": "restore-first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 478.65625,
+        "top": 12,
+        "right": 363,
+        "bottom": 490.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 344.65625,
+        "top": 77,
+        "right": 350,
+        "bottom": 421.65625,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 153.578125,
+        "y": 172.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 172.5,
+        "right": 209.078125,
+        "bottom": 228,
+        "left": 153.578125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 289,
+      "pixelMatches": 279
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "top": 12,
+        "right": 363,
+        "bottom": 515.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 369.984375,
+        "top": 77,
+        "right": 350,
+        "bottom": 446.984375,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 180.5,
+            "y": 176,
+            "width": 82,
+            "height": 23.328125,
+            "top": 176,
+            "right": 262.5,
+            "bottom": 199.328125,
+            "left": 180.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 204.5,
+            "y": 250,
+            "width": 72,
+            "height": 23.328125,
+            "top": 250,
+            "right": 276.5,
+            "bottom": 273.328125,
+            "left": 204.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 175.15625,
+        "bottom": 203.328125,
+        "left": 144.328125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 233
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "closed",
+      "open": false,
+      "focus": "open-world-map"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "reopen",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "top": 12,
+        "right": 363,
+        "bottom": 515.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 369.984375,
+        "top": 77,
+        "right": 350,
+        "bottom": 446.984375,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 180.5,
+            "y": 176,
+            "width": 82,
+            "height": 23.328125,
+            "top": 176,
+            "right": 262.5,
+            "bottom": 199.328125,
+            "left": 180.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 204.5,
+            "y": 250,
+            "width": 72,
+            "height": 23.328125,
+            "top": 250,
+            "right": 276.5,
+            "bottom": 273.328125,
+            "left": 204.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 175.15625,
+        "bottom": 203.328125,
+        "left": 144.328125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 233
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "town-liquor",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 547.65625,
+        "top": 12,
+        "right": 363,
+        "bottom": 559.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 413.65625,
+        "top": 77,
+        "right": 350,
+        "bottom": 490.65625,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 180.5,
+            "y": 176,
+            "width": 82,
+            "height": 23.328125,
+            "top": 176,
+            "right": 262.5,
+            "bottom": 199.328125,
+            "left": 180.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 204.5,
+            "y": 250,
+            "width": 72,
+            "height": 23.328125,
+            "top": 250,
+            "right": 276.5,
+            "bottom": 273.328125,
+            "left": 204.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 206,
+        "y": 144.75,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 144.75,
+        "right": 236.828125,
+        "bottom": 175.578125,
+        "left": 206
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 236
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "supermarket",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 547.65625,
+        "top": 12,
+        "right": 363,
+        "bottom": 559.65625,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 413.65625,
+        "top": 77,
+        "right": 350,
+        "bottom": 490.65625,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 180.5,
+            "y": 176,
+            "width": 82,
+            "height": 23.328125,
+            "top": 176,
+            "right": 262.5,
+            "bottom": 199.328125,
+            "left": 180.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 204.5,
+            "y": 250,
+            "width": 72,
+            "height": 23.328125,
+            "top": 250,
+            "right": 276.5,
+            "bottom": 273.328125,
+            "left": 204.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 224.484375,
+        "y": 218.75,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 218.75,
+        "right": 255.3125,
+        "bottom": 249.578125,
+        "left": 224.484375
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 236
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "world-map-in",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "top": 12,
+        "right": 363,
+        "bottom": 515.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 369.984375,
+        "top": 77,
+        "right": 350,
+        "bottom": 446.984375,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 20,
+      "draws": "2",
+      "paintKey": "[2,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 192.5,
+            "y": 106,
+            "width": 82,
+            "height": 23.328125,
+            "top": 106,
+            "right": 274.5,
+            "bottom": 129.328125,
+            "left": 192.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 216.5,
+            "y": 198,
+            "width": 72,
+            "height": 23.328125,
+            "top": 198,
+            "right": 288.5,
+            "bottom": 221.328125,
+            "left": 216.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 113.484375,
+        "y": 187.90625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 187.90625,
+        "right": 156.640625,
+        "bottom": 231.0625,
+        "left": 113.484375
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 264,
+      "pixelMatches": 229
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "world-map-out",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "top": 12,
+        "right": 363,
+        "bottom": 515.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 369.984375,
+        "top": 77,
+        "right": 350,
+        "bottom": 446.984375,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 180.5,
+            "y": 176,
+            "width": 82,
+            "height": 23.328125,
+            "top": 176,
+            "right": 262.5,
+            "bottom": 199.328125,
+            "left": 180.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 204.5,
+            "y": 250,
+            "width": 72,
+            "height": 23.328125,
+            "top": 250,
+            "right": 276.5,
+            "bottom": 273.328125,
+            "left": 204.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 175.15625,
+        "bottom": 203.328125,
+        "left": 144.328125
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 233
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "safe-area",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 44,
+        "width": 351,
+        "height": 503.984375,
+        "top": 44,
+        "right": 363,
+        "bottom": 547.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 109,
+        "width": 325,
+        "height": 369.984375,
+        "top": 109,
+        "right": 350,
+        "bottom": 478.984375,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 112,
+        "width": 222,
+        "height": 222,
+        "top": 112,
+        "right": 298.5,
+        "bottom": 334,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 112,
+        "right": 298.5,
+        "bottom": 334
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 180.5,
+            "y": 208,
+            "width": 82,
+            "height": 23.328125,
+            "top": 208,
+            "right": 262.5,
+            "bottom": 231.328125,
+            "left": 180.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 204.5,
+            "y": 282,
+            "width": 72,
+            "height": 23.328125,
+            "top": 282,
+            "right": 276.5,
+            "bottom": 305.328125,
+            "left": 204.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 204.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 204.5,
+        "right": 175.15625,
+        "bottom": 235.328125,
+        "left": 144.328125
+      },
+      "focus": "",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 233
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "room-return",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "top": 12,
+        "right": 363,
+        "bottom": 515.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 369.984375,
+        "top": 77,
+        "right": 350,
+        "bottom": 446.984375,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 180.5,
+            "y": 176,
+            "width": 82,
+            "height": 23.328125,
+            "top": 176,
+            "right": 262.5,
+            "bottom": 199.328125,
+            "left": 180.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 204.5,
+            "y": 250,
+            "width": 72,
+            "height": 23.328125,
+            "top": 250,
+            "right": 276.5,
+            "bottom": 273.328125,
+            "left": 204.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 175.15625,
+        "bottom": 203.328125,
+        "left": 144.328125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 233
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "scenario": "multiple",
+      "tag": "restore-first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 12,
+        "y": 12,
+        "width": 351,
+        "height": 503.984375,
+        "top": 12,
+        "right": 363,
+        "bottom": 515.984375,
+        "left": 12
+      },
+      "body": {
+        "x": 25,
+        "y": 77,
+        "width": 325,
+        "height": 369.984375,
+        "top": 77,
+        "right": 350,
+        "bottom": 446.984375,
+        "left": 25
+      },
+      "canvas": {
+        "x": 76.5,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302,
+        "left": 76.5
+      },
+      "clip": {
+        "left": 76.5,
+        "top": 80,
+        "right": 298.5,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 180.5,
+            "y": 176,
+            "width": 82,
+            "height": 23.328125,
+            "top": 176,
+            "right": 262.5,
+            "bottom": 199.328125,
+            "left": 180.5
+          },
+          "font": "18.6667px",
+          "scroll": 82,
+          "client": 82
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 204.5,
+            "y": 250,
+            "width": 72,
+            "height": 23.328125,
+            "top": 250,
+            "right": 276.5,
+            "bottom": 273.328125,
+            "left": 204.5
+          },
+          "font": "18.6667px",
+          "scroll": 72,
+          "client": 72
+        }
+      ],
+      "cursor": {
+        "x": 144.328125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 175.15625,
+        "bottom": 203.328125,
+        "left": 144.328125
+      },
+      "focus": "dialog-title",
+      "font": "18.6667px",
+      "uniform": "18.666666666666668px",
+      "sampleCount": 261,
+      "pixelMatches": 233
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "initial",
+      "mapUnlocked": false
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "first-bottle",
+      "tag": "first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 485.34375,
+        "top": 12,
+        "right": 375,
+        "bottom": 497.34375,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 351.34375,
+        "top": 77,
+        "right": 362,
+        "bottom": 428.34375,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 161.078125,
+        "y": 172.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 172.5,
+        "right": 216.578125,
+        "bottom": 228,
+        "left": 161.078125
+      },
+      "focus": "dialog-title",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 289,
+      "pixelMatches": 288
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "first-bottle",
+      "tag": "closed",
+      "open": false,
+      "focus": "open-world-map"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "first-bottle",
+      "tag": "reopen",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 485.34375,
+        "top": 12,
+        "right": 375,
+        "bottom": 497.34375,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 351.34375,
+        "top": 77,
+        "right": 362,
+        "bottom": 428.34375,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 161.078125,
+        "y": 172.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 172.5,
+        "right": 216.578125,
+        "bottom": 228,
+        "left": 161.078125
+      },
+      "focus": "dialog-title",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 289,
+      "pixelMatches": 288
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "first-bottle",
+      "tag": "room-return",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 485.34375,
+        "top": 12,
+        "right": 375,
+        "bottom": 497.34375,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 351.34375,
+        "top": 77,
+        "right": 362,
+        "bottom": 428.34375,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 161.078125,
+        "y": 172.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 172.5,
+        "right": 216.578125,
+        "bottom": 228,
+        "left": 161.078125
+      },
+      "focus": "dialog-title",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 289,
+      "pixelMatches": 288
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "first-bottle",
+      "tag": "restore-first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 485.34375,
+        "top": 12,
+        "right": 375,
+        "bottom": 497.34375,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 351.34375,
+        "top": 77,
+        "right": 362,
+        "bottom": 428.34375,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[1,1,{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},[]]",
+      "labels": [],
+      "cursor": {
+        "x": 161.078125,
+        "y": 172.5,
+        "width": 55.5,
+        "height": 55.5,
+        "top": 172.5,
+        "right": 216.578125,
+        "bottom": 228,
+        "left": 161.078125
+      },
+      "focus": "dialog-title",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 289,
+      "pixelMatches": 288
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "top": 12,
+        "right": 375,
+        "bottom": 526.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 380.015625,
+        "top": 77,
+        "right": 362,
+        "bottom": 457.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 184,
+            "y": 118,
+            "width": 90,
+            "height": 26.671875,
+            "top": 118,
+            "right": 274,
+            "bottom": 144.671875,
+            "left": 184
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 208,
+            "y": 192,
+            "width": 79,
+            "height": 26.671875,
+            "top": 192,
+            "right": 287,
+            "bottom": 218.671875,
+            "left": 208
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 151.828125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 182.65625,
+        "bottom": 203.328125,
+        "left": 151.828125
+      },
+      "focus": "dialog-title",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 261,
+      "pixelMatches": 239
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "closed",
+      "open": false,
+      "focus": "open-world-map"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "reopen",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "top": 12,
+        "right": 375,
+        "bottom": 526.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 380.015625,
+        "top": 77,
+        "right": 362,
+        "bottom": 457.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 184,
+            "y": 118,
+            "width": 90,
+            "height": 26.671875,
+            "top": 118,
+            "right": 274,
+            "bottom": 144.671875,
+            "left": 184
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 208,
+            "y": 192,
+            "width": 79,
+            "height": 26.671875,
+            "top": 192,
+            "right": 287,
+            "bottom": 218.671875,
+            "left": 208
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 151.828125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 182.65625,
+        "bottom": 203.328125,
+        "left": 151.828125
+      },
+      "focus": "dialog-title",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 261,
+      "pixelMatches": 239
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "town-liquor",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 561.015625,
+        "top": 12,
+        "right": 375,
+        "bottom": 573.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 427.015625,
+        "top": 77,
+        "right": 362,
+        "bottom": 504.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 184,
+            "y": 118,
+            "width": 90,
+            "height": 26.671875,
+            "top": 118,
+            "right": 274,
+            "bottom": 144.671875,
+            "left": 184
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 208,
+            "y": 192,
+            "width": 79,
+            "height": 26.671875,
+            "top": 192,
+            "right": 287,
+            "bottom": 218.671875,
+            "left": 208
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 213.5,
+        "y": 144.75,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 144.75,
+        "right": 244.328125,
+        "bottom": 175.578125,
+        "left": 213.5
+      },
+      "focus": "",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 261,
+      "pixelMatches": 242
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "supermarket",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 561.015625,
+        "top": 12,
+        "right": 375,
+        "bottom": 573.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 427.015625,
+        "top": 77,
+        "right": 362,
+        "bottom": 504.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 184,
+            "y": 118,
+            "width": 90,
+            "height": 26.671875,
+            "top": 118,
+            "right": 274,
+            "bottom": 144.671875,
+            "left": 184
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 208,
+            "y": 192,
+            "width": 79,
+            "height": 26.671875,
+            "top": 192,
+            "right": 287,
+            "bottom": 218.671875,
+            "left": 208
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 231.984375,
+        "y": 218.75,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 218.75,
+        "right": 262.8125,
+        "bottom": 249.578125,
+        "left": 231.984375
+      },
+      "focus": "",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 261,
+      "pixelMatches": 242
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "world-map-in",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "top": 12,
+        "right": 375,
+        "bottom": 526.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 380.015625,
+        "top": 77,
+        "right": 362,
+        "bottom": 457.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 20,
+      "draws": "2",
+      "paintKey": "[2,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 196,
+            "y": 102,
+            "width": 90,
+            "height": 26.671875,
+            "top": 102,
+            "right": 286,
+            "bottom": 128.671875,
+            "left": 196
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 220,
+            "y": 266,
+            "width": 79,
+            "height": 26.671875,
+            "top": 266,
+            "right": 299,
+            "bottom": 292.671875,
+            "left": 220
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 120.984375,
+        "y": 187.90625,
+        "width": 43.15625,
+        "height": 43.15625,
+        "top": 187.90625,
+        "right": 164.140625,
+        "bottom": 231.0625,
+        "left": 120.984375
+      },
+      "focus": "",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 264,
+      "pixelMatches": 230
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "world-map-out",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "top": 12,
+        "right": 375,
+        "bottom": 526.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 380.015625,
+        "top": 77,
+        "right": 362,
+        "bottom": 457.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 184,
+            "y": 118,
+            "width": 90,
+            "height": 26.671875,
+            "top": 118,
+            "right": 274,
+            "bottom": 144.671875,
+            "left": 184
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 208,
+            "y": 192,
+            "width": 79,
+            "height": 26.671875,
+            "top": 192,
+            "right": 287,
+            "bottom": 218.671875,
+            "left": 208
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 151.828125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 182.65625,
+        "bottom": 203.328125,
+        "left": 151.828125
+      },
+      "focus": "",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 261,
+      "pixelMatches": 239
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "safe-area",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 44,
+        "width": 360,
+        "height": 514.015625,
+        "top": 44,
+        "right": 375,
+        "bottom": 558.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 109,
+        "width": 334,
+        "height": 380.015625,
+        "top": 109,
+        "right": 362,
+        "bottom": 489.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 112,
+        "width": 222,
+        "height": 222,
+        "top": 112,
+        "right": 306,
+        "bottom": 334,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 112,
+        "right": 306,
+        "bottom": 334
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 184,
+            "y": 150,
+            "width": 90,
+            "height": 26.671875,
+            "top": 150,
+            "right": 274,
+            "bottom": 176.671875,
+            "left": 184
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 208,
+            "y": 224,
+            "width": 79,
+            "height": 26.671875,
+            "top": 224,
+            "right": 287,
+            "bottom": 250.671875,
+            "left": 208
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 151.828125,
+        "y": 204.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 204.5,
+        "right": 182.65625,
+        "bottom": 235.328125,
+        "left": 151.828125
+      },
+      "focus": "",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 261,
+      "pixelMatches": 239
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "room-return",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "top": 12,
+        "right": 375,
+        "bottom": 526.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 380.015625,
+        "top": 77,
+        "right": 362,
+        "bottom": 457.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "3",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 184,
+            "y": 118,
+            "width": 90,
+            "height": 26.671875,
+            "top": 118,
+            "right": 274,
+            "bottom": 144.671875,
+            "left": 184
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 208,
+            "y": 192,
+            "width": 79,
+            "height": 26.671875,
+            "top": 192,
+            "right": 287,
+            "bottom": 218.671875,
+            "left": 208
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 151.828125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 182.65625,
+        "bottom": 203.328125,
+        "left": 151.828125
+      },
+      "focus": "dialog-title",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 261,
+      "pixelMatches": 239
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "scenario": "multiple",
+      "tag": "restore-first-tap",
+      "open": true,
+      "kind": "world-map",
+      "dialog": {
+        "x": 15,
+        "y": 12,
+        "width": 360,
+        "height": 514.015625,
+        "top": 12,
+        "right": 375,
+        "bottom": 526.015625,
+        "left": 15
+      },
+      "body": {
+        "x": 28,
+        "y": 77,
+        "width": 334,
+        "height": 380.015625,
+        "top": 77,
+        "right": 362,
+        "bottom": 457.015625,
+        "left": 28
+      },
+      "canvas": {
+        "x": 84,
+        "y": 80,
+        "width": 222,
+        "height": 222,
+        "top": 80,
+        "right": 306,
+        "bottom": 302,
+        "left": 84
+      },
+      "clip": {
+        "left": 84,
+        "top": 80,
+        "right": 306,
+        "bottom": 302
+      },
+      "colors": 18,
+      "draws": "1",
+      "paintKey": "[3,4,{\"town\":true,\"near\":true,\"national\":false,\"overseas\":false},[\"town-liquor\",\"supermarket\"]]",
+      "labels": [
+        {
+          "id": "town-liquor",
+          "text": "売2 残70",
+          "rect": {
+            "x": 184,
+            "y": 118,
+            "width": 90,
+            "height": 26.671875,
+            "top": 118,
+            "right": 274,
+            "bottom": 144.671875,
+            "left": 184
+          },
+          "font": "21.3333px",
+          "scroll": 90,
+          "client": 90
+        },
+        {
+          "id": "supermarket",
+          "text": "売0 残0",
+          "rect": {
+            "x": 208,
+            "y": 192,
+            "width": 79,
+            "height": 26.671875,
+            "top": 192,
+            "right": 287,
+            "bottom": 218.671875,
+            "left": 208
+          },
+          "font": "21.3333px",
+          "scroll": 79,
+          "client": 79
+        }
+      ],
+      "cursor": {
+        "x": 151.828125,
+        "y": 172.5,
+        "width": 30.828125,
+        "height": 30.828125,
+        "top": 172.5,
+        "right": 182.65625,
+        "bottom": 203.328125,
+        "left": 151.828125
+      },
+      "focus": "dialog-title",
+      "font": "21.3333px",
+      "uniform": "21.333333333333332px",
+      "sampleCount": 261,
+      "pixelMatches": 239
+    }
+  ],
+  "errors": []
+}
