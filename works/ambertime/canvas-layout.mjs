@@ -12,7 +12,7 @@ export function layoutScene(view={}){
  const controls=[],add=(key,selector,x,y,w,h=45)=>controls.push({key,selector,x,y,w,h});
  for(const[name,i]of['distill','warehouse','sales'].map((n,i)=>[n,i]))add('room-'+name,'#room-nav [data-room="'+name+'"]',12+i*114,582,108);
  add('toggle-time','#toggle-time',303,51,45,45);
- const management=['open-ledger',...(view.staffAvailable?['open-staff-panel']:[]),...(view.room==='sales'?['shop-offer']:[]),'open-aux-menu'];
+ const management=['open-ledger',...(view.staffAvailable?['open-staff-panel']:[]),...(view.room==='sales'?['shop-offer']:[]),...(view.mapAvailable?['open-world-map']:[]),'open-aux-menu'];
  let nextX=18;
  for(const key of management){const w=66;add(key,'#'+key,nextX,520,w,54);nextX+=w;}
  if(view.feedback&&!(view.room==='sales'&&view.marketMode))add('room-feedback','#room-feedback',18,447,324,69);
