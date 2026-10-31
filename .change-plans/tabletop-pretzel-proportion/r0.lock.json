@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8cf99a611ceb3cf301620fd0b039a8c12a877599c5dbc8feb5ac504771c2de17",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tabletop-pretzel-proportion",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "d4e50b408212079f0a8fa45273027b7b410ed781",
+    "change": "Restore pretzel vertical fullness while keeping plate contact",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md",
+      "works/tabletop-generator/engine.mjs",
+      "works/tabletop-generator/renderer.mjs",
+      "User expansion request"
+    ],
+    "allowedPaths": [
+      ".change-plans/tabletop-pretzel-proportion/r0.lock.json",
+      "works/tabletop-generator/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "works/postcard-generator/**",
+      "works/ambertime/**",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Adjust pretzel x/y plane scales and translation so outline is less flattened, contact unchanged",
+      "Refresh work-local module cache tags and geometric regression values",
+      "No new parts/scenes/shared metadata; preserve other scenes and existing exports"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Pretzel before/after across4palettes and3finishes",
+      "360/375/390 projection and controls",
+      "Public export and URL replay"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User reports pretzel looks horizontally squashed; localized Staging correction authorized"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Use existing lifecycle schema and garage room; no new rooms or town persistent UI",
+      "Only title, actions and needed labels on screen; no decorative prose",
+      "Seed series independent by responsibility; structural validation is not an aesthetic score"
+    ],
+    "problem": "Pretzel projection compresses its silhouette too strongly",
+    "currentContract": "Independent works served statically; lifecycle active staging-only; LAB generated from canonical registries",
+    "whyExistingIsInsufficient": "New subject requires separate composition grammar; existing delivery contracts suffice",
+    "design": "Reduce horizontal expansion and increase vertical scale around the existing support point",
+    "alternativesRejected": [
+      "Random independent shapes",
+      "Image generation and external building assets",
+      "Shared runtime or Production changes"
+    ],
+    "migration": "None; no existing state changes",
+    "compatibility": "Buildless HTML CSS ES modules SVG; canvas only on explicit PNG export",
+    "boundaryCases": [
+      "Seeds with markup/unicode/empty inputs",
+      "Extreme supported density and composition",
+      "Repeated generation and gallery memory bounds",
+      "Export failure, invalid URL settings and browser history"
+    ],
+    "testPlan": [
+      "Related23 work tests and syntax/diff",
+      "Browser visual of pretzel and3finishes, mobilewidth",
+      "CI and public SVG PNG replay"
+    ],
+    "promotionRisk": "Staging only; Production excluded",
+    "rollback": "Revert work, lifecycle/garage entry and generated LAB as a unit; no migrations",
+    "promotion": "none",
+    "outOfScope": [
+      "Production",
+      "Existing postcard and shared runtime",
+      "New random composition families"
+    ],
+    "unverified": [
+      "Physical iPhone Safari",
+      "Author aesthetic adoption"
+    ]
+  }
+}
