@@ -27,6 +27,8 @@ test('all24 prior meal SVGs remain byte-identical to base31ef85d',()=>{
 });
 test('closed sardine tin has an integrated fish label and no exposed contents across12settings',()=>{
  for(const palette of Object.keys(TABLE_PALETTES))for(const texture of ['original','print','watercolor']){
-  const scene=generateScene({study:'sardines-beer-01',palette,texture}),by=id=>scene.objects.find(o=>o.id===id),tin=by('sardine-tin'),fish=by('label-fish');assert.ok(tin.closed&&fish.printed);assert.ok(!by('peeled-lid')&&!by('sardine-0'));assert.equal(fish.support,tin.id);assert.ok(fish.bounds.left>tin.label.left&&fish.bounds.right<tin.label.right&&fish.bounds.top>tin.label.top&&fish.bounds.bottom<tin.label.bottom);assert.equal(by('drink-glass').kind,'beer-glass');assert.deepEqual(generateScene(JSON.parse(JSON.stringify(scene.settings))),scene);
+  const scene=generateScene({study:'sardines-beer-01',palette,texture}),by=id=>scene.objects.find(o=>o.id===id),tin=by('sardine-tin'),fishes=scene.objects.filter(o=>o.printed);assert.equal(fishes.length,3);assert.ok(tin.closed);assert.ok(!by('peeled-lid')&&!by('sardine-0'));for(const fish of fishes){assert.equal(fish.support,tin.id);assert.ok(fish.bounds.left>tin.label.left&&fish.bounds.right<tin.label.right&&fish.bounds.top>tin.label.top&&fish.bounds.bottom<tin.label.bottom);}assert.equal(by('drink-glass').kind,'beer-glass');assert.deepEqual(generateScene(JSON.parse(JSON.stringify(scene.settings))),scene);
  }
 });
+
+test('sardine package colors respond to all four palettes',()=>{const colors=Object.keys(TABLE_PALETTES).map(palette=>generateScene({study:'sardines-beer-01',palette}).colors);for(const role of ['labelPanel','labelBand','labelFish','labelPaper','tinSide'])assert.equal(new Set(colors.map(c=>c[role])).size,4);});
