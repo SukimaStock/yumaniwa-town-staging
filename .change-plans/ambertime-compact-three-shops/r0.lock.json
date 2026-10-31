@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1109d7b45098fe1bd8b0cfa9acff60886503e07a887b7107d4c2bab66315f630",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-compact-three-shops",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "通常3店舗の販売室をスクロールなしへ圧縮しデパート表示条件を正規データで調査",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "691bad45e22ea3c62218c6743b1d59bdba182e21",
+    "canonicalSources": [
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-compact-three-shops/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market*.mjs",
+      "works/ambertime/tests/map*.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/design/compact-three-shops/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "expectedChanges": [
+      "商品札の余白/背景/行間/瓶アイコンを整理し通常3店舗1/2商品を3幅・複数高さで計測、文字サイズと既存ボタンを維持",
+      "右上店情報と右下配置の右列を使い、左の商品札と縦領域を共有。多商品は保持して折返し、無理な縮小なし",
+      "年月は識別衝突時に完全表記へ戻す短縮可。正式日付/商品/発売回データは変更しない",
+      "デパートの正規承認/納品/期間/残数未記録/装飾家を照合、表示側のみ必要な修正。存在しない販売/残数を作らない",
+      "既存数量/カーソル/売残/初回地図/共通字体/店情報/保存結果を回帰"
+    ],
+    "ownerDecisions": [
+      "2026-10-31今回の直接本編依頼。通常3店舗はスクロールを抑える方針を優先し前PRの可変高を再調整。右下操作/商品識別/数量/カーソル維持。調査・PR/CI/merge/Staging許可、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,Plan Lock,Scope→Risk→Impact",
+      "表現監査：操作名と実数値のみ。読める文字と既存演出を維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "実機2画像と建物/デパート台帳を照合。共有実機画像を勝手に公開しない",
+      "360/375/390、短いSafari相当高さとsafe-area・通常3店舗0/1/2商品、3以上・大数量の制約を画像とhitで確認",
+      "地図初回/近所/町/デパート前後/納品/数値とカーソル同時、公開版確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤",
+      "販売/評判/解放/地域/熟成/瓶詰め/保存変更",
+      "新Lab/地図表示範囲や店舗配置変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari/端末温度/作者採否"
+    ],
+    "alternativesRejected": [
+      "Lab追加",
+      "新販売計算",
+      "共通文字縮小"
+    ],
+    "boundaryCases": [
+      "0/1/2/3/12商品/3店舗/2桁月/100年違い同年月/大数量/返品/取消/実売/還元モーション",
+      "デパート申し出前/承認待ち/翌月納品/12ヶ月経過/近所省略/町表示/装飾家"
+    ],
+    "testPlan": [
+      "通常3店舗スクロール高さと全配置button hit、商品札と数量/日付の非重複ブラウザー回帰",
+      "合法デパート記録生成とmap projection/serialize不変を検証、意味のない売残を作らない",
+      "既存関連unit/経済/評判/保存/地図初回とlabel packing"
+    ],
+    "problem": "3段を積んだカードが縦に伸び通常3店舗が隠れる。デパートの納品と店頭販売の違いが表示不具合と混同される",
+    "currentContract": "0.28.0の正式販売投影/Canvas/地理解放/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "商品札の固定高/3段分の独立高さ/大きい演出用空白で情報量以上の高さがある",
+    "design": "左の商品札と右の独立操作列で縦領域を共有し、必要な商品情報を保持して通常3店舗を測定。デパートは実台帳に従う",
+    "migration": "なし",
+    "compatibility": "計算/保存/未解放/既存確定/字体/222px/四隅/ラベル/初回intrinsic flexを維持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
