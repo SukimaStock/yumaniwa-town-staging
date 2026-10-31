@@ -294,5 +294,5 @@ body[data-room] #hero .objects::after{content:none}
 #action-dialog #dialog-body .map-shop-report button{min-height:45px;padding:2px 4px;white-space:nowrap;flex:none}
 /* Anchor this content-sized dialog to the same top edge across selections.
    The scene renderer otherwise recenters every dialog after a content resize. */
-#action-dialog.daily-map{top:calc(var(--view-top) + 12px)!important}
+#action-dialog.daily-map{top:calc(var(--view-top) + max(12px,env(safe-area-inset-top,0px)))!important;max-height:calc(var(--view-height) - max(12px,env(safe-area-inset-top,0px)) - max(12px,env(safe-area-inset-bottom,0px)))}
 @media(prefers-reduced-motion:reduce){#action-dialog.daily-map *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

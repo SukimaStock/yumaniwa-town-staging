@@ -32,11 +32,16 @@ function shopDetail(game,id,month,period){
  }).sort((a,b)=>(b.bottledMonth??-1)-(a.bottledMonth??-1)||a.productId-b.productId);
  const latest=[...receipts].sort((a,b)=>b.month-a.month||(b.id??0)-(a.id??0))[0];
  const brandId=latest?.brandId??relations.at(-1)?.brandId;
- const remark=brandId==null?null:shopRemark(game,id,brandId);
+ // The ledger after the shelf boundary records customer purchases, not visits
+ // or manual stocking. Reuse the existing classifier on those purchase rows only.
+ const remarkState=market?{...game,shop:{...game.shop,deliveries:sales}}:game;
+ const remark=brandId==null?null:shopRemark(remarkState,id,brandId);
+ const shelfText={first:'店頭で売れました。',received:'店頭で売れました。',repeat:'何度か売れています。',long:'何度も売れています。',gap:'しばらく売れていませんね。'};
+ const remarkText=market?(shelfText[remark?.key]??remark?.text??''):(remark?.text??'');
  const currentStock=market?sum(products):null,totalSold=market?sum(sales):null,recentSold=market?sum(window(sales)):null;
  const monthlySold=market?sum(sales.filter(r=>r.month===month)):null;
  const status=market?(recentSold>0?'販売あり':currentStock>0?'店頭あり':totalSold>0?'販売記録':latest?'納品記録':'取扱開始'):(receipts.length?'納品済み':'取扱開始');
- return {id,name:store.name,mode:market?'store-market':'delivery',period:{...period},currentStock,monthlySold,recentSold,windowSold:recentSold,totalSold,totalDelivered:sum(receipts),recentDelivered:sum(window(receipts)),historicalDelivered:market?sum(receipts.filter(r=>r.month<=boundary)):sum(receipts),latestMonth:latest?.month??null,latestCount:latest?.count??null,status,products,remark:remark?.text??'',remarkKey:remark?.key??null,remarkBrandId:brandId??null,customerComment:null};
+ return {id,name:store.name,mode:market?'store-market':'delivery',period:{...period},currentStock,monthlySold,recentSold,windowSold:recentSold,totalSold,totalDelivered:sum(receipts),recentDelivered:sum(window(receipts)),historicalDelivered:market?sum(receipts.filter(r=>r.month<=boundary)):sum(receipts),latestMonth:latest?.month??null,latestCount:latest?.count??null,status,products,remark:remarkText,remarkKey:remark?.key??null,remarkBrandId:brandId??null,customerComment:null};
 }
 function retailDetail(game,month,period){
  const releases=(game.releases??[]).filter(r=>validMonth(r.bottledMonth,month));

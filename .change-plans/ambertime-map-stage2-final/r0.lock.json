@@ -1,0 +1,124 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9640ce111af4879165d798494bc6fde947495c6348273a953818bc2d096a6f4e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-stage2-final",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "地図の継続試遊とA/B最小修正、C課題の評価",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "3b1ad96f4a18a2e98abf2b3a0dab32201d1c3b0d",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/map-daily-view.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/partner-orders.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-stage2-final/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/map-daily-view.mjs",
+      "works/ambertime/tests/map-stage2*.mjs",
+      "works/ambertime/design/map-stage2/**",
+      "works/ambertime/tests/map-sales-view.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css"
+    ],
+    "expectedChanges": [
+      "初期/初回納品/解放/複数店/継続販売/長期を公共モデル操作から再現し評価",
+      "A操作不能/スクロール/安全領域、B選択対応/既存数字の意味を実測し必要時だけ最小表示修正",
+      "計算/保存結果非変更、共通フォント/222px地図/操作体系維持",
+      "360/375/390、通常motion/reduced-motion、往復/選択/長文/安全領域エミュレーションを検証",
+      "Cは実装せず比較案/現行限界/第3段階の検証を報告"
+    ],
+    "ownerDecisions": [
+      "2026-10-31今回の第2段階依頼。試遊・A/B修正・関連検証・PR/CI/通常merge/Staging公開を許可。C/新販売評判/Production変更なし"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS/Change OS/表現監査",
+      "不要な通知/演出/架空データ/新階層なし。地域拡大速度は別課題",
+      "根拠とコードを独立レビュー",
+      "元Lockf0a1aa6d後、旧卸境界の反応fixtureの期待を正しいawaitへ更新する必要を確認。実装のscopeは同一、テストpathをfresh r0へ先行追加。旧月<=boundaryを購入扱いしない",
+      "並行main189223bf→3b1ad96fは食卓生成器のみ。対象差分なしを確認して同一scopeをfresh r0固定"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "7シナリオの情報内容と販売室往復",
+      "360/375/390の長文タッチスクロール・建物/札タップ・選択対応・縦位置・safe-area",
+      "公開版基本操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤",
+      "販売/需要/評価/口コミ/地域解放/経済/注文/正式保存形式変更",
+      "販売室の地図全置換/地図から納品/新しい評判モデル",
+      "正式店舗座標/背景/新地域階層/販売データの捏造"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari/端末温度/作者採否"
+    ],
+    "alternativesRejected": [
+      "C改善を新仕様として実装",
+      "地図確認を必須化",
+      "地域拡大の速度を変更"
+    ],
+    "boundaryCases": [
+      "未瓶詰め/最初の一本/納品直後/初売/継続/品切れ/広域",
+      "長文/安全領域上下/売999+/3店は検証fixtureと区別"
+    ],
+    "testPlan": [
+      "公共APIで経歴と比較結果の再現",
+      "モデル/保存非変更と表示読取不変",
+      "3幅の実ブラウザー・既存販売UI/地図回帰"
+    ],
+    "problem": "地図が継続販売や町の広がりを伝えるか、725残項目の操作検証が必要",
+    "currentContract": "0.28.0の正式販売投影/Canvas/地理解放/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "通常開閉時に最大範囲へ戻り、詳細有無でCanvasサイズが変わる。modal非表示が引取確認を消す",
+    "design": "現行進行から状態を取得し実操作。表示A/Bの根拠がある場合だけ修正。Cは比較提案",
+    "migration": "なし。任意の閲覧UI状態のみ正式ゲーム外で保持",
+    "compatibility": "正式セーブとnative経済操作を変更しない。既存販売/仮配分の状態は地図表示の前後で保持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
