@@ -625,14 +625,19 @@ function mapVisualBounds(id,p){
  const sprites=worldMapStage===1?{retail:[52,62,32,32]}:worldMapStage===2?{retail:[26,72,24,24],'town-liquor':[90,34,24,24],supermarket:[102,94,24,24]}:worldMapStage===3?{retail:[46,62,16,16],'town-liquor':[86,44,16,16],supermarket:[98,92,16,16]}:{};
  return sprites[id]??(p?[p.x-4,p.y-4,8,8]:null);
 }
-function mapCursor(bounds){if(!bounds)return '';const [x,y,w,h]=bounds;return '<span class="map-selection-cursor" aria-hidden="true" style="left:'+(x-2)/144*100+'%;top:'+(y-2)/144*100+'%;width:'+(w+4)/144*100+'%;height:'+(h+4)/144*100+'%"></span>';}
+function mapCursor(bounds,selected=true){if(!bounds)return '';const [x,y,w,h]=bounds;return '<span class="'+(selected?'map-selection-cursor':'map-place-affordance')+'" aria-hidden="true" style="left:'+(x-2)/144*100+'%;top:'+(y-2)/144*100+'%;width:'+(w+4)/144*100+'%;height:'+(h+4)/144*100+'%"></span>';}
 // Label layout is presentation-only: the native projection owns every number.
 function mapSalesMarkup(data,selected){
  return data.pins.map(p=>{
   const sold=(p.recentSold===null?'納'+mapNumber(p.recentDelivered):'売'+mapNumber(p.recentSold)),stock=p.currentStock===null?'':'残'+mapNumber(p.currentStock),label=sold+(stock?' '+stock:'');
   const bounds=mapVisualBounds(p.id,p),[x,y,w,h]=bounds;
-  return '<button type="button" class="map-shop-hit" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+(x+w/2)/144*100+'%;top:'+(y+h/2)/144*100+'%" aria-label="'+esc(p.name+' '+label)+'" aria-pressed="'+(selected===p.id)+'"></button><span class="map-shop-label" data-id="'+esc(p.id)+'" data-bounds="'+bounds.join(',')+'" aria-hidden="true"><span>'+esc(sold)+'</span>'+(stock?' <span>'+esc(stock)+'</span>':'')+'</span>'+(selected===p.id?mapCursor(bounds):'');
- }).join('')+(!selected?mapCursor(mapVisualBounds('retail')):'');
+  return '<button type="button" class="map-shop-hit" data-action="map-shop" data-id="'+esc(p.id)+'" style="left:'+(x+w/2)/144*100+'%;top:'+(y+h/2)/144*100+'%" aria-label="'+esc(p.name+' '+label)+'" aria-pressed="'+(selected===p.id)+'"></button><span class="map-shop-label" data-id="'+esc(p.id)+'" data-bounds="'+bounds.join(',')+'" aria-hidden="true"><span>'+esc(sold)+'</span>'+(stock?' <span>'+esc(stock)+'</span>':'')+'</span>'+mapCursor(bounds,selected===p.id);
+ }).join('')+mapDistilleryMarkup(selected);
+}
+function mapDistilleryMarkup(selected){
+ const bounds=mapVisualBounds('retail');if(!bounds)return '';
+ const [x,y,w,h]=bounds;
+ return '<button type="button" class="map-shop-hit" data-action="map-shop" data-id="retail" style="left:'+(x+w/2)/144*100+'%;top:'+(y+h/2)/144*100+'%" aria-label="蒸留所" aria-pressed="'+(!selected)+'"></button>'+mapCursor(bounds,!selected);
 }
 let mapLabelObserver=null;
 function layoutMapLabels(){
@@ -1064,7 +1069,7 @@ function handleModal(e){
  if(kind==='quote'&&D.needsBrandSetup(game)&&a==='brand-edit'){modal.brandDraftConfirmed=false;render();return;}
  if(kind==='quote'&&D.needsBrandSetup(game)&&['brand-bottle','brand-label'].includes(a)){const field=a==='brand-bottle'?'bottle':'label',choices=field==='bottle'?IDENTITY_BOTTLES:IDENTITY_LABELS;if(choices.some(x=>x.id===b.dataset.id)){firstBrandDraft()[field]=b.dataset.id;render();}return;}
  if(kind==='world-map'&&['menu','direct'].includes(modal.source)&&a==='map-shop'){
-  if(mapSalesProjection(game,worldMapStage).pins.some(p=>p.id===b.dataset.id)){const changed=modal.selectedShop!==b.dataset.id;modal.selectedShop=b.dataset.id;rememberMapBrowse();render();if(changed&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelector('.map-selection-cursor')?.animate([{opacity:.45},{opacity:1}],{duration:180,iterations:1});}}return;
+  const id=b.dataset.id,isRetail=id==='retail'&&!!mapVisualBounds('retail');if(isRetail||mapSalesProjection(game,worldMapStage).pins.some(p=>p.id===id)){const next=isRetail?null:id,changed=modal.selectedShop!==next;modal.selectedShop=next;rememberMapBrowse();render();if(changed&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelector('.map-selection-cursor')?.animate([{opacity:.45},{opacity:1}],{duration:180,iterations:1});}}return;
  }
  if(kind==='world-map'&&['menu','direct'].includes(modal.source)&&a==='map-shop-info'){
   if(mapSalesProjection(game,worldMapStage).pins.some(p=>p.id===b.dataset.id)){modal={kind:'stockist',shopId:b.dataset.id,mapParent:modal};render();}return;
