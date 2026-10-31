@@ -10,7 +10,7 @@ test('pretzel and flower studies retain contacts, vessel relationships and attac
    for(const o of scene.objects){for(const s of o.surfaces||[])assert.match(scene.colors[s.color],/^#[a-f0-9]{6}$/i);if(o.support&&o.support!=='table')assert.ok(ids.has(o.support));}
    if(study==='pretzel-beer-01'){
     assert.equal(by('drink-glass').kind,'beer-glass');assert.equal(by('removed-stopper').kind,'cap');const p=by('plate').inner,q=by('pretzel').contact;assert.ok(((q.x-p.x)/p.rx)**2+((q.y-p.y)/p.ry)**2<1);assert.ok(by('plate').z<by('pretzel').z);
-    assert.equal(by('pretzel').holeCenters.length,3);assert.equal(by('pretzel').frame.scaleY,.6);assert.ok(Math.abs(by('pretzel').contact.y-(532*.6+259))<1e-8);const svg=renderSVG(scene);assert.ok(svg.includes('fill-rule="evenodd" clip-rule="evenodd"'));assert.ok(!by('coffee-cup'));
+    assert.equal(by('pretzel').holeCenters.length,3);const f=by('pretzel').frame;assert.ok(f.scaleY<f.scale);assert.ok(Math.abs(by('pretzel').contact.y-(532*f.scaleY+f.y))<1e-8);assert.ok(Math.abs(by('pretzel').contact.x-(447*f.scale+f.x))<1e-8);const svg=renderSVG(scene);assert.ok(svg.includes('fill-rule="evenodd" clip-rule="evenodd"'));assert.ok(!by('coffee-cup'));
    }else{
     assert.ok(!by('bottle')&&!by('removed-stopper'));const vase=by('vase');const stems=scene.objects.filter(o=>o.anchoredTo==='vase');assert.equal(stems.length,3);
     for(const s of stems){assert.ok(s.z<vase.z);assert.ok(s.root[0]>vase.mouth.left&&s.root[0]<vase.mouth.right&&s.root[1]>vase.mouth.top&&s.root[1]<vase.mouth.bottom);const b=by(s.bloom);assert.equal(b.attachedTo,s.id);assert.ok(s.tip[0]>b.bounds.left&&s.tip[0]<b.bounds.right&&s.tip[1]>b.bounds.top&&s.tip[1]<b.bounds.bottom);}
