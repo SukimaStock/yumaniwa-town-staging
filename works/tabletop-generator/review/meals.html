@@ -1,0 +1,9 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>器と食卓 — 場面の比較</title><style>body{font:14px system-ui;background:#f5f2e9;color:#38433f;margin:16px}a{color:inherit}nav{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px}main{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1200px;margin:auto}figure{margin:0}img{display:block;width:100%;height:auto}figcaption{font-size:12px;margin-top:6px}@media(max-width:600px){main{grid-template-columns:1fr 1fr}}</style><nav><a href="../">作品へ戻る</a><a href="variants.html">果物の比較</a><a href="?texture=original">原画</a><a href="?texture=print">印刷風</a><a href="?texture=watercolor">水彩画風</a></nav><main></main><script type="module">
+import {generateScene,TABLE_PALETTES,normalizeSettings} from '../engine.mjs?meals=01';import {renderSVG} from '../renderer.mjs?meals=01';
+const texture=new URL(location.href).searchParams.get('texture'),urls=[];
+for(const study of ['wine-cheese-01','bread-coffee-01'])for(const [palette,p]of Object.entries(TABLE_PALETTES)){
+ const settings=normalizeSettings({version:3,study,palette,texture}),scene=generateScene(settings),figure=document.createElement('figure'),a=document.createElement('a'),img=document.createElement('img'),caption=document.createElement('figcaption');
+ a.href='../?'+new URLSearchParams(settings);img.alt=scene.title+' / '+p.name;const url=URL.createObjectURL(new Blob([renderSVG(scene)],{type:'image/svg+xml'}));urls.push(url);img.src=url;caption.textContent=img.alt;a.append(img);figure.append(a,caption);document.querySelector('main').append(figure);
+}
+addEventListener('pagehide',()=>urls.forEach(url=>URL.revokeObjectURL(url)));addEventListener('pageshow',e=>{if(e.persisted)location.reload()});
+</script></html>

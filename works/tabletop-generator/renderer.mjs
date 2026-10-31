@@ -26,6 +26,7 @@ export function renderSVG(scene){
    body+=`<g data-object="${o.id}" transform="${frame(o)}translate(${o.x} ${o.y}) rotate(${o.angle})">${paint(path(o.outline),c[o.color],true)}${o.stem?paint(path(o.stem),c.stem,true):''}</g>`;continue;
   }
   let shape='';
+  if(o.kind==='surface')shape=o.surfaces.map(s=>paint(s.ellipse?ellipse(...s.ellipse):path(s.d),c[s.color])).join('');
   if(o.kind==='cloth')shape=paint(path(o.outline),c.cloth)+paint(path(o.fold),c.fold);
   if(o.kind==='bottle'){
    const l=o.label;
