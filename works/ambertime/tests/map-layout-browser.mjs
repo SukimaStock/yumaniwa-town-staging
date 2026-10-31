@@ -33,8 +33,9 @@ for(const before of process.env.AMBER_MAP_BEFORE?[true,false]:[false])for(const 
  }
  await load(initial,1);await geometry('initial');await page.locator('#close-dialog').click();
  await load(established,3);const saved=await bytes(),g=await geometry('town');
- const pins=page.locator('.map-shop-hit');for(let i=0;i<await pins.count();i++){await pins.nth(i).click();const selected=await geometry('shop-'+i);if(!before){assert.equal(selected.map.y,g.map.y);assert.equal(selected.controls.y,g.controls.y);}assert.equal(await bytes(),saved);}
- if(!before){await page.locator('.map-shop-label').evaluateAll(ns=>ns.forEach(n=>n.textContent='売999+ 残999+'));await geometry('large-counts');await page.locator('.map-shop-report').evaluate(n=>{const p=document.createElement('p');p.textContent='長い反応の表示確認。'.repeat(30);n.append(p);});const long=await geometry('long');assert.equal(long.map.y,g.map.y);assert.equal(long.controls.y,g.controls.y);assert(long.reportScroll>long.reportClient);}
+ const pins=page.locator('.map-shop-hit');for(let i=0;i<await pins.count();i++){await pins.nth(i).click();const selected=await geometry('shop-'+i);if(!before){assert(Math.abs(selected.dialog.y+selected.dialog.height/2-height/2)<=1);}assert.equal(await bytes(),saved);}
+ // Large factual labels are covered by map-counts-browser using fresh markup.
+ if(!before){await page.locator('.map-shop-report').evaluate(n=>{const p=document.createElement('p');p.textContent='長い反応の表示確認。'.repeat(30);n.append(p);});const long=await geometry('long');assert(Math.abs(long.dialog.y+long.dialog.height/2-height/2)<=1);assert(long.reportScroll>long.reportClient);}
  for(const action of ['world-map-in','world-map-out']){const b=page.locator(`[data-action=${action}]`);if(await b.isEnabled()){await b.click();await geometry(action);}}
  assert.equal(await bytes(),saved);await page.locator('#close-dialog').click();await page.locator('#open-world-map').click();await page.locator('[data-action=map-sales-room]').click();assert.equal(await bytes(),saved);assert.equal(await page.locator('#action-dialog').isVisible(),false);
  await context.close();

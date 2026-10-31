@@ -156,7 +156,7 @@ test('unavailable and offer-only shops are absent; actual contracts reveal only 
 test('four sold retains accessible history while the bottle always shows one actually remaining',async t=>{
  t.mock.timers.enable({apis:['setTimeout']});const h=harness();h.read().core.products[0].stock=10;h.read().assigned[7]=5;h.ui.update({visible:true});const before=structuredClone(h.read());h.read().core.month++;h.read().assigned[7]=1;h.read().core.products[0].stock-=4;h.read().core.lastMonth={month:h.read().core.month,sales:[{id:7,sold:4,revenue:64,channel:'stockist',shopId:'town-liquor'}]};h.ui.consume(before,h.read());assert.doesNotMatch(h.root.innerHTML,/class="market-sale-notice"/);assert.deepEqual(h.savedNotices,['町の酒店で4本売れました。']);assert.match(h.root.innerHTML,/残り1本 4本売れた/);assert.doesNotMatch(h.root.innerHTML,/−4本|-4本|market-sold/);assert.match(h.root.innerHTML,/class="market-count">1本/);await Promise.resolve();await Promise.resolve();t.mock.timers.tick(2401);assert.doesNotMatch(h.root.innerHTML,/4本売れた/);assert.equal(h.read().assigned[7],1);
 });
-test('left placement target has a visible action and still preserves minimal bottle controls',()=>{const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/class="market-place-label"/);assert.match(h.root.innerHTML,/ここに置く/);assert.doesNotMatch(h.root.innerHTML,/置く →|market-preference|少量ずつ|煙・厚み|麦・果実/);assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);assert.doesNotMatch(h.root.innerHTML,/<select|取扱前|デパート|#\d+|第\d+回/);});
+test('empty placement fields alone show a hint and preserve minimal bottle controls',()=>{const h=harness();h.ui.update({visible:true});assert.doesNotMatch(h.root.innerHTML,/class="market-place-label"/);h.read().retail={};h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/class="market-place-label"/g)||[]).length,1);assert.match(h.root.innerHTML,/ここに置く/);assert.doesNotMatch(h.root.innerHTML,/置く →|market-preference|少量ずつ|煙・厚み|麦・果実/);assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);assert.doesNotMatch(h.root.innerHTML,/<select|取扱前|デパート|#\d+|第\d+回/);});
 
 
 test('hand heading avoids duplicate aggregate and successful saved placement uses accessible status only',()=>{
@@ -166,13 +166,13 @@ test('hand heading avoids duplicate aggregate and successful saved placement use
 });
 test('normal placement targets stay neutral and the saved status has a dedicated hidden live region',()=>{
  const read=name=>fs.readFileSync(new URL('../'+name,import.meta.url),'utf8'),css=read('market.css'),app=read('shop-app.mjs'),html=read('index.html');
- const targetRule=css.match(/#market-board \.market-target:not\(:disabled\)\{([^}]+)\}/)[1];assert.doesNotMatch(targetRule,/#e4bc66|#57472e/);assert.match(css,/button\[aria-pressed=true\][^}]+#e4bc66/);assert.match(css,/market-target[^}]+border:[^}]+#858995/);
+ const targetRule=css.match(/#market-board \.market-target\{([^}]+)\}/)[1];assert.doesNotMatch(targetRule,/#e4bc66|#57472e/);assert.match(css,/button\[aria-pressed=true\][^}]+#e4bc66/);assert.match(css,/market-shop[^}]+border:[^}]+#858995/);
  assert.match(html,/id="market-action-status" class="sr-only" role="status" aria-live="polite"/);assert.match(app,/announceSaved:text=>/);assert.match(app,/document.body.append\(\$\('automatic-news'\),\$\('market-action-status'\)\)/);
 });
 
 
 test('venue information is explicitly named and content-sized panel reveals the native room below',()=>{
- const h=harness();h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/>店情報 ›<\/button>/g)||[]).length,2);assert.doesNotMatch(h.root.innerHTML,/>…<\/button>/);assert.equal(h.root.style.height,'auto');assert.equal(h.root.style.maxHeight,'417px');
+ const h=harness();h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/class="market-shop-name"/g)||[]).length,2);assert.doesNotMatch(h.root.innerHTML,/>店情報 ›<\/button>/);assert.match(h.root.innerHTML,/class="market-shop-title">町の酒店/);assert.doesNotMatch(h.root.innerHTML,/>…<\/button>/);assert.equal(h.root.style.height,'auto');assert.equal(h.root.style.maxHeight,'417px');
  const css=fs.readFileSync(new URL('../market.css',import.meta.url),'utf8');assert.match(css,/market-content[^}]*height:auto/);assert.match(css,/market-shops[^}]*flex:none/);
 });
 
