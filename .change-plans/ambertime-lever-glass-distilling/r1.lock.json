@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c160e9eb7899ff64c621644dda52f2176363667258bb8c51ddff4589bceb4c6d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-lever-glass-distilling",
+    "revision": 1,
+    "previousPlanDigest": "5fc9fcd1a26b080e88552c43adb70618e8213386b9b2b250bbbb070ee018383e",
+    "revisionReason": "仕込み選択の決定は開始を伴わず、レバーが開始する最新UI契約へ既存formal-copyの表示期待を更新する必要があるため",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "レバーを引きグラスで受ける本編蒸留入力",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "0d2c886d85d0dd1ae5ec878b1864cea777fa43ca",
+    "canonicalSources": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-object-art.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-lever-glass-distilling/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/tests/distill*.mjs",
+      "works/ambertime/tests/start-map-ui-browser.mjs",
+      "works/ambertime/design/lever-glass/**",
+      ".change-plans/ambertime-lever-glass-distilling/r1.lock.json",
+      "works/ambertime/tests/formal-copy.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "expectedChanges": [
+      "レバー44px以上hit/3姿勢/下方向相対ドラッグ/キャンセル/単発開始/開始前矢印",
+      "native兄弟hit領域とCanvasドット描画、タップと左右dragのグラス入力、pointer captureとclick抑止",
+      "採取前空、既存distillationReadoutの終了量見込み/確定量0..40Lを液面へ。独立タイマー積算なし",
+      "仕込み選択/3秒準備/中断再開/旧保存/担当者/期限やり直しは既存処理へ接続。旧採取ボタン撤去",
+      "360/375/390/Chromium/WebKit/reduced-motion/キャンセル/連打/保存/同区間同結果、画像と公開検証"
+    ],
+    "ownerDecisions": [
+      "2026-10-31作者の今回全文依頼。独立Labなし本編の入力と絵を変更しPR/CI/merge/Stagingまで。Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,Plan Lock,Scope→Risk→Impact",
+      "表現監査：操作名と実数値のみ。読める文字と既存演出を維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "操作前/レバー中間/採取中/採取終了の画像、指追従とピクセル配置、無駄なscrollなし",
+      "公開開始/採取/保持/再表示、iPhone実機未確認を明記"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤/新Lab",
+      "計算/保存形式/価格/解放/ゲームバランス/成功条件変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの握り/指追従/ツールバー/作者採否"
+    ],
+    "alternativesRejected": [
+      "Lab追加",
+      "新販売計算",
+      "共通文字縮小"
+    ],
+    "boundaryCases": [
+      "短い/逆方向/微動tap/cancel/非primary/再click/連打/画像外/非表示/再開/resize/還元動作",
+      "新規/旧方式/自動担当/最小採取幅前/期限超過/保存不可/採取後/資金不足/満樽"
+    ],
+    "testPlan": [
+      "入力状態unitと実PointerEventブラウザー、Canvas画素/道具hit/操作回数/タイマー重複/3幅/2engine",
+      "既存蒸留/区間/表示/保存・販売室/地図初回回帰、Scope→Risk→ImpactとCI"
+    ],
+    "problem": "採取区間判断が独立ボタン操作に留まり、道具操作と採取量の視覚対応がない",
+    "currentContract": "地図の投影/Canvas/222px/売残/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "固定のグラスと汎用start/stop buttonではレバーの引き切りと受取位置が表現できない",
+    "design": "既存Canvasに別描画の道具、native透明hitにpointer state machine。仕込みカードは選択だけ、レバーが既存prepare開始、グラスが既存finish handlerへ接続。液面は既存終了位置由来の量（積算ではない）を明記",
+    "migration": "なし",
+    "compatibility": "正式model/save/乱数/費用/品質/時計/採取区間と結果は変更しない。入力途中のドラッグは一切保存しない。既存3秒カウントダウン維持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
