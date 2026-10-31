@@ -1,9 +1,9 @@
 import * as legacy from './versions/0.2/engine.mjs';
-import {companionScene} from './companions.mjs?proportion=02';
+import {companionScene} from './companions.mjs?sardines=01';
 import {mealScene} from './meals.mjs';
 import {fruitForm} from './fruit-forms.mjs';
 export const VERSION=3;
-export const STUDIES=[{id:'table-01',name:'果物と飲みもの'},{id:'wine-cheese-01',name:'チーズとワイン'},{id:'bread-coffee-01',name:'パンとコーヒー'},{id:'pretzel-beer-01',name:'プレッツェルとビール'},{id:'flowers-01',name:'花のある食卓'}];
+export const STUDIES=[{id:'table-01',name:'果物と飲みもの'},{id:'wine-cheese-01',name:'チーズとワイン'},{id:'bread-coffee-01',name:'パンとコーヒー'},{id:'pretzel-beer-01',name:'プレッツェルとビール'},{id:'flowers-01',name:'花のある食卓'},{id:'sardines-beer-01',name:'オイルサーディンとビール'}];
 export const PALETTES=legacy.PALETTES;
 export const random=legacy.random;
 export const DRINKS=[{id:'white-wine',name:'白ワイン'},{id:'red-wine',name:'赤ワイン'},{id:'beer',name:'ビール'}];
@@ -25,7 +25,7 @@ export function normalizeSettings(input={}){
 export function generateScene(input={}){
  const settings=normalizeSettings(input);
  if(settings.version<3)return legacy.generateScene(settings);
- if(['pretzel-beer-01','flowers-01'].includes(settings.study))return companionScene(settings,generateScene({...settings,study:'table-01',drink:settings.study==='pretzel-beer-01'?'beer':'white-wine',fruit:'lemon'}));
+ if(['pretzel-beer-01','flowers-01','sardines-beer-01'].includes(settings.study))return companionScene(settings,generateScene({...settings,study:'table-01',drink:settings.study!=='flowers-01'?'beer':'white-wine',fruit:'lemon'}));
  if(settings.study!=='table-01')return mealScene(settings,generateScene({...settings,study:'table-01',drink:settings.study==='wine-cheese-01'?'red-wine':'white-wine',fruit:'lemon'}));
  const scene=legacy.generateScene({version:2,study:'wine-lemon-02',texture:settings.texture});
  scene.settings=settings;
