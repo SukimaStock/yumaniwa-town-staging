@@ -47,7 +47,9 @@ test('store records, brand-specific remarks and inventory stay isolated',()=>{
  s.storeMarket.byShop['town-liquor'][id]=2;s.storeMarket.byShop.supermarket[id]=4;
  s.shop.deliveries=[{shopId:'town-liquor',brandId:1,month:s.core.month,count:3},{shopId:'supermarket',brandId:2,month:s.core.month,count:5}];
  assert.equal(pin(s).currentStock,2);assert.equal(pin(s,'supermarket').currentStock,4);assert.equal(pin(s).totalDelivered,3);assert.equal(pin(s,'supermarket').totalDelivered,5);
- assert.equal(pin(s,'supermarket').remarkBrandId,2);assert.equal(pin(s,'supermarket').remarkKey,'received');assert.equal(pin(s).customerComment,null);
+ assert.equal(pin(s,'supermarket').remarkBrandId,2);// A receipt at startedMonth is old wholesale, not a customer purchase.
+ assert.equal(pin(s,'supermarket').remarkKey,'await');
+ assert.equal(pin(s,'supermarket').remark,'取扱いを始めました。');assert.equal(pin(s).customerComment,null);
  assert.deepEqual([pin(s).x,pin(s).y],mapShopPositions(3)['town-liquor']);
 });
 test('department factual adoptions have delivery facts and no fictitious shop stock or buyer rating',()=>{
