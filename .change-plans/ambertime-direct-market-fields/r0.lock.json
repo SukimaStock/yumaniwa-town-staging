@@ -1,0 +1,113 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a245687745ace974b964f36230e0fd6e376a41598094b5315f28c08d2398bb17",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-direct-market-fields",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "地図中央寄せと店名/商品欄の直接操作",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "617bd10da5f5d868ddd5dbb709030521e1ca3558",
+    "canonicalSources": [
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-direct-market-fields/r0.lock.json",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market*.mjs",
+      "works/ambertime/tests/map*.mjs",
+      "works/ambertime/design/direct-market-fields/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "expectedChanges": [
+      "map top固定を外し既存visualViewport中央配置へ戻す。安全領域と222pxは維持",
+      "店名を下線/›と44px nativebuttonで店情報へ。独立店情報buttonは廃止",
+      "商品欄の背景全体を独立nativebuttonで配置先にし空欄のみ薄いここに置く。商品返品buttonと店名buttonは兄弟要素として押分け",
+      "数量演出/選択/店情報復帰/取消/保存モデル不変。作者の最新指示で旧右下操作条件を更新"
+    ],
+    "ownerDecisions": [
+      "2026-10-31今回指示：モーダル中央、店情報は店名タップ、ここに置く独立ボタンを廃止し欄を配置先へ。空欄だけ薄い文言。従来の分離/右下ボタン条件を置換する明示判断。通常Stagingフロー、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,Plan Lock,Scope→Risk→Impact",
+      "表現監査：操作名と実数値のみ。読める文字と既存演出を維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390・短い表示高さで通常3店舗と複数発売回、配置/返品/情報/演出の押分け",
+      "地図中央/初回/蒸留所再選択/縮尺/安全領域、公開版確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤",
+      "ゲーム計算/保存/解放/地理/新画面"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari/作者採否"
+    ],
+    "alternativesRejected": [
+      "Lab追加",
+      "新販売計算",
+      "共通文字縮小"
+    ],
+    "boundaryCases": [
+      "空欄/1/2/3以上商品/全数配置/無効配置/返品取消/店名/スクロールdrag/キーボード/還元モーション",
+      "地図の情報量差/短い高さ/safe area"
+    ],
+    "testPlan": [
+      "関連unit/market実ブラウザー/3店舗複数商品/新押分けテスト/地図初回と中央幾何を実描画検証",
+      "保存と販売/評判計算結果不変、Scope/Risk/Impact/必須CI"
+    ],
+    "problem": "モーダル上端固定、店情報と配置ボタンが占有し販売室が冗長",
+    "currentContract": "地図の投影/Canvas/222px/売残/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "前回は独立操作を優先したが作者実機評価により欄と店名への直接操作を採用",
+    "design": "map既存中央計算の再利用。店名はnativebutton下線と›、商品欄の背景は透明native配置button。商品返品buttonとは非入れ子。空の欄だけ薄い配置文言",
+    "migration": "なし",
+    "compatibility": "正式保存/モデル/計算/222px/共通字体/売残/四隅/初回intrinsic flex/数量演出を維持",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
