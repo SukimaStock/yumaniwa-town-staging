@@ -1,5 +1,5 @@
 import * as legacy from './versions/0.2/engine.mjs';
-import {companionScene} from './companions.mjs';
+import {companionScene} from './companions.mjs?proportion=02';
 import {mealScene} from './meals.mjs';
 import {fruitForm} from './fruit-forms.mjs';
 export const VERSION=3;
