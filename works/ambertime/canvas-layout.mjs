@@ -27,7 +27,7 @@ export function layoutScene(view={}){
  }else if(view.room==='distill'||!view.room){
   if(view.tools){
    add('start-distill','#start-distill',90,186,180);
-   add('open-fill','#open-fill',126,414,108);
+   add('open-fill','#open-fill',126,264,108);
    add('distill-lever','#distill-lever',285,279,60,66);
    const x=(view.tools.glassPosition===0?174:237)-9;
    add('distill-glass','#distill-glass',x,333,54,54);
