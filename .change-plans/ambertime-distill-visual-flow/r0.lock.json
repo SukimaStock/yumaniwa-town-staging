@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dd6431e238a461017b2a0e693a81543dba94c1253a9472d49076c7be1160c562",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-distill-visual-flow",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "仕込み決定後の道具活性化と視線誘導・液面とカウントダウン復元",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5555c6e21c9a66b076b86192d0606c6b5c46e4a8",
+    "canonicalSources": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-object-art.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-distill-visual-flow/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/distill*.mjs",
+      "works/ambertime/tests/start-countdown.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/design/distill-visual-flow/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/font-uniform.css",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "expectedChanges": [
+      "可視の操作文を撤去し読み上げ情報のみ保持、仕込み決定までレバー/矢印は淡色静止で無効",
+      "決定後leverを有効、引いた後はglassに矢印。操作可否/還元動作に沿う点滅",
+      "旧Canvas液面が参照した既存d.litres進行曲線を採取中の演出へ復元、確定時はcore.spirit実量に一致。時計/計算/保存変更なし",
+      "カウントダウンを覆っていたready仕込みbuttonを3秒中非表示、3/2/1の実画素を検証",
+      "たる詰めbuttonを原酒窓と蒸留機の間へ移動。既存pixel lever形状/入力を維持"
+    ],
+    "ownerDecisions": [
+      "2026-11-01今回指示：文字よりアイコンと点滅。初期無効→仕込み決定後有効、液面の以前の演出復元、カウントダウン復活、グラス矢印、たる詰めを機器上へ。通常Staging PR/CI/merge/公開を継続、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,単一先頭Plan Lock,Scope→Risk→Impact",
+      "表現監査：可視操作文を外し指定のアイコン/穏やかな点滅で案内。読み上げは維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390、初期/決定後/3-2-1/採取/終了の画像と視線/各操作",
+      "公開版で仕込み前無効、決定→lever→glass、たる詰め位置を確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤/新Lab",
+      "計算/保存形式/価格/解放/ゲームバランス/成功条件変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの握り/指追従/ツールバー/作者採否"
+    ],
+    "alternativesRejected": [
+      "Lab追加",
+      "新販売計算",
+      "共通文字縮小"
+    ],
+    "boundaryCases": [
+      "初期/決定取消/準備cancel/再読込/新しい仕込み/expiry/自動担当",
+      "採取前空/旧進行液面/最小幅/終了確定/還元motion/3秒重なり/読み上げ"
+    ],
+    "testPlan": [
+      "既存入力・モデル・保存回帰、Browser 3幅2engineで準備ゲート・矢印・文字非表示・3/2/1画素・液面カーブ・結果量・ボタン幾何",
+      "単一Plan Lock先頭commit、Scope→Risk→Impact、必須CIと公開確認"
+    ],
+    "problem": "仕込み前にleverが有効、操作文が視線を奪い、量見込みの即時液面と仕込みボタンによるカウントダウン隠れがある",
+    "currentContract": "地図の投影/Canvas/222px/売残/ゲーム計算/正式保存を維持",
+    "whyExistingIsInsufficient": "前PRの道具接続は成立したが、準備段階/視線の順序と以前の液面演出を引き継げていない",
+    "design": "準備決定はUI内の一時flag、旧d.litresの進行演出と確定量を分離、控えめな道具矢印、仕込み窓と動作前に重ならないcountdown",
+    "migration": "なし",
+    "compatibility": "model/save/採取/品質/費用/時計/3秒/lever形状/gestureは維持。液面は表示だけ旧曲線へ戻す。reload時readyは再度仕込み決定が必要",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
