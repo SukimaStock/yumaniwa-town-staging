@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c6d529f325c3994a302214e88b67db057140c8fa36bb3d7644b39f8cb9cf4283",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-cut-mark-followup",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "カットバー目盛削除と香り名横の色印拡大",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "823227736a80230a564ea0b19e051d5c183532e9",
+    "canonicalSources": [
+      "works/ambertime-cut-lab/bar.mjs",
+      "works/ambertime-cut-lab/projection.mjs",
+      "works/ambertime-cut-lab/input-state.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-cut-mark-followup/r0.lock.json",
+      "works/ambertime/cut-bar.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/cut-mark-refine/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "現在/開始/終了の長い縦線を削除し位置capと採取下線/点を維持",
+      "結果香り名phrase横に12px色印を置く",
+      "3幅focused描画/正式状態/cache/CI/Staging"
+    ],
+    "ownerDecisions": [
+      "2026-11-01作者の追加指示：ゲージ縦目盛を削除、結果色印を香り名横へ移動して拡大。通常Staging公開、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390同条件前後比較・文字/色印干渉なし",
+      "旧cache公開tabで更新確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert。正式保存の移行なし。追加UI設定は旧版が読まない独立keyでゲーム状態へ混入しない",
+    "outOfScope": [
+      "Production/共有基盤/他作品/新Lab",
+      "正式量/味48点/費用/販売/評判/時計/保存/12step変更",
+      "入力/レバー/習熟/3秒/液面高/他部屋展開"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの指追従/バー/安全領域/視線と作者採否"
+    ],
+    "alternativesRejected": [
+      "正式味変更",
+      "開始/終了/現在印削除",
+      "新しい説明文/操作追加"
+    ],
+    "boundaryCases": [
+      "全cutで現在/開始/終了位置capと下線/点維持",
+      "長い香り名/小画面/0L/採取中中立"
+    ],
+    "testPlan": [
+      "長い縦線なし/位置capと下線保持/香り名横の色印/正式byte一致",
+      "360/375/390画像と操作",
+      "Scope→Risk→Impact/CI/public"
+    ],
+    "problem": "反復目盛の視覚密度と結果色印の位置/小ささ",
+    "currentContract": "正式model/input/learning/lever/countdown/fillheight/save/費用/量/時計/配置を維持",
+    "whyExistingIsInsufficient": "作者の実表示確認に基づく追加視認性調整",
+    "design": "長い縦線なしでもcap/下線で位置維持。香り名行のみ12px色印と18pxテキスト余白",
+    "migration": "正式保存/習熟設定の移行なし、描画のみ",
+    "compatibility": "表示のみ、原酒量/48点/正式save全blob維持。入力/習熟モジュール不変",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
