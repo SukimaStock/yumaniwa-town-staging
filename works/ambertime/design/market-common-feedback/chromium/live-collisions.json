@@ -1,0 +1,837 @@
+{
+  "samples": [
+    {
+      "delta": [
+        {
+          "text": "−1",
+          "data": {
+            "kind": "sale",
+            "productId": "5",
+            "shopId": "retail"
+          },
+          "rect": {
+            "x": 204.0625,
+            "y": 220.1875,
+            "width": 20,
+            "height": 23.328125,
+            "top": 220.1875,
+            "right": 224.0625,
+            "bottom": 243.515625,
+            "left": 204.0625
+          }
+        },
+        {
+          "text": "−1",
+          "data": {
+            "kind": "sale",
+            "productId": "6",
+            "shopId": "retail"
+          },
+          "rect": {
+            "x": 305.75,
+            "y": 220.1875,
+            "width": 20,
+            "height": 23.328125,
+            "top": 220.1875,
+            "right": 325.75,
+            "bottom": 243.515625,
+            "left": 305.75
+          }
+        }
+      ],
+      "flights": [
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "0",
+            "units": "1",
+            "duration": "210",
+            "delay": "0"
+          },
+          "rect": {
+            "x": 173.9375,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 197.1875,
+            "bottom": 219.140625,
+            "left": 173.9375
+          }
+        },
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "6",
+            "group": "1",
+            "units": "1",
+            "duration": "210",
+            "delay": "45"
+          },
+          "rect": {
+            "x": 275.625,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 298.875,
+            "bottom": 219.140625,
+            "left": 275.625
+          }
+        }
+      ],
+      "content": [
+        {
+          "kind": "market-bottle",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 145.875,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 169.125,
+            "bottom": 219.140625,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 145.875,
+            "y": 219.1875,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 219.1875,
+            "right": 200.0625,
+            "bottom": 242.515625,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 171.0625,
+            "y": 195.859375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 195.859375,
+            "right": 200.0625,
+            "bottom": 219.1875,
+            "left": 171.0625
+          }
+        },
+        {
+          "kind": "market-bottle",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 247.5625,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 270.8125,
+            "bottom": 219.140625,
+            "left": 247.5625
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 247.5625,
+            "y": 219.1875,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 219.1875,
+            "right": 301.75,
+            "bottom": 242.515625,
+            "left": 247.5625
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 272.75,
+            "y": 195.859375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 195.859375,
+            "right": 301.75,
+            "bottom": 219.1875,
+            "left": 272.75
+          }
+        },
+        {
+          "kind": "market-bottle",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 145.875,
+            "y": 246.484375,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 246.484375,
+            "right": 169.125,
+            "bottom": 269.734375,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 145.875,
+            "y": 269.78125,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 269.78125,
+            "right": 200.0625,
+            "bottom": 293.109375,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 171.0625,
+            "y": 246.453125,
+            "width": 29,
+            "height": 23.328125,
+            "top": 246.453125,
+            "right": 200.0625,
+            "bottom": 269.78125,
+            "left": 171.0625
+          }
+        }
+      ],
+      "counts": [
+        {
+          "product": "retail:5",
+          "text": "1本"
+        },
+        {
+          "product": "retail:6",
+          "text": "1本"
+        },
+        {
+          "product": "town-liquor:5",
+          "text": "2本"
+        }
+      ]
+    },
+    {
+      "delta": [
+        {
+          "text": "−1",
+          "data": {
+            "kind": "sale",
+            "productId": "5",
+            "shopId": "retail"
+          },
+          "rect": {
+            "x": 204.0625,
+            "y": 220.1875,
+            "width": 20,
+            "height": 23.328125,
+            "top": 220.1875,
+            "right": 224.0625,
+            "bottom": 243.515625,
+            "left": 204.0625
+          }
+        },
+        {
+          "text": "−1",
+          "data": {
+            "kind": "sale",
+            "productId": "6",
+            "shopId": "retail"
+          },
+          "rect": {
+            "x": 305.75,
+            "y": 220.1875,
+            "width": 20,
+            "height": 23.328125,
+            "top": 220.1875,
+            "right": 325.75,
+            "bottom": 243.515625,
+            "left": 305.75
+          }
+        }
+      ],
+      "flights": [
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "0",
+            "units": "1",
+            "duration": "210",
+            "delay": "0"
+          },
+          "rect": {
+            "x": 34.4375,
+            "y": 201.703125,
+            "width": 11.625,
+            "height": 11.625,
+            "top": 201.703125,
+            "right": 46.0625,
+            "bottom": 213.328125,
+            "left": 34.4375
+          }
+        },
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "6",
+            "group": "1",
+            "units": "1",
+            "duration": "210",
+            "delay": "45"
+          },
+          "rect": {
+            "x": 101.25,
+            "y": 198.796875,
+            "width": 17.4375,
+            "height": 17.4375,
+            "top": 198.796875,
+            "right": 118.6875,
+            "bottom": 216.234375,
+            "left": 101.25
+          }
+        }
+      ],
+      "content": [
+        {
+          "kind": "market-bottle",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 145.875,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 169.125,
+            "bottom": 219.140625,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 145.875,
+            "y": 219.1875,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 219.1875,
+            "right": 200.0625,
+            "bottom": 242.515625,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 171.0625,
+            "y": 195.859375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 195.859375,
+            "right": 200.0625,
+            "bottom": 219.1875,
+            "left": 171.0625
+          }
+        },
+        {
+          "kind": "market-bottle",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 247.5625,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 270.8125,
+            "bottom": 219.140625,
+            "left": 247.5625
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 247.5625,
+            "y": 219.1875,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 219.1875,
+            "right": 301.75,
+            "bottom": 242.515625,
+            "left": 247.5625
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 272.75,
+            "y": 195.859375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 195.859375,
+            "right": 301.75,
+            "bottom": 219.1875,
+            "left": 272.75
+          }
+        },
+        {
+          "kind": "market-bottle",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 145.875,
+            "y": 246.484375,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 246.484375,
+            "right": 169.125,
+            "bottom": 269.734375,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 145.875,
+            "y": 269.78125,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 269.78125,
+            "right": 200.0625,
+            "bottom": 293.109375,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 171.0625,
+            "y": 246.453125,
+            "width": 29,
+            "height": 23.328125,
+            "top": 246.453125,
+            "right": 200.0625,
+            "bottom": 269.78125,
+            "left": 171.0625
+          }
+        }
+      ],
+      "counts": [
+        {
+          "product": "retail:5",
+          "text": "1本"
+        },
+        {
+          "product": "retail:6",
+          "text": "1本"
+        },
+        {
+          "product": "town-liquor:5",
+          "text": "2本"
+        }
+      ]
+    },
+    {
+      "delta": [
+        {
+          "text": "−1",
+          "data": {
+            "kind": "sale",
+            "productId": "5",
+            "shopId": "retail"
+          },
+          "rect": {
+            "x": 204.0625,
+            "y": 220.1875,
+            "width": 20,
+            "height": 23.328125,
+            "top": 220.1875,
+            "right": 224.0625,
+            "bottom": 243.515625,
+            "left": 204.0625
+          }
+        },
+        {
+          "text": "−1",
+          "data": {
+            "kind": "sale",
+            "productId": "6",
+            "shopId": "retail"
+          },
+          "rect": {
+            "x": 305.75,
+            "y": 220.1875,
+            "width": 20,
+            "height": 23.328125,
+            "top": 220.1875,
+            "right": 325.75,
+            "bottom": 243.515625,
+            "left": 305.75
+          }
+        }
+      ],
+      "flights": [],
+      "content": [
+        {
+          "kind": "market-bottle",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 145.875,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 169.125,
+            "bottom": 219.140625,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 145.875,
+            "y": 219.1875,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 219.1875,
+            "right": 200.0625,
+            "bottom": 242.515625,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 171.0625,
+            "y": 195.859375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 195.859375,
+            "right": 200.0625,
+            "bottom": 219.1875,
+            "left": 171.0625
+          }
+        },
+        {
+          "kind": "market-bottle",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 247.5625,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 270.8125,
+            "bottom": 219.140625,
+            "left": 247.5625
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 247.5625,
+            "y": 219.1875,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 219.1875,
+            "right": 301.75,
+            "bottom": 242.515625,
+            "left": 247.5625
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 272.75,
+            "y": 195.859375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 195.859375,
+            "right": 301.75,
+            "bottom": 219.1875,
+            "left": 272.75
+          }
+        },
+        {
+          "kind": "market-bottle",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 145.875,
+            "y": 246.484375,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 246.484375,
+            "right": 169.125,
+            "bottom": 269.734375,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 145.875,
+            "y": 269.78125,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 269.78125,
+            "right": 200.0625,
+            "bottom": 293.109375,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 171.0625,
+            "y": 246.453125,
+            "width": 29,
+            "height": 23.328125,
+            "top": 246.453125,
+            "right": 200.0625,
+            "bottom": 269.78125,
+            "left": 171.0625
+          }
+        }
+      ],
+      "counts": [
+        {
+          "product": "retail:5",
+          "text": "1本"
+        },
+        {
+          "product": "retail:6",
+          "text": "1本"
+        },
+        {
+          "product": "town-liquor:5",
+          "text": "2本"
+        }
+      ]
+    },
+    {
+      "delta": [
+        {
+          "text": "−1",
+          "data": {
+            "kind": "sale",
+            "productId": "5",
+            "shopId": "town-liquor"
+          },
+          "rect": {
+            "x": 204.0625,
+            "y": 244.91465759277344,
+            "width": 20,
+            "height": 23.328140258789062,
+            "top": 244.91465759277344,
+            "right": 224.0625,
+            "bottom": 268.2427978515625,
+            "left": 204.0625
+          }
+        }
+      ],
+      "flights": [],
+      "content": [
+        {
+          "kind": "market-bottle",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 145.875,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 169.125,
+            "bottom": 219.140625,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 145.875,
+            "y": 219.1875,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 219.1875,
+            "right": 200.0625,
+            "bottom": 242.515625,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "retail",
+          "product": "retail:5",
+          "rect": {
+            "x": 171.0625,
+            "y": 195.859375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 195.859375,
+            "right": 200.0625,
+            "bottom": 219.1875,
+            "left": 171.0625
+          }
+        },
+        {
+          "kind": "market-bottle",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 247.5625,
+            "y": 195.890625,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 195.890625,
+            "right": 270.8125,
+            "bottom": 219.140625,
+            "left": 247.5625
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 247.5625,
+            "y": 219.1875,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 219.1875,
+            "right": 301.75,
+            "bottom": 242.515625,
+            "left": 247.5625
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "retail",
+          "product": "retail:6",
+          "rect": {
+            "x": 272.75,
+            "y": 195.859375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 195.859375,
+            "right": 301.75,
+            "bottom": 219.1875,
+            "left": 272.75
+          }
+        },
+        {
+          "kind": "market-bottle",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 145.875,
+            "y": 246.484375,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 246.484375,
+            "right": 169.125,
+            "bottom": 269.734375,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-date",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 145.875,
+            "y": 269.78125,
+            "width": 54.1875,
+            "height": 23.328125,
+            "top": 269.78125,
+            "right": 200.0625,
+            "bottom": 293.109375,
+            "left": 145.875
+          }
+        },
+        {
+          "kind": "market-count",
+          "shop": "town-liquor",
+          "product": "town-liquor:5",
+          "rect": {
+            "x": 171.0625,
+            "y": 246.453125,
+            "width": 29,
+            "height": 23.328125,
+            "top": 246.453125,
+            "right": 200.0625,
+            "bottom": 269.78125,
+            "left": 171.0625
+          }
+        }
+      ],
+      "counts": [
+        {
+          "product": "retail:5",
+          "text": "1本"
+        },
+        {
+          "product": "retail:6",
+          "text": "1本"
+        },
+        {
+          "product": "town-liquor:5",
+          "text": "2本"
+        }
+      ]
+    }
+  ],
+  "collisions": []
+}
