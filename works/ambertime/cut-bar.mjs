@@ -42,7 +42,7 @@ export function drawCutBar(rect,g,condition={}, {variant='columns'}={}){
  }
  const stop=g.end??g.current;
  if(g.start!==null){rect(g.x,g.y,Math.max(0,point(g.start)-g.x),g.h,'#191a29aa');rect(point(stop)+3,g.y,Math.max(0,g.x+g.w-point(stop)-3),g.h,'#191a29aa');rect(point(g.start),g.y+g.h+3,Math.max(3,point(stop)-point(g.start)+3),3,'#f0e6c8');for(let x=point(g.start);x<=point(stop);x+=9)rect(x,g.y+g.h+6,3,3,'#f0e6c8');}
- for(const [kind,n] of [['start',g.start],['end',g.end]])if(n!==null){rect(point(n),g.y-6,3,g.h+12,'#f0e6c8');rect(point(n)-3,kind==='start'?g.y+g.h+6:g.y-9,9,3,'#f0e6c8');}
- rect(point(g.current),g.y-3,3,g.h+6,'#f0e6c8');rect(point(g.current)-3,g.y-6,9,3,'#f0e6c8');
+ for(const [kind,n] of [['start',g.start],['end',g.end]])if(n!==null){rect(point(n)-3,kind==='start'?g.y+g.h+6:g.y-9,9,3,'#f0e6c8');}
+ rect(point(g.current)-3,g.y-6,9,3,'#f0e6c8');
  return {...g,palette:'family-mixture',renderVariant:variant,currentX:point(g.current),startX:g.start===null?null:point(g.start),endX:g.end===null?null:point(g.end)};
 }
