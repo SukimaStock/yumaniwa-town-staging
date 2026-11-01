@@ -1,10 +1,10 @@
-import{drawDistillTools,TOOL_GEOMETRY}from'./distill-tools-view.mjs?v=lever-glass-r1';
+import{drawDistillTools,TOOL_GEOMETRY}from'./distill-tools-view.mjs?v=lever-glass-r1&flow=r2';
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1&tools=r1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1&tools=r2';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
-import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r1';
+import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
@@ -116,7 +116,7 @@ export class CanvasScene{
   this.stillFrame=this.stillMoving?Math.floor(now/400)%2:0;
   this.arrival=this.motion.sample({room:this.view.room,caskIds:this.view.casks.map(c=>c.id),releaseIds:this.view.products.map(p=>p.releaseId),visible,reduced:this.reducedMotion.matches,now});
   this.root.dataset.roomMotion=JSON.stringify({stillFrame:this.stillFrame,stillMoving:this.stillMoving,arrival:this.arrival});
-  const tools=this.view.tools;if(tools){const base=tools.glassPosition?237:174,drag=this.toolGesture?.glassOffset;this.toolSliding=false;if(drag!=null){this.toolPaintX=base+drag/this.viewport.scale;this.toolSlide=null;}else if(this.toolSlide&&!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible){const t=Math.min(1,(now-this.toolSlide.start)/140);this.toolPaintX=this.toolSlide.from+(this.toolSlide.to-this.toolSlide.from)*t;this.toolSliding=t<1;if(!this.toolSliding)this.toolSlide=null;}else{this.toolPaintX=base;this.toolSlide=null;}this.toolArrowBright=this.reducedMotion.matches||Math.floor(now/900)%2===0;}
+  const tools=this.view.tools;if(tools){const base=tools.glassPosition?237:174,drag=this.toolGesture?.glassOffset;this.toolSliding=false;if(drag!=null){this.toolPaintX=base+drag/this.viewport.scale;this.toolSlide=null;}else if(this.toolSlide&&!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible){const t=Math.min(1,(now-this.toolSlide.start)/140);this.toolPaintX=this.toolSlide.from+(this.toolSlide.to-this.toolSlide.from)*t;this.toolSliding=t<1;if(!this.toolSliding)this.toolSlide=null;}else{this.toolPaintX=base;this.toolSlide=null;}this.toolArrowBright=!(tools.arrow||tools.glassArrowActive)||this.reducedMotion.matches||Math.floor(now/900)%2===0;}
   this.controls();this.drawWorld();
   // Presentation clock only: never advances, saves or changes the game state.
   const resume=this.activeControls.find(a=>a.key==='toggle-time'),hintEligible=this.view.pauseHint&&visible&&!this.reducedMotion.matches&&resume&&!resume.node.disabled;
@@ -151,7 +151,6 @@ export class CanvasScene{
    // One repaint per digit, using the scene's existing pixel font.
    const dot=this.textMetrics(48).pixels/8/this.textMetrics(48).unit;this.text(String(view.countdown),180+dot,228+dot,48,'center',shadow);this.text(String(view.countdown),180,228,48,'center');this.root.dataset.countdown=String(view.countdown);
   }else delete this.root.dataset.countdown;
-  if(view.room==='distill'&&view.tools?.hint&&!view.countdown)this.lines(view.tools.hint,180,429,318,BODY_SIZE,2,'center');
   if(view.room==='distill'){
    const g=collectionGeometry(view.cutRange),point=n=>g.x+Math.round(n*g.w);
    this.pixelRect(g.x,g.y,g.w,g.h,'#656978');
@@ -199,6 +198,6 @@ export class CanvasScene{
   c.restore();
   clearTimeout(this.hintTimer);if(hintEligible)this.hintTimer=setTimeout(()=>this.queue(),idle<12000?12000-idle:1200-(idle-12000)%1200);
   clearTimeout(this.selectionTimer);if(visible&&!this.reducedMotion.matches&&items.some(item=>item.selected))this.selectionTimer=setTimeout(()=>this.queue(),900-performance.now()%900);
-  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs,tools?.arrow&&!this.reducedMotion.matches?900-performance.now()%900:null,this.toolSliding?16:null].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
+  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs,(tools?.arrow||tools?.glassArrowActive)&&!this.reducedMotion.matches?900-performance.now()%900:null,this.toolSliding?16:null].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
  }
 }

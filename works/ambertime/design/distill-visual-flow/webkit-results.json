@@ -1,0 +1,4504 @@
+{
+  "engine": "webkit",
+  "checks": [
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "ready",
+      "digits": {
+        "hash": "dd2994e5",
+        "light": 2394,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "16231f45",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "27296725",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": true,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 49,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "unprepared-static",
+      "digits": {
+        "hash": "dd2994e5",
+        "light": 2394,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "16231f45",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "27296725",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": true,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 49,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "prepared",
+      "digits": {
+        "hash": "dd2994e5",
+        "light": 2394,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "c6fc945",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "27296725",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 46,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "prepared-arrow",
+      "digits": {
+        "hash": "dd2994e5",
+        "light": 2394,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "c6fc945",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "27296725",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 46,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "middle",
+      "digits": {
+        "hash": "dd2994e5",
+        "light": 2394,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "c6fc945",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "27296725",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 1,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 46,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "countdown-3",
+      "digits": {
+        "hash": "74922123",
+        "light": 441,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "e432ac45",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 53,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "countdown-2",
+      "digits": {
+        "hash": "25e7f7b8",
+        "light": 490,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "e432ac45",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 53,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "countdown-1",
+      "digits": {
+        "hash": "c478aa00",
+        "light": 490,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "e432ac45",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 53,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "collecting-early",
+      "digits": {
+        "hash": "76f79a2d",
+        "light": 2429,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "8fb4a995",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 25.12,
+        "liquidLitres": 5.6,
+        "fill": 0.13999999999999999,
+        "hint": "もう少し待ちます",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 166.6875,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 214.609375,
+        "bottom": 343.453125,
+        "left": 166.6875
+      },
+      "colors": 50,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "collecting-early-static",
+      "digits": {
+        "hash": "76f79a2d",
+        "light": 2429,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "8fb4a995",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 25.12,
+        "liquidLitres": 5.6,
+        "fill": 0.13999999999999999,
+        "hint": "もう少し待ちます",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 166.6875,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 214.609375,
+        "bottom": 343.453125,
+        "left": 166.6875
+      },
+      "colors": 50,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "collecting",
+      "digits": {
+        "hash": "4be987dd",
+        "light": 2429,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "376121d5",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": true,
+        "glassMode": "stop",
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": true,
+        "litres": 26.23,
+        "liquidLitres": 11.2,
+        "fill": 0.27999999999999997,
+        "hint": "タップか右へスライドで終える",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 166.6875,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 214.609375,
+        "bottom": 343.453125,
+        "left": 166.6875
+      },
+      "colors": 50,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "collecting-arrow",
+      "digits": {
+        "hash": "4be987dd",
+        "light": 2429,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "376121d5",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": true,
+        "glassMode": "stop",
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": true,
+        "litres": 26.23,
+        "liquidLitres": 11.2,
+        "fill": 0.27999999999999997,
+        "hint": "タップか右へスライドで終える",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 166.6875,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 214.609375,
+        "bottom": 343.453125,
+        "left": 166.6875
+      },
+      "colors": 50,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "finished",
+      "digits": {
+        "hash": "efeaeb27",
+        "light": 0,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "27296725",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 26.23,
+        "liquidLitres": 26.23,
+        "fill": 0.65575,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 59,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "tag": "fill-button-between-result-and-pipe",
+      "rect": {
+        "key": "open-fill",
+        "selector": "#open-fill",
+        "x": 126,
+        "y": 264,
+        "w": 108,
+        "h": 45
+      },
+      "hit": true,
+      "top": 263.9964788732394,
+      "bottom": 308.9964788732394,
+      "overlaps": []
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "restored",
+      "digits": {
+        "hash": "efeaeb27",
+        "light": 0,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "27296725",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 26.23,
+        "liquidLitres": 26.23,
+        "fill": 0.65575,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 59,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "finished-later",
+      "digits": {
+        "hash": "1ce77c01",
+        "light": 2121,
+        "width": 160,
+        "height": 160
+      },
+      "oldGuide": {
+        "hash": "42367c55",
+        "light": 0,
+        "width": 831,
+        "height": 128
+      },
+      "leverArrow": {
+        "hash": "995dbbc5",
+        "light": 0,
+        "width": 48,
+        "height": 48
+      },
+      "glassArrow": {
+        "hash": "27296725",
+        "light": 0,
+        "width": 56,
+        "height": 40
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 36.74,
+        "liquidLitres": 36.74,
+        "fill": 0.9185000000000001,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 360,
+        "height": 568,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.8875,
+        "offsetX": 20.25,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 568,
+        "top": 0,
+        "right": 360,
+        "bottom": 568,
+        "left": 0
+      },
+      "page": {
+        "w": 360,
+        "h": 568
+      },
+      "lever": {
+        "x": 273.1875,
+        "y": 247.609375,
+        "width": 53.25,
+        "height": 58.5625,
+        "top": 247.609375,
+        "right": 326.4375,
+        "bottom": 306.171875,
+        "left": 273.1875
+      },
+      "glass": {
+        "x": 222.59375,
+        "y": 295.53125,
+        "width": 47.921875,
+        "height": 47.921875,
+        "top": 295.53125,
+        "right": 270.515625,
+        "bottom": 343.453125,
+        "left": 222.59375
+      },
+      "colors": 63,
+      "oldStop": "false"
+    },
+    {
+      "width": 360,
+      "tag": "native-state-save-match",
+      "start": 0,
+      "end": 14,
+      "litres": 26.23,
+      "initialSaveRead": true,
+      "roomSaveRead": true,
+      "pullOutside": {
+        "x": 299.8125,
+        "y": 336.890625
+      }
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "ready",
+      "digits": {
+        "hash": "a220163c",
+        "light": 2772,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "731086fc",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "b538cb49",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": true,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 47,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "unprepared-static",
+      "digits": {
+        "hash": "a220163c",
+        "light": 2772,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "731086fc",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "b538cb49",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": true,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 47,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "prepared",
+      "digits": {
+        "hash": "a220163c",
+        "light": 2772,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "61d56277",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "b538cb49",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 44,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "prepared-arrow",
+      "digits": {
+        "hash": "a220163c",
+        "light": 2772,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "75a038db",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "b538cb49",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 44,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "middle",
+      "digits": {
+        "hash": "a220163c",
+        "light": 2772,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "75a038db",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "b538cb49",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 1,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 44,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "countdown-3",
+      "digits": {
+        "hash": "44ad624b",
+        "light": 441,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "8fe192f1",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 57,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "countdown-2",
+      "digits": {
+        "hash": "48780579",
+        "light": 490,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "8fe192f1",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 57,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "countdown-1",
+      "digits": {
+        "hash": "d131af85",
+        "light": 490,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "8fe192f1",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 57,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "collecting-early",
+      "digits": {
+        "hash": "2bd6bbcd",
+        "light": 2684,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "97f7bc6c",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 25.12,
+        "liquidLitres": 5.6,
+        "fill": 0.13999999999999999,
+        "hint": "もう少し待ちます",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 172.96875,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 225.28125,
+        "bottom": 374.90625,
+        "left": 172.96875
+      },
+      "colors": 48,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "collecting-early-static",
+      "digits": {
+        "hash": "2bd6bbcd",
+        "light": 2684,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "97f7bc6c",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 25.12,
+        "liquidLitres": 5.6,
+        "fill": 0.13999999999999999,
+        "hint": "もう少し待ちます",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 172.96875,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 225.28125,
+        "bottom": 374.90625,
+        "left": 172.96875
+      },
+      "colors": 48,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "collecting",
+      "digits": {
+        "hash": "387a2e01",
+        "light": 2670,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "4a391714",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": true,
+        "glassMode": "stop",
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": true,
+        "litres": 26.23,
+        "liquidLitres": 11.2,
+        "fill": 0.27999999999999997,
+        "hint": "タップか右へスライドで終える",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 172.96875,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 225.28125,
+        "bottom": 374.90625,
+        "left": 172.96875
+      },
+      "colors": 48,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "collecting-arrow",
+      "digits": {
+        "hash": "387a2e01",
+        "light": 2670,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "a4816ef8",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": true,
+        "glassMode": "stop",
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": true,
+        "litres": 26.23,
+        "liquidLitres": 11.2,
+        "fill": 0.27999999999999997,
+        "hint": "タップか右へスライドで終える",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 172.96875,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 225.28125,
+        "bottom": 374.90625,
+        "left": 172.96875
+      },
+      "colors": 48,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "finished",
+      "digits": {
+        "hash": "c5f21e46",
+        "light": 0,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "b538cb49",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 26.23,
+        "liquidLitres": 26.23,
+        "fill": 0.65575,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 59,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "tag": "fill-button-between-result-and-pipe",
+      "rect": {
+        "key": "open-fill",
+        "selector": "#open-fill",
+        "x": 126,
+        "y": 264,
+        "w": 108,
+        "h": 45
+      },
+      "hit": true,
+      "top": 264,
+      "bottom": 309,
+      "overlaps": []
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "restored",
+      "digits": {
+        "hash": "c5f21e46",
+        "light": 0,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "b538cb49",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 26.23,
+        "liquidLitres": 26.23,
+        "fill": 0.65575,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 59,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "finished-later",
+      "digits": {
+        "hash": "b07d2231",
+        "light": 1785,
+        "width": 174,
+        "height": 174
+      },
+      "oldGuide": {
+        "hash": "ebec4998",
+        "light": 0,
+        "width": 907,
+        "height": 140
+      },
+      "leverArrow": {
+        "hash": "1193dd65",
+        "light": 0,
+        "width": 52,
+        "height": 52
+      },
+      "glassArrow": {
+        "hash": "b538cb49",
+        "light": 0,
+        "width": 61,
+        "height": 44
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 36.74,
+        "liquidLitres": 36.74,
+        "fill": 0.9185000000000001,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 375,
+        "height": 620,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 0.96875,
+        "offsetX": 13.125,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 620,
+        "top": 0,
+        "right": 375,
+        "bottom": 620,
+        "left": 0
+      },
+      "page": {
+        "w": 375,
+        "h": 620
+      },
+      "lever": {
+        "x": 289.21875,
+        "y": 270.28125,
+        "width": 58.125,
+        "height": 63.9375,
+        "top": 270.28125,
+        "right": 347.34375,
+        "bottom": 334.21875,
+        "left": 289.21875
+      },
+      "glass": {
+        "x": 234,
+        "y": 322.59375,
+        "width": 52.3125,
+        "height": 52.3125,
+        "top": 322.59375,
+        "right": 286.3125,
+        "bottom": 374.90625,
+        "left": 234
+      },
+      "colors": 58,
+      "oldStop": "false"
+    },
+    {
+      "width": 375,
+      "tag": "native-state-save-match",
+      "start": 0,
+      "end": 14,
+      "litres": 26.23,
+      "initialSaveRead": true,
+      "roomSaveRead": true,
+      "pullOutside": {
+        "x": 318.28125,
+        "y": 362.25
+      }
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "ready",
+      "digits": {
+        "hash": "c1ea52a8",
+        "light": 3400,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "6577ee50",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "1ae4827c",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": true,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 44,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "unprepared-static",
+      "digits": {
+        "hash": "c1ea52a8",
+        "light": 3400,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "6577ee50",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "1ae4827c",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": true,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 44,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "prepared",
+      "digits": {
+        "hash": "c1ea52a8",
+        "light": 3400,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "a6e971c8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "1ae4827c",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 41,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "prepared-arrow",
+      "digits": {
+        "hash": "c1ea52a8",
+        "light": 3400,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "a6e971c8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "1ae4827c",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 0,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 41,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "middle",
+      "digits": {
+        "hash": "c1ea52a8",
+        "light": 3400,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "a6e971c8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "1ae4827c",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": true,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": false,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": true,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": true,
+        "leverStep": 1,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 41,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "countdown-3",
+      "digits": {
+        "hash": "57992605",
+        "light": 576,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "ebb30278",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 55,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "countdown-2",
+      "digits": {
+        "hash": "190e0be5",
+        "light": 640,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "ebb30278",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 55,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "countdown-1",
+      "digits": {
+        "hash": "f5b9bbe5",
+        "light": 640,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "ebb30278",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": true,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 0,
+        "liquidLitres": 0,
+        "fill": 0,
+        "hint": "レバーを下に引く",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 55,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "collecting-early",
+      "digits": {
+        "hash": "7018c8",
+        "light": 3368,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "2d7cd6f1",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 25.12,
+        "liquidLitres": 5.6,
+        "fill": 0.13999999999999999,
+        "hint": "もう少し待ちます",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 179.0625,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 236.4375,
+        "bottom": 411.1875,
+        "left": 179.0625
+      },
+      "colors": 45,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "collecting-early-static",
+      "digits": {
+        "hash": "7018c8",
+        "light": 3368,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "2d7cd6f1",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": false,
+        "litres": 25.12,
+        "liquidLitres": 5.6,
+        "fill": 0.13999999999999999,
+        "hint": "もう少し待ちます",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 179.0625,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 236.4375,
+        "bottom": 411.1875,
+        "left": 179.0625
+      },
+      "colors": 45,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "collecting",
+      "digits": {
+        "hash": "5b1f68c8",
+        "light": 3368,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "538f7041",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": true,
+        "glassMode": "stop",
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": true,
+        "litres": 26.23,
+        "liquidLitres": 11.2,
+        "fill": 0.27999999999999997,
+        "hint": "タップか右へスライドで終える",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 179.0625,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 236.4375,
+        "bottom": 411.1875,
+        "left": 179.0625
+      },
+      "colors": 45,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "collecting-arrow",
+      "digits": {
+        "hash": "5b1f68c8",
+        "light": 3368,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "538f7041",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": true,
+        "glassMode": "stop",
+        "leverDown": true,
+        "glassPosition": 0,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": true,
+        "glassArrowActive": true,
+        "litres": 26.23,
+        "liquidLitres": 11.2,
+        "fill": 0.27999999999999997,
+        "hint": "タップか右へスライドで終える",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 174
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 179.0625,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 236.4375,
+        "bottom": 411.1875,
+        "left": 179.0625
+      },
+      "colors": 45,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "finished",
+      "digits": {
+        "hash": "bbc0f65c",
+        "light": 0,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "1ae4827c",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 26.23,
+        "liquidLitres": 26.23,
+        "fill": 0.65575,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 59,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "tag": "fill-button-between-result-and-pipe",
+      "rect": {
+        "key": "open-fill",
+        "selector": "#open-fill",
+        "x": 126,
+        "y": 264,
+        "w": 108,
+        "h": 45
+      },
+      "hit": true,
+      "top": 264,
+      "bottom": 309,
+      "overlaps": []
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "restored",
+      "digits": {
+        "hash": "bbc0f65c",
+        "light": 0,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "1ae4827c",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 26.23,
+        "liquidLitres": 26.23,
+        "fill": 0.65575,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 59,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": true,
+      "tag": "finished-later",
+      "digits": {
+        "hash": "6374a39",
+        "light": 2520,
+        "width": 191,
+        "height": 191
+      },
+      "oldGuide": {
+        "hash": "2e973a53",
+        "light": 0,
+        "width": 995,
+        "height": 153
+      },
+      "leverArrow": {
+        "hash": "d329f4a8",
+        "light": 0,
+        "width": 57,
+        "height": 57
+      },
+      "glassArrow": {
+        "hash": "1ae4827c",
+        "light": 0,
+        "width": 67,
+        "height": 48
+      },
+      "tools": {
+        "visible": true,
+        "leverEnabled": false,
+        "glassEnabled": false,
+        "glassMode": null,
+        "leverDown": true,
+        "glassPosition": 1,
+        "prepared": false,
+        "leverInactive": false,
+        "showLeverArrow": false,
+        "glassArrow": false,
+        "glassArrowActive": false,
+        "litres": 36.74,
+        "liquidLitres": 36.74,
+        "fill": 0.9185000000000001,
+        "hint": "",
+        "arrow": false,
+        "leverStep": 2,
+        "glassX": 237
+      },
+      "viewport": {
+        "width": 390,
+        "height": 680,
+        "left": 0,
+        "top": 0,
+        "dpr": 3,
+        "scale": 1.0625,
+        "offsetX": 3.75,
+        "offsetY": 0,
+        "logicalWidth": 360,
+        "logicalHeight": 640
+      },
+      "root": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 680,
+        "top": 0,
+        "right": 390,
+        "bottom": 680,
+        "left": 0
+      },
+      "page": {
+        "w": 390,
+        "h": 680
+      },
+      "lever": {
+        "x": 306.5625,
+        "y": 296.4375,
+        "width": 63.75,
+        "height": 70.125,
+        "top": 296.4375,
+        "right": 370.3125,
+        "bottom": 366.5625,
+        "left": 306.5625
+      },
+      "glass": {
+        "x": 246,
+        "y": 353.8125,
+        "width": 57.375,
+        "height": 57.375,
+        "top": 353.8125,
+        "right": 303.375,
+        "bottom": 411.1875,
+        "left": 246
+      },
+      "colors": 59,
+      "oldStop": "false"
+    },
+    {
+      "width": 390,
+      "tag": "native-state-save-match",
+      "start": 0,
+      "end": 14,
+      "litres": 26.23,
+      "initialSaveRead": true,
+      "roomSaveRead": true,
+      "pullOutside": {
+        "x": 338.4375,
+        "y": 391.5
+      }
+    }
+  ],
+  "errors": [],
+  "physicalSafari": false
+}
