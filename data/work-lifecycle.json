@@ -534,6 +534,12 @@
       "status": "active",
       "title": "器と食卓 Generator Lab 0.1",
       "theme": "器・食べもの・飲みもの・花を組み合わせた構図を、配色と質感で選ぶ食卓の絵。"
+    },
+    {
+      "id": "ambertime-cut-lab",
+      "path": "works/ambertime-cut-lab",
+      "status": "active",
+      "title": "AmberTime · カットと味の比較Lab"
     }
   ]
 }
