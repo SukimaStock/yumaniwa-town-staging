@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "80b7b663fd84a05e0ab63658266d396a5ceb81ac119b2682ac04f90edadd4863",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-cut-pixel",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "カットバーのドット表現と確定グラス象徴色",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "6c8b2be96c81646bab59ae69964342b5a46e6d94",
+    "canonicalSources": [
+      "works/ambertime-cut-lab/bar.mjs",
+      "works/ambertime-cut-lab/projection.mjs",
+      "works/ambertime-cut-lab/input-state.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-cut-pixel/r0.lock.json",
+      "works/ambertime/cut-bar.mjs",
+      "works/ambertime/flavor-color.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/cut-pixel/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "同一条件でバー旧/A縦列/B軽ディザ/C主副模様を比較、3pxと境界の視認性優先で採用",
+      "確定済み既存profileからグラスA混色/B代表色/C濃淡を比較、全15664カット分類/隣接変化/名称対応を監査",
+      "採取中は中立色で正式終了時だけ確定色。既存象徴液面/輪郭/入力/レバー/習熟/時計は保持",
+      "純粋表示関数を分離し結果窓に小色印検討、全依存cache参照更新/旧cache公開確認"
+    ],
+    "ownerDecisions": [
+      "2026-11-01今回指示：表示比較と全合法cut色監査後、本編へ視認性改善を採用。通常CI/PR/merge/Staging公開、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390比較画像/入力/色差/境界/原酒結果/縦scrollなし",
+      "旧cacheを持つ公開tabで新色とpixelバー確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert。正式保存の移行なし。追加UI設定は旧版が読まない独立keyでゲーム状態へ混入しない",
+    "outOfScope": [
+      "Production/共有基盤/他作品/新Lab",
+      "正式量/味48点/費用/販売/評判/時計/保存/12step変更",
+      "入力/レバー/習熟/3秒/液面高/他部屋展開"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの指追従/バー/安全領域/視線と作者採否"
+    ],
+    "alternativesRejected": [
+      "新味計算",
+      "量連動色/液面",
+      "品質順位色",
+      "ランダムdither",
+      "新操作/大量説明"
+    ],
+    "boundaryCases": [
+      "全3916×4条件/近接cut境界/混合比率/名称/価格順位",
+      "3幅2engine/入力cancel/RM/初期空/終了色保持/旧cache/旧save"
+    ],
+    "testPlan": [
+      "全カット分類決定性・分布・境界・既存味profile一致",
+      "旧正式状態/保存/経済hash一致、既存入力/習熟保持",
+      "3幅2engine表示/実操作、全変更依存cachegraph検査、Scope→Risk→Impact/CI/public"
+    ],
+    "problem": "連続混色バーの滑らかさと中立色グラスではpixel世界/採った味の記憶が弱い",
+    "currentContract": "正式model/input/learning/lever/countdown/fillheight/save/費用/量/時計/配置を維持",
+    "whyExistingIsInsufficient": "742/743の選択区間と象徴液面を保ちつつpixel色表現を改善する必要",
+    "design": "既存瞬間成分の表示量子化と確定profile代表色、正式modelへ逆流しない",
+    "migration": "正式保存/習熟設定の移行なし、描画のみ",
+    "compatibility": "表示のみ、原酒量/48点/正式save全blob維持。入力/習熟モジュール不変",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
