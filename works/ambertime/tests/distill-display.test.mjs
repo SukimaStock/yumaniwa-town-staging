@@ -46,7 +46,7 @@ test('actual finish handler keeps new results visible and preserves legacy auto-
  const handler=source.slice(source.indexOf('function finishDistillation(){'),source.indexOf('function endTaste(){'));
  for(const fullRange of [true,false]){
   let s=D.newConnectedDistillery(42);s=fullRange?D.startRangeDistillation(s):D.startDistillation(s);s=D.beginCollection(step(s,fullRange?0:40));s=step(s,fullRange?24:58);
-  const ctx={D,game:s,modal:null,room:'distill',shownFillSpiritId:null,message:()=>{},T:{minimumStop:30}};vm.createContext(ctx);
+  const ctx={D,game:s,modal:null,room:'distill',shownFillSpiritId:null,message:()=>{},T:{minimumStop:30},distillLearning:{complete(){}},distillBatchKey:()=>null};vm.createContext(ctx);
   vm.runInContext("function act(fn,after,afterSave){game=fn(game);if(after)after();if(afterSave)afterSave();return true;}"+handler+'finishDistillation();',ctx);
   assert.equal(ctx.game.still.phase,'filling');assert.equal(distillationReadout(ctx.game).phase,'confirmed');assert.equal(ctx.modal?.kind,fullRange?undefined:'fill');
  }
