@@ -1,4 +1,4 @@
-import {retailSalePlan,retailSaleGroups} from './retail-sale-motion.mjs?v=home-sale-r1';
+import {retailSalePlan as saleFlightPlan,ordinarySaleGroups as saleFlightGroups} from './retail-sale-motion.mjs?v=all-shop-r1';
 import {monthLabel} from './model.mjs?v=stage4-r2';
 import {flavorType} from './flavor-types.mjs?v=stage4-r2';
 const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -143,10 +143,10 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   const size=el.getBoundingClientRect(),fitsRight=anchor.right+4+size.width<=bounds.right-2;
   el.style.left=Math.max(bounds.left+2,Math.min(fitsRight?anchor.right+4:anchor.left,bounds.right-size.width-2))+'px';
   if(!fitsRight)el.style.top=Math.max(bounds.top+2,anchor.top-size.height-2)+'px';
-  // Keep the retail quantity change below the flight lane, beside this release's date.
-  const retailDate=kind==='sale'&&shopId==='retail'?element?.closest('.market-stock')?.querySelector('.market-date')?.getBoundingClientRect():null;
-  if(retailDate){el.style.left=Math.max(bounds.left+2,Math.min(Math.max(anchor.right,retailDate.right)+4,bounds.right-size.width-2))+'px';el.style.top=Math.max(bounds.top+2,Math.min(retailDate.top+1,bounds.bottom-size.height-2))+'px';}
-  if(!reduced.matches)void animate(el,retailDate?[{opacity:1},{opacity:1,offset:.65},{opacity:0}]:[{transform:'translateY(0)',opacity:1},{transform:'translateY(-4px)',opacity:1,offset:.65},{transform:'translateY(-6px)',opacity:0}],{duration:650,easing:'steps(4,end)'});
+  // Keep every store quantity change below the flight lane, beside this release's date.
+  const saleDate=kind==='sale'?element?.closest?.('.market-stock')?.querySelector('.market-date')?.getBoundingClientRect():null;
+  if(saleDate){el.style.left=Math.max(bounds.left+2,Math.min(Math.max(anchor.right,saleDate.right)+4,bounds.right-size.width-2))+'px';el.style.top=Math.max(bounds.top+2,Math.min(saleDate.top+1,bounds.bottom-size.height-2))+'px';}
+  if(!reduced.matches)void animate(el,saleDate?[{opacity:1},{opacity:1,offset:.65},{opacity:0}]:[{transform:'translateY(0)',opacity:1},{transform:'translateY(-4px)',opacity:1,offset:.65},{transform:'translateY(-6px)',opacity:0}],{duration:650,easing:'steps(4,end)'});
   return new Promise(resolve=>{const finish=()=>{clearTimeout(timer);deltaTimers.delete(timer);el.remove();resolve();},timer=setTimeout(finish,650);deltaTimers.set(timer,finish);});
  }
  async function placed(shopId,count,productId,origin){
@@ -173,52 +173,41 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
    const step=now=>{if(done)return;if(token!==epoch||doc.hidden||!visible){stop();return;}if(reduced.matches){shelf[axis]=value;stop();return;}start??=now;const progress=Math.min(1,(now-start)/180);shelf[axis]=from+(value-from)*(1-(1-progress)**3);if(progress<1)frame=requestAnimationFrame(step);else stop();};frame=requestAnimationFrame(step);
   });
  }
- async function retailSold(sale,token,origins){
+ async function shopSold(sale,token,origins){
   if(reduced.matches||token!==epoch||doc.hidden||!visible)return;
-  const row=doc.getElementById(`market-stock-retail-${sale.productId}`),destination=query('[data-market-shop="retail"] .market-store-icon');
+  const row=doc.getElementById(`market-stock-${sale.shopId}-${sale.productId}`),destination=query(`[data-market-shop="${sale.shopId}"] .market-store-icon`);
   if(!destination)return;
-  const source=row?.querySelector('.market-count'),bottle=row?.querySelector('.market-bottle'),prior=origins.get(sale.productId);
+  const source=row?.querySelector('.market-count'),bottle=row?.querySelector('.market-bottle'),prior=origins.get(`${sale.shopId}:${sale.productId}`);
   const sourceRect=source?.getBoundingClientRect()??prior?.sourceRect,sprite=bottle?.getBoundingClientRect()??prior?.sprite,art=bottle?.innerHTML??prior?.art;if(!sourceRect||!sprite||!art)return;
   const bounds=root.getBoundingClientRect();if(sourceRect.top<bounds.top||sourceRect.bottom>bounds.bottom||sourceRect.left<bounds.left||sourceRect.right>bounds.right)return;
   const targetRect=destination.getBoundingClientRect();
   const from={x:sourceRect.left+sourceRect.width/2,y:sourceRect.top+sourceRect.height/2},to={x:targetRect.left+targetRect.width/2,y:targetRect.top+targetRect.height/2};
-  const scale=parseFloat(root.style.getPropertyValue('--market-scale'))||1,plan=retailSalePlan(1,{from,to,grid:3*scale}).map(flight=>({...flight,units:sale.units,delay:sale.delay}));
+  const scale=parseFloat(root.style.getPropertyValue('--market-scale'))||1,plan=saleFlightPlan(1,{from,to,grid:3*scale}).map(flight=>({...flight,units:sale.units,delay:sale.delay}));
   await Promise.all(plan.map(async (flight,index)=>{
    if(token!==epoch||!visible||doc.hidden)return;
    const ghost=doc.createElement('span');ghost.className='market-flight';ghost.setAttribute('aria-hidden','true');ghost.innerHTML=art;
-   Object.assign(ghost.dataset,{kind:'retail-sale',productId:String(sale.productId),group:String(sale.groupIndex??index),units:String(flight.units),duration:String(flight.duration),delay:String(flight.delay)});
+   Object.assign(ghost.dataset,{kind:'sale-flight',shopId:sale.shopId,productId:String(sale.productId),group:String(sale.groupIndex??index),units:String(flight.units),duration:String(flight.duration),delay:String(flight.delay)});
    Object.assign(ghost.style,{left:(from.x-sprite.width/2)+'px',top:(from.y-sprite.height/2)+'px',width:sprite.width+'px',height:sprite.height+'px',opacity:'0',transformOrigin:'center'});root.append(ghost);
    await animate(ghost,flight.frames,{duration:flight.duration,delay:flight.delay,fill:'none'});ghost.remove();
   }));
  }
  async function sold(sales,token,origins){
   if(doc.hidden||!visible)return;
-  // Different releases keep their own bottle art and origin, within one interval.
-  const homeGroups=retailSaleGroups(sales.filter(x=>x.shopId==='retail').map(sale=>({productId:sale.productId,units:sale.count})));
-  const homeDeltas=sales.filter(x=>x.shopId==='retail').map(sale=>{const row=doc.getElementById(`market-stock-retail-${sale.productId}`);return delta(row?.querySelector('.market-count'),-sale.count,{kind:'sale',productId:sale.productId,shopId:'retail'});});
-  await Promise.all([...homeGroups.map((sale,index)=>retailSold({...sale,groupIndex:index},token,origins)),...homeDeltas]);
-  for(const shop of ordinary.filter(x=>x.id!=='retail')){
-   for(const sale of sales.filter(x=>x.shopId===shop.id)){
-    if(token!==epoch||!visible||doc.hidden)break;
-    const row=doc.getElementById(`market-stock-${shop.id}-${sale.productId}`);if(!row)continue;
-    await reveal(row,token);if(token!==epoch||doc.hidden||!visible)break;
-    await delta(row.querySelector('.market-count'),-sale.count,{kind:'sale',productId:sale.productId,shopId:shop.id});
-   }
-  }
+  // Every visible ordinary store shares one bounded, concurrent presentation.
+  const groups=saleFlightGroups(sales.map(sale=>({productId:sale.productId,shopId:sale.shopId,units:sale.count})));
+  const deltas=sales.map(sale=>{const row=doc.getElementById(`market-stock-${sale.shopId}-${sale.productId}`);return delta(row?.querySelector('.market-count'),-sale.count,{kind:'sale',productId:sale.productId,shopId:sale.shopId});});
+  await Promise.all([...groups.map((sale,index)=>shopSold({...sale,groupIndex:index},token,origins)),...deltas]);
  }
  function consume(before,after){
   const sales=savedMarketSales(before,after);if(!sales.length)return;
   const key=JSON.stringify(sales);if(key===lastConsumed)return;lastConsumed=key;
-  const origins=new Map();for(const sale of sales.filter(x=>x.shopId==='retail')){const row=doc.getElementById(`market-stock-retail-${sale.productId}`),source=row?.querySelector('.market-count'),bottle=row?.querySelector('.market-bottle');if(source&&bottle)origins.set(sale.productId,{sourceRect:source.getBoundingClientRect(),sprite:bottle.getBoundingClientRect(),art:bottle.innerHTML});}
+  const origins=new Map();for(const sale of sales){const row=doc.getElementById(`market-stock-${sale.shopId}-${sale.productId}`),source=row?.querySelector('.market-count'),bottle=row?.querySelector('.market-bottle');if(source&&bottle)origins.set(`${sale.shopId}:${sale.productId}`,{sourceRect:source.getBoundingClientRect(),sprite:bottle.getBoundingClientRect(),art:bottle.innerHTML});}
   cancel();clearTimeout(feedbackTimer);feedback=sales;signature='';update({visible});
   const token=epoch;
   announceSaved(sales.map(sale=>`${ordinary.find(shop=>shop.id===sale.shopId).name}で${sale.count}本売れました。`).join(''));
   void sold(sales,token,origins);
-  // Store cards share one vertical scroller: reveal one sale at a time.
-  // Keep sold-out rows only for this
-  // bounded presentation; rerenders never schedule another sale effect.
-  const count=sales.length;
-  feedbackTimer=setTimeout(()=>{cancel();feedback=[];signature='';update({visible});},count*850+650);
+  // Hold sold-out rows briefly for this shared presentation, never replay on render.
+  feedbackTimer=setTimeout(()=>{cancel();feedback=[];signature='';update({visible});},1300);
  }
  let gesture=null,blockedClick=false;
  root.addEventListener('pointerdown',event=>{cancel();blockedClick=false;gesture=event.isPrimary===false?null:{id:event.pointerId,x:event.clientX,y:event.clientY,drag:false};});

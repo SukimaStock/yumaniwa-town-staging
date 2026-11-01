@@ -22,10 +22,10 @@ try{
  if(!process.env.AMBER_RETAIL_BASELINE_ONLY){
   const context=await browser.newContext({viewport:{width:375,height:620},deviceScaleFactor:3,isMobile:true,hasTouch:true}),page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
   await page.goto(`http://127.0.0.1:${servers.after.address().port}/__retail__/`,{waitUntil:'load'});await page.waitForFunction(()=>document.documentElement.dataset.harnessReady==='true');
-  const ghost='.market-flight[data-kind="retail-sale"]',observe=()=>page.locator(ghost).evaluateAll(es=>es.map(e=>({data:{...e.dataset},rect:e.getBoundingClientRect().toJSON(),animations:e.getAnimations().map(a=>({timing:a.effect.getTiming(),frames:a.effect.getKeyframes()}))})));
+  const ghost='.market-flight[data-kind="sale-flight"][data-shop-id="retail"]',observe=()=>page.locator(ghost).evaluateAll(es=>es.map(e=>({data:{...e.dataset},rect:e.getBoundingClientRect().toJSON(),animations:e.getAnimations().map(a=>({timing:a.effect.getTiming(),frames:a.effect.getKeyframes()}))})));
   for(let i=0;i<4;i++){
    await page.evaluate(i=>window.retailHarness.prepare(i),i);assert.equal(await page.locator(ghost).count(),0);await page.evaluate(i=>window.retailHarness.commit(i),i);
-   await page.waitForFunction(n=>document.querySelectorAll('.market-flight[data-kind="retail-sale"]').length===n,i+1);const motions=await observe();assert.equal(motions.length,i+1);
+   await page.waitForFunction(n=>document.querySelectorAll('.market-flight[data-kind="sale-flight"][data-shop-id="retail"]').length===n,i+1);const motions=await observe();assert.equal(motions.length,i+1);
    motions.forEach((g,n)=>{assert(g.rect.left>=0&&g.rect.right<=375&&g.rect.top>=0&&g.rect.bottom<=620,'sale ghost remains in viewport');assert.equal(g.animations.length,1);const a=g.animations[0];assert.equal(a.timing.duration,210);assert.equal(a.timing.delay,n*(i===3?130:45));const end=a.frames.at(-1),travel=/translate\(([-.\d]+)px(?:,\s*([-.\d]+)px)?\)/.exec(end.transform);assert(travel&&Number(travel[1])<0,'bottle travels from right shelf toward left shop');assert.equal(end.opacity,'0');assert(a.frames.every(f=>f.easing==='steps(1)')||a.frames.every(f=>f.easing==='steps(1, end)'));});
    const saved=await page.evaluate(k=>localStorage.getItem(k),KEY);assert.deepEqual(JSON.parse(saved).game,JSON.parse(D.serializeDistillery(fixtures[i].after)));assert.deepEqual(await page.evaluate(()=>window.retailHarness.state()),fixtures[i].after);
    if(i!==1){await page.screenshot({path:`${out}/375-flight-${i+1}${i===3?'-grouped':''}.png`,scale:'css'});}
