@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "79813f32e24ed5dc4002754c20e0a03758ac1f5fbbcf347cbc1e9c6385410b8b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-stable",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "地図モーダルの内容非依存寸法と説明スロット分離",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d50e2de07afd4028bc8efa1157d24fcce8b53647",
+    "canonicalSources": [
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-stable/r0.lock.json",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/map*.mjs",
+      "works/ambertime/design/map-stable/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/world-map-view.mjs"
+    ],
+    "expectedChanges": [
+      "同一viewportで外枠・222px地図・縮尺操作・footer寸法位置を固定。低いviewportのみ地図slotを適応",
+      "情報領域だけ可変内容と内部scroll、切替時先頭、意味単位改行。既存数値・条件維持"
+    ],
+    "ownerDecisions": [
+      "2026-11-01今回の地図固定/説明分離指示。Staging PR CI merge公開、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,単一先頭Plan Lock,Scope→Risk→Impact",
+      "表現監査：可視操作文を外し指定のアイコン/穏やかな点滅で案内。読み上げは維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390、短い高さ、全縮尺/店舗/長文で座標一致と画像・操作・保存非変更",
+      "公開版の地図初回と切替確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRを通常revert。正式保存/経済/地理ルールの移行なし",
+    "outOfScope": [
+      "Production/他作品/共有基盤/新Lab",
+      "計算/保存形式/価格/解放/ゲームバランス/成功条件変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari toolbar/safearea/触感"
+    ],
+    "alternativesRejected": [
+      "Lab追加",
+      "新販売計算",
+      "共通文字縮小"
+    ],
+    "boundaryCases": [
+      "全縮尺/0店舗/多店舗/長文/小高さ/店詳細往復"
+    ],
+    "testPlan": [
+      "map browser layout coordinate/save/pixels, existing map tests, required CI"
+    ],
+    "problem": "中央寄せauto-heightモーダルが説明量で上下に動く",
+    "currentContract": "222px地図/既存font/選択cursor/売残/投影/計算保存維持",
+    "whyExistingIsInsufficient": "report max-heightだけでは全体高さが確定しない",
+    "design": "viewport基準の確定高さ+固定plot/control/footer、説明は残りの固定slotで内部scroll",
+    "migration": "なし",
+    "compatibility": "表示のみ。保存/数値/計算不変",
+    "promotionRisk": "Staging限定。作者の体験採用と実機確認は別"
+  }
+}
