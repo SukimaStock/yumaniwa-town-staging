@@ -1,4 +1,4 @@
-// Disposable visual plans for already committed retail sales. No game/save access.
+// Disposable visual plans for already committed ordinary-store sales. No game/save access.
 // The host places each bottle ghost at `from`, using its own measured sprite size.
 // Translation is relative to that origin; a snapped endpoint can differ from `to`
 // by at most half a grid cell. Every interval holds, then jumps (no interpolation).
@@ -19,7 +19,7 @@ export function retailSalePlan(count,{from,to,grid=3}={}){
 }
 
 // Allocate a shared visual budget across releases before positioning any sprite.
-// `sales` contains {productId, units}; every group keeps its release's artwork.
+// `sales` contains {productId, units, shopId?}; groups keep both release and destination.
 // Invalid entries are ignored. Runtime/memory scale with release count, not sales.
 export function retailSaleGroups(sales){
  if(!Array.isArray(sales))return [];
@@ -28,17 +28,27 @@ export function retailSaleGroups(sales){
  const total=valid.reduce((n,sale)=>n+sale.units,0);
  if(!Number.isSafeInteger(total)||total<=0)return [];
  let groups;
- if(total<=3)groups=valid.flatMap(({productId,units})=>Array.from({length:units},()=>({productId,units:1})));
+ if(total<=3)groups=valid.flatMap(({productId,units,shopId})=>Array.from({length:units},()=>({productId,...(shopId===undefined?{}:{shopId}),units:1})));
  else{
-  groups=valid.map(({productId,units})=>({productId,units}));
+  groups=valid.map(({productId,units,shopId})=>({productId,...(shopId===undefined?{}:{shopId}),units}));
   const budget=Math.max(4,valid.length);
   while(groups.length<budget){
    let largest=-1;
    for(let i=0;i<groups.length;i++)if(groups[i].units>1&&(largest===-1||groups[i].units>groups[largest].units))largest=i;
    if(largest===-1)break;
    const group=groups[largest],first=Math.ceil(group.units/2);
-   groups.splice(largest,1,{productId:group.productId,units:first},{productId:group.productId,units:group.units-first});
+   groups.splice(largest,1,{...group,units:first},{...group,units:group.units-first});
   }
  }
  return groups.map((group,i)=>({...group,delay:total<=3?i*45:groups.length===1?0:390*i/(groups.length-1),duration:210}));
+}
+
+// Preserve the one-to-three bottle response within each store, then spread all
+// destinations across a shared interval instead of queuing stores serially.
+export function ordinarySaleGroups(sales){
+ if(!Array.isArray(sales))return [];
+ const stores=[...new Set(sales.filter(Boolean).map(sale=>sale.shopId))];
+ const groups=stores.flatMap(shopId=>retailSaleGroups(sales.filter(sale=>sale?.shopId===shopId)));
+ const total=groups.reduce((n,group)=>n+group.units,0);
+ return groups.map((group,i)=>({...group,delay:total<=3?i*45:groups.length===1?0:390*i/(groups.length-1)}));
 }

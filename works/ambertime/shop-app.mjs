@@ -4,7 +4,7 @@ import {distillToolsView} from './distill-tools-view.mjs?v=cut-pixel-r1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {readSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} from './placement-save.mjs?v=formal-copy-r1';
-import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=compact-three-r1&fields=market-common-r1';
+import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=compact-three-r1&fields=all-shop-r1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=0.27-placement';
 import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback} from './flavor-feedback-view.mjs?v=0.25.4';
