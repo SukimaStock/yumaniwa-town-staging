@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e58548c63fdafeee987a9aad6db010b609dca55937298352ab66c930afdb0aea",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-town-331-340-20261031",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Append ten new non-duplicate outdoor STATIC v2 3D miniatures (331-340) to the currently verified 330 models; preserve existing objects and Staging-only scope",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "ac5088ef6d36e00088458b4b65b745107e0e0add",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/tests/town-miniatures-31.test.mjs",
+      "User 2026-10-31 scheduled 3D Lab autonomous request: up to 10 per run, stop at 1000, no Production changes"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-town-331-340-20261031/r0.lock.json",
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/objects/quay-fishing-net-rack.json",
+      "works/sukima-3d-lab/objects/park-litter-bin.json",
+      "works/sukima-3d-lab/objects/street-telephone-booth.json",
+      "works/sukima-3d-lab/objects/garden-watering-can.json",
+      "works/sukima-3d-lab/objects/market-flower-bucket.json",
+      "works/sukima-3d-lab/objects/courtyard-deck-chair.json",
+      "works/sukima-3d-lab/objects/canal-lock-handwheel.json",
+      "works/sukima-3d-lab/objects/street-bicycle-pump.json",
+      "works/sukima-3d-lab/objects/park-chess-table.json",
+      "works/sukima-3d-lab/objects/garden-cold-frame.json",
+      "works/sukima-3d-lab/tests/free-forms.test.mjs",
+      "works/sukima-3d-lab/tests/manipulation.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-06.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-07.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-08.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-09.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-10.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-11.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-12.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-13.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-14.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-15.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-16.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-17.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-18.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-19.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-20.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-21.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-22.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-23.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-24.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-25.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-26.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-27.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-28.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-29.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-30.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-31.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-32.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "works/sukima-3d-lab/engine/**",
+      "works/sukima-3d-lab/app.js",
+      "works/sukima-3d-lab/index.html",
+      "works/sukima-3d-lab/style.css",
+      "works/sukima-3d-lab/preview.js",
+      "works/sukima-3d-lab/collection.js",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/tests/measure-collection.cjs",
+      "works/sukima-3d-lab/objects/street-fire-hydrant.json"
+    ],
+    "expectedChanges": [
+      "Add exactly 10 unique new outdoor STATIC v2 models 331-340 with closed low-poly geometry, valid materials and bounded radii",
+      "Append 10 exact new registration entries, preserving first 330 and number gap 16",
+      "Update current-total 330 to 340 in existing 29 collection-count tests only; preserve historic identities/hashes; add batch 32 regression",
+      "Do not edit runtime/engine/UI/shared code or any production source"
+    ],
+    "ownerDecisions": [
+      "2026-10-31 recurring user instruction authorizes autonomous 10-or-fewer unique outdoor 3D models to Staging with checked tests/mandatory CI, no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "v2 STATIC schema with closed-part meshes and no new engine/behavior features",
+      "Preserve all previous object JSON and historic test fixtures, change only current collection-total expectations"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Verify JSON schema, unique identifiers, geometric winding, positive volume, radius, triangle/vertex budgets for all 10 new model data",
+      "Read back manifest, check count=340, unchanged first 330 entries, check prior model objects not touched",
+      "Check required trusted CI at exact PR head and related tests before merge; leave unverified areas explicit",
+      "After merge verify Staging Pages run, never touch Production"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this batch PR; previous 330 objects and registrations remain intact",
+    "outOfScope": [
+      "Production, shared works/lifecycle and town navigation",
+      "Existing engines/UI/renderers and schema changes",
+      "Deletion or alteration of any existing 330 model objects",
+      "Changes to historical fixed-batch registration and golden data"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone/iPad Safari touch and physical design acceptance",
+      "Full local Node/WebGL/GLES test suite unless separately executed and observed"
+    ]
+  }
+}
