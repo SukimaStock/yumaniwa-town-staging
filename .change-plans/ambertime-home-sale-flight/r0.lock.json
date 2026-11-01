@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "454f364bfa24b1ff4a7b8be062e0ae56a81c9f86fd9f91227cd57f414b59965a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-home-sale-flight",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "自家販売の左右レイアウトと販売時の瓶移動",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "cee22eaf7c629b11d204dbd68ae1f08c44fda17d",
+    "canonicalSources": [
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/tests/market-ui-main.test.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-home-sale-flight/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/retail-sale-motion.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/home-sale-flight/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "自家販売のみ左アイコン上/店名下、右商品本数上/瓶詰め年月下。複数発売回を個別維持",
+      "保存成功後の実自家販売deltaだけ右数量から左店舗へ既存瓶が移動",
+      "1本1個/2-3本対応数/4本以上600ms前後の上限付きgroup。各150-250ms、3px階段移動と2-3段階縮小",
+      "既存cancel/epoch/motionsで中断と後始末、reduced-motion静止",
+      "3幅/小高さ/文字拡大/販売保存不変/CI/Staging/cache確認"
+    ],
+    "ownerDecisions": [
+      "2026-11-01作者指示：自家販売左右配置、実販売時の瓶移動のみ。新しい文/音/flash/枠なし。通常Staging公開、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "3幅/小高さ/文字拡大の左右配置と演出/操作",
+      "Staging保存を汚さない公開確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production/共有基盤/他作品/新Lab",
+      "正式販売/評判/費用/量/時計/保存形式/入力変更",
+      "他店/地図/蒸留/共通font変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "販売計算変更",
+      "常時移動/配置を売上として演出",
+      "新text/sound/flash/枠/画面"
+    ],
+    "boundaryCases": [
+      "0/1/2/3/大量販売/在庫0/複数発売回/年月衝突",
+      "高速時間進行/再render/再読込/画面切替/保存拒否/RM/文字拡大"
+    ],
+    "testPlan": [
+      "実販売1/2/3/多本/複数発売回、保存失敗/再読込/取消/配置で販売演出なし",
+      "360/375/390小高さと文字拡大、RM/cancel/非表示後始末",
+      "既存必須販売UIテスト/関連browser/正式save比較/Scope→Risk→Impact/CI/public"
+    ],
+    "problem": "自家販売の店舗と商品情報の分離、実販売時の行き先が伝わりにくい",
+    "currentContract": "正式販売/量/価格/評判/保存/入力/他店/地図/蒸留/共通font維持",
+    "whyExistingIsInsufficient": "現在の減少数値だけでは販売の行き先を視線で追えない",
+    "design": "retailだけ左右grid、保存後販売hookに純粋な上限付き演出planを接続",
+    "migration": "なし",
+    "compatibility": "正式販売と保存bytesは維持、transient DOM演出のみ",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
