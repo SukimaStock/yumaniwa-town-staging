@@ -1,3 +1,4 @@
+import {retailSalePlan,retailSaleGroups} from './retail-sale-motion.mjs?v=home-sale-r1';
 import {monthLabel} from './model.mjs?v=stage4-r2';
 import {flavorType} from './flavor-types.mjs?v=stage4-r2';
 const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -34,7 +35,7 @@ export function savedMarketSales(before,after){
  if(!before||!after||after.core.month<=before.core.month||after.core.lastMonth?.month!==after.core.month)return [];
  const rows=[];
  for(const sale of after.core.lastMonth.sales??[]){
-  if(!Number.isInteger(sale.sold)||sale.sold<=0)continue;
+  if(!Number.isInteger(sale.sold)||sale.sold<=0||![undefined,'retail','stockist'].includes(sale.channel))continue;
   const shopId=sale.channel==='stockist'?sale.shopId:'retail';
   if(!ordinary.some(x=>x.id===shopId))continue;
   const prior=rows.find(x=>x.productId===sale.id&&x.shopId===shopId);
@@ -169,9 +170,30 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
    const step=now=>{if(done)return;if(token!==epoch||doc.hidden||!visible){stop();return;}if(reduced.matches){shelf[axis]=value;stop();return;}start??=now;const progress=Math.min(1,(now-start)/180);shelf[axis]=from+(value-from)*(1-(1-progress)**3);if(progress<1)frame=requestAnimationFrame(step);else stop();};frame=requestAnimationFrame(step);
   });
  }
- async function sold(sales,token){
+ async function retailSold(sale,token,origins){
+  if(reduced.matches||token!==epoch||doc.hidden||!visible)return;
+  const row=doc.getElementById(`market-stock-retail-${sale.productId}`),destination=query('[data-market-shop="retail"] .market-store-icon');
+  if(!destination)return;
+  const source=row?.querySelector('.market-count'),bottle=row?.querySelector('.market-bottle'),prior=origins.get(sale.productId);
+  const sourceRect=source?.getBoundingClientRect()??prior?.sourceRect,sprite=bottle?.getBoundingClientRect()??prior?.sprite,art=bottle?.innerHTML??prior?.art;if(!sourceRect||!sprite||!art)return;
+  const bounds=root.getBoundingClientRect();if(sourceRect.top<bounds.top||sourceRect.bottom>bounds.bottom||sourceRect.left<bounds.left||sourceRect.right>bounds.right)return;
+  const targetRect=destination.getBoundingClientRect();
+  const from={x:sourceRect.left+sourceRect.width/2,y:sourceRect.top+sourceRect.height/2},to={x:targetRect.left+targetRect.width/2,y:targetRect.top+targetRect.height/2};
+  const scale=parseFloat(root.style.getPropertyValue('--market-scale'))||1,plan=retailSalePlan(1,{from,to,grid:3*scale}).map(flight=>({...flight,units:sale.units,delay:sale.delay}));
+  await Promise.all(plan.map(async (flight,index)=>{
+   if(token!==epoch||!visible||doc.hidden)return;
+   const ghost=doc.createElement('span');ghost.className='market-flight';ghost.setAttribute('aria-hidden','true');ghost.innerHTML=art;
+   Object.assign(ghost.dataset,{kind:'retail-sale',productId:String(sale.productId),group:String(sale.groupIndex??index),units:String(flight.units),duration:String(flight.duration),delay:String(flight.delay)});
+   Object.assign(ghost.style,{left:(from.x-sprite.width/2)+'px',top:(from.y-sprite.height/2)+'px',width:sprite.width+'px',height:sprite.height+'px',opacity:'0',transformOrigin:'center'});root.append(ghost);
+   await animate(ghost,flight.frames,{duration:flight.duration,delay:flight.delay,fill:'none'});ghost.remove();
+  }));
+ }
+ async function sold(sales,token,origins){
   if(doc.hidden||!visible)return;
-  for(const shop of ordinary){
+  // Different releases keep their own bottle art and origin, within one interval.
+  const homeGroups=retailSaleGroups(sales.filter(x=>x.shopId==='retail').map(sale=>({productId:sale.productId,units:sale.count})));
+  await Promise.all(homeGroups.map((sale,index)=>retailSold({...sale,groupIndex:index},token,origins)));
+  for(const shop of ordinary.filter(x=>x.id!=='retail')){
    for(const sale of sales.filter(x=>x.shopId===shop.id)){
     if(token!==epoch||!visible||doc.hidden)break;
     const row=doc.getElementById(`market-stock-${shop.id}-${sale.productId}`);if(!row)continue;
@@ -183,10 +205,11 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  function consume(before,after){
   const sales=savedMarketSales(before,after);if(!sales.length)return;
   const key=JSON.stringify(sales);if(key===lastConsumed)return;lastConsumed=key;
+  const origins=new Map();for(const sale of sales.filter(x=>x.shopId==='retail')){const row=doc.getElementById(`market-stock-retail-${sale.productId}`),source=row?.querySelector('.market-count'),bottle=row?.querySelector('.market-bottle');if(source&&bottle)origins.set(sale.productId,{sourceRect:source.getBoundingClientRect(),sprite:bottle.getBoundingClientRect(),art:bottle.innerHTML});}
   cancel();clearTimeout(feedbackTimer);feedback=sales;signature='';update({visible});
   const token=epoch;
   announceSaved(sales.map(sale=>`${ordinary.find(shop=>shop.id===sale.shopId).name}で${sale.count}本売れました。`).join(''));
-  void sold(sales,token);
+  void sold(sales,token,origins);
   // Store cards share one vertical scroller: reveal one sale at a time.
   // Keep sold-out rows only for this
   // bounded presentation; rerenders never schedule another sale effect.

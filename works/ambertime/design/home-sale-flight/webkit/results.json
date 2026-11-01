@@ -1,0 +1,1950 @@
+{
+  "engine": "webkit",
+  "checks": [
+    {
+      "tag": "full-app-layout",
+      "version": "before",
+      "width": 375,
+      "height": 620,
+      "formalExact": true
+    },
+    {
+      "tag": "full-app-layout",
+      "version": "after",
+      "width": 375,
+      "height": 620,
+      "formalExact": true
+    },
+    {
+      "tag": "native-persisted-sale-flight",
+      "sold": 1,
+      "motions": [
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "0",
+            "units": "1",
+            "duration": "210",
+            "delay": "0"
+          },
+          "rect": {
+            "x": 133.390625,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 156.640625,
+            "bottom": 220.453125,
+            "left": 133.390625
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "saveExact": true
+    },
+    {
+      "tag": "native-persisted-sale-flight",
+      "sold": 2,
+      "motions": [
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "0",
+            "units": "1",
+            "duration": "210",
+            "delay": "0"
+          },
+          "rect": {
+            "x": 133.390625,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 156.640625,
+            "bottom": 220.453125,
+            "left": 133.390625
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "1",
+            "units": "1",
+            "duration": "210",
+            "delay": "45"
+          },
+          "rect": {
+            "x": 174.078125,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 197.328125,
+            "bottom": 220.453125,
+            "left": 174.078125
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 45,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "saveExact": true
+    },
+    {
+      "tag": "native-persisted-sale-flight",
+      "sold": 3,
+      "motions": [
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "0",
+            "units": "1",
+            "duration": "210",
+            "delay": "0"
+          },
+          "rect": {
+            "x": 115.96353912353516,
+            "y": 200.1197967529297,
+            "width": 17.43750762939453,
+            "height": 17.4375,
+            "top": 200.1197967529297,
+            "right": 133.4010467529297,
+            "bottom": 217.5572967529297,
+            "left": 115.96353912353516
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "1",
+            "units": "1",
+            "duration": "210",
+            "delay": "45"
+          },
+          "rect": {
+            "x": 153.734375,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 176.984375,
+            "bottom": 220.453125,
+            "left": 153.734375
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 45,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "2",
+            "units": "1",
+            "duration": "210",
+            "delay": "90"
+          },
+          "rect": {
+            "x": 174.078125,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 197.328125,
+            "bottom": 220.453125,
+            "left": 174.078125
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 90,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "saveExact": true
+    },
+    {
+      "tag": "native-persisted-sale-flight",
+      "sold": 4,
+      "motions": [
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "0",
+            "units": "1",
+            "duration": "210",
+            "delay": "0"
+          },
+          "rect": {
+            "x": 133.390625,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 156.640625,
+            "bottom": 220.453125,
+            "left": 133.390625
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "1",
+            "units": "1",
+            "duration": "210",
+            "delay": "130"
+          },
+          "rect": {
+            "x": 174.078125,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 197.328125,
+            "bottom": 220.453125,
+            "left": 174.078125
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 130,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "2",
+            "units": "1",
+            "duration": "210",
+            "delay": "260"
+          },
+          "rect": {
+            "x": 174.078125,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 197.328125,
+            "bottom": 220.453125,
+            "left": 174.078125
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 260,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "data": {
+            "kind": "retail-sale",
+            "productId": "5",
+            "group": "3",
+            "units": "1",
+            "duration": "210",
+            "delay": "390"
+          },
+          "rect": {
+            "x": 174.078125,
+            "y": 197.203125,
+            "width": 23.25,
+            "height": 23.25,
+            "top": 197.203125,
+            "right": 197.328125,
+            "bottom": 220.453125,
+            "left": 174.078125
+          },
+          "animations": [
+            {
+              "timing": {
+                "delay": 390,
+                "direction": "normal",
+                "duration": 210,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "none",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "frames": [
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0,
+                  "computedOffset": 0,
+                  "transform": "translate(0px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.125,
+                  "computedOffset": 0.125,
+                  "transform": "translate(-20.34375px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.25,
+                  "computedOffset": 0.25,
+                  "transform": "translate(-40.6875px) scale(1)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.375,
+                  "computedOffset": 0.375,
+                  "transform": "translate(-61.03125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.5,
+                  "computedOffset": 0.5,
+                  "transform": "translate(-84.28125px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.625,
+                  "computedOffset": 0.625,
+                  "transform": "translate(-104.625px) scale(0.75)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.75,
+                  "computedOffset": 0.75,
+                  "transform": "translate(-124.96875px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 0.875,
+                  "computedOffset": 0.875,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "1"
+                },
+                {
+                  "composite": "auto",
+                  "easing": "steps(1)",
+                  "offset": 1,
+                  "computedOffset": 1,
+                  "transform": "translate(-145.3125px) scale(0.5)",
+                  "opacity": "0"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "saveExact": true
+    },
+    {
+      "tag": "no-replay-cancel-hidden-reduced",
+      "pass": true
+    },
+    {
+      "tag": "home-layout",
+      "width": 360,
+      "height": 568,
+      "enlarged": false,
+      "page": {
+        "width": 360,
+        "height": 568
+      },
+      "board": {
+        "x": 30.890625,
+        "y": 87.859375,
+        "width": 298.1875,
+        "height": 237.703125,
+        "top": 87.859375,
+        "right": 329.078125,
+        "bottom": 325.5625,
+        "left": 30.890625
+      },
+      "icon": {
+        "x": 37.859375,
+        "y": 187.484375,
+        "width": 14.1875,
+        "height": 14.1875,
+        "top": 187.484375,
+        "right": 52.046875,
+        "bottom": 201.671875,
+        "left": 37.859375
+      },
+      "title": {
+        "x": 37.859375,
+        "y": 201.671875,
+        "width": 89.265625,
+        "height": 23.328125,
+        "top": 201.671875,
+        "right": 127.125,
+        "bottom": 225,
+        "left": 37.859375
+      },
+      "rows": [
+        {
+          "rect": {
+            "x": 142.5625,
+            "y": 182.921875,
+            "width": 71,
+            "height": 46.65625,
+            "top": 182.921875,
+            "right": 213.5625,
+            "bottom": 229.578125,
+            "left": 142.5625
+          },
+          "count": {
+            "x": 165.625,
+            "y": 182.921875,
+            "width": 27.984375,
+            "height": 23.328125,
+            "top": 182.921875,
+            "right": 193.609375,
+            "bottom": 206.25,
+            "left": 165.625
+          },
+          "date": {
+            "x": 142.5625,
+            "y": 206.25,
+            "width": 51.046875,
+            "height": 23.328125,
+            "top": 206.25,
+            "right": 193.609375,
+            "bottom": 229.578125,
+            "left": 142.5625
+          },
+          "label": "試遊 自家販売 2026/12 果実香が強い 残り2本 3本売れた。手元へ戻す",
+          "text": "26/12\n2本"
+        },
+        {
+          "rect": {
+            "x": 234.984375,
+            "y": 182.921875,
+            "width": 71,
+            "height": 46.65625,
+            "top": 182.921875,
+            "right": 305.984375,
+            "bottom": 229.578125,
+            "left": 234.984375
+          },
+          "count": {
+            "x": 258.046875,
+            "y": 182.921875,
+            "width": 27.984375,
+            "height": 23.328125,
+            "top": 182.921875,
+            "right": 286.03125,
+            "bottom": 206.25,
+            "left": 258.046875
+          },
+          "date": {
+            "x": 234.984375,
+            "y": 206.25,
+            "width": 51.046875,
+            "height": 23.328125,
+            "top": 206.25,
+            "right": 286.03125,
+            "bottom": 229.578125,
+            "left": 234.984375
+          },
+          "label": "試遊 自家販売 2027/1 果実香が強い 残り1本。手元へ戻す",
+          "text": "27/1\n1本"
+        }
+      ],
+      "targets": [
+        {
+          "x": 36.09375,
+          "y": 182.921875,
+          "width": 287.78125,
+          "height": 46.65625,
+          "top": 182.921875,
+          "right": 323.875,
+          "bottom": 229.578125,
+          "left": 36.09375
+        },
+        {
+          "x": 36.09375,
+          "y": 234.65625,
+          "width": 287.78125,
+          "height": 85.703125,
+          "top": 234.65625,
+          "right": 323.875,
+          "bottom": 320.359375,
+          "left": 36.09375
+        }
+      ]
+    },
+    {
+      "tag": "home-layout",
+      "width": 375,
+      "height": 620,
+      "enlarged": false,
+      "page": {
+        "width": 375,
+        "height": 620
+      },
+      "board": {
+        "x": 24.75,
+        "y": 95.90625,
+        "width": 325.5,
+        "height": 247.984375,
+        "top": 95.90625,
+        "right": 350.25,
+        "bottom": 343.890625,
+        "left": 24.75
+      },
+      "icon": {
+        "x": 32.21875,
+        "y": 201.078125,
+        "width": 15.5,
+        "height": 15.5,
+        "top": 201.078125,
+        "right": 47.71875,
+        "bottom": 216.578125,
+        "left": 32.21875
+      },
+      "title": {
+        "x": 32.21875,
+        "y": 216.578125,
+        "width": 98.125,
+        "height": 23.328125,
+        "top": 216.578125,
+        "right": 130.34375,
+        "bottom": 239.90625,
+        "left": 32.21875
+      },
+      "rows": [
+        {
+          "rect": {
+            "x": 146.53125,
+            "y": 197.171875,
+            "width": 77.5,
+            "height": 46.65625,
+            "top": 197.171875,
+            "right": 224.03125,
+            "bottom": 243.828125,
+            "left": 146.53125
+          },
+          "count": {
+            "x": 171.71875,
+            "y": 197.171875,
+            "width": 27.984375,
+            "height": 23.328125,
+            "top": 197.171875,
+            "right": 199.703125,
+            "bottom": 220.5,
+            "left": 171.71875
+          },
+          "date": {
+            "x": 146.53125,
+            "y": 220.5,
+            "width": 53.171875,
+            "height": 23.328125,
+            "top": 220.5,
+            "right": 199.703125,
+            "bottom": 243.828125,
+            "left": 146.53125
+          },
+          "label": "試遊 自家販売 2026/12 果実香が強い 残り2本 3本売れた。手元へ戻す",
+          "text": "26/12\n2本"
+        },
+        {
+          "rect": {
+            "x": 247.5625,
+            "y": 197.171875,
+            "width": 77.5,
+            "height": 46.65625,
+            "top": 197.171875,
+            "right": 325.0625,
+            "bottom": 243.828125,
+            "left": 247.5625
+          },
+          "count": {
+            "x": 272.75,
+            "y": 197.171875,
+            "width": 27.984375,
+            "height": 23.328125,
+            "top": 197.171875,
+            "right": 300.734375,
+            "bottom": 220.5,
+            "left": 272.75
+          },
+          "date": {
+            "x": 247.5625,
+            "y": 220.5,
+            "width": 53.171875,
+            "height": 23.328125,
+            "top": 220.5,
+            "right": 300.734375,
+            "bottom": 243.828125,
+            "left": 247.5625
+          },
+          "label": "試遊 自家販売 2027/1 果実香が強い 残り1本。手元へ戻す",
+          "text": "27/1\n1本"
+        }
+      ],
+      "targets": [
+        {
+          "x": 30.28125,
+          "y": 197.171875,
+          "width": 314.4375,
+          "height": 46.65625,
+          "top": 197.171875,
+          "right": 344.71875,
+          "bottom": 243.828125,
+          "left": 30.28125
+        },
+        {
+          "x": 30.28125,
+          "y": 249.078125,
+          "width": 314.4375,
+          "height": 89.28125,
+          "top": 249.078125,
+          "right": 344.71875,
+          "bottom": 338.359375,
+          "left": 30.28125
+        }
+      ]
+    },
+    {
+      "tag": "home-layout",
+      "width": 390,
+      "height": 680,
+      "enlarged": false,
+      "page": {
+        "width": 390,
+        "height": 680
+      },
+      "board": {
+        "x": 24.75,
+        "y": 95.90625,
+        "width": 325.5,
+        "height": 247.984375,
+        "top": 95.90625,
+        "right": 350.25,
+        "bottom": 343.890625,
+        "left": 24.75
+      },
+      "icon": {
+        "x": 32.21875,
+        "y": 201.078125,
+        "width": 15.5,
+        "height": 15.5,
+        "top": 201.078125,
+        "right": 47.71875,
+        "bottom": 216.578125,
+        "left": 32.21875
+      },
+      "title": {
+        "x": 32.21875,
+        "y": 216.578125,
+        "width": 98.125,
+        "height": 23.328125,
+        "top": 216.578125,
+        "right": 130.34375,
+        "bottom": 239.90625,
+        "left": 32.21875
+      },
+      "rows": [
+        {
+          "rect": {
+            "x": 146.53125,
+            "y": 197.171875,
+            "width": 77.5,
+            "height": 46.65625,
+            "top": 197.171875,
+            "right": 224.03125,
+            "bottom": 243.828125,
+            "left": 146.53125
+          },
+          "count": {
+            "x": 171.71875,
+            "y": 197.171875,
+            "width": 27.984375,
+            "height": 23.328125,
+            "top": 197.171875,
+            "right": 199.703125,
+            "bottom": 220.5,
+            "left": 171.71875
+          },
+          "date": {
+            "x": 146.53125,
+            "y": 220.5,
+            "width": 53.171875,
+            "height": 23.328125,
+            "top": 220.5,
+            "right": 199.703125,
+            "bottom": 243.828125,
+            "left": 146.53125
+          },
+          "label": "試遊 自家販売 2026/12 果実香が強い 残り2本 3本売れた。手元へ戻す",
+          "text": "26/12\n2本"
+        },
+        {
+          "rect": {
+            "x": 247.5625,
+            "y": 197.171875,
+            "width": 77.5,
+            "height": 46.65625,
+            "top": 197.171875,
+            "right": 325.0625,
+            "bottom": 243.828125,
+            "left": 247.5625
+          },
+          "count": {
+            "x": 272.75,
+            "y": 197.171875,
+            "width": 27.984375,
+            "height": 23.328125,
+            "top": 197.171875,
+            "right": 300.734375,
+            "bottom": 220.5,
+            "left": 272.75
+          },
+          "date": {
+            "x": 247.5625,
+            "y": 220.5,
+            "width": 53.171875,
+            "height": 23.328125,
+            "top": 220.5,
+            "right": 300.734375,
+            "bottom": 243.828125,
+            "left": 247.5625
+          },
+          "label": "試遊 自家販売 2027/1 果実香が強い 残り1本。手元へ戻す",
+          "text": "27/1\n1本"
+        }
+      ],
+      "targets": [
+        {
+          "x": 30.28125,
+          "y": 197.171875,
+          "width": 314.4375,
+          "height": 46.65625,
+          "top": 197.171875,
+          "right": 344.71875,
+          "bottom": 243.828125,
+          "left": 30.28125
+        },
+        {
+          "x": 30.28125,
+          "y": 249.078125,
+          "width": 314.4375,
+          "height": 89.28125,
+          "top": 249.078125,
+          "right": 344.71875,
+          "bottom": 338.359375,
+          "left": 30.28125
+        }
+      ]
+    },
+    {
+      "tag": "home-layout",
+      "width": 430,
+      "height": 740,
+      "enlarged": false,
+      "page": {
+        "width": 430,
+        "height": 740
+      },
+      "board": {
+        "x": 20.75,
+        "y": 114.46875,
+        "width": 388.5,
+        "height": 306.6875,
+        "top": 114.46875,
+        "right": 409.25,
+        "bottom": 421.15625,
+        "left": 20.75
+      },
+      "icon": {
+        "x": 29.6875,
+        "y": 243.09375,
+        "width": 18.5,
+        "height": 18.5,
+        "top": 243.09375,
+        "right": 48.1875,
+        "bottom": 261.59375,
+        "left": 29.6875
+      },
+      "title": {
+        "x": 29.6875,
+        "y": 261.59375,
+        "width": 116.421875,
+        "height": 30,
+        "top": 261.59375,
+        "right": 146.109375,
+        "bottom": 291.59375,
+        "left": 29.6875
+      },
+      "rows": [
+        {
+          "rect": {
+            "x": 166.125,
+            "y": 237.34375,
+            "width": 92.5,
+            "height": 60,
+            "top": 237.34375,
+            "right": 258.625,
+            "bottom": 297.34375,
+            "left": 166.125
+          },
+          "count": {
+            "x": 196.1875,
+            "y": 237.34375,
+            "width": 36,
+            "height": 30,
+            "top": 237.34375,
+            "right": 232.1875,
+            "bottom": 267.34375,
+            "left": 196.1875
+          },
+          "date": {
+            "x": 166.125,
+            "y": 267.34375,
+            "width": 66.0625,
+            "height": 30,
+            "top": 267.34375,
+            "right": 232.1875,
+            "bottom": 297.34375,
+            "left": 166.125
+          },
+          "label": "試遊 自家販売 2026/12 果実香が強い 残り2本 3本売れた。手元へ戻す",
+          "text": "26/12\n2本"
+        },
+        {
+          "rect": {
+            "x": 286.6875,
+            "y": 237.34375,
+            "width": 92.5,
+            "height": 60,
+            "top": 237.34375,
+            "right": 379.1875,
+            "bottom": 297.34375,
+            "left": 286.6875
+          },
+          "count": {
+            "x": 316.75,
+            "y": 237.34375,
+            "width": 36,
+            "height": 30,
+            "top": 237.34375,
+            "right": 352.75,
+            "bottom": 267.34375,
+            "left": 316.75
+          },
+          "date": {
+            "x": 286.6875,
+            "y": 267.34375,
+            "width": 66.0625,
+            "height": 30,
+            "top": 267.34375,
+            "right": 352.75,
+            "bottom": 297.34375,
+            "left": 286.6875
+          },
+          "label": "試遊 自家販売 2027/1 果実香が強い 残り1本。手元へ戻す",
+          "text": "27/1\n1本"
+        }
+      ],
+      "targets": [
+        {
+          "x": 27.375,
+          "y": 237.34375,
+          "width": 375.25,
+          "height": 60,
+          "top": 237.34375,
+          "right": 402.625,
+          "bottom": 297.34375,
+          "left": 27.375
+        },
+        {
+          "x": 27.375,
+          "y": 303.65625,
+          "width": 375.25,
+          "height": 110.875,
+          "top": 303.65625,
+          "right": 402.625,
+          "bottom": 414.53125,
+          "left": 27.375
+        }
+      ]
+    },
+    {
+      "tag": "home-layout",
+      "width": 360,
+      "height": 500,
+      "enlarged": false,
+      "page": {
+        "width": 360,
+        "height": 500
+      },
+      "board": {
+        "x": 48.75,
+        "y": 77.34375,
+        "width": 262.5,
+        "height": 206.078125,
+        "top": 77.34375,
+        "right": 311.25,
+        "bottom": 283.421875,
+        "left": 48.75
+      },
+      "icon": {
+        "x": 54.765625,
+        "y": 164.125,
+        "width": 12.5,
+        "height": 12.5,
+        "top": 164.125,
+        "right": 67.265625,
+        "bottom": 176.625,
+        "left": 54.765625
+      },
+      "title": {
+        "x": 54.765625,
+        "y": 176.625,
+        "width": 78.75,
+        "height": 20,
+        "top": 176.625,
+        "right": 133.515625,
+        "bottom": 196.625,
+        "left": 54.765625
+      },
+      "rows": [
+        {
+          "rect": {
+            "x": 146.953125,
+            "y": 160.375,
+            "width": 62.5,
+            "height": 40,
+            "top": 160.375,
+            "right": 209.453125,
+            "bottom": 200.375,
+            "left": 146.953125
+          },
+          "count": {
+            "x": 167.265625,
+            "y": 160.375,
+            "width": 24,
+            "height": 20,
+            "top": 160.375,
+            "right": 191.265625,
+            "bottom": 180.375,
+            "left": 167.265625
+          },
+          "date": {
+            "x": 146.953125,
+            "y": 180.375,
+            "width": 44.3125,
+            "height": 20,
+            "top": 180.375,
+            "right": 191.265625,
+            "bottom": 200.375,
+            "left": 146.953125
+          },
+          "label": "試遊 自家販売 2026/12 果実香が強い 残り2本 3本売れた。手元へ戻す",
+          "text": "26/12\n2本"
+        },
+        {
+          "rect": {
+            "x": 228.4375,
+            "y": 160.375,
+            "width": 62.5,
+            "height": 40,
+            "top": 160.375,
+            "right": 290.9375,
+            "bottom": 200.375,
+            "left": 228.4375
+          },
+          "count": {
+            "x": 248.75,
+            "y": 160.375,
+            "width": 24,
+            "height": 20,
+            "top": 160.375,
+            "right": 272.75,
+            "bottom": 180.375,
+            "left": 248.75
+          },
+          "date": {
+            "x": 228.4375,
+            "y": 180.375,
+            "width": 44.3125,
+            "height": 20,
+            "top": 180.375,
+            "right": 272.75,
+            "bottom": 200.375,
+            "left": 228.4375
+          },
+          "label": "試遊 自家販売 2027/1 果実香が強い 残り1本。手元へ戻す",
+          "text": "27/1\n1本"
+        }
+      ],
+      "targets": [
+        {
+          "x": 53.203125,
+          "y": 160.375,
+          "width": 253.59375,
+          "height": 40,
+          "top": 160.375,
+          "right": 306.796875,
+          "bottom": 200.375,
+          "left": 53.203125
+        },
+        {
+          "x": 53.203125,
+          "y": 204.59375,
+          "width": 253.59375,
+          "height": 74.375,
+          "top": 204.59375,
+          "right": 306.796875,
+          "bottom": 278.96875,
+          "left": 53.203125
+        }
+      ]
+    },
+    {
+      "tag": "home-layout",
+      "width": 375,
+      "height": 620,
+      "enlarged": true,
+      "page": {
+        "width": 375,
+        "height": 620
+      },
+      "board": {
+        "x": 24.75,
+        "y": 95.90625,
+        "width": 325.5,
+        "height": 339.359375,
+        "top": 95.90625,
+        "right": 350.25,
+        "bottom": 435.265625,
+        "left": 24.75
+      },
+      "icon": {
+        "x": 32.21875,
+        "y": 240.9375,
+        "width": 15.5,
+        "height": 15.5,
+        "top": 240.9375,
+        "right": 47.71875,
+        "bottom": 256.4375,
+        "left": 32.21875
+      },
+      "title": {
+        "x": 32.21875,
+        "y": 256.4375,
+        "width": 96.25,
+        "height": 29.15625,
+        "top": 256.4375,
+        "right": 128.46875,
+        "bottom": 285.59375,
+        "left": 32.21875
+      },
+      "rows": [
+        {
+          "rect": {
+            "x": 146.53125,
+            "y": 203,
+            "width": 77.5,
+            "height": 58.328125,
+            "top": 203,
+            "right": 224.03125,
+            "bottom": 261.328125,
+            "left": 146.53125
+          },
+          "count": {
+            "x": 171.71875,
+            "y": 203,
+            "width": 35,
+            "height": 29.15625,
+            "top": 203,
+            "right": 206.71875,
+            "bottom": 232.15625,
+            "left": 171.71875
+          },
+          "date": {
+            "x": 146.53125,
+            "y": 232.15625,
+            "width": 60.1875,
+            "height": 29.15625,
+            "top": 232.15625,
+            "right": 206.71875,
+            "bottom": 261.3125,
+            "left": 146.53125
+          },
+          "label": "試遊 自家販売 2026/12 果実香が強い 残り2本 3本売れた。手元へ戻す",
+          "text": "26/12\n2本"
+        },
+        {
+          "rect": {
+            "x": 146.53125,
+            "y": 265.203125,
+            "width": 77.5,
+            "height": 58.328125,
+            "top": 265.203125,
+            "right": 224.03125,
+            "bottom": 323.53125,
+            "left": 146.53125
+          },
+          "count": {
+            "x": 171.71875,
+            "y": 265.203125,
+            "width": 35,
+            "height": 29.15625,
+            "top": 265.203125,
+            "right": 206.71875,
+            "bottom": 294.359375,
+            "left": 171.71875
+          },
+          "date": {
+            "x": 146.53125,
+            "y": 294.359375,
+            "width": 60.1875,
+            "height": 29.15625,
+            "top": 294.359375,
+            "right": 206.71875,
+            "bottom": 323.515625,
+            "left": 146.53125
+          },
+          "label": "試遊 自家販売 2027/1 果実香が強い 残り1本。手元へ戻す",
+          "text": "27/1\n1本"
+        }
+      ],
+      "targets": [
+        {
+          "x": 30.28125,
+          "y": 203,
+          "width": 314.4375,
+          "height": 120.53125,
+          "top": 203,
+          "right": 344.71875,
+          "bottom": 323.53125,
+          "left": 30.28125
+        },
+        {
+          "x": 30.28125,
+          "y": 328.78125,
+          "width": 314.4375,
+          "height": 100.953125,
+          "top": 328.78125,
+          "right": 344.71875,
+          "bottom": 429.734375,
+          "left": 30.28125
+        }
+      ]
+    },
+    {
+      "tag": "display-only-three-shop-stress",
+      "shops": 3,
+      "counts": [
+        2,
+        2,
+        2
+      ],
+      "client": 328,
+      "scroll": 328,
+      "bounds": {
+        "x": 30.890625,
+        "y": 87.859375,
+        "width": 298.1875,
+        "height": 328.484375,
+        "top": 87.859375,
+        "right": 329.078125,
+        "bottom": 416.34375,
+        "left": 30.890625
+      },
+      "page": {
+        "width": 360,
+        "height": 568
+      }
+    }
+  ],
+  "errors": [],
+  "physicalSafari": false
+}
