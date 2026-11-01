@@ -1,4 +1,4 @@
-import{drawCutBar}from'./cut-bar.mjs?v=cut-pixel-r1';
+import{drawCutBar}from'./cut-bar.mjs?v=cut-mark-r1';
 import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./distill-tools-view.mjs?v=cut-pixel-r1';
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
@@ -147,7 +147,7 @@ export class CanvasScene{
   if(view.room==='sales'&&!view.marketMode&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0,readout=view.room==='distill'?view.spirit:null;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:readout?(readout.compact?216:141)+spiritOffset:null,spiritBottom:readout?(readout.compact?252:readout.phrase&&readout.axes.length?255:243)+spiritOffset:null,equipmentTop:l.equipment.y});
-  if(view.room==='distill'&&view.spirit){const p=view.spirit;if(p.compact){this.window(72,216+spiritOffset,216,36,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,180,240+spiritOffset,16,'center');}else{this.window(24,141+spiritOffset,312,p.phrase&&p.axes.length?114:102,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,164+spiritOffset,BODY_SIZE);if(view.tools?.liquidColor){this.pixelRect(318,153+spiritOffset,6,6,view.tools.liquidColor);}p.axes.forEach((a,i)=>{const y=192+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(p.phrase)this.lines(p.phrase,36,(p.axes.length?244:195)+spiritOffset,288,16,1);}}
+  if(view.room==='distill'&&view.spirit){const p=view.spirit;if(p.compact){this.window(72,216+spiritOffset,216,36,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,180,240+spiritOffset,16,'center');}else{this.window(24,141+spiritOffset,312,p.phrase&&p.axes.length?114:102,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,164+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=192+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(p.phrase){const y=(p.axes.length?244:195)+spiritOffset,tint=view.tools?.liquidColor;if(tint)this.pixelRect(36,Math.round((y-12)/3)*3,12,12,tint);this.lines(p.phrase,tint?54:36,y,tint?270:288,16,1);}}}
   if(view.room==='distill'&&Number.isInteger(view.countdown)&&view.countdown>=1&&view.countdown<=3){
    // One repaint per digit, using the scene's existing pixel font.
    const dot=this.textMetrics(48).pixels/8/this.textMetrics(48).unit;this.text(String(view.countdown),180+dot,228+dot,48,'center',shadow);this.text(String(view.countdown),180,228,48,'center');this.root.dataset.countdown=String(view.countdown);
