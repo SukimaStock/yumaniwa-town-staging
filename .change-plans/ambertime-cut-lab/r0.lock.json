@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0e7b7f67a1219fa64bd3159892a3c77439ceffb77895d5840f4b02c8fce57ec7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-cut-lab",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "現行カット味モデル全区間監査とA/B/Cバー比較Lab",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "Rule",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "e23095e200a3728092c307735dfd664fca78fcdb",
+    "canonicalSources": [
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime-flavor-lab-v02/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "PR740 comparison, unadopted"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-cut-lab/r0.lock.json",
+      "works/ambertime-cut-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "合法3916区間×仕込み条件を既存味で全計算。分布/幅/重複/優位/価格/樽年数/接続済み店反応を監査",
+      "独立Labで既存lever/glass入力、A/B/Cバー、同条件cut比較、固定量案/象徴液面案を試す。本編は不変",
+      "active staging-only work登録、既存LAB研究室へ接続し生成。共通generator/runtime契約は変更しない"
+    ],
+    "ownerDecisions": [
+      "2026-11-01今回ユーザー：本編不変更、監査/数値/独立Lab Staging公開。新モデル採用は作者判断。Productionなし"
+    ],
+    "hqDecisions": [
+      "既存登録/生成契約を利用する独立Lab。共有runtime/保存/配布契約の拡張なし"
+    ],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,単一先頭Plan Lock,Scope→Risk→Impact",
+      "表現監査：可視操作文を外し指定のアイコン/穏やかな点滅で案内。読み上げは維持",
+      "本編編集前にreadout pathの必要性を確認しfresh branch/単一r0へ固定。旧計画branchは保存、旧Lockを変更しない",
+      "outOfScopeを今回明示許可の区間収量に整合させ本編編集前にfresh r0固定。以前のlocked branchは保持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390 Chromium/WebKit 実pointer、bar開始終了とモデル対応、画像比較/scroll/還元motion",
+      "公開LabのA/B/C切替と初回操作を確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "新Labと登録/生成差分のみ通常revert。正式save移行なし",
+    "outOfScope": [
+      "本編の計算/保存/経済/味/レバー/矢印変更",
+      "新味モデル採用",
+      "Production/他作品/共有runtime/通知/新画面階層"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari touch/toolbar/作者の採否"
+    ],
+    "alternativesRejected": [
+      "区間収量の本編採用",
+      "Lab味モデルを本編接続済みと誤認",
+      "本編UIへの先行導入"
+    ],
+    "boundaryCases": [
+      "0/87開始,12step,99終了,全3916組,四仕込み,複数樽年数,価格下限,preview,還元motion,多指cancel"
+    ],
+    "testPlan": [
+      "既存3916区間の決定性・開始終了幅感度・味と価格熟成店との関係",
+      "独立Lab input/bar/compare/state、3幅2engine/既存本編回帰と本編blob不変",
+      "lifecycle write-lab/check、Scope Risk Impact、必須CI、PRmergeStaging公開"
+    ],
+    "problem": "カット入力の意味を量から味へ整理するため現行味の偏りとバー手掛かりを比較する必要",
+    "currentContract": "既存model/save/economy不変、最小採取幅12維持、Labは正式保存へ触れない",
+    "whyExistingIsInsufficient": "PR740 interval yieldは経済悪影響でHOLD。量を切り離す案の味/操作理解は未監査",
+    "design": "既存モデルを純粋に投影するauditと独立Canvas比較画面、C案も未採用。量は標準34.35L固定案で切り離し、採取液面は象徴として明示",
+    "migration": "なし。Lab memoryのみ、本編save読書なし",
+    "compatibility": "本編全ファイルblob不変。既存描画/入力素材はimportして再利用",
+    "promotionRisk": "Staging限定。新モデルの旧コードへのdowngradeは保存書出しと明示version検査で保護。Productionなし"
+  }
+}
