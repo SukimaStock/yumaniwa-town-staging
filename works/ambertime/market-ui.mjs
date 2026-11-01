@@ -143,7 +143,10 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   const size=el.getBoundingClientRect(),fitsRight=anchor.right+4+size.width<=bounds.right-2;
   el.style.left=Math.max(bounds.left+2,Math.min(fitsRight?anchor.right+4:anchor.left,bounds.right-size.width-2))+'px';
   if(!fitsRight)el.style.top=Math.max(bounds.top+2,anchor.top-size.height-2)+'px';
-  if(!reduced.matches)void animate(el,[{transform:'translateY(0)',opacity:1},{transform:'translateY(-4px)',opacity:1,offset:.65},{transform:'translateY(-6px)',opacity:0}],{duration:650,easing:'steps(4,end)'});
+  // Keep the retail quantity change below the flight lane, beside this release's date.
+  const retailDate=kind==='sale'&&shopId==='retail'?element?.closest('.market-stock')?.querySelector('.market-date')?.getBoundingClientRect():null;
+  if(retailDate){el.style.left=Math.max(bounds.left+2,Math.min(Math.max(anchor.right,retailDate.right)+4,bounds.right-size.width-2))+'px';el.style.top=Math.max(bounds.top+2,Math.min(retailDate.top+1,bounds.bottom-size.height-2))+'px';}
+  if(!reduced.matches)void animate(el,retailDate?[{opacity:1},{opacity:1,offset:.65},{opacity:0}]:[{transform:'translateY(0)',opacity:1},{transform:'translateY(-4px)',opacity:1,offset:.65},{transform:'translateY(-6px)',opacity:0}],{duration:650,easing:'steps(4,end)'});
   return new Promise(resolve=>{const finish=()=>{clearTimeout(timer);deltaTimers.delete(timer);el.remove();resolve();},timer=setTimeout(finish,650);deltaTimers.set(timer,finish);});
  }
  async function placed(shopId,count,productId,origin){
@@ -192,7 +195,8 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   if(doc.hidden||!visible)return;
   // Different releases keep their own bottle art and origin, within one interval.
   const homeGroups=retailSaleGroups(sales.filter(x=>x.shopId==='retail').map(sale=>({productId:sale.productId,units:sale.count})));
-  await Promise.all(homeGroups.map((sale,index)=>retailSold({...sale,groupIndex:index},token,origins)));
+  const homeDeltas=sales.filter(x=>x.shopId==='retail').map(sale=>{const row=doc.getElementById(`market-stock-retail-${sale.productId}`);return delta(row?.querySelector('.market-count'),-sale.count,{kind:'sale',productId:sale.productId,shopId:'retail'});});
+  await Promise.all([...homeGroups.map((sale,index)=>retailSold({...sale,groupIndex:index},token,origins)),...homeDeltas]);
   for(const shop of ordinary.filter(x=>x.id!=='retail')){
    for(const sale of sales.filter(x=>x.shopId===shop.id)){
     if(token!==epoch||!visible||doc.hidden)break;
