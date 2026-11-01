@@ -208,6 +208,10 @@
         {
           "work": "ambertime-whisky-map-lab-v05",
           "note": "販売室から町の地図を開き、店の売上・残数・前の一本を確認する。"
+        },
+        {
+          "work": "ambertime-cut-lab",
+          "note": "採る区間で変わる味を調べ、3種類の採取バーとグラスを比べる。"
         }
       ]
     },

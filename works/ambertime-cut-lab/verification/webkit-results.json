@@ -1,0 +1,1047 @@
+{
+  "engine": "webkit",
+  "checks": [
+    {
+      "label": "initial",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "ready",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": false,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "lever-middle",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "ready",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 63
+      }
+    },
+    {
+      "label": "countdown",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "countdown",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": 3
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 63
+      }
+    },
+    {
+      "label": "running",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "collection-start",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 12,
+        "start": 12,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":22,\"start\":22,\"end\":null,\"right\":109}",
+        "colors": 44
+      }
+    },
+    {
+      "label": "collecting",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 28,
+        "start": 12,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":null,\"right\":109}",
+        "colors": 46
+      }
+    },
+    {
+      "label": "finished",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 45
+      }
+    },
+    {
+      "label": "bar-A",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 21
+      }
+    },
+    {
+      "label": "bar-B",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "bar-C",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 45
+      }
+    },
+    {
+      "label": "mixed-slide-tap",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "interval-fill",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "pulse-fill",
+      "width": 360,
+      "height": 568,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 360,
+        "height": 568,
+        "scrollWidth": 360,
+        "scrollHeight": 568,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "initial",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "ready",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": false,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "lever-middle",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "ready",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 63
+      }
+    },
+    {
+      "label": "countdown",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "countdown",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": 3
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 63
+      }
+    },
+    {
+      "label": "running",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "collection-start",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 12,
+        "start": 12,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":22,\"start\":22,\"end\":null,\"right\":109}",
+        "colors": 44
+      }
+    },
+    {
+      "label": "collecting",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 28,
+        "start": 12,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":null,\"right\":109}",
+        "colors": 46
+      }
+    },
+    {
+      "label": "finished",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 45
+      }
+    },
+    {
+      "label": "bar-A",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 21
+      }
+    },
+    {
+      "label": "bar-B",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "bar-C",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 45
+      }
+    },
+    {
+      "label": "mixed-slide-tap",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "interval-fill",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "pulse-fill",
+      "width": 375,
+      "height": 620,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 375,
+        "height": 620,
+        "scrollWidth": 375,
+        "scrollHeight": 620,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "initial",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "ready",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": false,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "lever-middle",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "ready",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 63
+      }
+    },
+    {
+      "label": "countdown",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "countdown",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": 3
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 63
+      }
+    },
+    {
+      "label": "running",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 0,
+        "start": null,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":10,\"start\":null,\"end\":null,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "collection-start",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 12,
+        "start": 12,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":22,\"start\":22,\"end\":null,\"right\":109}",
+        "colors": 44
+      }
+    },
+    {
+      "label": "collecting",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "running",
+        "progress": 28,
+        "start": 12,
+        "end": null,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":null,\"right\":109}",
+        "colors": 46
+      }
+    },
+    {
+      "label": "finished",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 45
+      }
+    },
+    {
+      "label": "bar-A",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 21
+      }
+    },
+    {
+      "label": "bar-B",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 64
+      }
+    },
+    {
+      "label": "bar-C",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 28,
+        "start": 12,
+        "end": 28,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":38,\"start\":22,\"end\":38,\"right\":109}",
+        "colors": 45
+      }
+    },
+    {
+      "label": "mixed-slide-tap",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "interval-fill",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "pulse-fill",
+      "width": 390,
+      "height": 680,
+      "virtualTime": true,
+      "state": {
+        "phase": "finished",
+        "progress": 45,
+        "start": 25,
+        "end": 45,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":55,\"start\":35,\"end\":55,\"right\":109}",
+        "colors": 51
+      }
+    },
+    {
+      "label": "native-clock",
+      "width": 390,
+      "height": 680,
+      "virtualTime": false,
+      "state": {
+        "phase": "finished",
+        "progress": 12,
+        "start": 0,
+        "end": 12,
+        "prepared": true,
+        "countdown": null
+      },
+      "geometry": {
+        "width": 390,
+        "height": 680,
+        "scrollWidth": 390,
+        "scrollHeight": 680,
+        "canvas": {
+          "width": 120,
+          "height": 100
+        },
+        "bar": "{\"current\":22,\"start\":10,\"end\":22,\"right\":109}",
+        "colors": 49
+      }
+    }
+  ],
+  "errors": [],
+  "method": "Actual mouse/tap input; virtual clock explicitly labelled in each observation; one native-clock countdown/collection per engine. Pointercancel is browser-dispatched after native mouse movement; Chromium also tests native CDP touchCancel."
+}
