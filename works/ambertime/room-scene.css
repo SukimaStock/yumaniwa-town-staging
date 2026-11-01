@@ -273,8 +273,7 @@ body[data-room] #hero .objects::after{content:none}
 /* Reuse the dialog's shared spacing and uniform Canvas typography. */
 #action-dialog.daily-map{padding:10px;width:min(360px,calc(var(--view-width) - 24px));max-width:calc(var(--view-width) - 24px);box-sizing:border-box}
 #action-dialog.daily-map .dialog-heading{padding:0;align-items:center;margin-bottom:4px}
-/* Use content sizing for the auto-height, clipped map container.
-   It may shrink for the viewport, without starting from a zero basis. */
+/* The bounded daily-map body is completed by the viewport-sized slots below. */
 #action-dialog.daily-map #dialog-body{padding:0;flex:0 1 auto;display:flex;overflow:hidden}
 #action-dialog.daily-map #dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:6px;padding-top:1px}
 #action-dialog.daily-map #dialog-actions button{min-height:45px;padding:6px 9px;white-space:nowrap}
@@ -314,3 +313,13 @@ body[data-room] #hero .objects::after{content:none}
 #scene-controls button.scene-hit.distill-tool-hit[data-scene-visible=true]{touch-action:none!important;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab}
 #scene-controls .distill-tool-hit:active{cursor:grabbing}
 #scene-controls .distill-tool-hit:focus-visible{opacity:1!important;background:transparent!important;color:transparent!important;border:2px dotted #e4bc66!important}
+
+/* Keep daily-map geometry independent of report length and selected scale.
+   Only very short visual viewports reduce the square plot, never the type. */
+#action-dialog.daily-map{--map-available:calc(var(--view-height) - max(12px,env(safe-area-inset-top,0px)) - max(12px,env(safe-area-inset-bottom,0px)));--map-size:min(222px,max(120px,calc(var(--map-available) - 306px)));height:min(660px,var(--map-available));overflow:hidden}
+#action-dialog.daily-map .dialog-heading,#action-dialog.daily-map #dialog-actions{flex:none}
+#action-dialog.daily-map #dialog-body{flex:1 1 0;min-height:0}
+#action-dialog.daily-map .world-map-view{flex:1 1 0;min-height:0}
+#action-dialog.daily-map .world-map-surface{width:var(--map-size);height:var(--map-size)}
+#action-dialog.daily-map #dialog-body .map-shop-report{flex:1 1 0;min-height:0;max-height:none;overflow-x:hidden;overflow-y:auto;scrollbar-gutter:stable;touch-action:pan-y pinch-zoom}
+#action-dialog.daily-map #dialog-body .map-shop-report header{min-height:0}
