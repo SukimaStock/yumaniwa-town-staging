@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "481690e15b2b5d3a043ccfc077ad81b1a924a16764e72da98afcdb17cdcb7e6c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-cut-range-ticks",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "採取区間の縦線復元と途中の点だけ削除",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f8cb24d80d2650eea21c958a785f2819e1669be1",
+    "canonicalSources": [
+      "works/ambertime-cut-lab/bar.mjs",
+      "works/ambertime-cut-lab/projection.mjs",
+      "works/ambertime-cut-lab/input-state.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-cut-range-ticks/r0.lock.json",
+      "works/ambertime/cut-bar.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/cut-range-ticks/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "開始/終了/現在位置の縦線と短いcapを従来へ復元",
+      "区間下線の下の9px間隔3px点のみ削除",
+      "採用済みグラス色と香り名横12px色印は無変更",
+      "cache参照更新/3幅2engine描画確認/CI/Staging"
+    ],
+    "ownerDecisions": [
+      "2026-11-01作者訂正：開始位置と終了位置の縦線は必要、途中の点々のみ削除。色識別は採用"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "3幅で縦線/下線/反復点除去確認",
+      "公開warmcachetab新描画確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert。正式保存の移行なし。追加UI設定は旧版が読まない独立keyでゲーム状態へ混入しない",
+    "outOfScope": [
+      "Production/共有基盤/他作品/新Lab",
+      "正式量/味48点/費用/販売/評判/時計/保存/12step変更",
+      "入力/レバー/習熟/3秒/液面高/他部屋展開"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの指追従/バー/安全領域/視線と作者採否"
+    ],
+    "alternativesRejected": [
+      "正式味変更",
+      "開始/終了/現在印削除",
+      "新しい説明文/操作追加"
+    ],
+    "boundaryCases": [
+      "最小幅/広い区間/始点終点重複時も縦線と下線維持",
+      "採用済み結果色印とグラス無変更"
+    ],
+    "testPlan": [
+      "縦線復元/反復点なし/短印と下線保持",
+      "360/375/390両engine画像と保存不変性",
+      "Scope→Risk→Impact/CI/public"
+    ],
+    "problem": "前回は不要な点々ではなく必要な区間縦線を削除していた",
+    "currentContract": "正式味/量/入力/保存/色分類/結果色印を維持",
+    "whyExistingIsInsufficient": "作者が削除したかったのは採取区間下の反復点だった",
+    "design": "縦線/短いcap/下線を維持し反復点描画だけ除去",
+    "migration": "正式保存/習熟設定の移行なし、描画のみ",
+    "compatibility": "表示のみ、原酒量/48点/正式save全blob維持。入力/習熟モジュール不変",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
