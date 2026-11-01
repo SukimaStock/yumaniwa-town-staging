@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "19310be2b86c44518a9f24b7474e25cfa81cd0270af01a6b4450f858c2e11534",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-cut-cache",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "蒸留C案のCanvas依存cachekeyを更新し公開済み旧cacheから切替",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "89485bdf3d8b2d7c79e354664878573067d42b72",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-cut-cache/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/distill-cut-cache.test.mjs",
+      "works/ambertime/design/cut-main/CACHE.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "CanvasScene importにcut-main版cachequeryを追加",
+      "HTML entryquery更新で古いshop importgraphを再利用しない",
+      "ソースcache契約テストと公開確認記録"
+    ],
+    "ownerDecisions": [
+      "2026-11-01今回指示：C案/象徴一定高液面/レバー復帰/矢印下降/習熟を本編接続。正式モデルと量を維持。通常PR/CI/merge/Staging公開、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS・Change OS・単一先行Lock・Scope→Risk→Impact",
+      "表現監査：説明文/新ボタン/常設情報を増やさず、既存道具とバーで示す"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390 Chromium/WebKit、待機/準備/drag/3-2-1/採取0/採取中/終了/レバー帰還/習熟前後/reduced/再読込/別室を操作画像検証",
+      "公開版の配信byte一致と実操作を確認、実機Safariは別途未確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert。正式保存の移行なし。追加UI設定は旧版が読まない独立keyでゲーム状態へ混入しない",
+    "outOfScope": [
+      "Production/共有基盤/他作品/新Lab",
+      "正式量/48点平均/費用/熟成/販売/評判/需要/時計/最小幅/正式保存再生の変更",
+      "34.35L固定量と740区間積算の採用"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの指追従/バー/安全領域/視線と作者採否"
+    ],
+    "alternativesRejected": [
+      "量計算の変更",
+      "新しい説明・ボタン・確認操作",
+      "ゲーム保存へ習熟状態を混入"
+    ],
+    "boundaryCases": [
+      "旧save/旧採取中/自動仕込み/世代交代/expiry/retry/preview/storage拒否/重複pointer/cancel/再読込",
+      "採取開始液面0/正式終了量不変/持続描画なし/reduced-motion/初回-2-3-4矢印"
+    ],
+    "testPlan": [
+      "Lab色変換完全一致と表示非変更、入力/習熟単体",
+      "旧mainと同じ操作系列の味・量・費用・熟成・販売・保存結果一致",
+      "360/375/390両engine pointer回帰、既存保存・販売・地図回帰、exacttree CI/公開確認"
+    ],
+    "problem": "公開版の既存cacheがCanvasSceneの旧queryを再利用しC案/復帰を表示しない",
+    "currentContract": "formal model/save/quantity/clock/min12/input/art/fonts/レイアウトを維持",
+    "whyExistingIsInsufficient": "Lab741で採用対象が決まったが本編表示と習熟誘導には未接続",
+    "design": "純粋な読取専用バー描画・progress差の象徴液面・表示だけの帰還と案内・独立UI設定",
+    "migration": "正式保存の移行なし。旧activebatchも既存結果で完了。UI設定の初期count0は新機能のみ",
+    "compatibility": "本編モデル全blob不変。新UI設定の取得/書込が失敗しても既存操作を継続",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
