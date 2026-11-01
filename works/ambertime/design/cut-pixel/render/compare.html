@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cut pixel rendering comparison</title>
+<style>@font-face{font-family:Amber;src:url(../../../fonts/misaki_gothic_2nd.ttf)}*{box-sizing:border-box}body{margin:0;background:#272837;color:#f0e6c8;font:16px Amber,monospace}main{width:100%;max-width:390px;margin:auto;padding:12px}h1{font:16px Amber,monospace;margin:0 0 12px}p{margin:4px 0 9px}section{margin:0 0 12px}canvas{image-rendering:pixelated;display:block}small{display:block;color:#bbb7a3} .row{display:flex;gap:12px}.item{width:90px}.item canvas{width:72px;height:48px}</style>
+<main><h1>同じ仕込み・同じカット</h1><p>通常麦芽／長発酵・21–74step</p><div id="bars"></div><p>グラス：同じ確定profile／同じ液面</p><div id="glass" class="row"></div><small>象徴色：実液色・評価色ではない</small><h1 style="margin-top:18px">仕込み・カットの違い</h1><div id="matrix"></div></main>
+<script type="module">
+import {drawCutBar} from '../../../cut-bar.mjs';
+import {drawDistillTools} from '../../../distill-tools-view.mjs';
+import {glassColor} from '../../../flavor-color.mjs';
+import {distill} from '../../../../ambertime-flavor-lab-v02/model.mjs';
+const variants=['continuous','columns','dither','components'],names=['旧：連続混色','A：縦列・16刻み','B：縦列＋軽いディザ','C：主成分＋副成分模様'];
+for(let i=0;i<variants.length;i++){
+ const s=document.createElement('section');s.textContent=names[i];const c=document.createElement('canvas');c.width=300;c.height=33;s.append(c);bars.append(s);const ctx=c.getContext('2d');drawCutBar((x,y,w,h,color)=>{ctx.fillStyle=color;ctx.fillRect(x,y,w,h)},{x:30,y:12,w:240,h:6,current:74/99,start:21/99,end:74/99},{malt:'plain',ferment:'long'},{variant:variants[i]});
+}
+function glassCanvas(profile,variant){const c=document.createElement('canvas');c.width=24;c.height=16;const ctx=c.getContext('2d');ctx.translate(-4,-110);const tint=glassColor(profile,{variant});drawDistillTools(ctx,{fill:.7,leverDown:false,showLeverArrow:false,glassArrow:false,liquidColor:tint.color,liquidHighlight:tint.highlight},{glassX:12});c.dataset.color=tint.color;c.dataset.family=tint.family;return c;}
+const choice={malt:'plain',ferment:'long',cask:'refill',start:21/99,end:74/99},p=distill(choice);
+for(const [variant,name] of [['continuous','A：混色'],['representative','B：代表色'],['shaded','C：濃淡']]){const d=document.createElement('div');d.className='item';d.textContent=name;d.append(glassCanvas(p,variant));glass.append(d);}
+for(const malt of ['plain','peat'])for(const ferment of ['short','long']){
+ const s=document.createElement('section');s.textContent=`${malt} / ${ferment}`;const row=document.createElement('div');row.className='row';s.append(row);matrix.append(s);
+ for(const [a,b] of [[0,24],[21,74],[70,99]]){const d=document.createElement('div');d.className='item';d.textContent=`${a}–${b}`;const p=distill({...choice,malt,ferment,start:a/99,end:b/99});d.append(glassCanvas(p,'representative'));const label=document.createElement('small');label.textContent=glassColor(p).family;d.append(label);row.append(d);}
+}
+await document.fonts.ready;window.comparisonReady=true;
+</script>

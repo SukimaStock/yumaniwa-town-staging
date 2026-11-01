@@ -1,0 +1,468 @@
+{
+  "source": "main 6c8b2be96c81646bab59ae69964342b5a46e6d94; adopted lab-flavor attachFlavor; 48 midpoint samples",
+  "legalCutsPerCondition": 3916,
+  "total": 15664,
+  "classification": "existing identity weights; mixed only when relative lead <5%; no position buckets",
+  "conditions": {
+    "plain-short": {
+      "count": 3916,
+      "rawMax": {
+        "fruit": 244,
+        "grain": 2831,
+        "body": 841
+      },
+      "identityMax": {
+        "fruit": 457,
+        "grain": 2694,
+        "body": 765
+      },
+      "mixed5": {
+        "fruit": 377,
+        "mixed": 376,
+        "grain": 2495,
+        "body": 668
+      },
+      "mixed10": {
+        "fruit": 305,
+        "mixed": 709,
+        "grain": 2308,
+        "body": 594
+      },
+      "normalizedMax": {
+        "fruit": 210,
+        "grain": 2961,
+        "body": 745
+      },
+      "normalizedNameMismatch": 267,
+      "shades": {
+        "0": 333,
+        "1": 809,
+        "2": 2774
+      },
+      "rawNameMismatch": 289,
+      "representativeNameMismatch": 0,
+      "mixedMarginMax": 0.04965522365267361,
+      "adjacentEdges": 7656,
+      "adjacentChanges": 174,
+      "maxAdjacentDistance": 0.014340814067686865,
+      "maxChangedDistance": 0.013938781824260966,
+      "labelFamilies": {
+        "果実の香り": {
+          "fruit": 303,
+          "mixed": 30
+        },
+        "麦の香りが豊か": {
+          "mixed": 89,
+          "grain": 596
+        },
+        "力強い麦の香り": {
+          "grain": 1899,
+          "mixed": 110
+        },
+        "果実香が豊か": {
+          "fruit": 74,
+          "mixed": 50
+        },
+        "どっしりした味": {
+          "mixed": 97,
+          "body": 668
+        }
+      },
+      "maxSameFamilyDistance": 0.8529264577749831,
+      "sameFamilySpread": {
+        "fruit": {
+          "maxDistance": 0.3860865876919169,
+          "pair": [
+            [
+              0,
+              12
+            ],
+            [
+              22,
+              34
+            ]
+          ]
+        },
+        "grain": {
+          "maxDistance": 0.7634596543512522,
+          "pair": [
+            [
+              0,
+              49
+            ],
+            [
+              58,
+              71
+            ]
+          ]
+        },
+        "smoke": {
+          "maxDistance": 0,
+          "pair": null
+        },
+        "body": {
+          "maxDistance": 0.4756168035627657,
+          "pair": [
+            [
+              61,
+              74
+            ],
+            [
+              87,
+              99
+            ]
+          ]
+        },
+        "mixed": {
+          "maxDistance": 0.8529264577749831,
+          "pair": [
+            [
+              0,
+              42
+            ],
+            [
+              61,
+              73
+            ]
+          ]
+        }
+      }
+    },
+    "plain-long": {
+      "count": 3916,
+      "rawMax": {
+        "fruit": 2243,
+        "body": 1673
+      },
+      "identityMax": {
+        "fruit": 2571,
+        "body": 1345
+      },
+      "mixed5": {
+        "fruit": 2481,
+        "mixed": 162,
+        "body": 1273
+      },
+      "mixed10": {
+        "fruit": 2407,
+        "mixed": 292,
+        "body": 1217
+      },
+      "normalizedMax": {
+        "fruit": 2295,
+        "body": 1621
+      },
+      "normalizedNameMismatch": 276,
+      "shades": {
+        "0": 2,
+        "1": 1014,
+        "2": 2900
+      },
+      "rawNameMismatch": 328,
+      "representativeNameMismatch": 0,
+      "mixedMarginMax": 0.04999865990977703,
+      "adjacentEdges": 7656,
+      "adjacentChanges": 142,
+      "maxAdjacentDistance": 0.017927750078015735,
+      "maxChangedDistance": 0.017859865891565394,
+      "labelFamilies": {
+        "果実の香り": {
+          "fruit": 2
+        },
+        "果実香が豊か": {
+          "fruit": 857,
+          "mixed": 90
+        },
+        "果実香が強い": {
+          "fruit": 1622
+        },
+        "厚みのある味わい": {
+          "mixed": 45,
+          "body": 22
+        },
+        "どっしりした味": {
+          "body": 1251,
+          "mixed": 27
+        }
+      },
+      "maxSameFamilyDistance": 0.6419517668141701,
+      "sameFamilySpread": {
+        "fruit": {
+          "maxDistance": 0.6419517668141701,
+          "pair": [
+            [
+              0,
+              12
+            ],
+            [
+              49,
+              62
+            ]
+          ]
+        },
+        "grain": {
+          "maxDistance": 0,
+          "pair": null
+        },
+        "smoke": {
+          "maxDistance": 0,
+          "pair": null
+        },
+        "body": {
+          "maxDistance": 0.5431799905223548,
+          "pair": [
+            [
+              51,
+              64
+            ],
+            [
+              80,
+              92
+            ]
+          ]
+        },
+        "mixed": {
+          "maxDistance": 0.17005349456219854,
+          "pair": [
+            [
+              13,
+              99
+            ],
+            [
+              51,
+              63
+            ]
+          ]
+        }
+      }
+    },
+    "peat-short": {
+      "count": 3916,
+      "rawMax": {
+        "smoke": 994,
+        "grain": 2081,
+        "body": 841
+      },
+      "identityMax": {
+        "smoke": 3402,
+        "grain": 24,
+        "body": 490
+      },
+      "mixed5": {
+        "smoke": 2890,
+        "mixed": 658,
+        "body": 368
+      },
+      "mixed10": {
+        "smoke": 2418,
+        "mixed": 1317,
+        "body": 181
+      },
+      "normalizedMax": {
+        "smoke": 3469,
+        "body": 447
+      },
+      "normalizedNameMismatch": 67,
+      "shades": {
+        "1": 1620,
+        "2": 2296
+      },
+      "rawNameMismatch": 2408,
+      "representativeNameMismatch": 0,
+      "mixedMarginMax": 0.04987244159281057,
+      "adjacentEdges": 7656,
+      "adjacentChanges": 138,
+      "maxAdjacentDistance": 0.014340818363376898,
+      "maxChangedDistance": 0.013987400880023641,
+      "labelFamilies": {
+        "煙の香りが豊か": {
+          "smoke": 1614,
+          "mixed": 6
+        },
+        "煙の香りが際立つ": {
+          "smoke": 1276,
+          "mixed": 506
+        },
+        "力強い麦の香り": {
+          "mixed": 24
+        },
+        "どっしりした味": {
+          "mixed": 122,
+          "body": 368
+        }
+      },
+      "maxSameFamilyDistance": 0.9836189192145314,
+      "sameFamilySpread": {
+        "fruit": {
+          "maxDistance": 0,
+          "pair": null
+        },
+        "grain": {
+          "maxDistance": 0,
+          "pair": null
+        },
+        "smoke": {
+          "maxDistance": 0.9836189192145314,
+          "pair": [
+            [
+              0,
+              12
+            ],
+            [
+              60,
+              72
+            ]
+          ]
+        },
+        "body": {
+          "maxDistance": 0.42007009652491034,
+          "pair": [
+            [
+              65,
+              77
+            ],
+            [
+              86,
+              98
+            ]
+          ]
+        },
+        "mixed": {
+          "maxDistance": 0.7490869151348408,
+          "pair": [
+            [
+              39,
+              51
+            ],
+            [
+              86,
+              99
+            ]
+          ]
+        }
+      }
+    },
+    "peat-long": {
+      "count": 3916,
+      "rawMax": {
+        "smoke": 1089,
+        "fruit": 1642,
+        "body": 1185
+      },
+      "identityMax": {
+        "smoke": 2243,
+        "fruit": 1183,
+        "body": 490
+      },
+      "mixed5": {
+        "smoke": 1920,
+        "mixed": 675,
+        "fruit": 953,
+        "body": 368
+      },
+      "mixed10": {
+        "smoke": 1643,
+        "mixed": 1385,
+        "fruit": 707,
+        "body": 181
+      },
+      "normalizedMax": {
+        "smoke": 3116,
+        "fruit": 353,
+        "body": 447
+      },
+      "normalizedNameMismatch": 873,
+      "shades": {
+        "1": 695,
+        "2": 3221
+      },
+      "rawNameMismatch": 1154,
+      "representativeNameMismatch": 0,
+      "mixedMarginMax": 0.049882952657083424,
+      "adjacentEdges": 7656,
+      "adjacentChanges": 234,
+      "maxAdjacentDistance": 0.017929608781031208,
+      "maxChangedDistance": 0.017036351119161762,
+      "labelFamilies": {
+        "煙の香りが豊か": {
+          "smoke": 571,
+          "mixed": 113
+        },
+        "果実香が豊か": {
+          "mixed": 11
+        },
+        "果実香が強い": {
+          "mixed": 219,
+          "fruit": 953
+        },
+        "煙の香りが際立つ": {
+          "smoke": 1349,
+          "mixed": 210
+        },
+        "どっしりした味": {
+          "mixed": 122,
+          "body": 368
+        }
+      },
+      "maxSameFamilyDistance": 0.9674882552262104,
+      "sameFamilySpread": {
+        "fruit": {
+          "maxDistance": 0.4085148278286736,
+          "pair": [
+            [
+              10,
+              23
+            ],
+            [
+              39,
+              51
+            ]
+          ]
+        },
+        "grain": {
+          "maxDistance": 0,
+          "pair": null
+        },
+        "smoke": {
+          "maxDistance": 0.8618372510257947,
+          "pair": [
+            [
+              7,
+              19
+            ],
+            [
+              60,
+              72
+            ]
+          ]
+        },
+        "body": {
+          "maxDistance": 0.2970462152559976,
+          "pair": [
+            [
+              65,
+              77
+            ],
+            [
+              86,
+              98
+            ]
+          ]
+        },
+        "mixed": {
+          "maxDistance": 0.9674882552262104,
+          "pair": [
+            [
+              8,
+              25
+            ],
+            [
+              64,
+              78
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

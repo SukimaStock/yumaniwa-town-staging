@@ -1,0 +1,6 @@
+import fs from 'node:fs';import path from 'node:path';import {createServer} from 'node:http';import {fileURLToPath} from 'node:url';
+import {chromium} from '/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs';
+const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../../../../../');
+const server=createServer((req,res)=>{try{const file=path.join(root,new URL(req.url,'http://localhost').pathname);res.setHeader('Content-Type',file.endsWith('.mjs')?'text/javascript':file.endsWith('.ttf')?'font/ttf':'text/html');res.end(fs.readFileSync(file));}catch{res.writeHead(404).end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const browser=await chromium.launch({headless:true,executablePath:'/tmp/chromium',args:['--no-sandbox']});
+try{for(const width of [360,375,390]){const page=await browser.newPage({viewport:{width,height:900},deviceScaleFactor:1});await page.goto(`http://127.0.0.1:${server.address().port}/works/ambertime/design/cut-pixel/render/compare.html`);await page.waitForFunction(()=>window.comparisonReady);await page.screenshot({path:path.join(here,`comparison-${width}.png`),fullPage:true});await page.close();}}finally{await browser.close();server.close();}

@@ -34,6 +34,6 @@ export function drawDistillTools(ctx,view,{leverStep=null,glassX=TOOL_GEOMETRY.w
  if(view.showLeverArrow){const color=view.arrow?'#d8c990':'#62636b',offset=Math.round(arrowOffset/3)*3;r(324,261+offset,3,12,color);for(let n=0;n<3;n++)r(318+n*3,270+n*3+offset,15-n*6,3,color);}
  const x=Math.round(glassX/3)*3,y=TOOL_GEOMETRY.glassY,edge='#b9c0aa';
  if(view.glassArrow){const color=view.glassArrowActive?(arrowBright?'#d8c990':'#9f987c'):'#62636b';if(view.glassPosition===0){r(x+39,y+12,15,3,color);r(x+57,y+12,3,3,color);r(x+54,y+9,3,9,color);r(x+51,y+6,3,15,color);}else{r(x+45,y+12,15,3,color);r(x+39,y+12,3,3,color);r(x+42,y+9,3,9,color);r(x+45,y+6,3,15,color);}}
- if(view.fill>0){const h=Math.max(1,Math.round(8*view.fill))*3;r(x+6,y+27-h,24,h,'#b8aa7c');r(x+6,y+27-h,24,3,'#e7ddb6');}
+ if(view.fill>0){const h=Math.max(1,Math.round(8*view.fill))*3;r(x+6,y+27-h,24,h,view.liquidColor??'#b8aa7c');r(x+6,y+27-h,24,3,view.liquidHighlight??'#e7ddb6');}
  r(x,y,36,3,edge);r(x,y+3,3,24,edge);r(x+33,y+3,3,24,edge);r(x+3,y+27,3,3,edge);r(x+30,y+27,3,3,edge);r(x+6,y+30,24,3,edge);r(x+6,y+6,3,9,'#d4d7bf');
 }
