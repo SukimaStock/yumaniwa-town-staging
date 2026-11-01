@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "72fd273366fca7ad3bba0b918ed7ef4f5768f50e1b958187e8c043895c50aa10",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-all-shop-flights",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "通常3店の販売演出を瓶移動と数量差分へ統一",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d8caf0a5760f3641071b771d039291ead1ec3063",
+    "canonicalSources": [
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/tests/market-ui-main.test.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-all-shop-flights/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/retail-sale-motion.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/all-shop-flights/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "自家販売/酒店/スーパーの保存後実販売で同じ瓶移動+−nを表示",
+      "商品×店舗identityを保ち全店を共有budget/最大600msで同時進行",
+      "共通下段delta lane、RM−nのみ、配置/取消/再読込では新売上演出なし",
+      "既存共通配置と正式5model/save維持、3幅/CI/Staging/cache確認"
+    ],
+    "ownerDecisions": [
+      "2026-11-01作者明示：自家以外で瓶の移動がないので全て統一する。通常3店の販売演出を同一にする"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "3店すべて同じ飛行と−n、店舗/商品取り違えなし",
+      "公開cache更新/基本販売画面"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production/共有基盤/他作品/新Lab",
+      "正式販売/評判/費用/量/時計/保存形式/入力変更",
+      "未解放店/デパートの新規常時表示/地図/蒸留/共通font変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "販売計算変更",
+      "自家販売にのみ瓶移動を残す",
+      "通常3店外へ表示範囲を増やす",
+      "新text/sound/flash/枠/画面"
+    ],
+    "boundaryCases": [
+      "同一商品が複数店で売れる、複数発売回/店舗",
+      "globalgroup上限/RM/保存失敗/取消/画面外/未解放/卸売除外"
+    ],
+    "testPlan": [
+      "native同月retail/酒店/可能ならスーパー、正しい店舗/商品へ飛行と−n",
+      "3幅/3店舗2商品360568/同時非衝突/RM/再通知/取消/save一致",
+      "必須UI/browser/純粋groupidentity/Scope→Risk→Impact/CI/public"
+    ],
+    "problem": "前回はレイアウトと−nだけ共通化し瓶移動が自家販売に限定されたままだった",
+    "currentContract": "正式販売/量/価格/評判/保存/入力/共通配置/未解放非表示を維持",
+    "whyExistingIsInsufficient": "ユーザーが求めた店舗間の統一が販売演出まで完了していない",
+    "design": "shopIdとproductIdを保持した単一販売表示処理とglobalgroupbudget",
+    "migration": "なし",
+    "compatibility": "正式販売と保存bytesは維持、transient DOM演出のみ",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
