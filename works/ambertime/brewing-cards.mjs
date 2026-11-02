@@ -61,11 +61,11 @@ export function renderBrewingIcons(root){
  for(const canvas of root.querySelectorAll('.card-lock'))drawCardLock(canvas.getContext('2d'));
 }
 
-// Read-only room projection. Draft/idle uses exactly the existing modal policy;
+// Read-only room projection. Idle shows only an explicit temporary confirmation;
 // a running or completed batch displays its recorded choice, never next-run cards.
-export function brewingPanelState(state){
+export function brewingPanelState(state,confirmation=null){
  const editable=state.still.phase==='ready';
- const choice=editable?manualCards(state):state.still.distillation?.labChoice??state.core.spirit?.flavor?.choice;
+ const choice=editable?(confirmation?.batch===state.core.lastDistillation?confirmation:null):state.still.distillation?.labChoice??state.core.spirit?.flavor?.choice;
  if(!choice||!['plain','peat'].includes(choice.malt)||!['short','long'].includes(choice.ferment))return null;
  return {malt:choice.malt,ferment:choice.ferment,editable};
 }

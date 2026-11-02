@@ -26,7 +26,7 @@ export function layoutScene(view={}){
   add('shelf-prev','#shelf-pages [data-page-step="-1"]',12,111,96);add('shelf-next','#shelf-pages [data-page-step="1"]',252,111,96);
  }else if(view.room==='distill'||!view.room){
   if(view.tools){
-   if(view.brewing)add('start-distill','#start-distill',24,174,312,60);else add('start-distill','#start-distill',90,186,180);
+   if(view.brewing)add('start-distill','#start-distill',24,174,312,54);else add('start-distill','#start-distill',90,186,180);
    add('open-fill','#open-fill',126,264,108);
    add('distill-lever','#distill-lever',285,279,60,66);
    const x=(view.tools.glassPosition===0?174:237)-9;

@@ -1,10 +1,10 @@
-import{BREWING_CARDS}from'./brewing-cards.mjs?v=brewing-panel-r1';
+import{BREWING_CARDS}from'./brewing-cards.mjs?v=confirmed-brewing-r1';
 import{drawCutBar}from'./cut-bar.mjs?v=cut-range-r1';
 import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./distill-tools-view.mjs?v=gradual-glass-r1';
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1&tools=brewing-panel-r1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1&tools=confirmed-brewing-r1';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
@@ -115,7 +115,7 @@ export class CanvasScene{
    const label=({plain:'ふつう',peat:'ピート',short:'短め',long:'長め'})[value];
    this.text(label,x+51,a.y+35,BODY_SIZE);this.pixelRect(x+51,a.y+42,value==='short'||value==='long'?33:48,3,'#c8b77e');
   }
-  if(editable){this.text(this.view.brewingCost,a.x+a.w-30,a.y+54,BODY_SIZE,'right');this.text('›',a.x+a.w-12,a.y+35,BODY_SIZE,'center');}
+  if(editable){this.text(this.view.brewingCost,a.x+a.w-30,a.y+35,BODY_SIZE,'right');this.text('›',a.x+a.w-12,a.y+35,BODY_SIZE,'center');}
   this.ctx.restore();
  }
  drawTimeBar(){
