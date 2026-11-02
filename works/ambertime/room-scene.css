@@ -323,3 +323,16 @@ body[data-room] #hero .objects::after{content:none}
 #action-dialog.daily-map .world-map-surface{width:var(--map-size);height:var(--map-size)}
 #action-dialog.daily-map #dialog-body .map-shop-report{flex:1 1 0;min-height:0;max-height:none;overflow-x:hidden;overflow-y:auto;scrollbar-gutter:stable;touch-action:pan-y pinch-zoom}
 #action-dialog.daily-map #dialog-body .map-shop-report header{min-height:0}
+
+/* One completed-spirit readout directly above the existing cask choices. */
+#action-dialog[data-kind=fill] #dialog-body .fill-volume{margin:0 0 6px;text-align:left}
+#action-dialog[data-kind=fill] .fill-result-axis{display:grid;grid-template-columns:5em minmax(0,1fr);align-items:center;gap:6px}
+#action-dialog[data-kind=fill] .fill-result-meter{display:block;height:9px;background:#414644}
+#action-dialog[data-kind=fill] .fill-result-meter i{display:block;height:100%;background:#c8b77e}
+#action-dialog[data-kind=fill] #dialog-body .fill-result-phrase{margin:6px 0;display:flex;align-items:flex-start;gap:6px}
+#action-dialog[data-kind=fill] .fill-flavor-mark{display:inline-block;flex:none;width:12px;height:12px;margin-top:6px}
+#action-dialog[data-kind=fill] #dialog-body .fill-heading{margin:9px 0 6px}
+#action-dialog[data-kind=fill] #dialog-body .fill-choice-reason{margin:3px 0 0;grid-column:1/-1;color:#e4bc66}
+#action-dialog[data-kind=fill] .fill-choice{min-width:0;display:flex;flex-direction:column}
+#action-dialog[data-kind=fill] .fill-choice button{width:100%}
+#action-dialog[data-kind=fill] #dialog-actions button[data-return=true]{grid-column:auto;order:0;justify-self:stretch;width:100%}
