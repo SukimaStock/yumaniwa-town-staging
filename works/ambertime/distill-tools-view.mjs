@@ -21,7 +21,7 @@ export function distillToolsView({phase,collection={},litres=0,flowLitres=litres
  const width=start===null||start===undefined?null:Math.max(0,(end-start)*(collection.fullRange?99:69));
  const fill=done?(width===null?.7:Math.min(1,width/84)):collecting?(width===null?.7:Math.min(1,width/84)):0;
  const showLeverArrow=phase==='ready'&&leverEnabled&&completedRuns<3;
- return {visible:available,leverEnabled,glassEnabled,glassMode:glassEnabled?(collecting?'stop':'start'):null,leverDown:countdown||!expired&&phase==='distilling',glassPosition:collecting?0:1,prepared,leverInactive:phase==='ready'&&!countdown&&!leverEnabled,showLeverArrow,guideLevel:completedRuns===0?'first':completedRuns<3?'practice':'learned',guideDistance:completedRuns===0?9:completedRuns<3?6:0,glassArrow:available&&!automatic&&(countdown||phase==='distilling'&&!expired),glassArrowActive:glassEnabled,litres:amount,fill,hint:phase==='ready'||expired?'レバーを下に引く':phase==='distilling'&&!automatic?(!collectingAllowed?'もう少し待ちます':collecting?'タップか右へスライドで終える':'タップか左へスライドで受ける'):'',arrow:leverEnabled&&showLeverArrow};
+ return {visible:available,leverEnabled,glassEnabled,glassMode:glassEnabled?(collecting?'stop':'start'):null,leverDown:countdown||!expired&&phase==='distilling',glassPosition:collecting?0:1,prepared,leverInactive:phase==='ready'&&!countdown&&!leverEnabled,showLeverArrow,guideLevel:completedRuns===0?'first':completedRuns<3?'practice':'learned',guideDistance:completedRuns===0?9:completedRuns<3?6:0,glassArrow:available&&!automatic&&(countdown||phase==='distilling'&&!expired),glassArrowActive:glassEnabled,glassArrowBlink:available&&!automatic&&(countdown||glassEnabled),litres:amount,fill,hint:phase==='ready'||expired?'レバーを下に引く':phase==='distilling'&&!automatic?(!collectingAllowed?'もう少し待ちます':collecting?'タップか右へスライドで終える':'タップか左へスライドで受ける'):'',arrow:leverEnabled&&showLeverArrow};
 }
 // All authored cells are 3 logical pixels, on the same grid as the apparatus.
 export function drawDistillTools(ctx,view,{leverStep=null,glassX=TOOL_GEOMETRY.waitX,arrowBright=true,arrowOffset=0}={}){
@@ -34,7 +34,7 @@ export function drawDistillTools(ctx,view,{leverStep=null,glassX=TOOL_GEOMETRY.w
  r(294,306,12,3,metal);r(291,309,18,12,metal);r(294,321,12,3,dark);r(294,309,6,3,light);r(297,312,6,6,dark);r(300,315,3,3,light);
  if(view.showLeverArrow){const color=view.arrow?'#d8c990':'#62636b',offset=Math.round(arrowOffset/3)*3;r(324,261+offset,3,12,color);for(let n=0;n<3;n++)r(318+n*3,270+n*3+offset,15-n*6,3,color);}
  const x=Math.round(glassX/3)*3,y=TOOL_GEOMETRY.glassY,edge='#b9c0aa';
- if(view.glassArrow){const color=view.glassArrowActive?(arrowBright?'#d8c990':'#9f987c'):'#62636b';if(view.glassPosition===0){r(x+39,y+12,15,3,color);r(x+57,y+12,3,3,color);r(x+54,y+9,3,9,color);r(x+51,y+6,3,15,color);}else{r(x+45,y+12,15,3,color);r(x+39,y+12,3,3,color);r(x+42,y+9,3,9,color);r(x+45,y+6,3,15,color);}}
+ if(view.glassArrow){const color=(view.glassArrowBlink??view.glassArrowActive)?(arrowBright?'#d8c990':'#9f987c'):'#62636b';if(view.glassPosition===0){r(x+39,y+12,15,3,color);r(x+57,y+12,3,3,color);r(x+54,y+9,3,9,color);r(x+51,y+6,3,15,color);}else{r(x+45,y+12,15,3,color);r(x+39,y+12,3,3,color);r(x+42,y+9,3,9,color);r(x+45,y+6,3,15,color);}}
  if(view.fill>0){const h=Math.max(1,Math.round(8*view.fill))*3;r(x+6,y+27-h,24,h,view.liquidColor??'#b8aa7c');r(x+6,y+27-h,24,3,view.liquidHighlight??'#e7ddb6');}
  r(x,y,36,3,edge);r(x,y+3,3,24,edge);r(x+33,y+3,3,24,edge);r(x+3,y+27,3,3,edge);r(x+30,y+27,3,3,edge);r(x+6,y+30,24,3,edge);r(x+6,y+6,3,9,'#d4d7bf');
 }

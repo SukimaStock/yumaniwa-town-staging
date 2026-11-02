@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "74e6227599a7bd327d1a5ed3200871849a20986b492da3ad9e6cf2f32be33c0e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-panel-countdown",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "仕込みパネル内の間隔とカウントダウン中グラス誘導を調整",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b833a10963b55423c58df3921bfdaa883cafcb7f",
+    "canonicalSources": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/distill-tools-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-panel-countdown/r0.lock.json",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/panel-countdown/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/canvas-layout.mjs"
+    ],
+    "expectedChanges": [
+      "本編312x54の幅/高さ/タップ領域を維持しicon/name間隔と実測3px下線、費用/矢印との間隔を均等化",
+      "縮小幅比較画像と現行/維持幅比較し維持幅を優先",
+      "glassArrowBlink表示flagでcountdown900ms明暗を有効化、既存input可否は不変。RM静止",
+      "3幅2engineactualCanvas/countdown押せない/通常direction/save回帰/CI/public"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者：仕込みパネルの余白調整と3/2/1中のグラス矢印点滅を改善"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "現行/幅維持/幅縮小同条件比較",
+      "countdownbright/dim実画素とinputdisabled/レバーなし/RM",
+      "3幅2engineとStagingwarmcache"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production/新Lab/新timer/新操作/新説明",
+      "正式model/選択/量/味/経済/save/input/countdown時間/3回誘導/液面/バー/他室変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "文字縮小",
+      "glassEnabledをcountdown中trueにする",
+      "新しい点滅timer",
+      "比較案を新しい設定として追加"
+    ],
+    "boundaryCases": [
+      "ふつう/ピート/短め/長め/費用/3幅",
+      "3/2/1brightdim/無効タップ/RM/開始左/採取右/終了なし"
+    ],
+    "testPlan": [
+      "実測文字幅/3px下線/312x54hitbox不変/比較画像",
+      "表示flagとinput分離/3幅2engine/RM/正式保存一致",
+      "関連回帰/ScopeRiskImpact/CI/public"
+    ],
+    "problem": "パネル内の間隔と固定下線幅が文字に合わず、countdown矢印はinput無効と結合して灰色になる",
+    "currentContract": "312x54の確認パネルと既存900ms点滅、countdown中glassDisabledを維持",
+    "whyExistingIsInsufficient": "固定配置/下線長、glassArrowActiveに色とtimerが連動している",
+    "design": "Canvas既存textRuns実測で3px下線/均等余白。glassArrowBlink表示専用flagと既存motionTimer再利用",
+    "migration": "なし",
+    "compatibility": "正式schema/counter/input/countdown/guide3回判定に変更なし",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
