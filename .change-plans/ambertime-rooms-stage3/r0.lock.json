@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6ef8fddca5b5f73a080b17b325e280327a0947b4afa97923499d0a364bf6d082",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-rooms-stage3",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "既存の下部反応を比較して1行へ整理し、資金停止案内を意味に合わせて表示する",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "ff02e309a0edeab422b5b7364b4f3bb5bebc31eb",
+    "canonicalSources": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/flavor-feedback-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-rooms-stage3/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/flavor-feedback-view.mjs",
+      "works/ambertime/cask-detail-view.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/rooms-stage3/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/pixel-symbols.mjs"
+    ],
+    "expectedChanges": [
+      "下部room-feedbackだけA1行静止/B省略と既存全文詳細/C横流し必要性を同条件比較、1行と既存pixelchevron・54logicalhitを優先",
+      "原文をnativebutton/a11yと既存inspect/ledger全文へ保持。既存modernmarket非表示は維持、criticalnotices/popupsは省略しない",
+      "既存funds閾値・費用・保存文言を監査。既知funds表示だけ資金不足で停止/必要資金へ、数字・正式pendingは不変",
+      "変更readerのquery依存関係とHTML入口を更新し実Canvas/旧cache確認"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者：三室改善の第3段階。下部文方式比較と瓶詰め費用を残すの意味を調査し必要な表示改善"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "A/B比較とC不採用理由、既存全文へのnative操作",
+      "正式funds popup/金額/判断/保存一致",
+      "3幅2engine/RM/重要通知/キャッシュ/Staging"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production",
+      "現代販売室に新しい反応領域追加",
+      "費用/資金留保/正式pending/正式保存の変更",
+      "第一二段階の独立改善の巻戻し"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "重要通知の一括1行化",
+      "自動marqueeの常設",
+      "新しい全文画面/操作階層",
+      "正式funds pendingや費用/予算処理変更",
+      "フォント縮小/新タイマー"
+    ],
+    "boundaryCases": [
+      "短文/複数変化長文/legacycustomercomment/modernmarketnofooter/noa11yloss",
+      "fundsで倉庫満杯/卸予定/指定あり/旧savedpending/quotedfee/保存エラー/例外"
+    ],
+    "testPlan": [
+      "既存formalmodel/save一致、ui-textfunds文の厳密限定、line-fit/unit/nativehit",
+      "3幅2engine実Canvas比較/全文詳細/重要通知/RM/正式保存",
+      "ScopeRiskImpact/CI/PR/public"
+    ],
+    "problem": "下部反応の3行枠が大きく、資金閾値の既存表示が実際の支払予約・留保と誤解される",
+    "currentContract": "既存反応は任意のinspect/ledger全文への入口。fundsは月次試行を戻して必要費用の閾値で停止する正式判断",
+    "whyExistingIsInsufficient": "原文を複数行常時置く必要はなく、瓶詰め予約は口座留保と誤認しやすい",
+    "design": "既存Canvas矩形の上端/横幅を維持し54logicalline。1行省略と既存pixelchevron、fullaria+既存detail。fundsだけUIadapter",
+    "migration": "なし",
+    "compatibility": "正式schema/量/味/経済/時計/保存/レバー/グラス/地図不変。第1段階の統合と販売44lane、第2段階の矢印記号維持",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
