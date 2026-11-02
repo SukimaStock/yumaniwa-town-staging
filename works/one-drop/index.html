@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="スポイトの頭を押し、水滴がふくらんで離れる瞬間を繰り返し触る作品。">
+<title>一滴を落とす</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.mjs"></script>
+</head>
+<body>
+<main>
+<svg id="scene" viewBox="0 0 360 580" aria-label="スポイトと水滴">
+<defs>
+ <linearGradient id="rubber" x1="0" x2="1"><stop stop-color="#345758"/><stop offset=".38" stop-color="#648583"/><stop offset=".75" stop-color="#426b6a"/><stop offset="1" stop-color="#294e52"/></linearGradient>
+ <linearGradient id="glass"><stop stop-color="#9bb5b0" stop-opacity=".45"/><stop offset=".25" stop-color="#ffffff" stop-opacity=".85"/><stop offset=".47" stop-color="#dbe8dd" stop-opacity=".12"/><stop offset="1" stop-color="#6f9b99" stop-opacity=".55"/></linearGradient>
+ <linearGradient id="water" x1="0" x2=".8" y2="1"><stop stop-color="#d2eeeb"/><stop offset=".38" stop-color="#8cbdbc" stop-opacity=".8"/><stop offset="1" stop-color="#467d88" stop-opacity=".9"/></linearGradient>
+ <radialGradient id="dish"><stop stop-color="#e9ece2"/><stop offset=".85" stop-color="#d2d9cd"/><stop offset="1" stop-color="#b1c1b8"/></radialGradient>
+</defs>
+<g aria-hidden="true">
+ <ellipse cx="180" cy="481" rx="91" ry="13" fill="#455e55" opacity=".12"/>
+ <ellipse cx="180" cy="465" rx="93" ry="22" fill="#b9c6bc"/>
+ <ellipse cx="180" cy="460" rx="93" ry="23" fill="#f2f1e7" stroke="#b9c8bd"/>
+ <ellipse cx="180" cy="460" rx="77" ry="16" fill="url(#dish)"/>
+ <ellipse id="ripple" cx="180" cy="460" rx="1" ry="1" fill="none" stroke="#7daba8" opacity="0"/>
+ <path d="M163 189 H197 V272 Q197 285 189 303 L184 326 H176 L171 303 Q163 285 163 272Z" fill="url(#glass)" stroke="#86a6a0" stroke-width="1.2"/>
+ <path d="M168 246 Q180 249 192 246 V273 Q192 285 185 302 L181.5 324 H178.5 L175 302 Q168 285 168 273Z" fill="url(#water)" opacity=".6"/>
+ <path d="M168 202 V269 Q168 282 174 295" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
+ <path id="attached" fill="url(#water)" stroke="#63999e" stroke-width=".75"/>
+ <path id="glint" fill="none" stroke="#f5ffff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>
+ <ellipse id="falling" fill="url(#water)" stroke="#63999e" stroke-width=".75" visibility="hidden"/>
+</g>
+<g id="bulb" role="slider" tabindex="0" aria-label="スポイトの頭。下へ引くと押し込み、上へ戻すと緩めます。矢印キーでも操作できます" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-orientation="vertical" aria-describedby="hint">
+ <rect class="focus" x="126" y="82" width="108" height="121" rx="46"/>
+ <rect x="123" y="77" width="114" height="127" rx="40" fill="transparent"/>
+ <g id="rubber-shape">
+  <path d="M151 184 L143 132 C139 106 153 91 180 91 C207 91 221 106 217 132 L209 184Z" fill="url(#rubber)" stroke="#2e5254" stroke-width="1.5"/>
+  <path d="M154 132 Q151 106 171 102" fill="none" stroke="#c4d9cd" stroke-width="3" stroke-linecap="round" opacity=".28"/>
+ </g>
+ <rect x="149" y="179" width="62" height="18" rx="5" fill="#456b69" stroke="#315653"/>
+ <path d="M152 183 H208" stroke="#81a09a" opacity=".5"/>
+</g>
+</svg>
+<p id="hint">頭を下へ押して、上へ緩める</p>
+</main>
+</body>
+</html>

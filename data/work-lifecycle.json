@@ -540,6 +540,13 @@
       "path": "works/ambertime-cut-lab",
       "status": "active",
       "title": "AmberTime · カットと味の比較Lab"
+    },
+    {
+      "id": "one-drop",
+      "path": "works/one-drop",
+      "status": "active",
+      "title": "一滴を落とす",
+      "theme": "スポイトの頭を押し、水がふくらんで一滴離れる"
     }
   ]
 }
