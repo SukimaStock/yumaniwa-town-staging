@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "65f3aee00b64782183431bf5548770bb3b19923d516d846b915708cdaa51dbfb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "one-drop-20261102",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "一滴を落とす: 独立したスポイト操作とactive/LAB入口を追加",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "bbdd8865d65918602ee16186f5f759363c5c71b1",
+    "canonicalSources": [
+      "works/one-drop",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/one-drop-20261102/r0.lock.json",
+      "works/one-drop/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/town-maps.js",
+      "works/mawarikiru-coin/**",
+      "works/rewinding-thread/**",
+      "works/nadeato/**"
+    ],
+    "expectedChanges": [
+      "押し込みで水滴が成長し、途中戻しで縮み、閾値でくびれて切離し落下する",
+      "active staging-only一項目と既存Prototype Benchの生成リンク",
+      "作品内MAKINGへ狙い・結果・差・面白さ・次を記録"
+    ],
+    "ownerDecisions": [
+      "親委任2026-11-02: 本人の選択A「一滴を落とす」。通常branch/commit/draft PR/CI/安全なstaging merge許可。Production・既存作品・共通Engine・町画面/登録・保存・外部権限は変更しない。"
+    ],
+    "hqDecisions": [
+      "AI設計照合: 新契約を作らず独立Pointer Events/SVG作品と既存active schema/LAB generatorを使う。LAB生成のunknown-code floorをFull/SYSTEMで扱う。町登録data/works.jsは変更しない。"
+    ],
+    "rulesApplied": [
+      "最新main AGENTS/OPERATIONS/Work lifecycle/LAB接続",
+      "事前r0 Plan Lock・Scope→Risk→Impact",
+      "EXPRESSION-AUDIT: 一行の必要操作案内と作品のみ。副題・説明カード・スコアなし"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-touch-mouse-keyboard-bounds-cancel",
+      "lab-entry-browser-back-expression-audit",
+      "published-entry"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該新規work、台帳の当該項目とLAB生成差分を同じ単位でrevert",
+    "outOfScope": [
+      "production",
+      "町登録",
+      "既存作品",
+      "共有Engine",
+      "外部権限",
+      "保存"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone/iPad Safari",
+      "作者の触感判断"
+    ],
+    "problem": "本人選択のスポイトの一滴体験が未制作",
+    "currentContract": "独立worksと既存Lifecycle active/Prototype Bench",
+    "whyExistingIsInsufficient": "既存作品にスポイトの押し込みと切離し体験がない",
+    "design": "固定スポイトの柔らかい頭を下へドラッグ。押し込み量で滴を成長/吸戻し、閾値後は短いくびれから落下。再充填後に繰返せる。SVG/Pointer capture、keyboard、無音・保存なし。",
+    "alternativesRejected": [
+      "大規模物理simulation",
+      "外部ライブラリ",
+      "町登録/共有runtime変更",
+      "Production反映"
+    ],
+    "migration": "既存データ変更なし",
+    "compatibility": "既存作品runtimeを保持。保存・外部通信なし。",
+    "boundaryCases": [
+      "途中戻しと閾値切離し",
+      "繰返しと再把持、外release/cancel/blur",
+      "360/375/390/PCとkeyboard"
+    ],
+    "testPlan": [
+      "作品Node/ブラウザー関連回帰",
+      "Lifecycle --checkと関連tests",
+      "Scope→Risk→Impactと必須CI",
+      "exact merge SHA/Pagesと実URL"
+    ],
+    "promotionRisk": "staging only"
+  }
+}
