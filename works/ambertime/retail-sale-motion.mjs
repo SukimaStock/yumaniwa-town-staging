@@ -2,18 +2,28 @@
 // The host places each bottle ghost at `from`, using its own measured sprite size.
 // Translation is relative to that origin; a snapped endpoint can differ from `to`
 // by at most half a grid cell. Every interval holds, then jumps (no interpolation).
-export function retailSalePlan(count,{from,to,grid=3}={}){
+export function retailSalePlan(count,{from,to,grid=3,railY}={}){
  if(!Number.isSafeInteger(count)||count<=0||!Number.isFinite(grid)||grid<=0||
     ![from?.x,from?.y,to?.x,to?.y].every(Number.isFinite))return [];
  const ghosts=Math.min(4,count),grouped=count>=4,base=Math.floor(count/ghosts),extra=count%ghosts;
  const snap=n=>{const value=Math.round(n/grid)*grid;return Object.is(value,-0)?0:value;};
  const dx=to.x-from.x,dy=to.y-from.y;
- if(!Number.isFinite(dx)||!Number.isFinite(dy))return [];
+ if(!Number.isFinite(dx)||!Number.isFinite(dy)||
+    railY!==undefined&&(!Number.isFinite(railY)||!Number.isFinite(railY-from.y)))return [];
+ // A separated rail jumps above multiline stock without sweeping intermediate
+ // rows. Horizontal travel starts only after the bottle has shrunk to half size.
+ const rail=railY===undefined?null:[
+  [0,0,1],[0,railY-from.y,.75],[0,railY-from.y,.5],
+  [dx/4,railY-from.y,.5],[dx/2,railY-from.y,.5],
+  [dx*.75,railY-from.y,.5],[dx,railY-from.y,.5],
+  [dx,dy,.5],[dx,dy,.5]
+ ];
  return Array.from({length:ghosts},(_,i)=>({
   units:base+(i<extra?1:0),delay:i*(grouped?130:45),duration:210,
   frames:Array.from({length:9},(_,step)=>{
-   const offset=step/8,travel=Math.min(1,step/7),scale=step<3?1:step<6?.75:.5;
-   return {offset,transform:`translate(${snap(dx*travel)}px, ${snap(dy*travel)}px) scale(${scale})`,opacity:step===8?0:1,easing:'steps(1,end)'};
+   const offset=step/8,travel=Math.min(1,step/7);
+   const [x,y,scale]=rail?rail[step]:[dx*travel,dy*travel,step<3?1:step<6?.75:.5];
+   return {offset,transform:`translate(${snap(x)}px, ${snap(y)}px) scale(${scale})`,opacity:step===8?0:1,easing:'steps(1,end)'};
   })
  }));
 }

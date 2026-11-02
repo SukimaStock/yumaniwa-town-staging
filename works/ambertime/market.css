@@ -83,3 +83,11 @@
 #market-board .market-shop .market-shop-name>span:last-child{grid-column:2;grid-row:2}
 #market-board .market-shop .market-stock-list{grid-template-columns:repeat(auto-fit,minmax(min(100%,calc(4.5 * var(--uniform-font-size,16px))),1fr));column-gap:calc(6px * var(--market-scale,1))}
 #market-board .market-shop .market-target{padding:0 0 0 calc(118px * var(--market-scale,1))}
+
+/* Quantity and its transient change share the upper row; date stays below. */
+#market-board .market-stock{grid-template-columns:calc(24px * var(--market-scale,1)) max-content var(--market-sale-width,calc(1.5 * var(--uniform-font-size,16px)))}
+#market-board .market-stock .market-date{grid-column:1/-1}
+#market-board .market-sale-slot{grid-column:3;grid-row:1;display:flex;align-items:center;min-width:0;margin-left:calc(2px * var(--market-scale,1));white-space:nowrap}
+#market-board .market-sale-slot .market-sale-delta{position:static;display:inline-block;line-height:inherit}
+
+#market-board .market-shop .market-stock-list{padding-top:calc(12px * var(--market-scale,1))}

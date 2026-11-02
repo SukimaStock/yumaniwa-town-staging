@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4c3fe32669299d1b0c273279d7debed433b3687a24605487733076ccde584d9a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-count-linked-delta",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "販売差分を本数上段へ結び付け瓶の経路を分離",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "c240a9e3a62e9e5ec61309b3dd58b1b9cf949f00",
+    "canonicalSources": [
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/tests/market-ui-main.test.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-count-linked-delta/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/retail-sale-motion.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/count-linked-delta/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "全店の商品上段に実本数と−nの専用余白を設け、年月下段と分離",
+      "飛ぶ瓶は瓶アイコンからカード上端の小さな描画余白を通して移動、数字/年月を横切らない",
+      "既存の店別本数対応/全店600ms/共通配置/RM差分維持",
+      "3幅/3店2商品/同時表示非衝突/正式save/CI/Staging/cache確認"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者の添付指摘：マイナスが本数ではなく年月にかかっているため修正。数量に対応する表示へ戻す"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "添付と同じ数量/年月の意味を確認し全店で数量に−nを隣接",
+      "公開cache更新/基本表示"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production/共有基盤/他作品/新Lab",
+      "正式販売/評判/費用/量/時計/保存形式/入力変更",
+      "未解放/デパートの新規常時表示/地図/蒸留/共通font変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "−nを年月横へ逃がす",
+      "文字縮小",
+      "販売計算/保存変更",
+      "瓶移動削除",
+      "新しい説明文/画面"
+    ],
+    "boundaryCases": [
+      "1/2/3/多数本、残0/2桁/3桁/複数発売回/店舗",
+      "瓶専用rail/全店同時/RM/未解放/画面外/保存失敗"
+    ],
+    "testPlan": [
+      "−nと本数の同一行、年月行との分離/瓶との動的非衝突",
+      "3幅/3店2商品360568/大小数量/3発売回/RM/取消/reload保存不変",
+      "必須UI/browser/純粋経路test/Scope→Risk→Impact/CI/public"
+    ],
+    "problem": "年月の横へ置いた−nが日付にかかるように見えている",
+    "currentContract": "全通常店の瓶移動+−n、正式計算/保存/入力、実残数、年月識別を維持",
+    "whyExistingIsInsufficient": "同じ商品内でも数量と年月の視覚的な対応が誤っていた",
+    "design": "数量行内の固定slotと上端12px程度の瓶専用railで意味と経路を分離",
+    "migration": "なし",
+    "compatibility": "正式販売と保存bytesは維持、transient DOM演出のみ",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
