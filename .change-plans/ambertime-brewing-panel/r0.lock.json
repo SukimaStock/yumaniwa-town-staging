@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "368e1b41b7978ad2a3493f67f59233770f49327fecdc53eda782e8903b8b74d0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-brewing-panel",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "蒸留室の既存仕込み操作を選択内容が見えるパネルへ置換",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "40a572b2f00ae87c1009b7736a9eb431a8ade0f2",
+    "canonicalSources": [
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-brewing-panel/r0.lock.json",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/brewing-panel/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "待機中は既存manualCardsを既存icon/短い名称で表示、全体から既存仕込みmodalを開く",
+      "進行/結果時は正式batchchoiceを読取専用表示。保存/戻る意味は維持",
+      "関連回帰/3幅2engine/RM/選択modalreload/CI/publiccache"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者：仕込みbuttonに現在の麦芽/発酵を見せて既存modalへ繋ぐ"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "idle/active正式choice一致、modal編集Back/reload",
+      "3幅2engine/RM/既存layout維持/publiccache"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production/新Lab/新操作/新しい説明文",
+      "正式量/味/費用/保存/レバー/グラス/バー/液面/習熟/販売/地図変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "別の選択state",
+      "新modal/確認手順",
+      "他部屋へ展開"
+    ],
+    "boundaryCases": [
+      "初期lockedshort/unlockedlong/peat/Back即時保存/reload/activeactualbatch/legacy"
+    ],
+    "testPlan": [
+      "純粋stateprojection/選択modal入力/保存一致/3幅2engine",
+      "正式module不変/関連回帰/ScopeRiskImpact/CI/public"
+    ],
+    "problem": "現在の仕込み選択を部屋から確認できない",
+    "currentContract": "既存仕込みmodalと正式choice保存をそのまま使う",
+    "whyExistingIsInsufficient": "既存buttonは仕込みの値を表示しない",
+    "design": "既存buttonを2選択icon/短名称/chevronのCanvaspanelへ変更。進行時は上部readonly",
+    "migration": "なし",
+    "compatibility": "正式state追加なし。既存manualCardsとbatchlabChoice参照",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
