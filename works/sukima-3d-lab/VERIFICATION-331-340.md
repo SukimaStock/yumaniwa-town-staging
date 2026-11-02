@@ -1,0 +1,11 @@
+# 331–340 takeover verification — 2026-11-02
+
+Aim: finish existing PR #729 without replacing its models or modifying the previous 330. Original head: `3bd8093be8e960f41f309e6d1873f759829b051d`. Successor starts at main `13dda439afa1a0a7b24095d8a6f5c66934d645b8`; first commit contains only fresh Plan Lock. Staging only; no Production or shared Engine/UI changes.
+
+The original ten additions and count-only test updates are reused. Minimum fix: four `canal-lock-handwheel` spoke Z positions change from 0.110 to 0.115. Their front surfaces formerly shared Z=0.14 with the differently colored rim, producing a CPU/GPU depth tie. Separating these surfaces removes the observed mismatch without changing the renderer. First repair attempt passes the unchanged official GLES checker for all 100 new-batch frames (three aspect ratios plus CPU/GPU preview comparisons).
+
+Observed at original head: full official Node suite 737 tests, 706 pass /31 fail; full GLES pipeline aborts at existing #314 `garden-compost-bin`. Its six slat part IDs include decimal points, rejected by existing validation. The same bytes and validator exist on main. This prior object is intentionally preserved. Original new-batch test passes 12/12. Original new-batch-only GLES diagnostic fails on handwheel preview pixel10899 before the minimum fix.
+
+After the data-only fix: new-batch test and targeted unchanged GLES checker are rerun on the successor. Full tests remain blocked by #314; targeted success does not establish full-suite success. All 330 prior registration entries and object bytes are compared against the fixed base. Scope Guard, Risk Gate, Impact Check, diff whitespace, and exact successor SHA checks are required. Actual Chromium/SwiftShader 390×844 checks cover all ten list selections, rendering without GL errors, pointer rotation, initial-pose reset, and return. Original #314 is the only disabled card.
+
+Limits: iPhone/iPad Safari and author feel/visual acceptance UNVERIFIED. Normal public HTTP requests were blocked by the environment proxy with HTTP403; no bypass. No batch merge or Pages deployment claimed. This successor must remain draft until the existing #314 blocker is resolved under its own authorized scope. Original PR #729 remains open and duplicates these ten additions; merge only one final batch.

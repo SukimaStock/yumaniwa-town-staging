@@ -15,7 +15,7 @@ const names=["neighborhood-noticeboard","park-seesaw","harbor-windsock","sidewal
 const specimens=manifest.items.slice(320,330).map(e=>read(e.file));
 
 test('Collection31: keep first 320 registrations and previous ten Git object bytes intact',()=>{
-  assert.equal(manifest.items.length,330);
+  assert.equal(manifest.items.length,340);
   assert.ok(manifest.items.length<=1000);
   for(let i=0;i<oldIds.length;i++){
     const id=oldIds[i],entry=manifest.items[i+310];
@@ -25,10 +25,10 @@ test('Collection31: keep first 320 registrations and previous ten Git object byt
     assert.equal(blob,oldBlobs[i],id+' must not change');
   }
   const nums=manifest.items.map((e,i)=>e.number??i);
-  assert.equal(new Set(nums).size,330);
-  assert.equal(new Set(manifest.items.map(e=>e.id)).size,330);
+  assert.equal(new Set(nums).size,340);
+  assert.equal(new Set(manifest.items.map(e=>e.id)).size,340);
   assert.ok(!nums.includes(16));
-  assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:314},(_,i)=>i+17)]);
+  assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:324},(_,i)=>i+17)]);
 });
 
 test('Collection31: exactly ten new STATIC outdoor miniatures at 321–330',()=>{
