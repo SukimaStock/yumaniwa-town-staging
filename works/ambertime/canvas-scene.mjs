@@ -201,7 +201,6 @@ export class CanvasScene{
     if(a.key==='open-ledger'){const bx=x+12,by=a.y+10.5;book(bx,by,30,33,'#6e5a42');book(bx+3,by,27,30,'#b69a65');book(bx+3,by,3,30,'#e4c58a');book(bx+6,by+3,21,24,'#e7dcc0');book(bx+9,by+6,15,3,'#9a835c');book(bx+9,by+12,15,3,'#9a835c');book(bx+9,by+18,12,3,'#9a835c');}
     else if(a.key==='open-aux-menu'){for(let i=0;i<3;i++)this.pixelRect(x+15+i*9,a.y+25.5,3,3,ink);}
     else this.icon(a.key==='open-staff-panel'?'person':a.key==='open-world-map'?'map':'store',x,a.y,54,54);
-    if(a.key==='open-aux-menu'&&view.staffBrief&&view.room==='distill')this.lines(view.staffBrief,a.x+a.w+9,a.y+32,Math.max(0,348-a.x-a.w-9),BODY_SIZE,1);
     continue;
    }
    if(a.key==='room-feedback'){

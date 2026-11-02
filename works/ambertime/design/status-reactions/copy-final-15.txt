@@ -1,0 +1,23 @@
+✔ existing comments retain exact release identity for distinct flavors in one brand; no fabricated drinking (19.117907ms)
+✔ monthly cache survives repeated cloned extraction renders and invalidates on facts, brand changes, reset (5.03802ms)
+✔ confirmed name history only, initial/pending name is not a change; sampled facts are no longer cues (1.634958ms)
+✔ observations preserve meaning without pretending rough is rounded; current barrels only, at most one (0.554454ms)
+✔ existing previous-taste thresholds: small delta quiet, meaningful change visible, no previous taste safe (0.508544ms)
+✔ feedback geometry is optional, one room control, clear of room and management navigation (1.551279ms)
+✔ legal saves and calculation sources stay identical; no view timers/validation/clones and617 helper untouched (291.354074ms)
+✔ incomplete old fields remain unknown and four live slots still select only one factual cue (4.115941ms)
+✔ only exact known event and original title pairs get factual live copy; unknown titles and saved records stay unchanged (3.825154ms)
+✔ confirmed saved flavor name is quoted using the existing detail spelling; initial and pending labels remain quiet (0.420654ms)
+✔ existing previous-sample deltas change only known feedback wording, keeping tasting copy, anchor and priority (0.922916ms)
+✔ three-game-month expiry, sampled facts and stable one-cask selection remain unchanged (0.291085ms)
+✔ lawful stored name, evaporation and aroma observations keep byte-identical saves and strict cold restoration (1861.412666ms)
+✔ concise tasting preserves three real flavor categories without changing sample (2.272582ms)
+✔ comparison keeps declining aroma and increasing wood even if roughness improves (0.391337ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2226.276423

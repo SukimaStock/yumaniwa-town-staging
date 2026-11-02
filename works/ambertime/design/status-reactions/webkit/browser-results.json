@@ -1,0 +1,715 @@
+{
+  "engine": "webkit",
+  "results": [
+    {
+      "width": 360,
+      "version": "before",
+      "case": "staff-idle",
+      "brief": "指示待ち",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 指示待ち",
+      "sideText": [
+        "指示待ち"
+      ],
+      "pageWidth": 360
+    },
+    {
+      "width": 360,
+      "version": "before",
+      "case": "staff-queued",
+      "brief": "依頼済み",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 依頼済み",
+      "sideText": [
+        "依頼済み"
+      ],
+      "pageWidth": 360
+    },
+    {
+      "width": 360,
+      "version": "before",
+      "case": "staff-working",
+      "brief": "仕込み中",
+      "summary": "2026年2月 · £1,196 · 初代 · 停止中",
+      "aria": "担当者 · 仕込み中",
+      "sideText": [
+        "仕込み中"
+      ],
+      "pageWidth": 360
+    },
+    {
+      "width": 360,
+      "version": "before",
+      "case": "staff-space",
+      "brief": "空き待ち",
+      "summary": "2026年5月 · £584 · 初代 · 停止中",
+      "aria": "担当者 · 空き待ち",
+      "sideText": [
+        "空き待ち"
+      ],
+      "pageWidth": 360
+    },
+    {
+      "width": 360,
+      "version": "before",
+      "case": "quantity",
+      "boxes": {
+        "label": {
+          "x": 47,
+          "y": 307,
+          "width": 69.25,
+          "height": 20,
+          "top": 307,
+          "right": 116.25,
+          "bottom": 327,
+          "left": 47
+        },
+        "minus": {
+          "x": 124.25,
+          "y": 293,
+          "width": 88,
+          "height": 48,
+          "top": 293,
+          "right": 212.25,
+          "bottom": 341,
+          "left": 124.25
+        },
+        "value": {
+          "x": 220.25,
+          "y": 293,
+          "width": 89.25,
+          "height": 48,
+          "top": 293,
+          "right": 309.5,
+          "bottom": 341,
+          "left": 220.25
+        },
+        "plus": {
+          "x": 47,
+          "y": 349,
+          "width": 69.25,
+          "height": 48,
+          "top": 349,
+          "right": 116.25,
+          "bottom": 397,
+          "left": 47
+        },
+        "parent": {
+          "x": 47,
+          "y": 293,
+          "width": 262.5,
+          "height": 104,
+          "top": 293,
+          "right": 309.5,
+          "bottom": 397,
+          "left": 47
+        },
+        "scroll": 263,
+        "client": 263
+      },
+      "exactSavedCount": 8
+    },
+    {
+      "width": 360,
+      "version": "before",
+      "case": "feedback-loss",
+      "cue": "たる No.1 · 少しずつ、減っていく",
+      "readOnly": true
+    },
+    {
+      "width": 360,
+      "version": "before",
+      "case": "feedback-name",
+      "cue": "たる No.1 · 風味の名前が変わりました。",
+      "readOnly": true
+    },
+    {
+      "width": 360,
+      "version": "after",
+      "case": "staff-idle",
+      "brief": "指示待ち",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 指示待ち",
+      "sideText": [],
+      "pageWidth": 360
+    },
+    {
+      "width": 360,
+      "version": "after",
+      "case": "staff-queued",
+      "brief": "依頼済み",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 依頼済み",
+      "sideText": [],
+      "pageWidth": 360
+    },
+    {
+      "width": 360,
+      "version": "after",
+      "case": "staff-working",
+      "brief": "仕込み中",
+      "summary": "2026年2月 · £1,196 · 初代 · 停止中",
+      "aria": "担当者 · 仕込み中",
+      "sideText": [],
+      "pageWidth": 360
+    },
+    {
+      "width": 360,
+      "version": "after",
+      "case": "staff-space",
+      "brief": "空き待ち",
+      "summary": "2026年5月 · £584 · 初代 · 停止中 · 空き待ち · 貯蔵庫は4たるで満杯です。",
+      "aria": "担当者 · 空き待ち",
+      "sideText": [],
+      "pageWidth": 360
+    },
+    {
+      "width": 360,
+      "version": "after",
+      "case": "quantity",
+      "boxes": {
+        "label": {
+          "x": 47,
+          "y": 293,
+          "width": 262.5,
+          "height": 20,
+          "top": 293,
+          "right": 309.5,
+          "bottom": 313,
+          "left": 47
+        },
+        "minus": {
+          "x": 47,
+          "y": 321,
+          "width": 45,
+          "height": 48,
+          "top": 321,
+          "right": 92,
+          "bottom": 369,
+          "left": 47
+        },
+        "value": {
+          "x": 100,
+          "y": 321,
+          "width": 156.5,
+          "height": 48,
+          "top": 321,
+          "right": 256.5,
+          "bottom": 369,
+          "left": 100
+        },
+        "plus": {
+          "x": 264.5,
+          "y": 321,
+          "width": 45,
+          "height": 48,
+          "top": 321,
+          "right": 309.5,
+          "bottom": 369,
+          "left": 264.5
+        },
+        "parent": {
+          "x": 47,
+          "y": 293,
+          "width": 262.5,
+          "height": 76,
+          "top": 293,
+          "right": 309.5,
+          "bottom": 369,
+          "left": 47
+        },
+        "scroll": 263,
+        "client": 263
+      },
+      "exactSavedCount": 8
+    },
+    {
+      "width": 360,
+      "version": "after",
+      "case": "feedback-loss",
+      "cue": "たる No.1 · 蒸発で量が減った",
+      "readOnly": true
+    },
+    {
+      "width": 360,
+      "version": "after",
+      "case": "feedback-name",
+      "cue": "たる No.1 · 「穏やかな果実香」に変化",
+      "readOnly": true
+    },
+    {
+      "width": 375,
+      "version": "before",
+      "case": "staff-idle",
+      "brief": "指示待ち",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 指示待ち",
+      "sideText": [
+        "指示待ち"
+      ],
+      "pageWidth": 375
+    },
+    {
+      "width": 375,
+      "version": "before",
+      "case": "staff-queued",
+      "brief": "依頼済み",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 依頼済み",
+      "sideText": [
+        "依頼済み"
+      ],
+      "pageWidth": 375
+    },
+    {
+      "width": 375,
+      "version": "before",
+      "case": "staff-working",
+      "brief": "仕込み中",
+      "summary": "2026年2月 · £1,196 · 初代 · 停止中",
+      "aria": "担当者 · 仕込み中",
+      "sideText": [
+        "仕込み中"
+      ],
+      "pageWidth": 375
+    },
+    {
+      "width": 375,
+      "version": "before",
+      "case": "staff-space",
+      "brief": "空き待ち",
+      "summary": "2026年5月 · £584 · 初代 · 停止中",
+      "aria": "担当者 · 空き待ち",
+      "sideText": [
+        "空き待ち"
+      ],
+      "pageWidth": 375
+    },
+    {
+      "width": 375,
+      "version": "before",
+      "case": "quantity",
+      "boxes": {
+        "label": {
+          "x": 40,
+          "y": 307,
+          "width": 83.875,
+          "height": 20,
+          "top": 307,
+          "right": 123.875,
+          "bottom": 327,
+          "left": 40
+        },
+        "minus": {
+          "x": 131.875,
+          "y": 293,
+          "width": 88,
+          "height": 48,
+          "top": 293,
+          "right": 219.875,
+          "bottom": 341,
+          "left": 131.875
+        },
+        "value": {
+          "x": 227.875,
+          "y": 293,
+          "width": 103.875,
+          "height": 48,
+          "top": 293,
+          "right": 331.75,
+          "bottom": 341,
+          "left": 227.875
+        },
+        "plus": {
+          "x": 40,
+          "y": 349,
+          "width": 83.875,
+          "height": 48,
+          "top": 349,
+          "right": 123.875,
+          "bottom": 397,
+          "left": 40
+        },
+        "parent": {
+          "x": 40,
+          "y": 293,
+          "width": 291.75,
+          "height": 104,
+          "top": 293,
+          "right": 331.75,
+          "bottom": 397,
+          "left": 40
+        },
+        "scroll": 292,
+        "client": 292
+      },
+      "exactSavedCount": 8
+    },
+    {
+      "width": 375,
+      "version": "before",
+      "case": "feedback-loss",
+      "cue": "たる No.1 · 少しずつ、減っていく",
+      "readOnly": true
+    },
+    {
+      "width": 375,
+      "version": "before",
+      "case": "feedback-name",
+      "cue": "たる No.1 · 風味の名前が変わりました。",
+      "readOnly": true
+    },
+    {
+      "width": 375,
+      "version": "after",
+      "case": "staff-idle",
+      "brief": "指示待ち",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 指示待ち",
+      "sideText": [],
+      "pageWidth": 375
+    },
+    {
+      "width": 375,
+      "version": "after",
+      "case": "staff-queued",
+      "brief": "依頼済み",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 依頼済み",
+      "sideText": [],
+      "pageWidth": 375
+    },
+    {
+      "width": 375,
+      "version": "after",
+      "case": "staff-working",
+      "brief": "仕込み中",
+      "summary": "2026年2月 · £1,196 · 初代 · 停止中",
+      "aria": "担当者 · 仕込み中",
+      "sideText": [],
+      "pageWidth": 375
+    },
+    {
+      "width": 375,
+      "version": "after",
+      "case": "staff-space",
+      "brief": "空き待ち",
+      "summary": "2026年5月 · £584 · 初代 · 停止中 · 空き待ち · 貯蔵庫は4たるで満杯です。",
+      "aria": "担当者 · 空き待ち",
+      "sideText": [],
+      "pageWidth": 375
+    },
+    {
+      "width": 375,
+      "version": "after",
+      "case": "quantity",
+      "boxes": {
+        "label": {
+          "x": 40,
+          "y": 293,
+          "width": 291.75,
+          "height": 20,
+          "top": 293,
+          "right": 331.75,
+          "bottom": 313,
+          "left": 40
+        },
+        "minus": {
+          "x": 40,
+          "y": 321,
+          "width": 45,
+          "height": 48,
+          "top": 321,
+          "right": 85,
+          "bottom": 369,
+          "left": 40
+        },
+        "value": {
+          "x": 93,
+          "y": 321,
+          "width": 185.75,
+          "height": 48,
+          "top": 321,
+          "right": 278.75,
+          "bottom": 369,
+          "left": 93
+        },
+        "plus": {
+          "x": 286.75,
+          "y": 321,
+          "width": 45,
+          "height": 48,
+          "top": 321,
+          "right": 331.75,
+          "bottom": 369,
+          "left": 286.75
+        },
+        "parent": {
+          "x": 40,
+          "y": 293,
+          "width": 291.75,
+          "height": 76,
+          "top": 293,
+          "right": 331.75,
+          "bottom": 369,
+          "left": 40
+        },
+        "scroll": 292,
+        "client": 292
+      },
+      "exactSavedCount": 8
+    },
+    {
+      "width": 375,
+      "version": "after",
+      "case": "feedback-loss",
+      "cue": "たる No.1 · 蒸発で量が減った",
+      "readOnly": true
+    },
+    {
+      "width": 375,
+      "version": "after",
+      "case": "feedback-name",
+      "cue": "たる No.1 · 「穏やかな果実香」に変化",
+      "readOnly": true
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "case": "staff-idle",
+      "brief": "指示待ち",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 指示待ち",
+      "sideText": [
+        "指示待ち"
+      ],
+      "pageWidth": 390
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "case": "staff-queued",
+      "brief": "依頼済み",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 依頼済み",
+      "sideText": [
+        "依頼済み"
+      ],
+      "pageWidth": 390
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "case": "staff-working",
+      "brief": "仕込み中",
+      "summary": "2026年2月 · £1,196 · 初代 · 停止中",
+      "aria": "担当者 · 仕込み中",
+      "sideText": [
+        "仕込み中"
+      ],
+      "pageWidth": 390
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "case": "staff-space",
+      "brief": "空き待ち",
+      "summary": "2026年5月 · £584 · 初代 · 停止中",
+      "aria": "担当者 · 空き待ち",
+      "sideText": [
+        "空き待ち"
+      ],
+      "pageWidth": 390
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "case": "quantity",
+      "boxes": {
+        "label": {
+          "x": 31,
+          "y": 351,
+          "width": 98.75,
+          "height": 30,
+          "top": 351,
+          "right": 129.75,
+          "bottom": 381,
+          "left": 31
+        },
+        "minus": {
+          "x": 137.75,
+          "y": 342,
+          "width": 88,
+          "height": 48,
+          "top": 342,
+          "right": 225.75,
+          "bottom": 390,
+          "left": 137.75
+        },
+        "value": {
+          "x": 233.75,
+          "y": 338,
+          "width": 122.75,
+          "height": 56,
+          "top": 338,
+          "right": 356.5,
+          "bottom": 394,
+          "left": 233.75
+        },
+        "plus": {
+          "x": 31,
+          "y": 402,
+          "width": 98.75,
+          "height": 48,
+          "top": 402,
+          "right": 129.75,
+          "bottom": 450,
+          "left": 31
+        },
+        "parent": {
+          "x": 31,
+          "y": 338,
+          "width": 325.5,
+          "height": 112,
+          "top": 338,
+          "right": 356.5,
+          "bottom": 450,
+          "left": 31
+        },
+        "scroll": 326,
+        "client": 326
+      },
+      "exactSavedCount": 8
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "case": "feedback-loss",
+      "cue": "たる No.1 · 少しずつ、減っていく",
+      "readOnly": true
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "case": "feedback-name",
+      "cue": "たる No.1 · 風味の名前が変わりました。",
+      "readOnly": true
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "case": "staff-idle",
+      "brief": "指示待ち",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 指示待ち",
+      "sideText": [],
+      "pageWidth": 390
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "case": "staff-queued",
+      "brief": "依頼済み",
+      "summary": "2026年2月 · £1,328 · 初代 · 停止中",
+      "aria": "担当者 · 依頼済み",
+      "sideText": [],
+      "pageWidth": 390
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "case": "staff-working",
+      "brief": "仕込み中",
+      "summary": "2026年2月 · £1,196 · 初代 · 停止中",
+      "aria": "担当者 · 仕込み中",
+      "sideText": [],
+      "pageWidth": 390
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "case": "staff-space",
+      "brief": "空き待ち",
+      "summary": "2026年5月 · £584 · 初代 · 停止中 · 空き待ち · 貯蔵庫は4たるで満杯です。",
+      "aria": "担当者 · 空き待ち",
+      "sideText": [],
+      "pageWidth": 390
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "case": "quantity",
+      "boxes": {
+        "label": {
+          "x": 31,
+          "y": 338,
+          "width": 325.5,
+          "height": 30,
+          "top": 338,
+          "right": 356.5,
+          "bottom": 368,
+          "left": 31
+        },
+        "minus": {
+          "x": 31,
+          "y": 376,
+          "width": 45,
+          "height": 48,
+          "top": 376,
+          "right": 76,
+          "bottom": 424,
+          "left": 31
+        },
+        "value": {
+          "x": 84,
+          "y": 376,
+          "width": 219.5,
+          "height": 48,
+          "top": 376,
+          "right": 303.5,
+          "bottom": 424,
+          "left": 84
+        },
+        "plus": {
+          "x": 311.5,
+          "y": 376,
+          "width": 45,
+          "height": 48,
+          "top": 376,
+          "right": 356.5,
+          "bottom": 424,
+          "left": 311.5
+        },
+        "parent": {
+          "x": 31,
+          "y": 338,
+          "width": 325.5,
+          "height": 86,
+          "top": 338,
+          "right": 356.5,
+          "bottom": 424,
+          "left": 31
+        },
+        "scroll": 326,
+        "client": 326
+      },
+      "exactSavedCount": 8
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "case": "feedback-loss",
+      "cue": "たる No.1 · 蒸発で量が減った",
+      "readOnly": true
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "case": "feedback-name",
+      "cue": "たる No.1 · 「穏やかな果実香」に変化",
+      "readOnly": true
+    }
+  ],
+  "errors": [],
+  "physicalSafari": false
+}

@@ -262,10 +262,13 @@ body[data-room] #hero .objects::after{content:none}
 .bottling-plan-fields label{grid-column:1/-1}
 .bottling-plan-fields input{grid-column:1}
 .bottling-plan-fields>span{grid-column:2/-1}
-.bottling-quantity{grid-template-columns:auto 88px auto}
-.bottling-quantity label{grid-column:auto}
-.bottling-quantity input{grid-column:auto}
-.bottling-quantity>span{grid-column:auto}
+/* The heading has its own row; the three quantity controls never auto-wrap. */
+#action-dialog .bottling-plan .bottling-quantity{display:grid;grid-template-columns:45px minmax(0,1fr) 45px;gap:8px;align-items:stretch}
+#action-dialog .bottling-plan .bottling-quantity>label{grid-column:1/-1;grid-row:1}
+#action-dialog .bottling-plan .bottling-quantity>button,#action-dialog .bottling-plan .bottling-quantity>select{grid-row:2;box-sizing:border-box;width:100%;min-width:0;height:48px;min-height:48px;margin:0}
+#action-dialog .bottling-plan .bottling-quantity>[data-action=policy-count-less]{grid-column:1}
+#action-dialog .bottling-plan .bottling-quantity>#bottling-quantity{grid-column:2;text-align:center}
+#action-dialog .bottling-plan .bottling-quantity>[data-action=policy-count-more]{grid-column:3}
 
 /* Daily map: fixed plot and detail slots, independent of store selection. */
 .world-map-surface{position:relative;width:222px;height:222px;max-width:100%;flex:none;border:3px solid #858995;box-sizing:content-box}

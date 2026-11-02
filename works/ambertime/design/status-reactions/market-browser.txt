@@ -1,0 +1,12 @@
+{"passed":true,"checks":[{"native":true,"dpr":1,"viewports":[[360,568],[375,620],[390,680],[430,740]],"originalStock":6,"assignment":5,"returnCount":6,"actualMonthlySale":null},{"native":true,"dpr":3,"viewports":[[360,568],[375,620],[390,680],[430,740]],"originalStock":6,"assignment":5,"returnCount":6,"actualMonthlySale":{"observed":[{"month":13,"shopSold":0,"retailSold":0},{"month":14,"shopSold":0,"retailSold":1}],"totalSold":1}},{"displayHarness":true,"releaseCount":12,"saleReceipts":1,"formalSoldReleases":2,"reducedMotion":true}],"physicalSafari":false}
+✔ native compact market browser: short phones, saved real inventory, many releases and ordinary controls (33110.055604ms)
+{"pass":true,"measurements":[{"width":360,"height":568,"client":184,"scroll":184,"page":360,"targets":[{"height":41.078125,"scroll":41,"client":41},{"height":41.078125,"scroll":41,"client":41}]},{"width":375,"height":620,"client":194,"scroll":194,"page":375,"targets":[{"height":42.703125,"scroll":43,"client":43},{"height":42.703125,"scroll":43,"client":43}]},{"width":390,"height":680,"client":221,"scroll":221,"page":390,"targets":[{"height":47.921875,"scroll":48,"client":48},{"height":47.921875,"scroll":48,"client":48}]},{"width":430,"height":740,"client":242,"scroll":242,"page":430,"targets":[{"height":53.125,"scroll":53,"client":53},{"height":53.125,"scroll":53,"client":53}]}],"checks":["phone typography/layout","legacy boot unchanged","backup failure leaves state/save exact","explicit update backs up before write","reload exact candidate state","real allocation no revenue","native monthly sale and ledger","ledger reader","pre-boundary export available"],"errors":[],"physicalSafari":false}
+✔ native adopted rules phone UI, old-save opt-in, backup failure and reload (14914.757222ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 33429.904512

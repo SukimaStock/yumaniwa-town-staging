@@ -1,0 +1,74 @@
+[
+  {
+    "path": "works/ambertime/model.mjs",
+    "baseGitBlob": "dffcf659997e7cf5d0d69fa6dc15ee4acab4d14c",
+    "candidateGitBlob": "dffcf659997e7cf5d0d69fa6dc15ee4acab4d14c",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/economy.mjs",
+    "baseGitBlob": "e606e3115882a63b9df2030ccfb3a0e1f46d7d86",
+    "candidateGitBlob": "e606e3115882a63b9df2030ccfb3a0e1f46d7d86",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/partner-orders.mjs",
+    "baseGitBlob": "06b8811518fdf036faf4d8afe7f8cd451cbb0ee2",
+    "candidateGitBlob": "06b8811518fdf036faf4d8afe7f8cd451cbb0ee2",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/monthly.mjs",
+    "baseGitBlob": "a3ab65510a020b3c7ff426a1bef2427e6ba275d1",
+    "candidateGitBlob": "a3ab65510a020b3c7ff426a1bef2427e6ba275d1",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/character.mjs",
+    "baseGitBlob": "2d8b1940f90bd586d3f026f69cd62ce3da90a525",
+    "candidateGitBlob": "2d8b1940f90bd586d3f026f69cd62ce3da90a525",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/lab-flavor.mjs",
+    "baseGitBlob": "164929963cb146ba9f7bfa0dce7146e7b235ebdc",
+    "candidateGitBlob": "164929963cb146ba9f7bfa0dce7146e7b235ebdc",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/tasting-view.mjs",
+    "baseGitBlob": "a83123666d25af508fe25f412eec9cc62a383531",
+    "candidateGitBlob": "a83123666d25af508fe25f412eec9cc62a383531",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/runtime-clock.mjs",
+    "baseGitBlob": "d212bc45f25fc4bb6445431cb039d5227b13b51e",
+    "candidateGitBlob": "d212bc45f25fc4bb6445431cb039d5227b13b51e",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/store-market.mjs",
+    "baseGitBlob": "0d5d81809dd794b35795aec5ef3e962a92df17d3",
+    "candidateGitBlob": "0d5d81809dd794b35795aec5ef3e962a92df17d3",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/market-sales.mjs",
+    "baseGitBlob": "b849d1fdda8dc3cac8c403a5b325c92cfefb3d6b",
+    "candidateGitBlob": "b849d1fdda8dc3cac8c403a5b325c92cfefb3d6b",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/economy-parameters.mjs",
+    "baseGitBlob": "9d5f6415394c26bb204892b0e87b8c5a13737397",
+    "candidateGitBlob": "9d5f6415394c26bb204892b0e87b8c5a13737397",
+    "exact": true
+  },
+  {
+    "path": "works/ambertime/placement-save.mjs",
+    "baseGitBlob": "9fc000bc0e9a1d76d62635e16502690eca1a576d",
+    "candidateGitBlob": "9fc000bc0e9a1d76d62635e16502690eca1a576d",
+    "exact": true
+  }
+]

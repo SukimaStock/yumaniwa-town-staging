@@ -3,6 +3,19 @@
 import {customerComments,productTitle} from './player-news.mjs?v=0.25.4';
 import {shortChange} from './tasting-view.mjs?v=stage4-r2';
 import {uiText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1';
+// Only known system titles get new current cues. Saved observations stay
+// untouched; unrecognized titles keep their existing uiText presentation.
+const observationCopy=new Map([
+ ['wood',['原酒の色が深くなってきた','色が深くなった']],
+ ['fading',['香りの移り変わり','かおりが弱くなった']],
+ ['rough',['若い原酒のまま、少し先へ','シゲキが残る']],
+ ['fruit',['原酒の香りが広がる頃','かおりが強い']],
+ ['rounded',['口当たりが変わる頃','口当たりがやわらかい']],
+ ['loss',['少しずつ、減っていく','蒸発で量が減った']]
+]);
+const observationText=observation=>{const copy=observationCopy.get(observation.eventId);return copy&&observation.title===copy[0]?copy[1]:uiText(observation.title);};
+const comparisonCopy=new Map([['香りが落ち着いた','かおりが弱くなった'],['香りがふくらんだ','かおりが強くなった']]);
+const comparisonText=change=>uiText(change.split(' · ').map(text=>comparisonCopy.get(text)??text).join(' · '));
 const comparable=p=>p&&['character','wood','roughness'].every(k=>Number.isFinite(p[k]));
 export function createFeedbackComments(read=customerComments){
  let key=null,rows=[];
@@ -30,11 +43,11 @@ export function caskFeedback(game,cask){
  for(let i=1;i<history.length;i++){
   const h=history[i],month=Number.isInteger(cask.filledMonth)&&Number.isInteger(h.months)?cask.filledMonth+h.months:null;
   if(!recent(game,month)||typeof h.label!=='string'||!h.label||typeof history[i-1].label!=='string'||h.months<=after||h.months>cask.age||h.label===history[i-1].label)continue;
-  candidates.push({kind:'name',age:h.months,month,text:'風味の名前が変わりました。',priority:3,tie:'name:'+i});
+  candidates.push({kind:'name',age:h.months,month,text:'「'+uiText(h.label)+'」に変化',priority:3,tie:'name:'+i});
  }
  for(const [i,o] of (notes.observations??[]).entries()){
   if(!recent(game,o.month)||!Number.isInteger(o.age)||typeof o.title!=='string'||!o.title||o.age<=after||o.age>cask.age||!['wood','fading','rough','fruit','rounded','loss'].includes(o.eventId))continue;
-  candidates.push({kind:'observation',age:o.age,month:o.month,text:uiText(o.title),priority:1,tie:o.eventId+':'+i});
+  candidates.push({kind:'observation',age:o.age,month:o.month,text:observationText(o),priority:1,tie:o.eventId+':'+i});
  }
  // The first threshold-crossing month of a cumulative sample delta is not
  // saved. Compare in the context of a recent recorded fact; never invent or
@@ -42,7 +55,7 @@ export function caskFeedback(game,cask){
  const anchor=candidates.slice().sort(newest)[0];
  if(anchor&&last&&last.age<cask.age&&comparable(cask)&&comparable(last.profile)){
   const change=shortChange({profile:cask},last);
-  if(change!=='味わいの変化はわずか')candidates.push({kind:'sample',age:anchor.age,month:anchor.month,text:'前回から：'+uiText(change),priority:2,tie:'sample:'+anchor.tie});
+  if(change!=='味わいの変化はわずか')candidates.push({kind:'sample',age:anchor.age,month:anchor.month,text:'前回から：'+comparisonText(change),priority:2,tie:'sample:'+anchor.tie});
  }
  const fact=candidates.sort(newest)[0];
  return fact?{...fact,caskId:cask.id}:null;
