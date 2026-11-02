@@ -1,0 +1,147 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "926ed3fdccc6b54977d9b58ff39b238d470715216ea9e137115d61b2890eaa68",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-331-340-final-20261102",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reuse PR729 ten models, separate coplanar handwheel spokes, repair only314 invalid part IDs and exact regression references; staging only",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "74589232f9b5dee61d762aff85db924e528847ad",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/tests/town-miniatures-31.test.mjs",
+      "User 2026-10-31 scheduled 3D Lab autonomous request: up to 10 per run, stop at 1000, no Production changes",
+      "Existing PR729 exact head3bd8093be8e960f41f309e6d1873f759829b051d",
+      "User2026-11-02 staging takeover verification and minimum fixes authorization",
+      "Owner Sentinel_b232071189888191a0170f1de393990e2026-11-02T19:17:06UTC: approves only314 invalid IDs and references, successor draftPRs, verification comments, CI and safeStaging publication"
+    ],
+    "allowedPaths": [
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/objects/quay-fishing-net-rack.json",
+      "works/sukima-3d-lab/objects/park-litter-bin.json",
+      "works/sukima-3d-lab/objects/street-telephone-booth.json",
+      "works/sukima-3d-lab/objects/garden-watering-can.json",
+      "works/sukima-3d-lab/objects/market-flower-bucket.json",
+      "works/sukima-3d-lab/objects/courtyard-deck-chair.json",
+      "works/sukima-3d-lab/objects/canal-lock-handwheel.json",
+      "works/sukima-3d-lab/objects/street-bicycle-pump.json",
+      "works/sukima-3d-lab/objects/park-chess-table.json",
+      "works/sukima-3d-lab/objects/garden-cold-frame.json",
+      "works/sukima-3d-lab/tests/free-forms.test.mjs",
+      "works/sukima-3d-lab/tests/manipulation.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-06.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-07.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-08.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-09.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-10.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-11.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-12.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-13.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-14.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-15.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-16.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-17.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-18.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-19.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-20.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-21.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-22.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-23.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-24.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-25.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-26.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-27.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-28.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-29.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-30.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-31.test.mjs",
+      "works/sukima-3d-lab/tests/town-miniatures-32.test.mjs",
+      "works/sukima-3d-lab/VERIFICATION-331-340.md",
+      ".change-plans/sukima-3d-331-340-final-20261102/r0.lock.json",
+      "works/sukima-3d-lab/objects/garden-compost-bin.json",
+      "works/sukima-3d-lab/tests/compost-bin-id-repair.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/engine/**",
+      "works/sukima-3d-lab/app.js",
+      "works/sukima-3d-lab/index.html",
+      "works/sukima-3d-lab/style.css",
+      "works/sukima-3d-lab/preview.js",
+      "works/sukima-3d-lab/collection.js",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/tests/measure-collection.cjs",
+      "works/sukima-3d-lab/objects/street-fire-hydrant.json",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "Add exactly 10 unique new outdoor STATIC v2 models 331-340 with closed low-poly geometry, valid materials and bounded radii",
+      "Append 10 exact new registration entries, preserving first 330 and number gap 16",
+      "Update current-total 330 to 340 in existing 29 collection-count tests only; preserve historic identities/hashes; add batch 32 regression",
+      "Do not edit runtime/engine/UI/shared code or any production source",
+      "Shift only four handwheel spoke Z positions from0.110 to0.115 to separate coplanar rim/spoke front surfaces; preserve silhouette and shared renderer",
+      "Rename only six314 partIDs by replacing decimal dot with hyphen; preserve all314 geometry material transforms behaviors bytes outside ID tokens",
+      "Update314 exact byte hash reference and add strict reverse-ID-rename original-byte hash regression; do not weaken validators or rendering assertions",
+      "Retain all first330 registrations and329 other object bytes; no numbering/appearance/Engine changes"
+    ],
+    "ownerDecisions": [
+      "User2026-11-02: yes to existing PR647 and729 takeover, verification, minimum fixes and Staging publication. No Production authorization.",
+      "Owner2026-11-02T19:17:06UTC approves only314 invalid partIDs and references repair; preserve geometry appearance numbering Engine"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "v2 STATIC schema with closed-part meshes and no new engine/behavior features",
+      "Preserve all previous object JSON and historic test fixtures, change only current collection-total expectations",
+      "314 narrowly authorized identity repair with original-byte reverse-map test; historical hash updated only for explicit repaired bytes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Verify JSON schema, unique identifiers, geometric winding, positive volume, radius, triangle/vertex budgets for all 10 new model data",
+      "Read back manifest, check count=340, unchanged first 330 entries, check prior model objects not touched",
+      "Check required trusted CI at exact PR head and related tests before merge; leave unverified areas explicit",
+      "After merge verify Staging Pages run, never touch Production",
+      "Actual Chromium select, rotate, reset and return for ten models at390x844",
+      "Run unchanged official GLES checker on new10 diagnostic payload; full pipeline remains blocked by pre-existing314",
+      "Full official Node suite and full official render-collection/check-gles pipeline",
+      "All340 schemas load;314 and new10 browser selection and return"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this batch and six314 ID rename; previous registrations and329 object bytes remain",
+    "outOfScope": [
+      "Production, shared works/lifecycle and town navigation",
+      "Existing engines/UI/renderers and schema changes",
+      "Earlier329 object changes;314 any change beyond sixID tokens; Engine and checker tolerance changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/iPad physical Safari and author acceptance",
+      "Actual publicHTTP blocked403; no bypass",
+      "Ready-for-review transition currently denied on siblingPR; do not infer draft creation permission authorizes transition"
+    ]
+  }
+}
