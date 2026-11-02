@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0ce2442577df09a66518951611012dce743868f90ac445a320e69c4ab3c8e719",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ito-handoff-current-20261102",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preserve PR647 prototype; repair pointer jitter and lifecycle/LAB registration",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "13dda439afa1a0a7b24095d8a6f5c66934d645b8",
+    "canonicalSources": [
+      "works/oyasumi-ito-no-hashi/index.html",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ito-handoff-current-20261102/r0.lock.json",
+      "works/oyasumi-ito-no-hashi/index.html",
+      "works/oyasumi-ito-no-hashi/VERIFICATION.md",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "main.js",
+      "index.html",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Reuse original PR647 file with drag threshold fix; retain interactions",
+      "Append active staging-only lifecycle identity and regenerate LAB; no other work changes",
+      "Filter lostpointercapture by held pointer ID; preserve concurrently merged one-drop lifecycle/LAB registration"
+    ],
+    "ownerDecisions": [
+      "User 2026-11-02 18:59 UTC approved existing PR647/729 verification, minimum repairs and staging publication; parent transcript evidence"
+    ],
+    "hqDecisions": [
+      "AI contract review: use existing lifecycle schema and LAB generator; no shared runtime or contract extension. Full classification required for registry and generated LAB paths."
+    ],
+    "rulesApplied": [
+      "AGENTS; CHANGE-PLAN; lifecycle; expression audit: preserve original UI, no new copy or decoration"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Touch grab, reverse during gesture, repeat, outside release, cancel, narrow width, jitter single stitch; LAB link"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work and appended lifecycle/LAB entry together",
+    "outOfScope": [
+      "Production",
+      "new models",
+      "engine",
+      "save format",
+      "other PRs"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari feel"
+    ],
+    "problem": "PR647 fails lifecycle check and jitter changes count twice",
+    "currentContract": "Existing independent canvas pointer events and active lifecycle/LAB generator",
+    "whyExistingIsInsufficient": "Prototype registration missing; drag applies before movement threshold",
+    "design": "Defer drag updates until threshold crossed; tap uses initial count; retain original work and existing registration schema",
+    "alternativesRejected": [
+      "Rebuild",
+      "change shared engine",
+      "weaken validator"
+    ],
+    "migration": "none",
+    "compatibility": "Original URL, title, canvas drawing, count and reset preserved",
+    "boundaryCases": [
+      "jitter",
+      "cancel",
+      "outside release",
+      "two pointers",
+      "reset while held",
+      "narrow viewport"
+    ],
+    "testPlan": [
+      "Lifecycle check and regression",
+      "Browser Chromium touch pointer interaction",
+      "Scope Risk Impact and required CI; Pages exact SHA and HTTP bytes"
+    ],
+    "promotionRisk": "Staging only; physical author evaluation remains unverified"
+  }
+}
