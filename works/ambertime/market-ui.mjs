@@ -1,4 +1,4 @@
-import {retailSalePlan as saleFlightPlan,ordinarySaleGroups as saleFlightGroups} from './retail-sale-motion.mjs?v=all-shop-r1';
+import {retailSalePlan as saleFlightPlan,ordinarySaleGroups as saleFlightGroups} from './retail-sale-motion.mjs?v=count-linked-r1';
 import {monthLabel} from './model.mjs?v=stage4-r2';
 import {flavorType} from './flavor-types.mjs?v=stage4-r2';
 const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -61,7 +61,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  const iconMarkup=id=>typeof icon==='function'?icon('store',id):icon;
  const button=(label,key,value,extra='')=>`<button type="button" data-market-${key}="${esc(value)}" ${extra}>${label}</button>`;
  const product=id=>state().core.products.find(p=>p.id===Number(id));
- const deltaSpace=p=>`--market-delta-space:calc(${String(p.stock).length+2} * var(--uniform-font-size,16px))`;
+ const deltaSpace=p=>`--market-delta-space:calc(${String(p.stock).length+2} * var(--uniform-font-size,16px));--market-sale-width:calc(${Math.max(3,String(p.originalStock??p.stock).length+1)/2} * var(--uniform-font-size,16px))`;
  function activeKey(){
   const active=doc.activeElement;if(!active||!root.contains(active))return null;
   for(const key of ['release','portion','place','stock','details','confirm','cancel'])if(active.dataset?.['market'+key[0].toUpperCase()+key.slice(1)])return {key,value:active.dataset['market'+key[0].toUpperCase()+key.slice(1)]};
@@ -122,7 +122,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
 
    return `<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}"><header class="market-shop-heading">${button(`<span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span class="market-shop-title">${shop.name}</span><span aria-hidden="true">›</span>`,'details',shop.id,`class="market-shop-name" aria-label="${shop.name}の店情報"`)}</header><div class="market-shelf-body"><div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の商品一覧">${rows[index].map(row=>{
     const item=s.core.products.find(x=>x.id===row.productId);if(!item)return '';
-    return `<div class="market-stock-row" data-wide="${String(row.count).length>2||!/^\d{2}\/\d{1,2}$/.test(compactReleaseDate(s,item.id))}" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date" title="${esc(releaseDate(s,item.id))}">${esc(compactReleaseDate(s,item.id))}</span><span class="market-count">${row.count}本</span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+'。手元へ戻す')}"`)}</div>`;
+    return `<div class="market-stock-row" data-wide="${String(row.count).length>2||!/^\d{2}\/\d{1,2}$/.test(compactReleaseDate(s,item.id))}" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date" title="${esc(releaseDate(s,item.id))}">${esc(compactReleaseDate(s,item.id))}</span><span class="market-count">${row.count}本</span><span class="market-sale-slot" aria-hidden="true"></span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+'。手元へ戻す')}"`)}</div>`;
    }).join('')||'<span class="market-empty" aria-label="割り当てなし"></span>'}</div></div>${button(rows[index].length?'':'<span class="market-place-label">ここに置く</span>','place',shop.id,`class="market-target" ${!p||inventory.hand<1?'disabled':''} aria-label="${esc(shop.name+'へ'+(p?releaseDate(s,p.id)+'の瓶':'瓶')+'を渡す')}"`)}</section>`;
   }).join('')}</div></div>${returnPane}`;
   for(const shelf of all('.market-stock-list,.market-hand-list'))shelf.scrollLeft=positions.get(shelf.id)??0;
@@ -139,14 +139,17 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   if(anchor.bottom<bounds.top||anchor.top>bounds.bottom||anchor.right<bounds.left||anchor.left>bounds.right)return;
   const el=doc.createElement('span');el.className='market-delta';el.setAttribute('aria-hidden','true');el.textContent=(count>0?'+':'−')+Math.abs(count);
   el.dataset.kind=kind;if(productId!==undefined)el.dataset.productId=String(productId);if(shopId)el.dataset.shopId=shopId;
-  Object.assign(el.style,{left:(anchor.right+4)+'px',top:anchor.top+'px'});root.append(el);
-  const size=el.getBoundingClientRect(),fitsRight=anchor.right+4+size.width<=bounds.right-2;
-  el.style.left=Math.max(bounds.left+2,Math.min(fitsRight?anchor.right+4:anchor.left,bounds.right-size.width-2))+'px';
-  if(!fitsRight)el.style.top=Math.max(bounds.top+2,anchor.top-size.height-2)+'px';
-  // Keep every store quantity change below the flight lane, beside this release's date.
-  const saleDate=kind==='sale'?element?.closest?.('.market-stock')?.querySelector('.market-date')?.getBoundingClientRect():null;
-  if(saleDate){el.style.left=Math.max(bounds.left+2,Math.min(Math.max(anchor.right,saleDate.right)+4,bounds.right-size.width-2))+'px';el.style.top=Math.max(bounds.top+2,Math.min(saleDate.top+1,bounds.bottom-size.height-2))+'px';}
-  if(!reduced.matches)void animate(el,saleDate?[{opacity:1},{opacity:1,offset:.65},{opacity:0}]:[{transform:'translateY(0)',opacity:1},{transform:'translateY(-4px)',opacity:1,offset:.65},{transform:'translateY(-6px)',opacity:0}],{duration:650,easing:'steps(4,end)'});
+  const slot=kind==='sale'?element?.closest?.('.market-stock')?.querySelector('.market-sale-slot'):null;
+  if(slot){
+   // The fixed upper-row slot makes this a quantity change, never a date change.
+   slot.append(el);el.classList.add('market-sale-delta');
+  }else{
+   Object.assign(el.style,{left:(anchor.right+4)+'px',top:anchor.top+'px'});root.append(el);
+   const size=el.getBoundingClientRect(),fitsRight=anchor.right+4+size.width<=bounds.right-2;
+   el.style.left=Math.max(bounds.left+2,Math.min(fitsRight?anchor.right+4:anchor.left,bounds.right-size.width-2))+'px';
+   if(!fitsRight)el.style.top=Math.max(bounds.top+2,anchor.top-size.height-2)+'px';
+  }
+  if(!reduced.matches)void animate(el,slot?[{opacity:1},{opacity:1,offset:.65},{opacity:0}]:[{transform:'translateY(0)',opacity:1},{transform:'translateY(-4px)',opacity:1,offset:.65},{transform:'translateY(-6px)',opacity:0}],{duration:650,easing:'steps(4,end)'});
   return new Promise(resolve=>{const finish=()=>{clearTimeout(timer);deltaTimers.delete(timer);el.remove();resolve();},timer=setTimeout(finish,650);deltaTimers.set(timer,finish);});
  }
  async function placed(shopId,count,productId,origin){
@@ -181,8 +184,8 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   const sourceRect=source?.getBoundingClientRect()??prior?.sourceRect,sprite=bottle?.getBoundingClientRect()??prior?.sprite,art=bottle?.innerHTML??prior?.art;if(!sourceRect||!sprite||!art)return;
   const bounds=root.getBoundingClientRect();if(sourceRect.top<bounds.top||sourceRect.bottom>bounds.bottom||sourceRect.left<bounds.left||sourceRect.right>bounds.right)return;
   const targetRect=destination.getBoundingClientRect();
-  const from={x:sourceRect.left+sourceRect.width/2,y:sourceRect.top+sourceRect.height/2},to={x:targetRect.left+targetRect.width/2,y:targetRect.top+targetRect.height/2};
-  const scale=parseFloat(root.style.getPropertyValue('--market-scale'))||1,plan=saleFlightPlan(1,{from,to,grid:3*scale}).map(flight=>({...flight,units:sale.units,delay:sale.delay}));
+  const from={x:sprite.left+sprite.width/2,y:sprite.top+sprite.height/2},to={x:targetRect.left+targetRect.width/2,y:targetRect.top+targetRect.height/2};
+  const scale=parseFloat(root.style.getPropertyValue('--market-scale'))||1,shop=query(`[data-market-shop="${sale.shopId}"]`),railY=shop.getBoundingClientRect().top+8*scale,plan=saleFlightPlan(1,{from,to,grid:3*scale,railY}).map(flight=>({...flight,units:sale.units,delay:sale.delay}));
   await Promise.all(plan.map(async (flight,index)=>{
    if(token!==epoch||!visible||doc.hidden)return;
    const ghost=doc.createElement('span');ghost.className='market-flight';ghost.setAttribute('aria-hidden','true');ghost.innerHTML=art;
