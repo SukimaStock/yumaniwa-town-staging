@@ -4,7 +4,7 @@ const project=(s,extra={})=>distillToolsView({phase:s.still.phase,collection:D.c
 const step=(s,n)=>{while(s.still.distillation.progress<n)s=D.distillStep(s);return s;};
 test('empty waiting glass, three-second preparation and native minimum rules remain distinct',()=>{
  let s=D.newMarketRulesDistillery(42);let v=project(s,{prepared:false});assert(!v.leverEnabled);assert(v.leverInactive);assert(!v.showLeverArrow);assert(!v.arrow);v=project(s);assert(v.leverEnabled);assert(v.arrow);assert(!v.glassEnabled);assert.equal(v.fill,0);assert.equal(v.glassPosition,1);
- v=project(s,{countdown:true});assert(v.leverDown);assert(!v.leverEnabled);assert(!v.arrow);assert(v.glassArrow);assert(!v.glassArrowActive);
+ v=project(s,{countdown:true});assert(v.leverDown);assert(!v.leverEnabled);assert(!v.arrow);assert(v.glassArrow);assert(!v.glassArrowActive);assert(v.glassArrowBlink);
  s=D.startRangeDistillation(s);assert.equal(project(step(s,42)).fill,0,'old progress litres are never shown as received before collection');
  s=D.beginCollection(s);v=project(s);assert.equal(v.glassPosition,0);assert(!v.glassEnabled);assert.equal(v.hint,'もう少し待ちます');
  s=step(s,54);v=project(s);assert(v.glassEnabled);assert.equal(v.glassMode,'stop');assert.equal(v.hint,'タップか右へスライドで終える');
@@ -54,4 +54,13 @@ test('long collection reaches visual capacity without limiting collection; legac
  for(const n of [0,12,42,84,99]){assert.equal(view(n).fill,Math.min(1,n/84));assert.equal(view(n,'filling').fill,view(n).fill);}
  assert.equal(view(99).glassMode,null);
  assert.equal(distillToolsView({phase:'filling',collection:{start:null}}).fill,.7);
+});
+
+test('countdown glass cue blinks independently of disabled collection input',()=>{
+ const view=distillToolsView({phase:'ready',available:true,canStart:true,prepared:true,countdown:true});
+ assert(view.glassArrow);assert(view.glassArrowBlink);assert(!view.glassArrowActive);assert(!view.glassEnabled);assert(!view.showLeverArrow);assert.equal(view.glassPosition,1);
+ const colors=bright=>{const cells=[],ctx={fillRect:()=>cells.push(ctx.fillStyle)};drawDistillTools(ctx,view,{arrowBright:bright});return cells;};
+ assert(colors(true).includes('#d8c990'));assert(!colors(true).includes('#9f987c'));assert(colors(false).includes('#9f987c'));assert(!colors(false).includes('#d8c990'));
+ for(const phase of ['ready','filling']){const idle=distillToolsView({phase,available:true,prepared:false});assert(!idle.glassArrowBlink);}
+ assert(!distillToolsView({phase:'ready',available:false,countdown:true}).glassArrowBlink);
 });

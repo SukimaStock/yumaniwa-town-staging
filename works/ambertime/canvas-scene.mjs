@@ -1,6 +1,6 @@
 import{BREWING_CARDS}from'./brewing-cards.mjs?v=confirmed-brewing-r1';
 import{drawCutBar}from'./cut-bar.mjs?v=cut-range-r1';
-import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./distill-tools-view.mjs?v=game-guide-r1';
+import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./distill-tools-view.mjs?v=panel-countdown-r1';
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
@@ -109,12 +109,18 @@ export class CanvasScene{
  brewingPanel(a,editable=false,pressed=false,disabled=false){
   const b=this.view.brewing;if(!b)return;this.ctx.save();if(disabled)this.ctx.globalAlpha=.45;
   this.window(a.x,a.y,a.w,a.h,pressed?'#292623':'#38332b',editable?'#ae8d60':'#6c707b');
+  const labels=[b.malt,b.ferment].map(value=>({plain:'ふつう',peat:'ピート',short:'短め',long:'長め'})[value]);
+  const unit=this.viewport.scale*this.viewport.dpr,measure=text=>this.runs(text,BODY_SIZE).reduce((sum,run)=>sum+run.width,0)/unit;
+  const widths=labels.map(label=>Math.ceil(measure(label)/3)*3),groups=widths.map(width=>54+width),first=a.x+9,costLeft=a.x+a.w-30-measure(this.view.brewingCost??'');
+  const gap=Math.max(3,Math.round((costLeft-first-groups[0]-groups[1])/6)*3),xs=editable?[first,first+groups[0]+gap]:[a.x+6,a.x+120];
+  const geometry=[];
   for(const [i,value] of [b.malt,b.ferment].entries()){
-   const x=a.x+6+i*114,y=a.y+3,card=BREWING_CARDS.find(c=>c.value===value);
+   const x=xs[i],y=a.y+3,card=BREWING_CARDS.find(c=>c.value===value),nameX=x+54;
    card.icon.rows.forEach((row,iy)=>[...row].forEach((cell,ix)=>{const color=card.icon.colors[cell];if(color)this.pixelRect(x+ix*3,y+iy*3,3,3,color);}));
-   const label=({plain:'ふつう',peat:'ピート',short:'短め',long:'長め'})[value];
-   this.text(label,x+51,a.y+35,BODY_SIZE);this.pixelRect(x+51,a.y+42,value==='short'||value==='long'?33:48,3,'#c8b77e');
+   this.text(labels[i],nameX,a.y+35,BODY_SIZE);this.pixelRect(nameX,a.y+42,widths[i],3,'#c8b77e');
+   geometry.push({value,iconX:x,nameX,textWidth:measure(labels[i]),underlineWidth:widths[i]});
   }
+  this.root.dataset.brewingPanelGeometry=JSON.stringify({x:a.x,y:a.y,width:a.w,height:a.h,editable,groups:geometry,costLeft:editable?costLeft:null,costRight:editable?a.x+a.w-30:null});
   if(editable){this.text(this.view.brewingCost,a.x+a.w-30,a.y+35,BODY_SIZE,'right');this.text('›',a.x+a.w-12,a.y+35,BODY_SIZE,'center');}
   this.ctx.restore();
  }
@@ -130,7 +136,7 @@ export class CanvasScene{
   this.stillFrame=this.stillMoving?Math.floor(now/400)%2:0;
   this.arrival=this.motion.sample({room:this.view.room,caskIds:this.view.casks.map(c=>c.id),releaseIds:this.view.products.map(p=>p.releaseId),visible,reduced:this.reducedMotion.matches,now});
   this.root.dataset.roomMotion=JSON.stringify({stillFrame:this.stillFrame,stillMoving:this.stillMoving,arrival:this.arrival});
-  this.toolGuideMoving=false;this.toolReturning=false;const tools=this.view.tools;if(tools){const base=tools.glassPosition?237:174,drag=this.toolGesture?.glassOffset;this.toolSliding=false;if(drag!=null){this.toolPaintX=base+drag/this.viewport.scale;this.toolSlide=null;}else if(this.toolSlide&&!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible){const t=Math.min(1,(now-this.toolSlide.start)/140);this.toolPaintX=this.toolSlide.from+(this.toolSlide.to-this.toolSlide.from)*t;this.toolSliding=t<1;if(!this.toolSliding)this.toolSlide=null;}else{this.toolPaintX=base;this.toolSlide=null;}this.toolArrowBright=!tools.glassArrowActive||this.reducedMotion.matches||Math.floor(now/900)%2===0;this.toolGuideMoving=visible&&this.view.room==='distill'&&tools.visible&&tools.arrow&&this.toolGesture?.leverStep==null&&!this.reducedMotion.matches;this.toolArrowOffset=leverGuideOffset({now:now-(this.toolGuideSince??now),completedRuns:tools.guideLevel==='first'?0:tools.guideLevel==='practice'?1:3,enabled:this.toolGuideMoving,touching:this.toolGesture?.leverStep!=null,reduced:this.reducedMotion.matches});this.toolReturning=false;if(this.toolReturn){this.toolPaintLeverStep=leverReturnStep(now-this.toolReturn.start,this.reducedMotion.matches);this.toolReturning=!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible&&now-this.toolReturn.start<120;if(!this.toolReturning)this.toolReturn=null;}else this.toolPaintLeverStep=tools.leverDown?2:0;if(this.toolGesture?.leverStep!=null)this.toolPaintLeverStep=this.toolGesture.leverStep;}
+  this.toolGuideMoving=false;this.toolReturning=false;const tools=this.view.tools;if(tools){const base=tools.glassPosition?237:174,drag=this.toolGesture?.glassOffset;this.toolSliding=false;if(drag!=null){this.toolPaintX=base+drag/this.viewport.scale;this.toolSlide=null;}else if(this.toolSlide&&!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible){const t=Math.min(1,(now-this.toolSlide.start)/140);this.toolPaintX=this.toolSlide.from+(this.toolSlide.to-this.toolSlide.from)*t;this.toolSliding=t<1;if(!this.toolSliding)this.toolSlide=null;}else{this.toolPaintX=base;this.toolSlide=null;}this.toolArrowBright=!tools.glassArrowBlink||this.reducedMotion.matches||Math.floor(now/900)%2===0;this.toolGuideMoving=visible&&this.view.room==='distill'&&tools.visible&&tools.arrow&&this.toolGesture?.leverStep==null&&!this.reducedMotion.matches;this.toolArrowOffset=leverGuideOffset({now:now-(this.toolGuideSince??now),completedRuns:tools.guideLevel==='first'?0:tools.guideLevel==='practice'?1:3,enabled:this.toolGuideMoving,touching:this.toolGesture?.leverStep!=null,reduced:this.reducedMotion.matches});this.toolReturning=false;if(this.toolReturn){this.toolPaintLeverStep=leverReturnStep(now-this.toolReturn.start,this.reducedMotion.matches);this.toolReturning=!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible&&now-this.toolReturn.start<120;if(!this.toolReturning)this.toolReturn=null;}else this.toolPaintLeverStep=tools.leverDown?2:0;if(this.toolGesture?.leverStep!=null)this.toolPaintLeverStep=this.toolGesture.leverStep;}
   this.controls();this.drawWorld();
   // Presentation clock only: never advances, saves or changes the game state.
   const resume=this.activeControls.find(a=>a.key==='toggle-time'),hintEligible=this.view.pauseHint&&visible&&!this.reducedMotion.matches&&resume&&!resume.node.disabled;
@@ -158,6 +164,7 @@ export class CanvasScene{
    }
   });this.root.dataset.cooledLayout=JSON.stringify(cooledLayout);this.root.dataset.salesText=JSON.stringify(salesText);this.root.dataset.reservationLayout=JSON.stringify(reservationLayout);
   if(view.room==='sales'&&!view.marketMode&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
+  this.root.dataset.brewingPanelGeometry='null';
   if(view.room==='distill'&&view.brewing&&!view.brewing.editable)this.brewingPanel({x:24,y:54,w:270,h:54});
   this.root.dataset.brewingPanel=JSON.stringify(view.room==='distill'?view.brewing:null);
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
@@ -212,6 +219,6 @@ export class CanvasScene{
   c.restore();
   clearTimeout(this.hintTimer);if(hintEligible)this.hintTimer=setTimeout(()=>this.queue(),idle<12000?12000-idle:1200-(idle-12000)%1200);
   clearTimeout(this.selectionTimer);if(visible&&!this.reducedMotion.matches&&items.some(item=>item.selected))this.selectionTimer=setTimeout(()=>this.queue(),900-performance.now()%900);
-  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs,tools?.glassArrowActive&&!this.reducedMotion.matches?900-performance.now()%900:null,this.toolGuideMoving?120:null,this.toolReturning?30:null,this.toolSliding?16:null].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
+  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs,tools?.glassArrowBlink&&!this.reducedMotion.matches?900-performance.now()%900:null,this.toolGuideMoving?120:null,this.toolReturning?30:null,this.toolSliding?16:null].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
  }
 }
