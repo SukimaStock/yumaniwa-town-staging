@@ -1,0 +1,35 @@
+{
+  "engine": "webkit",
+  "passed": true,
+  "sameOrigin": true,
+  "idleSideCaptionAbsent": true,
+  "oldCacheSeconds": 3600,
+  "oldEntry": "./shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1",
+  "newEntry": "./shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1",
+  "oldRow": {
+    "minusTop": 350,
+    "plusTop": 410
+  },
+  "newRow": [
+    {
+      "top": 384,
+      "height": 48
+    },
+    {
+      "top": 384,
+      "height": 48
+    },
+    {
+      "top": 384,
+      "height": 48
+    }
+  ],
+  "savedBytesIdentical": true,
+  "freshChangedRequests": [
+    "http://127.0.0.1:40401/works/ambertime/shop.css?v=placement-hand-delta-r2&touch=1&status=1",
+    "http://127.0.0.1:40401/works/ambertime/room-scene.css?rooms=stage2-r1&v=visual14-r1&map=0.28.0-r3&daily=cut-range-r1&status=1",
+    "http://127.0.0.1:40401/works/ambertime/shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1",
+    "http://127.0.0.1:40401/works/ambertime/flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1",
+    "http://127.0.0.1:40401/works/ambertime/canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1"
+  ]
+}

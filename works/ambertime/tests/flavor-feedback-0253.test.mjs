@@ -30,12 +30,12 @@ test('confirmed name history only, initial/pending name is not a change; sampled
 });
 test('observations preserve meaning without pretending rough is rounded; current barrels only, at most one',()=>{
  const c=cask(),s=state(c);s.notesById[1].observations=[{age:35,month:35,eventId:'rough',title:'若い原酒のまま、少し先へ'},{age:30,month:30,eventId:'manual-cool',title:'移した'}];
- assert.equal(caskFeedback(s,c).text,'若い原酒');const b=cask(2);s.core.casks.push(b);s.notesById[2]={observations:[{age:36,month:36,eventId:'wood',title:'原酒の色が深くなってきた'}]};assert.equal(warehouseFeedback(s).caskId,2);assert.equal(typeof warehouseFeedback(s),'object');
+ assert.equal(caskFeedback(s,c).text,'シゲキが残る');const b=cask(2);s.core.casks.push(b);s.notesById[2]={observations:[{age:36,month:36,eventId:'wood',title:'原酒の色が深くなってきた'}]};assert.equal(warehouseFeedback(s).caskId,2);assert.equal(typeof warehouseFeedback(s),'object');
  s.core.casks=[];assert.equal(warehouseFeedback(s),null);
 });
 test('existing previous-taste thresholds: small delta quiet, meaningful change visible, no previous taste safe',()=>{
  const c=cask(),s=state(c);assert.equal(caskFeedback(s,c),null);s.notesById[1].samples=[{age:30,profile:{character:.81,wood:.09,roughness:.31}}];assert.equal(caskFeedback(s,c),null);
- s.notesById[1].samples[0].profile={character:.9,wood:.01,roughness:.4};s.notesById[1].observations=[{age:35,month:35,eventId:'wood',title:'原酒の色が深くなってきた'}];const f=caskFeedback(s,c);assert.equal(f.kind,'sample');assert(f.text.includes('香りが落ち着いた'));assert(f.text.includes('シゲキがやわらいだ'));
+ s.notesById[1].samples[0].profile={character:.9,wood:.01,roughness:.4};s.notesById[1].observations=[{age:35,month:35,eventId:'wood',title:'原酒の色が深くなってきた'}];const f=caskFeedback(s,c);assert.equal(f.kind,'sample');assert(f.text.includes('かおりが弱くなった'));assert(f.text.includes('シゲキがやわらいだ'));
  const before=JSON.stringify(s);warehouseFeedback(s);assert.equal(JSON.stringify(s),before);
 });
 test('feedback geometry is optional, one room control, clear of room and management navigation',()=>{

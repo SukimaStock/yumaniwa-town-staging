@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0f33143abb43be3a7ab6c3a16bcde76c018a5fd6db5f208120402f6f95ee7e55",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-status-display",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "蒸留担当の状態表示、瓶詰め担当の数量横並び、熟成反応の事実に即した表示",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "2662929e739bc2634a5bb45d3339ff8d8e423364",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/flavor-feedback-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-status-display/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/staff-status-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/flavor-feedback-view.mjs",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/status-reactions/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/market.css"
+    ],
+    "expectedChanges": [
+      "狭いメニュー右staffBrief描画を廃止。通常待機/依頼済み/仕込み中は既存担当者詳細と読み上げへ。空き/資金/判断待ちは既存phaseSummary領域と詳細で正式ガード理由を示す。処理条件は不変",
+      "瓶詰め担当数量は限定selectorの明示grid。見出し全幅、−/select/＋を次の同一行へ。44px以上、3幅で折返しなし。販売/手動瓶詰めへ波及させない",
+      "風味変化は保存済みhistory.labelを引用し現在詳細と同じuiText表現へ。新しい判定なし",
+      "現在の既知観察eventId+正式titleだけ事実が分かる文へ。lossは蒸発で量が減った。保存タイトル/履歴/判定/頻度/優先順位/3ゲーム月期限は不変。未知文は維持",
+      "旧キャッシュ更新query、3幅2engine実操作・保存一致・前後画像・文章監査",
+      "別作品PR763によるmain更新を維持。AmberTime正本が比較基準74589232と同一であることを照合し、検証済み表示差分を引き継ぐ"
+    ],
+    "ownerDecisions": [
+      "2026-11-02今回の3表示修正/反応監査、CI/PR/安全なStagingマージ依頼"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/事前r0Lock/Scope→Risk→Impact",
+      "表現監査：対象が分かる必要な文だけを表示、常時通常状態の重複を除く"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "3幅2engine数量横並び/44px/上限下限/保存再読込",
+      "七担当状態/重要停止理由/詳細読み上げ/旧キャッシュ",
+      "既存実保存を用いた風味名/蒸発/他観察の正確さ/前後画像",
+      "Staging配信SHA/ソース一致/公開UI"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "表示変更を通常revert。正式保存形式/操作記録/判定に変更なし",
+    "outOfScope": [
+      "Production",
+      "計算/費用/給与/予約/本数制限/ゲーム時計/販売/評判/地図/正式保存と再生検証の変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "物理iPhone Safari/VoiceOver/作者の触感評価"
+    ]
+  }
+}
