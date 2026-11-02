@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c2c3bfef92e18f47af2bf1517017e400487ac9d728e1d4b334c48073184b57d9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-game-guide",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "手動蒸留の正式履歴からゲームごとの3回誘導を導く",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5ef566032ff31c70eba207d9b3024cc789f1af7f",
+    "canonicalSources": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distill-learning.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-game-guide/r0.lock.json",
+      "works/ambertime/distill-learning.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/game-guide/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs"
+    ],
+    "expectedChanges": [
+      "独立localStorage経験記録を廃止し既存正式stop履歴とoriginから0/1/2/3以上を読取導出",
+      "未確定/運転中/終了後は矢印なし。確定後最初9px、次2回6px、以降なし",
+      "旧UIkey無視し読書削除せず、正式model/save/入力変更なし",
+      "旧origin自動処理監査/native0..3/auto/取消/generation/reload/3幅2engine/CI/public"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者：このゲーム内の手動蒸留完了3回だけ誘導し独立UI保存を使わない"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "正式stopとauto complete-usual/origin移行の根拠",
+      "newgame旧key残存/正式game回数reload/3幅2engine/RM/touch",
+      "Stagingwarmcache"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production/新Lab/新カウンター/正式savefields/既存key削除",
+      "正式model/経済/味/量/保存再生/入力/液面/バー/仕込みpanel/販売/地図変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "localStorage新counter",
+      "session/daycounter",
+      "manualFills代用",
+      "自動蒸留含むbatch数",
+      "履歴欠損の推測補完"
+    ],
+    "boundaryCases": [
+      "manualstop前/後/樽詰め前/3回/auto/未完/取消/restart/世代/origin/旧UIkey/RM"
+    ],
+    "testPlan": [
+      "native正式0..3/自動/取消/世代/originとsave完全一致",
+      "全3幅2engineactualCanvasとpointer/RM/旧key非アクセス",
+      "関連test/ScopeRiskImpact/CI/public"
+    ],
+    "problem": "独立UI記録はゲームの新規開始や正式履歴と一致しない",
+    "currentContract": "正式stopはmanual完了、autoは内部stopをpopしcomplete-usualだけ記録、移行originは保持",
+    "whyExistingIsInsufficient": "ゲームをまたぐ独立localStorageキーが誘導の習熟を決める",
+    "design": "validated正式operationsのstopをorigin含め読取合算し3で早期停止。計算/保存/習熟状態を追加しない",
+    "migration": "なし",
+    "compatibility": "V08/V081/V09に自動蒸留なし。現行autoはstopを記録しない。移行journalはorigin内に保持、世代で消去なし",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
