@@ -1,9 +1,10 @@
+import{BREWING_CARDS}from'./brewing-cards.mjs?v=brewing-panel-r1';
 import{drawCutBar}from'./cut-bar.mjs?v=cut-range-r1';
 import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./distill-tools-view.mjs?v=gradual-glass-r1';
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1&tools=r2';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1&tools=brewing-panel-r1';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
@@ -105,6 +106,18 @@ export class CanvasScene{
   const node=$('month-progress');node.setAttribute('aria-valuenow',String(Math.round(100*progress)));node.setAttribute('aria-valuetext','今月 '+Math.round(100*progress)+'％ · '+this.view.timeStatus);
   if(this.fontSettled&&!document.hidden&&!this.suspended&&!this.frame)this.drawTimeBar();
  }
+ brewingPanel(a,editable=false,pressed=false,disabled=false){
+  const b=this.view.brewing;if(!b)return;this.ctx.save();if(disabled)this.ctx.globalAlpha=.45;
+  this.window(a.x,a.y,a.w,a.h,pressed?'#292623':'#38332b',editable?'#ae8d60':'#6c707b');
+  for(const [i,value] of [b.malt,b.ferment].entries()){
+   const x=a.x+6+i*114,y=a.y+3,card=BREWING_CARDS.find(c=>c.value===value);
+   card.icon.rows.forEach((row,iy)=>[...row].forEach((cell,ix)=>{const color=card.icon.colors[cell];if(color)this.pixelRect(x+ix*3,y+iy*3,3,3,color);}));
+   const label=({plain:'ふつう',peat:'ピート',short:'短め',long:'長め'})[value];
+   this.text(label,x+51,a.y+35,BODY_SIZE);this.pixelRect(x+51,a.y+42,value==='short'||value==='long'?33:48,3,'#c8b77e');
+  }
+  if(editable){this.text(this.view.brewingCost,a.x+a.w-30,a.y+54,BODY_SIZE,'right');this.text('›',a.x+a.w-12,a.y+35,BODY_SIZE,'center');}
+  this.ctx.restore();
+ }
  drawTimeBar(){
   const v=this.viewport,timeBar={x:6,y:45,w:348,h:2/v.scale,cssHeight:2},progress=Math.max(0,Math.min(1,this.view.monthProgress??0));
   this.pixelRect(timeBar.x,timeBar.y,timeBar.w,timeBar.h,'#353947');this.pixelRect(timeBar.x,timeBar.y,timeBar.w*progress,timeBar.h,'#c5b687');this.root.dataset.timeBar=JSON.stringify({...timeBar,progress});this.root.dataset.monthProgress=String(this.view.monthProgress??0);
@@ -145,6 +158,8 @@ export class CanvasScene{
    }
   });this.root.dataset.cooledLayout=JSON.stringify(cooledLayout);this.root.dataset.salesText=JSON.stringify(salesText);this.root.dataset.reservationLayout=JSON.stringify(reservationLayout);
   if(view.room==='sales'&&!view.marketMode&&view.pageCount>1)this.text(view.pageLabel,180,139,BODY_SIZE,'center');
+  if(view.room==='distill'&&view.brewing&&!view.brewing.editable)this.brewingPanel({x:24,y:54,w:270,h:54});
+  this.root.dataset.brewingPanel=JSON.stringify(view.room==='distill'?view.brewing:null);
   const phaseLines=view.room==='distill'&&view.phaseSummary?this.lines(view.phaseSummary,15,132,330,BODY_SIZE,2):0;
   const spiritOffset=phaseLines>1?18:0,readout=view.room==='distill'?view.spirit:null;this.root.dataset.phaseLayout=JSON.stringify({lines:phaseLines,spiritTop:readout?(readout.compact?216:141)+spiritOffset:null,spiritBottom:readout?(readout.compact?252:readout.phrase&&readout.axes.length?255:243)+spiritOffset:null,equipmentTop:l.equipment.y});
   if(view.room==='distill'&&view.spirit){const p=view.spirit;if(p.compact){this.window(72,216+spiritOffset,216,36,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,180,240+spiritOffset,16,'center');}else{this.window(24,141+spiritOffset,312,p.phrase&&p.axes.length?114:102,'#2e3143','#858995');this.text(uiText(p.kind)+' '+p.volume,36,164+spiritOffset,BODY_SIZE);p.axes.forEach((a,i)=>{const y=192+spiritOffset+i*28;this.text(uiText(a.label),36,y,BODY_SIZE);c.fillStyle='#414644';c.fillRect(144,y-10,180,9);c.fillStyle='#c8b77e';c.fillRect(144,y-10,180*a.ratio,9);});if(p.phrase){const y=(p.axes.length?244:195)+spiritOffset,tint=view.tools?.liquidColor;if(tint)this.pixelRect(36,Math.round((y-12)/3)*3,12,12,tint);this.lines(p.phrase,tint?54:36,y,tint?270:288,16,1);}}}
@@ -182,6 +197,7 @@ export class CanvasScene{
     continue;
    }
    if(a.key==='room-feedback'){this.window(a.x,a.y,a.w,a.h,pressed?'#19141e':'#292b39','#858995');this.lines(a.label,a.x+9,a.y+21,a.w-18,16,3);continue;}
+   if(a.key==='start-distill'&&view.brewing){this.brewingPanel(a,true,pressed,a.node.disabled);continue;}
    if(a.key==='trade-info'){drawSymbol(c,'handshake',a.x+11,a.y+6,3,ink);continue;}
    if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+29,BODY_SIZE,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}
    const primary=['start-distill','stop-distill','open-fill','go-distill'].includes(a.key),quiet=['open-staff-panel','shop-offer','shelf-prev','shelf-next'].includes(a.key);
