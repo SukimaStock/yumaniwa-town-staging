@@ -547,6 +547,12 @@
       "status": "active",
       "title": "一滴を落とす",
       "theme": "スポイトの頭を押し、水がふくらんで一滴離れる"
+    },
+    {
+      "id": "oyasumi-ito-no-hashi",
+      "path": "works/oyasumi-ito-no-hashi",
+      "status": "active",
+      "title": "糸の端"
     }
   ]
 }
