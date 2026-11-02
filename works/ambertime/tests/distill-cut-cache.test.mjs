@@ -4,8 +4,8 @@ import {readFileSync} from 'node:fs';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 test('cut entry and changed drawing dependencies use new versioned module identities',()=>{
  const html=read('index.html'),app=read('shop-app.mjs'),scene=read('canvas-scene.mjs');
- assert.match(html,/shop-app\.mjs\?[^"\s]*daily=brewing-panel-r1/);
- assert.match(app,/canvas-scene\.mjs\?tools=brewing-panel-r1/);
+ assert.match(html,/shop-app\.mjs\?[^"\s]*daily=confirmed-brewing-r1/);
+ assert.match(app,/canvas-scene\.mjs\?tools=confirmed-brewing-r1/);
  assert.match(app,/distill-tools-view\.mjs\?v=gradual-glass-r1/);
  assert.match(app,/distill-learning\.mjs\?v=cut-main-r1/);
  assert.match(scene,/cut-bar\.mjs\?v=cut-range-r1/);

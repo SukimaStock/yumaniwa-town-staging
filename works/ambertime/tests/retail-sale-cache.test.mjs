@@ -5,5 +5,5 @@ test('entry versions every changed retail display dependency without replacing d
  assert.match(read('index.html'),/market\.css\?[^"\s]*fields=count-linked-r1/);
  assert.match(read('shop-app.mjs'),/market-ui\.mjs\?[^'\s]*fields=count-linked-r1/);
  assert.match(read('market-ui.mjs'),/retail-sale-motion\.mjs\?v=count-linked-r1/);
- assert.match(read('shop-app.mjs'),/canvas-scene\.mjs\?tools=brewing-panel-r1/);
+ assert.match(read('shop-app.mjs'),/canvas-scene\.mjs\?tools=confirmed-brewing-r1/);
 });

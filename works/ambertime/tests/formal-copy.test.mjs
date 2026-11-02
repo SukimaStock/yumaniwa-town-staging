@@ -61,7 +61,7 @@ test('cache reader chain updates every changed helper and worker entry',()=>{
  for(const helper of ['placement-save','shop-order-view','cask-detail-view','flavor-view'])contains(app,[helper+'.mjs?v=formal-copy-r1']);
  for(const helper of ['cask-serials','nearby-comparison','history-worker','cask-ledger-worker'])contains(app,[helper+'.mjs?v=market-rules-r1']);
  contains(app,['placement-ui.mjs?v=visual14-r1','partner-orders.mjs?v=market-rules-r1','market-ui.mjs?v=compact-three-r1']);
- contains(app,['brewing-cards.mjs?v=brewing-panel-r1']);
+ contains(app,['brewing-cards.mjs?v=confirmed-brewing-r1']);
  contains(read('cask-detail-view.mjs'),['flavor-view.mjs?v=formal-copy-r1']);
  contains(read('history-worker.mjs'),['distillery-history.mjs?v=market-rules-r1']);
  contains(read('distillery-history.mjs'),['generation-summary.mjs?v=market-rules-r1','partner-orders.mjs?v=market-rules-r1']);

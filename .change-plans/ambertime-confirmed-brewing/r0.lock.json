@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1a63e1e4789b3f3c850611a5bd431f06762e9970ce69f152ef8c6849c54a959c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-confirmed-brewing",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "仕込み表示を決める操作に同期し横一列の比較と誘導矢印を検証",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "da6d3c41880b6fd88ba5383662513746a16b26bf",
+    "canonicalSources": [
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-confirmed-brewing/r0.lock.json",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/confirmed-brewing/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "未確定は従来button、決める時だけ一時UI確定snapshot更新、Backは前確定表示維持",
+      "取消の既存formal即時保存は維持、同条件Backのみ以前のarming復帰、差分Backはreconfirmまで無効",
+      "A費用下段/B横一列比較しBを小画面で検証。矢印既存習熟条件を実画素検証"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者：仕込みは決める後だけ内容表示、取消で前確定表示維持、費用配置比較、矢印を確認"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "未確定/確定/取消同条件/取消変更/再確定/終了新準備/reload",
+      "A/B同条件比較とfirst/practice/learned/touch/RM矢印実画素",
+      "3幅2engine/Stagingwarmcache"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production/新Lab/新操作/正式保存追加",
+      "正式量/味/費用/保存/入力/習熟カウント/レバー/グラス/バー/液面/販売/地図変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "モーダルtapの正式保存をrollback",
+      "確定表示と異なる条件でlever開始",
+      "習熟回数をresetして矢印復帰"
+    ],
+    "boundaryCases": [
+      "未確定Back/同条件Back/変更Back/confirm/reload/newbatch/arrowfirst2-3/learned/touch/RM"
+    ],
+    "testPlan": [
+      "純粋snapshotprojectionと既存formal不変/10状態3幅2engine/A B画像",
+      "矢印9/6/0実描画/関連回帰/ScopeRiskImpact/CI/public"
+    ],
+    "problem": "未確定の選択内容が部屋に出て、確認と表示の意味が一致しない",
+    "currentContract": "正式カードtapは即時保存、決めるは既存UIarmingのみ",
+    "whyExistingIsInsufficient": "raw manualCardsを表示するため確定表示を区別できない",
+    "design": "UI限定snapshotを決める時に保存。新batch/reloadで消去。入力計算は維持、Bで同一baseline費用",
+    "migration": "なし",
+    "compatibility": "正式保存schema/key変更なし、設定値を正式モデルへ逆流しない",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
