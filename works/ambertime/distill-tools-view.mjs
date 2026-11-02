@@ -20,7 +20,7 @@ export function distillToolsView({phase,collection={},litres=0,flowLitres=litres
  const end=done?collection.end??collection.current:collection.current,start=collection.start;
  const width=start===null||start===undefined?null:Math.max(0,(end-start)*(collection.fullRange?99:69));
  const fill=done?(width===null?.7:Math.min(1,width/84)):collecting?(width===null?.7:Math.min(1,width/84)):0;
- const showLeverArrow=completedRuns<3&&(phase==='ready'&&!countdown||expired);
+ const showLeverArrow=phase==='ready'&&leverEnabled&&completedRuns<3;
  return {visible:available,leverEnabled,glassEnabled,glassMode:glassEnabled?(collecting?'stop':'start'):null,leverDown:countdown||!expired&&phase==='distilling',glassPosition:collecting?0:1,prepared,leverInactive:phase==='ready'&&!countdown&&!leverEnabled,showLeverArrow,guideLevel:completedRuns===0?'first':completedRuns<3?'practice':'learned',guideDistance:completedRuns===0?9:completedRuns<3?6:0,glassArrow:available&&!automatic&&(countdown||phase==='distilling'&&!expired),glassArrowActive:glassEnabled,litres:amount,fill,hint:phase==='ready'||expired?'レバーを下に引く':phase==='distilling'&&!automatic?(!collectingAllowed?'もう少し待ちます':collecting?'タップか右へスライドで終える':'タップか左へスライドで受ける'):'',arrow:leverEnabled&&showLeverArrow};
 }
 // All authored cells are 3 logical pixels, on the same grid as the apparatus.
