@@ -239,3 +239,8 @@ body[data-placement="1"] #dialog-actions #placement-receipt[data-changed="false"
 #save-choice .save-choice-actions button{flex:1;min-width:0}
 #save-choice input{width:20px;height:20px;min-height:20px;margin:4px 8px 0 0;flex:0 0 20px}
 #save-choice-error{color:#ffcfb5}
+/* Keep the existing policy row keyboard-free without shrinking its touch targets. */
+.bottling-quantity{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.bottling-quantity select{width:auto;min-width:5em;flex:1}
+.bottling-quantity button{min-width:44px;min-height:44px}
+.bottling-policy-notice{margin:6px 0;color:var(--ink,#f0e6c8)}

@@ -111,11 +111,11 @@ export class CanvasScene{
   this.window(a.x,a.y,a.w,a.h,pressed?'#292623':'#38332b',editable?'#ae8d60':'#6c707b');
   const labels=[b.malt,b.ferment].map(value=>({plain:'ふつう',peat:'ピート',short:'短め',long:'長め'})[value]);
   const unit=this.viewport.scale*this.viewport.dpr,measure=text=>this.runs(text,BODY_SIZE).reduce((sum,run)=>sum+run.width,0)/unit;
-  const widths=labels.map(label=>Math.ceil(measure(label)/3)*3),groups=widths.map(width=>54+width),first=a.x+9,costLeft=a.x+a.w-30-measure(this.view.brewingCost??'');
-  const gap=Math.max(3,Math.round((costLeft-first-groups[0]-groups[1])/6)*3),xs=editable?[first,first+groups[0]+gap]:[a.x+6,a.x+120];
+  const widths=labels.map(label=>Math.ceil(measure(label)/3)*3),groups=widths.map(width=>51+width),first=a.x+6,costLeft=a.x+a.w-30-measure(this.view.brewingCost??'');
+  const gap=Math.max(12,Math.round((costLeft-first-groups[0]-groups[1])/6)*3),xs=editable?[first,first+groups[0]+gap]:[a.x+6,a.x+6+groups[0]+24];
   const geometry=[];
   for(const [i,value] of [b.malt,b.ferment].entries()){
-   const x=xs[i],y=a.y+3,card=BREWING_CARDS.find(c=>c.value===value),nameX=x+54;
+   const x=xs[i],y=a.y+3,card=BREWING_CARDS.find(c=>c.value===value),nameX=x+51;
    card.icon.rows.forEach((row,iy)=>[...row].forEach((cell,ix)=>{const color=card.icon.colors[cell];if(color)this.pixelRect(x+ix*3,y+iy*3,3,3,color);}));
    this.text(labels[i],nameX,a.y+35,BODY_SIZE);this.pixelRect(nameX,a.y+42,widths[i],3,'#c8b77e');
    geometry.push({value,iconX:x,nameX,textWidth:measure(labels[i]),underlineWidth:widths[i]});

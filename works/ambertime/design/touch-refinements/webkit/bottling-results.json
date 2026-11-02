@@ -1,0 +1,43 @@
+{
+  "engine": "webkit",
+  "results": [
+    {
+      "width": 360,
+      "height": 568,
+      "passed": true,
+      "checks": [
+        "local unsaved-policy message and no game write",
+        "select/± endpoints and policy snapshot",
+        "toggle pause/resume exact",
+        "manual small/large count1 half/all upper/lower",
+        "one-bottle cost/volume formal transaction and strict reload"
+      ]
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "passed": true,
+      "checks": [
+        "local unsaved-policy message and no game write",
+        "select/± endpoints and policy snapshot",
+        "toggle pause/resume exact",
+        "manual small/large count1 half/all upper/lower",
+        "one-bottle cost/volume formal transaction and strict reload"
+      ]
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "passed": true,
+      "checks": [
+        "local unsaved-policy message and no game write",
+        "select/± endpoints and policy snapshot",
+        "toggle pause/resume exact",
+        "manual small/large count1 half/all upper/lower",
+        "one-bottle cost/volume formal transaction and strict reload"
+      ]
+    }
+  ],
+  "errors": [],
+  "physicalSafari": false
+}
