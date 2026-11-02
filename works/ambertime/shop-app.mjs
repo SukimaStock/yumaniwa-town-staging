@@ -1,6 +1,6 @@
 import {DistillLearning} from './distill-learning.mjs?v=cut-main-r1';
 import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1';
-import {distillToolsView} from './distill-tools-view.mjs?v=cut-pixel-r1';
+import {distillToolsView} from './distill-tools-view.mjs?v=gradual-glass-r1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {readSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} from './placement-save.mjs?v=formal-copy-r1';
@@ -24,7 +24,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-messages-r1';
-import {CanvasScene} from './canvas-scene.mjs?tools=cut-range-r1&v=market-rules-r1&daily=1';
+import {CanvasScene} from './canvas-scene.mjs?tools=gradual-glass-r1&v=market-rules-r1&daily=1';
 import * as D from './partner-orders.mjs?v=market-rules-r1';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';

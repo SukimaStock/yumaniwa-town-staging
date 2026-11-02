@@ -15,10 +15,11 @@ export function distillToolsView({phase,collection={},litres=0,flowLitres=litres
  const glassEnabled=available&&!automatic&&!countdown&&phase==='distilling'&&!expired&&!!collectingAllowed;
  const amount=done||collecting?Math.max(0,Number.isFinite(litres)?litres:0):0;
  // Symbolic receiver: no litres, independent of production quantity. A legal
- // completed cut is >=12 steps; its short eight-step fill has already settled.
+ // completed cut is >=12 steps. Fill spans most of the 99-step run;
+ // capacity is visual only and never limits collection.
  const end=done?collection.end??collection.current:collection.current,start=collection.start;
  const width=start===null||start===undefined?null:Math.max(0,(end-start)*(collection.fullRange?99:69));
- const fill=done?(width===null?.7:Math.min(.7,width/8*.7)):collecting?(width===null?.7:Math.min(.7,width/8*.7)):0;
+ const fill=done?(width===null?.7:Math.min(1,width/84)):collecting?(width===null?.7:Math.min(1,width/84)):0;
  const showLeverArrow=completedRuns<3&&(phase==='ready'&&!countdown||expired);
  return {visible:available,leverEnabled,glassEnabled,glassMode:glassEnabled?(collecting?'stop':'start'):null,leverDown:countdown||!expired&&phase==='distilling',glassPosition:collecting?0:1,prepared,leverInactive:phase==='ready'&&!countdown&&!leverEnabled,showLeverArrow,guideLevel:completedRuns===0?'first':completedRuns<3?'practice':'learned',guideDistance:completedRuns===0?9:completedRuns<3?6:0,glassArrow:available&&!automatic&&(countdown||phase==='distilling'&&!expired),glassArrowActive:glassEnabled,litres:amount,fill,hint:phase==='ready'||expired?'レバーを下に引く':phase==='distilling'&&!automatic?(!collectingAllowed?'もう少し待ちます':collecting?'タップか右へスライドで終える':'タップか左へスライドで受ける'):'',arrow:leverEnabled&&showLeverArrow};
 }

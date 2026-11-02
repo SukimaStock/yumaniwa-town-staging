@@ -11,12 +11,12 @@ test('empty waiting glass, three-second preparation and native minimum rules rem
  const expired=step(D.startRangeDistillation(D.newMarketRulesDistillery(42)),88);v=project(expired);assert(v.leverEnabled);assert(!v.leverDown);assert(!v.glassEnabled);assert(v.arrow);
  assert(!project(expired,{automatic:true}).leverEnabled);assert(!project(s,{available:false}).glassEnabled);
 });
-test('symbolic liquid starts empty and settles before stop without changing formal quantities',()=>{
+test('symbolic liquid starts empty and holds its elapsed height without changing formal quantities',()=>{
  assert.equal(RECEIVER_MAX_LITRES,40);const quantities=[];
  for(const [start,end] of [[0,12],[24,52],[74,99]]){
   let s=step(D.startRangeDistillation(D.newMarketRulesDistillery(42)),start);s=D.beginCollection(s);assert.equal(project(s).fill,0);
   s=step(s,start+1);assert(project(s).fill>0&&project(s).fill<.1);
-  s=step(s,end);const bytes=D.serializeDistillery(s),before=project(s);assert.equal(before.litres,distillationReadout(s).litres);assert.equal(before.fill,.7);assert.equal(D.serializeDistillery(s),bytes);
+  s=step(s,end);const bytes=D.serializeDistillery(s),before=project(s);assert.equal(before.litres,distillationReadout(s).litres);assert(Math.abs(before.fill-(end-start)/84)<1e-12);assert.equal(D.serializeDistillery(s),bytes);
   const stopped=D.stopDistillation(s),after=project(stopped);assert.equal(after.litres,stopped.core.spirit.litres);assert.equal(after.fill,before.fill);assert.equal(after.glassPosition,1);assert(!after.glassEnabled);assert(!after.leverDown);assert.deepEqual(project(D.restoreDistillery(D.serializeDistillery(stopped))),after);quantities.push(after.litres);
  }assert(quantities[0]<quantities[1]&&quantities[1]<quantities[2]);
 });
@@ -26,10 +26,10 @@ test('separate receiver is bounded at both endpoints, with larger unfiltered inp
  for(const glassX of [174,237])for(const fill of [0,.25,.6,1]){const cells=[],ctx={fillRect:(...rect)=>cells.push({rect,color:ctx.fillStyle})};drawDistillTools(ctx,{fill,leverDown:false,arrow:false},{glassX});const liquid=cells.filter(c=>['#b8aa7c','#e7ddb6'].includes(c.color));if(fill===0)assert.equal(liquid.length,0);for(const {rect:[x,y,w,h]} of liquid){assert(x>=glassX/3+2&&x+w<=glassX/3+10);assert(y>=116&&y+h<=124);}assert(cells.every(c=>c.rect.every(Number.isInteger)));}
 });
 
-test('symbolic fill uses eight elapsed steps, independent of end-yield or litres',()=>{
+test('symbolic fill spans 84 elapsed steps, independent of end-yield or litres',()=>{
  let s=step(D.startRangeDistillation(D.newMarketRulesDistillery(42)),24);s=D.beginCollection(s);const fills=[];
  for(let n=0;n<=12;n++){s=step(s,24+n);const v=project(s);fills.push(v.fill);assert.equal(v.fill,project(s,{litres:999,flowLitres:999}).fill);}
- assert.equal(fills[0],0);assert(fills[1]>0&&fills[1]<.1);assert.equal(fills[8],.7);assert.equal(fills[12],.7);assert(fills.every((v,i)=>!i||v>=fills[i-1]));
+ assert.equal(fills[0],0);assert(fills[1]>0&&fills[1]<.1);assert(Math.abs(fills[8]-8/84)<1e-12);assert(Math.abs(fills[12]-12/84)<1e-12);assert(fills.every((v,i)=>!i||v>=fills[i-1]));
  const layout=layoutScene({room:'distill',tools:{glassPosition:1}}),fill=layout.controls.find(r=>r.key==='open-fill');assert.equal(fill.y,264);assert(fill.y>=255&&fill.y+fill.h<=315);
 });
 test('tutorial guide descends on three-pixel cells, slows and disappears; return is three poses',()=>{
@@ -47,4 +47,11 @@ test('preparation belongs to the current native batch and cannot arm a later run
  const initial=D.newMarketRulesDistillery(42);let later=D.beginCollection(D.startRangeDistillation(initial));later=step(later,12);later=D.tickDistillery(D.fillBarrel(D.stopDistillation(later),'refill'));assert(D.canStart(later).ok);
  const ctx={distillLearning:{completedRuns:0},D,game:initial,distillPrepared:true,preparedForDistillation:initial.core.lastDistillation,room:'distill',modal:null,document:{hidden:false},preview:true,canSave:true,countdown:{active:false},T:{minimumStop:30},distillationReadout,distillToolsView};vm.createContext(ctx);vm.runInContext(handler,ctx);
  assert(ctx.currentDistillTools().leverEnabled);ctx.game=later;assert(!ctx.currentDistillTools().leverEnabled);ctx.preparedForDistillation=later.core.lastDistillation;assert(ctx.currentDistillTools().leverEnabled);
+});
+
+test('long collection reaches visual capacity without limiting collection; legacy fallback stays compatible',()=>{
+ const view=(n,phase='distilling')=>distillToolsView({phase,collection:{enabled:true,fullRange:true,collected:true,start:0,current:n/99,end:n/99,canStop:true}});
+ for(const n of [0,12,42,84,99]){assert.equal(view(n).fill,Math.min(1,n/84));assert.equal(view(n,'filling').fill,view(n).fill);}
+ assert.equal(view(99).glassMode,null);
+ assert.equal(distillToolsView({phase:'filling',collection:{start:null}}).fill,.7);
 });
