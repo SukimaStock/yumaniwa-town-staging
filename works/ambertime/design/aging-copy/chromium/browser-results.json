@@ -1,0 +1,779 @@
+{
+  "engine": "chromium",
+  "results": [
+    {
+      "width": 360,
+      "height": 568,
+      "version": "before",
+      "case": "fresh",
+      "line": {
+        "label": "No.1 · かおりが強い",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが強い",
+        "previewText": "No.1 · かおりが強い",
+        "textWidth": 167.98415492957747,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · かおりが強い",
+      "detail": "かおりが強い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "before",
+      "case": "loss",
+      "line": {
+        "label": "No.1 · 蒸発で量が減った",
+        "truncated": false,
+        "fullText": "たる No.1 · 蒸発で量が減った",
+        "previewText": "No.1 · 蒸発で量が減った",
+        "textWidth": 204.0404929577465,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 蒸発で量が減った",
+      "detail": "蒸発で量が減った",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "before",
+      "case": "name",
+      "line": {
+        "label": "No.1 · 「穏やかな果実香」に変化",
+        "truncated": false,
+        "fullText": "たる No.1 · 「穏やかな果実香」に変化",
+        "previewText": "No.1 · 「穏やかな果実香」に変化",
+        "textWidth": 276.15316901408454,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 「穏やかな果実香」に変化",
+      "detail": "「穏やかな果実香」に変化",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "before",
+      "case": "sample",
+      "line": {
+        "label": "No.1 · かおりが弱くなった · …",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 576.0651408450705,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "detail": "前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "before",
+      "case": "rounded",
+      "line": {
+        "label": "No.1 · 口当たりがやわらかい",
+        "truncated": false,
+        "fullText": "たる No.1 · 口当たりがやわらかい",
+        "previewText": "No.1 · 口当たりがやわらかい",
+        "textWidth": 240.09683098591552,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 口当たりがやわらかい",
+      "detail": "口当たりがやわらかい",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "version": "before",
+      "case": "legacy-pending-display-only",
+      "view": [
+        {
+          "kind": "wood",
+          "title": "色が深くなった",
+          "text": ""
+        },
+        {
+          "kind": "loss",
+          "title": "量が減った",
+          "text": "たる詰めから10.2％減った"
+        }
+      ],
+      "savedRawUnchanged": true,
+      "nativeMigrationClearsOrdinaryPending": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "after",
+      "case": "fresh",
+      "line": {
+        "label": "No.1 · かおりが強い",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが強い",
+        "previewText": "No.1 · かおりが強い",
+        "textWidth": 167.98415492957747,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · かおりが強い",
+      "detail": "かおりが強い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "after",
+      "case": "loss",
+      "line": {
+        "label": "No.1 · 蒸発で量が減った",
+        "truncated": false,
+        "fullText": "たる No.1 · 蒸発で量が減った",
+        "previewText": "No.1 · 蒸発で量が減った",
+        "textWidth": 204.0404929577465,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 蒸発で量が減った",
+      "detail": "蒸発で量が減った",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "after",
+      "case": "name",
+      "line": {
+        "label": "No.1 · 「穏やかな果実香」に変化",
+        "truncated": false,
+        "fullText": "たる No.1 · 「穏やかな果実香」に変化",
+        "previewText": "No.1 · 「穏やかな果実香」に変化",
+        "textWidth": 276.15316901408454,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 「穏やかな果実香」に変化",
+      "detail": "「穏やかな果実香」に変化",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "after",
+      "case": "sample",
+      "line": {
+        "label": "No.1 · 前回から：かおりが弱く…",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 666.205985915493,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "detail": "前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "height": 568,
+      "version": "after",
+      "case": "rounded",
+      "line": {
+        "label": "No.1 · 口当たりが丸い",
+        "truncated": false,
+        "fullText": "たる No.1 · 口当たりが丸い",
+        "previewText": "No.1 · 口当たりが丸い",
+        "textWidth": 186.01232394366198,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 口当たりが丸い",
+      "detail": "口当たりが丸い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 360,
+      "version": "after",
+      "case": "legacy-pending-display-only",
+      "view": [
+        {
+          "kind": "wood",
+          "title": "色が濃い",
+          "text": ""
+        },
+        {
+          "kind": "loss",
+          "title": "量が減った",
+          "text": "たる詰めから10.2％減った"
+        }
+      ],
+      "savedRawUnchanged": true,
+      "nativeMigrationClearsOrdinaryPending": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "before",
+      "case": "fresh",
+      "line": {
+        "label": "No.1 · かおりが強い",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが強い",
+        "previewText": "No.1 · かおりが強い",
+        "textWidth": 153.8951612903226,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · かおりが強い",
+      "detail": "かおりが強い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "before",
+      "case": "loss",
+      "line": {
+        "label": "No.1 · 蒸発で量が減った",
+        "truncated": false,
+        "fullText": "たる No.1 · 蒸発で量が減った",
+        "previewText": "No.1 · 蒸発で量が減った",
+        "textWidth": 186.92741935483872,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 蒸発で量が減った",
+      "detail": "蒸発で量が減った",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "before",
+      "case": "name",
+      "line": {
+        "label": "No.1 · 「穏やかな果実香」に変化",
+        "truncated": false,
+        "fullText": "たる No.1 · 「穏やかな果実香」に変化",
+        "previewText": "No.1 · 「穏やかな果実香」に変化",
+        "textWidth": 252.99193548387098,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 「穏やかな果実香」に変化",
+      "detail": "「穏やかな果実香」に変化",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "before",
+      "case": "sample",
+      "line": {
+        "label": "No.1 · かおりが弱くなった · 木の…",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 527.75,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "detail": "前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "before",
+      "case": "rounded",
+      "line": {
+        "label": "No.1 · 口当たりがやわらかい",
+        "truncated": false,
+        "fullText": "たる No.1 · 口当たりがやわらかい",
+        "previewText": "No.1 · 口当たりがやわらかい",
+        "textWidth": 219.95967741935485,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 口当たりがやわらかい",
+      "detail": "口当たりがやわらかい",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "version": "before",
+      "case": "legacy-pending-display-only",
+      "view": [
+        {
+          "kind": "wood",
+          "title": "色が深くなった",
+          "text": ""
+        },
+        {
+          "kind": "loss",
+          "title": "量が減った",
+          "text": "たる詰めから10.2％減った"
+        }
+      ],
+      "savedRawUnchanged": true,
+      "nativeMigrationClearsOrdinaryPending": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "after",
+      "case": "fresh",
+      "line": {
+        "label": "No.1 · かおりが強い",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが強い",
+        "previewText": "No.1 · かおりが強い",
+        "textWidth": 153.8951612903226,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · かおりが強い",
+      "detail": "かおりが強い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "after",
+      "case": "loss",
+      "line": {
+        "label": "No.1 · 蒸発で量が減った",
+        "truncated": false,
+        "fullText": "たる No.1 · 蒸発で量が減った",
+        "previewText": "No.1 · 蒸発で量が減った",
+        "textWidth": 186.92741935483872,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 蒸発で量が減った",
+      "detail": "蒸発で量が減った",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "after",
+      "case": "name",
+      "line": {
+        "label": "No.1 · 「穏やかな果実香」に変化",
+        "truncated": false,
+        "fullText": "たる No.1 · 「穏やかな果実香」に変化",
+        "previewText": "No.1 · 「穏やかな果実香」に変化",
+        "textWidth": 252.99193548387098,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 「穏やかな果実香」に変化",
+      "detail": "「穏やかな果実香」に変化",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "after",
+      "case": "sample",
+      "line": {
+        "label": "No.1 · 前回から：かおりが弱くな…",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 610.3306451612904,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "detail": "前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "version": "after",
+      "case": "rounded",
+      "line": {
+        "label": "No.1 · 口当たりが丸い",
+        "truncated": false,
+        "fullText": "たる No.1 · 口当たりが丸い",
+        "previewText": "No.1 · 口当たりが丸い",
+        "textWidth": 170.41129032258064,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 口当たりが丸い",
+      "detail": "口当たりが丸い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 375,
+      "version": "after",
+      "case": "legacy-pending-display-only",
+      "view": [
+        {
+          "kind": "wood",
+          "title": "色が濃い",
+          "text": ""
+        },
+        {
+          "kind": "loss",
+          "title": "量が減った",
+          "text": "たる詰めから10.2％減った"
+        }
+      ],
+      "savedRawUnchanged": true,
+      "nativeMigrationClearsOrdinaryPending": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "before",
+      "case": "fresh",
+      "line": {
+        "label": "No.1 · かおりが強い",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが強い",
+        "previewText": "No.1 · かおりが強い",
+        "textWidth": 210.47426470588235,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · かおりが強い",
+      "detail": "かおりが強い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "before",
+      "case": "loss",
+      "line": {
+        "label": "No.1 · 蒸発で量が減った",
+        "truncated": false,
+        "fullText": "たる No.1 · 蒸発で量が減った",
+        "previewText": "No.1 · 蒸発で量が減った",
+        "textWidth": 255.65073529411765,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 蒸発で量が減った",
+      "detail": "蒸発で量が減った",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "before",
+      "case": "name",
+      "line": {
+        "label": "No.1 · 「穏やかな果実香…",
+        "truncated": true,
+        "fullText": "たる No.1 · 「穏やかな果実香」に変化",
+        "previewText": "No.1 · 「穏やかな果実香」に変化",
+        "textWidth": 346.00367647058823,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 「穏やかな果実香」に変化",
+      "detail": "「穏やかな果実香」に変化",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "before",
+      "case": "sample",
+      "line": {
+        "label": "No.1 · かおりが弱くなっ…",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 721.7757352941177,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "detail": "前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "before",
+      "case": "rounded",
+      "line": {
+        "label": "No.1 · 口当たりがやわら…",
+        "truncated": true,
+        "fullText": "たる No.1 · 口当たりがやわらかい",
+        "previewText": "No.1 · 口当たりがやわらかい",
+        "textWidth": 300.8272058823529,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 口当たりがやわらかい",
+      "detail": "口当たりがやわらかい",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "case": "legacy-pending-display-only",
+      "view": [
+        {
+          "kind": "wood",
+          "title": "色が深くなった",
+          "text": ""
+        },
+        {
+          "kind": "loss",
+          "title": "量が減った",
+          "text": "たる詰めから10.2％減った"
+        }
+      ],
+      "savedRawUnchanged": true,
+      "nativeMigrationClearsOrdinaryPending": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "after",
+      "case": "fresh",
+      "line": {
+        "label": "No.1 · かおりが強い",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが強い",
+        "previewText": "No.1 · かおりが強い",
+        "textWidth": 210.47426470588235,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · かおりが強い",
+      "detail": "かおりが強い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "after",
+      "case": "loss",
+      "line": {
+        "label": "No.1 · 蒸発で量が減った",
+        "truncated": false,
+        "fullText": "たる No.1 · 蒸発で量が減った",
+        "previewText": "No.1 · 蒸発で量が減った",
+        "textWidth": 255.65073529411765,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 蒸発で量が減った",
+      "detail": "蒸発で量が減った",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "after",
+      "case": "name",
+      "line": {
+        "label": "No.1 · 「穏やかな果実香…",
+        "truncated": true,
+        "fullText": "たる No.1 · 「穏やかな果実香」に変化",
+        "previewText": "No.1 · 「穏やかな果実香」に変化",
+        "textWidth": 346.00367647058823,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 「穏やかな果実香」に変化",
+      "detail": "「穏やかな果実香」に変化",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "after",
+      "case": "sample",
+      "line": {
+        "label": "No.1 · 前回から：かおり…",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 834.7169117647059,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "detail": "前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "version": "after",
+      "case": "rounded",
+      "line": {
+        "label": "No.1 · 口当たりが丸い",
+        "truncated": false,
+        "fullText": "たる No.1 · 口当たりが丸い",
+        "previewText": "No.1 · 口当たりが丸い",
+        "textWidth": 233.0625,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "full": "たる No.1 · 口当たりが丸い",
+      "detail": "口当たりが丸い",
+      "savedBytesIdentical": true
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "case": "legacy-pending-display-only",
+      "view": [
+        {
+          "kind": "wood",
+          "title": "色が濃い",
+          "text": ""
+        },
+        {
+          "kind": "loss",
+          "title": "量が減った",
+          "text": "たる詰めから10.2％減った"
+        }
+      ],
+      "savedRawUnchanged": true,
+      "nativeMigrationClearsOrdinaryPending": true
+    },
+    {
+      "case": "warm-cache",
+      "sameOrigin": true,
+      "oldCacheSeconds": 3600,
+      "entry": "./shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1&aging=1",
+      "oldFull": "たる No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "full": "たる No.1 · 前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+      "line": {
+        "label": "No.1 · 前回から：かおり…",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 834.7169117647059,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "freshRequests": [
+        "http://127.0.0.1:39561/works/ambertime/shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1&aging=1",
+        "http://127.0.0.1:39561/works/ambertime/flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1&aging=1",
+        "http://127.0.0.1:39561/works/ambertime/cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1",
+        "http://127.0.0.1:39561/works/ambertime/canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1",
+        "http://127.0.0.1:39561/works/ambertime/ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1"
+      ],
+      "savedBytesIdentical": true
+    }
+  ],
+  "errors": [],
+  "physicalSafari": false
+}

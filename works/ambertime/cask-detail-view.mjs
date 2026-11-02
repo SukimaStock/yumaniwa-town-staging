@@ -1,6 +1,6 @@
 import {flavorTypeView} from './flavor-types.mjs?v=stage4-r2';
 import {flavorMeter} from './flavor-view.mjs?v=formal-copy-r1';
-import {uiText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1';
+import {uiText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 
 // Detail-only presentation: tasting and comparison keep their full descriptions.
 export function caskDetailProfile(source){

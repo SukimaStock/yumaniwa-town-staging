@@ -2,15 +2,15 @@
 // new comments, chemistry, timers, notifications or persistent read markers.
 import {customerComments,productTitle} from './player-news.mjs?v=0.25.4';
 import {shortChange} from './tasting-view.mjs?v=stage4-r2';
-import {uiText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1';
+import {uiText,previousAgingSample} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 // Only known system titles get new current cues. Saved observations stay
 // untouched; unrecognized titles keep their existing uiText presentation.
 const observationCopy=new Map([
- ['wood',['原酒の色が深くなってきた','色が深くなった']],
+ ['wood',['原酒の色が深くなってきた','色が濃い']],
  ['fading',['香りの移り変わり','かおりが弱くなった']],
- ['rough',['若い原酒のまま、少し先へ','シゲキが残る']],
+ ['rough',['若い原酒のまま、少し先へ','まだシゲキが残る']],
  ['fruit',['原酒の香りが広がる頃','かおりが強い']],
- ['rounded',['口当たりが変わる頃','口当たりがやわらかい']],
+ ['rounded',['口当たりが変わる頃','口当たりが丸い']],
  ['loss',['少しずつ、減っていく','蒸発で量が減った']]
 ]);
 const observationText=observation=>{const copy=observationCopy.get(observation.eventId);return copy&&observation.title===copy[0]?copy[1]:uiText(observation.title);};
@@ -39,8 +39,9 @@ const tieOrder=(a,b)=>a<b?-1:a>b?1:0;
 const newest=(a,b)=>b.month-a.month||b.priority-a.priority||tieOrder(a.tie,b.tie);
 export function caskFeedback(game,cask){
  const notes=game.notesById?.[cask.id]??{},last=notes.samples?.at(-1),after=last?.age??-1,candidates=[];
- const history=cask.flavor?.history??[];
- for(let i=1;i<history.length;i++){
+ const history=cask.flavor?.history??[],named=h=>typeof h?.label==='string'&&h.label.trim().length>0;
+ const validHistory=Array.isArray(history)&&history[0]?.months===0&&history.every((h,i)=>named(h)&&Number.isInteger(h.months)&&h.months>=0&&h.months<=cask.age&&(i===0||h.months>history[i-1].months));
+ for(let i=1;validHistory&&i<history.length;i++){
   const h=history[i],month=Number.isInteger(cask.filledMonth)&&Number.isInteger(h.months)?cask.filledMonth+h.months:null;
   if(!recent(game,month)||typeof h.label!=='string'||!h.label||typeof history[i-1].label!=='string'||h.months<=after||h.months>cask.age||h.label===history[i-1].label)continue;
   candidates.push({kind:'name',age:h.months,month,text:'「'+uiText(h.label)+'」に変化',priority:3,tie:'name:'+i});
@@ -52,10 +53,10 @@ export function caskFeedback(game,cask){
  // The first threshold-crossing month of a cumulative sample delta is not
  // saved. Compare in the context of a recent recorded fact; never invent or
  // renew an onset at core.month. The ordinary tasting comparison is unchanged.
- const anchor=candidates.slice().sort(newest)[0];
- if(anchor&&last&&last.age<cask.age&&comparable(cask)&&comparable(last.profile)){
-  const change=shortChange({profile:cask},last);
-  if(change!=='味わいの変化はわずか')candidates.push({kind:'sample',age:anchor.age,month:anchor.month,text:'前回から：'+comparisonText(change),priority:2,tie:'sample:'+anchor.tie});
+ const anchor=candidates.slice().sort(newest)[0],previous=previousAgingSample(cask,notes);
+ if(anchor&&previous&&comparable(cask)){
+  const change=shortChange({profile:cask},previous);
+  if(change!=='味わいの変化はわずか')candidates.push({kind:'sample',age:anchor.age,month:anchor.month,text:'前回の試飲から：'+comparisonText(change),priority:2,tie:'sample:'+anchor.tie});
  }
  const fact=candidates.sort(newest)[0];
  return fact?{...fact,caskId:cask.id}:null;
@@ -65,10 +66,9 @@ export function warehouseFeedback(game){
   .sort((a,b)=>b.month-a.month||b.priority-a.priority||a.caskId-b.caskId||tieOrder(a.tie,b.tie))[0]??null;
 }
 
-// A compact preview of the same structured warehouse fact. The original fact
-// and the native button/detail text stay complete, including sample context.
+// Keep the tasting reference in both views, using a shorter preview prefix.
 export function warehouseFeedbackPreview(caskTitle,fact){
  const title=caskTitle.replace(/^たる (?=No\.\d+$)/,'');
- const text=fact.kind==='sample'&&fact.text.startsWith('前回から：')?fact.text.slice('前回から：'.length):fact.text;
+ const text=fact.kind==='sample'&&fact.text.startsWith('前回の試飲から：')?'前回から：'+fact.text.slice('前回の試飲から：'.length):fact.text;
  return title+' · '+text;
 }

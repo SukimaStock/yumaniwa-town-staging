@@ -11,7 +11,7 @@ const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
 import{drawSymbol,symbolMarkup,disclosureSymbols,SYMBOLS}from'./pixel-symbols.mjs?v=rooms-stage2-r1';
-import{uiText}from'./ui-text.mjs?v=stage4-r2&rooms=stage3-r1';
+import{uiText}from'./ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false,frame=0){
  const key=markup+':'+collection.toFixed(3)+':'+active+':'+frame;if(spriteCache.has(key))return spriteCache.get(key);
