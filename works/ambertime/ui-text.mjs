@@ -36,6 +36,8 @@ export function uiText(value){
 // The event detector and its persisted title/text/options remain unchanged.
 export function agingEventText(event,cask,notes={}){
  const fallback={title:uiText(event.title),text:uiText(event.text)};
+ // Only this known live system event changes copy; persisted/archived prose stays verbatim.
+ if((event.id??event.eventId)==='funds'&&event.title==='瓶詰めの費用を残す')return {title:'次月の資金不足で停止',text:uiText(String(event.text??'').replace(/^(所持金 £[\d,.]+ · )瓶詰め予約 (?=£)/,'$1必要資金 '))};
  if(!cask)return fallback;
  const recent=notes.samples?.at(-1),earlier=recent&&recent.age<cask.age;
  switch(event.id??event.eventId){
