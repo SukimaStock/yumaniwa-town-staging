@@ -1,46 +1,10 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import {DistillLearning} from '../distill-learning.mjs';
-const KEY='test.learning';
-function memory(initial=null){let raw=initial;const calls=[];return {getItem(key){calls.push(['get',key]);return raw;},setItem(key,value){calls.push(['set',key]);raw=value;},get raw(){return raw;},calls};}
-const create=storage=>new DistillLearning({storage,key:KEY});
-test('manual start alone never advances guidance; same batch completion advances only once',()=>{
- const storage=memory(),learning=create(storage);assert.equal(learning.completedRuns,0);assert.equal(learning.start('seed:1/batch:2/month:0/op:4'),true);assert.equal(learning.completedRuns,0);
- assert.equal(learning.start('seed:1/batch:2/month:0/op:4'),false);
- assert.equal(learning.complete('seed:1/batch:2/month:0/op:4'),true);assert.equal(learning.completedRuns,1);
- assert.equal(learning.complete('seed:1/batch:2/month:0/op:4'),false);assert.equal(learning.start('seed:1/batch:2/month:0/op:4'),false);assert.equal(learning.completedRuns,1);
- const restored=create(storage);assert.equal(restored.start('seed:1/batch:2/month:0/op:4'),false);assert.equal(restored.completedRuns,1);
-});
-test('pending successful manual start survives reload, foreign completion does not consume it',()=>{
- const storage=memory();create(storage).start('manual-1');const restored=create(storage);
- assert.equal(restored.complete('automatic-1'),false);assert.equal(restored.completedRuns,0);assert.equal(restored.complete('manual-1'),true);assert.equal(create(storage).completedRuns,1);
-});
-test('three distinct finished batches graduate; further starts cannot change the stored count',()=>{
- const storage=memory(),learning=create(storage);
- for(let n=1;n<=3;n++){assert.equal(learning.start('batch-'+n),true);assert.equal(learning.completedRuns,n-1);assert.equal(learning.complete('batch-'+n),true);assert.equal(learning.completedRuns,n);}
- const raw=storage.raw;assert.equal(learning.start('batch-4'),false);assert.equal(learning.complete('batch-4'),false);assert.equal(storage.raw,raw);assert.equal(create(storage).completedRuns,3);
-});
-test('cancellation clears only pending operation and leaves completed experience intact',()=>{
- const storage=memory(),learning=create(storage);learning.start('done');learning.complete('done');learning.start('cancelled');assert.equal(learning.resetPending(),true);assert.equal(learning.complete('cancelled'),false);assert.equal(learning.completedRuns,1);assert.equal(learning.resetPending(),false);
-});
-test('retry replaces a stale pending batch without counting it',()=>{
- const learning=create(memory());learning.start('expired');learning.start('retry');assert.equal(learning.complete('expired'),false);assert.equal(learning.complete('retry'),true);assert.equal(learning.completedRuns,1);
-});
-test('preview explicitly disabled never reads, writes or advances formal preference',()=>{
- const storage=memory(JSON.stringify({version:1,completedRuns:2,completedKeys:['a','b'],pending:'c'})),learning=new DistillLearning({storage,key:KEY,enabled:false});
- assert.equal(learning.completedRuns,0);assert.equal(learning.start('c'),false);assert.equal(learning.complete('c'),false);assert.equal(learning.resetPending(),false);assert.deepEqual(storage.calls,[]);
-});
-test('storage denial cannot throw or prevent in-session deduplication',()=>{
- const learning=create({getItem(){throw Error('restricted');},setItem(){throw Error('quota');}});assert.equal(learning.start('manual'),true);assert.equal(learning.complete('manual'),true);assert.equal(learning.start('manual'),false);assert.equal(learning.completedRuns,1);
- const ephemeral=new DistillLearning({storage:null});assert.equal(ephemeral.start('one'),true);assert.equal(ephemeral.complete('one'),true);assert.equal(ephemeral.completedRuns,1);
-});
-test('malformed preferences are ignored without changing or deleting existing data',()=>{
- const invalid=[null,'not json','null','[]','{}',JSON.stringify({version:2,completedRuns:0,completedKeys:[],pending:null}),JSON.stringify({version:1,completedRuns:4,completedKeys:[],pending:null}),JSON.stringify({version:1,completedRuns:1,completedKeys:[],pending:null}),JSON.stringify({version:1,completedRuns:2,completedKeys:['same','same'],pending:null}),JSON.stringify({version:1,completedRuns:1,completedKeys:['same'],pending:'same'}),JSON.stringify({version:1,completedRuns:0,completedKeys:[],pending:'x'.repeat(513)})];
- for(const raw of invalid){const storage=memory(raw),learning=create(storage);assert.equal(learning.completedRuns,0);assert.equal(storage.raw,raw);assert.equal(storage.calls.filter(c=>c[0]==='set').length,0);}
-});
-test('invalid operation keys never alter pending or completed state',()=>{
- const storage=memory(),learning=create(storage);for(const key of [null,undefined,0,{},'', 'x'.repeat(513)]){assert.equal(learning.start(key),false);assert.equal(learning.complete(key),false);}assert.equal(storage.raw,null);assert.equal(learning.completedRuns,0);
-});
-test('learning record has no game data or generation dependency',()=>{
- const storage=memory(),learning=create(storage);learning.start('[42,2,0,1]');learning.complete('[42,2,0,1]');assert.deepEqual(Object.keys(JSON.parse(storage.raw)).sort(),['completedKeys','completedRuns','pending','version']);const nextGeneration=create(storage);assert.equal(nextGeneration.completedRuns,1);nextGeneration.start('[42,7,60,100]');nextGeneration.complete('[42,7,60,100]');assert.equal(nextGeneration.completedRuns,2);
-});
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+import * as D from '../partner-orders.mjs';import * as V08 from '../wholesale-v08.mjs';import {manualCompletedRuns} from '../distill-learning.mjs';import {lateRelease,finishExtraction} from './generation-helpers.mjs';
+const exact=s=>{const raw=D.serializeDistillery(s),n=manualCompletedRuns(s);assert.equal(D.serializeDistillery(s),raw);const loaded=D.restoreDistillery(raw);assert.equal(manualCompletedRuns(loaded),n);assert.equal(D.serializeDistillery(loaded),raw);return n;};
+const progress=(s,n,model=D)=>{while(s.still.distillation.progress<n)s=model.distillStep(s);return s;};
+test('only successful manual stop advances exact game history, before filling, and reload stays identical',()=>{let s=D.newMarketRulesDistillery(42);assert.equal(exact(s),0);for(let i=1;i<=3;i++){const started=D.startRangeDistillation(s);assert.equal(exact(started),i-1);s=D.stopDistillation(progress(D.beginCollection(started),12));assert.equal(exact(s),i);const bytes=D.serializeDistillery(s);assert.throws(()=>D.stopDistillation(s));assert.equal(D.serializeDistillery(s),bytes);s=D.tickDistillery(D.fillBarrel(s,'refill'));assert.equal(exact(s),i);}assert.equal(exact(D.newMarketRulesDistillery(42)),0);});
+test('expiry and restart are not completion; eventual manual stop counts once',()=>{let s=progress(D.startRangeDistillation(D.newMarketRulesDistillery(42)),88);assert.equal(exact(s),0);s=D.restartRangeDistillation(s);assert.equal(exact(s),0);s=D.stopDistillation(progress(D.beginCollection(s),12));assert.equal(exact(s),1);assert.equal(s.operations.filter(x=>x.key==='stop').length,1);});
+test('queued, cancelled, incomplete and completed automatic distillation do not count',()=>{let s=D.newUsualDistillery(42);s=D.fillBarrel(D.stopDistillation(progress(D.startDistillation(s),65)),'refill');s=D.tickDistillery(s);assert.equal(exact(s),1);let queued=D.reserveUsual(s);assert.equal(exact(queued),1);assert.equal(exact(D.cancelUsual(queued)),1);s=D.beginUsual(queued);s=progress(s,20);assert.equal(exact(s),1);while(s.usual.reservation)s=D.distillStep(s);assert.equal(exact(s),1);assert.equal(s.operations.at(-1).key,'complete-usual');assert.equal(s.operations.filter(x=>x.key==='stop').length,1);});
+test('real V08→V081→V09→current origin chain and later manual stops are counted once',()=>{let old=V08.newDistillery(42);old=V08.fillBarrel(V08.stopDistillation(progress(V08.startDistillation(old),65,V08)),'refill');old=V08.tickDistillery(old);let s=D.restoreDistillery(V08.serializeDistillery(old));assert(s.origin?.origin?.origin);assert.equal(exact(s),1);assert.equal(s.operations.filter(x=>x.key==='stop').length,0);for(let expected=2;expected<=3;expected++){s=D.stopDistillation(progress(D.startDistillation(s),65));assert.equal(exact(s),expected);if(expected<3)s=D.tickDistillery(D.fillBarrel(s,'refill'));}});
+test('real generation handover retains prior manual journal and does not restart guidance',()=>{let s=lateRelease();s=finishExtraction(D.startDistillation(s));assert.equal(D.generationStatus(s).phase,'review');const before=s.operations.filter(x=>x.key==='stop').length;assert(before>=3);s=D.handoverGeneration(s,1);assert.equal(D.generationStatus(s).id,2);assert.equal(s.operations.filter(x=>x.key==='stop').length,before);assert.equal(exact(s),3);});
+test('helper rejects missing or cyclic history instead of inventing a legacy count; production never accesses old preference',()=>{assert.throws(()=>manualCompletedRuns({}));const cycle={operations:[]};cycle.origin=cycle;assert.throws(()=>manualCompletedRuns(cycle));const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8');assert.doesNotMatch(read('shop-app.mjs'),/distill-learning\.v1|new DistillLearning|completedKeys|resetPending/);assert.doesNotMatch(read('distill-learning.mjs'),/localStorage|completedKeys|resetPending|setItem|getItem|removeItem/);});
