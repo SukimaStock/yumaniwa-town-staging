@@ -1,0 +1,1889 @@
+{
+  "engine": "chromium",
+  "checks": [
+    {
+      "width": 360,
+      "tag": "restore-no-forced-modal-explicit-reopen"
+    },
+    {
+      "width": 360,
+      "tag": "imported-filling",
+      "open": true,
+      "kind": "fill",
+      "rect": {
+        "x": 32.328125,
+        "y": 65,
+        "width": 295.5,
+        "height": 438.296875,
+        "top": 65,
+        "right": 327.828125,
+        "bottom": 503.296875,
+        "left": 32.328125
+      },
+      "text": "原酒 30.7 Lシゲキかおり果実香が強いたるを選ぶバーボン£160リフィル£100",
+      "scroll": 278,
+      "client": 278,
+      "pageW": 360,
+      "pageH": 568,
+      "axes": [
+        {
+          "value": 0.504071924612,
+          "width": "50.4072%"
+        },
+        {
+          "value": 0.756403632689,
+          "width": "75.6404%"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "tag": "fill-quota-preserves-state-save"
+    },
+    {
+      "width": 360,
+      "tag": "reload-fill-exact"
+    },
+    {
+      "width": 360,
+      "tag": "restore-no-forced-modal-explicit-reopen"
+    },
+    {
+      "width": 360,
+      "tag": "native-reserve-insufficient-expensive-cask"
+    },
+    {
+      "width": 360,
+      "tag": "uncollected-expired-no-fill"
+    },
+    {
+      "width": 360,
+      "tag": "99-held-until-real-glass-stop"
+    },
+    {
+      "width": 360,
+      "tag": "automatic-completion-no-fill-interruption"
+    },
+    {
+      "width": 360,
+      "tag": "native-main-placing-cancel-return-exact",
+      "sameCash": true
+    },
+    {
+      "width": 360,
+      "tag": "sales-after",
+      "geometry": {
+        "client": 364,
+        "scroll": 364,
+        "shops": [
+          {
+            "rect": {
+              "x": 34.4375,
+              "y": 180.609375,
+              "width": 291.09375,
+              "height": 87.953125,
+              "top": 180.609375,
+              "right": 325.53125,
+              "bottom": 268.5625,
+              "left": 34.4375
+            },
+            "shelf": {
+              "x": 141.90625,
+              "y": 181.609375,
+              "width": 180.859375,
+              "height": 85.953125,
+              "top": 181.609375,
+              "right": 322.765625,
+              "bottom": 267.5625,
+              "left": 141.90625
+            },
+            "stocks": [
+              {
+                "x": 141.90625,
+                "y": 220.90625,
+                "width": 62.0625,
+                "height": 46.65625,
+                "top": 220.90625,
+                "right": 203.96875,
+                "bottom": 267.5625,
+                "left": 141.90625
+              },
+              {
+                "x": 209.28125,
+                "y": 220.90625,
+                "width": 62.0625,
+                "height": 46.65625,
+                "top": 220.90625,
+                "right": 271.34375,
+                "bottom": 267.5625,
+                "left": 209.28125
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 34.4375,
+              "y": 270.328125,
+              "width": 291.09375,
+              "height": 87.953125,
+              "top": 270.328125,
+              "right": 325.53125,
+              "bottom": 358.28125,
+              "left": 34.4375
+            },
+            "shelf": {
+              "x": 141.90625,
+              "y": 271.328125,
+              "width": 180.859375,
+              "height": 85.953125,
+              "top": 271.328125,
+              "right": 322.765625,
+              "bottom": 357.28125,
+              "left": 141.90625
+            },
+            "stocks": [
+              {
+                "x": 141.90625,
+                "y": 310.625,
+                "width": 62.0625,
+                "height": 46.65625,
+                "top": 310.625,
+                "right": 203.96875,
+                "bottom": 357.28125,
+                "left": 141.90625
+              },
+              {
+                "x": 209.28125,
+                "y": 310.625,
+                "width": 62.0625,
+                "height": 46.65625,
+                "top": 310.625,
+                "right": 271.34375,
+                "bottom": 357.28125,
+                "left": 209.28125
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 34.4375,
+              "y": 360.046875,
+              "width": 291.09375,
+              "height": 87.953125,
+              "top": 360.046875,
+              "right": 325.53125,
+              "bottom": 448,
+              "left": 34.4375
+            },
+            "shelf": {
+              "x": 141.90625,
+              "y": 361.046875,
+              "width": 180.859375,
+              "height": 85.953125,
+              "top": 361.046875,
+              "right": 322.765625,
+              "bottom": 447,
+              "left": 141.90625
+            },
+            "stocks": [
+              {
+                "x": 141.90625,
+                "y": 400.34375,
+                "width": 62.0625,
+                "height": 46.65625,
+                "top": 400.34375,
+                "right": 203.96875,
+                "bottom": 447,
+                "left": 141.90625
+              },
+              {
+                "x": 209.28125,
+                "y": 400.34375,
+                "width": 62.0625,
+                "height": 46.65625,
+                "top": 400.34375,
+                "right": 271.34375,
+                "bottom": 447,
+                "left": 209.28125
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "width": 360,
+      "tag": "actual-hit-lane",
+      "shop": "retail",
+      "hit": {
+        "left": 278.53125,
+        "right": 322.53125,
+        "top": 193.609375,
+        "bottom": 237.609375,
+        "points": [
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail"
+        ]
+      }
+    },
+    {
+      "width": 360,
+      "tag": "actual-hit-lane",
+      "shop": "town-liquor",
+      "hit": {
+        "left": 278.53125,
+        "right": 322.53125,
+        "top": 283.328125,
+        "bottom": 327.328125,
+        "points": [
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor"
+        ]
+      }
+    },
+    {
+      "width": 360,
+      "tag": "actual-hit-lane",
+      "shop": "supermarket",
+      "hit": {
+        "left": 278.53125,
+        "right": 322.53125,
+        "top": 373.046875,
+        "bottom": 417.046875,
+        "points": [
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket"
+        ]
+      }
+    },
+    {
+      "width": 360,
+      "tag": "products-1",
+      "count": 3
+    },
+    {
+      "width": 360,
+      "tag": "products-3",
+      "count": 9
+    },
+    {
+      "width": 360,
+      "tag": "products-12",
+      "count": 18
+    },
+    {
+      "width": 360,
+      "tag": "minus-quantity-rail",
+      "sale": [
+        {
+          "shop": "retail",
+          "r": {
+            "x": 164.96875,
+            "y": 197.578125,
+            "width": 20,
+            "height": 23.328125,
+            "top": 197.578125,
+            "right": 184.96875,
+            "bottom": 220.90625,
+            "left": 164.96875
+          },
+          "count": {
+            "x": 164.96875,
+            "y": 220.90625,
+            "width": 29,
+            "height": 23.328125,
+            "top": 220.90625,
+            "right": 193.96875,
+            "bottom": 244.234375,
+            "left": 164.96875
+          }
+        },
+        {
+          "shop": "town-liquor",
+          "r": {
+            "x": 164.96875,
+            "y": 287.296875,
+            "width": 20,
+            "height": 23.328125,
+            "top": 287.296875,
+            "right": 184.96875,
+            "bottom": 310.625,
+            "left": 164.96875
+          },
+          "count": {
+            "x": 164.96875,
+            "y": 310.625,
+            "width": 29,
+            "height": 23.328125,
+            "top": 310.625,
+            "right": 193.96875,
+            "bottom": 333.953125,
+            "left": 164.96875
+          }
+        },
+        {
+          "shop": "supermarket",
+          "r": {
+            "x": 164.96875,
+            "y": 377.015625,
+            "width": 20,
+            "height": 23.328125,
+            "top": 377.015625,
+            "right": 184.96875,
+            "bottom": 400.34375,
+            "left": 164.96875
+          },
+          "count": {
+            "x": 164.96875,
+            "y": 400.34375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 400.34375,
+            "right": 193.96875,
+            "bottom": 423.671875,
+            "left": 164.96875
+          }
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "tag": "restore-no-forced-modal-explicit-reopen"
+    },
+    {
+      "width": 375,
+      "tag": "imported-filling",
+      "open": true,
+      "kind": "fill",
+      "rect": {
+        "x": 25,
+        "y": 89,
+        "width": 324.75,
+        "height": 442.296875,
+        "top": 89,
+        "right": 349.75,
+        "bottom": 531.296875,
+        "left": 25
+      },
+      "text": "原酒 30.7 Lシゲキかおり果実香が強いたるを選ぶバーボン£160リフィル£100",
+      "scroll": 280,
+      "client": 280,
+      "pageW": 375,
+      "pageH": 620,
+      "axes": [
+        {
+          "value": 0.504071924612,
+          "width": "50.4072%"
+        },
+        {
+          "value": 0.756403632689,
+          "width": "75.6404%"
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "tag": "fill-quota-preserves-state-save"
+    },
+    {
+      "width": 375,
+      "tag": "reload-fill-exact"
+    },
+    {
+      "width": 375,
+      "tag": "restore-no-forced-modal-explicit-reopen"
+    },
+    {
+      "width": 375,
+      "tag": "native-reserve-insufficient-expensive-cask"
+    },
+    {
+      "width": 375,
+      "tag": "uncollected-expired-no-fill"
+    },
+    {
+      "width": 375,
+      "tag": "99-held-until-real-glass-stop"
+    },
+    {
+      "width": 375,
+      "tag": "automatic-completion-no-fill-interruption"
+    },
+    {
+      "width": 375,
+      "tag": "native-main-placing-cancel-return-exact",
+      "sameCash": true
+    },
+    {
+      "width": 375,
+      "tag": "sales-before",
+      "geometry": {
+        "client": 288,
+        "scroll": 288,
+        "shops": [
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 194.859375,
+              "width": 317.75,
+              "height": 60.28125,
+              "top": 194.859375,
+              "right": 346.375,
+              "bottom": 255.140625,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 195.859375,
+              "width": 197.5625,
+              "height": 58.28125,
+              "top": 195.859375,
+              "right": 343.4375,
+              "bottom": 254.140625,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 207.484375,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 207.484375,
+                "right": 240,
+                "bottom": 254.140625,
+                "left": 145.875
+              },
+              {
+                "x": 247.5625,
+                "y": 207.484375,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 207.484375,
+                "right": 341.6875,
+                "bottom": 254.140625,
+                "left": 247.5625
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 257.078125,
+              "width": 317.75,
+              "height": 60.28125,
+              "top": 257.078125,
+              "right": 346.375,
+              "bottom": 317.359375,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 258.078125,
+              "width": 197.5625,
+              "height": 58.28125,
+              "top": 258.078125,
+              "right": 343.4375,
+              "bottom": 316.359375,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 269.703125,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 269.703125,
+                "right": 240,
+                "bottom": 316.359375,
+                "left": 145.875
+              },
+              {
+                "x": 247.5625,
+                "y": 269.703125,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 269.703125,
+                "right": 341.6875,
+                "bottom": 316.359375,
+                "left": 247.5625
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 319.296875,
+              "width": 317.75,
+              "height": 60.28125,
+              "top": 319.296875,
+              "right": 346.375,
+              "bottom": 379.578125,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 320.296875,
+              "width": 197.5625,
+              "height": 58.28125,
+              "top": 320.296875,
+              "right": 343.4375,
+              "bottom": 378.578125,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 331.921875,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 331.921875,
+                "right": 240,
+                "bottom": 378.578125,
+                "left": 145.875
+              },
+              {
+                "x": 247.5625,
+                "y": 331.921875,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 331.921875,
+                "right": 341.6875,
+                "bottom": 378.578125,
+                "left": 247.5625
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "width": 375,
+      "tag": "sales-A",
+      "geometry": {
+        "client": 385,
+        "scroll": 385,
+        "shops": [
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 194.859375,
+              "width": 317.75,
+              "height": 92.65625,
+              "top": 194.859375,
+              "right": 346.375,
+              "bottom": 287.515625,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 195.859375,
+              "width": 197.5625,
+              "height": 90.65625,
+              "top": 195.859375,
+              "right": 343.4375,
+              "bottom": 286.515625,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 239.859375,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 239.859375,
+                "right": 240,
+                "bottom": 286.515625,
+                "left": 145.875
+              },
+              {
+                "x": 247.5625,
+                "y": 239.859375,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 239.859375,
+                "right": 341.6875,
+                "bottom": 286.515625,
+                "left": 247.5625
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 289.453125,
+              "width": 317.75,
+              "height": 92.65625,
+              "top": 289.453125,
+              "right": 346.375,
+              "bottom": 382.109375,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 290.453125,
+              "width": 197.5625,
+              "height": 90.65625,
+              "top": 290.453125,
+              "right": 343.4375,
+              "bottom": 381.109375,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 334.453125,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 334.453125,
+                "right": 240,
+                "bottom": 381.109375,
+                "left": 145.875
+              },
+              {
+                "x": 247.5625,
+                "y": 334.453125,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 334.453125,
+                "right": 341.6875,
+                "bottom": 381.109375,
+                "left": 247.5625
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 384.046875,
+              "width": 317.75,
+              "height": 92.65625,
+              "top": 384.046875,
+              "right": 346.375,
+              "bottom": 476.703125,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 385.046875,
+              "width": 197.5625,
+              "height": 90.65625,
+              "top": 385.046875,
+              "right": 343.4375,
+              "bottom": 475.703125,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 429.046875,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 429.046875,
+                "right": 240,
+                "bottom": 475.703125,
+                "left": 145.875
+              },
+              {
+                "x": 247.5625,
+                "y": 429.046875,
+                "width": 94.125,
+                "height": 46.65625,
+                "top": 429.046875,
+                "right": 341.6875,
+                "bottom": 475.703125,
+                "left": 247.5625
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "width": 375,
+      "tag": "sales-after",
+      "geometry": {
+        "client": 375,
+        "scroll": 375,
+        "shops": [
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 194.859375,
+              "width": 317.75,
+              "height": 89.421875,
+              "top": 194.859375,
+              "right": 346.375,
+              "bottom": 284.28125,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 195.859375,
+              "width": 197.5625,
+              "height": 87.421875,
+              "top": 195.859375,
+              "right": 343.4375,
+              "bottom": 283.28125,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 236.625,
+                "width": 64.1875,
+                "height": 46.65625,
+                "top": 236.625,
+                "right": 210.0625,
+                "bottom": 283.28125,
+                "left": 145.875
+              },
+              {
+                "x": 215.875,
+                "y": 236.625,
+                "width": 64.1875,
+                "height": 46.65625,
+                "top": 236.625,
+                "right": 280.0625,
+                "bottom": 283.28125,
+                "left": 215.875
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 286.21875,
+              "width": 317.75,
+              "height": 89.421875,
+              "top": 286.21875,
+              "right": 346.375,
+              "bottom": 375.640625,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 287.21875,
+              "width": 197.5625,
+              "height": 87.421875,
+              "top": 287.21875,
+              "right": 343.4375,
+              "bottom": 374.640625,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 327.984375,
+                "width": 64.1875,
+                "height": 46.65625,
+                "top": 327.984375,
+                "right": 210.0625,
+                "bottom": 374.640625,
+                "left": 145.875
+              },
+              {
+                "x": 215.875,
+                "y": 327.984375,
+                "width": 64.1875,
+                "height": 46.65625,
+                "top": 327.984375,
+                "right": 280.0625,
+                "bottom": 374.640625,
+                "left": 215.875
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 28.625,
+              "y": 377.578125,
+              "width": 317.75,
+              "height": 89.421875,
+              "top": 377.578125,
+              "right": 346.375,
+              "bottom": 467,
+              "left": 28.625
+            },
+            "shelf": {
+              "x": 145.875,
+              "y": 378.578125,
+              "width": 197.5625,
+              "height": 87.421875,
+              "top": 378.578125,
+              "right": 343.4375,
+              "bottom": 466,
+              "left": 145.875
+            },
+            "stocks": [
+              {
+                "x": 145.875,
+                "y": 419.34375,
+                "width": 64.1875,
+                "height": 46.65625,
+                "top": 419.34375,
+                "right": 210.0625,
+                "bottom": 466,
+                "left": 145.875
+              },
+              {
+                "x": 215.875,
+                "y": 419.34375,
+                "width": 64.1875,
+                "height": 46.65625,
+                "top": 419.34375,
+                "right": 280.0625,
+                "bottom": 466,
+                "left": 215.875
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "width": 375,
+      "tag": "actual-hit-lane",
+      "shop": "retail",
+      "hit": {
+        "left": 299.375,
+        "right": 343.375,
+        "top": 207.859375,
+        "bottom": 251.859375,
+        "points": [
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail"
+        ]
+      }
+    },
+    {
+      "width": 375,
+      "tag": "actual-hit-lane",
+      "shop": "town-liquor",
+      "hit": {
+        "left": 299.375,
+        "right": 343.375,
+        "top": 299.21875,
+        "bottom": 343.21875,
+        "points": [
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor"
+        ]
+      }
+    },
+    {
+      "width": 375,
+      "tag": "actual-hit-lane",
+      "shop": "supermarket",
+      "hit": {
+        "left": 299.375,
+        "right": 343.375,
+        "top": 390.578125,
+        "bottom": 434.578125,
+        "points": [
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket"
+        ]
+      }
+    },
+    {
+      "width": 375,
+      "tag": "products-1",
+      "count": 3
+    },
+    {
+      "width": 375,
+      "tag": "products-3",
+      "count": 9
+    },
+    {
+      "width": 375,
+      "tag": "products-12",
+      "count": 18
+    },
+    {
+      "width": 375,
+      "tag": "minus-quantity-rail",
+      "sale": [
+        {
+          "shop": "retail",
+          "r": {
+            "x": 171.0625,
+            "y": 213.296875,
+            "width": 20,
+            "height": 23.328125,
+            "top": 213.296875,
+            "right": 191.0625,
+            "bottom": 236.625,
+            "left": 171.0625
+          },
+          "count": {
+            "x": 171.0625,
+            "y": 236.625,
+            "width": 29,
+            "height": 23.328125,
+            "top": 236.625,
+            "right": 200.0625,
+            "bottom": 259.953125,
+            "left": 171.0625
+          }
+        },
+        {
+          "shop": "town-liquor",
+          "r": {
+            "x": 171.0625,
+            "y": 304.65625,
+            "width": 20,
+            "height": 23.328125,
+            "top": 304.65625,
+            "right": 191.0625,
+            "bottom": 327.984375,
+            "left": 171.0625
+          },
+          "count": {
+            "x": 171.0625,
+            "y": 327.984375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 327.984375,
+            "right": 200.0625,
+            "bottom": 351.3125,
+            "left": 171.0625
+          }
+        },
+        {
+          "shop": "supermarket",
+          "r": {
+            "x": 171.0625,
+            "y": 396.015625,
+            "width": 20,
+            "height": 23.328125,
+            "top": 396.015625,
+            "right": 191.0625,
+            "bottom": 419.34375,
+            "left": 171.0625
+          },
+          "count": {
+            "x": 171.0625,
+            "y": 419.34375,
+            "width": 29,
+            "height": 23.328125,
+            "top": 419.34375,
+            "right": 200.0625,
+            "bottom": 442.671875,
+            "left": 171.0625
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "tag": "restore-no-forced-modal-explicit-reopen"
+    },
+    {
+      "width": 390,
+      "tag": "imported-filling",
+      "open": true,
+      "kind": "fill",
+      "rect": {
+        "x": 15.65625,
+        "y": 107,
+        "width": 358.5,
+        "height": 465.703125,
+        "top": 107,
+        "right": 374.15625,
+        "bottom": 572.703125,
+        "left": 15.65625
+      },
+      "text": "原酒 30.7 Lシゲキかおり果実香が強いたるを選ぶバーボン£160リフィル£100",
+      "scroll": 304,
+      "client": 304,
+      "pageW": 390,
+      "pageH": 680,
+      "axes": [
+        {
+          "value": 0.504071924612,
+          "width": "50.4072%"
+        },
+        {
+          "value": 0.756403632689,
+          "width": "75.6404%"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "tag": "fill-quota-preserves-state-save"
+    },
+    {
+      "width": 390,
+      "tag": "reload-fill-exact"
+    },
+    {
+      "width": 390,
+      "tag": "restore-no-forced-modal-explicit-reopen"
+    },
+    {
+      "width": 390,
+      "tag": "native-reserve-insufficient-expensive-cask"
+    },
+    {
+      "width": 390,
+      "tag": "uncollected-expired-no-fill"
+    },
+    {
+      "width": 390,
+      "tag": "99-held-until-real-glass-stop"
+    },
+    {
+      "width": 390,
+      "tag": "automatic-completion-no-fill-interruption"
+    },
+    {
+      "width": 390,
+      "tag": "native-main-placing-cancel-return-exact",
+      "sameCash": true
+    },
+    {
+      "width": 390,
+      "tag": "sales-after",
+      "geometry": {
+        "client": 428,
+        "scroll": 428,
+        "shops": [
+          {
+            "rect": {
+              "x": 20.75,
+              "y": 215.59375,
+              "width": 348.5,
+              "height": 103.09375,
+              "top": 215.59375,
+              "right": 369.25,
+              "bottom": 318.6875,
+              "left": 20.75
+            },
+            "shelf": {
+              "x": 150.25,
+              "y": 217.59375,
+              "width": 214.875,
+              "height": 99.09375,
+              "top": 217.59375,
+              "right": 365.125,
+              "bottom": 316.6875,
+              "left": 150.25
+            },
+            "stocks": [
+              {
+                "x": 150.25,
+                "y": 263.375,
+                "width": 70.625,
+                "height": 53.3125,
+                "top": 263.375,
+                "right": 220.875,
+                "bottom": 316.6875,
+                "left": 150.25
+              },
+              {
+                "x": 227.25,
+                "y": 263.375,
+                "width": 70.625,
+                "height": 53.3125,
+                "top": 263.375,
+                "right": 297.875,
+                "bottom": 316.6875,
+                "left": 227.25
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 20.75,
+              "y": 320.8125,
+              "width": 348.5,
+              "height": 103.09375,
+              "top": 320.8125,
+              "right": 369.25,
+              "bottom": 423.90625,
+              "left": 20.75
+            },
+            "shelf": {
+              "x": 150.25,
+              "y": 322.8125,
+              "width": 214.875,
+              "height": 99.09375,
+              "top": 322.8125,
+              "right": 365.125,
+              "bottom": 421.90625,
+              "left": 150.25
+            },
+            "stocks": [
+              {
+                "x": 150.25,
+                "y": 368.59375,
+                "width": 70.625,
+                "height": 53.3125,
+                "top": 368.59375,
+                "right": 220.875,
+                "bottom": 421.90625,
+                "left": 150.25
+              },
+              {
+                "x": 227.25,
+                "y": 368.59375,
+                "width": 70.625,
+                "height": 53.3125,
+                "top": 368.59375,
+                "right": 297.875,
+                "bottom": 421.90625,
+                "left": 227.25
+              }
+            ]
+          },
+          {
+            "rect": {
+              "x": 20.75,
+              "y": 426.03125,
+              "width": 348.5,
+              "height": 103.09375,
+              "top": 426.03125,
+              "right": 369.25,
+              "bottom": 529.125,
+              "left": 20.75
+            },
+            "shelf": {
+              "x": 150.25,
+              "y": 428.03125,
+              "width": 214.875,
+              "height": 99.09375,
+              "top": 428.03125,
+              "right": 365.125,
+              "bottom": 527.125,
+              "left": 150.25
+            },
+            "stocks": [
+              {
+                "x": 150.25,
+                "y": 473.8125,
+                "width": 70.625,
+                "height": 53.3125,
+                "top": 473.8125,
+                "right": 220.875,
+                "bottom": 527.125,
+                "left": 150.25
+              },
+              {
+                "x": 227.25,
+                "y": 473.8125,
+                "width": 70.625,
+                "height": 53.3125,
+                "top": 473.8125,
+                "right": 297.875,
+                "bottom": 527.125,
+                "left": 227.25
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "tag": "actual-hit-lane",
+      "shop": "retail",
+      "hit": {
+        "left": 322.25,
+        "right": 366.25,
+        "top": 228.59375,
+        "bottom": 272.59375,
+        "points": [
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail",
+          "retail"
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "tag": "actual-hit-lane",
+      "shop": "town-liquor",
+      "hit": {
+        "left": 322.25,
+        "right": 366.25,
+        "top": 333.8125,
+        "bottom": 377.8125,
+        "points": [
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor",
+          "town-liquor"
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "tag": "actual-hit-lane",
+      "shop": "supermarket",
+      "hit": {
+        "left": 322.25,
+        "right": 366.25,
+        "top": 439.03125,
+        "bottom": 483.03125,
+        "points": [
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket",
+          "supermarket"
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "tag": "products-1",
+      "count": 3
+    },
+    {
+      "width": 390,
+      "tag": "products-3",
+      "count": 9
+    },
+    {
+      "width": 390,
+      "tag": "products-12",
+      "count": 18
+    },
+    {
+      "width": 390,
+      "tag": "minus-quantity-rail",
+      "sale": [
+        {
+          "shop": "retail",
+          "r": {
+            "x": 177.875,
+            "y": 236.71875,
+            "width": 22,
+            "height": 26.671875,
+            "top": 236.71875,
+            "right": 199.875,
+            "bottom": 263.390625,
+            "left": 177.875
+          },
+          "count": {
+            "x": 177.875,
+            "y": 263.375,
+            "width": 32,
+            "height": 26.671875,
+            "top": 263.375,
+            "right": 209.875,
+            "bottom": 290.046875,
+            "left": 177.875
+          }
+        },
+        {
+          "shop": "town-liquor",
+          "r": {
+            "x": 177.875,
+            "y": 341.9375,
+            "width": 22,
+            "height": 26.671875,
+            "top": 341.9375,
+            "right": 199.875,
+            "bottom": 368.609375,
+            "left": 177.875
+          },
+          "count": {
+            "x": 177.875,
+            "y": 368.59375,
+            "width": 32,
+            "height": 26.671875,
+            "top": 368.59375,
+            "right": 209.875,
+            "bottom": 395.265625,
+            "left": 177.875
+          }
+        },
+        {
+          "shop": "supermarket",
+          "r": {
+            "x": 177.875,
+            "y": 447.15625,
+            "width": 22,
+            "height": 26.671875,
+            "top": 447.15625,
+            "right": 199.875,
+            "bottom": 473.828125,
+            "left": 177.875
+          },
+          "count": {
+            "x": 177.875,
+            "y": 473.8125,
+            "width": 32,
+            "height": 26.671875,
+            "top": 473.8125,
+            "right": 209.875,
+            "bottom": 500.484375,
+            "left": 177.875
+          }
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "tag": "actual-lever-countdown-glass-formalstop-auto-fill",
+      "saveExact": true
+    }
+  ],
+  "errors": [],
+  "physicalSafari": false
+}

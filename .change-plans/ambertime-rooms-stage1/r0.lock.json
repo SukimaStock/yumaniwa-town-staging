@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "304b3f53e57feed4fe27d38335822a102672761b9e09d046bb67c0b118c0dd9d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-rooms-stage1",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "蒸留結果と樽選択を統合し、複数商品のある販売欄に配置用タップ余白を残す",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "edda1ee26f4ed78ccfe6b7c4c6b977b405ec7a3e",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-rooms-stage1/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/rooms-stage1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "expectedChanges": [
+      "正式完了済みの手動蒸留で一度だけ統合樽選択を開く。原酒量・既存profile・2軸・味色・費用・理由を表示。閉じても保持、再読込復元対応",
+      "既存の樽選択・確定操作を再利用、保存失敗・資金不足・満杯を隠さず、自動処理へ割り込まない",
+      "販売欄A上下余白/B横幅整理を比較し、商品ごとの引取りと配置targetを分離、実hit確認。文字・数量演出・通常3店の縦寸法を維持"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者：三室改善を3段階PRで依頼。今回はPR1の結果統合・自動遷移・販売hit改善のみ"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "統合画面と例外状態の実操作",
+      "販売A/B比較と実hit領域",
+      "3幅2engineとStagingwarmcache"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production",
+      "第2段階の誘導記号、第3段階の文章通知",
+      "正式処理と保存形式変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "正式計算/保存変更",
+      "樽詰め自動確定",
+      "新画面階層",
+      "文字やタップ領域の縮小"
+    ],
+    "boundaryCases": [
+      "手動完了/未完了/旧filling/自動完了/close/reopen/reload/savefailure/funds/fullwarehouse",
+      "販売1/2/3+/12商品/大きい本数/長い名前/選択取消再配置/3幅"
+    ],
+    "testPlan": [
+      "既存正式model結果と保存一致、関連unit/modelテスト",
+      "2engine3幅native入力/統合modal/例外/販売hit/演出比較",
+      "ScopeRiskImpact/CI/PR/public"
+    ],
+    "problem": "正式な手動蒸留後に別ボタンが必要で、2商品が右欄を埋めると置く領域が見つからない",
+    "currentContract": "保存成功後の既存filling原酒とfillBarrel、名前情報/商品引取り/背景配置の別操作を維持",
+    "whyExistingIsInsufficient": "stage4は自動樽選択から除外され、商品横幅が配置面を占有する",
+    "design": "既存modalへ既存profileを表示しsaved完了のみ1回表示。販売商品札横幅と配置余白を調整し別hitを残す",
+    "migration": "なし",
+    "compatibility": "正式状態/schema/費用/味/収量/時計/操作入力は不変",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
