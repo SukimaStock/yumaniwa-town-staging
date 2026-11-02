@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import * as D from '../partner-orders.mjs';import {manualCompletedRuns} from '../distill-learning.mjs';import {distillationReadout} from '../spirit-view.mjs';import {distillToolsView,drawDistillTools,RECEIVER_MAX_LITRES,leverGuideOffset,leverReturnStep} from '../distill-tools-view.mjs';import {layoutScene,computeViewport,projectRect} from '../canvas-layout.mjs';import {stillArt} from '../room-object-art.mjs';
-const project=(s,extra={})=>distillToolsView({phase:s.still.phase,collection:D.collectionState(s),litres:distillationReadout(s)?.litres??0,flowLitres:s.still.distillation?.litres??0,prepared:true,available:true,canStart:D.canStart(s).ok,...extra});
+import * as D from '../partner-orders.mjs';import {manualCompletedRuns} from '../distill-learning.mjs';import {distillationReadout} from '../spirit-view.mjs';import {distillToolsView,drawDistillTools,RECEIVER_MAX_LITRES,leverGuideOffset,leverReturnStep,rangeRestartAvailable} from '../distill-tools-view.mjs';import {layoutScene,computeViewport,projectRect} from '../canvas-layout.mjs';import {stillArt} from '../room-object-art.mjs';
+const project=(s,extra={})=>distillToolsView({phase:s.still.phase,collection:D.collectionState(s),litres:distillationReadout(s)?.litres??0,flowLitres:s.still.distillation?.litres??0,prepared:true,available:true,canStart:D.canStart(s).ok,canRestart:rangeRestartAvailable(s),...extra});
 const step=(s,n)=>{while(s.still.distillation.progress<n)s=D.distillStep(s);return s;};
 test('empty waiting glass, three-second preparation and native minimum rules remain distinct',()=>{
  let s=D.newMarketRulesDistillery(42);let v=project(s,{prepared:false});assert(!v.leverEnabled);assert(v.leverInactive);assert(!v.showLeverArrow);assert(!v.arrow);v=project(s);assert(v.leverEnabled);assert(v.arrow);assert(!v.glassEnabled);assert.equal(v.fill,0);assert.equal(v.glassPosition,1);
@@ -8,7 +8,7 @@ test('empty waiting glass, three-second preparation and native minimum rules rem
  s=D.startRangeDistillation(s);assert.equal(project(step(s,42)).fill,0,'old progress litres are never shown as received before collection');
  s=D.beginCollection(s);v=project(s);assert.equal(v.glassPosition,0);assert(!v.glassEnabled);assert.equal(v.hint,'もう少し待ちます');
  s=step(s,54);v=project(s);assert(v.glassEnabled);assert.equal(v.glassMode,'stop');assert.equal(v.hint,'タップか右へスライドで終える');
- const expired=step(D.startRangeDistillation(D.newMarketRulesDistillery(42)),88);v=project(expired);assert(v.leverEnabled);assert(!v.leverDown);assert(!v.glassEnabled);assert(!v.arrow);
+ const expired=step(D.startRangeDistillation(D.newMarketRulesDistillery(42)),88);v=project(expired);assert(v.leverEnabled);assert(!v.leverDown);assert(!v.glassEnabled);assert(v.arrow);
  assert(!project(expired,{automatic:true}).leverEnabled);assert(!project(s,{available:false}).glassEnabled);
 });
 test('symbolic liquid starts empty and holds its elapsed height without changing formal quantities',()=>{
@@ -45,7 +45,7 @@ test('preparation belongs to the current native batch and cannot arm a later run
  const fs=await import('node:fs'),vm=await import('node:vm');
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),handler=source.slice(source.indexOf('function currentDistillTools(){'),source.indexOf('function startFromLever(){'));
  const initial=D.newMarketRulesDistillery(42);let later=D.beginCollection(D.startRangeDistillation(initial));later=step(later,12);later=D.tickDistillery(D.fillBarrel(D.stopDistillation(later),'refill'));assert(D.canStart(later).ok);
- const ctx={manualCompletedRuns,D,game:initial,distillPrepared:true,preparedForDistillation:initial.core.lastDistillation,room:'distill',modal:null,document:{hidden:false},preview:true,canSave:true,countdown:{active:false},T:{minimumStop:30},distillationReadout,distillToolsView};vm.createContext(ctx);vm.runInContext(handler,ctx);
+ const ctx={manualCompletedRuns,D,game:initial,distillPrepared:true,preparedForDistillation:initial.core.lastDistillation,room:'distill',modal:null,document:{hidden:false},preview:true,canSave:true,countdown:{active:false},T:{minimumStop:30},distillationReadout,distillToolsView,rangeRestartAvailable};vm.createContext(ctx);vm.runInContext(handler,ctx);
  assert(ctx.currentDistillTools().leverEnabled);ctx.game=later;assert(!ctx.currentDistillTools().leverEnabled);ctx.preparedForDistillation=later.core.lastDistillation;assert(ctx.currentDistillTools().leverEnabled);
 });
 

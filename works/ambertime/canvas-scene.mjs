@@ -1,6 +1,6 @@
 import{BREWING_CARDS}from'./brewing-cards.mjs?v=confirmed-brewing-r1';
 import{drawCutBar}from'./cut-bar.mjs?v=cut-range-r1';
-import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./distill-tools-view.mjs?v=panel-countdown-r1';
+import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./distill-tools-view.mjs?v=rooms-stage2-r1';
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
@@ -10,7 +10,7 @@ import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottl
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
-import{drawSymbol,symbolMarkup,SYMBOLS}from'./pixel-symbols.mjs?v=start-map-ui-r1&daily=1';
+import{drawSymbol,symbolMarkup,disclosureSymbols,SYMBOLS}from'./pixel-symbols.mjs?v=rooms-stage2-r1';
 import{uiText}from'./ui-text.mjs?v=stage4-r2';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false,frame=0){
@@ -35,7 +35,7 @@ export class CanvasScene{
   for(const id of ['toggle-speed','open-settings'])$('aux-panel').append($(id));
   $('scene-access').append($('spirit-readout'));for(const id of ['recovery','storage-notice'])document.body.append($(id));
   const close=$('close-dialog');close.innerHTML=symbolMarkup('close');close.setAttribute('aria-label','閉じる');
-  const observer=new MutationObserver(()=>{observer.disconnect();numberMarkup($('action-dialog'));this.alignDialog();observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});});observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});
+  const observer=new MutationObserver(()=>{observer.disconnect();numberMarkup($('action-dialog'));disclosureSymbols($('action-dialog'));this.alignDialog();observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});});observer.observe($('action-dialog'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});
   this.alignDialog=()=>{const dialog=$('action-dialog');if(!dialog.open)return;const vv=window.visualViewport,d=devicePixelRatio||1,r=dialog.getBoundingClientRect();Object.assign(dialog.style,{transform:'none',left:Math.round(((vv?.offsetLeft??0)+(vv?.width??innerWidth)/2-r.width/2)*d)/d+'px',top:Math.round(((vv?.offsetTop??0)+(vv?.height??innerHeight)/2-r.height/2)*d)/d+'px'});};
   new ResizeObserver(()=>this.alignDialog()).observe($('action-dialog'));
   this.resize=()=>{const vv=window.visualViewport;
@@ -65,7 +65,7 @@ export class CanvasScene{
  drawWorld(){
   const c=this.worldCtx,v=this.view,l=this.layout;
   const items=v.room==='warehouse'?v.casks:v.room==='sales'&&!v.marketMode?v.products:[];
-  const key=JSON.stringify([v.room,l,items,v.inspectId,this.reducedMotion.matches,items.some(item=>item.selected)?Math.floor(performance.now()/900)%2:0,this.arrival,v.room==='distill'?[v.collection,v.phase,this.stillFrame,v.tools,this.toolGesture?.leverStep,this.toolPaintX,this.toolArrowBright,this.toolArrowOffset,this.toolPaintLeverStep]:null]);
+  const key=JSON.stringify([v.room,l,items,v.inspectId,this.reducedMotion.matches,v.room==='sales'&&items.some(item=>item.selected)?Math.floor(performance.now()/900)%2:0,this.arrival,v.room==='distill'?[v.collection,v.phase,this.stillFrame,v.tools,this.toolGesture?.leverStep,this.toolPaintX,this.toolArrowBright,this.toolArrowOffset,this.toolPaintLeverStep]:null]);
   if(key===this.worldKey)return;this.worldKey=key;
   c.clearRect(0,0,120,214);c.fillStyle='#41414b';c.fillRect(0,0,120,214);
   const r=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(Math.round(x/3),Math.round(y/3),Math.round(w/3),Math.round(h/3));};
@@ -81,7 +81,7 @@ export class CanvasScene{
    const shelfRail=(x,y,w)=>{r(x+3,y+3,w,9,shadow);r(x,y,w,3,'#3c281e');r(x,y+3,w,3,'#644632');r(x,y+6,w,3,'#a0785a');r(x,y+9,w,3,shadow);};
    const s=l.shelf;post(s.x,s.y,9,s.h);post(s.x+s.w-6,s.y,9,s.h);for(const y of s.rails)shelfRail(s.x,y,s.w);
    const items=v.room==='warehouse'?v.casks:v.products,slots=v.room==='warehouse'?l.caskSlots:l.productSlots;
-   items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand,item.priceTier):bottleArt(item.wood,item.priceTier)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.contentBottom;if(item.selected){c.save();c.globalAlpha=this.reducedMotion.matches||Math.floor(performance.now()/900)%2===0?1:.35;c.fillStyle=ink;for(let row=0;row<4;row++)c.fillRect(Math.round((pos.x+pos.w/2)/3)-3+row,y-7+row,7-row*2,1);c.restore();}const arrival=this.arrival,identity=v.room==='warehouse'?item.id:item.releaseId,belongs=arrival.room===v.room&&arrival.ids.includes(identity);if(!(belongs&&arrival.blinkId===identity&&arrival.hidden))c.drawImage(image,x,y);if(belongs&&arrival.staticIds.includes(identity)){c.fillStyle=ink;c.fillRect(x-1,y,1,2);c.fillRect(x,y-1,2,1);c.fillRect(x+image.width-2,y-1,2,1);c.fillRect(x+image.width,y,1,2);}if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
+   items.forEach((item,i)=>{const pos=slots[i];if(!pos)return;const image=sprite(v.room==='warehouse'?barrel(item.type):(item.brand?brandArt(item.wood,item.brand,item.priceTier):bottleArt(item.wood,item.priceTier)));const x=Math.round((pos.x+pos.w/2)/3-image.width/2),y=pos.base/3-image.contentBottom;if(item.selected&&v.room!=='warehouse'){c.save();c.globalAlpha=this.reducedMotion.matches||Math.floor(performance.now()/900)%2===0?1:.35;c.fillStyle=ink;for(let row=0;row<4;row++)c.fillRect(Math.round((pos.x+pos.w/2)/3)-3+row,y-7+row,7-row*2,1);c.restore();}const arrival=this.arrival,identity=v.room==='warehouse'?item.id:item.releaseId,belongs=arrival.room===v.room&&arrival.ids.includes(identity);if(!(belongs&&arrival.blinkId===identity&&arrival.hidden))c.drawImage(image,x,y);if(belongs&&arrival.staticIds.includes(identity)){c.fillStyle=ink;c.fillRect(x-1,y,1,2);c.fillRect(x,y-1,2,1);c.fillRect(x+image.width-2,y-1,2,1);c.fillRect(x+image.width,y,1,2);}if(v.room==='warehouse'&&v.inspectId===item.id){const sample=sprite(glass(item.wood));c.drawImage(sample,Math.round((pos.x+pos.w/2+27)/3),pos.base/3-sample.height);}});
   }else if(v.room==='distill'){
    const e=l.equipment;post(72,e.benchY+6,9,l.floorY-e.benchY-6);post(282,e.benchY+6,9,l.floorY-e.benchY-6);rail(72,e.benchY,216);const image=sprite(stillArt({interactive:!!v.tools}),v.tools?1:v.collection,v.phase==='distilling',this.stillFrame);c.drawImage(image,e.x/3,e.y/3);if(v.tools){drawDistillTools(c,v.tools,{leverStep:this.toolPaintLeverStep,glassX:this.toolPaintX,arrowBright:this.toolArrowBright,arrowOffset:this.toolArrowOffset});this.root.dataset.distillTools=JSON.stringify({...v.tools,leverStep:this.toolPaintLeverStep,arrowOffset:this.toolArrowOffset,glassX:this.toolPaintX});}
   }
@@ -98,7 +98,7 @@ export class CanvasScene{
  }
  pixelRect(x,y,w,h,color){const c=this.ctx,v=this.viewport,left=Math.round((v.offsetX+x*v.scale)*v.dpr),top=Math.round((v.offsetY+y*v.scale)*v.dpr);c.save();c.setTransform(1,0,0,1,0,0);c.fillStyle=color;c.fillRect(left,top,Math.round((v.offsetX+(x+w)*v.scale)*v.dpr)-left,Math.round((v.offsetY+(y+h)*v.scale)*v.dpr)-top);c.restore();}
  window(x,y,w,h,fill='#2e3143',border='#6c707b'){this.pixelRect(x+3,y+3,w,h,shadow);this.pixelRect(x,y,w,h,border);this.pixelRect(x+3,y+3,w-6,h-6,fill);}
- icon(kind,x,y,w,h,color=ink){const c=this.ctx,v=this.viewport,unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit)),width=SYMBOLS[kind]?.[0]?.length??7;c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(x+w/2)*v.scale)*v.dpr-width*cell/2),Math.round((v.offsetY+(y+h/2)*v.scale)*v.dpr-width*cell/2),cell,color);c.restore();}
+ icon(kind,x,y,w,h,color=ink){const c=this.ctx,v=this.viewport,unit=v.scale*v.dpr,cell=Math.max(1,Math.round(3*unit)),width=SYMBOLS[kind]?.[0]?.length??7,height=SYMBOLS[kind]?.length??7;c.save();c.setTransform(1,0,0,1,0,0);drawSymbol(c,kind,Math.round((v.offsetX+(x+w/2)*v.scale)*v.dpr-width*cell/2),Math.round((v.offsetY+(y+h/2)*v.scale)*v.dpr-height*cell/2),cell,color);c.restore();}
  // Clock-only changes touch the existing two-pixel bar. Pending arrival,
  // selection and still animations keep their own bounded presentation timers.
  updateProgress(progress){
@@ -121,7 +121,7 @@ export class CanvasScene{
    geometry.push({value,iconX:x,nameX,textWidth:measure(labels[i]),underlineWidth:widths[i]});
   }
   this.root.dataset.brewingPanelGeometry=JSON.stringify({x:a.x,y:a.y,width:a.w,height:a.h,editable,groups:geometry,costLeft:editable?costLeft:null,costRight:editable?a.x+a.w-30:null});
-  if(editable){this.text(this.view.brewingCost,a.x+a.w-30,a.y+35,BODY_SIZE,'right');this.text('›',a.x+a.w-12,a.y+35,BODY_SIZE,'center');}
+  if(editable){this.text(this.view.brewingCost,a.x+a.w-30,a.y+35,BODY_SIZE,'right');this.icon('chevronRight',a.x+a.w-18,a.y+18,9,15);}
   this.ctx.restore();
  }
  drawTimeBar(){
@@ -136,7 +136,7 @@ export class CanvasScene{
   this.stillFrame=this.stillMoving?Math.floor(now/400)%2:0;
   this.arrival=this.motion.sample({room:this.view.room,caskIds:this.view.casks.map(c=>c.id),releaseIds:this.view.products.map(p=>p.releaseId),visible,reduced:this.reducedMotion.matches,now});
   this.root.dataset.roomMotion=JSON.stringify({stillFrame:this.stillFrame,stillMoving:this.stillMoving,arrival:this.arrival});
-  this.toolGuideMoving=false;this.toolReturning=false;const tools=this.view.tools;if(tools){const base=tools.glassPosition?237:174,drag=this.toolGesture?.glassOffset;this.toolSliding=false;if(drag!=null){this.toolPaintX=base+drag/this.viewport.scale;this.toolSlide=null;}else if(this.toolSlide&&!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible){const t=Math.min(1,(now-this.toolSlide.start)/140);this.toolPaintX=this.toolSlide.from+(this.toolSlide.to-this.toolSlide.from)*t;this.toolSliding=t<1;if(!this.toolSliding)this.toolSlide=null;}else{this.toolPaintX=base;this.toolSlide=null;}this.toolArrowBright=!tools.glassArrowBlink||this.reducedMotion.matches||Math.floor(now/900)%2===0;this.toolGuideMoving=visible&&this.view.room==='distill'&&tools.visible&&tools.arrow&&this.toolGesture?.leverStep==null&&!this.reducedMotion.matches;this.toolArrowOffset=leverGuideOffset({now:now-(this.toolGuideSince??now),completedRuns:tools.guideLevel==='first'?0:tools.guideLevel==='practice'?1:3,enabled:this.toolGuideMoving,touching:this.toolGesture?.leverStep!=null,reduced:this.reducedMotion.matches});this.toolReturning=false;if(this.toolReturn){this.toolPaintLeverStep=leverReturnStep(now-this.toolReturn.start,this.reducedMotion.matches);this.toolReturning=!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible&&now-this.toolReturn.start<120;if(!this.toolReturning)this.toolReturn=null;}else this.toolPaintLeverStep=tools.leverDown?2:0;if(this.toolGesture?.leverStep!=null)this.toolPaintLeverStep=this.toolGesture.leverStep;}
+  this.toolGuideMoving=false;this.toolReturning=false;const tools=this.view.tools;if(tools){const base=tools.glassPosition?237:174,drag=this.toolGesture?.glassOffset;this.toolSliding=false;if(drag!=null){this.toolPaintX=base+drag/this.viewport.scale;this.toolSlide=null;}else if(this.toolSlide&&!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible){const t=Math.min(1,(now-this.toolSlide.start)/140);this.toolPaintX=this.toolSlide.from+(this.toolSlide.to-this.toolSlide.from)*t;this.toolSliding=t<1;if(!this.toolSliding)this.toolSlide=null;}else{this.toolPaintX=base;this.toolSlide=null;}this.toolArrowBright=!tools.glassArrowBlink||this.reducedMotion.matches||Math.floor(now/900)%2===0;this.toolGuideMoving=visible&&this.view.room==='distill'&&tools.visible&&tools.arrow&&this.toolGesture?.leverStep==null&&!this.reducedMotion.matches;this.toolArrowOffset=leverGuideOffset({now:now-(this.toolGuideSince??now),completedRuns:['first','recovery'].includes(tools.guideLevel)?0:tools.guideLevel==='practice'?1:3,enabled:this.toolGuideMoving,touching:this.toolGesture?.leverStep!=null,reduced:this.reducedMotion.matches});this.toolReturning=false;if(this.toolReturn){this.toolPaintLeverStep=leverReturnStep(now-this.toolReturn.start,this.reducedMotion.matches);this.toolReturning=!this.reducedMotion.matches&&visible&&this.view.room==='distill'&&tools.visible&&now-this.toolReturn.start<120;if(!this.toolReturning)this.toolReturn=null;}else this.toolPaintLeverStep=tools.leverDown?2:0;if(this.toolGesture?.leverStep!=null)this.toolPaintLeverStep=this.toolGesture.leverStep;}
   this.controls();this.drawWorld();
   // Presentation clock only: never advances, saves or changes the game state.
   const resume=this.activeControls.find(a=>a.key==='toggle-time'),hintEligible=this.view.pauseHint&&visible&&!this.reducedMotion.matches&&resume&&!resume.node.disabled;
@@ -218,7 +218,7 @@ export class CanvasScene{
   }
   c.restore();
   clearTimeout(this.hintTimer);if(hintEligible)this.hintTimer=setTimeout(()=>this.queue(),idle<12000?12000-idle:1200-(idle-12000)%1200);
-  clearTimeout(this.selectionTimer);if(visible&&!this.reducedMotion.matches&&items.some(item=>item.selected))this.selectionTimer=setTimeout(()=>this.queue(),900-performance.now()%900);
+  clearTimeout(this.selectionTimer);if(visible&&view.room==='sales'&&!this.reducedMotion.matches&&items.some(item=>item.selected))this.selectionTimer=setTimeout(()=>this.queue(),900-performance.now()%900);
   clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs,tools?.glassArrowBlink&&!this.reducedMotion.matches?900-performance.now()%900:null,this.toolGuideMoving?120:null,this.toolReturning?30:null,this.toolSliding?16:null].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
  }
 }

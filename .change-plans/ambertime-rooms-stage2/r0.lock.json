@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "79b5886595b778af46f5e1922c882483b2033dc577d6cb1884377ce73e774165",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-rooms-stage2",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "貯蔵庫の古い誘導を除き、期限切れのレバー復旧誘導とドット絵記号を整理する",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "bdf480fc10871ddab1a974149ca10610aaf55ea7",
+    "canonicalSources": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-rooms-stage2/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/rooms-stage2/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/canvas-layout.mjs"
+    ],
+    "expectedChanges": [
+      "貯蔵庫の樽上選択三角だけを除去し、選択状態・hit・販売側表示は維持",
+      "採取期限切れの可視文章を除き、正式な無料やり直しの条件で習熟回数に関係ない下降矢印を表示。通常3回チュートリアル・入力・保存不変",
+      "現行UIのフォント依存chevron/close/details印を共有ピクセル記号に統一。本文・入力・読み上げ・重要な通知は保持"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者：三室改善PR2の古い誘導・期限切れ復旧・説明監査・記号統一を依頼"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "実Canvasの貯蔵庫矢印除去と選択hit維持",
+      "通常0〜3回と習熟済み期限切れ/blocked/RM/keyboard",
+      "3幅2engineの記号とStagingwarmcache"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production",
+      "PR3の文章一行化と資金文言",
+      "正式処理と保存形式・第1段階のhit寸法変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "正式モデル変更",
+      "通常チュートリアルの無条件復活",
+      "全記号の機械置換",
+      "不要な代替アイコン・説明追加"
+    ],
+    "boundaryCases": [
+      "期限切れ88step/未期限/採取中99step/手動3回以上/blocked取引・判断・試飲/保存不可/自動処理",
+      "仕込み前後/カウントダウン/レバー操作中/RM/Keyboard/貯蔵庫選択/販売2商品3店舗/Native details close"
+    ],
+    "testPlan": [
+      "関連unit/本編入力/正式保存一致/3幅2engine実Canvas",
+      "Scope Risk Impact/必須CI/PR/public"
+    ],
+    "problem": "貯蔵庫の古い三角と期限切れ文章が現在の直接操作に合わず、操作用の通常フォント記号が混在する",
+    "currentContract": "正式なrestartRangeDistillation、3回限定チュートリアル、既存のnative controls/a11yと保存後処理",
+    "whyExistingIsInsufficient": "期限切れの有効レバーが無誘導で、既存の選択印と記号の役割が混在",
+    "design": "表示専用の正式再開条件を検証し復旧矢印を独立化。共有3px記号をCanvas/nativeで使い分ける",
+    "migration": "なし",
+    "compatibility": "正式状態/schema/費用/味/収量/時計/操作入力は不変",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
