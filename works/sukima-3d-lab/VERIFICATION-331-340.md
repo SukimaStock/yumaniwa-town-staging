@@ -1,0 +1,11 @@
+# 331–340 takeover verification — 2026-11-02
+
+Aim: finish existing PR #729 while preserving its models, previous registrations, Engine and Production. Original head `3bd8093be8e960f41f309e6d1873f759829b051d`; final successor starts at main `74589232f9b5dee61d762aff85db924e528847ad`, with fresh Plan Lock committed before implementation. The owner explicitly authorized only #314 invalid part IDs/references, successor draft PRs, verification comments and safe Staging publication at 2026-11-02T19:17:06Z.
+
+Reused: ten JSON additions and current-count test updates. Minimum visual repair: four canal-lock-handwheel spoke Z positions 0.110→0.115 separate differently colored coplanar surfaces. First repair attempt passes unchanged GLES checker for all100 targeted frames; no renderer/checker edits.
+
+Baseline defect: #314 garden-compost-bin six part IDs contained decimal dots. Only those six ID tokens replace dots with hyphens. Geometry, materials, transforms, behaviors and registration remain unchanged. Exact repaired blob hash is pinned in test31; a new reverse-six-ID-rename regression reproduces original blob ea915e49332f8cc4c0b79b3d74e06bea0c7d9185, proving no other bytes changed. Other329 prior objects remain byte-identical.
+
+Original full Node suite:737 tests,706 pass/31 fail; original full GLES aborts at invalid314. New final successor requires observed full Node and full official render-collection/check-gles runs, Scope/Risk/Impact and exact-head CI. Chromium390×844 checks cover ten new models and repaired314: list selection, WebGL errors, pointer rotation, reset and return. Results and exact tested SHA are saved in the PR verification comment; this document is not itself a PASS certificate.
+
+Limits: physical iPhone/iPad Safari and author acceptance remain UNVERIFIED. Normal publicHTTP requests were proxy-blocked403; no bypass. Original PR729 stays open and duplicates the final batch; only one final batch may merge. Superseded saved branch fix/3d-331-340-verified-20261102 has no PR. No Production change. Draft→ready transition is a separate externally visible operation currently blocked on the parallel takeover; no merge/Pages success is inferred from draft creation or CI.
