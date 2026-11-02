@@ -1,0 +1,108 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4d31fba150736fc62789b01f6e996e6b0cc6204ba0203ecd5f633d56b684a689",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-gradual-glass",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "採取の経過区間に沿って象徴液面を84stepで徐々に満たす",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d69ebf422b37b3d6efdf194a16f7e5044ceb30d7",
+    "canonicalSources": [
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-gradual-glass/r0.lock.json",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/gradual-glass/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-learning.mjs"
+    ],
+    "expectedChanges": [
+      "液面を開始からの経過step/84に変更し0から1へ増加",
+      "終了後の高さを保持。色/正式モデル/入力は維持",
+      "関連テスト/3幅2engine/RM/保存一致/CI/cache確認"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者依頼：グラスを短時間で満たさず、採取経過に応じ徐々に溜める"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/単一先行Lock/Scope Risk Impact",
+      "表現監査：追加の操作文/画面/強い演出を作らない"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "12step/中間/長期/終了時の液面比較",
+      "Staging同じwarmcacheタブ更新"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert、正式保存の移行なし",
+    "outOfScope": [
+      "Production/新Lab/他画面変更",
+      "味/量/経済/保存/入力/レバー/習熟/バー変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safariの触感/色差/ブラウザーバー"
+    ],
+    "alternativesRejected": [
+      "独立timer",
+      "正式量との連動",
+      "停止時に満杯へ跳ねる"
+    ],
+    "boundaryCases": [
+      "開始0/12/42/84/99step/短い終了/legacy69/missingstart/RM"
+    ],
+    "testPlan": [
+      "純粋view/正式保存一致/操作回帰",
+      "3幅2engine/RM/旧cache/CI"
+    ],
+    "problem": "8stepで70%まで増えるため長い採取経過が伝わらない",
+    "currentContract": "象徴液面、正式モデル/入力/確定profile色維持",
+    "whyExistingIsInsufficient": "12stepの最短採取で液面が既に最大に達する",
+    "design": "既存collectionの経過step/84。描画の3px段階を維持、timerなし",
+    "migration": "なし",
+    "compatibility": "既存missingstartfallback維持。正式保存無変更",
+    "promotionRisk": "Staging限定。CIと実機作者採否を混同しない"
+  }
+}
