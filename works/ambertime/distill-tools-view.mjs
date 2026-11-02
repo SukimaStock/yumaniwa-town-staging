@@ -8,9 +8,14 @@ export function leverGuideOffset({now=0,completedRuns=0,enabled=false,touching=f
  return step<=maximum?step*3:0;
 }
 export function leverReturnStep(elapsed,reduced=false){return reduced||elapsed>=120?0:elapsed<60?2:1;}
-export function distillToolsView({phase,collection={},litres=0,flowLitres=litres,available=false,canStart=false,prepared=false,countdown=false,automatic=false,completedRuns=0}){
+// Mirror only the existing free restart guards; never run or mutate the model.
+export function rangeRestartAvailable(s){
+ const d=s?.still?.distillation;
+ return !!(s?.labConnection?.version===1&&s.still.phase==='distilling'&&d?.collectionVersion===2&&((d.collectStart===null&&d.progress===88)||(d.collectStart!==null&&d.progress===99))&&s.tastingId===null&&s.decisions.length===0&&s.trade.offer===null&&s.usual?.reservation?.status!=='active');
+}
+export function distillToolsView({phase,collection={},litres=0,flowLitres=litres,available=false,canStart=false,prepared=false,countdown=false,automatic=false,completedRuns=0,canRestart=false}){
  const expired=collection.expired===true,collecting=phase==='distilling'&&collection.collected&&(!collection.enabled||collection.start===null||collection.current>=collection.start),done=phase==='filling';
- const leverEnabled=available&&!automatic&&!countdown&&(phase==='ready'&&canStart&&prepared||expired);
+ const leverEnabled=available&&!automatic&&!countdown&&(phase==='ready'&&canStart&&prepared||expired&&canRestart);
  const collectingAllowed=collecting?collection.canStop:collection.canStart;
  const glassEnabled=available&&!automatic&&!countdown&&phase==='distilling'&&!expired&&!!collectingAllowed;
  const amount=done||collecting?Math.max(0,Number.isFinite(litres)?litres:0):0;
@@ -20,8 +25,8 @@ export function distillToolsView({phase,collection={},litres=0,flowLitres=litres
  const end=done?collection.end??collection.current:collection.current,start=collection.start;
  const width=start===null||start===undefined?null:Math.max(0,(end-start)*(collection.fullRange?99:69));
  const fill=done?(width===null?.7:Math.min(1,width/84)):collecting?(width===null?.7:Math.min(1,width/84)):0;
- const showLeverArrow=phase==='ready'&&leverEnabled&&completedRuns<3;
- return {visible:available,leverEnabled,glassEnabled,glassMode:glassEnabled?(collecting?'stop':'start'):null,leverDown:countdown||!expired&&phase==='distilling',glassPosition:collecting?0:1,prepared,leverInactive:phase==='ready'&&!countdown&&!leverEnabled,showLeverArrow,guideLevel:completedRuns===0?'first':completedRuns<3?'practice':'learned',guideDistance:completedRuns===0?9:completedRuns<3?6:0,glassArrow:available&&!automatic&&(countdown||phase==='distilling'&&!expired),glassArrowActive:glassEnabled,glassArrowBlink:available&&!automatic&&(countdown||glassEnabled),litres:amount,fill,hint:phase==='ready'||expired?'レバーを下に引く':phase==='distilling'&&!automatic?(!collectingAllowed?'もう少し待ちます':collecting?'タップか右へスライドで終える':'タップか左へスライドで受ける'):'',arrow:leverEnabled&&showLeverArrow};
+ const recovery=expired&&leverEnabled,showLeverArrow=leverEnabled&&(recovery||phase==='ready'&&completedRuns<3);
+ return {visible:available,leverEnabled,glassEnabled,glassMode:glassEnabled?(collecting?'stop':'start'):null,leverDown:countdown||!expired&&phase==='distilling',glassPosition:collecting?0:1,prepared,leverInactive:phase==='ready'&&!countdown&&!leverEnabled,showLeverArrow,guideLevel:recovery?'recovery':completedRuns===0?'first':completedRuns<3?'practice':'learned',guideDistance:recovery||completedRuns===0?9:completedRuns<3?6:0,glassArrow:available&&!automatic&&(countdown||phase==='distilling'&&!expired),glassArrowActive:glassEnabled,glassArrowBlink:available&&!automatic&&(countdown||glassEnabled),litres:amount,fill,hint:phase==='ready'||expired?'レバーを下に引く':phase==='distilling'&&!automatic?(!collectingAllowed?'もう少し待ちます':collecting?'タップか右へスライドで終える':'タップか左へスライドで受ける'):'',arrow:leverEnabled&&showLeverArrow};
 }
 // All authored cells are 3 logical pixels, on the same grid as the apparatus.
 export function drawDistillTools(ctx,view,{leverStep=null,glassX=TOOL_GEOMETRY.waitX,arrowBright=true,arrowOffset=0}={}){

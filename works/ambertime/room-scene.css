@@ -336,3 +336,13 @@ body[data-room] #hero .objects::after{content:none}
 #action-dialog[data-kind=fill] .fill-choice{min-width:0;display:flex;flex-direction:column}
 #action-dialog[data-kind=fill] .fill-choice button{width:100%}
 #action-dialog[data-kind=fill] #dialog-actions button[data-return=true]{grid-column:auto;order:0;justify-self:stretch;width:100%}
+
+/* Native controls share the same authored cells as Canvas, not font glyphs. */
+.pixel-icon[data-symbol=chevronRight]{display:inline-block;width:calc(var(--icon-cell,3px)*3);height:calc(var(--icon-cell,3px)*5);vertical-align:middle}
+.pixel-icon[data-symbol=chevronDown]{display:inline-block;width:calc(var(--icon-cell,3px)*5);height:calc(var(--icon-cell,3px)*3);vertical-align:middle}
+#dialog-body summary{list-style:none}#dialog-body summary::-webkit-details-marker{display:none}#dialog-body summary::marker{content:""}
+.pixel-disclosure{display:inline-flex;width:21px;margin-right:6px;align-items:center;justify-content:center;vertical-align:middle}
+.pixel-disclosure>[data-symbol=chevronDown],details[open]>summary>.pixel-disclosure>[data-symbol=chevronRight]{display:none}
+details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline-block}
+.delivery-label>.pixel-icon,.map-place-name>.pixel-icon{margin-left:6px}
+#taste-previous>.pixel-icon{margin-right:6px}
