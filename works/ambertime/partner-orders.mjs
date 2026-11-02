@@ -415,6 +415,10 @@ export const newFreeAgingDistillery=seed=>enableFreeAging(newBottlingRolesDistil
 // Experience changes discovery only after this recorded boundary.
 export const STAFF_EXPERIENCE=Object.freeze({version:1,manualFillThreshold:8,manualBottleThreshold:150});
 export const staffExperienceMode=s=>freeAgingMode(s)&&s.staffExperience?.version===STAFF_EXPERIENCE.version;
+// Discovery can be offered after six manual completions without rewriting the
+// historical eight-fill replay boundary. Existing notice/hire operations record
+// the earned flag; old saves and their completion operations remain exact.
+const distillerDiscovered=s=>!!s.staffProgression?.distill.unlocked||staffExperienceMode(s)&&s.staffExperience.manualFills>=6;
 function enableStaffExperienceWithContext(s,context){
  if(staffExperienceMode(s))return s;
  const j=clone(enableFreeAging(s));j.staffExperience={version:STAFF_EXPERIENCE.version,manualFills:context.manualFills,manualBottles:context.manualBottles};
@@ -490,12 +494,12 @@ export function bottlingStaffStatus(s){
  return {unlocked:!!b?.unlocked,hired:!!b?.hired,hiredMonth:b?.hiredMonth??null,canHire:!reason,reason,hireCost:BOTTLING_STAFF.hireCost,salary:BOTTLING_STAFF.salary,hireMinimum};
 }
 export function noticeStaffOpportunity(s,kind){
- assert(staffProgressionMode(s)&&['distill','bottling'].includes(kind),'担当者を選びます。');const notice=s.staffProgression[kind];assert(notice.unlocked,'先に自分で作業します。');if(notice.noticed)return s;
- const j=clone(s);j.staffProgression[kind].noticed=true;return action(j,'staff-opportunity-notice',{kind,progress:shopProgress(s)});
+ assert(staffProgressionMode(s)&&['distill','bottling'].includes(kind),'担当者を選びます。');const notice=s.staffProgression[kind];assert(kind==='distill'?distillerDiscovered(s):notice.unlocked,'先に自分で作業します。');if(notice.noticed)return s;
+ const j=clone(s);j.staffProgression[kind].unlocked=true;j.staffProgression[kind].noticed=true;return action(j,'staff-opportunity-notice',{kind,progress:shopProgress(s)});
 }
 export function staffOpportunities(s){
  if(!staffProgressionMode(s))return [];
- return ['distill','bottling'].filter(kind=>s.staffProgression[kind].unlocked&&!s.staffProgression[kind].noticed&&!(kind==='distill'?s.staff.hired:s.staffProgression.bottling.hired)).map(kind=>({kind,...(kind==='distill'?staffStatus(s):bottlingStaffStatus(s))}));
+ return ['distill','bottling'].filter(kind=>(kind==='distill'?distillerDiscovered(s):s.staffProgression[kind].unlocked)&&!s.staffProgression[kind].noticed&&!(kind==='distill'?s.staff.hired:s.staffProgression.bottling.hired)).map(kind=>({kind,...(kind==='distill'?staffStatus(s):bottlingStaffStatus(s))}));
 }
 export function hireBottlingStaff(s){
  const q=bottlingStaffStatus(s);assert(q.canHire,q.reason);const j=clone(s);Object.assign(j.staffProgression.bottling,{hired:true,hiredMonth:j.core.month,noticed:true});j.core.cash=round(j.core.cash-BOTTLING_STAFF.hireCost);j.core.totals.costs=round(j.core.totals.costs+BOTTLING_STAFF.hireCost);
@@ -648,12 +652,12 @@ function sourceFromContext(s,caskId,context){
 export function staffSource(s,caskId){validateDistillery(s);return sourceFromContext(s,caskId,checkpoint.context);}
 function staffHireCheck(s,context){
  const minimum=E.canStart(s).minimum+DISTILLER.hireCost;
- const reason=staffProgressionMode(s)&&!s.staffProgression.distill.unlocked?'自分で蒸留し、たるに詰めてから雇えます。':!staffMode(s)?'担当者に対応した保存で雇います。':s.staff.hired?'担当者は雇用中です。':!context.manualSources.size?'自分で蒸留し、樽に詰めてから雇えます。':s.core.cash<minimum?`採用と次の仕込み・瓶詰めに £${minimum} 必要です。`:'';
+ const reason=staffProgressionMode(s)&&!distillerDiscovered(s)?'自分で蒸留し、たるに詰めてから雇えます。':!staffMode(s)?'担当者に対応した保存で雇います。':s.staff.hired?'担当者は雇用中です。':!context.manualSources.size?'自分で蒸留し、樽に詰めてから雇えます。':s.core.cash<minimum?`採用と次の仕込み・瓶詰めに £${minimum} 必要です。`:'';
  return {ok:!reason,reason,minimum};
 }
 function hireStaffWithContext(s,context){
  const c=staffHireCheck(s,context);assert(c.ok,c.reason);assert(!blocked(s),'先に試飲・判断を終えます。');
- const j=clone(s);j.staff.hired=true;j.staff.hiredMonth=j.core.month;if(staffProgressionMode(j))j.staffProgression.distill.noticed=true;j.core.cash=round(j.core.cash-DISTILLER.hireCost);j.core.totals.costs=round(j.core.totals.costs+DISTILLER.hireCost);
+ const j=clone(s);j.staff.hired=true;j.staff.hiredMonth=j.core.month;if(staffProgressionMode(j)){j.staffProgression.distill.unlocked=true;j.staffProgression.distill.noticed=true;}j.core.cash=round(j.core.cash-DISTILLER.hireCost);j.core.totals.costs=round(j.core.totals.costs+DISTILLER.hireCost);
  return action(j,'staff-hire',{progress:shopProgress(s)});
 }
 export function hireStaff(s){validateDistillery(s);return hireStaffWithContext(s,checkpoint.context);}
@@ -668,7 +672,7 @@ export function staffQuote(s,caskId){
 }
 export function staffStatus(s){
  validateDistillery(s);const hire=staffHireCheck(s,checkpoint.context),r=s.usual?.reservation;
- return {...clone(s.staff??{hired:false,legacy:false,hiredMonth:null}),...(staffProgressionMode(s)?{unlocked:s.staffProgression.distill.unlocked}:{}),canHire:hire.ok,reason:hire.reason,hireMinimum:hire.minimum,hireCost:DISTILLER.hireCost,salary:DISTILLER.salary,state:r?.status==='active'?'working':r?'queued':'idle'};
+ return {...clone(s.staff??{hired:false,legacy:false,hiredMonth:null}),...(staffProgressionMode(s)?{unlocked:distillerDiscovered(s)}:{}),canHire:hire.ok,reason:hire.reason,hireMinimum:hire.minimum,hireCost:DISTILLER.hireCost,salary:DISTILLER.salary,state:r?.status==='active'?'working':r?'queued':'idle'};
 }
 function reserveStaffWithContext(s,caskId,context,mode='once'){
  assert(['once','three','continuous'].includes(mode),'依頼方式を選びます。');
