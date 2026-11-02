@@ -32,20 +32,32 @@ export function uiText(value){
  return text.replaceAll('銘柄','ブランド').replaceAll('樽','たる').replaceAll('瓶','ビン').replaceAll('刺激','シゲキ').replaceAll('標準','ふつう').replaceAll('バーボンたる','バーボン').replaceAll('リフィルたる','リフィル');
 }
 
+// Latest real sample before the current age, independent of array order.
+// This is a read-only comparison source, not a cue acknowledgement marker.
+export function previousAgingSample(cask,notes={}){
+ if(!Number.isInteger(cask?.age)||cask.age<0)return null;
+ return (notes.samples??[]).reduce((previous,sample)=>{
+  const valid=Number.isInteger(sample?.age)&&sample.age>=0&&sample.age<cask.age&&['character','wood','roughness'].every(key=>Number.isFinite(sample.profile?.[key])&&sample.profile[key]>=0&&sample.profile[key]<=1);
+  return valid&&(!previous||sample.age>previous.age)?sample:previous;
+ },null);
+}
+const agingTitles=new Map([['wood','原酒の色が深くなってきた'],['fading','香りの移り変わり'],['rough','若い原酒のまま、少し先へ'],['fruit','原酒の香りが広がる頃'],['rounded','口当たりが変わる頃'],['loss','少しずつ、減っていく']]);
+
 // Live maturation prompts only. Never apply this view to archived observations.
 // The event detector and its persisted title/text/options remain unchanged.
 export function agingEventText(event,cask,notes={}){
  const fallback={title:uiText(event.title),text:uiText(event.text)};
  // Only this known live system event changes copy; persisted/archived prose stays verbatim.
  if((event.id??event.eventId)==='funds'&&event.title==='瓶詰めの費用を残す')return {title:'次月の資金不足で停止',text:uiText(String(event.text??'').replace(/^(所持金 £[\d,.]+ · )瓶詰め予約 (?=£)/,'$1必要資金 '))};
- if(!cask)return fallback;
- const recent=notes.samples?.at(-1),earlier=recent&&recent.age<cask.age;
- switch(event.id??event.eventId){
-  case 'wood':return {title:'色が深くなった',text:earlier&&cask.wood-recent.profile.wood>=C.comparisonWood?'前に試したときより色が濃い':''};
-  case 'fading':return {title:'かおりが弱くなった',text:earlier&&recent.profile.character-cask.character>=C.sampleAromaLoss?'前に試したときよりかおりが弱い':''};
-  case 'rough':return {title:'若い原酒',text:'まだシゲキが残る'};
+ const id=event.id??event.eventId;
+ if(!cask||agingTitles.get(id)!==event.title)return fallback;
+ const recent=previousAgingSample(cask,notes);
+ switch(id){
+  case 'wood':return {title:recent&&cask.wood-recent.profile.wood>=C.comparisonWood?'色が濃くなった':'色が濃い',text:''};
+  case 'fading':return {title:'かおりが弱くなった',text:recent&&recent.profile.character-cask.character>=C.sampleAromaLoss?'前に試したときよりかおりが弱い':''};
+  case 'rough':return {title:'まだシゲキが残る',text:''};
   case 'fruit':return {title:'かおりが強い',text:'果実とこくもつのかおり'};
-  case 'rounded':return {title:'口当たりが丸くなった',text:''};
+  case 'rounded':return {title:recent&&recent.profile.roughness-cask.roughness>C.comparisonRough?'口当たりが丸くなった':'口当たりが丸い',text:''};
   case 'loss':return {title:'量が減った',text:cask.initialLitres>0?'たる詰めから'+Number(((1-cask.litres/cask.initialLitres)*100).toFixed(1))+'％減った':''};
   default:return fallback;
  }

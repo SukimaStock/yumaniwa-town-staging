@@ -30,7 +30,7 @@ test('confirmed name history only, initial/pending name is not a change; sampled
 });
 test('observations preserve meaning without pretending rough is rounded; current barrels only, at most one',()=>{
  const c=cask(),s=state(c);s.notesById[1].observations=[{age:35,month:35,eventId:'rough',title:'若い原酒のまま、少し先へ'},{age:30,month:30,eventId:'manual-cool',title:'移した'}];
- assert.equal(caskFeedback(s,c).text,'シゲキが残る');const b=cask(2);s.core.casks.push(b);s.notesById[2]={observations:[{age:36,month:36,eventId:'wood',title:'原酒の色が深くなってきた'}]};assert.equal(warehouseFeedback(s).caskId,2);assert.equal(typeof warehouseFeedback(s),'object');
+ assert.equal(caskFeedback(s,c).text,'まだシゲキが残る');const b=cask(2);s.core.casks.push(b);s.notesById[2]={observations:[{age:36,month:36,eventId:'wood',title:'原酒の色が深くなってきた'}]};assert.equal(warehouseFeedback(s).caskId,2);assert.equal(typeof warehouseFeedback(s),'object');
  s.core.casks=[];assert.equal(warehouseFeedback(s),null);
 });
 test('existing previous-taste thresholds: small delta quiet, meaningful change visible, no previous taste safe',()=>{
@@ -51,6 +51,6 @@ test('legal saves and calculation sources stay identical; no view timers/validat
  const source=fs.readFileSync(new URL('../flavor-feedback-view.mjs',import.meta.url),'utf8');assert(!/structuredClone\(|validate\w*\(|setTimeout\(|requestAnimationFrame\(|localStorage/.test(source));
 });
 test('incomplete old fields remain unknown and four live slots still select only one factual cue',()=>{
- const c=cask(),s=state(c);c.flavor.history.push({label:'月の記録なし'});assert.equal(caskFeedback(s,c),null);c.flavor.history.push({months:35,label:'記録済み'});c.filledMonth=undefined;assert.equal(caskFeedback(s,c),null);c.filledMonth=0;
+ const c=cask(),s=state(c);c.flavor.history.push({label:'月の記録なし'});assert.equal(caskFeedback(s,c),null);c.flavor.history.push({months:35,label:'記録済み'});c.filledMonth=undefined;assert.equal(caskFeedback(s,c),null);c.filledMonth=0;assert.equal(caskFeedback(s,c),null,'incomplete chronology is not a name-change fact');c.flavor.history=[{months:0,label:'名前'},{months:35,label:'記録済み'}];
  s.core.casks=Array.from({length:4},(_,i)=>({...c,id:i+1}));const fact=warehouseFeedback(s);assert.equal(fact.caskId,1);assert.equal(Array.isArray(fact),false);
 });

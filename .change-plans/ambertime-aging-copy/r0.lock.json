@@ -1,0 +1,87 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cfd6fee9f253168573d4279a734b0fd597b45a671c45757a7f78f813a49533ea",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-aging-copy",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "第1段階：熟成反応の状態/変化と前回試飲の文脈を表示だけで明確化",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "063670d78e6ed6b09fee3fff07338694574e831c",
+    "canonicalSources": [
+      "works/ambertime/flavor-feedback-view.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/tasting-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-aging-copy/r0.lock.json",
+      "works/ambertime/flavor-feedback-view.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/cask-detail-view.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/aging-copy/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/market.css"
+    ],
+    "expectedChanges": [
+      "閾値だけで決まる観察は状態表現。色/口当たりの変化は比較元がある場合だけ。正式な観察条件は維持",
+      "シゲキはまだシゲキが残る。かおりの低下/蒸発の既存根拠を保持",
+      "比較元を前回試飲と明示。1行previewにも文脈保持。風味historyの初回/同名/不正時刻/樽対応と再読込安定を確認",
+      "旧保存pendingの見出し/本文は表示adapterだけ整理。保存済み原文不変、未知表現維持",
+      "3幅2engine/新旧保存/全文a11y/キャッシュ/CI/Staging"
+    ],
+    "ownerDecisions": [
+      "2026-11-02作者：熟成反応文整理の第1段階、CI/PR/Staging公開"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS/事前r0Lock/Scope→Risk→Impact",
+      "表現監査：対象が分かる必要な文だけを表示、常時通常状態の重複を除く"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "状態と変化の根拠/風味名/前回試飲/旧保存/保存バイト一致",
+      "3幅2engine1行/詳細全文/a11y/旧cache",
+      "CI/Staging公開"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "表示変更を通常revert。正式保存形式/操作記録/判定に変更なし",
+    "outOfScope": [
+      "Production",
+      "計算/費用/給与/予約/本数制限/ゲーム時計/販売/評判/地図/正式保存と再生検証の変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "物理iPhone Safari/VoiceOver/作者の触感評価"
+    ]
+  }
+}

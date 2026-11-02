@@ -6,7 +6,7 @@ import {caskFeedback,warehouseFeedback,warehouseFeedbackPreview,FEEDBACK_MONTHS}
 import {shortChange} from '../tasting-view.mjs';
 import {uiText} from '../ui-text.mjs';
 import {warehouseFixtures} from './flavor-feedback-0254-fixtures.mjs';
-const titles={wood:['原酒の色が深くなってきた','色が深くなった'],fading:['香りの移り変わり','かおりが弱くなった'],rough:['若い原酒のまま、少し先へ','シゲキが残る'],fruit:['原酒の香りが広がる頃','かおりが強い'],rounded:['口当たりが変わる頃','口当たりがやわらかい'],loss:['少しずつ、減っていく','蒸発で量が減った']};
+const titles={wood:['原酒の色が深くなってきた','色が濃い'],fading:['香りの移り変わり','かおりが弱くなった'],rough:['若い原酒のまま、少し先へ','まだシゲキが残る'],fruit:['原酒の香りが広がる頃','かおりが強い'],rounded:['口当たりが変わる頃','口当たりが丸い'],loss:['少しずつ、減っていく','蒸発で量が減った']};
 function projection(eventId='loss',title=titles.loss[0]){const c={id:1,filledMonth:0,age:12,character:.7,wood:.2,roughness:.3,flavor:{history:[{months:0,label:'はじめ'}]}},s={core:{month:12,casks:[c]},notesById:{1:{samples:[],observations:[{age:12,month:12,eventId,title}]}}};return{s,c};}
 function cold(raw){const script=`import fs from 'node:fs';import * as D from ${JSON.stringify(new URL('../partner-orders.mjs',import.meta.url).href)};process.stdout.write(D.serializeDistillery(D.restoreDistillery(fs.readFileSync(0,'utf8'))));`;assert.equal(execFileSync(process.execPath,['--input-type=module','-e',script],{input:raw,encoding:'utf8',maxBuffer:8e6}),raw);}
 
@@ -26,7 +26,7 @@ test('confirmed saved flavor name is quoted using the existing detail spelling; 
 test('existing previous-sample deltas change only known feedback wording, keeping tasting copy, anchor and priority',()=>{
  const{s,c}=projection('wood',titles.wood[0]);s.notesById[1].samples=[{age:5,profile:{character:.9,wood:.1,roughness:.4}}];
  const original=shortChange({profile:c},s.notesById[1].samples[0]);assert(original.includes('香りが落ち着いた'));
- const raw=JSON.stringify(s),fact=caskFeedback(s,c);assert.equal(fact.kind,'sample');assert.equal(fact.month,12);assert.equal(fact.age,12);assert.equal(fact.text,'前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ');assert.equal(warehouseFeedbackPreview('たる No.1',fact),'No.1 · かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ');assert.equal(shortChange({profile:c},s.notesById[1].samples[0]),original);assert.equal(JSON.stringify(s),raw);
+ const raw=JSON.stringify(s),fact=caskFeedback(s,c);assert.equal(fact.kind,'sample');assert.equal(fact.month,12);assert.equal(fact.age,12);assert.equal(fact.text,'前回の試飲から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ');assert.equal(warehouseFeedbackPreview('たる No.1',fact),'No.1 · 前回から：かおりが弱くなった · 木の余韻が増した · シゲキがやわらいだ');assert.equal(shortChange({profile:c},s.notesById[1].samples[0]),original);assert.equal(JSON.stringify(s),raw);
  s.notesById[1].samples[0].profile.character=.5;assert(caskFeedback(s,c).text.includes('かおりが強くなった'));assert(shortChange({profile:c},s.notesById[1].samples[0]).includes('香りがふくらんだ'));
  c.flavor.history.push({months:12,label:'確認した名前'});assert.equal(caskFeedback(s,c).kind,'name','same-month name still wins');
 });

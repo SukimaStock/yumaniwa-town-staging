@@ -8,10 +8,10 @@ import {readSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} f
 import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=compact-three-r1&fields=count-linked-r1&rooms=stage2-r1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
-import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1';
+import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1&aging=1';
 import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=formal-copy-r1';
 import {RuntimeClock} from './runtime-clock.mjs?v=0.25.1';
-import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1';
+import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1';
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
 import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map';
 import {mapSalesProjection} from './map-sales-view.mjs?v=map-stage2-r1';
@@ -25,7 +25,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-messages-r1';
-import {CanvasScene} from './canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1';
+import {CanvasScene} from './canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1';
 import * as D from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
@@ -40,7 +40,7 @@ import {shortTaste,shortChange} from './tasting-view.mjs?v=stage4-r2';
 import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=stage4-r2';
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=formal-copy-r1';
 import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=market-rules-r1';
-import {uiText,agingEventText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1';
+import {uiText,agingEventText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 // Resolve structured cask IDs only; saved prose and player names stay verbatim.
 const caskSerials=createCaskSerials();
 // Serial numbers depend on recorded creation operations, never extraction.
