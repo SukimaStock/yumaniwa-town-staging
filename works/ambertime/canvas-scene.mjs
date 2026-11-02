@@ -4,14 +4,14 @@ import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./di
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry}from'./canvas-layout.mjs?v=store-market-main-r1&daily=1&tools=confirmed-brewing-r1';
+import{computeViewport,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry,feedbackLine}from'./canvas-layout.mjs?v=store-market-main-r1&rooms=stage3-r1';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
 import{drawSymbol,symbolMarkup,disclosureSymbols,SYMBOLS}from'./pixel-symbols.mjs?v=rooms-stage2-r1';
-import{uiText}from'./ui-text.mjs?v=stage4-r2';
+import{uiText}from'./ui-text.mjs?v=stage4-r2&rooms=stage3-r1';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false,frame=0){
  const key=markup+':'+collection.toFixed(3)+':'+active+':'+frame;if(spriteCache.has(key))return spriteCache.get(key);
@@ -191,6 +191,7 @@ export class CanvasScene{
   }
 
   this.window(9,582,342,45,'#292b39','#d8d5df');for(const x of[123,237])this.pixelRect(x,588,3,33,'#858995');
+  delete this.root.dataset.feedbackLine;
   for(const a of this.activeControls){
    if(a.key.startsWith('distill-')||a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
@@ -203,7 +204,12 @@ export class CanvasScene{
     if(a.key==='open-aux-menu'&&view.staffBrief&&view.room==='distill')this.lines(view.staffBrief,a.x+a.w+9,a.y+32,Math.max(0,348-a.x-a.w-9),BODY_SIZE,1);
     continue;
    }
-   if(a.key==='room-feedback'){this.window(a.x,a.y,a.w,a.h,pressed?'#19141e':'#292b39','#858995');this.lines(a.label,a.x+9,a.y+21,a.w-18,16,3);continue;}
+   if(a.key==='room-feedback'){
+    this.window(a.x,a.y,a.w,a.h,pressed?'#19141e':'#292b39','#858995');
+    const preview=view.feedback?.previewText??a.label,line=feedbackLine(preview,text=>this.measure(text),a.w-45);
+    this.text(line.label,a.x+9,a.y+33,BODY_SIZE);this.icon('chevronRight',a.x+a.w-27,a.y+15,15,24);
+    this.root.dataset.feedbackLine=JSON.stringify({...line,fullText:a.label,previewText:preview,textWidth:this.measure(preview),availableWidth:a.w-45,x:a.x,y:a.y,w:a.w,h:a.h});continue;
+   }
    if(a.key==='start-distill'&&view.brewing){this.brewingPanel(a,true,pressed,a.node.disabled);continue;}
    if(a.key==='trade-info'){drawSymbol(c,'handshake',a.x+11,a.y+6,3,ink);continue;}
    if(a.key.startsWith('room-')){this.text(({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[a.key.slice(5)],a.x+a.w/2,a.y+29,BODY_SIZE,'center',selected?ink:'#c1bdb0');if(selected){c.fillStyle='#d3bd84';c.fillRect(a.x+24,a.y+39,a.w-48,3);}continue;}

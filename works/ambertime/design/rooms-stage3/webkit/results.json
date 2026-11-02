@@ -1,0 +1,263 @@
+{
+  "engine": "webkit",
+  "checks": [
+    {
+      "width": 360,
+      "height": 568,
+      "reduced": true,
+      "tag": "B-long",
+      "hit": {
+        "x": 36.21875,
+        "y": 396.703125,
+        "width": 287.546875,
+        "height": 47.921875,
+        "top": 396.703125,
+        "right": 323.765625,
+        "bottom": 444.625,
+        "left": 36.21875,
+        "hit": true
+      },
+      "line": {
+        "label": "No.1 · 香りが落ち着いた ·…",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回から：香りが落ち着いた · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · 香りが落ち着いた · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 651.043133802817,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "C": {
+        "travelLogical": 372.043133802817,
+        "secondsAt12LogicalPerSecond": 31.003594483568083,
+        "implemented": false
+      }
+    },
+    {
+      "width": 360,
+      "tag": "short-static-whole",
+      "line": {
+        "label": "No.1 · かおりが広がる",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが広がる",
+        "previewText": "No.1 · かおりが広がる",
+        "textWidth": 217.01437793427232,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      }
+    },
+    {
+      "width": 360,
+      "tag": "modern-market-remains-without-room-cue"
+    },
+    {
+      "width": 360,
+      "tag": "native-funds-popup",
+      "cash": 120,
+      "quote": {
+        "count": 40,
+        "cost": 120
+      },
+      "formalPendingSame": true,
+      "body": "リフィル 8年9か月\n\n所持金 £120 · 必要資金 £120 · 維持費 £12/月。こちらのたるから回収できます。"
+    },
+    {
+      "width": 360,
+      "tag": "funds-existing-bottling-entrance"
+    },
+    {
+      "width": 360,
+      "tag": "critical-storage-not-shortened"
+    },
+    {
+      "width": 375,
+      "tag": "comparison-before",
+      "hit": {
+        "x": 30.5625,
+        "y": 433.03125,
+        "width": 313.875,
+        "height": 66.84375,
+        "top": 433.03125,
+        "right": 344.4375,
+        "bottom": 499.875,
+        "left": 30.5625,
+        "hit": true
+      },
+      "text": "たる No.1 · 前回から：香りが落ち着いた · 木の余韻が増した · シゲキがやわらいだ"
+    },
+    {
+      "width": 375,
+      "tag": "comparison-A",
+      "hit": {
+        "x": 30.5625,
+        "y": 433.03125,
+        "width": 313.875,
+        "height": 52.3125,
+        "top": 433.03125,
+        "right": 344.4375,
+        "bottom": 485.34375,
+        "left": 30.5625,
+        "hit": true
+      },
+      "text": "たる No.1 · 前回から：香りが落ち着いた · 木の余韻が増した · シゲキがやわらいだ"
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "reduced": false,
+      "tag": "B-long",
+      "hit": {
+        "x": 30.5625,
+        "y": 433.03125,
+        "width": 313.875,
+        "height": 52.3125,
+        "top": 433.03125,
+        "right": 344.4375,
+        "bottom": 485.34375,
+        "left": 30.5625,
+        "hit": true
+      },
+      "line": {
+        "label": "No.1 · 香りが落ち着いた · …",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回から：香りが落ち着いた · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · 香りが落ち着いた · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 596.4395161290323,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "C": {
+        "travelLogical": 317.4395161290323,
+        "secondsAt12LogicalPerSecond": 26.45329301075269,
+        "implemented": false
+      }
+    },
+    {
+      "width": 375,
+      "tag": "short-static-whole",
+      "line": {
+        "label": "No.1 · かおりが広がる",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが広がる",
+        "previewText": "No.1 · かおりが広がる",
+        "textWidth": 198.81317204301075,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      }
+    },
+    {
+      "width": 375,
+      "tag": "modern-market-remains-without-room-cue"
+    },
+    {
+      "width": 375,
+      "tag": "funds-before-original-copy",
+      "body": "リフィル 8年9か月\n\n所持金 £120 · ビン詰め予約 £120 · 維持費 £12/月。こちらのたるから回収できます。"
+    },
+    {
+      "width": 375,
+      "tag": "native-funds-popup",
+      "cash": 120,
+      "quote": {
+        "count": 40,
+        "cost": 120
+      },
+      "formalPendingSame": true,
+      "body": "リフィル 8年9か月\n\n所持金 £120 · 必要資金 £120 · 維持費 £12/月。こちらのたるから回収できます。"
+    },
+    {
+      "width": 375,
+      "tag": "funds-existing-bottling-entrance"
+    },
+    {
+      "width": 375,
+      "tag": "critical-storage-not-shortened"
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "reduced": false,
+      "tag": "B-long",
+      "hit": {
+        "x": 22.875,
+        "y": 474.9375,
+        "width": 344.25,
+        "height": 57.375,
+        "top": 474.9375,
+        "right": 367.125,
+        "bottom": 532.3125,
+        "left": 22.875,
+        "hit": true
+      },
+      "line": {
+        "label": "No.1 · 香りが落ち着いた · …",
+        "truncated": true,
+        "fullText": "たる No.1 · 前回から：香りが落ち着いた · 木の余韻が増した · シゲキがやわらいだ",
+        "previewText": "No.1 · 香りが落ち着いた · 木の余韻が増した · シゲキがやわらいだ",
+        "textWidth": 621.5,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      },
+      "C": {
+        "travelLogical": 342.5,
+        "secondsAt12LogicalPerSecond": 28.541666666666668,
+        "implemented": false
+      }
+    },
+    {
+      "width": 390,
+      "tag": "short-static-whole",
+      "line": {
+        "label": "No.1 · かおりが広がる",
+        "truncated": false,
+        "fullText": "たる No.1 · かおりが広がる",
+        "previewText": "No.1 · かおりが広がる",
+        "textWidth": 207.16666666666666,
+        "availableWidth": 279,
+        "x": 18,
+        "y": 447,
+        "w": 324,
+        "h": 54
+      }
+    },
+    {
+      "width": 390,
+      "tag": "modern-market-remains-without-room-cue"
+    },
+    {
+      "width": 390,
+      "tag": "native-funds-popup",
+      "cash": 120,
+      "quote": {
+        "count": 40,
+        "cost": 120
+      },
+      "formalPendingSame": true,
+      "body": "リフィル 8年9か月\n\n所持金 £120 · 必要資金 £120 · 維持費 £12/月。こちらのたるから回収できます。"
+    },
+    {
+      "width": 390,
+      "tag": "funds-existing-bottling-entrance"
+    },
+    {
+      "width": 390,
+      "tag": "critical-storage-not-shortened"
+    }
+  ],
+  "errors": [],
+  "physicalSafari": false
+}

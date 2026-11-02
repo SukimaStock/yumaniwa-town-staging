@@ -2,7 +2,7 @@
 // new comments, chemistry, timers, notifications or persistent read markers.
 import {customerComments,productTitle} from './player-news.mjs?v=0.25.4';
 import {shortChange} from './tasting-view.mjs?v=stage4-r2';
-import {uiText} from './ui-text.mjs?v=stage4-r2';
+import {uiText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1';
 const comparable=p=>p&&['character','wood','roughness'].every(k=>Number.isFinite(p[k]));
 export function createFeedbackComments(read=customerComments){
  let key=null,rows=[];
@@ -50,4 +50,12 @@ export function caskFeedback(game,cask){
 export function warehouseFeedback(game){
  return (game.core.casks??[]).map(c=>caskFeedback(game,c)).filter(Boolean)
   .sort((a,b)=>b.month-a.month||b.priority-a.priority||a.caskId-b.caskId||tieOrder(a.tie,b.tie))[0]??null;
+}
+
+// A compact preview of the same structured warehouse fact. The original fact
+// and the native button/detail text stay complete, including sample context.
+export function warehouseFeedbackPreview(caskTitle,fact){
+ const title=caskTitle.replace(/^たる (?=No\.\d+$)/,'');
+ const text=fact.kind==='sample'&&fact.text.startsWith('前回から：')?fact.text.slice('前回から：'.length):fact.text;
+ return title+' · '+text;
 }

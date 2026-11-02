@@ -15,7 +15,7 @@ export function layoutScene(view={}){
  const management=['open-ledger',...(view.staffAvailable?['open-staff-panel']:[]),...(view.room==='sales'?['shop-offer']:[]),...(view.mapAvailable?['open-world-map']:[]),'open-aux-menu'];
  let nextX=18;
  for(const key of management){const w=66;add(key,'#'+key,nextX,520,w,54);nextX+=w;}
- if(view.feedback&&!(view.room==='sales'&&view.marketMode))add('room-feedback','#room-feedback',18,447,324,69);
+ if(view.feedback&&!(view.room==='sales'&&view.marketMode))add('room-feedback','#room-feedback',18,447,324,54);
  const caskSlots=Array.from({length:4},(_,i)=>({x:60+(i%2)*132,y:180+Math.floor(i/2)*144,w:108,h:120,base:234+Math.floor(i/2)*144}));
  const productSlots=caskSlots.map((s,i)=>({...s,y:144+Math.floor(i/2)*144,h:144,base:234+Math.floor(i/2)*144}));
  if(view.room==='warehouse'){
@@ -56,4 +56,13 @@ export function collectionGeometry(range={}){
  const clamp=n=>Math.max(0,Math.min(1,Number.isFinite(n)?n:0));
  const start=range.start==null?null:clamp(range.start),end=range.end==null?null:clamp(range.end),current=clamp(range.current);
  return {x:60,y:393,w:240,h:6,current,start,end,rangeEnd:start===null?null:end??current};
+}
+
+// Display-only one-line preview. The native button and existing detail retain
+// the original text; this helper never changes a saved comment or notice.
+export function feedbackLine(text,measure,width){
+ const full=String(text??'').replace(/\s+/g,' ').trim();
+ if(measure(full)<=width)return {label:full,truncated:false};
+ let chars=Array.from(full);while(chars.length&&measure(chars.join('')+'…')>width)chars.pop();
+ return {label:measure('…')<=width?chars.join('')+'…':'',truncated:true};
 }
