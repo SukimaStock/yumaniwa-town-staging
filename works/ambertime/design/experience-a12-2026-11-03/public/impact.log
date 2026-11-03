@@ -1,0 +1,18 @@
+YUMANIWA IMPACT CHECK v0.2
+Change: Record final post-deployment A1-2 public browser verification with unchanged product bytes
+Base:   636ee1a04f2b632f6363022e0bc52dcb310bf8b9
+Target: worktree (65a14c56610be1859aa21b1fddee7c90cba8a5a5)
+Changed paths: 13
+Rule-covered paths: 6
+
+PASS impact.declared work.regression [works/ambertime/design/experience-a12-2026-11-03/public/impact.log, works/ambertime/design/experience-a12-2026-11-03/public/provenance.json, works/ambertime/design/experience-a12-2026-11-03/public/results.json, works/ambertime/design/experience-a12-2026-11-03/public/risk.log, works/ambertime/design/experience-a12-2026-11-03/public/run.log, works/ambertime/design/experience-a12-2026-11-03/public/scope.log] — impact is declared in impactChecks
+PASS impact.declared work.runtime [works/ambertime/design/experience-a12-2026-11-03/public/impact.log, works/ambertime/design/experience-a12-2026-11-03/public/provenance.json, works/ambertime/design/experience-a12-2026-11-03/public/results.json, works/ambertime/design/experience-a12-2026-11-03/public/risk.log, works/ambertime/design/experience-a12-2026-11-03/public/run.log, works/ambertime/design/experience-a12-2026-11-03/public/scope.log] — impact is declared in impactChecks
+INFO impact.no-rule [.change-plans/ambertime-a12-public-20261103/r0.lock.json] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a12-2026-11-03/public/INDEPENDENT-REVIEW.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a12-2026-11-03/public/README.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a12-2026-11-03/public/chromium-motion.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a12-2026-11-03/public/chromium-reduced.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a12-2026-11-03/public/webkit-motion.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a12-2026-11-03/public/webkit-reduced.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+
+Impact: PASS

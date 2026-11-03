@@ -1,0 +1,79 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ebd7ad7ca6e9ff8c92178f808624cd29805279581d41234c930630c2995ca604",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "636ee1a04f2b632f6363022e0bc52dcb310bf8b9",
+    "changeId": "ambertime-a12-public-20261103",
+    "revision": 0,
+    "change": "Record final post-deployment A1-2 public browser verification with unchanged product bytes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "PR780 exactheadfffc94025 andmerge636ee1a0, required3CI success",
+      "Pages run41652620067",
+      "Existing reviewed strict a1-2-browser-public.mjs and TLSvalidated adapter fromPR779",
+      "Current A1-2 explicitinstruction Staging/publicverification authorized"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a12-public-20261103/r0.lock.json",
+      "works/ambertime/design/experience-a12-2026-11-03/public/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Record Chromium/WebKit normal/reduced four public pointer operations and3deployed asset hash checks each; keep actual request failures/transport diagnostics, fontstate, pre-save/paint/modal order and formal/raw save assertions. No product/test changes.",
+      "Use same already reviewed TLS-validating publicresponse forwarding adapter; retain directnetwork/physicaldisplay limits. Save results/screenshots/provenance/short verification and independent result review.",
+      "Product tree remains identical to636ee1a0; Scope/Risk/Impact, requiredCI and normal verification-only Staging PR merge. No repeated fullsuite because all product/test bytes are unchanged."
+    ],
+    "ownerDecisions": [
+      "Current explicit A1 instruction authorizes both local experience improvements and independent review/CI/normal Staging merge/public browser verification; no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK staging-only; lock-only commit before implementation",
+      "No extra buttons/copy/sound/loading UI; restrained glint explicitly requested",
+      "Existing worker projections/view formatters and Canvas scheduler retained",
+      "Baseline/source expectations not loosened; intentional source delta inverse is exact and new behavior has separate tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Public4cases/formal/raw save,3stages/distinct3frames beforefill, reduce/no wait, request/page/transport failures0",
+      "Actual deployedHTML/app/Canvas hash12matches",
+      "Independent resultreview, productbyteidentity and exacthead CI normalmerge"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert PR of A1 runtime/cache/test/docs together; no save migration",
+    "outOfScope": [
+      "All product/model/save/test/geometry/clock/UI changes",
+      "Production/Lab/sharedsettings"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari touch feel/VoiceOver/real OS background/BFCache until actually observed"
+    ]
+  }
+}

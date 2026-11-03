@@ -1,7 +1,7 @@
 {
-  "status": "prepared-not-executed",
-  "sourceBase": "aabc77cb54f10838b8b9975161fda29b84977b51",
-  "planDigest": "b58f4328e14b2006f5c067d9eec46cd76553d31ad1c0c96b8c9972f7cc9001ed",
+  "status": "executed-passed",
+  "sourceBase": "636ee1a04f2b632f6363022e0bc52dcb310bf8b9",
+  "planDigest": "ebd7ad7ca6e9ff8c92178f808624cd29805279581d41234c930630c2995ca604",
   "adapterOrigin": "works/ambertime/design/experience-a1-2026-11-03/public/transport-adapter.mjs (PR779)",
   "adapterUnchanged": true,
   "adapterSHA256": "ebbfdf3c3dd06d7d1c55cf6b717552673867cf6da7ba83e4526b376ba94e9728",
@@ -13,8 +13,21 @@
   },
   "transport": "Configured HTTP(S) proxy and configured Node CA-validated route.fetch remote HTTPS response forwarded into same-origin browser context. No local response substitution and no TLS disable. Not direct browser TLS/performance proof.",
   "unverified": [
-    "Not executed until merge/Pages publication signal",
     "Physical iPhone Safari/display/VoiceOver",
-    "Real OS background/BFCache"
-  ]
+    "Real OS background/BFCache",
+    "Direct browser TLS/network performance"
+  ],
+  "publishedCommit": "636ee1a04f2b632f6363022e0bc52dcb310bf8b9",
+  "pagesRun": 41652620067,
+  "executionLockLocalCommit": "65a14c56",
+  "executionBranch": "verify/ambertime-a12-public",
+  "cases": 4,
+  "deployedProductHashComparisons": 12,
+  "resultSHA256": "dccf8c069518634631e2c632f6a262af2b15501ef6ab6998d1fd36746c62792c",
+  "pageErrors": 0,
+  "requestFailures": 0,
+  "transportFailures": 0,
+  "coldTransportObservation": "Approximately80s until first public case artifact; includes remote asset fetching and initial smoke, not glint latency. Subsequent cases reuse adapter memory cache.",
+  "implementationBase": "aabc77cb54f10838b8b9975161fda29b84977b51",
+  "implementationPlanDigest": "ee5216023bbc8c4525549e67646a719759bd299f849830c157e7db33c970b9a2"
 }
