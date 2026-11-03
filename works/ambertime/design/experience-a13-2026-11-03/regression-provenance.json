@@ -1,0 +1,38 @@
+{
+  "exitCode": 0,
+  "elapsedMs": 135643.7,
+  "sourceStable": true,
+  "before": {
+    "works/ambertime/canvas-scene.mjs": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519",
+    "works/ambertime/shop-app.mjs": "02160d577ee63d3fcfa4643a3d63b4259f310ebf500628e1e3f63e53503f8c8c",
+    "works/ambertime/index.html": "9f6f66235ee83efe2145d18a05ec8b00a8d4bc1dfa1889553b573c56668f8976",
+    "works/ambertime/tests/a1-glint.test.mjs": "7c17d8d51fd98e92d140f5f2375a1d2cd2a7a60d74d4b5375d9577d9eb65ebb2",
+    "works/ambertime/tests/a1-source-baseline.mjs": "f02656dc3d47120b991d370d0d01ed54c3f0da358aecbbe86fc2d630e53cace7",
+    "works/ambertime/tests/a1-browser-completion.mjs": "995bc3c713ed5a7aa59e422af8c2b7b47e88c0649f50534a4d31d68bdfbad66e",
+    "works/ambertime/tests/a1-3-browser-completion.mjs": "c230cdebcefc9bc31ff8ca19ad6a8cd7ebb931ecda820e1e7139b530452f730e",
+    "works/ambertime/tests/a1-browser-regression.mjs": "7a5f36671da2b8d144eb5c84f6b33239c6c1fe602ad9773363856bc1e81fe608"
+  },
+  "after": {
+    "works/ambertime/canvas-scene.mjs": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519",
+    "works/ambertime/shop-app.mjs": "02160d577ee63d3fcfa4643a3d63b4259f310ebf500628e1e3f63e53503f8c8c",
+    "works/ambertime/index.html": "9f6f66235ee83efe2145d18a05ec8b00a8d4bc1dfa1889553b573c56668f8976",
+    "works/ambertime/tests/a1-glint.test.mjs": "7c17d8d51fd98e92d140f5f2375a1d2cd2a7a60d74d4b5375d9577d9eb65ebb2",
+    "works/ambertime/tests/a1-source-baseline.mjs": "f02656dc3d47120b991d370d0d01ed54c3f0da358aecbbe86fc2d630e53cace7",
+    "works/ambertime/tests/a1-browser-completion.mjs": "995bc3c713ed5a7aa59e422af8c2b7b47e88c0649f50534a4d31d68bdfbad66e",
+    "works/ambertime/tests/a1-3-browser-completion.mjs": "c230cdebcefc9bc31ff8ca19ad6a8cd7ebb931ecda820e1e7139b530452f730e",
+    "works/ambertime/tests/a1-browser-regression.mjs": "7a5f36671da2b8d144eb5c84f6b33239c6c1fe602ad9773363856bc1e81fe608"
+  },
+  "command": "AMBER_A1_BASE_SHA=7662134ce094eabc637625c2742b2e1eb91b2127 AMBER_A1_BEFORE_ROOT=/workspace/scratch/74eaf70cc093/a13-baseline AMBER_A1_OUTPUT=/workspace/scratch/74eaf70cc093/ambertime-a13/works/ambertime/design/experience-a13-2026-11-03/regression-browser AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell AMBER_WEBKIT_EXECUTABLE=/workspace/scratch/74eaf70cc093/a13-regression-webkit.sh node works/ambertime/tests/a1-browser-regression.mjs",
+  "logSHA256": "2310c81a85f5886a9985e4e2b5c5a01aee015580d61b004f1e12d8539d934a2c",
+  "base": "7662134ce094eabc637625c2742b2e1eb91b2127",
+  "captureCount": 416,
+  "comparisonCount": 208,
+  "differentPixels": 0,
+  "cacheCases": 2,
+  "errors": 0,
+  "runnerUnchanged": true,
+  "runnerSHA256": "7a5f36671da2b8d144eb5c84f6b33239c6c1fe602ad9773363856bc1e81fe608",
+  "resultsSHA256": "bcb4446c8d426100643c6c2c28e425758658ae661b789e15fd51504bed7fc308",
+  "animationBoundary": "Non-glint settled comparison uses controlled performance.now400ms increments; completion may hit bounded fallback before capture. Natural/fixed-stage runner separately proves every rim/cross stage.",
+  "status": "passed"
+}

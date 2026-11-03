@@ -19,6 +19,22 @@ function sprite(markup,collection=1,active=false,frame=0){
  function paint(node,alpha=1){if(!active&&(node.classList?.contains('still-steam')||node.classList?.contains('distill-stream')))return;ctx.save();if(active&&frame===1){if(node.classList?.contains('distill-stream'))ctx.translate(0,1);if(node.classList?.contains('still-steam'))ctx.translate(0,-1);}const opacity=Number(node.getAttribute('fill-opacity')??node.getAttribute('opacity')??1);ctx.globalAlpha=alpha*opacity;if(node.classList?.contains('receiver-liquid')){const bottom=Number(node.getAttribute('data-liquid-bottom'));ctx.translate(0,bottom);ctx.scale(1,collection);ctx.translate(0,-bottom);}if(node.tagName==='rect'){ctx.fillStyle=node.getAttribute('fill');ctx.fillRect(...['x','y','width','height'].map(k=>Number(node.getAttribute(k))));}else for(const child of node.children)paint(child,alpha*opacity);ctx.restore();}
  paint(svg);if(spriteCache.size>100)spriteCache.clear();spriteCache.set(key,canvas);return canvas;
 }
+// Presentation-only stages. The original rim is followed by an orthogonal
+// cross: remove/dim its outer cells first, then let the last center fade.
+function distillCompletionStages(duration){
+ const scale=(duration-340)/400;
+ const cross=[
+  {label:'cross-dot',ms:30,radius:0,center:1,arms:0,tips:0},
+  {label:'cross-grow',ms:30,radius:1,center:1,arms:1,tips:0},
+  {label:'cross-max-hold',ms:100,radius:2,center:1,arms:1,tips:1},
+  {label:'cross-tips-dim',ms:45,radius:2,center:1,arms:.9,tips:.35},
+  {label:'cross-contract',ms:50,radius:1,center:.88,arms:.65,tips:0},
+  {label:'cross-center',ms:55,radius:0,center:.65,arms:0,tips:0},
+  {label:'cross-center-dim',ms:45,radius:0,center:.36,arms:0,tips:0},
+  {label:'cross-center-faint',ms:45,radius:0,center:.14,arms:0,tips:0}
+ ];
+ return [1,2,3].map(n=>({label:'rim-'+n,kind:'rim',ms:170/3})).concat(cross.map(stage=>({...stage,kind:'cross',ms:stage.ms*scale})));
+}
 export class CanvasScene{
  constructor(){
   this.uniformTypography=$('font-uniform-style')?installUniformTypography(location.search,document.documentElement):null;
@@ -54,13 +70,14 @@ export class CanvasScene{
  setToolGesture(next){const before=this.toolGesture;this.toolGesture=next;if(before?.leverStep!=null&&next.leverStep==null)this.toolGuideSince=performance.now();if(before?.glassOffset!=null&&next.glassOffset==null&&this.view?.tools)this.toolSlide={from:this.toolPaintX??(this.view.tools.glassPosition?TOOL_GEOMETRY.waitX:TOOL_GEOMETRY.collectX),to:this.view.tools.glassPosition?TOOL_GEOMETRY.waitX:TOOL_GEOMETRY.collectX,start:performance.now()};this.queue();}
  // A saved manual completion is presentation only; the existing motion timer
  // schedules its finite frames. No game clock, storage or modal ownership here.
- startDistillCompletion(spiritId,onDone,duration=350){
+ startDistillCompletion(spiritId,onDone,duration=740){
   // A repeated render/request for the same saved spirit cannot restart its glint.
   if(this.isDistillCompletion(spiritId))return false;
   this.cancelDistillCompletion();
   if(document.hidden||this.suspended||!this.fontSettled||this.reducedMotion.matches||this.ctx?.isContextLost?.()||this.worldCtx?.isContextLost?.())return false;
+  duration=Math.max(690,Math.min(800,Number.isFinite(duration)?duration:740));
   const token=++this.completionGeneration,start=performance.now();
-  this.distillCompletion={spiritId,onDone,token,start,duration,deadline:start+duration+250,paintedFrames:0,paintedStep:0,lastPaintAt:null,stagePaintAt:null,glintStart:null};
+  this.distillCompletion={spiritId,onDone,token,start,duration,stages:distillCompletionStages(duration),deadline:start+duration+400,paintedFrames:0,paintedStep:0,lastPaintAt:null,stagePaintAt:null,glintStart:null};
   this.armCompletionDeadline();this.queue();return true;
  }
  // Reuse the finite motion timer as a watchdog when a queued RAF cannot run.
@@ -82,22 +99,23 @@ export class CanvasScene{
   if(this.reducedMotion.matches||!this.fontSettled||this.ctx?.isContextLost?.()||this.worldCtx?.isContextLost?.()){this.finishDistillCompletion();return null;}
   if(!visible||this.view?.room!=='distill'||this.view?.phase!=='filling'||!this.view?.tools?.visible){this.cancelDistillCompletion();return null;}
   if(now>=run.deadline){this.finishDistillCompletion();return null;}
-  const elapsed=now-run.start,span=Math.min(200,run.duration-180),stageMs=span/3;
-  // Keep the existing 140ms glass return; late frames start the glint late too.
+  const elapsed=now-run.start;
+  // Keep the existing 140ms glass return and all three original rim stages.
   if(elapsed<150||this.toolSliding)return Math.max(1,150-elapsed);
-  if(run.glintStart===null){this.completionStep=1;return stageMs;}
-  const age=now-run.glintStart;
-  // A skipped frame cannot skip an unpainted stage. These are destination-canvas
-  // submissions on distinct draws, not claims about the physical display.
-  if(age>=span&&run.paintedStep===3&&run.paintedFrames>=3&&now>=run.stagePaintAt+stageMs){
-   const end=Math.max(run.start+run.duration,run.glintStart+span+30,run.stagePaintAt+stageMs+30);
-   if(now>=end){this.finishDistillCompletion();return null;}
-   return end-now;
+  if(run.paintedStep===0){this.completionStep=1;return run.stages[0].ms;}
+  const stage=run.stages[run.paintedStep-1],remaining=run.stagePaintAt+stage.ms-now;
+  // Advance only after the previous stage was composited and held. A late RAF
+  // cannot skip the expanding cross, its contraction, or its last faint cell.
+  if(remaining>0){this.completionStep=run.paintedStep;return remaining;}
+  if(run.paintedStep<run.stages.length){
+   this.completionStep=run.paintedStep+1;
+   return run.stages[this.completionStep-1].ms;
   }
-  this.completionStep=run.paintedStep;
-  if(now>=run.stagePaintAt+stageMs)this.completionStep=Math.min(3,run.paintedStep+1);
-  return Math.max(1,run.stagePaintAt+stageMs-now);
+  const end=Math.max(run.start+run.duration,run.stagePaintAt+stage.ms+20);
+  if(now>=end){this.finishDistillCompletion();return null;}
+  return end-now;
  }
+
  recordDistillCompletionFrame(now){
   const run=this.distillCompletion;
   if(!run||!this.completionStep||this.ctx?.isContextLost?.()||this.worldCtx?.isContextLost?.()||run.lastPaintAt===now)return;
@@ -107,10 +125,19 @@ export class CanvasScene{
  }
  paintDistillCompletion(ctx){
   if(!this.completionStep)return;
+  const stage=this.distillCompletion?.stages[this.completionStep-1];if(!stage)return;
   const x=Math.round(this.toolPaintX/3),y=TOOL_GEOMETRY.glassY/3;
   ctx.fillStyle='#f0e6c8';
-  ctx.fillRect(x+2+(this.completionStep-1)*2,y,4,1);
+  if(stage.kind==='rim'){ctx.fillRect(x+2+(this.completionStep-1)*2,y,4,1);return;}
+  // Same glass coordinates/grid: the lower tip sits one cell above the rim.
+  const cx=x+8,cy=y-3,alpha=ctx.globalAlpha??1;
+  const cell=(dx,dy,brightness)=>{ctx.globalAlpha=alpha*brightness;ctx.fillRect(cx+dx,cy+dy,1,1);};
+  try{
+   cell(0,0,stage.center);
+   for(let radius=1;radius<=stage.radius;radius++)for(const [dx,dy]of [[radius,0],[-radius,0],[0,radius],[0,-radius]])cell(dx,dy,radius===1?stage.arms:stage.tips);
+  }finally{ctx.globalAlpha=alpha;}
  }
+
  resetMotion(){this.cancelDistillCompletion();this.motion.reset();this.toolReturn=null;this.toolGuideSince=performance.now();clearTimeout(this.motionTimer);this.queue();}
  update(view){if(view.room!=='distill'||view.phase!=='filling'||!view.tools?.visible)this.cancelDistillCompletion();const old=this.view;if(view.tools?.arrow&&(!old?.tools?.arrow||view.tools.guideLevel!==old.tools.guideLevel))this.toolGuideSince=performance.now();if(old?.room==='distill'&&view.room==='distill'&&old.tools?.leverDown&&!view.tools?.leverDown&&view.phase==='filling')this.toolReturn={start:performance.now()};if(view.room!=='distill'||!view.tools?.visible)this.toolReturn=null;this.motion.observe(view.motionIds);if(!!view.pauseHint!==!!this.view?.pauseHint)this.idleSince=performance.now();if(view.tools&&this.view?.tools&&view.tools.glassPosition!==this.view.tools.glassPosition)this.toolSlide={from:this.toolPaintX??(this.view.tools.glassPosition?TOOL_GEOMETRY.waitX:TOOL_GEOMETRY.collectX),to:view.tools.glassPosition?TOOL_GEOMETRY.waitX:TOOL_GEOMETRY.collectX,start:performance.now()};this.view=view;this.layout=layoutScene(view);this.root.dataset.room=view.room;this.root.setAttribute('aria-label',({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[view.room]);this.root.dataset.sceneAnchors=JSON.stringify({floor:this.layout.floorY,shelf:this.layout.shelf,casks:this.layout.caskSlots,products:this.layout.productSlots,equipment:this.layout.equipment});$('scene-summary').textContent=[view.calendar,view.cash,view.generation,view.timeStatus,view.phaseSummary].filter(Boolean).join(' · ');$('scene-notice').textContent=view.notice??'';const progress=$('month-progress');progress.setAttribute('aria-valuenow',String(Math.round(100*(view.monthProgress??0))));progress.setAttribute('aria-valuetext','今月 '+Math.round(100*(view.monthProgress??0))+'％ · '+view.timeStatus);$('spirit-readout').setAttribute('aria-hidden',String(view.room!=='distill'));this.queue();}
  stopDrawing(preserveCompletion=false){if(!preserveCompletion)this.finishDistillCompletion();if(this.frame)cancelAnimationFrame(this.frame);this.frame=0;for(const key of ['hintTimer','selectionTimer','motionTimer']){clearTimeout(this[key]);this[key]=null;}}

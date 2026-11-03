@@ -1,0 +1,42 @@
+✔ A1-3 retains the immutable A1-2 rim and appends all eleven acknowledged stages (13.152616ms)
+✔ A1-3 orthogonal cross expands and retracts by cells while its center fades quietly (2.359707ms)
+✔ A1-3 elapsed time and paint commands alone cannot satisfy all composite stages (3.275909ms)
+✔ A1-3 late frames cannot skip a cross stage, count duplicate timestamps, or erase the faint cell early (6.152863ms)
+✔ A1-3 motion watchdog releases stalled RAF exactly once without new game operations (4.278483ms)
+✔ A1-2 duplicate request cannot restart an active spirit; lost drawing and motion preference release safely (9.897806ms)
+✔ A1 completion is armed only after successful formal save and delays only fill publication (46.941209ms)
+✔ A1 quota/conflict, expiration, reduced motion, restored filling and cancellation never replay success (128.125521ms)
+✔ A1 hidden/room/modal/reset cancellation and stale queued completion cannot open later dialogs (7.787457ms)
+✔ A1 minimum legal cut keeps exact formal result; automatic direct stop never arms completion (46.293093ms)
+✔ A1 active glint yields immediately to existing higher-priority modal and queued result stays canceled (17.498839ms)
+✔ A1 unpaintable startup skips glint and preserves immediate accessible fill (18.477332ms)
+✔ A1-2 repeated render preserves the run and completion rechecks live spirit and phase (55.786104ms)
+✔ A1-2 explicit Canvas stop releases completion but per-frame stop preserves it (3.514996ms)
+✔ A1-2 scheduler inverse accepts only the exact stop hook and rejects extra changes (6.059182ms)
+✔ A1-3 cache inverse preserves the immutable L1 source and rejects changed or duplicate references (59.785097ms)
+✔ R4 selection matches the immutable inline owner across empty, one, multiple, missing, tasting and return paths (6.160157ms)
+✔ R4 legal tasting, partial/full bottling and restored old saves keep formal bytes, order and original selection rules (101.230249ms)
+✔ R4 controller has no effect dependencies, retained game objects or shared owner; selected ID is read-only externally (1.613474ms)
+✔ R4 root after exact reviewed A1 reversal has only the declared owner substitutions and matches immutable base (18.728245ms)
+✔ R5 moved function/formatter bytes and root after exact reviewed A1 reversal match immutable R4 main (13.447173ms)
+✔ R5 lawful empty/one/multi/taste/previous/partial/full/long-aged/legacy projections preserve original markup and formal/replay bytes (590.144267ms)
+✔ R5 missing histories/profile, unknown ages and long special prose preserve escaping, deduplication, order, reading markup and input (2.441446ms)
+✔ R5 saved release sample/observation/choice timelines preserve empty defaults and both withChanges paths without sorting or changing inputs (40.5145ms)
+✔ ordinary relationship labels ignore inventory and manual-delivery eligibility (1.048407ms)
+✔ missing records differ from a recorded zero; use actual recorded absolute month (0.660204ms)
+✔ recorded reason codes distinguish partial minimums, shortage, combined limits and ledger full (0.4875ms)
+✔ formatter output is escaped; unknown/malformed receipt is not invented (0.277617ms)
+✔ all1776 audit shop-month rows retain exact quantities and do not name demand-reference products (40.33915ms)
+✔ audit stock9/10, split5+5 and held-five edges match unchanged fulfillment projection (2.825305ms)
+✔ lawful old save: manual quote rejects auto mode, relationship stays active, real next-month receipt agrees with ledger (52.237953ms)
+✔ legacy calculation pins and unchanged clock paths survive approved native-market and Canvas updates (140.813216ms)
+✔ simultaneous ordinary-store rows and retail-first audit examples keep store-specific facts (29.329994ms)
+✔ placement town manual delivery omits automatic order UI without deleting historical facts (0.371607ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 813.761016

@@ -1,0 +1,125 @@
+{
+  "engine": "webkit",
+  "cfg": {
+    "w": 430,
+    "h": 740,
+    "dpr": 2
+  },
+  "reduced": true,
+  "events": [
+    {
+      "kind": "arm",
+      "at": 891,
+      "savedPhase": "filling"
+    },
+    {
+      "kind": "accepted",
+      "at": 891,
+      "value": false
+    },
+    {
+      "kind": "modal-open",
+      "at": 909
+    },
+    {
+      "kind": "modal-render-opportunity",
+      "at": 916,
+      "width": 392.25,
+      "height": 492
+    }
+  ],
+  "frames": [
+    {
+      "at": 910,
+      "doneAt": 916,
+      "glassX": 237,
+      "sliding": false,
+      "step": 0,
+      "canvasUpdated": true,
+      "dialog": "fill",
+      "active": false,
+      "paintedFrames": 0
+    }
+  ],
+  "opportunities": [
+    {
+      "at": 916,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 964,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 971,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 987,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1004,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1020,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1036,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1052,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1068,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1084,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1100,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1116,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    }
+  ],
+  "images": {},
+  "pixels": [],
+  "completed": 0,
+  "armed": true,
+  "finished": true,
+  "open": true,
+  "visible": true
+}

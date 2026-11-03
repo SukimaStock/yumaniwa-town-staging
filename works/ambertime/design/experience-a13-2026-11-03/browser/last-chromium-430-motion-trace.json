@@ -1,0 +1,742 @@
+{
+  "engine": "chromium",
+  "cfg": {
+    "w": 430,
+    "h": 740,
+    "dpr": 2
+  },
+  "reduced": false,
+  "events": [
+    {
+      "kind": "arm",
+      "at": 864.1999999955297,
+      "savedPhase": "filling"
+    },
+    {
+      "kind": "accepted",
+      "at": 864.3999999985099,
+      "value": true
+    },
+    {
+      "kind": "finish",
+      "at": 1720.6000000014901,
+      "paintedFrames": 11,
+      "paintedStep": 11,
+      "glintStart": 1020.6000000014901,
+      "lastPaintAt": 1637.1999999955297
+    },
+    {
+      "kind": "callback",
+      "at": 1722
+    },
+    {
+      "kind": "modal-open",
+      "at": 1736
+    },
+    {
+      "kind": "modal-render-opportunity",
+      "at": 1739.1000000014901,
+      "width": 392.25,
+      "height": 489
+    }
+  ],
+  "frames": [
+    {
+      "at": 872,
+      "doneAt": 877.1999999955297,
+      "glassX": 176.38500000201165,
+      "sliding": true,
+      "step": 0,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 0
+    },
+    {
+      "at": 907.6000000014901,
+      "doneAt": 913,
+      "glassX": 192.40500000268221,
+      "sliding": true,
+      "step": 0,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 0
+    },
+    {
+      "at": 937.1999999955297,
+      "doneAt": 940.8999999985099,
+      "glassX": 205.725,
+      "sliding": true,
+      "step": 0,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 0
+    },
+    {
+      "at": 970.5,
+      "doneAt": 973.7999999970198,
+      "glassX": 220.71000000201167,
+      "sliding": true,
+      "step": 0,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 0
+    },
+    {
+      "at": 1003.8999999985099,
+      "doneAt": 1007.1999999955297,
+      "glassX": 235.74000000134112,
+      "sliding": true,
+      "step": 0,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 0
+    },
+    {
+      "at": 1020.6000000014901,
+      "doneAt": 1023.8999999985099,
+      "glassX": 237,
+      "sliding": false,
+      "step": 1,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 1
+    },
+    {
+      "at": 1087.1999999955297,
+      "doneAt": 1089.5,
+      "glassX": 237,
+      "sliding": false,
+      "step": 2,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 2
+    },
+    {
+      "at": 1153.7999999970198,
+      "doneAt": 1155.8999999985099,
+      "glassX": 237,
+      "sliding": false,
+      "step": 3,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 3
+    },
+    {
+      "at": 1220.5,
+      "doneAt": 1222.7999999970198,
+      "glassX": 237,
+      "sliding": false,
+      "step": 4,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 4
+    },
+    {
+      "at": 1253.7999999970198,
+      "doneAt": 1256.1999999955297,
+      "glassX": 237,
+      "sliding": false,
+      "step": 5,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 5
+    },
+    {
+      "at": 1287.1999999955297,
+      "doneAt": 1289.2999999970198,
+      "glassX": 237,
+      "sliding": false,
+      "step": 6,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 6
+    },
+    {
+      "at": 1403.7999999970198,
+      "doneAt": 1406.2999999970198,
+      "glassX": 237,
+      "sliding": false,
+      "step": 7,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 7
+    },
+    {
+      "at": 1453.7999999970198,
+      "doneAt": 1456,
+      "glassX": 237,
+      "sliding": false,
+      "step": 8,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 8
+    },
+    {
+      "at": 1520.3999999985099,
+      "doneAt": 1522.6999999955297,
+      "glassX": 237,
+      "sliding": false,
+      "step": 9,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 9
+    },
+    {
+      "at": 1587,
+      "doneAt": 1589.1000000014901,
+      "glassX": 237,
+      "sliding": false,
+      "step": 10,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 10
+    },
+    {
+      "at": 1637.1999999955297,
+      "doneAt": 1639,
+      "glassX": 237,
+      "sliding": false,
+      "step": 11,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 11
+    },
+    {
+      "at": 1687.1999999955297,
+      "doneAt": 1689.3999999985099,
+      "glassX": 237,
+      "sliding": false,
+      "step": 0,
+      "canvasUpdated": true,
+      "dialog": null,
+      "active": true,
+      "paintedFrames": 11
+    },
+    {
+      "at": 1720.3999999985099,
+      "doneAt": 1721.8999999985099,
+      "glassX": 237,
+      "sliding": false,
+      "step": 0,
+      "canvasUpdated": false,
+      "dialog": null,
+      "active": false,
+      "paintedFrames": 0
+    },
+    {
+      "at": 1739.1000000014901,
+      "doneAt": 1740.8999999985099,
+      "glassX": 237,
+      "sliding": false,
+      "step": 0,
+      "canvasUpdated": true,
+      "dialog": "fill",
+      "active": false,
+      "paintedFrames": 0
+    }
+  ],
+  "opportunities": [
+    {
+      "at": 877.2999999970198,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 887.5,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 907.5,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 922.6999999955297,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 937.1999999955297,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 954,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 970.5,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 987.1999999955297,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1003.8999999985099,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1020.5,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1037.1000000014901,
+      "step": 1,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1053.7999999970198,
+      "step": 1,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1070.3999999985099,
+      "step": 1,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1087.1999999955297,
+      "step": 1,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1103.7999999970198,
+      "step": 2,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1120.5,
+      "step": 2,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1137.1999999955297,
+      "step": 2,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1153.7999999970198,
+      "step": 2,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1170.5,
+      "step": 3,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1187.1999999955297,
+      "step": 3,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1203.7999999970198,
+      "step": 3,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1220.5,
+      "step": 3,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1237.1999999955297,
+      "step": 4,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1253.7999999970198,
+      "step": 4,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1270.5,
+      "step": 5,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1287.1999999955297,
+      "step": 5,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1303.7999999970198,
+      "step": 6,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1320.5,
+      "step": 6,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1337.1000000014901,
+      "step": 6,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1353.7999999970198,
+      "step": 6,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1370.6000000014901,
+      "step": 6,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1387.1000000014901,
+      "step": 6,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1403.7999999970198,
+      "step": 6,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1420.3999999985099,
+      "step": 7,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1437.2999999970198,
+      "step": 7,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1453.7999999970198,
+      "step": 7,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1470.5,
+      "step": 8,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1487.1000000014901,
+      "step": 8,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1503.6999999955297,
+      "step": 8,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1520.3999999985099,
+      "step": 8,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1537.1999999955297,
+      "step": 9,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1553.8999999985099,
+      "step": 9,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1570.3999999985099,
+      "step": 9,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1587,
+      "step": 9,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1603.7999999970198,
+      "step": 10,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1620.5,
+      "step": 10,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1637.1999999955297,
+      "step": 10,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1653.6999999955297,
+      "step": 11,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1670.5,
+      "step": 11,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1687.1000000014901,
+      "step": 11,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1703.7999999970198,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1720.3999999985099,
+      "step": 0,
+      "dialog": false,
+      "active": true
+    },
+    {
+      "at": 1739,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1753.8999999985099,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1770.3999999985099,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1787.1999999955297,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1803.7999999970198,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1820.5,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1837.1999999955297,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1853.7999999970198,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1870.6000000014901,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1887.1999999955297,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1903.7999999970198,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1920.5,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    },
+    {
+      "at": 1937.3999999985099,
+      "step": 0,
+      "dialog": true,
+      "active": false
+    }
+  ],
+  "images": {},
+  "pixels": [],
+  "completed": 1,
+  "armed": true,
+  "finished": true,
+  "stages": [
+    {
+      "label": "rim-1",
+      "kind": "rim",
+      "ms": 56.666666666666664
+    },
+    {
+      "label": "rim-2",
+      "kind": "rim",
+      "ms": 56.666666666666664
+    },
+    {
+      "label": "rim-3",
+      "kind": "rim",
+      "ms": 56.666666666666664
+    },
+    {
+      "label": "cross-dot",
+      "ms": 30,
+      "radius": 0,
+      "center": 1,
+      "arms": 0,
+      "tips": 0,
+      "kind": "cross"
+    },
+    {
+      "label": "cross-grow",
+      "ms": 30,
+      "radius": 1,
+      "center": 1,
+      "arms": 1,
+      "tips": 0,
+      "kind": "cross"
+    },
+    {
+      "label": "cross-max-hold",
+      "ms": 100,
+      "radius": 2,
+      "center": 1,
+      "arms": 1,
+      "tips": 1,
+      "kind": "cross"
+    },
+    {
+      "label": "cross-tips-dim",
+      "ms": 45,
+      "radius": 2,
+      "center": 1,
+      "arms": 0.9,
+      "tips": 0.35,
+      "kind": "cross"
+    },
+    {
+      "label": "cross-contract",
+      "ms": 50,
+      "radius": 1,
+      "center": 0.88,
+      "arms": 0.65,
+      "tips": 0,
+      "kind": "cross"
+    },
+    {
+      "label": "cross-center",
+      "ms": 55,
+      "radius": 0,
+      "center": 0.65,
+      "arms": 0,
+      "tips": 0,
+      "kind": "cross"
+    },
+    {
+      "label": "cross-center-dim",
+      "ms": 45,
+      "radius": 0,
+      "center": 0.36,
+      "arms": 0,
+      "tips": 0,
+      "kind": "cross"
+    },
+    {
+      "label": "cross-center-faint",
+      "ms": 45,
+      "radius": 0,
+      "center": 0.14,
+      "arms": 0,
+      "tips": 0,
+      "kind": "cross"
+    }
+  ],
+  "open": true,
+  "visible": true
+}

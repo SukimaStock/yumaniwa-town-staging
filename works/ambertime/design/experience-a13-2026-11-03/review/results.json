@@ -1,0 +1,1316 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "duration": 690,
+      "finish": 690.0109999999999,
+      "frames": [
+        {
+          "step": 1,
+          "at": 150,
+          "label": "rim-1",
+          "cells": [
+            {
+              "rect": [
+                81,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "at": 206.66766666666666,
+          "label": "rim-2",
+          "cells": [
+            {
+              "rect": [
+                83,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "at": 263.3353333333333,
+          "label": "rim-3",
+          "cells": [
+            {
+              "rect": [
+                85,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 4,
+          "at": 320.003,
+          "label": "cross-dot",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 5,
+          "at": 346.25399999999996,
+          "label": "cross-grow",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 6,
+          "at": 372.50499999999994,
+          "label": "cross-max-hold",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                89,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                85,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                114,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                110,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 7,
+          "at": 460.006,
+          "label": "cross-tips-dim",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                89,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                85,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                114,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                110,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 8,
+          "at": 499.38199999999995,
+          "label": "cross-contract",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.88,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 9,
+          "at": 543.1329999999999,
+          "label": "cross-center",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 10,
+          "at": 591.2589999999999,
+          "label": "cross-center-dim",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.36,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 11,
+          "at": 630.6349999999999,
+          "label": "cross-center-faint",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.14,
+              "color": "#f0e6c8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "duration": 740,
+      "finish": 740.0109999999999,
+      "frames": [
+        {
+          "step": 1,
+          "at": 150,
+          "label": "rim-1",
+          "cells": [
+            {
+              "rect": [
+                81,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "at": 206.66766666666666,
+          "label": "rim-2",
+          "cells": [
+            {
+              "rect": [
+                83,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "at": 263.3353333333333,
+          "label": "rim-3",
+          "cells": [
+            {
+              "rect": [
+                85,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 4,
+          "at": 320.003,
+          "label": "cross-dot",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 5,
+          "at": 350.00399999999996,
+          "label": "cross-grow",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 6,
+          "at": 380.00499999999994,
+          "label": "cross-max-hold",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                89,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                85,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                114,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                110,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 7,
+          "at": 480.006,
+          "label": "cross-tips-dim",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                89,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                85,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                114,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                110,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 8,
+          "at": 525.007,
+          "label": "cross-contract",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.88,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 9,
+          "at": 575.0079999999999,
+          "label": "cross-center",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 10,
+          "at": 630.0089999999999,
+          "label": "cross-center-dim",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.36,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 11,
+          "at": 675.0099999999999,
+          "label": "cross-center-faint",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.14,
+              "color": "#f0e6c8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "duration": 760,
+      "finish": 760.0109999999999,
+      "frames": [
+        {
+          "step": 1,
+          "at": 150,
+          "label": "rim-1",
+          "cells": [
+            {
+              "rect": [
+                81,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "at": 206.66766666666666,
+          "label": "rim-2",
+          "cells": [
+            {
+              "rect": [
+                83,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "at": 263.3353333333333,
+          "label": "rim-3",
+          "cells": [
+            {
+              "rect": [
+                85,
+                115,
+                4,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 4,
+          "at": 320.003,
+          "label": "cross-dot",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 5,
+          "at": 351.50399999999996,
+          "label": "cross-grow",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 6,
+          "at": 383.00499999999994,
+          "label": "cross-max-hold",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                89,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                85,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                114,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                110,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 7,
+          "at": 488.006,
+          "label": "cross-tips-dim",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 0.9,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                89,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                85,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                114,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                110,
+                1,
+                1
+              ],
+              "alpha": 0.35,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 8,
+          "at": 535.257,
+          "label": "cross-contract",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.88,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                88,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                86,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                113,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            },
+            {
+              "rect": [
+                87,
+                111,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 9,
+          "at": 587.7579999999999,
+          "label": "cross-center",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.65,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 10,
+          "at": 645.5089999999999,
+          "label": "cross-center-dim",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.36,
+              "color": "#f0e6c8"
+            }
+          ]
+        },
+        {
+          "step": 11,
+          "at": 692.7599999999999,
+          "label": "cross-center-faint",
+          "cells": [
+            {
+              "rect": [
+                87,
+                112,
+                1,
+                1
+              ],
+              "alpha": 0.14,
+              "color": "#f0e6c8"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "independentNegativeChecks": [
+    "duplicate timestamp",
+    "no composite cannot advance",
+    "explicit stop once",
+    "cancel invalidates deadline",
+    "synthetic draw exception deadline"
+  ],
+  "hashes": {
+    "canvas-scene.mjs": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519",
+    "shop-app.mjs": "02160d577ee63d3fcfa4643a3d63b4259f310ebf500628e1e3f63e53503f8c8c",
+    "index.html": "9f6f66235ee83efe2145d18a05ec8b00a8d4bc1dfa1889553b573c56668f8976"
+  }
+}

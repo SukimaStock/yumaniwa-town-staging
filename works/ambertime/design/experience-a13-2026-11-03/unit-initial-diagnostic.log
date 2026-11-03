@@ -1,0 +1,48 @@
+✖ A1-3 retains the immutable A1-2 rim and appends all eleven acknowledged stages (8.434417ms)
+✔ A1-3 orthogonal cross expands and retracts by cells while its center fades quietly (1.70359ms)
+✔ A1-3 elapsed time and paint commands alone cannot satisfy all composite stages (1.224883ms)
+✔ A1-3 late frames cannot skip a cross stage, count duplicate timestamps, or erase the faint cell early (1.616978ms)
+✔ A1-3 motion watchdog releases stalled RAF exactly once without new game operations (3.117282ms)
+✔ A1-2 duplicate request cannot restart an active spirit; lost drawing and motion preference release safely (4.951068ms)
+✔ A1 completion is armed only after successful formal save and delays only fill publication (39.893086ms)
+✔ A1 quota/conflict, expiration, reduced motion, restored filling and cancellation never replay success (110.957392ms)
+✔ A1 hidden/room/modal/reset cancellation and stale queued completion cannot open later dialogs (5.358929ms)
+✔ A1 minimum legal cut keeps exact formal result; automatic direct stop never arms completion (41.226001ms)
+✔ A1 active glint yields immediately to existing higher-priority modal and queued result stays canceled (18.628405ms)
+✔ A1 unpaintable startup skips glint and preserves immediate accessible fill (19.21042ms)
+✔ A1-2 repeated render preserves the run and completion rechecks live spirit and phase (50.923779ms)
+✔ A1-2 explicit Canvas stop releases completion but per-frame stop preserves it (0.898734ms)
+✔ A1-2 scheduler inverse accepts only the exact stop hook and rejects extra changes (3.694231ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 14
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 461.772961
+
+✖ failing tests:
+
+test at works/ambertime/tests/a1-glint.test.mjs:30:1
+✖ A1-3 retains the immutable A1-2 rim and appends all eleven acknowledged stages (8.434417ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   9
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/74eaf70cc093/ambertime-a13/works/ambertime/tests/a1-glint.test.mjs:44:157)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 9 ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
