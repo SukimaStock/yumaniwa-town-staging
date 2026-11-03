@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c3e4ec28daad8885d12546c0c282019e026d111fa2749420d890ff015230714d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "7662134ce094eabc637625c2742b2e1eb91b2127",
+    "changeId": "ambertime-a13-cross-20261103",
+    "revision": 0,
+    "change": "Preserve saved completion rim glint and append a small expanding cross that retracts and gently fades before fill",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit A1-3 user instruction authorizing staged cross and quiet convergent fade",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "Currentmain7662134c, A1 PR778/779/780/781 and exact A1-2 product5d9e1c",
+      "R0-R6 formal129/distill20/cold/notification/cache baseline",
+      "Scratch natural comparison690/740/760ms in /workspace/scratch/74eaf70cc093/a13-comparison; all6 formal/save exact,740 cross8 stages bothengine"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a13-cross-20261103/r0.lock.json",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/a1-*.mjs",
+      "works/ambertime/design/experience-a13-2026-11-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/design/experience-a1-2026-11-03/**",
+      "works/ambertime/design/experience-a12-2026-11-03/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Preserve original rim geometry/color/3stages/170ms and140ms glass slide. After rim append local 3px-grid orthogonal cross centered relative to TOOL_GEOMETRY above rim. Dot→5cells→9cells/maxhold→tipsdim→5cells→center→dim→faint→off; no diagonal/star/blur/particles/copy/buttons/sound.",
+      "Compare690/740/760 scratch prototypes before implementation, select740=150settle+170rim+400cross+20tail. Cross400: growth90/maxhold70/convergence150/finalcenter90. Discrete cell removal plus per-cell alpha, not simultaneous fade. Keep stage table self-contained in Canvas module (no new imports/dependencies).",
+      "Require successful destination composite of all11painted stages with per-stage dwell before off/tail/normal render. Keep existingRAF/motionTimer/token/callback guards and bounded duration+400ms fallback for unavailable drawing. No independent loop/timer/category. Preserve original stopDrawing/queue byte region.",
+      "Save/afterSave/stopDistillation/syncModal/notification/room/spirit/save guards unchanged; app/HTML change cache references only. No formal state/RNG/quantity/flavor/economy/save/schema/operation changes.",
+      "Update A1 tests for explicitly authorized cross duration/shape/stages; preserve original rim exact oracle, all formal/save/cancel assertions and unchanged immutable L1 source oracle via strict cache-only A13→A12 normalization. Add phase/cell/alpha/order/dwell/deadline tests; do not widen pixel tolerance.",
+      "Full current suite incl129formal/20distill/oldcold/RNG/month/economy/inventory/notifications/savefail/R0-R6; dualengine4widths normal/reduced natural pointer and fixedstage strict pixels outside0; DOM/hit/focus/ARIA/save equal. Existing non-glint208pairs and latest766 oldcache2; synthetic400ms sampling not proof of full animation.",
+      "Persist short independent design/verification record, representative frames/timelines/comparison data; cache closure and oldcache upgrade, independentreview, Scope→Risk→Impact, requiredexactheadCI, ordinaryPR merge toStaging and public4case operations/hash verification. No Lab/research archive/Production changes."
+    ],
+    "ownerDecisions": [
+      "Current explicit A1-3 instruction authorizes reversible Staging implementation/independentreview/CI/normalPRmerge/publicverification, preserving existing rim and adding orthogonal cross with quiet fade; Production excluded."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK staging-only; lock-only commit before implementation",
+      "No extra buttons/copy/sound/loading UI; restrained glint explicitly requested",
+      "Existing worker projections/view formatters and Canvas scheduler retained",
+      "Baseline/source expectations not loosened; intentional source delta inverse is exact and new behavior has separate tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Visually compare690/740/760 and all growth/retraction/dimming representative frames, current rim preserved",
+      "Unit/destination-frame stage acknowledgment/dwell/cancel/watchdog tests, duplicate stop/render/room/modal/hidden/pagehide/reset/reload/conflict/font/context/reduce/auto/savefail",
+      "Latest full suite nofail/noskip, formal129/distill20cold and oldsave",
+      "Chromium/WebKit360x568/375x620/390x680/430x740 normal/reduced natural operations; fixedstage region diff0 outside; DOM/hit/focus/ARIA/formal/save",
+      "Latest766 non-glint208pairs and cache2, dependency closure, independentreview, exactheadCI normalmerge and Staging public verification"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert PR of A1-3 Canvas/cache/tests/evidence; no save migration",
+    "outOfScope": [
+      "All formal model/save/RNG/economy/quantity/flavor/aging/evaporation/operations/clock changes",
+      "Ledger responsiveness, quantity animation, first bottle special scene, notification text/modal priority",
+      "Lab/research archives/Production/sharedruntime/tools/settings"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari touch feel/VoiceOver/real OS background/BFCache until actually observed"
+    ]
+  }
+}
