@@ -142,10 +142,10 @@ test('A1-2 scheduler inverse accepts only the exact stop hook and rejects extra 
 
 test('A1-3 cache inverse preserves the immutable L1 source and rejects changed or duplicate references',()=>{
  for(const name of ['shop-app.mjs','index.html']){
-  const actual=fs.readFileSync(new URL('../'+name,import.meta.url),'utf8'),token=name==='shop-app.mjs'?'completion=a13-1':'experience=a2-1';
+  const actual=fs.readFileSync(new URL('../'+name,import.meta.url),'utf8'),token=name==='shop-app.mjs'?'completion=a13-1':'experience=a2-2';
   const original=execFileSync('git',['show','341f2865ff44af97bfb99e76450b6db17cac9511:works/ambertime/'+name],{encoding:'utf8',maxBuffer:4e6});
   assert.equal(beforeA1(actual,name),original);
-  assert.throws(()=>beforeA1(actual.replace(token,token.replace(/a13-1|a2-1/,'unreviewed')),name),/exact A1-3 cache reference|exact A2 cache reference/);
+  assert.throws(()=>beforeA1(actual.replace(token,token.replace(/a13-1|a2-2/,'unreviewed')),name),/exact A1-3 cache reference|exact A2 cache reference/);
   assert.throws(()=>beforeA1(actual+'\n'+token,name),/exact A1-3 cache reference|exact A2 cache reference/);
   assert.throws(()=>beforeA1(actual+'\n// unrelated edit',name),/immutable L1/);
  }

@@ -37,7 +37,7 @@ test('staff and ledger displays keep contextual short labels and important opera
 test('bottling and placement copy removes duplicate quantity and preserves operations',()=>{
  assert.ok(!app.includes('id="bottle-selected"'));contains(app,["'ビン詰め後 '+money", "'残り '+q.remaining"]);
  contains(placement,['希望 ','希望 0本','ひとつ戻す','全部分け直す','これで決める']);assert.ok(!placement.includes('今月の希望'));
- contains(section("}else if(kind==='shop-offer')","}else if(kind==='decision')"),["button('取扱いを始める','shop-accept'","button('断る','shop-decline'","button('あとで','shop-later'","shopOfferNext(offer.shopId)","この銘柄の取扱いを始めますか？"]);
+ contains(section("}else if(kind==='shop-offer')","}else if(kind==='decision')"),["button('受ける','shop-accept'","button('断る','shop-decline'","button('あとで','shop-later'","shopOfferNext(offer.shopId)","この店にお酒を置けるようになります。"]);
 });
 test('manual town and automatic order displays remain distinct without mutating recorded facts',()=>{
  const state={core:{month:12},placement:{version:1},shopDemand:{lastOrders:[{shopId:'town-liquor',month:12,requested:2,shipped:2,unmet:0,reason:'fulfilled'},{shopId:'supermarket',month:12,requested:10,shipped:0,unmet:10,reason:'insufficient-stock'}]}},raw=JSON.stringify(state);

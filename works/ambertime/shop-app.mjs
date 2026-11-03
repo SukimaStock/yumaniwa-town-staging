@@ -649,7 +649,7 @@ function stockistStatus(shopId){if(D.storeMarketMode(game)&&shopId!=='department
 function departmentOfferInventory(offer){
  const r=game.releases.find(r=>r.id===offer.sourceReleaseId),p=game.core.products.find(p=>p.id===r?.productId);modal.productId=p?.id??null;
  if(!p||!r)return '<p>対象の発売回に在庫がありません。</p>';
- const q=D.shopOfferQuote(game,p.id,'department');return '<p>'+releaseTag(p.id)+' '+esc(caskName(r.caskId))+' '+ageLabel(r.age)+'<br>在庫 '+p.stock+'本<br>翌月5本納品<br>入金予定 '+unit(q.unitPrice*5)+'</p>'+(q.ok?button('5本を扱う','shop-accept-deliver',p.id,offerTarget(offer)+' data-count="5" data-selection-id="'+esc(q.selectionId??'')+'"'):'<p class="quiet">'+esc(displayReason(q.reason))+'</p>');
+ const q=D.shopOfferQuote(game,p.id,'department');return '<p>'+releaseTag(p.id)+' '+esc(caskName(r.caskId))+' '+ageLabel(r.age)+'<br>在庫 '+p.stock+'本<br>入金予定 '+unit(q.unitPrice*5)+'</p>'+(q.ok?'<p class="quiet">受けると、翌月に5本納品されます。</p>'+button('受ける','shop-accept-deliver',p.id,offerTarget(offer)+' data-count="5" data-selection-id="'+esc(q.selectionId??'')+'"'):'<p class="quiet">'+esc(displayReason(q.reason))+'</p>');
 }
 function departmentDestination(p,release,invitation){
  const interests=D.departmentInterests(game,release?.brandId),interest=interests[0],adoptions=D.departmentAdoptions(game,release?.brandId),adopted=adoptions.some(a=>a.releaseId===release?.id),q=D.shopQuote(game,p.id,'department');
@@ -851,11 +851,11 @@ function syncModal(){
   body=(deliveryNotice?'<p class="delivery-confirmation" role="status">'+esc(deliveryNotice)+'</p>':'')+'<p>'+esc(brandFor(modal.id)?.name??'ウイスキー')+'<br>'+releaseTag(modal.id)+' · '+esc(releaseSource(modal.id))+'</p><p>在庫 '+(p?.stock??0)+'本<br>買取 '+unit(q.unitPrice)+'/本</p>'+(q.ok?deliveryButtons(p,q,'shop-deliver'):'<p class="quiet">'+esc(displayReason(q.reason))+'</p>');
   actions=(q.ok?deliveryConfirm(p,q):'')+button('戻る','stockist-back');
  }else if(kind==='shop-offer'){
-  const offer=game.shop.offer,brand=game.brands.find(b=>b.id===offer?.brandId);if(!offer||!brand){modal=null;return;}const department=offer.shopId==='department';title=department?'デパートの申し出':shopName(offer.shopId)+'の申し出';
-  body=department?'<p>特選ウイスキー · 限定5本</p>'+departmentOfferInventory(offer):'<p>この銘柄の取扱いを始めますか？</p><div class="brand-readout">'+brandDisplay(brand)+'<span>'+esc(brand.name)+'</span></div><p>'+esc(shopOfferTerms(offer.shopId))+'</p><p class="quiet">'+esc(shopOfferNext(offer.shopId))+'</p>';
-  if(offer.shopId==='supermarket')body='<p class="shop-remark">「こちらでも扱ってみたいのですが」</p>'+body;
-  if(offer.shopId==='town-liquor')body='<p class="shop-remark">「'+esc(brand.name)+'の名前を聞きました。」</p>'+body;
-  actions=(department?'':button('取扱いを始める','shop-accept','',offerTarget(offer)))+button('あとで','shop-later','',offerTarget(offer))+button('断る','shop-decline','',offerTarget(offer))+(modal.returnModal?button('戻る','stockist-offer-back'):'');
+  const offer=game.shop.offer,brand=game.brands.find(b=>b.id===offer?.brandId);if(!offer||!brand){modal=null;return;}const department=offer.shopId==='department';title=shopName(offer.shopId)+'からの申し出';
+  body=department?'<p class="shop-remark">「特選ウイスキーとして、5本お願いできますか。」</p>'+departmentOfferInventory(offer):'<div class="brand-readout">'+brandDisplay(brand)+'<span>'+esc(brand.name)+'</span></div><p>'+esc(shopOfferTerms(offer.shopId))+'</p><p class="quiet">'+(D.storeMarketMode(game)?'この店にお酒を置けるようになります。<br>販売は翌月から。':esc(shopOfferNext(offer.shopId)))+'</p>';
+  if(offer.shopId==='supermarket')body='<p class="shop-remark">「こちらでも扱ってみたいのですが。」</p>'+body;
+  if(offer.shopId==='town-liquor')body='<p class="shop-remark">「'+esc(brand.name)+'の噂を聞きました。」</p>'+body;
+  actions=(department?'':button('受ける','shop-accept','',offerTarget(offer)))+button('あとで','shop-later','',offerTarget(offer))+button('断る','shop-decline','',offerTarget(offer))+(modal.returnModal?button('戻る','stockist-offer-back'):'');
  }else if(kind==='decision'){
   const d=game.decisions[0];if(!d){modal=null;if(dialog.open)dialog.close();return;}
   modal.id=d.caskId;const source=D.currentCask(game,d.caskId),pending=d.pending,copy=agingEventText(pending,source,game.notesById[d.caskId]);
