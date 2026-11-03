@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import {STAGES,mapStep} from '../world-map-view.mjs';
 import {BREWING_CARDS,brewingCardsMarkup} from '../brewing-cards.mjs';
 import {shopOrderMarkup} from '../shop-order-view.mjs';
+import {spiritReadoutView} from '../spirit-readout-view.mjs';
 const read=name=>fs.readFileSync(new URL('../'+name,import.meta.url),'utf8');
 const app=read('shop-app.mjs'),html=read('index.html'),placement=read('placement-ui.mjs');
 const manifest=JSON.parse(read('design/formal-copy/approved-copy.json'));
@@ -21,7 +22,8 @@ test('heading-backed selection shortens only visible names and keeps exact recip
  const cards=brewingCardsMarkup({labConnection:{cards:{malt:'plain',ferment:'short'}},operations:[]});
  for(const label of ['ふつう','ピート','短め','長め'])assert.ok(cards.includes('<span class="brewing-name">'+label+'</span>'));
  contains(section("if(kind==='flavor-cards')","}else if(kind==='inspect')"),["button('決める','flavor-start')"]);
- contains(section('function renderSpirit(){','function staffDisplayStatus(){'),['ここまで','原酒']);
+ assert.equal(spiritReadoutView({phase:'estimate',litres:1,axes:[]}).kind,'ここまで');
+ assert.equal(spiritReadoutView({phase:'confirmed',litres:1,phrase:'',axes:[]}).kind,'原酒');
  contains(html,['id="go-distill" type="button">蒸留室','<summary>詳細</summary>','画面を離れると停止']);
 });
 test('staff and ledger displays keep contextual short labels and important operation distinctions',()=>{

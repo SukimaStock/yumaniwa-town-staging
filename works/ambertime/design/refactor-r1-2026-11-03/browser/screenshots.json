@@ -1,0 +1,263 @@
+{
+  "baseline": "5c04a4fd17e8cac954acf798485085721f261d8b",
+  "retainedCases": [
+    "ready",
+    "legacy-confirmed-visible",
+    "native-stopped-fill"
+  ],
+  "screenshots": [
+    {
+      "file": "chromium-360-legacy-confirmed-visible-after.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "85fbddfeece42f9da2db857fdd649ff44086952021a38a641653003c80d0fd07",
+      "bytes": 6685
+    },
+    {
+      "file": "chromium-360-legacy-confirmed-visible-before.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "85fbddfeece42f9da2db857fdd649ff44086952021a38a641653003c80d0fd07",
+      "bytes": 6685
+    },
+    {
+      "file": "chromium-360-native-stopped-fill-after.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "940b3b7aab49ca30f911772fa5b8a6598d363c636651b9843cf7ab2bc720f4bc",
+      "bytes": 12883
+    },
+    {
+      "file": "chromium-360-native-stopped-fill-before.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "940b3b7aab49ca30f911772fa5b8a6598d363c636651b9843cf7ab2bc720f4bc",
+      "bytes": 12883
+    },
+    {
+      "file": "chromium-360-ready-after.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "a85098bd92f3c7c97f2ca097a70fb1e73f206af3532500046ff81c2b8377612f",
+      "bytes": 5815
+    },
+    {
+      "file": "chromium-360-ready-before.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "a85098bd92f3c7c97f2ca097a70fb1e73f206af3532500046ff81c2b8377612f",
+      "bytes": 5815
+    },
+    {
+      "file": "chromium-375-legacy-confirmed-visible-after.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "1c6a09f7252401b3b6ae62a22cd7fe5727cb54471a691ff952e70d152fbc5f07",
+      "bytes": 7380
+    },
+    {
+      "file": "chromium-375-legacy-confirmed-visible-before.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "1c6a09f7252401b3b6ae62a22cd7fe5727cb54471a691ff952e70d152fbc5f07",
+      "bytes": 7380
+    },
+    {
+      "file": "chromium-375-native-stopped-fill-after.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "cfa90e04d9e4bbbfb86f989f08cfc8b6976b33983800735e5dd732616101e5d4",
+      "bytes": 13813
+    },
+    {
+      "file": "chromium-375-native-stopped-fill-before.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "cfa90e04d9e4bbbfb86f989f08cfc8b6976b33983800735e5dd732616101e5d4",
+      "bytes": 13813
+    },
+    {
+      "file": "chromium-375-ready-after.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "b460c8346959a13495c5086e4c753b57d160c140ef6ac78f795f2076489b6989",
+      "bytes": 6619
+    },
+    {
+      "file": "chromium-375-ready-before.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "b460c8346959a13495c5086e4c753b57d160c140ef6ac78f795f2076489b6989",
+      "bytes": 6619
+    },
+    {
+      "file": "chromium-390-legacy-confirmed-visible-after.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "3de56570fa5e8fc44b43d0761fbe5bc217d62e4e48e9d57c5e502961186992b0",
+      "bytes": 7691
+    },
+    {
+      "file": "chromium-390-legacy-confirmed-visible-before.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "3de56570fa5e8fc44b43d0761fbe5bc217d62e4e48e9d57c5e502961186992b0",
+      "bytes": 7691
+    },
+    {
+      "file": "chromium-390-native-stopped-fill-after.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "ef0ddb41aea602b692b48d5d871f6cddd83fec8d680c24d9755e40b5126ad65b",
+      "bytes": 14910
+    },
+    {
+      "file": "chromium-390-native-stopped-fill-before.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "ef0ddb41aea602b692b48d5d871f6cddd83fec8d680c24d9755e40b5126ad65b",
+      "bytes": 14910
+    },
+    {
+      "file": "chromium-390-ready-after.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "73ffe90dc0f93b60ca6cc542e6789f5b89d5f751d3a8c70a09c8e1c43d6aa095",
+      "bytes": 7009
+    },
+    {
+      "file": "chromium-390-ready-before.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "73ffe90dc0f93b60ca6cc542e6789f5b89d5f751d3a8c70a09c8e1c43d6aa095",
+      "bytes": 7009
+    },
+    {
+      "file": "webkit-360-legacy-confirmed-visible-after.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "1c0041161f1516885dac0acfa3dfad156c57daa9e452ce2e6fcfb5f35dc06e2e",
+      "bytes": 7999
+    },
+    {
+      "file": "webkit-360-legacy-confirmed-visible-before.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "1c0041161f1516885dac0acfa3dfad156c57daa9e452ce2e6fcfb5f35dc06e2e",
+      "bytes": 7999
+    },
+    {
+      "file": "webkit-360-native-stopped-fill-after.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "77e6fde0a7261ae9d453b449c35df2cec0c5b4515715995f3eb6bab9f84cde34",
+      "bytes": 16859
+    },
+    {
+      "file": "webkit-360-native-stopped-fill-before.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "77e6fde0a7261ae9d453b449c35df2cec0c5b4515715995f3eb6bab9f84cde34",
+      "bytes": 16859
+    },
+    {
+      "file": "webkit-360-ready-after.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "2ce569bafbb5b5e179456540c6a171ee97caaa6ca64b54ae0b135a1f9d993052",
+      "bytes": 7178
+    },
+    {
+      "file": "webkit-360-ready-before.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "2ce569bafbb5b5e179456540c6a171ee97caaa6ca64b54ae0b135a1f9d993052",
+      "bytes": 7178
+    },
+    {
+      "file": "webkit-375-legacy-confirmed-visible-after.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "6f549e5625e661815924d5249be392bce012f97ee42ee5df129662ed224b9499",
+      "bytes": 8469
+    },
+    {
+      "file": "webkit-375-legacy-confirmed-visible-before.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "6f549e5625e661815924d5249be392bce012f97ee42ee5df129662ed224b9499",
+      "bytes": 8469
+    },
+    {
+      "file": "webkit-375-native-stopped-fill-after.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "bf283036e2eb9a06ba7e9796115ad2b8636c911ddce98a806a53b6167726019a",
+      "bytes": 17486
+    },
+    {
+      "file": "webkit-375-native-stopped-fill-before.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "bf283036e2eb9a06ba7e9796115ad2b8636c911ddce98a806a53b6167726019a",
+      "bytes": 17486
+    },
+    {
+      "file": "webkit-375-ready-after.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "a69e622b16eb88223b6aa3df31f0925fa95e34cf29d6272bcbc72d8240f07a0d",
+      "bytes": 7735
+    },
+    {
+      "file": "webkit-375-ready-before.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "a69e622b16eb88223b6aa3df31f0925fa95e34cf29d6272bcbc72d8240f07a0d",
+      "bytes": 7735
+    },
+    {
+      "file": "webkit-390-legacy-confirmed-visible-after.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "9c1eaa4d2f20b5aa528cda655adb6f167c07d91d1505934952d11c7fb2708f35",
+      "bytes": 8537
+    },
+    {
+      "file": "webkit-390-legacy-confirmed-visible-before.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "9c1eaa4d2f20b5aa528cda655adb6f167c07d91d1505934952d11c7fb2708f35",
+      "bytes": 8537
+    },
+    {
+      "file": "webkit-390-native-stopped-fill-after.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "718d6ff61a592c7eb2c01b1bdb7d3f117821fb0129b30a93b542e0124181bf0d",
+      "bytes": 18433
+    },
+    {
+      "file": "webkit-390-native-stopped-fill-before.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "718d6ff61a592c7eb2c01b1bdb7d3f117821fb0129b30a93b542e0124181bf0d",
+      "bytes": 18433
+    },
+    {
+      "file": "webkit-390-ready-after.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "337ea70ba099b0857c2f26f6c56e3a942345102980d608ff1b29024e1271074d",
+      "bytes": 7782
+    },
+    {
+      "file": "webkit-390-ready-before.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "337ea70ba099b0857c2f26f6c56e3a942345102980d608ff1b29024e1271074d",
+      "bytes": 7782
+    }
+  ],
+  "allOtherCaptures": "PNG hashes and exact decoded-pixel comparisons retained in results.json; source PNGs are scratch intermediates."
+}
