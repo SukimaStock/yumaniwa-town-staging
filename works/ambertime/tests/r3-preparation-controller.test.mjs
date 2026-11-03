@@ -88,7 +88,7 @@ function appHost(source,{state=D.newMarketRulesDistillery(42),preview=false,rest
  const model={...D};for(const name of ['selectFlavorCards','startDistillation','startRangeDistillation','beginCollection','stopDistillation','restartRangeDistillation','fillBarrel'])model[name]=(...args)=>{log.push('model:'+name);if(mode==='model-throw')throw Error('model refused');return D[name](...args);};
  model.serializeDistillery=s=>{log.push('serialize');return D.serializeDistillery(s);};
  const storage={getItem(){log.push('storage:read');return stored;},setItem(k,value){log.push('storage:write');if(mode==='quota')throw Error('quota');if(mode!=='refuse')stored=value;}};
- const ctx={D:model,P,createDistillRoomController,manualCards,chooseManualCard,brewingPanelState,distillToolsView,rangeRestartAvailable,manualCompletedRuns,distillationReadout,writeCandidate,
+ const ctx={scene:{isDistillCompletion:()=>false,startDistillCompletion:()=>false,cancelDistillCompletion(){}},D:model,P,createDistillRoomController,manualCards,chooseManualCard,brewingPanelState,distillToolsView,rangeRestartAvailable,manualCompletedRuns,distillationReadout,writeCandidate,
   snapshotRaw:D.serializeDistillery,initial:state,initialRaw:stored,initialPreview:preview,restored,$:node,document:{hidden:false,activeElement:null},T:{minimumStop:30},localStorage:storage,SAVE_KEY:'formal',
   stopClock(){log.push('clock:stop');},schedule(){log.push('clock:schedule');},message:text=>log.push(['message',text]),storageNotice:text=>log.push(['storageNotice',text]),
   automaticEvents,automaticNews:{push:events=>log.push(['notices',plain(events)])},caskName:String,soldOutLabel:()=>'',noteMapReach:()=>log.push('map:reach'),

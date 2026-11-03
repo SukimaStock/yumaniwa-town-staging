@@ -1,0 +1,94 @@
+YUMANIWA SCOPE GUARD v0.2
+Change: Improve measured ledger worker startup latency and add a saved manual distillation glass glint without formal-state changes
+Base:   341f2865ff44af97bfb99e76450b6db17cac9511
+Target: worktree (b535a423df1624cf7c31c2fd818ac41fb77f0a92)
+Changed paths: 86
+
+PASS scope.allowed .change-plans/ambertime-experience-a1-ports-20261103/r0.lock.json [.change-plans/ambertime-experience-a1-ports-20261103/r0.lock.json] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/canvas-scene.mjs [works/ambertime/canvas-scene.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/IMPLEMENTATION.md [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/INDEPENDENT-REVIEW.md [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/adapter-retry-tests.log [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/baseline-tests.log [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/candidate-initial-tests.log [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/glint-browser-results.json [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/glint-chromium-250-150ms.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/glint-chromium-300-150ms.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/glint-chromium-400-150ms.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/glint-design.md [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/glint-webkit-250-150ms.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/glint-webkit-300-150ms.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/glint-webkit-400-150ms.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-baseline-diagnostic.json [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-executed-browser.mjs [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-fixture-provenance.json [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-implementation.md [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-initial-executed-browser.mjs [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-initial-warm-results.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-loaded-immediate-executed-browser.mjs [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-loaded-immediate-results.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-loaded-summary.json [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-paired-results.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-settled-executed-browser.mjs [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-settled-results.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-summary.json [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/ledger-timing-table.md [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/product-reuse.json [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-360-dpr1-motion.json [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-360-dpr1-motion.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-distill-initial-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-distill-initial-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-distill-result-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-distill-result-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-lever-middle-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-lever-middle-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-map-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-map-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-sales-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-sales-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-synthetic-persisted-pageshow-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-synthetic-persisted-pageshow-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-warehouse-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion-warehouse-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-375-dpr2-motion.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-390-dpr3-motion.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/chromium-390-dpr3-reduced.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/results.json [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/run.log [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-360-dpr1-motion.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-distill-initial-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-distill-initial-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-distill-result-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-distill-result-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-lever-middle-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-lever-middle-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-map-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-map-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-sales-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-sales-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-synthetic-persisted-pageshow-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-synthetic-persisted-pageshow-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-warehouse-after.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion-warehouse-before.png [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-375-dpr2-motion.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-390-dpr3-motion.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/regression-browser/webkit-390-dpr3-reduced.json.gz [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a1-2026-11-03/scope.log [works/ambertime/design/experience-a1-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/index.html [works/ambertime/index.html] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/shop-app.mjs [works/ambertime/shop-app.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-browser-completion.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-browser-public.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-browser-regression.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-glint.test.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-ledger-browser.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-ledger-workers.test.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-source-baseline.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/r0-distill-host.mjs [works/ambertime/tests/r0-distill-host.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/r0-notice-priority.test.mjs [works/ambertime/tests/r0-notice-priority.test.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/r2-geometry.test.mjs [works/ambertime/tests/r2-geometry.test.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/r3-preparation-controller.test.mjs [works/ambertime/tests/r3-preparation-controller.test.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/r4-warehouse-effects.test.mjs [works/ambertime/tests/r4-warehouse-effects.test.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/r4-warehouse-selection.test.mjs [works/ambertime/tests/r4-warehouse-selection.test.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/r5-history-view.test.mjs [works/ambertime/tests/r5-history-view.test.mjs] — changed path is within allowedPaths
+
+Scope: PASS

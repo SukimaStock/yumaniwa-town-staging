@@ -120,7 +120,7 @@ test('R2 cancel, capture, multitouch, lifecycle and keyboard action traces match
 
 function animation(source,ports,options){
  const start=source.indexOf('  this.toolGuideMoving=false;this.toolReturning=false;const tools='),end=source.indexOf('  this.controls();this.drawWorld();',start);assert(start>=0&&end>start);
- const ctx={...ports,now:options.now,visible:options.visible??true,scene:{view:{room:options.room??'distill',tools:{glassPosition:options.position??1,visible:true,arrow:true,guideLevel:'first',...options.tools}},viewport:{scale:options.scale??1},reducedMotion:{matches:options.reduced??false},toolSlide:options.slide?{...options.slide}:null,toolReturn:options.returning?{...options.returning}:null,toolGesture:options.gesture??null,toolGuideSince:0}};
+ const ctx={...ports,now:options.now,visible:options.visible??true,scene:{sampleDistillCompletion:()=>null,view:{room:options.room??'distill',tools:{glassPosition:options.position??1,visible:true,arrow:true,guideLevel:'first',...options.tools}},viewport:{scale:options.scale??1},reducedMotion:{matches:options.reduced??false},toolSlide:options.slide?{...options.slide}:null,toolReturn:options.returning?{...options.returning}:null,toolGesture:options.gesture??null,toolGuideSince:0}};
  vm.runInNewContext('(function(){'+source.slice(start,end)+'}).call(scene);',ctx);return plain(ctx.scene);
 }
 function transitionTrace(source,ports,layoutScene,position,paintX){

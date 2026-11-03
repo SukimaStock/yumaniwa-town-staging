@@ -1,0 +1,49 @@
+{
+  "base": "341f2865ff44af97bfb99e76450b6db17cac9511",
+  "fixtureEvidence": [
+    {
+      "name": "long",
+      "rawSHA256": "d25ee6131751582a6582b6f0477c1d7871d86a5f2614a97d9d9054a497a92c9d",
+      "strictRoundtrip": true,
+      "month": 120,
+      "operations": 153,
+      "records": 1,
+      "casks": 0,
+      "archive": 1
+    },
+    {
+      "name": "legacy",
+      "rawSHA256": "1aa4371684674268ec58c33736d266135d9cd78ebf3e1fd71293844cd317b35d",
+      "strictRoundtrip": true,
+      "month": 12,
+      "operations": 54,
+      "records": 3,
+      "casks": 2,
+      "archive": 0
+    }
+  ],
+  "construction": "Reproducible public-operation construction is in tests/a1-ledger-browser.mjs. Long=newMarketRulesDistillery42,collect0..35,fillrefill,taste,bottleLong,120ticks; legacy restores placement-legacy-main.before then existing enableStage4/adoptPlacement/enableStoreMarket/enableMarketRules boundaries. Rich=3 public fill/taste/bottle/tick cycles; empty=newMarketRulesDistillery42. No fields altered directly.",
+  "candidateSourceSHA256": {
+    "shop-app.mjs": "052185c62476904a7bd31c79ffaa47a79d00bc18551860e042f8881338ed421f",
+    "index.html": "dacc325d16e577c96593d783cde39e561744af93ec8fea05fa72d0cd6b61e952",
+    "canvas-scene.mjs": "29e6f7a51cee2d177959d8964136ce7a2afeada13229e4c37a17fc75ed8c8c62",
+    "history-worker.mjs": "b1180e4c9b8b6782236e03ce799d07a7ea4688dfcbad6f002b2e3573e13082de",
+    "cask-ledger-worker.mjs": "d5e923560c332c90af30d5879f3318f49bd0827097ef96146e84d87f0661309f",
+    "ledger-history-view.mjs": "5a94e49e71c1d31fe1e83d8be048a31bf5bc52547f604274187aafe056ad5594",
+    "distillery-history.mjs": "119fd941e6ab671feef4ea8dce1b3d8b2e91236a8a0c2f2ca16b9e10a30504d4",
+    "cask-ledger.mjs": "249a9d26d14856c8015620ff113af07d780c95e3ba042188b85466fbc613bea5"
+  },
+  "cleanRerun": {
+    "sameProductHashes": true,
+    "runnerSHA256": "7383d6d69e9ccab94e9216909e2081640fa5cac2158465e24b498cc9230b17ec",
+    "exactSnapshot": "ledger-executed-browser.mjs",
+    "localCpuWindow": "After adapter11/11 complete and stale generator stopped; process inventory observed only benchmark Node170054; parent held heavy local work",
+    "settledMs": 0,
+    "fixtureNames": [
+      "empty",
+      "rich",
+      "long",
+      "legacy"
+    ]
+  }
+}

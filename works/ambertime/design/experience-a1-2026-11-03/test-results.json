@@ -1,0 +1,52 @@
+{
+  "base": "341f2865ff44af97bfb99e76450b6db17cac9511",
+  "baseline": {
+    "tests": 1216,
+    "pass": 1216,
+    "fail": 0,
+    "skip": 0,
+    "log": "baseline-tests.log"
+  },
+  "candidateInitial": {
+    "tests": 1228,
+    "pass": 1223,
+    "fail": 5,
+    "skip": 0,
+    "durationMs": 265374.292474,
+    "log": "candidate-initial-tests.log"
+  },
+  "adapterRetry": {
+    "files": [
+      "tests/r2-geometry.test.mjs",
+      "tests/r4-warehouse-effects.test.mjs"
+    ],
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 4289.971672,
+    "log": "adapter-retry-tests.log",
+    "reason": "Add required inert presentation ports only, preserving assertions and fixed oracles after fresh scope lock."
+  },
+  "uniqueFinalOutcome": {
+    "tests": 1228,
+    "pass": 1228,
+    "fail": 0,
+    "skip": 0,
+    "singleAllGreenRun": false
+  },
+  "productUnchangedAcrossScopeRepair": "product-reuse.json",
+  "formalProtection": [
+    "129 intermediate formal states",
+    "20 distillation states and individual cold replay",
+    "legacy cold/RNG/monthly/economy/inventory/notice/save-failure/R1-R6"
+  ],
+  "browser": {
+    "nonGlintCaptures": 416,
+    "nonGlintPairs": 208,
+    "differentPixels": 0,
+    "oldHourCacheCases": 2,
+    "glintControlledCases": 14,
+    "glintNaturalCases": 16
+  }
+}

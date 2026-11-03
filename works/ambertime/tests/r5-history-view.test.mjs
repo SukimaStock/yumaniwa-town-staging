@@ -1,3 +1,4 @@
+import {beforeA1} from './a1-source-baseline.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {execFileSync} from 'node:child_process';import {createHash} from 'node:crypto';
 import {ledgerProfile,caskTimeline,recordTimeline,recordText} from '../ledger-history-view.mjs';
 import {ageLabel,monthLabel} from '../model.mjs?v=stage4-r2';import {shortChange} from '../tasting-view.mjs?v=stage4-r2';
@@ -14,10 +15,10 @@ function states(){const empty=D.newMarketRulesDistillery(42),one=fill(empty);let
 const projections=[];
 const outcome=call=>{try{return {html:call()};}catch(error){return {error:error.name,message:error.message};}};
 function compare(c){const raw=JSON.stringify(c);freeze(c);assert.equal(caskTimeline(c),oracle.caskTimeline(c));assert.equal(caskTimeline(c),caskTimeline(c));assert.deepEqual(outcome(()=>recordTimeline(c.samples,c.observations,c.choices)),outcome(()=>oracle.recordTimeline(c.samples,c.observations,c.choices)));assert.deepEqual(outcome(()=>recordTimeline(c.samples,c.observations,c.choices,true)),outcome(()=>oracle.recordTimeline(c.samples,c.observations,c.choices,true)));for(let i=0;i<(c.samples??[]).length;i++)assert.equal(ledgerProfile(c.samples[i].profile,i?c.samples[i-1].profile:null),oracle.ledgerProfile(c.samples[i].profile,i?c.samples[i-1].profile:null));assert.equal(JSON.stringify(c),raw);}
-test('R5 actual moved function/formatter bytes and inverse root exactly match immutable R4 main; all formal/lifecycle source remains',()=>{
+test('R5 moved function/formatter bytes and root after exact reviewed A1 reversal match immutable R4 main',()=>{
  for(const n of ['ledgerProfile','caskTimeline','recordTimeline'])assert.equal(extractFunction(module,n),extractFunction(before,n),n);
  for(const n of ['FLAVOR_AXES','flavorTypeView','flavorMeter','esc','known','knownProfile','recordText'])assert.equal(sourceConst(module,n),sourceConst(before,n),n);
- assert.equal(inlineHistory(read('shop-app.mjs')),before);assert.equal(read('index.html').replace('&amp;history=r5-1',''),execFileSync('git',['show',BASE+':works/ambertime/index.html'],{encoding:'utf8'}));
+ assert.equal(inlineHistory(beforeA1(read('shop-app.mjs'))),before);assert.equal(beforeA1(read('index.html'),'index.html').replace('&amp;history=r5-1',''),execFileSync('git',['show',BASE+':works/ambertime/index.html'],{encoding:'utf8'}));
  assert(!/\b(?:game|modal|document|window|localStorage|Worker|setTimeout|Math\.random)\s*[.(=]/.test(module));assert.equal(module.match(/^export /gm).length,4);
 });
 test('R5 lawful empty/one/multi/taste/previous/partial/full/long-aged/legacy projections preserve original markup and formal/replay bytes',()=>{

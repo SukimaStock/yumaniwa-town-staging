@@ -1,0 +1,2421 @@
+{
+  "label": "Final immediate rerun after removing known local CPU load; same product sources",
+  "base": "341f2865ff44af97bfb99e76450b6db17cac9511",
+  "runnerSHA256": "7383d6d69e9ccab94e9216909e2081640fa5cac2158465e24b498cc9230b17ec",
+  "exactRunnerMatches": true,
+  "settledMs": 0,
+  "fixtureNames": [
+    "empty",
+    "rich",
+    "long",
+    "legacy"
+  ],
+  "groups": [
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "section": "recipes",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 128.97,
+          "median": 128.7,
+          "max": 144.8
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 41.92,
+          "median": 41.85,
+          "max": 43
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.47,
+            "median": 1.5,
+            "max": 1.8
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.57,
+            "median": 1.5,
+            "max": 1.8
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 11.7,
+            "median": 11,
+            "max": 14.3
+          },
+          "response": {
+            "n": 3,
+            "mean": 82.67,
+            "median": 81,
+            "max": 96.7
+          },
+          "dom": {
+            "n": 3,
+            "mean": 97.73,
+            "median": 96.6,
+            "max": 116.8
+          },
+          "visible": {
+            "n": 3,
+            "mean": 128.97,
+            "median": 128.7,
+            "max": 144.8
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 66.2,
+          "median": 62.7,
+          "max": 80.4
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 44.02,
+          "median": 44.9,
+          "max": 45.8
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.8,
+            "median": 1.4,
+            "max": 2.6
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.93,
+            "median": 1.4,
+            "max": 3.1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 19.53,
+            "median": 11.3,
+            "max": 37.2
+          },
+          "response": {
+            "n": 3,
+            "mean": 25.93,
+            "median": 20.1,
+            "max": 39.3
+          },
+          "dom": {
+            "n": 3,
+            "mean": 35.87,
+            "median": 30.6,
+            "max": 48
+          },
+          "visible": {
+            "n": 3,
+            "mean": 66.2,
+            "median": 62.7,
+            "max": 80.4
+          }
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "section": "history",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 144.27,
+          "median": 128,
+          "max": 178.1
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 43.58,
+          "median": 43,
+          "max": 46
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2.5,
+            "median": 1.5,
+            "max": 4.9
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.97,
+            "median": 0.8,
+            "max": 1.5
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 10.53,
+            "median": 7.4,
+            "max": 16.9
+          },
+          "response": {
+            "n": 3,
+            "mean": 102.4,
+            "median": 89.3,
+            "max": 136.7
+          },
+          "dom": {
+            "n": 3,
+            "mean": 121.47,
+            "median": 117.8,
+            "max": 152.1
+          },
+          "visible": {
+            "n": 3,
+            "mean": 144.27,
+            "median": 128,
+            "max": 178.1
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 60.6,
+          "median": 60.7,
+          "max": 61.2
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 43.1,
+          "median": 42.95,
+          "max": 45.8
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.7,
+            "median": 1.3,
+            "max": 2.7
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.6,
+            "median": 0.6,
+            "max": 0.7
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 8.6,
+            "median": 8.4,
+            "max": 9.2
+          },
+          "response": {
+            "n": 3,
+            "mean": 15.67,
+            "median": 16,
+            "max": 16.3
+          },
+          "dom": {
+            "n": 3,
+            "mean": 29.3,
+            "median": 29.1,
+            "max": 30.7
+          },
+          "visible": {
+            "n": 3,
+            "mean": 60.6,
+            "median": 60.7,
+            "max": 61.2
+          }
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "section": "recipes",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 272.8,
+          "median": 261.8,
+          "max": 329.4
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 43.95,
+          "median": 45.4,
+          "max": 46.1
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.8,
+            "median": 1.4,
+            "max": 2.7
+          },
+          "post": {
+            "n": 3,
+            "mean": 2.07,
+            "median": 1.4,
+            "max": 3.4
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 101.87,
+            "median": 100,
+            "max": 111.9
+          },
+          "response": {
+            "n": 3,
+            "mean": 226.27,
+            "median": 212.6,
+            "max": 281.9
+          },
+          "dom": {
+            "n": 3,
+            "mean": 252,
+            "median": 244,
+            "max": 303
+          },
+          "visible": {
+            "n": 3,
+            "mean": 272.8,
+            "median": 261.8,
+            "max": 329.4
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 304.7,
+          "median": 344.9,
+          "max": 411
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 44.35,
+          "median": 45.15,
+          "max": 46.8
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.23,
+            "median": 1.1,
+            "max": 1.6
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.3,
+            "median": 1.3,
+            "max": 1.4
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 173.23,
+            "median": 125.5,
+            "max": 276
+          },
+          "response": {
+            "n": 3,
+            "mean": 268.03,
+            "median": 306.1,
+            "max": 377.4
+          },
+          "dom": {
+            "n": 3,
+            "mean": 281.53,
+            "median": 318.7,
+            "max": 390
+          },
+          "visible": {
+            "n": 3,
+            "mean": 304.7,
+            "median": 344.9,
+            "max": 411
+          }
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "section": "history",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 237.87,
+          "median": 190.6,
+          "max": 345.2
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 41.78,
+          "median": 44.35,
+          "max": 46.7
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.33,
+            "median": 1.3,
+            "max": 1.5
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.67,
+            "median": 0.6,
+            "max": 0.8
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 76.17,
+            "median": 58.5,
+            "max": 118.7
+          },
+          "response": {
+            "n": 3,
+            "mean": 193.2,
+            "median": 150.8,
+            "max": 300.1
+          },
+          "dom": {
+            "n": 3,
+            "mean": 208.27,
+            "median": 165.7,
+            "max": 313.3
+          },
+          "visible": {
+            "n": 3,
+            "mean": 237.87,
+            "median": 190.6,
+            "max": 345.2
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 139.67,
+          "median": 109.4,
+          "max": 212.8
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 43.83,
+          "median": 45.8,
+          "max": 46.8
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.3,
+            "median": 1.3,
+            "max": 1.4
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.5,
+            "median": 0.5,
+            "max": 0.6
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 97.03,
+            "median": 59.7,
+            "max": 172
+          },
+          "response": {
+            "n": 3,
+            "mean": 98.6,
+            "median": 61.4,
+            "max": 173.4
+          },
+          "dom": {
+            "n": 3,
+            "mean": 108,
+            "median": 77.3,
+            "max": 180.9
+          },
+          "visible": {
+            "n": 3,
+            "mean": 139.67,
+            "median": 109.4,
+            "max": 212.8
+          }
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "long",
+      "section": "recipes",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 529.33,
+          "median": 465.8,
+          "max": 742.6
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 44.8,
+          "median": 45.3,
+          "max": 46.3
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2.5,
+            "median": 1.8,
+            "max": 4.4
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.7,
+            "median": 1.8,
+            "max": 1.9
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 323.2,
+            "median": 292.6,
+            "max": 420.6
+          },
+          "response": {
+            "n": 3,
+            "mean": 470.63,
+            "median": 409.5,
+            "max": 657.4
+          },
+          "dom": {
+            "n": 3,
+            "mean": 514.43,
+            "median": 452.6,
+            "max": 720.4
+          },
+          "visible": {
+            "n": 3,
+            "mean": 529.33,
+            "median": 465.8,
+            "max": 742.6
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 412.27,
+          "median": 340.5,
+          "max": 611.2
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 45.53,
+          "median": 45.55,
+          "max": 46.9
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 3.47,
+            "median": 1.2,
+            "max": 8
+          },
+          "post": {
+            "n": 3,
+            "mean": 2.57,
+            "median": 1.3,
+            "max": 5.1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 237.7,
+            "median": 230.1,
+            "max": 288
+          },
+          "response": {
+            "n": 3,
+            "mean": 369.07,
+            "median": 291.2,
+            "max": 577.4
+          },
+          "dom": {
+            "n": 3,
+            "mean": 386.53,
+            "median": 318.7,
+            "max": 588.1
+          },
+          "visible": {
+            "n": 3,
+            "mean": 412.27,
+            "median": 340.5,
+            "max": 611.2
+          }
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "long",
+      "section": "history",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 250.67,
+          "median": 250.4,
+          "max": 276.7
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 45.1,
+          "median": 45.45,
+          "max": 46.6
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2.9,
+            "median": 2.6,
+            "max": 5.2
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.17,
+            "median": 1.2,
+            "max": 1.7
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 115.93,
+            "median": 106.3,
+            "max": 135.8
+          },
+          "response": {
+            "n": 3,
+            "mean": 212.9,
+            "median": 205.4,
+            "max": 243.9
+          },
+          "dom": {
+            "n": 3,
+            "mean": 229.27,
+            "median": 219.6,
+            "max": 266.4
+          },
+          "visible": {
+            "n": 3,
+            "mean": 250.67,
+            "median": 250.4,
+            "max": 276.7
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 162.67,
+          "median": 162.8,
+          "max": 163.3
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 44.35,
+          "median": 44.65,
+          "max": 45.8
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.4,
+            "median": 1.6,
+            "max": 1.6
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.6,
+            "median": 0.6,
+            "max": 0.7
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 118.2,
+            "median": 117.7,
+            "max": 123.3
+          },
+          "response": {
+            "n": 3,
+            "mean": 119.8,
+            "median": 119.4,
+            "max": 124.8
+          },
+          "dom": {
+            "n": 3,
+            "mean": 132.53,
+            "median": 131.8,
+            "max": 134.9
+          },
+          "visible": {
+            "n": 3,
+            "mean": 162.67,
+            "median": 162.8,
+            "max": 163.3
+          }
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "legacy",
+      "section": "recipes",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 445.2,
+          "median": 379.3,
+          "max": 595.6
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 45.85,
+          "median": 46.2,
+          "max": 46.8
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.17,
+            "median": 1.1,
+            "max": 1.4
+          },
+          "post": {
+            "n": 3,
+            "mean": 2.17,
+            "median": 1.5,
+            "max": 3.8
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 257,
+            "median": 190.6,
+            "max": 399
+          },
+          "response": {
+            "n": 3,
+            "mean": 405.67,
+            "median": 334.8,
+            "max": 559.4
+          },
+          "dom": {
+            "n": 3,
+            "mean": 422.97,
+            "median": 353.6,
+            "max": 575.4
+          },
+          "visible": {
+            "n": 3,
+            "mean": 445.2,
+            "median": 379.3,
+            "max": 595.6
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 216.4,
+          "median": 206,
+          "max": 246.4
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 44.98,
+          "median": 45.5,
+          "max": 47.2
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 3.1,
+            "median": 1.3,
+            "max": 6.8
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.13,
+            "median": 1.2,
+            "max": 1.2
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 173.9,
+            "median": 159.8,
+            "max": 205.7
+          },
+          "response": {
+            "n": 3,
+            "mean": 176.5,
+            "median": 162.2,
+            "max": 208.4
+          },
+          "dom": {
+            "n": 3,
+            "mean": 199.43,
+            "median": 188.7,
+            "max": 234.1
+          },
+          "visible": {
+            "n": 3,
+            "mean": 216.4,
+            "median": 206,
+            "max": 246.4
+          }
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "legacy",
+      "section": "history",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 262.53,
+          "median": 245.9,
+          "max": 345.8
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 46.18,
+          "median": 47.05,
+          "max": 48.3
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.27,
+            "median": 1.2,
+            "max": 1.5
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.53,
+            "median": 0.5,
+            "max": 0.6
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 119.37,
+            "median": 107.2,
+            "max": 166.6
+          },
+          "response": {
+            "n": 3,
+            "mean": 218.7,
+            "median": 203.6,
+            "max": 298.6
+          },
+          "dom": {
+            "n": 3,
+            "mean": 231.53,
+            "median": 216.1,
+            "max": 314.1
+          },
+          "visible": {
+            "n": 3,
+            "mean": 262.53,
+            "median": 245.9,
+            "max": 345.8
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 161.23,
+          "median": 127.2,
+          "max": 229.6
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 44.4,
+          "median": 44.9,
+          "max": 47.1
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.97,
+            "median": 2.1,
+            "max": 2.8
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.63,
+            "median": 0.4,
+            "max": 1.1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 116.33,
+            "median": 88.6,
+            "max": 176.8
+          },
+          "response": {
+            "n": 3,
+            "mean": 118.87,
+            "median": 91.3,
+            "max": 180
+          },
+          "dom": {
+            "n": 3,
+            "mean": 132.47,
+            "median": 102.8,
+            "max": 197.3
+          },
+          "visible": {
+            "n": 3,
+            "mean": 161.23,
+            "median": 127.2,
+            "max": 229.6
+          }
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "section": "recipes",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 192.67,
+          "median": 183,
+          "max": 212
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 58.33,
+          "median": 51.5,
+          "max": 87
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 3.67,
+            "median": 4,
+            "max": 4
+          },
+          "post": {
+            "n": 3,
+            "mean": 4.33,
+            "median": 5,
+            "max": 5
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 20.67,
+            "median": 17,
+            "max": 29
+          },
+          "response": {
+            "n": 3,
+            "mean": 129,
+            "median": 135,
+            "max": 156
+          },
+          "dom": {
+            "n": 3,
+            "mean": 142.67,
+            "median": 154,
+            "max": 170
+          },
+          "visible": {
+            "n": 3,
+            "mean": 192.67,
+            "median": 183,
+            "max": 212
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 114,
+          "median": 122,
+          "max": 136
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 61.33,
+          "median": 57.5,
+          "max": 84
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 4,
+            "median": 4,
+            "max": 6
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.67,
+            "median": 2,
+            "max": 2
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 42,
+            "median": 32,
+            "max": 74
+          },
+          "response": {
+            "n": 3,
+            "mean": 45.33,
+            "median": 35,
+            "max": 78
+          },
+          "dom": {
+            "n": 3,
+            "mean": 65,
+            "median": 57,
+            "max": 91
+          },
+          "visible": {
+            "n": 3,
+            "mean": 114,
+            "median": 122,
+            "max": 136
+          }
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "section": "history",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 155,
+          "median": 155,
+          "max": 172
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 52.67,
+          "median": 50.5,
+          "max": 75
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2.33,
+            "median": 2,
+            "max": 3
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.33,
+            "median": 1,
+            "max": 2
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 14.67,
+            "median": 15,
+            "max": 16
+          },
+          "response": {
+            "n": 3,
+            "mean": 103.33,
+            "median": 103,
+            "max": 119
+          },
+          "dom": {
+            "n": 3,
+            "mean": 112.67,
+            "median": 118,
+            "max": 127
+          },
+          "visible": {
+            "n": 3,
+            "mean": 155,
+            "median": 155,
+            "max": 172
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 94,
+          "median": 86,
+          "max": 123
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 49.17,
+          "median": 49.5,
+          "max": 58
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.67,
+            "median": 2,
+            "max": 2
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.67,
+            "median": 1,
+            "max": 1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 24.67,
+            "median": 25,
+            "max": 26
+          },
+          "response": {
+            "n": 3,
+            "mean": 28.33,
+            "median": 28,
+            "max": 32
+          },
+          "dom": {
+            "n": 3,
+            "mean": 45.33,
+            "median": 40,
+            "max": 59
+          },
+          "visible": {
+            "n": 3,
+            "mean": 94,
+            "median": 86,
+            "max": 123
+          }
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "section": "recipes",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 410.67,
+          "median": 349,
+          "max": 541
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 106.33,
+          "median": 98.5,
+          "max": 159
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2,
+            "median": 2,
+            "max": 2
+          },
+          "post": {
+            "n": 3,
+            "mean": 2.33,
+            "median": 2,
+            "max": 3
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 191.67,
+            "median": 180,
+            "max": 223
+          },
+          "response": {
+            "n": 3,
+            "mean": 320.33,
+            "median": 280,
+            "max": 444
+          },
+          "dom": {
+            "n": 3,
+            "mean": 339.33,
+            "median": 296,
+            "max": 466
+          },
+          "visible": {
+            "n": 3,
+            "mean": 410.67,
+            "median": 349,
+            "max": 541
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 292.67,
+          "median": 286,
+          "max": 317
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 93.17,
+          "median": 92.5,
+          "max": 141
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 3.33,
+            "median": 2,
+            "max": 6
+          },
+          "post": {
+            "n": 3,
+            "mean": 3,
+            "median": 2,
+            "max": 5
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 205.33,
+            "median": 195,
+            "max": 232
+          },
+          "response": {
+            "n": 3,
+            "mean": 209.67,
+            "median": 198,
+            "max": 238
+          },
+          "dom": {
+            "n": 3,
+            "mean": 226.67,
+            "median": 212,
+            "max": 258
+          },
+          "visible": {
+            "n": 3,
+            "mean": 292.67,
+            "median": 286,
+            "max": 317
+          }
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "section": "history",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 319.33,
+          "median": 267,
+          "max": 457
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 48.17,
+          "median": 45,
+          "max": 60
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2,
+            "median": 2,
+            "max": 3
+          },
+          "post": {
+            "n": 3,
+            "mean": 1,
+            "median": 1,
+            "max": 1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 169,
+            "median": 115,
+            "max": 297
+          },
+          "response": {
+            "n": 3,
+            "mean": 266,
+            "median": 217,
+            "max": 423
+          },
+          "dom": {
+            "n": 3,
+            "mean": 275,
+            "median": 224,
+            "max": 430
+          },
+          "visible": {
+            "n": 3,
+            "mean": 319.33,
+            "median": 267,
+            "max": 457
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 254.33,
+          "median": 225,
+          "max": 381
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 44.67,
+          "median": 41.5,
+          "max": 62
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1,
+            "median": 1,
+            "max": 1
+          },
+          "post": {
+            "n": 3,
+            "mean": 1,
+            "median": 1,
+            "max": 1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 207.67,
+            "median": 184,
+            "max": 335
+          },
+          "response": {
+            "n": 3,
+            "mean": 210.33,
+            "median": 187,
+            "max": 337
+          },
+          "dom": {
+            "n": 3,
+            "mean": 220.67,
+            "median": 198,
+            "max": 351
+          },
+          "visible": {
+            "n": 3,
+            "mean": 254.33,
+            "median": 225,
+            "max": 381
+          }
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "name": "long",
+      "section": "recipes",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 457.33,
+          "median": 451,
+          "max": 493
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 41.33,
+          "median": 41.5,
+          "max": 43
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.67,
+            "median": 2,
+            "max": 2
+          },
+          "post": {
+            "n": 3,
+            "mean": 2,
+            "median": 2,
+            "max": 2
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 347.33,
+            "median": 345,
+            "max": 378
+          },
+          "response": {
+            "n": 3,
+            "mean": 406.67,
+            "median": 408,
+            "max": 437
+          },
+          "dom": {
+            "n": 3,
+            "mean": 421.33,
+            "median": 421,
+            "max": 455
+          },
+          "visible": {
+            "n": 3,
+            "mean": 457.33,
+            "median": 451,
+            "max": 493
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 551.67,
+          "median": 413,
+          "max": 863
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 74.67,
+          "median": 50,
+          "max": 151
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2,
+            "median": 2,
+            "max": 3
+          },
+          "post": {
+            "n": 3,
+            "mean": 2.33,
+            "median": 2,
+            "max": 3
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 493.33,
+            "median": 363,
+            "max": 779
+          },
+          "response": {
+            "n": 3,
+            "mean": 497,
+            "median": 367,
+            "max": 782
+          },
+          "dom": {
+            "n": 3,
+            "mean": 510.67,
+            "median": 381,
+            "max": 793
+          },
+          "visible": {
+            "n": 3,
+            "mean": 551.67,
+            "median": 413,
+            "max": 863
+          }
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "name": "long",
+      "section": "history",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 332,
+          "median": 315,
+          "max": 397
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 42,
+          "median": 42,
+          "max": 43
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.33,
+            "median": 1,
+            "max": 2
+          },
+          "post": {
+            "n": 3,
+            "mean": 1,
+            "median": 1,
+            "max": 1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 222.33,
+            "median": 218,
+            "max": 257
+          },
+          "response": {
+            "n": 3,
+            "mean": 278,
+            "median": 273,
+            "max": 320
+          },
+          "dom": {
+            "n": 3,
+            "mean": 296.67,
+            "median": 284,
+            "max": 352
+          },
+          "visible": {
+            "n": 3,
+            "mean": 332,
+            "median": 315,
+            "max": 397
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 390.33,
+          "median": 251,
+          "max": 685
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 49.17,
+          "median": 44,
+          "max": 72
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 5,
+            "median": 2,
+            "max": 11
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.67,
+            "median": 1,
+            "max": 1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 321.67,
+            "median": 203,
+            "max": 576
+          },
+          "response": {
+            "n": 3,
+            "mean": 324.67,
+            "median": 204,
+            "max": 581
+          },
+          "dom": {
+            "n": 3,
+            "mean": 338.67,
+            "median": 222,
+            "max": 590
+          },
+          "visible": {
+            "n": 3,
+            "mean": 390.33,
+            "median": 251,
+            "max": 685
+          }
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "name": "legacy",
+      "section": "recipes",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 412.67,
+          "median": 397,
+          "max": 457
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 45.67,
+          "median": 44,
+          "max": 59
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.67,
+            "median": 2,
+            "max": 2
+          },
+          "post": {
+            "n": 3,
+            "mean": 2,
+            "median": 2,
+            "max": 2
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 291.33,
+            "median": 279,
+            "max": 322
+          },
+          "response": {
+            "n": 3,
+            "mean": 355.33,
+            "median": 346,
+            "max": 382
+          },
+          "dom": {
+            "n": 3,
+            "mean": 371,
+            "median": 362,
+            "max": 398
+          },
+          "visible": {
+            "n": 3,
+            "mean": 412.67,
+            "median": 397,
+            "max": 457
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 310.67,
+          "median": 305,
+          "max": 323
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 40.67,
+          "median": 41,
+          "max": 42
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2.33,
+            "median": 2,
+            "max": 3
+          },
+          "post": {
+            "n": 3,
+            "mean": 1.67,
+            "median": 2,
+            "max": 2
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 263,
+            "median": 260,
+            "max": 275
+          },
+          "response": {
+            "n": 3,
+            "mean": 266.33,
+            "median": 262,
+            "max": 279
+          },
+          "dom": {
+            "n": 3,
+            "mean": 281,
+            "median": 275,
+            "max": 293
+          },
+          "visible": {
+            "n": 3,
+            "mean": 310.67,
+            "median": 305,
+            "max": 323
+          }
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "name": "legacy",
+      "section": "history",
+      "before": {
+        "first": {
+          "n": 3,
+          "mean": 251,
+          "median": 235,
+          "max": 284
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 43.67,
+          "median": 43,
+          "max": 45
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 1.67,
+            "median": 2,
+            "max": 2
+          },
+          "post": {
+            "n": 3,
+            "mean": 1,
+            "median": 1,
+            "max": 1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 141.33,
+            "median": 144,
+            "max": 144
+          },
+          "response": {
+            "n": 3,
+            "mean": 207,
+            "median": 197,
+            "max": 232
+          },
+          "dom": {
+            "n": 3,
+            "mean": 215.67,
+            "median": 205,
+            "max": 238
+          },
+          "visible": {
+            "n": 3,
+            "mean": 251,
+            "median": 235,
+            "max": 284
+          }
+        }
+      },
+      "after": {
+        "first": {
+          "n": 3,
+          "mean": 215,
+          "median": 219,
+          "max": 220
+        },
+        "repeat": {
+          "n": 6,
+          "mean": 42.83,
+          "median": 43,
+          "max": 44
+        },
+        "phases": {
+          "eventDispatch": {
+            "n": 3,
+            "mean": 2,
+            "median": 2,
+            "max": 2
+          },
+          "post": {
+            "n": 3,
+            "mean": 0.67,
+            "median": 1,
+            "max": 1
+          },
+          "workerCompute": {
+            "n": 3,
+            "mean": 172.33,
+            "median": 171,
+            "max": 175
+          },
+          "response": {
+            "n": 3,
+            "mean": 176,
+            "median": 174,
+            "max": 180
+          },
+          "dom": {
+            "n": 3,
+            "mean": 186,
+            "median": 188,
+            "max": 191
+          },
+          "visible": {
+            "n": 3,
+            "mean": 215,
+            "median": 219,
+            "max": 220
+          }
+        }
+      }
+    }
+  ],
+  "startupGroups": [
+    {
+      "engine": "chromium",
+      "side": "before",
+      "name": "all",
+      "app": {
+        "n": 12,
+        "mean": 538.74,
+        "median": 465.5,
+        "max": 1225.7
+      },
+      "font": {
+        "n": 12,
+        "mean": 561.08,
+        "median": 480.2,
+        "max": 1252.3
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "before",
+      "name": "empty",
+      "app": {
+        "n": 3,
+        "mean": 244.63,
+        "median": 244.3,
+        "max": 266.3
+      },
+      "font": {
+        "n": 3,
+        "mean": 270.1,
+        "median": 261.7,
+        "max": 294.6
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "before",
+      "name": "rich",
+      "app": {
+        "n": 3,
+        "mean": 408.23,
+        "median": 411.5,
+        "max": 472.3
+      },
+      "font": {
+        "n": 3,
+        "mean": 425.5,
+        "median": 428.8,
+        "max": 487.6
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "before",
+      "name": "long",
+      "app": {
+        "n": 3,
+        "mean": 771.2,
+        "median": 629.2,
+        "max": 1225.7
+      },
+      "font": {
+        "n": 3,
+        "mean": 790.43,
+        "median": 646.2,
+        "max": 1252.3
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "before",
+      "name": "legacy",
+      "app": {
+        "n": 3,
+        "mean": 730.9,
+        "median": 549.9,
+        "max": 1121.5
+      },
+      "font": {
+        "n": 3,
+        "mean": 758.27,
+        "median": 577.5,
+        "max": 1157.9
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "after",
+      "name": "all",
+      "app": {
+        "n": 12,
+        "mean": 481.97,
+        "median": 468,
+        "max": 778
+      },
+      "font": {
+        "n": 12,
+        "mean": 502.07,
+        "median": 488.85,
+        "max": 794.9
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "after",
+      "name": "empty",
+      "app": {
+        "n": 3,
+        "mean": 331.97,
+        "median": 312.6,
+        "max": 385.4
+      },
+      "font": {
+        "n": 3,
+        "mean": 357.37,
+        "median": 337,
+        "max": 412.2
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "after",
+      "name": "rich",
+      "app": {
+        "n": 3,
+        "mean": 399.6,
+        "median": 357.2,
+        "max": 531.8
+      },
+      "font": {
+        "n": 3,
+        "mean": 417.8,
+        "median": 372.7,
+        "max": 555.2
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "after",
+      "name": "long",
+      "app": {
+        "n": 3,
+        "mean": 517.77,
+        "median": 553.5,
+        "max": 558.2
+      },
+      "font": {
+        "n": 3,
+        "mean": 534.2,
+        "median": 567.2,
+        "max": 576
+      }
+    },
+    {
+      "engine": "chromium",
+      "side": "after",
+      "name": "legacy",
+      "app": {
+        "n": 3,
+        "mean": 678.53,
+        "median": 763.2,
+        "max": 778
+      },
+      "font": {
+        "n": 3,
+        "mean": 698.9,
+        "median": 783.5,
+        "max": 794.9
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "before",
+      "name": "all",
+      "app": {
+        "n": 12,
+        "mean": 559.25,
+        "median": 554.5,
+        "max": 865
+      },
+      "font": {
+        "n": 12,
+        "mean": 589.42,
+        "median": 581.5,
+        "max": 898
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "before",
+      "name": "empty",
+      "app": {
+        "n": 3,
+        "mean": 361.33,
+        "median": 330,
+        "max": 451
+      },
+      "font": {
+        "n": 3,
+        "mean": 397,
+        "median": 362,
+        "max": 501
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "before",
+      "name": "rich",
+      "app": {
+        "n": 3,
+        "mean": 693.67,
+        "median": 637,
+        "max": 865
+      },
+      "font": {
+        "n": 3,
+        "mean": 722.33,
+        "median": 664,
+        "max": 898
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "before",
+      "name": "long",
+      "app": {
+        "n": 3,
+        "mean": 648,
+        "median": 632,
+        "max": 750
+      },
+      "font": {
+        "n": 3,
+        "mean": 677.67,
+        "median": 662,
+        "max": 781
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "before",
+      "name": "legacy",
+      "app": {
+        "n": 3,
+        "mean": 534,
+        "median": 538,
+        "max": 547
+      },
+      "font": {
+        "n": 3,
+        "mean": 560.67,
+        "median": 567,
+        "max": 573
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "after",
+      "name": "all",
+      "app": {
+        "n": 12,
+        "mean": 502.17,
+        "median": 532.5,
+        "max": 818
+      },
+      "font": {
+        "n": 12,
+        "mean": 531.67,
+        "median": 559,
+        "max": 874
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "after",
+      "name": "empty",
+      "app": {
+        "n": 3,
+        "mean": 332.33,
+        "median": 324,
+        "max": 397
+      },
+      "font": {
+        "n": 3,
+        "mean": 359.67,
+        "median": 351,
+        "max": 424
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "after",
+      "name": "rich",
+      "app": {
+        "n": 3,
+        "mean": 543.33,
+        "median": 447,
+        "max": 818
+      },
+      "font": {
+        "n": 3,
+        "mean": 578,
+        "median": 471,
+        "max": 874
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "after",
+      "name": "long",
+      "app": {
+        "n": 3,
+        "mean": 590.67,
+        "median": 589,
+        "max": 630
+      },
+      "font": {
+        "n": 3,
+        "mean": 619,
+        "median": 615,
+        "max": 663
+      }
+    },
+    {
+      "engine": "webkit",
+      "side": "after",
+      "name": "legacy",
+      "app": {
+        "n": 3,
+        "mean": 542.33,
+        "median": 541,
+        "max": 562
+      },
+      "font": {
+        "n": 3,
+        "mean": 570,
+        "median": 567,
+        "max": 592
+      }
+    }
+  ],
+  "rows": 288,
+  "comparisonPairs": 144,
+  "mismatches": 0,
+  "projectionResponses": 96,
+  "projectionPairs": 48,
+  "projectionMismatch": 0,
+  "nonzeroScrollProbes": [
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "run": 0,
+      "side": "before",
+      "id": "ledger-recipe-8",
+      "scroll": 58,
+      "restored": true
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "run": 0,
+      "side": "after",
+      "id": "ledger-recipe-8",
+      "scroll": 58,
+      "restored": true
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "run": 1,
+      "side": "before",
+      "id": "ledger-recipe-8",
+      "scroll": 58,
+      "restored": true
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "run": 1,
+      "side": "after",
+      "id": "ledger-recipe-8",
+      "scroll": 58,
+      "restored": true
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "run": 2,
+      "side": "before",
+      "id": "ledger-recipe-8",
+      "scroll": 58,
+      "restored": true
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "run": 2,
+      "side": "after",
+      "id": "ledger-recipe-8",
+      "scroll": 58,
+      "restored": true
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "run": 0,
+      "side": "before",
+      "id": "ledger-recipe-8",
+      "scroll": 62,
+      "restored": true
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "run": 0,
+      "side": "after",
+      "id": "ledger-recipe-8",
+      "scroll": 62,
+      "restored": true
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "run": 1,
+      "side": "before",
+      "id": "ledger-recipe-8",
+      "scroll": 62,
+      "restored": true
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "run": 1,
+      "side": "after",
+      "id": "ledger-recipe-8",
+      "scroll": 62,
+      "restored": true
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "run": 2,
+      "side": "before",
+      "id": "ledger-recipe-8",
+      "scroll": 62,
+      "restored": true
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "run": 2,
+      "side": "after",
+      "id": "ledger-recipe-8",
+      "scroll": 62,
+      "restored": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "shop-app.mjs": "052185c62476904a7bd31c79ffaa47a79d00bc18551860e042f8881338ed421f",
+    "index.html": "dacc325d16e577c96593d783cde39e561744af93ec8fea05fa72d0cd6b61e952",
+    "canvas-scene.mjs": "29e6f7a51cee2d177959d8964136ce7a2afeada13229e4c37a17fc75ed8c8c62",
+    "history-worker.mjs": "b1180e4c9b8b6782236e03ce799d07a7ea4688dfcbad6f002b2e3573e13082de",
+    "cask-ledger-worker.mjs": "d5e923560c332c90af30d5879f3318f49bd0827097ef96146e84d87f0661309f",
+    "ledger-history-view.mjs": "5a94e49e71c1d31fe1e83d8be048a31bf5bc52547f604274187aafe056ad5594",
+    "distillery-history.mjs": "119fd941e6ab671feef4ea8dce1b3d8b2e91236a8a0c2f2ca16b9e10a30504d4",
+    "cask-ledger.mjs": "249a9d26d14856c8015620ff113af07d780c95e3ba042188b85466fbc613bea5"
+  },
+  "compressedEvidence": [
+    {
+      "file": "ledger-loaded-immediate-results.json.gz",
+      "rawBytes": 3182798,
+      "gzipBytes": 67060,
+      "rawSHA256": "63da93d6a4fa3441fd1d5afb48512f45ee986584e7151f84cdd5628a9b1f7b85",
+      "gzipSHA256": "a05f14b778f4ae6f74b4441226670eb3c47071cff1ce44134c043015c3e5c8bd"
+    },
+    {
+      "file": "ledger-initial-warm-results.json.gz",
+      "rawBytes": 3160535,
+      "gzipBytes": 66053,
+      "rawSHA256": "04c0e008f4c7d535f259b865a3aba8934bd63968144bc5b0550a461808b4310b",
+      "gzipSHA256": "6896f796429725d299a088375108aca4f7c227a9a2b94398f2d467fb9e399a19"
+    },
+    {
+      "file": "ledger-settled-results.json.gz",
+      "rawBytes": 669818,
+      "gzipBytes": 14495,
+      "rawSHA256": "7e4bff1a6f893f9513f564fd187590b58e4523d1941e090fb67f966e8111811f",
+      "gzipSHA256": "2107d9723560b4a4997d80415b04c7d070898d10a32f5425554774bb745dd8c5"
+    },
+    {
+      "file": "ledger-paired-results.json.gz",
+      "rawBytes": 3183302,
+      "gzipBytes": 67053,
+      "rawSHA256": "671736427401566944ae1b1346d5fa3c1408dae37ba6a779ed3f31a48badc9cb",
+      "gzipSHA256": "29032043ca8c27f4923765dd3516fc9edca502368b0332669c083113d62b6a17"
+    }
+  ],
+  "priorLoadedObservations": {
+    "summary": "ledger-loaded-summary.json",
+    "immediate": "ledger-loaded-immediate-results.json.gz",
+    "settled": "ledger-settled-results.json.gz",
+    "confound": "Abandoned fixture generator PID150231 at~98%CPU, stopped via original session14987 before this final rerun",
+    "supersededForPerformance": true,
+    "correctnessStillObserved": true
+  },
+  "settled": {
+    "settledMs": 1000,
+    "fixtureNames": [
+      "empty",
+      "long"
+    ],
+    "runnerSHA256": "7383d6d69e9ccab94e9216909e2081640fa5cac2158465e24b498cc9230b17ec",
+    "exactRunnerMatches": true,
+    "rows": 144,
+    "comparisonPairs": 72,
+    "mismatch": 0,
+    "projectionResponses": 48,
+    "projectionPairs": 24,
+    "projectionMismatch": 0,
+    "errors": [],
+    "groups": [
+      {
+        "engine": "chromium",
+        "name": "empty",
+        "section": "recipes",
+        "before": {
+          "n": 3,
+          "mean": 134.8,
+          "median": 128.4,
+          "max": 164.9
+        },
+        "after": {
+          "n": 3,
+          "mean": 85.3,
+          "median": 82,
+          "max": 111.8
+        }
+      },
+      {
+        "engine": "chromium",
+        "name": "empty",
+        "section": "history",
+        "before": {
+          "n": 3,
+          "mean": 117.1,
+          "median": 112.7,
+          "max": 126.5
+        },
+        "after": {
+          "n": 3,
+          "mean": 66.3,
+          "median": 62.8,
+          "max": 75.7
+        }
+      },
+      {
+        "engine": "chromium",
+        "name": "long",
+        "section": "recipes",
+        "before": {
+          "n": 3,
+          "mean": 316.4,
+          "median": 308.9,
+          "max": 345.2
+        },
+        "after": {
+          "n": 3,
+          "mean": 470.3,
+          "median": 360.5,
+          "max": 810.6
+        }
+      },
+      {
+        "engine": "chromium",
+        "name": "long",
+        "section": "history",
+        "before": {
+          "n": 3,
+          "mean": 242,
+          "median": 239.5,
+          "max": 257.1
+        },
+        "after": {
+          "n": 3,
+          "mean": 227.3,
+          "median": 228.2,
+          "max": 295.4
+        }
+      },
+      {
+        "engine": "webkit",
+        "name": "empty",
+        "section": "recipes",
+        "before": {
+          "n": 3,
+          "mean": 176.7,
+          "median": 176,
+          "max": 199
+        },
+        "after": {
+          "n": 3,
+          "mean": 189.3,
+          "median": 180,
+          "max": 217
+        }
+      },
+      {
+        "engine": "webkit",
+        "name": "empty",
+        "section": "history",
+        "before": {
+          "n": 3,
+          "mean": 182,
+          "median": 169,
+          "max": 219
+        },
+        "after": {
+          "n": 3,
+          "mean": 110,
+          "median": 112,
+          "max": 142
+        }
+      },
+      {
+        "engine": "webkit",
+        "name": "long",
+        "section": "recipes",
+        "before": {
+          "n": 3,
+          "mean": 654,
+          "median": 750,
+          "max": 752
+        },
+        "after": {
+          "n": 3,
+          "mean": 682,
+          "median": 731,
+          "max": 829
+        }
+      },
+      {
+        "engine": "webkit",
+        "name": "long",
+        "section": "history",
+        "before": {
+          "n": 3,
+          "mean": 394,
+          "median": 350,
+          "max": 498
+        },
+        "after": {
+          "n": 3,
+          "mean": 301,
+          "median": 309,
+          "max": 330
+        }
+      }
+    ],
+    "label": "Earlier CPU-loaded supplemental condition; not rerun clean and not a final performance claim"
+  }
+}

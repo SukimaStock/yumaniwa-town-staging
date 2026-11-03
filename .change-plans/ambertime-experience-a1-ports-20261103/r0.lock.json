@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f365d0344b5c775f5085b8b53e10933ccecaefebef86e5cdd9b1737edb17cc59",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "341f2865ff44af97bfb99e76450b6db17cac9511",
+    "changeId": "ambertime-experience-a1-ports-20261103",
+    "revision": 0,
+    "change": "Improve measured ledger worker startup latency and add a saved manual distillation glass glint without formal-state changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/REFACTOR-SUMMARY.md",
+      "PR769-776 merged records and R0-R6/L1 evidence",
+      "Current explicit A1 user instruction",
+      "Measured original ledger worker startup /tmp/a1-ledger-baseline.json; actual worker/request/snapshot/DOM lifecycle",
+      "Actual finishDistillation/act/save/syncModal and CanvasScene shared RAF/motionTimer",
+      "A1 original locked implementation and Draft PR777; initial full1228 with5 missing test-port failures; reused runtime content unchanged"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-experience-a1-ports-20261103/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/a1-*.mjs",
+      "works/ambertime/tests/r0-distill-host.mjs",
+      "works/ambertime/tests/r0-notice-priority.test.mjs",
+      "works/ambertime/tests/r3-preparation-controller.test.mjs",
+      "works/ambertime/tests/r4-warehouse-selection.test.mjs",
+      "works/ambertime/tests/r5-history-view.test.mjs",
+      "works/ambertime/design/experience-a1-2026-11-03/**",
+      "works/ambertime/tests/r2-geometry.test.mjs",
+      "works/ambertime/tests/r4-warehouse-effects.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/ledger-history-view.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "A1-1 independently measured: reuse/warm existing module workers without replay at boot, preserve snapshot invalidation and request ordering, error/retry/focus/scroll/ARIA; no speculative projection cache or model changes. Compare phase timings multiple cold/warm small/many/legacy/long/reload observations; disclose measurement variability.",
+      "A1-2 independently tested: arm Canvas-only transient completion after successful manual stop save. Existing syncModal formal notices execute immediately; hold only fill and lower map presentation. Recheck spirit/phase/room/modal/save/visibility; existing motionTimer/RAF, no new loop/timer. Tiny rim cells on 3px grid after existing slide; compare250/300/400ms and choose shortest visible. Reduced motion omit. Cancel invalid/hidden/pagehide/reset and stale callbacks.",
+      "Keep formal save timing, notification wording/order, game results, RNG, elapsed and all geometry unchanged. Preserve existing fixture assertions. Add inert VM ports and an exact guarded inverse adapter only for intentional A1 source deltas so original R4/R5 full-root oracles remain unchanged.",
+      "Full original suite and formal129/distill20/oldcold regression; independent Chromium/WebKit360/375/390 DPR1/2/3/reduced, region-bounded glint pixels versus non-glint zero-diff, DOM/hit/focus/ARIA/formal save, old1hcache upgrade, independent review, required CI normal merge and Staging verification.",
+      "Fresh scope before adding two required old VM/fake presentation ports: r2 animation sampleDistillCompletion and r4 scene methods. Preserve all expectations/oracles; retain initial5failure log and rerun failed tests. No product change to evade tests."
+    ],
+    "ownerDecisions": [
+      "Current explicit A1 instruction authorizes both local experience improvements and independent review/CI/normal Staging merge/public browser verification; no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK staging-only; lock-only commit before implementation",
+      "No extra buttons/copy/sound/loading UI; restrained glint explicitly requested",
+      "Existing worker projections/view formatters and Canvas scheduler retained",
+      "Baseline/source expectations not loosened; intentional source delta inverse is exact and new behavior has separate tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "A1-1 independent before/after phase timing and content/focus/scroll/stale-response/reload/legacy matrix in Chromium/WebKit",
+      "A1-2 compare timing/glint region/cancel/failure/interrupt/hidden/reduced/reload/auto; save before presentation",
+      "Full suite formal129/distill20/oldcold/RNG/month/economy/notifications and R1-R6 boundaries",
+      "Old cache dependency closure and browser update; independent review exacthead CI Staging Pages/public operations"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert PR of A1 runtime/cache/test/docs together; no save migration",
+    "outOfScope": [
+      "Formal model/calculation/quantity/flavor/RNG/month/economy/staff/save schema changes",
+      "History content/order/prose/structure and global modal redesign",
+      "Tool geometry/input/base design/new animation loops or independent timers",
+      "Quantity animation unification/Lab/Production/shared CI/Change OS"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari touch feel/VoiceOver/real OS background/BFCache until actually observed"
+    ]
+  }
+}
