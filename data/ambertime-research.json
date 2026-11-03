@@ -1,0 +1,1038 @@
+{
+  "schema": "ambertime-research/1",
+  "baseline": "632968a80b81ea1478012073b2de9a0f6e525183",
+  "records": [
+    {
+      "id": "cask-aroma",
+      "source": "works/ambertime/experiments/cask-aroma/index.html",
+      "version": "表記なし",
+      "theme": "味と熟成",
+      "display": "record",
+      "purpose": "樽による香りの変化と、試飲台で飲み比べる操作を試す。",
+      "findings": "樽と香り、試飲台での飲み比べを試した。REPORT冒頭で探索終了を記録した。",
+      "adoption": "本編への採用は見送り。",
+      "deferred": "樽と香り・試飲台の本編導入を見送った。コード・専用保存は保持する。",
+      "protection": false,
+      "dependencies": [],
+      "references": [
+        "works/ambertime/experiments/cask-aroma/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/501",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/500",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/498",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/497"
+      ],
+      "title": "AmberTime · 樽と香りの試作"
+    },
+    {
+      "id": "contest",
+      "source": "works/ambertime/experiments/contest/index.html",
+      "version": "0.2",
+      "theme": "操作・画面設計",
+      "display": "review",
+      "purpose": "年ごとに替わる審査員、任意参加の品評会、熟成待ちと次の仕込みのつながりを試す。",
+      "findings": "0.2では年ごとに審査員が替わると、同じ4樽でも選択が変わった。総合賞と個人推薦を分け、翌年の審査員を事前に確認できる形にした。体験の評価は未確認。",
+      "adoption": "本編統合は保留。",
+      "deferred": "中央値の標準化は見送り。賞金・評判・世代との接続は未実装。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime/model.mjs",
+        "works/ambertime/parameters.mjs",
+        "works/ambertime/partner-orders.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/contest/REPORT-v02.md",
+        "works/ambertime/experiments/contest/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/532",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/531"
+      ],
+      "work": "ambertime-contest-lab"
+    },
+    {
+      "id": "contest-v01",
+      "source": "works/ambertime/experiments/contest/v01.html",
+      "version": "0.1",
+      "theme": "操作・画面設計",
+      "display": "record",
+      "purpose": "同じ4樽を好みの異なる3人で審査し、熟成時期・集計方式・出品時の消費を比較する。",
+      "findings": "審査員の好みで高評価の製法と月齢が分かれた。固定総合点では多様な4樽を持つ利点が足りなかった。",
+      "adoption": "本編統合は保留。",
+      "deferred": "0.1では出品ごとの0.7L消費の標準化を見送った。審査員の好み・個人推薦・熟成を待つ判断は採用候補に留めた。",
+      "protection": false,
+      "dependencies": [],
+      "references": [
+        "works/ambertime/experiments/contest/REPORT-v02.md",
+        "works/ambertime/experiments/contest/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/532"
+      ],
+      "title": "AmberTime Contest Lab 0.1"
+    },
+    {
+      "id": "continuous-trade-v01",
+      "source": "works/ambertime/experiments/continuous-trade/v01/index.html",
+      "version": "0.1",
+      "theme": "販売と取扱店",
+      "display": "review",
+      "purpose": "タップ・スライド・ドラッグ・線で結ぶ操作を比べ、同じ製法の継続取引と品切れ後の再開を試す。",
+      "findings": "4種類の操作で同じ取引関係を作り、同じ製法の在庫から自動発送する仮モデルを作成した。価格・需要・店の好みには未接続で、操作方式の採否は未確認。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": false,
+      "dependencies": [],
+      "references": [
+        "works/ambertime/experiments/continuous-trade/v01/README.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/650"
+      ],
+      "title": "AmberTime｜取引のつづき Lab 0.1"
+    },
+    {
+      "id": "decision",
+      "source": "works/ambertime/experiments/decision/index.html",
+      "version": "0.1",
+      "theme": "味と熟成",
+      "display": "review",
+      "purpose": "熟成・手元資金・季節の違いが、瓶詰めする時期と販売判断にどう関わるかを比較する。",
+      "findings": "2シード・3初期セット・4条件・4方針の96本を最大36か月で比較した。風味と資金の理由を分けて観察できる。",
+      "adoption": "当時のREPORTでは現段階の本編統合を見送り。後続の採用は未確認。",
+      "deferred": "強い蒸発・大幅な季節補正・強制瓶詰めイベントを当時見送った。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime/economy-parameters.mjs",
+        "works/ambertime/economy.mjs",
+        "works/ambertime/model.mjs",
+        "works/ambertime/monthly.mjs",
+        "works/ambertime/parameters.mjs",
+        "works/ambertime/partner-orders.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/decision/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/533"
+      ],
+      "work": "ambertime-decision-lab"
+    },
+    {
+      "id": "distillation",
+      "source": "works/ambertime/experiments/distillation/index.html",
+      "version": "表記なし",
+      "theme": "蒸留とカット",
+      "display": "record",
+      "purpose": "採取区間を変え、香りと量のトレードオフを示すAと、原酒の構成が滑らかに変わるBを比較する。",
+      "findings": "Aは中盤の香りと後半の量、Bは軽さから果実・穀物への滑らかな変化を比較できた。",
+      "adoption": "A由来の抽出をaroma-extraction.mjsが使用。560区間比較を本編テストで保護。",
+      "deferred": "旧Bモデルを正式仕様として採用した根拠は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/brand-reputation.mjs",
+        "works/ambertime/character.mjs",
+        "works/ambertime/distillery-art.mjs",
+        "works/ambertime/economy-parameters.mjs",
+        "works/ambertime/economy.mjs",
+        "works/ambertime/model.mjs",
+        "works/ambertime/partner-orders.mjs",
+        "works/ambertime/partner-parameters.mjs",
+        "works/ambertime/spirit-view.mjs",
+        "works/ambertime/design/shop/price-audit.mjs",
+        "works/ambertime/design/stockists/parameter-audit.mjs",
+        "works/ambertime/tests/aroma-model.test.mjs",
+        "works/ambertime/tests/aroma-simulate.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/distillation/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/437"
+      ],
+      "title": "AmberTime · 蒸留モデル比較"
+    },
+    {
+      "id": "hand-and-place-v01",
+      "source": "works/ambertime/experiments/hand-and-place/v01/index.html",
+      "version": "0.1",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "一本を造って店へ出し、同じ製法をまた使いたくなるかを試す。",
+      "findings": "一本を造り、店へ出す循環を独立モデルで試した。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v02/tests/model.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v01/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/623",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/622"
+      ],
+      "work": "ambertime-hand-and-place-lab"
+    },
+    {
+      "id": "hand-and-place-v02",
+      "source": "works/ambertime/experiments/hand-and-place/v02/index.html",
+      "version": "0.2",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "手札と店の棚を見比べ、一本を出した後の場から次の選択を考えられるかを試す。",
+      "findings": "手札を出すと棚が変わり、次の選択へ戻る循環を試した。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v01/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v03/tests/model.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v02/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/624"
+      ],
+      "work": "ambertime-hand-and-place-v02-lab"
+    },
+    {
+      "id": "hand-and-place-v03",
+      "source": "works/ambertime/experiments/hand-and-place/v03/index.html",
+      "version": "0.3",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "取扱いの成立と店主の好みを分け、紹介した一本への返事が次の試作につながるかを試す。",
+      "findings": "取扱いの成立と店主の好みを別に扱う比較を試した。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v02/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v03/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/625"
+      ],
+      "work": "ambertime-hand-and-place-v03-lab"
+    },
+    {
+      "id": "hand-and-place-v04",
+      "source": "works/ambertime/experiments/hand-and-place/v04/index.html",
+      "version": "0.4",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "店の注文を選んで手札を渡し、残った在庫と次の注文から再仕込みを考える操作を試す。",
+      "findings": "注文・実納品・残った在庫から次の注文が変わる操作を試した。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v05/app.mjs",
+        "works/ambertime/experiments/hand-and-place/v05/tests/scenarios.mjs",
+        "works/ambertime/experiments/hand-and-place/v05/tests/view.test.mjs",
+        "works/ambertime/experiments/hand-and-place/v06/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v06/tests/model.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v04/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/626"
+      ],
+      "work": "ambertime-hand-and-place-v04-lab"
+    },
+    {
+      "id": "hand-and-place-v05",
+      "source": "works/ambertime/experiments/hand-and-place/v05/index.html",
+      "version": "0.5",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "同じ注文・納品・時間経過を、数字・瓶・短い動きの3案で比較する。",
+      "findings": "v04と同じ出来事を数字・瓶・短い動きの3案で比較した。初期表示はB。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime/experiments/hand-and-place/v04/model.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v05/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/627"
+      ],
+      "work": "ambertime-hand-and-place-v05-lab"
+    },
+    {
+      "id": "hand-and-place-v06",
+      "source": "works/ambertime/experiments/hand-and-place/v06/index.html",
+      "version": "0.6",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "自家販売と店への納品量を自分で選び、未販売の配分を戻して考え直す操作を比較する。",
+      "findings": "自家販売へ回した分だけ自動販売し、店へ渡す量を手動で選ぶ比較を試した。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/experiments/hand-and-place/v04/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v07/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v07/tests/model.test.mjs",
+        "works/ambertime/experiments/hand-and-place/v07/tests/scenarios.mjs",
+        "works/ambertime/experiments/hand-and-place/v072/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v072/tests/model.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v06/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/628"
+      ],
+      "work": "ambertime-hand-and-place-v06-lab"
+    },
+    {
+      "id": "hand-and-place-v07",
+      "source": "works/ambertime/experiments/hand-and-place/v07/index.html",
+      "version": "0.7",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "自由な行き先選択を瓶棚と小窓へ置き換え、瓶・行き先・数量を確認する操作を比較する。",
+      "findings": "v06 Cの行き先選択を本編の瓶棚と小窓で操作できるようにした。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/canvas-layout.mjs",
+        "works/ambertime/cask-glass-art.mjs",
+        "works/ambertime/experiments/hand-and-place/v06/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/font-loader.mjs",
+        "works/ambertime/pixel-symbols.mjs",
+        "works/ambertime/room-object-art.mjs",
+        "works/ambertime/experiments/hand-and-place/v071/app.mjs",
+        "works/ambertime/experiments/hand-and-place/v072/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v072/tests/model.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v07/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/656",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/655",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/629"
+      ],
+      "work": "ambertime-hand-and-place-v07-lab"
+    },
+    {
+      "id": "hand-and-place-v071",
+      "source": "works/ambertime/experiments/hand-and-place/v071/index.html",
+      "version": "0.7.1",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "v07と同じゲーム処理で、瓶棚と小窓の表示を減らした操作を比較する。",
+      "findings": "v07モデルを変更せず棚と小窓の表示を減らした。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime/canvas-layout.mjs",
+        "works/ambertime/cask-glass-art.mjs",
+        "works/ambertime/experiments/hand-and-place/v07/model.mjs",
+        "works/ambertime/font-loader.mjs",
+        "works/ambertime/pixel-symbols.mjs",
+        "works/ambertime/room-object-art.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v071/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/632",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/630"
+      ],
+      "work": "ambertime-hand-and-place-v071-lab"
+    },
+    {
+      "id": "hand-and-place-v072",
+      "source": "works/ambertime/experiments/hand-and-place/v072/index.html",
+      "version": "0.7.2",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "自家販売に残す数と2店へ渡す数を数値でまとめ、最後に一度だけ確定する操作を試す。",
+      "findings": "自家販売と2店への配分を最後に一度だけ確定する数値方式を試した。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/canvas-layout.mjs",
+        "works/ambertime/cask-glass-art.mjs",
+        "works/ambertime/experiments/hand-and-place/v06/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v07/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/font-loader.mjs",
+        "works/ambertime/pixel-symbols.mjs",
+        "works/ambertime/room-object-art.mjs",
+        "works/ambertime/experiments/hand-and-place/v073/app.mjs",
+        "works/ambertime/experiments/hand-and-place/v073/tests/draft.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v072/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/633"
+      ],
+      "work": "ambertime-hand-and-place-v072-lab"
+    },
+    {
+      "id": "hand-and-place-v073",
+      "source": "works/ambertime/experiments/hand-and-place/v073/index.html",
+      "version": "0.7.3",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "v072の数値配分と、量を選んで行き先をタップする仮置き操作を同じ配分結果で比較する。",
+      "findings": "数値方式と仮置きを5場面で比較。仮置きの操作数は少なくならず、手応えと負担を分けて判断した。 作者による体験評価は未確認。",
+      "adoption": "v073の仮置き・量選択・取消・最後の1確定は後続の本編接続で採用。各旧版の全仕様を採用した意味ではない。",
+      "deferred": "各版の注文・店舗・操作案すべての採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/canvas-layout.mjs",
+        "works/ambertime/cask-glass-art.mjs",
+        "works/ambertime/experiments/hand-and-place/v072/model.mjs",
+        "works/ambertime/font-loader.mjs",
+        "works/ambertime/pixel-symbols.mjs",
+        "works/ambertime/room-object-art.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v02/model.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/hand-and-place/v073/REPORT.md",
+        "works/ambertime/design/placement-027/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/634"
+      ],
+      "work": "ambertime-hand-and-place-v073-lab"
+    },
+    {
+      "id": "market-design-v01",
+      "source": "works/ambertime/experiments/market-design/v01/index.html",
+      "version": "0.1",
+      "theme": "販売と取扱店",
+      "display": "active",
+      "purpose": "味と販路の相性、瓶の配分と販売循環、販売ルール候補の経済バランスを比較する。",
+      "findings": "味と販路の相性、配分後の販売循環、経済バランスを比較した。Lab sales.mjsと本編market-sales.mjsの一致をテストで保護。",
+      "adoption": "販売ルールを本編へ採用（#668）。",
+      "deferred": "Lab全体の画面・条件をそのまま本編へ採用したものではない。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/economy-parameters.mjs",
+        "works/ambertime/economy.mjs",
+        "works/ambertime/font-loader.mjs",
+        "works/ambertime/lab-flavor.mjs",
+        "works/ambertime/partner-orders.mjs",
+        "works/ambertime/pixel-symbols.mjs",
+        "works/ambertime/room-object-art.mjs",
+        "works/ambertime/shop-demand.mjs",
+        "works/ambertime/store-market.mjs",
+        "works/ambertime-cut-lab/quantity/run.mjs",
+        "works/ambertime/design/map-daily/run.mjs",
+        "works/ambertime/design/map-sales-028/run.mjs",
+        "works/ambertime/design/map-stage2/run.mjs",
+        "works/ambertime/design/market-rules-adoption/validation.mjs",
+        "works/ambertime/tests/map-initial-display-browser.mjs",
+        "works/ambertime/tests/map-stable-browser.mjs",
+        "works/ambertime/tests/market-rules-model.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/market-design/v01/REPORT.md",
+        "works/ambertime/design/market-rules-adoption/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/667"
+      ],
+      "work": "ambertime-market-design-lab"
+    },
+    {
+      "id": "reputation",
+      "source": "works/ambertime/experiments/reputation/index.html",
+      "version": "0.3",
+      "theme": "評判と地域拡大",
+      "display": "record",
+      "purpose": "口コミLab v03への既存入口として、実納品・店の相性・紹介経路の比較へつなぐ。",
+      "findings": "実納品を起点に相性と紹介経路を比較。入口はv03へ転送する。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/brand-reputation.mjs",
+        "works/ambertime/department-projects.mjs",
+        "works/ambertime/economy.mjs",
+        "works/ambertime/model.mjs",
+        "works/ambertime/partner-orders.mjs",
+        "works/ambertime/shop-model.mjs",
+        "works/ambertime/experiments/reputation/v02/analyze.mjs",
+        "works/ambertime/experiments/reputation/v02/model.mjs",
+        "works/ambertime/experiments/reputation/v02/tests/model.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/reputation/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/578",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/577",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/576",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/575",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/537",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/536"
+      ],
+      "work": "ambertime-reputation-lab"
+    },
+    {
+      "id": "reputation-v01",
+      "source": "works/ambertime/experiments/reputation/v01.html",
+      "version": "0.1",
+      "theme": "評判と地域拡大",
+      "display": "record",
+      "purpose": "店への納品を起点に評判が伝わり、相性や継続納品から次の取引機会が生まれるかを比較する。",
+      "findings": "0.1の独立画面をv01.htmlで保持している。納品起点の伝播と継続納品による関係を比較した。0.1の結果を後続版で再計算して置き換えない。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": false,
+      "dependencies": [],
+      "references": [
+        "works/ambertime/experiments/reputation/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/537"
+      ],
+      "title": "AmberTime Reputation Lab 0.1"
+    },
+    {
+      "id": "reputation-v02",
+      "source": "works/ambertime/experiments/reputation/v02/index.html",
+      "version": "0.2",
+      "theme": "評判と地域拡大",
+      "display": "record",
+      "purpose": "店への発送を自動化し、ブランドの方向性や実績から育つ期待が次の一本の判断につながるかを比較する。",
+      "findings": "ブランドの方向性を選ぶ方式と、実際の発送から期待が育つ方式を比較した。在庫不足の注文を積み上げず、別ブランドへの自動置換も行わない。体験評価は未確認。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime/economy.mjs",
+        "works/ambertime/experiments/reputation/model.mjs",
+        "works/ambertime/model.mjs",
+        "works/ambertime/partner-orders.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/reputation/v02/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/537"
+      ],
+      "title": "AmberTime Reputation Lab 0.2"
+    },
+    {
+      "id": "reputation-v03",
+      "source": "works/ambertime/experiments/reputation/v03/index.html",
+      "version": "0.3",
+      "theme": "評判と地域拡大",
+      "display": "record",
+      "purpose": "店別の相性・道のつながり・少量継続が、実納品からの口コミに与える違いを比較する。",
+      "findings": "相性・道のつながり・少量継続で結果が変わる。固定商品での停滞と大店集中の弱さが残った。",
+      "adoption": "モデルの一部をtown-simulation経由で本編が実行時参照。実験仮定・表示・全指標を採用した意味ではない。",
+      "deferred": "Lab全体の採用と各確率・強度の正式な採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/experiments/reputation/v04/model.mjs",
+        "works/ambertime/experiments/reputation/v05/core.mjs",
+        "works/ambertime/experiments/reputation/v05/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v02/rumor.mjs",
+        "works/ambertime/experiments/town-simulation/v01/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v01/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/audit-baseline.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/reputation/v03/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/576",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/575"
+      ],
+      "title": "AmberTime 口コミLab 0.3"
+    },
+    {
+      "id": "reputation-v04",
+      "source": "works/ambertime/experiments/reputation/v04/index.html",
+      "version": "0.4",
+      "theme": "評判と地域拡大",
+      "display": "record",
+      "purpose": "土地への定着と口コミの強さを分け、納品時期・好み・過去の商品記憶による広まりの違いを比較する。",
+      "findings": "定着を口コミの強さと別に計算。同じ本数でも納品時期・好み・過去の商品記憶で関係が変わった。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/experiments/reputation/v03/model.mjs",
+        "works/ambertime/experiments/reputation/v05/tests/model.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/reputation/v04/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/577"
+      ],
+      "work": "ambertime-reputation-world-lab"
+    },
+    {
+      "id": "reputation-v05",
+      "source": "works/ambertime/experiments/reputation/v05/index.html",
+      "version": "0.5",
+      "theme": "評判と地域拡大",
+      "display": "record",
+      "purpose": "実納品ごとの有限な出会い機会と、発売回まで辿れる紹介履歴を試す。",
+      "findings": "実納品ごとの有限な出会い機会と、発売回を辿れる紹介履歴を比較した。",
+      "adoption": "モデルの一部をtown-simulation経由で本編が実行時参照。実験仮定・表示・全指標を採用した意味ではない。",
+      "deferred": "Lab全体の採用と各確率・強度の正式な採否は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/experiments/reputation/v03/model.mjs",
+        "works/ambertime/experiments/reputation/v04/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v02/rumor.mjs",
+        "works/ambertime/experiments/town-simulation/v01/model.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/reputation/v05/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/578"
+      ],
+      "work": "ambertime-reputation-encounter-lab"
+    },
+    {
+      "id": "shop-expansion-v01",
+      "source": "works/ambertime/experiments/shop-expansion/v01/index.html",
+      "version": "0.1",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "同じウイスキーを食堂・バー・専門酒店へ届け、店の好みと納品先・回数による反応の違いを比較する。",
+      "findings": "同じ一本でも食堂・バー・専門酒店で反応が異なった。数量条件・需要・売上を省いた比較だけでは経済性を判断できない。",
+      "adoption": "REPORTでは本編統合を行わず、反応の違いを採用候補とした。後続の全面採用は未確認。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/experiments/reputation/v03/model.mjs",
+        "works/ambertime/experiments/town-simulation/v01/model.mjs",
+        "works/ambertime/lab-flavor.mjs",
+        "works/ambertime/partner-orders.mjs",
+        "works/ambertime/experiments/hand-and-place/v01/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v01/tests/model.test.mjs",
+        "works/ambertime/experiments/hand-and-place/v02/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v03/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v04/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v04/tests/model.test.mjs",
+        "works/ambertime/experiments/hand-and-place/v06/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v07/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v072/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v072/tests/model.test.mjs",
+        "works/ambertime/experiments/shop-expansion/v02/model.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/shop-expansion/v01/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/620"
+      ],
+      "work": "ambertime-shop-expansion-lab"
+    },
+    {
+      "id": "shop-expansion-v02",
+      "source": "works/ambertime/experiments/shop-expansion/v02/index.html",
+      "version": "0.2",
+      "theme": "販売と取扱店",
+      "display": "review",
+      "purpose": "ブランド・発売回・風味の近さで取扱関係を分け、月次の自動発送と品切れ後の判断を比較する。",
+      "findings": "同じ製法を継続する条件では、発売回指定に継続許可を加えたB＋と、風味の近さで扱うCで発送結果・判断数が一致した。Cの風味距離を全店へ採用する根拠にはならない。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/experiments/reputation/v03/model.mjs",
+        "works/ambertime/experiments/reputation/v05/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/experiments/town-simulation/v01/model.mjs",
+        "works/ambertime/shop-demand.mjs",
+        "works/ambertime/shop-model.mjs"
+      ],
+      "references": [
+        "works/ambertime/design/shop-relationship-redesign-0261.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/621"
+      ],
+      "work": "ambertime-shop-relationship-lab"
+    },
+    {
+      "id": "taste-market-v01",
+      "source": "works/ambertime/experiments/taste-market/v01/index.html",
+      "version": "0.1",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "どんな味を造るとどの店に受け入れられるか、味と販売先の相性を中心に試す。",
+      "findings": "味と店の相性を中心に販売を捉える独立試作。体験評価と正式採用は未確認。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": false,
+      "dependencies": [],
+      "references": [
+        "works/ambertime/experiments/taste-market/v01/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/655"
+      ],
+      "title": "AmberTime｜味と店 Lab 0.1"
+    },
+    {
+      "id": "taste-market-v02",
+      "source": "works/ambertime/experiments/taste-market/v02/index.html",
+      "version": "0.2",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "発売回と本数を選び、店へ置く・売れる・回収する流れを同じ画面で試す。",
+      "findings": "発売回と本数を選び、店へ置く・実売・回収を同じ画面で試した。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/experiments/taste-market/v03/app.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/taste-market/v02/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/663",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/660",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/659",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/656"
+      ],
+      "title": "AmberTime｜味と店 Lab 0.2"
+    },
+    {
+      "id": "taste-market-v03",
+      "source": "works/ambertime/experiments/taste-market/v03/index.html",
+      "version": "0.3",
+      "theme": "販売と取扱店",
+      "display": "record",
+      "purpose": "発売回の選択を1行、本数を3択、店を3行へ整理し、複数の瓶と販売の流れを小さい画面で確認する。",
+      "findings": "v02モデルを維持して選択を1行、本数を3択、店を3行へ整理。記録されたブラウザー検証では360×540以上の指定条件で全体スクロールなし。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime/experiments/taste-market/v02/model.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/taste-market/v03/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/663"
+      ],
+      "title": "AmberTime｜味と店 Lab 0.3"
+    },
+    {
+      "id": "town-simulation-v01",
+      "source": "works/ambertime/experiments/town-simulation/v01/index.html",
+      "version": "0.1（v01）",
+      "theme": "評判と地域拡大",
+      "display": "record",
+      "purpose": "口コミの到達、好みに合う反応、実納品による定着を分け、町の訪問・問い合わせ・記憶を長期観察する。",
+      "findings": "到達、好みに合う反応、実納品による定着を別に観察する長期シミュレーターを作成した。",
+      "adoption": "town-connection.mjsがモデルを本編で使用（#592/#593）。Lab画面・全条件の採用は未確認。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/bridge.mjs",
+        "works/ambertime/experiments/reputation/v03/model.mjs",
+        "works/ambertime/experiments/reputation/v05/core.mjs",
+        "works/ambertime/experiments/reputation/v05/model.mjs",
+        "works/ambertime-cut-lab/audit.mjs",
+        "works/ambertime-flavor-lab-v02/bridge.test.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/tests/model.test.mjs",
+        "works/ambertime/experiments/shop-expansion/v02/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v02/rumor.mjs",
+        "works/ambertime/town-connection.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/town-simulation/v01/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/592",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/590",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/589",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/579"
+      ],
+      "work": "ambertime-town-simulation-lab"
+    },
+    {
+      "id": "whisky-evaluation-v01",
+      "source": "works/ambertime/experiments/whisky-evaluation/v01/index.html",
+      "version": "0.1",
+      "theme": "味と熟成",
+      "display": "record",
+      "purpose": "一本の味と熟成年数を変え、届ける店や客ごとの評価・反応の違いを比較する。",
+      "findings": "一本の味と年数、店・客層による評価を比較。後続0.1.1の基準再現で保存済み2,160行が一致した。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/codea-object-art.mjs",
+        "works/ambertime/experiments/reputation/v03/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/audit-baseline.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/model.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/priority-sensitivity.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/results.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/run.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v02/model.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/whisky-evaluation/v01/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/673",
+        "works/ambertime/experiments/whisky-evaluation/v011/REPORT.md"
+      ],
+      "work": "ambertime-whisky-evaluation-lab"
+    },
+    {
+      "id": "whisky-evaluation-v011",
+      "source": "works/ambertime/experiments/whisky-evaluation/v011/index.html",
+      "version": "0.1.1",
+      "theme": "味と熟成",
+      "display": "record",
+      "purpose": "バランス型に偏る評価と上限への飽和を分析し、嗜好の重み・距離・熟成加点の改善案を比較する。",
+      "findings": "30シードでバランス型が支持率最高の割合は72.1%から38.9%へ低下。評価上限への飽和は0条件になったが、店舗の優位は残った。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/codea-object-art.mjs",
+        "works/ambertime/experiments/reputation/v03/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v01/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v02/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v02/model.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/memory.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/whisky-evaluation/v011/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/677"
+      ],
+      "work": "ambertime-whisky-evaluation-lab-v011"
+    },
+    {
+      "id": "whisky-evaluation-v02",
+      "source": "works/ambertime/experiments/whisky-evaluation/v02/index.html",
+      "version": "0.2",
+      "theme": "味と熟成",
+      "display": "record",
+      "purpose": "瓶を店へ配分して実売と購入者評価を確かめ、回収・再配置と次の一本へつながる販売循環を試す。",
+      "findings": "瓶の配分、実売、購入者評価、回収・再配置を独立Labで接続した。経営全体の成立や作者の体験評価は未確認。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/codea-object-art.mjs",
+        "works/ambertime/economy-parameters.mjs",
+        "works/ambertime/experiments/hand-and-place/v073/draft.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v01/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/model.mjs",
+        "works/ambertime/lab-flavor.mjs",
+        "works/ambertime/market-sales.mjs",
+        "works/ambertime/model.mjs",
+        "works/ambertime/pixel-symbols.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/model.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/results.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/run.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/whisky-evaluation/v02/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/678"
+      ],
+      "work": "ambertime-whisky-evaluation-lab-v02"
+    },
+    {
+      "id": "whisky-evaluation-v03",
+      "source": "works/ambertime/experiments/whisky-evaluation/v03/index.html",
+      "version": "0.3",
+      "theme": "味と熟成",
+      "display": "active",
+      "purpose": "店が前の一本の実売と評価を覚え、次の商品への受け止め方が変わるかを試す。",
+      "findings": "実売と購入者評価から店別の記憶を残し、次の商品への店側の反応を変える独立モデルを作成した。購入者評価には記憶補正を戻さない。",
+      "adoption": "記憶・支持・期待モデルは本編未移植（本編接続資料#703）。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/codea-object-art.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v02/model.mjs",
+        "works/ambertime/pixel-symbols.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/app.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/independent.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/run.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/scene.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/scene.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/timeline.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/timeline.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/app.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/independent.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/map.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/map.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/replay.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/run.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/whisky-evaluation/v03/REPORT.md",
+        "works/ambertime/design/map-sales-028/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/681"
+      ],
+      "work": "ambertime-whisky-evaluation-lab-v03"
+    },
+    {
+      "id": "whisky-evaluation-v04-visual",
+      "source": "works/ambertime/experiments/whisky-evaluation/v04-visual/index.html",
+      "version": "0.4",
+      "theme": "地図と視覚表現",
+      "display": "record",
+      "purpose": "店頭の瓶と過去に好まれた一本の記録を、3種類の店内情景で比較する。",
+      "findings": "店頭の瓶と過去に好まれた一本を3案で比較する店内情景を作成した。体験評価は未確認。",
+      "adoption": "店内情景は本編未移植（本編接続資料#703）。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/codea-object-art.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/scenarios.mjs",
+        "works/ambertime/pixel-symbols.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/app.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/map.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/replay.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/run.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/REPORT.md",
+        "works/ambertime/design/map-sales-028/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/687"
+      ],
+      "work": "ambertime-whisky-visual-lab-v04"
+    },
+    {
+      "id": "whisky-evaluation-v05-map",
+      "source": "works/ambertime/experiments/whisky-evaluation/v05-map/index.html",
+      "version": "0.5",
+      "theme": "地図と視覚表現",
+      "display": "active",
+      "purpose": "売上・残数・前の一本の記録を、数字・印・数字と反応の3案で地図へ表示する。",
+      "findings": "A数字・B印・C数字＋反応を切替比較。100シード・1,200履歴で既存v03との一致を確認した。",
+      "adoption": "C案の表示を本編の正式記録へ読取専用で接続（#703）。Labの評判モデルは移植しない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": false,
+      "dependencies": [
+        "works/ambertime/codea-object-art.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v03/scenarios.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v04-visual/timeline.mjs",
+        "works/ambertime/experiments/world-map/v01/map.mjs",
+        "works/ambertime/pixel-symbols.mjs"
+      ],
+      "references": [
+        "works/ambertime/experiments/whisky-evaluation/v05-map/REPORT.md",
+        "works/ambertime/design/map-sales-028/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/691"
+      ],
+      "work": "ambertime-whisky-map-lab-v05"
+    },
+    {
+      "id": "world-map-v01",
+      "source": "works/ambertime/experiments/world-map/v01/index.html",
+      "version": "0.1",
+      "theme": "地図と視覚表現",
+      "display": "record",
+      "purpose": "蒸留所・近所・町・周辺・全国・地球の6段階で、口コミの広まりと地図の見せ方を比較する。",
+      "findings": "蒸留所・近所・町・周辺・全国・地球の6段階を比較した。",
+      "adoption": "map.mjsを本編world-map-view.mjsが直接使用（#604、描画更新#605〜#607）。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/experiments/whisky-evaluation/v05-map/map.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/map.test.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v05-map/run.mjs",
+        "works/ambertime/world-map-view.mjs"
+      ],
+      "references": [
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/607",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/606",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/605",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/602",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/600"
+      ],
+      "work": "ambertime-world-map-lab"
+    },
+    {
+      "id": "ambertime-cut-lab",
+      "source": "works/ambertime-cut-lab/index.html",
+      "version": "比較版",
+      "theme": "蒸留とカット",
+      "display": "active",
+      "purpose": "採取区間による味の違いと、3種類の採取バー・グラスの表示を比較する。",
+      "findings": "3種類の採取バー・グラスと採取区間を比較。固定34.35L案も比較条件として残した。",
+      "adoption": "バー・グラス誘導を#742/#743以降で採用。",
+      "deferred": "固定34.35Lは本編未採用。正式な不採用決定と同義にはしない。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime-flavor-lab-v02/model.mjs",
+        "works/ambertime/distill-tool-input.mjs",
+        "works/ambertime/distill-tools-view.mjs",
+        "works/ambertime/economy.mjs",
+        "works/ambertime/experiments/market-design/v01/run.mjs",
+        "works/ambertime/experiments/town-simulation/v01/model.mjs",
+        "works/ambertime/lab-flavor.mjs",
+        "works/ambertime/market-sales.mjs",
+        "works/ambertime/model.mjs",
+        "works/ambertime/partner-orders.mjs",
+        "works/ambertime/room-object-art.mjs",
+        "works/ambertime/shop-demand.mjs",
+        "works/ambertime/shop-model.mjs",
+        "works/ambertime/tests/distill-cut-bar.test.mjs"
+      ],
+      "references": [
+        "works/ambertime/design/cut-main/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/741"
+      ],
+      "work": "ambertime-cut-lab"
+    },
+    {
+      "id": "ambertime-flavor-lab-v02",
+      "source": "works/ambertime-flavor-lab-v02/index.html",
+      "version": "0.2",
+      "theme": "味と熟成",
+      "display": "record",
+      "purpose": "手札と採取区間で原酒の個性を造り、樽で熟成させて好きな時点で瓶詰めする流れを試す。",
+      "findings": "手札と採取で個性を造り、樽で熟成し、任意の時点で瓶詰めするモデルを試した。",
+      "adoption": "本編lab-flavor.mjsがmodel.mjsを使用し、town閉包がbridge.mjsを使用。Lab専用保存は本編保存にしない。",
+      "deferred": "第2段階は当時の対象外。Lab全画面の採用判断は未確認。",
+      "protection": true,
+      "dependencies": [
+        "works/ambertime/experiments/town-simulation/v01/model.mjs",
+        "works/ambertime-cut-lab/projection.mjs",
+        "works/ambertime/experiments/hand-and-place/v01/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v02/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v03/model.mjs",
+        "works/ambertime/experiments/hand-and-place/v04/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v01/model.mjs",
+        "works/ambertime/experiments/shop-expansion/v02/model.mjs",
+        "works/ambertime/experiments/town-simulation/v01/app.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v01/model.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v011/run.mjs",
+        "works/ambertime/experiments/whisky-evaluation/v02/model.mjs",
+        "works/ambertime/lab-flavor.mjs",
+        "works/ambertime/tests/adjust-b.test.mjs",
+        "works/ambertime/tests/adjust-c.test.mjs",
+        "works/ambertime/tests/stage4-flavor.test.mjs"
+      ],
+      "references": [
+        "works/ambertime-flavor-lab-v02/REPORT.md",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/591",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/590",
+        "https://github.com/SukimaStock/yumaniwa-town-staging/pull/588"
+      ],
+      "work": "ambertime-flavor-lab-v02"
+    },
+    {
+      "id": "ambertime-word-crafting-lab",
+      "source": "works/ambertime-word-crafting-lab/index.html",
+      "version": "0.1",
+      "theme": "操作・画面設計",
+      "display": "review",
+      "purpose": "カード選択・抽出・熟成を通して、ウイスキーを表す言葉が育つ仕組みを試す。",
+      "findings": "比較結果と作者による体験評価は未確認。実験条件と検証資料を保持している。",
+      "adoption": "本編への採用状況は未確認。過去のREPORTの記述を現在の採用判断へ読み替えない。",
+      "deferred": "正式な不採用・継続終了の判断は未確認。",
+      "protection": false,
+      "dependencies": [],
+      "references": [
+        "works/ambertime-word-crafting-lab/REPORT.md"
+      ],
+      "work": "ambertime-word-crafting-lab"
+    }
+  ]
+}

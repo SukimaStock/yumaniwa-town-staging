@@ -118,6 +118,12 @@ function scene(id, suffix) {
 
 function renderLab(root, registry, { listWorks, archiveSections, esc }) {
   const works = listWorks(root, registry), rooms = readRooms(root, works);
+  const research = require('./ambertime-research.cjs').readResearch(root, works);
+  const historical = new Set(research.records.filter(record => record.display === 'record' && record.work).map(record => record.work));
+  for (const room of rooms) for (const machine of room.machines) {
+    if (historical.has(machine.work?.id) && !machine.stored) throw new Error('LAB: historical research must remain assigned and stored');
+    if (research.records.some(record => record.work === machine.work?.id && record.display !== 'record') && machine.stored) throw new Error('LAB: current or uncertain research must stay visible');
+  }
   const version = file => createHash('sha256').update(fs.readFileSync(path.join(root, 'lab', file))).digest('hex').slice(0, 12);
   function state(machine) {
     return machine.status && machine.status !== 'active' ? `<span class="state state-${machine.status}" data-status="${machine.status}">${STATUS_LABELS[machine.status]}</span>` : '';
@@ -128,7 +134,7 @@ function renderLab(root, registry, { listWorks, archiveSections, esc }) {
       ${machine.role === 'result' ? '<p class="result-label">この部屋から生まれた作品</p>' : ''}
       <div class="machine-heading"><h3>${esc(machine.title)}</h3>${state(machine)}</div>
       ${machine.note ? `<p>${esc(machine.note)}</p>` : ''}
-      ${machine.href ? `<a class="machine-link" href="../${esc(machine.href)}">${machine.role === 'result' ? '作品に触れる' : '触れてみる'}<span aria-hidden="true"> ↗</span><span class="sr-only">：${esc(machine.title)}</span></a>` : `<p class="environment">${esc(machine.entryNote || machine.environment)}</p>`}
+${machine.work?.id === 'ambertime' ? '      <p><a class="archive-link" href="./ambertime-research.html">研究記録</a></p>\n' : ''}      ${machine.href ? `<a class="machine-link" href="../${esc(machine.href)}">${machine.role === 'result' ? '作品に触れる' : '触れてみる'}<span aria-hidden="true"> ↗</span><span class="sr-only">：${esc(machine.title)}</span></a>` : `<p class="environment">${esc(machine.entryNote || machine.environment)}</p>`}
     </li>`;
   }
   function archiveHTML(machine) {
@@ -142,13 +148,13 @@ function renderLab(root, registry, { listWorks, archiveSections, esc }) {
     </article>`;
   }
   const panels = rooms.map(room => {
-    const front = room.machines.filter(machine => !machine.stored), stored = room.machines.filter(machine => machine.stored);
+    const front = room.machines.filter(machine => !machine.stored), stored = room.machines.filter(machine => machine.stored && !historical.has(machine.work?.id));
     return `<section class="room-panel" id="room-${room.id}" data-room="${room.id}" aria-labelledby="title-${room.id}">
       <a class="back-to-building" href="#building">← 研究所全体へ</a>
       <p class="eyebrow">ROOM ${room.number}${room.trait ? ` · ${esc(room.trait)}` : ''}</p><h2 id="title-${room.id}" tabindex="-1">${esc(room.title)}</h2>
       <p class="room-subtitle">${esc(room.subtitle)}</p><div class="room-closeup">${scene(room.id, 'closeup')}</div><p class="room-description">${esc(room.description)}</p>
       ${room.id === 'archive' ? front.map(archiveHTML).join('\n') : `<ul class="machines">${front.map(machineHTML).join('\n')}</ul>`}
-      ${stored.length ? `<details class="back-shelf"><summary>${room.id === 'pumpoko' ? '最初の機械' : room.id === 'garage' ? '検査器と制作雛形' : '作業台の奥も見る'}</summary><ul class="machines">${stored.map(machineHTML).join('\n')}</ul></details>` : ''}
+${room.id === 'bench' ? `      <ul class="machines">${research.records.filter(record => !record.work && record.display !== 'record').map(record => machineHTML({ title: record.title, note: record.display === 'review' ? '継続判断は要確認。比較用に通常表示を維持。' : record.purpose, href: record.source })).join('\n')}</ul>\n` : ''}      ${stored.length ? `<details class="back-shelf"><summary>${room.id === 'pumpoko' ? '最初の機械' : room.id === 'garage' ? '検査器と制作雛形' : '作業台の奥も見る'}</summary><ul class="machines">${stored.map(machineHTML).join('\n')}</ul></details>` : ''}
       <p class="return-note">装置からは、ブラウザの「戻る」でこの部屋へ。</p>
       <a class="back-to-building bottom-back" href="#building">← 研究所全体へ</a>
     </section>`;

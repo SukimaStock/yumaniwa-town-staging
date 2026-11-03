@@ -194,8 +194,13 @@ function run(argv = process.argv.slice(2)) {
   if (mode === 'promotion-check') { assertPromotion(registry, ids, instruction); console.log('Promotion eligibility PASS; read-only, no production write authorized by tool.'); return; }
   if (mode === 'list') { console.log(JSON.stringify(listWorks(root, registry), null, 2)); return; }
   const expected = renderLab(root, registry), file = path.join(root, 'lab/index.html');
+  const researchRenderer = require('./ambertime-research.cjs');
+  const research = researchRenderer.renderResearch(root, researchRenderer.readResearch(root, listWorks(root, registry)), esc);
+  const researchFile = path.join(root, researchRenderer.OUTPUT);
   if (mode === 'write-lab') { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, expected); }
   else if (fs.readFileSync(file, 'utf8') !== expected) throw new Error('LAB out of date; run --write-lab');
+  if (mode === 'write-lab') fs.writeFileSync(researchFile, research);
+  else if (fs.readFileSync(researchFile, 'utf8') !== research) throw new Error('Research out of date; run --write-lab');
   if (base) checkDiff(root, base);
   console.log('Lifecycle / frozen archives / LAB PASS; default active, staging-only.');
 }

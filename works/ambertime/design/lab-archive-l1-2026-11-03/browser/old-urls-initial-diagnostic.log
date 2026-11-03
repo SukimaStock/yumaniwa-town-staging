@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: webkit:works/ambertime/experiments/hand-and-place/v073/
++ actual - expected
+
++ '12f7fdee9094e929aa9d3f1b9c9228c7d51048169f01a196eee9761265a84abd'
+- '6b4089b032608ad0c10d62318aab2577157a43751b2234bff192ed5fab3be4ad'
+
+    at file:///workspace/scratch/8afd98567f5c/yumaniwa-town-staging/works/ambertime/design/lab-archive-l1-2026-11-03/browser/old-urls.mjs:5:1479 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '12f7fdee9094e929aa9d3f1b9c9228c7d51048169f01a196eee9761265a84abd',
+  expected: '6b4089b032608ad0c10d62318aab2577157a43751b2234bff192ed5fab3be4ad',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

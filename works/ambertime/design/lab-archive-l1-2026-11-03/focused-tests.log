@@ -1,0 +1,38 @@
+✔ L1 preserves all 39 asset entries, 38 screens and 29 registered entrances (205.25625ms)
+✔ historical registration remains assigned; uncertain records remain on the normal bench (22.020849ms)
+✔ all non-AmberTime machine cards and all other room panels remain byte identical (12.762596ms)
+✔ research rejects duplicate, unsafe or missing entries, missing evidence and copied lifecycle fields (10.610209ms)
+✔ research escapes content, resolves lifecycle identity, preserves local links and both generated outputs (17.455727ms)
+✔ main and Lab source trees including seven dependency files and original redirects are unchanged (20647.421247ms)
+✔ review 1: production ledger contains exactly the selected works (2.516389ms)
+✔ review 2: unselected search pages and assets cannot hide without a runtime (7.813162ms)
+✔ review 3: canonical template accepted, modified/injected template rejected (6.705543ms)
+✔ review 4: refreeze requires a new freeze decision, not whitespace reuse (331.199038ms)
+✔ review 5: resume preserves the archive file, reference, content and historical decision (372.311874ms)
+✔ legitimate existing released/candidate layouts and both canonical template variants pass (9.494526ms)
+✔ production validator and generator use all three tightened snapshot checks before writes (457.596652ms)
+✔ historical archive reference and file also survive subsequent active development (92.148305ms)
+✔ new/unknown works default active/staging, including unregistered folders (2.024668ms)
+✔ promotion denies active/frozen/released; candidate still needs separate instruction (0.780371ms)
+✔ schema rejects malformed/default-changed/unknown/duplicate/path escaping and missing decisions (1.87251ms)
+✔ production snapshot rejects hidden/unregistered/frozen work payloads and LAB/archive, retains shared template (2.658773ms)
+✔ frozen body edits, deletions and renames denied; archive text can be corrected (211.357396ms)
+✔ frozen resumption requires fresh explicit decision and active state (220.886031ms)
+✔ lifecycle transitions require decisions, and released is never a default (162.969144ms)
+✔ registry/archives produce exact static LAB with six preserved playable links (32.733659ms)
+✔ LAB has seven rooms, unique project placements, current statuses and checked local links (2.024292ms)
+✔ LAB refuses duplicate placements, copied lifecycle fields, unsafe tool URLs and missing required entries (2.437967ms)
+✔ new unassigned playable prototypes stay visible on the bench; candidates do not become releases (7.332467ms)
+✔ LAB navigation selects each room, focuses its heading and returns to the selected door (27.540344ms)
+✔ LAB old archive fragments and browser cache restoration keep the archive accessible without a scroll reset (13.807488ms)
+✔ LAB respects reduced motion, stops hidden-page animation and uses Escape for overview (11.729468ms)
+✔ production validator fails closed for active/frozen/missing registry, despite explicit publication set (9.08728ms)
+✔ production generator rejects before writing any files; staging generation stays compatible (592.138223ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21055.986065

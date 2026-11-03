@@ -107,23 +107,28 @@
         },
         {
           "work": "ambertime-reputation-lab",
-          "note": "口コミの経路・相性・継続取引を比べる実験。"
+          "note": "口コミの経路・相性・継続取引を比べる実験。",
+          "stored": true
         },
         {
           "work": "ambertime-reputation-world-lab",
-          "note": "土地への定着と、周辺・全国・海外への口コミを比べる実験。"
+          "note": "土地への定着と、周辺・全国・海外への口コミを比べる実験。",
+          "stored": true
         },
         {
           "work": "ambertime-reputation-encounter-lab",
-          "note": "実納品から生まれる偶然の紹介と、その理由を比べる実験。"
+          "note": "実納品から生まれる偶然の紹介と、その理由を比べる実験。",
+          "stored": true
         },
         {
           "work": "ambertime-town-simulation-lab",
-          "note": "口コミの先に生まれる訪問・問い合わせ・記憶を、街で眺める実験。"
+          "note": "口コミの先に生まれる訪問・問い合わせ・記憶を、街で眺める実験。",
+          "stored": true
         },
         {
           "work": "ambertime-shop-expansion-lab",
-          "note": "店ごとの好みと、同じ本数を届ける先・回数の違いを比べる実験。"
+          "note": "店ごとの好みと、同じ本数を届ける先・回数の違いを比べる実験。",
+          "stored": true
         },
         {
           "work": "ambertime-shop-relationship-lab",
@@ -131,7 +136,8 @@
         },
         {
           "work": "ambertime-world-map-lab",
-          "note": "蒸留所から地球まで、6段階の視点を比べる試作。"
+          "note": "蒸留所から地球まで、6段階の視点を比べる試作。",
+          "stored": true
         },
         {
           "work": "ambertime-word-crafting-lab",
@@ -139,7 +145,8 @@
         },
         {
           "work": "ambertime-flavor-lab-v02",
-          "note": "カードと蒸留の取り方で仕込み、樽の個性を育てる試作。"
+          "note": "カードと蒸留の取り方で仕込み、樽の個性を育てる試作。",
+          "stored": true
         },
         {
           "work": "nadeato",
@@ -187,15 +194,18 @@
         },
         {
           "work": "ambertime-whisky-evaluation-lab",
-          "note": "一本の味・熟成年数・届ける店と、客の反応を比べる。"
+          "note": "一本の味・熟成年数・届ける店と、客の反応を比べる。",
+          "stored": true
         },
         {
           "work": "ambertime-whisky-evaluation-lab-v011",
-          "note": "評価モデルの改善前後・支持分布・年数の効果を比較する。"
+          "note": "評価モデルの改善前後・支持分布・年数の効果を比較する。",
+          "stored": true
         },
         {
           "work": "ambertime-whisky-evaluation-lab-v02",
-          "note": "瓶を配分し、売上と客の評価を見て次の一本を試す。"
+          "note": "瓶を配分し、売上と客の評価を見て次の一本を試す。",
+          "stored": true
         },
         {
           "work": "ambertime-whisky-evaluation-lab-v03",
@@ -203,7 +213,8 @@
         },
         {
           "work": "ambertime-whisky-visual-lab-v04",
-          "note": "店頭の瓶と、過去に好まれた一本の記録を3案で比べる。"
+          "note": "店頭の瓶と、過去に好まれた一本の記録を3案で比べる。",
+          "stored": true
         },
         {
           "work": "ambertime-whisky-map-lab-v05",
@@ -212,6 +223,60 @@
         {
           "work": "ambertime-cut-lab",
           "note": "採る区間で変わる味を調べ、3種類の採取バーとグラスを比べる。"
+        },
+        {
+          "work": "ambertime-hand-and-place-lab",
+          "note": "新しい一本を造り、店へ出し、その製法をまた使いたくなるかを試す独立Lab。本編への採用は作者の試遊後に判断する。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v02-lab",
+          "note": "手札と店の棚を見比べ、一枚を出すと場が変わり、その場を見て次を選べるかを試す独立Lab。本編への採用と楽しさは作者の試遊で判断する。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v03-lab",
+          "note": "取扱いの成立と、店主自身の好みを分けた独立Lab。紹介した一本にどんな返事が返り、それを見て次を試したくなるかを確かめる。反応の数や取扱い成功率で楽しさを認定しない。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v04-lab",
+          "note": "店の注文を選び、手札を渡すと在庫が減る。渡した一本と店に残った分から、次の注文が変わる独立Lab。手動で渡す体験が分かりやすく、また造る理由になるかを作者が試す。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v05-lab",
+          "note": "v04の注文・納品・時間・再仕込みは変えず、同じ出来事をA数字／B瓶／C短い動きで見比べる独立Lab。Bを初期表示にした。Bだけで伝わるか、Cが必要かは作者の試遊で判断する。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v06-lab",
+          "note": "自家販売へ回した分だけが自動で売れ、店へ渡す一本と量は自分で決める。Cでは未販売の配分を戻して考え直せる。注文を処理し続けるゲームにならず、行き先を選ぶ楽しさが残るかを試す独立Lab。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v07-lab",
+          "note": "v06 Cの自由な行き先選択を、AmberTime本編の瓶棚・部屋・小窓で操作する独立Lab。棚から瓶を選び、行き先と量を確認する。Cでは、本人が選んだ自家販売の未販売分を一度の確定で店へ渡せる。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v071-lab",
+          "note": "v07のゲーム処理を直接読み込み、棚と小窓の表示だけを減らした独立Lab。本編・v01〜v07・保存形式・Productionは変更していない。基準mainは 19b4bfd8bda2ae5b01ce50fda172158a6f4ba6d3（PR #629）。実装前にFull Plan Lockを固定した。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v072-lab",
+          "note": "基点は abd0b1d42099318b71836136b03d324611bb9fd1（v071公開後のmain）。新しい発売回を開き、自家販売に残す数・2店へ今回渡す数を一度に決める独立Staging実験。本編への統合・Production変更は行わない。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-hand-and-place-v073-lab",
+          "note": "基点main：f71a0cd7895b23e5d39e0fccfe0153da010e8f80（PR633）。v072の数値配分と同じ結果を、量を選び、瓶の行き先をタップして仮置きする操作で比べる独立Staging Lab。本編・既存Lab・保存・Productionは変更しない。",
+          "stored": true
+        },
+        {
+          "work": "ambertime-market-design-lab",
+          "note": "味と販売先の相性、配分と販売循環、販売モデル候補の経済バランスを比較。基準mainは監査PR #666の 3031554e5e115cb1c4c0bf13715ea761646f840b。"
         }
       ]
     },
