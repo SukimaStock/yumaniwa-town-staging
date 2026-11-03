@@ -1,0 +1,375 @@
+{
+  "url": "https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/",
+  "records": [
+    {
+      "fontState": "ready",
+      "engine": "chromium",
+      "browserVersion": "140.0.7339.186",
+      "reduced": false,
+      "ledger": [
+        {
+          "section": "recipes",
+          "elapsed": 11891.59999999404,
+          "body": "<nav class=\"ledger-sections\" aria-label=\"帳面の分類\"><button type=\"button\" data-action=\"ledger-section\" data-id=\"recipes\" id=\"ledger-section-recipes\" aria-pressed=\"true\">仕込み</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"aging\" id=\"ledger-section-aging\" aria-pressed=\"false\">たる</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"releases\" id=\"ledger-section-releases\" aria-pressed=\"false\">発売</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"shops\" id=\"ledger-section-shops\" aria-pressed=\"false\">取扱店</button></nav><p>記録なし</p><p><button type=\"button\" data-action=\"ledger-history\" data-id=\"\">歩み</button></p>"
+        },
+        {
+          "section": "history",
+          "elapsed": 81.79999999701977,
+          "body": "<p class=\"history-elapsed\"><span class=\"ui-quantity\"><span class=\"ui-number\">0</span>年<span class=\"ui-number\">0</span>か月</span></p><div class=\"history-years\"><section class=\"history-year\"><h3><button type=\"button\" data-action=\"history-year\" data-id=\"2026\" aria-expanded=\"false\"><span class=\"ui-quantity\"><span class=\"ui-number\">2026</span>年</span></button></h3></section></div>"
+        }
+      ],
+      "events": [
+        {
+          "method": "startDistillCompletion",
+          "t": 668.7000000029802,
+          "accepted": true,
+          "savedPhase": "filling"
+        },
+        {
+          "method": "finishDistillCompletion",
+          "t": 1537.5,
+          "savedPhase": "filling"
+        }
+      ],
+      "frames": [
+        {
+          "now": 822.9000000059605,
+          "step": 1,
+          "frames": 1,
+          "label": "rim-1",
+          "stageMs": 56.666666666666664,
+          "modalOpen": false
+        },
+        {
+          "now": 890.8000000044703,
+          "step": 2,
+          "frames": 2,
+          "label": "rim-2",
+          "stageMs": 56.666666666666664,
+          "modalOpen": false
+        },
+        {
+          "now": 952.6000000014901,
+          "step": 3,
+          "frames": 3,
+          "label": "rim-3",
+          "stageMs": 56.666666666666664,
+          "modalOpen": false
+        },
+        {
+          "now": 1019.1000000014901,
+          "step": 4,
+          "frames": 4,
+          "label": "cross-dot",
+          "stageMs": 30,
+          "modalOpen": false
+        },
+        {
+          "now": 1070.6000000014901,
+          "step": 5,
+          "frames": 5,
+          "label": "cross-grow",
+          "stageMs": 30,
+          "modalOpen": false
+        },
+        {
+          "now": 1123.4000000059605,
+          "step": 6,
+          "frames": 6,
+          "label": "cross-max-hold",
+          "stageMs": 100,
+          "modalOpen": false
+        },
+        {
+          "now": 1232.3000000044703,
+          "step": 7,
+          "frames": 7,
+          "label": "cross-tips-dim",
+          "stageMs": 45,
+          "modalOpen": false
+        },
+        {
+          "now": 1287.2000000029802,
+          "step": 8,
+          "frames": 8,
+          "label": "cross-contract",
+          "stageMs": 50,
+          "modalOpen": false
+        },
+        {
+          "now": 1341,
+          "step": 9,
+          "frames": 9,
+          "label": "cross-center",
+          "stageMs": 55,
+          "modalOpen": false
+        },
+        {
+          "now": 1405.4000000059605,
+          "step": 10,
+          "frames": 10,
+          "label": "cross-center-dim",
+          "stageMs": 45,
+          "modalOpen": false
+        },
+        {
+          "now": 1457.4000000059605,
+          "step": 11,
+          "frames": 11,
+          "label": "cross-center-faint",
+          "stageMs": 45,
+          "modalOpen": false
+        }
+      ],
+      "fillAt": 1613.4000000059605,
+      "formalSHA256": "9bb15332ebc8a35dd346ebdf48dfaf42bbc672eabd002e3c27c6747c01871d97",
+      "assets": [
+        {
+          "name": "index.html",
+          "sha256": "9f6f66235ee83efe2145d18a05ec8b00a8d4bc1dfa1889553b573c56668f8976"
+        },
+        {
+          "name": "shop-app.mjs",
+          "sha256": "02160d577ee63d3fcfa4643a3d63b4259f310ebf500628e1e3f63e53503f8c8c"
+        },
+        {
+          "name": "canvas-scene.mjs",
+          "sha256": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519"
+        }
+      ],
+      "screenshot": "chromium-motion.png"
+    },
+    {
+      "fontState": "ready",
+      "engine": "chromium",
+      "browserVersion": "140.0.7339.186",
+      "reduced": true,
+      "ledger": [
+        {
+          "section": "recipes",
+          "elapsed": 60.600000001490116,
+          "body": "<nav class=\"ledger-sections\" aria-label=\"帳面の分類\"><button type=\"button\" data-action=\"ledger-section\" data-id=\"recipes\" id=\"ledger-section-recipes\" aria-pressed=\"true\">仕込み</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"aging\" id=\"ledger-section-aging\" aria-pressed=\"false\">たる</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"releases\" id=\"ledger-section-releases\" aria-pressed=\"false\">発売</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"shops\" id=\"ledger-section-shops\" aria-pressed=\"false\">取扱店</button></nav><p>記録なし</p><p><button type=\"button\" data-action=\"ledger-history\" data-id=\"\">歩み</button></p>"
+        },
+        {
+          "section": "history",
+          "elapsed": 64.39999999850988,
+          "body": "<p class=\"history-elapsed\"><span class=\"ui-quantity\"><span class=\"ui-number\">0</span>年<span class=\"ui-number\">0</span>か月</span></p><div class=\"history-years\"><section class=\"history-year\"><h3><button type=\"button\" data-action=\"history-year\" data-id=\"2026\" aria-expanded=\"false\"><span class=\"ui-quantity\"><span class=\"ui-number\">2026</span>年</span></button></h3></section></div>"
+        }
+      ],
+      "events": [
+        {
+          "method": "startDistillCompletion",
+          "t": 284.8999999985099,
+          "accepted": false,
+          "savedPhase": "filling"
+        }
+      ],
+      "frames": [],
+      "fillAt": 326.6000000014901,
+      "formalSHA256": "9bb15332ebc8a35dd346ebdf48dfaf42bbc672eabd002e3c27c6747c01871d97",
+      "assets": [
+        {
+          "name": "index.html",
+          "sha256": "9f6f66235ee83efe2145d18a05ec8b00a8d4bc1dfa1889553b573c56668f8976"
+        },
+        {
+          "name": "shop-app.mjs",
+          "sha256": "02160d577ee63d3fcfa4643a3d63b4259f310ebf500628e1e3f63e53503f8c8c"
+        },
+        {
+          "name": "canvas-scene.mjs",
+          "sha256": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519"
+        }
+      ],
+      "screenshot": "chromium-reduced.png"
+    },
+    {
+      "fontState": "ready",
+      "engine": "webkit",
+      "browserVersion": "26.5",
+      "reduced": false,
+      "ledger": [
+        {
+          "section": "recipes",
+          "elapsed": 83,
+          "body": "<nav class=\"ledger-sections\" aria-label=\"帳面の分類\"><button type=\"button\" data-action=\"ledger-section\" data-id=\"recipes\" id=\"ledger-section-recipes\" aria-pressed=\"true\">仕込み</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"aging\" id=\"ledger-section-aging\" aria-pressed=\"false\">たる</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"releases\" id=\"ledger-section-releases\" aria-pressed=\"false\">発売</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"shops\" id=\"ledger-section-shops\" aria-pressed=\"false\">取扱店</button></nav><p>記録なし</p><p><button type=\"button\" data-action=\"ledger-history\" data-id=\"\">歩み</button></p>"
+        },
+        {
+          "section": "history",
+          "elapsed": 72,
+          "body": "<p class=\"history-elapsed\"><span class=\"ui-quantity\"><span class=\"ui-number\">0</span>年<span class=\"ui-number\">0</span>か月</span></p><div class=\"history-years\"><section class=\"history-year\"><h3><button type=\"button\" data-action=\"history-year\" data-id=\"2026\" aria-expanded=\"false\"><span class=\"ui-quantity\"><span class=\"ui-number\">2026</span>年</span></button></h3></section></div>"
+        }
+      ],
+      "events": [
+        {
+          "method": "startDistillCompletion",
+          "t": 343,
+          "accepted": true,
+          "savedPhase": "filling"
+        },
+        {
+          "method": "finishDistillCompletion",
+          "t": 1224,
+          "savedPhase": "filling"
+        }
+      ],
+      "frames": [
+        {
+          "now": 500,
+          "step": 1,
+          "frames": 1,
+          "label": "rim-1",
+          "stageMs": 56.666666666666664,
+          "modalOpen": false
+        },
+        {
+          "now": 564,
+          "step": 2,
+          "frames": 2,
+          "label": "rim-2",
+          "stageMs": 56.666666666666664,
+          "modalOpen": false
+        },
+        {
+          "now": 629,
+          "step": 3,
+          "frames": 3,
+          "label": "rim-3",
+          "stageMs": 56.666666666666664,
+          "modalOpen": false
+        },
+        {
+          "now": 693,
+          "step": 4,
+          "frames": 4,
+          "label": "cross-dot",
+          "stageMs": 30,
+          "modalOpen": false
+        },
+        {
+          "now": 741,
+          "step": 5,
+          "frames": 5,
+          "label": "cross-grow",
+          "stageMs": 30,
+          "modalOpen": false
+        },
+        {
+          "now": 789,
+          "step": 6,
+          "frames": 6,
+          "label": "cross-max-hold",
+          "stageMs": 100,
+          "modalOpen": false
+        },
+        {
+          "now": 902,
+          "step": 7,
+          "frames": 7,
+          "label": "cross-tips-dim",
+          "stageMs": 45,
+          "modalOpen": false
+        },
+        {
+          "now": 966,
+          "step": 8,
+          "frames": 8,
+          "label": "cross-contract",
+          "stageMs": 50,
+          "modalOpen": false
+        },
+        {
+          "now": 1031,
+          "step": 9,
+          "frames": 9,
+          "label": "cross-center",
+          "stageMs": 55,
+          "modalOpen": false
+        },
+        {
+          "now": 1095,
+          "step": 10,
+          "frames": 10,
+          "label": "cross-center-dim",
+          "stageMs": 45,
+          "modalOpen": false
+        },
+        {
+          "now": 1159,
+          "step": 11,
+          "frames": 11,
+          "label": "cross-center-faint",
+          "stageMs": 45,
+          "modalOpen": false
+        }
+      ],
+      "fillAt": 1251,
+      "formalSHA256": "9bb15332ebc8a35dd346ebdf48dfaf42bbc672eabd002e3c27c6747c01871d97",
+      "assets": [
+        {
+          "name": "index.html",
+          "sha256": "9f6f66235ee83efe2145d18a05ec8b00a8d4bc1dfa1889553b573c56668f8976"
+        },
+        {
+          "name": "shop-app.mjs",
+          "sha256": "02160d577ee63d3fcfa4643a3d63b4259f310ebf500628e1e3f63e53503f8c8c"
+        },
+        {
+          "name": "canvas-scene.mjs",
+          "sha256": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519"
+        }
+      ],
+      "screenshot": "webkit-motion.png"
+    },
+    {
+      "fontState": "ready",
+      "engine": "webkit",
+      "browserVersion": "26.5",
+      "reduced": true,
+      "ledger": [
+        {
+          "section": "recipes",
+          "elapsed": 107,
+          "body": "<nav class=\"ledger-sections\" aria-label=\"帳面の分類\"><button type=\"button\" data-action=\"ledger-section\" data-id=\"recipes\" id=\"ledger-section-recipes\" aria-pressed=\"true\">仕込み</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"aging\" id=\"ledger-section-aging\" aria-pressed=\"false\">たる</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"releases\" id=\"ledger-section-releases\" aria-pressed=\"false\">発売</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"shops\" id=\"ledger-section-shops\" aria-pressed=\"false\">取扱店</button></nav><p>記録なし</p><p><button type=\"button\" data-action=\"ledger-history\" data-id=\"\">歩み</button></p>"
+        },
+        {
+          "section": "history",
+          "elapsed": 81,
+          "body": "<p class=\"history-elapsed\"><span class=\"ui-quantity\"><span class=\"ui-number\">0</span>年<span class=\"ui-number\">0</span>か月</span></p><div class=\"history-years\"><section class=\"history-year\"><h3><button type=\"button\" data-action=\"history-year\" data-id=\"2026\" aria-expanded=\"false\"><span class=\"ui-quantity\"><span class=\"ui-number\">2026</span>年</span></button></h3></section></div>"
+        }
+      ],
+      "events": [
+        {
+          "method": "startDistillCompletion",
+          "t": 314,
+          "accepted": false,
+          "savedPhase": "filling"
+        }
+      ],
+      "frames": [],
+      "fillAt": 349,
+      "formalSHA256": "9bb15332ebc8a35dd346ebdf48dfaf42bbc672eabd002e3c27c6747c01871d97",
+      "assets": [
+        {
+          "name": "index.html",
+          "sha256": "9f6f66235ee83efe2145d18a05ec8b00a8d4bc1dfa1889553b573c56668f8976"
+        },
+        {
+          "name": "shop-app.mjs",
+          "sha256": "02160d577ee63d3fcfa4643a3d63b4259f310ebf500628e1e3f63e53503f8c8c"
+        },
+        {
+          "name": "canvas-scene.mjs",
+          "sha256": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519"
+        }
+      ],
+      "screenshot": "webkit-reduced.png"
+    }
+  ],
+  "errors": [],
+  "requestFailures": [],
+  "transport": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver/real OS background/BFCache"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9af2b8fa85bc5d0c658c17ceb261eb6d0ac27b9084426ffe7da44cb7f4f61f51",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "0c3473f4f604888fcdb581874ad73f3436dfbb9a",
+    "changeId": "ambertime-a13-public-20261103",
+    "revision": 0,
+    "change": "Record successful post-deployment A1-3 public browser operations and asset identity without product changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit A1-3 instruction including post-Staging verification",
+      "PR782 exactheadd76ea93d and merge0c3473f4 with requiredCI success",
+      "Prepared strict a1-3-browser-public.mjs and exactPR779 TLSforwardingadapter",
+      "Pages build for merge0c3473f4 (run41668668880)"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a13-public-20261103/r0.lock.json",
+      "works/ambertime/design/experience-a13-2026-11-03/public/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Run unchanged strict publicsmoke Chromium/WebKit normal/reduced4cases against actual deployedbytes; all11stages/dwell/frames beforefill, no animation wait reduce, exactformal/rawsave, no page/request/transportfailures.",
+      "Compare deployedHTML/app/Canvas12bodyhashes to reviewedcurrentfiles/Git merge, record actualtimings/fontstate/source/provenance/screenshots; adapter unchanged TLSvalidatedremote response forwarding, no localbody substitution or TLSdisable.",
+      "Write short public verification and independent resultreview; Scope/Risk/Impact/requiredCI/normalverification-onlyStagingPRmerge. Allproduct/testbytes equalmerge0c3473f4; reuse1237full/208non-glint/cache2 since no product/test changes."
+    ],
+    "ownerDecisions": [
+      "Current explicit A1-3 instruction authorizes reversible Staging implementation/independentreview/CI/normalPRmerge/publicverification, preserving existing rim and adding orthogonal cross with quiet fade; Production excluded."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK staging-only; lock-only commit before implementation",
+      "No extra buttons/copy/sound/loading UI; restrained glint explicitly requested",
+      "Existing worker projections/view formatters and Canvas scheduler retained",
+      "Baseline/source expectations not loosened; intentional source delta inverse is exact and new behavior has separate tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Public4conditions/11stageorder+minimumdwell/normalonefinish/reducednoactive, formal/rawsave same",
+      "12deployedhashes matchcurrentandmerge0c3473f4, page/request/transporterror0",
+      "Independentfinalresultreview, metadataactualbase/currentlock/sourcehashes, productbyteidentity andexactheadCI normalmerge"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert PR of A1-3 Canvas/cache/tests/evidence; no save migration",
+    "outOfScope": [
+      "All product/test/model/save/geometry/clock/UI changes",
+      "Production/Lab/researcharchives/sharedsettings"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari touch feel/VoiceOver/real OS background/BFCache until actually observed"
+    ]
+  }
+}
