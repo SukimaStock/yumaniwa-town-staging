@@ -26,11 +26,11 @@ export function extract(name){
   if(c==='{')depth++;else if(c==='}'&&--depth===0){const text=source.slice(start,i+1);new vm.Script(text);return text;}
  }throw Error('Unclosed function '+name);
 }
-export function host({preview=false,state=D.selectFlavorCards(D.newMarketRulesDistillery(42),{malt:'plain',ferment:'short'}),restored=false}={}){
+export function host({preview=false,state=D.selectFlavorCards(D.newMarketRulesDistillery(42),{malt:'plain',ferment:'short'}),restored=false,scene:scenePort={isDistillCompletion:()=>false,startDistillCompletion:()=>false,cancelDistillCompletion(){}}}={}){
  let raw=JSON.stringify({version:2,game:JSON.parse(D.serializeDistillery(state)),userPaused:false,elapsed:0}),writes=0,reads=0,fail=false;
  const storage={getItem(){reads++;return raw;},setItem(key,value){writes++;if(fail)throw Error('storage denied');raw=value;}};
  const nodes=new Map(),node=id=>{if(!nodes.has(id))nodes.set(id,{dataset:{},hidden:true,textContent:'',innerHTML:'',open:false,classList:{toggle(){}},querySelector(){return {focus(){}};},removeAttribute(){},showModal(){this.open=true;},close(){this.open=false;}});return nodes.get(id);};
- const ctx={D,createDistillRoomController,createWarehouseRoomController,manualCompletedRuns,distillToolsView,rangeRestartAvailable,distillationReadout,spiritProfile,manualCards,writeCandidate,SAVE_KEY:FORMAL_SAVE_KEY,P,barrel,glassColor,localStorage:storage,
+ const ctx={scene:scenePort,D,createDistillRoomController,createWarehouseRoomController,manualCompletedRuns,distillToolsView,rangeRestartAvailable,distillationReadout,spiritProfile,manualCards,writeCandidate,SAVE_KEY:FORMAL_SAVE_KEY,P,barrel,glassColor,localStorage:storage,
   document:{hidden:false,activeElement:null},T:{minimumStop:30},$ :node,
   stopClock(){},schedule(){},message(){},noteMapReach(){},automaticNews:{push(){}},automaticEvents:()=>[],soldOutLabel:()=>'',caskName:String,
   placementUI:{reset(){}},showStaffOpportunity(){},showShopOffer(){},showGeneration(){},showInitialMapNotice(){},vaultPanels(){},shopOffers:()=>[],comparisonKinds:[],

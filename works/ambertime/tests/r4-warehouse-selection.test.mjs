@@ -1,3 +1,4 @@
+import {beforeA1} from './a1-source-baseline.mjs';
 import {inlineHistory} from './r5-history-source.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -50,13 +51,13 @@ test('R4 controller has no effect dependencies, retained game objects or shared 
  a.select(null);assert.equal(a.selectedId,null);a.reconcile([],null);assert.equal(a.selectedId,null);
  assert.deepEqual(Object.keys(a),['selectedId','select','reconcile']);assert(!/\bimport\b/.test(source));
 });
-test('R4 root has only the declared owner substitutions; all other statements and entry bytes match the immutable base',()=>{
- let current=inlineHistory(fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'));
+test('R4 root after exact reviewed A1 reversal has only the declared owner substitutions and matches immutable base',()=>{
+ let current=inlineHistory(beforeA1(fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8')));
  current=current.replace("import {createWarehouseRoomController} from './warehouse-room-controller.mjs?v=refactor-r4-1';\n",'').replace('const warehouseRoom=createWarehouseRoomController();\n','');
  current=current.replace("room='distill',selectedProductId", "room='distill',selectedCaskId=null,selectedProductId");
  current=current.replace(" warehouseRoom.reconcile(game.core.casks,game.tastingId);\n if(game.tastingId!==null){room='warehouse';if(!modal)modal={kind:'inspect',id:warehouseRoom.selectedId};}"," if(!D.currentCask(game,selectedCaskId))selectedCaskId=game.core.casks[0]?.id??null;\n if(game.tastingId!==null){selectedCaskId=game.tastingId;room='warehouse';if(!modal)modal={kind:'inspect',id:selectedCaskId};}");
  for(const expr of ['game.core.casks.at(-1)?.id??null','game.tastingId??game.core.casks[0]?.id??null','Number(b.dataset.caskId)','roomFeedback.caskId','d.caskId','null','id'])current=current.replaceAll('warehouseRoom.select('+expr+')','selectedCaskId='+expr);
  current=current.replaceAll('warehouseRoom.selectedId','selectedCaskId');assert.equal(current,original);
- const index=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8').replace('&amp;history=r5-1','').replace('&amp;warehouse=r4-1','');
+ const index=beforeA1(fs.readFileSync(new URL('../index.html',import.meta.url),'utf8'),'index.html').replace('&amp;history=r5-1','').replace('&amp;warehouse=r4-1','');
  assert.equal(index,execFileSync('git',['show',BASE+':works/ambertime/index.html'],{encoding:'utf8'}));
 });
