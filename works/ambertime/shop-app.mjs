@@ -1,4 +1,5 @@
 import {ledgerProfile,caskTimeline,recordTimeline,recordText} from './ledger-history-view.mjs?v=refactor-r5-1';
+import {fontReady} from './font-loader.mjs?v=0.35-font-1';
 import {createWarehouseRoomController} from './warehouse-room-controller.mjs?v=refactor-r4-1';
 import {createDistillRoomController} from './distill-room-controller.mjs?v=refactor-r3-1';
 import {staffStatusView} from './staff-status-view.mjs?v=status-reactions-r1';
@@ -28,7 +29,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-messages-r1';
-import {CanvasScene} from './canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1';
+import {CanvasScene} from './canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a1-1';
 import * as D from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
@@ -149,17 +150,28 @@ let staffMigrationNotice=false;
 // History is a read-only projection in an isolated worker, never save data.
 let historyWorker=null,historyRequest=0,historyData=null,historyError='',historyLoading=false,historySnapshot=null;
 const historyVisible=()=>['history','history-brand','history-shop','history-generation','generation-review'].includes(modal?.kind);
+// Load the existing worker modules once; replay remains demand-driven and off-thread.
+// No game snapshot is sent during warm-up, and no projection cache is added.
+function prepareLedgerWorkers(){
+ if(!game||document.hidden)return;
+ for(const kind of ['history','cask'])try{
+  if(kind==='history'?historyWorker:caskWorker)continue;
+  const worker=kind==='history'?new Worker(new URL('./history-worker.mjs?v=market-rules-r1',import.meta.url),{type:'module'}):new Worker(new URL('./cask-ledger-worker.mjs?v=market-rules-r1',import.meta.url),{type:'module'});
+  if(kind==='history')historyWorker=worker;else caskWorker=worker;
+  worker.onerror=e=>{e.preventDefault();worker.terminate();if(kind==='history'&&historyWorker===worker)historyWorker=null;if(kind==='cask'&&caskWorker===worker)caskWorker=null;};
+ }catch{}
+}
 function readHistory(){
  if(historySnapshot===game)return;
- const snapshot=game,requestId=++historyRequest;historySnapshot=snapshot;historyWorker?.terminate();historyWorker=null;historyData=null;historyError='';historyLoading=true;
+ const snapshot=game,requestId=++historyRequest;historySnapshot=snapshot;historyData=null;historyError='';historyLoading=true;
  const finish=(data,error)=>{
   if(requestId!==historyRequest||historySnapshot!==snapshot)return;
-  if(game!==snapshot){historyWorker?.terminate();historyWorker=null;historySnapshot=null;historyLoading=false;return;}
+  if(game!==snapshot){historySnapshot=null;historyLoading=false;return;}
   const active=document.activeElement,action=active?.dataset?.action,target=active?.dataset?.id;
-  historyLoading=false;historyData=data;historyError=error?'記録を読めませんでした。':'';historyWorker?.terminate();historyWorker=null;
+  historyLoading=false;historyData=data;historyError=error?'記録を読めませんでした。':'';
   if(historyVisible()){render();restoreLedger(active?.id);if(action)queueMicrotask(()=>$('action-dialog').querySelector('[data-action="'+CSS.escape(action)+'"][data-id="'+CSS.escape(target??'')+'"]')?.focus({preventScroll:true}));}
  };
- try{const worker=new Worker(new URL('./history-worker.mjs?v=market-rules-r1',import.meta.url),{type:'module'});historyWorker=worker;worker.onmessage=({data})=>{if(data.requestId===requestId)finish(data.history??null,data.error||!data.history);};worker.onerror=e=>{e.preventDefault();finish(null,true);};worker.postMessage({requestId,state:snapshot});}catch{finish(null,true);}
+ try{prepareLedgerWorkers();const worker=historyWorker;if(!worker)throw Error('worker unavailable');worker.onmessage=({data})=>{if(historyWorker===worker&&data.requestId===requestId)finish(data.history??null,data.error||!data.history);};worker.onerror=e=>{e.preventDefault();worker.terminate();if(historyWorker===worker){historyWorker=null;finish(null,true);}};worker.postMessage({requestId,state:snapshot});}catch{finish(null,true);}
 }
 function historyWaiting(){readHistory();return historyLoading?'<p role="status" data-history-loading>記録を読んでいます…</p>':historyError?'<p role="alert">'+esc(historyError)+'</p>'+button('もう一度読む','history-retry'):null;}
 function openHistory(){
@@ -415,18 +427,18 @@ const caskModalVisible=()=>modal?.kind==='ledger'&&['recipes','aging'].includes(
 const emptyCaskView=(loading,error=false)=>({recipes:{latestManual:null,saved:[],unsaved:[]},casks:[],coverage:{complete:false,fromMonth:null,replayed:false},loading,error});
 function caskData(){
  if(caskSnapshot!==game){
-  const snapshot=game,requestId=++caskRequest;caskSnapshot=snapshot;caskProjection=emptyCaskView(true);caskWorker?.terminate();caskWorker=null;
+  const snapshot=game,requestId=++caskRequest;caskSnapshot=snapshot;caskProjection=emptyCaskView(true);
   try{
-   const worker=new Worker(new URL('./cask-ledger-worker.mjs?v=market-rules-r1',import.meta.url),{type:'module'});caskWorker=worker;
+   prepareLedgerWorkers();const worker=caskWorker;if(!worker)throw Error('worker unavailable');
    const current=()=>caskWorker===worker&&caskSnapshot===snapshot&&game===snapshot;
-   const finish=()=>{worker.terminate();if(caskWorker===worker)caskWorker=null;};
+   const fail=()=>{worker.terminate();if(caskWorker===worker)caskWorker=null;};
    const redraw=()=>{if(caskModalVisible()){
     const active=document.activeElement,action=active?.dataset?.action,target=active?.dataset?.id;
     render();restoreLedger(active?.id);
     if(action)queueMicrotask(()=>$('action-dialog').querySelector('[data-action="'+CSS.escape(action)+'"][data-id="'+CSS.escape(target??'')+'"]')?.focus({preventScroll:true}));
    }};
-   worker.onmessage=({data})=>{if(data.requestId!==requestId)return;if(!current()){finish();return;}caskProjection=data.error||!data.ledger?emptyCaskView(false,true):data.ledger;finish();redraw();};
-   worker.onerror=event=>{event.preventDefault();if(!current()){finish();return;}caskProjection=emptyCaskView(false,true);finish();redraw();};
+   worker.onmessage=({data})=>{if(data.requestId!==requestId||!current())return;caskProjection=data.error||!data.ledger?emptyCaskView(false,true):data.ledger;redraw();};
+   worker.onerror=event=>{event.preventDefault();const active=current();fail();if(!active)return;caskProjection=emptyCaskView(false,true);redraw();};
    worker.postMessage({requestId,state:snapshot});
   }catch{caskWorker?.terminate();caskWorker=null;caskProjection=emptyCaskView(false,true);}
  }
@@ -510,7 +522,7 @@ function placementShelfRelease(p){const r=releaseFor(p.id);return game.releases.
 const productSaleState=p=>placementEnabled?(D.placementInventory(game,p.id).retail>0?'自家販売 '+D.placementInventory(game,p.id).retail+'本':'手元 '+D.placementInventory(game,p.id).hand+'本'):(game.productsById[p.id]?.listed?'販売中':'保管中');
 const bottleStock=()=>game.core.products.reduce((sum,p)=>sum+p.stock,0);
 const hasMonthlyWork=()=>game&&(game.core.casks.length>0||game.core.products.some(p=>p.stock>0)||game.still.phase==='distilling'||D.usualNeedsClock(game)||D.generationNeedsClock(game));
-const blocked=()=>!game||countdown.active||generationState()?.phase==='review'||(!preview&&!canSave)||userPaused||runtimeHalted||heldRange()||manualDistilling()&&room!=='distill'||document.hidden||marketEditing||modal!==null||game.tastingId!==null||game.decisions.length>0||game.trade.offer!==null;
+const blocked=()=>!game||countdown.active||generationState()?.phase==='review'||(!preview&&!canSave)||userPaused||runtimeHalted||heldRange()||manualDistilling()&&room!=='distill'||document.hidden||scene.isDistillCompletion(game.core.spirit?.id)||marketEditing||modal!==null||game.tastingId!==null||game.decisions.length>0||game.trade.offer!==null;
 function schedule(continuing=false){
  stopClock(!continuing);if(blocked()||!hasMonthlyWork())return;const token=generation,expectedMonth=game.core.month;
  timer=setTimeout(()=>{
@@ -573,10 +585,11 @@ function commitPlacement(selection){
 }
 // Event presentation is transient and created only after the operation is saved.
 function finishDistillation(){
+ const manual=game?.usual?.reservation?.status!=='active';
  const collection=D.collectionState(game);
  if(collection.expired){act(D.restartRangeDistillation,()=>message(''));return;}
  if(collection.enabled&&!collection.collected){if(collection.canStart)act(D.beginCollection);return;}
- if(game?.still.phase==='distilling'&&!modal&&(collection.enabled?collection.canStop:game.still.distillation.progress>=T.minimumStop))act(D.stopDistillation,null,()=>message(''));
+ if(game?.still.phase==='distilling'&&!modal&&(collection.enabled?collection.canStop:game.still.distillation.progress>=T.minimumStop))act(D.stopDistillation,null,()=>{message('');const spiritId=game.core.spirit?.id;if(manual)scene.startDistillCompletion(spiritId,id=>{if(game?.still.phase==='filling'&&game.core.spirit?.id===id&&room==='distill'&&!modal&&!document.hidden&&(preview||canSave)){render();schedule();}});});
 }
 function currentDistillTools(){
  if(!game)return {visible:false};
@@ -742,8 +755,9 @@ function syncModal(){
  if(!modal&&game.tastingId===null&&!game.decisions.length&&game.trade.offer)modal={kind:'offer'};
  if(!modal&&game.shop.offer&&!game.shop.offer.notified&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&game.still.phase==='ready'&&!document.hidden&&!runtimeHalted&&(preview||canSave))showShopOffer();
  if(!modal&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&(!game.shop.offer||game.shop.offer.notified)&&!document.hidden&&(preview||canSave))showGeneration();
- if(!modal&&room==='distill'&&game.still.phase==='filling'&&game.usual?.reservation?.status!=='active'&&game.core.spirit&&shownFillSpiritId!==game.core.spirit.id&&(preview||canSave)){shownFillSpiritId=game.core.spirit.id;modal={kind:'fill'};}
- if(!modal)showInitialMapNotice();
+ if(modal||room!=='distill'||game.still.phase!=='filling'||!scene.isDistillCompletion(game.core.spirit?.id)||document.hidden||(!preview&&!canSave))scene.cancelDistillCompletion();
+ if(!modal&&room==='distill'&&game.still.phase==='filling'&&game.usual?.reservation?.status!=='active'&&game.core.spirit&&shownFillSpiritId!==game.core.spirit.id&&(preview||canSave)&&!scene.isDistillCompletion(game.core.spirit.id)){shownFillSpiritId=game.core.spirit.id;modal={kind:'fill'};}
+ if(!modal&&!scene.isDistillCompletion(game.core.spirit?.id))showInitialMapNotice();
  if(!modal){vaultPanels();if(dialog.open){
   const origin=modalReturnFocus,reference=modalReturnObject;dialog.close();
   // Room switches and shelf rerenders finish before choosing a visible focus target.
@@ -1224,7 +1238,7 @@ function handleModal(e){
   if(!ok&&modal===quoteState){quoteState.committing=false;updateBottleSelection();}return;
  }
 }
-function suspend(){marketUI.cancel();placementUI?.cancel();countdown.cancel();stopClock();if(manualDistilling())userPaused=true;save();if(game)render();}
+function suspend(){scene.cancelDistillCompletion();marketUI.cancel();placementUI?.cancel();countdown.cancel();stopClock();if(manualDistilling())userPaused=true;save();if(game)render();}
 function resume(){if(game){render();schedule();}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();else resume();});window.addEventListener('pagehide',suspend);window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;suspend();storageNotice('別の画面で保存が変わりました。再読み込みしてください。');if(game)render();}});
@@ -1290,4 +1304,5 @@ function syncDistillTools(tools){
  lever.setAttribute('aria-label',tools.leverDown?'レバー：下げた状態':'レバーを下に引く（キーボードは下キー2回、Enter）');
  glass.setAttribute('aria-label',tools.glassMode==='start'?'グラスで受ける':tools.glassMode==='stop'?'グラスを戻して採取を終える':'グラス');guide.textContent=tools.hint??'';
 }
-boot();
+// Warm only after the settled scene has painted; ledger demand never waits for this.
+boot().then(()=>fontReady).then(()=>requestAnimationFrame(()=>requestAnimationFrame(prepareLedgerWorkers)));

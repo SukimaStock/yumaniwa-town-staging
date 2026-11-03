@@ -46,7 +46,7 @@ function host(source,state,{restored=false}={}){
  const model={...D};
  for(const name of ['sampleDistillery','endTasting','pauseBottling','bottleBranded','delegateBottling'])model[name]=(...args)=>{log.push('model:'+name);if(mode==='model-throw'&&name!=='endTasting')throw Error('model refused');return D[name](...args);};
  model.serializeDistillery=s=>{log.push('serialize');return D.serializeDistillery(s);};
- const ctx={D:model,P,createWarehouseRoomController,createDistillRoomController,bottleChoices,defaultBottleCount,identityDefaults,brandNameError,
+ const ctx={scene:{isDistillCompletion:()=>false,cancelDistillCompletion(){},startDistillCompletion:()=>false},D:model,P,createWarehouseRoomController,createDistillRoomController,bottleChoices,defaultBottleCount,identityDefaults,brandNameError,
   initial:state,initialRaw:stored,restored,snapshotRaw:D.serializeDistillery,localStorage:storage,SAVE_KEY:'formal',$:node,document:{hidden:false,activeElement:null},
   stopClock:()=>log.push('clock:stop'),schedule:()=>log.push('clock:schedule'),recordRender:()=>log.push('render'),
   message:text=>log.push(['message',text]),storageNotice:text=>log.push(['storageNotice',text]),

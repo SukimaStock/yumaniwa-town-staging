@@ -1,0 +1,20 @@
+[
+  {
+    "path": "works/ambertime/shop-app.mjs",
+    "originalLocalImplementationCommit": "1cbd3219",
+    "sha256": "052185c62476904a7bd31c79ffaa47a79d00bc18551860e042f8881338ed421f",
+    "identical": true
+  },
+  {
+    "path": "works/ambertime/canvas-scene.mjs",
+    "originalLocalImplementationCommit": "1cbd3219",
+    "sha256": "29e6f7a51cee2d177959d8964136ce7a2afeada13229e4c37a17fc75ed8c8c62",
+    "identical": true
+  },
+  {
+    "path": "works/ambertime/index.html",
+    "originalLocalImplementationCommit": "1cbd3219",
+    "sha256": "dacc325d16e577c96593d783cde39e561744af93ec8fea05fa72d0cd6b61e952",
+    "identical": true
+  }
+]

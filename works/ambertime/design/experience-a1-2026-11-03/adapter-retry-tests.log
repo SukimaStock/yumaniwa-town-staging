@@ -1,0 +1,19 @@
+✔ R2 all three pixel poses, glass endpoints/intermediate motion, liquid and guide cells exactly match R1 (142.280046ms)
+✔ R2 logical layout, strict endpoint selection, viewport offsets/DPR and hit boundaries exactly match R1 (13.199574ms)
+✔ R2 lever18/36 are CSS pixels at every scale: pose, downward dominance and release boundaries match R1 (18.72849ms)
+✔ R2 glass CSS travel clamp, sticky8px drag and directional commit thresholds match R1 (38.899444ms)
+✔ R2 cancel, capture, multitouch, lifecycle and keyboard action traces match R1 (2.080496ms)
+✔ R2 actual Canvas gesture release and endpoint-change animation fallbacks match R1 (62.57782ms)
+✔ R2 actual Canvas animation branch preserves140ms interpolation, CSS-to-logical drag, return and guide (3857.291173ms)
+✔ R4 actual root empty/single/multiple selection, stale fallback, formal tasting override and reload keep selection order (214.722148ms)
+✔ R4 actual root select/taste/previous comparison/end/quote quantity/cancel preserves formal raw and effect order (151.494107ms)
+✔ R4 actual root partial/full bottling keeps surviving selection or first-cask fallback and exact cold save replay (764.085861ms)
+✔ R4 generic sample and bottle quota/readback/conflict/model errors retain distinct memory, durable, notices and clock order (578.751098ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4289.971672

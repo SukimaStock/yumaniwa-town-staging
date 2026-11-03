@@ -1,0 +1,1376 @@
+{
+  "cases": [
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "w": 360,
+      "h": 568,
+      "dpr": 1,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 2,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1250
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "w": 360,
+      "h": 568,
+      "dpr": 1,
+      "duration": 300,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 270,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 300,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 400,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1300
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "w": 360,
+      "h": 568,
+      "dpr": 1,
+      "duration": 400,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 370,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 400,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 500,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1400
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "w": 375,
+      "h": 620,
+      "dpr": 2,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 2,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1250
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "w": 390,
+      "h": 680,
+      "dpr": 3,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 2,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1250
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "w": 430,
+      "h": 740,
+      "dpr": 2,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 2,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1250
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "w": 390,
+      "h": 680,
+      "dpr": 2,
+      "reduced": true,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 200,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "w": 360,
+      "h": 568,
+      "dpr": 1,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 2,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1250
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "w": 360,
+      "h": 568,
+      "dpr": 1,
+      "duration": 300,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 270,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 300,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 400,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1300
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "w": 360,
+      "h": 568,
+      "dpr": 1,
+      "duration": 400,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 370,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 400,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 500,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1400
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "w": 375,
+      "h": 620,
+      "dpr": 2,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 2,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1250
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "w": 390,
+      "h": 680,
+      "dpr": 3,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 2,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1250
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "w": 430,
+      "h": 740,
+      "dpr": 2,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 1,
+          "active": true,
+          "dialog": null,
+          "clockPending": false,
+          "pixels": {
+            "count": 2,
+            "outside": 0,
+            "controlsUnchanged": true
+          }
+        },
+        {
+          "elapsed": 200,
+          "step": 2,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": true,
+          "dialog": null,
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "complete",
+          "at": 1250
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "w": 390,
+      "h": 680,
+      "dpr": 2,
+      "reduced": true,
+      "duration": 250,
+      "phases": [
+        {
+          "elapsed": 0,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 140,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 150,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 200,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 220,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 250,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        },
+        {
+          "elapsed": 350,
+          "step": 0,
+          "active": false,
+          "dialog": "fill",
+          "clockPending": false
+        }
+      ],
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1000,
+          "savedPhase": "filling"
+        }
+      ]
+    }
+  ],
+  "natural": [
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "mode": "normal-1",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 376.29999999701977,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "paint",
+          "at": 532.2999999970198,
+          "step": 1
+        },
+        {
+          "kind": "paint",
+          "at": 565.6999999992549,
+          "step": 2
+        },
+        {
+          "kind": "complete",
+          "at": 633
+        },
+        {
+          "kind": "fill",
+          "at": 645.7999999970198
+        }
+      ],
+      "duration": 256.70000000298023
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "mode": "normal-2",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 327.5,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "paint",
+          "at": 483.19999999925494,
+          "step": 1
+        },
+        {
+          "kind": "paint",
+          "at": 516.5,
+          "step": 2
+        },
+        {
+          "kind": "complete",
+          "at": 583.8999999985099
+        },
+        {
+          "kind": "fill",
+          "at": 593.8999999985099
+        }
+      ],
+      "duration": 256.3999999985099
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "mode": "normal-3",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 343,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "paint",
+          "at": 500.5,
+          "step": 1
+        },
+        {
+          "kind": "paint",
+          "at": 533.8999999985099,
+          "step": 2
+        },
+        {
+          "kind": "complete",
+          "at": 601.6999999992549
+        },
+        {
+          "kind": "fill",
+          "at": 613.5999999977648
+        }
+      ],
+      "duration": 258.69999999925494
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "mode": "hidden",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 339.5,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "fill",
+          "at": 401.6000000014901
+        }
+      ],
+      "canceled": true,
+      "syntheticLifecycle": true
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "mode": "pagehide",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 366.3999999985099,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "fill",
+          "at": 436.30000000074506
+        }
+      ],
+      "canceled": true,
+      "syntheticLifecycle": true
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "mode": "room",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 386.5999999977648,
+          "savedPhase": "filling"
+        }
+      ],
+      "canceled": true,
+      "syntheticLifecycle": false
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "mode": "modal",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 324.29999999701977,
+          "savedPhase": "filling"
+        }
+      ],
+      "canceled": true,
+      "syntheticLifecycle": false
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "mode": "reload",
+      "events": [],
+      "canceled": true,
+      "syntheticLifecycle": false
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "mode": "normal-1",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 442,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "paint",
+          "at": 607,
+          "step": 1
+        },
+        {
+          "kind": "paint",
+          "at": 639,
+          "step": 2
+        },
+        {
+          "kind": "complete",
+          "at": 705
+        },
+        {
+          "kind": "fill",
+          "at": 720
+        }
+      ],
+      "duration": 263
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "mode": "normal-2",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 383,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "paint",
+          "at": 546,
+          "step": 1
+        },
+        {
+          "kind": "paint",
+          "at": 578,
+          "step": 2
+        },
+        {
+          "kind": "complete",
+          "at": 648
+        },
+        {
+          "kind": "fill",
+          "at": 664
+        }
+      ],
+      "duration": 265
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "mode": "normal-3",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 1758,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "paint",
+          "at": 1916,
+          "step": 1
+        },
+        {
+          "kind": "paint",
+          "at": 1948,
+          "step": 2
+        },
+        {
+          "kind": "complete",
+          "at": 2014
+        },
+        {
+          "kind": "fill",
+          "at": 2036
+        }
+      ],
+      "duration": 256
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "mode": "hidden",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 588,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "fill",
+          "at": 675
+        }
+      ],
+      "canceled": true,
+      "syntheticLifecycle": true
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "mode": "pagehide",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 373,
+          "savedPhase": "filling"
+        },
+        {
+          "kind": "fill",
+          "at": 436
+        }
+      ],
+      "canceled": true,
+      "syntheticLifecycle": true
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "mode": "room",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 372,
+          "savedPhase": "filling"
+        }
+      ],
+      "canceled": true,
+      "syntheticLifecycle": false
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "mode": "modal",
+      "events": [
+        {
+          "kind": "arm",
+          "at": 434,
+          "savedPhase": "filling"
+        }
+      ],
+      "canceled": true,
+      "syntheticLifecycle": false
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "mode": "reload",
+      "events": [],
+      "canceled": true,
+      "syntheticLifecycle": false
+    }
+  ],
+  "errors": [],
+  "runnerSHA256": "fcaf0d61d70b0cd1a5680ed1b2f1e8a5eb7c83dd04750a484f9afd2d87a5502b",
+  "unverified": [
+    "Physical iPhone Safari/touch feel/VoiceOver",
+    "Real OS background and BFCache; pagehide/visibility cases are synthetic"
+  ]
+}

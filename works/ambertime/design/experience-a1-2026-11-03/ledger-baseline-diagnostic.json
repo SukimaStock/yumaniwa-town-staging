@@ -1,0 +1,872 @@
+{
+  "base": "341f2865ff44af97bfb99e76450b6db17cac9511",
+  "scope": "diagnostic only, 375x620 DPR2, 4 consecutive opens per fixture; concurrent baseline-suite CPU load; not stable final benchmark",
+  "timing": "click capture to completion + two RAF via automation upper bound; worker handler compute instrumented in served source only; no product instrumentation",
+  "fixtures": "public D operations; empty and3 archived casks with tasting, bottling,3 months; strict serialize",
+  "rows": [
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "repeat": 0,
+      "section": "recipes",
+      "operations": 27,
+      "visibleUpperBoundMs": 145.40000000223517,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 1.5
+        },
+        {
+          "kind": "worker-new",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 1.7000000029802322
+        },
+        {
+          "kind": "worker-post",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 1.800000000745058
+        },
+        {
+          "kind": "worker-response",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 110.40000000223517,
+          "compute": 9.399999998509884
+        },
+        {
+          "kind": "cask-enter",
+          "t": 110.70000000298023
+        },
+        {
+          "kind": "cask-enter",
+          "t": 110.90000000223517
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "repeat": 0,
+      "section": "history",
+      "operations": 27,
+      "visibleUpperBoundMs": 145.60000000149012,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0.0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0.7000000029802322
+        },
+        {
+          "kind": "worker-new",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 0.7000000029802322
+        },
+        {
+          "kind": "worker-post",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 0.8000000007450581
+        },
+        {
+          "kind": "worker-response",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 97.40000000223517,
+          "compute": 8.599999997764826
+        },
+        {
+          "kind": "history-enter",
+          "t": 97.60000000149012
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "repeat": 1,
+      "section": "recipes",
+      "operations": 27,
+      "visibleUpperBoundMs": 28.599999997764826,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.09999999776482582
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.09999999776482582
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "repeat": 1,
+      "section": "history",
+      "operations": 27,
+      "visibleUpperBoundMs": 29.100000001490116,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0.0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "repeat": 2,
+      "section": "recipes",
+      "operations": 27,
+      "visibleUpperBoundMs": 27.300000000745058,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.10000000149011612
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.10000000149011612
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "repeat": 2,
+      "section": "history",
+      "operations": 27,
+      "visibleUpperBoundMs": 28.899999998509884,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0.0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0.30000000074505806
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "repeat": 3,
+      "section": "recipes",
+      "operations": 27,
+      "visibleUpperBoundMs": 28.099999997764826,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.09999999776482582
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.19999999925494194
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "empty",
+      "repeat": 3,
+      "section": "history",
+      "operations": 27,
+      "visibleUpperBoundMs": 29.699999999254942,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0.0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0.10000000149011612
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "repeat": 0,
+      "section": "recipes",
+      "operations": 48,
+      "visibleUpperBoundMs": 328.5,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 1.4000000022351742
+        },
+        {
+          "kind": "worker-new",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 1.800000000745058
+        },
+        {
+          "kind": "worker-post",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 1.9000000022351742
+        },
+        {
+          "kind": "worker-response",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 286.9000000022352,
+          "compute": 180.60000000149012
+        },
+        {
+          "kind": "cask-enter",
+          "t": 287.30000000074506
+        },
+        {
+          "kind": "cask-enter",
+          "t": 287.4000000022352
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "repeat": 0,
+      "section": "history",
+      "operations": 48,
+      "visibleUpperBoundMs": 227.69999999925494,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0.8999999985098839
+        },
+        {
+          "kind": "worker-new",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 1.1000000014901161
+        },
+        {
+          "kind": "worker-post",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 1.1000000014901161
+        },
+        {
+          "kind": "worker-response",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 185.89999999850988,
+          "compute": 94.30000000074506
+        },
+        {
+          "kind": "history-enter",
+          "t": 186.19999999925494
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "repeat": 1,
+      "section": "recipes",
+      "operations": 48,
+      "visibleUpperBoundMs": 44.80000000074506,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.09999999776482582
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.09999999776482582
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "repeat": 1,
+      "section": "history",
+      "operations": 48,
+      "visibleUpperBoundMs": 45.69999999925494,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0.0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0.19999999925494194
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "repeat": 2,
+      "section": "recipes",
+      "operations": 48,
+      "visibleUpperBoundMs": 29.5,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.0
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "repeat": 2,
+      "section": "history",
+      "operations": 48,
+      "visibleUpperBoundMs": 29.0,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0.0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0.10000000149011612
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "repeat": 3,
+      "section": "recipes",
+      "operations": 48,
+      "visibleUpperBoundMs": 46.80000000074506,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0.0
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rich",
+      "repeat": 3,
+      "section": "history",
+      "operations": 48,
+      "visibleUpperBoundMs": 29.100000001490116,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0.0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0.19999999925494194
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "repeat": 0,
+      "section": "recipes",
+      "operations": 27,
+      "visibleUpperBoundMs": 154,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 1
+        },
+        {
+          "kind": "worker-new",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 2
+        },
+        {
+          "kind": "worker-post",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 2
+        },
+        {
+          "kind": "worker-response",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 113,
+          "compute": 25
+        },
+        {
+          "kind": "cask-enter",
+          "t": 114
+        },
+        {
+          "kind": "cask-enter",
+          "t": 114
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "repeat": 0,
+      "section": "history",
+      "operations": 27,
+      "visibleUpperBoundMs": 126,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 2
+        },
+        {
+          "kind": "worker-new",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 2
+        },
+        {
+          "kind": "worker-post",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 2
+        },
+        {
+          "kind": "worker-response",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 89,
+          "compute": 21
+        },
+        {
+          "kind": "history-enter",
+          "t": 90
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "repeat": 1,
+      "section": "recipes",
+      "operations": 27,
+      "visibleUpperBoundMs": 38,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 1
+        },
+        {
+          "kind": "cask-enter",
+          "t": 1
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "repeat": 1,
+      "section": "history",
+      "operations": 27,
+      "visibleUpperBoundMs": 33,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "repeat": 2,
+      "section": "recipes",
+      "operations": 27,
+      "visibleUpperBoundMs": 42,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "repeat": 2,
+      "section": "history",
+      "operations": 27,
+      "visibleUpperBoundMs": 30,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 1
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "repeat": 3,
+      "section": "recipes",
+      "operations": 27,
+      "visibleUpperBoundMs": 37,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "empty",
+      "repeat": 3,
+      "section": "history",
+      "operations": 27,
+      "visibleUpperBoundMs": 45,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "repeat": 0,
+      "section": "recipes",
+      "operations": 48,
+      "visibleUpperBoundMs": 380,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 2
+        },
+        {
+          "kind": "worker-new",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 3
+        },
+        {
+          "kind": "worker-post",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 3
+        },
+        {
+          "kind": "worker-response",
+          "url": "http://127.0.0.1:43653/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+          "t": 300,
+          "compute": 204
+        },
+        {
+          "kind": "cask-enter",
+          "t": 301
+        },
+        {
+          "kind": "cask-enter",
+          "t": 301
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "repeat": 0,
+      "section": "history",
+      "operations": 48,
+      "visibleUpperBoundMs": 329,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 2
+        },
+        {
+          "kind": "worker-new",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 3
+        },
+        {
+          "kind": "worker-post",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 3
+        },
+        {
+          "kind": "worker-response",
+          "url": "http://127.0.0.1:43653/works/ambertime/history-worker.mjs?v=market-rules-r1",
+          "t": 278,
+          "compute": 168
+        },
+        {
+          "kind": "history-enter",
+          "t": 278
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "repeat": 1,
+      "section": "recipes",
+      "operations": 48,
+      "visibleUpperBoundMs": 74,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "repeat": 1,
+      "section": "history",
+      "operations": 48,
+      "visibleUpperBoundMs": 28,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 1
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "repeat": 2,
+      "section": "recipes",
+      "operations": 48,
+      "visibleUpperBoundMs": 50,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 1
+        },
+        {
+          "kind": "cask-enter",
+          "t": 1
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "repeat": 2,
+      "section": "history",
+      "operations": 48,
+      "visibleUpperBoundMs": 29,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "repeat": 3,
+      "section": "recipes",
+      "operations": 48,
+      "visibleUpperBoundMs": 44,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-section",
+          "id": "ledger-section-recipes",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0
+        },
+        {
+          "kind": "cask-enter",
+          "t": 0
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "rich",
+      "repeat": 3,
+      "section": "history",
+      "operations": 48,
+      "visibleUpperBoundMs": 28,
+      "events": [
+        {
+          "kind": "click",
+          "action": "ledger-history",
+          "id": "",
+          "t": 0
+        },
+        {
+          "kind": "history-enter",
+          "t": 0
+        }
+      ]
+    }
+  ]
+}
