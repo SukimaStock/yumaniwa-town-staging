@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1f202a">
+<title>AmberTime｜デバッグ</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;background:#1c1c26;color:#f0e6c8}
+*{box-sizing:border-box}body{margin:0;padding:24px 16px 48px}main{max-width:620px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px}
+h1{font-size:1.45rem;margin:0}h1 small{font-size:.75rem;color:#b5b2ad;font-weight:400}
+h2{font-size:1.1rem;margin:0 0 12px}.panel{background:#2e3143;border:2px solid #6c707b;padding:18px;margin:14px 0}
+.record{border-top:1px solid #777986;padding:14px 0;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.record:first-child{border-top:0}.record strong{display:block}.record small{display:block;color:#c3c2c7;margin-top:6px;overflow-wrap:anywhere}
+button,.button-link{font:inherit;color:#f0e6c8;background:#383c51;border:2px solid #797d8d;min-height:44px;padding:9px 13px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+button:disabled{opacity:.5;cursor:default}a{color:#f0e6c8}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #efcb78;outline-offset:3px}
+details>summary{cursor:pointer;min-height:40px;list-style:disclosure-closed}details[open]>summary{list-style:disclosure-open}
+details p,.quiet{color:#c3c2c7;font-size:.9rem;line-height:1.6}p{line-height:1.55}#notice{min-height:1.3em}nav{display:flex;flex-wrap:wrap;gap:8px}
+</style>
+<script type="module" src="./debug.mjs?v=a4-debug-1"></script>
+</head>
+<body>
+<main>
+<header><h1>AmberTime <small>デバッグ</small></h1><a href="./">本編へ</a></header>
+<section class="panel" aria-labelledby="record-heading">
+<h2 id="record-heading">このブラウザの記録</h2>
+<div id="records"><p>確認中</p></div>
+<button type="button" id="refresh">更新</button>
+<p id="notice" class="quiet" role="status" aria-live="polite"></p>
+</section>
+<details class="panel">
+<summary>その他の管理操作</summary>
+<p>初期化・販売方式の切替・旧版の書き出しは、既存の管理メニューを使います。</p>
+<p><a class="button-link" href="./?debug=1">管理メニュー付きで本編を開く</a></p>
+<p class="quiet">本編の「メニュー」から「デバッグ」を開いてください。</p>
+</details>
+<details class="panel">
+<summary>以前の版</summary>
+<nav aria-label="旧版の入口">
+<a href="./v0171.html">0.17.1</a><a href="./v0164.html">0.16.4</a><a href="./v0162.html">0.16.2</a>
+<a href="./v016.html">0.16</a><a href="./v0152.html">0.15.2</a><a href="./v014.html">0.14</a>
+<a href="./v013.html">0.13</a><a href="./v012.html">0.12</a><a href="./v011.html">0.11</a>
+<a href="./v010-care.html">0.10</a><a href="./v010.html">0.10以前</a><a href="./legacy.html">旧蒸留所</a>
+</nav>
+</details>
+</main>
+</body>
+</html>
