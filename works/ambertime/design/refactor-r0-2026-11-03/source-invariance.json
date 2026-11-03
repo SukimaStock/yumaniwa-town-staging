@@ -1,0 +1,8 @@
+{
+  "base": "8fab526aec22a83b73147225c99e88e48188586e",
+  "scope": "Existing works/ambertime paths outside tests/design plus existing tests/fixtures; compare disk bytes to git show base:path",
+  "protectedExistingPaths": 537,
+  "changed": [],
+  "runtimeTopLevelMjsHtmlCssCompared": 156,
+  "existingFormalFixturesRegenerated": false
+}

@@ -1,8 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
 import * as D from '../partner-orders.mjs';
 import * as E from '../economy.mjs';
-import {loadFixture,oldRoughPending,fourCasks,resolveOrdinary,exact,cashIdentity,round} from './wholesale-care-helpers.mjs';
+import {loadFixture,oldRoughPending,fourCasks,fill,resolveOrdinary,exact,cashIdentity,round} from './wholesale-care-helpers.mjs';
 const copy=structuredClone;
 const ordinary=new Set(['rough','wood','fading','fruit','rounded','loss']);
 
@@ -26,8 +28,77 @@ for(const c of s.core.casks){const k=D.contractFor(s,c.id);c.age=k.targetAge-1;c
 
 test('funds and unmet special order remain required decisions, with original save replay preserved',()=>{let s=D.enablePromisedCare(loadFixture('partners-unmet.json'));assert.equal(s.decisions[0].eventId,'order-unmet');assert.equal(D.tickDistillery(s),s);exact(s);s=D.enablePromisedCare(loadFixture('v08-legal-funds.json'));assert(s.decisions.some(d=>d.eventId==='funds'));assert.equal(D.tickDistillery(s),s);exact(s);});
 
-test('special-order cool choices are not silently converted and explicit final bottling plans remain required',()=>{let s=D.enablePromisedCare(loadFixture('partners-assigned.json')),id=s.trade.order.caskId; // Boundary prompt checks preservation independently of chemistry timing.
-const n=s.notesById[id];n.pending={id:'rough',title:'rough',text:'',options:[{id:'wait',label:'wait'},{id:'cool',label:'cool'}]};n.phase='choice';s.decisions=[{month:s.core.month,caskId:id,eventId:'rough',pending:copy(n.pending)}];const j=D.enablePromisedCare({...s,version:6,rules:'partner-orders'});assert.equal(j.notesById[id].pending.id,'rough');for(const event of ['funds','last','bottle-ready']){let b=fourCasks(),bid=b.core.casks[0].id;b.version=6;b.rules='partner-orders';b.notesById[bid].pending={id:event,title:event,text:'',options:[{id:'bottle',label:'bottle'}]};b.notesById[bid].phase='choice';b.decisions=[{month:b.core.month,caskId:bid,eventId:event,pending:copy(b.notesById[bid].pending)}];assert.equal(D.enablePromisedCare(b).notesById[bid].pending.id,event);}});
+function coldExact(s){
+ const raw=D.serializeDistillery(s);
+ assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw,'warm replay retains every saved byte');
+ const script=`import fs from 'node:fs';import * as D from ${JSON.stringify(new URL('../partner-orders.mjs',import.meta.url).href)};process.stdout.write(D.serializeDistillery(D.restoreDistillery(fs.readFileSync(0,'utf8'))));`;
+ assert.equal(execFileSync(process.execPath,['--input-type=module','-e',script],{input:raw,encoding:'utf8',maxBuffer:8e6}),raw,'fresh-process replay retains every saved byte');
+ return raw;
+}
+
+test('legal v6 special-order cooling choice survives explicit v7 adoption and cold/warm replay',()=>{
+ const source=fs.readFileSync(new URL('./fixtures/partners-assigned.json',import.meta.url),'utf8'),original=loadFixture('partners-assigned.json');
+ assert.equal(original.version,6);assert.equal(coldExact(original),source.trimEnd());
+ let s=original;const id=s.trade.order.caskId;
+ // Actual public monthly operations reach this special cask's wood/cool event.
+ // No version, age, chemistry, pending prompt or journal fields are injected.
+ for(let guard=0;!s.notesById[id].pending;guard++){
+  assert(guard<30,'legal special-order cooling event must be reached');
+  s=resolveOrdinary(s);if(s.trade.offer)s=D.declineOffer(s);s=D.tickDistillery(s);
+ }
+ const pending=copy(s.notesById[id].pending);assert.equal(pending.id,'wood');assert(pending.options.some(o=>o.id==='cool'));
+ assert.equal(D.contractFor(s,id).kind,'special');const raw=coldExact(s),j=D.enablePromisedCare(s);
+ assert.deepEqual(j.notesById[id].pending,pending);assert.deepEqual(j.decisions,s.decisions);
+ assert.deepEqual(j.core,s.core);assert.deepEqual(j.still,s.still);assert.deepEqual(j.trade.contracts,s.trade.contracts);assert.deepEqual(j.trade.order,s.trade.order);
+ assert.deepEqual(j.operations.slice(0,-1),s.operations);assert.equal(j.operations.at(-1).key,'enable-promised-care');
+ assert.equal(D.serializeDistillery(s),raw);assert.equal(D.enablePromisedCare(j),j);coldExact(j);
+ assert.equal(D.serializeDistillery(original),source.trimEnd(),'original legal v6 record remains exact');
+});
+
+test('legal legacy funds and unmet-order stops remain required through adoption and fresh replay',()=>{
+ for(const [name,event] of [['v08-legal-funds.json','funds'],['partners-unmet.json','order-unmet']]){
+  const s=loadFixture(name),raw=coldExact(s),j=D.enablePromisedCare(s);
+  assert(s.decisions.some(d=>d.eventId===event));assert.deepEqual(j.decisions,s.decisions);assert.equal(D.tickDistillery(j),j);
+  assert.deepEqual(j.core,s.core);assert.deepEqual(j.operations.slice(0,-1),s.operations);assert.equal(j.operations.at(-1).key,'enable-promised-care');
+  assert.equal(D.serializeDistillery(s),raw);coldExact(j);
+ }
+});
+
+test('ordinary booked final prompts become observations while funds stays queued in the existing boundary contract',()=>{
+ const original=fill(loadFixture('partners-accepted.json')),id=original.core.casks.at(-1).id,raw=coldExact(original);
+ assert.equal(original.version,6);assert.notEqual(D.contractFor(original,id).kind,'special');
+ for(const event of ['funds','last','bottle-ready']){
+  // Detached boundary injection tests dispatch only. This is deliberately not
+  // claimed as a legal old save: no forged version or replay tolerance is used.
+  const s=copy(original),pending={id:event,title:event,text:'',options:[{id:'bottle',label:'bottle'}]};
+  s.notesById[id].pending=copy(pending);s.notesById[id].phase='choice';s.decisions=[{month:s.core.month,caskId:id,eventId:event,pending:copy(pending)}];
+  assert.throws(()=>D.serializeDistillery(s),/状態と操作の帳面が一致しません/,'injected boundary state is not a legal saved career');
+  const before=JSON.stringify(s),j=D.enablePromisedCare(s);
+  assert.deepEqual(j.core,s.core);assert.deepEqual(j.notesById[id].choices,s.notesById[id].choices);
+  assert.deepEqual(j.operations.slice(0,-1),s.operations);assert.equal(j.operations.at(-1).key,'enable-promised-care');
+  if(event==='funds'){
+   assert.deepEqual(j.notesById[id].pending,pending);assert(j.decisions.some(d=>d.eventId===event));assert.deepEqual(j.trade.lastObservations,[]);
+  }else{
+   assert.equal(j.notesById[id].pending,null);assert(!j.decisions.some(d=>d.caskId===id));
+   const observation=j.trade.lastObservations.find(o=>o.caskId===id&&o.eventId===event);assert(observation);
+   assert.deepEqual(observation,{caskId:id,age:s.core.casks.find(c=>c.id===id).age,eventId:event,title:event,text:'',month:s.core.month});
+   assert.deepEqual(j.notesById[id].observations.at(-1),observation);
+  }
+  assert.equal(JSON.stringify(s),before,'boundary input is not mutated');
+ }
+ // A final decision on an unbooked cask is not a redundant shipping plan.
+ const unbooked=fill(loadFixture('partners-accepted.json'),{book:false}),freeId=unbooked.core.casks.at(-1).id;
+ assert.equal(D.contractFor(unbooked,freeId),null);coldExact(unbooked);
+ for(const event of ['last','bottle-ready']){
+  const s=copy(unbooked),pending={id:event,title:event,text:'',options:[{id:'bottle',label:'bottle'}]};
+  s.notesById[freeId].pending=copy(pending);s.notesById[freeId].phase='choice';s.decisions=[{month:s.core.month,caskId:freeId,eventId:event,pending:copy(pending)}];
+  assert.throws(()=>D.serializeDistillery(s),/状態と操作の帳面が一致しません/);
+  const before=JSON.stringify(s),j=D.enablePromisedCare(s);
+  assert.deepEqual(j.notesById[freeId].pending,pending);assert(j.decisions.some(d=>d.caskId===freeId&&d.eventId===event));
+  assert.equal(JSON.stringify(s),before);assert.deepEqual(j.core,s.core);assert.deepEqual(j.notesById[freeId].choices,s.notesById[freeId].choices);
+ }
+ assert.equal(D.serializeDistillery(original),raw);
+});
 
 test('identical public actions and strict replay preserve independent samples and observation records',()=>{function run(){let s=fourCasks();for(let i=0;i<8;i++){if(s.trade.offer)s=D.declineOffer(s);s=D.tickDistillery(s);for(const c of s.core.casks){s=D.sampleDistillery(s,c.id);s=D.endTasting(s);}}return s;}const a=run(),b=run();assert.deepEqual(a,b);for(const c of a.core.casks)assert(a.notesById[c.id].samples.length>0);exact(a);exact(b);});
 

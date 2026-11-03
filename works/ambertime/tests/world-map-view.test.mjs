@@ -70,14 +70,14 @@ test('scene queue coalesces, cancels all presentation work hidden and after page
  document.hidden=false;scene.suspended=true;scene.queue();assert.equal(c.jobs.size,0);scene.suspended=false;scene.queue();c.step();assert.equal(draws,2);
  const actual=Object.create(sandbox.CanvasScene.prototype);actual.view={};actual.fontSettled=true;actual.suspended=true;actual.draw();document.hidden=true;actual.suspended=false;actual.draw();assert.equal(c.jobs.size,0);
 });
-test('actual scene drawing keeps selection blink visible but stops it behind a dialog',()=>{
+test('actual scene keeps warehouse selection static and sales selection blink pauses behind dialog or reduced motion',()=>{
  const c=clock(),dialog={open:false},document={hidden:false,getElementById:id=>id==='action-dialog'?dialog:null};
  const sandbox={document,setTimeout:c.set,clearTimeout:c.clear,cancelAnimationFrame:c.clear,performance:{now:()=>100},BODY_SIZE:16,drawSymbol(){}};
  vm.runInNewContext(fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8').replace(/^import[^\n]*\n/gm,'').replace('export class CanvasScene','globalThis.CanvasScene=class CanvasScene'),sandbox);
  const scene=Object.create(sandbox.CanvasScene.prototype),ctx=new Proxy({},{get:()=>()=>{},set:()=>true});
- Object.assign(scene,{fontSettled:true,view:{room:'warehouse',casks:[{id:1,selected:true}],products:[],calendar:'',generation:'',cash:''},root:{dataset:{}},ctx,world:{},viewport:{dpr:1,width:360,height:640,scale:1,offsetX:0,offsetY:0},layout:{caskSlots:[],equipment:{y:0}},reducedMotion:{matches:false},motion:{sample:()=>({nextMs:null})},activeControls:[],idleSince:0,controls(){},drawWorld(){},window(){},pixelRect(){},text(){},measure:()=>0,textMetrics:()=>({logical:16})});
- scene.draw();assert.equal(c.jobs.size,1,'visible selected object still blinks');dialog.open=true;scene.draw();assert.equal(c.jobs.size,0,'dialog leaves no scene timer');
- dialog.open=false;scene.draw();assert.equal(c.jobs.size,1,'closing dialog restores selection motion');scene.reducedMotion.matches=true;scene.draw();assert.equal(c.jobs.size,0);
+ Object.assign(scene,{fontSettled:true,view:{room:'warehouse',casks:[{id:1,selected:true}],products:[],calendar:'',generation:'',cash:''},root:{dataset:{}},ctx,world:{},viewport:{dpr:1,width:360,height:640,scale:1,offsetX:0,offsetY:0},layout:{caskSlots:[],productSlots:[],equipment:{y:0}},reducedMotion:{matches:false},motion:{sample:()=>({nextMs:null})},activeControls:[],idleSince:0,controls(){},drawWorld(){},window(){},pixelRect(){},text(){},measure:()=>0,textMetrics:()=>({logical:16})});
+ scene.draw();assert.equal(c.jobs.size,0,'PR756 warehouse selection is static; no idle blink timer');scene.view.room='sales';scene.view.products=[{id:1,selected:true}];scene.draw();assert.equal(c.jobs.size,1,'selected sales object keeps its presentation timer');dialog.open=true;scene.draw();assert.equal(c.jobs.size,0,'dialog leaves no scene timer');
+ dialog.open=false;scene.draw();assert.equal(c.jobs.size,1,'closing dialog restores selection motion');scene.reducedMotion.matches=true;scene.draw();assert.equal(c.jobs.size,0);scene.reducedMotion.matches=false;document.hidden=true;scene.draw();assert.equal(c.jobs.size,0);document.hidden=false;scene.view.products=[];scene.draw();assert.equal(c.jobs.size,0,'unselected sales has no idle timer');
 });
 test('map reveal coalesces to the latest stage, records announcement separately and has no timer',()=>{
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),c=clock();

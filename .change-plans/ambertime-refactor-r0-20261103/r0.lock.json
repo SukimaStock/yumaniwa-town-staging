@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e83a8099910126b3f517e1c564e84429003de2a8dc528b0890ce4064f283e110",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "8fab526aec22a83b73147225c99e88e48188586e",
+    "changeId": "ambertime-refactor-r0-20261103",
+    "revision": 0,
+    "change": "Repair stale AmberTime test harnesses against approved current behavior; freeze exact formal-operation/replay and browser baselines without runtime changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "works/ambertime",
+      "data/lab-rooms.json",
+      "data/work-lifecycle.json",
+      "works/ambertime/design/structure-audit-2026-11-02/BASELINE-TESTS.md",
+      "PR768 and current explicit R0 request",
+      "PR754 current history-derived manualCompletedRuns",
+      "Existing formal save fixtures and immutable20-state cut baseline"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-refactor-r0-20261103/r0.lock.json",
+      "works/ambertime/tests/bottling-policy.test.mjs",
+      "works/ambertime/tests/brewing-panel.test.mjs",
+      "works/ambertime/tests/distill-cut-cache.test.mjs",
+      "works/ambertime/tests/distill-cut-main-integration.test.mjs",
+      "works/ambertime/tests/distill-display.test.mjs",
+      "works/ambertime/tests/flavor-feedback-0254.test.mjs",
+      "works/ambertime/tests/font-uniform.test.mjs",
+      "works/ambertime/tests/retail-sale-cache.test.mjs",
+      "works/ambertime/tests/shop-order-view.test.mjs",
+      "works/ambertime/tests/wholesale-care.test.mjs",
+      "works/ambertime/tests/world-map-view.test.mjs",
+      "works/ambertime/tests/r0-*.mjs",
+      "works/ambertime/tests/fixtures/r0-*.json",
+      "works/ambertime/design/refactor-r0-2026-11-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/structure-audit-2026-11-02/**",
+      "works/ambertime/design/cut-main/model-baseline.json",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Reproduce all11 historical failures at latest main, independently classify specification drift/harness versus model compatibility; fix only justified test expectations and preserve cases, no skip or weakened replay",
+      "Restore exact20 historical distillation states, test history-derived manual learning and integrated fill; protect old oracle data and legal old-reader origin/cold/warm behavior",
+      "Add small fixed-seed per-operation exact-byte/RNG/clock/economy/notification and existing storage failure baseline, tests plus new explicit fixtures only; preserve generic act versus candidate failure distinction",
+      "Audit transitive cache identities, actual browser baseline where available, document min/feature/broad commands and unresolved issues in2 new R0 documents; no R1 code extraction"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review source/spec/history and full diff; all existing11 rerun before/after, full root suite and relevant oracle/cold replay; record unresolved C rather than weaken",
+      "Actual available browser three phone widths and sales430 as needed; gesture/fill/staff/map/modal/focus/reduced-motion/visibility/warm old cache where feasible, distinguish unverified iPhone",
+      "Exact-head required CI+applicable supplemental checks, normal merge then same-SHA Pages and docs HTTP bytes; runtime and existing fixtures blob equality"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert R0 tests/new fixtures/docs only. Runtime, old fixtures and save bytes unchanged.",
+    "outOfScope": [
+      "Formal calculations/model/runtime/save format/operation rules or UX changes",
+      "Lab move/delete/rename or registry changes",
+      "Production",
+      "CI/framework/product dependency changes",
+      "R1 refactoring",
+      "Existing formal fixture regeneration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver/owner feel; unavailable browser cases explicitly recorded"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes test/fixture/documentation R0 through safe Staging merge, forbids formal model changes and Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS/ChangeOS latest main; first lock-only commit before edits; independent investigators and reviewer",
+      "Existing failing model behavior cannot be repaired or hidden in R0; preserve legal old save acceptance/rejection and historical fixtures",
+      "Use existing node:test/Playwright environment; no new product dependency/CI or broad framework"
+    ]
+  }
+}

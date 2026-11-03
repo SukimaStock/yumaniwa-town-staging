@@ -1,30 +1,70 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import vm from 'node:vm';
+import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import * as D from '../partner-orders.mjs';
-import {DistillLearning} from '../distill-learning.mjs';
-import {distillToolsView} from '../distill-tools-view.mjs';
-import {distillationReadout} from '../spirit-view.mjs';
-const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
-const baseline=JSON.parse(fs.readFileSync(new URL('../design/cut-main/model-baseline.json',import.meta.url)));
+import {manualCompletedRuns} from '../distill-learning.mjs';
+import {lateRelease,finishExtraction} from './generation-helpers.mjs';
+import {host} from './r0-distill-host.mjs';
+const baselineBytes=fs.readFileSync(new URL('../design/cut-main/model-baseline.json',import.meta.url));
+const baseline=JSON.parse(baselineBytes);
 const digest=raw=>createHash('sha256').update(raw).digest('hex');
 const step=(s,p)=>{while(s.still.distillation.progress<p)s=D.distillStep(s);return s;};
-function extract(name){const start=source.indexOf('function '+name+'(');assert(start>=0,name);let depth=0,quote=null,escape=false;for(let i=source.indexOf('{',start);i<source.length;i++){const c=source[i];if(quote){if(escape)escape=false;else if(c==='\\')escape=true;else if(c===quote)quote=null;continue;}if(c==="'"||c==='\"'||c==='`'){quote=c;continue;}if(c==='{')depth++;else if(c==='}'&&--depth===0)return source.slice(start,i+1);}throw Error(name);}
-function memory(){let raw=null;return {getItem(){return raw;},setItem(k,v){raw=v;}};}
-function host({saveSucceeds=true,preview=false}={}){
- const learning=new DistillLearning({storage:memory(),enabled:!preview}),ctx={D,distillLearning:learning,distillToolsView,distillationReadout,document:{hidden:false},T:{minimumStop:30},stopClock(){},message(){},manualCards:s=>s.labConnection.cards};
- vm.createContext(ctx);vm.runInContext(`let game=D.selectFlavorCards(D.newMarketRulesDistillery(42),{malt:'plain',ferment:'short'}),room='distill',modal=null,userPaused=false,distillPrepared=true,preparedForDistillation=game.core.lastDistillation,canSave=true,preview=${preview},shownFillSpiritId=null,saveSucceeds=${saveSucceeds},actCalls=0,pendingCountdown=null;
- const countdown={active:false,start(fn){this.active=true;pendingCountdown=fn;},cancel(){this.active=false;}};
- function act(fn,after,afterSave){actCalls++;game=fn(game);if(after)after();if(saveSucceeds&&afterSave)afterSave();}
- ${['distillBatchKey','prepareDistillation','finishDistillation','currentDistillTools','startFromLever'].map(extract).join('\n')}
- globalThis.api={startFromLever,finishDistillation,key:distillBatchKey,tools:currentDistillTools,game:()=>game,calls:()=>actCalls,runCountdown(){const fn=pendingCountdown;pendingCountdown=null;countdown.active=false;if(fn)fn();},cancelCountdown(){pendingCountdown=null;countdown.active=false;},stepTo(n){while(game.still.distillation.progress<n)game=D.distillStep(game);},setGame(s){game=s;},setSave(ok){saveSucceeds=ok;},setAutomatic(){game.usual.reservation={status:'active'};}};`,ctx);
- return {api:ctx.api,learning};
-}
-test('formal model and supporting rule modules remain byte-identical to the pinned main',()=>{
- assert.equal(baseline.base,'c927acf16128e0bd4b8096596221c70f9ed69355');assert(baseline.formalSources.length>40);
- for(const r of baseline.formalSources)assert.equal(digest(fs.readFileSync(new URL('../../../'+r.path,import.meta.url))),r.sha256,r.path);
+// The historical artifact included old UI/app/test sources as well as formal
+// modules. Only the explicit formal model closure stays byte-pinned: UI now has
+// behavior/geometry/DOM/cache tests and may be reorganized without hash churn.
+const protectedFormalSources=new Set([
+ "works/ambertime-flavor-lab-v02/bridge.mjs",
+ "works/ambertime-flavor-lab-v02/model.mjs",
+ "works/ambertime/aroma-extraction.mjs",
+ "works/ambertime/bottle-storage.mjs",
+ "works/ambertime/brand-identity.mjs",
+ "works/ambertime/brand-reputation.mjs",
+ "works/ambertime/character.mjs",
+ "works/ambertime/department-projects.mjs",
+ "works/ambertime/distiller.mjs",
+ "works/ambertime/distillery-parameters.mjs",
+ "works/ambertime/distillery.mjs",
+ "works/ambertime/economy-parameters.mjs",
+ "works/ambertime/economy.mjs",
+ "works/ambertime/experiments/reputation/v03/model.mjs",
+ "works/ambertime/experiments/reputation/v05/core.mjs",
+ "works/ambertime/experiments/reputation/v05/model.mjs",
+ "works/ambertime/experiments/town-simulation/v01/model.mjs",
+ "works/ambertime/generations.mjs",
+ "works/ambertime/lab-flavor.mjs",
+ "works/ambertime/market-sales.mjs",
+ "works/ambertime/model.mjs",
+ "works/ambertime/monthly.mjs",
+ "works/ambertime/parallel-parameters.mjs",
+ "works/ambertime/parameters.mjs",
+ "works/ambertime/partial-bottling.mjs",
+ "works/ambertime/partner-orders.mjs",
+ "works/ambertime/partner-parameters.mjs",
+ "works/ambertime/placement-mode.mjs",
+ "works/ambertime/recipe-book.mjs",
+ "works/ambertime/shop-demand.mjs",
+ "works/ambertime/shop-model.mjs",
+ "works/ambertime/store-market.mjs",
+ "works/ambertime/town-connection.mjs",
+ "works/ambertime/trade-parameters.mjs",
+ "works/ambertime/trade.mjs",
+ "works/ambertime/wholesale-parameters.mjs",
+ "works/ambertime/wholesale-v08.mjs",
+ "works/ambertime/wholesale.mjs"
+]);
+test('historical baseline is immutable and its 38 formal dependencies stay protected',()=>{
+ assert.equal(digest(baselineBytes),'9bdd784a50879b74e4a25c7c54b565122d0be22419075104c5f5046789120261');
+ assert.equal(baseline.base,'c927acf16128e0bd4b8096596221c70f9ed69355');assert.equal(baseline.formalSources.length,146);
+ const formal=baseline.formalSources.filter(r=>protectedFormalSources.has(r.path));assert.equal(formal.length,38);
+ for(const r of formal){
+  // Approved merged 3323b4eb changed staff/bottling rules after the old cut
+  // snapshot. Its current formal bytes are fixed separately; old20 states below
+  // still compare against the original, unmodified raw/hash expectations.
+  const expected=r.path==='works/ambertime/partner-orders.mjs'?'ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b':r.sha256;
+  assert.equal(digest(fs.readFileSync(new URL('../../../'+r.path,import.meta.url))),expected,r.path);
+ }
 });
 test('four same native cut sequences retain all twenty old state and cold-save bytes',()=>{
  assert.equal(baseline.cases.length,20);
@@ -33,24 +73,41 @@ test('four same native cut sequences retain all twenty old state and cold-save b
   let s=D.selectFlavorCards(D.newMarketRulesDistillery(42),{malt,ferment:'short'});s=D.startRangeDistillation(s);match(s,'before');s=D.beginCollection(step(s,start));match(s,'collect-start');s=D.stopDistillation(step(s,end));match(s,'finished');s=D.fillBarrel(s,'refill');match(s,'filled');s=D.bottleBranded(s,s.core.casks.at(-1).id,{});match(s,'bottled');
  }
 });
-test('host counts only the saved start and saved same-batch completion, never collection start',()=>{
- const {api,learning}=host();api.startFromLever();assert.equal(api.calls(),0);assert.equal(learning.completedRuns,0);api.runCountdown();const key=api.key();assert.equal(learning.completedRuns,0);assert.equal(api.game().still.phase,'distilling');api.finishDistillation();assert.equal(learning.completedRuns,0);api.stepTo(12);api.finishDistillation();assert.equal(api.game().still.phase,'filling');assert.equal(api.key(),key);assert.equal(learning.completedRuns,1);api.finishDistillation();assert.equal(learning.completedRuns,1);
+test('actual lever and glass handlers count formal stop, not countdown/start/collection, then open integrated result and fill',()=>{
+ const {api,persisted,writes}=host();assert.equal(manualCompletedRuns(api.game()),0);assert(api.tools().leverEnabled);
+ const initial=persisted();api.startFromLever();assert.equal(persisted(),initial);assert.equal(writes(),0);assert.equal(api.game().still.phase,'ready');assert(api.tools().leverDown);
+ api.runCountdown();assert.equal(api.game().still.phase,'distilling');assert.equal(manualCompletedRuns(api.game()),0);
+ api.finishDistillation();assert.equal(api.game().still.distillation.collectStart,0);assert.equal(manualCompletedRuns(api.game()),0);
+ api.stepTo(11);const partial=D.serializeDistillery(api.game());api.finishDistillation();assert.equal(D.serializeDistillery(api.game()),partial,'minimum collection window is enforced');
+ api.stepTo(12);api.finishDistillation();assert.equal(api.game().still.phase,'filling');assert.equal(manualCompletedRuns(api.game()),1);assert.equal(api.modal().kind,'fill');assert.equal(api.node('dialog-title').textContent,'蒸留結果');assert.match(api.node('dialog-body').innerHTML,/たるを選ぶ/);assert.match(api.node('dialog-actions').innerHTML,/data-action="fill"/);
+ const done=D.serializeDistillery(api.game());api.finishDistillation();assert.equal(D.serializeDistillery(api.game()),done);assert.equal(manualCompletedRuns(api.game()),1);
+ api.fill('refill');assert.equal(api.room(),'warehouse');assert.equal(api.modal(),null);assert.equal(api.game().core.casks.length,1);assert.equal(api.game().still.phase,'ready');assert.equal(D.serializeDistillery(D.restoreDistillery(JSON.stringify(JSON.parse(persisted()).game))),D.serializeDistillery(api.game()));
 });
-test('failed formal save and cancelled countdown do not advance independent learning',()=>{
- const failed=host({saveSucceeds:false});failed.api.startFromLever();failed.api.runCountdown();failed.api.setSave(true);failed.api.finishDistillation();failed.api.stepTo(12);failed.api.finishDistillation();assert.equal(failed.learning.completedRuns,0,'failed start save did not arm a completion');
- const stopFailed=host();stopFailed.api.startFromLever();stopFailed.api.runCountdown();stopFailed.api.finishDistillation();stopFailed.api.stepTo(12);stopFailed.api.setSave(false);stopFailed.api.finishDistillation();assert.equal(stopFailed.learning.completedRuns,0,'failed result save did not count');
- const cancelled=host();cancelled.api.startFromLever();cancelled.api.cancelCountdown();cancelled.api.runCountdown();assert.equal(cancelled.api.calls(),0);assert.equal(cancelled.learning.completedRuns,0);
+test('cancelling countdown performs no formal operation or save',()=>{
+ const h=host(),before=D.serializeDistillery(h.api.game()),stored=h.persisted();h.api.startFromLever();h.api.cancelCountdown();h.api.runCountdown();assert.equal(D.serializeDistillery(h.api.game()),before);assert.equal(h.persisted(),stored);assert.equal(h.writes(),0);assert.equal(manualCompletedRuns(h.api.game()),0);
 });
-test('preview performs the native operation without persisting or advancing real experience',()=>{
- const {api,learning}=host({preview:true});api.startFromLever();api.runCountdown();api.finishDistillation();api.stepTo(12);api.finishDistillation();assert.equal(api.game().still.phase,'filling');assert.equal(learning.completedRuns,0);
+test('actual save failure preserves persisted start/stop bytes and disables input; journal count describes in-memory facts',()=>{
+ const start=host(),initial=start.persisted();start.api.startFromLever();start.failWrites();start.api.runCountdown();assert.equal(start.persisted(),initial);assert.equal(start.api.canSave(),false);assert.equal(manualCompletedRuns(start.api.game()),0);assert.equal(start.api.tools().glassEnabled,false);
+ const stop=host();stop.api.startFromLever();stop.api.runCountdown();stop.api.finishDistillation();stop.api.stepTo(12);const stored=stop.persisted();stop.failWrites();stop.api.finishDistillation();assert.equal(stop.persisted(),stored);assert.equal(stop.api.canSave(),false);assert.equal(stop.api.modal(),null);assert.equal(manualCompletedRuns(stop.api.game()),1,'real act changes in-memory model before a failed save');assert.equal(manualCompletedRuns(D.restoreDistillery(JSON.stringify(JSON.parse(stored).game))),0,'the durable journal did not gain a stop');assert.equal(stop.api.tools().glassEnabled,false);
 });
-test('foreign batch completion and automatic lever state cannot count a pending manual batch',()=>{
- const {api,learning}=host();api.startFromLever();api.runCountdown();const original=api.key();let other=D.startRangeDistillation(D.newMarketRulesDistillery(43));other=D.beginCollection(other);api.setGame(step(other,12));assert.notEqual(api.key(),original);api.finishDistillation();assert.equal(learning.completedRuns,0);
- const automatic=host();automatic.api.setAutomatic();assert.equal(automatic.api.tools().leverEnabled,false);automatic.api.startFromLever();automatic.api.runCountdown();assert.equal(automatic.api.calls(),0);assert.equal(automatic.learning.completedRuns,0);
+test('fill commits only after conditional storage succeeds, with the unfinished spirit retained on failure',()=>{
+ for(const failure of ['denied','conflict']){const h=host();h.api.startFromLever();h.api.runCountdown();h.api.finishDistillation();h.api.stepTo(12);h.api.finishDistillation();const before=D.serializeDistillery(h.api.game()),stored=h.persisted();if(failure==='denied')h.failWrites();else h.conflict();h.api.fill('refill');assert.equal(D.serializeDistillery(h.api.game()),before);assert.equal(h.api.game().still.phase,'filling');assert.equal(h.api.modal().kind,'fill');assert.equal(h.api.canSave(),false);assert.equal(h.persisted(),failure==='conflict'?'external-save':stored);}
 });
-test('presentation and learning reads do not mutate formal game or serialized bytes',()=>{
- const {api,learning}=host();api.startFromLever();api.runCountdown();api.finishDistillation();api.stepTo(6);const before=D.serializeDistillery(api.game());for(let n=0;n<10;n++){api.tools();api.key();learning.completedRuns;}assert.equal(D.serializeDistillery(api.game()),before);assert.equal(Object.hasOwn(api.game(),'completedRuns'),false);assert.equal(before.includes('completedKeys'),false);assert.equal(before.includes('distill-learning'),false);
+test('preview has real manual journal/guide/result/fill semantics but no storage reads or writes',()=>{
+ const h=host({preview:true}),stored=h.persisted();h.api.startFromLever();h.api.runCountdown();h.api.finishDistillation();h.api.stepTo(12);h.api.finishDistillation();assert.equal(manualCompletedRuns(h.api.game()),1);assert.equal(h.api.modal().kind,'fill');h.api.fill('refill');assert.equal(h.api.room(),'warehouse');assert.equal(h.persisted(),stored);assert.equal(h.reads(),0);assert.equal(h.writes(),0);assert.equal(h.api.node('save-status').textContent,'試遊中 · 保存しません');
 });
-test('host catches localStorage property denial and never touches storage in preview',()=>{
- const fn=extract('distillLearningStorage');for(const preview of [false,true]){let reads=0;const ctx={preview};Object.defineProperty(ctx,'localStorage',{get(){reads++;throw Error('denied getter');}});vm.createContext(ctx);vm.runInContext(fn+';globalThis.read=distillLearningStorage;',ctx);assert.equal(ctx.read(),null);assert.equal(reads,preview?0:1);}
+test('guidance follows each formal game through runs one to three and reload, with no presentation mutations',()=>{
+ let s=D.newMarketRulesDistillery(42);for(let n=0;n<=3;n++){const h=host({state:s,restored:true});const raw=D.serializeDistillery(s);assert.equal(manualCompletedRuns(h.api.game()),n);const tools=h.api.tools();assert.equal(tools.showLeverArrow,n<3);assert.equal(tools.guideDistance,n===0?9:n<3?6:0);for(let i=0;i<5;i++)h.api.tools();assert.equal(D.serializeDistillery(h.api.game()),raw);assert.equal(Object.hasOwn(h.api.game(),'completedRuns'),false);if(n<3){s=D.startRangeDistillation(s);s=D.stopDistillation(step(D.beginCollection(s),12));s=D.tickDistillery(D.fillBarrel(s,'refill'));s=D.restoreDistillery(D.serializeDistillery(s));}}
+ assert.equal(manualCompletedRuns(D.newMarketRulesDistillery(42)),0);
+});
+test('automatic queued/cancelled/completed batches never count; generation handover never resets guidance',()=>{
+ let s=D.fillBarrel(D.stopDistillation(step(D.startDistillation(D.newUsualDistillery(42)),65)),'refill');s=D.tickDistillery(s);const count=manualCompletedRuns(s),queued=D.reserveUsual(s);assert.equal(manualCompletedRuns(queued),count);assert.equal(manualCompletedRuns(D.cancelUsual(queued)),count);s=D.beginUsual(queued);const h=host({state:s});assert.equal(h.api.tools().leverEnabled,false);const before=D.serializeDistillery(h.api.game());h.api.startFromLever();h.api.runCountdown();assert.equal(D.serializeDistillery(h.api.game()),before);while(s.usual.reservation)s=D.distillStep(s);assert.equal(s.operations.at(-1).key,'complete-usual');assert.equal(manualCompletedRuns(D.restoreDistillery(D.serializeDistillery(s))),count);
+ let generation=finishExtraction(D.startDistillation(lateRelease()));assert.equal(D.generationStatus(generation).phase,'review');generation=D.handoverGeneration(generation,1);assert.equal(D.generationStatus(generation).id,2);assert.equal(manualCompletedRuns(generation),3);assert.equal(host({state:generation}).api.tools().showLeverArrow,false);
+});
+
+// Each historical row starts a separate process: no previous row can supply a
+// warm projection checkpoint. Keep original raw fixture bytes unchanged.
+test('all twenty immutable cut saves replay in twenty independent cold processes',()=>{
+ const script=`import fs from 'node:fs';import * as D from ${JSON.stringify(new URL('../partner-orders.mjs',import.meta.url).href)};process.stdout.write(D.serializeDistillery(D.restoreDistillery(fs.readFileSync(0,'utf8'))));`;
+ assert.equal(baseline.cases.length,20);for(const row of baseline.cases){assert.equal(digest(row.raw),row.sha256);assert.equal(execFileSync(process.execPath,['--input-type=module','-e',script],{input:row.raw,encoding:'utf8',maxBuffer:8e6}),row.raw,`${row.start}→${row.end}/${row.tag} cold`);}
 });
