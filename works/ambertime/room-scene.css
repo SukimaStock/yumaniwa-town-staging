@@ -350,3 +350,64 @@ body[data-room] #hero .objects::after{content:none}
 details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline-block}
 .delivery-label>.pixel-icon,.map-place-name>.pixel-icon{margin-left:6px}
 #taste-previous>.pixel-icon{margin-right:6px}
+
+/* A5: first brand is a single, touchable image-led choice surface. */
+#action-dialog[data-kind=quote]:has(.first-brand){width:min(360px,calc(var(--view-width,100vw) - 24px));max-width:calc(var(--view-width,100vw) - 24px)}
+#action-dialog .first-brand{display:grid;gap:4px;margin:0 0 4px;text-align:left;min-width:0}
+#action-dialog .first-brand-preview{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:112px;padding:2px 0}
+#action-dialog .first-brand-preview-bottle{height:94px;width:94px;display:grid;place-items:center}
+#action-dialog .first-brand-preview-bottle svg{display:block;width:94px;height:94px;image-rendering:pixelated}
+#action-dialog #first-brand-preview-name{display:block;max-width:100%;min-height:20px;overflow-wrap:anywhere;text-align:center;font-size:16px!important;line-height:20px!important}
+#action-dialog .first-brand fieldset{display:block;margin:0;padding:0;min-width:0;border:0}
+#action-dialog .first-brand legend,#action-dialog .first-brand>label{display:block;margin:0 0 2px;padding:0;font-size:14px!important;line-height:21px!important}
+#action-dialog .first-brand .brand-bottles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+#action-dialog .first-brand .brand-bottles button{display:flex;flex-direction:column;gap:1px;align-items:center;justify-content:center;min-width:0;min-height:65px;padding:3px 0}
+#action-dialog .first-brand .first-brand-choice-art{display:grid;place-items:center;width:36px;height:36px}
+#action-dialog .first-brand .first-brand-choice-art svg{display:block;width:36px;height:36px;image-rendering:pixelated}
+#action-dialog .first-brand .brand-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#action-dialog .first-brand .brand-labels button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:4px}
+#action-dialog .first-brand .first-brand-swatch{display:block;flex:none;width:21px;height:21px;border:2px solid #aaa59d}
+#action-dialog .first-brand :is(.brand-bottles,.brand-labels) button[aria-pressed=true]{border-color:#e4bc66;background:#49483e}
+#action-dialog .first-brand button span:not(.first-brand-choice-art):not(.first-brand-swatch){font-size:14px!important;line-height:19px!important;white-space:nowrap}
+#action-dialog .first-brand #brand-name{width:100%;min-width:0;min-height:44px;margin:0;padding:6px 8px}
+#action-dialog .first-brand #brand-name-error{font-size:13px!important;line-height:19px!important;margin:0}
+#action-dialog .first-brand #brand-name-error:empty{display:none}
+#action-dialog .first-brand-warning{margin:8px 0 0!important;font-size:14px!important;line-height:21px!important;color:#efcf9e}
+#action-dialog[data-kind=quote] #dialog-actions button[data-action=brand-next]{grid-column:1}
+#action-dialog[data-kind=quote] #dialog-actions button[data-action=brand-next]+button[data-return=true]{grid-column:2;order:0;justify-self:stretch;width:100%}
+@media(max-height:620px){
+ #action-dialog .first-brand-preview{min-height:96px}
+ #action-dialog .first-brand-preview-bottle{width:78px;height:78px}
+ #action-dialog .first-brand-preview-bottle svg{width:78px;height:78px}
+ #action-dialog .first-brand .brand-bottles button{min-height:59px}
+}
+#action-dialog[data-kind=first-bottle-complete] .dialog-heading{margin-bottom:0}
+#action-dialog[data-kind=first-bottle-complete] #dialog-body{overflow:auto}
+#action-dialog[data-kind=first-bottle-complete] #dialog-actions{display:none}
+#action-dialog[data-kind=first-bottle-complete] .first-bottle-complete{width:100%;text-align:center}
+#action-dialog[data-kind=first-bottle-complete] .first-bottle-proceed{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;min-height:232px;padding:13px 8px;background:transparent;border:0}
+#action-dialog[data-kind=first-bottle-complete] .first-bottle-proceed:focus-visible{outline:3px solid #e4bc66;outline-offset:-4px}
+#action-dialog .first-bottle-assembly{position:relative;display:block;width:144px;height:144px;max-width:100%;flex:none}
+#action-dialog .first-bottle-assembly>span{position:absolute;inset:0;display:block}
+#action-dialog .first-bottle-assembly svg{display:block;width:100%;height:100%;image-rendering:pixelated}
+#action-dialog .first-bottle-base{animation:first-bottle-arrive 150ms steps(2,end) both}
+#action-dialog .first-bottle-label{animation:first-bottle-apply-label 250ms steps(5,end) 150ms both}
+#action-dialog .first-bottle-finished-name{max-width:100%;overflow-wrap:anywhere;text-align:center}
+#action-dialog .first-bottle-tap-hint{color:#c6c0a9}
+#action-dialog .first-bottle-proceed :is(.first-bottle-finished-name,.first-bottle-tap-hint){font-size:16px!important;line-height:24px!important}
+@keyframes first-bottle-arrive{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes first-bottle-apply-label{from{opacity:0;transform:translateX(15px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){
+ #action-dialog .first-bottle-base,#action-dialog .first-bottle-label{animation:none!important;opacity:1!important;transform:none!important}
+}
+
+/* A restored redraw of the same transient modal must never replay the ceremony. */
+#action-dialog .first-bottle-complete[data-static=true] :is(.first-bottle-base,.first-bottle-label){animation:none!important;opacity:1!important;transform:none!important}
+
+/* The native 36px !important bottle rule must be overridden only in A5 previews. */
+#action-dialog .first-brand-preview-bottle svg[data-codea="bottle"]{width:94px!important;height:94px!important}
+#action-dialog .first-brand .first-brand-choice-art svg[data-codea="bottle"]{width:36px!important;height:36px!important}
+#action-dialog .first-bottle-base svg[data-codea="bottle"]{width:100%!important;height:100%!important}
+@media(max-height:620px){
+ #action-dialog .first-brand-preview-bottle svg[data-codea="bottle"]{width:78px!important;height:78px!important}
+}

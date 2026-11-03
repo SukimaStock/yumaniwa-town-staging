@@ -1,0 +1,100 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0e577810655340e99e48884d15196a3099cbf96ed49f6217a46be5dc33721afe",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "09ae0ecd79746ff6477b44ad540fabacd9c49ebf",
+    "changeId": "ambertime-a5-first-bottle",
+    "revision": 0,
+    "change": "First brand bottle selection centered preview and saved first-bottling label-attaching ceremony",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a5-first-bottle/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/first-bottle-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/first-bottle-ui.test.mjs",
+      "works/ambertime/design/experience-a5/A5-IMPLEMENTATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/tests/fixtures/**",
+      "tools/**",
+      "data/**",
+      "engine/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "First brand selection displays a centered live bottle preview and offers shape, color swatches and name in agreed order",
+      "Preserve name/shape/label uncommitted before first bottle, keep existing count/cost flow and show irreversible choice note only before commit",
+      "After first bottleBranded and successful save, show one-off completion with base bottle, label sliding into place and explicit bottle click to sales",
+      "Keep reduced-motion immediately finished, focus/keyboard/VoiceOver, no normal-bottling or old-save changes",
+      "Cache-bust changed local imports and add exact tests and verification record"
+    ],
+    "ownerDecisions": [
+      "2026-11-03 author chose centered preview A, shape then label then brand name A2, completion B label slides onto bottle, tap bottle to sales, one sentence irreversible warning, first time only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard staging only; formal transaction/save owned by partner-orders and shop-app act",
+      "Codea object matrices and identity enumerations immutable; first-bottle-view is presentation only",
+      "No extra save, op, notification or global replay state; failure never starts ceremony"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "First brand preview all 4 shapes and 2 labels, live Japanese input and IME; no auto keyboard; 360/375/390/430 widths",
+      "First step remains draft, second step displays count/cost and irreversible note; back/edit retains choices",
+      "Save-success-only completed bottle stage, label motion and reduced-motion, click/keyboard to sales, no double click",
+      "Normal second bottle and legacy configured brand, old save replay, saved operation/RNG/economy/129 snapshots/20 distill states",
+      "Storage failure, reset/pagehide/hidden/reload, motion cancellation, independent review, cache closure and Staging Pages check"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert A5-only code; existing formal saves and branded actions untouched",
+    "outOfScope": [
+      "Production",
+      "New brand IDs, save keys, serialization and economics",
+      "Changing Codea pixel-art matrices or existing bottle shapes and labels",
+      "A1-A4, LAB, shared Engine, marketing"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver and player tactile acceptance"
+    ]
+  }
+}
