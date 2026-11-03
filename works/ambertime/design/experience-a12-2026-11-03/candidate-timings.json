@@ -1,0 +1,2768 @@
+[
+  {
+    "engine": "chromium",
+    "version": "140.0.7339.186",
+    "duration": 250,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 521.8999999985099,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 791.0999999977648
+      },
+      {
+        "kind": "modal-open",
+        "at": 802
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 809.1999999992549,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 530.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 530.6999999992549,
+        "after": 539.8000000007451,
+        "glassX": 176.97000000067055,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 552.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.97000000067055
+      },
+      {
+        "at": 559.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.97000000067055
+      },
+      {
+        "at": 559.3000000007451,
+        "after": 563.3999999985099,
+        "glassX": 189.8400000013411,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 574.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 189.8400000013411
+      },
+      {
+        "at": 589.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 189.8400000013411
+      },
+      {
+        "at": 589.8999999985099,
+        "after": 592.0999999977648,
+        "glassX": 203.61000000033528,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 606.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 203.61000000033528
+      },
+      {
+        "at": 623.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 203.61000000033528
+      },
+      {
+        "at": 623.1999999992549,
+        "after": 625.1999999992549,
+        "glassX": 218.59500000067055,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 639.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 218.59500000067055
+      },
+      {
+        "at": 656.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 218.59500000067055
+      },
+      {
+        "at": 656.5999999977648,
+        "after": 659,
+        "glassX": 233.625,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 673.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 233.625
+      },
+      {
+        "at": 689.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 233.625
+      },
+      {
+        "at": 689.8999999985099,
+        "after": 692.1999999992549,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 706.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 723.0999999977648,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 723.0999999977648,
+        "after": 725.3000000007451,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 739.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 756.5,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 756.5,
+        "after": 758.5999999977648,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 773.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 789.6999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 789.8000000007451,
+        "after": 791,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 807.3000000007451,
+        "after": 809.0999999977648,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "version": "140.0.7339.186",
+    "duration": 350,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 479.30000000074506,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 848
+      },
+      {
+        "kind": "modal-open",
+        "at": 860.3000000007451
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 866.9000000022352,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 491.20000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 491.30000000074506,
+        "after": 497.80000000074506,
+        "glassX": 177.96000000033527,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 508.20000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 177.96000000033527
+      },
+      {
+        "at": 513.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 177.96000000033527
+      },
+      {
+        "at": 529.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 177.96000000033527
+      },
+      {
+        "at": 529.8000000007451,
+        "after": 532.9000000022352,
+        "glassX": 195.2850000003353,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 546.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 195.2850000003353
+      },
+      {
+        "at": 563.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 195.2850000003353
+      },
+      {
+        "at": 563.2000000029802,
+        "after": 566.3000000007451,
+        "glassX": 210.27000000067056,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 579.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 210.27000000067056
+      },
+      {
+        "at": 596.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 210.27000000067056
+      },
+      {
+        "at": 596.6000000014901,
+        "after": 598.7000000029802,
+        "glassX": 225.3,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 613.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 225.3
+      },
+      {
+        "at": 629.9000000022352,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 225.3
+      },
+      {
+        "at": 629.9000000022352,
+        "after": 632.6000000014901,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 646.5,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 663.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 679.9000000022352,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 696.5,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 696.5,
+        "after": 698.6000000014901,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 713.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 729.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 746.5,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 746.6000000014901,
+        "after": 748.6000000014901,
+        "glassX": 237,
+        "sliding": false,
+        "step": 3,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 763.4000000022352,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 780,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 796.5,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 813.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 813.2000000029802,
+        "after": 815.4000000022352,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 829.9000000022352,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 846.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 846.6000000014901,
+        "after": 848,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 864.5,
+        "after": 866.8000000007451,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "version": "140.0.7339.186",
+    "duration": 400,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 356.80000000074506,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 780.8000000007451
+      },
+      {
+        "kind": "modal-open",
+        "at": 797.5
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 803.8999999985099,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 368,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 368.0999999977648,
+        "after": 374.19999999925494,
+        "glassX": 177.86999999899416,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 389.19999999925494,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 177.86999999899416
+      },
+      {
+        "at": 396.30000000074506,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 177.86999999899416
+      },
+      {
+        "at": 396.30000000074506,
+        "after": 400.30000000074506,
+        "glassX": 190.56000000033526,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 412.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 190.56000000033526
+      },
+      {
+        "at": 429.0999999977648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 190.56000000033526
+      },
+      {
+        "at": 429.0999999977648,
+        "after": 432.8999999985099,
+        "glassX": 205.36499999966472,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 445.69999999925494,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 205.36499999966472
+      },
+      {
+        "at": 463.19999999925494,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 205.36499999966472
+      },
+      {
+        "at": 463.19999999925494,
+        "after": 465.8999999985099,
+        "glassX": 220.71000000033527,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 479.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 220.71000000033527
+      },
+      {
+        "at": 496.0999999977648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 220.71000000033527
+      },
+      {
+        "at": 496.0999999977648,
+        "after": 498.30000000074506,
+        "glassX": 235.46999999899418,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 512.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 235.46999999899418
+      },
+      {
+        "at": 512.3000000007451,
+        "after": 514.5999999977648,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 529,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 545.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 562.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 579,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 579,
+        "after": 581.3999999985099,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 595.6999999992549,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 614.5,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 629.0999999977648,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 645.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 645.8000000007451,
+        "after": 649.0999999977648,
+        "glassX": 237,
+        "sliding": false,
+        "step": 3,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 662.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 679.0999999977648,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 695.6999999992549,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 712.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 712.3999999985099,
+        "after": 716.1999999992549,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 769.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 779,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 779,
+        "after": 780.6999999992549,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 801,
+        "after": 803.8999999985099,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "version": "140.0.7339.186",
+    "duration": 450,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 311,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 766.5999999977648
+      },
+      {
+        "kind": "modal-open",
+        "at": 778.5
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 784.5,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 318.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 318.5,
+        "after": 324.79999999701977,
+        "glassX": 176.11500000134112,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 335.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.11500000134112
+      },
+      {
+        "at": 348.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.11500000134112
+      },
+      {
+        "at": 348.69999999925494,
+        "after": 353.8999999985099,
+        "glassX": 189.70500000100583,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 365.19999999925494,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 189.70500000100583
+      },
+      {
+        "at": 382.0999999977648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 189.70500000100583
+      },
+      {
+        "at": 382.0999999977648,
+        "after": 384.29999999701977,
+        "glassX": 204.78000000100582,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 398.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 204.78000000100582
+      },
+      {
+        "at": 415.19999999925494,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 204.78000000100582
+      },
+      {
+        "at": 415.19999999925494,
+        "after": 417.5,
+        "glassX": 219.63000000100584,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 431.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 219.63000000100584
+      },
+      {
+        "at": 448.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 219.63000000100584
+      },
+      {
+        "at": 448.5999999977648,
+        "after": 450.69999999925494,
+        "glassX": 234.6600000003353,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 465.19999999925494,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 234.6600000003353
+      },
+      {
+        "at": 465.19999999925494,
+        "after": 467.29999999701977,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 481.79999999701977,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 498.5,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 515.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 531.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 531.8999999985099,
+        "after": 534.0999999977648,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 548.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 565.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 581.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 598.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 598.5999999977648,
+        "after": 600.6999999992549,
+        "glassX": 237,
+        "sliding": false,
+        "step": 3,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 615.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 631.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 648.5999999977648,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 665.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 665.2999999970198,
+        "after": 667.3999999985099,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 681.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 698.6999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 715.2999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 731.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 748.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 765.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 765.1999999992549,
+        "after": 766.5,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 782.2999999970198,
+        "after": 784.3999999985099,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "version": "140.0.7339.186",
+    "duration": 500,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 465.80000000074506,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 970.5
+      },
+      {
+        "kind": "modal-open",
+        "at": 990.3999999985099
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 997.3000000007451,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 477.80000000074506,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 478,
+        "after": 484.19999999925494,
+        "glassX": 178.18500000033526,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 497.19999999925494,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.18500000033526
+      },
+      {
+        "at": 502.30000000074506,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.18500000033526
+      },
+      {
+        "at": 502.3999999985099,
+        "after": 506,
+        "glassX": 189.21000000033527,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 519,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 189.21000000033527
+      },
+      {
+        "at": 535.8000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 189.21000000033527
+      },
+      {
+        "at": 535.8000000007451,
+        "after": 538.6000000014901,
+        "glassX": 204.23999999966472,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 552.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 204.23999999966472
+      },
+      {
+        "at": 569.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 204.23999999966472
+      },
+      {
+        "at": 569.1999999992549,
+        "after": 573.3999999985099,
+        "glassX": 219.225,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 585.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 219.225
+      },
+      {
+        "at": 602.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 219.225
+      },
+      {
+        "at": 602.3999999985099,
+        "after": 605.1000000014901,
+        "glassX": 234.16499999966473,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 618.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 234.16499999966473
+      },
+      {
+        "at": 618.8999999985099,
+        "after": 622,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 635.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 652.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 669,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 685.5,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 685.6000000014901,
+        "after": 687.8999999985099,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 702.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 719,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 735.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 752.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 752.1999999992549,
+        "after": 754.3999999985099,
+        "glassX": 237,
+        "sliding": false,
+        "step": 3,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 768.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 785.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 802.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 819,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 819,
+        "after": 821.5,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 835.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 852.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 869,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 885.6999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 902.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 920.1999999992549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 935.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 952.3000000007451,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 968.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 968.8999999985099,
+        "after": 970.3000000007451,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 994.3000000007451,
+        "after": 997.1999999992549,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "version": "26.5",
+    "duration": 250,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 820,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 1096
+      },
+      {
+        "kind": "modal-open",
+        "at": 1117
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1161,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 827,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 827,
+        "after": 836,
+        "glassX": 175.35,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 893,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 893,
+        "after": 898,
+        "glassX": 205.05,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 908,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 205.05
+      },
+      {
+        "at": 914,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 205.05
+      },
+      {
+        "at": 930,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 205.05
+      },
+      {
+        "at": 930,
+        "after": 933,
+        "glassX": 221.7,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 946,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 221.7
+      },
+      {
+        "at": 962,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 221.7
+      },
+      {
+        "at": 962,
+        "after": 967,
+        "glassX": 236.1,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 986,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 236.1
+      },
+      {
+        "at": 986,
+        "after": 992,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 1033,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 1033,
+        "after": 1039,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 1092,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 1092,
+        "after": 1096,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 1157,
+        "after": 1161,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "version": "26.5",
+    "duration": 350,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 505,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 888
+      },
+      {
+        "kind": "modal-open",
+        "at": 907
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 961,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 511,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 511,
+        "after": 522,
+        "glassX": 174.9,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 585,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 585,
+        "after": 591,
+        "glassX": 208.2,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 603,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 208.2
+      },
+      {
+        "at": 616,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 208.2
+      },
+      {
+        "at": 616,
+        "after": 620,
+        "glassX": 222.15,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 632,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 222.15
+      },
+      {
+        "at": 648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 222.15
+      },
+      {
+        "at": 648,
+        "after": 651,
+        "glassX": 236.55,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 664,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 236.55
+      },
+      {
+        "at": 664,
+        "after": 667,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 703,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 712,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 729,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 729,
+        "after": 732,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 778,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 778,
+        "after": 782,
+        "glassX": 237,
+        "sliding": false,
+        "step": 3,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 822,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 826,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 842,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 842,
+        "after": 845,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 884,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 884,
+        "after": 888,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 955,
+        "after": 961,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "version": "26.5",
+    "duration": 400,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 528,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 948
+      },
+      {
+        "kind": "modal-open",
+        "at": 964
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1018,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 534,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 534,
+        "after": 541,
+        "glassX": 174.9,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 592,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 592,
+        "after": 596,
+        "glassX": 201,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 609,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 201
+      },
+      {
+        "at": 624,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 201
+      },
+      {
+        "at": 624,
+        "after": 628,
+        "glassX": 215.4,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 641,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 215.4
+      },
+      {
+        "at": 657,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 215.4
+      },
+      {
+        "at": 657,
+        "after": 660,
+        "glassX": 230.25,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 673,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 230.25
+      },
+      {
+        "at": 689,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 230.25
+      },
+      {
+        "at": 689,
+        "after": 692,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 732,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 737,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 753,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 753,
+        "after": 758,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 827,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 827,
+        "after": 832,
+        "glassX": 237,
+        "sliding": false,
+        "step": 3,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 871,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 883,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 899,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 899,
+        "after": 902,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 945,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 945,
+        "after": 948,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 1014,
+        "after": 1017,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "version": "26.5",
+    "duration": 450,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 457,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 922
+      },
+      {
+        "kind": "modal-open",
+        "at": 939
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 993,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 463,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 464,
+        "after": 473,
+        "glassX": 175.8,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 528,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.8
+      },
+      {
+        "at": 528,
+        "after": 534,
+        "glassX": 204.6,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 550,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 204.6
+      },
+      {
+        "at": 550,
+        "after": 560,
+        "glassX": 214.5,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 570,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 214.5
+      },
+      {
+        "at": 581,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 214.5
+      },
+      {
+        "at": 581,
+        "after": 585,
+        "glassX": 228.45,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 598,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 228.45
+      },
+      {
+        "at": 614,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 228.45
+      },
+      {
+        "at": 614,
+        "after": 617,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 658,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 662,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 678,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 678,
+        "after": 681,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 728,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 742,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 758,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 758,
+        "after": 762,
+        "glassX": 237,
+        "sliding": false,
+        "step": 3,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 802,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 807,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 823,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 823,
+        "after": 826,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 879,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 888,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 904,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 920,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 920,
+        "after": 922,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 986,
+        "after": 993,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "version": "26.5",
+    "duration": 500,
+    "errors": [],
+    "events": [
+      {
+        "kind": "start",
+        "at": 446,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 965
+      },
+      {
+        "kind": "modal-open",
+        "at": 981
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1025,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 452,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 452,
+        "after": 459,
+        "glassX": 175.35,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 511,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 511,
+        "after": 518,
+        "glassX": 201.9,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 538,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 201.9
+      },
+      {
+        "at": 543,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 201.9
+      },
+      {
+        "at": 543,
+        "after": 549,
+        "glassX": 216.3,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 562,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 216.3
+      },
+      {
+        "at": 575,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 216.3
+      },
+      {
+        "at": 575,
+        "after": 579,
+        "glassX": 230.7,
+        "sliding": true,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 591,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 230.7
+      },
+      {
+        "at": 607,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 230.7
+      },
+      {
+        "at": 607,
+        "after": 611,
+        "glassX": 237,
+        "sliding": false,
+        "step": 1,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 651,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 655,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 672,
+        "kind": "raf-opportunity",
+        "step": 1,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 672,
+        "after": 675,
+        "glassX": 237,
+        "sliding": false,
+        "step": 2,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 714,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 720,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 736,
+        "kind": "raf-opportunity",
+        "step": 2,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 736,
+        "after": 739,
+        "glassX": 237,
+        "sliding": false,
+        "step": 3,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 782,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 784,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 800,
+        "kind": "raf-opportunity",
+        "step": 3,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 800,
+        "after": 803,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": true
+      },
+      {
+        "at": 867,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 882,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 898,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 914,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 931,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 947,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 963,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 237
+      },
+      {
+        "at": 963,
+        "after": 965,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": false,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 1021,
+        "after": 1025,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ]
+  }
+]

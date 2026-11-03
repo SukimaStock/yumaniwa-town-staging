@@ -54,44 +54,66 @@ export class CanvasScene{
  setToolGesture(next){const before=this.toolGesture;this.toolGesture=next;if(before?.leverStep!=null&&next.leverStep==null)this.toolGuideSince=performance.now();if(before?.glassOffset!=null&&next.glassOffset==null&&this.view?.tools)this.toolSlide={from:this.toolPaintX??(this.view.tools.glassPosition?TOOL_GEOMETRY.waitX:TOOL_GEOMETRY.collectX),to:this.view.tools.glassPosition?TOOL_GEOMETRY.waitX:TOOL_GEOMETRY.collectX,start:performance.now()};this.queue();}
  // A saved manual completion is presentation only; the existing motion timer
  // schedules its finite frames. No game clock, storage or modal ownership here.
- startDistillCompletion(spiritId,onDone,duration=250){
+ startDistillCompletion(spiritId,onDone,duration=350){
+  // A repeated render/request for the same saved spirit cannot restart its glint.
+  if(this.isDistillCompletion(spiritId))return false;
   this.cancelDistillCompletion();
-  if(document.hidden||this.suspended||!this.fontSettled||this.reducedMotion.matches)return false;
-  const token=++this.completionGeneration;
-  this.distillCompletion={spiritId,onDone,token,start:performance.now(),duration};
-  this.queue();return true;
+  if(document.hidden||this.suspended||!this.fontSettled||this.reducedMotion.matches||this.ctx?.isContextLost?.()||this.worldCtx?.isContextLost?.())return false;
+  const token=++this.completionGeneration,start=performance.now();
+  this.distillCompletion={spiritId,onDone,token,start,duration,deadline:start+duration+250,paintedFrames:0,paintedStep:0,lastPaintAt:null,stagePaintAt:null,glintStart:null};
+  this.armCompletionDeadline();this.queue();return true;
+ }
+ // Reuse the finite motion timer as a watchdog when a queued RAF cannot run.
+ armCompletionDeadline(){
+  const run=this.distillCompletion;if(!run)return;
+  clearTimeout(this.motionTimer);
+  this.motionTimer=setTimeout(()=>{if(this.distillCompletion?.token===run.token){this.finishDistillCompletion();this.queue();}},Math.max(1,run.deadline-performance.now()));
  }
  cancelDistillCompletion(){this.completionGeneration=(this.completionGeneration??0)+1;this.distillCompletion=null;this.completionStep=0;}
  isDistillCompletion(spiritId){return !!this.distillCompletion&&this.distillCompletion.spiritId===spiritId;}
  finishDistillCompletion(){
   const run=this.distillCompletion;if(!run)return;
-  this.distillCompletion=null;this.completionStep=0;
+  this.distillCompletion=null;this.completionStep=0;clearTimeout(this.motionTimer);this.motionTimer=null;
   queueMicrotask(()=>{if(this.completionGeneration===run.token)run.onDone(run.spiritId);});
  }
  sampleDistillCompletion(now,visible){
   const run=this.distillCompletion;this.completionStep=0;
   if(!run)return null;
-  if(this.reducedMotion.matches){this.finishDistillCompletion();return null;}
+  if(this.reducedMotion.matches||!this.fontSettled||this.ctx?.isContextLost?.()||this.worldCtx?.isContextLost?.()){this.finishDistillCompletion();return null;}
   if(!visible||this.view?.room!=='distill'||this.view?.phase!=='filling'||!this.view?.tools?.visible){this.cancelDistillCompletion();return null;}
-  const elapsed=now-run.start;
-  if(elapsed>=run.duration){
-   this.finishDistillCompletion();
-   return null;
+  if(now>=run.deadline){this.finishDistillCompletion();return null;}
+  const elapsed=now-run.start,span=Math.min(200,run.duration-180),stageMs=span/3;
+  // Keep the existing 140ms glass return; late frames start the glint late too.
+  if(elapsed<150||this.toolSliding)return Math.max(1,150-elapsed);
+  if(run.glintStart===null){this.completionStep=1;return stageMs;}
+  const age=now-run.glintStart;
+  // A skipped frame cannot skip an unpainted stage. These are destination-canvas
+  // submissions on distinct draws, not claims about the physical display.
+  if(age>=span&&run.paintedStep===3&&run.paintedFrames>=3&&now>=run.stagePaintAt+stageMs){
+   const end=Math.max(run.start+run.duration,run.glintStart+span+30,run.stagePaintAt+stageMs+30);
+   if(now>=end){this.finishDistillCompletion();return null;}
+   return end-now;
   }
-  // The existing 140ms glass slide finishes before the tiny rim glint.
-  const a=Math.min(150,run.duration-70),b=run.duration-30;
-  this.completionStep=elapsed<a?0:elapsed<(a+b)/2?1:elapsed<b?2:0;
-  return Math.max(1,(elapsed<a?a:elapsed<(a+b)/2?(a+b)/2:elapsed<b?b:run.duration)-elapsed);
+  this.completionStep=run.paintedStep;
+  if(now>=run.stagePaintAt+stageMs)this.completionStep=Math.min(3,run.paintedStep+1);
+  return Math.max(1,run.stagePaintAt+stageMs-now);
+ }
+ recordDistillCompletionFrame(now){
+  const run=this.distillCompletion;
+  if(!run||!this.completionStep||this.ctx?.isContextLost?.()||this.worldCtx?.isContextLost?.()||run.lastPaintAt===now)return;
+  if(run.glintStart===null)run.glintStart=now;
+  if(this.completionStep>run.paintedStep)run.stagePaintAt=now;
+  run.paintedFrames++;run.paintedStep=Math.max(run.paintedStep,this.completionStep);run.lastPaintAt=now;
  }
  paintDistillCompletion(ctx){
   if(!this.completionStep)return;
   const x=Math.round(this.toolPaintX/3),y=TOOL_GEOMETRY.glassY/3;
   ctx.fillStyle='#f0e6c8';
-  ctx.fillRect(x+(this.completionStep===1?3:6),y,2,1);
+  ctx.fillRect(x+2+(this.completionStep-1)*2,y,4,1);
  }
  resetMotion(){this.cancelDistillCompletion();this.motion.reset();this.toolReturn=null;this.toolGuideSince=performance.now();clearTimeout(this.motionTimer);this.queue();}
  update(view){if(view.room!=='distill'||view.phase!=='filling'||!view.tools?.visible)this.cancelDistillCompletion();const old=this.view;if(view.tools?.arrow&&(!old?.tools?.arrow||view.tools.guideLevel!==old.tools.guideLevel))this.toolGuideSince=performance.now();if(old?.room==='distill'&&view.room==='distill'&&old.tools?.leverDown&&!view.tools?.leverDown&&view.phase==='filling')this.toolReturn={start:performance.now()};if(view.room!=='distill'||!view.tools?.visible)this.toolReturn=null;this.motion.observe(view.motionIds);if(!!view.pauseHint!==!!this.view?.pauseHint)this.idleSince=performance.now();if(view.tools&&this.view?.tools&&view.tools.glassPosition!==this.view.tools.glassPosition)this.toolSlide={from:this.toolPaintX??(this.view.tools.glassPosition?TOOL_GEOMETRY.waitX:TOOL_GEOMETRY.collectX),to:view.tools.glassPosition?TOOL_GEOMETRY.waitX:TOOL_GEOMETRY.collectX,start:performance.now()};this.view=view;this.layout=layoutScene(view);this.root.dataset.room=view.room;this.root.setAttribute('aria-label',({distill:'蒸留室',warehouse:'貯蔵庫',sales:'販売室'})[view.room]);this.root.dataset.sceneAnchors=JSON.stringify({floor:this.layout.floorY,shelf:this.layout.shelf,casks:this.layout.caskSlots,products:this.layout.productSlots,equipment:this.layout.equipment});$('scene-summary').textContent=[view.calendar,view.cash,view.generation,view.timeStatus,view.phaseSummary].filter(Boolean).join(' · ');$('scene-notice').textContent=view.notice??'';const progress=$('month-progress');progress.setAttribute('aria-valuenow',String(Math.round(100*(view.monthProgress??0))));progress.setAttribute('aria-valuetext','今月 '+Math.round(100*(view.monthProgress??0))+'％ · '+view.timeStatus);$('spirit-readout').setAttribute('aria-hidden',String(view.room!=='distill'));this.queue();}
- stopDrawing(){if(this.frame)cancelAnimationFrame(this.frame);this.frame=0;for(const key of ['hintTimer','selectionTimer','motionTimer']){clearTimeout(this[key]);this[key]=null;}}
+ stopDrawing(preserveCompletion=false){if(!preserveCompletion)this.finishDistillCompletion();if(this.frame)cancelAnimationFrame(this.frame);this.frame=0;for(const key of ['hintTimer','selectionTimer','motionTimer']){clearTimeout(this[key]);this[key]=null;}}
  queue(){if(document.hidden||this.suspended){this.stopDrawing();return;}if(this.frame)return;this.frame=requestAnimationFrame(()=>{this.frame=0;this.draw();});}
  controls(){
   for(const node of this.controlRoot.querySelectorAll('button'))node.dataset.sceneVisible='false';
@@ -166,8 +188,8 @@ export class CanvasScene{
   this.pixelRect(timeBar.x,timeBar.y,timeBar.w,timeBar.h,'#353947');this.pixelRect(timeBar.x,timeBar.y,timeBar.w*progress,timeBar.h,'#c5b687');this.root.dataset.timeBar=JSON.stringify({...timeBar,progress});this.root.dataset.monthProgress=String(this.view.monthProgress??0);
  }
  draw(){
-  this.stopDrawing();
-  if(!this.view||!this.fontSettled||document.hidden||this.suspended)return;
+  this.stopDrawing(true);this.armCompletionDeadline();
+  if(!this.view||!this.fontSettled||document.hidden||this.suspended){if(this.distillCompletion&&!document.hidden&&!this.suspended)this.finishDistillCompletion();return;}
   const now=performance.now(),visible=!document.hidden&&!$('action-dialog').open;
   this.stillMoving=visible&&!this.reducedMotion.matches&&this.view.room==='distill'&&this.view.phase==='distilling'&&this.view.running;
   this.stillFrame=this.stillMoving?Math.floor(now/400)%2:0;
@@ -179,7 +201,7 @@ export class CanvasScene{
   // Presentation clock only: never advances, saves or changes the game state.
   const resume=this.activeControls.find(a=>a.key==='toggle-time'),hintEligible=this.view.pauseHint&&visible&&!this.reducedMotion.matches&&resume&&!resume.node.disabled;
   const idle=performance.now()-this.idleSince,hintBright=hintEligible&&idle>=12000&&Math.floor((idle-12000)/1200)%2===0;
-  this.root.dataset.playbackHint=hintEligible?(idle<12000?'waiting':hintBright?'bright':'quiet'):'off';const c=this.ctx,v=this.viewport,view=this.view,l=this.layout;c.setTransform(v.dpr,0,0,v.dpr,0,0);c.fillStyle=shadow;c.fillRect(0,0,v.width,v.height);c.imageSmoothingEnabled=false;c.drawImage(this.world,0,0,120,640/3,v.offsetX,v.offsetY,360*v.scale,640*v.scale);c.save();c.translate(v.offsetX,v.offsetY);c.scale(v.scale,v.scale);
+  this.root.dataset.playbackHint=hintEligible?(idle<12000?'waiting':hintBright?'bright':'quiet'):'off';const c=this.ctx,v=this.viewport,view=this.view,l=this.layout;c.setTransform(v.dpr,0,0,v.dpr,0,0);c.fillStyle=shadow;c.fillRect(0,0,v.width,v.height);c.imageSmoothingEnabled=false;c.drawImage(this.world,0,0,120,640/3,v.offsetX,v.offsetY,360*v.scale,640*v.scale);this.recordDistillCompletionFrame(now);c.save();c.translate(v.offsetX,v.offsetY);c.scale(v.scale,v.scale);
   // Keep the original book cells; center their painted bounds in the button.
   const book=(x,y,w,h,color)=>this.pixelRect(x,y,w,h,color);
 
@@ -262,6 +284,6 @@ export class CanvasScene{
   c.restore();
   clearTimeout(this.hintTimer);if(hintEligible)this.hintTimer=setTimeout(()=>this.queue(),idle<12000?12000-idle:1200-(idle-12000)%1200);
   clearTimeout(this.selectionTimer);if(visible&&view.room==='sales'&&!this.reducedMotion.matches&&items.some(item=>item.selected))this.selectionTimer=setTimeout(()=>this.queue(),900-performance.now()%900);
-  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs,tools?.glassArrowBlink&&!this.reducedMotion.matches?900-performance.now()%900:null,this.toolGuideMoving?120:null,this.toolReturning?30:null,this.toolSliding?16:null,completionNext].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>this.queue(),Math.min(...delays));
+  clearTimeout(this.motionTimer);const delays=[this.stillMoving?400-performance.now()%400:null,this.arrival.nextMs,tools?.glassArrowBlink&&!this.reducedMotion.matches?900-performance.now()%900:null,this.toolGuideMoving?120:null,this.toolReturning?30:null,this.toolSliding?16:null,completionNext].filter(n=>Number.isFinite(n)&&n>0);if(delays.length&&visible)this.motionTimer=setTimeout(()=>{this.queue();this.armCompletionDeadline();},Math.min(...delays));
  }
 }

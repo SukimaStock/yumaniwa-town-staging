@@ -1,7 +1,7 @@
 import {gzipSync} from 'node:zlib';
 // A1 non-glint regression: actual immutable L1 base versus candidate, with settled presentation phases.
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import assert from 'node:assert/strict';import {createServer} from 'node:http';import {execFileSync} from 'node:child_process';import {createHash} from 'node:crypto';import {pathToFileURL} from 'node:url';
-const root=path.resolve(new URL('../../../',import.meta.url).pathname),baseRoot=process.env.AMBER_A1_BEFORE_ROOT,BASE='341f2865ff44af97bfb99e76450b6db17cac9511',KEY='sukimastock.ambertime.main.v1';assert(baseRoot);
+const root=path.resolve(new URL('../../../',import.meta.url).pathname),baseRoot=process.env.AMBER_A1_BEFORE_ROOT,BASE=process.env.AMBER_A1_BASE_SHA??'341f2865ff44af97bfb99e76450b6db17cac9511',KEY='sukimastock.ambertime.main.v1';assert(baseRoot);
 const out=process.env.AMBER_A1_OUTPUT??path.join(root,'works/ambertime/design/experience-a1-2026-11-03/regression-browser');fs.mkdirSync(out,{recursive:true});const temp=fs.mkdtempSync(path.join(os.tmpdir(),'r6-pixels-')),hash=b=>createHash('sha256').update(b).digest('hex');
 const startupRunnerSHA256=hash(fs.readFileSync(new URL(import.meta.url)));
 const D=await import(pathToFileURL(path.join(baseRoot,'works/ambertime/partner-orders.mjs')));const fill=s=>{s=D.beginCollection(D.startRangeDistillation(s));while(s.still.distillation.progress<35)s=D.distillStep(s);return D.fillBarrel(D.stopDistillation(s),'refill');};

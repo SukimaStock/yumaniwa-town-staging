@@ -1,0 +1,23 @@
+{
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "baseSha": "aabc77cb54f10838b8b9975161fda29b84977b51",
+  "worktree": "/workspace/scratch/74eaf70cc093/baseline/repo",
+  "command": "AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell node --test works/ambertime/tests/*.test.mjs",
+  "log": "full-tests.log",
+  "status": "passed",
+  "protected": [
+    "129 exact formal intermediate states and cold replay",
+    "20 old distillation states and independent cold replay",
+    "legacy/RNG/monthly/economy/inventory/notifications/save-failure",
+    "R0-R6"
+  ],
+  "exitCode": 0,
+  "tests": 1228,
+  "passed": 1228,
+  "failed": 0,
+  "skipped": 0,
+  "cancelled": 0,
+  "todo": 0,
+  "durationMs": 171298.656361,
+  "logSHA256": "149a0d847a7301fc9db1476f50cfecf7e0079efe1b545af19f0b8247f429321f"
+}
