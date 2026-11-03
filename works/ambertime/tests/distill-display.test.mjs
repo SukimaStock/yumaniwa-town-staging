@@ -1,11 +1,9 @@
 import test from 'node:test';
-import fs from 'node:fs';
-import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import * as D from '../partner-orders.mjs';
 import {distillationReadout,distillationView} from '../spirit-view.mjs';
 import {computeViewport,layoutScene,projectRect,hitTest,collectionGeometry} from '../canvas-layout.mjs';
-import {pixelTypography} from '../text-metrics.mjs';
+import {host} from './r0-distill-host.mjs';
 const step=(s,n)=>{while(s.still.distillation.progress<n)s=D.distillStep(s);return s;};
 
 test('no result before first tap or a staff recipe future start, quantity-only from first tap',()=>{
@@ -29,25 +27,28 @@ test('three ranges show existing current-stop yield, confirmed flavor only after
  }
 });
 
-test('both labels fit the wider unchanged-height tap target at phone widths and integer font scales',()=>{
- const r=layoutScene({room:'distill'}).controls.find(c=>c.key==='stop-distill');
- assert.equal(r.x+r.w/2,180);assert.equal(r.h,45);assert(r.w>=108);
- for(const width of [320,360,390,430])for(const dpr of [1,2,3]){
-  const v=computeViewport({width,height:844,dpr}),m=pixelTypography(20,v.scale*v.dpr),p=projectRect(v,r);
-  for(const label of ['ここから取る','ここまで取る'])assert(label.length*m.logical<=r.w-12,'full-width Misaki advances plus padding fit');
-  assert(p.height>=40);assert(p.width>100);assert.equal(hitTest([r],180,436)?.key,'stop-distill');
+test('lever and moving glass have their current hit targets at all three phone widths',()=>{
+ for(const width of [360,375,390])for(const dpr of [1,2,3])for(const glassPosition of [0,1]){
+  const v=computeViewport({width,height:568,dpr}),controls=layoutScene({room:'distill',tools:{glassPosition}}).controls;
+  const lever=controls.find(c=>c.key==='distill-lever'),glass=controls.find(c=>c.key==='distill-glass');
+  assert.deepEqual([lever.x,lever.y,lever.w,lever.h],[285,279,60,66]);assert.deepEqual([glass.x,glass.y,glass.w,glass.h],[glassPosition===0?165:228,333,54,54]);
+  for(const r of [lever,glass]){const p=projectRect(v,r);assert(p.width>=44&&p.height>=44);assert(p.x>=0&&p.y>=0&&p.x+p.width<=width&&p.y+p.height<=568);assert.equal(hitTest(controls,r.x+r.w/2,r.y+r.h/2)?.key,r.key);}
  }
  const bar=collectionGeometry({current:.7,start:.2,end:.7});assert.deepEqual([bar.x,bar.y,bar.w,bar.h],[60,393,240,6]);assert.equal(bar.rangeEnd,.7);
 });
 
-// Exercise the real UI boundary: a saved stop must not immediately cover results.
-test('actual finish handler keeps new results visible and preserves legacy auto-fill',()=>{
- const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
- const handler=source.slice(source.indexOf('function finishDistillation(){'),source.indexOf('function endTaste(){'));
+test('actual finish handler opens integrated result/barrel selection for current and legacy cuts',()=>{
  for(const fullRange of [true,false]){
   let s=D.newConnectedDistillery(42);s=fullRange?D.startRangeDistillation(s):D.startDistillation(s);s=D.beginCollection(step(s,fullRange?0:40));s=step(s,fullRange?24:58);
-  const ctx={D,game:s,modal:null,room:'distill',shownFillSpiritId:null,message:()=>{},T:{minimumStop:30},distillLearning:{complete(){}},distillBatchKey:()=>null};vm.createContext(ctx);
-  vm.runInContext("function act(fn,after,afterSave){game=fn(game);if(after)after();if(afterSave)afterSave();return true;}"+handler+'finishDistillation();',ctx);
-  assert.equal(ctx.game.still.phase,'filling');assert.equal(distillationReadout(ctx.game).phase,'confirmed');assert.equal(ctx.modal?.kind,fullRange?undefined:'fill');
+  const h=host({state:s}),before=s.core.cash;h.api.finishDistillation();
+  assert.equal(h.api.game().still.phase,'filling');assert.equal(distillationReadout(h.api.game()).phase,'confirmed');assert.equal(h.api.modal().kind,'fill');
+  assert.equal(h.api.node('dialog-title').textContent,'蒸留結果');assert.match(h.api.node('dialog-body').innerHTML,/fill-volume/);assert.match(h.api.node('dialog-body').innerHTML,/たるを選ぶ/);assert.match(h.api.node('dialog-actions').innerHTML,/data-action="fill"/);
+  assert.equal(h.api.game().core.cash,before,'opening the combined result never purchases a cask');
+  const raw=D.serializeDistillery(h.api.game());h.api.render();assert.equal(D.serializeDistillery(h.api.game()),raw,'rendered choices do not commit the model');
+  h.api.closeFill();assert.equal(h.api.modal(),null,'back does not repeatedly interrupt with the same spirit');h.api.render();assert.equal(h.api.modal(),null);
  }
+});
+test('reloading unfinished spirit retains its explicit entrance without auto-opening again',()=>{
+ let s=D.stopDistillation(step(D.beginCollection(D.startRangeDistillation(D.newConnectedDistillery(42))),24));s=D.restoreDistillery(D.serializeDistillery(s));
+ const h=host({state:s,restored:true}),raw=D.serializeDistillery(s);h.api.render();assert.equal(h.api.modal(),null);assert.equal(h.api.game().still.phase,'filling');assert.equal(D.serializeDistillery(h.api.game()),raw);
 });

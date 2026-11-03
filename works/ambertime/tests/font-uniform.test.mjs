@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {currentGraph,requireEdge} from './r0-cache-graph.mjs';
 import {BODY_SIZE,pixelTypography,textRuns} from '../text-metrics.mjs';
 import {uniformRequested,uniformMetrics,installUniformTypography} from '../font-uniform.mjs';
 const read=name=>fs.readFileSync(new URL('../'+name,import.meta.url),'utf8');
@@ -25,5 +26,5 @@ test('CSS is attribute-scoped, handles every live text root and leaves sprite/ic
  assert(css.includes('html[data-font-uniform="1"]'));for(const id of ['action-dialog','dialog-body','dialog-actions','dialog-title','save-choice','automatic-news','storage-notice','recovery','settings-source','market-board'])assert(css.includes('#'+id));
  assert(css.includes(':not(svg,svg *)'));assert(!/(?:^|[;{]\s*)(width|height|padding|margin|transform|display|border|color|background)\s*:/.test(css));assert(css.includes('font-size:var(--uniform-font-size)!important'));assert(css.includes('AmberMisaki'));
  const helper=read('font-uniform.mjs');assert(!/localStorage|sessionStorage|setTimeout|requestAnimationFrame|serialize|saveKey/.test(helper));
- assert(read('index.html').includes('id="font-uniform-style"'));assert(read('canvas-scene.mjs').includes("$('font-uniform-style')?installUniformTypography(location.search,document.documentElement):null"));assert(read('index.html').includes('./font-uniform.css?v=store-market-main-r1'));assert(read('shop-app.mjs').includes('./canvas-scene.mjs?v=store-market-main-r1'));
+ assert(read('index.html').includes('id="font-uniform-style"'));assert(read('canvas-scene.mjs').includes("$('font-uniform-style')?installUniformTypography(location.search,document.documentElement):null"));const graph=currentGraph(),base='works/ambertime/';requireEdge(graph,base+'index.html',base+'font-uniform.css',{kind:'stylesheet'});requireEdge(graph,base+'shop-app.mjs',base+'canvas-scene.mjs');requireEdge(graph,base+'canvas-scene.mjs',base+'font-uniform.mjs');
 });

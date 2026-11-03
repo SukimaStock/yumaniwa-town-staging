@@ -1,0 +1,21 @@
+{
+  "base": "8fab526aec22a83b73147225c99e88e48188586e",
+  "node": "v24.22.1",
+  "testFiles": 156,
+  "command": "AMBER_BROWSER_MODULE=<existing Playwright>/index.mjs AMBER_BROWSER_EXECUTABLE=/tmp/chromium node --test works/ambertime/tests/*.test.mjs",
+  "tests": 1173,
+  "pass": 1173,
+  "fail": 0,
+  "skip": 0,
+  "cancelled": 0,
+  "todo": 0,
+  "durationMs": 231463.476783,
+  "browserSupplementalChecks": 35,
+  "browserSupplementalErrors": 0,
+  "originalFailuresReproduced": 11,
+  "originalTargetedTests": 69,
+  "originalTargetedPass": 58,
+  "originalTargetedFail": 11,
+  "existingFixturesRewritten": false,
+  "productRuntimeChanged": false
+}

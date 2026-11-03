@@ -1,0 +1,18 @@
+{
+  "baseline": "8fab526",
+  "node": "v24.22.1",
+  "module": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs",
+  "executable": "/tmp/chromium",
+  "command": "AMBER_BROWSER_MODULE=<existing playwright/index.mjs> AMBER_BROWSER_EXECUTABLE=/tmp/chromium node --test works/ambertime/tests/market-compact-browser.test.mjs works/ambertime/tests/market-rules-browser.test.mjs",
+  "tests": 2,
+  "pass": 2,
+  "fail": 0,
+  "skip": 0,
+  "durationMs": 25867.484769,
+  "firstBinaryLaunchFailure": {
+    "binary": "/tmp/count-browser/chrome-linux/chrome",
+    "reason": "FATAL process_singleton_posix.cc socket() Operation not permitted",
+    "assertionsReached": false
+  },
+  "limitation": "Physical iPhone Safari / VoiceOver remain unverified. No browser install or runtime dependency change."
+}

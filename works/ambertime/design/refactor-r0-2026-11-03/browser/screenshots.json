@@ -1,0 +1,161 @@
+{
+  "source": "r0-browser-baseline.mjs",
+  "baseline": "8fab526",
+  "screenshots": [
+    {
+      "file": "360-bottling-count.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "ad6bf8964cc1e785e82fee07fdf15372893aa93996e7c3f19d82c1560b4f9d62",
+      "bytes": 14121
+    },
+    {
+      "file": "360-distill-ready.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "a85098bd92f3c7c97f2ca097a70fb1e73f206af3532500046ff81c2b8377612f",
+      "bytes": 5815
+    },
+    {
+      "file": "360-integrated-fill.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "d2693d670c4713922cd0b9423b0c33c35151c0b9e47c57584dec5e1e00959e20",
+      "bytes": 12884
+    },
+    {
+      "file": "360-sales.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "c3fd3663427fa9c067dc44aae6719c7f18697e9ab513eb4f304e3d4e9d08dfab",
+      "bytes": 11224
+    },
+    {
+      "file": "360-staff-draft.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "06814fb0f8f90461f6c13c1251c6b45be0bc4daefcc9df8952bea1f1e32502b7",
+      "bytes": 15483
+    },
+    {
+      "file": "360-warehouse.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "ea11c3e7e5dae28478f1d752521f7aae9d838b01c0c52c386ca1567dfd9e2a08",
+      "bytes": 5302
+    },
+    {
+      "file": "360-world-map.png",
+      "width": 360,
+      "height": 568,
+      "sha256": "3ee70802518007eaa4690406520cbeb0d41f00a0ae8ebf5f5d807dfaa02c0ccc",
+      "bytes": 11459
+    },
+    {
+      "file": "375-bottling-count.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "f4ca05c13a1f29d77e349c1ed9731c6959cf63aad44c0cfc51fac30e202f208c",
+      "bytes": 14732
+    },
+    {
+      "file": "375-distill-ready.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "b460c8346959a13495c5086e4c753b57d160c140ef6ac78f795f2076489b6989",
+      "bytes": 6619
+    },
+    {
+      "file": "375-integrated-fill.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "5259857498d28b293928c4ae360f4941b9a44caea90751d10d060ac4662299aa",
+      "bytes": 13826
+    },
+    {
+      "file": "375-sales.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "6c819a7e4f4cba00bdfc09ebffbf87451736efca58eaa70f0a0a9af34fc6e940",
+      "bytes": 11908
+    },
+    {
+      "file": "375-staff-draft.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "c6f6cb73d25b6b02c4e33834fc93f79c2baaf04727c745f63281238cb77d09e8",
+      "bytes": 17352
+    },
+    {
+      "file": "375-warehouse.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "9a39df756785e543c657311488bebeb9f08a0b6e03f41b80b5c628d69232fa65",
+      "bytes": 6279
+    },
+    {
+      "file": "375-world-map.png",
+      "width": 375,
+      "height": 620,
+      "sha256": "f95b472f340b3b873c0dc8d9c7f3e95e5255e3f4637687003bce627867824325",
+      "bytes": 11492
+    },
+    {
+      "file": "390-bottling-count.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "8a1c06d2503be7cdef0f7c181ee87503a13440204348118d0cc897005533e16a",
+      "bytes": 16065
+    },
+    {
+      "file": "390-distill-ready.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "73ffe90dc0f93b60ca6cc542e6789f5b89d5f751d3a8c70a09c8e1c43d6aa095",
+      "bytes": 7009
+    },
+    {
+      "file": "390-integrated-fill.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "572d5a0d5ac7d2548d90aa06cfaceb25f55255c5d3de1ccc12cc7e6f6d9c8411",
+      "bytes": 14964
+    },
+    {
+      "file": "390-sales.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "ea9e22629cefdfe7eacd6725a004280836a8c3ba8fb3378ae59c0332cc9ffbec",
+      "bytes": 12202
+    },
+    {
+      "file": "390-staff-draft.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "34554c55f5fb3aebfbc452458b4080db8801f32ddc9155b2cec34dd1f6a91068",
+      "bytes": 18480
+    },
+    {
+      "file": "390-warehouse.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "6f6c33142ece65fa424cec959be3edb460ccb67735ec1558b4bacc2345693b93",
+      "bytes": 6580
+    },
+    {
+      "file": "390-world-map.png",
+      "width": 390,
+      "height": 680,
+      "sha256": "ae5c5cc04b36f8261a7dd1b9094d3e40456e4bd14fbb8de9b7cbbf9cb7854b79",
+      "bytes": 13513
+    },
+    {
+      "file": "430-sales.png",
+      "width": 430,
+      "height": 740,
+      "sha256": "66cea72c17cf5cc767e477e3268a4dd9fb20dadbae26aef249d1b21e21863936",
+      "bytes": 7329
+    }
+  ],
+  "comparison": "Exact PNG hash identifies this capture; future pixel comparison must hold DPR/font/logical time/viewport constant and inspect only authorized deltas."
+}
