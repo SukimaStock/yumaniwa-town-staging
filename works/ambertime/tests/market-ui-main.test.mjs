@@ -202,3 +202,14 @@ test('compact shelf dates remain unambiguous across centuries and retain full ac
  s.releases.find(r=>r.productId===9).bottledMonth=1202;assert.equal(compactReleaseDate(s,7),'2026/3');assert.equal(compactReleaseDate(s,9),'2126/3');
  const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/title="2026\/3">26\/3/);assert.match(h.root.innerHTML,/2026\/3.*残り2本/);
 });
+
+test('rapid placement replaces the previous delta and leaves unsigned current stock',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ const h=harness({geometry:true});h.ui.update({visible:true});
+ h.click({marketPlace:'town-liquor'});
+ h.click({marketPlace:'town-liquor'});
+ assert.deepEqual(h.overlays.map(el=>el.textContent),['+1','−1']);
+ assert.match(h.root.innerHTML,/class="market-count">4本/);
+ t.mock.timers.tick(650);
+ assert.equal(h.overlays.length,0);
+});
