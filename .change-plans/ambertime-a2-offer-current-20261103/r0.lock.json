@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2738ba6876f1e4f86f393bddbc4abf38d263b17a1b43b845e09ecd04908837e2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "7e9d95698c8c0b451a722010b76e28cca83e9c68",
+    "changeId": "ambertime-a2-offer-current-20261103",
+    "revision": 0,
+    "change": "Clarify normal stockist offer, acceptance and next placement without model changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit A2 instruction",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/store-market.mjs",
+      "R0-R6 and PR768-782",
+      "Latest main7e9d9569 adds only PR783 A1-3 public evidence; product files match0c3473f exactly. Reuse observed product tests."
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a2-offer-current-20261103/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/a2-stockist-offer.test.mjs",
+      "works/ambertime/tests/a2-browser-offers.mjs",
+      "works/ambertime/design/experience-a2-2026-11-03/**",
+      "works/ambertime/tests/a1-source-baseline.mjs",
+      "works/ambertime/tests/a1-glint.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Preserve normal shop conversations; title identifies handling offer, decision asks about this brand, acceptance label becomes 取扱いを始める. Department stays exact.",
+      "Display existing actual mode conditions: current store-market placement from one bottle, supermarket age12; do not describe legacy minimum10 or monthly10/20 as current market-rule conditions. Keep legacy automatic shipment guidance only in its real modes. No new formal conditions.",
+      "After saved acceptance show one store+brand handling-start fact and existing placement/delivery path, preserving greeting. No extra tap or modal. No stock, sales, money, relation, notice, queue, history, save, operation or decline behavior changes.",
+      "Update only author-authorized copy expectations; test normal offers, actions, sequential queue, restore, stock/sales distinction, save failure and conflict; R0 formal129 and distill20 plus full suite.",
+      "Dual-engine four widths, keyboard/focus/ARIA and old cache upgrade; unchanged canvas/hits and nonoffer UI; independent review, required CI, usual PR merge and Staging verification. Physical iPhone remains unverified.",
+      "Existing immutable L1 whole-source proof must reverse exact reviewed A2 hunks first; retain original L1 hashes, reject changed/duplicate authorized hunks, unrelated bytes, and unreviewed cache references. Fresh lock expands only test-adapter scope before adapter edit.",
+      "Supersedes closed PR784 after documentation-only main advance; preserve PR783 evidence. No force push, fresh r0 lock/branch."
+    ],
+    "ownerDecisions": [
+      "Current A2 user instruction authorizes staging implementation, normal PR merge and publication; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard staging-only; prior lock-only commit",
+      "No added confirmation or formal state; natural conversation retained",
+      "Display reflects storeMarket/shopDemand/placement modes; department excluded"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Normal shop offers/actions/queue/reload/save failure and conflict compared with formal model",
+      "Full current suite: formal129/distill20/oldcold/RNG/monthly/economy/notifications",
+      "Chromium and WebKit four requested widths; text/conditions/buttons/focus/ARIA/placement guidance",
+      "Unchanged Canvas/hits and unrelated UI, old cache upgrade, independent review",
+      "Exact-head required CI, ordinary PR merge and public Staging confirmation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert PR for A2 app/cache/copy tests; no save migration",
+    "outOfScope": [
+      "Production",
+      "Department behavior/copy",
+      "Formal model/state/save",
+      "Large sales UI redesign"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver"
+    ]
+  }
+}
