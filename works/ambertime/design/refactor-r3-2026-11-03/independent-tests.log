@@ -1,0 +1,34 @@
+✔ idle panel is absent until explicit temporary confirmation, and ignores later draft edits (14.601227ms)
+✔ active and completed panel uses actual batch, never idle preference; unknown legacy choice hidden (11.14348ms)
+✔ panel shares existing hit target and versioned cache graph while equipment and tools stay fixed (133.159484ms)
+✔ historical baseline is immutable and its 38 formal dependencies stay protected (5.186579ms)
+✔ four same native cut sequences retain all twenty old state and cold-save bytes (241.183385ms)
+✔ actual lever and glass handlers count formal stop, not countdown/start/collection, then open integrated result and fill (28.793782ms)
+✔ cancelling countdown performs no formal operation or save (7.70853ms)
+✔ actual save failure preserves persisted start/stop bytes and disables input; journal count describes in-memory facts (22.493299ms)
+✔ fill commits only after conditional storage succeeds, with the unfinished spirit retained on failure (40.33313ms)
+✔ preview has real manual journal/guide/result/fill semantics but no storage reads or writes (16.543625ms)
+✔ guidance follows each formal game through runs one to three and reload, with no presentation mutations (68.176415ms)
+✔ automatic queued/cancelled/completed batches never count; generation handover never resets guidance (669.283882ms)
+✔ all twenty immutable cut saves replay in twenty independent cold processes (2205.321683ms)
+✔ empty waiting glass, three-second preparation and native minimum rules remain distinct (61.792556ms)
+✔ symbolic liquid starts empty and holds its elapsed height without changing formal quantities (114.765097ms)
+✔ separate receiver is bounded at both endpoints, with larger unfiltered input targets (2.063661ms)
+✔ symbolic fill spans 84 elapsed steps, independent of end-yield or litres (9.857386ms)
+✔ tutorial guide descends on three-pixel cells, slows and disappears; return is three poses (0.579285ms)
+✔ preparation belongs to the current native batch and cannot arm a later run (14.860179ms)
+✔ long collection reaches visual capacity without limiting collection; legacy fallback stays compatible (0.295917ms)
+✔ countdown glass cue blinks independently of disabled collection input (0.331072ms)
+✔ Canvas cache invalidation and progress accessibility/hidden/frame behavior match R0 baseline, not source text (98.815717ms)
+✔ actual generic act and candidate actMarket preserve distinct success/quota/conflict/refused-write publication and notification order (39.638544ms)
+✔ actual scheduled month preserves candidate rollback only for store market and keeps notification order after saved month (95.288007ms)
+✔ actual selection prefixes preserve tasting/decision then staff→trade→shop→generation→fill→map priority and save before publication (47.237833ms)
+✔ notice save failure rolls back each candidate and publishes no notice or map; hidden and denied-save prevent formal notice writes (17.079707ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3550.733578
