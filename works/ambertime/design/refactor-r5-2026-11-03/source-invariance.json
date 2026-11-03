@@ -1,0 +1,50 @@
+{
+  "baseSha": "a94ceadafd5920c0a447f7b392e7db983c910575",
+  "files": {
+    "shop-app.mjs": {
+      "beforeSHA256": "c9235139fccf5fad67f7b5e928a175361f912f03e90f201411ebfd7a0326f003",
+      "afterSHA256": "c62758943ee85adc9f3f496090288095378e636a4a260230d3bfe5de970240b5",
+      "unchanged": false
+    },
+    "index.html": {
+      "beforeSHA256": "69d569d95dd61516098e1978740dd13515856fca3587b0d7803f75afa7708cb0",
+      "afterSHA256": "64afc5d70d44083e3503e434396f2f8817a852788893d4d79df6c47065670e96",
+      "unchanged": false
+    },
+    "ledger-history-view.mjs": {
+      "beforeSHA256": null,
+      "afterSHA256": "5a94e49e71c1d31fe1e83d8be048a31bf5bc52547f604274187aafe056ad5594",
+      "unchanged": false
+    },
+    "cask-ledger-worker.mjs": {
+      "beforeSHA256": "d5e923560c332c90af30d5879f3318f49bd0827097ef96146e84d87f0661309f",
+      "afterSHA256": "d5e923560c332c90af30d5879f3318f49bd0827097ef96146e84d87f0661309f",
+      "unchanged": true
+    },
+    "cask-ledger.mjs": {
+      "beforeSHA256": "249a9d26d14856c8015620ff113af07d780c95e3ba042188b85466fbc613bea5",
+      "afterSHA256": "249a9d26d14856c8015620ff113af07d780c95e3ba042188b85466fbc613bea5",
+      "unchanged": true
+    },
+    "history-worker.mjs": {
+      "beforeSHA256": "b1180e4c9b8b6782236e03ce799d07a7ea4688dfcbad6f002b2e3573e13082de",
+      "afterSHA256": "b1180e4c9b8b6782236e03ce799d07a7ea4688dfcbad6f002b2e3573e13082de",
+      "unchanged": true
+    },
+    "comparison-worker.mjs": {
+      "beforeSHA256": "b80b7b70b351aaff58ec417bb52e2d6e1cae6efefa3cad701da54519f924449a",
+      "afterSHA256": "b80b7b70b351aaff58ec417bb52e2d6e1cae6efefa3cad701da54519f924449a",
+      "unchanged": true
+    },
+    "warehouse-room-controller.mjs": {
+      "beforeSHA256": "fdc218a3acb319e6d4a3914e533d1cacb24b51ffa2caa246b4f6c794d2c96a0f",
+      "afterSHA256": "fdc218a3acb319e6d4a3914e533d1cacb24b51ffa2caa246b4f6c794d2c96a0f",
+      "unchanged": true
+    },
+    "distill-room-controller.mjs": {
+      "beforeSHA256": "2e364c9062fa74d1cfed72ef1110857bebc591403b41f19fc5a151c06eedab3b",
+      "afterSHA256": "2e364c9062fa74d1cfed72ef1110857bebc591403b41f19fc5a151c06eedab3b",
+      "unchanged": true
+    }
+  }
+}

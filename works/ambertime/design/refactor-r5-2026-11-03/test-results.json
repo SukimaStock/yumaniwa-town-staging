@@ -1,0 +1,41 @@
+{
+  "baseSha": "a94ceadafd5920c0a447f7b392e7db983c910575",
+  "testedSource": "post-lock working tree, sourceSHA256 below, final delivery commit must match",
+  "baseline": {
+    "tests": 1201,
+    "pass": 1201,
+    "fail": 0,
+    "skipped": 0,
+    "inherited": true,
+    "source": "../refactor-r4-2026-11-03/after-tests.log",
+    "reason": "latest main has identical product/test tree to R4 final delivery"
+  },
+  "candidate": {
+    "tests": 1205,
+    "pass": 1205,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "duration_ms": 168516.202469,
+    "command": "AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright-core/index.mjs AMBER_BROWSER_EXECUTABLE=/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell node --test works/ambertime/tests/*.test.mjs",
+    "log": "after-tests.log"
+  },
+  "sourceSHA256": {
+    "shop-app.mjs": "c62758943ee85adc9f3f496090288095378e636a4a260230d3bfe5de970240b5",
+    "ledger-history-view.mjs": "5a94e49e71c1d31fe1e83d8be048a31bf5bc52547f604274187aafe056ad5594",
+    "index.html": "64afc5d70d44083e3503e434396f2f8817a852788893d4d79df6c47065670e96"
+  },
+  "formal129": true,
+  "distillation20AndCold": true,
+  "legacyColdReplay": true,
+  "RNGMonthlyEconomyNoticeSaveFailureR1R2R3R4": true,
+  "browser": {
+    "captures": 384,
+    "comparisons": 192,
+    "pixelDifference": 0,
+    "warmcacheCases": 2,
+    "errors": 0
+  },
+  "independentReview": "INDEPENDENT-REVIEW.md"
+}

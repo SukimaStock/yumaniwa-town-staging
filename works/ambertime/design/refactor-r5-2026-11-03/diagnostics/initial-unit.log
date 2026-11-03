@@ -1,0 +1,31 @@
+✔ R4 selection matches the immutable inline owner across empty, one, multiple, missing, tasting and return paths (4.740357ms)
+✔ R4 legal tasting, partial/full bottling and restored old saves keep formal bytes, order and original selection rules (98.608996ms)
+✔ R4 controller has no effect dependencies, retained game objects or shared owner; selected ID is read-only externally (2.084848ms)
+✔ R4 root has only the declared owner substitutions; all other statements and entry bytes match the immutable base (11.736596ms)
+✔ R5 actual moved function/formatter bytes and inverse root exactly match immutable R4 main; all formal/lifecycle source remains (8.407508ms)
+✖ R5 lawful empty/one/multi/taste/previous/partial/full/long-aged/legacy projections preserve original markup and formal/replay bytes (905.636356ms)
+✔ R5 missing histories/profile, unknown ages and long special prose preserve escaping, deduplication, order, reading markup and input (2.261862ms)
+✔ R5 saved release sample/observation/choice timelines preserve empty defaults and both withChanges paths without sorting or changing inputs (47.021776ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1172.003049
+
+✖ failing tests:
+
+test at works/ambertime/tests/r5-history-view.test.mjs:22:1
+✖ R5 lawful empty/one/multi/taste/previous/partial/full/long-aged/legacy projections preserve original markup and formal/replay bytes (905.636356ms)
+  TypeError [Error]: Cannot read properties of null (reading 'forEach')
+      at recordTimeline (file:///workspace/scratch/a36daa2c717f/ambertime-r5/works/ambertime/ledger-history-view.mjs:28:15)
+      at compare (file:///workspace/scratch/a36daa2c717f/ambertime-r5/works/ambertime/tests/r5-history-view.test.mjs:15:171)
+      at TestContext.<anonymous> (file:///workspace/scratch/a36daa2c717f/ambertime-r5/works/ambertime/tests/r5-history-view.test.mjs:23:470)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
