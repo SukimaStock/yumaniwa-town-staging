@@ -98,7 +98,49 @@ export function beforeA2(source,name='shop-app.mjs'){
  if(name==='shop-app.mjs')for(const {before,after} of a2Hunks){assert.equal(source.split(after).length-1,1,'exact reviewed A2 hunk');source=source.replace(after,before);}
  return source;
 }
+const a4Hunks={
+ "index.html": [
+  [
+   "<script type=\"module\" src=\"./shop-app.mjs?v=market-layout-r1&amp;rooms=stage3-r1&amp;touch=1&amp;status=1&amp;aging=1&amp;readout=r1-1&amp;geometry=r2-1&amp;preparation=r3-1&amp;warehouse=r4-1&amp;history=r5-1&amp;experience=a2-2&amp;quantity=a3-1&amp;save=a4-1\"></script>\n",
+   "<script type=\"module\" src=\"./shop-app.mjs?v=market-layout-r1&amp;rooms=stage3-r1&amp;touch=1&amp;status=1&amp;aging=1&amp;readout=r1-1&amp;geometry=r2-1&amp;preparation=r3-1&amp;warehouse=r4-1&amp;history=r5-1&amp;experience=a2-2&amp;quantity=a3-1\"></script>\n"
+  ],
+  [
+   "<div id=\"settings-source\" hidden>\n<details><summary>以前の記録・方式</summary>\n<p>画面を離れると停止</p>\n<p>以前の版で遊ぶ</p>\n<p><a href=\"./experiments/distillation/\">蒸留モデル比較（実験）</a></p>\n<p><a href=\"./v0171.html\">0.17.1</a> · <a href=\"./v0164.html\">0.16.4</a> · <a href=\"./v0162.html\">0.16.2</a> · <a href=\"./v016.html\">0.16</a> · <a href=\"./v0152.html\">0.15.2</a> · <a href=\"./v014.html\">0.14</a> · <a href=\"./v013.html\">0.13</a> · <a href=\"./v012.html\">0.12</a> · <a href=\"./v011.html\">0.11</a> · <a href=\"./v010-care.html\">0.10</a> · <a href=\"./v010.html\">0.10以前の保存</a> · <a href=\"./v09.html\">0.9</a> · <a href=\"./v081.html\">0.8.1</a> · <a href=\"./v08.html\">0.8</a> · <a href=\"./v07.html\">0.7</a> · <a href=\"./v06.html\">0.6</a> · <a href=\"./v05.html\">一たる版</a> · <a href=\"./v04.html\">0.4</a> · <a href=\"./legacy.html\">以前の蒸留所</a></p>\n<p><a href=\"../../lab/\">研究所</a></p>\n</details>\n<button id=\"reset\" type=\"button\">新しい蒸留所で始める</button><span id=\"save-status\" role=\"status\"></span>\n</div>\n",
+   "<div id=\"settings-source\" hidden><a href=\"../../lab/\">研究所</a>\n<details><summary>保存・以前の版</summary>\n<p>画面を離れると停止</p>\n<p><a href=\"./experiments/distillation/\">蒸留モデル比較（実験）</a></p>\n<p><a href=\"./v0171.html\">0.17.1</a> · <a href=\"./v0164.html\">0.16.4</a> · <a href=\"./v0162.html\">0.16.2</a> · <a href=\"./v016.html\">0.16</a> · <a href=\"./v0152.html\">0.15.2</a> · <a href=\"./v014.html\">0.14</a> · <a href=\"./v013.html\">0.13</a> · <a href=\"./v012.html\">0.12</a> · <a href=\"./v011.html\">0.11</a> · <a href=\"./v010-care.html\">0.10</a> · <a href=\"./v010.html\">0.10以前の保存</a> · <a href=\"./v09.html\">0.9</a> · <a href=\"./v081.html\">0.8.1</a> · <a href=\"./v08.html\">0.8</a> · <a href=\"./v07.html\">0.7</a> · <a href=\"./v06.html\">0.6</a> · <a href=\"./v05.html\">一たる版</a> · <a href=\"./v04.html\">0.4</a> · <a href=\"./legacy.html\">以前の蒸留所</a></p>\n<p>以前の版の保存は、そのまま残っています。</p>\n<button id=\"reset\" type=\"button\">新しい蒸留所で始める</button><span id=\"save-status\" role=\"status\"></span>\n</details></div>\n"
+  ],
+  [
+   "<h2 id=\"save-choice-title\">記録を選ぶ</h2><p>引きつぐ記録を選んでください。<br>このブラウザにコピーします。元の記録は残ります。</p>\n",
+   "<h2 id=\"save-choice-title\">記録を選ぶ</h2><p>引きつぐ記録を選んでください。<br>元の記録は残ります。</p>\n"
+  ]
+ ],
+ "shop-app.mjs": [
+  [
+   " }else if(kind==='settings'){\n  title='保存';\n  const status=preview?'試遊中・保存しません':!canSave?'保存できません':lastSavedText===null?'未保存':'保存済み';\n  const autosave=preview?'':'進行はこのブラウザに自動保存されます。<br>';\n  const rules=D.marketRulesMode(game),store=D.storeMarketMode(game);\n  const switchRules=store&&!rules?'<p>新しい販売ルールは次の月から適用します。</p>'+button('新しい販売ルールに切り替える','market-rules-adopt'):'';\n  const previous=(rules?button('販売ルールの切替前を書き出す','market-rules-export-before'):'')+\n   (store?button('販売室の切替前を書き出す','market-export-before'):'')+\n   (!placementEnabled&&D.stage4Mode(game)?button('接続前の保存を書き出す','connected-export-before'):'');\n  const salesMode=rules?'<p>販売：店の好み・共有客数</p>':store?'<p>販売：これまでのルール</p><p>直販は少量ずつ、酒店は煙・厚み、スーパーは麦・果実。</p>':'';\n  const history=$('settings-source').querySelector('details').outerHTML.replace('<summary>','<summary>'+symbolMarkup('chevronRight')+' ').replace('</summary>','</summary>'+salesMode+(previous?'<p>以前の方式の記録をファイルに書き出せます。</p>'+previous:''));\n  body='<p>'+autosave+'<strong>'+status+'</strong></p>'+\n   '<section><p>現在の進行をJSONファイルに残します。</p>'+button('記録を書き出す','connected-export')+'<p class=\"quiet\">この画面からファイルは読み込めません。</p></section>'+\n   switchRules+history+\n   '<p class=\"quiet\">維持費 '+money(D.upkeep(game))+'／月</p>'+\n   '<section><p>'+(preview?'試遊の進行を最初からやり直します。':'新しく始めると、今の進行が上書きされます。')+'</p>'+button('新しい蒸留所で始める','settings-reset')+'</section>';\n  actions=button('閉じる','cancel');\n",
+   " }else if(kind==='settings'){title='保存';body='<p>維持費 '+money(D.upkeep(game))+'／月</p>'+button('書き出す','connected-export')+(D.marketRulesMode(game)?'<p>販売：店の好み・共有客数</p>'+button('販売ルールの切替前を書き出す','market-rules-export-before'):D.storeMarketMode(game)?'<p>販売：これまでのルール</p><p>直販は少量ずつ、酒店は煙・厚み、スーパーは麦・果実。次の月から適用します。</p>'+button('新しい販売ルールに切り替える','market-rules-adopt'):'')+(D.storeMarketMode(game)?button('販売室の切替前を書き出す','market-export-before'):'')+(!placementEnabled&&D.stage4Mode(game)?button('接続前の保存を書き出す','connected-export-before'):'')+$('settings-source').innerHTML.replace('id=\"reset\"','data-action=\"settings-reset\"').replace('id=\"save-status\"','data-save-status=\"true\"');actions=button('閉じる','cancel');\n"
+  ],
+  [
+   "$('reset').addEventListener('click',()=>{if(!game||!confirm(preview?'試遊を最初からやり直しますか？':'新しい蒸留所で始めますか？\\nこのブラウザの現在の保存を上書きします。今の進行を残したい場合は、先に記録を書き出してください。\\n以前の版の記録は残ります。'))return;countdown.cancel();stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}distillRoom.reset();scene.resetMotion();marketUI.reset();marketEditing=false;feedbackComments.reset();game=newNativeGame();staffDisplayKey=null;staffDisplay=null;serialDisplayKey=null;serialDisplay=null;mapShown=0;mapAnnounced=0;mapPending=0;mapBrowse=null;try{mapUIStorage()?.removeItem(MAP_VIEW_KEY);}catch{}mapNoticeSave();automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';warehouseRoom.select(null);modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';canSave=!preview;storageNotice('');save();render();});\n",
+   "$('reset').addEventListener('click',()=>{if(!game||!confirm('今の進行を終えて、新しく始めますか？以前の版の記録は残ります。'))return;countdown.cancel();stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}distillRoom.reset();scene.resetMotion();marketUI.reset();marketEditing=false;feedbackComments.reset();game=newNativeGame();staffDisplayKey=null;staffDisplay=null;serialDisplayKey=null;serialDisplay=null;mapShown=0;mapAnnounced=0;mapPending=0;mapBrowse=null;try{mapUIStorage()?.removeItem(MAP_VIEW_KEY);}catch{}mapNoticeSave();automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';warehouseRoom.select(null);modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';canSave=!preview;storageNotice('');save();render();});\n"
+  ]
+ ]
+};
+
+function beforeA4(source,name){
+ for(const [after,before] of a4Hunks[name]??[]){
+  if(name==='index.html'&&after.includes('save=a4-1')&&!source.includes('experience=a2-2')){
+   const token='&amp;save=a4-1';
+   assert.equal(source.split(token).length-1,1,'exact A4 cache reference');
+   source=source.replace(token,'');
+   continue;
+  }
+  assert.equal(source.split(after).length-1,1,'exact reviewed A4 hunk: '+name);
+  source=source.replace(after,before);
+ }
+ return source;
+}
+
 export function beforeA1(source,name='shop-app.mjs'){
+ source=beforeA4(source,name);
  const a3=name==='shop-app.mjs'?
   ['fields=count-linked-r1&rooms=stage2-r1&quantity=a3-1','placement-ui.mjs?v=visual14-r1&quantity=a3-1']:
   name==='index.html'?['daily=cut-range-r1&amp;status=1&amp;quantity=a3-1','experience=a2-2&amp;quantity=a3-1']:[];

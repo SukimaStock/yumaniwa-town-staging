@@ -805,7 +805,23 @@ function syncModal(){
  }else if(kind==='ledger-recipe'||kind==='ledger-cask'||kind==='ledger-recipe-comparison'){title=kind==='ledger-recipe'?'仕込み':kind==='ledger-cask'?'たる':'比べる';body=kind==='ledger-recipe'?ledgerRecipeDetail():kind==='ledger-cask'?ledgerCaskDetail():ledgerRecipeComparison();actions=button('戻る','comparison-back');
  }else if(kind==='ledger-shop'){title='取扱店';body=ledgerShopDetail();actions=button('戻る','comparison-back');
  }else if(kind==='ledger-release'){title='発売';body=ledgerReleaseView();actions=button('戻る','comparison-back');
- }else if(kind==='settings'){title='保存';body='<p>維持費 '+money(D.upkeep(game))+'／月</p>'+button('書き出す','connected-export')+(D.marketRulesMode(game)?'<p>販売：店の好み・共有客数</p>'+button('販売ルールの切替前を書き出す','market-rules-export-before'):D.storeMarketMode(game)?'<p>販売：これまでのルール</p><p>直販は少量ずつ、酒店は煙・厚み、スーパーは麦・果実。次の月から適用します。</p>'+button('新しい販売ルールに切り替える','market-rules-adopt'):'')+(D.storeMarketMode(game)?button('販売室の切替前を書き出す','market-export-before'):'')+(!placementEnabled&&D.stage4Mode(game)?button('接続前の保存を書き出す','connected-export-before'):'')+$('settings-source').innerHTML.replace('id="reset"','data-action="settings-reset"').replace('id="save-status"','data-save-status="true"');actions=button('閉じる','cancel');
+ }else if(kind==='settings'){
+  title='保存';
+  const status=preview?'試遊中・保存しません':!canSave?'保存できません':lastSavedText===null?'未保存':'保存済み';
+  const autosave=preview?'':'進行はこのブラウザに自動保存されます。<br>';
+  const rules=D.marketRulesMode(game),store=D.storeMarketMode(game);
+  const switchRules=store&&!rules?'<p>新しい販売ルールは次の月から適用します。</p>'+button('新しい販売ルールに切り替える','market-rules-adopt'):'';
+  const previous=(rules?button('販売ルールの切替前を書き出す','market-rules-export-before'):'')+
+   (store?button('販売室の切替前を書き出す','market-export-before'):'')+
+   (!placementEnabled&&D.stage4Mode(game)?button('接続前の保存を書き出す','connected-export-before'):'');
+  const salesMode=rules?'<p>販売：店の好み・共有客数</p>':store?'<p>販売：これまでのルール</p><p>直販は少量ずつ、酒店は煙・厚み、スーパーは麦・果実。</p>':'';
+  const history=$('settings-source').querySelector('details').outerHTML.replace('<summary>','<summary>'+symbolMarkup('chevronRight')+' ').replace('</summary>','</summary>'+salesMode+(previous?'<p>以前の方式の記録をファイルに書き出せます。</p>'+previous:''));
+  body='<p>'+autosave+'<strong>'+status+'</strong></p>'+
+   '<section><p>現在の進行をJSONファイルに残します。</p>'+button('記録を書き出す','connected-export')+'<p class="quiet">この画面からファイルは読み込めません。</p></section>'+
+   switchRules+history+
+   '<p class="quiet">維持費 '+money(D.upkeep(game))+'／月</p>'+
+   '<section><p>'+(preview?'試遊の進行を最初からやり直します。':'新しく始めると、今の進行が上書きされます。')+'</p>'+button('新しい蒸留所で始める','settings-reset')+'</section>';
+  actions=button('閉じる','cancel');
  }else if(kind==='staff-request'){
   const status=D.staffStatus(game),mayUse=status.hired||(status.legacy&&modal.caskId===null);title='仕込み';body=staffRequestView();
   actions=mayUse?button('依頼','staff-confirm','',staffCanRequest()?'':'disabled'):button('採用 '+money(status.hireCost),'staff-hire-request','',status.canHire&&!game.decisions.length&&!game.trade.offer?'':'disabled');
@@ -1262,7 +1278,7 @@ function suspend(){scene.cancelDistillCompletion();marketUI.cancel();placementUI
 function resume(){if(game){render();schedule();}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();else resume();});window.addEventListener('pagehide',suspend);window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;suspend();storageNotice('別の画面で保存が変わりました。再読み込みしてください。');if(game)render();}});
-$('reset').addEventListener('click',()=>{if(!game||!confirm('今の進行を終えて、新しく始めますか？以前の版の記録は残ります。'))return;countdown.cancel();stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}distillRoom.reset();scene.resetMotion();marketUI.reset();marketEditing=false;feedbackComments.reset();game=newNativeGame();staffDisplayKey=null;staffDisplay=null;serialDisplayKey=null;serialDisplay=null;mapShown=0;mapAnnounced=0;mapPending=0;mapBrowse=null;try{mapUIStorage()?.removeItem(MAP_VIEW_KEY);}catch{}mapNoticeSave();automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';warehouseRoom.select(null);modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';canSave=!preview;storageNotice('');save();render();});
+$('reset').addEventListener('click',()=>{if(!game||!confirm(preview?'試遊を最初からやり直しますか？':'新しい蒸留所で始めますか？\nこのブラウザの現在の保存を上書きします。今の進行を残したい場合は、先に記録を書き出してください。\n以前の版の記録は残ります。'))return;countdown.cancel();stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}distillRoom.reset();scene.resetMotion();marketUI.reset();marketEditing=false;feedbackComments.reset();game=newNativeGame();staffDisplayKey=null;staffDisplay=null;serialDisplayKey=null;serialDisplay=null;mapShown=0;mapAnnounced=0;mapPending=0;mapBrowse=null;try{mapUIStorage()?.removeItem(MAP_VIEW_KEY);}catch{}mapNoticeSave();automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';warehouseRoom.select(null);modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';canSave=!preview;storageNotice('');save();render();});
 $('retry-save').addEventListener('click',()=>{if(!game){boot();return;}canSave=!preview;if(save()){storageNotice('');$('recovery').hidden=true;}render();schedule();});
 const sessionOptions={restore:D.restoreDistillery,monthMs:T.monthMs,stepMs:T.distillStepMs};
 let sourceChoices=[];
