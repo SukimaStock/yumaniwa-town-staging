@@ -77,7 +77,7 @@ controllerにはimport・callback・DOM・storage・時計・乱数・正式操�
 
 開始mainの全root158ファイル1,186件を、今回復旧したChromium140.0.7339.186で既存browser2件も含めて実行。全1,186成功、失敗/skip0（158.787秒）。R2記録のChromium153とは実行環境が異なるため版を記録し、今回の前後比較は同じengine/版/条件で行う。
 
-候補の全域・新controller・副作用順・browser・cache・独立レビュー・公開結果は、実測完了後に下記へ追記する。未実行を成功としない。
+以下に候補の実測結果と独立レビューを記録する。公開後の結果は最終SHAとともにPRへ残す。
 
 ### 全域・単体・副作用の順序
 
@@ -90,3 +90,46 @@ R0の129途中状態（serialize原文・operation履歴・RNG・月次・経済
 3つのVM portは既存assertion・ケースを維持。最初の接続で非stage4の合法な担当者状態にmanualCardsを余計に呼び失敗したため、旧portが持っていたprepared/batchだけを`confirm({},batch)`で用意する接続へ修正した。製品の初期化は空controllerのみであり、この読取を追加していない。新testの次の仕込みも同月可能と仮定せず、既存のD.tickDistillery境界を明示して比較した。これらの初期ハーネス問題を製品修正で通していない。
 
 [source-invariance.json](source-invariance.json)で、rootの変更を宣言した状態操作への置換だけ逆変換すると基準appとbyte一致し、index変更もqueryだけであることを確認。許可したapp/index/3port以外の既存3,625path（runtime等508、tests/fixture477、過去design2,640）はGit blob完全一致。正式モデル・保存形式・入力・Canvas・R2 geometry・文言・CSS・Lab・過去資料を変更していない。
+
+独立レビューでは新7件を別途実行し7/7成功。12の既存effectful/control関数（save/act/actMarket/commitFill/finishDistillation/startFromLever/selectRoom/openModal/syncModal/suspend/resume/schedule）のbyte不変、逆変換によるroot全体の一致、保護3,625path、Scope/Risk/Impactを独立に再確認し、重大未解決指摘なし。browser証拠の最終照合結果は下記に記録する。合法なformal gameは通常のplain fieldを持ち、controller引数の評価で時計・乱数・保存が発生しない。任意のgetter/proxyを付けた偽gameオブジェクトの短絡評価まで再現するためのcallback等は増やさない。
+
+### ブラウザーの操作・画素・状態
+
+Chromium140.0.7339.186 / WebKit26.5を使用。360×568/DPR1、375×620/DPR2、390×680/DPR3、390×680/DPR3 reduced-motionの4条件×2engine、各40状態で640取得/320前後比較。[browser/README.md](browser/README.md)、[全結果](browser/results.json)、8条件のcapture JSON、36代表PNGとmanifestへ固定した。全320組でCanvas内部RGBA hash・decoded PNG画素差0・PNG原文hash一致。DOM表示/実hit・aria・focus・pointer・正式snapshot・保存rawも前後で完全一致した。
+
+初期未確認、麦芽/発酵選択、確認、再編集/取消、選択を戻しても未確認を維持する経路、確認後再読込、別室/hidden、実レバーと3→2→1→正式開始、採取開始/12step/終了、統合結果/樽選択/取消・再表示、正式樽詰め/貯蔵庫、同月の次仕込み不可/次月の確認、合法自動担当者、generic/card保存失敗とcandidate樽詰め保存失敗/他タブ競合を比較した。失敗時にはmemoryとdurableが異なる既存policyを比較しており、両者を常に同じにする検査ではない。UI以外の正式操作・計算は既存APIを使用する。
+
+固定seed42、同じ合法rawと時刻、fontready、DPR、明示animation phaseで比較。R2と同じ時計登録順・既存amber-font-change→queue()・解放後neutral pointer・native pointer capture/up待機を使う。後付けの許容差は0のまま。合成hidden/取消等とOSの実発生は区別する。runner実行時SHA256は `dd829b6b52e5dac2169172afeb9f42df4a902369fe77e146eb53c8cbbc2a2e24`。
+
+初期の比較用シナリオの誤りも記録した。countdownの採取frame分を含めた時刻計算、locked発酵の開始時の既存selectFlavorCards操作、樽詰め直後の同月canStart=falseを、元コードと公開APIに従って修正した。自動担当者のfixtureは3つの無効な構築を止め、独立したモデル確認で既存の合法なstaff progression→stage4→adoptPlacement→store→market rules移行を検証し、strict restoreとbyte一致を確認して使用した。新規ゲームの担当者条件を緩めたり、非合法なrawを書き換えて通したりしていない。[diagnostics](browser/diagnostics/)を参照する。
+
+### 旧キャッシュと配信依存
+
+両engineで同一originのf7baから一時間cacheを維持し、候補へreloadした。Chromium111資産中109cache hit、WebKit110中108hit。変更appのpreparation=r3-1と新controllerのv=refactor-r3-1だけが新規取得され、body SHA256も実候補sourceと一致。HTML入口から新importへの伝播を確認し、Canvas/input/tools/CSS/画像/workerの不変資産を一括無効化していない。正式状態・保存は不変。全歴代cacheや全Labを網羅したという意味ではない。
+
+### 実行環境と未確認
+
+この作業開始時には前回の一時browser実体が失われていた。既存Playwright runtimeを使用し、公式のscratch Playwright1.55.1 installerでChromium140 headless shellを取得した。WebKit26.5は公式installerの配布元から取得。OS依存の通常installerはsetgroups/seteuid制限で実行できなかったため、署名済みUbuntu InRelease/Packages/debのhashを確認し、必要なライブラリをscratchだけへ展開して起動した。製品依存・CI・OSのsandbox・TLS設定は変更しない。詳細はbrowserのenvironment記録を参照。
+
+物理iPhone Safariの指追従、非ゼロsafe-area、VoiceOver、実OS toolbar/background、実BFCache保持復帰は未確認。過去R2のBFCache delegate制限を今回成功へ読み替えない。R3ではlifecycle処理はbyte不変、制御イベント/再読込/部屋移動を比較した。公開後の実配信と通常入口の操作は、同merge SHAのPages成功後にPRへ追記する。
+
+### 次の段階
+
+R3で分離したのは仕込み確認の一つのまとまりだけ。レバー/採取/結果/樽詰めをcontrollerへ移す拡張は保留した。今の所有境界でR4を検討できるが、貯蔵庫全体を一括分割せず、一つのUI責務から始める。正式試飲・予約・保存・時計・noticeは引き続きrootに残す。今回R4を実装せず、Productionも変更しない。
+
+### 最終独立レビュー
+
+実行runner、17base sourceのGit blob/候補SHA、新controllerのbefore不在とafter SHA、8captureのhash、640記録/320組の全projection、PNG hash、engine manifestとcache bodyを独立担当が再照合した。代表18組（36PNG）を別途decodeしてRGBA差分0。失敗policy7形状の112記録は、memory/durableが違う場合も各々の期待値と一致し、成功時へ統一していない。合法な自動担当者のmigrationも独立に再構築し、strict restore原文と16記録のhash/手動操作無効/modalなしを確認。probeを成功数に含めず、未確認を成功扱いしていない。重大未解決指摘なし。
+
+最終Scope→Risk→Impact、Lock、構文、lifecycle、diff checkを再確認し、exact headの必須CI・補助CIとレビューを確認した後だけ通常マージする。検証したtreeと登録tree/merge treeを照合し、same-SHA Pagesと公開ファイル・実操作はPRへ追記する。
+
+
+### 中断後の再開確認（2026-11-03）
+
+GitHubの作業ブランチは `9c98e1b5606dfe0a3d09ec32e6529359c2d3876b`、最新mainは引き続き基準 `f7ba8023706be803b1711b3e3374b7e1bf83c4d9`。remote登録済み実装treeはローカル `89617218` と完全一致した。停止環境に残っていた検証commit `abc6f56a` を、remoteの正しい履歴へcherry-pickし、`a4411bca` に復元した。実装・Lock・既存成功済みテストを作り直さず、force pushやmain変更も行わない。両履歴のLockは同一blob/digestであり、復元treeは `abc6f56a` と完全一致。
+
+再開時の別担当による独立レビューでは、新7件7/7成功、rootの許可10変換を逆変換したf7ba原文一致、入口queryだけの差分、正式モデル・保存・R2・Canvas/input・Lab不変を確認した。runner/controller/17 source provenance、8captureの640記録・320全projection、2engine artifact、36PNG hash/18組のdecode画素差0を再照合。cache requestAccountingもHTML/app/controllerだけの新取得と候補body hash一致を確認し、重大未解決指摘なし。既存ブラウザー成果の再照合と、再開後の再実行は区別する。
+
+停止の直接原因を特定できるログは確認できなかった。ブラウザー復旧時の過去の依存問題を、Work停止の原因とは断定しない。物理iPhone Safari・VoiceOver・非ゼロsafe-area・実OS background/toolbar・実BFCache hitは引き続き未確認。DOM/ARIA一致をVoiceOver実音声の確認とは扱わない。
+
+再開環境では同一runner/sourceを使用し、360×568/DPR1の両engineを再実行した。160取得・80前後比較はすべて画素差0/DOM/Canvas/hit/focus/ARIA/正式状態/保存一致、旧1時間cacheの2engine更新も成功、errors0。結果は `browser/resume/results.json` とcapture/PNG/実行ログに保存。既存全域1,193件の対象sourceと製品/テストsourceは同一のため、全域を無条件に繰り返さず既存成功を継承する。Lock/Scope/Risk/Impactを再確認しPASS。

@@ -59,6 +59,19 @@
       },
       "log": "independent-tests.log",
       "sha256": "7df40e23041db0ddb5c441f0b285734517d78f3d529d57c9dfe31bd1fe277dc2"
+    },
+    "independentNew": {
+      "results": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 1017.711884
+      },
+      "log": "independent-new-tests.log",
+      "sha256": "407c28fd7bbc6b6aaa513f9a2f6733a32b154ed629e84759321289d19c8bab4c"
     }
   },
   "formalBaseline": {

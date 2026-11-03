@@ -1,0 +1,182 @@
+[
+  {
+    "file": "chromium-375-dpr2-motion-cancel-changed-keeps-formal-card-after.png",
+    "sha256": "b74823f750c4a1a7f134ff463810e410212443facd07c59afd1d91652ba627d3",
+    "bytes": 13940
+  },
+  {
+    "file": "chromium-375-dpr2-motion-cancel-changed-keeps-formal-card-before.png",
+    "sha256": "b74823f750c4a1a7f134ff463810e410212443facd07c59afd1d91652ba627d3",
+    "bytes": 13940
+  },
+  {
+    "file": "chromium-375-dpr2-motion-confirmed-ui-only-after.png",
+    "sha256": "cb41d66661e1bc4a4e674497579a432e221e487ceb8e040514d47317ad685b1e",
+    "bytes": 14061
+  },
+  {
+    "file": "chromium-375-dpr2-motion-confirmed-ui-only-before.png",
+    "sha256": "cb41d66661e1bc4a4e674497579a432e221e487ceb8e040514d47317ad685b1e",
+    "bytes": 14061
+  },
+  {
+    "file": "chromium-375-dpr2-motion-countdown-3-no-formal-start-after.png",
+    "sha256": "b749984f33683e8046cbff9ada3fe64572694dce7b58837fac2af6acd1a5c8bf",
+    "bytes": 14434
+  },
+  {
+    "file": "chromium-375-dpr2-motion-countdown-3-no-formal-start-before.png",
+    "sha256": "b749984f33683e8046cbff9ada3fe64572694dce7b58837fac2af6acd1a5c8bf",
+    "bytes": 14434
+  },
+  {
+    "file": "chromium-375-dpr2-motion-formal-start-after-countdown-after.png",
+    "sha256": "a08d111e3e0da180c3c58adc9d5a508bc7bb054fe0c9818ea0dc860fa7215f31",
+    "bytes": 14213
+  },
+  {
+    "file": "chromium-375-dpr2-motion-formal-start-after-countdown-before.png",
+    "sha256": "a08d111e3e0da180c3c58adc9d5a508bc7bb054fe0c9818ea0dc860fa7215f31",
+    "bytes": 14213
+  },
+  {
+    "file": "chromium-375-dpr2-motion-initial-unconfirmed-after.png",
+    "sha256": "49ad8a5da93b6a726f1a06fc441cbb571dcef739fe0cc2a2c51c29f78b67929d",
+    "bytes": 13384
+  },
+  {
+    "file": "chromium-375-dpr2-motion-initial-unconfirmed-before.png",
+    "sha256": "49ad8a5da93b6a726f1a06fc441cbb571dcef739fe0cc2a2c51c29f78b67929d",
+    "bytes": 13384
+  },
+  {
+    "file": "chromium-375-dpr2-motion-integrated-result-after-saved-stop-after.png",
+    "sha256": "a1e223722aa73217e3423d465863cedafae727b44e60b8eb778c675ae40a8bdd",
+    "bytes": 12523
+  },
+  {
+    "file": "chromium-375-dpr2-motion-integrated-result-after-saved-stop-before.png",
+    "sha256": "a1e223722aa73217e3423d465863cedafae727b44e60b8eb778c675ae40a8bdd",
+    "bytes": 12523
+  },
+  {
+    "file": "chromium-375-dpr2-motion-quota-fill-keeps-spirit-and-modal-after.png",
+    "sha256": "40779b2b13977002c4bfc0556d84655564ac77c0a797f8586f201fad10f4fc31",
+    "bytes": 11780
+  },
+  {
+    "file": "chromium-375-dpr2-motion-quota-fill-keeps-spirit-and-modal-before.png",
+    "sha256": "40779b2b13977002c4bfc0556d84655564ac77c0a797f8586f201fad10f4fc31",
+    "bytes": 11780
+  },
+  {
+    "file": "chromium-375-dpr2-motion-quota-start-keeps-formal-memory-after.png",
+    "sha256": "04838ff2282b22cfa8acf94c685f4e006e504911fa041da79bc1fa66f5905223",
+    "bytes": 14578
+  },
+  {
+    "file": "chromium-375-dpr2-motion-quota-start-keeps-formal-memory-before.png",
+    "sha256": "04838ff2282b22cfa8acf94c685f4e006e504911fa041da79bc1fa66f5905223",
+    "bytes": 14578
+  },
+  {
+    "file": "chromium-375-dpr2-motion-saved-fill-goes-to-warehouse-after.png",
+    "sha256": "b0a7812731efad88abb21be3c827960d0da2d857c0ec7b0a4b2d4cd963e9e74e",
+    "bytes": 12556
+  },
+  {
+    "file": "chromium-375-dpr2-motion-saved-fill-goes-to-warehouse-before.png",
+    "sha256": "b0a7812731efad88abb21be3c827960d0da2d857c0ec7b0a4b2d4cd963e9e74e",
+    "bytes": 12556
+  },
+  {
+    "file": "webkit-375-dpr2-motion-cancel-changed-keeps-formal-card-after.png",
+    "sha256": "240027ed792fdecb1070a73249efe5b6cafba18bc409489c4a6974cc342fde28",
+    "bytes": 17884
+  },
+  {
+    "file": "webkit-375-dpr2-motion-cancel-changed-keeps-formal-card-before.png",
+    "sha256": "240027ed792fdecb1070a73249efe5b6cafba18bc409489c4a6974cc342fde28",
+    "bytes": 17884
+  },
+  {
+    "file": "webkit-375-dpr2-motion-confirmed-ui-only-after.png",
+    "sha256": "ccd327866ec7c8fb410a9f865f7df3774b50e55f761a7927341e064f742480a2",
+    "bytes": 18025
+  },
+  {
+    "file": "webkit-375-dpr2-motion-confirmed-ui-only-before.png",
+    "sha256": "ccd327866ec7c8fb410a9f865f7df3774b50e55f761a7927341e064f742480a2",
+    "bytes": 18025
+  },
+  {
+    "file": "webkit-375-dpr2-motion-countdown-3-no-formal-start-after.png",
+    "sha256": "a28c81fd51e000a204e23d89e198643a0cb7b77fbf93bcf6e4c6ab2aef5ef919",
+    "bytes": 18673
+  },
+  {
+    "file": "webkit-375-dpr2-motion-countdown-3-no-formal-start-before.png",
+    "sha256": "a28c81fd51e000a204e23d89e198643a0cb7b77fbf93bcf6e4c6ab2aef5ef919",
+    "bytes": 18673
+  },
+  {
+    "file": "webkit-375-dpr2-motion-formal-start-after-countdown-after.png",
+    "sha256": "dc25fccbdb81c263d617366a8c1765ed87824800114326494079299a84627200",
+    "bytes": 18443
+  },
+  {
+    "file": "webkit-375-dpr2-motion-formal-start-after-countdown-before.png",
+    "sha256": "dc25fccbdb81c263d617366a8c1765ed87824800114326494079299a84627200",
+    "bytes": 18443
+  },
+  {
+    "file": "webkit-375-dpr2-motion-initial-unconfirmed-after.png",
+    "sha256": "0cba3608d6872476dad3131a0660798c47e66ec375f9e619ae50b8377b8b4b54",
+    "bytes": 17516
+  },
+  {
+    "file": "webkit-375-dpr2-motion-initial-unconfirmed-before.png",
+    "sha256": "0cba3608d6872476dad3131a0660798c47e66ec375f9e619ae50b8377b8b4b54",
+    "bytes": 17516
+  },
+  {
+    "file": "webkit-375-dpr2-motion-integrated-result-after-saved-stop-after.png",
+    "sha256": "ec71d817d7e247bc1456e73fb78acbc61543e555067e68089aeb3f6a3a3250a5",
+    "bytes": 15652
+  },
+  {
+    "file": "webkit-375-dpr2-motion-integrated-result-after-saved-stop-before.png",
+    "sha256": "ec71d817d7e247bc1456e73fb78acbc61543e555067e68089aeb3f6a3a3250a5",
+    "bytes": 15652
+  },
+  {
+    "file": "webkit-375-dpr2-motion-quota-fill-keeps-spirit-and-modal-after.png",
+    "sha256": "c62fc01f8765d28eaa9c3282e7638b6e04069b3db2a75dfa4341efc1b9940052",
+    "bytes": 14400
+  },
+  {
+    "file": "webkit-375-dpr2-motion-quota-fill-keeps-spirit-and-modal-before.png",
+    "sha256": "c62fc01f8765d28eaa9c3282e7638b6e04069b3db2a75dfa4341efc1b9940052",
+    "bytes": 14400
+  },
+  {
+    "file": "webkit-375-dpr2-motion-quota-start-keeps-formal-memory-after.png",
+    "sha256": "176c7261bf2763cf83b9277bf194c46d640feb7a257043d43c87e889218343ea",
+    "bytes": 17657
+  },
+  {
+    "file": "webkit-375-dpr2-motion-quota-start-keeps-formal-memory-before.png",
+    "sha256": "176c7261bf2763cf83b9277bf194c46d640feb7a257043d43c87e889218343ea",
+    "bytes": 17657
+  },
+  {
+    "file": "webkit-375-dpr2-motion-saved-fill-goes-to-warehouse-after.png",
+    "sha256": "d50b932ab1033a38fe8f7cbf3fc006234adbd3d68be342b2a8a1ad46ba2ae197",
+    "bytes": 16937
+  },
+  {
+    "file": "webkit-375-dpr2-motion-saved-fill-goes-to-warehouse-before.png",
+    "sha256": "d50b932ab1033a38fe8f7cbf3fc006234adbd3d68be342b2a8a1ad46ba2ae197",
+    "bytes": 16937
+  }
+]
