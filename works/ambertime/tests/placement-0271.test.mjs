@@ -55,7 +55,7 @@ test('Lab 0.2 preset 5 animates bottle, frame and two factual deltas only for su
  h.ui.markup(1);
  h.action('place','retail');
  assert.equal(h.element('placement-retail').textContent,'1本+1');
- assert.equal(h.element('placement-hand').textContent,'11-1');
+ assert.equal(h.element('placement-hand').textContent,'11−1');
  assert.deepEqual(h.animations.map(x=>x.options.duration),[210,160,650,650]);
  assert.equal(h.animations[0].frames[2].transform,'translateY(-3px)');
  assert.equal(h.animations[1].frames[1].outlineOffset,'2px');
