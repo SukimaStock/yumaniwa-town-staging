@@ -65,6 +65,8 @@ test('first ceremony occurs only in post-save callback; unchanged branded action
  assert.match(app,/const label=\$\('first-brand-preview-name'\);if\(label\)label\.textContent/);
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
  assert.match(css,/@keyframes first-bottle-apply-label/);
+ assert.match(css,/#action-dialog \.first-brand-preview-bottle svg\[data-codea="bottle"\]\{width:94px!important;height:94px!important\}/);
+ assert.match(css,/#action-dialog \.first-bottle-base svg\[data-codea="bottle"\]\{width:100%!important;height:100%!important\}/);
  assert.match(html,/firstBottle=a5-1/);
  assert.match(html,/brand=a5-1/);
 });
