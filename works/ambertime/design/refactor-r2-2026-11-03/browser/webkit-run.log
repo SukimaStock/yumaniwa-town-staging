@@ -1,0 +1,9 @@
+{"id":"webkit-360-dpr1-motion","version":"before","captures":43}
+{"id":"webkit-360-dpr1-motion","version":"after","captures":43}
+{"id":"webkit-375-dpr2-motion","version":"before","captures":43}
+{"id":"webkit-375-dpr2-motion","version":"after","captures":43}
+{"id":"webkit-390-dpr3-motion","version":"before","captures":43}
+{"id":"webkit-390-dpr3-motion","version":"after","captures":43}
+{"id":"webkit-390-dpr3-reduced","version":"before","captures":43}
+{"id":"webkit-390-dpr3-reduced","version":"after","captures":43}
+{"passed":true,"captures":344,"pixelComparisons":172,"cacheCases":1,"errors":[]}

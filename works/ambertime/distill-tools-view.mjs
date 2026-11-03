@@ -1,7 +1,15 @@
 // Presentation only. The native model owns every litre and collection boundary.
 import {PARAMETERS} from './parameters.mjs';
 export const RECEIVER_MAX_LITRES=PARAMETERS.baseLitres+PARAMETERS.extraLitres;
-export const TOOL_GEOMETRY=Object.freeze({spoutX:192,glassY:345,collectX:174,waitX:237,travel:63,lever:{x:285,y:279,w:60,h:66},glass:{w:54,h:54}});
+// Logical scene pixels. Local artwork offsets keep each tool attached to its hit
+// rectangle; CSS pointer distances below deliberately do not scale with the scene.
+const spoutX=192,glassMouthCenter=18,travel=63,collectX=spoutX-glassMouthCenter;
+export const TOOL_GEOMETRY=Object.freeze({
+ spoutX,glassY:345,collectX,waitX:collectX+travel,travel,
+ lever:{x:285,y:279,w:60,h:66,pivotX:15,pivotY:36,handleX:21,handleY:[-21,-3,15],guideX:24,guideY:-54},
+ glass:{w:54,h:54,hitOffsetX:-9,hitOffsetY:-12},
+ pointerCss:{drag:8,leverMiddle:18,leverDown:36,glassCommitMax:24,glassCommitRatio:.45}
+});
 export function leverGuideOffset({now=0,completedRuns=0,enabled=false,touching=false,reduced=false}={}){
  if(!enabled||touching||reduced||completedRuns>=3)return 0;
  const practice=completedRuns>0,period=practice?2400:1500,step=Math.floor((Math.max(0,now)%period)/120),maximum=practice?2:3;
@@ -31,13 +39,14 @@ export function distillToolsView({phase,collection={},litres=0,flowLitres=litres
 // All authored cells are 3 logical pixels, on the same grid as the apparatus.
 export function drawDistillTools(ctx,view,{leverStep=null,glassX=TOOL_GEOMETRY.waitX,arrowBright=true,arrowOffset=0}={}){
  const r=(x,y,w,h,color)=>{ctx.fillStyle=color;ctx.fillRect(Math.round(x/3),Math.round(y/3),Math.round(w/3),Math.round(h/3));},metal=view.leverInactive?'#555762':'#858995',light=view.leverInactive?'#777982':'#d8d5df',dark='#41414b',cream='#f0e6c8';
- r(297,300,6,33,dark);r(297,300,3,33,metal);
+ const lever=TOOL_GEOMETRY.lever,lx=lever.x+lever.pivotX,ly=lever.y+lever.pivotY;
+ r(lx-3,ly-15,6,33,dark);r(lx-3,ly-15,3,33,metal);
  const step=leverStep??(view.leverDown?2:0);
  // Three independent pixel poses; no rotated or filtered sprite.
- for(let n=0;n<9;n++){const dy=step===0?-Math.round(n*.75):step===2?Math.round(n*.75):0;r(300+n*3,315+dy*3,3,6,metal);r(300+n*3,315+dy*3,3,3,light);}
- const hy=step===0?294:step===2?330:312;r(321,hy,12,9,dark);r(321,hy,9,6,view.leverInactive?'#74736d':'#c8b77e');r(321,hy,6,3,view.leverInactive?'#858575':cream);
- r(294,306,12,3,metal);r(291,309,18,12,metal);r(294,321,12,3,dark);r(294,309,6,3,light);r(297,312,6,6,dark);r(300,315,3,3,light);
- if(view.showLeverArrow){const color=view.arrow?'#d8c990':'#62636b',offset=Math.round(arrowOffset/3)*3;r(324,261+offset,3,12,color);for(let n=0;n<3;n++)r(318+n*3,270+n*3+offset,15-n*6,3,color);}
+ for(let n=0;n<9;n++){const dy=step===0?-Math.round(n*.75):step===2?Math.round(n*.75):0;r(lx+n*3,ly+dy*3,3,6,metal);r(lx+n*3,ly+dy*3,3,3,light);}
+ const hx=lx+lever.handleX,hy=ly+(step===0?lever.handleY[0]:step===2?lever.handleY[2]:lever.handleY[1]);r(hx,hy,12,9,dark);r(hx,hy,9,6,view.leverInactive?'#74736d':'#c8b77e');r(hx,hy,6,3,view.leverInactive?'#858575':cream);
+ r(lx-6,ly-9,12,3,metal);r(lx-9,ly-6,18,12,metal);r(lx-6,ly+6,12,3,dark);r(lx-6,ly-6,6,3,light);r(lx-3,ly-3,6,6,dark);r(lx,ly,3,3,light);
+ if(view.showLeverArrow){const color=view.arrow?'#d8c990':'#62636b',offset=Math.round(arrowOffset/3)*3;r(lx+lever.guideX,ly+lever.guideY+offset,3,12,color);for(let n=0;n<3;n++)r(lx+lever.guideX-6+n*3,ly+lever.guideY+9+n*3+offset,15-n*6,3,color);}
  const x=Math.round(glassX/3)*3,y=TOOL_GEOMETRY.glassY,edge='#b9c0aa';
  if(view.glassArrow){const color=(view.glassArrowBlink??view.glassArrowActive)?(arrowBright?'#d8c990':'#9f987c'):'#62636b';if(view.glassPosition===0){r(x+39,y+12,15,3,color);r(x+57,y+12,3,3,color);r(x+54,y+9,3,9,color);r(x+51,y+6,3,15,color);}else{r(x+45,y+12,15,3,color);r(x+39,y+12,3,3,color);r(x+42,y+9,3,9,color);r(x+45,y+6,3,15,color);}}
  if(view.fill>0){const h=Math.max(1,Math.round(8*view.fill))*3;r(x+6,y+27-h,24,h,view.liquidColor??'#b8aa7c');r(x+6,y+27-h,24,3,view.liquidHighlight??'#e7ddb6');}

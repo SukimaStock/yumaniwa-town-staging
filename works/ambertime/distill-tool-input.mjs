@@ -1,4 +1,6 @@
 // Transient pointer state only. The caller owns every game operation and save.
+import {TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
+const pointerCss=TOOL_GEOMETRY.pointerCss;
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const point=e=>({x:e.clientX,y:e.clientY});
 const stateKey=v=>JSON.stringify([!!v?.visible,!!v?.leverEnabled,!!v?.glassEnabled,v?.glassMode,!!v?.leverDown,v?.glassPosition]);
@@ -41,7 +43,7 @@ export class DistillToolInput{
   if(this.gesture){if(e.pointerId!==this.gesture.id)this.cancel();return;}
   if(e.isPrimary===false||e.button!==0||!this.allowed(kind))return;
   e.preventDefault();this.keyboardStep=null;
-  const v=this.read(),travel=Number.isFinite(v.glassTravel)&&v.glassTravel>0?v.glassTravel:63;
+  const v=this.read(),travel=Number.isFinite(v.glassTravel)&&v.glassTravel>0?v.glassTravel:TOOL_GEOMETRY.travel;
   this.gesture={kind,node,id:e.pointerId,start:point(e),dx:0,dy:0,drag:false,mode:v.glassMode,travel,key:stateKey(v)};
   try{node.setPointerCapture(e.pointerId);}catch{}
   this.emit(kind==='lever'?0:null,kind==='glass'?0:null);
@@ -50,15 +52,15 @@ export class DistillToolInput{
   const g=this.gesture;if(!g||g.id!==e.pointerId)return;
   if(!this.allowed(g.kind)||stateKey(this.read())!==g.key){this.cancel();return;}
   e.preventDefault();g.dx=e.clientX-g.start.x;g.dy=e.clientY-g.start.y;
-  g.drag ||= Math.hypot(g.dx,g.dy)>8;
-  if(g.kind==='lever')this.emit(g.dy>=36?2:g.dy>=18?1:0,null);
+  g.drag ||= Math.hypot(g.dx,g.dy)>pointerCss.drag;
+  if(g.kind==='lever')this.emit(g.dy>=pointerCss.leverDown?2:g.dy>=pointerCss.leverMiddle?1:0,null);
   else this.emit(null,g.mode==='start'?clamp(g.dx,-g.travel,0):clamp(g.dx,0,g.travel));
  }
  up(e){
   const g=this.gesture;if(!g||g.id!==e.pointerId)return;
   this.move(e);if(this.gesture!==g)return;
   const direction=g.mode==='start'?-g.dx:g.dx;
-  const valid=g.kind==='lever'?g.dy>=36&&g.dy>Math.abs(g.dx):!g.drag||direction>=Math.min(24,g.travel*.45)&&Math.abs(g.dx)>Math.abs(g.dy);
+  const valid=g.kind==='lever'?g.dy>=pointerCss.leverDown&&g.dy>Math.abs(g.dx):!g.drag||direction>=Math.min(pointerCss.glassCommitMax,g.travel*pointerCss.glassCommitRatio)&&Math.abs(g.dx)>Math.abs(g.dy);
   // Clear capture before invoking application code: synchronous rendering and
   // lostpointercapture cannot commit this operation a second time.
   this.gesture=null;this.release(g);this.emit();

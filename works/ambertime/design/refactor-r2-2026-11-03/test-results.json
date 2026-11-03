@@ -1,0 +1,71 @@
+{
+  "baseSha": "1a86a3ce40eb5b5abadda162451d777a649ee855",
+  "node": "v24.22.1",
+  "existingCommand": "AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/tmp/chromium node --test works/ambertime/tests/*.test.mjs",
+  "additionalCommand": "node --test works/ambertime/tests/r2-geometry.test.mjs",
+  "executionNote": "Existing157files selected before newtestfile was written. Newfinal7tests run separately; aggregate158files1186tests without double counting. All runtime sources unchanged between these runs. Future single glob includes new7.",
+  "runs": {
+    "before": {
+      "results": {
+        "tests": 1179,
+        "pass": 1179,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 389990.162944
+      },
+      "log": "before-tests.log",
+      "sha256": "94946560d5d897c8017901ead4ca144026f79d2837dcf5fe085f56789d62929e",
+      "testFiles": 157
+    },
+    "afterExisting": {
+      "results": {
+        "tests": 1179,
+        "pass": 1179,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 396669.63845
+      },
+      "log": "afterExisting-tests.log",
+      "sha256": "3f0ceb11222144b2c09a72f0206fcac4df687700898102f5bafc20b9b8af27f1",
+      "testFiles": 157
+    },
+    "additional": {
+      "results": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 19553.280987
+      },
+      "log": "additional-tests.log",
+      "sha256": "0ea885bba00ce5b1da922e12b662ad418bed6418b97c2c2d801df2640423bd3b",
+      "testFiles": 1
+    }
+  },
+  "aggregateAfter": {
+    "files": 158,
+    "tests": 1186,
+    "pass": 1186,
+    "fail": 0,
+    "skip": 0
+  },
+  "R0": {
+    "intermediateStates": 129,
+    "oldCutStates": 20,
+    "individualColdCutReplays": 20,
+    "fixturesChanged": false,
+    "status": "pass"
+  },
+  "independentTargeted": {
+    "tests": 29,
+    "pass": 29,
+    "fail": 0,
+    "skip": 0
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "classification": "Harness diagnostics; not evidence of a product change or a passed candidate matrix",
+  "base": "1a86a3ce40eb5b5abadda162451d777a649ee855",
+  "issues": [
+    {
+      "issue": "Native resize event delivered after setViewportSize resolution",
+      "repair": "Wait exact scene viewport dimensions before pointer release and again on restoration",
+      "productChanges": false
+    },
+    {
+      "issue": "Clock installation overwrote earlier custom performance init script",
+      "attempt1": "Explicit phase init before clock installation remained overwritten",
+      "diagnostic": "Isolated browser: custom-first performance4→44 versus phase0→40; clock-first performance0→40 exactly",
+      "repair": "Install Playwright clock before custom animation-phase init script",
+      "productChanges": false
+    },
+    {
+      "issue": "Deferred gotpointercapture event coordinates depended on next movement",
+      "repair": "Issue same-position real pointer move after down; await gotpointercapture and each intended move endpoint; await pointerup/capture release before phase advancement",
+      "productChanges": false
+    },
+    {
+      "issue": "WebKit newly opened refill button hover paint",
+      "differentPixels": 10780,
+      "bbox": [
+        185,
+        288,
+        307,
+        392
+      ],
+      "beforeColor": "#303547",
+      "afterColor": "#393f52",
+      "source": "room-scene.css button vs button:hover",
+      "actualCanvasSHA256Matched": true,
+      "DOMAndFormalMatched": true,
+      "repair": "Pin neutral pointer only after capture ends; await no hovered button; captured drags remain untouched",
+      "images": [
+        {
+          "file": "diagnostics/hover-before.png",
+          "sha256": "4fc66ad43dceca55556cfdc8a71090d501109d3c9de1e6becc61561356646ead"
+        },
+        {
+          "file": "diagnostics/hover-after.png",
+          "sha256": "0d758043924c4f371cf64d27d1b13ad48587bb901366cc60c4fed2231772dd31"
+        }
+      ],
+      "productChanges": false
+    },
+    {
+      "issue": "16ms animation timeout plus next RAF left stale rendered sample at explicit phase",
+      "observedAt375BothEngines": {
+        "samePerformancePhase": 1250,
+        "beforeGlassX": 196.5,
+        "afterGlassX": 205.5,
+        "formalAndSaveMatched": true
+      },
+      "repair": "Queue unchanged Canvas using sole amber-font-change→queue listener before advancing each explicit phase. Normal scheduler timing is not inferred from sampled images.",
+      "productChanges": false
+    }
+  ],
+  "successfulSelfComparisons": [
+    {
+      "engine": "chromium",
+      "width": 360,
+      "pairs": 43,
+      "differentPixels": 0
+    },
+    {
+      "engine": "webkit",
+      "width": 360,
+      "pairs": 43,
+      "differentPixels": 0
+    },
+    {
+      "engines": [
+        "chromium",
+        "webkit"
+      ],
+      "width": 375,
+      "pairs": 86,
+      "differentPixels": 0
+    }
+  ],
+  "pixelTolerance": 0,
+  "modelOrCSSFixes": false
+}

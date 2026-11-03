@@ -1,3 +1,4 @@
+import {TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {textPieces} from './text-metrics.mjs?v=0.24-type-ui-1';
 // Display geometry only. Neither layout nor the renderer owns game time.
 export const SCENE_WIDTH=360,SCENE_HEIGHT=640;
@@ -28,9 +29,10 @@ export function layoutScene(view={}){
   if(view.tools){
    if(view.brewing)add('start-distill','#start-distill',24,174,312,54);else add('start-distill','#start-distill',90,186,180);
    add('open-fill','#open-fill',126,264,108);
-   add('distill-lever','#distill-lever',285,279,60,66);
-   const x=(view.tools.glassPosition===0?174:237)-9;
-   add('distill-glass','#distill-glass',x,333,54,54);
+   const lever=TOOL_GEOMETRY.lever,glass=TOOL_GEOMETRY.glass;
+   add('distill-lever','#distill-lever',lever.x,lever.y,lever.w,lever.h);
+   const x=(view.tools.glassPosition===0?TOOL_GEOMETRY.collectX:TOOL_GEOMETRY.waitX)+glass.hitOffsetX;
+   add('distill-glass','#distill-glass',x,TOOL_GEOMETRY.glassY+glass.hitOffsetY,glass.w,glass.h);
   }else for(const id of['start-distill','stop-distill','open-fill'])add(id,'#'+id,id==='stop-distill'?90:126,414,id==='stop-distill'?180:108);
  }
  return{width:360,height:640,floorY:468,shelf:{x:48,y:165,w:264,h:267,rails:[234,378]},equipment:{x:90,y:270,w:180,h:108,benchY:378},caskSlots,productSlots,controls};
