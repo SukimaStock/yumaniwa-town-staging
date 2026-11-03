@@ -1,0 +1,11 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.waitForFunction: Timeout 30000ms exceeded.
+    at /workspace/scratch/8def0492a6e5/ambertime-a1/works/ambertime/tests/a1-browser-public.mjs:11:27 {
+  log: [],
+  name: 'TimeoutError'
+}
+
+Node.js v24.22.1

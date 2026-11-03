@@ -1,0 +1,32 @@
+# A1 公開後確認 — 独立レビュー
+
+対象はPR #778のmerge `922662c3728dd4ee678634bb73a5e2e2876d870f` と、検証専用followupの事前Lock `5e2d1669d3e7f831ae9a4d814a558d413836a7bb58f125ae5cf1e7d9d8f600b8`。Lock-only commit `0cd6701e` 後の変更はpublic smokeの観測・セットアップと証拠のみ。製品app/Canvas/HTML、正式モデル、保存、旧fixtureは変更しない。
+
+## 観測器修正
+
+reduced-motionの既存resetIdleは、pointerdown時にactiveな演出がなくても `finishDistillCompletion` を呼ぶ。そのno-opまで保存成功eventとして記録していた初稿smokeが誤検出した。修正版は呼出前のactive状態を記録し、元methodは必ずそのまま実行し、activeだったfinishだけをeventへ記録する。startの受理値、正式状態、durable save、意味のあるfinish件数、errorのassertionは保持する。
+
+review agentは実testから抽出した修正wrapperを実製品 `CanvasScene.finishDistillCompletion` に適用し、idle呼出は非記録、active(saved filling)は1件、元return・state取消・完了callbackの配信は不変であることを独立実行した。PASS。製品をテスト都合で変更したものではない。
+
+## 転送の境界
+
+直接browser通信はこの環境でempty response、proxy使用browserはCA trustの制約があった。そのため既存設定proxyとNodeの追加CA trustを使う `route.fetch` で、実公開HTTPSの応答body/headerを取得し、同じ公開originのbrowser requestへ返す。応答はmemory cacheされる。wrapper sourceを読み、local製品bodyを返す分岐、`ignoreHTTPSErrors`、証明書検証の無効化がないことを確認した。decode済み応答のencoding/length header削除も適切。失敗したpromiseだけcacheから除去し、current失敗はabortと診断記録に残す。
+
+これは未加工の直接browser network経路と同一ではない。実公開bytesのTLS検証付き取得と、同originでのbrowser実行を組み合わせた確認として報告する。proxyを含む公開smokeの待ち時間は、製品の操作遅延評価に使わない。
+
+## 診断と最終セットアップ
+
+初回4条件は帳面・採取・正式保存・公開body hashのassertionを完了したが、generic module import pageerror2件で最終error assertionが失敗した。別WebKit診断も2機能条件を完了したが1件のgeneric pageerrorがあり、cancelled requestとしてworker/font/正式依存moduleのURLが観測された。transport fetch失敗は記録されなかった。これらを成功runへ読み替えず、元診断を保持する。旧documentのnavigation取消という仮説には根拠があるが、時刻/phaseの相関が不足する診断だけで製品エラー不存在を断定しない。
+
+最終smokeは、初回navigation前に合法なempty保存をisolated contextへ設定し、即時reloadするthrowaway pageをなくした。sessionStorageの一度限りguardにより、後で設定する合法collecting保存はreload時に上書きされない。明示reloadとbrowser closeの前はnetworkidleを待つ。これは検査が自ら進行中のmodule読込を取り消す条件を除くもので、activeなpageerrorを無視しない。既存のready/fallback font状態を機能確認で受理し、実fontStateを記録する。ready-fontの固定phase画素比較とは別の確認である。
+
+observer・setup・転送adapterに未解決のコード指摘なし。最終公開runのexit codeと結果、exact-head CIは取得後の記録を参照する。物理iPhone、VoiceOver、実OS background/BFCache、直接browser TLS経路は未確認として保つ。
+
+
+## 最終結果
+
+最終runのprocess logは `{"passed":true,"cases":4}`、exit0。review agentが結果JSONを独立に読み、Chromium/WebKit×通常/reducedの4条件がすべて存在し、fontState=ready、pageerror/request failure/transport failureが各0であることを確認した。4条件の帳面2分類、採取終了、正式モデルとdurable saveの一致assertionが完了した。
+
+通常はstart受理true→active finish各1件、reducedはstart受理falseのみ。すべての意味のある観測時点でdurable phase=filling。4条件それぞれの公開HTML/app/Canvas hash計12照合を実ファイルと独立比較し、3製品ファイルのbytesがmerge `922662c3` と不変であることもGit objectから再確認した。4screenshotも存在する。以前の取消/観測器診断を破棄せず保持し、最終runと分ける。
+
+公開後の機能確認は、このTLS検証付きremote-response forwardingの境界で成功。直接browserの通信経路や物理iPhone Safari/VoiceOverの完了とは呼ばない。検証専用followupのコードに未解決指摘なし。required CI/通常mergeと証拠の公開は統合担当がexact SHAへ別途固定する。

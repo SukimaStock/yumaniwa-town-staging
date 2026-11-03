@@ -1,0 +1,140 @@
+{
+  "url": "https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/",
+  "records": [
+    {
+      "fontState": "ready",
+      "engine": "webkit",
+      "browserVersion": "26.5",
+      "reduced": false,
+      "ledger": [
+        {
+          "section": "recipes",
+          "elapsed": 10512,
+          "body": "<nav class=\"ledger-sections\" aria-label=\"帳面の分類\"><button type=\"button\" data-action=\"ledger-section\" data-id=\"recipes\" id=\"ledger-section-recipes\" aria-pressed=\"true\">仕込み</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"aging\" id=\"ledger-section-aging\" aria-pressed=\"false\">たる</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"releases\" id=\"ledger-section-releases\" aria-pressed=\"false\">発売</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"shops\" id=\"ledger-section-shops\" aria-pressed=\"false\">取扱店</button></nav><p>記録なし</p><p><button type=\"button\" data-action=\"ledger-history\" data-id=\"\">歩み</button></p>"
+        },
+        {
+          "section": "history",
+          "elapsed": 69,
+          "body": "<p class=\"history-elapsed\"><span class=\"ui-quantity\"><span class=\"ui-number\">0</span>年<span class=\"ui-number\">0</span>か月</span></p><div class=\"history-years\"><section class=\"history-year\"><h3><button type=\"button\" data-action=\"history-year\" data-id=\"2026\" aria-expanded=\"false\"><span class=\"ui-quantity\"><span class=\"ui-number\">2026</span>年</span></button></h3></section></div>"
+        }
+      ],
+      "events": [
+        {
+          "method": "startDistillCompletion",
+          "t": 324,
+          "accepted": true,
+          "savedPhase": "filling"
+        },
+        {
+          "method": "finishDistillCompletion",
+          "t": 582,
+          "savedPhase": "filling"
+        }
+      ],
+      "fillAt": 603,
+      "formalSHA256": "9bb15332ebc8a35dd346ebdf48dfaf42bbc672eabd002e3c27c6747c01871d97",
+      "assets": [
+        {
+          "name": "index.html",
+          "sha256": "dacc325d16e577c96593d783cde39e561744af93ec8fea05fa72d0cd6b61e952"
+        },
+        {
+          "name": "shop-app.mjs",
+          "sha256": "052185c62476904a7bd31c79ffaa47a79d00bc18551860e042f8881338ed421f"
+        },
+        {
+          "name": "canvas-scene.mjs",
+          "sha256": "29e6f7a51cee2d177959d8964136ce7a2afeada13229e4c37a17fc75ed8c8c62"
+        }
+      ],
+      "screenshot": "webkit-motion.png"
+    },
+    {
+      "fontState": "ready",
+      "engine": "webkit",
+      "browserVersion": "26.5",
+      "reduced": true,
+      "ledger": [
+        {
+          "section": "recipes",
+          "elapsed": 81,
+          "body": "<nav class=\"ledger-sections\" aria-label=\"帳面の分類\"><button type=\"button\" data-action=\"ledger-section\" data-id=\"recipes\" id=\"ledger-section-recipes\" aria-pressed=\"true\">仕込み</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"aging\" id=\"ledger-section-aging\" aria-pressed=\"false\">たる</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"releases\" id=\"ledger-section-releases\" aria-pressed=\"false\">発売</button><button type=\"button\" data-action=\"ledger-section\" data-id=\"shops\" id=\"ledger-section-shops\" aria-pressed=\"false\">取扱店</button></nav><p>記録なし</p><p><button type=\"button\" data-action=\"ledger-history\" data-id=\"\">歩み</button></p>"
+        },
+        {
+          "section": "history",
+          "elapsed": 78,
+          "body": "<p class=\"history-elapsed\"><span class=\"ui-quantity\"><span class=\"ui-number\">0</span>年<span class=\"ui-number\">0</span>か月</span></p><div class=\"history-years\"><section class=\"history-year\"><h3><button type=\"button\" data-action=\"history-year\" data-id=\"2026\" aria-expanded=\"false\"><span class=\"ui-quantity\"><span class=\"ui-number\">2026</span>年</span></button></h3></section></div>"
+        }
+      ],
+      "events": [
+        {
+          "method": "startDistillCompletion",
+          "t": 311,
+          "accepted": false,
+          "savedPhase": "filling"
+        }
+      ],
+      "fillAt": 349,
+      "formalSHA256": "9bb15332ebc8a35dd346ebdf48dfaf42bbc672eabd002e3c27c6747c01871d97",
+      "assets": [
+        {
+          "name": "index.html",
+          "sha256": "dacc325d16e577c96593d783cde39e561744af93ec8fea05fa72d0cd6b61e952"
+        },
+        {
+          "name": "shop-app.mjs",
+          "sha256": "052185c62476904a7bd31c79ffaa47a79d00bc18551860e042f8881338ed421f"
+        },
+        {
+          "name": "canvas-scene.mjs",
+          "sha256": "29e6f7a51cee2d177959d8964136ce7a2afeada13229e4c37a17fc75ed8c8c62"
+        }
+      ],
+      "screenshot": "webkit-reduced.png"
+    }
+  ],
+  "errors": [
+    {
+      "engine": "webkit",
+      "reduced": true,
+      "message": "Importing a module script failed.",
+      "stack": ""
+    }
+  ],
+  "requestFailures": [
+    {
+      "engine": "webkit",
+      "reduced": false,
+      "url": "https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+      "error": "Load request cancelled"
+    },
+    {
+      "engine": "webkit",
+      "reduced": false,
+      "url": "https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/history-worker.mjs?v=market-rules-r1",
+      "error": "Load request cancelled"
+    },
+    {
+      "engine": "webkit",
+      "reduced": false,
+      "url": "https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/fonts/misaki_gothic_2nd.ttf",
+      "error": "Load request cancelled"
+    },
+    {
+      "engine": "webkit",
+      "reduced": true,
+      "url": "https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/generations.mjs?v=0.48-free-aging",
+      "error": "Load request cancelled"
+    },
+    {
+      "engine": "webkit",
+      "reduced": true,
+      "url": "https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+      "error": "Load request cancelled"
+    }
+  ],
+  "transport": [],
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver/real OS background/BFCache"
+  ]
+}

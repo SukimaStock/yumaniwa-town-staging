@@ -1,0 +1,82 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5e2d1669d3e7f831ae9a4d814a558d413836a7bb58f125ae5cf1e7d9d8f600b8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "922662c3728dd4ee678634bb73a5e2e2876d870f",
+    "changeId": "ambertime-a1-public-verification-20261103",
+    "revision": 0,
+    "change": "Correct public smoke observation of no-op completion calls and record TLS-validated postpublish browser verification",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit A1 instruction authorizing postpublish browser verification",
+      "Merged PR778 head648df65f/merge922662c3 and verified product tree98b11c7f",
+      "Existing a1-browser-public smoke and actual reduced-motion no-op finish call before save"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a1-public-verification-20261103/r0.lock.json",
+      "works/ambertime/tests/a1-browser-public.mjs",
+      "works/ambertime/design/experience-a1-2026-11-03/public/**",
+      "works/ambertime/design/experience-a1-2026-11-03/PUBLIC-VERIFICATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Public smoke currently records all finishDistillCompletion calls, including reduced-motion pointerdown no-ops before any completion exists. Capture only meaningful active finish calls, retain all save/order/model assertions. No product change.",
+      "Use configured proxy and Node CA-verified HTTPS forwarding to public published bytes; do not disable TLS verification or substitute local product bodies. Keep same-origin URL and validate downloaded HTML/app/Canvas hashes. Record direct TLS environment limitation and adapter source.",
+      "Chromium/WebKit normal/reduced public book views and saved manual stop→existing fill, exact formal/raw save and real served body hashes; include all public artifacts and prior transport/observer diagnostics.",
+      "Independent review and syntax/ScopeRiskImpact/required CI normal staging merge of verification-only followup."
+    ],
+    "ownerDecisions": [
+      "Current explicit A1 instruction authorizes both local experience improvements and independent review/CI/normal Staging merge/public browser verification; no Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK staging-only; lock-only commit before implementation",
+      "No extra buttons/copy/sound/loading UI; restrained glint explicitly requested",
+      "Existing worker projections/view formatters and Canvas scheduler retained",
+      "Baseline/source expectations not loosened; intentional source delta inverse is exact and new behavior has separate tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Both engines normal/reduced public real-pointer ledger and completion/save/formal check",
+      "TLS-validated remote body hashes and explicit transport boundary",
+      "Independent observer correction review; requiredCI normal Staging merge; product bytes remain same"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert verification-only harness/doc/artifacts; no product or save migration",
+    "outOfScope": [
+      "All product/runtime/model/save/geometry/copy changes",
+      "Production and shared tooling/settings"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari touch feel/VoiceOver/real OS background/BFCache until actually observed"
+    ]
+  }
+}

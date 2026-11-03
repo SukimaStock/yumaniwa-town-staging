@@ -1,0 +1,34 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   {
++     engine: 'webkit',
++     message: 'Importing a module script failed.',
++     reduced: true,
++     stack: ''
++   }
++ ]
+- []
+
+    at file:///workspace/scratch/8def0492a6e5/ambertime-a1/works/ambertime/tests/a1-browser-public.mjs:22:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      engine: 'webkit',
+      reduced: true,
+      message: 'Importing a module script failed.',
+      stack: ''
+    }
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1
