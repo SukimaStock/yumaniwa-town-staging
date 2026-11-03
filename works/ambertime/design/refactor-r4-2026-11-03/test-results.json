@@ -1,0 +1,28 @@
+{
+  "testedCommit": "57f170c0a56461bd0fa77f9e62e2fbe7725b297f",
+  "baseCommit": "75843aa2b6a3b9bf1040970602a4fb4364678ddc",
+  "baseline": {
+    "tests": 1193,
+    "pass": 1193,
+    "fail": 0,
+    "skipped": 0,
+    "evidence": "before-tests.log",
+    "inherited": true
+  },
+  "candidate": {
+    "tests": 1201,
+    "pass": 1201,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "duration_ms": 162194.469287,
+    "evidence": "after-tests.log",
+    "command": "AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright-core/index.mjs AMBER_BROWSER_EXECUTABLE=/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell node --test works/ambertime/tests/*.test.mjs"
+  },
+  "productSHA256": {
+    "works/ambertime/shop-app.mjs": "c9235139fccf5fad67f7b5e928a175361f912f03e90f201411ebfd7a0326f003",
+    "works/ambertime/warehouse-room-controller.mjs": "fdc218a3acb319e6d4a3914e533d1cacb24b51ffa2caa246b4f6c794d2c96a0f",
+    "works/ambertime/index.html": "69d569d95dd61516098e1978740dd13515856fca3587b0d7803f75afa7708cb0"
+  }
+}

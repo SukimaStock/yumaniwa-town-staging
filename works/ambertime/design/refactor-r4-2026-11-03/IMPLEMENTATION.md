@@ -63,3 +63,19 @@ app body/import変更をindexの`warehouse=r4-1`へ伝播し、新importは`ware
 比較modalのotherId/parent、帳面対象、quote draft、正式試飲/瓶詰め、保存helper、通知/clockは今回移さない。選択と同時に移すとcallbackと同期箇所が増え、既存の正式effectを追いにくくなる。R5はこの境界を維持して読取専用modal familyから検討できるが、今回実装しない。
 
 物理iPhoneの指感覚、VoiceOver実音声、非ゼロsafe-area、OS toolbar/background、実BFCache hitは、実際に観測しない限り未確認。ARIA一致を実音声成功とは呼ばない。R3で公開Chromiumが証明書エラーだったことを今回の成功へ読み替えない。
+
+## 2026-11-03 再開・既存成果の照合
+
+再開対象HEAD `57f170c0a56461bd0fa77f9e62e2fbe7725b297f`、mainは基準`75843aa2b6a3b9bf1040970602a4fb4364678ddc`のまま。登録済みcontroller/app/entry/adapterは再実装せず継承。保存済みログは基準1193、ported22、selection4。checkpoint commitのnew8/independent30を独立レビュー完了とは扱わず、未登録の候補全域とbrowser比較を再開した。
+
+候補のroot161ファイルは1,201/1,201成功、fail/skip/cancel/todo0、162.194469秒。環境変数でChromium140実体を指定し既存販売browser2件も実行。基準1193は同じ製品sourceに対応する既存ログを継承し再実行していない。[after-tests.log](after-tests.log)、[test-results.json](test-results.json)。実root副作用比較と選択の新8件もこの全域に含まれる。
+
+別agentによる実装差分の独立レビューは修正要求なし。[INDEPENDENT-REVIEW.md](INDEPENDENT-REVIEW.md)。Scope→Risk→Impactは対象57f170cで全件PASS。Draft PR #773を作成し、同HEADのplan-risk-gate/trusted-mechanical-evidence/validateは成功。browser比較と最終証拠headのCI、通常マージ・配信確認は継続中。
+
+### 完了したブラウザー比較
+
+Chromium140.0.7339.186 / WebKit26.5、360×568 DPR1、375×620 DPR2、390×680 DPR3、390×680 DPR3 reduced-motionの8条件。各29地点で464取得・232前後比較。全232組が画素差0、DOM/Canvas RGBA/実hit/focus/ARIA/正式snapshot/保存raw一致。両engineで旧max-age3600キャッシュから新app/controllerのbody hash取得を確認。詳細と実行版hashは[browser/README.md](browser/README.md)、[browser/results.json](browser/results.json)。CSS既存アニメーションは500msの同位相、Canvasは固定時刻で採取。スクリーンショットはCSS解像度、Canvas内部RGBAは各DPRを比較しており、アニメーションの全時間等価性・実BFCache・OS背景は別確認。
+
+browser runnerも別agentが独立レビューし、不正fixtureや差分を隠す処理なし。Chromium実行中のwrite()のみのJSON分割変更は、実行版を復元・hash固定し、最終runnerとのwrite()以外のbyte一致を親が確認。比較を繰り返さず出力のみ分割した。試飲glassの初回54pixel差は撮影phaseのずれで、製品変更なしで同位相に固定。最終matrixはerrors0。
+
+実機iPhone、VoiceOver音声、非zero safe-area、OS toolbar/background、実BFCache hitは未確認。検証資料追加以外は57f170cの製品/既存test sourceと同一のため候補全域1201成功を継承する。
