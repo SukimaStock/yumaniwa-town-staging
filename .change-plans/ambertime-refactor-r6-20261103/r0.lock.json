@@ -1,0 +1,105 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "86953b49578a1b11a2a897327a08ca94343167073c636d9934b31b40fa22b578",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2ff8aba1287f1e7aba7ceb902cfaef5df1c9dd79",
+    "changeId": "ambertime-refactor-r6-20261103",
+    "revision": 0,
+    "change": "Audit Canvas lifecycle without runtime changes; protect post-R0 cache closure and document R0-R6 boundaries",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "PR768-771 merged history and current explicit R3 instruction",
+      "works/ambertime/design/structure-audit-2026-11-02/STRUCTURE-AUDIT.md",
+      "works/ambertime/design/structure-audit-2026-11-02/REFACTOR-PLAN.md",
+      "works/ambertime/design/refactor-r0-2026-11-03/REFACTOR-BASELINE.md",
+      "works/ambertime/design/refactor-r1-2026-11-03/IMPLEMENTATION.md",
+      "works/ambertime/design/refactor-r2-2026-11-03/IMPLEMENTATION.md",
+      "Actual shop-app ten-step flow and immutable f7ba8023 source/fixtures",
+      "PR772 merged source and R3 implementation/controller/tests",
+      "Current user R4 instruction and actual warehouse 12-stage event paths",
+      "Current explicit user R5 instruction",
+      "PR773 merged source and R4 implementation/evidence",
+      "Actual modal A/B/C/D event routes and cask worker snapshot/request lifecycle",
+      "Current explicit user R6 instruction",
+      "PR774 merged evidence",
+      "Actual CanvasScene/RoomMotion/font-loader/R0 cache graph"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-refactor-r6-20261103/r0.lock.json",
+      "works/ambertime/tests/r6-*.mjs",
+      "works/ambertime/design/refactor-r6-2026-11-03/**",
+      "works/ambertime/REFACTOR-SUMMARY.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/room-motion.mjs",
+      "works/ambertime/font-loader.mjs",
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/experiments/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Keep product bytes and URLs identical; preserve single RAF/three timers and root DOM/model/clock ownership.",
+      "Add immutable R5 reachable cache snapshot plus tests protecting four R1/R3/R4/R5 modules absent from R0 anchor. Reuse R0 parser/assertUpdatedGraph; mutation tests and font retry target.",
+      "Record actual lifecycle A/B/C boundaries including deliberate root pause/save; reject unnecessary extraction.",
+      "Full formal129/distill20/oldcold suite. Fixedphase Chromium/WebKit3width/DPR/reduced pixels DOM hit focus ARIA formal/raw; synthetic lifecycle distinguished real BFCache; unchanged old1hcache.",
+      "Independent review ScopeRiskImpact exacthead CI normal Staging merge Pages/source verification and REFACTOR-SUMMARY."
+    ],
+    "ownerDecisions": [
+      "Current explicit R6 instruction authorizes minimal audit/test/docs-only choice, tests/review/CI/normal Staging merge and public verification. No Production or Lab changes."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh lock-only commit before implementation; Standard WORK staging-only",
+      "No runtime/import updates; existing tests/oracles unchanged",
+      "Synthetic lifecycle is not real BFCache or physical iPhone"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Audit actual lifecycle/cache paths and immutable R5 product closure",
+      "Full root suite formal129/distill20/oldcold/RNG/month/savefailure/R1-R5",
+      "Chromium/WebKit360x568DPR1/375x620DPR2/390x680DPR3/reduced fixedseedfonttimephase pixels DOM hit focus ARIA formal/raw synthetic lifecycle and unchanged1hcache",
+      "Independent review ScopeRiskImpact exacthead CI normalmerge Pages/source/publicchecks"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert PR of R6 tests/docs; no product/save migration",
+    "outOfScope": [
+      "All product runtime/model/clock/save/layout/font/geometry/animation changes",
+      "Lab/Production/shared CI/Change OS"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/VoiceOver/nonzero safe-area/real OS background and BFCache hit unless actually observed; unavailable browser conditions not treated as pass"
+    ]
+  }
+}
