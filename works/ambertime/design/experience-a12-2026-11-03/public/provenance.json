@@ -1,0 +1,20 @@
+{
+  "status": "prepared-not-executed",
+  "sourceBase": "aabc77cb54f10838b8b9975161fda29b84977b51",
+  "planDigest": "b58f4328e14b2006f5c067d9eec46cd76553d31ad1c0c96b8c9972f7cc9001ed",
+  "adapterOrigin": "works/ambertime/design/experience-a1-2026-11-03/public/transport-adapter.mjs (PR779)",
+  "adapterUnchanged": true,
+  "adapterSHA256": "ebbfdf3c3dd06d7d1c55cf6b717552673867cf6da7ba83e4526b376ba94e9728",
+  "runnerSHA256": "d5c4c96fe7726da1671f22ecc11421d683b3770986b8664d556f766377f0587a",
+  "productSHA256": {
+    "index.html": "6a2f34a07607a89015735298975c521979eaf6535fcbd56881073760960b77b5",
+    "shop-app.mjs": "3a2c0ae71d04592e0408053d3cbcbbc2330b71e9dd8e41f6c2608df0e5990f93",
+    "canvas-scene.mjs": "5d9e1c687573a6957f00fa84e715b5eb8eaf5b6402713b27f6419f3a6b662460"
+  },
+  "transport": "Configured HTTP(S) proxy and configured Node CA-validated route.fetch remote HTTPS response forwarded into same-origin browser context. No local response substitution and no TLS disable. Not direct browser TLS/performance proof.",
+  "unverified": [
+    "Not executed until merge/Pages publication signal",
+    "Physical iPhone Safari/display/VoiceOver",
+    "Real OS background/BFCache"
+  ]
+}

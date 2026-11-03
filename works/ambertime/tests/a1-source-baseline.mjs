@@ -61,7 +61,19 @@ const deltas={
   }
 };
 export function beforeA1(source,name='shop-app.mjs'){
+ // A1-2 changes only these two cache references in app/HTML. Reverse that
+ // exact reviewed token once; all other bytes still face the immutable L1 hash.
+ const cache=name==='shop-app.mjs'?['completion=a12-1','completion=a1-1']:name==='index.html'?['experience=a12-1','experience=a1-1']:null;
+ if(cache){assert.equal(source.split(cache[0]).length-1,1,'exact A1-2 cache reference: '+name);source=source.replace(...cache);}
  const {baseSHA256,hunks}=deltas[name];
  for(const {before,after} of hunks){assert.equal(source.split(after).length-1,1,'exact reviewed A1 hunk: '+name);source=source.replace(after,before);}
  assert.equal(createHash('sha256').update(source).digest('hex'),baseSHA256,'all non-A1 bytes match immutable L1: '+name);return source;
+}
+// The A1-2 explicit-stop safety hook is an intentional presentation delta.
+// Normalize only its exact reviewed method; the caller retains the old byte pin.
+export function beforeA12CanvasScheduler(source){
+ const before=" stopDrawing(){if(this.frame)cancelAnimationFrame(this.frame);this.frame=0;for(const key of ['hintTimer','selectionTimer','motionTimer']){clearTimeout(this[key]);this[key]=null;}}";
+ const after=" stopDrawing(preserveCompletion=false){if(!preserveCompletion)this.finishDistillCompletion();if(this.frame)cancelAnimationFrame(this.frame);this.frame=0;for(const key of ['hintTimer','selectionTimer','motionTimer']){clearTimeout(this[key]);this[key]=null;}}";
+ assert.equal(source.split(after).length-1,1,'exact reviewed A1-2 explicit-stop method');
+ return source.replace(after,before);
 }

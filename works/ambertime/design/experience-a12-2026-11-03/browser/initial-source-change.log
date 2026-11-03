@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: source unchanged during run
++ actual - expected
+
++ '5d9e1c687573a6957f00fa84e715b5eb8eaf5b6402713b27f6419f3a6b662460'
+- '835ee0817f1d09b26c7db19692d0bf97852fce7db480b4eb01a8a95ca02e6b73'
+
+    at file:///workspace/scratch/74eaf70cc093/ambertime-a12/works/ambertime/tests/a1-2-browser-completion.mjs:64:88 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '5d9e1c687573a6957f00fa84e715b5eb8eaf5b6402713b27f6419f3a6b662460',
+  expected: '835ee0817f1d09b26c7db19692d0bf97852fce7db480b4eb01a8a95ca02e6b73',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

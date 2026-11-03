@@ -1,0 +1,42 @@
+{
+  "before": {
+    "head": "577e509cfc2371303a437748c1395439593744c1",
+    "files": {
+      "works/ambertime/canvas-scene.mjs": "5d9e1c687573a6957f00fa84e715b5eb8eaf5b6402713b27f6419f3a6b662460",
+      "works/ambertime/shop-app.mjs": "3a2c0ae71d04592e0408053d3cbcbbc2330b71e9dd8e41f6c2608df0e5990f93",
+      "works/ambertime/index.html": "6a2f34a07607a89015735298975c521979eaf6535fcbd56881073760960b77b5",
+      "works/ambertime/tests/a1-glint.test.mjs": "432b4a9b1aeb6e6ef26e134657d882b6d0ead648b0a0efb5985112b36d759075",
+      "works/ambertime/tests/a1-source-baseline.mjs": "87cd3bde7a2af425e88495eafd87b2e5bb93af9f3208cb38303ca2982754fd3b",
+      "works/ambertime/tests/shop-order-view.test.mjs": "867c4b691718c3427517a8ceec87d17e9be410fb459e0f0314b333817a8edac2",
+      "works/ambertime/tests/a1-browser-regression.mjs": "7a5f36671da2b8d144eb5c84f6b33239c6c1fe602ad9773363856bc1e81fe608"
+    },
+    "command": "AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell node --test works/ambertime/tests/*.test.mjs"
+  },
+  "after": {
+    "head": "577e509cfc2371303a437748c1395439593744c1",
+    "files": {
+      "works/ambertime/canvas-scene.mjs": "5d9e1c687573a6957f00fa84e715b5eb8eaf5b6402713b27f6419f3a6b662460",
+      "works/ambertime/shop-app.mjs": "3a2c0ae71d04592e0408053d3cbcbbc2330b71e9dd8e41f6c2608df0e5990f93",
+      "works/ambertime/index.html": "6a2f34a07607a89015735298975c521979eaf6535fcbd56881073760960b77b5",
+      "works/ambertime/tests/a1-glint.test.mjs": "432b4a9b1aeb6e6ef26e134657d882b6d0ead648b0a0efb5985112b36d759075",
+      "works/ambertime/tests/a1-source-baseline.mjs": "87cd3bde7a2af425e88495eafd87b2e5bb93af9f3208cb38303ca2982754fd3b",
+      "works/ambertime/tests/shop-order-view.test.mjs": "867c4b691718c3427517a8ceec87d17e9be410fb459e0f0314b333817a8edac2",
+      "works/ambertime/tests/a1-browser-regression.mjs": "7a5f36671da2b8d144eb5c84f6b33239c6c1fe602ad9773363856bc1e81fe608"
+    }
+  },
+  "productStable": true,
+  "allTrackedInputsStable": true,
+  "afterRegression": {
+    "head": "577e509cfc2371303a437748c1395439593744c1",
+    "files": {
+      "works/ambertime/canvas-scene.mjs": "5d9e1c687573a6957f00fa84e715b5eb8eaf5b6402713b27f6419f3a6b662460",
+      "works/ambertime/shop-app.mjs": "3a2c0ae71d04592e0408053d3cbcbbc2330b71e9dd8e41f6c2608df0e5990f93",
+      "works/ambertime/index.html": "6a2f34a07607a89015735298975c521979eaf6535fcbd56881073760960b77b5",
+      "works/ambertime/tests/a1-glint.test.mjs": "432b4a9b1aeb6e6ef26e134657d882b6d0ead648b0a0efb5985112b36d759075",
+      "works/ambertime/tests/a1-source-baseline.mjs": "87cd3bde7a2af425e88495eafd87b2e5bb93af9f3208cb38303ca2982754fd3b",
+      "works/ambertime/tests/shop-order-view.test.mjs": "867c4b691718c3427517a8ceec87d17e9be410fb459e0f0314b333817a8edac2",
+      "works/ambertime/tests/a1-browser-regression.mjs": "7a5f36671da2b8d144eb5c84f6b33239c6c1fe602ad9773363856bc1e81fe608"
+    },
+    "productAndTestInputsStable": true
+  }
+}

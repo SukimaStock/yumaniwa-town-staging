@@ -1,0 +1,25 @@
+{
+  "before": {
+    "head": "93f36c76947d7ac6e8e5ca98d2d6e0f7a866ea57",
+    "files": {
+      "works/ambertime/canvas-scene.mjs": "5d9e1c687573a6957f00fa84e715b5eb8eaf5b6402713b27f6419f3a6b662460",
+      "works/ambertime/shop-app.mjs": "3a2c0ae71d04592e0408053d3cbcbbc2330b71e9dd8e41f6c2608df0e5990f93",
+      "works/ambertime/index.html": "6a2f34a07607a89015735298975c521979eaf6535fcbd56881073760960b77b5",
+      "works/ambertime/tests/a1-glint.test.mjs": "10ec1b750a07b8652924731cc200a4db207ac431d47510510392d8f5f4a8978f",
+      "works/ambertime/tests/a1-source-baseline.mjs": "734fd64fbb129a8e293d31f66265296e7b86e485d5f33dd04a7188bb887dd657"
+    },
+    "command": "AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell node --test works/ambertime/tests/*.test.mjs"
+  },
+  "after": {
+    "head": "93f36c76947d7ac6e8e5ca98d2d6e0f7a866ea57",
+    "files": {
+      "works/ambertime/canvas-scene.mjs": "5d9e1c687573a6957f00fa84e715b5eb8eaf5b6402713b27f6419f3a6b662460",
+      "works/ambertime/shop-app.mjs": "3a2c0ae71d04592e0408053d3cbcbbc2330b71e9dd8e41f6c2608df0e5990f93",
+      "works/ambertime/index.html": "6a2f34a07607a89015735298975c521979eaf6535fcbd56881073760960b77b5",
+      "works/ambertime/tests/a1-glint.test.mjs": "10ec1b750a07b8652924731cc200a4db207ac431d47510510392d8f5f4a8978f",
+      "works/ambertime/tests/a1-source-baseline.mjs": "734fd64fbb129a8e293d31f66265296e7b86e485d5f33dd04a7188bb887dd657"
+    }
+  },
+  "productStable": true,
+  "allTrackedInputsStable": true
+}

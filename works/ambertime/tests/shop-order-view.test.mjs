@@ -1,3 +1,4 @@
+import {beforeA12CanvasScheduler} from './a1-source-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -59,7 +60,7 @@ test('legacy calculation pins and unchanged clock paths survive approved native-
  // Changed schedule/updateProgress/drawWorld have current behavior baselines in r0-app tests; retain unchanged method pins below.
  const base='4a36600d6230042cdeb60cc3bf1034b40e1e0807';
  for(const f of ['shop-demand.mjs','shop-model.mjs','shop-ledger.mjs','model.mjs','monthly.mjs','lab-flavor.mjs','town-connection.mjs','runtime-clock.mjs','room-motion.mjs'])assert.equal(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'),execFileSync('git',['show',base+':works/ambertime/'+f],{encoding:'utf8',maxBuffer:4e6}));
- const previousCanvas=execFileSync('git',['show',base+':works/ambertime/canvas-scene.mjs'],{encoding:'utf8'}),canvas=fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8');
+ const previousCanvas=execFileSync('git',['show',base+':works/ambertime/canvas-scene.mjs'],{encoding:'utf8'}),canvas=beforeA12CanvasScheduler(fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8'));
  for(const [a,b]of [[' drawTimeBar(){',' draw(){'],[' stopDrawing(){',' controls(){']])assert.equal(canvas.slice(canvas.indexOf(a),canvas.indexOf(b)),previousCanvas.slice(previousCanvas.indexOf(a),previousCanvas.indexOf(b)));
  const old=execFileSync('git',['show',base+':works/ambertime/shop-app.mjs'],{encoding:'utf8',maxBuffer:4e6}),now=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
  for(const [a,b]of [['function renderProgress(){','function render(){'],['function staffDisplayStatus(){','function renderProgress(){'],['function displayCaskSerials(){','const FLAVOR_AXES']])assert.equal(now.slice(now.indexOf(a),now.indexOf(b)),old.slice(old.indexOf(a),old.indexOf(b)));
