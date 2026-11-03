@@ -1,0 +1,45 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 12000ms exceeded.
+Call log:
+[2m  - waiting for locator('#distill-glass')[22m
+[2m    - locator resolved to <button disabled type="button" aria-label="グラス" id="distill-glass" data-scene-visible="true" data-scene-key="distill-glass" class="distill-tool-hit scene-hit" aria-describedby="distill-tool-guide"></button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    23 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not enabled[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at click (/workspace/scratch/4ee8bbce1dd0/ambertime-r6/works/ambertime/tests/r6-browser-lifecycle.mjs:21:42)
+    at /workspace/scratch/4ee8bbce1dd0/ambertime-r6/works/ambertime/tests/r6-browser-lifecycle.mjs:25:262 {
+  log: [
+    "  - waiting for locator('#distill-glass')",
+    '    - locator resolved to <button disabled type="button" aria-label="グラス" id="distill-glass" data-scene-visible="true" data-scene-key="distill-glass" class="distill-tool-hit scene-hit" aria-describedby="distill-tool-guide"></button>',
+    '  - attempting click action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '      - waiting 100ms',
+    '    23 × waiting for element to be visible, enabled and stable',
+    '       - element is not enabled',
+    '     - retrying click action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.22.1

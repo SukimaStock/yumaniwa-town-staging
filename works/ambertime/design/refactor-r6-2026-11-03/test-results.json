@@ -1,0 +1,64 @@
+{
+  "baseSha": "2ff8aba1287f1e7aba7ceb902cfaef5df1c9dd79",
+  "baseTests": 1205,
+  "newTests": 11,
+  "uniqueTests": 1216,
+  "initialFullSuite": {
+    "tests": 1216,
+    "pass": 1214,
+    "fail": 2,
+    "skip": 0,
+    "duration_ms": 168762.480164,
+    "reason": "Full Chromium process_singleton socket denied before test page; no product assertion failure",
+    "log": "full-tests.log"
+  },
+  "environmentRetry": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "skip": 0,
+    "duration_ms": 26000.184733,
+    "executable": "/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell",
+    "log": "browser-retry-tests.log"
+  },
+  "finalUniqueOutcome": {
+    "pass": 1216,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "formalBaseline": {
+    "intermediateStates": 129,
+    "distillationStates": 20,
+    "oldSaveColdReplay": "unchanged fixtures pass",
+    "RNG_monthly_economy_inventory_staff_notice_saveFailures": "existing tests pass"
+  },
+  "evidence": [
+    {
+      "file": "full-tests.log",
+      "sha256": "400d60b0383f85d805daab3af430d9aeee23edcf788c30fc60e2587d5dddbb9a",
+      "bytes": 145550
+    },
+    {
+      "file": "browser-retry-tests.log",
+      "sha256": "8165c259d9ced85aab00d479c81fef6496fceb7ec993376ffee9900272fecdf3",
+      "bytes": 1906
+    },
+    {
+      "file": "cache-unit-tests.log",
+      "sha256": "35715dfe1c856af1eba8d2ef49d548218eefe58cde55340a032c373b1f2bde72",
+      "bytes": 595
+    },
+    {
+      "file": "lifecycle-unit.log",
+      "sha256": "1e4256748a276a9a37cb7950ba81d8eb22456b0e0f2961246e7564caa4a50cb6",
+      "bytes": 736
+    },
+    {
+      "file": "product-invariance.json",
+      "sha256": "47755e1e1c940f32fe59691b5c02cfea337bfea352d8026d20d3d07ef497c676",
+      "bytes": 18690
+    }
+  ]
+}

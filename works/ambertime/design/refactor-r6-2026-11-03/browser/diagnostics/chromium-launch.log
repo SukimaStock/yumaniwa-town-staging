@@ -1,0 +1,45 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browserType.launch: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /root/.cache/ms-playwright/chromium-1193/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --disable-dev-shm-usage --no-zygote --single-process --disable-gpu --disable-software-rasterizer --user-data-dir=/tmp/playwright_chromiumdev_profile-aCgY3U --remote-debugging-pipe --no-startup-window
+<launched> pid=43
+[pid=43][err] [43:43:1103/112837.873540:FATAL:chrome/browser/process_singleton_posix.cc:292] Check failed: . socket() failed: Operation not permitted (1)
+[pid=43][err] [1103/112837.874773:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)
+[pid=43][err] [1103/112837.875035:ERROR:third_party/crashpad/crashpad/util/file/directory_reader_posix.cc:43] opendir /proc/43/task: No such file or directory (2)
+Call log:
+[2m  - <launching> /root/.cache/ms-playwright/chromium-1193/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --disable-dev-shm-usage --no-zygote --single-process --disable-gpu --disable-software-rasterizer --user-data-dir=/tmp/playwright_chromiumdev_profile-aCgY3U --remote-debugging-pipe --no-startup-window[22m
+[2m  - <launched> pid=43[22m
+[2m  - [pid=43][err] [43:43:1103/112837.873540:FATAL:chrome/browser/process_singleton_posix.cc:292] Check failed: . socket() failed: Operation not permitted (1)[22m
+[2m  - [pid=43][err] [1103/112837.874773:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)[22m
+[2m  - [pid=43][err] [1103/112837.875035:ERROR:third_party/crashpad/crashpad/util/file/directory_reader_posix.cc:43] opendir /proc/43/task: No such file or directory (2)[22m
+[2m  - [pid=43] <gracefully close start>[22m
+[2m  - [pid=43] <kill>[22m
+[2m  - [pid=43] <will force kill>[22m
+[2m  - [pid=43] <process did exit: exitCode=null, signal=SIGABRT>[22m
+[2m  - [pid=43] starting temporary directories cleanup[22m
+[2m  - [pid=43] finished temporary directories cleanup[22m
+[2m  - [pid=43] <gracefully close end>[22m
+
+    at launch (/workspace/scratch/4ee8bbce1dd0/ambertime-r6/works/ambertime/tests/r6-browser-lifecycle.mjs:14:23)
+    at /workspace/scratch/4ee8bbce1dd0/ambertime-r6/works/ambertime/tests/r6-browser-lifecycle.mjs:17:144 {
+  log: [
+    '  - <launching> /root/.cache/ms-playwright/chromium-1193/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --disable-dev-shm-usage --no-zygote --single-process --disable-gpu --disable-software-rasterizer --user-data-dir=/tmp/playwright_chromiumdev_profile-aCgY3U --remote-debugging-pipe --no-startup-window',
+    '  - <launched> pid=43',
+    '  - [pid=43][err] [43:43:1103/112837.873540:FATAL:chrome/browser/process_singleton_posix.cc:292] Check failed: . socket() failed: Operation not permitted (1)',
+    '  - [pid=43][err] [1103/112837.874773:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)',
+    '  - [pid=43][err] [1103/112837.875035:ERROR:third_party/crashpad/crashpad/util/file/directory_reader_posix.cc:43] opendir /proc/43/task: No such file or directory (2)',
+    '  - [pid=43] <gracefully close start>',
+    '  - [pid=43] <kill>',
+    '  - [pid=43] <will force kill>',
+    '  - [pid=43] <process did exit: exitCode=null, signal=SIGABRT>',
+    '  - [pid=43] starting temporary directories cleanup',
+    '  - [pid=43] finished temporary directories cleanup',
+    '  - [pid=43] <gracefully close end>'
+  ]
+}
+
+Node.js v24.22.1
