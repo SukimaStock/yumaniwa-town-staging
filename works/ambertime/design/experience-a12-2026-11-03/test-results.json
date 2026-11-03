@@ -1,0 +1,79 @@
+{
+  "base": "aabc77cb54f10838b8b9975161fda29b84977b51",
+  "baseline": {
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "aabc77cb54f10838b8b9975161fda29b84977b51",
+    "worktree": "/workspace/scratch/74eaf70cc093/baseline/repo",
+    "command": "AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell node --test works/ambertime/tests/*.test.mjs",
+    "log": "full-tests.log",
+    "status": "passed",
+    "protected": [
+      "129 exact formal intermediate states and cold replay",
+      "20 old distillation states and independent cold replay",
+      "legacy/RNG/monthly/economy/inventory/notifications/save-failure",
+      "R0-R6"
+    ],
+    "exitCode": 0,
+    "tests": 1228,
+    "passed": 1228,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "durationMs": 171298.656361,
+    "logSHA256": "149a0d847a7301fc9db1476f50cfecf7e0079efe1b545af19f0b8247f429321f"
+  },
+  "candidateInitial": {
+    "tests": 1234,
+    "pass": 1233,
+    "fail": 1,
+    "skip": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "durationMs": 201728.048669,
+    "exitCode": 1,
+    "log": "diagnostics/initial-full-tests.log",
+    "logSHA256": "e59dc4b95a1d901966c7abbe8932906648c6318aa4e706d425d8782b5c60efde",
+    "failure": "shop-order-view.test.mjs:63 exact original stopDrawing()/queue() slice is empty after intentional stopDrawing signature change",
+    "formalProtection": "129 intermediate formal states;20 distillation states/20 independent cold saves;legacy/RNG/monthly/economy/inventory/notice/save-failure/R0-R6 passed except named source oracle"
+  },
+  "sourceProvenance": "diagnostics/initial-full-provenance.json",
+  "candidateFinal": {
+    "tests": 1235,
+    "pass": 1235,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "durationMs": 220455.61106,
+    "exitCode": 0,
+    "log": "full-candidate-tests.log",
+    "logSHA256": "f02630bf60e4de6de6aad9ab3533a837fb947349e034465fa5555d2d2d008982",
+    "singleAllGreenRun": true,
+    "formalProtection": "129 intermediate formal states;20 distillation states/20 independent cold saves;legacy/RNG/monthly/economy/inventory/notice/save-failure/R0-R6 passed",
+    "sourceProvenance": "full-candidate-provenance.json"
+  },
+  "browserRegression": {
+    "base": "aabc77cb54f10838b8b9975161fda29b84977b51",
+    "captureCount": 416,
+    "comparisonCount": 208,
+    "differentPixels": 0,
+    "cacheCases": 2,
+    "errors": 0,
+    "runnerUnchanged": true,
+    "log": "regression-browser.log",
+    "results": "regression-browser/results.json",
+    "runnerSHA256": "7a5f36671da2b8d144eb5c84f6b33239c6c1fe602ad9773363856bc1e81fe608",
+    "resultsSHA256": "1fa9ee2972ba20d6c020a43518c4a2f5e41324cf9e86e8b469fa601b6479d073",
+    "checks": [
+      "26settled states per engine/config \u00d7 before/after",
+      "DOM/Canvas/real hit/focus/ARIA/formal snapshot/save exact",
+      "latestA1 one-hour cached parent update fetches changed app/Canvas",
+      "Chromium/WebKit360\u00d7568DPR1,375\u00d7620DPR2,390\u00d7680DPR3,390reduced"
+    ],
+    "unverified": [
+      "Physical iPhone Safari, touch feel, VoiceOver audio",
+      "Real BFCache/OS background/nonzero safe-area; lifecycle events here are synthetic"
+    ]
+  }
+}

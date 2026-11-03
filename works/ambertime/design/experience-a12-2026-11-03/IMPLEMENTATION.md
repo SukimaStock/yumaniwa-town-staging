@@ -52,3 +52,15 @@ reduced-motionは開始時に省略、途中で有効になれば終了し追加
 Chromium140/WebKit26.5、360×568・375×620・390×680・430×740、DPR1/2/3、通常/reducedを含む40ケースが成功、pageerror0。製品source hashは開始/終了で一致。通常の終了はChromium382.4〜419.6ms、WebKit387〜480ms。光をCanvasへ描画した回数はChromium5回、WebKit3〜5回、光を残した独立RAF機会は各12〜13回／3〜11回。全3段階がモーダルより先にあり、各段階のworld画素差は4native cells・対象外0、操作DOM/hit/focus/ARIA不変。共有hostの負荷と同期render時間を含み、物理表示時刻を保証しない。
 
 hidden/pagehide/room/modal/reload/reset/mid-reduce/conflict/連打/font loss/context loss predicate/RAF停止の12条件×2engineを実行。意図したreset以外は保存raw・正式snapshotが完全一致。reduceは演出受理false、active frame/finish/callbackなしの通常render経路で確認し、同期renderのCPU時間を追加待機と混同しない。時刻/全draw/RAF/open/次RAF・画像はbrowser/README.mdとresults.jsonを参照。
+
+## 全域最終結果
+
+最新候補の単一全域実行は1235/1235pass、失敗・skip・cancel・todoすべて0、220455.611ms。実行開始/終了の7source hashは一致。正式129途中状態と各旧保存cold replay、蒸留20状態と20個別cold、RNG/月次/経済/在庫/通知/保存失敗、R0〜R6を含む。base1228成功と、初回1234中1件の意図したsource pin失敗を区別して保持する。コマンドとhashはtest-results.json、full-candidate-provenance.json、ログを参照。
+
+## 旧A1画面・キャッシュ比較
+
+開始main aabc77cbの独立checkoutと最終製品を、Git原文のhashを照合して比較した。Chromium/WebKitの8構成、26状態、416capture／208前後比較がすべてdecoded画素差0・PNG byte一致。DOM/Canvas/hit/focus/ARIA/正式snapshot/保存rawも一致。光自体は別の自然時間40ケースでrim範囲だけを許可する厳密差分検査を行い、非演出画面の比較へ混ぜない。
+
+旧A1の1時間cacheを維持したまま更新する2engineの試験で、変更されたapp/Canvasの新bodyを取得し、旧依存再利用と正式state保持を確認。cache2成功、errors0。runner開始/終了hash一致。`regression-browser/` のresults/provenance/runを参照。元L1比較用のrunner既定BASEは維持し、今回は明示AMBER_A1_BASE_SHA=aabc77cbで最新A1に固定した。
+
+PR #780へ通常Staging変更として保存。必須CIとmerge/Pages/public結果はPRの最終コメントと公開後記録で追跡し、CI成功を物理iPhone確認とは扱わない。
