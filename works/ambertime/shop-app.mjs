@@ -1,7 +1,7 @@
 import {staffStatusView} from './staff-status-view.mjs?v=status-reactions-r1';
 import {manualCompletedRuns} from './distill-learning.mjs?v=game-guide-r1';
-import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1';
-import {distillToolsView,rangeRestartAvailable} from './distill-tools-view.mjs?v=rooms-stage2-r1';
+import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1&geometry=r2-1';
+import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {readSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} from './placement-save.mjs?v=formal-copy-r1';
@@ -25,7 +25,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-messages-r1';
-import {CanvasScene} from './canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1';
+import {CanvasScene} from './canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1';
 import * as D from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
@@ -1299,7 +1299,7 @@ window.amberPlacement={snapshot:()=>structuredClone(game),diagnostics:()=>({plac
 const scene=new CanvasScene();
 for(const [id,label] of [['distill-lever','レバーを下に引く'],['distill-glass','グラス']]){const node=document.createElement('button');node.type='button';node.id=id;node.className='distill-tool-hit';node.setAttribute('aria-label',label);node.setAttribute('aria-describedby','distill-tool-guide');scene.controlRoot.append(node);}
 const guide=document.createElement('span');guide.id='distill-tool-guide';guide.className='sr-only';$('scene-access').append(guide);
-const toolInput=new DistillToolInput({root:scene.root,lever:$('distill-lever'),glass:$('distill-glass'),read:()=>({...currentDistillTools(),glassTravel:63*scene.viewport.scale}),onChange:value=>scene.setToolGesture(value),onAction:kind=>{if(kind==='lever')startFromLever();else if(currentDistillTools().glassEnabled)finishDistillation();}});
+const toolInput=new DistillToolInput({root:scene.root,lever:$('distill-lever'),glass:$('distill-glass'),read:()=>({...currentDistillTools(),glassTravel:TOOL_GEOMETRY.travel*scene.viewport.scale}),onChange:value=>scene.setToolGesture(value),onAction:kind=>{if(kind==='lever')startFromLever();else if(currentDistillTools().glassEnabled)finishDistillation();}});
 function syncDistillTools(tools){
  toolInput.update(tools);const lever=$('distill-lever'),glass=$('distill-glass');
  lever.hidden=glass.hidden=room!=='distill';lever.disabled=!tools.leverEnabled;glass.disabled=!tools.glassEnabled;
