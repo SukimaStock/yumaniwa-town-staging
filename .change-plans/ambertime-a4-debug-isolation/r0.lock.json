@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5594cbae96e96c614bdcb8ef66b09c874c046c47238ec0f009a6f00e13693f39",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "08faddab602b005a20cb7304cc11a829b8789a94",
+    "changeId": "ambertime-a4-debug-isolation",
+    "revision": 0,
+    "change": "Remove the ordinary save entry and provide a separate, read-only AmberTime debug page while preserving save recovery and advanced management",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a4-debug-isolation/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/debug.html",
+      "works/ambertime/debug.mjs",
+      "works/ambertime/tests/debug-isolation.test.mjs",
+      "works/ambertime/design/experience-a4/A4-DEBUG-REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/tests/fixtures/**",
+      "tools/**",
+      "data/**",
+      "engine/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Hide save entry in ordinary game and preserve its hidden DOM hook and existing advanced settings when explicitly entering debug mode",
+      "Add standalone debug.html and debug.mjs for read-only local save inspection, raw export, and explicit link to existing management actions",
+      "Preserve normal game startup migration, save failures and recovery UI, save keys, game reset and migration transactions unchanged",
+      "Add focused static regression tests and verification record; do not register separate creative work"
+    ],
+    "ownerDecisions": [
+      "Author explicitly asks to remove save from game and separate developer/debug features in this turn"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local WORK/Standard; keep original formal save functions and keys",
+      "New debug screen must not write localStorage or mutate the formal game on inspection"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Debug page direct load and read-only inspection: missing/current/legacy/bad JSON, export exact bytes",
+      "Ordinary game no save entry; debug query opt-in shows existing save menu; old save adoption remains on missing formal save",
+      "Save failure, concurrent tab, reset confirmation, old before-market exports and all known recovery paths",
+      "Full AmberTime save/formal/market regression and four mobile-width Chromium/WebKit UI where available",
+      "Review focused diff, cache dependent imports and post-deploy Staging; physical iPhone unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the scoped PR; no data migration or save key change",
+    "outOfScope": [
+      "Production",
+      "Formal game economics, serialization, migration, save keys and transaction ordering",
+      "New data deletion or replacement flow in debug page",
+      "LAB catalog as standalone public work"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver"
+    ]
+  }
+}
