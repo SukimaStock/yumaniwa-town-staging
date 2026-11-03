@@ -46,3 +46,26 @@ reduced-motionは開始時省略、途中有効化は終了して通常renderへ
 キャッシュ更新はHTML→appのexperience=a13-1、app→Canvasのcompletion=a13-1。新しい依存moduleは追加せず、親までのキャッシュ依存閉包を検査する。帳面速度・通知文・数量演出・最初の一本・Lab/過去研究記録・Productionは変更しない。表現監査では依頼された光だけを追加し、装飾・文章の追加なし、操作/アクセシビリティ情報を保持した。
 
 物理iPhone Safariの視認性・触感、VoiceOver実音声、実OS背景/BFCacheは未確認。作者には、縁の光→十字の形→外側からの収束→最後の点の消失を認識できるか、樽詰めへの間が自然かを確認いただく。
+
+## 最終の演出検証
+
+専用unit16件＋関連R4/R5/shop-order計34件成功、失敗・skip0。旧766の実CanvasSceneと縁の座標/色/alpha/描画命令が完全一致する。全11段階の描画成立・保持、1/5/9/9/5/1/1/1の十字セル、alpha復元、1140ms期限、二重操作・保存失敗・自動/期限切れ・再読込・割込・失効callbackを確認。キャッシュquery逆変換の改変/重複/範囲外変更も拒否する。
+
+Chromium140/WebKit26.5、360/375/390/430幅・DPR1/2/3・通常/reducedと12中断条件×両engineの40自然時間ケース、および2engineの独立固定段階比較が成功、pageerror0。自然計測は軽いdraw/RAF/時刻記録のみで、PNG生成や画素ループを別の固定段階検査へ分離した。全通常条件で11段階を保持・描画後に一度だけ終了し、modalが後から開き、その後150msのprobeで描画更新が止まる。リセットを除き正式snapshot/保存rawは不変。
+
+|Engine|演出終了の実測範囲|modal.openの実測範囲|成功描画|
+|---|---:|---:|---:|
+|Chromium|839.6〜856.4ms|855.3〜871.8ms|全通常条件11回|
+|WebKit|865〜884ms|880〜903ms|全通常条件11回|
+
+740msは構成値であり、各段階の実描画/保持とRAF/タイマー/同期renderの遅れが加わる。次の可視modal RAF機会も別時刻で保存し、物理画面の時刻とは称さない。固定比較は縁3段階をimmutable766の実method、十字8段階を製品表から独立したセル/alpha参照と照合し、全world画素差0・対象外0。代表フレームとcontactsheet、時系列はbrowser/。
+
+検証器の初稿には固定比較の継承座標欠落があり修正した。また画像比較まで同時に行った自然計測で11段階assertが1件失敗し、安全期限終了と整合するものの当該失敗traceがなく原因は未確定。計測を分離した最終40件は成功した。初期診断を保持し、画素許容や11段階assertを緩めず、製品期限も延ばしていない。詳細はbrowser/README.md。独立レビューで製品3hash/runner/resultを照合し、未解決P1/P2なし。
+
+## 全域・非演出・旧キャッシュの最終結果
+
+最新候補の単一全域実行は1237/1237pass、失敗・skip・cancel・todoすべて0、165804.504ms。正式129途中状態と旧保存cold replay、蒸留20状態と独立cold、RNG/月次/経済/在庫/通知/保存失敗/R0〜R6を含む。製品/テスト/runnerの8入力hashは全域前→全域後→ブラウザー回帰後で一致した。コマンドとhashはfull-provenance.json、test-results.json、full-tests.log。
+
+immutable766の別checkoutと比較したChromium/WebKit8構成・416capture・208比較はdecoded画素差0、DOM/Canvas/hit/focus/ARIA/正式state/save一致。旧1時間cache更新2engineも成功、pageerror0、runnerUnchanged。regression-browser/とregression-provenance.jsonを参照。sourceの意図した変更だけを厳密に逆変換する旧oracleを維持し、期待値や画素許容は緩めていない。
+
+実装・比較・独立レビュー・全域・キャッシュ証拠をPR #782に保存。必須CIは最終headへ固定してから通常Stagingマージし、公開後は新runnerで4条件の実操作と配信HTML/app/Canvas12hashを照合する。公開結果・最終SHAはPRのコメントと公開後記録へ残す。CI成功を作者の実機採用とは扱わない。

@@ -1,0 +1,41 @@
+{
+  "base": "7662134ce094eabc637625c2742b2e1eb91b2127",
+  "full": {
+    "status": "passed",
+    "exitCode": 0,
+    "tests": 1237,
+    "suites": 0,
+    "pass": 1237,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "elapsedMs": 165804.504,
+    "allInputsStable": true,
+    "log": "full-tests.log",
+    "provenance": "full-provenance.json",
+    "protected": [
+      "129 exact formal intermediate state snapshots and cold replay",
+      "20 immutable distillation states and20 independent cold processes",
+      "RNG/month/economy/inventory/notice/save-failure/R0-R6"
+    ]
+  },
+  "browserRegression": {
+    "exitCode": 0,
+    "elapsedMs": 135643.7,
+    "sourceStable": true,
+    "command": "AMBER_A1_BASE_SHA=7662134ce094eabc637625c2742b2e1eb91b2127 AMBER_A1_BEFORE_ROOT=/workspace/scratch/74eaf70cc093/a13-baseline AMBER_A1_OUTPUT=/workspace/scratch/74eaf70cc093/ambertime-a13/works/ambertime/design/experience-a13-2026-11-03/regression-browser AMBER_BROWSER_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell AMBER_WEBKIT_EXECUTABLE=/workspace/scratch/74eaf70cc093/a13-regression-webkit.sh node works/ambertime/tests/a1-browser-regression.mjs",
+    "logSHA256": "2310c81a85f5886a9985e4e2b5c5a01aee015580d61b004f1e12d8539d934a2c",
+    "base": "7662134ce094eabc637625c2742b2e1eb91b2127",
+    "captureCount": 416,
+    "comparisonCount": 208,
+    "differentPixels": 0,
+    "cacheCases": 2,
+    "errors": 0,
+    "runnerUnchanged": true,
+    "runnerSHA256": "7a5f36671da2b8d144eb5c84f6b33239c6c1fe602ad9773363856bc1e81fe608",
+    "resultsSHA256": "bcb4446c8d426100643c6c2c28e425758658ae661b789e15fd51504bed7fc308",
+    "animationBoundary": "Non-glint settled comparison uses controlled performance.now400ms increments; completion may hit bounded fallback before capture. Natural/fixed-stage runner separately proves every rim/cross stage.",
+    "status": "passed"
+  }
+}

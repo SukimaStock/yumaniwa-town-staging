@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: exact independent fixed-stage pixels
+
+4 !== 0
+
+    at file:///workspace/scratch/74eaf70cc093/ambertime-a13/works/ambertime/tests/a1-3-browser-completion.mjs:59:51 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 4,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

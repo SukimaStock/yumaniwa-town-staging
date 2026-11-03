@@ -1,0 +1,17 @@
+{
+  "status": "prepared-not-executed",
+  "implementationBase": "7662134ce094eabc637625c2742b2e1eb91b2127",
+  "adapterOrigin": "works/ambertime/design/experience-a12-2026-11-03/public/transport-adapter.mjs",
+  "adapterSHA256": "ebbfdf3c3dd06d7d1c55cf6b717552673867cf6da7ba83e4526b376ba94e9728",
+  "runnerSHA256": "8653902f1ad885302780a5035c65da840ff4dea5ecd31ae53339a8cc5ee34349",
+  "productSHA256": {
+    "index.html": "9f6f66235ee83efe2145d18a05ec8b00a8d4bc1dfa1889553b573c56668f8976",
+    "shop-app.mjs": "02160d577ee63d3fcfa4643a3d63b4259f310ebf500628e1e3f63e53503f8c8c",
+    "canvas-scene.mjs": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519"
+  },
+  "unverified": [
+    "Execution awaits final Staging publication signal",
+    "Physical iPhone Safari/physical display/VoiceOver/real OS background/BFCache"
+  ],
+  "transport": "Existing configured proxy + CA-validated remote-response forwarding; no local body substitution or TLS disable"
+}

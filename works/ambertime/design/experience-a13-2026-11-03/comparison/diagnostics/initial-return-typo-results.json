@@ -1,0 +1,2958 @@
+[
+  {
+    "engine": "chromium",
+    "version": "140.0.7339.186",
+    "duration": 650,
+    "errors": [
+      "return150 is not defined"
+    ],
+    "events": [
+      {
+        "kind": "start",
+        "at": 977.7000000029802,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 1877.8000000044703
+      },
+      {
+        "kind": "modal-open",
+        "at": 1889.9000000059605
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1896.4000000059605,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 912.4000000059605,
+        "after": 916.3000000044703,
+        "glassX": 174,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": false,
+        "active": false
+      },
+      {
+        "at": 986.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 995.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1012.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1029,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1045.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1062.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1079,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1095.9000000059605,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1112.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1128.9000000059605,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1145.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1162.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1179.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1195.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1212.4000000059605,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1228.9000000059605,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1245.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1262.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1278.9000000059605,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1295.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1312.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1332.4000000059605,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1345.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1362.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1378.8000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1395.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1412.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1429.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1445.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1462.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1478.8000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1495.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1512.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1529,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1545.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1562.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1578.8000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1595.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1612.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1628.8000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1645.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1662.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1678.9000000059605,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1695.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1713.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1728.8000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1745.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1762.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1778.8000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1795.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1812.4000000059605,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1828.8000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1845.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1862.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.38499999865888
+      },
+      {
+        "at": 1890.5,
+        "after": 1895.3000000044703,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ],
+    "design": {
+      "duration": 650,
+      "crossSpan": 310,
+      "stages": [
+        56.666666666666664,
+        56.666666666666664,
+        56.666666666666664,
+        23.25,
+        23.25,
+        23.25,
+        54.25,
+        38.75,
+        38.75,
+        38.75,
+        34.875,
+        34.875
+      ],
+      "ends": [
+        206.66666666666666,
+        263.3333333333333,
+        320,
+        343.25,
+        366.5,
+        389.75,
+        444,
+        482.75,
+        521.5,
+        560.25,
+        595.125,
+        630
+      ],
+      "crossCenter": {
+        "xOffset": 8,
+        "yOffset": -3
+      }
+    }
+  },
+  {
+    "engine": "chromium",
+    "version": "140.0.7339.186",
+    "duration": 720,
+    "errors": [
+      "return150 is not defined"
+    ],
+    "events": [
+      {
+        "kind": "start",
+        "at": 375.79999999701977,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 1345
+      },
+      {
+        "kind": "modal-open",
+        "at": 1358.6000000014901
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1365.2000000029802,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 388.70000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 455,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 460.70000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 475.29999999701977,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 492.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 508.79999999701977,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 525.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 541.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 560,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 575.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 591.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 608.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 625.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 641.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 658.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 675.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 691.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 708.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 725.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 741.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 758.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 775.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 791.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 808.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 825.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 841.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 858.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 875.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 891.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 908.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 925.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 941.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 958.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 975.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 991.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1008.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1025.2999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1041.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1058.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1075.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1091.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1108.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1125.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1141.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1158.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1175.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1191.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1208.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1225.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1241.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1258.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1275.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1291.8999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1308.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1325.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1341.7999999970198,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 178.00499999932944
+      },
+      {
+        "at": 1359.5,
+        "after": 1364.2999999970198,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ],
+    "design": {
+      "duration": 720,
+      "crossSpan": 380,
+      "stages": [
+        56.666666666666664,
+        56.666666666666664,
+        56.666666666666664,
+        28.5,
+        28.5,
+        28.5,
+        66.5,
+        47.5,
+        47.5,
+        47.5,
+        42.75,
+        42.75
+      ],
+      "ends": [
+        206.66666666666666,
+        263.3333333333333,
+        320,
+        348.5,
+        377,
+        405.5,
+        472,
+        519.5,
+        567,
+        614.5,
+        657.25,
+        700
+      ],
+      "crossCenter": {
+        "xOffset": 8,
+        "yOffset": -3
+      }
+    }
+  },
+  {
+    "engine": "chromium",
+    "version": "140.0.7339.186",
+    "duration": 780,
+    "errors": [
+      "return150 is not defined"
+    ],
+    "events": [
+      {
+        "kind": "start",
+        "at": 298.5,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 1328.5
+      },
+      {
+        "kind": "modal-open",
+        "at": 1341.7000000029802
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1347.6000000014901,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 306.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 319.20000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 335.70000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 352.30000000447035,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 369,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 385.70000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 402.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 419,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 435.70000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 452.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 469,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 485.70000000298023,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 502.30000000447035,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 519,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 535.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 552.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 569,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 585.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 602.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 619,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 635.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 652.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 669,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 685.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 702.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 719.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 736.2000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 753.8000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 769.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 785.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 802.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 819,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 835.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 852.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 869,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 885.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 905.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 919.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 935.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 952.5,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 969,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 985.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1002.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1019,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1035.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1052.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1069.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1085.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1102.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1119,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1135.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1152.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1169,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1185.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1202.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1219,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1235.7000000029802,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1252.3000000044703,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1269.1000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1285.6000000014901,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1302.3999999985099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1319,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 176.3400000013411
+      },
+      {
+        "at": 1342.5,
+        "after": 1346.8999999985099,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ],
+    "design": {
+      "duration": 780,
+      "crossSpan": 440,
+      "stages": [
+        56.666666666666664,
+        56.666666666666664,
+        56.666666666666664,
+        33,
+        33,
+        33,
+        77,
+        55.00000000000001,
+        55.00000000000001,
+        55.00000000000001,
+        49.50000000000001,
+        49.50000000000001
+      ],
+      "ends": [
+        206.66666666666666,
+        263.3333333333333,
+        320,
+        353,
+        386,
+        419,
+        496,
+        551,
+        606,
+        661,
+        710.5,
+        760
+      ],
+      "crossCenter": {
+        "xOffset": 8,
+        "yOffset": -3
+      }
+    }
+  },
+  {
+    "engine": "webkit",
+    "version": "26.5",
+    "duration": 650,
+    "errors": [
+      "Can't find variable: return150"
+    ],
+    "events": [
+      {
+        "kind": "start",
+        "at": 437,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 1337
+      },
+      {
+        "kind": "modal-open",
+        "at": 1352
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1360,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 443,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 453,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 468,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 481,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 497,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 513,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 529,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 545,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 561,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 577,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 594,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 610,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 626,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 642,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 658,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 674,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 690,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 706,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 722,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 738,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 755,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 771,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 787,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 803,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 819,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 835,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 851,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 867,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 884,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 900,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 916,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 932,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 948,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 964,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 980,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 996,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1012,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1028,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1045,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1061,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1077,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1093,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1109,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1125,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1141,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1157,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1173,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1190,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1206,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1222,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1238,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1256,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1270,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1286,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1302,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1318,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1335,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1353,
+        "after": 1360,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ],
+    "design": {
+      "duration": 650,
+      "crossSpan": 310,
+      "stages": [
+        56.666666666666664,
+        56.666666666666664,
+        56.666666666666664,
+        23.25,
+        23.25,
+        23.25,
+        54.25,
+        38.75,
+        38.75,
+        38.75,
+        34.875,
+        34.875
+      ],
+      "ends": [
+        206.66666666666666,
+        263.3333333333333,
+        320,
+        343.25,
+        366.5,
+        389.75,
+        444,
+        482.75,
+        521.5,
+        560.25,
+        595.125,
+        630
+      ],
+      "crossCenter": {
+        "xOffset": 8,
+        "yOffset": -3
+      }
+    }
+  },
+  {
+    "engine": "webkit",
+    "version": "26.5",
+    "duration": 720,
+    "errors": [
+      "Can't find variable: return150"
+    ],
+    "events": [
+      {
+        "kind": "start",
+        "at": 434,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 1405
+      },
+      {
+        "kind": "modal-open",
+        "at": 1421
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1428,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 441,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 460,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 470,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 486,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 503,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 520,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 535,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 551,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 567,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 583,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 599,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 615,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 632,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 648,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 664,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 680,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 696,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 712,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 728,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 744,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 761,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 777,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 793,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 809,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 825,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 841,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 857,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 873,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 889,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 906,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 922,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 938,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 954,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 970,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 986,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1003,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1019,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1035,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1051,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1067,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1083,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1099,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1116,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1132,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1148,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1164,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1180,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1196,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1212,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1228,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1245,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1261,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1278,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1294,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1310,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1326,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1342,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1358,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1374,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1391,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174.9
+      },
+      {
+        "at": 1421,
+        "after": 1428,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ],
+    "design": {
+      "duration": 720,
+      "crossSpan": 380,
+      "stages": [
+        56.666666666666664,
+        56.666666666666664,
+        56.666666666666664,
+        28.5,
+        28.5,
+        28.5,
+        66.5,
+        47.5,
+        47.5,
+        47.5,
+        42.75,
+        42.75
+      ],
+      "ends": [
+        206.66666666666666,
+        263.3333333333333,
+        320,
+        348.5,
+        377,
+        405.5,
+        472,
+        519.5,
+        567,
+        614.5,
+        657.25,
+        700
+      ],
+      "crossCenter": {
+        "xOffset": 8,
+        "yOffset": -3
+      }
+    }
+  },
+  {
+    "engine": "webkit",
+    "version": "26.5",
+    "duration": 780,
+    "errors": [
+      "Can't find variable: return150"
+    ],
+    "events": [
+      {
+        "kind": "start",
+        "at": 377,
+        "accepted": true,
+        "savedPhase": "filling"
+      },
+      {
+        "kind": "callback",
+        "at": 1407
+      },
+      {
+        "kind": "modal-open",
+        "at": 1424
+      },
+      {
+        "kind": "modal-visible-raf",
+        "at": 1432,
+        "rect": "{\"x\":25,\"y\":83,\"width\":324.75,\"height\":454,\"top\":83,\"right\":349.75,\"bottom\":537,\"left\":25}",
+        "visibility": "visible"
+      }
+    ],
+    "frames": [
+      {
+        "at": 385,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 174
+      },
+      {
+        "at": 397,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 404,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 420,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 436,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 452,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 468,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 484,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 500,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 517,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 533,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 549,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 565,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 581,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 597,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 613,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 629,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 646,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 662,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 678,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 694,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 710,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 726,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 742,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 758,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 774,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 790,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 806,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 822,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 839,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 855,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 871,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 887,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 903,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 919,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 935,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 951,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 967,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 983,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1000,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1016,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1032,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1048,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1064,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1080,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1096,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1112,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1128,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1145,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1161,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1177,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1193,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1209,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1225,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1241,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1257,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1273,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1289,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1305,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1322,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1338,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1354,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1370,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1386,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1402,
+        "kind": "raf-opportunity",
+        "step": 0,
+        "modalOpen": false,
+        "glassX": 175.35
+      },
+      {
+        "at": 1425,
+        "after": 1432,
+        "glassX": 237,
+        "sliding": false,
+        "step": 0,
+        "canvasUpdated": true,
+        "modalOpen": true,
+        "active": false
+      }
+    ],
+    "design": {
+      "duration": 780,
+      "crossSpan": 440,
+      "stages": [
+        56.666666666666664,
+        56.666666666666664,
+        56.666666666666664,
+        33,
+        33,
+        33,
+        77,
+        55.00000000000001,
+        55.00000000000001,
+        55.00000000000001,
+        49.50000000000001,
+        49.50000000000001
+      ],
+      "ends": [
+        206.66666666666666,
+        263.3333333333333,
+        320,
+        353,
+        386,
+        419,
+        496,
+        551,
+        606,
+        661,
+        710.5,
+        760
+      ],
+      "crossCenter": {
+        "xOffset": 8,
+        "yOffset": -3
+      }
+    }
+  }
+]
