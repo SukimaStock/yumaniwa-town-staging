@@ -1,0 +1,30 @@
+✔ actual selection prefixes preserve tasting/decision then staff→trade→shop→generation→fill→map priority and save before publication (38.169674ms)
+✔ notice save failure rolls back each candidate and publishes no notice or map; hidden and denied-save prevent formal notice writes (17.165783ms)
+✔ R3 confirmation state sequences match pinned original inline statements, including dormant batch and cancellation quirks (14.677836ms)
+✔ R3 controller reads explicit projection inputs only; confirmation is copied and formal state/save bytes remain unchanged (17.030882ms)
+✔ R3 actual root brewing open/card/confirm/cancel preserves formal selection timing and effect order (49.149116ms)
+✔ R3 actual root countdown, cut, integrated result, cask selection and next batch keep every ordered effect and save (67.805363ms)
+✔ R3 generic start/stop failures and candidate fill failures retain their distinct memory/save/notice policies (180.507332ms)
+✔ R3 hidden, room change, restart and reload preserve preparation boundaries without new formal operations (113.844267ms)
+✔ R3 restored lawful legacy and automatic staff states keep their bytes and manual input gates (349.797151ms)
+✔ integrated barrel commit saves the exact pre-existing model result before publishing it (20.358019ms)
+✔ quota leaves unfinished spirit, chosen cask and prior durable record unchanged (25.588009ms)
+✔ conflict leaves unfinished spirit, chosen cask and prior durable record unchanged (16.212107ms)
+✔ each exact cask eligibility preview is pure and the formal restore result is unchanged (3.149743ms)
+✔ a lawful full warehouse prevents the next start; no unfinished spirit is fabricated for it (51.666627ms)
+✔ one-line preview keeps whole short text and bounded ellipsis, never changes input or invents words (2.292057ms)
+✔ feedback alone is54logical atsameposition and modernmarket stays without this legacy cue (0.791332ms)
+✔ lawful funds popup changes only known live copy; reserve is full bottle cost, not escrow (143.456707ms)
+✔ contracts, pending production amounts and trailing facts retain every original number (0.852543ms)
+✔ unknown/user-looking/archived copy is never rewritten by the funds-specific adapter (0.294505ms)
+✔ updated cache closure reaches all ui-text readers and keeps existing full text routes (3.72008ms)
+✔ real V08 funds records with empty bodies get the clear heading without invented figures or save changes (107.18092ms)
+✔ aging preview preserves prior tasting context, full facts and arbitrary names (0.259799ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 957.522981
