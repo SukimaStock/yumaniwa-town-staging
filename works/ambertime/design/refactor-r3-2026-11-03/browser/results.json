@@ -1,0 +1,4828 @@
+{
+  "schema": "ambertime-r3-browser/2",
+  "base": "f7ba8023706be803b1711b3e3374b7e1bf83c4d9",
+  "comparisonMode": "candidate-vs-immutable-base",
+  "provenance": [
+    {
+      "path": "works/ambertime/index.html",
+      "gitBlob": "35cc83124eb0da05c1f85a0a7bc5de52c5ff472c",
+      "beforeSHA256": "5d6db9a39ffc5b5eeb40033dd04744fd11377891d6a65adb3bcc5d78ec3147b1",
+      "afterSHA256": "84c70771b248c086bd7708473ca3ee9e5f2ad9d9074ecabcdf5bda922e71d356"
+    },
+    {
+      "path": "works/ambertime/shop-app.mjs",
+      "gitBlob": "7bfafbec3d393743c742d66955677f643f1ab928",
+      "beforeSHA256": "604208174263d5a804b92e764a9eba0df76f0cb7b80b8dca95827dc8c8769913",
+      "afterSHA256": "6cd8778677cb66384f158191214537e91dc317cf4ca5ced71ef980b9f744999d"
+    },
+    {
+      "path": "works/ambertime/distill-tools-view.mjs",
+      "gitBlob": "51bc7688cb7d8d7a0c1403495dfd9b4fb95eaa88",
+      "beforeSHA256": "c4f9535ea7bee45413854e40f437ec5089d5eba70f773bcf1ce8e09e7211fe37",
+      "afterSHA256": "c4f9535ea7bee45413854e40f437ec5089d5eba70f773bcf1ce8e09e7211fe37"
+    },
+    {
+      "path": "works/ambertime/distill-tool-input.mjs",
+      "gitBlob": "61256ebe24ad36b83fb9158cea3f5bddb8d9c6a2",
+      "beforeSHA256": "ec4ab1d24be6b5ab1dabbb67617c7e9d5cc1beaa2699e2ff1f80583212ee1c6f",
+      "afterSHA256": "ec4ab1d24be6b5ab1dabbb67617c7e9d5cc1beaa2699e2ff1f80583212ee1c6f"
+    },
+    {
+      "path": "works/ambertime/canvas-layout.mjs",
+      "gitBlob": "1ac2be1ee876c3dbd2ce0ab43c9e9fa1c9207546",
+      "beforeSHA256": "f1d34c0324f98679238af67cca485978c9547f6b0c06314d679791b8fa39a6d3",
+      "afterSHA256": "f1d34c0324f98679238af67cca485978c9547f6b0c06314d679791b8fa39a6d3"
+    },
+    {
+      "path": "works/ambertime/canvas-scene.mjs",
+      "gitBlob": "c25d9dd4f2a333b9bc1de3d5536be967acf4a5b4",
+      "beforeSHA256": "b70e4f63b353557893701315a1e81d41fc0fa80025d3df8d6a07962b15582805",
+      "afterSHA256": "b70e4f63b353557893701315a1e81d41fc0fa80025d3df8d6a07962b15582805"
+    },
+    {
+      "path": "works/ambertime/room-object-art.mjs",
+      "gitBlob": "c8ba753074124648a62dd12217cc19a23ba9a3bc",
+      "beforeSHA256": "50d35a7dd69021e12f8a6cd07d31291ebdbd8a87f840c820a03e23a6190fc599",
+      "afterSHA256": "50d35a7dd69021e12f8a6cd07d31291ebdbd8a87f840c820a03e23a6190fc599"
+    },
+    {
+      "path": "works/ambertime/brewing-cards.mjs",
+      "gitBlob": "e1af63b6ef78aae23c9c7db56ed38b22a485ce0b",
+      "beforeSHA256": "5333bacbdd78aaeac11adb7c835f0ef095f936af0ca4ec75c0e46416f522868c",
+      "afterSHA256": "5333bacbdd78aaeac11adb7c835f0ef095f936af0ca4ec75c0e46416f522868c"
+    },
+    {
+      "path": "works/ambertime/start-countdown.mjs",
+      "gitBlob": "e54231d73b9ab49964e5508e6f622151e8473e9f",
+      "beforeSHA256": "d5ce4d0b9d0a939c956d9e0a58275ac1b6a3c6b5c6c4407b921eb8c1dca19ff0",
+      "afterSHA256": "d5ce4d0b9d0a939c956d9e0a58275ac1b6a3c6b5c6c4407b921eb8c1dca19ff0"
+    },
+    {
+      "path": "works/ambertime/distillery-parameters.mjs",
+      "gitBlob": "5ac548cb6d9fd63e90a48f356693a93a05121f89",
+      "beforeSHA256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710",
+      "afterSHA256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710"
+    },
+    {
+      "path": "works/ambertime/parallel-parameters.mjs",
+      "gitBlob": "1d9145e1baf318de7f20fd78a9332639fad29e5e",
+      "beforeSHA256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f",
+      "afterSHA256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f"
+    },
+    {
+      "path": "works/ambertime/shop.css",
+      "gitBlob": "d27594e1baaa215f140405e4427bb90dec40e7ab",
+      "beforeSHA256": "d3866b0dbb8ee6b2ec43fff81a9db27b85449503ea3884066aa36f1b1b82df63",
+      "afterSHA256": "d3866b0dbb8ee6b2ec43fff81a9db27b85449503ea3884066aa36f1b1b82df63"
+    },
+    {
+      "path": "works/ambertime/room-scene.css",
+      "gitBlob": "25067501987e0d6bb3d8b4e05dc818cee9423ae1",
+      "beforeSHA256": "dd35a4f015bb59adac05b583047ae7d8bd61e8bb8900e92520e4d7635093d58e",
+      "afterSHA256": "dd35a4f015bb59adac05b583047ae7d8bd61e8bb8900e92520e4d7635093d58e"
+    },
+    {
+      "path": "works/ambertime/market.css",
+      "gitBlob": "270fc71dada3496c94064e0380673c89b1f65128",
+      "beforeSHA256": "a7ecaaf7a61fff078c565a8d2096ff68cd71a999c9b428bde0727ac8db690d56",
+      "afterSHA256": "a7ecaaf7a61fff078c565a8d2096ff68cd71a999c9b428bde0727ac8db690d56"
+    },
+    {
+      "path": "works/ambertime/font-uniform.css",
+      "gitBlob": "c61c9b38d09b2bf47c0ce7aeaf10674cd9179d17",
+      "beforeSHA256": "c2fa950c5ecb9800e5b7b89f06366ddc8d6b8795e5f46846090484b7814efd67",
+      "afterSHA256": "c2fa950c5ecb9800e5b7b89f06366ddc8d6b8795e5f46846090484b7814efd67"
+    },
+    {
+      "path": "works/ambertime/font-loader.mjs",
+      "gitBlob": "69a86341c87fe36ef3b00c68ebd20c05ea52121a",
+      "beforeSHA256": "548d3398bb04cebe0dda863c0dc83aadd1876db10c05983cfad6a5034b5ed22e",
+      "afterSHA256": "548d3398bb04cebe0dda863c0dc83aadd1876db10c05983cfad6a5034b5ed22e"
+    },
+    {
+      "path": "works/ambertime/fonts/misaki_gothic_2nd.ttf",
+      "gitBlob": "95fe5d33627d89fc3b33bd620702b60a248ae4aa",
+      "beforeSHA256": "5f0cbb8850e910ffa749d467bc41c89271388a0cbe0fe48741cf2bf0dfe3ac43",
+      "afterSHA256": "5f0cbb8850e910ffa749d467bc41c89271388a0cbe0fe48741cf2bf0dfe3ac43"
+    }
+  ],
+  "newModuleProvenance": {
+    "path": "works/ambertime/distill-room-controller.mjs",
+    "beforeExists": false,
+    "afterSHA256": "2e364c9062fa74d1cfed72ef1110857bebc591403b41f19fc5a151c06eedab3b"
+  },
+  "fixedSeed": 42,
+  "fixedTime": "2026-11-03T10:00:00Z",
+  "configs": [
+    {
+      "width": 360,
+      "height": 568,
+      "dpr": 1,
+      "reduced": false
+    },
+    {
+      "width": 375,
+      "height": 620,
+      "dpr": 2,
+      "reduced": false
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "dpr": 3,
+      "reduced": false
+    },
+    {
+      "width": 390,
+      "height": 680,
+      "dpr": 3,
+      "reduced": true
+    }
+  ],
+  "pixelTolerance": 0,
+  "animationSampling": "Explicit performance.now phase followed by existing amber-font-change queue event before each controlled frame; natural timer scheduling is not inferred from these samples",
+  "settleRealMs": 50,
+  "runnerPath": "works/ambertime/tests/r3-browser-distill.mjs",
+  "runnerSHA256": "dd829b6b52e5dac2169172afeb9f42df4a902369fe77e146eb53c8cbbc2a2e24",
+  "unverified": [
+    "Physical iPhone Safari/VoiceOver/touch feel",
+    "Real OS background/BFCache restore: synthetic events tested separately",
+    "Nonzero physical safe-area and browser toolbar transitions; engine default env inset is zero"
+  ],
+  "captureCount": 640,
+  "pixelComparisons": 320,
+  "cacheCases": 2,
+  "engineResults": [
+    {
+      "engine": "chromium",
+      "file": "results-chromium.json",
+      "sha256": "801a39afaf1cdbdb5c5f6305ce2b8f661db4144f62d629f7a6981a535ee20156"
+    },
+    {
+      "engine": "webkit",
+      "file": "results-webkit.json",
+      "sha256": "c02cef80f2e650bb278de086f49685e4da10e3ff80441555a4e55cdb81ca5759"
+    }
+  ],
+  "captureFiles": [
+    {
+      "file": "chromium-360-dpr1-motion.json",
+      "count": 80,
+      "sha256": "1ef18f25be5dc86953f3ca58b8dc2d0da5cf035d37c1ce243991a7fec7570c81"
+    },
+    {
+      "file": "chromium-375-dpr2-motion.json",
+      "count": 80,
+      "sha256": "a5188bfd616f2b20c14dc398c1ab6deb4890a0fbcabb2cc85ddc46dcf2d8d89a"
+    },
+    {
+      "file": "chromium-390-dpr3-motion.json",
+      "count": 80,
+      "sha256": "cc82aeb90ab7b6de1b627d14f31c1c949665c92ddc09bffab1008f8aa7ce9c49"
+    },
+    {
+      "file": "chromium-390-dpr3-reduced.json",
+      "count": 80,
+      "sha256": "7e1a0b6c101e03def2dafd312ade28e15a1d6a517269d6655b48d000aeb135fd"
+    },
+    {
+      "file": "webkit-360-dpr1-motion.json",
+      "count": 80,
+      "sha256": "c257d02b5329fd0393d9a87abcf3a723a70f5b8970892ba2a8737a8fc239f4cd"
+    },
+    {
+      "file": "webkit-375-dpr2-motion.json",
+      "count": 80,
+      "sha256": "336af17161710d440452439b2816d420a4f3216f16c17f823c18c5356c4201f6"
+    },
+    {
+      "file": "webkit-390-dpr3-motion.json",
+      "count": 80,
+      "sha256": "1b10a27abde7d99a6bd1d7566fa1cd7afd4da1f6e0c645c44393be967b7624c5"
+    },
+    {
+      "file": "webkit-390-dpr3-reduced.json",
+      "count": 80,
+      "sha256": "6ba44450f02b4e4e180ca221e7d0bfc9b8acb2ebbe4d30240529162e70cb2600"
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "initial-unconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "open-unconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "cancel-unconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "confirmed-ui-only",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "reedit-disarms",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "cancel-unchanged-restores",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "card-selection-already-saved",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "cancel-changed-keeps-formal-card",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "cancel-back-to-old-choice-still-unprepared",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "reconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "reload-forgets-only-confirmation",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "countdown-3-no-formal-start",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "countdown-2-no-formal-start",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "countdown-1-no-formal-start",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "formal-start-after-countdown",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "collection-start-formal-save",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "minimum-12-and-explicit-pause",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "integrated-result-after-saved-stop",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "cask-selection-ui-only",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "close-retains-unfilled-spirit",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "rerender-does-not-reopen-result",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "explicit-result-reopen",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "refill-selection",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "saved-fill-goes-to-warehouse",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "same-month-next-batch-locked",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "next-month-batch-unconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "next-batch-long-choice-saved",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "next-batch-confirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "hidden-cancels-countdown",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "room-switch-cancels-countdown",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "room-return-retains-preparation",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "quota-card-keeps-memory-not-durable",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "quota-card-retry-existing-policy",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "quota-start-keeps-formal-memory",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "restored-unfilled-does-not-auto-open",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "quota-fill-keeps-spirit-and-modal",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "quota-fill-retry-keeps-unfilled",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "conflict-protects-other-tab-durable",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "conflict-reload-restores-durable",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "tag": "automatic-run-has-no-manual-controls",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "initial-unconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "open-unconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "cancel-unconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "confirmed-ui-only",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "reedit-disarms",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "cancel-unchanged-restores",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "card-selection-already-saved",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "cancel-changed-keeps-formal-card",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "cancel-back-to-old-choice-still-unprepared",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "reconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "reload-forgets-only-confirmation",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "countdown-3-no-formal-start",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "countdown-2-no-formal-start",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "countdown-1-no-formal-start",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "formal-start-after-countdown",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "collection-start-formal-save",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "minimum-12-and-explicit-pause",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "integrated-result-after-saved-stop",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "cask-selection-ui-only",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "close-retains-unfilled-spirit",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "rerender-does-not-reopen-result",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "explicit-result-reopen",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "refill-selection",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "saved-fill-goes-to-warehouse",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "same-month-next-batch-locked",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "next-month-batch-unconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "next-batch-long-choice-saved",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "next-batch-confirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "hidden-cancels-countdown",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "room-switch-cancels-countdown",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "room-return-retains-preparation",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "quota-card-keeps-memory-not-durable",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "quota-card-retry-existing-policy",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "quota-start-keeps-formal-memory",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "restored-unfilled-does-not-auto-open",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "quota-fill-keeps-spirit-and-modal",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "quota-fill-retry-keeps-unfilled",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "conflict-protects-other-tab-durable",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "conflict-reload-restores-durable",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "tag": "automatic-run-has-no-manual-controls",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "initial-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "open-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "cancel-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "confirmed-ui-only",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "reedit-disarms",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "cancel-unchanged-restores",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "card-selection-already-saved",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "cancel-changed-keeps-formal-card",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "cancel-back-to-old-choice-still-unprepared",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "reconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "reload-forgets-only-confirmation",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "countdown-3-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "countdown-2-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "countdown-1-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "formal-start-after-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "collection-start-formal-save",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "minimum-12-and-explicit-pause",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "integrated-result-after-saved-stop",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "cask-selection-ui-only",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "close-retains-unfilled-spirit",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "rerender-does-not-reopen-result",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "explicit-result-reopen",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "refill-selection",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "saved-fill-goes-to-warehouse",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "same-month-next-batch-locked",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "next-month-batch-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "next-batch-long-choice-saved",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "next-batch-confirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "hidden-cancels-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "room-switch-cancels-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "room-return-retains-preparation",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "quota-card-keeps-memory-not-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "quota-card-retry-existing-policy",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "quota-start-keeps-formal-memory",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "restored-unfilled-does-not-auto-open",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "quota-fill-keeps-spirit-and-modal",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "quota-fill-retry-keeps-unfilled",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "conflict-protects-other-tab-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "conflict-reload-restores-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "tag": "automatic-run-has-no-manual-controls",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "initial-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "open-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "cancel-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "confirmed-ui-only",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "reedit-disarms",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "cancel-unchanged-restores",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "card-selection-already-saved",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "cancel-changed-keeps-formal-card",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "cancel-back-to-old-choice-still-unprepared",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "reconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "reload-forgets-only-confirmation",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "countdown-3-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "countdown-2-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "countdown-1-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "formal-start-after-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "collection-start-formal-save",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "minimum-12-and-explicit-pause",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "integrated-result-after-saved-stop",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "cask-selection-ui-only",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "close-retains-unfilled-spirit",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "rerender-does-not-reopen-result",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "explicit-result-reopen",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "refill-selection",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "saved-fill-goes-to-warehouse",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "same-month-next-batch-locked",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "next-month-batch-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "next-batch-long-choice-saved",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "next-batch-confirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "hidden-cancels-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "room-switch-cancels-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "room-return-retains-preparation",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "quota-card-keeps-memory-not-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "quota-card-retry-existing-policy",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "quota-start-keeps-formal-memory",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "restored-unfilled-does-not-auto-open",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "quota-fill-keeps-spirit-and-modal",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "quota-fill-retry-keeps-unfilled",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "conflict-protects-other-tab-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "conflict-reload-restores-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "tag": "automatic-run-has-no-manual-controls",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "engine": "chromium",
+      "tag": "old-one-hour-cache",
+      "beforeResources": [
+        {
+          "name": "/cache/works/ambertime/shop.css?v=placement-hand-delta-r2&touch=1&status=1",
+          "transfer": 26156
+        },
+        {
+          "name": "/cache/works/ambertime/room-scene.css?rooms=stage2-r1&v=visual14-r1&map=0.28.0-r3&daily=cut-range-r1&status=1",
+          "transfer": 38411
+        },
+        {
+          "name": "/cache/works/ambertime/font-uniform.css?v=store-market-main-r1",
+          "transfer": 1457
+        },
+        {
+          "name": "/cache/works/ambertime/market.css?v=compact-three-r1&rooms=stage1-r1&touch=1",
+          "transfer": 13470
+        },
+        {
+          "name": "/cache/works/ambertime/shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1&aging=1&readout=r1-1&geometry=r2-1",
+          "transfer": 182903
+        },
+        {
+          "name": "/cache/works/ambertime/usual.css?v=0.13-spirit-1",
+          "transfer": 1990
+        },
+        {
+          "name": "/cache/works/ambertime/brands.css?v=0.11",
+          "transfer": 1462
+        },
+        {
+          "name": "/cache/works/ambertime/partners.css",
+          "transfer": 438
+        },
+        {
+          "name": "/cache/works/ambertime/v09.css?v=0.9",
+          "transfer": 696
+        },
+        {
+          "name": "/cache/works/ambertime/staff-status-view.mjs?v=status-reactions-r1",
+          "transfer": 1255
+        },
+        {
+          "name": "/cache/works/ambertime/distill-learning.mjs?v=game-guide-r1",
+          "transfer": 1119
+        },
+        {
+          "name": "/cache/works/ambertime/distill-tool-input.mjs?v=lever-glass-r1&geometry=r2-1",
+          "transfer": 5500
+        },
+        {
+          "name": "/cache/works/ambertime/distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1",
+          "transfer": 6457
+        },
+        {
+          "name": "/cache/works/ambertime/message-view.mjs?v=visual14-r1",
+          "transfer": 2194
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-color.mjs?v=cut-pixel-r1",
+          "transfer": 2249
+        },
+        {
+          "name": "/cache/works/ambertime/placement-save.mjs?v=formal-copy-r1",
+          "transfer": 5151
+        },
+        {
+          "name": "/cache/works/ambertime/market-ui.mjs?v=compact-three-r1&fields=count-linked-r1&rooms=stage2-r1",
+          "transfer": 26673
+        },
+        {
+          "name": "/cache/works/ambertime/placement-ui.mjs?v=visual14-r1",
+          "transfer": 8181
+        },
+        {
+          "name": "/cache/works/ambertime/pixel-symbols.mjs?v=rooms-stage2-r1",
+          "transfer": 2781
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1&aging=1",
+          "transfer": 5625
+        },
+        {
+          "name": "/cache/works/ambertime/shop-order-view.mjs?v=formal-copy-r1",
+          "transfer": 3497
+        },
+        {
+          "name": "/cache/works/ambertime/runtime-clock.mjs?v=0.25.1",
+          "transfer": 991
+        },
+        {
+          "name": "/cache/works/ambertime/cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1",
+          "transfer": 897
+        },
+        {
+          "name": "/cache/works/ambertime/start-countdown.mjs?v=native-timer-r2",
+          "transfer": 1494
+        },
+        {
+          "name": "/cache/works/ambertime/world-map-view.mjs?v=0.28.0-map",
+          "transfer": 6125
+        },
+        {
+          "name": "/cache/works/ambertime/map-sales-view.mjs?v=map-stage2-r1",
+          "transfer": 5795
+        },
+        {
+          "name": "/cache/works/ambertime/map-daily-view.mjs?v=map-stage2-r1",
+          "transfer": 3194
+        },
+        {
+          "name": "/cache/works/ambertime/brewing-cards.mjs?v=confirmed-brewing-r1",
+          "transfer": 5208
+        },
+        {
+          "name": "/cache/works/ambertime/player-news.mjs?v=0.25.4",
+          "transfer": 9496
+        },
+        {
+          "name": "/cache/works/ambertime/lab-flavor.mjs?v=stage4-r2",
+          "transfer": 4033
+        },
+        {
+          "name": "/cache/works/ambertime/shop-ledger.mjs?v=0.68-ui-refinements",
+          "transfer": 3044
+        },
+        {
+          "name": "/cache/works/ambertime/ledger-view.mjs?v=0.63-ledger",
+          "transfer": 5753
+        },
+        {
+          "name": "/cache/works/ambertime/brand-identity.mjs?v=0.58-first-brand",
+          "transfer": 2329
+        },
+        {
+          "name": "/cache/works/ambertime/ui-details.mjs?v=stage4-r2",
+          "transfer": 2157
+        },
+        {
+          "name": "/cache/works/ambertime/shop-remarks.mjs?v=0.51-shop-remarks",
+          "transfer": 3836
+        },
+        {
+          "name": "/cache/works/ambertime/event-notices.mjs?v=uniform-messages-r1",
+          "transfer": 5183
+        },
+        {
+          "name": "/cache/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "transfer": 140587
+        },
+        {
+          "name": "/cache/works/ambertime/canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1",
+          "transfer": 37438
+        },
+        {
+          "name": "/cache/works/ambertime/work-context.mjs?v=0.38-cask-serials",
+          "transfer": 1026
+        },
+        {
+          "name": "/cache/works/ambertime/shop-model.mjs?v=0.48-free-aging",
+          "transfer": 3709
+        },
+        {
+          "name": "/cache/works/ambertime/cask-serials.mjs?v=market-rules-r1",
+          "transfer": 1429
+        },
+        {
+          "name": "/cache/works/ambertime/spirit-readout-view.mjs?v=refactor-r1-1",
+          "transfer": 1213
+        },
+        {
+          "name": "/cache/works/ambertime/spirit-view.mjs?v=distill-ui-r1",
+          "transfer": 4279
+        },
+        {
+          "name": "/cache/works/ambertime/brand-reputation.mjs?v=0.15",
+          "transfer": 2554
+        },
+        {
+          "name": "/cache/works/ambertime/economy-parameters.mjs?v=0.7",
+          "transfer": 840
+        },
+        {
+          "name": "/cache/works/ambertime/model.mjs?v=stage4-r2",
+          "transfer": 15373
+        },
+        {
+          "name": "/cache/works/ambertime/tasting-view.mjs?v=stage4-r2",
+          "transfer": 1950
+        },
+        {
+          "name": "/cache/works/ambertime/cask-glass-art.mjs?v=0.58-first-brand",
+          "transfer": 1558
+        },
+        {
+          "name": "/cache/works/ambertime/room-object-art.mjs?v=0.62-bottle-shelf-wall",
+          "transfer": 4496
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-view.mjs?v=formal-copy-r1",
+          "transfer": 2747
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-types.mjs?v=stage4-r2",
+          "transfer": 2107
+        },
+        {
+          "name": "/cache/works/ambertime/nearby-comparison.mjs?v=market-rules-r1",
+          "transfer": 5093
+        },
+        {
+          "name": "/cache/works/ambertime/ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1",
+          "transfer": 5756
+        },
+        {
+          "name": "/cache/works/ambertime/v08.css?v=0.8",
+          "transfer": 938
+        },
+        {
+          "name": "/cache/works/ambertime/parameters.mjs",
+          "transfer": 1150
+        },
+        {
+          "name": "/cache/works/ambertime/v07.css?v=0.7",
+          "transfer": 2139
+        },
+        {
+          "name": "/cache/works/ambertime/retail-sale-motion.mjs?v=count-linked-r1",
+          "transfer": 4056
+        },
+        {
+          "name": "/cache/works/ambertime/placement-draft.mjs?v=0.27-placement",
+          "transfer": 1812
+        },
+        {
+          "name": "/cache/works/ambertime/parallel.css?v=0.6-playability",
+          "transfer": 9538
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/world-map/v01/map.mjs",
+          "transfer": 10975
+        },
+        {
+          "name": "/cache/works/ambertime/town-connection.mjs?v=stage4-r2",
+          "transfer": 3164
+        },
+        {
+          "name": "/cache/works/ambertime/placement-mode.mjs?v=store-market-main-r1",
+          "transfer": 1272
+        },
+        {
+          "name": "/cache/works/ambertime-flavor-lab-v02/model.mjs",
+          "transfer": 7272
+        },
+        {
+          "name": "/cache/works/ambertime/distillery.css?v=0.6.3",
+          "transfer": 18177
+        },
+        {
+          "name": "/cache/works/ambertime/economy-parameters.mjs",
+          "transfer": 840
+        },
+        {
+          "name": "/cache/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "transfer": 140587
+        },
+        {
+          "name": "/cache/works/ambertime/trade.mjs?v=adjust-b-r1",
+          "transfer": 18562
+        },
+        {
+          "name": "/cache/works/ambertime/player-news.mjs?v=adjust-a-r1",
+          "transfer": 9496
+        },
+        {
+          "name": "/cache/works/ambertime/market-sales.mjs?v=market-rules-r1",
+          "transfer": 6492
+        },
+        {
+          "name": "/cache/works/ambertime/store-market.mjs?v=market-rules-r1",
+          "transfer": 7118
+        },
+        {
+          "name": "/cache/works/ambertime/partial-bottling.mjs?v=0.41-delegation",
+          "transfer": 766
+        },
+        {
+          "name": "/cache/works/ambertime/shop-demand.mjs?v=adjust-b-r1",
+          "transfer": 4997
+        },
+        {
+          "name": "/cache/works/ambertime/distiller.mjs?v=0.41-delegation",
+          "transfer": 652
+        },
+        {
+          "name": "/cache/works/ambertime/recipe-book.mjs?v=0.41-delegation",
+          "transfer": 866
+        },
+        {
+          "name": "/cache/works/ambertime/generations.mjs?v=0.41-delegation",
+          "transfer": 3687
+        },
+        {
+          "name": "/cache/works/ambertime/bottle-storage.mjs?v=0.41-delegation",
+          "transfer": 724
+        },
+        {
+          "name": "/cache/works/ambertime/economy.mjs?v=market-rules-r1",
+          "transfer": 18995
+        },
+        {
+          "name": "/cache/works/ambertime/character.mjs?v=stage4-r2",
+          "transfer": 10580
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale-parameters.mjs",
+          "transfer": 829
+        },
+        {
+          "name": "/cache/works/ambertime/aroma-extraction.mjs?v=stage4-r2",
+          "transfer": 3370
+        },
+        {
+          "name": "/cache/works/ambertime/partner-parameters.mjs",
+          "transfer": 1413
+        },
+        {
+          "name": "/cache/works/ambertime/shop-model.mjs?v=0.41-delegation",
+          "transfer": 3709
+        },
+        {
+          "name": "/cache/works/ambertime/department-projects.mjs?v=0.44-monthly-timing",
+          "transfer": 2563
+        },
+        {
+          "name": "/cache/works/ambertime/brand-reputation.mjs?v=0.12",
+          "transfer": 2554
+        },
+        {
+          "name": "/cache/works/ambertime/department-projects.mjs?v=0.41-delegation",
+          "transfer": 2563
+        },
+        {
+          "name": "/cache/works/ambertime/cut-bar.mjs?v=cut-range-r1",
+          "transfer": 4068
+        },
+        {
+          "name": "/cache/works/ambertime/font-uniform.mjs?v=uniform-messages-r1",
+          "transfer": 1263
+        },
+        {
+          "name": "/cache/works/ambertime/room-motion.mjs?v=0.68-ui-refinements",
+          "transfer": 2443
+        },
+        {
+          "name": "/cache/works/ambertime/scene-input.mjs?v=0.21-space-1",
+          "transfer": 2547
+        },
+        {
+          "name": "/cache/works/ambertime/canvas-layout.mjs?v=store-market-main-r1&rooms=stage3-r1&geometry=r2-1",
+          "transfer": 5334
+        },
+        {
+          "name": "/cache/works/ambertime/font-loader.mjs?v=0.35-font-1",
+          "transfer": 2899
+        },
+        {
+          "name": "/cache/works/ambertime/text-metrics.mjs?v=0.24-type-ui-1",
+          "transfer": 2081
+        },
+        {
+          "name": "/cache/works/ambertime/room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2",
+          "transfer": 4496
+        },
+        {
+          "name": "/cache/works/ambertime/journey.css",
+          "transfer": 7756
+        },
+        {
+          "name": "/cache/works/ambertime/parallel-parameters.mjs",
+          "transfer": 652
+        },
+        {
+          "name": "/cache/works/ambertime/codea-object-art.mjs?v=0.57-codea-objects",
+          "transfer": 4998
+        },
+        {
+          "name": "/cache/works/ambertime/codea-object-art.mjs?v=0.62-bottle-shelf-wall",
+          "transfer": 4998
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+          "transfer": 31220
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale.mjs?v=adjust-b-r1",
+          "transfer": 13698
+        },
+        {
+          "name": "/cache/works/ambertime/trade-parameters.mjs",
+          "transfer": 674
+        },
+        {
+          "name": "/cache/works/ambertime/economy.mjs?v=adjust-b-r1",
+          "transfer": 18995
+        },
+        {
+          "name": "/cache/works/ambertime/distillery.mjs?v=stage4-r2",
+          "transfer": 13115
+        },
+        {
+          "name": "/cache/works/ambertime/monthly.mjs?v=stage4-r2",
+          "transfer": 5442
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale-v08.mjs?v=adjust-b-r1",
+          "transfer": 12309
+        },
+        {
+          "name": "/cache/works/ambertime/distillery-parameters.mjs",
+          "transfer": 657
+        },
+        {
+          "name": "/cache/works/ambertime-flavor-lab-v02/bridge.mjs?stage3=1",
+          "transfer": 3746
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v05/core.mjs",
+          "transfer": 14315
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v03/model.mjs",
+          "transfer": 9525
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v05/model.mjs",
+          "transfer": 8179
+        },
+        {
+          "name": "/cache/works/ambertime/fonts/misaki_gothic_2nd.ttf",
+          "transfer": 1175560
+        }
+      ],
+      "afterResources": [
+        {
+          "name": "/cache/works/ambertime/shop.css?v=placement-hand-delta-r2&touch=1&status=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/room-scene.css?rooms=stage2-r1&v=visual14-r1&map=0.28.0-r3&daily=cut-range-r1&status=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/font-uniform.css?v=store-market-main-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/market.css?v=compact-three-r1&rooms=stage1-r1&touch=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1&aging=1&readout=r1-1&geometry=r2-1&preparation=r3-1",
+          "transfer": 182745
+        },
+        {
+          "name": "/cache/works/ambertime/journey.css",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distillery.css?v=0.6.3",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/parallel.css?v=0.6-playability",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/v07.css?v=0.7",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/v08.css?v=0.8",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/v09.css?v=0.9",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partners.css",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brands.css?v=0.11",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/usual.css?v=0.13-spirit-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distill-room-controller.mjs?v=refactor-r3-1",
+          "transfer": 1270
+        },
+        {
+          "name": "/cache/works/ambertime/staff-status-view.mjs?v=status-reactions-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distill-learning.mjs?v=game-guide-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distill-tool-input.mjs?v=lever-glass-r1&geometry=r2-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-color.mjs?v=cut-pixel-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/message-view.mjs?v=visual14-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/placement-save.mjs?v=formal-copy-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/market-ui.mjs?v=compact-three-r1&fields=count-linked-r1&rooms=stage2-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/placement-ui.mjs?v=visual14-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/pixel-symbols.mjs?v=rooms-stage2-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1&aging=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-order-view.mjs?v=formal-copy-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/runtime-clock.mjs?v=0.25.1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/start-countdown.mjs?v=native-timer-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/world-map-view.mjs?v=0.28.0-map",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/map-sales-view.mjs?v=map-stage2-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/map-daily-view.mjs?v=map-stage2-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brewing-cards.mjs?v=confirmed-brewing-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/player-news.mjs?v=0.25.4",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/lab-flavor.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-ledger.mjs?v=0.68-ui-refinements",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/ledger-view.mjs?v=0.63-ledger",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brand-identity.mjs?v=0.58-first-brand",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/ui-details.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-remarks.mjs?v=0.51-shop-remarks",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/event-notices.mjs?v=uniform-messages-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-model.mjs?v=0.48-free-aging",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/work-context.mjs?v=0.38-cask-serials",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/cask-serials.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/spirit-view.mjs?v=distill-ui-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/spirit-readout-view.mjs?v=refactor-r1-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brand-reputation.mjs?v=0.15",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/economy-parameters.mjs?v=0.7",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/model.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/cask-glass-art.mjs?v=0.58-first-brand",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/room-object-art.mjs?v=0.62-bottle-shelf-wall",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/tasting-view.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-types.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-view.mjs?v=formal-copy-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/nearby-comparison.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/retail-sale-motion.mjs?v=count-linked-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/placement-draft.mjs?v=0.27-placement",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/world-map/v01/map.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/town-connection.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/placement-mode.mjs?v=store-market-main-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime-flavor-lab-v02/model.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/economy-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/player-news.mjs?v=adjust-a-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/cut-bar.mjs?v=cut-range-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/font-uniform.mjs?v=uniform-messages-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/room-motion.mjs?v=0.68-ui-refinements",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/scene-input.mjs?v=0.21-space-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/canvas-layout.mjs?v=store-market-main-r1&rooms=stage3-r1&geometry=r2-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/font-loader.mjs?v=0.35-font-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/text-metrics.mjs?v=0.24-type-ui-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/market-sales.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/store-market.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-demand.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partial-bottling.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distiller.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/recipe-book.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/generations.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/bottle-storage.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/trade.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/economy.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/character.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partner-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/aroma-extraction.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-model.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/department-projects.mjs?v=0.44-monthly-timing",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brand-reputation.mjs?v=0.12",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/department-projects.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/parallel-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/codea-object-art.mjs?v=0.57-codea-objects",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/codea-object-art.mjs?v=0.62-bottle-shelf-wall",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/fonts/misaki_gothic_2nd.ttf",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/economy.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/trade-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distillery.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/monthly.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime-flavor-lab-v02/bridge.mjs?stage3=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v03/model.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v05/core.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v05/model.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale-v08.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distillery-parameters.mjs",
+          "transfer": 0
+        }
+      ],
+      "formalSHA256": "2f00b7e19ee7a4d73098bccc8862bad16017c4c7ca7bf7d30c2e62e71ce08d65"
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "initial-unconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "open-unconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "cancel-unconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "confirmed-ui-only",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "reedit-disarms",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "cancel-unchanged-restores",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "card-selection-already-saved",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "cancel-changed-keeps-formal-card",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "cancel-back-to-old-choice-still-unprepared",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "reconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "reload-forgets-only-confirmation",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "countdown-3-no-formal-start",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "countdown-2-no-formal-start",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "countdown-1-no-formal-start",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "formal-start-after-countdown",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "collection-start-formal-save",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "minimum-12-and-explicit-pause",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "integrated-result-after-saved-stop",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "cask-selection-ui-only",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "close-retains-unfilled-spirit",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "rerender-does-not-reopen-result",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "explicit-result-reopen",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "refill-selection",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "saved-fill-goes-to-warehouse",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "same-month-next-batch-locked",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "next-month-batch-unconfirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "next-batch-long-choice-saved",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "next-batch-confirmed",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "hidden-cancels-countdown",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "room-switch-cancels-countdown",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "room-return-retains-preparation",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "quota-card-keeps-memory-not-durable",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "quota-card-retry-existing-policy",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "quota-start-keeps-formal-memory",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "restored-unfilled-does-not-auto-open",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "quota-fill-keeps-spirit-and-modal",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "quota-fill-retry-keeps-unfilled",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "conflict-protects-other-tab-durable",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "conflict-reload-restores-durable",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "tag": "automatic-run-has-no-manual-controls",
+      "width": 360,
+      "height": 568,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "initial-unconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "open-unconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "cancel-unconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "confirmed-ui-only",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "reedit-disarms",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "cancel-unchanged-restores",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "card-selection-already-saved",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "cancel-changed-keeps-formal-card",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "cancel-back-to-old-choice-still-unprepared",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "reconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "reload-forgets-only-confirmation",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "countdown-3-no-formal-start",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "countdown-2-no-formal-start",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "countdown-1-no-formal-start",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "formal-start-after-countdown",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "collection-start-formal-save",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "minimum-12-and-explicit-pause",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "integrated-result-after-saved-stop",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "cask-selection-ui-only",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "close-retains-unfilled-spirit",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "rerender-does-not-reopen-result",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "explicit-result-reopen",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "refill-selection",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "saved-fill-goes-to-warehouse",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "same-month-next-batch-locked",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "next-month-batch-unconfirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "next-batch-long-choice-saved",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "next-batch-confirmed",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "hidden-cancels-countdown",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "room-switch-cancels-countdown",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "room-return-retains-preparation",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "quota-card-keeps-memory-not-durable",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "quota-card-retry-existing-policy",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "quota-start-keeps-formal-memory",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "restored-unfilled-does-not-auto-open",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "quota-fill-keeps-spirit-and-modal",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "quota-fill-retry-keeps-unfilled",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "conflict-protects-other-tab-durable",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "conflict-reload-restores-durable",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "tag": "automatic-run-has-no-manual-controls",
+      "width": 375,
+      "height": 620,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "initial-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "open-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "cancel-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "confirmed-ui-only",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "reedit-disarms",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "cancel-unchanged-restores",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "card-selection-already-saved",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "cancel-changed-keeps-formal-card",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "cancel-back-to-old-choice-still-unprepared",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "reconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "reload-forgets-only-confirmation",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "countdown-3-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "countdown-2-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "countdown-1-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "formal-start-after-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "collection-start-formal-save",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "minimum-12-and-explicit-pause",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "integrated-result-after-saved-stop",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "cask-selection-ui-only",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "close-retains-unfilled-spirit",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "rerender-does-not-reopen-result",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "explicit-result-reopen",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "refill-selection",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "saved-fill-goes-to-warehouse",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "same-month-next-batch-locked",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "next-month-batch-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "next-batch-long-choice-saved",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "next-batch-confirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "hidden-cancels-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "room-switch-cancels-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "room-return-retains-preparation",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "quota-card-keeps-memory-not-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "quota-card-retry-existing-policy",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "quota-start-keeps-formal-memory",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "restored-unfilled-does-not-auto-open",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "quota-fill-keeps-spirit-and-modal",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "quota-fill-retry-keeps-unfilled",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "conflict-protects-other-tab-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "conflict-reload-restores-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "tag": "automatic-run-has-no-manual-controls",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "initial-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "open-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "cancel-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "confirmed-ui-only",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "reedit-disarms",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "cancel-unchanged-restores",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "card-selection-already-saved",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "cancel-changed-keeps-formal-card",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "cancel-back-to-old-choice-still-unprepared",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "reconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "reload-forgets-only-confirmation",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "countdown-3-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "countdown-2-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "countdown-1-no-formal-start",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "formal-start-after-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "collection-start-formal-save",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "minimum-12-and-explicit-pause",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "integrated-result-after-saved-stop",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "cask-selection-ui-only",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "close-retains-unfilled-spirit",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "rerender-does-not-reopen-result",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "explicit-result-reopen",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "refill-selection",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "saved-fill-goes-to-warehouse",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "same-month-next-batch-locked",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "next-month-batch-unconfirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "next-batch-long-choice-saved",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "next-batch-confirmed",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "hidden-cancels-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "room-switch-cancels-countdown",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "room-return-retains-preparation",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "quota-card-keeps-memory-not-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "quota-card-retry-existing-policy",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "quota-start-keeps-formal-memory",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "restored-unfilled-does-not-auto-open",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "quota-fill-keeps-spirit-and-modal",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "quota-fill-retry-keeps-unfilled",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "conflict-protects-other-tab-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "conflict-reload-restores-durable",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "tag": "automatic-run-has-no-manual-controls",
+      "width": 390,
+      "height": 680,
+      "differentPixels": 0,
+      "identicalPNG": true
+    },
+    {
+      "engine": "webkit",
+      "tag": "old-one-hour-cache",
+      "beforeResources": [
+        {
+          "name": "/cache/works/ambertime/shop.css?v=placement-hand-delta-r2&touch=1&status=1",
+          "transfer": 26156
+        },
+        {
+          "name": "/cache/works/ambertime/font-uniform.css?v=store-market-main-r1",
+          "transfer": 1457
+        },
+        {
+          "name": "/cache/works/ambertime/market.css?v=compact-three-r1&rooms=stage1-r1&touch=1",
+          "transfer": 13470
+        },
+        {
+          "name": "/cache/works/ambertime/room-scene.css?rooms=stage2-r1&v=visual14-r1&map=0.28.0-r3&daily=cut-range-r1&status=1",
+          "transfer": 38411
+        },
+        {
+          "name": "/cache/works/ambertime/shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1&aging=1&readout=r1-1&geometry=r2-1",
+          "transfer": 182903
+        },
+        {
+          "name": "/cache/works/ambertime/usual.css?v=0.13-spirit-1",
+          "transfer": 1990
+        },
+        {
+          "name": "/cache/works/ambertime/brands.css?v=0.11",
+          "transfer": 1462
+        },
+        {
+          "name": "/cache/works/ambertime/staff-status-view.mjs?v=status-reactions-r1",
+          "transfer": 1255
+        },
+        {
+          "name": "/cache/works/ambertime/distill-learning.mjs?v=game-guide-r1",
+          "transfer": 1119
+        },
+        {
+          "name": "/cache/works/ambertime/distill-tool-input.mjs?v=lever-glass-r1&geometry=r2-1",
+          "transfer": 5500
+        },
+        {
+          "name": "/cache/works/ambertime/distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1",
+          "transfer": 6457
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-color.mjs?v=cut-pixel-r1",
+          "transfer": 2249
+        },
+        {
+          "name": "/cache/works/ambertime/message-view.mjs?v=visual14-r1",
+          "transfer": 2194
+        },
+        {
+          "name": "/cache/works/ambertime/placement-save.mjs?v=formal-copy-r1",
+          "transfer": 5151
+        },
+        {
+          "name": "/cache/works/ambertime/placement-ui.mjs?v=visual14-r1",
+          "transfer": 8181
+        },
+        {
+          "name": "/cache/works/ambertime/market-ui.mjs?v=compact-three-r1&fields=count-linked-r1&rooms=stage2-r1",
+          "transfer": 26673
+        },
+        {
+          "name": "/cache/works/ambertime/pixel-symbols.mjs?v=rooms-stage2-r1",
+          "transfer": 2781
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1&aging=1",
+          "transfer": 5625
+        },
+        {
+          "name": "/cache/works/ambertime/shop-order-view.mjs?v=formal-copy-r1",
+          "transfer": 3497
+        },
+        {
+          "name": "/cache/works/ambertime/runtime-clock.mjs?v=0.25.1",
+          "transfer": 991
+        },
+        {
+          "name": "/cache/works/ambertime/cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1",
+          "transfer": 897
+        },
+        {
+          "name": "/cache/works/ambertime/start-countdown.mjs?v=native-timer-r2",
+          "transfer": 1494
+        },
+        {
+          "name": "/cache/works/ambertime/brewing-cards.mjs?v=confirmed-brewing-r1",
+          "transfer": 5208
+        },
+        {
+          "name": "/cache/works/ambertime/world-map-view.mjs?v=0.28.0-map",
+          "transfer": 6125
+        },
+        {
+          "name": "/cache/works/ambertime/map-sales-view.mjs?v=map-stage2-r1",
+          "transfer": 5795
+        },
+        {
+          "name": "/cache/works/ambertime/map-daily-view.mjs?v=map-stage2-r1",
+          "transfer": 3194
+        },
+        {
+          "name": "/cache/works/ambertime/lab-flavor.mjs?v=stage4-r2",
+          "transfer": 4033
+        },
+        {
+          "name": "/cache/works/ambertime/player-news.mjs?v=0.25.4",
+          "transfer": 9496
+        },
+        {
+          "name": "/cache/works/ambertime/shop-ledger.mjs?v=0.68-ui-refinements",
+          "transfer": 3044
+        },
+        {
+          "name": "/cache/works/ambertime/ledger-view.mjs?v=0.63-ledger",
+          "transfer": 5753
+        },
+        {
+          "name": "/cache/works/ambertime/brand-identity.mjs?v=0.58-first-brand",
+          "transfer": 2329
+        },
+        {
+          "name": "/cache/works/ambertime/ui-details.mjs?v=stage4-r2",
+          "transfer": 2157
+        },
+        {
+          "name": "/cache/works/ambertime/shop-remarks.mjs?v=0.51-shop-remarks",
+          "transfer": 3836
+        },
+        {
+          "name": "/cache/works/ambertime/event-notices.mjs?v=uniform-messages-r1",
+          "transfer": 5183
+        },
+        {
+          "name": "/cache/works/ambertime/shop-model.mjs?v=0.48-free-aging",
+          "transfer": 3709
+        },
+        {
+          "name": "/cache/works/ambertime/work-context.mjs?v=0.38-cask-serials",
+          "transfer": 1026
+        },
+        {
+          "name": "/cache/works/ambertime/cask-serials.mjs?v=market-rules-r1",
+          "transfer": 1429
+        },
+        {
+          "name": "/cache/works/ambertime/canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1",
+          "transfer": 37438
+        },
+        {
+          "name": "/cache/works/ambertime/spirit-view.mjs?v=distill-ui-r1",
+          "transfer": 4279
+        },
+        {
+          "name": "/cache/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "transfer": 140587
+        },
+        {
+          "name": "/cache/works/ambertime/spirit-readout-view.mjs?v=refactor-r1-1",
+          "transfer": 1213
+        },
+        {
+          "name": "/cache/works/ambertime/brand-reputation.mjs?v=0.15",
+          "transfer": 2554
+        },
+        {
+          "name": "/cache/works/ambertime/economy-parameters.mjs?v=0.7",
+          "transfer": 840
+        },
+        {
+          "name": "/cache/works/ambertime/model.mjs?v=stage4-r2",
+          "transfer": 15373
+        },
+        {
+          "name": "/cache/works/ambertime/cask-glass-art.mjs?v=0.58-first-brand",
+          "transfer": 1558
+        },
+        {
+          "name": "/cache/works/ambertime/tasting-view.mjs?v=stage4-r2",
+          "transfer": 1950
+        },
+        {
+          "name": "/cache/works/ambertime/room-object-art.mjs?v=0.62-bottle-shelf-wall",
+          "transfer": 4496
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-types.mjs?v=stage4-r2",
+          "transfer": 2107
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-view.mjs?v=formal-copy-r1",
+          "transfer": 2747
+        },
+        {
+          "name": "/cache/works/ambertime/nearby-comparison.mjs?v=market-rules-r1",
+          "transfer": 5093
+        },
+        {
+          "name": "/cache/works/ambertime/ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1",
+          "transfer": 5756
+        },
+        {
+          "name": "/cache/works/ambertime/partners.css",
+          "transfer": 438
+        },
+        {
+          "name": "/cache/works/ambertime/v09.css?v=0.9",
+          "transfer": 696
+        },
+        {
+          "name": "/cache/works/ambertime/parameters.mjs",
+          "transfer": 1150
+        },
+        {
+          "name": "/cache/works/ambertime/placement-draft.mjs?v=0.27-placement",
+          "transfer": 1812
+        },
+        {
+          "name": "/cache/works/ambertime/retail-sale-motion.mjs?v=count-linked-r1",
+          "transfer": 4056
+        },
+        {
+          "name": "/cache/works/ambertime/town-connection.mjs?v=stage4-r2",
+          "transfer": 3164
+        },
+        {
+          "name": "/cache/works/ambertime/placement-mode.mjs?v=store-market-main-r1",
+          "transfer": 1272
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/world-map/v01/map.mjs",
+          "transfer": 10975
+        },
+        {
+          "name": "/cache/works/ambertime-flavor-lab-v02/model.mjs",
+          "transfer": 7272
+        },
+        {
+          "name": "/cache/works/ambertime/economy-parameters.mjs",
+          "transfer": 840
+        },
+        {
+          "name": "/cache/works/ambertime/player-news.mjs?v=adjust-a-r1",
+          "transfer": 9496
+        },
+        {
+          "name": "/cache/works/ambertime/bottle-storage.mjs?v=0.41-delegation",
+          "transfer": 724
+        },
+        {
+          "name": "/cache/works/ambertime/department-projects.mjs?v=0.41-delegation",
+          "transfer": 2563
+        },
+        {
+          "name": "/cache/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "transfer": 140587
+        },
+        {
+          "name": "/cache/works/ambertime/trade.mjs?v=adjust-b-r1",
+          "transfer": 18562
+        },
+        {
+          "name": "/cache/works/ambertime/cut-bar.mjs?v=cut-range-r1",
+          "transfer": 4068
+        },
+        {
+          "name": "/cache/works/ambertime/font-uniform.mjs?v=uniform-messages-r1",
+          "transfer": 1263
+        },
+        {
+          "name": "/cache/works/ambertime/room-motion.mjs?v=0.68-ui-refinements",
+          "transfer": 2443
+        },
+        {
+          "name": "/cache/works/ambertime/scene-input.mjs?v=0.21-space-1",
+          "transfer": 2547
+        },
+        {
+          "name": "/cache/works/ambertime/canvas-layout.mjs?v=store-market-main-r1&rooms=stage3-r1&geometry=r2-1",
+          "transfer": 5334
+        },
+        {
+          "name": "/cache/works/ambertime/room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2",
+          "transfer": 4496
+        },
+        {
+          "name": "/cache/works/ambertime/parallel-parameters.mjs",
+          "transfer": 652
+        },
+        {
+          "name": "/cache/works/ambertime/font-loader.mjs?v=0.35-font-1",
+          "transfer": 2899
+        },
+        {
+          "name": "/cache/works/ambertime/text-metrics.mjs?v=0.24-type-ui-1",
+          "transfer": 2081
+        },
+        {
+          "name": "/cache/works/ambertime/aroma-extraction.mjs?v=stage4-r2",
+          "transfer": 3370
+        },
+        {
+          "name": "/cache/works/ambertime/market-sales.mjs?v=market-rules-r1",
+          "transfer": 6492
+        },
+        {
+          "name": "/cache/works/ambertime/store-market.mjs?v=market-rules-r1",
+          "transfer": 7118
+        },
+        {
+          "name": "/cache/works/ambertime/shop-demand.mjs?v=adjust-b-r1",
+          "transfer": 4997
+        },
+        {
+          "name": "/cache/works/ambertime/partial-bottling.mjs?v=0.41-delegation",
+          "transfer": 766
+        },
+        {
+          "name": "/cache/works/ambertime/distiller.mjs?v=0.41-delegation",
+          "transfer": 652
+        },
+        {
+          "name": "/cache/works/ambertime/recipe-book.mjs?v=0.41-delegation",
+          "transfer": 866
+        },
+        {
+          "name": "/cache/works/ambertime/generations.mjs?v=0.41-delegation",
+          "transfer": 3687
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale-parameters.mjs",
+          "transfer": 829
+        },
+        {
+          "name": "/cache/works/ambertime/partner-parameters.mjs",
+          "transfer": 1413
+        },
+        {
+          "name": "/cache/works/ambertime/character.mjs?v=stage4-r2",
+          "transfer": 10580
+        },
+        {
+          "name": "/cache/works/ambertime/economy.mjs?v=market-rules-r1",
+          "transfer": 18995
+        },
+        {
+          "name": "/cache/works/ambertime/shop-model.mjs?v=0.41-delegation",
+          "transfer": 3709
+        },
+        {
+          "name": "/cache/works/ambertime/department-projects.mjs?v=0.44-monthly-timing",
+          "transfer": 2563
+        },
+        {
+          "name": "/cache/works/ambertime/brand-reputation.mjs?v=0.12",
+          "transfer": 2554
+        },
+        {
+          "name": "/cache/works/ambertime/codea-object-art.mjs?v=0.57-codea-objects",
+          "transfer": 4998
+        },
+        {
+          "name": "/cache/works/ambertime/codea-object-art.mjs?v=0.62-bottle-shelf-wall",
+          "transfer": 4998
+        },
+        {
+          "name": "/cache/works/ambertime/v08.css?v=0.8",
+          "transfer": 938
+        },
+        {
+          "name": "/cache/works/ambertime/v07.css?v=0.7",
+          "transfer": 2139
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+          "transfer": 31220
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale.mjs?v=adjust-b-r1",
+          "transfer": 13698
+        },
+        {
+          "name": "/cache/works/ambertime/trade-parameters.mjs",
+          "transfer": 674
+        },
+        {
+          "name": "/cache/works/ambertime/economy.mjs?v=adjust-b-r1",
+          "transfer": 18995
+        },
+        {
+          "name": "/cache/works/ambertime/monthly.mjs?v=stage4-r2",
+          "transfer": 5442
+        },
+        {
+          "name": "/cache/works/ambertime/distillery.mjs?v=stage4-r2",
+          "transfer": 13115
+        },
+        {
+          "name": "/cache/works/ambertime/parallel.css?v=0.6-playability",
+          "transfer": 9538
+        },
+        {
+          "name": "/cache/works/ambertime/distillery.css?v=0.6.3",
+          "transfer": 18177
+        },
+        {
+          "name": "/cache/works/ambertime/journey.css",
+          "transfer": 7756
+        },
+        {
+          "name": "/cache/works/ambertime-flavor-lab-v02/bridge.mjs?stage3=1",
+          "transfer": 3746
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v03/model.mjs",
+          "transfer": 9525
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v05/core.mjs",
+          "transfer": 14315
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v05/model.mjs",
+          "transfer": 8179
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale-v08.mjs?v=adjust-b-r1",
+          "transfer": 12309
+        },
+        {
+          "name": "/cache/works/ambertime/distillery-parameters.mjs",
+          "transfer": 657
+        },
+        {
+          "name": "/cache/works/ambertime/fonts/misaki_gothic_2nd.ttf",
+          "transfer": 1175560
+        }
+      ],
+      "afterResources": [
+        {
+          "name": "/cache/works/ambertime/shop.css?v=placement-hand-delta-r2&touch=1&status=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/usual.css?v=0.13-spirit-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brands.css?v=0.11",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partners.css",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/v09.css?v=0.9",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/v08.css?v=0.8",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/v07.css?v=0.7",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/parallel.css?v=0.6-playability",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distillery.css?v=0.6.3",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/journey.css",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/room-scene.css?rooms=stage2-r1&v=visual14-r1&map=0.28.0-r3&daily=cut-range-r1&status=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/font-uniform.css?v=store-market-main-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/market.css?v=compact-three-r1&rooms=stage1-r1&touch=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1&aging=1&readout=r1-1&geometry=r2-1&preparation=r3-1",
+          "transfer": 182745
+        },
+        {
+          "name": "/cache/works/ambertime/staff-status-view.mjs?v=status-reactions-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distill-learning.mjs?v=game-guide-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distill-tool-input.mjs?v=lever-glass-r1&geometry=r2-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distill-room-controller.mjs?v=refactor-r3-1",
+          "transfer": 1270
+        },
+        {
+          "name": "/cache/works/ambertime/distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-color.mjs?v=cut-pixel-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/message-view.mjs?v=visual14-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/placement-save.mjs?v=formal-copy-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/market-ui.mjs?v=compact-three-r1&fields=count-linked-r1&rooms=stage2-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/placement-ui.mjs?v=visual14-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/pixel-symbols.mjs?v=rooms-stage2-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1&aging=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-order-view.mjs?v=formal-copy-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/runtime-clock.mjs?v=0.25.1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/start-countdown.mjs?v=native-timer-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/world-map-view.mjs?v=0.28.0-map",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/map-sales-view.mjs?v=map-stage2-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/map-daily-view.mjs?v=map-stage2-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brewing-cards.mjs?v=confirmed-brewing-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/player-news.mjs?v=0.25.4",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/lab-flavor.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-ledger.mjs?v=0.68-ui-refinements",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/ledger-view.mjs?v=0.63-ledger",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brand-identity.mjs?v=0.58-first-brand",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/ui-details.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-remarks.mjs?v=0.51-shop-remarks",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/event-notices.mjs?v=uniform-messages-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-model.mjs?v=0.48-free-aging",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/work-context.mjs?v=0.38-cask-serials",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/cask-serials.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/spirit-view.mjs?v=distill-ui-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/spirit-readout-view.mjs?v=refactor-r1-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brand-reputation.mjs?v=0.15",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/economy-parameters.mjs?v=0.7",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/model.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/cask-glass-art.mjs?v=0.58-first-brand",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/room-object-art.mjs?v=0.62-bottle-shelf-wall",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/tasting-view.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-types.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/flavor-view.mjs?v=formal-copy-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/nearby-comparison.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/retail-sale-motion.mjs?v=count-linked-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/placement-draft.mjs?v=0.27-placement",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/world-map/v01/map.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/town-connection.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/placement-mode.mjs?v=store-market-main-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime-flavor-lab-v02/model.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/economy-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/player-news.mjs?v=adjust-a-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/cut-bar.mjs?v=cut-range-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/font-uniform.mjs?v=uniform-messages-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/room-motion.mjs?v=0.68-ui-refinements",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/scene-input.mjs?v=0.21-space-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/canvas-layout.mjs?v=store-market-main-r1&rooms=stage3-r1&geometry=r2-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/font-loader.mjs?v=0.35-font-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/text-metrics.mjs?v=0.24-type-ui-1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/market-sales.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/store-market.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-demand.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partial-bottling.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distiller.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/recipe-book.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/generations.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/bottle-storage.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/trade.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/economy.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/character.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partner-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/aroma-extraction.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/shop-model.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/department-projects.mjs?v=0.44-monthly-timing",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/brand-reputation.mjs?v=0.12",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/department-projects.mjs?v=0.41-delegation",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/parallel-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/codea-object-art.mjs?v=0.57-codea-objects",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/codea-object-art.mjs?v=0.62-bottle-shelf-wall",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/economy.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/trade-parameters.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distillery.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/monthly.mjs?v=stage4-r2",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime-flavor-lab-v02/bridge.mjs?stage3=1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v03/model.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v05/core.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/experiments/reputation/v05/model.mjs",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/wholesale-v08.mjs?v=adjust-b-r1",
+          "transfer": 0
+        },
+        {
+          "name": "/cache/works/ambertime/distillery-parameters.mjs",
+          "transfer": 0
+        }
+      ],
+      "formalSHA256": "2f00b7e19ee7a4d73098bccc8862bad16017c4c7ca7bf7d30c2e62e71ce08d65"
+    }
+  ],
+  "checks": [
+    {
+      "id": "chromium-360-dpr1-motion",
+      "version": "before",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "chromium-360-dpr1-motion",
+      "version": "after",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "version": "before",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "chromium-375-dpr2-motion",
+      "version": "after",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "version": "before",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "chromium-390-dpr3-motion",
+      "version": "after",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "version": "before",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "chromium-390-dpr3-reduced",
+      "version": "after",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "version": "before",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "webkit-360-dpr1-motion",
+      "version": "after",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "version": "before",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "webkit-375-dpr2-motion",
+      "version": "after",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "version": "before",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "webkit-390-dpr3-motion",
+      "version": "after",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "version": "before",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    },
+    {
+      "id": "webkit-390-dpr3-reduced",
+      "version": "after",
+      "realPointerOperations": true,
+      "thresholdsCSSPx": [
+        36,
+        24
+      ],
+      "syntheticInterrupts": [
+        "hidden"
+      ],
+      "realRoomNavigation": true,
+      "quotaGenericAndCandidatePolicies": true,
+      "otherTabConflict": true
+    }
+  ],
+  "errors": [],
+  "cacheSummary": [
+    {
+      "engine": "chromium",
+      "resourceCount": 111,
+      "cached": 109,
+      "fresh": [
+        {
+          "name": "/cache/works/ambertime/shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1&aging=1&readout=r1-1&geometry=r2-1&preparation=r3-1",
+          "transfer": 182745
+        },
+        {
+          "name": "/cache/works/ambertime/distill-room-controller.mjs?v=refactor-r3-1",
+          "transfer": 1270
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "resourceCount": 110,
+      "cached": 108,
+      "fresh": [
+        {
+          "name": "/cache/works/ambertime/shop-app.mjs?v=market-layout-r1&rooms=stage3-r1&touch=1&status=1&aging=1&readout=r1-1&geometry=r2-1&preparation=r3-1",
+          "transfer": 182745
+        },
+        {
+          "name": "/cache/works/ambertime/distill-room-controller.mjs?v=refactor-r3-1",
+          "transfer": 1270
+        }
+      ]
+    }
+  ]
+}

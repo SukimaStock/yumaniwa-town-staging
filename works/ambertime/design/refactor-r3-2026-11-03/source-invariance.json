@@ -1,0 +1,64 @@
+{
+  "baseSha": "f7ba8023706be803b1711b3e3374b7e1bf83c4d9",
+  "appInverseNormalizedExact": true,
+  "baselineAppSHA256": "604208174263d5a804b92e764a9eba0df76f0cb7b80b8dca95827dc8c8769913",
+  "candidateAppSHA256": "6cd8778677cb66384f158191214537e91dc317cf4ca5ced71ef980b9f744999d",
+  "allowedAppTransforms": [
+    {
+      "candidate": "import {createDistillRoomController} from './distill-room-controller.mjs?v=refactor-r3-1';\n",
+      "baseline": "",
+      "occurrences": 1
+    },
+    {
+      "candidate": "const distillRoom=createDistillRoomController();",
+      "baseline": "let distillPrepared=false,preparedForDistillation=null,confirmedBrewing=null;",
+      "occurrences": 1
+    },
+    {
+      "candidate": "distillRoom.clearPrepared();",
+      "baseline": "distillPrepared=false;",
+      "occurrences": 1
+    },
+    {
+      "candidate": "distillRoom.isPreparedFor(game.core.lastDistillation)",
+      "baseline": "distillPrepared&&preparedForDistillation===game.core.lastDistillation",
+      "occurrences": 1
+    },
+    {
+      "candidate": "distillRoom.confirmation",
+      "baseline": "confirmedBrewing",
+      "occurrences": 3
+    },
+    {
+      "candidate": "distillRoom.cancelEdit(modal.preparedAtOpen,confirmed,draft);",
+      "baseline": "distillPrepared=!!(modal.preparedAtOpen&&confirmed&&confirmed.malt===draft.malt&&confirmed.ferment===draft.ferment);",
+      "occurrences": 1
+    },
+    {
+      "candidate": "distillRoom.invalidate(game.still.phase,game.core.lastDistillation);",
+      "baseline": "if(game.still.phase!=='ready'||confirmedBrewing?.batch!==game.core.lastDistillation)confirmedBrewing=null;",
+      "occurrences": 1
+    },
+    {
+      "candidate": "const preparedAtOpen=distillRoom.beginEdit();",
+      "baseline": "const preparedAtOpen=distillPrepared;distillPrepared=false;",
+      "occurrences": 1
+    },
+    {
+      "candidate": "distillRoom.confirm(manualCards(game),game.core.lastDistillation);",
+      "baseline": "confirmedBrewing={...manualCards(game),batch:game.core.lastDistillation};distillPrepared=true;preparedForDistillation=game.core.lastDistillation;",
+      "occurrences": 1
+    },
+    {
+      "candidate": "distillRoom.reset();",
+      "baseline": "distillPrepared=false;confirmedBrewing=null;",
+      "occurrences": 2
+    }
+  ],
+  "indexOnlyEntryQuery": true,
+  "protectedExistingFiles": 3625,
+  "runtimeAndOther": 508,
+  "testsAndFixtures": 477,
+  "design": 2640,
+  "allExistingProtectedBlobsUnchanged": true
+}

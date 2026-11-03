@@ -1,0 +1,15 @@
+✔ R3 confirmation state sequences match pinned original inline statements, including dormant batch and cancellation quirks (11.40554ms)
+✔ R3 controller reads explicit projection inputs only; confirmation is copied and formal state/save bytes remain unchanged (13.759182ms)
+✔ R3 actual root brewing open/card/confirm/cancel preserves formal selection timing and effect order (51.663777ms)
+✔ R3 actual root countdown, cut, integrated result, cask selection and next batch keep every ordered effect and save (82.443814ms)
+✔ R3 generic start/stop failures and candidate fill failures retain their distinct memory/save/notice policies (201.171916ms)
+✔ R3 hidden, room change, restart and reload preserve preparation boundaries without new formal operations (128.197952ms)
+✔ R3 restored lawful legacy and automatic staff states keep their bytes and manual input gates (389.132714ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1017.711884

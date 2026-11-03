@@ -1,0 +1,26 @@
+{
+  "chromium": {
+    "version": "140.0.7339.186",
+    "revision": 1193,
+    "source": "Official Playwright1.55.1 installer via npm exec outside repository",
+    "executable": "/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell",
+    "localButtonClickVerified": true
+  },
+  "webkit": {
+    "version": "26.5",
+    "revision": 2336,
+    "source": "Current runtime official Playwright installer, built-in Microsoft download fallback",
+    "executableWrapper": "/workspace/scratch/5b6dad33a5e9/r3-webkit-run.sh",
+    "localButtonClickVerified": true,
+    "dependencies": "Ubuntu24.04 signed InRelease + Packages SHA256 + deb SHA256 verified;22packages extracted under scratch only, LD_LIBRARY_PATH wrapper"
+  },
+  "initialProblems": [
+    "CurrentChromium151CfT URL returned195-byteSiteUnavailableHTML; installerinternalretries failedunzip. NoTLS/proxy bypass.",
+    "OfficialWebKitprimaryCDN sameplaceholder; built-inMicrosoftfallback downloaded valid2336archive.",
+    "Officialinstall-deps failedsetgroups/seteuid (_apt sandbox) incontainer. Noapt sandbox wasdisabled. UsedsignedpackageextractionwithoutOSinstallation.",
+    "FirstWebKitlaunchmissinglibGLESv2.so.2 resolvedbyverifiedlibgles2packageextraction."
+  ],
+  "repositoryDependenciesChanged": false,
+  "CIChanged": false,
+  "TLSSecurityRelaxed": false
+}

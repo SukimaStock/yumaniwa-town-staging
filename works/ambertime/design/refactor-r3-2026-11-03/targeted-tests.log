@@ -1,0 +1,35 @@
+✔ historical baseline is immutable and its 38 formal dependencies stay protected (3.214746ms)
+✔ four same native cut sequences retain all twenty old state and cold-save bytes (193.900065ms)
+✔ actual lever and glass handlers count formal stop, not countdown/start/collection, then open integrated result and fill (30.349373ms)
+✔ cancelling countdown performs no formal operation or save (8.205724ms)
+✔ actual save failure preserves persisted start/stop bytes and disables input; journal count describes in-memory facts (25.529413ms)
+✔ fill commits only after conditional storage succeeds, with the unfinished spirit retained on failure (46.802846ms)
+✔ preview has real manual journal/guide/result/fill semantics but no storage reads or writes (16.213367ms)
+✔ guidance follows each formal game through runs one to three and reload, with no presentation mutations (61.236162ms)
+✔ automatic queued/cancelled/completed batches never count; generation handover never resets guidance (706.583842ms)
+✔ all twenty immutable cut saves replay in twenty independent cold processes (2392.907498ms)
+✔ empty waiting glass, three-second preparation and native minimum rules remain distinct (76.635417ms)
+✔ symbolic liquid starts empty and holds its elapsed height without changing formal quantities (131.509628ms)
+✔ separate receiver is bounded at both endpoints, with larger unfiltered input targets (3.313726ms)
+✔ symbolic fill spans 84 elapsed steps, independent of end-yield or litres (15.884888ms)
+✔ tutorial guide descends on three-pixel cells, slows and disappears; return is three poses (0.73898ms)
+✔ preparation belongs to the current native batch and cannot arm a later run (19.764312ms)
+✔ long collection reaches visual capacity without limiting collection; legacy fallback stays compatible (0.421367ms)
+✔ countdown glass cue blinks independently of disabled collection input (0.486137ms)
+✔ actual selection prefixes preserve tasting/decision then staff→trade→shop→generation→fill→map priority and save before publication (36.389611ms)
+✔ notice save failure rolls back each candidate and publishes no notice or map; hidden and denied-save prevent formal notice writes (16.814814ms)
+✔ R3 confirmation state sequences match pinned original inline statements, including dormant batch and cancellation quirks (17.427227ms)
+✔ R3 controller reads explicit projection inputs only; confirmation is copied and formal state/save bytes remain unchanged (20.808684ms)
+✔ R3 actual root brewing open/card/confirm/cancel preserves formal selection timing and effect order (78.920574ms)
+✔ R3 actual root countdown, cut, integrated result, cask selection and next batch keep every ordered effect and save (120.889262ms)
+✔ R3 generic start/stop failures and candidate fill failures retain their distinct memory/save/notice policies (193.239761ms)
+✔ R3 hidden, room change, restart and reload preserve preparation boundaries without new formal operations (115.529348ms)
+✔ R3 restored lawful legacy and automatic staff states keep their bytes and manual input gates (388.333857ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3657.147265

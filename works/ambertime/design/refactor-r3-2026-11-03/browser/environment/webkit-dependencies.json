@@ -1,0 +1,137 @@
+{
+  "signedReleaseVerified": true,
+  "packages": [
+    {
+      "name": "libgles2",
+      "version": "1.7.0-1build1",
+      "filename": "pool/main/libg/libglvnd/libgles2_1.7.0-1build1_amd64.deb",
+      "sha256": "9dec2d79a2eebb80522f7cce77995f7a8ded22f0e3916f13353d066c62f97fac"
+    },
+    {
+      "name": "libgstreamer1.0-0",
+      "version": "1.24.2-1",
+      "filename": "pool/main/g/gstreamer1.0/libgstreamer1.0-0_1.24.2-1_amd64.deb",
+      "sha256": "90252639430f75720aa5d7e1d961053212130b1df6835a2eec54387fc8e12b75"
+    },
+    {
+      "name": "libgstreamer-plugins-base1.0-0",
+      "version": "1.24.2-1",
+      "filename": "pool/main/g/gst-plugins-base1.0/libgstreamer-plugins-base1.0-0_1.24.2-1_amd64.deb",
+      "sha256": "e265685c7506306c59982b6289f9088b21084485b1a64d9a26a90a3b6b94cf64"
+    },
+    {
+      "name": "libgstreamer-gl1.0-0",
+      "version": "1.24.2-1",
+      "filename": "pool/main/g/gst-plugins-base1.0/libgstreamer-gl1.0-0_1.24.2-1_amd64.deb",
+      "sha256": "f63c53c578aff2504da2c81a430047215ed8e73e3a2ca812b1fe84ec48b6b9ff"
+    },
+    {
+      "name": "libgstreamer-plugins-bad1.0-0",
+      "version": "1.24.2-1ubuntu4",
+      "filename": "pool/universe/g/gst-plugins-bad1.0/libgstreamer-plugins-bad1.0-0_1.24.2-1ubuntu4_amd64.deb",
+      "sha256": "6e8da41c0cbb2070f3477cf02360c2ce2eb55e825ba09e12b4270b3254e04f45"
+    },
+    {
+      "name": "libevent-2.1-7t64",
+      "version": "2.1.12-stable-9ubuntu2",
+      "filename": "pool/main/libe/libevent/libevent-2.1-7t64_2.1.12-stable-9ubuntu2_amd64.deb",
+      "sha256": "f95eddfc9e9028567a21b8162a1cb8aae96b2fb168f149c0a5b01d72bfd42471"
+    },
+    {
+      "name": "libavif16",
+      "version": "1.0.4-1ubuntu3",
+      "filename": "pool/universe/liba/libavif/libavif16_1.0.4-1ubuntu3_amd64.deb",
+      "sha256": "b295a9954a4b756af05ff381d9808f3c0c582a111b7e4c7678cfe13de9ae8818"
+    },
+    {
+      "name": "libharfbuzz-icu0",
+      "version": "8.3.0-2build2",
+      "filename": "pool/main/h/harfbuzz/libharfbuzz-icu0_8.3.0-2build2_amd64.deb",
+      "sha256": "9098670758e60b190d7edf367ad57e954bfc1b2a616def3f4e281062e036a843"
+    },
+    {
+      "name": "libhyphen0",
+      "version": "2.8.8-7build3",
+      "filename": "pool/main/h/hyphen/libhyphen0_2.8.8-7build3_amd64.deb",
+      "sha256": "b508d3a5da168ddb2ae6e79ea0521ba64cd121285db0ece438d0bd56ba628556"
+    },
+    {
+      "name": "libwayland-server0",
+      "version": "1.22.0-2.1build1",
+      "filename": "pool/main/w/wayland/libwayland-server0_1.22.0-2.1build1_amd64.deb",
+      "sha256": "edbfa4b6857691ae922cc768a753fab230eee9e956aa2ce4f2eaa8d9ad777dca"
+    },
+    {
+      "name": "libdw1t64",
+      "version": "0.190-1.1build4",
+      "filename": "pool/main/e/elfutils/libdw1t64_0.190-1.1build4_amd64.deb",
+      "sha256": "cdf86260db73ae9f61915fdb898d74a74654ff4b84deeac1c9fe9e5ab2ad83c6"
+    },
+    {
+      "name": "liborc-0.4-0t64",
+      "version": "1:0.4.38-1build1",
+      "filename": "pool/main/o/orc/liborc-0.4-0t64_0.4.38-1build1_amd64.deb",
+      "sha256": "facde0deeeae78041d4b5ad9cea5d076ce6264a26d1ef927c6befe2d9eb3d6fb"
+    },
+    {
+      "name": "iso-codes",
+      "version": "4.16.0-1",
+      "filename": "pool/main/i/iso-codes/iso-codes_4.16.0-1_all.deb",
+      "sha256": "cafca0a3a1f07b44fbba53ab7a1f1d9755e6b80cc041173afe2b52e53bed97a7"
+    },
+    {
+      "name": "libnice10",
+      "version": "0.1.21-2build3",
+      "filename": "pool/universe/libn/libnice/libnice10_0.1.21-2build3_amd64.deb",
+      "sha256": "fd24e18e0d9d9ead31e192d46df04473fab2d51390ccb2a4a62cf3b90bf6f311"
+    },
+    {
+      "name": "libgav1-1",
+      "version": "0.18.0-1build3",
+      "filename": "pool/universe/libg/libgav1/libgav1-1_0.18.0-1build3_amd64.deb",
+      "sha256": "428f353f449e6b15cdcf5823215416e36adcfba75fe9f0fedc1cd132d68e6b3f"
+    },
+    {
+      "name": "libyuv0",
+      "version": "0.0~git202401110.af6ac82-1",
+      "filename": "pool/universe/liby/libyuv/libyuv0_0.0~git202401110.af6ac82-1_amd64.deb",
+      "sha256": "88bd472e50a7e45469e31f8e0ba232b4d8ed30322f5badb285c58cc1ba0d2176"
+    },
+    {
+      "name": "libgupnp-igd-1.6-0",
+      "version": "1.6.0-3build3",
+      "filename": "pool/universe/g/gupnp-igd/libgupnp-igd-1.6-0_1.6.0-3build3_amd64.deb",
+      "sha256": "e71897a39779ffc327b704ca7baef4fe079cfc6a5e1bd56819ac2ad05f8f9b86"
+    },
+    {
+      "name": "libabsl20220623t64",
+      "version": "20220623.1-3.1ubuntu3",
+      "filename": "pool/main/a/abseil/libabsl20220623t64_20220623.1-3.1ubuntu3_amd64.deb",
+      "sha256": "eafc5f26ba910468a6d5d5f154ed8fcf4beed2d5bc45619907ea9f517cdaf401"
+    },
+    {
+      "name": "libgssdp-1.6-0",
+      "version": "1.6.3-1build3",
+      "filename": "pool/main/g/gssdp/libgssdp-1.6-0_1.6.3-1build3_amd64.deb",
+      "sha256": "49aa7c3eb2e75f55da069f5f18d3babc0376e4bf8f3bcbbf22a76d60d9f40f9e"
+    },
+    {
+      "name": "libgupnp-1.6-0",
+      "version": "1.6.6-1build3",
+      "filename": "pool/main/g/gupnp/libgupnp-1.6-0_1.6.6-1build3_amd64.deb",
+      "sha256": "491670df1732d15ced827446e26bcea76326d3c9cfc4856b5806e9911dc4264f"
+    },
+    {
+      "name": "libsoup-3.0-0",
+      "version": "3.4.4-5build2",
+      "filename": "pool/main/libs/libsoup3/libsoup-3.0-0_3.4.4-5build2_amd64.deb",
+      "sha256": "6380ee6d82fb06f9d60c53411cc350c38f6613615ecde7d5740eb87b24622d6d"
+    },
+    {
+      "name": "libsoup-3.0-common",
+      "version": "3.4.4-5build2",
+      "filename": "pool/main/libs/libsoup3/libsoup-3.0-common_3.4.4-5build2_all.deb",
+      "sha256": "c446ff98dd3e13470fcd918c012643af323ff632c684dfd0407ba97a6813ef36"
+    }
+  ]
+}

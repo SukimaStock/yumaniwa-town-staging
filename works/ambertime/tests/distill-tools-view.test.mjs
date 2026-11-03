@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
+import {createDistillRoomController} from '../distill-room-controller.mjs';
 import * as D from '../partner-orders.mjs';import {manualCompletedRuns} from '../distill-learning.mjs';import {distillationReadout} from '../spirit-view.mjs';import {distillToolsView,drawDistillTools,RECEIVER_MAX_LITRES,leverGuideOffset,leverReturnStep,rangeRestartAvailable} from '../distill-tools-view.mjs';import {layoutScene,computeViewport,projectRect} from '../canvas-layout.mjs';import {stillArt} from '../room-object-art.mjs';
 const project=(s,extra={})=>distillToolsView({phase:s.still.phase,collection:D.collectionState(s),litres:distillationReadout(s)?.litres??0,flowLitres:s.still.distillation?.litres??0,prepared:true,available:true,canStart:D.canStart(s).ok,canRestart:rangeRestartAvailable(s),...extra});
 const step=(s,n)=>{while(s.still.distillation.progress<n)s=D.distillStep(s);return s;};
@@ -45,8 +46,9 @@ test('preparation belongs to the current native batch and cannot arm a later run
  const fs=await import('node:fs'),vm=await import('node:vm');
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),handler=source.slice(source.indexOf('function currentDistillTools(){'),source.indexOf('function startFromLever(){'));
  const initial=D.newMarketRulesDistillery(42);let later=D.beginCollection(D.startRangeDistillation(initial));later=step(later,12);later=D.tickDistillery(D.fillBarrel(D.stopDistillation(later),'refill'));assert(D.canStart(later).ok);
- const ctx={manualCompletedRuns,D,game:initial,distillPrepared:true,preparedForDistillation:initial.core.lastDistillation,room:'distill',modal:null,document:{hidden:false},preview:true,canSave:true,countdown:{active:false},T:{minimumStop:30},distillationReadout,distillToolsView,rangeRestartAvailable};vm.createContext(ctx);vm.runInContext(handler,ctx);
- assert(ctx.currentDistillTools().leverEnabled);ctx.game=later;assert(!ctx.currentDistillTools().leverEnabled);ctx.preparedForDistillation=later.core.lastDistillation;assert(ctx.currentDistillTools().leverEnabled);
+ const distillRoom=createDistillRoomController();distillRoom.confirm({},initial.core.lastDistillation);
+ const ctx={manualCompletedRuns,D,game:initial,distillRoom,room:'distill',modal:null,document:{hidden:false},preview:true,canSave:true,countdown:{active:false},T:{minimumStop:30},distillationReadout,distillToolsView,rangeRestartAvailable};vm.createContext(ctx);vm.runInContext(handler,ctx);
+ assert(ctx.currentDistillTools().leverEnabled);ctx.game=later;assert(!ctx.currentDistillTools().leverEnabled);distillRoom.confirm({},later.core.lastDistillation);assert(ctx.currentDistillTools().leverEnabled);
 });
 
 test('long collection reaches visual capacity without limiting collection; legacy fallback stays compatible',()=>{

@@ -1,0 +1,5 @@
+{"id":"chromium-360-dpr1-motion","version":"before","captures":40}
+{"id":"chromium-360-dpr1-motion","version":"after","captures":40}
+{"id":"webkit-360-dpr1-motion","version":"before","captures":40}
+{"id":"webkit-360-dpr1-motion","version":"after","captures":40}
+{"passed":true,"captures":160,"pixelComparisons":80,"cacheCases":2,"errors":[]}

@@ -1,0 +1,32 @@
+{
+  "productChangesForHarness": false,
+  "pixelToleranceBeforeAfter": 0,
+  "initialProbesExcludedFromFinalCounts": true,
+  "findings": [
+    {
+      "issue": "Automaticoldfixturemigrationpreconditions",
+      "attempts": 3,
+      "rootCause": "R0newStaffDistillery lacksdelegationfixbase; newerprogressionrequiresnextmonth; storemarketrequiresplacement. Noillegalraw accepted.",
+      "action": "Stoppedautomaticfixtureiterationandrequestedindependentmodel/sourcevalidation. Parentvalidatedexplicitpublicmigrationchainwithstrictrestorebyteequality; finalrunnerusesnewStaffProgression→manual65→fill→month→hire→reserve/begin→stage4→adoptPlacement→store→rules. Noformalmodelchange."
+    },
+    {
+      "issue": "Countdownsample arithmetic",
+      "attempts": 1,
+      "rootCause": "Afterrelease/sample40msalreadyelapsed;920ms was20msbeforefirstsecond.",
+      "action": "Use960ms then980ms toobserve3/2/1; no timerthresholdchange."
+    },
+    {
+      "issue": "ExpectedUIstart versusdirectrangefixture",
+      "attempts": 1,
+      "rootCause": "ExistingstartFromLever normalizeslockedfermentthroughmanualCards/selectFlavorCards beforestart, whiledirectstartRangefixturedoesnot.",
+      "action": "ExpectedfullUIstartusesexistingmanualCardsandpublicAPIguard; directlegalrangefixturesremainseparate."
+    },
+    {
+      "issue": "Nextbatchsamemonthdisabled",
+      "attempts": 1,
+      "rootCause": "ExistingcanStart rejectssecondbatch in sameformalmonth.",
+      "action": "Capturelockedstate; actualtoggleclockresume→boundednextmonth→pause; comparepublictickDistilleryresultbeforeopeningnextbatch."
+    }
+  ],
+  "final": "Frozenfullrunner640captures/320candidate-versus-immutable-basecomparisonsallzeroerror; no diagnosticprobe countedasproductsuccess."
+}

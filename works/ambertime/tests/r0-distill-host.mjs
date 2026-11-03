@@ -8,6 +8,7 @@ import {manualCompletedRuns} from '../distill-learning.mjs';
 import {distillToolsView,rangeRestartAvailable} from '../distill-tools-view.mjs';
 import {distillationReadout,spiritProfile} from '../spirit-view.mjs';
 import {manualCards} from '../brewing-cards.mjs';
+import {createDistillRoomController} from '../distill-room-controller.mjs';
 import {writeCandidate,FORMAL_SAVE_KEY} from '../placement-save.mjs';
 import {ECONOMY_PARAMETERS as P} from '../economy-parameters.mjs';
 import {barrel} from '../cask-glass-art.mjs';
@@ -28,14 +29,15 @@ export function host({preview=false,state=D.selectFlavorCards(D.newMarketRulesDi
  let raw=JSON.stringify({version:2,game:JSON.parse(D.serializeDistillery(state)),userPaused:false,elapsed:0}),writes=0,reads=0,fail=false;
  const storage={getItem(){reads++;return raw;},setItem(key,value){writes++;if(fail)throw Error('storage denied');raw=value;}};
  const nodes=new Map(),node=id=>{if(!nodes.has(id))nodes.set(id,{dataset:{},hidden:true,textContent:'',innerHTML:'',open:false,classList:{toggle(){}},querySelector(){return {focus(){}};},removeAttribute(){},showModal(){this.open=true;},close(){this.open=false;}});return nodes.get(id);};
- const ctx={D,manualCompletedRuns,distillToolsView,rangeRestartAvailable,distillationReadout,spiritProfile,manualCards,writeCandidate,SAVE_KEY:FORMAL_SAVE_KEY,P,barrel,glassColor,localStorage:storage,
+ const ctx={D,createDistillRoomController,manualCompletedRuns,distillToolsView,rangeRestartAvailable,distillationReadout,spiritProfile,manualCards,writeCandidate,SAVE_KEY:FORMAL_SAVE_KEY,P,barrel,glassColor,localStorage:storage,
   document:{hidden:false,activeElement:null},T:{minimumStop:30},$ :node,
   stopClock(){},schedule(){},message(){},noteMapReach(){},automaticNews:{push(){}},automaticEvents:()=>[],soldOutLabel:()=>'',caskName:String,
   placementUI:{reset(){}},showStaffOpportunity(){},showShopOffer(){},showGeneration(){},showInitialMapNotice(){},vaultPanels(){},shopOffers:()=>[],comparisonKinds:[],
   esc:String,uiText:String,displayReason:String,money:n=>'£'+n,button:(text,action,id='',extra='')=>'<button data-action="'+action+'" data-id="'+id+'" '+extra+'>'+text+'</button>',
   queueMicrotask:fn=>fn(),initial:state,initialRaw:raw,initialPreview:preview,restored};
  vm.createContext(ctx);
- vm.runInContext(`let game=initial,room='distill',modal=null,userPaused=false,distillPrepared=true,preparedForDistillation=game.core.lastDistillation,canSave=!initialPreview,preview=initialPreview,shownFillSpiritId=restored&&game.still.phase==='filling'?game.core.spirit.id:null,lastSavedText=initialRaw,elapsed=0,runtimeHalted=false,selectedCaskId=null,modalReturnFocus=null,modalReturnObject=null,pointerInteraction=false,mapLabelObserver=null,pendingCountdown=null;
+ vm.runInContext(`let game=initial,room='distill',modal=null,userPaused=false,canSave=!initialPreview,preview=initialPreview,shownFillSpiritId=restored&&game.still.phase==='filling'?game.core.spirit.id:null,lastSavedText=initialRaw,elapsed=0,runtimeHalted=false,selectedCaskId=null,modalReturnFocus=null,modalReturnObject=null,pointerInteraction=false,mapLabelObserver=null,pendingCountdown=null;
+ const distillRoom=createDistillRoomController();distillRoom.confirm({},game.core.lastDistillation);
  const countdown={active:false,start(fn){this.active=true;pendingCountdown=fn;},cancel(){this.active=false;pendingCountdown=null;}};
  function storageNotice(text){$('storage-notice').textContent=text;$('storage-notice').hidden=!text;}
  function render(){syncModal();}
@@ -44,7 +46,7 @@ export function host({preview=false,state=D.selectFlavorCards(D.newMarketRulesDi
  runCountdown(){const fn=pendingCountdown;pendingCountdown=null;countdown.active=false;if(fn)fn();},cancelCountdown(){countdown.cancel();},
  stepTo(n){while(game.still.distillation.progress<n)game=D.distillStep(game);},
  setGame(s){game=s;},closeFill:closeModal,
- prepareNext(){distillPrepared=true;preparedForDistillation=game.core.lastDistillation;room='distill';},
+ prepareNext(){distillRoom.confirm({},game.core.lastDistillation);room='distill';},
  node:id=>$(id)};`,ctx);
  return {api:ctx.api,persisted:()=>raw,writes:()=>writes,reads:()=>reads,failWrites:()=>{fail=true;},conflict:()=>{raw='external-save';}};
 }

@@ -1,0 +1,88 @@
+{
+  "baseSha": "f7ba8023706be803b1711b3e3374b7e1bf83c4d9",
+  "node": "v24.22.1",
+  "chromium": "140.0.7339.186",
+  "browserModule": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs",
+  "browserExecutable": "/root/.cache/ms-playwright/chromium_headless_shell-1193/chrome-linux/headless_shell",
+  "command": "AMBER_BROWSER_MODULE=/absolute/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/absolute/headless_shell node --test works/ambertime/tests/*.test.mjs",
+  "beforeFiles": 158,
+  "afterFiles": 159,
+  "runs": {
+    "before": {
+      "results": {
+        "tests": 1186,
+        "pass": 1186,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 158787.054299
+      },
+      "log": "before-tests.log",
+      "sha256": "d8b9ce9e7f4d6d9d08d3cdaa138a1ca4970dedf89fe3cdf28c1a2e15f91c2576"
+    },
+    "after": {
+      "results": {
+        "tests": 1193,
+        "pass": 1193,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 168378.270667
+      },
+      "log": "after-tests.log",
+      "sha256": "a62da7994ccb1336e5249924464ca7c02572e3adf549624b8656389e5da89425"
+    },
+    "targeted": {
+      "results": {
+        "tests": 27,
+        "pass": 27,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 3657.147265
+      },
+      "log": "targeted-tests.log",
+      "sha256": "81200c28488c0d01a4ecfae520713cbf4e9b2d374b5634860e56cdb704fe1ca0"
+    },
+    "independent": {
+      "results": {
+        "tests": 26,
+        "pass": 26,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 3550.733578
+      },
+      "log": "independent-tests.log",
+      "sha256": "7df40e23041db0ddb5c441f0b285734517d78f3d529d57c9dfe31bd1fe277dc2"
+    },
+    "independentNew": {
+      "results": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 1017.711884
+      },
+      "log": "independent-new-tests.log",
+      "sha256": "407c28fd7bbc6b6aaa513f9a2f6733a32b154ed629e84759321289d19c8bab4c"
+    }
+  },
+  "formalBaseline": {
+    "intermediateStates": 129,
+    "cutStates": 20,
+    "individualColdCutReplays": 20,
+    "fixturesRegenerated": false,
+    "status": "pass"
+  },
+  "testHarnessDiagnosis": [
+    "InitialVMport incorrectlycalledmanualCards onlegalnon-stage4automaticstate; fixedtoflag-onlyconfirm({},batch), noassertions/casesremoved.",
+    "Initialnewnext-batchtestassumedsame-month canStart; existingmonthlyboundaryD.tickDistilleryrequired, correctedscenario notproduct."
+  ]
+}
