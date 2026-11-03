@@ -1,0 +1,59 @@
+YUMANIWA IMPACT CHECK v0.2
+Change: Preserve saved completion rim glint and append a small expanding cross that retracts and gently fades before fill
+Base:   7662134ce094eabc637625c2742b2e1eb91b2127
+Target: worktree (eccd2db5249cadef4c03a3273db90d4e643731fc)
+Changed paths: 65
+Rule-covered paths: 17
+
+PASS impact.declared work.regression [works/ambertime/canvas-scene.mjs, works/ambertime/design/experience-a13-2026-11-03/browser/initial-harness-fixed-proof-results.json, works/ambertime/design/experience-a13-2026-11-03/browser/initial-harness-fixed-proof.log, works/ambertime/design/experience-a13-2026-11-03/browser/results.json, works/ambertime/design/experience-a13-2026-11-03/browser/run.log, works/ambertime/design/experience-a13-2026-11-03/comparison/compare.mjs, works/ambertime/design/experience-a13-2026-11-03/comparison/results.json, works/ambertime/design/experience-a13-2026-11-03/comparison/runner.sha256, works/ambertime/design/experience-a13-2026-11-03/impact.log, works/ambertime/design/experience-a13-2026-11-03/risk.log, works/ambertime/design/experience-a13-2026-11-03/scope.log, works/ambertime/index.html, works/ambertime/shop-app.mjs, works/ambertime/tests/a1-3-browser-completion.mjs, works/ambertime/tests/a1-browser-completion.mjs, works/ambertime/tests/a1-glint.test.mjs, works/ambertime/tests/a1-source-baseline.mjs] — impact is declared in impactChecks
+PASS impact.declared work.runtime [works/ambertime/canvas-scene.mjs, works/ambertime/design/experience-a13-2026-11-03/browser/initial-harness-fixed-proof-results.json, works/ambertime/design/experience-a13-2026-11-03/browser/initial-harness-fixed-proof.log, works/ambertime/design/experience-a13-2026-11-03/browser/results.json, works/ambertime/design/experience-a13-2026-11-03/browser/run.log, works/ambertime/design/experience-a13-2026-11-03/comparison/compare.mjs, works/ambertime/design/experience-a13-2026-11-03/comparison/results.json, works/ambertime/design/experience-a13-2026-11-03/comparison/runner.sha256, works/ambertime/design/experience-a13-2026-11-03/impact.log, works/ambertime/design/experience-a13-2026-11-03/risk.log, works/ambertime/design/experience-a13-2026-11-03/scope.log, works/ambertime/index.html, works/ambertime/shop-app.mjs, works/ambertime/tests/a1-3-browser-completion.mjs, works/ambertime/tests/a1-browser-completion.mjs, works/ambertime/tests/a1-glint.test.mjs, works/ambertime/tests/a1-source-baseline.mjs] — impact is declared in impactChecks
+INFO impact.no-rule [.change-plans/ambertime-a13-cross-20261103/r0.lock.json] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/IMPLEMENTATION.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/INDEPENDENT-REVIEW.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-1.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-10.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-11.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-2.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-3.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-4.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-5.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-6.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-7.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-8.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-9.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-off.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-modal.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-reduced-modal.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/README.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-cross-contact.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-modal.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-moving.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-settled.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-1.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-10.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-11.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-2.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-3.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-4.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-5.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-6.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-7.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-8.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-9.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/summary.csv] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-modal.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-moving.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-settled.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-1.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-10.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-11.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-2.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-3.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-4.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-5.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-6.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-7.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-8.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-9.png] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+
+Impact: PASS

@@ -1,0 +1,71 @@
+YUMANIWA SCOPE GUARD v0.2
+Change: Preserve saved completion rim glint and append a small expanding cross that retracts and gently fades before fill
+Base:   7662134ce094eabc637625c2742b2e1eb91b2127
+Target: worktree (eccd2db5249cadef4c03a3273db90d4e643731fc)
+Changed paths: 63
+
+PASS scope.allowed .change-plans/ambertime-a13-cross-20261103/r0.lock.json [.change-plans/ambertime-a13-cross-20261103/r0.lock.json] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/canvas-scene.mjs [works/ambertime/canvas-scene.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/IMPLEMENTATION.md [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/INDEPENDENT-REVIEW.md [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-1.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-10.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-11.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-2.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-3.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-4.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-5.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-6.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-7.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-8.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-9.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-light-off.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-motion-modal.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/chromium-375-reduced-modal.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/initial-harness-fixed-proof-results.json [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/initial-harness-fixed-proof.log [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/results.json [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/browser/run.log [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/README.md [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-cross-contact.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-modal.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-moving.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-settled.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-1.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-10.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-11.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-2.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-3.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-4.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-5.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-6.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-7.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-8.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/chromium-740-stage-9.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/compare.mjs [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/results.json [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/runner.sha256 [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/summary.csv [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-modal.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-moving.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-settled.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-1.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-10.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-11.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-2.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-3.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-4.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-5.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-6.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-7.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-8.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/comparison/webkit-740-stage-9.png [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/scope.log [works/ambertime/design/experience-a13-2026-11-03/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/index.html [works/ambertime/index.html] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/shop-app.mjs [works/ambertime/shop-app.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-3-browser-completion.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-browser-completion.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-glint.test.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/a1-source-baseline.mjs [works/ambertime/tests/a1-*.mjs] — changed path is within allowedPaths
+
+Scope: PASS

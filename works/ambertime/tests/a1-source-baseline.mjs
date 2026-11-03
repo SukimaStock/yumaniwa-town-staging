@@ -61,6 +61,10 @@ const deltas={
   }
 };
 export function beforeA1(source,name='shop-app.mjs'){
+ // A1-3 authorizes only these cache references in app/HTML; retain every
+ // prior exact hunk and immutable source hash after this single-match inverse.
+ const a13=name==='shop-app.mjs'?['completion=a13-1','completion=a12-1']:name==='index.html'?['experience=a13-1','experience=a12-1']:null;
+ if(a13){assert.equal(source.split(a13[0]).length-1,1,'exact A1-3 cache reference: '+name);source=source.replace(...a13);}
  // A1-2 changes only these two cache references in app/HTML. Reverse that
  // exact reviewed token once; all other bytes still face the immutable L1 hash.
  const cache=name==='shop-app.mjs'?['completion=a12-1','completion=a1-1']:name==='index.html'?['experience=a12-1','experience=a1-1']:null;
