@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "848812146ae28f74056af9c8e345c209cea6c7a0cb9cc906047872aebcaa3203",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "75843aa2b6a3b9bf1040970602a4fb4364678ddc",
+    "changeId": "ambertime-refactor-r4-20261103",
+    "revision": 0,
+    "change": "Isolate only transient warehouse selected cask ownership and existing render reconciliation; preserve all formal tasting/bottling, save/notice/clock/modal ordering and pixels",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "PR768-771 merged history and current explicit R3 instruction",
+      "works/ambertime/design/structure-audit-2026-11-02/STRUCTURE-AUDIT.md",
+      "works/ambertime/design/structure-audit-2026-11-02/REFACTOR-PLAN.md",
+      "works/ambertime/design/refactor-r0-2026-11-03/REFACTOR-BASELINE.md",
+      "works/ambertime/design/refactor-r1-2026-11-03/IMPLEMENTATION.md",
+      "works/ambertime/design/refactor-r2-2026-11-03/IMPLEMENTATION.md",
+      "Actual shop-app ten-step flow and immutable f7ba8023 source/fixtures",
+      "PR772 merged source and R3 implementation/controller/tests",
+      "Current user R4 instruction and actual warehouse 12-stage event paths"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-refactor-r4-20261103/r0.lock.json",
+      "works/ambertime/warehouse-room-controller.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/r0-distill-host.mjs",
+      "works/ambertime/tests/r0-notice-priority.test.mjs",
+      "works/ambertime/tests/r3-preparation-controller.test.mjs",
+      "works/ambertime/tests/rooms-stage1.test.mjs",
+      "works/ambertime/tests/rooms-stage3.test.mjs",
+      "works/ambertime/tests/r4-*.mjs",
+      "works/ambertime/design/refactor-r4-2026-11-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/start-countdown.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/spirit-readout-view.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/experiments/**",
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/design/refactor-r0-2026-11-03/**",
+      "works/ambertime/design/refactor-r1-2026-11-03/**",
+      "works/ambertime/design/refactor-r2-2026-11-03/**",
+      "works/ambertime/design/structure-audit-2026-11-02/**",
+      "works/ambertime-*/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/distill-room-controller.mjs",
+      "works/ambertime/design/refactor-r3-2026-11-03/**"
+    ],
+    "expectedChanges": [
+      "Single selectedId closure with readonly getter/select/reconcile(casks,tastingId); no callbacks/import/model/save/clock/DOM/random/notice. Reconcile preserves missing-selection first-cask fallback then formal tasting override. No decision preselection, root syncModal owns later decision selection.",
+      "Replace root selectedCaskId variable reads/writes at identical sites only; root retains formal operations, all modal drafts/parents/comparison/ledger/focus, generic act and candidate transactions, save, notices, clock. Boot selects tastingId??first only at success site, reset clears only at original site.",
+      "Entry app warehouse=r4-1 and import v=refactor-r4-1; no other assets invalidated. Existing VM adapters use actual warehouse controller; preserve all assertions/fixtures/immutable oracles. rooms-stage3 source assertion follows unchanged route through actual selection owner.",
+      "R4 independent flow/state/effect audit and tests; same-source base full1193/new full suite,129formal/20cut/oldsave/RNG/month/notice/R1/R2/R3 regression; dual-engine3width+DPR/reduced exact pixels/DOM/hit/focus/ARIA/state/save and warm oldcache; independent review/exact-head required CI/normal Staging merge and delivery."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes R4 minimum safe warehouse transient UI extraction through reviewed required CI, normal merge and Staging confirmation. No R5 or Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK first lock-only commit before implementation",
+      "Single selection owner, no persistent root mirror or callback framework; formal tastingId stays model-owned",
+      "Keep existing save failure policy, modal order, copy, visuals and R0-R3 fixtures/oracles",
+      "No new product dependency/CI/shared code/Lab changes; missing physical/browser conditions remain unverified"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Audit12actualwarehousepaths,event/UI/formal/modal/ops/save/notice/DOMCanvas/clock/cancel/reload; compare source inverse with immutable75843aa2",
+      "Unit legal empty/one/multi/stale/selected/tastingOverride/boot/reset selection; actual root ordered effects and save failures; no formal model reimplementation",
+      "Full root baseline1193 and candidate suite incl browser2;129formal/20cut+individualcold/legacy/RNG/month/economy/notice/save policy/R1/R2/R3 regressions unchanged",
+      "Chromium/WebKit360x568 DPR1/375x620 DPR2/390x680 DPR3/reduced, fixedseed/time/font/phase: empty,one,multi,select,inspect,ledger,taste/previous,quote quantity/cancel/formal partial/fullbottle,errors/reload/rooms/hidden,exact pixels/DOM/hit/focus/a11y/state/save",
+      "Sameoriginold1hcache->newapp/controllerbody hash; immutable view/Canvas/CSS/assets source invariance",
+      "Independent review/ScopeRiskImpact/exacthead required+supplementalCI/normalmerge/sameSHAPages/sourcebody/publicinteraction"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert R4 controller/app/entry/test adapter/docs changes as a normal PR; no save migration.",
+    "outOfScope": [
+      "Formal aging/evaporation/tasting/flavor/bottling/economy/sales/staff/monthly/RNG/save/oldrestore/notice changes",
+      "Modal family/draft/focus ownership extraction; R5",
+      "Visual/text/layout/Canvas/input/room behavior changes",
+      "Other rooms/Labs/registration/URLs/shared tools/CI/Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/VoiceOver/nonzero safe-area/real OS background and BFCache hit unless actually observed; unavailable browser conditions not treated as pass"
+    ]
+  }
+}

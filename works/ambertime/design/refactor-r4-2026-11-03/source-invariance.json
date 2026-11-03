@@ -1,0 +1,19 @@
+{
+  "baseSha": "75843aa2b6a3b9bf1040970602a4fb4364678ddc",
+  "protectedExistingPathCount": 3692,
+  "protectedPathAndBlobListSHA256": "c11a07a5a1ca771b63d2617b6518b4080c746a3c0798a4c85ecc2567b6822af3",
+  "existingChangedPaths": [
+    ".change-plans/ambertime-refactor-r4-20261103/r0.lock.json",
+    "works/ambertime/index.html",
+    "works/ambertime/shop-app.mjs",
+    "works/ambertime/tests/r0-distill-host.mjs",
+    "works/ambertime/tests/r0-notice-priority.test.mjs",
+    "works/ambertime/tests/r3-preparation-controller.test.mjs",
+    "works/ambertime/tests/rooms-stage1.test.mjs",
+    "works/ambertime/tests/rooms-stage3.test.mjs"
+  ],
+  "appInverseExactTest": "tests/r4-warehouse-selection.test.mjs",
+  "baselineAppSHA256": "6cd8778677cb66384f158191214537e91dc317cf4ca5ced71ef980b9f744999d",
+  "candidateAppSHA256": "c9235139fccf5fad67f7b5e928a175361f912f03e90f201411ebfd7a0326f003",
+  "unchangedFormalModelSaveRNGMonthlyR2R3CanvasViewsCSSLab": true
+}

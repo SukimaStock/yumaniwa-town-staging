@@ -1,0 +1,9 @@
+{"id":"chromium-360-dpr1-motion","side":"before","captures":29}
+{"id":"chromium-360-dpr1-motion","side":"after","captures":29}
+{"id":"chromium-375-dpr2-motion","side":"before","captures":29}
+{"id":"chromium-375-dpr2-motion","side":"after","captures":29}
+{"id":"chromium-390-dpr3-motion","side":"before","captures":29}
+{"id":"chromium-390-dpr3-motion","side":"after","captures":29}
+{"id":"chromium-390-dpr3-reduced","side":"before","captures":29}
+{"id":"chromium-390-dpr3-reduced","side":"after","captures":29}
+{"passed":true,"captures":232,"comparisons":116,"cacheCases":1}

@@ -1,3 +1,4 @@
+import {createWarehouseRoomController} from '../warehouse-room-controller.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -104,7 +105,7 @@ function appHost(source,{state=D.newMarketRulesDistillery(42),preview=false,rest
  const countdown=source.split('\n').find(x=>x.startsWith('const countdown=new StartCountdown('));
  const reset=candidate?'distillRoom.reset();':'distillPrepared=false;confirmedBrewing=null;';
  vm.runInContext(`let game=initial,room='distill',modal=null,userPaused=false,canSave=!initialPreview,preview=initialPreview,lastSavedText=initialRaw,elapsed=0,runtimeHalted=false,selectedCaskId=null,marketEditing=false,deliveryNotice='',shownFillSpiritId=restored&&game.still.phase==='filling'?game.core.spirit.id:null,modalReturnFocus=null,modalReturnObject=null;
- ${init}\n${countdown}\n${source.split('\n').find(x=>x.startsWith('const manualDistilling='))}
+ ${source.includes('createWarehouseRoomController')?'const warehouseRoom=createWarehouseRoomController();':''}\n ${init}\n${countdown}\n${source.split('\n').find(x=>x.startsWith('const manualDistilling='))}
  function render(){recordRender();${renderPrefix}}
  ${sync.slice(0,endSync)+'\n}'}
  ${['save','act','prepareDistillation','startFromLever','currentDistillTools','finishDistillation','commitFill','openModal','closeModal','selectRoom','endTaste'].map(name=>extract(source,name)).join('\n')}
@@ -117,7 +118,7 @@ function appHost(source,{state=D.newMarketRulesDistillery(42),preview=false,rest
   resetUI(){${reset}},cancelCountdown(){countdown.cancel();},tools:currentDistillTools,
   stepTo(n){while(game.still.distillation.progress<n)game=D.distillStep(game);},
   replaceGame(s){game=s;},setHidden(value){document.hidden=value;render();},
-  result(){return {raw:snapshotRaw(game),modal,room,userPaused,canSave,shownFillSpiritId,countdown:countdown.value,confirmation:${candidate?'distillRoom.confirmation':'confirmedBrewing'},prepared:${candidate?'distillRoom.isPreparedFor(game.core.lastDistillation)':'distillPrepared&&preparedForDistillation===game.core.lastDistillation'},tools:currentDistillTools()};}};`,Object.assign(ctx,{recordRender:()=>log.push('render')}));
+  result(){return {raw:snapshotRaw(game),modal,room,userPaused,canSave,shownFillSpiritId,countdown:countdown.value,confirmation:${candidate?'distillRoom.confirmation':'confirmedBrewing'},prepared:${candidate?'distillRoom.isPreparedFor(game.core.lastDistillation)':'distillPrepared&&preparedForDistillation===game.core.lastDistillation'},tools:currentDistillTools()};}};`,Object.assign(ctx,{createWarehouseRoomController,recordRender:()=>log.push('render')}));
  const flush=()=>{while(micro.length)micro.shift()();};
  return {api:ctx.api,log,state:()=>ctx.api.result().raw,stored:()=>stored,
   invoke(name,...args){const out=ctx.api[name](...args);flush();return out;},

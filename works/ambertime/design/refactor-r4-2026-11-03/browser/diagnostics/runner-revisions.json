@@ -1,0 +1,6 @@
+{
+  "chromiumExecutedRunnerSHA256": "82e697b2ddd0a8619600aed05306e08f65b464fa1bfbf04c49ffd7497ff04ff3",
+  "webkitExecutedRunnerSHA256": "b8e279d86707a8701d034c264b190cf80a26e3827829f90dacceb08498b22e06",
+  "finalRunnerArtifactSHA256": "b8e279d86707a8701d034c264b190cf80a26e3827829f90dacceb08498b22e06",
+  "note": "During Chromium execution only write() changed from aggregate JSON to split capture JSON and deduplicated request serialization. Browser setup, fixtures, operations, captures and assertions unchanged. Exact Chromium executed revision reconstructed by reverting only write(); included here. WebKit started after that output edit. runnerSHA256 in raw results denotes final filesystem artifact, not startup. Screenshots CSS scale; raw Canvas RGBA digest full internal DPR size."
+}

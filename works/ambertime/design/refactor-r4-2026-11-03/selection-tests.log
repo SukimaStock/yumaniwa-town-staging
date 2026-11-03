@@ -1,0 +1,12 @@
+✔ R4 selection matches the immutable inline owner across empty, one, multiple, missing, tasting and return paths (5.572095ms)
+✔ R4 legal tasting, partial/full bottling and restored old saves keep formal bytes, order and original selection rules (93.645354ms)
+✔ R4 controller has no effect dependencies, retained game objects or shared owner; selected ID is read-only externally (1.805473ms)
+✔ R4 root has only the declared owner substitutions; all other statements and entry bytes match the immutable base (7.187867ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 237.705891

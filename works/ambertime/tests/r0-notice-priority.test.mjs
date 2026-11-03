@@ -1,3 +1,4 @@
+import {createWarehouseRoomController} from '../warehouse-room-controller.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {execFileSync} from 'node:child_process';
 import {createDistillRoomController} from '../distill-room-controller.mjs';
 const BASE='8fab526aec22a83b73147225c99e88e48188586e',path='works/ambertime/shop-app.mjs',current=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),base=execFileSync('git',['show',BASE+':'+path],{encoding:'utf8',maxBuffer:4e6});
@@ -11,7 +12,7 @@ function run(source,options={}){
  const notice=(s,key,update={})=>{log.push(key);return {...s,...update,operations:[...s.operations,{key}]};};
  const D={currentCask:(s,id)=>s.core.casks.find(c=>c.id===id),staffOpportunities:s=>s.staffPending?[{kind:'distill'}]:[],noticeStaffOpportunity:s=>notice(s,'notice-staff',{staffPending:false}),noticeShopOffer:s=>notice(s,'notice-shop',{shop:{offer:{...s.shop.offer,notified:true}}}),noticeGeneration:s=>notice(s,'notice-generation',{generationPending:false})};
  const ctx={D,game,document:{hidden:opt.hidden,activeElement:null},$:id=>id==='action-dialog'?dialog:{hidden:false},countdown:{active:false},modal:null,confirmedBrewing:null,selectedCaskId:null,room:'distill',modalReturnFocus:null,modalReturnObject:null,shownFillSpiritId:null,deliveryNotice:'',preview:false,canSave:opt.canSave,runtimeHalted:false,mapShown:0,mapAnnounced:0,mapPending:0,worldMapStage:1,mapProgress:()=>({bottled:true,max:2}),newlyUnlocked:(a,b)=>b>a,stopClock(){log.push('stop');},storageNotice:text=>log.push('error:'+text),mapNoticeSave(){log.push('map-metadata');}};
- if(source===current)ctx.distillRoom=createDistillRoomController();
+ if(source===current){ctx.distillRoom=createDistillRoomController();ctx.warehouseRoom=createWarehouseRoomController();}
  ctx.generationState=()=>ctx.game.generationPending?{id:2,phase:'review',needsNotice:true}:{id:1,phase:'working',needsNotice:false};
  ctx.save=()=>{log.push({save:ctx.game.operations.at(-1)?.key,modalAtSave:ctx.modal?.kind??null});if(opt.failSave){ctx.canSave=false;return false;}return true;};vm.createContext(ctx);
  const sync=extract(source,'syncModal'),cut=sync.indexOf(' if(!modal){vaultPanels();');assert(cut>0);const prefix=sync.slice(0,cut)+'\n}';
