@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b5c4c14d106ced9f35b5907c8797b3059b3b64012740ff16021ecddfddaafe52",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "00db30c29a00e7eefe3a9f18591b4f0215f4d8bc",
+    "changeId": "ambertime-a3",
+    "revision": 0,
+    "change": "Align AmberTime quantity feedback and controls",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current A3 user instruction",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "AmberTime R0–R6, A1–A2, PR #786"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a3/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/design/experience-a3/A3-ANIMATION-AUDIT.md",
+      "works/ambertime/design/experience-a3/A3-UI-RULES.md",
+      "works/ambertime/design/experience-a3/A3-IMPLEMENTATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Align delta signs and fade while preserving fixed sale slots, saved transactions and bottle paths",
+      "Align manual and staff count controls",
+      "Record audit, UI rules and evidence"
+    ],
+    "ownerDecisions": [
+      "Current A3 request authorizes staging implementation, normal PR merge and staging verification"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard staging-only, lock before implementation",
+      "Keep current inventory, formal transaction, notification ordering and existing fixed sales slot"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Normal shop offers/actions/queue/reload/save failure and conflict compared with formal model",
+      "Full current suite: formal129/distill20/oldcold/RNG/monthly/economy/notifications",
+      "Chromium and WebKit four requested widths; text/conditions/buttons/focus/ARIA/placement guidance",
+      "Unchanged Canvas/hits and unrelated UI, old cache upgrade, independent review",
+      "Exact-head required CI, ordinary PR merge and public Staging confirmation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert A3 PR; no save migration",
+    "outOfScope": [
+      "Production",
+      "Formal state, model, saves and fixtures",
+      "L1 records",
+      "New cash and evaporation motion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver"
+    ]
+  }
+}
