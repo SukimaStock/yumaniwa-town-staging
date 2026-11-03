@@ -390,7 +390,7 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 #action-dialog .first-bottle-assembly{position:relative;display:block;width:144px;height:144px;max-width:100%;flex:none}
 #action-dialog .first-bottle-assembly>span{position:absolute;inset:0;display:block}
 #action-dialog .first-bottle-assembly svg{display:block;width:100%;height:100%;image-rendering:pixelated}
-#action-dialog .first-bottle-base{animation:first-bottle-arrive 150ms steps(3,end) both}
+#action-dialog .first-bottle-base{animation:first-bottle-arrive 150ms steps(2,end) both}
 #action-dialog .first-bottle-label{animation:first-bottle-apply-label 250ms steps(5,end) 150ms both}
 #action-dialog .first-bottle-finished-name{max-width:100%;overflow-wrap:anywhere;text-align:center}
 #action-dialog .first-bottle-tap-hint{color:#c6c0a9}
@@ -400,3 +400,6 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 @media(prefers-reduced-motion:reduce){
  #action-dialog .first-bottle-base,#action-dialog .first-bottle-label{animation:none!important;opacity:1!important;transform:none!important}
 }
+
+/* A restored redraw of the same transient modal must never replay the ceremony. */
+#action-dialog .first-bottle-complete[data-static=true] :is(.first-bottle-base,.first-bottle-label){animation:none!important;opacity:1!important;transform:none!important}
