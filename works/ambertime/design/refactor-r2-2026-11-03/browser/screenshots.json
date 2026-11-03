@@ -1,0 +1,166 @@
+{
+  "pixelTolerance": 0,
+  "matchedRepresentativeImages": [
+    {
+      "file": "chromium-375-dpr2-motion-expired-recovery-after.png",
+      "sha256": "469270acaaaae4d1f79631bd33c10aba142fb2051f894bef1aff608752991835"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-expired-recovery-before.png",
+      "sha256": "469270acaaaae4d1f79631bd33c10aba142fb2051f894bef1aff608752991835"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-left-direct-after.png",
+      "sha256": "2c81322c416aa13ad9e86d2da679f1219fc151b5e09da3fc7f336258eff27c1e"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-left-direct-before.png",
+      "sha256": "2c81322c416aa13ad9e86d2da679f1219fc151b5e09da3fc7f336258eff27c1e"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-right-direct-after.png",
+      "sha256": "9a847f330676ce6b72822cc82b4c382814913542a7d6570b8efc04b8d99eff57"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-right-direct-before.png",
+      "sha256": "9a847f330676ce6b72822cc82b4c382814913542a7d6570b8efc04b8d99eff57"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-start-half-after.png",
+      "sha256": "7cc63de509c30ecbe2eafe6551f453a01f83c366f1fdd2644f4d9e8d11a3a8bb"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-start-half-before.png",
+      "sha256": "7cc63de509c30ecbe2eafe6551f453a01f83c366f1fdd2644f4d9e8d11a3a8bb"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-start-settled-after.png",
+      "sha256": "43866fe391e1984f23083689c8d68e4138ada44a33ffae59963556d96170984b"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-start-settled-before.png",
+      "sha256": "43866fe391e1984f23083689c8d68e4138ada44a33ffae59963556d96170984b"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-stop-half-after.png",
+      "sha256": "7b9835a5532dc47d130017e71fe059207d2d715cf16ebb7216e1be0db6c18b0d"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-stop-half-before.png",
+      "sha256": "7b9835a5532dc47d130017e71fe059207d2d715cf16ebb7216e1be0db6c18b0d"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-stop-settled-after.png",
+      "sha256": "7b9835a5532dc47d130017e71fe059207d2d715cf16ebb7216e1be0db6c18b0d"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-glass-stop-settled-before.png",
+      "sha256": "7b9835a5532dc47d130017e71fe059207d2d715cf16ebb7216e1be0db6c18b0d"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-lever-pose-0-after.png",
+      "sha256": "ea5b198828e506f7985fb9c0536327099a8010a1f141bd0a3724c0345ba75a93"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-lever-pose-0-before.png",
+      "sha256": "ea5b198828e506f7985fb9c0536327099a8010a1f141bd0a3724c0345ba75a93"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-lever-pose-1-after.png",
+      "sha256": "c290f8d5c7b7a21a40e1f38da4a44d67c37a59b98b815c1d8f48ad2734bad897"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-lever-pose-1-before.png",
+      "sha256": "c290f8d5c7b7a21a40e1f38da4a44d67c37a59b98b815c1d8f48ad2734bad897"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-lever-pose-2-after.png",
+      "sha256": "ce1f2f497d282d176e6ad50ca6e088b57427eb35e75831d689b97e0947dc7a0d"
+    },
+    {
+      "file": "chromium-375-dpr2-motion-lever-pose-2-before.png",
+      "sha256": "ce1f2f497d282d176e6ad50ca6e088b57427eb35e75831d689b97e0947dc7a0d"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-expired-recovery-after.png",
+      "sha256": "57b8b4148802f30343420f5087c82bf9698993a53f98404eb2a6432efcb30fb6"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-expired-recovery-before.png",
+      "sha256": "57b8b4148802f30343420f5087c82bf9698993a53f98404eb2a6432efcb30fb6"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-left-direct-after.png",
+      "sha256": "f838bd329f337055c9889718fc0235ff9ccce99180574db37233398b1ab9ffb6"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-left-direct-before.png",
+      "sha256": "f838bd329f337055c9889718fc0235ff9ccce99180574db37233398b1ab9ffb6"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-right-direct-after.png",
+      "sha256": "bc737ca89b0783f5614ca40dfa7c9b99bf2bc7f35e4e5693b4ff454a9f16d6df"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-right-direct-before.png",
+      "sha256": "bc737ca89b0783f5614ca40dfa7c9b99bf2bc7f35e4e5693b4ff454a9f16d6df"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-start-half-after.png",
+      "sha256": "256ecc1026a4fe4ad34493c771d715cf7c5841cb933d1e3466bb2b6463c6b65f"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-start-half-before.png",
+      "sha256": "256ecc1026a4fe4ad34493c771d715cf7c5841cb933d1e3466bb2b6463c6b65f"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-start-settled-after.png",
+      "sha256": "e758c8bffa1db2a765d05d02ad493b88acb421522efe532d2ab2a861b6555126"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-start-settled-before.png",
+      "sha256": "e758c8bffa1db2a765d05d02ad493b88acb421522efe532d2ab2a861b6555126"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-stop-half-after.png",
+      "sha256": "c4a0543bc2568e9ee8d15b6a83b6df4a4403fac0e5ad1defa0d54c2593de7828"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-stop-half-before.png",
+      "sha256": "c4a0543bc2568e9ee8d15b6a83b6df4a4403fac0e5ad1defa0d54c2593de7828"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-stop-settled-after.png",
+      "sha256": "c4a0543bc2568e9ee8d15b6a83b6df4a4403fac0e5ad1defa0d54c2593de7828"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-glass-stop-settled-before.png",
+      "sha256": "c4a0543bc2568e9ee8d15b6a83b6df4a4403fac0e5ad1defa0d54c2593de7828"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-lever-pose-0-after.png",
+      "sha256": "ccd327866ec7c8fb410a9f865f7df3774b50e55f761a7927341e064f742480a2"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-lever-pose-0-before.png",
+      "sha256": "ccd327866ec7c8fb410a9f865f7df3774b50e55f761a7927341e064f742480a2"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-lever-pose-1-after.png",
+      "sha256": "74753b1f8234531532bdb21ee53b6f52b10f4953cc0886dded3e6a4e09764c5d"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-lever-pose-1-before.png",
+      "sha256": "74753b1f8234531532bdb21ee53b6f52b10f4953cc0886dded3e6a4e09764c5d"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-lever-pose-2-after.png",
+      "sha256": "fbf22110ff523c419ddc2e1e223056ecac616b7d29b158b67ef49eb01c9adab1"
+    },
+    {
+      "file": "webkit-375-dpr2-motion-lever-pose-2-before.png",
+      "sha256": "fbf22110ff523c419ddc2e1e223056ecac616b7d29b158b67ef49eb01c9adab1"
+    }
+  ],
+  "diagnosticImages": "diagnostics/harness-review.json"
+}

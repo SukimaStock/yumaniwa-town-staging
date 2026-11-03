@@ -1,0 +1,15 @@
+✔ R2 all three pixel poses, glass endpoints/intermediate motion, liquid and guide cells exactly match R1 (760.321194ms)
+✔ R2 logical layout, strict endpoint selection, viewport offsets/DPR and hit boundaries exactly match R1 (75.65681ms)
+✔ R2 lever18/36 are CSS pixels at every scale: pose, downward dominance and release boundaries match R1 (119.522685ms)
+✔ R2 glass CSS travel clamp, sticky8px drag and directional commit thresholds match R1 (157.29225ms)
+✔ R2 cancel, capture, multitouch, lifecycle and keyboard action traces match R1 (25.029299ms)
+✔ R2 actual Canvas gesture release and endpoint-change animation fallbacks match R1 (214.636465ms)
+✔ R2 actual Canvas animation branch preserves140ms interpolation, CSS-to-logical drag, return and guide (17428.888697ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19553.280987

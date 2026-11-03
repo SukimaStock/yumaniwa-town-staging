@@ -1,0 +1,107 @@
+{
+  "launch": {
+    "ignoreDefaultArgs": [
+      "--disable-back-forward-cache"
+    ],
+    "args": [
+      "--no-sandbox",
+      "--disable-dev-shm-usage"
+    ]
+  },
+  "cases": [
+    {
+      "version": "before",
+      "browserVersion": "153.0.8010.0",
+      "documentPreserved": false,
+      "persisted": false,
+      "events": [
+        {
+          "type": "pageshow",
+          "persisted": false,
+          "trusted": true
+        }
+      ],
+      "formalSHA256": "2f00b7e19ee7a4d73098bccc8862bad16017c4c7ca7bf7d30c2e62e71ce08d65",
+      "saveSHA256": "bbf3ae90ab306596b7b85d0e661e239d86dd1709d0d56023970bbfc2fe1d1bf0",
+      "leverReturnStep": 0,
+      "notUsed": [
+        {
+          "loaderId": "F4BB246CB34C74DB319EA80F3862D006",
+          "frameId": "3B88E4DD14DBDB78CE016A5B8506A54C",
+          "notRestoredExplanations": [
+            {
+              "type": "Circumstantial",
+              "reason": "BrowsingInstanceNotSwapped"
+            },
+            {
+              "type": "Circumstantial",
+              "reason": "BackForwardCacheDisabledForDelegate"
+            }
+          ],
+          "notRestoredExplanationsTree": {
+            "url": "http://127.0.0.1:37291/before/works/ambertime/",
+            "explanations": [
+              {
+                "type": "Circumstantial",
+                "reason": "BrowsingInstanceNotSwapped"
+              },
+              {
+                "type": "Circumstantial",
+                "reason": "BackForwardCacheDisabledForDelegate"
+              }
+            ],
+            "children": []
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "after",
+      "browserVersion": "153.0.8010.0",
+      "documentPreserved": false,
+      "persisted": false,
+      "events": [
+        {
+          "type": "pageshow",
+          "persisted": false,
+          "trusted": true
+        }
+      ],
+      "formalSHA256": "2f00b7e19ee7a4d73098bccc8862bad16017c4c7ca7bf7d30c2e62e71ce08d65",
+      "saveSHA256": "bbf3ae90ab306596b7b85d0e661e239d86dd1709d0d56023970bbfc2fe1d1bf0",
+      "leverReturnStep": 0,
+      "notUsed": [
+        {
+          "loaderId": "D96952297BB112E3B1672CFC63B2A6E1",
+          "frameId": "51D6F98CDF45EF7EFEDF691A7F98740E",
+          "notRestoredExplanations": [
+            {
+              "type": "Circumstantial",
+              "reason": "BrowsingInstanceNotSwapped"
+            },
+            {
+              "type": "Circumstantial",
+              "reason": "BackForwardCacheDisabledForDelegate"
+            }
+          ],
+          "notRestoredExplanationsTree": {
+            "url": "http://127.0.0.1:37291/after/works/ambertime/",
+            "explanations": [
+              {
+                "type": "Circumstantial",
+                "reason": "BrowsingInstanceNotSwapped"
+              },
+              {
+                "type": "Circumstantial",
+                "reason": "BackForwardCacheDisabledForDelegate"
+              }
+            ],
+            "children": []
+          }
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8d94c6109e7075f8e5fc4972e243625cc571b639ee9575e689e151e6ef3d3005",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "1a86a3ce40eb5b5abadda162451d777a649ee855",
+    "changeId": "ambertime-refactor-r2-20261103",
+    "revision": 0,
+    "change": "Unify existing distillation tool geometry references without changing pixels, CSS gesture thresholds, targets, formal state or saves",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "PR768 structure audit",
+      "PR769 R0 exact baseline",
+      "works/ambertime/design/structure-audit-2026-11-02/STRUCTURE-AUDIT.md",
+      "works/ambertime/design/structure-audit-2026-11-02/REFACTOR-PLAN.md",
+      "works/ambertime/design/structure-audit-2026-11-02/BASELINE-TESTS.md",
+      "works/ambertime/design/refactor-r0-2026-11-03/TEST-FAILURE-REVIEW.md",
+      "works/ambertime/design/refactor-r0-2026-11-03/REFACTOR-BASELINE.md",
+      "Current explicit R1 instructions",
+      "works/ambertime/shop-app.mjs renderSpirit at fixed5c04a4fd",
+      "works/ambertime/spirit-view.mjs readout contract",
+      "Current explicit R2 instructions",
+      "PR770 R1 implementation and validation",
+      "works/ambertime/design/refactor-r1-2026-11-03/IMPLEMENTATION.md",
+      "Current TOOL_GEOMETRY, layout, native tool input and pixel draw baseline at1a86a3ce"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-refactor-r2-20261103/r0.lock.json",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/r2-*.mjs",
+      "works/ambertime/design/refactor-r2-2026-11-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/spirit-readout-view.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/design/refactor-r0-2026-11-03/**",
+      "works/ambertime/design/refactor-r1-2026-11-03/**",
+      "works/ambertime/design/structure-audit-2026-11-02/**",
+      "works/ambertime/*.css",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime-*/**"
+    ],
+    "expectedChanges": [
+      "Extend existing TOOL_GEOMETRY in distill-tools-view as the single existing geometry source, retain exports and existing fields. Layout, renderer, app and input reference it; no framework or model imports beyond existing view dependency",
+      "Retain exact logical coordinates: lever hit285,279,60,66; poses around300,315 handles321 at294/312/330; glass237/174 y345,54x54 hit inset-9/-12; travel63; spout192. Local pixel shapes remain local offsets, no redesign",
+      "Keep18/36 lever thresholds,8 drag classification,24 max glass commit in CSS client pixels; multiply glass63 by viewport scale at app boundary and divide drag by scale at Canvas boundary. DPR only resolution; min44CSS hit expansion unchanged",
+      "Preserve all truthiness/strict equality branches, animation140ms and120ms, guide/expiry/tutorial, pointer capture/cancel/click suppression, clock/save/formal dispatch unchanged",
+      "Version changed module imports and parent index/app/scene edges coherently; same geometry module identity, no Lab source/URL edits. Shared layout exact behavior protected",
+      "Add immutable-base geometry/pixel draw/input action/trace tests, R0/R1 expectations unchanged, dual-engine pointer/pixel/hit/formal/oldcache comparisons and independent R2 record"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Before implementation fixed immutable1a86a3ce source/coordinate inventory; compare R0/R1 base and latest main. Lock-only first commit",
+      "Exact old/new pixel fillRect traces all3poses/arrows/glass endpoints/intermediate; layout/transform/hit across widths,DPR,offsets,safe-area; actual input trace18/36CSS boundaries,cancel,multitouch,capture,keyboard",
+      "Chromium/WebKit360x568,375x620,390x680 with fixedseed,time,phase,font,DPR: exact canvas pixels/DOMactualhit/readout/formal/save; actual pointer lever/glass and animations, reducedmotion, resize/lifecycle and old1hcache tests. No tolerance widening",
+      "Root suite including129formal snapshots,old20cut+individualcold,oldsave,RNG/month/economy/notices; source invariance and Scope→Risk→Impact",
+      "Independent implementation review; exacthead required CI then normal merge and sameSHA Pages/publicStaging file+operation verification. PhysicaliPhone/realOS BFCache distinct unverified if unavailable"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert R2 geometry references/cache identities/tests/docs as one PR; no formal migration, save format or Lab changes.",
+    "outOfScope": [
+      "Any formal model/calculation/save/history/random/clock/notice change",
+      "Any gesture acceptance,actual target size,operation count,modal,design change",
+      "Other rooms or Lab source/registration/URL changes",
+      "Baseline fixture regeneration or test weakening",
+      "R3",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver/owner feel; unavailable browser cases explicitly recorded"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes R2 coordinate-reference consolidation through reviewed CI and safe Staging merge; identical UI/control/formal behavior required; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "First lock-only commit before implementation; Standard WORK",
+      "Reuse TOOL_GEOMETRY; explicit logical vs CSS boundary; no threshold rescaling",
+      "Existing shared layout and art consumers protected by exact behavioral comparison; no Lab source changes",
+      "Use existing node:test/available browsers, no dependency/CI changes; do not call synthetic lifecycle physical verification",
+      "Fresh lock replaces an unused overlapping tests/*.test.mjs conditional pattern; only explicit r2-* tests are allowed. Existing tests require a separate scope decision and remain unchanged. Validated implementation is reused after this fresh lock, not reimplemented."
+    ]
+  }
+}
