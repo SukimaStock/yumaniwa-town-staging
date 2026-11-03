@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7a7034f12e7c209d0198ac339fcde73ea768bd3a4791f07423091295bd96db58",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "f7ba8023706be803b1711b3e3374b7e1bf83c4d9",
+    "changeId": "ambertime-refactor-r3-20261103",
+    "revision": 0,
+    "change": "Separate only distillation preparation confirmation UI state into a small controller; preserve formal card selection, action/save/clock/modal/notice order and all pixels/controls",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "PR768-771 merged history and current explicit R3 instruction",
+      "works/ambertime/design/structure-audit-2026-11-02/STRUCTURE-AUDIT.md",
+      "works/ambertime/design/structure-audit-2026-11-02/REFACTOR-PLAN.md",
+      "works/ambertime/design/refactor-r0-2026-11-03/REFACTOR-BASELINE.md",
+      "works/ambertime/design/refactor-r1-2026-11-03/IMPLEMENTATION.md",
+      "works/ambertime/design/refactor-r2-2026-11-03/IMPLEMENTATION.md",
+      "Actual shop-app ten-step flow and immutable f7ba8023 source/fixtures"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-refactor-r3-20261103/r0.lock.json",
+      "works/ambertime/distill-room-controller.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/r0-distill-host.mjs",
+      "works/ambertime/tests/distill-tools-view.test.mjs",
+      "works/ambertime/tests/r0-notice-priority.test.mjs",
+      "works/ambertime/tests/r3-*.mjs",
+      "works/ambertime/design/refactor-r3-2026-11-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/start-countdown.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/spirit-readout-view.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/experiments/**",
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/design/refactor-r0-2026-11-03/**",
+      "works/ambertime/design/refactor-r1-2026-11-03/**",
+      "works/ambertime/design/refactor-r2-2026-11-03/**",
+      "works/ambertime/design/structure-audit-2026-11-02/**",
+      "works/ambertime-*/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "New tiny createDistillRoomController owns only prepared/preparedForDistillation/confirmation. Methods beginEdit/confirm/cancelEdit/clearPrepared/invalidate/reset/isPreparedFor and readonly confirmation. Explicit cards,batch,phase,validated confirmation projection inputs; zero callbacks and no DOM/model/save/storage/random/clock/modal dependencies.",
+      "Replace exact old state reads/writes at existing locations with controller calls; root keeps formal card selection at each click, action handlers/dispatch, StartCountdown ownership and all operations, save transaction, notice priority, render/syncModal, modal.preparedAtOpen and shownFillSpiritId, room moves, startup/reset ordering.",
+      "Preserve changed-card cancel without formal rollback; unchanged/changed-back cancel restoration; render invalidates only confirmation on phase/batch mismatch; reset clears prepared/confirmation but retains dormant prepared batch exactly; generic act after clears prepared before save even on failure.",
+      "Do not extract lever/cut/fill orchestration in R3: root callbacks and save/clock ordering would be less clear. Keep all R2 coordinates/gesture/view bytes unchanged.",
+      "New controller import version and index parent query update only; no CSS/image/worker or Lab cache changes. Test old-one-hour cache app+newcontroller fetch and source hashes.",
+      "Existing three VM harnesses only inject actual controller at candidate extraction boundaries. Keep immutable base globals and all assertions/fixtures/cases. New independent state transition and actual root handler ordered effect differential tests incl success/quota/conflict/throw/reload/automatic.",
+      "Record actual10-step path, owners, preserved quirks, formal129/old20/full baseline, Chromium/WebKit3widthDPR/time/phase pixel+DOM+hit+a11y+focus+save comparisons, oldcache, independentreview and exact-head CI/Staging delivery. No scope growth."
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes R3 minimum safe distillation UI responsibility extraction through reviewed required CI, normal merge and Staging verification; no Production or R4 implementation."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK, first lock-only commit before implementation",
+      "Use explicit new/three exact test paths; no overlapping conditional wildcard",
+      "No state duplication/callback framework; one preparation state owner and existing effect owners",
+      "Reuse fixed R0/R2 fixtures/oracles and portable existing node:test/Playwright, no product dependency/CI changes",
+      "Browser availability checked anew; physicaldevice/BFCache/unsupported conditions remain unverified; no TLS/proxy bypass"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Audit real ten-step flow and cancel/reset/reload/automatic/failure differences before extraction; immutable f7ba baseline sources and existing fixtures fixed",
+      "Independent old/new UI-state trace and actual root handler effect order: operation→model→after→save→notice→render/syncModal→schedule; generic/candidate difference unchanged, no retries/swallowed errors",
+      "Full existing root tests baseline then candidate,129intermediate raw/history/RNG/month/economy/notice and20cut+individualcold/oldsave strict acceptance; no skip/tolerance/fixture changes",
+      "Chromium/WebKit360x568/375x620/390x680 fixedseed42,formalstate,time,font,DPR,phase: actual prepare/select/confirm/reedit/cancel/lever/countdown/glass/result/cask/fill/next, failure/reload/rooms/staff/reduced; exact pixels/DOM/hit/focus/a11y/state/save",
+      "Old1hcache sameorigin: new app/controller URLs and bodies; source closure, controller no effect dependency; R2 file invariance",
+      "Independent review and Scope→Risk→Impact→required exacthead CI plus supplemental, normal merge and sameSHA Pages/public files/actual native操作 verification"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert R3 controller/app/entry/test-port/docs changes as one normal PR; formal saves and fixtures unchanged, no migration.",
+    "outOfScope": [
+      "Formal model/operations/save format or key/replay/RNG/month/economy/staff/notice/copy changes",
+      "Controller ownership of actual model/save/clock/modal priorities or gesture",
+      "Changing UI copy/design/coordinates/tap areas/input semantics/countdown/cut rules",
+      "Other rooms/controllers/Labs/registration/URLs",
+      "Unrelated fixes or baseline regeneration/test weakening",
+      "R4",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/VoiceOver/nonzero safe-area/real OS background and BFCache hit unless actually observed; unavailable browser conditions not treated as pass"
+    ]
+  }
+}
