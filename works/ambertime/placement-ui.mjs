@@ -20,7 +20,7 @@ export function createPlacementUI({document:doc,model:D,state,art,icon,commit,re
   if(!button||!output||!hand||!Number.isInteger(count)||count<=0||!visible(bottle))return;
   const play=(key,element,frames,duration,done)=>{
    motions.get(key)?.cancel();
-   const a=element.animate(frames,{duration,iterations:1,easing:'steps(3,end)'});
+   const a=element.animate(frames,{duration,iterations:1,easing:key.startsWith('delta-')?'linear':'steps(3,end)'});
    motions.set(key,a);
    const finish=()=>{if(motions.get(key)===a)motions.delete(key);done?.();};
    a.onfinish=a.oncancel=finish;
@@ -32,7 +32,7 @@ export function createPlacementUI({document:doc,model:D,state,art,icon,commit,re
    const span=doc.createElement('span');
    span.className='placement-delta';
    span.setAttribute('aria-hidden','true');
-   span.textContent=(value>0?'+':'')+value;
+   span.textContent=(value>0?'+':'−')+Math.abs(value);
    element.append(span);
    play('delta-'+name,span,[{opacity:1},{opacity:1,offset:.65},{opacity:0}],650,()=>span.remove());
   };

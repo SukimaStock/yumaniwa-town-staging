@@ -99,6 +99,14 @@ export function beforeA2(source,name='shop-app.mjs'){
  return source;
 }
 export function beforeA1(source,name='shop-app.mjs'){
+ const a3=name==='shop-app.mjs'?
+  ['fields=count-linked-r1&rooms=stage2-r1&quantity=a3-1','placement-ui.mjs?v=visual14-r1&quantity=a3-1']:
+  name==='index.html'?['daily=cut-range-r1&amp;status=1&amp;quantity=a3-1','experience=a2-2&amp;quantity=a3-1']:[];
+ for(const reference of a3){
+  if(name==='index.html'&&reference.startsWith('experience=')&&!source.includes('experience=a2-2'))continue;
+  assert.equal(source.split(reference).length-1,1,'exact A3 cache reference: '+name);
+  source=source.replace(reference,reference.replace(/(?:&amp;|&)quantity=a3-1$/,''));
+ }
  source=beforeA2(source,name);
  // A1-3 authorizes only these cache references in app/HTML; retain every
  // prior exact hunk and immutable source hash after this single-match inverse.
