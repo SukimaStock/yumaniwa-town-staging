@@ -35,12 +35,12 @@ export function firstBrandEditor(draft,{art,esc,button,error}){
   '<input id="brand-name" type="text" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" aria-describedby="brand-name-error" value="'+esc(draft.name)+'">'+
   '<p id="brand-name-error" role="status">'+esc(error(draft.name))+'</p></section>';
 }
-export function firstBottleCompletion(brand,productId,priceTier,{esc}){
+export function firstBottleCompletion(brand,productId,priceTier,{esc},staticDone=false){
  const shape=bottleShape(brand);
  // The unlabeled asset keeps the original glass, cap and silhouette; the
  // separate label pixels slide into their exact final Codea grid cells.
  const bare=codeaBottle(shape,{label:null,priceTier});
- return '<section class="first-bottle-complete" aria-label="最初の一本が完成">'+
+ return '<section class="first-bottle-complete"'+(staticDone?' data-static="true"':'')+' aria-label="最初の一本が完成">'+
   '<button type="button" class="first-bottle-proceed" data-action="first-bottle-proceed" data-id="'+productId+'" aria-label="'+esc(brand.name)+'。完成したビンをタップして販売室へ進む">'+
    '<span class="first-bottle-assembly" aria-hidden="true">'+
     '<span class="first-bottle-base">'+bare+'</span>'+
