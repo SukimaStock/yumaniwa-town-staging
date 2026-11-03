@@ -1,0 +1,426 @@
+{
+  "urls": [
+    {
+      "url": "works/ambertime/experiments/cask-aroma/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/contest/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-contest-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/contest/v01.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/continuous-trade/v01/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/decision/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-decision-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/distillation/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v01/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v02/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v02-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v03/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v03-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v04/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v04-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v05/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v05-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v06/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v06-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v07/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v07-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v071/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v071-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v072/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v072-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/hand-and-place/v073/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-hand-and-place-v073-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/market-design/v01/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-market-design-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/reputation/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-reputation-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/reputation/v01.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/reputation/v02/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/reputation/v03/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/reputation/v04/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-reputation-world-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/reputation/v05/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-reputation-encounter-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/shop-expansion/v01/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-shop-expansion-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/shop-expansion/v02/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-shop-relationship-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/taste-market/v01/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/taste-market/v02/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/taste-market/v03/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/town-simulation/v01/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-town-simulation-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/whisky-evaluation/v01/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-whisky-evaluation-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/whisky-evaluation/v011/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-whisky-evaluation-lab-v011/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/whisky-evaluation/v02/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-whisky-evaluation-lab-v02/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/whisky-evaluation/v03/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-whisky-evaluation-lab-v03/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/whisky-evaluation/v04-visual/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-whisky-visual-lab-v04/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/whisky-evaluation/v05-map/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-whisky-map-lab-v05/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime/experiments/world-map/v01/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-world-map-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-cut-lab/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-cut-lab/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-flavor-lab-v02/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-flavor-lab-v02/",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-word-crafting-lab/index.html",
+      "status": 200,
+      "identicalBody": true
+    },
+    {
+      "url": "works/ambertime-word-crafting-lab/",
+      "status": 200,
+      "identicalBody": true
+    }
+  ],
+  "browsers": [
+    {
+      "engine": "chromium",
+      "asset": "works/ambertime/experiments/reputation/index.html",
+      "identicalPNG": true,
+      "redirect": "works/ambertime/experiments/reputation/v03/",
+      "reload": true,
+      "sha256": "560d4e91a05ab1737621e760fea263dbbc4c284cb4cbaf37efe703e2f587d00c"
+    },
+    {
+      "engine": "chromium",
+      "asset": "works/ambertime/experiments/reputation/v01.html",
+      "identicalPNG": true,
+      "redirect": "works/ambertime/experiments/reputation/v01.html",
+      "reload": true,
+      "sha256": "e0d22755679630191cf401dec4d4d95033d88b16ef81a40d00bffe6ce714c7e6"
+    },
+    {
+      "engine": "chromium",
+      "asset": "works/ambertime/experiments/cask-aroma/",
+      "identicalPNG": true,
+      "redirect": "works/ambertime/experiments/cask-aroma/",
+      "reload": true,
+      "sha256": "9d46d4b70c0ce258b89c76be5262120fdfa3c73fc1e2f1e7c371ce9ce4a8221a"
+    },
+    {
+      "engine": "chromium",
+      "asset": "works/ambertime/experiments/hand-and-place/v073/",
+      "identicalPNG": true,
+      "redirect": "works/ambertime/experiments/hand-and-place/v073/",
+      "reload": true,
+      "sha256": "e533bd53231127d145f1421378f9f51b31409b76d7667ee4b5a651ac0d9bb86a"
+    },
+    {
+      "engine": "chromium",
+      "asset": "works/ambertime-cut-lab/",
+      "identicalPNG": true,
+      "redirect": "works/ambertime-cut-lab/",
+      "reload": true,
+      "sha256": "56225b04d2b6f46b9093a0629f603b29167c43f83d0026d631957bdd4f4008f4"
+    },
+    {
+      "engine": "webkit",
+      "asset": "works/ambertime/experiments/reputation/index.html",
+      "identicalPNG": true,
+      "redirect": "works/ambertime/experiments/reputation/v03/",
+      "reload": true,
+      "sha256": "87f0e22fac31a1585d397c5b20f81ed2e07b834c6420b148142f06c8daa6386a"
+    },
+    {
+      "engine": "webkit",
+      "asset": "works/ambertime/experiments/reputation/v01.html",
+      "identicalPNG": true,
+      "redirect": "works/ambertime/experiments/reputation/v01.html",
+      "reload": true,
+      "sha256": "97bc4fb1900e51b3678dd9e2461c2dc3280b727d5c2300d57cd3680445c71fa5"
+    },
+    {
+      "engine": "webkit",
+      "asset": "works/ambertime/experiments/cask-aroma/",
+      "identicalPNG": true,
+      "redirect": "works/ambertime/experiments/cask-aroma/",
+      "reload": true,
+      "sha256": "4de2ee7af2500415ba016eb27972dcc0374273c295e6bbc8f9f97bf6ae65dba9"
+    },
+    {
+      "engine": "webkit",
+      "asset": "works/ambertime/experiments/hand-and-place/v073/",
+      "identicalPNG": true,
+      "redirect": "works/ambertime/experiments/hand-and-place/v073/",
+      "reload": true,
+      "sha256": "12f7fdee9094e929aa9d3f1b9c9228c7d51048169f01a196eee9761265a84abd"
+    },
+    {
+      "engine": "webkit",
+      "asset": "works/ambertime-cut-lab/",
+      "identicalPNG": true,
+      "redirect": "works/ambertime-cut-lab/",
+      "reload": true,
+      "sha256": "66c8f08dfa5fed9c8ad310f0705e34bb47d7ff1a932e796d6bc913e96cb1a252"
+    }
+  ]
+}
