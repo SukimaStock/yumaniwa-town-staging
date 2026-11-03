@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c8d0358b24aa57aec252ac38a51c114ff9429828202d10d9bbf90fb0c388a3da",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "632968a80b81ea1478012073b2de9a0f6e525183",
+    "changeId": "ambertime-lab-records-l1-20261103",
+    "revision": 0,
+    "change": "Separate AmberTime current experiments and research records while preserving all code, URLs and formal dependencies",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/REFACTOR-SUMMARY.md",
+      "works/ambertime/design/structure-audit-2026-11-02/LAB-INVENTORY.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "Current explicit L1 request"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-lab-records-l1-20261103/r0.lock.json",
+      "data/lab-rooms.json",
+      "data/ambertime-research.json",
+      "tools/lab-renderer.cjs",
+      "tools/ambertime-research.cjs",
+      "tools/work-lifecycle.cjs",
+      "lab/index.html",
+      "lab/ambertime-research.html",
+      "lab/ambertime-research.css",
+      "tests/test-ambertime-research.cjs",
+      "works/ambertime/design/lab-archive-l1-2026-11-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/experiments/**",
+      "works/ambertime/tests/**",
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime-cut-lab/**",
+      "works/ambertime-flavor-lab-v02/**",
+      "works/ambertime-word-crafting-lab/**",
+      "data/work-lifecycle.json",
+      ".github/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/change-*.cjs"
+    ],
+    "expectedChanges": [
+      "Keep all 39 assets/38 screens/29 registered entrances, old wrappers and 7 production dependencies byte identical. Preserve lifecycle and names.",
+      "Keep 4 recompare candidates plus 5 uncertain assets available normally; mark remaining 30 as historical display only using stored:true; retain assigned IDs to prevent auto reinsertion.",
+      "Generate a separate minimal research page with six theme groups and all 39 records, purposes/results/adoption/deferred evidence and all original links. Resolve registered title/entry from lifecycle. Do not invent author adoption.",
+      "Integrate both outputs into existing --write-lab/--check; existing rooms unchanged; only AmberTime machine records/links differ.",
+      "Verify all preserved URLs/redirects/import edges, full 1216 baseline formal suite, Chromium/WebKit 360/375/390/430/reduced/keyboard/back, representative unchanged Lab pixels; independent review and normal PR/CI/merge/Pages."
+    ],
+    "ownerDecisions": [
+      "Current L1 request explicitly authorizes reversible display sorting, research entrance, documentation, testing, independent review and normal Staging PR merge/public checks. Uncertain items remain visible; no freezing or Production."
+    ],
+    "hqDecisions": [
+      "Preimplementation independent design review accepted separate generated page: existing stored:true presentation only, no new room/lifecycle schema; research metadata keyed by existing work identity with unregistered internal variant paths; integrate both write/check outputs; validate local links and preservation."
+    ],
+    "rulesApplied": [
+      "Lock-only commit before implementation",
+      "SYSTEM Full due shared renderer and executable paths",
+      "Existing identity/status/publication remains lifecycle only; research selection is presentation only",
+      "Research headings/results contain only sourced claims; unknown outcomes explicitly unknown"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inventory39/38/29 protected24 and exact7 dependency/import/URL byte preservation",
+      "LAB generation current/archived/uncertain compatibility nonAmberTime invariance",
+      "Formal129 distill20 oldcold RNG monthly inventory notification savefailure and full1216 suite",
+      "Chromium WebKit mobile widths keyboard focus back reduced-motion and unchanged Labs",
+      "Independent review exacthead gates CI merge Pages payload"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert of L1 presentation/data/docs; no migration or model rollback.",
+    "outOfScope": [
+      "All game and Lab runtime/model/save/cache/controller/Canvas behavior",
+      "Lifecycle freezing and adoption decisions",
+      "Production and subsequent refactors"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver audio; unresolved author decisions retain visibility"
+    ],
+    "problem": "Historical and current AmberTime experiments share normal LAB listings.",
+    "currentContract": "lifecycle owns identity/status; lab-rooms owns placement; stored:true is existing back-shelf; unassigned active work autoappears; all files published by Pages.",
+    "whyExistingIsInsufficient": "Back-shelf alone lacks per-version research purpose, results and adoption context.",
+    "design": "Reuse stored:true for historical registered works. Render them through research page rather than ordinary back-shelf. Fixed research link from existing AmberTime entry; no arbitrary URLs or new room. Research metadata references existing IDs and source paths; all 39 retained.",
+    "alternativesRejected": [
+      "Delete registration: auto reinsertion/publication risks",
+      "Freeze lifecycle: no author freeze decision",
+      "New room: unnecessary schema expansion",
+      "Move Lab code: prohibited main imports"
+    ],
+    "migration": "None; optional stored default remains false; no lifecycle or URL changes.",
+    "compatibility": "Non-AmberTime machine HTML and all source Lab/main files unchanged. Existing generated index checks now include research output.",
+    "boundaryCases": [
+      "Missing or duplicate entry fails",
+      "Research metadata unsafe/missing source fails",
+      "Uncertain remains normal",
+      "No JS research/back navigation",
+      "Existing auto registration stays visible",
+      "Old wrapper/transitive imports unchanged"
+    ],
+    "testPlan": [
+      "Focused renderer/generation/compatibility negatives, all links and dependency hashes, existing lifecycle tests, full AmberTime tests, two-engine mobile matrix."
+    ],
+    "promotionRisk": "Staging only; no production promotion."
+  }
+}
