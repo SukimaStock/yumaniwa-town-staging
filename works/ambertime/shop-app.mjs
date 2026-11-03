@@ -1,3 +1,4 @@
+import {ledgerProfile,caskTimeline,recordTimeline,recordText} from './ledger-history-view.mjs?v=refactor-r5-1';
 import {createWarehouseRoomController} from './warehouse-room-controller.mjs?v=refactor-r4-1';
 import {createDistillRoomController} from './distill-room-controller.mjs?v=refactor-r3-1';
 import {staffStatusView} from './staff-status-view.mjs?v=status-reactions-r1';
@@ -448,8 +449,6 @@ function ledgerRecipeList(){const waiting=caskLoadingView();if(waiting)return wa
 function ledgerCaskList(){const waiting=caskLoadingView();if(waiting)return waiting;const rows=caskData().casks.slice().sort((a,b)=>(b.filledMonth??-1)-(a.filledMonth??-1)||b.caskId-a.caskId);return rows.length?ledgerPaged(rows,c=>'<button type="button" class="ledger-release-row" id="ledger-cask-'+c.caskId+'" data-action="ledger-cask-open" data-id="'+c.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(c)+'</span><span>'+esc(caskName(c.caskId))+' · '+esc(ledgerType(c))+'<br>'+esc(known(c.filledMonth,monthLabel))+'<br>'+esc(ledgerCaskStatus(c))+(cooledCask(c)?' · 冷暗所':'')+' · '+esc(known(c.age,ageLabel))+'</span></button>'):'<p>記録なし</p>';}
 function openLedgerDetail(kind,caskId,focusId){const parent=rememberLedger();modal={kind,caskId,parent,returnFocusId:focusId};render();$('dialog-body').scrollTop=0;}
 const rangeText=(choice,stop)=>choice?(choice.collectionVersion===2?'':'旧製法 ')+Math.round(choice.start*100)+'〜'+Math.round(choice.end*100)+'％':known(stop,n=>n+' / '+extractionMaximum);
-const knownProfile=p=>FLAVOR_AXES.every(({key})=>Number.isFinite(p?.[key]));
-function ledgerProfile(profile,previous=null){return profile?(knownProfile(profile)?flavorTypeView(profile):'<p>風味の記録なし</p>')+FLAVOR_AXES.map(({label,key})=>'<section class="tasting-flavor"><h3>'+esc(label)+'</h3>'+flavorMeter(profile,key,{previousProfile:previous})+'</section>').join(''):'<p>原酒の特徴 記録なし</p>';}
 function linkedReleases(c){const rows=ledgerData().entries.filter(r=>(c.releaseKeys??[]).includes(r.key));return rows.length?'<details class="ledger-related"><summary>発売 '+rows.length+'回</summary>'+rows.map(releaseRow).join('')+'</details>':'';}
 function recipeCardFacts(choice){return choice?copyFacts([['malt','麦芽'],['ferment','発酵']].map(([group,label])=>[label,BREWING_CARDS.find(c=>c.group===group&&c.value===choice[group])?.label??'記録なし'])):'<p class="quiet">仕込みカード 記録なし</p>';}
 function ledgerRecipeDetail(){
@@ -480,26 +479,8 @@ function ledgerCaskDetail(){
  if(!caskData().coverage.complete)out+='<p class="quiet">記録の残る範囲</p>';
  return out+'</article>';
 }
-function caskTimeline(c){
- const groups=new Map(),add=(age,html,text=null)=>{const key=Number.isFinite(age)?age:null;if(!groups.has(key))groups.set(key,{html:'',texts:new Set()});const group=groups.get(key);if(text!==null){if(group.texts.has(text))return;group.texts.add(text);}group.html+=html;};
- const samples=c.samples??[];samples.forEach((sample,i)=>{add(sample.age,'<div class="ledger-taste" data-sample="'+i+'"><h4>試飲</h4>'+ledgerProfile(sample.profile,i?samples[i-1].profile:null)+'</div>');for(const t of sample.text??[])add(sample.age,recordText(t),t);if(i&&knownProfile(sample.profile)&&knownProfile(samples[i-1].profile))add(sample.age,recordText(shortChange(sample,samples[i-1])));});
- for(const h of c.history??[]){const age=Number.isFinite(h.age)?h.age:Number.isFinite(h.month)&&Number.isFinite(c.filledMonth)?h.month-c.filledMonth:null;const sameTasting=samples.some(sample=>sample.age===age&&typeof h.text==='string'&&(sample.text??[]).join('。').replace(/。+$/,'')===h.text.replace(/。+$/,''));if(!sameTasting)add(age,recordText(h.text),h.text);}
- for(const o of c.observations??[])for(const text of [o.title,o.text].filter(Boolean))add(o.age,recordText(text),text);
- for(const choice of c.choices??[])if(!(choice.key==='cool'&&(c.observations??[]).some(o=>o.eventId==='manual-cool'&&o.age===choice.age)))add(choice.age,recordText(choice.text),choice.text);
- const shownVolumes=new Set();for(const v of c.volumeHistory??[]){const key=[v.age,v.month,v.litres].join(':');if(shownVolumes.has(key))continue;shownVolumes.add(key);add(v.age,'<p class="ledger-volume">'+esc(known(v.month,monthLabel))+' · '+esc(known(v.litres,n=>n.toFixed(1)+' L'))+'</p>');}
- if(!groups.size)return '<p>試飲・熟成の記録なし</p>';
- return '<ol class="record-timeline">'+[...groups].sort((a,b)=>(a[0]??Infinity)-(b[0]??Infinity)).map(([age,g])=>'<li data-age="'+(age??'unknown')+'"><time>'+esc(known(age,ageLabel))+'</time>'+g.html+'</li>').join('')+'</ol>';
-}
 function finishLedgerTasting(){const parent=modal?.ledgerParent;if(!parent)return;act(D.endTasting,()=>{modal=parent;},()=>restoreLedger());}
 // Ledger formatting reads existing records only; stored prose is never rewritten.
-const recordText=text=>typeof text==='string'&&text.trim()?'<p class="record-text">'+esc(text)+'</p>':'';
-function recordTimeline(samples=[],observations=[],choices=[],withChanges=false){
- const ages=new Map(),add=(age,html)=>{if(html)ages.set(age,(ages.get(age)??'')+html);};
- samples.forEach((sample,i)=>{add(sample.age,(sample.text??[]).map(recordText).join(''));if(withChanges&&i)add(sample.age,shortChange(sample,samples[i-1]).split(' · ').map(recordText).join(''));});
- observations.forEach(o=>add(o.age,recordText(o.title)+(o.text!==o.title?recordText(o.text):'')));
- choices.filter(c=>c.key!=='cool'||!observations.some(o=>o.eventId==='manual-cool'&&o.age===c.age)).forEach(c=>add(c.age,recordText(c.text)));
- return ages.size?'<ol class="record-timeline">'+[...ages].sort((a,b)=>a[0]-b[0]).map(([age,html])=>'<li data-age="'+age+'"><time>'+ageLabel(age)+'</time>'+html+'</li>').join('')+'</ol>':'';
-}
 
 function brandSummary(id){const stats=brandStats(game,id);return '<p>'+esc(brandReputation(game,id).label)+'</p><p class="quiet">発売 '+stats.releases+'回<br>自家販売 '+stats.sold+'本<br>完売 '+stats.soldOut+'回<br>累計売上 '+money(stats.revenue)+'<br>販売中の在庫 '+stats.sellingStock+'本</p>';}
 const shopTerms=id=>{if(id==='department')return '24か月以上／シゲキが穏やか／特選5本';const s=SHOPS.find(x=>x.id===id);return s?[(s.minAge?s.minAge+'か月以上':''),(s.maxRoughness!==null?'シゲキが穏やか':''),s.minQuantity+'本から','月'+s.monthlyLimit+'本まで'].filter(Boolean).join('／'):'';};

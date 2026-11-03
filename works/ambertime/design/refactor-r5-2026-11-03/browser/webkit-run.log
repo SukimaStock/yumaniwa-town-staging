@@ -1,0 +1,9 @@
+{"id":"webkit-360-dpr1-motion","side":"before","captures":24}
+{"id":"webkit-360-dpr1-motion","side":"after","captures":24}
+{"id":"webkit-375-dpr2-motion","side":"before","captures":24}
+{"id":"webkit-375-dpr2-motion","side":"after","captures":24}
+{"id":"webkit-390-dpr3-motion","side":"before","captures":24}
+{"id":"webkit-390-dpr3-motion","side":"after","captures":24}
+{"id":"webkit-390-dpr3-reduced","side":"before","captures":24}
+{"id":"webkit-390-dpr3-reduced","side":"after","captures":24}
+{"passed":true,"captures":192,"comparisons":96,"cacheCases":1}
