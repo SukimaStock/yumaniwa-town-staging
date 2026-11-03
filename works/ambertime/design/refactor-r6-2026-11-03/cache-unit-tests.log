@@ -1,0 +1,13 @@
+✔ R5 immutable closure protects the four post-R0 modules and both worker branches (277.081759ms)
+✔ each R1/R3/R4/R5 module body change rejects an unchanged cached parent (4.443769ms)
+✔ changing the new child URL without updating the HTML app URL still fails (3.125709ms)
+✔ all incoming identities must propagate for Canvas, new views, workers, CSS and font (38.447394ms)
+✔ actual font retry function resolves the same CSS font and changes only retry query (214.274582ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 667.85584

@@ -1,0 +1,14 @@
+✔ R6 actual queue coalesces constructor and repeated requests, reading latest presentation (3.874439ms)
+✔ R6 stop cancels pending RAF and all three presentation timers; hidden requests stay stopped (3.750074ms)
+✔ R6 actual page lifecycle listeners suspend and coalesce pageshow/visibility recovery (8.719385ms)
+✔ R6 font settlement and font recovery events redraw through the same queue (10.361979ms)
+✔ R6 actual draw guards cancel tasks before missing-view/font/hidden/suspended returns (8.423618ms)
+✔ R6 modal, news, reduced-motion and viewport events use existing scheduler and DPR dimensions (1.431871ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 158.873637
