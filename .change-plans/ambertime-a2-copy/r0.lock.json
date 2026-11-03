@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9ed5b8e11ca6023a85920db7d7d4fb503d285745434a74698b47586bf5d4f547",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "d33c834d79ef1d75590eb87fd784a528177d2012",
+    "changeId": "ambertime-a2-copy",
+    "revision": 0,
+    "change": "Unify three offer texts while preserving operations",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current explicit A2 instruction",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/store-market.mjs",
+      "R0-R6 and PR768-782",
+      "Latest main7e9d9569 adds only PR783 A1-3 public evidence; product files match0c3473f exactly. Reuse observed product tests."
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a2-copy/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Offer copy, department duplicate label removal, cache and copy expectations only"
+    ],
+    "ownerDecisions": [
+      "Current A2 user instruction authorizes staging implementation, normal PR merge and publication; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard staging-only; prior lock-only commit",
+      "No added confirmation or formal state; natural conversation retained",
+      "Display reflects storeMarket/shopDemand/placement modes; department excluded"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Normal shop offers/actions/queue/reload/save failure and conflict compared with formal model",
+      "Full current suite: formal129/distill20/oldcold/RNG/monthly/economy/notifications",
+      "Chromium and WebKit four requested widths; text/conditions/buttons/focus/ARIA/placement guidance",
+      "Unchanged Canvas/hits and unrelated UI, old cache upgrade, independent review",
+      "Exact-head required CI, ordinary PR merge and public Staging confirmation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert PR for A2 app/cache/copy tests; no save migration",
+    "outOfScope": [
+      "Production",
+      "Department behavior/copy",
+      "Formal model/state/save",
+      "Large sales UI redesign"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver"
+    ]
+  }
+}
