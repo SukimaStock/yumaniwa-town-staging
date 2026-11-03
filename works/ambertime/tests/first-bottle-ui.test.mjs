@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {IDENTITY_BOTTLES,IDENTITY_LABELS,bottleShape,brandNameError} from '../brand-identity.mjs';
-import {codeaBottle} from '../codea-object-art.mjs';
-import {firstBottleLabelCells,firstBottleLabelLayer,firstBrandEditor,firstBottleCompletion} from '../first-bottle-view.mjs';
+import {codeaBottle,sourcePalette} from '../codea-object-art.mjs';
+import {firstBottleLabelCells,firstBottleLabelLayer,firstBottleBareBottle,firstBrandEditor,firstBottleCompletion} from '../first-bottle-view.mjs';
 
 const rectMap=svg=>new Map([...svg.matchAll(/<rect x="(\d+)" y="(\d+)" width="1" height="1" fill="([^"]+)"\/>/g)]
  .map(m=>[m[1]+':'+m[2],m[3]]));
@@ -12,11 +12,11 @@ test('label overlay exactly composes every native Codea bottle and price tier',(
  for(const bottle of IDENTITY_BOTTLES)for(const label of IDENTITY_LABELS)for(const priceTier of ['low','standard','high']){
   const brand={name:'初めて',bottle:bottle.id,label:label.id};
   const shape=bottleShape(brand);
-  const composed=rectMap(codeaBottle(shape,{label:null,priceTier}));
+  const composed=rectMap(firstBottleBareBottle(brand,priceTier));
   const overlay=rectMap(firstBottleLabelLayer(brand));
   assert.ok(overlay.size>0,bottle.id);
   assert.equal(firstBottleLabelCells(brand).length,overlay.size,bottle.id);
-  for(const [position,color] of overlay)composed.set(position,color);
+  for(const [position,color] of overlay){assert.equal(composed.get(position),sourcePalette[21]);composed.set(position,color);}
   assert.deepEqual([...composed].sort(),[...rectMap(codeaBottle(shape,{label:label.id,priceTier}))].sort(),bottle.id+'/'+label.id+'/'+priceTier);
  }
 });
