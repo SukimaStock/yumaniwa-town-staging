@@ -403,3 +403,11 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 
 /* A restored redraw of the same transient modal must never replay the ceremony. */
 #action-dialog .first-bottle-complete[data-static=true] :is(.first-bottle-base,.first-bottle-label){animation:none!important;opacity:1!important;transform:none!important}
+
+/* The native 36px !important bottle rule must be overridden only in A5 previews. */
+#action-dialog .first-brand-preview-bottle svg[data-codea="bottle"]{width:94px!important;height:94px!important}
+#action-dialog .first-brand .first-brand-choice-art svg[data-codea="bottle"]{width:36px!important;height:36px!important}
+#action-dialog .first-bottle-base svg[data-codea="bottle"]{width:100%!important;height:100%!important}
+@media(max-height:620px){
+ #action-dialog .first-brand-preview-bottle svg[data-codea="bottle"]{width:78px!important;height:78px!important}
+}
