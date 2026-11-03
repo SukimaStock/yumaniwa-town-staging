@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "productSourceHashes": {
+    "shop-app.mjs": "91693891af96c0ccae3ee4287647717484be788c93c92fda40e462aaa9c0aaf2",
+    "index.html": "69ba3fcc4d424a8b2383d2e0375bda50ef1f7e4d1d1de95478fe5cacb039ee0c",
+    "partner-orders.mjs": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b",
+    "shop-model.mjs": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508",
+    "store-market.mjs": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9",
+    "canvas-scene.mjs": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519"
+  },
+  "coreRun": {
+    "evidence": "core-results.json",
+    "cases": 16,
+    "exactBaselineCanvasControlARIAComparisons": 4,
+    "passed": true
+  },
+  "boundaryRun": {
+    "evidence": "results.json",
+    "checks": 14,
+    "passed": true
+  },
+  "departmentRun": {
+    "evidence": "department-results.json",
+    "engines": 2,
+    "titleBodyActionsExact": true
+  },
+  "crossEngineMonthlyOracle": {
+    "evidence": "crossengine-monthly.json",
+    "existingModelUnchanged": true,
+    "sameEngineWebKitSerializationAndColdRestoreExact": true,
+    "nodeRestoreOfWebKitMonthlySaveFails": true,
+    "reason": "Three market ledger floats differ by1.11e-16–4.44e-16 across JavaScript engines. Extra harness now uses public model in same browser as exact oracle; production model unchanged.",
+    "originalExtraFailurePreserved": "core-results.json extraFailure"
+  },
+  "screenshots": "Dimension-labelled360/375 offer+started are final title; *-before are exact pre-A2 source. Stale unlabelled after screenshots removed.",
+  "unverified": [
+    "Physical iPhone Safari, VoiceOver and tactile acceptance",
+    "Actual OS HTTP cache lifecycle; local same-origin old script warming and new fingerprint loading verified both engines"
+  ]
+}

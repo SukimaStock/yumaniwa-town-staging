@@ -1,0 +1,26 @@
+{
+  "unchangedFormalModel": true,
+  "nodeToWebkitInitialRestore": true,
+  "webkitNativeNextMonthAndColdRestore": true,
+  "nodeRestoreOfWebkitNextMonth": "蒸留所の状態と操作の帳面が一致しません。",
+  "differences": [
+    {
+      "path": ".marketRules.ledgers.town-liquor.credits.[24,0.23627799786296555,0.8963279293366021,0.18961659095435787,0,0,0,0,0,0,0,0,17.34,16]",
+      "node": 0.5878054078135153,
+      "webkit": 0.5878054078135158,
+      "numericDelta": 4.440892098500626e-16
+    },
+    {
+      "path": ".marketRules.ledgers.town-liquor.result.groups.0.probability",
+      "node": 0.5175610815627031,
+      "webkit": 0.5175610815627032,
+      "numericDelta": 1.1102230246251565e-16
+    },
+    {
+      "path": ".marketRules.ledgers.town-liquor.result.groups.0.credit",
+      "node": 0.5878054078135153,
+      "webkit": 0.5878054078135158,
+      "numericDelta": 4.440892098500626e-16
+    }
+  ]
+}

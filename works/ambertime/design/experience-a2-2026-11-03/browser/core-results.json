@@ -1,0 +1,1569 @@
+{
+  "baseSHA": "0c3473f4f604888fcdb581874ad73f3436dfbb9a",
+  "cases": [
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "kind": "liquor",
+      "width": 360,
+      "height": 568,
+      "layout": {
+        "width": 360,
+        "height": 568,
+        "rect": {
+          "x": 32,
+          "y": 45,
+          "width": 295.5,
+          "height": 479,
+          "top": 45,
+          "right": 327.5,
+          "bottom": 524,
+          "left": 32
+        },
+        "pageWidth": 360,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 47,
+            "y": 390,
+            "w": 128.25,
+            "h": 58,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 184.25,
+            "y": 390,
+            "w": 128.25,
+            "h": 58,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 47,
+            "y": 457,
+            "w": 128.25,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 212,
+        "bodyClient": 212,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 360,
+        "height": 568,
+        "rect": {
+          "x": 32,
+          "y": 68,
+          "width": 295.5,
+          "height": 432,
+          "top": 68,
+          "right": 327.5,
+          "bottom": 500,
+          "left": 32
+        },
+        "pageWidth": 360,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 246.5,
+            "y": 433,
+            "w": 66,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 232,
+        "bodyClient": 232,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "b3f2cb1e0942b470cca647c1cdd5876d71f6baff5fb258b9871a8296ae811751",
+      "acceptSHA256": "beb5edd782de7c3eee8312c4d4047e7595119f32e504a2f9228a027a5f5c2080",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "kind": "supermarket",
+      "width": 360,
+      "height": 568,
+      "layout": {
+        "width": 360,
+        "height": 568,
+        "rect": {
+          "x": 32,
+          "y": 45,
+          "width": 295.5,
+          "height": 479,
+          "top": 45,
+          "right": 327.5,
+          "bottom": 524,
+          "left": 32
+        },
+        "pageWidth": 360,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 47,
+            "y": 390,
+            "w": 128.25,
+            "h": 58,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 184.25,
+            "y": 390,
+            "w": 128.25,
+            "h": 58,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 47,
+            "y": 457,
+            "w": 128.25,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 212,
+        "bodyClient": 212,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 360,
+        "height": 568,
+        "rect": {
+          "x": 32,
+          "y": 68,
+          "width": 295.5,
+          "height": 432,
+          "top": 68,
+          "right": 327.5,
+          "bottom": 500,
+          "left": 32
+        },
+        "pageWidth": 360,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 246.5,
+            "y": 433,
+            "w": 66,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 232,
+        "bodyClient": 232,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "1bdd1bab0a7e4358c60f4648b33706c5bb64224b7e357350703ab68ff0ac9ca6",
+      "acceptSHA256": "10c06a5ee5d12de86997dce3431d5f09e9e94c3761d8785ac2e43433521735bc",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "kind": "liquor",
+      "width": 375,
+      "height": 620,
+      "layout": {
+        "width": 375,
+        "height": 620,
+        "rect": {
+          "x": 25,
+          "y": 86,
+          "width": 324.75,
+          "height": 449,
+          "top": 86,
+          "right": 349.75,
+          "bottom": 535,
+          "left": 25
+        },
+        "pageWidth": 375,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 40,
+            "y": 411,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 191.875,
+            "y": 411,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 40,
+            "y": 468,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 192,
+        "bodyClient": 192,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 375,
+        "height": 620,
+        "rect": {
+          "x": 25,
+          "y": 104,
+          "width": 324.75,
+          "height": 412,
+          "top": 104,
+          "right": 349.75,
+          "bottom": 516,
+          "left": 25
+        },
+        "pageWidth": 375,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 268.75,
+            "y": 449,
+            "w": 66,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 212,
+        "bodyClient": 212,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "b3f2cb1e0942b470cca647c1cdd5876d71f6baff5fb258b9871a8296ae811751",
+      "acceptSHA256": "beb5edd782de7c3eee8312c4d4047e7595119f32e504a2f9228a027a5f5c2080",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "kind": "supermarket",
+      "width": 375,
+      "height": 620,
+      "layout": {
+        "width": 375,
+        "height": 620,
+        "rect": {
+          "x": 25,
+          "y": 86,
+          "width": 324.75,
+          "height": 449,
+          "top": 86,
+          "right": 349.75,
+          "bottom": 535,
+          "left": 25
+        },
+        "pageWidth": 375,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 40,
+            "y": 411,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 191.875,
+            "y": 411,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 40,
+            "y": 468,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 192,
+        "bodyClient": 192,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 375,
+        "height": 620,
+        "rect": {
+          "x": 25,
+          "y": 104,
+          "width": 324.75,
+          "height": 412,
+          "top": 104,
+          "right": 349.75,
+          "bottom": 516,
+          "left": 25
+        },
+        "pageWidth": 375,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 268.75,
+            "y": 449,
+            "w": 66,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 212,
+        "bodyClient": 212,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "1bdd1bab0a7e4358c60f4648b33706c5bb64224b7e357350703ab68ff0ac9ca6",
+      "acceptSHA256": "10c06a5ee5d12de86997dce3431d5f09e9e94c3761d8785ac2e43433521735bc",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "kind": "liquor",
+      "width": 390,
+      "height": 680,
+      "layout": {
+        "width": 390,
+        "height": 680,
+        "rect": {
+          "x": 16,
+          "y": 46,
+          "width": 358.5,
+          "height": 589,
+          "top": 46,
+          "right": 374.5,
+          "bottom": 635,
+          "left": 16
+        },
+        "pageWidth": 390,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 31,
+            "y": 481,
+            "w": 159.75,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 199.75,
+            "y": 481,
+            "w": 159.75,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 31,
+            "y": 568,
+            "w": 159.75,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 302,
+        "bodyClient": 302,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 390,
+        "height": 680,
+        "rect": {
+          "x": 16,
+          "y": 84,
+          "width": 358.5,
+          "height": 512,
+          "top": 84,
+          "right": 374.5,
+          "bottom": 596,
+          "left": 16
+        },
+        "pageWidth": 390,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 269.5,
+            "y": 529,
+            "w": 90,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 312,
+        "bodyClient": 312,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "b3f2cb1e0942b470cca647c1cdd5876d71f6baff5fb258b9871a8296ae811751",
+      "acceptSHA256": "beb5edd782de7c3eee8312c4d4047e7595119f32e504a2f9228a027a5f5c2080",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "kind": "supermarket",
+      "width": 390,
+      "height": 680,
+      "layout": {
+        "width": 390,
+        "height": 680,
+        "rect": {
+          "x": 16,
+          "y": 46,
+          "width": 358.5,
+          "height": 589,
+          "top": 46,
+          "right": 374.5,
+          "bottom": 635,
+          "left": 16
+        },
+        "pageWidth": 390,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 31,
+            "y": 481,
+            "w": 159.75,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 199.75,
+            "y": 481,
+            "w": 159.75,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 31,
+            "y": 568,
+            "w": 159.75,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 302,
+        "bodyClient": 302,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 390,
+        "height": 680,
+        "rect": {
+          "x": 16,
+          "y": 84,
+          "width": 358.5,
+          "height": 512,
+          "top": 84,
+          "right": 374.5,
+          "bottom": 596,
+          "left": 16
+        },
+        "pageWidth": 390,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 269.5,
+            "y": 529,
+            "w": 90,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 312,
+        "bodyClient": 312,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "1bdd1bab0a7e4358c60f4648b33706c5bb64224b7e357350703ab68ff0ac9ca6",
+      "acceptSHA256": "10c06a5ee5d12de86997dce3431d5f09e9e94c3761d8785ac2e43433521735bc",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "kind": "liquor",
+      "width": 430,
+      "height": 740,
+      "layout": {
+        "width": 430,
+        "height": 740,
+        "rect": {
+          "x": 19,
+          "y": 76,
+          "width": 392.25,
+          "height": 589,
+          "top": 76,
+          "right": 411.25,
+          "bottom": 665,
+          "left": 19
+        },
+        "pageWidth": 430,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 34,
+            "y": 511,
+            "w": 176.625,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 219.625,
+            "y": 511,
+            "w": 176.625,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 34,
+            "y": 598,
+            "w": 176.625,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 302,
+        "bodyClient": 302,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 430,
+        "height": 740,
+        "rect": {
+          "x": 19,
+          "y": 114,
+          "width": 392.25,
+          "height": 512,
+          "top": 114,
+          "right": 411.25,
+          "bottom": 626,
+          "left": 19
+        },
+        "pageWidth": 430,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 306.25,
+            "y": 559,
+            "w": 90,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 312,
+        "bodyClient": 312,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "b3f2cb1e0942b470cca647c1cdd5876d71f6baff5fb258b9871a8296ae811751",
+      "acceptSHA256": "beb5edd782de7c3eee8312c4d4047e7595119f32e504a2f9228a027a5f5c2080",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "version": "140.0.7339.186",
+      "kind": "supermarket",
+      "width": 430,
+      "height": 740,
+      "layout": {
+        "width": 430,
+        "height": 740,
+        "rect": {
+          "x": 19,
+          "y": 76,
+          "width": 392.25,
+          "height": 589,
+          "top": 76,
+          "right": 411.25,
+          "bottom": 665,
+          "left": 19
+        },
+        "pageWidth": 430,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 34,
+            "y": 511,
+            "w": 176.625,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 219.625,
+            "y": 511,
+            "w": 176.625,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 34,
+            "y": 598,
+            "w": 176.625,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 302,
+        "bodyClient": 302,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 430,
+        "height": 740,
+        "rect": {
+          "x": 19,
+          "y": 114,
+          "width": 392.25,
+          "height": 512,
+          "top": 114,
+          "right": 411.25,
+          "bottom": 626,
+          "left": 19
+        },
+        "pageWidth": 430,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 306.25,
+            "y": 559,
+            "w": 90,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 312,
+        "bodyClient": 312,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "1bdd1bab0a7e4358c60f4648b33706c5bb64224b7e357350703ab68ff0ac9ca6",
+      "acceptSHA256": "10c06a5ee5d12de86997dce3431d5f09e9e94c3761d8785ac2e43433521735bc",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "kind": "liquor",
+      "width": 360,
+      "height": 568,
+      "layout": {
+        "width": 360,
+        "height": 568,
+        "rect": {
+          "x": 32,
+          "y": 45,
+          "width": 295.5,
+          "height": 479,
+          "top": 45,
+          "right": 327.5,
+          "bottom": 524,
+          "left": 32
+        },
+        "pageWidth": 360,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 47,
+            "y": 390,
+            "w": 128.25,
+            "h": 58,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 184.25,
+            "y": 390,
+            "w": 128.25,
+            "h": 58,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 47,
+            "y": 457,
+            "w": 128.25,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 212,
+        "bodyClient": 212,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 360,
+        "height": 568,
+        "rect": {
+          "x": 32,
+          "y": 68,
+          "width": 295.5,
+          "height": 432,
+          "top": 68,
+          "right": 327.5,
+          "bottom": 500,
+          "left": 32
+        },
+        "pageWidth": 360,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 246.5,
+            "y": 433,
+            "w": 66,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 232,
+        "bodyClient": 232,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "b3f2cb1e0942b470cca647c1cdd5876d71f6baff5fb258b9871a8296ae811751",
+      "acceptSHA256": "beb5edd782de7c3eee8312c4d4047e7595119f32e504a2f9228a027a5f5c2080",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "kind": "supermarket",
+      "width": 360,
+      "height": 568,
+      "layout": {
+        "width": 360,
+        "height": 568,
+        "rect": {
+          "x": 32,
+          "y": 45,
+          "width": 295.5,
+          "height": 479,
+          "top": 45,
+          "right": 327.5,
+          "bottom": 524,
+          "left": 32
+        },
+        "pageWidth": 360,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 47,
+            "y": 390,
+            "w": 128.25,
+            "h": 58,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 184.25,
+            "y": 390,
+            "w": 128.25,
+            "h": 58,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 47,
+            "y": 457,
+            "w": 128.25,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 212,
+        "bodyClient": 212,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 360,
+        "height": 568,
+        "rect": {
+          "x": 32,
+          "y": 68,
+          "width": 295.5,
+          "height": 432,
+          "top": 68,
+          "right": 327.5,
+          "bottom": 500,
+          "left": 32
+        },
+        "pageWidth": 360,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 246.5,
+            "y": 433,
+            "w": 66,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 232,
+        "bodyClient": 232,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "1bdd1bab0a7e4358c60f4648b33706c5bb64224b7e357350703ab68ff0ac9ca6",
+      "acceptSHA256": "10c06a5ee5d12de86997dce3431d5f09e9e94c3761d8785ac2e43433521735bc",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "kind": "liquor",
+      "width": 375,
+      "height": 620,
+      "layout": {
+        "width": 375,
+        "height": 620,
+        "rect": {
+          "x": 25,
+          "y": 86,
+          "width": 324.75,
+          "height": 449,
+          "top": 86,
+          "right": 349.75,
+          "bottom": 535,
+          "left": 25
+        },
+        "pageWidth": 375,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 40,
+            "y": 411,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 191.875,
+            "y": 411,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 40,
+            "y": 468,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 192,
+        "bodyClient": 192,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 375,
+        "height": 620,
+        "rect": {
+          "x": 25,
+          "y": 104,
+          "width": 324.75,
+          "height": 412,
+          "top": 104,
+          "right": 349.75,
+          "bottom": 516,
+          "left": 25
+        },
+        "pageWidth": 375,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 268.75,
+            "y": 449,
+            "w": 66,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 212,
+        "bodyClient": 212,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "b3f2cb1e0942b470cca647c1cdd5876d71f6baff5fb258b9871a8296ae811751",
+      "acceptSHA256": "beb5edd782de7c3eee8312c4d4047e7595119f32e504a2f9228a027a5f5c2080",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "kind": "supermarket",
+      "width": 375,
+      "height": 620,
+      "layout": {
+        "width": 375,
+        "height": 620,
+        "rect": {
+          "x": 25,
+          "y": 86,
+          "width": 324.75,
+          "height": 449,
+          "top": 86,
+          "right": 349.75,
+          "bottom": 535,
+          "left": 25
+        },
+        "pageWidth": 375,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 40,
+            "y": 411,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 191.875,
+            "y": 411,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 40,
+            "y": 468,
+            "w": 142.875,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 192,
+        "bodyClient": 192,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 375,
+        "height": 620,
+        "rect": {
+          "x": 25,
+          "y": 104,
+          "width": 324.75,
+          "height": 412,
+          "top": 104,
+          "right": 349.75,
+          "bottom": 516,
+          "left": 25
+        },
+        "pageWidth": 375,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 268.75,
+            "y": 449,
+            "w": 66,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 212,
+        "bodyClient": 212,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "1bdd1bab0a7e4358c60f4648b33706c5bb64224b7e357350703ab68ff0ac9ca6",
+      "acceptSHA256": "10c06a5ee5d12de86997dce3431d5f09e9e94c3761d8785ac2e43433521735bc",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "kind": "liquor",
+      "width": 390,
+      "height": 680,
+      "layout": {
+        "width": 390,
+        "height": 680,
+        "rect": {
+          "x": 16,
+          "y": 46,
+          "width": 358.5,
+          "height": 589,
+          "top": 46,
+          "right": 374.5,
+          "bottom": 635,
+          "left": 16
+        },
+        "pageWidth": 390,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 31,
+            "y": 481,
+            "w": 159.75,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 199.75,
+            "y": 481,
+            "w": 159.75,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 31,
+            "y": 568,
+            "w": 159.75,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 302,
+        "bodyClient": 302,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 390,
+        "height": 680,
+        "rect": {
+          "x": 16,
+          "y": 84,
+          "width": 358.5,
+          "height": 512,
+          "top": 84,
+          "right": 374.5,
+          "bottom": 596,
+          "left": 16
+        },
+        "pageWidth": 390,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 269.5,
+            "y": 529,
+            "w": 90,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 312,
+        "bodyClient": 312,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "b3f2cb1e0942b470cca647c1cdd5876d71f6baff5fb258b9871a8296ae811751",
+      "acceptSHA256": "beb5edd782de7c3eee8312c4d4047e7595119f32e504a2f9228a027a5f5c2080",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "kind": "supermarket",
+      "width": 390,
+      "height": 680,
+      "layout": {
+        "width": 390,
+        "height": 680,
+        "rect": {
+          "x": 16,
+          "y": 46,
+          "width": 358.5,
+          "height": 589,
+          "top": 46,
+          "right": 374.5,
+          "bottom": 635,
+          "left": 16
+        },
+        "pageWidth": 390,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 31,
+            "y": 481,
+            "w": 159.75,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 199.75,
+            "y": 481,
+            "w": 159.75,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 31,
+            "y": 568,
+            "w": 159.75,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 302,
+        "bodyClient": 302,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 390,
+        "height": 680,
+        "rect": {
+          "x": 16,
+          "y": 84,
+          "width": 358.5,
+          "height": 512,
+          "top": 84,
+          "right": 374.5,
+          "bottom": 596,
+          "left": 16
+        },
+        "pageWidth": 390,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 269.5,
+            "y": 529,
+            "w": 90,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 312,
+        "bodyClient": 312,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "1bdd1bab0a7e4358c60f4648b33706c5bb64224b7e357350703ab68ff0ac9ca6",
+      "acceptSHA256": "10c06a5ee5d12de86997dce3431d5f09e9e94c3761d8785ac2e43433521735bc",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "kind": "liquor",
+      "width": 430,
+      "height": 740,
+      "layout": {
+        "width": 430,
+        "height": 740,
+        "rect": {
+          "x": 19,
+          "y": 76,
+          "width": 392.25,
+          "height": 589,
+          "top": 76,
+          "right": 411.25,
+          "bottom": 665,
+          "left": 19
+        },
+        "pageWidth": 430,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 34,
+            "y": 511,
+            "w": 176.625,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 219.625,
+            "y": 511,
+            "w": 176.625,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 34,
+            "y": 598,
+            "w": 176.625,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 302,
+        "bodyClient": 302,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 430,
+        "height": 740,
+        "rect": {
+          "x": 19,
+          "y": 114,
+          "width": 392.25,
+          "height": 512,
+          "top": 114,
+          "right": 411.25,
+          "bottom": 626,
+          "left": 19
+        },
+        "pageWidth": 430,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 306.25,
+            "y": 559,
+            "w": 90,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 312,
+        "bodyClient": 312,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "b3f2cb1e0942b470cca647c1cdd5876d71f6baff5fb258b9871a8296ae811751",
+      "acceptSHA256": "beb5edd782de7c3eee8312c4d4047e7595119f32e504a2f9228a027a5f5c2080",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "kind": "supermarket",
+      "width": 430,
+      "height": 740,
+      "layout": {
+        "width": 430,
+        "height": 740,
+        "rect": {
+          "x": 19,
+          "y": 76,
+          "width": 392.25,
+          "height": 589,
+          "top": 76,
+          "right": 411.25,
+          "bottom": 665,
+          "left": 19
+        },
+        "pageWidth": 430,
+        "buttons": [
+          {
+            "text": "取扱いを始める",
+            "x": 34,
+            "y": 511,
+            "w": 176.625,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "あとで",
+            "x": 219.625,
+            "y": 511,
+            "w": 176.625,
+            "h": 78,
+            "visible": true
+          },
+          {
+            "text": "断る",
+            "x": 34,
+            "y": 598,
+            "w": 176.625,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 302,
+        "bodyClient": 302,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "acceptedLayout": {
+        "width": 430,
+        "height": 740,
+        "rect": {
+          "x": 19,
+          "y": 114,
+          "width": 392.25,
+          "height": 512,
+          "top": 114,
+          "right": 411.25,
+          "bottom": 626,
+          "left": 19
+        },
+        "pageWidth": 430,
+        "buttons": [
+          {
+            "text": "閉じる",
+            "x": 306.25,
+            "y": 559,
+            "w": 90,
+            "h": 48,
+            "visible": true
+          }
+        ],
+        "bodyScroll": 312,
+        "bodyClient": 312,
+        "labelledby": "dialog-title",
+        "focusedInDialog": true
+      },
+      "noticeSHA256": "1bdd1bab0a7e4358c60f4648b33706c5bb64224b7e357350703ab68ff0ac9ca6",
+      "acceptSHA256": "10c06a5ee5d12de86997dce3431d5f09e9e94c3761d8785ac2e43433521735bc",
+      "checks": [
+        "offer copy/actual mode terms",
+        "defer/reopen/close/reload exact",
+        "keyboard single accept exact",
+        "store+brand start and guidance",
+        "empty shelf/unlocked stores",
+        "queue next notice after reload"
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "engine": "chromium",
+      "mode": "old-http-cache",
+      "oldImportWarmed": true,
+      "freshHTMLNewImport": true,
+      "saveUnchanged": true
+    },
+    {
+      "engine": "chromium",
+      "mode": "placement-sale-map-ledger",
+      "placementNoCashOrReceipt": true,
+      "actualMonthlySaleExact": true,
+      "sold": 2
+    },
+    {
+      "engine": "chromium",
+      "mode": "decline",
+      "savedExact": true,
+      "next": "supermarket"
+    },
+    {
+      "engine": "chromium",
+      "mode": "quota",
+      "noSavedAcceptance": true,
+      "noSuccessCopy": true,
+      "formalGenericBehavior": "existing act may hold unsaved candidate; saved bytes protected"
+    },
+    {
+      "engine": "chromium",
+      "mode": "conflict",
+      "noSavedAcceptance": true,
+      "noSuccessCopy": true,
+      "formalGenericBehavior": "existing act may hold unsaved candidate; saved bytes protected"
+    },
+    {
+      "engine": "chromium",
+      "mode": "notice-quota",
+      "noticeRollbackExact": true
+    },
+    {
+      "engine": "chromium",
+      "mode": "legacy",
+      "actualVersion": 20,
+      "oldPlacementMigratedExactly": true
+    },
+    {
+      "engine": "webkit",
+      "mode": "old-http-cache",
+      "oldImportWarmed": true,
+      "freshHTMLNewImport": true,
+      "saveUnchanged": true
+    }
+  ],
+  "comparisons": [
+    {
+      "engine": "chromium",
+      "kind": "liquor",
+      "canvasSHA256": [
+        "d12fe2e53f8f49fd691ad7149ef6a8673570cda013645ef231e94f141f7fa2e1"
+      ],
+      "controlsSHA256": "f582e3aba1bae14161484eb46cc8861cdd6ba8ed40aaeb25f622bcf054bafc8a",
+      "exactPixelsControlsHitsAndSceneARIA": true
+    },
+    {
+      "engine": "chromium",
+      "kind": "supermarket",
+      "canvasSHA256": [
+        "d12fe2e53f8f49fd691ad7149ef6a8673570cda013645ef231e94f141f7fa2e1"
+      ],
+      "controlsSHA256": "f582e3aba1bae14161484eb46cc8861cdd6ba8ed40aaeb25f622bcf054bafc8a",
+      "exactPixelsControlsHitsAndSceneARIA": true
+    },
+    {
+      "engine": "webkit",
+      "kind": "liquor",
+      "canvasSHA256": [
+        "55efc4ac399e28621ad34b281b65e2098f3139aeef287999d9f8b9ec698e779b"
+      ],
+      "controlsSHA256": "657953074062c1fd12a54e0251770cffaa1a07a1dc83e1bd6101020616cc8487",
+      "exactPixelsControlsHitsAndSceneARIA": true
+    },
+    {
+      "engine": "webkit",
+      "kind": "supermarket",
+      "canvasSHA256": [
+        "55efc4ac399e28621ad34b281b65e2098f3139aeef287999d9f8b9ec698e779b"
+      ],
+      "controlsSHA256": "657953074062c1fd12a54e0251770cffaa1a07a1dc83e1bd6101020616cc8487",
+      "exactPixelsControlsHitsAndSceneARIA": true
+    }
+  ],
+  "unverified": [
+    "Physical iPhone Safari and VoiceOver",
+    "Actual OS cache eviction/network service-worker lifecycle; HTTP fresh-index import graph checked locally"
+  ],
+  "corePassed": true,
+  "extraFailure": [
+    "Error: 蒸留所の状態と操作の帳面が一致しません。\n    at assert (file:///workspace/scratch/178d5658160e/yumaniwa-town-staging/works/ambertime/partner-orders.mjs:38:38)\n    at validateDistillery (file:///workspace/scratch/178d5658160e/yumaniwa-town-staging/works/ambertime/partner-orders.mjs:1324:2)\n    at Module.serializeDistillery (file:///workspace/scratch/178d5658160e/yumaniwa-town-staging/works/ambertime/partner-orders.mjs:1332:40)\n    at file:///workspace/scratch/178d5658160e/yumaniwa-town-staging/works/ambertime/tests/a2-browser-offers.mjs:31:1184"
+  ],
+  "sourceHashes": {
+    "shop-app.mjs": "91693891af96c0ccae3ee4287647717484be788c93c92fda40e462aaa9c0aaf2",
+    "index.html": "69ba3fcc4d424a8b2383d2e0375bda50ef1f7e4d1d1de95478fe5cacb039ee0c",
+    "partner-orders.mjs": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b",
+    "shop-model.mjs": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508",
+    "store-market.mjs": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9",
+    "canvas-scene.mjs": "08ec564545fdc3823a85a9092ac61c7756ccb1afb89cc87b14d1bcfc74772519"
+  }
+}
