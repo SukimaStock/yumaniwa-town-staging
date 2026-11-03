@@ -1,0 +1,21 @@
+YUMANIWA SCOPE GUARD v0.2
+Change: Record successful post-deployment A1-3 public browser operations and asset identity without product changes
+Base:   0c3473f4f604888fcdb581874ad73f3436dfbb9a
+Target: worktree (e7262a027aa149bca5d906fb60078204175031c1)
+Changed paths: 13
+
+PASS scope.allowed .change-plans/ambertime-a13-public-20261103/r0.lock.json [.change-plans/ambertime-a13-public-20261103/r0.lock.json] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/INDEPENDENT-REVIEW.md [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/README.md [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/chromium-motion.png [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/chromium-reduced.png [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/impact.log [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/provenance.json [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/results.json [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/risk.log [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/run.log [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/scope.log [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/webkit-motion.png [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/experience-a13-2026-11-03/public/webkit-reduced.png [works/ambertime/design/experience-a13-2026-11-03/public/**] — changed path is within allowedPaths
+
+Scope: PASS
