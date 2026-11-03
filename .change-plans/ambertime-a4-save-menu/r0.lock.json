@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "aa2c72daf32c766db798522542232f078c38ba52e37718f7101d0f12dd7a0f4c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "79ee2f9068c860b585e7056b184cd9473ec61d20",
+    "changeId": "ambertime-a4-save-menu",
+    "revision": 0,
+    "change": "Clarify AmberTime autosave, exports and reset in existing settings dialog",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "Current A4 request",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "PR #768–#788",
+      "works/ambertime/placement-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-a4-save-menu/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/tests/a1-source-baseline.mjs",
+      "works/ambertime/tests/save-menu-ui.test.mjs",
+      "works/ambertime/design/experience-a4/A4-SAVE-AUDIT.md",
+      "works/ambertime/design/experience-a4/A4-SAVE-UI-RULES.md",
+      "works/ambertime/design/experience-a4/A4-IMPLEMENTATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Settings layout and save state copy only",
+      "Keep current sale-mode transition and recovery actions",
+      "Clarify destructive reset confirmation and legacy source copy",
+      "Update only entry cache, exact historical inverse and presentation tests"
+    ],
+    "ownerDecisions": [
+      "A4 user request authorizes staging PR, required CI and merge after safety checks"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK; lock first",
+      "Settings display reads already verified lastSavedText and canSave; no storage access on render"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Normal shop offers/actions/queue/reload/save failure and conflict compared with formal model",
+      "Full current suite: formal129/distill20/oldcold/RNG/monthly/economy/notifications",
+      "Chromium and WebKit four requested widths; text/conditions/buttons/focus/ARIA/placement guidance",
+      "Unchanged Canvas/hits and unrelated UI, old cache upgrade, independent review",
+      "Exact-head required CI, ordinary PR merge and public Staging confirmation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert A4 PR; no save migration",
+    "outOfScope": [
+      "Production",
+      "Formal persistence, reset handler behavior, runtime and fixtures",
+      "Shared UI, Canvas and Lab"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver"
+    ]
+  }
+}
