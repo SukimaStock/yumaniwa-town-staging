@@ -1,0 +1,118 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "16b4f5d9ee7b164002f4de0cececd6af693d03f3755309552f2d4114965edd33",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "5c04a4fd17e8cac954acf798485085721f261d8b",
+    "changeId": "ambertime-refactor-r1-20261103",
+    "revision": 0,
+    "change": "Extract only pure spirit readout presentation formatting from shop-app; preserve DOM/Canvas output, formal state and controls",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "PR768 structure audit",
+      "PR769 R0 exact baseline",
+      "works/ambertime/design/structure-audit-2026-11-02/STRUCTURE-AUDIT.md",
+      "works/ambertime/design/structure-audit-2026-11-02/REFACTOR-PLAN.md",
+      "works/ambertime/design/structure-audit-2026-11-02/BASELINE-TESTS.md",
+      "works/ambertime/design/refactor-r0-2026-11-03/TEST-FAILURE-REVIEW.md",
+      "works/ambertime/design/refactor-r0-2026-11-03/REFACTOR-BASELINE.md",
+      "Current explicit R1 instructions",
+      "works/ambertime/shop-app.mjs renderSpirit at fixed5c04a4fd",
+      "works/ambertime/spirit-view.mjs readout contract"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-refactor-r1-20261103/r0.lock.json",
+      "works/ambertime/spirit-readout-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/r1-*.mjs",
+      "works/ambertime/design/refactor-r1-2026-11-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/tests/fixtures/**",
+      "works/ambertime/design/refactor-r0-2026-11-03/**",
+      "works/ambertime/design/structure-audit-2026-11-02/**",
+      "works/ambertime/*.css",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "New tiny pure spiritReadoutView receives only existing readout plus cut/modal/collection display conditions; return hidden/labels/volume/axis attributes without state writes, DOM/storage/random/clock/notice",
+      "Replace only renderSpirit formatting with view call; keep panel-null guard, existing DOM write order/early return, Canvas DOM reread and all controller/save/modal/notice paths unchanged",
+      "Reuse existing uiText via same module identity. Keep shared spirit-view untouched to avoid impacting7legacy apps. Add versioned new-module import and refresh only app entry cache identity",
+      "Add small pure frozen-input and actual-before-render DOM trace comparison tests; change one formal-copy source-literal assertion to actual output contract, no test weakening",
+      "R0 129 snapshots/20individual cold/formal/legacy/cache tests unchanged. Dual-engine3width exact screenshot/DOM/Canvas/hit/formal before-after and old1h-cache verify; independent R1 report, no R2"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Candidate comparison: renderSpirit formatting chosen over brewing already-pure projection and larger DOM→Canvas bridge. Immutable base5c04a4fd fixes source and legal existing fixtures before edits",
+      "Deepfreeze readout/context; initial/prepared/confirmed/start/collecting/completed/filling/automatic/old save/missing data relevant to selected responsibility; exact old DOM trace and Canvas data with no mutation",
+      "Chromium/WebKit360x568/375x620/390x680 fixedseed/time/font/DPR: exact pixels/DOM/Canvas values/hits/focus plus lever/countdown/fill/save/reload and warmoldcache. Any unresolved pixel difference blocks publication",
+      "R0 min/functional/full tests with actual available browser; unchanged129trace/old20fixture and model/save source hashes, no skip/tolerance changes; Scope→Risk→Impact",
+      "Independent review, exacthead required/supplemental CI and safe normal merge; sameSHA Pages then public source and Staging projection verification"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert R1 view/app/entry/test/documentation changes as one PR; formal saves and old fixtures unchanged, no migration.",
+    "outOfScope": [
+      "Any formal model/calculation/save/operation/random/clock/notice change",
+      "Any modal or lever/glass/controller change",
+      "Canvas/layout/visual text/design change",
+      "Other room UI or Lab changes",
+      "R2 or broad extraction",
+      "Existing baseline regeneration or test weakening",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari/VoiceOver/owner feel; unavailable browser cases explicitly recorded"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes one display-only R1 extraction through reviewed CI/Staging delivery; no UI/model/control changes or Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "First lock-only commit before implementation; Standard WORK",
+      "New function is presentation-only; reuse matching uiText but no changes to shared spirit-view and old entry cache graph",
+      "Do not move effectful render/syncModal or save/clock/notification/controller responsibilities",
+      "Use existing node:test and available Chromium/WebKit, no dependency/CI changes; physicalSafari remains unverified"
+    ]
+  }
+}

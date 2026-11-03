@@ -1,0 +1,29 @@
+{
+  "base": "5c04a4fd17e8cac954acf798485085721f261d8b",
+  "node": "v24.22.1",
+  "testFiles": 157,
+  "command": "AMBER_BROWSER_MODULE=<existing Playwright>/index.mjs AMBER_BROWSER_EXECUTABLE=/tmp/chromium node --test works/ambertime/tests/*.test.mjs",
+  "tests": 1179,
+  "pass": 1179,
+  "fail": 0,
+  "skip": 0,
+  "cancelled": 0,
+  "todo": 0,
+  "durationMs": 294905.296162,
+  "r0IntermediateStates": 129,
+  "originalCutStates": 20,
+  "originalCutIndependentColdProcesses": 20,
+  "browserCaptures": 156,
+  "pixelComparisons": 78,
+  "differentPixels": 0,
+  "identicalPngHashes": 78,
+  "oldOneHourCacheEngineCases": 2,
+  "browserErrors": 0,
+  "protectedExistingPathsUnchanged": 536,
+  "appOutsideRenderSpiritAndImportUnchanged": true,
+  "runtimeFilesChanged": [
+    "works/ambertime/spirit-readout-view.mjs (new)",
+    "works/ambertime/shop-app.mjs (new import/renderSpirit only)",
+    "works/ambertime/index.html (app cache query only)"
+  ]
+}

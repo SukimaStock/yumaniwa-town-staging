@@ -1,0 +1,8 @@
+{
+  "base": "5c04a4fd17e8cac954acf798485085721f261d8b",
+  "existingProtectedPaths": 536,
+  "changed": [],
+  "appOutsideRenderSpiritAndNewImportIdentical": true,
+  "indexOnlyAppCacheQuery": true,
+  "oldR0FixturesChanged": false
+}

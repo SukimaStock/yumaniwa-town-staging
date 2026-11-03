@@ -31,6 +31,7 @@ import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
 import {createCaskSerials} from './cask-serials.mjs?v=market-rules-r1';
 import {distillationReadout,spiritProfile} from './spirit-view.mjs?v=distill-ui-r1';
+import {spiritReadoutView} from './spirit-readout-view.mjs?v=refactor-r1-1';
 import {brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
 import {ageLabel,monthLabel} from './model.mjs?v=stage4-r2';
@@ -916,13 +917,13 @@ function renderSpirit(){
  const view=distillationReadout(game);
  // During a cut the bar and symbolic receiver convey selection, not litres.
  const cutInProgress=game?.still.phase==='distilling'&&!!game.still.distillation?.labChoice;
- panel.hidden=!view||cutInProgress||modal?.kind==='fill';if(panel.hidden)return;
- const gathering=view.phase==='estimate';
- $('spirit-kind').textContent=gathering?'ここまで':view.phase==='forecast'?(game.still.distillation?.collectionVersion===2?'ここまで':'抽出見込み'):view.phase==='filled'?'たる詰め済み':'原酒';
- $('spirit-phrase').textContent=gathering?'':uiText(view.phrase);
- $('spirit-gauges').hidden=gathering;
- $('spirit-volume').textContent=view.litres.toFixed(1)+' L';
- for(const axis of view.axes??[]){const meter=$('spirit-'+axis.id);meter.setAttribute('aria-valuenow',String(axis.value));meter.setAttribute('aria-valuetext',axis.value.toFixed(2)+' / '+axis.maximum+' · 特徴の強さ');meter.style.setProperty('--flavor-fill',axis.ratio);}
+ const display=spiritReadoutView(view,{cutInProgress,modalKind:modal?.kind,collectionVersion:game?.still?.distillation?.collectionVersion});
+ panel.hidden=display.hidden;if(panel.hidden)return;
+ $('spirit-kind').textContent=display.kind;
+ $('spirit-phrase').textContent=display.phrase;
+ $('spirit-gauges').hidden=display.gaugesHidden;
+ $('spirit-volume').textContent=display.volume;
+ for(const axis of display.axes){const meter=$('spirit-'+axis.id);meter.setAttribute('aria-valuenow',axis.value);meter.setAttribute('aria-valuetext',axis.valueText);meter.style.setProperty('--flavor-fill',axis.ratio);}
 }
 // Extraction-only steps leave these facts unchanged. This is a presentation
 // snapshot, not a validator cache: actions and saves still validate strictly.
