@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "base": "0c3473f4f604888fcdb581874ad73f3436dfbb9a",
+  "sourceSHA256": "91693891af96c0ccae3ee4287647717484be788c93c92fda40e462aaa9c0aaf2",
+  "checks": [
+    {
+      "engine": "chromium",
+      "exactTitleBodyActions": true,
+      "formalNoticeExact": true,
+      "domSHA256": "74becdb3cf5acf9564870bbff031bffe48d32bd6d6c67928750462bacb5b558b"
+    },
+    {
+      "engine": "webkit",
+      "exactTitleBodyActions": true,
+      "formalNoticeExact": true,
+      "domSHA256": "74becdb3cf5acf9564870bbff031bffe48d32bd6d6c67928750462bacb5b558b"
+    }
+  ]
+}
