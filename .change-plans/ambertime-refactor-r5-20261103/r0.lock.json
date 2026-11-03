@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9fbe66c79a83a673bb70df6761a0bf14186663fb143c1b17709b832795c67d5c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "a94ceadafd5920c0a447f7b392e7db983c910575",
+    "changeId": "ambertime-refactor-r5-20261103",
+    "revision": 0,
+    "change": "Extract only pure ledger history/profile markup; preserve all modal lifecycle, worker protocol and formal effects",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "PR768-771 merged history and current explicit R3 instruction",
+      "works/ambertime/design/structure-audit-2026-11-02/STRUCTURE-AUDIT.md",
+      "works/ambertime/design/structure-audit-2026-11-02/REFACTOR-PLAN.md",
+      "works/ambertime/design/refactor-r0-2026-11-03/REFACTOR-BASELINE.md",
+      "works/ambertime/design/refactor-r1-2026-11-03/IMPLEMENTATION.md",
+      "works/ambertime/design/refactor-r2-2026-11-03/IMPLEMENTATION.md",
+      "Actual shop-app ten-step flow and immutable f7ba8023 source/fixtures",
+      "PR772 merged source and R3 implementation/controller/tests",
+      "Current user R4 instruction and actual warehouse 12-stage event paths",
+      "Current explicit user R5 instruction",
+      "PR773 merged source and R4 implementation/evidence",
+      "Actual modal A/B/C/D event routes and cask worker snapshot/request lifecycle"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-refactor-r5-20261103/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/ledger-history-view.mjs",
+      "works/ambertime/tests/r4-warehouse-selection.test.mjs",
+      "works/ambertime/tests/r5-*.mjs",
+      "works/ambertime/design/refactor-r5-2026-11-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/start-countdown.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-object-art.mjs",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/spirit-readout-view.mjs",
+      "works/ambertime/ui-text.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/refactor-r0-2026-11-03/**",
+      "works/ambertime/design/refactor-r1-2026-11-03/**",
+      "works/ambertime/design/refactor-r2-2026-11-03/**",
+      "works/ambertime/design/structure-audit-2026-11-02/**",
+      "works/ambertime-*/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "works/ambertime/distill-room-controller.mjs",
+      "works/ambertime/design/refactor-r3-2026-11-03/**",
+      "works/ambertime/warehouse-room-controller.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/cask-ledger.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/design/refactor-r4-2026-11-03/**",
+      "works/ambertime/tests/fixtures/**"
+    ],
+    "expectedChanges": [
+      "Move unchanged caskTimeline/recordTimeline/recordText/ledgerProfile/knownProfile into pure ledger-history-view; same existing versioned model/flavor/tasting/uiText imports and exact pure formatting snippets. No state/callbacks/DOM/events/save/notice/clock/random/worker ownership.",
+      "Root replaces definitions with import only. caskData/worker cancellation/stale-response/focus redrawing, ledger projection/cache, all modal open/close/back/scroll/focus/priority/formal handlers remain byte-identical.",
+      "Propagate app cache query history=r5-1 and module v=refactor-r5-1 only. Unchanged view/worker/CSS/Canvas/assets retain identities.",
+      "Add immutable-source inverse/markup byte equality tests over legal native/legacy cases, pure frozen long/special records, full suite incl129formal20cut/oldcold/RNG/month/save/notice/R1-R4; adapt R4 whole-source inverse by reinlining unchanged R5 display snippets only.",
+      "Compare Chromium/WebKit3width/DPR/reduced pixels/DOM/hit/focus/ARIA/scroll/formal/save over ledger/history/detail/back/Escape/keyboard/reload, warmcache+worker bodies; independent review, exacthead requiredCI, normal Staging merge and source/public checks."
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes R5 smallest pure read-only history display extraction, tests/review/CI/normal Staging PR merge and deploy verification. No R6 implementation or Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh lock-only first commit, Standard WORK scope",
+      "No modal lifecycle/state/callback framework or formal model move",
+      "Preserve all R0-R4 historical docs/fixtures/oracles; adapt R4 source inverse only for exact moved-function reinlining",
+      "Reuse exact pure formatting/escaping and existing versioned dependencies; no new product dependency/CI/OS changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Classify actual A read display/B UI selection/C formal operation/D notice-priority routes and worker protocol; record rejected candidates and selected family benefit",
+      "Pure history same input same bytes/input unchanged; immutable original function bodies and inverse root/source closure exact; legal empty/one/multi/long-aged/previous/partial/full/legacy + long/special/readout cases",
+      "Baseline main source/tests same as R4 inherits1201pass; candidate full root suite incl129formal20cut/coldlegacy/RNG/month/economy/notice/savefailure/R1-R4",
+      "Chromium/WebKit360x568DPR1/375x620DPR2/390x680DPR3/reduced fixedfontseedtimephase; ledger/cask/taste/previous/release/details/back/Escape/scroll/focus/keyboard/reload and formal/raw equality; zero pixel tolerance",
+      "Old1hcache newapp/newhistorybody exact; worker messages/request protocol/state provenance and unchanged body/import/cacheclosure",
+      "Independent review/ScopeRiskImpact/exacthead required+supplementalCI/normalmerge/sameSHAPages/sourcebody/publicinteraction"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Normal revert PR of R5 history module/app/entry/tests/docs only; no saved state migration",
+    "outOfScope": [
+      "Formal model/game calculations/RNG/month/economy/save formats and transaction policy",
+      "Root modal open/close/priority/focus/scroll or worker protocol/computation changes",
+      "Controller R3/R4 ownership/Canvas/coordinates/text/design",
+      "Other works/Lab lifecycle/CI/shared frameworks/R6/Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/VoiceOver/nonzero safe-area/real OS background and BFCache hit unless actually observed; unavailable browser conditions not treated as pass"
+    ]
+  }
+}
