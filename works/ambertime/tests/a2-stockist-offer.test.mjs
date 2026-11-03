@@ -26,14 +26,14 @@ test('A2 start fact identifies exact store and brand, escapes markup, and is not
 });
 test('A2 retains spoken words and one decision, with department special handling separate',()=>{
  const offer=source.slice(source.indexOf("}else if(kind==='shop-offer')"),source.indexOf("}else if(kind==='decision')"));
- for(const text of ['の名前を聞きました。','こちらでも扱ってみたいのですが','この銘柄の取扱いを始めますか？',"button('取扱いを始める','shop-accept'","button('あとで','shop-later'","button('断る','shop-decline'","department?'デパートの申し出'","department?'<p>特選ウイスキー · 限定5本</p>'+departmentOfferInventory(offer)"])assert(offer.includes(text),text);
- assert.equal((offer.match(/button\('取扱いを始める'/g)??[]).length,1);assert(!offer.includes("button('契約"));
+ for(const text of ['の噂を聞きました。','こちらでも扱ってみたいのですが','この店にお酒を置けるようになります。',"button('受ける','shop-accept'","button('あとで','shop-later'","button('断る','shop-decline'","shopName(offer.shopId)+'からの申し出'","特選ウイスキーとして、5本お願いできますか。"])assert(offer.includes(text),text);
+ assert.equal((offer.match(/button\('受ける'/g)??[]).length,1);assert(!offer.includes("button('契約"));
 });
 
 test('A2 reviewed inverse rejects edited or duplicated display hunks while preserving original L1 protection',async()=>{
  const {beforeA2,beforeA1}=await import('./a1-source-baseline.mjs');
  assert(beforeA2(source).includes("button('受ける','shop-accept'"));
- assert.throws(()=>beforeA2(source.replace('この銘柄の取扱いを始めますか？','unreviewed choice')),/exact reviewed A2 hunk/);
+ assert.throws(()=>beforeA2(source.replace('この店にお酒を置けるようになります。','unreviewed choice')),/exact reviewed A2 hunk/);
  assert.throws(()=>beforeA2(source+'\n'+source),/exact reviewed A2 hunk/);
  assert.throws(()=>beforeA1(source+'\n// unrelated change'),/immutable L1/);
 });
