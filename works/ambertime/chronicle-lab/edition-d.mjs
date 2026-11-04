@@ -1,4 +1,4 @@
-export const editionVersion = 'D1';
+export const editionVersion = 'D1.1';
 
 // Subjects define identity for firsts, returns and repetition. A relationship
 // only acquires a causal label from a recorded source chain.
@@ -138,7 +138,7 @@ function editionRandom(seed) {
   };
 }
 
-const familyPressure = {reputation:1};
+const familyPressure = {reputation:1.25};
 const increment = (map,key) => map.set(key,(map.get(key) ?? 0)+1);
 const period = month => Math.floor(month/48)*48;
 const roundScore = value => Math.round(value*100)/100;
@@ -166,6 +166,15 @@ function selectFacts(candidates,seed,firstBottlingId) {
 
   function evaluate(candidate) {
     const {event,rule,identity,base,links} = candidate;
+    // Similar deliveries within one generation should not fill the recollection
+    // just because time passed. A new brand or succeeding generation is distinct.
+    const similar = event.kind === 'delivery'
+      ? [...selected.keys()].map(id => byId.get(id)).filter(row => row &&
+        row.event.kind === 'delivery' && row.identity === identity &&
+        row.event.generationId === event.generationId &&
+        row.event.ids?.brandId === event.ids?.brandId)
+      : [];
+    const nearby = similar.some(row => Math.abs(row.event.month-event.month) < 60);
     const family = familyCounts.get(rule.family) ?? 0;
     const age = periodCounts.get(period(event.month)) ?? 0;
     const repetition = identityCounts.get(identity) ?? 0;
@@ -173,6 +182,7 @@ function selectFacts(candidates,seed,firstBottlingId) {
     const components = {
       base, family:family ? -family*(familyPressure[rule.family] ?? .72) : 3.5,
       period:age ? -age*.55 : 5.5, repetition:-repetition*.6, kind:-kind*.7,
+      sameStory:-Math.min(similar.length,3)*2.8-(nearby ? 1.8 : 0),
       load:-(3.9+selected.size*.11+selected.size**2*.0035),
     };
     const effectiveWeight = row => row.weight*(selected.has(row.id) ? 1 : .65);
