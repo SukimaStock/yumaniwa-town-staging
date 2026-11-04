@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>AmberTime 回想Lab</title>
+<link rel="stylesheet" href="./style.css">
+<script type="module" src="./lab.mjs"></script>
+</head>
+<body>
+<main>
+  <section id="menu" aria-labelledby="title">
+    <a href="../../../lab/#room-bench">‹ LAB</a>
+    <h1 id="title">蒸留所の回想</h1>
+    <label>プレイ記録 <select id="record" disabled></select></label>
+    <label>回想する時点
+      <select id="horizon">
+        <option value="handover">世代交代</option>
+        <option value="anniversary">30年経過</option>
+      </select>
+    </label>
+    <button id="open" disabled>回想を開く</button>
+    <p id="status" role="status">記録を読み込んでいます。</p>
+    <p>地図は現在のゲーム素材で再構成しています。</p>
+    <a href="./REPORT.md">試作と検証の記録</a>
+  </section>
+  <section id="recall" aria-label="蒸留所の回想" hidden>
+    <header><span id="period"></span><button id="close">閉じる</button></header>
+    <button id="picture" aria-label="次の場面">
+      <canvas aria-hidden="true"></canvas>
+      <span id="object" aria-hidden="true"></span>
+    </button>
+    <div class="caption" aria-live="polite" aria-atomic="true">
+      <p id="date"></p><h2 id="place"></h2><p id="fact"></p>
+    </div>
+    <nav aria-label="場面">
+      <button id="previous">前へ</button>
+      <span id="count"></span>
+      <button id="next">次へ</button>
+    </nav>
+    <button id="sources" aria-haspopup="dialog">根拠</button>
+  </section>
+  <dialog id="evidence" aria-labelledby="evidence-title">
+    <h2 id="evidence-title">場面の根拠</h2>
+    <pre id="details"></pre>
+    <form method="dialog"><button>閉じる</button></form>
+  </dialog>
+</main>
+</body>
+</html>
