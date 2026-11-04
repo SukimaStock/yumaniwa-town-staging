@@ -1,0 +1,113 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3e2d67146c8e7a376e904af51a38a1020b46d0e0ee7f83e30911cdfe315f449a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "0fd02e7963ce5429d1b95ed2d59af114079893f0",
+    "changeId": "ambertime-h24",
+    "revision": 0,
+    "change": "複数世代・100年回想の研究検証",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h24/r0.lock.json",
+      "works/ambertime/chronicle-lab/research-h24*.mjs",
+      "works/ambertime/chronicle-lab/H24*.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/works.js",
+      "works/ambertime/history-lab/**"
+    ],
+    "expectedChanges": [
+      "研究用生成・抽出・検証コードと研究報告"
+    ],
+    "ownerDecisions": [
+      "H2-4の研究をStagingで実施"
+    ],
+    "hqDecisions": [
+      "公開経路は変更せず正式モデルから長期記録を生成"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "再生順・境界・seed・A/B/C・D表示・配信"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "H2-3Bのみrevert",
+    "outOfScope": [
+      "公開回想、本編、保存形式、Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safariでの実機操作・文章の可読性、全編を通したテンポ"
+    ],
+    "alternativesRejected": [
+      "本編への常時追加",
+      "架空の感情や因果",
+      "閲覧時の長期再生"
+    ],
+    "boundaryCases": [
+      "必須の瓶詰めと引き継ぎ、同世代の通常納品と後継世代、評判到達と問い合わせの区別、旧版欠損、未知の出来事"
+    ],
+    "testPlan": [
+      "30年の基準照合、長期保存・交代境界・編集の再現性、関連回帰・必須CI"
+    ],
+    "problem": "複数回交代と100年規模での回想の偏り・順序・処理負荷が未検証",
+    "currentContract": "D1.1の評価・抽選とD1.2の文章・レイアウト、A/B/C比較資料",
+    "whyExistingIsInsufficient": "公開基準は30年・交代1回",
+    "design": "正式保存をscratchで生成し、既存C-3・D1.1・D1.2を研究用コードから検証",
+    "migration": "なし",
+    "compatibility": "既存の元記録・セーブ・経済・乱数は変更せず、A/B/Cは維持。編集ルール版D1.1を付与",
+    "promotionRisk": "StagingのLabに限定。実機未確認"
+  }
+}
