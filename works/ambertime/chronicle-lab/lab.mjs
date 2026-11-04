@@ -11,6 +11,19 @@ const open = $('open'), close = $('close'), previous = $('previous'), next = $('
 const picture = $('picture'), evidence = $('evidence');
 const drawMap = createSceneMap(picture.querySelector('canvas'));
 let records, frames = [], index = 0;
+const editions = new Map();
+
+function currentEdition(method) {
+  const key = [record.value,horizon.value,method].join('/');
+  if (!editions.has(key)) editions.set(key,buildChronicle(records[record.value],horizon.value,method));
+  return editions.get(key);
+}
+
+function textNode(tag,text) {
+  const node = document.createElement(tag);
+  node.textContent = text;
+  return node;
+}
 const decade = month => Math.floor(month/120);
 const calendarRange = (start,end) => monthLabel(start)+(end === start ? '' : '〜'+monthLabel(end));
 const countLabel = {
@@ -53,7 +66,7 @@ function step(amount) {
   if (target >= 0 && target < frames.length) { index = target; show(); }
 }
 open.addEventListener('click',() => {
-  const {cutoff,frames:story} = buildChronicle(records[record.value],horizon.value,mode.value);
+  const {cutoff,frames:story} = currentEdition(mode.value);
   if (!story.length) {
     $('status').textContent = 'この時点で表示できる記録がありません。';
     return;
@@ -96,6 +109,36 @@ $('sources').addEventListener('click',() => {
   evidence.showModal();
 });
 
+$('compare').addEventListener('click',() => {
+  const comparison = $('comparison');
+  const rows = ['a','b','c','d'].map(method => {
+    const {frames} = currentEdition(method);
+    const passages = frames.filter(frame => frame.type === 'passage').length;
+    const row = document.createElement('tr');
+    const name = textNode('th',method.toUpperCase());
+    name.scope = 'row';
+    row.append(name,...[frames.length-passages,passages,frames.length].map(count => textNode('td',count)));
+    return row;
+  });
+  $('comparison-counts').replaceChildren(...rows);
+  const {frames,omitted,audit} = currentEdition('d');
+  $('selected-events').replaceChildren(...frames.map(frame => textNode('li',
+    `${monthLabel(frame.startMonth)} ${frame.events[0].label} ${frame.reason}`)));
+  const events = new Map(records[record.value].events.map(event => [event.id,event]));
+  const pastOmissions = omitted.filter(item => item.reason !== '回想時点より後');
+  $('omitted-events').replaceChildren(...pastOmissions.map(({id,reason}) => {
+    const event = events.get(id);
+    return textNode('li',`${event ? monthLabel(event.month)+' '+event.label : id} ${reason}`);
+  }));
+  if (pastOmissions.length < omitted.length) $('omitted-events').append(
+    textNode('li',`回想時点より後のため対象外　${omitted.length-pastOmissions.length}件`));
+  $('edition-audit').textContent = JSON.stringify({
+    ...audit,資料生成時の省略集計_30年全体:records[record.value].omitted,
+  },null,2);
+  for (const details of comparison.querySelectorAll('details')) details.open = false;
+  comparison.showModal();
+});
+
 const labels = {local:'地元密着型',wide:'広域展開型',mixed:'混合型'};
 fetch('./facts.json').then(response => {
   if (!response.ok) throw Error('履歴の読み込み');
@@ -104,6 +147,6 @@ fetch('./facts.json').then(response => {
   records = data;
   for (const id of Object.keys(labels)) if (Object.hasOwn(data,id)) record.add(new Option(labels[id],id));
   if (!record.options.length) throw Error('履歴なし');
-  record.disabled = open.disabled = false;
+  record.disabled = open.disabled = $('compare').disabled = false;
   $('status').textContent = '';
 }).catch(() => { $('status').textContent = '記録を読み込めませんでした。'; });

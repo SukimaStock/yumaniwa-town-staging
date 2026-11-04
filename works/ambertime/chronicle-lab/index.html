@@ -24,10 +24,12 @@
       <select id="mode">
         <option value="a">A　一定のテンポ</option>
         <option value="b">B　日々の仕事をまとめる</option>
-        <option value="c" selected>C　後年の再登場を見せる</option>
+        <option value="c">C　後年の再登場を見せる</option>
+        <option value="d" selected>D　出来事を選んで振り返る</option>
       </select>
     </label>
     <button id="open" disabled>回想を開く</button>
+    <button id="compare" disabled aria-haspopup="dialog">編集を比較</button>
     <p id="status" role="status">記録を読み込んでいます。</p>
     <p>地図は現在のゲーム素材で再構成しています。</p>
     <a href="./REPORT.md">試作と検証の記録</a>
@@ -55,6 +57,17 @@
     <h2 id="evidence-title">場面の根拠</h2>
     <pre id="details"></pre>
     <form method="dialog"><button>閉じる</button></form>
+  </dialog>
+  <dialog id="comparison" aria-labelledby="comparison-title">
+    <form method="dialog"><button>閉じる</button></form>
+    <h2 id="comparison-title">編集の比較</h2>
+    <table>
+      <thead><tr><th scope="col">方式</th><th scope="col">独立</th><th scope="col">経過</th><th scope="col">合計</th></tr></thead>
+      <tbody id="comparison-counts"></tbody>
+    </table>
+    <details><summary>Dで選んだ出来事</summary><ol id="selected-events"></ol></details>
+    <details><summary>Dで省いた出来事</summary><ul id="omitted-events"></ul></details>
+    <details><summary>評価・抽選・時間分布</summary><pre id="edition-audit"></pre></details>
   </dialog>
 </main>
 </body>

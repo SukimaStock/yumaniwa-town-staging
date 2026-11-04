@@ -25,6 +25,18 @@ test('compact facts reconcile to H0 delivery and sales totals in every compariso
   }
 });
 
+test('fixture identifies the exact official replay boundary, including unpictured operations', () => {
+  const lastOperations = {local:533,wide:514,mixed:519};
+  for (const {id,seed} of histories) {
+    const record=facts[id];
+    assert.equal(record.seed,seed);
+    assert.equal(record.lastOperationIndex,lastOperations[id]);
+    assert.ok(record.events.every(event=>event.operationIndex<=record.lastOperationIndex));
+  }
+  assert.ok(facts.local.events.at(-1).operationIndex<facts.local.lastOperationIndex);
+  assert.ok(facts.mixed.events.at(-1).operationIndex<facts.mixed.lastOperationIndex);
+});
+
 test('fixture orders operation evidence and reactions stay attached to actual self-sales', () => {
   for (const {events} of Object.values(facts)) {
     let prior;

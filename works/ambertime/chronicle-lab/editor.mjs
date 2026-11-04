@@ -1,3 +1,5 @@
+import {buildEdition} from './edition-d.mjs';
+
 // The editor only reads the prepared history. It never calls model replay.
 const routineKinds = new Set(['delivery','bottling','fill','distillation','sale']);
 const sceneKinds = new Set(['shop-start','handover','hire','delegation','automation',
@@ -42,13 +44,15 @@ function frameFor(event,reason) {
     scene:event.scene,reason};
 }
 
-export function buildChronicle(record,horizon,mode) {
+export function buildChronicle(record,horizon,mode,options={}) {
   const cutoffEvent = record?.events?.filter(event => event.kind === 'handover' &&
-    Number.isInteger(event.month) && Number.isInteger(event.operationIndex)).sort(chronological)[0];
+    Number.isInteger(event.month) && Number.isInteger(event.operationIndex) &&
+    (options.targetGeneration == null || event.generationId === options.targetGeneration)).sort(chronological)[0];
   const cutoff = horizon === 'handover' && cutoffEvent
     ? {month:cutoffEvent.month,operationIndex:cutoffEvent.operationIndex,ordinal:ordinal(cutoffEvent)}
     : horizon === 'anniversary' && Number.isInteger(record?.elapsedMonths)
       ? {month:record.elapsedMonths,operationIndex:null,ordinal:null} : null;
+  if (mode === 'd' && cutoff) return {cutoff,...buildEdition(record,cutoff,options)};
   const frames = [], omitted = [];
   if (!cutoff || !['a','b','c'].includes(mode)) return {cutoff,frames,omitted};
   const displayed = new Set();

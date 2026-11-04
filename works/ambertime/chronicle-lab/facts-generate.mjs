@@ -123,7 +123,9 @@ for (const {id,label,seed,analysis} of histories.filter(row=>!scenario || row.id
   const {events,omitted}=extract(state,analysis);
   const handover=analysis.timeline.find(row=>row.kind==='handover');
   assert.equal(events.find(event=>event.kind==='handover')?.operationIndex,handover.operationIndex);
-  result[id]={id,label,sourceSha256,elapsedMonths:analysis.elapsedMonths,coverage:analysis.coverage,events,omitted};
+  const lastOperationIndex=state.operations.length-1;
+  result[id]={id,label,sourceSha256,seed:state.seed,lastOperationIndex,elapsedMonths:analysis.elapsedMonths,
+    coverage:analysis.coverage,events,omitted};
   assert.equal(JSON.stringify(state),raw,id+' unchanged');
 }
 assert.ok(Object.keys(result).length,'Unknown H0 scenario');
