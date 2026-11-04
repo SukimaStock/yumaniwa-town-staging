@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>AmberTime 歴史分析Lab</title>
+<link rel="stylesheet" href="./style.css">
+<script type="module" src="./lab.mjs"></script>
+</head>
+<body>
+<main>
+<a href="../../../lab/#room-bench">‹ LAB</a>
+<h1>蒸留所の歩み</h1>
+<div class="controls">
+<label>プレイ記録 <select id="scenario" disabled></select></label>
+<label class="file">保存ファイルを開く <input id="file" type="file" accept=".json,application/json"></label>
+</div>
+<p id="status" role="status">比較記録を読み込んでいます。</p>
+<article id="result" hidden>
+<p id="description"></p>
+<section><h2>概要</h2><dl id="overview"></dl></section>
+<section><h2>歩み</h2><ol id="timeline"></ol></section>
+<section><h2>記録から見える特徴</h2><div id="features"></div></section>
+<section><h2>記録に残らないこと</h2>
+<p>納品のない月は分かります。取引を休んだ理由や、当時の店主が誰だったかは記録されていません。</p>
+<p>遠方に届いた口コミや問い合わせは確認できます。そこで取引が始まったかは、別の取引記録が必要です。</p>
+<a href="./REPORT.md">比較結果と履歴監査</a>
+</section>
+</article>
+</main>
+</body>
+</html>

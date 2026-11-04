@@ -553,6 +553,12 @@
       "path": "works/oyasumi-ito-no-hashi",
       "status": "active",
       "title": "糸の端"
+    },
+    {
+      "id": "ambertime-history-lab",
+      "path": "works/ambertime-history-lab",
+      "status": "active",
+      "title": "AmberTime 歴史分析Lab"
     }
   ]
 }
