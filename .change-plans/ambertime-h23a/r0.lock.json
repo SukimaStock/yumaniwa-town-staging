@@ -1,0 +1,113 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f4f546f8a34b0514cc9ad68ed3dc0f33733ddc8c0e3ebdd44f6580a37b2e9def",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "fcec9df33e2b40a3d47a8da319a31e9ae69df597",
+    "changeId": "ambertime-h23a",
+    "revision": 0,
+    "change": "後年の評判記録の比較研究",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h23a/r0.lock.json",
+      "works/ambertime/chronicle-lab/research-h23a*",
+      "works/ambertime/chronicle-lab/H23A*"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/works.js",
+      "works/ambertime/history-lab/**"
+    ],
+    "expectedChanges": [
+      "独立した調査とレポート。公開回想は維持"
+    ],
+    "ownerDecisions": [
+      "H2-3A研究・検証・Staging mainへのマージ"
+    ],
+    "hqDecisions": [
+      "既存のH2-2回想編集のみ変更。保存・経済・乱数・事実の編集を禁止。後年の評判データ復元は別途実施。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "3記録2時点3方式、再現性、根拠と順序"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "研究ファイルのみrevert",
+    "outOfScope": [
+      "本編・既存A/B/C、保存・経済・乱数、H1-A、履歴資料再生成、AI、Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safariでの実機操作・文章の可読性、全編を通したテンポ"
+    ],
+    "alternativesRejected": [
+      "本編への常時追加",
+      "架空の感情や因果",
+      "閲覧時の長期再生"
+    ],
+    "boundaryCases": [
+      "必須の瓶詰めと引き継ぎ、同世代の通常納品と後継世代、評判到達と問い合わせの区別、旧版欠損、未知の出来事"
+    ],
+    "testPlan": [
+      "D1.1選出の再現性、ABC既存回帰、文面と画面幅、必須CI"
+    ],
+    "problem": "D案は場面数を抑えたが、同世代の似た納品と冗長な表示文が残る",
+    "currentContract": "H2-2 D1の決定的抽選、必須場面、H0/H1-Bの根拠および本編非干渉",
+    "whyExistingIsInsufficient": "一部の通常納品の再登場が年数だけで採用され、場所名や銘柄が重複表示される",
+    "design": "Dの重複減点と評判の選出圧力を小幅調整。Dのみ短い事実文、原文は監査用に保持する",
+    "migration": "なし",
+    "compatibility": "既存の元記録・セーブ・経済・乱数は変更せず、A/B/Cは維持。編集ルール版D1.1を付与",
+    "promotionRisk": "StagingのLabに限定。実機未確認"
+  }
+}
