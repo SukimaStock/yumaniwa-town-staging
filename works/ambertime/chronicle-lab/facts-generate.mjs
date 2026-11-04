@@ -17,7 +17,7 @@ const shops = new Map(SHOPS.map(({id,name}) => [id,{id,name}]));
 const places = new Map(NODES.map(({id,name,level}) => [id,{id,name,level}]));
 const distillery = {id:'distillery',name:'蒸留所'};
 
-function extract(state,analysis) {
+function extract(state,analysis,uncompressed) {
   const sales = new Map(), caskTypes = new Map(), townOrigins = new Map();
   const facts = observeFacts(state,analysis,({index,operation,before,after}) => {
     for (const cask of after.core.casks) if (!caskTypes.has(cask.id)) caskTypes.set(cask.id,cask.type);
@@ -106,10 +106,21 @@ function extract(state,analysis) {
       'player-news.customerComments',{saleReceiptId:sale.ids.saleReceiptId});
   }
   events.sort((a,b)=>a.month-b.month || (a.operationIndex ?? -1)-(b.operationIndex ?? -1));
+  if (uncompressed) {
+    // Position in the extracted replay stream, before any candidate retention.
+    // Some operations yield several facts, including several different months.
+    const positions = new Map();
+    const omitted = compactFacts(events,state.labConnection?.town.events ?? []).omitted;
+    return {omitted,events:events.map(event=>{
+      const ordinal = positions.get(event.operationIndex) ?? 0;
+      positions.set(event.operationIndex,ordinal+1);
+      return {...event,ordinal};
+    })};
+  }
   return compactFacts(events,state.labConnection?.town.events ?? []);
 }
 
-const [directory, scenario] = process.argv.slice(2);
+const [directory, scenario, mode] = process.argv.slice(2);
 const result = {};
 for (const {id,label,seed,analysis} of histories.filter(row=>!scenario || row.id===scenario)) {
   const raw = directory && directory !== '-' ? readFileSync(resolve(directory,id+'-360.json'),'utf8') :
@@ -120,7 +131,7 @@ for (const {id,label,seed,analysis} of histories.filter(row=>!scenario || row.id
   assert.equal(state.seed,seed);
   assert.equal(state.core.month,analysis.elapsedMonths);
   assert.equal(state.core.totals.bottlesSold,analysis.totals.sold);
-  const {events,omitted}=extract(state,analysis);
+  const {events,omitted}=extract(state,analysis,mode==='--uncompressed');
   const handover=analysis.timeline.find(row=>row.kind==='handover');
   assert.equal(events.find(event=>event.kind==='handover')?.operationIndex,handover.operationIndex);
   const lastOperationIndex=state.operations.length-1;
