@@ -110,3 +110,17 @@ test('positive marginal value, rather than a fixed scene quota, sets length',() 
   assert.ok(buildEdition(dense,anniversary(dense)).frames.length<40);
   assert.equal(buildEdition(meaningful,anniversary(meaningful)).frames.length,40);
 });
+
+
+test('D1.1 keeps the earliest and successor shop deliveries without stacking similar ones',() => {
+  const record=records.local;
+  const result=buildEdition(record,anniversary(record));
+  const deliveries=result.frames.map(frame=>frame.events[0]).filter(event=>event.kind==='delivery' &&
+    event.ids.shopId==='town-liquor');
+  assert.ok(deliveries.some(event=>event.month===23));
+  assert.ok(deliveries.some(event=>event.month===356));
+  assert.ok(deliveries.filter(event=>event.generationId===1 && event.ids.brandId===1).length<=2);
+  assert.equal(result.frames.find(frame=>frame.id==='delivery:73').returnOf,'delivery:1');
+  assert.ok(result.audit.rounds.every(row=>Number.isFinite(row.components.sameStory)));
+  assert.deepEqual(result,buildEdition(record,anniversary(record)));
+});
