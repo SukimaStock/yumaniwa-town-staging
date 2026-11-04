@@ -559,6 +559,12 @@
       "path": "works/ambertime-history-lab",
       "status": "active",
       "title": "AmberTime 歴史分析Lab"
+    },
+    {
+      "id": "ambertime-memory-lab",
+      "path": "works/ambertime-memory-lab",
+      "status": "active",
+      "title": "AmberTime 日常と歴史の接続Lab"
     }
   ]
 }

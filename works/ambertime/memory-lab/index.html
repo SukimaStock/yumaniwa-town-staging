@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>AmberTime 日常と歴史の接続Lab</title>
+<link rel="stylesheet" href="./style.css">
+<script type="module" src="./lab.mjs"></script>
+</head>
+<body>
+<main>
+  <a href="../../../lab/#room-bench">‹ LAB</a>
+  <h1>日常と歴史</h1>
+  <div class="choices">
+    <label>プレイ記録 <select id="record" disabled></select></label>
+    <label>つながり <select id="relation" disabled></select></label>
+  </div>
+  <p id="status" role="status">比較記録を読み込んでいます。</p>
+  <section id="comparison" hidden>
+    <fieldset>
+      <legend class="visually-hidden">表示方法</legend>
+      <label><input type="radio" name="view" value="a" checked><span>A 数字</span></label>
+      <label><input type="radio" name="view" value="b"><span>B 出来事</span></label>
+      <label><input type="radio" name="view" value="c"><span>C 場面</span></label>
+    </fieldset>
+    <div id="presentation"></div>
+    <details id="sources">
+      <summary>記録の根拠</summary>
+      <div id="evidence"></div>
+    </details>
+  </section>
+  <footer><a href="./REPORT.md">分析と試遊の観点</a></footer>
+</main>
+</body>
+</html>
