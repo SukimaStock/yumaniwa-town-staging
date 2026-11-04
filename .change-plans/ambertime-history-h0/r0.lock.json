@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "08a18f72d9167b53d3d596347a7b52357a17cf9bfbb2578a70cdc7880b6f7d8e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "d07ff7ba071163de2b56ef07a2294580d312cc07",
+    "changeId": "ambertime-history-h0",
+    "revision": 0,
+    "change": "AmberTime H0 30年の歩みを比較する独立履歴分析Lab",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-history-h0/r0.lock.json",
+      "works/ambertime/history-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html",
+      "works/ambertime-history-lab/index.html"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "lab/ambertime-research.html",
+        "condition": "既存LAB generatorが生成差分を出した場合のみ"
+      }
+    ],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "本編の操作で3類型を30年再現し操作再生を根拠に事実と集計を分離",
+      "各5–8件のタイムライン、地元の関係と評判の範囲を区別、旧版欠落の明示",
+      "任意ファイル読取をWorkerで実行し本編ストレージ非接続",
+      "履歴の上限・30/50/100年負荷・H1優先順位・検証結果をLabに記録、既存LAB generatorで接続"
+    ],
+    "ownerDecisions": [
+      "2026-11-04 H0依頼。独立Lab、通常PR、検証成立時のStaging反映を許可。Production対象外。"
+    ],
+    "hqDecisions": [
+      "正式保存からの読取には公開復元・再生APIのみ使用する。独立Workerと静的比較データは本編の契約を変更しない。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "3類型30年と50/100年負荷、復元一致、旧版と納品・実売の分離、同一入力の再現性",
+      "360pxおよびデスクトップ、キーボード、Worker、Stagingの操作確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "H0のLab・台帳と生成LAB・Lockのみをrevert",
+    "outOfScope": [
+      "本編の画面・経済・乱数・保存・運用ゲート・Production",
+      "AI生成・新キャラ・経済効果"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "本編に回想画面を追加",
+      "独自のゲーム状態・売上を注入"
+    ],
+    "boundaryCases": [
+      "旧版・発生なし・無販売・中断・同月世代交代・操作件数上限"
+    ],
+    "testPlan": [
+      "正式再生と比較・決定性・純粋性",
+      "既存AmberTime tests・Change PR Gate・Lifecycle・ブラウザー"
+    ],
+    "problem": "既存プレイから裏付けのある歴史素材を区別する必要がある",
+    "currentContract": "正式保存と既存履歴APIは維持",
+    "whyExistingIsInsufficient": "既存の帳面は比較・取引期間・評判の到達範囲を歴史素材として同時に整理しない",
+    "design": "Lab内で再生を投影し根拠付きイベントを選出。保存の読取処理は別スレッド。",
+    "migration": "なし",
+    "compatibility": "既存復元関数を利用。古い期間の欠落を明示。",
+    "promotionRisk": "Staging限定。"
+  }
+}
