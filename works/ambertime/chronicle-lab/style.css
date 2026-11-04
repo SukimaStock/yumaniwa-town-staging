@@ -6,3 +6,7 @@
 #sources { margin: 0; }
 #jump { max-width: 65%; }
 #object:empty { display: none; }
+#comparison table { width: 100%; border-collapse: collapse; text-align: right; }
+#comparison th, #comparison td { border-bottom: 1px solid #cdbda8; padding: .35rem .45rem; }
+#comparison details { margin: .75rem 0; }
+#comparison li { margin-block: .4rem; }
