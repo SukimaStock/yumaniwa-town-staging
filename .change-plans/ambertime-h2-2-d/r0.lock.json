@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bb570cec1cb472f764ddef60f52e026c89ccdec3b8b022ae9f7e68e60ff0009e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "770f1995545de76e90d8b466a9c3ab61ab372bef",
+    "changeId": "ambertime-h2-2-d",
+    "revision": 0,
+    "change": "H2-2追加 D方式で回想を選出",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h2-2-d/r0.lock.json",
+      "works/ambertime/chronicle-lab/**"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "lab/ambertime-research.html",
+        "condition": "既存LAB generatorが生成差分を出した場合のみ"
+      }
+    ],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/works.js",
+      "works/ambertime/history-lab/**"
+    ],
+    "expectedChanges": [
+      "既存事実を境界で抽出・特徴・関連・抽選・時系列の順に編集",
+      "必須の瓶詰めと引き継ぎを保持、確率と選出IDの監査を任意表示",
+      "既存LabにDを追加。A/B/C維持、架空イベントはテストのみ"
+    ],
+    "ownerDecisions": [
+      "H2-2追加依頼、通常PR、検証後Staging。Production対象外。"
+    ],
+    "hqDecisions": [
+      "専用の決定的抽選。事実と正式履歴は編集しない。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "既存3記録の2時点と全方式、Dの根拠と比較、iPhone相当幅、配信"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "D差分だけをrevert",
+    "outOfScope": [
+      "本編、保存・経済・乱数、H1-A、AI生成、閉業、マップチップ、Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "本編への常時追加",
+      "架空の感情や因果",
+      "閲覧時の長期再生"
+    ],
+    "boundaryCases": [
+      "初回瓶詰め欠損、複数世代、同月の未来、未知の出来事・根拠不足、固定件数なし"
+    ],
+    "testPlan": [
+      "Dの品質・確率再現性・拡張、ABC既存、ブラウザー、必須CI"
+    ],
+    "problem": "既存Labの場面数が通し視聴には多い",
+    "currentContract": "本編およびH0の機能・記録を維持",
+    "whyExistingIsInsufficient": "H2-1は少数の場面に限定して同じ店の再登場を試した",
+    "design": "既存比較データで段階的に選出し、既存画面にDと任意の比較を追加",
+    "migration": "なし",
+    "compatibility": "本編と正式セーブに非干渉。H1-Bの場面描画の既存挙動維持",
+    "promotionRisk": "Staging限定。"
+  }
+}
