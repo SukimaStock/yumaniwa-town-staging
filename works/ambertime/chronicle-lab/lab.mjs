@@ -1,3 +1,4 @@
+import {firstDeliveryIds,recallSentence} from './caption.mjs';
 import {buildChronicle} from './editor.mjs';
 import {createSceneMap} from '../memory-lab/scene.mjs';
 import {codeaBottle,codeaCask} from '../codea-object-art.mjs';
@@ -10,7 +11,7 @@ const mode = $('mode'), jump = $('jump');
 const open = $('open'), close = $('close'), previous = $('previous'), next = $('next');
 const picture = $('picture'), evidence = $('evidence');
 const drawMap = createSceneMap(picture.querySelector('canvas'));
-let records, frames = [], index = 0;
+let records, deliveryFirsts, frames = [], index = 0;
 const editions = new Map();
 
 function currentEdition(method) {
@@ -30,40 +31,6 @@ const countLabel = {
   delivery:'納品', bottling:'瓶詰め', fill:'樽詰め', distillation:'蒸留', sale:'販売',
 };
 
-// Only the D preview uses compact captions. Evidence always keeps the full fact.
-function compactCaption(event,scene) {
-  const ids=event.ids??{},count=Number.isInteger(ids.count)&&ids.count>=0?ids.count:null;
-  const bottle=scene?.bottle?.name??null;
-  const name=bottle?`「${bottle}」`:'';
-  const age=ids.age;
-  const ageLabel=Number.isInteger(age)&&age>=0
-    ? (age<12?`${age}か月`:`${Math.floor(age/12)}年${age%12?`${age%12}か月`:''}`) : null;
-  const place=event.kind==='bottling'&&bottle?bottle:
-    event.kind==='handover'?'蒸留所':scene?.entity?.name??'蒸留所';
-  let fact=event.label;
-  switch(event.kind) {
-    case 'shop-start': fact='取引開始';break;
-    case 'delivery':
-      if(count!==null) fact=`${name?name+' · ':''}${count}本納品`;
-      break;
-    case 'bottling':
-      if(count!==null&&ageLabel!==null) fact=`${ageLabel}熟成 · ${count}本瓶詰め`;
-      break;
-    case 'sale':
-      if(count!==null) fact=`${name?name+' · ':''}${count}本販売`;
-      break;
-    case 'arrival': fact='口コミが届いた';break;
-    case 'inquiry': fact='取扱いの問い合わせ';break;
-    case 'visit': fact='蒸留所への訪問';break;
-    case 'handover': fact='引き継ぎ';break;
-    case 'distillation': fact='蒸留完了';break;
-    case 'fill': fact='樽詰め';break;
-    case 'reaction': fact=event.label.match(/のお客さん(「.+」)$/u)?.[1]??event.label;break;
-    default: break;
-  }
-  return {place,fact};
-}
-
 function show() {
   const frame = frames[index], event = frame.events[0];
   const scene = frame.scene ?? event.scene;
@@ -75,15 +42,16 @@ function show() {
   $('object').innerHTML = bottle ? codeaBottle(bottleShape({bottle:bottle.shape}),{label:bottle.label}) :
     cask ? codeaCask(cask) : '';
   $('date').textContent = calendarRange(frame.startMonth,frame.endMonth)+(generation == null ? '' : ` · 第${generation}世代`);
-  const compact = mode.value === 'd' && frame.type !== 'passage' ? compactCaption(event,scene) : null;
-  $('place').textContent = compact?.place ?? (event.kind === 'handover' ? '蒸留所' : scene?.entity?.name ?? '蒸留所');
+  const sentence = mode.value === 'd' && frame.type !== 'passage';
+  $('date').hidden = $('place').hidden = sentence;
+  $('place').textContent = (event.kind === 'handover' ? '蒸留所' : scene?.entity?.name ?? '蒸留所');
   const counts = new Map();
   for (const item of frame.events) {
     const label = countLabel[item.kind] ?? item.kind;
     counts.set(label,(counts.get(label) ?? 0)+1);
   }
   $('fact').textContent = frame.type === 'passage' ?
-    [...counts].map(([label,count]) => `${label}${count}回`).join(' · ') : compact?.fact ?? event.label;
+    [...counts].map(([label,count]) => `${label}${count}回`).join(' · ') : sentence ? recallSentence(event,deliveryFirsts) : event.label;
   $('count').textContent = `${index+1} / ${frames.length}`;
   jump.value = decade(frame.startMonth);
   const active = document.activeElement;
@@ -107,6 +75,7 @@ open.addEventListener('click',() => {
     return;
   }
   frames = story;
+  deliveryFirsts = mode.value === 'd' ? firstDeliveryIds(records[record.value]) : null;
   index = 0;
   const chapters = [...new Set(story.map(frame => decade(frame.startMonth)))];
   jump.replaceChildren(...chapters.map(number => new Option(
