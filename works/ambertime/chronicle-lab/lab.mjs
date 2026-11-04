@@ -1,3 +1,4 @@
+import {withReputationCandidates} from './facts-d.mjs';
 import {firstDeliveryIds,recallSentence} from './caption.mjs';
 import {buildChronicle} from './editor.mjs';
 import {createSceneMap} from '../memory-lab/scene.mjs';
@@ -11,12 +12,12 @@ const mode = $('mode'), jump = $('jump');
 const open = $('open'), close = $('close'), previous = $('previous'), next = $('next');
 const picture = $('picture'), evidence = $('evidence');
 const drawMap = createSceneMap(picture.querySelector('canvas'));
-let records, deliveryFirsts, frames = [], index = 0;
+let records, recordsD, deliveryFirsts, frames = [], index = 0;
 const editions = new Map();
 
 function currentEdition(method) {
   const key = [record.value,horizon.value,method].join('/');
-  if (!editions.has(key)) editions.set(key,buildChronicle(records[record.value],horizon.value,method));
+  if (!editions.has(key)) editions.set(key,buildChronicle((method === 'd' ? recordsD : records)[record.value],horizon.value,method));
   return editions.get(key);
 }
 
@@ -108,7 +109,7 @@ $('sources').addEventListener('click',() => {
   const frame = frames[index];
   $('details').textContent = frame.reason+(frame.returnOf ? '（前の場面 '+frame.returnOf+'）' : '')+'\n\n'+frame.events.map(event =>
     monthLabel(event.month)+'　'+event.label+'\n'+JSON.stringify({
-      id:event.id,operationIndex:event.operationIndex,ordinal:event.ordinal,ids:event.ids,evidence:event.evidence,coverage:records[record.value].coverage,
+      id:event.id,operationIndex:event.operationIndex,ordinal:event.ordinal,replayOrdinal:event.replayOrdinal,ids:event.ids,evidence:event.evidence,coverage:records[record.value].coverage,
     },null,2)).join('\n\n');
   evidence.showModal();
 });
@@ -128,7 +129,7 @@ $('compare').addEventListener('click',() => {
   const {frames,omitted,audit} = currentEdition('d');
   $('selected-events').replaceChildren(...frames.map(frame => textNode('li',
     `${monthLabel(frame.startMonth)} ${frame.events[0].label} ${frame.reason}`)));
-  const events = new Map(records[record.value].events.map(event => [event.id,event]));
+  const events = new Map(recordsD[record.value].events.map(event => [event.id,event]));
   const pastOmissions = omitted.filter(item => item.reason !== '回想時点より後');
   $('omitted-events').replaceChildren(...pastOmissions.map(({id,reason}) => {
     const event = events.get(id);
@@ -137,20 +138,34 @@ $('compare').addEventListener('click',() => {
   if (pastOmissions.length < omitted.length) $('omitted-events').append(
     textNode('li',`回想時点より後のため対象外　${omitted.length-pastOmissions.length}件`));
   $('edition-audit').textContent = JSON.stringify({
-    ...audit,資料生成時の省略集計_30年全体:records[record.value].omitted,
+    ...audit,旧資料の省略集計_30年全体:records[record.value].omitted,追加候補数:recordsD[record.value].events.length-records[record.value].events.length,
   },null,2);
   for (const details of comparison.querySelectorAll('details')) details.open = false;
   comparison.showModal();
 });
 
 const labels = {local:'地元密着型',wide:'広域展開型',mixed:'混合型'};
-fetch('./facts.json').then(response => {
+async function loadFacts(path) {
+  const response = await fetch(path);
   if (!response.ok) throw Error('履歴の読み込み');
   return response.json();
-}).then(data => {
+}
+Promise.all([loadFacts('./facts.json'),loadFacts('./facts-d.json').catch(() => null)]).then(([data,extra]) => {
+  if (extra) {
+    try {
+      recordsD = Object.fromEntries(Object.entries(data).map(([id,item]) => [id,withReputationCandidates(item,extra[id])]));
+    } catch {
+      recordsD = null;
+    }
+  }
+  if (!recordsD) {
+    mode.querySelector('option[value=d]').disabled = true;
+    mode.value = 'c';
+  }
   records = data;
   for (const id of Object.keys(labels)) if (Object.hasOwn(data,id)) record.add(new Option(labels[id],id));
   if (!record.options.length) throw Error('履歴なし');
-  record.disabled = open.disabled = $('compare').disabled = false;
-  $('status').textContent = '';
+  record.disabled = open.disabled = false;
+  $('compare').disabled = !recordsD;
+  $('status').textContent = recordsD ? '' : 'D案の追加資料を読み込めませんでした。';
 }).catch(() => { $('status').textContent = '記録を読み込めませんでした。'; });

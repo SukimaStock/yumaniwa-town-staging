@@ -20,8 +20,9 @@ export const eventDefinitions = Object.freeze({
 });
 
 const ordinal = event => event.ordinal ?? 0;
+const replayOrdinal = event => event.replayOrdinal ?? ordinal(event);
 const chronological = (a,b) => a.month-b.month ||
-  (a.operationIndex ?? -1)-(b.operationIndex ?? -1) || ordinal(a)-ordinal(b) ||
+  (a.operationIndex ?? -1)-(b.operationIndex ?? -1) || replayOrdinal(a)-replayOrdinal(b) ||
   (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 const subject = (event, key) => event.ids?.[key] == null ? null : key+':'+event.ids[key];
 const nonempty = value => typeof value === 'string' && value.trim().length > 0;
@@ -32,7 +33,7 @@ function visibleAt(event,cutoff) {
   if (!Number.isInteger(cutoff.operationIndex)) return true;
   if (!Number.isInteger(event.operationIndex)) return event.month < cutoff.month;
   return event.operationIndex < cutoff.operationIndex ||
-    event.operationIndex === cutoff.operationIndex && ordinal(event) <= ordinal(cutoff);
+    event.operationIndex === cutoff.operationIndex && replayOrdinal(event) <= replayOrdinal(cutoff);
 }
 
 function collectFacts(record,cutoff,definitions) {

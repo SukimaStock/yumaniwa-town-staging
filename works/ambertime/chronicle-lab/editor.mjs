@@ -52,7 +52,11 @@ export function buildChronicle(record,horizon,mode,options={}) {
     ? {month:cutoffEvent.month,operationIndex:cutoffEvent.operationIndex,ordinal:ordinal(cutoffEvent)}
     : horizon === 'anniversary' && Number.isInteger(record?.elapsedMonths)
       ? {month:record.elapsedMonths,operationIndex:null,ordinal:null} : null;
-  if (mode === 'd' && cutoff) return {cutoff,...buildEdition(record,cutoff,options)};
+  if (mode === 'd' && cutoff) {
+    const replayCutoff = horizon === 'handover' && cutoffEvent.replayOrdinal != null
+      ? {...cutoff,replayOrdinal:cutoffEvent.replayOrdinal} : cutoff;
+    return {cutoff,...buildEdition(record,replayCutoff,options)};
+  }
   const frames = [], omitted = [];
   if (!cutoff || !['a','b','c'].includes(mode)) return {cutoff,frames,omitted};
   const displayed = new Set();
