@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "97c7fed358acf51129a26a6ce8578d21ddc28764fb9b306ae6481e94b9d92c1e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "dec0ff6241061cec62e1b03285c8d4636adcc6f0",
+    "changeId": "ambertime-h2-1",
+    "revision": 0,
+    "change": "H2-1 世代交代と時間の回想Lab",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h2-1/r0.lock.json",
+      "works/ambertime/recall-lab/**",
+      "works/ambertime-recall-lab/index.html",
+      "works/ambertime/memory-lab/scene.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "lab/ambertime-research.html",
+        "condition": "既存LAB generatorが生成差分を出した場合のみ"
+      }
+    ],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/works.js",
+      "works/ambertime/history-lab/**"
+    ],
+    "expectedChanges": [
+      "H0とH1-Bの派生データを時間境界で選び既存地図描画を再利用",
+      "任意送り・戻る・閉じる・根拠・動き低減",
+      "比較と本編/H2-2設計レポート"
+    ],
+    "ownerDecisions": [
+      "H2-1依頼。独立Lab、通常PR、検証後Staging。Production対象外。"
+    ],
+    "hqDecisions": [
+      "H1-B描画のみ純粋な共有入口を抽出。既存UIと描画結果を維持。正式再生は実行しない。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360×568・390×740、時間境界、同一座標、戻る・閉じる、動き低減、配信"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "H2-1差分とH1-B描画の抽出だけをrevert",
+    "outOfScope": [
+      "本編、保存・経済・乱数、H1-A、AI生成、閉業、マップチップ、Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "本編への常時追加",
+      "架空の感情や因果",
+      "閲覧時の長期再生"
+    ],
+    "boundaryCases": [
+      "321月の交代操作より後の同月イベント・356月を除外、360月は含む",
+      "欠損、短い構成、同じ場所、横はみ出し"
+    ],
+    "testPlan": [
+      "時間境界・決定性・証拠・既存関連回帰",
+      "ブラウザー、Lifecycle、必須CI"
+    ],
+    "problem": "回想時点を固定し同じ場所の再登場を短い操作で見せる",
+    "currentContract": "本編およびH0の機能・記録を維持",
+    "whyExistingIsInsufficient": "H1-Bは関係ごとの比較。回想の時点や短い構成は別に検証する",
+    "design": "H0/H1-B静的投影から切り出す。現在の素材で各場面を描き、回想の文章と事実を分離",
+    "migration": "なし",
+    "compatibility": "本編と正式セーブに非干渉。H1-Bの場面描画の既存挙動維持",
+    "promotionRisk": "Staging限定。"
+  }
+}
