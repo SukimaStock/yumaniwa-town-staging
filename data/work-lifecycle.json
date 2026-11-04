@@ -565,6 +565,12 @@
       "path": "works/ambertime-memory-lab",
       "status": "active",
       "title": "AmberTime 日常と歴史の接続Lab"
+    },
+    {
+      "id": "ambertime-recall-lab",
+      "path": "works/ambertime-recall-lab",
+      "status": "active",
+      "title": "AmberTime 回想Lab"
     }
   ]
 }

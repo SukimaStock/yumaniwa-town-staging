@@ -41,19 +41,28 @@ function drawScene(canvas, backing, stage, position) {
   ctx.fillRect(px - 4, py - 4, 8, 8);
 }
 
+export function createSceneMap(canvas) {
+  const backing = document.createElement('canvas');
+  backing.width = backing.height = canvas.width = canvas.height = SIZE;
+  return (frame, shopId) => {
+    const position = shopId ? townPositions[shopId] : null;
+    const stage = position ? townStage :
+      stageByLevel.get(levels.get(frame.ids?.regionId)) ?? 1;
+    drawScene(canvas, backing, stage, position);
+  };
+}
+
 export function renderScene(container, relation) {
   const {start, end, entity, kind} = relation;
   const frames = [start, ...(relation.bridge ?? []), end];
   const figure = node('figure', 'memory-scene');
   const view = node('div', 'scene-view');
   const canvas = node('canvas', 'scene-canvas');
-  const backing = document.createElement('canvas');
-  backing.width = backing.height = canvas.width = canvas.height = SIZE;
+  const drawMap = createSceneMap(canvas);
   canvas.setAttribute('aria-hidden', 'true');
   const art = node('div', 'scene-object');
   art.setAttribute('aria-hidden', 'true');
   const shopId = end.ids?.shopId ?? start.ids?.shopId ?? (kind === 'shop' ? entity.id : null);
-  const position = shopId ? townPositions[shopId] : null;
   if (kind === 'brand' || kind === 'cask') {
     const shape = bottleShape({bottle:entity.shape});
     const label = ['cream', 'dark'].includes(entity.label) ? entity.label : null;
@@ -85,9 +94,7 @@ export function renderScene(container, relation) {
   let index = 0;
   function show() {
     const frame = frames[index];
-    const stage = position ? townStage :
-      stageByLevel.get(levels.get(frame.ids?.regionId)) ?? 1;
-    drawScene(canvas, backing, stage, position);
+    drawMap(frame, shopId);
     const generation = frame.generationId == null ? '' : ` · 第${frame.generationId}世代`;
     date.textContent = monthLabel(frame.month) + generation;
     fact.textContent = frame.label;
