@@ -10,3 +10,4 @@
 #comparison th, #comparison td { border-bottom: 1px solid #cdbda8; padding: .35rem .45rem; }
 #comparison details { margin: .75rem 0; }
 #comparison li { margin-block: .4rem; }
+.caption:has(#date[hidden]) #fact { font-size: 1rem; line-height: 1.5; }
