@@ -10,10 +10,12 @@ const manual = new Set(['stop','fill','bottle','bottle-branded','bottle-counted-
   'accept-shop','store-assign','stockist-deliver','stockist-accept-delivery','deliver-shop','accept-shop-delivery',
   'department-queue','department-accept-queue','staff-hire','bottling-staff-hire','generation-handover']);
 
-function observeFacts(state,h0) {
+export function observeFacts(state,h0,observeOperation) {
   const facts = Object.fromEntries(['offers','receipts','placements','releases','fills','handovers','town','direct'].map(key=>[key,new Map()]));
   const shopName=id=>h0.shops.find(shop=>shop.id===id)?.name ?? id;
-  replayDistilleryOperations(state, ({index,operation,before,after}) => {
+  replayDistilleryOperations(state, observation => {
+    const {index,operation,before,after} = observation;
+    observeOperation?.(observation);
     const key = operation?.key, month = after.core.month;
     const known = manual.has(key) ? 'manual' : 'unknown';
     function add(map,id,kind,date,ids,label,agency=known) {
