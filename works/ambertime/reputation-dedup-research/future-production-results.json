@@ -1,0 +1,291 @@
+{
+  "schema": "ambertime-h1-b1-production/1",
+  "baseSha": "fcc14b249733b6cccd598bcd2e567e64848bcd7f",
+  "seed": 314159,
+  "scope": "full formal game; unchanged public production, aging, retail and economic APIs",
+  "node": "v24.22.1",
+  "codeFingerprint": "f45aee969158fa6b843eb8d4d2c6a02cca65571acb4461767120359540a169ca",
+  "steps": [
+    {
+      "label": "flavor-cards",
+      "stateSha256": "59355b18474f8da53c51cd812a1365d258ffea72b177080466a648c2ee5b97e8",
+      "month": 0,
+      "operations": 28
+    },
+    {
+      "label": "start-range",
+      "stateSha256": "6e5b9a95cdcd5d970cd27eaad27f786e0b938dc9460b012e25728641ef6450d9",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-1",
+      "stateSha256": "158b08db9a89020cb99f870471972fe0658d1675612d1a2494f996255a294ee9",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-2",
+      "stateSha256": "06debf3c94b87e001e36d710cdd235804e4c30a1647e0d77821b80f704778dc2",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-3",
+      "stateSha256": "4c3dedca1fd168f4c1671f7528623979236f4e1fe6acb41afa7fd89eefb62603",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-4",
+      "stateSha256": "2c3d31468767f6977baafc77827c3681352d213e97fc53f07ed1acf3e1e3b924",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-5",
+      "stateSha256": "025faa58a21f76fc5f25b25b94a9e11cbc8ad52e4f07fffaaf55a89e2eb28166",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-6",
+      "stateSha256": "a2da328552ec1b6a2811765699c48c27d0c87a8be520f0fd2b0ba4b2affdbfa9",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-7",
+      "stateSha256": "0099484fa9608df3b45e0867fd9355886e204bbb6608dd3cb21f1efb1e638b23",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-8",
+      "stateSha256": "3e0d133bc0ccc8b620bceaf4743be7829e2f3e0e3ad7b4e878fc44308dbe087b",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-9",
+      "stateSha256": "ee58a00ee5430f92517d9036d96f75ba12e56ae1011c42383f737062c42226fe",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-10",
+      "stateSha256": "a94bd04afc6961626bccf08d5b9c79af5d9a579c8c3013fb4d2f60bab9144f32",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-11",
+      "stateSha256": "71bc470e8cd09efcbe35d147855b370771c3ee2e48a86355b70e0bb67b351902",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-12",
+      "stateSha256": "9516bd9cda3e5dad1f3e981e41202b96f138d565b57aa8b5fcc2639f7ab22180",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-13",
+      "stateSha256": "cf8d9d16cf0c59cab3ed5ac3231b8cf80bc1145ccd55e419e541e2ba606079c3",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-14",
+      "stateSha256": "77d541d89521bc93c14db7d07211b2e98d628882edc542115c76c8a44d003990",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-15",
+      "stateSha256": "3af46c2a2d044ae4ad104ff85834c717ac4fd0cbae4c41d2b1232948be360c77",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-16",
+      "stateSha256": "785eb21b549b22ad393456a3b19a56d8c48fb347edfa0952f81784122446309b",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-17",
+      "stateSha256": "897e6ceee9d3342a2d7b3505ef106e003ce33b1750bc218cd82925cb18ea5451",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-18",
+      "stateSha256": "4a372e9aaedb9ca761ddc113be7f0683af596ac6789f555446ac588076440a59",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-19",
+      "stateSha256": "5091234935dda470168bdf03c19cf8f8e595a8aefd0032310bd987508b72a5d0",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "distill-precollection-20",
+      "stateSha256": "48a650c9e995fdea0a2def1e32d0d70067d43cd390887bbad9257e0b9415a5b9",
+      "month": 0,
+      "operations": 29
+    },
+    {
+      "label": "begin-collection",
+      "stateSha256": "d452029705fc3a6576d1ca2af8a9364d38de5295f9c14f1671057c9713793b68",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-21",
+      "stateSha256": "2bee2b161498a85848c430f091a94525ab36c2a532d75ebde6bdeed3e570b498",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-22",
+      "stateSha256": "8d3913e512dca5163f03d277bd8c4630b3fe785611556ca315dc720d8cec9d5a",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-23",
+      "stateSha256": "ffa77e3ca2e5a8f47b45563cd6b411fde342d379762a776c1002ddb83b6c929f",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-24",
+      "stateSha256": "a305d9760171ed93d78b42b6471f35642b97d05b64f826fe34c90a2b9e1c6291",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-25",
+      "stateSha256": "e76f45efc264449770bb84a6e93189dac6f77ab93efb29dc1f65aa66d91c6adf",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-26",
+      "stateSha256": "ca5b3b5cf018c15c4d92797c782ee139394000dd83177dfb74b08aa79b95da25",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-27",
+      "stateSha256": "6e8d4b369ef2528533e236b13d0b8d605aedd9a4412dd1775502fb10261f625b",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-28",
+      "stateSha256": "e40481ed5f1c5199173d448a2ea50da0b763f362b670b5b9a736c97602a611e6",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-29",
+      "stateSha256": "38ccf22ffb95bd8b71109a55c83eebf5c942c25920911ac8567d3ebbc2854dd3",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-30",
+      "stateSha256": "d513f5821bfd56bca0f38c5a2ec76b39b3f799fbdbfe55b393a61a46d0436a6b",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-31",
+      "stateSha256": "fb46803b929fafa99e69ab2bd6a0ff31a99482c09bd90d79974dd052d70fcf55",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-32",
+      "stateSha256": "d293b864905a206cc8e9df2f86d939ef5e1779ef83addfe6e67f841903cb58b8",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-33",
+      "stateSha256": "770d451b85624bb3b01beee0437ce140a8c1176355a336b733f2c2463c23f33e",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-34",
+      "stateSha256": "3142ee808a722543b7308a7fd9f24ff8b12ab6a3317992236050296bdb0e907f",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "distill-collection-35",
+      "stateSha256": "e19920830cc364a82e9a9d1288bbd41445d29d8866bff4b1c51a6fefca78fe12",
+      "month": 0,
+      "operations": 30
+    },
+    {
+      "label": "stop",
+      "stateSha256": "102d404462fbf960463dc8fabc0488bcb5429b9ac395d7d737ae7e04150cc28f",
+      "month": 0,
+      "operations": 31
+    },
+    {
+      "label": "fill",
+      "stateSha256": "7fe52662c1e95fb5e68b2bf886482fbc7bc89a8cf9e68d491fca0d3d493dea7a",
+      "month": 0,
+      "operations": 32
+    },
+    {
+      "label": "bottle-five",
+      "stateSha256": "22dc9a4890816a64c8060835933216c0516ac3d55f6b9e56fecdc26cabf9ba61",
+      "month": 0,
+      "operations": 33
+    },
+    {
+      "label": "list",
+      "stateSha256": "0d1db613d87fe1656be8448fe8d91a80e3c8681f0b486f9524f435f1070ba80b",
+      "month": 0,
+      "operations": 34
+    },
+    {
+      "label": "retail-five",
+      "stateSha256": "280b608520f9a8f3a2099b70fdd2f1fbb8b685c69094e2e4014f6d90f69560d0",
+      "month": 0,
+      "operations": 35
+    },
+    {
+      "label": "monthly-sales-1",
+      "stateSha256": "d2187166f37bb573bb5268b48031ce798777fad2e1a1ce97b4f3b0673e807d95",
+      "month": 1,
+      "operations": 36
+    },
+    {
+      "label": "monthly-sales-2",
+      "stateSha256": "d45eac647446f346ab8090353dbfc5d8e259a1d0edaaabaf2e5f880e1572332a",
+      "month": 2,
+      "operations": 37
+    }
+  ],
+  "allVariantsExact": true,
+  "final": {
+    "month": 2,
+    "cash": 1373,
+    "bottlesSold": 2,
+    "releaseCount": 1,
+    "townEvents": 5,
+    "arrivals": 1,
+    "stateSha256": "d45eac647446f346ab8090353dbfc5d8e259a1d0edaaabaf2e5f880e1572332a"
+  },
+  "formalEndValidation": true
+}

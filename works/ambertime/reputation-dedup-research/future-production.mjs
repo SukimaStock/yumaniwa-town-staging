@@ -1,0 +1,15 @@
+// Supplementary genuine full-game production career, separate provenance from the
+// completed 12-state/702-operation future suite. No product fields assigned.
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {pathToFileURL} from 'node:url';
+import * as D from '../partner-orders.mjs';
+import {encode,decode} from './adapter.mjs';
+const sha=x=>createHash('sha256').update(x).digest('hex');
+export function productionFingerprint(){return sha(['future-production.mjs','adapter.mjs'].map(f=>readFileSync(new URL(f,import.meta.url),'utf8')).join('\n'));}
+export function runProduction(){const states=Object.fromEntries(['A','B','C'].map(v=>[v,D.newMarketRulesDistillery(314159)])),steps=[];
+ function step(label,fn){const results={};for(const v of ['A','B','C']){const raw=JSON.stringify(states[v]),state=JSON.parse(decode(encode(raw,v)));assert.equal(JSON.stringify(state),raw);states[v]=fn(state);results[v]=JSON.stringify(states[v]);assert.equal(decode(encode(results[v],v)),results[v]);}assert.equal(results.A,results.B);assert.equal(results.A,results.C);steps.push({label,stateSha256:sha(results.A),month:states.A.core.month,operations:states.A.operations.length});}
+ step('flavor-cards',s=>D.selectFlavorCards(s,{malt:'plain',ferment:'short'}));step('start-range',D.startRangeDistillation);for(let i=1;i<=20;i++)step('distill-precollection-'+i,D.distillStep);step('begin-collection',D.beginCollection);for(let i=21;i<=35;i++)step('distill-collection-'+i,D.distillStep);step('stop',D.stopDistillation);step('fill',s=>D.fillBarrel(s,'refill'));step('bottle-five',s=>D.bottleBranded(s,s.core.casks.at(-1).id,{name:'B1'},5));step('list',s=>D.listBottles(s,s.result.productId));step('retail-five',s=>D.setMarketRetail(s,{productId:s.result.productId,count:5}));step('monthly-sales-1',D.tickDistillery);step('monthly-sales-2',D.tickDistillery);
+ const finalRaw=D.serializeDistillery(states.A);assert.equal(finalRaw,JSON.stringify(states.A));assert(states.A.core.totals.bottlesSold>0);assert.equal(states.A.releases.length,1);return {schema:'ambertime-h1-b1-production/1',baseSha:'fcc14b249733b6cccd598bcd2e567e64848bcd7f',seed:314159,scope:'full formal game; unchanged public production, aging, retail and economic APIs',node:process.version,codeFingerprint:productionFingerprint(),steps,allVariantsExact:true,final:{month:states.A.core.month,cash:states.A.core.cash,bottlesSold:states.A.core.totals.bottlesSold,releaseCount:states.A.releases.length,townEvents:states.A.labConnection.town.events.length,arrivals:states.A.labConnection.town.arrivals.length,stateSha256:sha(finalRaw)},formalEndValidation:true};}
+if(process.argv[1]&&pathToFileURL(process.argv[1]).href===import.meta.url){const [output]=process.argv.slice(2);assert(output);const fp=productionFingerprint(),result=runProduction();assert.equal(fp,productionFingerprint());writeFileSync(output,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({operations:result.steps.length,final:result.final}));}
