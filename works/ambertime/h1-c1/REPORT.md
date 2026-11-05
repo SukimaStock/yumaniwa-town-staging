@@ -16,7 +16,9 @@ Production変更なし。完了条件を満たすまでマージしない。
 
 変更前のappだけが`partner-orders.mjs?v=market-rules-r1&touch=1`、樽番号と比較表示は`?v=market-rules-r1`を使う。モジュールのbyteが同じでもURLが異なるためcheckpointを共有できず、樽番号初回検証がcoldになる。
 
-候補はappのimport URLを既存表示側と一致させる1行。validateDistillery、正式reader、codec、projection APIは不変。全JSON照合とseed・origin・operation prefixによるcache判定を維持する。配信URLにstartup識別子を追加する。
+最初の候補はappのimport URL統一。起動は短縮したが、履歴内のenable-stage4等から呼ばれる検証が、現在のcheckpointを古いprefixへ置き換えた。次の操作へ全再生を移すため不採用。
+
+修正版はappが厳密なD.validateDistilleryを樽番号resolverへ渡し、検証後のprojectionは従来の別moduleで動かす。既定のvalidatorは従来通り。正式reader、codec、projection APIと全JSON一致は不変。配信URLにstartup識別子を追加。
 
 樽番号の全projectionは別に残る。正式readerのcheckpointにはobserverの樽作成順がなく、この監査でreaderを拡張しない。未表示帳面は既にdemand-drivenなので、起動時全帳面生成の削除は行わない。
 
@@ -35,11 +37,11 @@ Production変更なし。完了条件を満たすまでマージしない。
 
 予備の地元30年: Chromium観測完了33.24秒→22.61秒。正式reader約8.54秒→8.20秒、樽番号projection約14.06秒→13.47秒。変更前は別moduleのcold検証が約9.68秒追加。起動後JSONのハッシュ一致。予備値は最終比較に混ぜず、100年の結論へ外挿しない。
 
-100年の最初の試行は関連テストと同時実行されたため中断し、統制比較には採用しない。入力やユーザー保存は変更していない。
+100年の最初の試行は関連テストと同時実行されたため中断。次の試行は既存modalを妨げない操作計測へ変更するため中断。どちらも完了値として再利用しない。入力やユーザー保存は変更していない。
 
 ## 未完了
 
-100年詳細比較、12条件の起動比較、全再生回数の直接計数、Worker/帳面/歩み初回、月次・保存・再読込、9世代境界の依存fingerprint照合、復旧browser回帰、全必須CI、Staging公開確認。分類A/B/Cの最終判断は保留。
+広域・混合100年の変更前後ペア、12条件の起動比較、全再生回数の直接計数、Worker/帳面/歩み初回、月次・保存・再読込、復旧browser回帰、全必須CI、Staging公開確認。地元100年は暫定B、全体判断は保留。
 
 回帰: 樽番号既存7件＋module共有境界2件、9/9成功。追加テストの初回は非対応モードへのrange開始というテスト入力誤りで失敗、既存staffモードのstartDistillationへ修正後成功（製品修正なし）。
 
@@ -47,8 +49,16 @@ Production変更なし。完了条件を満たすまでマージしない。
 
 地元100年変更前（同一ホスト逐次、最終runner）: boot-complete 182.317秒、paint-opportunity 182.328秒。正式reader47.493秒、別module cold検証47.530秒、樽番号projection86.044秒。後続比較は未完了。
 
-地元100年共有後: boot-complete **134.446秒**、paint-opportunity **134.459秒**。正式reader46.444秒、樽番号projection86.739秒。起動差 **47.871秒（26.3%短縮）**。入力・wire・起動後全JSON SHA・runner・Chromium版一致。両方のpageerrorは0。樽番号専用の完全検証は温かいcacheの検証に変わるが、全projectionは残る。操作計測はTab入力のみで、ゲーム操作検証は別runner。
+【不採用案の診断】地元100年URL統一後: boot-complete **134.446秒**、paint-opportunity **134.459秒**。正式reader46.444秒、樽番号projection86.739秒。起動差 **47.871秒（26.3%短縮）**。入力・wire・起動後全JSON SHA・runner・Chromium版一致。両方のpageerrorは0。樽番号専用の完全検証は温かいcacheの検証に変わるが、全projectionは残る。操作計測はTab入力のみで、ゲーム操作検証は別runner。
 
-この地元100年結果は暫定 **B**。残るのは正式readerに加えて樽番号projectionも大きく、checkpointだけでは解消しない。最初に樽作成順の安全な再利用を独立に研究する余地がある。今回の製品には導入しない。
+この地元100年結果は待機内訳の診断値。修正版の性能値ではない。残るのは正式readerに加えて樽番号projectionも大きく、checkpointだけでは解消しない。最初に樽作成順の安全な再利用を独立に研究する余地がある。今回の製品には導入しない。
 
 再現: `node works/ambertime/h1-c1/matrix.mjs <H24入力ディレクトリ> <隔離出力ディレクトリ>`。12入力は既存容量証拠のSHAに照合し、100年3方針から逐次起動。`node works/ambertime/h1-c1/operations.mjs <正式game JSONまたは一時停止済v3> <結果JSON>` は独立した実操作確認。重い計測と同時実行しない。
+
+広域100年変更前（旧runner）: boot-complete 359.578秒、paint-opportunity 359.620秒。正式reader99.985秒、別module cold検証98.993秒、樽番号projection158.736秒。変更後は未完了。
+
+追加確認: R0/R6配信依存グラフ・H1-C1境界計15/15 PASS（重い再生を含まない）。Node v24.22.1 / Linux x64 / Chromium 153 / viewport 390×740。15件には先のH1-C1境界2件を含む。
+
+修正版の回帰3/3 PASS。テスト用にだけcheckpoint長を観測し、同一module案のcache破棄と、分離案の正式checkpoint保持、樽番号・全JSON一致を同じfixtureで確認。
+
+最終比較の `matrix.mjs` は `browser-safe-timing.mjs` を使う。変更前は基準mainの実blobを使用、修正版は作業tree。初回の正式シリアライズ前にcheckpoint長が全操作件数と一致することを確認し、その所要時間も記録する。古い `browser-timing.mjs` と `local-100-shared.json` は不採用案の診断記録で、修正版の合格証拠に流用しない。
