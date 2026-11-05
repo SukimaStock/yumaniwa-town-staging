@@ -1,0 +1,877 @@
+{
+  "schema": "ambertime-h1-a5-browser/1",
+  "baseSha": "306524e1e7df3a5b2e2ba27310fb269d6e15aa4a",
+  "codeFingerprint": "fbd6d12070de533580f32711c486a823195b7b60915e4fd1b1115055e1745ba2",
+  "date": "2026-11-05T12:46:15.622Z",
+  "results": [
+    {
+      "engine": "chromium",
+      "conditions": [
+        {
+          "id": "local",
+          "month": 360,
+          "hash": "5a226eb5829e91e4385f8e31504785edbc95921381356156d200ec2dfb4a8ab7",
+          "codeUnits": 1663055,
+          "utf8Bytes": 1868449,
+          "url": "/fixture/local-360.json",
+          "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+          "success": true,
+          "error": null,
+          "setMs": 32,
+          "getMs": 0.20000000298023224,
+          "oldRetained": null,
+          "readHash": "5a226eb5829e91e4385f8e31504785edbc95921381356156d200ec2dfb4a8ab7",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 10000000,
+            "totalJSHeapSize": 11200000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 28.600000008940697,
+            "getMs": 0,
+            "codeUnits": 1663003,
+            "utf8Bytes": 1868397,
+            "hash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+            "oldRetained": null,
+            "readHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 10000000,
+              "totalJSHeapSize": 11200000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+            "writeMs": 8.599999994039536,
+            "readMs": 8.400000005960464,
+            "storageEstimate": {
+              "quota": 10737943357,
+              "usage": 525117,
+              "usageDetails": {
+                "indexedDB": 525117
+              }
+            }
+          }
+        },
+        {
+          "id": "local",
+          "month": 720,
+          "hash": "0933a5b45ea233ba6a0d99ae240d3d66e8270457d79a2914606b5e73db12c847",
+          "codeUnits": 2631233,
+          "utf8Bytes": 2946463,
+          "url": "/fixture/local-720.json",
+          "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+          "success": true,
+          "error": null,
+          "setMs": 47.900000005960464,
+          "getMs": 0.29999999701976776,
+          "oldRetained": null,
+          "readHash": "0933a5b45ea233ba6a0d99ae240d3d66e8270457d79a2914606b5e73db12c847",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 19300000,
+            "totalJSHeapSize": 21700000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 33.70000000298023,
+            "getMs": 0,
+            "codeUnits": 2631181,
+            "utf8Bytes": 2946411,
+            "hash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+            "oldRetained": null,
+            "readHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 19300000,
+              "totalJSHeapSize": 21700000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+            "writeMs": 11.400000005960464,
+            "readMs": 11.599999994039536,
+            "storageEstimate": {
+              "quota": 10738253905,
+              "usage": 835665,
+              "usageDetails": {
+                "indexedDB": 835665
+              }
+            }
+          }
+        },
+        {
+          "id": "local",
+          "month": 1080,
+          "hash": "7a0fe4a44c43088d2b8ef3db1fb941f460c939cf2677fb71cd982f9d0e12ad0d",
+          "codeUnits": 3500710,
+          "utf8Bytes": 3916368,
+          "url": "/fixture/local-1080.json",
+          "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+          "success": true,
+          "error": null,
+          "setMs": 70.3999999910593,
+          "getMs": 0.5,
+          "oldRetained": null,
+          "readHash": "7a0fe4a44c43088d2b8ef3db1fb941f460c939cf2677fb71cd982f9d0e12ad0d",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 26000000,
+            "totalJSHeapSize": 27600000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 50.1000000089407,
+            "getMs": 0,
+            "codeUnits": 3500658,
+            "utf8Bytes": 3916316,
+            "hash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+            "oldRetained": null,
+            "readHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 26000000,
+              "totalJSHeapSize": 27600000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+            "writeMs": 18.600000008940697,
+            "readMs": 23.599999994039536,
+            "storageEstimate": {
+              "quota": 10738530792,
+              "usage": 1112552,
+              "usageDetails": {
+                "indexedDB": 1112552
+              }
+            }
+          }
+        },
+        {
+          "id": "local",
+          "month": 1200,
+          "hash": "f8076f589443f932eef9f1b3f7a07592fab03ad024515548b40a8e93c1e2fb4f",
+          "codeUnits": 3806952,
+          "utf8Bytes": 4257656,
+          "url": "/fixture/local-1200.json",
+          "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "success": true,
+          "error": null,
+          "setMs": 37.20000000298023,
+          "getMs": 0.29999999701976776,
+          "oldRetained": null,
+          "readHash": "f8076f589443f932eef9f1b3f7a07592fab03ad024515548b40a8e93c1e2fb4f",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 31200000,
+            "totalJSHeapSize": 33100000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 22.400000005960464,
+            "getMs": 0,
+            "codeUnits": 3806900,
+            "utf8Bytes": 4257604,
+            "hash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "oldRetained": null,
+            "readHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 31200000,
+              "totalJSHeapSize": 33100000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "writeMs": 18,
+            "readMs": 23.799999997019768,
+            "storageEstimate": {
+              "quota": 10738631199,
+              "usage": 1212959,
+              "usageDetails": {
+                "indexedDB": 1212959
+              }
+            }
+          }
+        },
+        {
+          "id": "wide",
+          "month": 360,
+          "hash": "9c0472acfc5cd360f16aada7002be761ea3cd7c90fa7eb118823180064f48af7",
+          "codeUnits": 2328469,
+          "utf8Bytes": 2613531,
+          "url": "/fixture/wide-360.json",
+          "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+          "success": true,
+          "error": null,
+          "setMs": 10,
+          "getMs": 0.19999998807907104,
+          "oldRetained": null,
+          "readHash": "9c0472acfc5cd360f16aada7002be761ea3cd7c90fa7eb118823180064f48af7",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 24500000,
+            "totalJSHeapSize": 27600000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 9.400000005960464,
+            "getMs": 0,
+            "codeUnits": 2328417,
+            "utf8Bytes": 2613479,
+            "hash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+            "oldRetained": null,
+            "readHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 24500000,
+              "totalJSHeapSize": 27600000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+            "writeMs": 8.899999991059303,
+            "readMs": 8.300000011920929,
+            "storageEstimate": {
+              "quota": 10738174518,
+              "usage": 756278,
+              "usageDetails": {
+                "indexedDB": 756278
+              }
+            }
+          }
+        },
+        {
+          "id": "wide",
+          "month": 720,
+          "hash": "94dc26c74552132607d8502e8f64b61fb40baacdf682c89487f584b50c44057f",
+          "codeUnits": 3737549,
+          "utf8Bytes": 4190239,
+          "url": "/fixture/wide-720.json",
+          "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+          "success": true,
+          "error": null,
+          "setMs": 19.700000002980232,
+          "getMs": 0.29999999701976776,
+          "oldRetained": null,
+          "readHash": "94dc26c74552132607d8502e8f64b61fb40baacdf682c89487f584b50c44057f",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 26000000,
+            "totalJSHeapSize": 27600000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 15.399999991059303,
+            "getMs": 0,
+            "codeUnits": 3737497,
+            "utf8Bytes": 4190187,
+            "hash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+            "oldRetained": null,
+            "readHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 26000000,
+              "totalJSHeapSize": 27600000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+            "writeMs": 15.699999988079071,
+            "readMs": 9,
+            "storageEstimate": {
+              "quota": 10738640550,
+              "usage": 1222310,
+              "usageDetails": {
+                "indexedDB": 1222310
+              }
+            }
+          }
+        },
+        {
+          "id": "wide",
+          "month": 1080,
+          "hash": "c4a59d6e266c1ff445675e684dde8e84caa1bc4442c0f6a22e88746afbd99dd7",
+          "codeUnits": 5260045,
+          "utf8Bytes": 5894321,
+          "url": "/fixture/wide-1080.json",
+          "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+          "success": false,
+          "error": {
+            "name": "QuotaExceededError",
+            "message": "Failed to execute 'setItem' on 'Storage': Setting the value of 'ambertime-h1-a5-research-local' exceeded the quota."
+          },
+          "setMs": 3.0999999940395355,
+          "getMs": 0,
+          "oldRetained": true,
+          "readHash": "90bd382ef80d6f08b62555f3cc697397805da2d8f3cd54fd737ac072ba636c12",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 31200000,
+            "totalJSHeapSize": 33100000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": false,
+            "error": {
+              "name": "QuotaExceededError",
+              "message": "Failed to execute 'setItem' on 'Storage': Setting the value of 'ambertime-h1-a5-research-local' exceeded the quota."
+            },
+            "setMs": 0.29999999701976776,
+            "getMs": 0,
+            "codeUnits": 5259993,
+            "utf8Bytes": 5894269,
+            "hash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+            "oldRetained": true,
+            "readHash": "90bd382ef80d6f08b62555f3cc697397805da2d8f3cd54fd737ac072ba636c12",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 31200000,
+              "totalJSHeapSize": 33100000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+            "writeMs": 24.200000002980232,
+            "readMs": 34.79999999701977,
+            "storageEstimate": {
+              "quota": 10739140777,
+              "usage": 1722537,
+              "usageDetails": {
+                "indexedDB": 1722537
+              }
+            }
+          }
+        },
+        {
+          "id": "wide",
+          "month": 1200,
+          "hash": "250eab2b3bfdc0cf2d0eb66d6de2fdd80effe117c669d749b5cad48e176689b6",
+          "codeUnits": 5838145,
+          "utf8Bytes": 6540051,
+          "url": "/fixture/wide-1200.json",
+          "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+          "success": false,
+          "error": {
+            "name": "QuotaExceededError",
+            "message": "Failed to execute 'setItem' on 'Storage': Setting the value of 'ambertime-h1-a5-research-local' exceeded the quota."
+          },
+          "setMs": 3,
+          "getMs": 0,
+          "oldRetained": true,
+          "readHash": "90bd382ef80d6f08b62555f3cc697397805da2d8f3cd54fd737ac072ba636c12",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 21700000,
+            "totalJSHeapSize": 23100000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": false,
+            "error": {
+              "name": "QuotaExceededError",
+              "message": "Failed to execute 'setItem' on 'Storage': Setting the value of 'ambertime-h1-a5-research-local' exceeded the quota."
+            },
+            "setMs": 0.09999999403953552,
+            "getMs": 0,
+            "codeUnits": 5838093,
+            "utf8Bytes": 6539999,
+            "hash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "oldRetained": true,
+            "readHash": "90bd382ef80d6f08b62555f3cc697397805da2d8f3cd54fd737ac072ba636c12",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 21700000,
+              "totalJSHeapSize": 23100000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "writeMs": 19.400000005960464,
+            "readMs": 11.899999991059303,
+            "storageEstimate": {
+              "quota": 10739333300,
+              "usage": 1915060,
+              "usageDetails": {
+                "indexedDB": 1915060
+              }
+            }
+          }
+        },
+        {
+          "id": "mixed",
+          "month": 360,
+          "hash": "f63ee0f5916fd52ee1ffcba41b7124d920175a7bed2bb41bee66fefb47e0948f",
+          "codeUnits": 1830787,
+          "utf8Bytes": 2054397,
+          "url": "/fixture/mixed-360.json",
+          "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+          "success": true,
+          "error": null,
+          "setMs": 7.700000002980232,
+          "getMs": 0.29999999701976776,
+          "oldRetained": null,
+          "readHash": "f63ee0f5916fd52ee1ffcba41b7124d920175a7bed2bb41bee66fefb47e0948f",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 10000000,
+            "totalJSHeapSize": 11900000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 7.199999988079071,
+            "getMs": 0,
+            "codeUnits": 1830735,
+            "utf8Bytes": 2054345,
+            "hash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+            "oldRetained": null,
+            "readHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 10000000,
+              "totalJSHeapSize": 11900000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+            "writeMs": 8.5,
+            "readMs": 3.8999999910593033,
+            "storageEstimate": {
+              "quota": 10738011486,
+              "usage": 593246,
+              "usageDetails": {
+                "indexedDB": 593246
+              }
+            }
+          }
+        },
+        {
+          "id": "mixed",
+          "month": 720,
+          "hash": "429c56e1267064ce72a62fb2b29f98e3f01234ecd2cc8d85b7e70ee0c85d1864",
+          "codeUnits": 2917759,
+          "utf8Bytes": 3269361,
+          "url": "/fixture/mixed-720.json",
+          "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+          "success": true,
+          "error": null,
+          "setMs": 12.799999997019768,
+          "getMs": 0.29999999701976776,
+          "oldRetained": null,
+          "readHash": "429c56e1267064ce72a62fb2b29f98e3f01234ecd2cc8d85b7e70ee0c85d1864",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 20500000,
+            "totalJSHeapSize": 23100000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 12.5,
+            "getMs": 0,
+            "codeUnits": 2917707,
+            "utf8Bytes": 3269309,
+            "hash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+            "oldRetained": null,
+            "readHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 20500000,
+              "totalJSHeapSize": 23100000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+            "writeMs": 10.599999994039536,
+            "readMs": 6.800000011920929,
+            "storageEstimate": {
+              "quota": 10738369836,
+              "usage": 951596,
+              "usageDetails": {
+                "indexedDB": 951596
+              }
+            }
+          }
+        },
+        {
+          "id": "mixed",
+          "month": 1080,
+          "hash": "eedf8ae3e5d22aaadf7b6cd737e809908a0815c9081a81e23d10503d79c2de8d",
+          "codeUnits": 4425329,
+          "utf8Bytes": 4953627,
+          "url": "/fixture/mixed-1080.json",
+          "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+          "success": true,
+          "error": null,
+          "setMs": 26.299999997019768,
+          "getMs": 0.3999999910593033,
+          "oldRetained": null,
+          "readHash": "eedf8ae3e5d22aaadf7b6cd737e809908a0815c9081a81e23d10503d79c2de8d",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 31200000,
+            "totalJSHeapSize": 33100000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 26.5,
+            "getMs": 0.10000000894069672,
+            "codeUnits": 4425277,
+            "utf8Bytes": 4953575,
+            "hash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+            "oldRetained": null,
+            "readHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 31200000,
+              "totalJSHeapSize": 33100000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+            "writeMs": 18.80000001192093,
+            "readMs": 11.099999994039536,
+            "storageEstimate": {
+              "quota": 10738868889,
+              "usage": 1450649,
+              "usageDetails": {
+                "indexedDB": 1450649
+              }
+            }
+          }
+        },
+        {
+          "id": "mixed",
+          "month": 1200,
+          "hash": "f1e201bdf567d86c5efd3923a1b6f37a7e82771cff569d9007efe06d7a7e9764",
+          "codeUnits": 4938612,
+          "utf8Bytes": 5527768,
+          "url": "/fixture/mixed-1200.json",
+          "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+          "success": true,
+          "error": null,
+          "setMs": 21.700000002980232,
+          "getMs": 0.5999999940395355,
+          "oldRetained": null,
+          "readHash": "f1e201bdf567d86c5efd3923a1b6f37a7e82771cff569d9007efe06d7a7e9764",
+          "storageEstimate": {
+            "quota": 10737418240,
+            "usage": 0,
+            "usageDetails": {}
+          },
+          "heap": {
+            "usedJSHeapSize": 39600000,
+            "totalJSHeapSize": 39600000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "rawModel": {
+            "success": true,
+            "error": null,
+            "setMs": 22.19999998807907,
+            "getMs": 0,
+            "codeUnits": 4938560,
+            "utf8Bytes": 5527716,
+            "hash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "oldRetained": null,
+            "readHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "storageEstimate": {
+              "quota": 10737418240,
+              "usage": 0,
+              "usageDetails": {}
+            },
+            "heap": {
+              "usedJSHeapSize": 39600000,
+              "totalJSHeapSize": 39600000,
+              "jsHeapSizeLimit": 3760000000
+            }
+          },
+          "encoding": "production session envelope version2, userPaused=false, elapsed=0; no reader replay",
+          "reload": true,
+          "cleanProcessReopen": true,
+          "idb": {
+            "success": true,
+            "hash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "writeMs": 20.700000002980232,
+            "readMs": 10.599999994039536,
+            "storageEstimate": {
+              "quota": 10739031512,
+              "usage": 1613272,
+              "usageDetails": {
+                "indexedDB": 1613272
+              }
+            }
+          }
+        }
+      ],
+      "version": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "failedOfficialSequence": {
+        "beforeHash": "94dc26c74552132607d8502e8f64b61fb40baacdf682c89487f584b50c44057f",
+        "failedHash": "c4a59d6e266c1ff445675e684dde8e84caa1bc4442c0f6a22e88746afbd99dd7",
+        "readHash": "94dc26c74552132607d8502e8f64b61fb40baacdf682c89487f584b50c44057f",
+        "failureReproduced": true,
+        "oldFullSaveRetained": true,
+        "error": {
+          "name": "QuotaExceededError",
+          "message": "Failed to execute 'setItem' on 'Storage': Setting the value of 'ambertime-h1-a5-research-local' exceeded the quota."
+        },
+        "reload": true,
+        "cleanProcessReopen": true
+      },
+      "localNativeQuota": {
+        "nativeQuotaExceeded": true,
+        "largestSuccessCodeUnits": 5241856,
+        "smallestFailureCodeUnits": 5242880,
+        "keyCodeUnits": 30,
+        "precisionCodeUnits": 1024,
+        "attempts": [
+          {
+            "codeUnits": 4194304,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 6291456,
+            "success": false,
+            "error": "QuotaExceededError",
+            "oldRetained": true
+          },
+          {
+            "codeUnits": 5242880,
+            "success": false,
+            "error": "QuotaExceededError",
+            "oldRetained": true
+          },
+          {
+            "codeUnits": 4718592,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 4980736,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 5111808,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 5177344,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 5210112,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 5226496,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 5234688,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 5238784,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 5240832,
+            "success": true,
+            "oldRetained": null
+          },
+          {
+            "codeUnits": 5241856,
+            "success": true,
+            "oldRetained": null
+          }
+        ]
+      },
+      "idbNativeQuota": {
+        "status": "unverified",
+        "reason": "bounded writes to 6.54MB succeeded; no physical disk exhaustion attempted"
+      },
+      "status": "complete"
+    },
+    {
+      "engine": "webkit",
+      "conditions": [],
+      "status": "unavailable",
+      "error": "browserType.launchPersistentContext: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libgstreamer-1.0.so.0                            ║\n║     libgtk-4.so.1                                    ║\n║     libgraphene-1.0.so.0                             ║\n║     libevent-2.1.so.7                                ║\n║     libgstallocators-1.0.so.0                        ║\n║     libgstapp-1.0.so.0                               ║\n║     libgstbase-1.0.so.0                              ║\n║     libgstpbutils-1.0.so.0                           ║\n║     libgstaudio-1.0.so.0                             ║\n║     libgsttag-1.0.so.0                               ║\n║     libgstvideo-1.0.so.0                             ║\n║     libgstgl-1.0.so.0                                ║\n║     libgstcodecparsers-1.0.so.0                      ║\n║     libgstfft-1.0.so.0                               ║\n║     libavif.so.16                                    ║\n║     libharfbuzz-icu.so.0                             ║\n║     libwayland-server.so.0                           ║\n║     libmanette-0.2.so.0                              ║\n║     libhyphen.so.0                                   ║\n║     libsecret-1.so.0                                 ║\n║     libGLESv2.so.2                                   ║\n╚══════════════════════════════════════════════════════╝\n    at async file:///workspace/scratch/b4b6d10d6d2b/yumaniwa-town-staging/works/ambertime/save-practicality/browser-run.mjs:14:361"
+    }
+  ],
+  "limits": [
+    "Dedicated fresh browser profiles and localhost origins; no product storage touched.",
+    "JS heap observations are samples after write/hash, not peak or whole process RAM.",
+    "Clean close/reopen is not OS kill, lock, background, power loss or eviction.",
+    "No formal reader replay in browser IO test; exact input SHA and returned string equality only.",
+    "No iPhone Safari device access."
+  ]
+}

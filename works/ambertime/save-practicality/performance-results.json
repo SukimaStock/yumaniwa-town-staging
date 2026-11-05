@@ -1,0 +1,1294 @@
+{
+  "schema": "ambertime-h1-a5-performance/1",
+  "node": "v24.22.1",
+  "codeFingerprint": "62128c8bf6cc2c6264111a25d90dbcb9349afe200c0d4a953b2d487aa093198b",
+  "reuse": {
+    "sourceSha256": "7ce71d5912cce144e26940d8dc25357f6a37e46d268917855e7f949f073b0734",
+    "base": "7b138e2a78cefe258b780d8426a1b508e4cfb357",
+    "priorMeasurementFingerprint": "a617d45d6c7c9076cfe80ec754ce3e5f5a9309d85339b99ccca9c98beae89954",
+    "dependencyManifest": [
+      {
+        "path": "works/ambertime/partner-orders.mjs",
+        "sha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b"
+      },
+      {
+        "path": "works/ambertime/market-sales.mjs",
+        "sha256": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136"
+      },
+      {
+        "path": "works/ambertime/lab-flavor.mjs",
+        "sha256": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca"
+      },
+      {
+        "path": "works/ambertime-flavor-lab-v02/model.mjs",
+        "sha256": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a"
+      },
+      {
+        "path": "works/ambertime/town-connection.mjs",
+        "sha256": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051"
+      },
+      {
+        "path": "works/ambertime/experiments/town-simulation/v01/model.mjs",
+        "sha256": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1"
+      },
+      {
+        "path": "works/ambertime-flavor-lab-v02/bridge.mjs",
+        "sha256": "7c67199a05cfdda45a5e67da10c3c712c97087179e1d3f19cd50cce589e1ac3b"
+      },
+      {
+        "path": "works/ambertime/experiments/reputation/v03/model.mjs",
+        "sha256": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067"
+      },
+      {
+        "path": "works/ambertime/experiments/reputation/v05/core.mjs",
+        "sha256": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f"
+      },
+      {
+        "path": "works/ambertime/experiments/reputation/v05/model.mjs",
+        "sha256": "5c8b827b880d6867283e04b03aa145521d16f74259ffcf793418c7869e780e7d"
+      },
+      {
+        "path": "works/ambertime/brand-identity.mjs",
+        "sha256": "81150e429e9309db94a979ddeaecad03b55cb0898acb75a25e6bcfa6e2963596"
+      },
+      {
+        "path": "works/ambertime/placement-mode.mjs",
+        "sha256": "12fd5824bfff03f300fb1ebd669b31541f00e8825f8fcae9425fc9face858053"
+      },
+      {
+        "path": "works/ambertime/store-market.mjs",
+        "sha256": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9"
+      },
+      {
+        "path": "works/ambertime/shop-model.mjs",
+        "sha256": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508"
+      },
+      {
+        "path": "works/ambertime/bottle-storage.mjs",
+        "sha256": "7fb29615fd0ecaaeaad9e0084f1fb7b26f7ffe44a2b10a7c4f31a525bee6d652"
+      },
+      {
+        "path": "works/ambertime/generations.mjs",
+        "sha256": "670373d967120f2de2290da2ac29393e8861d79bd1f8dad6f0be41414a12dfa7"
+      },
+      {
+        "path": "works/ambertime/recipe-book.mjs",
+        "sha256": "b7a8b880ade24fb92c528c72e059648d37b7029bcc0259b842c789ba3717c2ad"
+      },
+      {
+        "path": "works/ambertime/distiller.mjs",
+        "sha256": "8f2e7d776c6cdd74f60f1193c395d0665129463591b78f3730c3fbe49adb87a2"
+      },
+      {
+        "path": "works/ambertime/partial-bottling.mjs",
+        "sha256": "49b66d4b40ecf3daa467143832374eb5833f9c77ce3925ac25d028f3433ec17e"
+      },
+      {
+        "path": "works/ambertime/department-projects.mjs",
+        "sha256": "a8ecffd62f208309c1f96e0ac1c737ceeb3bc1bf7851d80aa20ce802d09a8a59"
+      },
+      {
+        "path": "works/ambertime/shop-demand.mjs",
+        "sha256": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893"
+      },
+      {
+        "path": "works/ambertime/economy.mjs",
+        "sha256": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037"
+      },
+      {
+        "path": "works/ambertime/model.mjs",
+        "sha256": "8103594438971fee50c5e8f17ebbeb78e66365edc895f46eca22c51ea864eac0"
+      },
+      {
+        "path": "works/ambertime/parameters.mjs",
+        "sha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822"
+      },
+      {
+        "path": "works/ambertime/distillery.mjs",
+        "sha256": "29af98be3ebb0032cc761ca2f6ca179d5054eba92ae7855be3cf509e4dae5061"
+      },
+      {
+        "path": "works/ambertime/monthly.mjs",
+        "sha256": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2"
+      },
+      {
+        "path": "works/ambertime/character.mjs",
+        "sha256": "aad7d88de1a654703305c3714268cf843e3018c94cababdb0835c0faa66e5ebb"
+      },
+      {
+        "path": "works/ambertime/distillery-parameters.mjs",
+        "sha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710"
+      },
+      {
+        "path": "works/ambertime/economy-parameters.mjs",
+        "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32"
+      },
+      {
+        "path": "works/ambertime/parallel-parameters.mjs",
+        "sha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f"
+      },
+      {
+        "path": "works/ambertime/trade.mjs",
+        "sha256": "158e63767bcde24b134dcf21a44c7ec8961e73edbbe0d791d2a62f333648b1c5"
+      },
+      {
+        "path": "works/ambertime/wholesale.mjs",
+        "sha256": "e4e11ca467f63c944a3dc41182f0b4326fac66ac4bded534986b9ca44f5f7609"
+      },
+      {
+        "path": "works/ambertime/wholesale-v08.mjs",
+        "sha256": "ccb886cdec4ff8b23cbe304907f0ca3c1403f94e45bdd71388d014ec3e816478"
+      },
+      {
+        "path": "works/ambertime/wholesale-parameters.mjs",
+        "sha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1"
+      },
+      {
+        "path": "works/ambertime/trade-parameters.mjs",
+        "sha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c"
+      },
+      {
+        "path": "works/ambertime/partner-parameters.mjs",
+        "sha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838"
+      },
+      {
+        "path": "works/ambertime/aroma-extraction.mjs",
+        "sha256": "b5f72397fc17387302320042bbe8c11629efac495361b379aad53a62cb01a3b6"
+      },
+      {
+        "path": "works/ambertime/brand-reputation.mjs",
+        "sha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+      },
+      {
+        "path": "works/ambertime/ledger-view.mjs",
+        "sha256": "6f967afaf613e622d6abac2d3e2d52f054d4c86f20ae8a16fc6315119ce17c91"
+      },
+      {
+        "path": "works/ambertime/shop-ledger.mjs",
+        "sha256": "114af25675b026322ad57bdf6c4829099255cf8b42a60a5f4ad2fb475c826c55"
+      },
+      {
+        "path": "works/ambertime/cask-ledger.mjs",
+        "sha256": "249a9d26d14856c8015620ff113af07d780c95e3ba042188b85466fbc613bea5"
+      },
+      {
+        "path": "works/ambertime/distillery-history.mjs",
+        "sha256": "119fd941e6ab671feef4ea8dce1b3d8b2e91236a8a0c2f2ca16b9e10a30504d4"
+      },
+      {
+        "path": "works/ambertime/generation-summary.mjs",
+        "sha256": "1c7608321562968ed91b4983f82ecb10d198d24cf4611d0da14ea23d964d9d68"
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "local",
+      "month": 360,
+      "inputSha256": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "tick": {
+        "ms": 43.553511000000015,
+        "before": {
+          "rss": 74346496,
+          "heapTotal": 35819520,
+          "heapUsed": 20866256,
+          "external": 6559381,
+          "arrayBuffers": 212151
+        },
+        "after": {
+          "rss": 87601152,
+          "heapTotal": 55296000,
+          "heapUsed": 25336696,
+          "external": 6465431,
+          "arrayBuffers": 212151
+        },
+        "processMaxRssBytes": 87601152,
+        "monthBefore": 360,
+        "monthAfter": 361,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 1.1736589999999865,
+        "before": {
+          "rss": 87601152,
+          "heapTotal": 55296000,
+          "heapUsed": 25360176,
+          "external": 6465431,
+          "arrayBuffers": 212151
+        },
+        "after": {
+          "rss": 87732224,
+          "heapTotal": 55296000,
+          "heapUsed": 25429400,
+          "external": 6465431,
+          "arrayBuffers": 212151
+        },
+        "processMaxRssBytes": 87732224
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+          "parseMs": 7.188397000000009,
+          "restoreMs": 7731.366166,
+          "resaveMs": 41.63234299999931,
+          "peakRssBytes": 244772864
+        },
+        {
+          "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+          "parseMs": 6.901562999999996,
+          "restoreMs": 7539.677141,
+          "resaveMs": 42.72108499999922,
+          "peakRssBytes": 245915648
+        },
+        {
+          "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+          "parseMs": 6.692643000000004,
+          "restoreMs": 7575.661405000001,
+          "resaveMs": 40.49284499999976,
+          "peakRssBytes": 244514816
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 7262.632783,
+          "releaseProjection": 1.3385119999993549,
+          "releaseTotal": 7263.971294999999,
+          "shopProjection": 0.56378500000028,
+          "caskManualFacts": 31.141843999999764,
+          "caskFacts": 34.91161699999975,
+          "caskProjectionWithColdReplay": 12463.162524000001,
+          "caskWorkerDataTotal": 12529.360167000003,
+          "historyProjectionWithColdReplay": 12279.188260000003
+        },
+        "sources": {
+          "operations": 534,
+          "releases": 14,
+          "records": 12,
+          "deliveries": 73,
+          "relations": 1,
+          "currentCasks": 1,
+          "archivedCasks": 14,
+          "townEvents": 1738
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "inputSha256": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+      "tick": {
+        "ms": 42.94813499999998,
+        "before": {
+          "rss": 98361344,
+          "heapTotal": 65822720,
+          "heapUsed": 35521072,
+          "external": 4212143,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 108048384,
+          "heapTotal": 94113792,
+          "heapUsed": 37711816,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 110944256,
+        "monthBefore": 720,
+        "monthAfter": 721,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.5551220000000399,
+        "before": {
+          "rss": 108048384,
+          "heapTotal": 94113792,
+          "heapUsed": 37712792,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 108179456,
+          "heapTotal": 94113792,
+          "heapUsed": 37798208,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 110944256
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+          "parseMs": 12.038379000000006,
+          "restoreMs": 20403.493104,
+          "resaveMs": 58.44312799999898,
+          "peakRssBytes": 290754560
+        },
+        {
+          "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+          "parseMs": 12.66906400000002,
+          "restoreMs": 20483.958266,
+          "resaveMs": 67.05100700000185,
+          "peakRssBytes": 301674496
+        },
+        {
+          "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+          "parseMs": 15.659723,
+          "restoreMs": 20517.998875999998,
+          "resaveMs": 61.09469600000011,
+          "peakRssBytes": 285962240
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 20311.343557,
+          "releaseProjection": 1.7060769999989134,
+          "releaseTotal": 20313.049634,
+          "shopProjection": 1.0127699999975448,
+          "caskManualFacts": 54.46852099999887,
+          "caskFacts": 50.294337000003,
+          "caskProjectionWithColdReplay": 36796.723808,
+          "caskWorkerDataTotal": 36901.606485,
+          "historyProjectionWithColdReplay": 34626.708613999996
+        },
+        "sources": {
+          "operations": 968,
+          "releases": 19,
+          "records": 12,
+          "deliveries": 148,
+          "relations": 1,
+          "currentCasks": 0,
+          "archivedCasks": 19,
+          "townEvents": 2752
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "inputSha256": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+      "tick": {
+        "ms": 50.77416299999999,
+        "before": {
+          "rss": 141103104,
+          "heapTotal": 113586176,
+          "heapUsed": 63345576,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 156487680,
+          "heapTotal": 110956544,
+          "heapUsed": 56085280,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 169152512,
+        "monthBefore": 1080,
+        "monthAfter": 1081,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.7510919999999714,
+        "before": {
+          "rss": 156487680,
+          "heapTotal": 110956544,
+          "heapUsed": 56086176,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 156487680,
+          "heapTotal": 110956544,
+          "heapUsed": 56200952,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 169152512
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+          "parseMs": 17.922787999999997,
+          "restoreMs": 37268.599151999995,
+          "resaveMs": 103.05579800000123,
+          "peakRssBytes": 366215168
+        },
+        {
+          "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+          "parseMs": 17.73514,
+          "restoreMs": 36890.886397999995,
+          "resaveMs": 120.43614800000068,
+          "peakRssBytes": 380637184
+        },
+        {
+          "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+          "parseMs": 17.935439000000002,
+          "restoreMs": 36805.843402,
+          "resaveMs": 117.85935299999983,
+          "peakRssBytes": 383119360
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 36420.525585999996,
+          "releaseProjection": 1.6762610000005225,
+          "releaseTotal": 36422.201847,
+          "shopProjection": 0.9582589999990887,
+          "caskManualFacts": 89.25758499999938,
+          "caskFacts": 93.88171000000148,
+          "caskProjectionWithColdReplay": 66806.355914,
+          "caskWorkerDataTotal": 66989.625223,
+          "historyProjectionWithColdReplay": 64547.67291800001
+        },
+        "sources": {
+          "operations": 1382,
+          "releases": 21,
+          "records": 12,
+          "deliveries": 220,
+          "relations": 1,
+          "currentCasks": 1,
+          "archivedCasks": 21,
+          "townEvents": 3665
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "inputSha256": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "tick": {
+        "ms": 61.798689999999965,
+        "before": {
+          "rss": 182702080,
+          "heapTotal": 133390336,
+          "heapUsed": 85234888,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 197967872,
+          "heapTotal": 198402048,
+          "heapUsed": 84328352,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 211931136,
+        "monthBefore": 1200,
+        "monthAfter": 1201,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.43393300000002455,
+        "before": {
+          "rss": 197967872,
+          "heapTotal": 198402048,
+          "heapUsed": 84329344,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 197967872,
+          "heapTotal": 198402048,
+          "heapUsed": 84453888,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 211931136
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "parseMs": 18.411271999999997,
+          "restoreMs": 43590.690745,
+          "resaveMs": 144.16934800000308,
+          "peakRssBytes": 399237120
+        },
+        {
+          "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "parseMs": 17.225708999999995,
+          "restoreMs": 42589.911288,
+          "resaveMs": 87.67623100000492,
+          "peakRssBytes": 378474496
+        },
+        {
+          "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "parseMs": 20.434459000000004,
+          "restoreMs": 42417.614188,
+          "resaveMs": 91.4918319999997,
+          "peakRssBytes": 387694592
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 43612.071734000005,
+          "releaseProjection": 1.9033589999962715,
+          "releaseTotal": 43613.975093,
+          "shopProjection": 1.994883999999729,
+          "caskManualFacts": 80.43607599999814,
+          "caskFacts": 79.20456299999933,
+          "caskProjectionWithColdReplay": 81101.63668200001,
+          "caskWorkerDataTotal": 81261.40822499999,
+          "historyProjectionWithColdReplay": 77200.29489599999
+        },
+        "sources": {
+          "operations": 1521,
+          "releases": 22,
+          "records": 12,
+          "deliveries": 243,
+          "relations": 1,
+          "currentCasks": 1,
+          "archivedCasks": 22,
+          "townEvents": 3985
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "inputSha256": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+      "tick": {
+        "ms": 26.43901500000004,
+        "before": {
+          "rss": 216055808,
+          "heapTotal": 215330816,
+          "heapUsed": 105664472,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 219594752,
+          "heapTotal": 215498752,
+          "heapUsed": 117168776,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 219594752,
+        "monthBefore": 360,
+        "monthAfter": 361,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.5251580000000331,
+        "before": {
+          "rss": 219594752,
+          "heapTotal": 215498752,
+          "heapUsed": 117170768,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 219594752,
+          "heapTotal": 215498752,
+          "heapUsed": 117254696,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 219594752
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+          "parseMs": 9.455421999999999,
+          "restoreMs": 10599.087548,
+          "resaveMs": 54.633724999999686,
+          "peakRssBytes": 266502144
+        },
+        {
+          "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+          "parseMs": 9.344127,
+          "restoreMs": 10013.599973,
+          "resaveMs": 54.974551999999676,
+          "peakRssBytes": 267808768
+        },
+        {
+          "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+          "parseMs": 10.18571399999999,
+          "restoreMs": 10372.14951,
+          "resaveMs": 67.56571599999916,
+          "peakRssBytes": 266334208
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 10296.390453,
+          "releaseProjection": 1.7773529999994935,
+          "releaseTotal": 10298.167806,
+          "shopProjection": 0.8932629999999335,
+          "caskManualFacts": 45.6131690000002,
+          "caskFacts": 46.02564900000107,
+          "caskProjectionWithColdReplay": 17307.721576000004,
+          "caskWorkerDataTotal": 17399.474310999998,
+          "historyProjectionWithColdReplay": 16342.58051
+        },
+        "sources": {
+          "operations": 515,
+          "releases": 15,
+          "records": 12,
+          "deliveries": 91,
+          "relations": 3,
+          "currentCasks": 0,
+          "archivedCasks": 15,
+          "townEvents": 2446
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "inputSha256": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+      "tick": {
+        "ms": 52.97242000000006,
+        "before": {
+          "rss": 246333440,
+          "heapTotal": 235569152,
+          "heapUsed": 143604232,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 267304960,
+          "heapTotal": 236716032,
+          "heapUsed": 165064104,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 267304960,
+        "monthBefore": 720,
+        "monthAfter": 721,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.664164000000028,
+        "before": {
+          "rss": 267304960,
+          "heapTotal": 236716032,
+          "heapUsed": 165065568,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 267436032,
+          "heapTotal": 236716032,
+          "heapUsed": 165189144,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 267436032
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+          "parseMs": 17.845289000000008,
+          "restoreMs": 33847.85811,
+          "resaveMs": 137.44071400000394,
+          "peakRssBytes": 409374720
+        },
+        {
+          "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+          "parseMs": 18.051676999999984,
+          "restoreMs": 33967.716673,
+          "resaveMs": 88.86535800000274,
+          "peakRssBytes": 385429504
+        },
+        {
+          "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+          "parseMs": 20.84801200000001,
+          "restoreMs": 33236.028201,
+          "resaveMs": 87.82976799999597,
+          "peakRssBytes": 396341248
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 32763.027711000002,
+          "releaseProjection": 2.140117000002647,
+          "releaseTotal": 32765.167828000005,
+          "shopProjection": 1.1893089999939548,
+          "caskManualFacts": 71.220567999997,
+          "caskFacts": 65.85362599999644,
+          "caskProjectionWithColdReplay": 53645.04567399999,
+          "caskWorkerDataTotal": 53782.24529300001,
+          "historyProjectionWithColdReplay": 52921.55496499999
+        },
+        "sources": {
+          "operations": 943,
+          "releases": 22,
+          "records": 12,
+          "deliveries": 191,
+          "relations": 3,
+          "currentCasks": 0,
+          "archivedCasks": 22,
+          "townEvents": 3933
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "inputSha256": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+      "tick": {
+        "ms": 51.35921099999996,
+        "before": {
+          "rss": 231251968,
+          "heapTotal": 196034560,
+          "heapUsed": 55165584,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 234921984,
+          "heapTotal": 197206016,
+          "heapUsed": 83966664,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 288407552,
+        "monthBefore": 1080,
+        "monthAfter": 1081,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.6843240000000606,
+        "before": {
+          "rss": 234921984,
+          "heapTotal": 197206016,
+          "heapUsed": 83967672,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 234921984,
+          "heapTotal": 197206016,
+          "heapUsed": 84142400,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 288407552
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+          "parseMs": 26.587305999999984,
+          "restoreMs": 71078.52269900001,
+          "resaveMs": 199.36418800000683,
+          "peakRssBytes": 537255936
+        },
+        {
+          "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+          "parseMs": 27.481628999999998,
+          "restoreMs": 71310.117885,
+          "resaveMs": 124.8922969999985,
+          "peakRssBytes": 477949952
+        },
+        {
+          "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+          "parseMs": 29.394588,
+          "restoreMs": 72066.34559,
+          "resaveMs": 131.47912999999244,
+          "peakRssBytes": 475897856
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 71190.669484,
+          "releaseProjection": 1.908065000010538,
+          "releaseTotal": 71192.57754900001,
+          "shopProjection": 1.1265180000045802,
+          "caskManualFacts": 98.65990499999316,
+          "caskFacts": 109.56175800001074,
+          "caskProjectionWithColdReplay": 114251.40654299999,
+          "caskWorkerDataTotal": 114459.780501,
+          "historyProjectionWithColdReplay": 113356.15047699999
+        },
+        "sources": {
+          "operations": 1375,
+          "releases": 29,
+          "records": 12,
+          "deliveries": 288,
+          "relations": 3,
+          "currentCasks": 1,
+          "archivedCasks": 24,
+          "townEvents": 5528
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "inputSha256": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "tick": {
+        "ms": 54.41964299999995,
+        "before": {
+          "rss": 280666112,
+          "heapTotal": 231284736,
+          "heapUsed": 128325040,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 281845760,
+          "heapTotal": 232476672,
+          "heapUsed": 152669968,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 288407552,
+        "monthBefore": 1200,
+        "monthAfter": 1201,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 1.260806999999886,
+        "before": {
+          "rss": 281845760,
+          "heapTotal": 232476672,
+          "heapUsed": 152670976,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 281845760,
+          "heapTotal": 232476672,
+          "heapUsed": 152877848,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 288407552
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+          "parseMs": 29.540954,
+          "restoreMs": 88227.116547,
+          "resaveMs": 215.05760900001042,
+          "peakRssBytes": 541437952
+        },
+        {
+          "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+          "parseMs": 34.868397000000016,
+          "restoreMs": 88015.917389,
+          "resaveMs": 134.39524600000004,
+          "peakRssBytes": 568037376
+        },
+        {
+          "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+          "parseMs": 67.708394,
+          "restoreMs": 91393.936826,
+          "resaveMs": 224.6891639999958,
+          "peakRssBytes": 624885760
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 89833.29149599999,
+          "releaseProjection": 2.849279000001843,
+          "releaseTotal": 89836.14077499999,
+          "shopProjection": 3.0097870000026887,
+          "caskManualFacts": 128.6678760000068,
+          "caskFacts": 219.19741800001066,
+          "caskProjectionWithColdReplay": 143241.336957,
+          "caskWorkerDataTotal": 143589.35778199998,
+          "historyProjectionWithColdReplay": 139589.10235300002
+        },
+        "sources": {
+          "operations": 1528,
+          "releases": 33,
+          "records": 12,
+          "deliveries": 324,
+          "relations": 3,
+          "currentCasks": 0,
+          "archivedCasks": 24,
+          "townEvents": 6138
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "inputSha256": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+      "tick": {
+        "ms": 38.38143100000002,
+        "before": {
+          "rss": 301113344,
+          "heapTotal": 251478016,
+          "heapUsed": 175243824,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 259448832,
+          "heapTotal": 189763584,
+          "heapUsed": 81407136,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 315269120,
+        "monthBefore": 360,
+        "monthAfter": 361,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.3584809999999834,
+        "before": {
+          "rss": 259448832,
+          "heapTotal": 189763584,
+          "heapUsed": 81408144,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 259579904,
+          "heapTotal": 189763584,
+          "heapUsed": 81467824,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 315269120
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+          "parseMs": 7.287872000000021,
+          "restoreMs": 8428.271244,
+          "resaveMs": 49.12356399999953,
+          "peakRssBytes": 250081280
+        },
+        {
+          "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+          "parseMs": 8.057200999999992,
+          "restoreMs": 8677.48977,
+          "resaveMs": 44.243859999998676,
+          "peakRssBytes": 250806272
+        },
+        {
+          "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+          "parseMs": 7.708833999999996,
+          "restoreMs": 8312.626241,
+          "resaveMs": 41.04612300000008,
+          "peakRssBytes": 248860672
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 8267.815258,
+          "releaseProjection": 1.3098200000003999,
+          "releaseTotal": 8269.125078000001,
+          "shopProjection": 0.6585650000015448,
+          "caskManualFacts": 38.621892000001026,
+          "caskFacts": 46.63733299999876,
+          "caskProjectionWithColdReplay": 14172.038523,
+          "caskWorkerDataTotal": 14257.431868,
+          "historyProjectionWithColdReplay": 13276.643651999999
+        },
+        "sources": {
+          "operations": 520,
+          "releases": 14,
+          "records": 12,
+          "deliveries": 80,
+          "relations": 3,
+          "currentCasks": 1,
+          "archivedCasks": 14,
+          "townEvents": 1908
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "inputSha256": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+      "tick": {
+        "ms": 34.953874999999925,
+        "before": {
+          "rss": 279896064,
+          "heapTotal": 205099008,
+          "heapUsed": 101992496,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 288677888,
+          "heapTotal": 205520896,
+          "heapUsed": 118668128,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 315269120,
+        "monthBefore": 720,
+        "monthAfter": 721,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.5211710000000949,
+        "before": {
+          "rss": 288677888,
+          "heapTotal": 205520896,
+          "heapUsed": 118669136,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 288677888,
+          "heapTotal": 205520896,
+          "heapUsed": 118765176,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 315269120
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+          "parseMs": 16.391323999999997,
+          "restoreMs": 18904.072948999998,
+          "resaveMs": 68.74661500000002,
+          "peakRssBytes": 285458432
+        },
+        {
+          "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+          "parseMs": 13.073850000000007,
+          "restoreMs": 19562.669964,
+          "resaveMs": 75.51321499999904,
+          "peakRssBytes": 295890944
+        },
+        {
+          "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+          "parseMs": 14.109683999999987,
+          "restoreMs": 18877.074553000002,
+          "resaveMs": 67.99645500000042,
+          "peakRssBytes": 289988608
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 18958.423171000002,
+          "releaseProjection": 1.603411000000051,
+          "releaseTotal": 18960.026582000002,
+          "shopProjection": 0.9813409999987925,
+          "caskManualFacts": 59.06845600000088,
+          "caskFacts": 59.48954700000104,
+          "caskProjectionWithColdReplay": 35031.329778,
+          "caskWorkerDataTotal": 35150.018354,
+          "historyProjectionWithColdReplay": 33286.15036300001
+        },
+        "sources": {
+          "operations": 907,
+          "releases": 17,
+          "records": 12,
+          "deliveries": 166,
+          "relations": 3,
+          "currentCasks": 0,
+          "archivedCasks": 17,
+          "townEvents": 3082
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "inputSha256": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+      "tick": {
+        "ms": 45.99350400000003,
+        "before": {
+          "rss": 312401920,
+          "heapTotal": 229261312,
+          "heapUsed": 150188504,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 283418624,
+          "heapTotal": 199962624,
+          "heapUsed": 96599032,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 315269120,
+        "monthBefore": 1080,
+        "monthAfter": 1081,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.4759350000001632,
+        "before": {
+          "rss": 283418624,
+          "heapTotal": 199962624,
+          "heapUsed": 96600040,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 283418624,
+          "heapTotal": 199962624,
+          "heapUsed": 96745888,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 315269120
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+          "parseMs": 20.212193000000013,
+          "restoreMs": 49266.48618299999,
+          "resaveMs": 180.9572560000015,
+          "peakRssBytes": 447283200
+        },
+        {
+          "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+          "parseMs": 21.459115999999995,
+          "restoreMs": 50539.856156,
+          "resaveMs": 125.56696300000476,
+          "peakRssBytes": 445632512
+        },
+        {
+          "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+          "parseMs": 22.23462699999999,
+          "restoreMs": 49691.333141999996,
+          "resaveMs": 185.2830729999987,
+          "peakRssBytes": 523939840
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 49609.392477999994,
+          "releaseProjection": 1.857308999999077,
+          "releaseTotal": 49611.24978699999,
+          "shopProjection": 1.1866659999941476,
+          "caskManualFacts": 94.29721900000004,
+          "caskFacts": 87.77983200000017,
+          "caskProjectionWithColdReplay": 84439.31999400002,
+          "caskWorkerDataTotal": 84621.535209,
+          "historyProjectionWithColdReplay": 81556.88460400002
+        },
+        "sources": {
+          "operations": 1346,
+          "releases": 25,
+          "records": 12,
+          "deliveries": 267,
+          "relations": 3,
+          "currentCasks": 0,
+          "archivedCasks": 24,
+          "townEvents": 4663
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "inputSha256": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "tick": {
+        "ms": 62.616551999999956,
+        "before": {
+          "rss": 312254464,
+          "heapTotal": 228773888,
+          "heapUsed": 134114272,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 302436352,
+          "heapTotal": 219992064,
+          "heapUsed": 106846400,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 322478080,
+        "monthBefore": 1200,
+        "monthAfter": 1201,
+        "advanced": true
+      },
+      "mapProgress": {
+        "ms": 0.5194690000000719,
+        "before": {
+          "rss": 302436352,
+          "heapTotal": 219992064,
+          "heapUsed": 106847408,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "after": {
+          "rss": 302436352,
+          "heapTotal": 219992064,
+          "heapUsed": 107010112,
+          "external": 4212107,
+          "arrayBuffers": 212115
+        },
+        "processMaxRssBytes": 322478080
+      },
+      "reusedOfficialRuns": [
+        {
+          "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+          "parseMs": 24.924758999999995,
+          "restoreMs": 68642.19041400001,
+          "resaveMs": 190.31392200000118,
+          "peakRssBytes": 483991552
+        },
+        {
+          "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+          "parseMs": 28.126621999999998,
+          "restoreMs": 68498.878176,
+          "resaveMs": 217.9780080000055,
+          "peakRssBytes": 575074304
+        },
+        {
+          "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+          "parseMs": 32.50840000000002,
+          "restoreMs": 66429.101866,
+          "resaveMs": 118.70579500000167,
+          "peakRssBytes": 574881792
+        }
+      ],
+      "reusedLedger": {
+        "timingsMs": {
+          "releaseFacts": 66878.25134,
+          "releaseProjection": 1.9659369999862975,
+          "releaseTotal": 66880.21727699999,
+          "shopProjection": 1.2247910000005504,
+          "caskManualFacts": 121.29474699999264,
+          "caskFacts": 128.10884300000907,
+          "caskProjectionWithColdReplay": 109974.51837100001,
+          "caskWorkerDataTotal": 110224.08711600001,
+          "historyProjectionWithColdReplay": 105339.54989200001
+        },
+        "sources": {
+          "operations": 1498,
+          "releases": 28,
+          "records": 12,
+          "deliveries": 301,
+          "relations": 3,
+          "currentCasks": 1,
+          "archivedCasks": 24,
+          "townEvents": 5201
+        }
+      },
+      "reuseSource": "save-audit/results.json",
+      "reuseScope": "Exact unchanged measurement code and transitive model/ledger dependencies. Original runtime/timings remain original; not new browser measurements."
+    }
+  ],
+  "unverified": [
+    "DOM layout and paint, map canvas paint, distillation/bottling/delivery/generation API actions at all ages, real 1–2 hour play, browser long tasks and Safari",
+    "tick is direct model call on previously verified parsed state; does not include automatic save or render. Blocked states are reported without treating a no-op as an advanced month."
+  ]
+}

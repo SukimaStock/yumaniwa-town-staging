@@ -1,0 +1,105 @@
+{
+  "inputSha256": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+  "restore": {
+    "ms": 92375.95492999999,
+    "before": {
+      "rss": 61345792,
+      "heapTotal": 30609408,
+      "heapUsed": 20499736,
+      "external": 4340803,
+      "arrayBuffers": 212115
+    },
+    "after": {
+      "rss": 466309120,
+      "heapTotal": 246616064,
+      "heapUsed": 134693872,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "processMaxRssBytes": 494276608
+  },
+  "warmSerialize": {
+    "ms": 184.6634589999885,
+    "before": {
+      "rss": 466309120,
+      "heapTotal": 246616064,
+      "heapUsed": 134718416,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "after": {
+      "rss": 476975104,
+      "heapTotal": 257400832,
+      "heapUsed": 132719104,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "processMaxRssBytes": 505131008
+  },
+  "tick": {
+    "ms": 139.05190200000652,
+    "before": {
+      "rss": 476975104,
+      "heapTotal": 257400832,
+      "heapUsed": 132720824,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "after": {
+      "rss": 489558016,
+      "heapTotal": 258592768,
+      "heapUsed": 156606904,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "processMaxRssBytes": 505131008
+  },
+  "serializeNext": {
+    "ms": 234.39726800000062,
+    "before": {
+      "rss": 489558016,
+      "heapTotal": 258592768,
+      "heapUsed": 156607928,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "after": {
+      "rss": 491438080,
+      "heapTotal": 271863808,
+      "heapUsed": 178441768,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "processMaxRssBytes": 519585792
+  },
+  "serializeSameAgain": {
+    "ms": 214.44757499999832,
+    "before": {
+      "rss": 491438080,
+      "heapTotal": 271863808,
+      "heapUsed": 178442744,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "after": {
+      "rss": 502792192,
+      "heapTotal": 284729344,
+      "heapUsed": 176826480,
+      "external": 4205583,
+      "arrayBuffers": 212115
+    },
+    "processMaxRssBytes": 530939904
+  },
+  "monthBefore": 1200,
+  "monthAfter": 1201,
+  "finalRss": 530939904,
+  "provenance": {
+    "node": "v24.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "method": "fresh process restoreDistillery, serialize same, tick one month, serialize next twice; all source input read-only",
+    "formalBranchSha256": "e5696b5636572054009e85ffb35773c1552d47f62fbe56017ebc50076a6ff406",
+    "officialModelSha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b",
+    "limits": "Single Node process. maxRSS process high-water, not JS heap or browser/iPhone RAM. Warm validation cache preserved; cold restore separate. No storage write/render."
+  }
+}

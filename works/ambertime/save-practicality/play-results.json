@@ -1,0 +1,1293 @@
+{
+  "schema": "ambertime-h1-a5-play/1",
+  "node": "v24.22.1",
+  "platform": "linux",
+  "baseSha": "306524e1e7df3a5b2e2ba27310fb269d6e15aa4a",
+  "codeSha256": "3f8abcee800f56410e2b2cca758899a5b2cee255279cd0a9176d86e303c5240b",
+  "priorEvidence": {
+    "commit": "0f22b025",
+    "resultsSha256": "7ce71d5912cce144e26940d8dc25357f6a37e46d268917855e7f949f073b0734",
+    "dependencies": [
+      {
+        "path": "works/ambertime-flavor-lab-v02/bridge.mjs",
+        "sha256": "7c67199a05cfdda45a5e67da10c3c712c97087179e1d3f19cd50cce589e1ac3b"
+      },
+      {
+        "path": "works/ambertime-flavor-lab-v02/model.mjs",
+        "sha256": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a"
+      },
+      {
+        "path": "works/ambertime/aroma-extraction.mjs",
+        "sha256": "b5f72397fc17387302320042bbe8c11629efac495361b379aad53a62cb01a3b6"
+      },
+      {
+        "path": "works/ambertime/bottle-storage.mjs",
+        "sha256": "7fb29615fd0ecaaeaad9e0084f1fb7b26f7ffe44a2b10a7c4f31a525bee6d652"
+      },
+      {
+        "path": "works/ambertime/brand-identity.mjs",
+        "sha256": "81150e429e9309db94a979ddeaecad03b55cb0898acb75a25e6bcfa6e2963596"
+      },
+      {
+        "path": "works/ambertime/brand-reputation.mjs",
+        "sha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+      },
+      {
+        "path": "works/ambertime/cask-ledger.mjs",
+        "sha256": "249a9d26d14856c8015620ff113af07d780c95e3ba042188b85466fbc613bea5"
+      },
+      {
+        "path": "works/ambertime/character.mjs",
+        "sha256": "aad7d88de1a654703305c3714268cf843e3018c94cababdb0835c0faa66e5ebb"
+      },
+      {
+        "path": "works/ambertime/department-projects.mjs",
+        "sha256": "a8ecffd62f208309c1f96e0ac1c737ceeb3bc1bf7851d80aa20ce802d09a8a59"
+      },
+      {
+        "path": "works/ambertime/distiller.mjs",
+        "sha256": "8f2e7d776c6cdd74f60f1193c395d0665129463591b78f3730c3fbe49adb87a2"
+      },
+      {
+        "path": "works/ambertime/distillery-history.mjs",
+        "sha256": "119fd941e6ab671feef4ea8dce1b3d8b2e91236a8a0c2f2ca16b9e10a30504d4"
+      },
+      {
+        "path": "works/ambertime/distillery-parameters.mjs",
+        "sha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710"
+      },
+      {
+        "path": "works/ambertime/distillery.mjs",
+        "sha256": "29af98be3ebb0032cc761ca2f6ca179d5054eba92ae7855be3cf509e4dae5061"
+      },
+      {
+        "path": "works/ambertime/economy-parameters.mjs",
+        "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32"
+      },
+      {
+        "path": "works/ambertime/economy.mjs",
+        "sha256": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037"
+      },
+      {
+        "path": "works/ambertime/experiments/reputation/v03/model.mjs",
+        "sha256": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067"
+      },
+      {
+        "path": "works/ambertime/experiments/reputation/v05/core.mjs",
+        "sha256": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f"
+      },
+      {
+        "path": "works/ambertime/experiments/reputation/v05/model.mjs",
+        "sha256": "5c8b827b880d6867283e04b03aa145521d16f74259ffcf793418c7869e780e7d"
+      },
+      {
+        "path": "works/ambertime/experiments/town-simulation/v01/model.mjs",
+        "sha256": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1"
+      },
+      {
+        "path": "works/ambertime/generation-summary.mjs",
+        "sha256": "1c7608321562968ed91b4983f82ecb10d198d24cf4611d0da14ea23d964d9d68"
+      },
+      {
+        "path": "works/ambertime/generations.mjs",
+        "sha256": "670373d967120f2de2290da2ac29393e8861d79bd1f8dad6f0be41414a12dfa7"
+      },
+      {
+        "path": "works/ambertime/lab-flavor.mjs",
+        "sha256": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca"
+      },
+      {
+        "path": "works/ambertime/ledger-view.mjs",
+        "sha256": "6f967afaf613e622d6abac2d3e2d52f054d4c86f20ae8a16fc6315119ce17c91"
+      },
+      {
+        "path": "works/ambertime/market-sales.mjs",
+        "sha256": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136"
+      },
+      {
+        "path": "works/ambertime/model.mjs",
+        "sha256": "8103594438971fee50c5e8f17ebbeb78e66365edc895f46eca22c51ea864eac0"
+      },
+      {
+        "path": "works/ambertime/monthly.mjs",
+        "sha256": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2"
+      },
+      {
+        "path": "works/ambertime/parallel-parameters.mjs",
+        "sha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f"
+      },
+      {
+        "path": "works/ambertime/parameters.mjs",
+        "sha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822"
+      },
+      {
+        "path": "works/ambertime/partial-bottling.mjs",
+        "sha256": "49b66d4b40ecf3daa467143832374eb5833f9c77ce3925ac25d028f3433ec17e"
+      },
+      {
+        "path": "works/ambertime/partner-orders.mjs",
+        "sha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b"
+      },
+      {
+        "path": "works/ambertime/partner-parameters.mjs",
+        "sha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838"
+      },
+      {
+        "path": "works/ambertime/placement-mode.mjs",
+        "sha256": "12fd5824bfff03f300fb1ebd669b31541f00e8825f8fcae9425fc9face858053"
+      },
+      {
+        "path": "works/ambertime/recipe-book.mjs",
+        "sha256": "b7a8b880ade24fb92c528c72e059648d37b7029bcc0259b842c789ba3717c2ad"
+      },
+      {
+        "path": "works/ambertime/save-audit/ledger-measure.mjs",
+        "sha256": "29ef260efb8b10953e320c5415100f571c06d8964efc928da42d87819a5e6afb"
+      },
+      {
+        "path": "works/ambertime/save-audit/measure.mjs",
+        "sha256": "e9874e22eaf3146d3c1acdc50990dbe6e861441451953dc654a5bf0b3d3a6b47"
+      },
+      {
+        "path": "works/ambertime/shop-demand.mjs",
+        "sha256": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893"
+      },
+      {
+        "path": "works/ambertime/shop-ledger.mjs",
+        "sha256": "114af25675b026322ad57bdf6c4829099255cf8b42a60a5f4ad2fb475c826c55"
+      },
+      {
+        "path": "works/ambertime/shop-model.mjs",
+        "sha256": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508"
+      },
+      {
+        "path": "works/ambertime/store-market.mjs",
+        "sha256": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9"
+      },
+      {
+        "path": "works/ambertime/town-connection.mjs",
+        "sha256": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051"
+      },
+      {
+        "path": "works/ambertime/trade-parameters.mjs",
+        "sha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c"
+      },
+      {
+        "path": "works/ambertime/trade.mjs",
+        "sha256": "158e63767bcde24b134dcf21a44c7ec8961e73edbbe0d791d2a62f333648b1c5"
+      },
+      {
+        "path": "works/ambertime/wholesale-parameters.mjs",
+        "sha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1"
+      },
+      {
+        "path": "works/ambertime/wholesale-v08.mjs",
+        "sha256": "ccb886cdec4ff8b23cbe304907f0ca3c1403f94e45bdd71388d014ec3e816478"
+      },
+      {
+        "path": "works/ambertime/wholesale.mjs",
+        "sha256": "e4e11ca467f63c944a3dc41182f0b4326fac66ac4bded534986b9ca44f5f7609"
+      }
+    ]
+  },
+  "method": "Fresh measurement of public tick/map/shop projections on exact previously validated parsed fixtures; not cold validation. Three deterministic ticks independently from same source, five projections. Existing completed cold restore/warm serialize/ledger runs reused only after exact transitive static dependency byte comparisons to A1 merge.",
+  "rows": [
+    {
+      "id": "local",
+      "month": 360,
+      "inputSha256": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "monthSamples": [
+        {
+          "ms": 49.06644000000003,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "770b270c984f7599a582a257139ae2d81a30c66aab78c9f930d87d7fb086a82d"
+        },
+        {
+          "ms": 20.90669200000002,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "770b270c984f7599a582a257139ae2d81a30c66aab78c9f930d87d7fb086a82d"
+        },
+        {
+          "ms": 21.613068,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "770b270c984f7599a582a257139ae2d81a30c66aab78c9f930d87d7fb086a82d"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        1.7612080000000105,
+        0.6461270000000354,
+        0.47026699999997845,
+        0.5567240000000311,
+        0.5887119999999868
+      ],
+      "shopLedgerProjectionMs": [
+        0.6620899999999779,
+        0.14996200000001636,
+        0.09946800000000167,
+        0.12202100000001792,
+        0.07416000000000622
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+            "restoreMs": 7731.366166,
+            "resaveMs": 41.63234299999931
+          },
+          {
+            "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+            "restoreMs": 7539.677141,
+            "resaveMs": 42.72108499999922
+          },
+          {
+            "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+            "restoreMs": 7575.661405000001,
+            "resaveMs": 40.49284499999976
+          }
+        ],
+        "warmSerializeMs": [
+          41.63234299999931,
+          42.72108499999922,
+          40.49284499999976
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 7262.632783,
+            "releaseProjection": 1.3385119999993549,
+            "releaseTotal": 7263.971294999999,
+            "shopProjection": 0.56378500000028,
+            "caskManualFacts": 31.141843999999764,
+            "caskFacts": 34.91161699999975,
+            "caskProjectionWithColdReplay": 12463.162524000001,
+            "caskWorkerDataTotal": 12529.360167000003,
+            "historyProjectionWithColdReplay": 12279.188260000003
+          },
+          "sources": {
+            "operations": 534,
+            "releases": 14,
+            "records": 12,
+            "deliveries": 73,
+            "relations": 1,
+            "currentCasks": 1,
+            "archivedCasks": 14,
+            "townEvents": 1738
+          }
+        }
+      }
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "inputSha256": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+      "monthSamples": [
+        {
+          "ms": 28.91996899999998,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "bc1aa7923694d379a3972fbe0a3efbc40b277a359c38822465e3023ec05ff844"
+        },
+        {
+          "ms": 27.65808000000004,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "bc1aa7923694d379a3972fbe0a3efbc40b277a359c38822465e3023ec05ff844"
+        },
+        {
+          "ms": 32.96318699999995,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "bc1aa7923694d379a3972fbe0a3efbc40b277a359c38822465e3023ec05ff844"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        0.8369300000000521,
+        0.7055649999999787,
+        0.6512250000000677,
+        0.9192120000000159,
+        1.1531579999999622
+      ],
+      "shopLedgerProjectionMs": [
+        0.23627999999996518,
+        0.06744000000003325,
+        0.06413500000007843,
+        0.1244649999999865,
+        0.11974800000007235
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+            "restoreMs": 20403.493104,
+            "resaveMs": 58.44312799999898
+          },
+          {
+            "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+            "restoreMs": 20483.958266,
+            "resaveMs": 67.05100700000185
+          },
+          {
+            "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+            "restoreMs": 20517.998875999998,
+            "resaveMs": 61.09469600000011
+          }
+        ],
+        "warmSerializeMs": [
+          58.44312799999898,
+          67.05100700000185,
+          61.09469600000011
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 20311.343557,
+            "releaseProjection": 1.7060769999989134,
+            "releaseTotal": 20313.049634,
+            "shopProjection": 1.0127699999975448,
+            "caskManualFacts": 54.46852099999887,
+            "caskFacts": 50.294337000003,
+            "caskProjectionWithColdReplay": 36796.723808,
+            "caskWorkerDataTotal": 36901.606485,
+            "historyProjectionWithColdReplay": 34626.708613999996
+          },
+          "sources": {
+            "operations": 968,
+            "releases": 19,
+            "records": 12,
+            "deliveries": 148,
+            "relations": 1,
+            "currentCasks": 0,
+            "archivedCasks": 19,
+            "townEvents": 2752
+          }
+        }
+      }
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "inputSha256": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+      "monthSamples": [
+        {
+          "ms": 53.29404699999998,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "376dd49ca735a258b4faffe334d1cd2061e0f1f038fca9cb212e49d41d70d6bb"
+        },
+        {
+          "ms": 32.51201900000001,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "376dd49ca735a258b4faffe334d1cd2061e0f1f038fca9cb212e49d41d70d6bb"
+        },
+        {
+          "ms": 37.99059199999999,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "376dd49ca735a258b4faffe334d1cd2061e0f1f038fca9cb212e49d41d70d6bb"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        1.0214630000000398,
+        0.9400319999999738,
+        0.6070789999999988,
+        0.5024140000000443,
+        0.49339099999997416
+      ],
+      "shopLedgerProjectionMs": [
+        0.2981120000000601,
+        0.2728950000000623,
+        0.15615100000002258,
+        0.17078299999991486,
+        0.11611199999993005
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+            "restoreMs": 37268.599151999995,
+            "resaveMs": 103.05579800000123
+          },
+          {
+            "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+            "restoreMs": 36890.886397999995,
+            "resaveMs": 120.43614800000068
+          },
+          {
+            "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+            "restoreMs": 36805.843402,
+            "resaveMs": 117.85935299999983
+          }
+        ],
+        "warmSerializeMs": [
+          103.05579800000123,
+          120.43614800000068,
+          117.85935299999983
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 36420.525585999996,
+            "releaseProjection": 1.6762610000005225,
+            "releaseTotal": 36422.201847,
+            "shopProjection": 0.9582589999990887,
+            "caskManualFacts": 89.25758499999938,
+            "caskFacts": 93.88171000000148,
+            "caskProjectionWithColdReplay": 66806.355914,
+            "caskWorkerDataTotal": 66989.625223,
+            "historyProjectionWithColdReplay": 64547.67291800001
+          },
+          "sources": {
+            "operations": 1382,
+            "releases": 21,
+            "records": 12,
+            "deliveries": 220,
+            "relations": 1,
+            "currentCasks": 1,
+            "archivedCasks": 21,
+            "townEvents": 3665
+          }
+        }
+      }
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "inputSha256": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "monthSamples": [
+        {
+          "ms": 64.04417699999999,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "45d56837277ac84a9ba2a6620c023d8f1ea4e751859220103dd3c857e1a43645"
+        },
+        {
+          "ms": 45.84925199999998,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "45d56837277ac84a9ba2a6620c023d8f1ea4e751859220103dd3c857e1a43645"
+        },
+        {
+          "ms": 58.31109599999991,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "45d56837277ac84a9ba2a6620c023d8f1ea4e751859220103dd3c857e1a43645"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        0.9187200000001212,
+        0.6115160000001651,
+        0.5200800000000072,
+        0.5251670000000104,
+        0.5222429999998894
+      ],
+      "shopLedgerProjectionMs": [
+        0.13845500000002176,
+        0.10571700000014062,
+        0.15546000000017557,
+        0.13867600000003222,
+        0.11464000000000851
+      ],
+      "extra": {
+        "canStart": {
+          "ok": false,
+          "reason": "瓶詰めのため、商品の販売を待ちます。",
+          "minimum": 523
+        },
+        "caskIds": [
+          68
+        ],
+        "delivery": "not-run: must choose a valid allocation/stock path per fixture",
+        "bottle": "not-run: fixture-specific bottling preconditions not established",
+        "generation": "not-run: no generation boundary at sampled state"
+      },
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "restoreMs": 43590.690745,
+            "resaveMs": 144.16934800000308
+          },
+          {
+            "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "restoreMs": 42589.911288,
+            "resaveMs": 87.67623100000492
+          },
+          {
+            "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "restoreMs": 42417.614188,
+            "resaveMs": 91.4918319999997
+          }
+        ],
+        "warmSerializeMs": [
+          144.16934800000308,
+          87.67623100000492,
+          91.4918319999997
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 43612.071734000005,
+            "releaseProjection": 1.9033589999962715,
+            "releaseTotal": 43613.975093,
+            "shopProjection": 1.994883999999729,
+            "caskManualFacts": 80.43607599999814,
+            "caskFacts": 79.20456299999933,
+            "caskProjectionWithColdReplay": 81101.63668200001,
+            "caskWorkerDataTotal": 81261.40822499999,
+            "historyProjectionWithColdReplay": 77200.29489599999
+          },
+          "sources": {
+            "operations": 1521,
+            "releases": 22,
+            "records": 12,
+            "deliveries": 243,
+            "relations": 1,
+            "currentCasks": 1,
+            "archivedCasks": 22,
+            "townEvents": 3985
+          }
+        }
+      }
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "inputSha256": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+      "monthSamples": [
+        {
+          "ms": 23.37980400000015,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "46c0ffd7e4698eefa90c840adb518342ee367a2c6f828eeecc4b146c3ed1db69"
+        },
+        {
+          "ms": 20.074800000000096,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "46c0ffd7e4698eefa90c840adb518342ee367a2c6f828eeecc4b146c3ed1db69"
+        },
+        {
+          "ms": 21.271091999999953,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "46c0ffd7e4698eefa90c840adb518342ee367a2c6f828eeecc4b146c3ed1db69"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        1.1196490000002086,
+        0.6726770000000215,
+        0.5876399999999649,
+        0.6481500000002143,
+        0.6238740000001144
+      ],
+      "shopLedgerProjectionMs": [
+        0.5303460000000086,
+        0.11091499999997723,
+        0.1558109999998578,
+        0.10364400000003116,
+        0.1369529999999486
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+            "restoreMs": 10599.087548,
+            "resaveMs": 54.633724999999686
+          },
+          {
+            "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+            "restoreMs": 10013.599973,
+            "resaveMs": 54.974551999999676
+          },
+          {
+            "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+            "restoreMs": 10372.14951,
+            "resaveMs": 67.56571599999916
+          }
+        ],
+        "warmSerializeMs": [
+          54.633724999999686,
+          54.974551999999676,
+          67.56571599999916
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 10296.390453,
+            "releaseProjection": 1.7773529999994935,
+            "releaseTotal": 10298.167806,
+            "shopProjection": 0.8932629999999335,
+            "caskManualFacts": 45.6131690000002,
+            "caskFacts": 46.02564900000107,
+            "caskProjectionWithColdReplay": 17307.721576000004,
+            "caskWorkerDataTotal": 17399.474310999998,
+            "historyProjectionWithColdReplay": 16342.58051
+          },
+          "sources": {
+            "operations": 515,
+            "releases": 15,
+            "records": 12,
+            "deliveries": 91,
+            "relations": 3,
+            "currentCasks": 0,
+            "archivedCasks": 15,
+            "townEvents": 2446
+          }
+        }
+      }
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "inputSha256": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+      "monthSamples": [
+        {
+          "ms": 41.765041999999994,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "c7559586ac8d0ab6f05ad4cde602c9f3eebffbceadd2b4c3970ac025addeecc4"
+        },
+        {
+          "ms": 41.39593500000001,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "c7559586ac8d0ab6f05ad4cde602c9f3eebffbceadd2b4c3970ac025addeecc4"
+        },
+        {
+          "ms": 65.77729399999998,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "c7559586ac8d0ab6f05ad4cde602c9f3eebffbceadd2b4c3970ac025addeecc4"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        1.2184239999999136,
+        0.8110020000001441,
+        0.8538950000001932,
+        0.6546500000001743,
+        0.6145500000000084
+      ],
+      "shopLedgerProjectionMs": [
+        0.3352159999999458,
+        0.1986739999999827,
+        0.14006800000015573,
+        0.1324960000001738,
+        0.387503999999808
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+            "restoreMs": 33847.85811,
+            "resaveMs": 137.44071400000394
+          },
+          {
+            "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+            "restoreMs": 33967.716673,
+            "resaveMs": 88.86535800000274
+          },
+          {
+            "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+            "restoreMs": 33236.028201,
+            "resaveMs": 87.82976799999597
+          }
+        ],
+        "warmSerializeMs": [
+          137.44071400000394,
+          88.86535800000274,
+          87.82976799999597
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 32763.027711000002,
+            "releaseProjection": 2.140117000002647,
+            "releaseTotal": 32765.167828000005,
+            "shopProjection": 1.1893089999939548,
+            "caskManualFacts": 71.220567999997,
+            "caskFacts": 65.85362599999644,
+            "caskProjectionWithColdReplay": 53645.04567399999,
+            "caskWorkerDataTotal": 53782.24529300001,
+            "historyProjectionWithColdReplay": 52921.55496499999
+          },
+          "sources": {
+            "operations": 943,
+            "releases": 22,
+            "records": 12,
+            "deliveries": 191,
+            "relations": 3,
+            "currentCasks": 0,
+            "archivedCasks": 22,
+            "townEvents": 3933
+          }
+        }
+      }
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "inputSha256": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+      "monthSamples": [
+        {
+          "ms": 48.31364000000008,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "45a7d19105c57bb8f3fde9ecd066dbebafc30990866af7464f21fe7fffb55105"
+        },
+        {
+          "ms": 43.40122500000007,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "45a7d19105c57bb8f3fde9ecd066dbebafc30990866af7464f21fe7fffb55105"
+        },
+        {
+          "ms": 48.71278099999995,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "45a7d19105c57bb8f3fde9ecd066dbebafc30990866af7464f21fe7fffb55105"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        23.379833999999846,
+        2.3906010000000606,
+        0.836167999999816,
+        1.3156980000003387,
+        0.9463019999998323
+      ],
+      "shopLedgerProjectionMs": [
+        1.9587910000000193,
+        0.33614799999986644,
+        0.9966260000001057,
+        0.44362699999965116,
+        0.3301089999999931
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+            "restoreMs": 71078.52269900001,
+            "resaveMs": 199.36418800000683
+          },
+          {
+            "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+            "restoreMs": 71310.117885,
+            "resaveMs": 124.8922969999985
+          },
+          {
+            "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+            "restoreMs": 72066.34559,
+            "resaveMs": 131.47912999999244
+          }
+        ],
+        "warmSerializeMs": [
+          199.36418800000683,
+          124.8922969999985,
+          131.47912999999244
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 71190.669484,
+            "releaseProjection": 1.908065000010538,
+            "releaseTotal": 71192.57754900001,
+            "shopProjection": 1.1265180000045802,
+            "caskManualFacts": 98.65990499999316,
+            "caskFacts": 109.56175800001074,
+            "caskProjectionWithColdReplay": 114251.40654299999,
+            "caskWorkerDataTotal": 114459.780501,
+            "historyProjectionWithColdReplay": 113356.15047699999
+          },
+          "sources": {
+            "operations": 1375,
+            "releases": 29,
+            "records": 12,
+            "deliveries": 288,
+            "relations": 3,
+            "currentCasks": 1,
+            "archivedCasks": 24,
+            "townEvents": 5528
+          }
+        }
+      }
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "inputSha256": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "monthSamples": [
+        {
+          "ms": 73.47944000000007,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "b66963e26c55c7847a7c97b2533005d0d0be3cd53671c2e29f5fa6d3569052fb"
+        },
+        {
+          "ms": 51.54099999999971,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "b66963e26c55c7847a7c97b2533005d0d0be3cd53671c2e29f5fa6d3569052fb"
+        },
+        {
+          "ms": 69.85159199999998,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "b66963e26c55c7847a7c97b2533005d0d0be3cd53671c2e29f5fa6d3569052fb"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        1.462105000000065,
+        0.9211749999999483,
+        1.0604709999997795,
+        0.9616639999999279,
+        0.8325030000000879
+      ],
+      "shopLedgerProjectionMs": [
+        0.34827599999971426,
+        0.17546999999967738,
+        0.22913900000003196,
+        0.18049800000017058,
+        0.20015700000021752
+      ],
+      "extra": {
+        "canStart": {
+          "ok": false,
+          "reason": "瓶詰めのため、商品の販売を待ちます。",
+          "minimum": 391
+        },
+        "caskIds": [],
+        "delivery": "not-run: must choose a valid allocation/stock path per fixture",
+        "bottle": "not-run: fixture-specific bottling preconditions not established",
+        "generation": "not-run: no generation boundary at sampled state"
+      },
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "restoreMs": 88227.116547,
+            "resaveMs": 215.05760900001042
+          },
+          {
+            "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "restoreMs": 88015.917389,
+            "resaveMs": 134.39524600000004
+          },
+          {
+            "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "restoreMs": 91393.936826,
+            "resaveMs": 224.6891639999958
+          }
+        ],
+        "warmSerializeMs": [
+          215.05760900001042,
+          134.39524600000004,
+          224.6891639999958
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 89833.29149599999,
+            "releaseProjection": 2.849279000001843,
+            "releaseTotal": 89836.14077499999,
+            "shopProjection": 3.0097870000026887,
+            "caskManualFacts": 128.6678760000068,
+            "caskFacts": 219.19741800001066,
+            "caskProjectionWithColdReplay": 143241.336957,
+            "caskWorkerDataTotal": 143589.35778199998,
+            "historyProjectionWithColdReplay": 139589.10235300002
+          },
+          "sources": {
+            "operations": 1528,
+            "releases": 33,
+            "records": 12,
+            "deliveries": 324,
+            "relations": 3,
+            "currentCasks": 0,
+            "archivedCasks": 24,
+            "townEvents": 6138
+          }
+        }
+      }
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "inputSha256": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+      "monthSamples": [
+        {
+          "ms": 19.629280000000108,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "d53ebcc836a96cb1a22289b669f484d777c01bfc3308a7b2361205536edc084d"
+        },
+        {
+          "ms": 16.935541000000285,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "d53ebcc836a96cb1a22289b669f484d777c01bfc3308a7b2361205536edc084d"
+        },
+        {
+          "ms": 16.089817999999923,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "d53ebcc836a96cb1a22289b669f484d777c01bfc3308a7b2361205536edc084d"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        0.7406470000000809,
+        0.41484399999990273,
+        0.4272129999999379,
+        0.3882849999999962,
+        0.4048490000000129
+      ],
+      "shopLedgerProjectionMs": [
+        0.07636300000012852,
+        0.039628999999877124,
+        0.037194999999883294,
+        0.03593300000011368,
+        0.03899799999999232
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+            "restoreMs": 8428.271244,
+            "resaveMs": 49.12356399999953
+          },
+          {
+            "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+            "restoreMs": 8677.48977,
+            "resaveMs": 44.243859999998676
+          },
+          {
+            "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+            "restoreMs": 8312.626241,
+            "resaveMs": 41.04612300000008
+          }
+        ],
+        "warmSerializeMs": [
+          49.12356399999953,
+          44.243859999998676,
+          41.04612300000008
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 8267.815258,
+            "releaseProjection": 1.3098200000003999,
+            "releaseTotal": 8269.125078000001,
+            "shopProjection": 0.6585650000015448,
+            "caskManualFacts": 38.621892000001026,
+            "caskFacts": 46.63733299999876,
+            "caskProjectionWithColdReplay": 14172.038523,
+            "caskWorkerDataTotal": 14257.431868,
+            "historyProjectionWithColdReplay": 13276.643651999999
+          },
+          "sources": {
+            "operations": 520,
+            "releases": 14,
+            "records": 12,
+            "deliveries": 80,
+            "relations": 3,
+            "currentCasks": 1,
+            "archivedCasks": 14,
+            "townEvents": 1908
+          }
+        }
+      }
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "inputSha256": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+      "monthSamples": [
+        {
+          "ms": 33.052920000000086,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "6781b97944dd389fdc45d249e388efc7adc8e588b3d8f414b54ae52373a9366c"
+        },
+        {
+          "ms": 32.36126599999989,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "6781b97944dd389fdc45d249e388efc7adc8e588b3d8f414b54ae52373a9366c"
+        },
+        {
+          "ms": 32.271062000000256,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "6781b97944dd389fdc45d249e388efc7adc8e588b3d8f414b54ae52373a9366c"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        1.2444729999997435,
+        0.5628240000000915,
+        0.5767940000000635,
+        0.6447950000001583,
+        0.563003000000208
+      ],
+      "shopLedgerProjectionMs": [
+        0.15081300000019837,
+        0.07547199999999066,
+        0.13098399999989851,
+        0.11150499999985186,
+        0.06800100000009479
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+            "restoreMs": 18904.072948999998,
+            "resaveMs": 68.74661500000002
+          },
+          {
+            "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+            "restoreMs": 19562.669964,
+            "resaveMs": 75.51321499999904
+          },
+          {
+            "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+            "restoreMs": 18877.074553000002,
+            "resaveMs": 67.99645500000042
+          }
+        ],
+        "warmSerializeMs": [
+          68.74661500000002,
+          75.51321499999904,
+          67.99645500000042
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 18958.423171000002,
+            "releaseProjection": 1.603411000000051,
+            "releaseTotal": 18960.026582000002,
+            "shopProjection": 0.9813409999987925,
+            "caskManualFacts": 59.06845600000088,
+            "caskFacts": 59.48954700000104,
+            "caskProjectionWithColdReplay": 35031.329778,
+            "caskWorkerDataTotal": 35150.018354,
+            "historyProjectionWithColdReplay": 33286.15036300001
+          },
+          "sources": {
+            "operations": 907,
+            "releases": 17,
+            "records": 12,
+            "deliveries": 166,
+            "relations": 3,
+            "currentCasks": 0,
+            "archivedCasks": 17,
+            "townEvents": 3082
+          }
+        }
+      }
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "inputSha256": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+      "monthSamples": [
+        {
+          "ms": 38.09061100000008,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "98909b89e859cf7689ba570837972e3abd692bcb482d08f7906005b976c2502c"
+        },
+        {
+          "ms": 39.51788399999987,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "98909b89e859cf7689ba570837972e3abd692bcb482d08f7906005b976c2502c"
+        },
+        {
+          "ms": 51.527410000000145,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "98909b89e859cf7689ba570837972e3abd692bcb482d08f7906005b976c2502c"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        1.1172939999996743,
+        0.6476790000001529,
+        0.5942599999998492,
+        0.5884409999998752,
+        0.6094629999997778
+      ],
+      "shopLedgerProjectionMs": [
+        0.16929099999970276,
+        0.12442400000009002,
+        0.1379039999997076,
+        0.12203099999987899,
+        0.12019799999961833
+      ],
+      "extra": {},
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+            "restoreMs": 49266.48618299999,
+            "resaveMs": 180.9572560000015
+          },
+          {
+            "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+            "restoreMs": 50539.856156,
+            "resaveMs": 125.56696300000476
+          },
+          {
+            "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+            "restoreMs": 49691.333141999996,
+            "resaveMs": 185.2830729999987
+          }
+        ],
+        "warmSerializeMs": [
+          180.9572560000015,
+          125.56696300000476,
+          185.2830729999987
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 49609.392477999994,
+            "releaseProjection": 1.857308999999077,
+            "releaseTotal": 49611.24978699999,
+            "shopProjection": 1.1866659999941476,
+            "caskManualFacts": 94.29721900000004,
+            "caskFacts": 87.77983200000017,
+            "caskProjectionWithColdReplay": 84439.31999400002,
+            "caskWorkerDataTotal": 84621.535209,
+            "historyProjectionWithColdReplay": 81556.88460400002
+          },
+          "sources": {
+            "operations": 1346,
+            "releases": 25,
+            "records": 12,
+            "deliveries": 267,
+            "relations": 3,
+            "currentCasks": 0,
+            "archivedCasks": 24,
+            "townEvents": 4663
+          }
+        }
+      }
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "inputSha256": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "monthSamples": [
+        {
+          "ms": 53.277230999999574,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "dc1a6fcb9e9a1db105bad0673dfb0211ed6cab60efe8a2639cd9ebd276c5e996"
+        },
+        {
+          "ms": 68.86701900000025,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "dc1a6fcb9e9a1db105bad0673dfb0211ed6cab60efe8a2639cd9ebd276c5e996"
+        },
+        {
+          "ms": 65.74576699999989,
+          "advanced": 1,
+          "operationsAdded": 1,
+          "sha256": "dc1a6fcb9e9a1db105bad0673dfb0211ed6cab60efe8a2639cd9ebd276c5e996"
+        }
+      ],
+      "mapProgressAndSixIntroductionsMs": [
+        1.14004900000009,
+        0.7070670000002792,
+        1.1557010000001355,
+        0.728588999999829,
+        0.6668379999996432
+      ],
+      "shopLedgerProjectionMs": [
+        0.298471999999947,
+        0.2015289999999368,
+        0.14612699999997858,
+        0.13696299999992334,
+        0.1363419999997859
+      ],
+      "extra": {
+        "canStart": {
+          "ok": false,
+          "reason": "瓶詰めのため、商品の販売を待ちます。",
+          "minimum": 520
+        },
+        "caskIds": [
+          83
+        ],
+        "delivery": "not-run: must choose a valid allocation/stock path per fixture",
+        "bottle": "not-run: fixture-specific bottling preconditions not established",
+        "generation": "not-run: no generation boundary at sampled state"
+      },
+      "reused": {
+        "source": "../save-audit/results.json",
+        "coldRestoreRuns": [
+          {
+            "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "restoreMs": 68642.19041400001,
+            "resaveMs": 190.31392200000118
+          },
+          {
+            "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "restoreMs": 68498.878176,
+            "resaveMs": 217.9780080000055
+          },
+          {
+            "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "restoreMs": 66429.101866,
+            "resaveMs": 118.70579500000167
+          }
+        ],
+        "warmSerializeMs": [
+          190.31392200000118,
+          217.9780080000055,
+          118.70579500000167
+        ],
+        "ledger": {
+          "timingsMs": {
+            "releaseFacts": 66878.25134,
+            "releaseProjection": 1.9659369999862975,
+            "releaseTotal": 66880.21727699999,
+            "shopProjection": 1.2247910000005504,
+            "caskManualFacts": 121.29474699999264,
+            "caskFacts": 128.10884300000907,
+            "caskProjectionWithColdReplay": 109974.51837100001,
+            "caskWorkerDataTotal": 110224.08711600001,
+            "historyProjectionWithColdReplay": 105339.54989200001
+          },
+          "sources": {
+            "operations": 1498,
+            "releases": 28,
+            "records": 12,
+            "deliveries": 301,
+            "relations": 3,
+            "currentCasks": 1,
+            "archivedCasks": 24,
+            "townEvents": 5201
+          }
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Node operation timings do not measure browser frames, DOM paint, worker data transfer, iPhone responsiveness or one-hour real play.",
+    "Month samples do not include autosave; warm serialization and browser storage must be composed only as separately measured phases, not end-to-end latency.",
+    "Map timing generates progress and introductions only, not Canvas draw.",
+    "Bottling, delivery and generation transitions are unmeasured at these fixtures.",
+    "Unchanged static dependency closure is checked; any future dynamic dependency requires a fresh audit."
+  ]
+}
