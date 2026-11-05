@@ -28,7 +28,7 @@ Production変更なし。完了条件を満たすまでマージしない。
 - validate呼出回数は全再生回数ではない。warm prefix検証も含む。
 - boot-completeは同期boot経路完了。
 - paint-opportunityはdouble-rAFの描画機会。実画素の描画完了とは断定しない。
-- inputResponseMsは起動後の実メニューボタン応答。
+- inputResponseMsは起動後のTabキー応答。保留中modalを誤って確定しない。実際のゲーム操作可能性は別途確認する。
 - observationCompleteMsはsnapshot複製・JSON化も含む観測完了時間。起動時間とは区別。
 - before/sharedは同一disk fingerprintでも配信appが異なる。modeとservedAppSha256で識別。
 - Worker生成完了・帳面初回・月次・保存・再読込は別検証が必要。
@@ -40,3 +40,15 @@ Production変更なし。完了条件を満たすまでマージしない。
 ## 未完了
 
 100年詳細比較、12条件の起動比較、全再生回数の直接計数、Worker/帳面/歩み初回、月次・保存・再読込、9世代境界の依存fingerprint照合、復旧browser回帰、全必須CI、Staging公開確認。分類A/B/Cの最終判断は保留。
+
+回帰: 樽番号既存7件＋module共有境界2件、9/9成功。追加テストの初回は非対応モードへのrange開始というテスト入力誤りで失敗、既存staffモードのstartDistillationへ修正後成功（製品修正なし）。
+
+歴史: 関連53依存のSHA256が一致し、既存9境界の証拠を再利用可能。Scope→Risk→Impact成功。Draft PR #813へ作業保存。
+
+地元100年変更前（同一ホスト逐次、最終runner）: boot-complete 182.317秒、paint-opportunity 182.328秒。正式reader47.493秒、別module cold検証47.530秒、樽番号projection86.044秒。後続比較は未完了。
+
+地元100年共有後: boot-complete **134.446秒**、paint-opportunity **134.459秒**。正式reader46.444秒、樽番号projection86.739秒。起動差 **47.871秒（26.3%短縮）**。入力・wire・起動後全JSON SHA・runner・Chromium版一致。両方のpageerrorは0。樽番号専用の完全検証は温かいcacheの検証に変わるが、全projectionは残る。操作計測はTab入力のみで、ゲーム操作検証は別runner。
+
+この地元100年結果は暫定 **B**。残るのは正式readerに加えて樽番号projectionも大きく、checkpointだけでは解消しない。最初に樽作成順の安全な再利用を独立に研究する余地がある。今回の製品には導入しない。
+
+再現: `node works/ambertime/h1-c1/matrix.mjs <H24入力ディレクトリ> <隔離出力ディレクトリ>`。12入力は既存容量証拠のSHAに照合し、100年3方針から逐次起動。`node works/ambertime/h1-c1/operations.mjs <正式game JSONまたは一時停止済v3> <結果JSON>` は独立した実操作確認。重い計測と同時実行しない。
