@@ -1,0 +1,28 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+const [directory]=process.argv.slice(2);
+const {results,node,platform,arch,policy}=JSON.parse(readFileSync(resolve(directory,'results.json'),'utf8'));
+const median=xs=>{const a=[...xs].sort((a,b)=>a-b),i=Math.floor(a.length/2);return a.length%2?a[i]:(a[i-1]+a[i])/2;};
+const fmt=(n,d=2)=>n.toFixed(d),row=(r,p)=>r.rows.find(v=>v.path===p),labels={local:'地元密着',wide:'広域展開',mixed:'混合'};
+let text=`# H1-A1 容量・性能実測\n\nNode ${node} / ${platform} ${arch}。今回のhostはAMD EPYC 9V74、論理CPU 9、メモリ約9.7 GiB。対象保存はH2-4のseed 42・同一政策で再生成し、12件のSHA-256とUTF-8容量をH24.mdと照合。\n\n## 計測条件\n\n${policy}\n\n各条件の最初の全復元をウォームアップ扱いで除外し、その後の2回を別々の新規Nodeプロセスで測定。各プロセスの検証cacheは空なので、JITはそれぞれcold。除外試行が温めるのは主にOSファイルcache。完全復元と再保存の全バイト一致を毎回検証。GCを計測前に明示実行、計測中GCは通常のV8管理。全条件を逐次実行し、他の研究benchmarkとの並列負荷を避けた。ホスト全体の他プロセス・GCタイミング・JIT差は制御していない。\n\n計測内訳は別プロセスのソースinstrumentationで取得。元ファイルは変更せず、既知の境界をassertしてメモリ内に計測処理だけ追加。完全復元・全状態一致を維持する。applyOperation（経済・月次・乱数を含む再計算）とderived（captureNearby等）、core検証、最終状態比較、checkpoint生成を分離。structuredCloneの時間はこれらの**内数**であり足し合わせない。JSON解析は独立した事前解析の時間で、正式restoreMsにも再度含まれる。再保存は同じプロセスの検証済prefix cacheを利用するwarm値。\n\n帳面は各条件1回のデータ生成計測。発売factsがcold検証、その後のcask factsは同じモジュールcacheを使用、cask/historyのobserverは全cold再生を行う。DOM・worker転送・paint・Safariは含まれない。回想資料抽出は1回、編集は4回中初回除外の3回。archive準備の前にmodule importを完了。メモリはheap前後差とプロセスpeak RSSで、処理単独peakではない。解析済みの比較用複製、復元結果、再生cacheと再保存文字列を同時保持しており、復元だけの実使用量とは異なる。iPhone Safari実機は未測定。\n\n## 保存と復元\n\n| 記録 | 年 | UTF-8 B | UTF-16長 | 上限比 | 操作 | JSON parse ms | cold復元 秒（2回範囲） | warm再保存 ms | peak RSS MiB |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n`;
+for(const r of results){const runs=r.runs.slice(1),times=runs.map(x=>x.restoreMs/1000);text+=`| ${labels[r.id]} | ${r.month/12} | ${r.bytes} | ${r.codeUnits} | ${fmt(r.limitRatio*100)}% | ${r.operations} | ${fmt(median(runs.map(x=>x.parseMs)))} | ${fmt(Math.min(...times))}–${fmt(Math.max(...times))} | ${fmt(median(runs.map(x=>x.resaveMs)))} | ${fmt(Math.max(...runs.map(x=>x.peakRssBytes))/1048576)} |\n`;}
+text+='\n上限はコードの変数名maxSaveBytesにかかわらず、`text.length < 1500000*4+16384`、すなわち6,016,384 **UTF-16 code units未満**。UTF-8バイト数との比ではない。MBは10^6 B、MiBは2^20 B。\n\n## 100年保存の容量（大きい順）\n\nトップレベル値とtownの子値を別表にする。各値はJSON.stringify(value)のinclusive容量（キー名・親の区切り記号を除く）。親と子を合算しない。配列の平均は角括弧・区切りを含む容量÷件数。objectのcountはプロパティ数であり履歴件数ではない。全行・全条件はstructure.csv。\n';
+for(const id of Object.keys(labels)){
+ const r=results.find(r=>r.id===id&&r.month===1200),base=results.find(r=>r.id===id&&r.month===360);
+ text+=`\n### ${labels[id]}\n\n| トップレベル | B | 全体比 | 件数/キー数 | 30→100年増分 B |\n| --- | --- | --- | --- | --- |\n`;
+ for(const v of r.rows.filter(x=>x.path!=='$'&&!x.path.includes('.'))){text+=`| ${v.path} | ${v.bytes} | ${fmt(v.share*100)}% | ${v.count} | ${v.bytes-(row(base,v.path)?.bytes??0)} |\n`;}
+ text+='\n| town子要素 | B | 全体比 | 件数/キー数 | 平均B | 30→100年増分 B |\n| --- | --- | --- | --- | --- | --- |\n';
+ for(const v of r.rows.filter(x=>x.path.startsWith('labConnection.town.')&&x.path.split('.').length===3))text+=`| ${v.path.split('.').at(-1)} | ${v.bytes} | ${fmt(v.share*100)}% | ${v.count} | ${v.averageBytes===null?'—':fmt(v.averageBytes)} | ${v.bytes-(row(base,v.path)?.bytes??0)} |\n`;
+ text+=`\narrivals ${r.duplicates.arrivals}件中${r.duplicates.identicalArrivals}件は同IDのevents実体とJSONが完全一致。これは重複の観測であり、そのまま削除できるという証明ではない。\n`;
+}
+text+='\n## 復元内訳（別計測、秒）\n\n| 記録 | 年 | restore | core検証 | 操作適用/再計算 | 派生context | 最終JSON一致 | checkpoint | clone内数 | 再生操作数 |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n';
+for(const r of results){const m=r.instrumented.detail;text+=`| ${labels[r.id]} | ${r.month/12} | ${fmt(r.instrumented.restoreMs/1000)} | ${fmt(m.coreValidationMs/1000,3)} | ${fmt(m.applyOperationMs/1000)} | ${fmt(m.derivedMs/1000,3)} | ${fmt(m.equalityMs/1000,3)} | ${fmt(m.checkpointMs/1000,3)} | ${fmt(m.cloneMs/1000)} | ${m.replayed} |\n`;}
+text+='\n形式/version/上限assert・prefix照合・初期化・途中状態補完・ループ/計測コスト等はrestoreから各排他的区間を引いた残差に含む。独立した純粋なversionチェック時間は取得していない。操作適用とゲーム再計算は同じ関数内のため完全に分離せず一項目として計測。clone時間は全structuredClone呼出し合計で、操作適用等の内数。小さな同期clone wrapperの計測コストも含む。\n\n## 帳面と回想\n\n| 記録 | 年 | 発売facts cold秒 | 発売結合ms | 店舗ms | 樽生成cold秒 | 歩みcold秒 | raw回想抽出秒 | 候補準備ms | 回想編集ms |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n';
+for(const r of results){const l=r.ledger.timingsMs;text+=`| ${labels[r.id]} | ${r.month/12} | ${fmt(l.releaseFacts/1000)} | ${fmt(l.releaseProjection)} | ${fmt(l.shopProjection)} | ${fmt(l.caskProjectionWithColdReplay/1000)} | ${fmt(l.historyProjectionWithColdReplay/1000)} | ${fmt(r.facts.extractionMs/1000)} | ${fmt(r.facts.archiveMs)} | ${fmt(median(r.facts.edits.slice(1).map(e=>e.ms)))} |\n`;}
+text+='\n画面別の生成/表示/走査元件数はledger-counts.json。cold再生の経路を何度も呼ぶと、正式復元・樽・歩み・回想抽出で同じ過去の計算を繰り返す。一方、既存のcacheが有効な同じsnapshotでは再利用されるので、この全てが毎回のタップで必ず発生するとはいえない。\n\n## 保存ハッシュ\n\n';
+for(const r of results)text+=`- ${r.id} ${r.month/12}年: \`${r.hash}\`\n`;
+writeFileSync(resolve(directory,'REPORT.md'),text);
+const columns=['scenario','years','path','bytes','codeUnits','count','averageBytes','share','growthBytes30to100'];
+const lines=[columns.join(',')];for(const r of results)for(const v of r.rows){const b=results.find(x=>x.id===r.id&&x.month===360),z=results.find(x=>x.id===r.id&&x.month===1200);lines.push([r.id,r.month/12,v.path,v.bytes,v.codeUnits,v.count,v.averageBytes??'',v.share,(row(z,v.path)?.bytes??0)-(row(b,v.path)?.bytes??0)].join(','));}
+writeFileSync(resolve(directory,'structure.csv'),lines.join('\n')+'\n');
+writeFileSync(resolve(directory,'ledger-counts.json'),JSON.stringify(results.map(r=>({id:r.id,month:r.month,...r.ledger})),null,2)+'\n');
