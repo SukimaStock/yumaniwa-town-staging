@@ -1,6 +1,6 @@
 # H1-B2：C案の正式保存接続
 
-状態：実装・モデル同値・保存失敗8件・12条件の本編Chromium検証は完了。PR #811。Stagingのみ。iPhone実機未検証、verificationState UNVERIFIED（Release Completeの判定ではない）。
+状態：実装・モデル同値・保存失敗11件・12条件の本編Chromium検証は完了。PR #811。Stagingのみ。iPhone実機未検証、verificationState UNVERIFIED（Release Completeの判定ではない）。
 
 基準main：`778f783043256bed02197988caecd65cda576167`（H1-B1 #810）。Stagingのみ。正式ゲームモデル・乱数・町の評判・地図・帳面・歴史生成は変更しない。
 
@@ -45,7 +45,7 @@ native setItemが容量不足で例外を返した場合の旧値保持を実測
 
 storage eventを受けた古いタブは停止し、読込→比較によって新しい保存の上書きを拒否する。ただし比較とsetItemは原子的CASではなく、競合窓を完全に閉じるものではない。複数タブ同時プレイは避ける。旧アプリはv3非対応なので、移行時は旧タブを閉じる。
 
-実Chromiumの失敗・救出検証は8/8完了：移行中断とbrowser再起動、誤ファイル、確認取消、同一file移行、空profileへのbackup復元、不正保存保持、stale tab、native quotaまで埋めた後の操作失敗。元正常値・時計停止・未保存を確認。詳細はfailure-browser-results.json。
+実Chromiumの失敗・救出検証は11/11完了：移行中断とbrowser再起動、誤ファイル、確認取消、同一file移行、空profileへのbackup復元、不正保存保持、stale tab、native quotaまで埋めた後の操作失敗。元正常値・時計停止・未保存を確認。詳細はfailure-browser-results.json。追補では試飲・判断待ち・世代交代dialogのnative quota失敗後の救出/再試行も実確認した。修正と元12条件の厳格な再利用契約は[RECOVERY.md](RECOVERY.md)。
 
 ## 同値性と歴史
 

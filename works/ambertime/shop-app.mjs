@@ -515,8 +515,13 @@ const wallClock=new RuntimeClock(T.distillStepMs);
 function stopClock(reset=true){if(reset)wallClock.reset();generation++;if(timer!==null){clearTimeout(timer);timer=null;}}
 function rememberCommitted(){committedSession={game,userPaused,elapsed};}
 function restoreCommitted(){if(committedSession){game=committedSession.game;userPaused=committedSession.userPaused;elapsed=committedSession.elapsed;}}
+function recoveryAccess(){
+ modal=null;vaultPanels();const dialog=$('action-dialog');if(dialog.open)dialog.close();$('recovery').hidden=false;
+ const existing=$('recovery-export');if(existing)existing.hidden=migrationPending!==null||lastSavedText===null;
+ if(migrationPending===null&&lastSavedText!==null&&!existing){const b=document.createElement('button');b.id='recovery-export';b.type='button';b.textContent='記録を書き出す';b.addEventListener('click',()=>{if(lastSavedText!==null)exportRaw(lastSavedText);});$('recovery').append(b);}
+}
 function saveFailure(error){
- restoreCommitted();canSave=false;runtimeHalted=true;stopClock();storageNotice(error?.message==='conflict'?'別の画面で保存が変わりました。再読み込みしてください。':'保存できません。最後の正常な記録を残して停止しています。');$('save-status').textContent='未保存';$('retry-save').hidden=false;$('recovery').hidden=false;
+ restoreCommitted();canSave=false;runtimeHalted=true;stopClock();recoveryAccess();storageNotice(error?.message==='conflict'?'別の画面で保存が変わりました。再読み込みしてください。':'保存できません。最後の正常な記録を残して停止しています。');$('save-status').textContent='未保存';$('retry-save').hidden=false;$('recovery').hidden=false;
 }
 function sessionText(next,paused=userPaused,time=elapsed){return serializeSession(next,{userPaused:paused,elapsed:time},{serialize:D.serializeDistillery,restore:D.restoreDistillery,enabled:true,monthMs:T.monthMs,stepMs:T.distillStepMs});}
 function saveCandidate(next,paused=userPaused,time=elapsed,writer=writeCandidate){
@@ -774,7 +779,7 @@ function updateBottleSelection(){
 function vaultPanels(){for(const id of ['selected-cask','staff-panel','free-actions','tasting-actions','aux-panel']){const n=$(id);if(n.closest('#action-dialog'))$('panel-vault').append(n);}}
 function syncModal(){
  const dialog=$('action-dialog'),previousKind=dialog.dataset.kind;
- if(migrationPending!==null){modal=null;vaultPanels();if(dialog.open)dialog.close();return;}
+ if(migrationPending!==null||!preview&&!canSave){recoveryAccess();return;}
  if(!dialog.open&&modal){
   modalReturnFocus=document.activeElement;
   const object=modalReturnFocus?.closest('[data-product-id],[data-cask-id]');
@@ -785,6 +790,7 @@ function syncModal(){
  if(!modal&&game.tastingId===null&&!game.decisions.length&&game.trade.offer)modal={kind:'offer'};
  if(!modal&&game.shop.offer&&!game.shop.offer.notified&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&game.still.phase==='ready'&&!document.hidden&&!runtimeHalted&&(preview||canSave))showShopOffer();
  if(!modal&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&(!game.shop.offer||game.shop.offer.notified)&&!document.hidden&&(preview||canSave))showGeneration();
+ if(!preview&&!canSave){recoveryAccess();return;}
  if(modal||room!=='distill'||game.still.phase!=='filling'||!scene.isDistillCompletion(game.core.spirit?.id)||document.hidden||(!preview&&!canSave))scene.cancelDistillCompletion();
  if(!modal&&room==='distill'&&game.still.phase==='filling'&&game.usual?.reservation?.status!=='active'&&game.core.spirit&&shownFillSpiritId!==game.core.spirit.id&&(preview||canSave)&&!scene.isDistillCompletion(game.core.spirit.id)){shownFillSpiritId=game.core.spirit.id;modal={kind:'fill'};}
  if(!modal&&!scene.isDistillCompletion(game.core.spirit?.id))showInitialMapNotice();

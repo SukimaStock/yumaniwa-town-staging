@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bf7358a045ff9692558605f48badb0f424f2aaea6e0672b5d0c6e3c65d2c7275",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "57ad539c26cef0d12a76e2603c482c586bcf878c",
+    "changeId": "ambertime-h1-b2-recovery",
+    "revision": 0,
+    "change": "保存失敗時のmodalを閉じて復旧操作を保護",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs",
+      "works/ambertime/checkpoint-persistence/DESIGN.md",
+      "works/ambertime/checkpoint-persistence/results.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h1-b2-recovery/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/h1-b2/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/chronicle-lab/**",
+      "works/ambertime/reputation-dedup-research/**",
+      "works/ambertime/tests/r5-history-view.test.mjs",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "保存失敗時だけゲームmodalを閉じる。確定game/metadataは変更せず復旧controlsを到達可能にする",
+      "tasting・decision・generationの失敗を実本編browserで確認。正常12条件は厳格な失敗専用差分証明と元SHAで再利用",
+      "失敗8件再実行、単体/関連回帰・Scope/Risk/Impact・CI・Staging配信"
+    ],
+    "ownerDecisions": [
+      "2026-11-05 H1-B2依頼全文：正式C導入・旧保存backup移行・失敗修正・CI/PR、全必須条件成立時のみStagingmerge。Production禁止"
+    ],
+    "hqDecisions": [
+      "H1-B2既存の保存失敗時救出要件に含まれる最小不具合修正。ゲーム状態を変えずmodal presentationだけ閉じる。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "研究実装・同値比較・保証境界・計測条件の独立レビュー"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "互換v3 readerを維持。今回のfailure-only UI閉鎖だけをrevert可能。",
+    "outOfScope": [
+      "正式モデル/経済/乱数/歴史/正式reader/codec/正式保存キーの変更",
+      "Production/IndexedDB/checkpoint/attempts集約"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhoneSafari実機/OSkill/eviction/100年超は未検証を維持。停止条件成立時mergeしない"
+    ],
+    "alternativesRejected": [
+      "検証省略による高速化",
+      "無条件の過去記録削除"
+    ],
+    "boundaryCases": [
+      "v2/v3/旧版copy/corrupt/missing-arrival-order/expanded-limit/actualquota",
+      "旧backupなし/違うfile/confirmationcancel/interruption/currentkeychange",
+      "全操作failure・reset・reload・staletab、12長期と9歴史"
+    ],
+    "testPlan": [
+      "実tasting/decision/generation modalからnative quota failure後のmodalclose・再試行/救出control到達",
+      "8既存failure browserと17focused再実行、厳格なfailure-only source deltaで完了済12matrixを再利用",
+      "Scope→Risk→Impact/independentreview/CI/Pages"
+    ],
+    "problem": "従来正式保存は広域90/100年quota失敗、旧保存保護と未保存操作確定に課題",
+    "currentContract": "正式stateと評判/RNG/歴史不変。旧保存を失わず全reader検証を維持",
+    "whyExistingIsInsufficient": "正式session writerが到達実体を二重保存し、旧backup確認と候補確定保護がない",
+    "design": "save-codecとplacement-save読書き関数へ集約。既存keyを維持。旧保存backupは元文字列をfileとして選び直し完全一致＋端末外保管の本人確認、保存完了をdownload開始だけで認定しない。既存recovery UI内の一時操作、通常新規ゲームはC保存。reader上限は不変。",
+    "migration": "v2は元キーを維持してreadonly。元ファイル完全一致の読戻＋端末外保管確認後だけv3へ切替。元ファイルと旧reader保持。",
+    "compatibility": "旧v2と旧版copyを維持。新v3は旧アプリreader非対応、旧タブを閉じる案内。",
+    "promotionRisk": "研究専用Stagingのみ。Productionなし"
+  }
+}

@@ -127,7 +127,7 @@ function nativeTransaction({failWrite=false,conflict=false,invalid=false}={}){
  let stored=conflict?'another-tab':'old';
  const context={game:old,committedSession:{game:old,userPaused:false,elapsed:0},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
   D:{serializeDistillery:g=>{if(invalid)throw Error('invalid state');return JSON.stringify(g);}},
-  countdown:{cancel(){}},stopClock(){},writeCandidate,serializeSession:(game,ui,{serialize})=>JSON.stringify({version:3,game:JSON.parse(serialize(game)),...ui}),T:{monthMs:6000,distillStepMs:100},
+  countdown:{cancel(){}},stopClock(){},vaultPanels(){},writeCandidate,serializeSession:(game,ui,{serialize})=>JSON.stringify({version:3,game:JSON.parse(serialize(game)),...ui}),T:{monthMs:6000,distillStepMs:100},
   localStorage:{getItem:()=>stored,setItem:(key,value)=>{calls.writes++;if(failWrite)throw Error('quota');stored=value;}},
   automaticNews:{push(){calls.news++;}},automaticEvents:()=>[],caskName:()=>'',soldOutLabel:()=>'',noteMapReach(){},
   marketUI:{consume(before,after){assert.equal(before,old);assert.equal(after,next);calls.receipts++;}},

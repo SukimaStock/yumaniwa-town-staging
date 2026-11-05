@@ -44,7 +44,7 @@ export function host({preview=false,state=D.selectFlavorCards(D.newMarketRulesDi
  const countdown={active:false,start(fn){this.active=true;pendingCountdown=fn;},cancel(){this.active=false;pendingCountdown=null;}};
  function storageNotice(text){$('storage-notice').textContent=text;$('storage-notice').hidden=!text;}
  function render(){syncModal();}
- ${['rememberCommitted','restoreCommitted','saveFailure','sessionText','saveCandidate','save','act','prepareDistillation','finishDistillation','currentDistillTools','startFromLever','commitFill','syncModal','closeModal'].map(extract).join('\n')}
+ ${['rememberCommitted','restoreCommitted','recoveryAccess','saveFailure','sessionText','saveCandidate','save','act','prepareDistillation','finishDistillation','currentDistillTools','startFromLever','commitFill','syncModal','closeModal'].map(extract).join('\n')}
  globalThis.api={startFromLever,finishDistillation,fill:commitFill,tools:currentDistillTools,game:()=>game,modal:()=>modal,canSave:()=>canSave,room:()=>room,render,
  runCountdown(){const fn=pendingCountdown;pendingCountdown=null;countdown.active=false;if(fn)fn();},cancelCountdown(){countdown.cancel();},
  stepTo(n){while(game.still.distillation.progress<n)game=D.distillStep(game);},

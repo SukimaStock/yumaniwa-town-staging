@@ -1,0 +1,15 @@
+# H1-B2 保存失敗後の復旧操作
+
+PR #811のマージ直後に届いた自動レビューで、試飲を閉じる操作の保存に失敗すると、確定済みのtastingIdを残したままcanSave=falseとなり、modal外の再試行・救出操作へ到達できない問題を確認した。判断待ち・世代交代の非dismissible dialogにも同じ危険があった。
+
+追補ではゲーム状態を変えず、失敗時にpresentationだけ閉じてpanelをvaultへ戻す。再描画の先頭と自動notice後にも停止状態を確認し、同じrender呼出内で取引offer等が再表示されることを防ぐ。復旧sectionに最後の確認済みlastSavedTextを書き出すボタンを置く。不確定なstorage値を再読込してexportせず、旧移行用の既存exportとも重複させない。
+
+本編の実保存キー・隔離profileで、従来8件を再実行し、native quotaによる試飲・判断待ち・世代交代の3件を追加した。11/11 complete、pageerrorなし。3件とも実ボタン操作による保存失敗後、確定gameと保存bytes一致、clock停止、未保存、modal解除、outside exportの実download一致、容量解放後のretry成功を確認した。詳細はfailure-browser-results.json。単体では自動staff notice保存失敗の直後にtrade offerがある再入経路も確認した。
+
+## 完了済み長期検証の扱い
+
+元の12条件のbrowser-results.json・元product fingerprint・runner fingerprintは変更しない。失敗UI以外の保存接続、codec、正式reader、modelは変更していない。recovery-source-inverse.jsonの厳格なapp/cache計4差分で、現在のsourceからmerge済57ad539のsourceへbyte同一に戻ることを検査する。他5product依存も同commitとbyte同一。現在fingerprintと元の完了JSON hashをrecovery-reuse.jsonへ明記した。
+
+したがって12条件は「現在sourceを新しく12回実行した」とは扱わず、正常経路の完了証拠を失敗専用差分の照合により再利用する。今回変わった失敗経路は現在fingerprintで11件を新規実行した。無関係な差分があればwhole-file検査が失敗する。歴史的なpinの逆変換では、今回の正確な差分だけ戻し、それ以外のbytesは元のpinへ残す。既存の固定hash期待値は変更しない。
+
+旧保存のbackup確認、展開reader上限、C容量、将来357操作、9歴史境界の契約は不変。Safari実機・OS kill・eviction・100年超・読込性能は未解決/未検証の区別を維持する。

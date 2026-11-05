@@ -1,0 +1,30 @@
+{
+  "schema": "ambertime-h1-b2-recovery-reuse/1",
+  "completedMatrixSha256": "853808ad1304272859bdaf9509752b32f8a69c0f4f78ca9f848095eb0a477c27",
+  "completedMatrixProductFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+  "currentProductFingerprint": "f2b8c83c6c380ad34e6b71eff5018496fec5b405021d09d1fc593189b68887ad",
+  "baseCommit": "57ad539c26cef0d12a76e2603c482c586bcf878c",
+  "changes": "Only failure presentation/reentrancy guards plus app cache query. No codec, reader/writer, model or successful save calculation changes. Old 12 results and original fingerprints are retained unchanged; this is not a fresh twelve-condition current-product run.",
+  "unchangedProductFiles": [
+    {
+      "path": "placement-save.mjs",
+      "sha256": "fa7c450ed702590c4ac80c73f1c6e0413a04232391625e5e5bbf839f333d3d2d"
+    },
+    {
+      "path": "save-codec.mjs",
+      "sha256": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e"
+    },
+    {
+      "path": "market-ui.mjs",
+      "sha256": "4708509e5cb0da7887b23f59f933eac0820c9cf91be1a1841f2a316cb1e7ad96"
+    },
+    {
+      "path": "partner-orders.mjs",
+      "sha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b"
+    },
+    {
+      "path": "economy-parameters.mjs",
+      "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32"
+    }
+  ]
+}

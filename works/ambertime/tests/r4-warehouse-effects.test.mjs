@@ -54,7 +54,7 @@ function host(source,state,{restored=false}={}){
   message:text=>log.push(['message',text]),storageNotice:text=>log.push(['storageNotice',text]),
   automaticEvents,automaticNews:{push:events=>log.push(['notices',plain(events)])},caskName:String,soldOutLabel:()=>'',noteMapReach:()=>log.push('map:reach'),
   placementUI:{reset:()=>log.push('placement:reset')},marketUI:{cancel:()=>log.push('market:cancel')},comparisonKinds:[],generationState:()=>({phase:'working'}),
-  showStaffOpportunity(){},showShopOffer(){},showGeneration(){},showInitialMapNotice(){},money:String,displayReason:String};
+  vaultPanels(){},showStaffOpportunity(){},showShopOffer(){},showGeneration(){},showInitialMapNotice(){},money:String,displayReason:String};
  const render=extract(source,'render'),cut=render.indexOf(' syncModal();');assert(cut>0);
  const prefix=render.slice(render.indexOf('{')+1,cut+' syncModal();'.length);
  const sync=extract(source,'syncModal'),syncEnd=sync.indexOf(' if(!modal){vaultPanels();');assert(syncEnd>0);
@@ -73,7 +73,7 @@ function host(source,state,{restored=false}={}){
  ${source.split('\n').find(x=>x.startsWith('const manualDistilling='))}
  function render(){recordRender();${prefix}if(modal?.kind==='quote')bottleSelection(modal.id);}
  ${sync.slice(0,syncEnd)+'\n}'}
- ${[...(source.includes('function saveCandidate(')?['rememberCommitted','restoreCommitted','saveFailure','sessionText','saveCandidate']:[]),'save','act','endTaste','trial','quoteModal','firstBrandDraft','bottleSelection','bottleRemainder','updateBottleSelection','closeModal','selectRoom'].map(name=>extract(source,name)).join('\n')}
+ ${[...(source.includes('function saveCandidate(')?['rememberCommitted','restoreCommitted','recoveryAccess','saveFailure','sessionText','saveCandidate']:[]),'save','act','endTaste','trial','quoteModal','firstBrandDraft','bottleSelection','bottleRemainder','updateBottleSelection','closeModal','selectRoom'].map(name=>extract(source,name)).join('\n')}
  function rack(id){const e={target:{closest(){return {dataset:{caskId:String(id)}};}}};${rack}}
  function quantity(action){const a=action,kind=modal?.kind,id=modal?.id;${more}}
  function bottle(){const a='bottle',kind=modal?.kind,id=modal?.id;${bottle}}
@@ -140,7 +140,7 @@ test('R4 generic sample and bottle quota/readback/conflict/model errors retain d
   assert.equal(failed.log.filter(x=>Array.isArray(x)&&x[0]==='notices').length,noticeCount,'failed operation does not publish saved notice');
   assert.equal(failed.canSave,mode==='model-throw');
   if(mode==='model-throw'){assert.equal(failed.raw,before.raw);if(operation==='bottle'){assert.equal(failed.modal.kind,'quote');assert.equal(failed.modal.committing,false);}}
-  else{assert.equal(failed.raw,before.raw,'failed action keeps last committed memory');assert.equal(failed.stored,mode==='conflict'?'external-save':before.stored);if(operation==='bottle'){assert.equal(failed.room,before.room);assert.equal(failed.modal.kind,'quote');assert.equal(failed.modal.committing,false);}}
+  else{assert.equal(failed.raw,before.raw,'failed action keeps last committed memory');assert.equal(failed.stored,mode==='conflict'?'external-save':before.stored);if(operation==='bottle'){assert.equal(failed.room,before.room);assert.equal(failed.modal,null,'failed storage releases modal for recovery');}}
   const tail=failed.log.slice(before.log.length);assert(tail.includes('clock:stop'));assert(tail.includes('render'));assert.equal(tail.at(-1),'clock:schedule');
  }
 });

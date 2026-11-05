@@ -32,3 +32,7 @@ B2で変わったsave失敗時rollback・新session形をテストhostへ適用�
 広い回帰はtests/*.test.mjsであり、h1-b2のbrowser evidence testは別実行。最終browser matrixの完了JSONとrunner/product fingerprintを照合し、evidence testを含む17件がPASS。
 
 Reproduce手順はREPRODUCE.md、正式契約はCONTRACT.md、作者のSafari確認はSAFARI.md。Production不変。
+
+## 復旧操作の追補
+
+PR #811の後続で、保存失敗時のmodal解放とoutside exportを修正。現在sourceで実browser11/11 complete、集約22/22 pass、追加関連host43/43・蒸留統合10/10 pass。元12条件は結果とfingerprintを変更せず、厳格なfailure-only source inverseとrecovery-reuse.jsonにより再利用する。新しい12回の実行とは表記しない。詳細RECOVERY.md。最終CIと配信のexact SHAは修正PRへ記録する。
