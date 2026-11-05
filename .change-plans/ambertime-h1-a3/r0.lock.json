@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c4b0bd72e7c46581e4e54761646cb7f03676f2e2e4d5b145551a317be4e539be",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "74eb99ec28102c67b9e765684cfaf072a2a1c2e5",
+    "changeId": "ambertime-h1-a3",
+    "revision": 0,
+    "change": "永続checkpointのcold復元・復旧・未来中立collectorと長期復元の研究",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h1-a3/r0.lock.json",
+      "works/ambertime/checkpoint-persistence/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/history-lab/**",
+      "works/ambertime/chronicle-lab/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "研究専用永続codec・cold worker・破損/分岐/fallback試験・増分collector・9境界・方式比較・条件別再開結果・長期保存設計"
+    ],
+    "ownerDecisions": [
+      "2026-11-05 H1-A3依頼全文：研究実装からCI・PR・安全なStagingマージまで。正式本編/保存/Productionは変更禁止"
+    ],
+    "hqDecisions": [
+      "ユーザー指定の隔離研究契約に従う。新しい正式保存方式は導入しない。局所hashを正当性保証とせず、作成時全再生照合・読込時局所照合・独立再検証を別扱い。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "研究実装・同値比較・保証境界・計測条件の独立レビュー"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本研究PRのみrevert。元保存と既存研究結果は保持",
+    "outOfScope": [
+      "正式本編・reader・保存形式・既存研究資料・操作prefix削除・Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Safari・quota・正式採用・悪意ある改変への認証・未網羅分岐は明記"
+    ],
+    "alternativesRejected": [
+      "検証省略による高速化",
+      "無条件の過去記録削除"
+    ],
+    "boundaryCases": [
+      "別process cold、破損/欠落/誤分岐/版/中断と元保存fallback",
+      "未来中立collector・9世代境界・複数seed/銘柄/保留判断/委任/途中蒸留/試飲/旧origin",
+      "5間隔のcold計測、R5既存失敗のbase比較"
+    ],
+    "testPlan": [
+      "短条件から長条件へ逐次検証。H1-A2 60条件は入力SHA/fingerprint確認で再利用",
+      "独立正式reader・帳面・H2-5 oracle比較",
+      "atomic条件結果・入力SHA/コードfingerprint一致時のみ再利用",
+      "Scope/Risk/Impact・関連回帰・必須CI・独立レビュー"
+    ],
+    "problem": "長期保存の容量と復元時間が増大",
+    "currentContract": "正式再生検証とC-3/D1.1/D1.2/H2-5を保護",
+    "whyExistingIsInsufficient": "module-local cache/tokenは永続checkpoint契約ではなく、独立復元・補助context・履歴資料の検証がない",
+    "design": "固定source seamを研究プロセスのみ公開。永続ファイルを別Nodeへ読込み、局所検証/部分再生/独立全再生保証を区別。現在までのcollectorを分岐ごと複製、境界候補を凍結し未来影響を比較。元保存をscratchに完全保持。",
+    "migration": "なし。正式reader・origin・保存keyへ接続しない",
+    "compatibility": "元保存は完全保持、正式moduleのGit blob不変",
+    "promotionRisk": "研究専用Stagingのみ。Productionなし"
+  }
+}
