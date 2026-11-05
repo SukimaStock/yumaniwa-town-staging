@@ -94,7 +94,7 @@ function appHost(source,{state=D.newMarketRulesDistillery(42),preview=false,rest
   stopClock(){log.push('clock:stop');},schedule(){log.push('clock:schedule');},message:text=>log.push(['message',text]),storageNotice:text=>log.push(['storageNotice',text]),
   automaticEvents,automaticNews:{push:events=>log.push(['notices',plain(events)])},caskName:String,soldOutLabel:()=>'',noteMapReach:()=>log.push('map:reach'),
   placementUI:{reset:()=>log.push('placement:reset')},marketUI:{cancel:()=>log.push('market:cancel')},comparisonKinds:[],endTaste(){},generationState:()=>({phase:'working'}),
-  showStaffOpportunity(){},showShopOffer(){},showGeneration(){},showInitialMapNotice(){},queueMicrotask:fn=>micro.push(fn)};
+  vaultPanels(){},showStaffOpportunity(){},showShopOffer(){},showGeneration(){},showInitialMapNotice(){},queueMicrotask:fn=>micro.push(fn)};
  ctx.StartCountdown=function(options){return new StartCountdown({...options,setTimer(fn,ms){const id=++timerId;timers.set(id,fn);log.push(['countdown:timer',ms]);return id;},clearTimer(id){timers.delete(id);log.push('countdown:clear');}});};
  vm.createContext(ctx);
  const sync=extract(source,'syncModal'),endSync=sync.indexOf(' if(!modal){vaultPanels();');assert(endSync>0);
@@ -110,7 +110,7 @@ function appHost(source,{state=D.newMarketRulesDistillery(42),preview=false,rest
  ${source.includes('createWarehouseRoomController')?'const warehouseRoom=createWarehouseRoomController();':''}\n ${init}\n${countdown}\n${source.split('\n').find(x=>x.startsWith('const manualDistilling='))}
  function render(){recordRender();${renderPrefix}}
  ${sync.slice(0,endSync)+'\n}'}
- ${[...(source.includes('function saveCandidate(')?['rememberCommitted','restoreCommitted','saveFailure','sessionText','saveCandidate']:[]),'save','act','prepareDistillation','startFromLever','currentDistillTools','finishDistillation','commitFill','openModal','closeModal','selectRoom','endTaste'].map(name=>extract(source,name)).join('\n')}
+ ${[...(source.includes('function saveCandidate(')?['rememberCommitted','restoreCommitted','recoveryAccess','saveFailure','sessionText','saveCandidate']:[]),'save','act','prepareDistillation','startFromLever','currentDistillTools','finishDistillation','commitFill','openModal','closeModal','selectRoom','endTaste'].map(name=>extract(source,name)).join('\n')}
  function openBrewing(){${openBody}}
  function card(group,id){const a='flavor-card',kind=modal?.kind,b={dataset:{group,id}};${action('flavor-card')}}
  function confirmBrewing(){const a='flavor-start',kind=modal?.kind;${action('flavor-start')}}
@@ -160,7 +160,7 @@ test('R3 generic start/stop failures and candidate fill failures retain their di
  }
  let filling=D.beginCollection(D.startRangeDistillation(D.newMarketRulesDistillery(42)));while(filling.still.distillation.progress<12)filling=D.distillStep(filling);filling=D.stopDistillation(filling);
  for(const mode of ['quota','refuse','conflict','model-throw']){
-  const p=pair({state:filling});p.call('render');p.call('fillSelect','refill');const before=p.compare('before fill failure');p.fail(mode);const failed=p.call('fill');assert.equal(failed.raw,before.raw);assert.equal(failed.modal.kind,'fill');assert.equal(failed.room,'distill');assert(!failed.log.some(x=>Array.isArray(x)&&x[0]==='notices'));
+  const p=pair({state:filling});p.call('render');p.call('fillSelect','refill');const before=p.compare('before fill failure');p.fail(mode);const failed=p.call('fill');assert.equal(failed.raw,before.raw);if(mode==='model-throw')assert.equal(failed.modal.kind,'fill');else assert.equal(failed.modal,null,'failed storage releases modal for recovery');assert.equal(failed.room,'distill');assert(!failed.log.some(x=>Array.isArray(x)&&x[0]==='notices'));
  }
  const p=pair();p.call('openBrewing');p.call('confirmBrewing');p.call('startFromLever');p.tick();p.tick();p.tick();p.call('finishDistillation');p.call('stepTo',12);const before=p.compare('before stop quota');p.fail('quota');const stopped=p.call('finishDistillation');assert.equal(JSON.parse(stopped.raw).still.phase,'distilling');assert.equal(stopped.raw,JSON.stringify(JSON.parse(stopped.stored).version===3?JSON.parse(expandFormalGame(JSON.parse(stopped.stored).game)):JSON.parse(stopped.stored).game));assert.equal(stopped.modal,null,'failed generic save does not publish result');
 });
