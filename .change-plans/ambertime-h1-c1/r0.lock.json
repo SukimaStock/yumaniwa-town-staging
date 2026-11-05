@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "af31dff403b91a210fbd955aa3a57ec0624ef4bb96b91f5e1ec82cb8070cffc0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "74924b2729565531dcc3a499dcb7e24bcc0dced8",
+    "changeId": "ambertime-h1-c1",
+    "revision": 0,
+    "change": "起動時間の分解計測と表示履歴の安全な最小改善",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs",
+      "works/ambertime/checkpoint-persistence/DESIGN.md",
+      "works/ambertime/checkpoint-persistence/results.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h1-c1/r0.lock.json",
+      "works/ambertime/h1-c1/**",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/h1-c1-*.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/chronicle-lab/**",
+      "works/ambertime/reputation-dedup-research/**",
+      "works/ambertime/tests/r5-history-view.test.mjs",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "起動経路を逐次計測し重複検証とprojectionを識別",
+      "正式readerを変更せず表示側import/cacheのみ最小改善",
+      "12条件入力照合、100年詳細比較、同値性・操作・失敗回帰、CI後Stagingのみ"
+    ],
+    "ownerDecisions": [
+      "2026-11-05 H1-C1依頼全文。起動監査・最小改善・検証・条件付きStagingマージ。Production禁止"
+    ],
+    "hqDecisions": [
+      "保存/reader契約不変。検証の削除は禁止。表示側のmodule identity統一を比較測定で判断"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "起動経路・cache境界の独立レビュー",
+      "Chromium本編操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "今回の表示側変更のみrevert",
+    "outOfScope": [
+      "正式モデル/経済/乱数/歴史/正式reader/codec/正式保存キーの変更",
+      "Production/IndexedDB/checkpoint/attempts集約"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機は本人確認。未完了計測は未完了として記録"
+    ],
+    "alternativesRejected": [
+      "検証省略による高速化",
+      "無条件の過去記録削除"
+    ],
+    "boundaryCases": [
+      "新規/v2/v3/旧origin/途中/分岐/失敗復旧"
+    ],
+    "testPlan": [
+      "12条件入力SHA照合、同一ホスト逐次比較",
+      "樽番号の分岐・旧保存・途中状態・次操作回帰",
+      "本編browser・復旧回帰とScope/Risk/Impact・CI"
+    ],
+    "problem": "100年cold起動に数分を要する",
+    "currentContract": "v3保存と全reader検証を維持",
+    "whyExistingIsInsufficient": "起動の重複再生が未分解",
+    "design": "計測を先行し、表示用モジュールの同一性とcacheの寿命を検証する。正式readerとprojection APIは変更しない。",
+    "migration": "なし",
+    "compatibility": "v2/v3不変",
+    "promotionRisk": "研究専用Stagingのみ。Productionなし"
+  }
+}

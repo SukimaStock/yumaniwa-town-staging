@@ -1,0 +1,8 @@
+{
+  "status": "complete",
+  "priorEvidenceSha256": "97a0013ab48c86484389a6731d74d026474cb208c4df01bfb7a38a5950cc44e1",
+  "boundaryCount": 9,
+  "dependencies": 53,
+  "mismatches": [],
+  "note": "Only unchanged historical model/edit dependencies reused. New main module-sharing path requires new regression."
+}
