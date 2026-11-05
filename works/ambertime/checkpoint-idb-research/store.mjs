@@ -62,8 +62,8 @@ export async function save(db,bundle,{strategy='C',expectedHead=null,expectedRev
  try{await done;}catch(error){throw cause??error;}
  return {id:bundle.id,strategy,revision:expectedRevision+1};
 }
-async function loadId(db,id){
- if(!id)throw new Error('No committed generation');const tx=db.transaction(['parts','history','commits'],'readonly'),done=completed(tx);
+async function loadId(db,id,sharedTx){
+ if(!id)throw new Error('No committed generation');const tx=sharedTx??db.transaction(['parts','history','commits'],'readonly'),done=sharedTx?null:completed(tx);
  const manifest=await request(tx.objectStore('commits').get(id));if(!manifest)throw new Error('Missing commit manifest');
  // Requests are queued synchronously within IDB request handlers/microtasks.
  const partRequests=Object.keys(manifest.parts).map(async kind=>[kind,await request(tx.objectStore('parts').get(partKey(id,kind)))]);
@@ -71,10 +71,14 @@ async function loadId(db,id){
  const parts=Object.fromEntries(await Promise.all(partRequests)),histories=await Promise.all(historyRequests);await done;
  return {id,manifest,parts,histories};
 }
-export async function read(db,expected={}){return validateCommit(await loadId(db,await headOf(db)),expected);}
+export async function read(db,expected={}){
+ const tx=db.transaction(['meta','parts','history','commits'],'readonly'),done=completed(tx);
+ try{const id=await request(tx.objectStore('meta').get('head')),bundle=await loadId(db,id,tx);await done;return validateCommit(bundle,expected);}
+ catch(error){await done.catch(()=>{});throw error;}
+}
 export async function recover(db,expected={}){
- const tx=db.transaction('meta','readonly'),head=await request(tx.objectStore('meta').get('head')),previous=await request(tx.objectStore('meta').get('previous')),knownGood=await request(tx.objectStore('meta').get('knownGood'));
- const failures=[];for(const [mode,id] of [['latest',head],['previous',previous],['known-good',knownGood]]){if(!id)continue;try{return {mode,bundle:await validateCommit(await loadId(db,id),expected),failures};}catch(error){failures.push({mode,id,error:error.message});}}
+ const tx=db.transaction('meta','readonly'),head=await request(tx.objectStore('meta').get('head')),previous=await request(tx.objectStore('meta').get('previous')),knownGood=await request(tx.objectStore('meta').get('knownGood')),order=(await request(tx.objectStore('meta').get('order')))??[];
+ const failures=[],seen=new Set();for(const [mode,id] of [['latest',head],['previous',previous],['known-good',knownGood],...order.slice().reverse().map(id=>['retained',id])]){if(!id||seen.has(id))continue;seen.add(id);try{return {mode,bundle:await validateCommit(await loadId(db,id),expected),failures};}catch(error){failures.push({mode,id,error:error.message});}}
  return {mode:'full-replay-required',failures,reason:'No valid compatible checkpoint. Retained authoritative save required; never initialize automatically.'};
 }
 export async function putBackup(db,id,raw){const hash=await digest(raw),tx=db.transaction('backups','readwrite'),done=completed(tx);tx.objectStore('backups').put({raw,hash},id);await done;}
