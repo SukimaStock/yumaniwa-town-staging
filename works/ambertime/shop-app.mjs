@@ -34,7 +34,7 @@ import {CanvasScene} from './canvas-scene.mjs?tools=rooms-stage3-r1&touch=1&stat
 import * as D from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
 import {caskName as sourceCaskName} from './work-context.mjs?v=0.38-cask-serials';
-import {createCaskSerials} from './cask-serials.mjs?v=market-rules-r1';
+import {createCaskSerials} from './cask-serials.mjs?v=market-rules-r1&startup=h1-c1-2';
 import {distillationReadout,spiritProfile} from './spirit-view.mjs?v=distill-ui-r1';
 import {spiritReadoutView} from './spirit-readout-view.mjs?v=refactor-r1-1';
 import {brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
@@ -48,7 +48,7 @@ import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from '
 import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=market-rules-r1';
 import {uiText,agingEventText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 // Resolve structured cask IDs only; saved prose and player names stay verbatim.
-const caskSerials=createCaskSerials();
+const caskSerials=createCaskSerials({validate:D.validateDistillery});
 // Serial numbers depend on recorded creation operations, never extraction.
 // Do not rebuild/strictly validate that projection for each moving bar position.
 let serialDisplayKey=null,serialDisplay=null;

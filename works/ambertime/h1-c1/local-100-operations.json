@@ -1,0 +1,114 @@
+{
+  "schema": "ambertime-h1-c1-operations/1",
+  "status": "complete",
+  "mode": "separated",
+  "baseSha": "74924b2729565531dcc3a499dcb7e24bcc0dced8",
+  "inputSha256": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+  "wireSha256": "bb187b3e7e73b9ae8880d08a8990e64c9d3d07927fc8081fc91f4e9978eb0407",
+  "codeFingerprint": "89c61cb2228cf5cc265c2724720adacd5b9389b0a2f3fddbced2404a31e29a10",
+  "runnerFingerprint": "6be88e651fc057a64942c2eece12235d20555e7a2bbb1d9facf0bae0b3a3527e",
+  "node": "v24.22.1",
+  "checks": {
+    "boot": {
+      "stateSha256": "66f60c308201a6c5ec99c2e53d9784219ef527881e8edd33615d99c86e62ee3c",
+      "month": 1200,
+      "memory": {
+        "used": 42100000,
+        "total": 109000000
+      }
+    },
+    "rooms": true,
+    "map": {
+      "visibleTextSha256": "02d861cc9b0259699ba4a82e2fa4f2b83691b6b79e3725f0a720eac369f0f8d3",
+      "characters": 47
+    },
+    "recipes": {
+      "visibleTextSha256": "9ca5beeb059f5c12714b582eba1aeb69cecb2ce4a3f6ad31d7adab2bd6cf1272",
+      "characters": 637
+    },
+    "casks": {
+      "visibleTextSha256": "0afeaf2b98dc60b2ff510b66532a9944c3a61f60a99b263f82fd7593eadaa1a2",
+      "characters": 765
+    },
+    "releases": {
+      "visibleTextSha256": "ef009b20770f7d056c68f54095240822322fcc8a641f1d35dff8c9fb157977f3",
+      "characters": 730
+    },
+    "shops": {
+      "visibleTextSha256": "600132bf424b29b3f1767bbd45065c3d3b174e8a900517ea5a490a95bdab721c",
+      "characters": 64
+    },
+    "history": {
+      "visibleTextSha256": "b4f61bf654f70bd469a531aace87c4ca2a537c7baf528cf3588068807f1c0540",
+      "characters": 620
+    },
+    "caskRackLabels": [
+      {
+        "id": 68,
+        "label": "たる No.23"
+      }
+    ],
+    "ledgerProjectionHashes": {
+      "shops": "2b33e4cffd28ea9bb78839ceead2bb8b07d931d0d2b4ed9fddd4e7e7d3c22ac5",
+      "releases": "2db55a6dca25ff9559a2fd77441f1327ac74aa3b25dee99327803cceed4c88d8"
+    },
+    "readOnlyStateExact": true,
+    "nativeSaveTransactionMs": [
+      378.19999999925494,
+      429.5,
+      385.30000000074506
+    ],
+    "nextMonth": {
+      "exact": true,
+      "stateSha256": "5c79973c7aca9b6b050fd5cb12d353a3c8f74d4358d74e7ccf57251b7c5d3cb4",
+      "wireSha256": "8dbe944a6a6c5c77def3d4c0a230bec33e41876fed24b50b30ac9e74670733e9",
+      "memory": {
+        "used": 42100000,
+        "total": 109000000
+      }
+    },
+    "officialSavedReadbackExact": true,
+    "reloadExact": true
+  },
+  "timings": {
+    "bootAndPaintOpportunityMs": 133156.65759000002,
+    "dismissStartupNoticesMs": 1612.978615,
+    "room_distillMs": 410.3940560000192,
+    "room_warehouseMs": 430.19590200000675,
+    "room_salesMs": 493.6247460000159,
+    "mapOpenMs": 47.89440899997135,
+    "recipeFirstOpenMs": 133821.89106199998,
+    "caskFirstOpenAfterRecipeCacheMs": 66.643115999992,
+    "releasesFirstOpenMs": 149.72968799999217,
+    "shopsFirstOpenMs": 66.83596499997657,
+    "historyFirstOpenMs": 86297.052815,
+    "officialNextMonthOracleMs": 302.8010769999819,
+    "clockOneMonthAndSaveMs": 7780.744171000028,
+    "officialSessionReadbackMs": 387.3239539999631,
+    "reloadAndPaintOpportunityMs": 135463.560774
+  },
+  "pageErrors": [],
+  "dialogs": [
+    {
+      "kind": "staff-opportunity",
+      "action": "staff-opportunity-later"
+    },
+    {
+      "kind": "staff-opportunity",
+      "action": "staff-opportunity-later"
+    },
+    {
+      "kind": "shop-offer",
+      "action": "shop-later"
+    }
+  ],
+  "limits": [
+    "Sequential separate operation probe; do not overlap heavy startup benchmarks.",
+    "First-open times include UI dispatch, worker replay and rendered result observation; no fake timer or save IO.",
+    "Memory is Chromium performance.memory telemetry, not process peak RSS or iPhone usage.",
+    "Exact one-month oracle applies to a paused settled ready state without automatic distillation; unsupported states remain incomplete.",
+    "UI readout hashes cover visible first pages, not an independent whole-history equivalence proof."
+  ],
+  "browser": "153.0.8010.0",
+  "servedAppSha256": "bc24401286466f3016a533b588e9bd40513f5b4dc7b1a8c0ce978b6662cc4ca4"
+}

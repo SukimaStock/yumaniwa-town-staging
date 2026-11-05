@@ -1,0 +1,62 @@
+{
+  "status": "complete",
+  "scope": "New game; init and no initial snapshot. Not a 100-year Worker replay measurement.",
+  "codeFingerprint": "bbad1411b1ef2f2e21236fa275a655a5b9d6d9298d13975f79038309524c434c",
+  "runnerFingerprint": "3d8bfec79ef974ae31156320dc6b12c5c06309215bf5acf79d46b2216dd7e2f2",
+  "workers": [
+    {
+      "__amberH1InitReady": true,
+      "path": "/works/ambertime/cask-ledger-worker.mjs",
+      "epoch": 1793910030015
+    },
+    {
+      "__amberH1InitReady": true,
+      "path": "/works/ambertime/history-worker.mjs",
+      "epoch": 1793910030018.1
+    }
+  ],
+  "pageErrors": [],
+  "browser": "153.0.8010.0",
+  "newGame": {
+    "timeOrigin": 1793910029588.3,
+    "created": [
+      {
+        "url": "http://127.0.0.1:33797/works/ambertime/history-worker.mjs?v=market-rules-r1",
+        "time": 328
+      },
+      {
+        "url": "http://127.0.0.1:33797/works/ambertime/cask-ledger-worker.mjs?v=market-rules-r1",
+        "time": 328.0999999977648
+      }
+    ],
+    "ready": [
+      {
+        "__amberH1InitReady": true,
+        "path": "/works/ambertime/cask-ledger-worker.mjs",
+        "epoch": 1793910030015
+      },
+      {
+        "__amberH1InitReady": true,
+        "path": "/works/ambertime/history-worker.mjs",
+        "epoch": 1793910030018.1
+      }
+    ],
+    "posted": 0,
+    "saveVersion": 3,
+    "month": 0
+  },
+  "workerModuleReady": [
+    {
+      "__amberH1InitReady": true,
+      "path": "/works/ambertime/cask-ledger-worker.mjs",
+      "epoch": 1793910030015,
+      "relativeToNavigationMs": 426.699951171875
+    },
+    {
+      "__amberH1InitReady": true,
+      "path": "/works/ambertime/history-worker.mjs",
+      "epoch": 1793910030018.1,
+      "relativeToNavigationMs": 429.800048828125
+    }
+  ]
+}

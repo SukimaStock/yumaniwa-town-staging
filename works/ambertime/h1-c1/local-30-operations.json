@@ -1,0 +1,102 @@
+{
+  "schema": "ambertime-h1-c1-operations/1",
+  "status": "complete",
+  "inputSha256": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+  "wireSha256": "624e073a60e1333f8260f49ada9cb2d4f5dfe1e11e27a6ad3164b120ba6d86ea",
+  "codeFingerprint": "89c61cb2228cf5cc265c2724720adacd5b9389b0a2f3fddbced2404a31e29a10",
+  "runnerFingerprint": "46403b2f7284d42b35a1b2abee7973058a65ee71d57e03a17252e0321056baf1",
+  "node": "v24.22.1",
+  "checks": {
+    "boot": {
+      "stateSha256": "ad7736cf0ad1e795429e71fd16bd6f4aeb82184d33af9147492611f2692cab16",
+      "month": 360,
+      "memory": {
+        "used": 23100000,
+        "total": 91700000
+      }
+    },
+    "rooms": true,
+    "map": {
+      "visibleTextSha256": "b6f9af1b03f704e52d2dfcdbcf704fb181f5126cf9002184917928a2bae99a18",
+      "characters": 47
+    },
+    "recipes": {
+      "visibleTextSha256": "7bbbd32b699060f7bce8948bc9a70c9b2e9f56dd6eb8b58b7087273d3eaa72e5",
+      "characters": 460
+    },
+    "casks": {
+      "visibleTextSha256": "79d9b78635663eb847700d435abcacd4aaf014ab75b0b589a9c2a880172b2711",
+      "characters": 558
+    },
+    "releases": {
+      "visibleTextSha256": "f72e02da3ae52a3328e062b892515ac6b25e59bd783e3f3ad97d02c0c1bcc999",
+      "characters": 471
+    },
+    "shops": {
+      "visibleTextSha256": "1012e081e26e2c24c781d1a59ecf2800e6a61543f051deb31eece318879fdeb3",
+      "characters": 62
+    },
+    "history": {
+      "visibleTextSha256": "eff26a78c6c2daecdf09746daad5d8f92a8c209c962e0d604c028593646e2b96",
+      "characters": 191
+    },
+    "caskRackLabels": [
+      {
+        "id": 44,
+        "label": "たる No.15"
+      }
+    ],
+    "ledgerProjectionHashes": {
+      "shops": "250264c1386939bad8edde4b5c3c2094caff7d2da4c8ff96120d198d82b10160",
+      "releases": "1e80e7a7b1493871e805183358018eb1be123cfdac684b3c8467c4734151d5d9"
+    },
+    "readOnlyStateExact": true,
+    "nextMonth": {
+      "exact": true,
+      "stateSha256": "1fc717b2aef15ff5e087a99525d43af7757f95f5ab54a1b1d96c5f0282549c92",
+      "wireSha256": "9d6dfb6155e7725c77e5dc6a2572c1857eab971d433d166436bb2e257bf30bff",
+      "memory": {
+        "used": 23100000,
+        "total": 91700000
+      }
+    },
+    "officialSavedReadbackExact": true,
+    "reloadExact": true
+  },
+  "timings": {
+    "bootAndPaintOpportunityMs": 22925.058962,
+    "dismissStartupNoticesMs": 479.85232499999984,
+    "room_distillMs": 219.63399299999946,
+    "room_warehouseMs": 197.72554799999853,
+    "room_salesMs": 208.56750900000043,
+    "mapOpenMs": 63.684079000002384,
+    "recipeFirstOpenMs": 23981.596654999998,
+    "caskFirstOpenAfterRecipeCacheMs": 71.2031180000049,
+    "releasesFirstOpenMs": 92.68344900000375,
+    "shopsFirstOpenMs": 95.04611400000431,
+    "historyFirstOpenMs": 14277.767717000002,
+    "officialNextMonthOracleMs": 122.25494400000025,
+    "clockOneMonthAndSaveMs": 6804.6586920000045,
+    "officialSessionReadbackMs": 194.00060500000836,
+    "reloadAndPaintOpportunityMs": 22425.369689
+  },
+  "pageErrors": [],
+  "dialogs": [
+    {
+      "kind": "staff-opportunity",
+      "action": "staff-opportunity-later"
+    },
+    {
+      "kind": "staff-opportunity",
+      "action": "staff-opportunity-later"
+    }
+  ],
+  "limits": [
+    "Sequential separate operation probe; do not overlap heavy startup benchmarks.",
+    "First-open times include UI dispatch, worker replay and rendered result observation; no fake timer or save IO.",
+    "Memory is Chromium performance.memory telemetry, not process peak RSS or iPhone usage.",
+    "Exact one-month oracle applies to a paused settled ready state without automatic distillation; unsupported states remain incomplete.",
+    "UI readout hashes cover visible first pages, not an independent whole-history equivalence proof."
+  ],
+  "browser": "153.0.8010.0"
+}

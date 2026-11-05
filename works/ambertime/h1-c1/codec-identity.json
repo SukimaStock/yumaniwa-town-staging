@@ -1,0 +1,116 @@
+{
+  "status": "complete",
+  "scope": "Codec expansion only; this does not claim a new full official reader replay or native storage test for these 12 cases.",
+  "node": "v24.22.1",
+  "codecSha256": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e",
+  "results": [
+    {
+      "id": "local",
+      "month": 360,
+      "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "expandedHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "wireSha256": "624e073a60e1333f8260f49ada9cb2d4f5dfe1e11e27a6ad3164b120ba6d86ea",
+      "wireCodeUnits": 1231283,
+      "wireUtf8Bytes": 1354785
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+      "expandedHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+      "wireSha256": "2f8db1ba021c178887cca707d3d44a0de19b508c8d54d3d9eb58ec6c60a14174",
+      "wireCodeUnits": 1937433,
+      "wireUtf8Bytes": 2123531
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+      "expandedHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+      "wireSha256": "938341c95f1ad61f6df6e23d43e0a56f3df6e7773a1fd11977604b514ebf5d12",
+      "wireCodeUnits": 2560255,
+      "wireUtf8Bytes": 2802223
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "expandedHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "wireSha256": "bb187b3e7e73b9ae8880d08a8990e64c9d3d07927fc8081fc91f4e9978eb0407",
+      "wireCodeUnits": 2781791,
+      "wireUtf8Bytes": 3043853
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+      "expandedHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+      "wireSha256": "cdd715d69701fc008ec6ac156fb2e4e1dea260019e13a5880dde345f082797b8",
+      "wireCodeUnits": 1703990,
+      "wireUtf8Bytes": 1870020
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+      "expandedHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+      "wireSha256": "0ec81e64aadcf613c60621525ade5d5559df052e9c1b7ffce24f5a8558c0eab1",
+      "wireCodeUnits": 2717979,
+      "wireUtf8Bytes": 2978077
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+      "expandedHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+      "wireSha256": "f84d963a3dba1eec1ba48e891a13214f0aa9366a0049c74d2706e71df235c732",
+      "wireCodeUnits": 3807602,
+      "wireUtf8Bytes": 4168360
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "expandedHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "wireSha256": "31d916f842c5d444f7a55d885d7be890a9f9ff91bae41089f8aa2b325b4f3800",
+      "wireCodeUnits": 4228289,
+      "wireUtf8Bytes": 4627171
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+      "expandedHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+      "wireSha256": "f729372cea62bb1219ccf8ce5a8d22a119c48d85a900d0afea002bf53fe73cc8",
+      "wireCodeUnits": 1351962,
+      "wireUtf8Bytes": 1484662
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+      "expandedHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+      "wireSha256": "3e6aaa51959d4c28a86283e66a922498dbf9853e5080da2a46909bf6fbee4910",
+      "wireCodeUnits": 2132273,
+      "wireUtf8Bytes": 2337063
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+      "expandedHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+      "wireSha256": "a6b4bf1fdaedc04d47fccdeb16141cb47b78741395eb6edd8629c908547d958f",
+      "wireCodeUnits": 3220300,
+      "wireUtf8Bytes": 3524642
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "expandedHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "wireSha256": "fd161316b5ac07f10bd2d6ce62df204c5d05e78ca4f01069eaace31320b0a90f",
+      "wireCodeUnits": 3591087,
+      "wireUtf8Bytes": 3929729
+    }
+  ]
+}
