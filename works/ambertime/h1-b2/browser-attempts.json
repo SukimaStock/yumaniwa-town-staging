@@ -1,6 +1,6 @@
 {
   "schema": "ambertime-h1-b2-browser-attempts/1",
-  "finalOutputDirectory": "/tmp/h1-b2-browser-final3",
+  "finalOutputDirectory": "/tmp/h1-b2-browser-final4",
   "policy": "Only fully complete conditions from the final current product and runner fingerprints enter browser-results.json. Earlier smoke and interrupted/failed attempts are not relabeled as successful.",
   "attempts": [
     {
@@ -47,6 +47,41 @@
           "file": "wide-1200-progress.json",
           "sha256": "7e44ce7ba1cc394d755efb3194549ba1cc51adf0392175f0a6c5392af1e4189c",
           "lastCompletedStage": "boot"
+        }
+      ]
+    },
+    {
+      "scratchDirectory": "/tmp/h1-b2-browser-final3",
+      "status": "failed-runner-action-deadline",
+      "reason": "Wide100 staff-opportunity-later was clicked on a visible enabled element; its synchronous handler exceeded the runner's 30-second click budget. This is not recorded as a product calculation failure. Cleanup then closed local/mixed during their actual reload, so their TargetClosed errors are dependent cancellations, not independent product failures. No fully complete condition was reused. Final runner records configurable 600s action and1200s reader budgets and lets independent in-flight conditions finish before returning an ordinary failure.",
+      "completedConditionCount": 0,
+      "conditions": [
+        {
+          "id": "mixed",
+          "month": 1200,
+          "status": "failed",
+          "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+          "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+          "runnerFingerprint": "9ea33750955ab31ff29718b96fd927e352fc7bb961c85526a0277f75ca7d7654",
+          "error": "page.waitForFunction: Target page, context or browser has been closed\n    at ready (/workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:22:39)\n    at condition (/workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:74:57)\n    at async file:///workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:96:129"
+        },
+        {
+          "id": "wide",
+          "month": 1200,
+          "status": "failed",
+          "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+          "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+          "runnerFingerprint": "9ea33750955ab31ff29718b96fd927e352fc7bb961c85526a0277f75ca7d7654",
+          "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-action=\"staff-opportunity-later\"]')\u001b[22m\n\u001b[2m    - locator resolved to <button data-id=\"\" type=\"button\" data-action=\"staff-opportunity-later\">見送る</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - performing click action\u001b[22m\n\n    at condition (/workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:69:470)\n    at async file:///workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:96:129"
+        },
+        {
+          "id": "local",
+          "month": 1200,
+          "status": "failed",
+          "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+          "runnerFingerprint": "9ea33750955ab31ff29718b96fd927e352fc7bb961c85526a0277f75ca7d7654",
+          "error": "page.waitForFunction: Target page, context or browser has been closed\n    at ready (/workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:22:39)\n    at condition (/workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:74:57)\n    at async file:///workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:96:129"
         }
       ]
     }

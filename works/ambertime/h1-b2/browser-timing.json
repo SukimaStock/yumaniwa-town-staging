@@ -1,0 +1,946 @@
+{
+  "schema": "ambertime-h1-b2-browser-timing/1",
+  "method": "External polling of runner JSON stage log once per second. Condition start is the old-input scratch file mtime. Where current progress stage matches, completion is progress file mtime; otherwise observation time is an upper bound. Timing is diagnostic, not a controlled performance benchmark.",
+  "rows": [
+    {
+      "id": "wide",
+      "month": 1200,
+      "stage": "boot",
+      "observedAt": "2026-11-05T17:43:36.247Z",
+      "completedAt": "2026-11-05T17:42:37.470Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 644.39208984375,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "stage": "boot",
+      "observedAt": "2026-11-05T17:46:03.466Z",
+      "completedAt": "2026-11-05T17:46:03.466Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 206639.89282226562,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "stage": "download",
+      "observedAt": "2026-11-05T17:46:03.467Z",
+      "completedAt": "2026-11-05T17:46:03.177Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 206351.09155273438,
+      "sincePreviousStageMs": -288.80126953125
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T17:46:57.538Z",
+      "completedAt": "2026-11-05T17:46:57.538Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 260711.89282226562,
+      "sincePreviousStageMs": 54361
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T17:46:57.539Z",
+      "completedAt": "2026-11-05T17:46:57.385Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 260559.884765625,
+      "sincePreviousStageMs": -152.008056640625
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "stage": "settled",
+      "observedAt": "2026-11-05T17:47:00.544Z",
+      "completedAt": "2026-11-05T17:47:00.544Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 263717.8928222656,
+      "sincePreviousStageMs": 3159
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T17:47:00.544Z",
+      "completedAt": "2026-11-05T17:47:00.298Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 263471.92626953125,
+      "sincePreviousStageMs": -245.966552734375
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "stage": "boot",
+      "observedAt": "2026-11-05T17:47:35.586Z",
+      "completedAt": "2026-11-05T17:47:35.442Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 298596.443359375,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "stage": "download",
+      "observedAt": "2026-11-05T17:47:36.588Z",
+      "completedAt": "2026-11-05T17:47:35.934Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 299088.4504394531,
+      "sincePreviousStageMs": 492.557861328125
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T17:49:01.710Z",
+      "completedAt": "2026-11-05T17:49:00.895Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 384049.7021484375,
+      "sincePreviousStageMs": 84961.8095703125
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T17:49:02.712Z",
+      "completedAt": "2026-11-05T17:49:02.119Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 385273.72021484375,
+      "sincePreviousStageMs": 1224.82763671875
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "stage": "settled",
+      "observedAt": "2026-11-05T17:49:05.724Z",
+      "completedAt": "2026-11-05T17:49:05.724Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 388877.892578125,
+      "sincePreviousStageMs": 3605
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T17:49:05.724Z",
+      "completedAt": "2026-11-05T17:49:05.475Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 388629.7697753906,
+      "sincePreviousStageMs": -248.122802734375
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "stage": "file-restored",
+      "observedAt": "2026-11-05T17:49:21.797Z",
+      "completedAt": "2026-11-05T17:49:21.308Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 404482.00341796875,
+      "sincePreviousStageMs": 403838.1105957031
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T17:49:22.799Z",
+      "completedAt": "2026-11-05T17:49:22.544Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 405718.021484375,
+      "sincePreviousStageMs": 1236.128662109375
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T17:50:33.895Z",
+      "completedAt": "2026-11-05T17:50:33.569Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 476743.0700683594,
+      "sincePreviousStageMs": 213271.17724609375
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "stage": "settled",
+      "observedAt": "2026-11-05T17:51:20.952Z",
+      "completedAt": "2026-11-05T17:51:20.952Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 524125.8928222656,
+      "sincePreviousStageMs": 118408
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T17:51:20.952Z",
+      "completedAt": "2026-11-05T17:51:20.469Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 523643.78076171875,
+      "sincePreviousStageMs": -482.112060546875
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T17:51:37.977Z",
+      "completedAt": "2026-11-05T17:51:37.898Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 541072.0388183594,
+      "sincePreviousStageMs": 64329.14599609375
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "stage": "boot",
+      "observedAt": "2026-11-05T17:51:39.980Z",
+      "completedAt": "2026-11-05T17:51:39.102Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 632.00732421875,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T17:54:22.199Z",
+      "completedAt": "2026-11-05T17:54:21.816Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 704970.4421386719,
+      "sincePreviousStageMs": 316341.5495605469
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T17:55:59.341Z",
+      "completedAt": "2026-11-05T17:55:58.613Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 801767.587890625,
+      "sincePreviousStageMs": 96797.6953125
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "stage": "file-restored",
+      "observedAt": "2026-11-05T17:57:20.445Z",
+      "completedAt": "2026-11-05T17:57:20.263Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 341793.5078125,
+      "sincePreviousStageMs": 341161.66064453125
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T17:57:21.446Z",
+      "completedAt": "2026-11-05T17:57:21.430Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 342960.6394042969,
+      "sincePreviousStageMs": 1167.792236328125
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T17:58:18.525Z",
+      "completedAt": "2026-11-05T17:58:17.567Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 940741.4387207031,
+      "sincePreviousStageMs": 417098.5458984375
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "stage": "settled",
+      "observedAt": "2026-11-05T17:58:56.572Z",
+      "completedAt": "2026-11-05T17:58:56.268Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 437797.9250488281,
+      "sincePreviousStageMs": 94838.07788085938
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T17:58:57.573Z",
+      "completedAt": "2026-11-05T17:58:56.584Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 438113.92919921875,
+      "sincePreviousStageMs": 316.08203125
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "stage": "boot",
+      "observedAt": "2026-11-05T17:59:52.643Z",
+      "completedAt": "2026-11-05T17:59:52.344Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 233223.150390625,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "stage": "download",
+      "observedAt": "2026-11-05T17:59:53.645Z",
+      "completedAt": "2026-11-05T17:59:52.808Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 233687.15673828125,
+      "sincePreviousStageMs": 464.8583984375
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:00:19.680Z",
+      "completedAt": "2026-11-05T18:00:19.453Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 1062627.1318359375,
+      "sincePreviousStageMs": 121886.23901367188
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T18:01:00.738Z",
+      "completedAt": "2026-11-05T18:01:00.243Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 301121.68994140625,
+      "sincePreviousStageMs": 67435.3916015625
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T18:01:01.740Z",
+      "completedAt": "2026-11-05T18:01:01.445Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 302324.12841796875,
+      "sincePreviousStageMs": 1202.830078125
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "stage": "settled",
+      "observedAt": "2026-11-05T18:01:03.742Z",
+      "completedAt": "2026-11-05T18:01:03.689Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 304568.1608886719,
+      "sincePreviousStageMs": 2244.862548828125
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T18:01:04.744Z",
+      "completedAt": "2026-11-05T18:01:04.041Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 304920.1657714844,
+      "sincePreviousStageMs": 352.867431640625
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:04:29.025Z",
+      "completedAt": "2026-11-05T18:04:28.448Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 769978.6564941406,
+      "sincePreviousStageMs": 331864.8093261719
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:04:56.061Z",
+      "completedAt": "2026-11-05T18:04:55.709Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 536587.5007324219,
+      "sincePreviousStageMs": 231668.20239257812
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:06:09.151Z",
+      "completedAt": "2026-11-05T18:06:08.246Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 869776.1040039062,
+      "sincePreviousStageMs": 99798.2568359375
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:06:09.151Z",
+      "completedAt": "2026-11-05T18:06:08.886Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 609764.564453125,
+      "sincePreviousStageMs": 73177.26611328125
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "stage": "boot",
+      "observedAt": "2026-11-05T18:08:33.332Z",
+      "completedAt": "2026-11-05T18:08:33.332Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 86916.884765625,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "stage": "download",
+      "observedAt": "2026-11-05T18:08:33.332Z",
+      "completedAt": "2026-11-05T18:08:33.256Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 86841.26611328125,
+      "sincePreviousStageMs": -75.61865234375
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "stage": "boot",
+      "observedAt": "2026-11-05T18:08:35.336Z",
+      "completedAt": "2026-11-05T18:08:35.012Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 145529.36840820312,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "stage": "download",
+      "observedAt": "2026-11-05T18:08:36.337Z",
+      "completedAt": "2026-11-05T18:08:35.396Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 145913.3740234375,
+      "sincePreviousStageMs": 384.41259765625
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "stage": "boot",
+      "observedAt": "2026-11-05T18:08:56.363Z",
+      "completedAt": "2026-11-05T18:08:56.128Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 167278.45288085938,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "stage": "download",
+      "observedAt": "2026-11-05T18:08:57.364Z",
+      "completedAt": "2026-11-05T18:08:56.560Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 167710.45947265625,
+      "sincePreviousStageMs": 432.72509765625
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T18:08:57.365Z",
+      "completedAt": "2026-11-05T18:08:57.336Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 110921.62133789062,
+      "sincePreviousStageMs": 24080.736572265625
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T18:08:58.365Z",
+      "completedAt": "2026-11-05T18:08:58.140Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 111725.63330078125,
+      "sincePreviousStageMs": 804.74853515625
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "stage": "settled",
+      "observedAt": "2026-11-05T18:09:00.366Z",
+      "completedAt": "2026-11-05T18:09:00.366Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 113950.884765625,
+      "sincePreviousStageMs": 2226
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T18:09:00.367Z",
+      "completedAt": "2026-11-05T18:08:59.592Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 113177.65454101562,
+      "sincePreviousStageMs": -773.230224609375
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T18:09:21.394Z",
+      "completedAt": "2026-11-05T18:09:20.929Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 191446.48266601562,
+      "sincePreviousStageMs": 45533.521240234375
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T18:09:22.394Z",
+      "completedAt": "2026-11-05T18:09:21.953Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 192470.0615234375,
+      "sincePreviousStageMs": 1024.10009765625
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "stage": "settled",
+      "observedAt": "2026-11-05T18:09:24.396Z",
+      "completedAt": "2026-11-05T18:09:24.396Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 194912.96142578125,
+      "sincePreviousStageMs": 2443
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T18:09:24.397Z",
+      "completedAt": "2026-11-05T18:09:23.917Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 194434.09033203125,
+      "sincePreviousStageMs": -478.87109375
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T18:09:49.432Z",
+      "completedAt": "2026-11-05T18:09:48.751Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 219900.79858398438,
+      "sincePreviousStageMs": 52191.064208984375
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T18:09:50.434Z",
+      "completedAt": "2026-11-05T18:09:49.577Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 220727.24169921875,
+      "sincePreviousStageMs": 826.50732421875
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "stage": "settled",
+      "observedAt": "2026-11-05T18:09:52.439Z",
+      "completedAt": "2026-11-05T18:09:52.439Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 223588.734375,
+      "sincePreviousStageMs": 2862
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T18:09:52.439Z",
+      "completedAt": "2026-11-05T18:09:52.345Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 223495.28247070312,
+      "sincePreviousStageMs": -93.451904296875
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:10:31.490Z",
+      "completedAt": "2026-11-05T18:10:31.338Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 204923.01171875,
+      "sincePreviousStageMs": 91746.126953125
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:11:04.530Z",
+      "completedAt": "2026-11-05T18:11:03.522Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 237107.4853515625,
+      "sincePreviousStageMs": 32184.6005859375
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:11:54.586Z",
+      "completedAt": "2026-11-05T18:11:54.327Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 344844.31787109375,
+      "sincePreviousStageMs": 150410.3564453125
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "stage": "boot",
+      "observedAt": "2026-11-05T18:12:37.637Z",
+      "completedAt": "2026-11-05T18:12:37.596Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 93553.67846679688,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "stage": "download",
+      "observedAt": "2026-11-05T18:12:38.637Z",
+      "completedAt": "2026-11-05T18:12:37.900Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 93857.68408203125,
+      "sincePreviousStageMs": 304.292236328125
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:12:42.644Z",
+      "completedAt": "2026-11-05T18:12:42.300Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 393450.1066894531,
+      "sincePreviousStageMs": 169955.37231445312
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:12:43.646Z",
+      "completedAt": "2026-11-05T18:12:43.212Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 393729.3503417969,
+      "sincePreviousStageMs": 48885.388916015625
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T18:13:04.673Z",
+      "completedAt": "2026-11-05T18:13:04.673Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 120630.39184570312,
+      "sincePreviousStageMs": 26773
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T18:13:04.673Z",
+      "completedAt": "2026-11-05T18:13:04.376Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 120334.11865234375,
+      "sincePreviousStageMs": -296.273193359375
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "stage": "settled",
+      "observedAt": "2026-11-05T18:13:05.675Z",
+      "completedAt": "2026-11-05T18:13:05.580Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 121538.1396484375,
+      "sincePreviousStageMs": 1204.747802734375
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T18:13:06.677Z",
+      "completedAt": "2026-11-05T18:13:05.724Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 121682.14208984375,
+      "sincePreviousStageMs": 144.750244140625
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "stage": "boot",
+      "observedAt": "2026-11-05T18:13:28.709Z",
+      "completedAt": "2026-11-05T18:13:28.709Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 45008.602294921875,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "stage": "download",
+      "observedAt": "2026-11-05T18:13:28.709Z",
+      "completedAt": "2026-11-05T18:13:28.617Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 44916.746337890625,
+      "sincePreviousStageMs": -91.85595703125
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:13:35.717Z",
+      "completedAt": "2026-11-05T18:13:35.321Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 446470.9931640625,
+      "sincePreviousStageMs": 53021.2587890625
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T18:13:42.727Z",
+      "completedAt": "2026-11-05T18:13:42.727Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 59026.602294921875,
+      "sincePreviousStageMs": 14110
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T18:13:42.727Z",
+      "completedAt": "2026-11-05T18:13:42.437Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 58736.9716796875,
+      "sincePreviousStageMs": -289.630615234375
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "stage": "settled",
+      "observedAt": "2026-11-05T18:13:43.729Z",
+      "completedAt": "2026-11-05T18:13:43.729Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 60028.602294921875,
+      "sincePreviousStageMs": 1292
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T18:13:43.730Z",
+      "completedAt": "2026-11-05T18:13:43.449Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 59748.98388671875,
+      "sincePreviousStageMs": -279.618408203125
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "stage": "boot",
+      "observedAt": "2026-11-05T18:14:12.766Z",
+      "completedAt": "2026-11-05T18:14:12.766Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 36928.732421875,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "stage": "download",
+      "observedAt": "2026-11-05T18:14:12.766Z",
+      "completedAt": "2026-11-05T18:14:12.061Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 36224.576171875,
+      "sincePreviousStageMs": -704.15625
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T18:14:23.778Z",
+      "completedAt": "2026-11-05T18:14:23.778Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 47940.732421875,
+      "sincePreviousStageMs": 11717
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T18:14:23.779Z",
+      "completedAt": "2026-11-05T18:14:23.398Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 47560.76708984375,
+      "sincePreviousStageMs": -379.96533203125
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "stage": "settled",
+      "observedAt": "2026-11-05T18:14:24.780Z",
+      "completedAt": "2026-11-05T18:14:24.780Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 48942.732421875,
+      "sincePreviousStageMs": 1382
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T18:14:24.781Z",
+      "completedAt": "2026-11-05T18:14:24.386Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 48548.783447265625,
+      "sincePreviousStageMs": -393.948974609375
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:14:28.786Z",
+      "completedAt": "2026-11-05T18:14:27.854Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 104153.7109375,
+      "sincePreviousStageMs": 44405.108642578125
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:14:39.798Z",
+      "completedAt": "2026-11-05T18:14:38.910Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 214867.67724609375,
+      "sincePreviousStageMs": 93186.28540039062
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:14:49.810Z",
+      "completedAt": "2026-11-05T18:14:48.930Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 125230.04956054688,
+      "sincePreviousStageMs": 21076.447265625
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:15:02.827Z",
+      "completedAt": "2026-11-05T18:15:02.714Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 86877.40356445312,
+      "sincePreviousStageMs": 38328.671142578125
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:15:12.838Z",
+      "completedAt": "2026-11-05T18:15:12.666Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 248624.22583007812,
+      "sincePreviousStageMs": 33756.833984375
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:15:20.848Z",
+      "completedAt": "2026-11-05T18:15:19.974Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 104137.68676757812,
+      "sincePreviousStageMs": 17260.954345703125
+    },
+    {
+      "id": "local",
+      "month": 360,
+      "stage": "boot",
+      "observedAt": "2026-11-05T18:15:23.851Z",
+      "completedAt": "2026-11-05T18:15:23.639Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 34200.5595703125,
+      "sincePreviousStageMs": null
+    },
+    {
+      "id": "local",
+      "month": 360,
+      "stage": "download",
+      "observedAt": "2026-11-05T18:15:24.853Z",
+      "completedAt": "2026-11-05T18:15:23.887Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 34448.563720703125,
+      "sincePreviousStageMs": 248.01904296875
+    },
+    {
+      "id": "local",
+      "month": 360,
+      "stage": "migrated",
+      "observedAt": "2026-11-05T18:15:32.863Z",
+      "completedAt": "2026-11-05T18:15:32.703Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 43265.223388671875,
+      "sincePreviousStageMs": 8816.6787109375
+    },
+    {
+      "id": "local",
+      "month": 360,
+      "stage": "first-native-write-and-notices",
+      "observedAt": "2026-11-05T18:15:33.864Z",
+      "completedAt": "2026-11-05T18:15:33.179Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 43740.708251953125,
+      "sincePreviousStageMs": 476.16357421875
+    },
+    {
+      "id": "local",
+      "month": 360,
+      "stage": "settled",
+      "observedAt": "2026-11-05T18:15:34.866Z",
+      "completedAt": "2026-11-05T18:15:34.866Z",
+      "completionSource": "observation upper bound",
+      "elapsedFromInputMs": 45427.544677734375,
+      "sincePreviousStageMs": 1687
+    },
+    {
+      "id": "local",
+      "month": 360,
+      "stage": "official-read",
+      "observedAt": "2026-11-05T18:15:34.867Z",
+      "completedAt": "2026-11-05T18:15:34.023Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 44584.721435546875,
+      "sincePreviousStageMs": -842.8232421875
+    },
+    {
+      "id": "local",
+      "month": 360,
+      "stage": "reloaded",
+      "observedAt": "2026-11-05T18:16:05.904Z",
+      "completedAt": "2026-11-05T18:16:05.479Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 76041.21752929688,
+      "sincePreviousStageMs": 31456.6728515625
+    },
+    {
+      "id": "local",
+      "month": 360,
+      "stage": "next-month",
+      "observedAt": "2026-11-05T18:16:21.925Z",
+      "completedAt": "2026-11-05T18:16:21.071Z",
+      "completionSource": "progress file completion mtime",
+      "elapsedFromInputMs": 91633.46533203125,
+      "sincePreviousStageMs": 15592.920654296875
+    }
+  ]
+}

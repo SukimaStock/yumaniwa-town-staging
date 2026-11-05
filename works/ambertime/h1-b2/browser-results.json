@@ -1,0 +1,2890 @@
+{
+  "schema": "ambertime-h1-b2-browser/1",
+  "status": "complete",
+  "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+  "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+  "results": [
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "local",
+      "month": 1200,
+      "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "month": 1200,
+          "storedHash": "a898e6b51ff84065f732a7809f2013515acd69ff9001e66f0496fd312ee6bae1",
+          "storedVersion": 2,
+          "storedLength": 3806951,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "a898e6b51ff84065f732a7809f2013515acd69ff9001e66f0496fd312ee6bae1",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "bb187b3e7e73b9ae8880d08a8990e64c9d3d07927fc8081fc91f4e9978eb0407",
+          "expandedHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            },
+            {
+              "key": "stockist-notice",
+              "value": {
+                "shopId": "supermarket",
+                "offerId": 109,
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "66f60c308201a6c5ec99c2e53d9784219ef527881e8edd33615d99c86e62ee3c",
+          "month": 1200,
+          "storedHash": "827a891465ba7edbed00e0a1cba16dd4e43182bb24744848402c6fa90d103d1b",
+          "storedVersion": 3,
+          "storedLength": 2782051,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "66f60c308201a6c5ec99c2e53d9784219ef527881e8edd33615d99c86e62ee3c",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "66f60c308201a6c5ec99c2e53d9784219ef527881e8edd33615d99c86e62ee3c",
+          "month": 1200,
+          "storedHash": "827a891465ba7edbed00e0a1cba16dd4e43182bb24744848402c6fa90d103d1b",
+          "storedVersion": 3,
+          "storedLength": 2782051,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "5c79973c7aca9b6b050fd5cb12d353a3c8f74d4358d74e7ccf57251b7c5d3cb4",
+          "month": 1201,
+          "storedHash": "6c12685137de947a9c9afc8fd2e6ce96dbbe435c9f29a3159051b78ca0b7dcae",
+          "storedVersion": 3,
+          "storedLength": 2784161,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "bb187b3e7e73b9ae8880d08a8990e64c9d3d07927fc8081fc91f4e9978eb0407",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "153bc11512cd5e63afd112530f2ca91985751c03c7e15ee6ec5e0560a9747194",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "ffc53f9a670032b2dcf78f7b6e2f74f2a73db6eb486be82f82c939ba0d2a9529",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "827a891465ba7edbed00e0a1cba16dd4e43182bb24744848402c6fa90d103d1b",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "11158e743ba0db7c761034197f807a6d2a4b78aa2a861db3c71e2992e9f555d1",
+          "version": 3,
+          "month": 1200
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "mixed",
+      "month": 1200,
+      "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+          "month": 1200,
+          "storedHash": "8dbfece8a82ae173255bc9085f8392e5c8d4faaa839ca7bf0344d732f13689eb",
+          "storedVersion": 2,
+          "storedLength": 4938611,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "8dbfece8a82ae173255bc9085f8392e5c8d4faaa839ca7bf0344d732f13689eb",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "fd161316b5ac07f10bd2d6ce62df204c5d05e78ca4f01069eaace31320b0a90f",
+          "expandedHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "ee4eddfa37dc822d6299d2960b2e15ae89556cb2eeb0ac0e709f40bd06c060f3",
+          "month": 1200,
+          "storedHash": "f324eeab93b533a0bc4b2496cf7643f6faadb9fd5837483312866f15895847ab",
+          "storedVersion": 3,
+          "storedLength": 3591242,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "ee4eddfa37dc822d6299d2960b2e15ae89556cb2eeb0ac0e709f40bd06c060f3",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "ee4eddfa37dc822d6299d2960b2e15ae89556cb2eeb0ac0e709f40bd06c060f3",
+          "month": 1200,
+          "storedHash": "f324eeab93b533a0bc4b2496cf7643f6faadb9fd5837483312866f15895847ab",
+          "storedVersion": 3,
+          "storedLength": 3591242,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "eebf56ae73c3e3167a7d723553400e15c8d8daf8cee1383231d7bd4c5bc1dc00",
+          "month": 1201,
+          "storedHash": "3037e4a4beca7b2a8bf2bcee8dd8abfbe92ced3bb0234791474d49b63feb8eb1",
+          "storedVersion": 3,
+          "storedLength": 3594300,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "fd161316b5ac07f10bd2d6ce62df204c5d05e78ca4f01069eaace31320b0a90f",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "143b5d25a8eb88a4242b3beebebad6b335ec957570b8cc0575f9dd1bd6fffcb7",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "f324eeab93b533a0bc4b2496cf7643f6faadb9fd5837483312866f15895847ab",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "0d88aed3d7b48976697ca416e9a97eddc687797d2f70a472983ec07650e8843f",
+          "version": 3,
+          "month": 1200
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "wide",
+      "month": 1080,
+      "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": false,
+          "error": "QuotaExceededError"
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": true,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "94221a9a6de31792d2b755eef029f62ebfaacbf26aec1682c0cee779ac0430c3",
+          "month": 0,
+          "storedHash": "03c14d3e1fa50c12c2992d5c4f5b7641fee60847377e2a000ea958967d7102d8",
+          "storedVersion": 3,
+          "storedLength": 8159,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "oldFileRestore": {
+          "path": "visible auxiliary-menu import button and real file chooser",
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "f84d963a3dba1eec1ba48e891a13214f0aa9366a0049c74d2706e71df235c732",
+          "expandedHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "91dc3e6c175d6f883a786ab98f088c74e4ff95f8201ffb6c68a44acd7d36a5f0",
+          "month": 1080,
+          "storedHash": "fcaf280a5d398d60a8678eee1432213c9b3ee99e273d22dda6ffb96714a14ec7",
+          "storedVersion": 3,
+          "storedLength": 3807757,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "91dc3e6c175d6f883a786ab98f088c74e4ff95f8201ffb6c68a44acd7d36a5f0",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "91dc3e6c175d6f883a786ab98f088c74e4ff95f8201ffb6c68a44acd7d36a5f0",
+          "month": 1080,
+          "storedHash": "fcaf280a5d398d60a8678eee1432213c9b3ee99e273d22dda6ffb96714a14ec7",
+          "storedVersion": 3,
+          "storedLength": 3807757,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "bcc3e114fca7176381f3e543f5351b882c37ae4681eaa7df6d9b7fbc7ea46547",
+          "month": 1081,
+          "storedHash": "2020aaa02630d6149d508cc4c489c698d4faee60ab06f3178e7d90f5df8d9971",
+          "storedVersion": 3,
+          "storedLength": 3809562,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "f84d963a3dba1eec1ba48e891a13214f0aa9366a0049c74d2706e71df235c732",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "5028df68298229a8b40d866d582c649e8a68b09841c0123e9889921646d1b384",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "fcaf280a5d398d60a8678eee1432213c9b3ee99e273d22dda6ffb96714a14ec7",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "da73f44fd8aaad0b3951b5bee5c23de66b1629387fc22dc6d29fcfe0773721a6",
+          "version": 3,
+          "month": 1080
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "元のファイルを端末外にも保管したことを確認して、この記録を読み込みますか？現在の記録がある場合は置き換えます。保管先や保管完了はアプリから確認できません。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "mixed",
+      "month": 1080,
+      "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+          "month": 1080,
+          "storedHash": "d1f59dd64295921bce4de3502febca14e7baffe43da677a084acdbf86c14c54c",
+          "storedVersion": 2,
+          "storedLength": 4425328,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "d1f59dd64295921bce4de3502febca14e7baffe43da677a084acdbf86c14c54c",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "a6b4bf1fdaedc04d47fccdeb16141cb47b78741395eb6edd8629c908547d958f",
+          "expandedHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "3ca3c6facf606ffb0bf4c48976737fca1cd4d183b87752e468b8911425528a45",
+          "month": 1080,
+          "storedHash": "89e0d05ad598c3668d6e5e86cb783a28824b5022f98ee13575246d670da87112",
+          "storedVersion": 3,
+          "storedLength": 3220455,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "3ca3c6facf606ffb0bf4c48976737fca1cd4d183b87752e468b8911425528a45",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "3ca3c6facf606ffb0bf4c48976737fca1cd4d183b87752e468b8911425528a45",
+          "month": 1080,
+          "storedHash": "89e0d05ad598c3668d6e5e86cb783a28824b5022f98ee13575246d670da87112",
+          "storedVersion": 3,
+          "storedLength": 3220455,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "61250ab4d34aeb2c791f382247a917bffcc5576d395cb1e29e03ee54ca9baff5",
+          "month": 1081,
+          "storedHash": "a0dac8038af0721e916d0ed08dbc86da5fed506fc1cbe32cb522ec60c1cefe3f",
+          "storedVersion": 3,
+          "storedLength": 3222633,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "a6b4bf1fdaedc04d47fccdeb16141cb47b78741395eb6edd8629c908547d958f",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "1b15a8c35cbe9e27ac15752ea02e61fddf1fe3736b4cac5f4c1b5aa3f4527d49",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "89e0d05ad598c3668d6e5e86cb783a28824b5022f98ee13575246d670da87112",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "43dcc965372f74176d89c9e2c873d1cf714835dd20ad89814a8f5ad51df9ade4",
+          "version": 3,
+          "month": 1080
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "wide",
+      "month": 1200,
+      "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": false,
+          "error": "QuotaExceededError"
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": true,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "94221a9a6de31792d2b755eef029f62ebfaacbf26aec1682c0cee779ac0430c3",
+          "month": 0,
+          "storedHash": "03c14d3e1fa50c12c2992d5c4f5b7641fee60847377e2a000ea958967d7102d8",
+          "storedVersion": 3,
+          "storedLength": 8159,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "oldFileRestore": {
+          "path": "visible auxiliary-menu import button and real file chooser",
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "31d916f842c5d444f7a55d885d7be890a9f9ff91bae41089f8aa2b325b4f3800",
+          "expandedHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "83e3a4eeba0947750f5713aedd42db10ec05c458f7f09fa991720bda8dda0bc4",
+          "month": 1200,
+          "storedHash": "71a38c9467b01de6e36e4d6030311adcf7551b537c3721c6466a1733a3069d3c",
+          "storedVersion": 3,
+          "storedLength": 4228444,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "83e3a4eeba0947750f5713aedd42db10ec05c458f7f09fa991720bda8dda0bc4",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "83e3a4eeba0947750f5713aedd42db10ec05c458f7f09fa991720bda8dda0bc4",
+          "month": 1200,
+          "storedHash": "71a38c9467b01de6e36e4d6030311adcf7551b537c3721c6466a1733a3069d3c",
+          "storedVersion": 3,
+          "storedLength": 4228444,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "321cc11a1eff49964636eb96ebb834cf52216fdf086f16b2f9f05968a09c8a2a",
+          "month": 1201,
+          "storedHash": "55a70f3f1b2ea708ac482eb6168cd6aee4fbfc82b8db06f67a7e8c41c6f43fb8",
+          "storedVersion": 3,
+          "storedLength": 4231502,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "cleanProcessReopen": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "321cc11a1eff49964636eb96ebb834cf52216fdf086f16b2f9f05968a09c8a2a",
+          "month": 1201,
+          "storedHash": "55a70f3f1b2ea708ac482eb6168cd6aee4fbfc82b8db06f67a7e8c41c6f43fb8",
+          "storedVersion": 3,
+          "storedLength": 4231502,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "31d916f842c5d444f7a55d885d7be890a9f9ff91bae41089f8aa2b325b4f3800",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "b082370a34d317a5d7da62b3c4fb464f13745b93663a79397bc859e489b1568b",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "71a38c9467b01de6e36e4d6030311adcf7551b537c3721c6466a1733a3069d3c",
+          "version": 3,
+          "month": 1200
+        },
+        {
+          "hash": "e1fb271d7a9a2f99f890a351f93f4d7eec6f0c94affbf1389a06507074fbe800",
+          "version": 3,
+          "month": 1200
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "元のファイルを端末外にも保管したことを確認して、この記録を読み込みますか？現在の記録がある場合は置き換えます。保管先や保管完了はアプリから確認できません。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "mixed",
+      "month": 720,
+      "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+          "month": 720,
+          "storedHash": "0e8fa48e6dcd3fe1e98375f81e396ccc31d22a0c5b5bb32b74b80fcf6af4cfe0",
+          "storedVersion": 2,
+          "storedLength": 2917758,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "0e8fa48e6dcd3fe1e98375f81e396ccc31d22a0c5b5bb32b74b80fcf6af4cfe0",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "3e6aaa51959d4c28a86283e66a922498dbf9853e5080da2a46909bf6fbee4910",
+          "expandedHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "e0e77b618c6469202bb6f593441dde4515b6902639af2ceb4b4ca9da95ae267b",
+          "month": 720,
+          "storedHash": "83046386dd333d8d9faa7a0eb9df228d4db6f9a6363a94bf832e586de436b1bb",
+          "storedVersion": 3,
+          "storedLength": 2132428,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "e0e77b618c6469202bb6f593441dde4515b6902639af2ceb4b4ca9da95ae267b",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "e0e77b618c6469202bb6f593441dde4515b6902639af2ceb4b4ca9da95ae267b",
+          "month": 720,
+          "storedHash": "83046386dd333d8d9faa7a0eb9df228d4db6f9a6363a94bf832e586de436b1bb",
+          "storedVersion": 3,
+          "storedLength": 2132428,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "2e53f1135ddf5bb92208cde29891a8c7ccb54bf84aef53c37935c06ddce2d1cb",
+          "month": 721,
+          "storedHash": "299c70c18a8d90d5ba01211df548b1d05750f096a1c9c0ba19913cf1d2a8002f",
+          "storedVersion": 3,
+          "storedLength": 2133477,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "3e6aaa51959d4c28a86283e66a922498dbf9853e5080da2a46909bf6fbee4910",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "719805a7d1708e3dafa1baa10276e00b8e76791a75ebbd293a1bec4cd2348d6c",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "83046386dd333d8d9faa7a0eb9df228d4db6f9a6363a94bf832e586de436b1bb",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "2ae9d38326b9134c850f6880a0ed267cd8af602a91fd933fae70c5ea8220de33",
+          "version": 3,
+          "month": 720
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "wide",
+      "month": 720,
+      "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+          "month": 720,
+          "storedHash": "94980cf71442e413c5593b4e76bf6f8e7f437f135660c4ac889d29e5990e39c6",
+          "storedVersion": 2,
+          "storedLength": 3737548,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "94980cf71442e413c5593b4e76bf6f8e7f437f135660c4ac889d29e5990e39c6",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "0ec81e64aadcf613c60621525ade5d5559df052e9c1b7ffce24f5a8558c0eab1",
+          "expandedHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "93f6745a6e72cf0779d77ecedabf46bfc805614570ae4a82da56cdca5601cdfb",
+          "month": 720,
+          "storedHash": "038495f66f19063747023fc1420d38c9dee4e4e50671087df7fb2048af376e86",
+          "storedVersion": 3,
+          "storedLength": 2718134,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "93f6745a6e72cf0779d77ecedabf46bfc805614570ae4a82da56cdca5601cdfb",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "93f6745a6e72cf0779d77ecedabf46bfc805614570ae4a82da56cdca5601cdfb",
+          "month": 720,
+          "storedHash": "038495f66f19063747023fc1420d38c9dee4e4e50671087df7fb2048af376e86",
+          "storedVersion": 3,
+          "storedLength": 2718134,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "af63e396ea1dcade393e5216f18542c448214d2ce0b06d7dac870899cffdeeee",
+          "month": 721,
+          "storedHash": "4a7e1b91b884fd494ae6fac19730c194e00d8edcf795c28fd5d62061cb5e3fc8",
+          "storedVersion": 3,
+          "storedLength": 2721841,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "0ec81e64aadcf613c60621525ade5d5559df052e9c1b7ffce24f5a8558c0eab1",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "e9fc25745d603947cc65ea32b8fe1de1d8d370fd3ca0be88bef57ad31799302c",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "038495f66f19063747023fc1420d38c9dee4e4e50671087df7fb2048af376e86",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "8cad0061e7cb25228710b1cb1856267ff395089e2003843e6ad2e63239b87307",
+          "version": 3,
+          "month": 720
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "local",
+      "month": 1080,
+      "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+          "month": 1080,
+          "storedHash": "043a0dd16b93da73c3a7391d255f1414bb9ad6aca5c38fbd08fe0eb11a1033fb",
+          "storedVersion": 2,
+          "storedLength": 3500709,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "043a0dd16b93da73c3a7391d255f1414bb9ad6aca5c38fbd08fe0eb11a1033fb",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "938341c95f1ad61f6df6e23d43e0a56f3df6e7773a1fd11977604b514ebf5d12",
+          "expandedHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            },
+            {
+              "key": "stockist-notice",
+              "value": {
+                "shopId": "supermarket",
+                "offerId": 98,
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "df8cab1c918b77132f97caa279fb51928ea86c74345ad66cae78f082ba0936a6",
+          "month": 1080,
+          "storedHash": "0415888d959b319b2d9b371a10684bba0eab5a47f54bb5fa50bd466a3123a1af",
+          "storedVersion": 3,
+          "storedLength": 2560514,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "df8cab1c918b77132f97caa279fb51928ea86c74345ad66cae78f082ba0936a6",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "df8cab1c918b77132f97caa279fb51928ea86c74345ad66cae78f082ba0936a6",
+          "month": 1080,
+          "storedHash": "0415888d959b319b2d9b371a10684bba0eab5a47f54bb5fa50bd466a3123a1af",
+          "storedVersion": 3,
+          "storedLength": 2560514,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "566cc05d148c3ccf1d25c4d9e26eaa6d9355da661381edf7bdb68c0219b77a2f",
+          "month": 1081,
+          "storedHash": "3dcc8c8458b415792d086da409f951828d33ec1748d0ee3db1a44fd3986ef285",
+          "storedVersion": 3,
+          "storedLength": 2561094,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "938341c95f1ad61f6df6e23d43e0a56f3df6e7773a1fd11977604b514ebf5d12",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "a322bdb53efbb9c4d9c0a04e6ed7831c06695b8dfc92407a190f2296692ed408",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "cf464eac91ac50b453652e3058b3a2d0f4072839f978b8839ef0abfa6f9584a8",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "0415888d959b319b2d9b371a10684bba0eab5a47f54bb5fa50bd466a3123a1af",
+          "version": 3,
+          "month": 1080
+        },
+        {
+          "hash": "957028d6480678b5fb5c4714ef304d9d01b9ff4b08c5fd959afc2d126e32af5b",
+          "version": 3,
+          "month": 1080
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "wide",
+      "month": 360,
+      "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+          "month": 360,
+          "storedHash": "0ac1921445c7132c7aebc4d05ac73ff115ca995fb345db951dca999a29e9bca4",
+          "storedVersion": 2,
+          "storedLength": 2328468,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "0ac1921445c7132c7aebc4d05ac73ff115ca995fb345db951dca999a29e9bca4",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "cdd715d69701fc008ec6ac156fb2e4e1dea260019e13a5880dde345f082797b8",
+          "expandedHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "ae183d040030cf7cac4d15e2fcab122b3e571fcdca1e9f452ac074e6043884ac",
+          "month": 360,
+          "storedHash": "72f9fa215ada474d421c037cf120d33c790ba165d5a9be518efb80c23fb73d36",
+          "storedVersion": 3,
+          "storedLength": 1704145,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "ae183d040030cf7cac4d15e2fcab122b3e571fcdca1e9f452ac074e6043884ac",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "ae183d040030cf7cac4d15e2fcab122b3e571fcdca1e9f452ac074e6043884ac",
+          "month": 360,
+          "storedHash": "72f9fa215ada474d421c037cf120d33c790ba165d5a9be518efb80c23fb73d36",
+          "storedVersion": 3,
+          "storedLength": 1704145,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "460d432bda5ae9e9f35e2eb21f893a338cdf922df418dc59796a63422110083a",
+          "month": 361,
+          "storedHash": "9931c71095b9ccfdf23c83a610be6cce44fdce12eef84cb9012b511b77187352",
+          "storedVersion": 3,
+          "storedLength": 1707474,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "cdd715d69701fc008ec6ac156fb2e4e1dea260019e13a5880dde345f082797b8",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "659127b4a5a607df78cc111d3275b74af3052a7e5b2ecf2d5148e5d93a1cf312",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "72f9fa215ada474d421c037cf120d33c790ba165d5a9be518efb80c23fb73d36",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "79717fb7808f50ff6e6ecbe0a391320eb5210459bc168410b23743eef87094a7",
+          "version": 3,
+          "month": 360
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "local",
+      "month": 720,
+      "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+          "month": 720,
+          "storedHash": "73879736ea92fc5208e0771640af4d13593755f7d58b6fff008dc724ff7c2fba",
+          "storedVersion": 2,
+          "storedLength": 2631232,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "73879736ea92fc5208e0771640af4d13593755f7d58b6fff008dc724ff7c2fba",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "2f8db1ba021c178887cca707d3d44a0de19b508c8d54d3d9eb58ec6c60a14174",
+          "expandedHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "3a70a112797d00d5a4b586f7bc54e50d3bf00a5f6472c72000496752380ae9df",
+          "month": 720,
+          "storedHash": "826857f88c350facf9d5111704a08fcdc1997a32fd942150893d0fdeeef74bf9",
+          "storedVersion": 3,
+          "storedLength": 1937588,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "3a70a112797d00d5a4b586f7bc54e50d3bf00a5f6472c72000496752380ae9df",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "3a70a112797d00d5a4b586f7bc54e50d3bf00a5f6472c72000496752380ae9df",
+          "month": 720,
+          "storedHash": "826857f88c350facf9d5111704a08fcdc1997a32fd942150893d0fdeeef74bf9",
+          "storedVersion": 3,
+          "storedLength": 1937588,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "dee595eee44de5f74fcec71f856b4b1cbdd9c97ffbe6e7e017930e0cc228e714",
+          "month": 721,
+          "storedHash": "67d1a10091238dae2b516d758ebae88f2e1794acc7ba93c47ed634c7521a8f3a",
+          "storedVersion": 3,
+          "storedLength": 1942460,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "2f8db1ba021c178887cca707d3d44a0de19b508c8d54d3d9eb58ec6c60a14174",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "aad331ea4f1dc6160e2bdda01f897909387b24df2b64282393c13e1b329c1f98",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "826857f88c350facf9d5111704a08fcdc1997a32fd942150893d0fdeeef74bf9",
+          "version": 3,
+          "month": 720
+        },
+        {
+          "hash": "e8730955109711ab8083befd2d49017073c7827ca78e992a7e601bbde51d3c00",
+          "version": 3,
+          "month": 720
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "mixed",
+      "month": 360,
+      "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+          "month": 360,
+          "storedHash": "2e6a11bb6898b3166722fd175cccd9c2e2d159464f5f6e65c2c208da0a9fa9d1",
+          "storedVersion": 2,
+          "storedLength": 1830786,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "2e6a11bb6898b3166722fd175cccd9c2e2d159464f5f6e65c2c208da0a9fa9d1",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "f729372cea62bb1219ccf8ce5a8d22a119c48d85a900d0afea002bf53fe73cc8",
+          "expandedHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "c56b4543d4b249f5d241977ce36dbe21dc4bede8dc34fc541ab5aa19bc2557b6",
+          "month": 360,
+          "storedHash": "6157a71e14f3a0cbe1245ec137eea4e41a9982d7ff18807dffa469d597421d75",
+          "storedVersion": 3,
+          "storedLength": 1352117,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "c56b4543d4b249f5d241977ce36dbe21dc4bede8dc34fc541ab5aa19bc2557b6",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "c56b4543d4b249f5d241977ce36dbe21dc4bede8dc34fc541ab5aa19bc2557b6",
+          "month": 360,
+          "storedHash": "6157a71e14f3a0cbe1245ec137eea4e41a9982d7ff18807dffa469d597421d75",
+          "storedVersion": 3,
+          "storedLength": 1352117,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "b64d582c40caa800120115ebf5545a79ca2ff52561382c704dccb632fdb0bbde",
+          "month": 361,
+          "storedHash": "038a2be5be778c88ee53d1882b524aad48ff7153e24193f331a5cde1fd8095b1",
+          "storedVersion": 3,
+          "storedLength": 1353788,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "f729372cea62bb1219ccf8ce5a8d22a119c48d85a900d0afea002bf53fe73cc8",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "2d38624f86f157e7045113813393723e70edd555683e747739a04f9568412679",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "6157a71e14f3a0cbe1245ec137eea4e41a9982d7ff18807dffa469d597421d75",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "11aa69dde17e7b3aea703526b09ccd61ed21063d3dbbda984cfa479deb1fdcc7",
+          "version": 3,
+          "month": 360
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-b2-browser-condition/1",
+      "status": "complete",
+      "id": "local",
+      "month": 360,
+      "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+      "runnerFingerprint": "a1517e9a04113da53faf1b52401ce53dd149b887eed8bad3c5f93b313aa5e992",
+      "actionTimeoutMs": 600000,
+      "readTimeoutMs": 1200000,
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+      "checks": {
+        "oldNativeSeed": {
+          "success": true
+        },
+        "boot": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": false,
+            "migrationPending": true,
+            "saveVersion": 2,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+          "month": 360,
+          "storedHash": "c71bb89b50fbe5ee7b93daf8d8d3c1de252d3de8e36d314772043a9a15789050",
+          "storedVersion": 2,
+          "storedLength": 1663054,
+          "saveStatus": "旧形式・切替前",
+          "notice": "元の記録をファイルに保管し、同じファイルを選び直してください。確認が終わるまで進行と保存を止めています。",
+          "recovery": true
+        },
+        "download": {
+          "exact": true,
+          "sha256": "c71bb89b50fbe5ee7b93daf8d8d3c1de252d3de8e36d314772043a9a15789050",
+          "downloadAloneDoesNotAuthorize": true
+        },
+        "migrationReadback": {
+          "exact": true,
+          "explicitConfirmation": true
+        },
+        "firstCompactWrite": {
+          "wireHash": "624e073a60e1333f8260f49ada9cb2d4f5dfe1e11e27a6ad3164b120ba6d86ea",
+          "expandedHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+          "nativeReceipt": true
+        },
+        "startupNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "settledNotices": {
+          "extraOperations": [
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "distill",
+                "progress": null
+              }
+            },
+            {
+              "key": "staff-opportunity-notice",
+              "value": {
+                "kind": "bottling",
+                "progress": null
+              }
+            }
+          ],
+          "originalOperationPrefixExact": true,
+          "currentOfficialReaderExact": true,
+          "exact": true
+        },
+        "saved": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "ad7736cf0ad1e795429e71fd16bd6f4aeb82184d33af9147492611f2692cab16",
+          "month": 360,
+          "storedHash": "d98ee138605f6556a871e4224770aacaa1999aa5f2ea9a87cd05f26ea9fd9d2b",
+          "storedVersion": 3,
+          "storedLength": 1231438,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        },
+        "expandedOfficialRead": {
+          "hash": "ad7736cf0ad1e795429e71fd16bd6f4aeb82184d33af9147492611f2692cab16",
+          "paused": true,
+          "elapsed": 0
+        },
+        "reload": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "ad7736cf0ad1e795429e71fd16bd6f4aeb82184d33af9147492611f2692cab16",
+          "month": 360,
+          "storedHash": "d98ee138605f6556a871e4224770aacaa1999aa5f2ea9a87cd05f26ea9fd9d2b",
+          "storedVersion": 3,
+          "storedLength": 1231438,
+          "saveStatus": "",
+          "notice": "",
+          "recovery": false
+        },
+        "nextMonth": {
+          "diagnostics": {
+            "placement": true,
+            "saveKey": "sukimastock.ambertime.main.v1",
+            "clockPending": false,
+            "playbackRate": 1,
+            "canSave": true,
+            "migrationPending": false,
+            "saveVersion": 3,
+            "ui": {
+              "motions": 0,
+              "draft": null
+            },
+            "market": {
+              "visible": false,
+              "selected": null,
+              "portion": "1",
+              "editing": null,
+              "motions": 0,
+              "scrollTasks": 0,
+              "feedback": []
+            }
+          },
+          "gameHash": "1fc717b2aef15ff5e087a99525d43af7757f95f5ab54a1b1d96c5f0282549c92",
+          "month": 361,
+          "storedHash": "63182523401da5ed584e1c2fe2f8a3a3f55d7ae9ab4d716d1fd49059326e203f",
+          "storedVersion": 3,
+          "storedLength": 1233247,
+          "saveStatus": "保存済み",
+          "notice": "",
+          "recovery": false
+        }
+      },
+      "nativeReceipts": [
+        {
+          "hash": "624e073a60e1333f8260f49ada9cb2d4f5dfe1e11e27a6ad3164b120ba6d86ea",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "869db8a4dfd21e60e826e3e368352b0dddbe6119347305138d41a9e9473f8c85",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "d98ee138605f6556a871e4224770aacaa1999aa5f2ea9a87cd05f26ea9fd9d2b",
+          "version": 3,
+          "month": 360
+        },
+        {
+          "hash": "a40a53f69117f2c9261009b4b5b962b5908333b94f8a0b305a2a1ae1d4ab9aee",
+          "version": 3,
+          "month": 360
+        }
+      ],
+      "dialogs": [
+        {
+          "type": "confirm",
+          "message": "この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、軽い保存形式へ切り替えます。",
+          "accepted": true
+        }
+      ],
+      "pageErrors": [],
+      "limits": [
+        "Only isolated profiles and HTTP origins use the actual formal key.",
+        "Wide90/100 old native v2 cannot fit, so exact v2 backup files use the real import UI.",
+        "Download bytes and readback are observed; off-device location is explicit user confirmation, not a verified cloud write.",
+        "No iPhone Safari, OS kill, screen lock or eviction verification.",
+        "First native v3 migration write is byte-exact to source; later pre-existing notices preserve original operations and pass current-state official validation, not an additional independent cold notice replay."
+      ]
+    }
+  ]
+}
