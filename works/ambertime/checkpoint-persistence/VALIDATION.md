@@ -7,7 +7,7 @@ PR: [#807](https://github.com/SukimaStock/yumaniwa-town-staging/pull/807)。
 
 ## テストと独立比較
 
-H1-A2研究12件＋H1-A3研究15件の27件成功。後続のcoverage6件拡張も成功（12の正式条件で資料比較を追加）。製品コードと既存期待値は変更していない。
+H1-A2研究12件＋H1-A3研究17件の29件成功。後続のcoverage6件拡張も成功（12の正式条件で資料比較を追加）。製品コードと既存期待値は変更していない。
 
 - 別Node PID、JSON経由のcheckpointと非空tail、正式状態・乱数・contextの完全一致。
 - seeds101/202各2銘柄、保留申し出受諾/納品/月次と辞退/月次、再び元分岐を開く操作、担当者と委任中/完了、通常蒸留37step/試飲overlay、v08から正式移行した旧origin、世代交代前後。
@@ -37,6 +37,16 @@ H1-A2既存60本の全同値フラグ・入力12SHA/容量・model fingerprint�
 
 Change Verificationの最終状態は`UNVERIFIED`。研究一致・Staging CI・mergeをSafari実機確認、作者採用、新しい正式保存形式の承認、Production反映として扱わない。
 
-最終状態計測fingerprint: `841ad0baf3e33f40464ddb2a50eba6e50d455cf59d59ffe3125b72ab5f9a4957`。fallback observer制約の確定前に始まった地元条件は最終集計へ含めず、確定コードの別出力先で再計測した。3方針とも同一fingerprint。全input SHA/容量は最後にもbaselineで再照合する。local条件の再実行は`reused:true`で重い計測なしに完了し、完了JSON再利用を確認した。
+最終状態計測fingerprint: `aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434`。fallback observer制約の確定前に始まった地元条件は最終集計へ含めず、確定コードの別出力先で再計測した。3方針とも同一fingerprint。全input SHA/容量は最後にもbaselineで再照合する。local条件の再実行は`reused:true`で重い計測なしに完了し、完了JSON再利用を確認した。
 
 context-probeは15方式で別NodeのdecodeContext単体を追加観測した。統合localVerifyMsはcontext decodeを既に含むため、この追加時間を合算しない。
+
+## GitHub P2の対応
+
+自動レビュー4479326060で、boundary-runのcache fingerprintがcaption/research-h25/recall-boundary依存を含めていないことを確認。共通fingerprint.mjsへ移し、AmberTime全773依存（全mjsと既存chronicle JSON等）を保守的に含めた。modelをcache判定前に確認し、完了直前にも同fingerprintを照合する。
+
+回想・文章・境界・oracle・model・追加/削除による失効と、自己results JSONの循環除外を2テストで確認。旧fingerprintの条件結果は新集計へ再ラベルせず、3状態条件・3資料条件を新しいscratchへ再実行した。全操作/資料/入力を保持する。修正後の数値だけを最終results/REPORTへ採用する。
+
+実際に旧完了ディレクトリへ新long-run/boundary-runを向け、両方がfingerprint mismatchでexit1となり、重い再生前に古いcacheを拒否することも確認した。
+
+fingerprintの対象は全.mjs＋chronicle JSON＋既存A1/A2結果であり、全読込ファイルの存在認証を意味しない。H25がmodule load時に読むhistory-lab/fixtures.jsonとmemory-lab/connections.jsonは、この長期抽出で渡すanalysisでは内容を参照しないため対象外。最終集計では、6条件のfingerprintすべてが現在dependencyFingerprintと一致することを実行側でも確認した。
