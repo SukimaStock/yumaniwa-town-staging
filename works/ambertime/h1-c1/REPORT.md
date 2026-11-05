@@ -62,3 +62,5 @@ Production変更なし。完了条件を満たすまでマージしない。
 修正版の回帰3/3 PASS。テスト用にだけcheckpoint長を観測し、同一module案のcache破棄と、分離案の正式checkpoint保持、樽番号・全JSON一致を同じfixtureで確認。
 
 最終比較の `matrix.mjs` は `browser-safe-timing.mjs` を使う。変更前は基準mainの実blobを使用、修正版は作業tree。初回の正式シリアライズ前にcheckpoint長が全操作件数と一致することを確認し、その所要時間も記録する。古い `browser-timing.mjs` と `local-100-shared.json` は不採用案の診断記録で、修正版の合格証拠に流用しない。
+
+**修正版・地元100年:** boot-complete 134.031秒、paint-opportunity 134.039秒、正式reader47.352秒、樽番号projection85.388秒。正式cacheは1,522/1,522操作を保持し、直後の厳密なserializeは0.118秒。以前の変更前診断と入力・wire・起動後全JSON hashが一致。エラー0。メモリはChromiumの粗いサンプル47.4MB（peakではない）。同じ最終runnerのbefore比較は別途実行。
