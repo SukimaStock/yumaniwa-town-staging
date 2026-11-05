@@ -1,0 +1,84 @@
+{
+  "schema": "ambertime-h1-b2-failure-browser/1",
+  "status": "complete",
+  "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+  "runnerFingerprint": "48d97487722385eb747ae652c4989c23a550a468014be0dce0c78854451b1143",
+  "originalFixtureSha256": "2f00b7e19ee7a4d73098bccc8862bad16017c4c7ca7bf7d30c2e62e71ce08d65",
+  "caskFixtureSha256": "d86923809537ea32329a9ac639312f8679c76dcee38b0d69629b59330672feaa",
+  "node": "v24.22.1",
+  "results": [
+    {
+      "case": "migration-interrupted-before-confirmation",
+      "complete": true,
+      "originalHash": "bbf3ae90ab306596b7b85d0e661e239d86dd1709d0d56023970bbfc2fe1d1bf0",
+      "cleanProcessReopen": true,
+      "unchanged": true,
+      "downloadAloneDidNotAuthorize": true
+    },
+    {
+      "case": "wrong-backup-file",
+      "complete": true,
+      "unchanged": true,
+      "noConfirmation": true
+    },
+    {
+      "case": "off-device-confirmation-cancelled",
+      "complete": true,
+      "unchanged": true,
+      "explicitConfirmationCancelled": true
+    },
+    {
+      "case": "verified-original-file-migration",
+      "complete": true,
+      "exactGame": true,
+      "newVersion": 3
+    },
+    {
+      "case": "backup-restore-new-profile",
+      "complete": true,
+      "visibleMenuAndFileChooser": true,
+      "v2Backup": true,
+      "newVersion": 3,
+      "exactGame": true,
+      "reload": true
+    },
+    {
+      "case": "corrupt-formal-record",
+      "complete": true,
+      "originalBytesPreserved": true,
+      "noAutomaticNewGame": true,
+      "recovery": true
+    },
+    {
+      "case": "stale-tab-after-newer-save",
+      "complete": true,
+      "storageEventStopped": true,
+      "staleRetryRejected": true,
+      "newerRecordPreserved": true,
+      "limitation": "get/compare/set is not atomic CAS; no claim for simultaneous cross-process races"
+    },
+    {
+      "case": "native-quota-distillation-start",
+      "complete": true,
+      "quota": {
+        "largestAcceptedFillerCodeUnits": 5234579,
+        "firstRejectedFillerCodeUnits": 5234580,
+        "rejections": 6,
+        "nativeQuotaExceeded": true
+      },
+      "actualLeverAndCountdown": true,
+      "originalGamePreserved": true,
+      "originalStoredBytesPreserved": true,
+      "clockStopped": true,
+      "status": "未保存"
+    }
+  ],
+  "pageErrors": [],
+  "limits": [
+    "Dedicated disposable profiles using actual main URL and formal key; no user records touched.",
+    "No fake storage exceptions, model replacement or test-only product action API.",
+    "Off-device location is an explicit confirmation; a download event alone never authorizes migration.",
+    "Browser clean shutdown is not OS kill or physical durability.",
+    "Stale-tab detection is not atomic localStorage CAS."
+  ]
+}

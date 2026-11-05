@@ -1,0 +1,54 @@
+{
+  "schema": "ambertime-h1-b2-browser-attempts/1",
+  "finalOutputDirectory": "/tmp/h1-b2-browser-final3",
+  "policy": "Only fully complete conditions from the final current product and runner fingerprints enter browser-results.json. Earlier smoke and interrupted/failed attempts are not relabeled as successful.",
+  "attempts": [
+    {
+      "scratchDirectory": "/tmp/h1-b2-browser-final",
+      "status": "failed-harness-assumption",
+      "reason": "Initial ordinary shop-offer dialog was not yet handled by the runner. Product had saved correctly; condition was not complete and is not reused.",
+      "completedConditionCount": 0,
+      "progress": [
+        {
+          "file": "local-1200-progress.json",
+          "sha256": "d45da055fc0b8221a241397774c5e9d366a5c29dcb6fba07a6e7c85b9a85f7ac",
+          "lastCompletedStage": "first-native-write-and-notices"
+        },
+        {
+          "file": "wide-1200-progress.json",
+          "sha256": "7e44ce7ba1cc394d755efb3194549ba1cc51adf0392175f0a6c5392af1e4189c",
+          "lastCompletedStage": "boot"
+        }
+      ],
+      "conditions": [
+        {
+          "id": "local",
+          "month": 1200,
+          "status": "failed",
+          "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "codeFingerprint": "299b00e1b4e13c272e3e385e693e546486e92fe272495437b808cf6cc1caf9bd",
+          "runnerFingerprint": "ce9b86e91959be5eb3a349e8306978a4bbbc98f23f1ea8751d6fa4c85dd2d74f",
+          "error": "Error: Unexpected initial dialog shop-offer\n    at condition (file:///workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:60:351)\n    at async file:///workspace/scratch/b4b6d10d6d2b/ambertime-h1-b2/works/ambertime/h1-b2/browser-run.mjs:79:129"
+        }
+      ]
+    },
+    {
+      "scratchDirectory": "/tmp/h1-b2-browser-final2",
+      "status": "invalidated-and-terminated",
+      "reason": "Before completion, parent approved removing redundant old-prefix notice API replay. Children were terminated and a new runner fingerprint/output directory used. No partial condition is counted as successful.",
+      "completedConditionCount": 0,
+      "progress": [
+        {
+          "file": "local-1200-progress.json",
+          "sha256": "a4e805d82b56ae90950eaaff08a0ae0a76b4f87db6801f2e3adc81b1ac0ed957",
+          "lastCompletedStage": "settled"
+        },
+        {
+          "file": "wide-1200-progress.json",
+          "sha256": "7e44ce7ba1cc394d755efb3194549ba1cc51adf0392175f0a6c5392af1e4189c",
+          "lastCompletedStage": "boot"
+        }
+      ]
+    }
+  ]
+}

@@ -37,6 +37,6 @@ test('fixed live messages use approved format; application adapters preserve err
  const app=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
  assert.match(app,/if\(next===game\)return \{ok:true,changed:false,text:LIVE_MESSAGE.unchanged\}/);
  assert.match(app,/text:LIVE_MESSAGE.shopGreeting/);assert.match(app,/deliveryNotice='「'\+LIVE_MESSAGE.shopGreeting\+'」'/);
- assert.match(app,/保存できません。元の記録を残して停止しています。/);assert.match(app,/別の画面で保存が変わりました。再読み込みしてください。/);
+ assert.match(app,/保存できません。最後の正常な記録を残して停止しています。/);assert.match(app,/別の画面で保存が変わりました。再読み込みしてください。/);
  assert(!app.includes('引継ぎ'));assert(app.includes('次の代へ引き継ぐ'));assert(app.includes('へ引き継ぎました。'));
 });

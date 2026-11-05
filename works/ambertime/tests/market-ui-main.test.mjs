@@ -125,14 +125,14 @@ function nativeTransaction({failWrite=false,conflict=false,invalid=false}={}){
  const start=source.indexOf('function actMarket(fn){'),end=source.indexOf('function commitPlacement(',start);
  const old={id:'before'},next={id:'after'},calls={writes:0,receipts:0,news:0,renders:0},saveStatus={textContent:'保存済み'};
  let stored=conflict?'another-tab':'old';
- const context={game:old,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
+ const context={game:old,committedSession:{game:old,userPaused:false,elapsed:0},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
   D:{serializeDistillery:g=>{if(invalid)throw Error('invalid state');return JSON.stringify(g);}},
-  countdown:{cancel(){}},stopClock(){},writeCandidate,
+  countdown:{cancel(){}},stopClock(){},writeCandidate,serializeSession:(game,ui,{serialize})=>JSON.stringify({version:3,game:JSON.parse(serialize(game)),...ui}),T:{monthMs:6000,distillStepMs:100},
   localStorage:{getItem:()=>stored,setItem:(key,value)=>{calls.writes++;if(failWrite)throw Error('quota');stored=value;}},
   automaticNews:{push(){calls.news++;}},automaticEvents:()=>[],caskName:()=>'',soldOutLabel:()=>'',noteMapReach(){},
   marketUI:{consume(before,after){assert.equal(before,old);assert.equal(after,next);calls.receipts++;}},
   $:()=>saveStatus,storageNotice(){},render(){calls.renders++;},schedule(){}}
- const sandbox=vm.createContext(context);vm.runInContext(source.slice(start,end),sandbox);
+ const sandbox=vm.createContext(context);vm.runInContext(source.slice(source.indexOf('function rememberCommitted()'),source.indexOf('const displayProductStock='))+source.slice(start,end),sandbox);
  return {old,next,calls,context,stored:()=>stored,run:()=>context.actMarket(()=>next)};
 }
 test('native market commits live state and receipt presentation only after exact conditional save',()=>{

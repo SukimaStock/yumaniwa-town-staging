@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{createHash}from'node:crypto';
+const read=p=>readFileSync(new URL(p,import.meta.url),'utf8'),sha=x=>createHash('sha256').update(x).digest('hex');
+test('actual main native-quota, backup and interruption evidence binds current frozen code',()=>{
+ const r=JSON.parse(read('failure-browser-results.json')),names=['shop-app.mjs','index.html','placement-save.mjs','save-codec.mjs','market-ui.mjs','partner-orders.mjs','economy-parameters.mjs'];assert.equal(r.status,'complete');assert.equal(r.codeFingerprint,sha(names.map(f=>read('../'+f)).join('\n')));assert.equal(r.runnerFingerprint,sha(read('failure-browser.mjs')));assert.equal(r.results.length,8);assert(r.results.every(x=>x.complete));assert.equal(r.pageErrors.length,0);assert.equal(new Set(r.results.map(x=>x.case)).size,8);
+ const cases=JSON.stringify(r.results);for(const field of ['migration-interrupted-before-confirmation','wrong-backup-file','stale-tab'])assert(cases.includes(field));const quota=r.results.find(x=>x.case==='native-quota-distillation-start');assert(quota.quota.nativeQuotaExceeded&&quota.originalGamePreserved&&quota.originalStoredBytesPreserved&&quota.clockStopped);assert.equal(quota.status,'未保存');
+});

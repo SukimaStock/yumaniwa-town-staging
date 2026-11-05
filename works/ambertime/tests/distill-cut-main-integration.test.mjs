@@ -7,6 +7,9 @@ import * as D from '../partner-orders.mjs';
 import {manualCompletedRuns} from '../distill-learning.mjs';
 import {lateRelease,finishExtraction} from './generation-helpers.mjs';
 import {host} from './r0-distill-host.mjs';
+import {readSession} from '../placement-save.mjs';
+import {PARALLEL_PARAMETERS as SESSION_TIME} from '../economy-parameters.mjs';
+const resumed=text=>readSession(text,{enabled:true,restore:D.restoreDistillery,monthMs:SESSION_TIME.monthMs,stepMs:SESSION_TIME.distillStepMs}).game;
 const baselineBytes=fs.readFileSync(new URL('../design/cut-main/model-baseline.json',import.meta.url));
 const baseline=JSON.parse(baselineBytes);
 const digest=raw=>createHash('sha256').update(raw).digest('hex');
@@ -81,14 +84,14 @@ test('actual lever and glass handlers count formal stop, not countdown/start/col
  api.stepTo(11);const partial=D.serializeDistillery(api.game());api.finishDistillation();assert.equal(D.serializeDistillery(api.game()),partial,'minimum collection window is enforced');
  api.stepTo(12);api.finishDistillation();assert.equal(api.game().still.phase,'filling');assert.equal(manualCompletedRuns(api.game()),1);assert.equal(api.modal().kind,'fill');assert.equal(api.node('dialog-title').textContent,'蒸留結果');assert.match(api.node('dialog-body').innerHTML,/たるを選ぶ/);assert.match(api.node('dialog-actions').innerHTML,/data-action="fill"/);
  const done=D.serializeDistillery(api.game());api.finishDistillation();assert.equal(D.serializeDistillery(api.game()),done);assert.equal(manualCompletedRuns(api.game()),1);
- api.fill('refill');assert.equal(api.room(),'warehouse');assert.equal(api.modal(),null);assert.equal(api.game().core.casks.length,1);assert.equal(api.game().still.phase,'ready');assert.equal(D.serializeDistillery(D.restoreDistillery(JSON.stringify(JSON.parse(persisted()).game))),D.serializeDistillery(api.game()));
+ api.fill('refill');assert.equal(api.room(),'warehouse');assert.equal(api.modal(),null);assert.equal(api.game().core.casks.length,1);assert.equal(api.game().still.phase,'ready');assert.equal(D.serializeDistillery(resumed(persisted())),D.serializeDistillery(api.game()));
 });
 test('cancelling countdown performs no formal operation or save',()=>{
  const h=host(),before=D.serializeDistillery(h.api.game()),stored=h.persisted();h.api.startFromLever();h.api.cancelCountdown();h.api.runCountdown();assert.equal(D.serializeDistillery(h.api.game()),before);assert.equal(h.persisted(),stored);assert.equal(h.writes(),0);assert.equal(manualCompletedRuns(h.api.game()),0);
 });
-test('actual save failure preserves persisted start/stop bytes and disables input; journal count describes in-memory facts',()=>{
+test('actual save failure preserves persisted start/stop bytes and disables input; failed journal operations roll back to the committed state',()=>{
  const start=host(),initial=start.persisted();start.api.startFromLever();start.failWrites();start.api.runCountdown();assert.equal(start.persisted(),initial);assert.equal(start.api.canSave(),false);assert.equal(manualCompletedRuns(start.api.game()),0);assert.equal(start.api.tools().glassEnabled,false);
- const stop=host();stop.api.startFromLever();stop.api.runCountdown();stop.api.finishDistillation();stop.api.stepTo(12);const stored=stop.persisted();stop.failWrites();stop.api.finishDistillation();assert.equal(stop.persisted(),stored);assert.equal(stop.api.canSave(),false);assert.equal(stop.api.modal(),null);assert.equal(manualCompletedRuns(stop.api.game()),1,'real act changes in-memory model before a failed save');assert.equal(manualCompletedRuns(D.restoreDistillery(JSON.stringify(JSON.parse(stored).game))),0,'the durable journal did not gain a stop');assert.equal(stop.api.tools().glassEnabled,false);
+ const stop=host();stop.api.startFromLever();stop.api.runCountdown();stop.api.finishDistillation();stop.api.stepTo(12);const stored=stop.persisted();stop.failWrites();stop.api.finishDistillation();assert.equal(stop.persisted(),stored);assert.equal(stop.api.canSave(),false);assert.equal(stop.api.modal(),null);assert.equal(manualCompletedRuns(stop.api.game()),0,'H1-B2 never publishes the failed stop operation');assert.equal(manualCompletedRuns(resumed(stored)),0,'the durable journal did not gain a stop');assert.equal(stop.api.tools().glassEnabled,false);
 });
 test('fill commits only after conditional storage succeeds, with the unfinished spirit retained on failure',()=>{
  for(const failure of ['denied','conflict']){const h=host();h.api.startFromLever();h.api.runCountdown();h.api.finishDistillation();h.api.stepTo(12);h.api.finishDistillation();const before=D.serializeDistillery(h.api.game()),stored=h.persisted();if(failure==='denied')h.failWrites();else h.conflict();h.api.fill('refill');assert.equal(D.serializeDistillery(h.api.game()),before);assert.equal(h.api.game().still.phase,'filling');assert.equal(h.api.modal().kind,'fill');assert.equal(h.api.canSave(),false);assert.equal(h.persisted(),failure==='conflict'?'external-save':stored);}

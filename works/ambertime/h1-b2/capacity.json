@@ -1,0 +1,139 @@
+{
+  "schema": "ambertime-h1-b2-capacity/1",
+  "codecSha256": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e",
+  "limits": "Pure formal codec size, browser IO measured separately. userPaused true elapsed0. Native quota reference is historical H1B1 observed lower bound, not universal.",
+  "rows": [
+    {
+      "id": "local",
+      "month": 360,
+      "inputSha256": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "expandedCodeUnits": 1663003,
+      "expandedUtf8Bytes": 1868397,
+      "sessionCodeUnits": 1231283,
+      "sessionUtf8Bytes": 1354785,
+      "internalRemaining": 4353381,
+      "browserReferenceRemaining": 4010573
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "inputSha256": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+      "expandedCodeUnits": 2631181,
+      "expandedUtf8Bytes": 2946411,
+      "sessionCodeUnits": 1937433,
+      "sessionUtf8Bytes": 2123531,
+      "internalRemaining": 3385203,
+      "browserReferenceRemaining": 3304423
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "inputSha256": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+      "expandedCodeUnits": 3500658,
+      "expandedUtf8Bytes": 3916316,
+      "sessionCodeUnits": 2560255,
+      "sessionUtf8Bytes": 2802223,
+      "internalRemaining": 2515726,
+      "browserReferenceRemaining": 2681601
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "inputSha256": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "expandedCodeUnits": 3806900,
+      "expandedUtf8Bytes": 4257604,
+      "sessionCodeUnits": 2781791,
+      "sessionUtf8Bytes": 3043853,
+      "internalRemaining": 2209484,
+      "browserReferenceRemaining": 2460065
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "inputSha256": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+      "expandedCodeUnits": 2328417,
+      "expandedUtf8Bytes": 2613479,
+      "sessionCodeUnits": 1703990,
+      "sessionUtf8Bytes": 1870020,
+      "internalRemaining": 3687967,
+      "browserReferenceRemaining": 3537866
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "inputSha256": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+      "expandedCodeUnits": 3737497,
+      "expandedUtf8Bytes": 4190187,
+      "sessionCodeUnits": 2717979,
+      "sessionUtf8Bytes": 2978077,
+      "internalRemaining": 2278887,
+      "browserReferenceRemaining": 2523877
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "inputSha256": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+      "expandedCodeUnits": 5259993,
+      "expandedUtf8Bytes": 5894269,
+      "sessionCodeUnits": 3807602,
+      "sessionUtf8Bytes": 4168360,
+      "internalRemaining": 756391,
+      "browserReferenceRemaining": 1434254
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "inputSha256": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "expandedCodeUnits": 5838093,
+      "expandedUtf8Bytes": 6539999,
+      "sessionCodeUnits": 4228289,
+      "sessionUtf8Bytes": 4627171,
+      "internalRemaining": 178291,
+      "browserReferenceRemaining": 1013567
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "inputSha256": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+      "expandedCodeUnits": 1830735,
+      "expandedUtf8Bytes": 2054345,
+      "sessionCodeUnits": 1351962,
+      "sessionUtf8Bytes": 1484662,
+      "internalRemaining": 4185649,
+      "browserReferenceRemaining": 3889894
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "inputSha256": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+      "expandedCodeUnits": 2917707,
+      "expandedUtf8Bytes": 3269309,
+      "sessionCodeUnits": 2132273,
+      "sessionUtf8Bytes": 2337063,
+      "internalRemaining": 3098677,
+      "browserReferenceRemaining": 3109583
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "inputSha256": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+      "expandedCodeUnits": 4425277,
+      "expandedUtf8Bytes": 4953575,
+      "sessionCodeUnits": 3220300,
+      "sessionUtf8Bytes": 3524642,
+      "internalRemaining": 1591107,
+      "browserReferenceRemaining": 2021556
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "inputSha256": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "expandedCodeUnits": 4938560,
+      "expandedUtf8Bytes": 5527716,
+      "sessionCodeUnits": 3591087,
+      "sessionUtf8Bytes": 3929729,
+      "internalRemaining": 1077824,
+      "browserReferenceRemaining": 1650769
+    }
+  ]
+}
