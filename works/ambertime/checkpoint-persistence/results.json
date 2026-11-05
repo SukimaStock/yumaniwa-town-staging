@@ -1,0 +1,1692 @@
+{
+  "schema": "ambertime-h1-a3-results/1",
+  "status": "complete",
+  "baseline": {
+    "schema": "ambertime-h1-a3-baseline/1",
+    "status": "complete",
+    "a2ResultsHash": "3760069fb2fb913b2ce25fc341b732b3e3629da706b263aaf95c52a6dae9bcc7",
+    "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+    "a2CodeFingerprint": "4b291acbfe0bfd7c5dadb8b79e145e11288aaddf7e245cf9874028d53f515a34",
+    "conditions": [
+      {
+        "id": "local",
+        "month": 360,
+        "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+        "sourceBytes": 1868397,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "wide",
+        "month": 360,
+        "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+        "sourceBytes": 2613479,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "mixed",
+        "month": 360,
+        "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+        "sourceBytes": 2054345,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "local",
+        "month": 720,
+        "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+        "sourceBytes": 2946411,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "wide",
+        "month": 720,
+        "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+        "sourceBytes": 4190187,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "mixed",
+        "month": 720,
+        "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+        "sourceBytes": 3269309,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "local",
+        "month": 1080,
+        "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+        "sourceBytes": 3916316,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "wide",
+        "month": 1080,
+        "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+        "sourceBytes": 5894269,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "mixed",
+        "month": 1080,
+        "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+        "sourceBytes": 4953575,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "local",
+        "month": 1200,
+        "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+        "sourceBytes": 4257604,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "wide",
+        "month": 1200,
+        "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+        "sourceBytes": 6539999,
+        "policies": 5,
+        "existingResultsReused": true
+      },
+      {
+        "id": "mixed",
+        "month": 1200,
+        "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+        "sourceBytes": 5527716,
+        "policies": 5,
+        "existingResultsReused": true
+      }
+    ],
+    "tailCases": 60,
+    "note": "Published H1-A2 validated outputs are reused, not rerun or relabelled as cold. Scratch source saves reproduced using unchanged public H24 generator because prior session scratch is unavailable; all bytes/hash match existing H1-A1/H1-A2."
+  },
+  "long": [
+    {
+      "status": "complete",
+      "id": "local",
+      "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "creationFullReplayMs": 50349.887534,
+      "officialRestoreMs": 46536.755277000004,
+      "boundaryVerificationMs": 82768.97401300001,
+      "officialCold": {
+        "mode": "official",
+        "restoreMs": 44841.969433,
+        "stateHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+        "node": "v24.22.1",
+        "pid": 15,
+        "totalMs": 44942.908860999996,
+        "peakRssBytes": 433643520,
+        "memory": {
+          "rss": 433643520,
+          "heapTotal": 252825600,
+          "heapUsed": 155396680,
+          "external": 4107730,
+          "arrayBuffers": 212115
+        }
+      },
+      "rows": [
+        {
+          "policy": "generation",
+          "checkpointCount": 3,
+          "nextIndex": 1234,
+          "tailOperations": 287,
+          "tailMonths": 245,
+          "captureMs": 82.06157900000107,
+          "writeMs": 100.27730000001611,
+          "bytes": 3611797,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "contextHash": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+            "timings": {
+              "manifestReadMs": 0.1760810000000106,
+              "fileReadMs": 8.220067999999998,
+              "parseMs": 16.62374600000001,
+              "adapterImportMs": 38.55354299999999,
+              "localVerifyMs": 165.875115,
+              "tailMs": 19219.493271000003,
+              "finalizeMs": 0.15077300000120886,
+              "compareMs": 45.15712799999892
+            },
+            "replayed": 287,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 23,
+            "totalMs": 19609.997127000002,
+            "peakRssBytes": 440139776,
+            "memory": {
+              "rss": 440139776,
+              "heapTotal": 354996224,
+              "heapUsed": 251792832,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "annual",
+          "checkpointCount": 100,
+          "nextIndex": 1508,
+          "tailOperations": 13,
+          "tailMonths": 12,
+          "captureMs": 119.56015900000057,
+          "writeMs": 124.62067500001285,
+          "bytes": 4257776,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "contextHash": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+            "timings": {
+              "manifestReadMs": 0.11677299999999491,
+              "fileReadMs": 13.197887999999992,
+              "parseMs": 22.877533,
+              "adapterImportMs": 44.70183299999999,
+              "localVerifyMs": 192.87011299999998,
+              "tailMs": 691.8635939999999,
+              "finalizeMs": 0.08114999999997963,
+              "compareMs": 27.318191999999954
+            },
+            "replayed": 13,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 31,
+            "totalMs": 1141.690699,
+            "peakRssBytes": 307949568,
+            "memory": {
+              "rss": 307949568,
+              "heapTotal": 248225792,
+              "heapUsed": 162184832,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "operations64",
+          "checkpointCount": 23,
+          "nextIndex": 1472,
+          "tailOperations": 49,
+          "tailMonths": 42,
+          "captureMs": 75.67508700000326,
+          "writeMs": 98.69896100001642,
+          "bytes": 4179474,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "contextHash": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+            "timings": {
+              "manifestReadMs": 0.15950699999999074,
+              "fileReadMs": 7.715699999999998,
+              "parseMs": 19.674417000000005,
+              "adapterImportMs": 60.31724599999998,
+              "localVerifyMs": 229.85598900000002,
+              "tailMs": 5592.955848,
+              "finalizeMs": 0.09949700000015582,
+              "compareMs": 19.549627000000328
+            },
+            "replayed": 49,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 39,
+            "totalMs": 6060.015557000001,
+            "peakRssBytes": 378961920,
+            "memory": {
+              "rss": 378961920,
+              "heapTotal": 304500736,
+              "heapUsed": 198094208,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "operations128",
+          "checkpointCount": 11,
+          "nextIndex": 1408,
+          "tailOperations": 113,
+          "tailMonths": 96,
+          "captureMs": 115.13081100000272,
+          "writeMs": 91.45663600001717,
+          "bytes": 4007592,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "contextHash": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+            "timings": {
+              "manifestReadMs": 0.1456359999999961,
+              "fileReadMs": 7.280568000000002,
+              "parseMs": 18.673117999999988,
+              "adapterImportMs": 43.576899999999995,
+              "localVerifyMs": 159.68913999999998,
+              "tailMs": 7282.465872000001,
+              "finalizeMs": 0.10259200000018609,
+              "compareMs": 21.501115000000027
+            },
+            "replayed": 113,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 47,
+            "totalMs": 7635.945301,
+            "peakRssBytes": 449622016,
+            "memory": {
+              "rss": 449622016,
+              "heapTotal": 372588544,
+              "heapUsed": 255682856,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "workload64MiB",
+          "checkpointCount": 50,
+          "nextIndex": 1520,
+          "tailOperations": 1,
+          "tailMonths": 1,
+          "captureMs": 66.38601600000402,
+          "writeMs": 95.32002000001376,
+          "bytes": 4277017,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+            "contextHash": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+            "timings": {
+              "manifestReadMs": 0.1141190000000023,
+              "fileReadMs": 12.052877999999993,
+              "parseMs": 18.121522,
+              "adapterImportMs": 48.94162800000001,
+              "localVerifyMs": 153.30935399999998,
+              "tailMs": 65.17105300000003,
+              "finalizeMs": 0.035241999999982454,
+              "compareMs": 14.603024999999946
+            },
+            "replayed": 1,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 55,
+            "totalMs": 420.840096,
+            "peakRssBytes": 205627392,
+            "memory": {
+              "rss": 205758464,
+              "heapTotal": 212717568,
+              "heapUsed": 99757712,
+              "external": 4349818,
+              "arrayBuffers": 420359
+            }
+          }
+        }
+      ],
+      "peakRssBytes": 835121152,
+      "policy": "fresh Node per restore, OS cache uncontrolled, one sample, explicit GC before restore; no speedup ratio across trust guarantees"
+    },
+    {
+      "status": "complete",
+      "id": "wide",
+      "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "creationFullReplayMs": 102071.417777,
+      "officialRestoreMs": 95086.76704300001,
+      "boundaryVerificationMs": 143875.261869,
+      "officialCold": {
+        "mode": "official",
+        "restoreMs": 90280.785013,
+        "stateHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+        "node": "v24.22.1",
+        "pid": 13,
+        "totalMs": 90389.880412,
+        "peakRssBytes": 557551616,
+        "memory": {
+          "rss": 557551616,
+          "heapTotal": 375615488,
+          "heapUsed": 256504440,
+          "external": 4103578,
+          "arrayBuffers": 212115
+        }
+      },
+      "rows": [
+        {
+          "policy": "generation",
+          "checkpointCount": 3,
+          "nextIndex": 1201,
+          "tailOperations": 327,
+          "tailMonths": 270,
+          "captureMs": 73.31902799999807,
+          "writeMs": 134.26814100000774,
+          "bytes": 5202023,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "contextHash": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+            "timings": {
+              "manifestReadMs": 0.21048200000001316,
+              "fileReadMs": 9.761661000000004,
+              "parseMs": 27.11924300000001,
+              "adapterImportMs": 49.52946699999998,
+              "localVerifyMs": 214.115683,
+              "tailMs": 40207.92456,
+              "finalizeMs": 0.4956240000028629,
+              "compareMs": 83.81687200000306
+            },
+            "replayed": 327,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 21,
+            "totalMs": 40791.949962,
+            "peakRssBytes": 810635264,
+            "memory": {
+              "rss": 801955840,
+              "heapTotal": 317280256,
+              "heapUsed": 184502456,
+              "external": 4137422,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "annual",
+          "checkpointCount": 100,
+          "nextIndex": 1511,
+          "tailOperations": 17,
+          "tailMonths": 12,
+          "captureMs": 116.8146759999945,
+          "writeMs": 285.7860680000158,
+          "bytes": 6500317,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "contextHash": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+            "timings": {
+              "manifestReadMs": 0.1234630000000152,
+              "fileReadMs": 12.98586899999998,
+              "parseMs": 45.730909,
+              "adapterImportMs": 43.243074999999976,
+              "localVerifyMs": 274.837026,
+              "tailMs": 1244.8209610000001,
+              "finalizeMs": 0.10580700000014076,
+              "compareMs": 25.53190500000005
+            },
+            "replayed": 17,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 29,
+            "totalMs": 1854.807707,
+            "peakRssBytes": 409853952,
+            "memory": {
+              "rss": 409853952,
+              "heapTotal": 314822656,
+              "heapUsed": 232616568,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "operations64",
+          "checkpointCount": 23,
+          "nextIndex": 1472,
+          "tailOperations": 56,
+          "tailMonths": 47,
+          "captureMs": 122.60101899999427,
+          "writeMs": 119.93015999998897,
+          "bytes": 6381986,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "contextHash": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+            "timings": {
+              "manifestReadMs": 0.11931699999999523,
+              "fileReadMs": 11.860031000000006,
+              "parseMs": 33.270844999999994,
+              "adapterImportMs": 35.49897100000001,
+              "localVerifyMs": 236.39675800000003,
+              "tailMs": 8300.932,
+              "finalizeMs": 0.1026320000000851,
+              "compareMs": 22.65949399999954
+            },
+            "replayed": 56,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 37,
+            "totalMs": 8817.584472,
+            "peakRssBytes": 777510912,
+            "memory": {
+              "rss": 777510912,
+              "heapTotal": 304136192,
+              "heapUsed": 224235048,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "operations128",
+          "checkpointCount": 11,
+          "nextIndex": 1408,
+          "tailOperations": 120,
+          "tailMonths": 100,
+          "captureMs": 117.49446099999477,
+          "writeMs": 121.89101200003643,
+          "bytes": 6026463,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "contextHash": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+            "timings": {
+              "manifestReadMs": 0.11518099999999265,
+              "fileReadMs": 12.427538000000013,
+              "parseMs": 36.33010899999999,
+              "adapterImportMs": 42.802741999999995,
+              "localVerifyMs": 240.51556599999998,
+              "tailMs": 11669.532363,
+              "finalizeMs": 0.11908600000060687,
+              "compareMs": 51.0214219999998
+            },
+            "replayed": 120,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 45,
+            "totalMs": 12249.170149,
+            "peakRssBytes": 766681088,
+            "memory": {
+              "rss": 766681088,
+              "heapTotal": 472686592,
+              "heapUsed": 358159520,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "workload64MiB",
+          "checkpointCount": 73,
+          "nextIndex": 1527,
+          "tailOperations": 1,
+          "tailMonths": 1,
+          "captureMs": 160.86666400000104,
+          "writeMs": 139.96839600004023,
+          "bytes": 6564506,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+            "contextHash": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+            "timings": {
+              "manifestReadMs": 0.11513999999999669,
+              "fileReadMs": 12.580472,
+              "parseMs": 30.810788000000016,
+              "adapterImportMs": 36.22524199999998,
+              "localVerifyMs": 232.070307,
+              "tailMs": 67.37067400000001,
+              "finalizeMs": 0.03385000000002947,
+              "compareMs": 22.879115999999954
+            },
+            "replayed": 1,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 53,
+            "totalMs": 559.8514,
+            "peakRssBytes": 262352896,
+            "memory": {
+              "rss": 262352896,
+              "heapTotal": 242913280,
+              "heapUsed": 149846944,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        }
+      ],
+      "peakRssBytes": 1097965568,
+      "policy": "fresh Node per restore, OS cache uncontrolled, one sample, explicit GC before restore; no speedup ratio across trust guarantees"
+    },
+    {
+      "status": "complete",
+      "id": "mixed",
+      "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "creationFullReplayMs": 76564.283494,
+      "officialRestoreMs": 71962.09328700001,
+      "boundaryVerificationMs": 114269.013233,
+      "officialCold": {
+        "mode": "official",
+        "restoreMs": 68185.266828,
+        "stateHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+        "node": "v24.22.1",
+        "pid": 13,
+        "totalMs": 68282.77227599999,
+        "peakRssBytes": 524603392,
+        "memory": {
+          "rss": 503549952,
+          "heapTotal": 291528704,
+          "heapUsed": 186984648,
+          "external": 4103578,
+          "arrayBuffers": 212115
+        }
+      },
+      "rows": [
+        {
+          "policy": "generation",
+          "checkpointCount": 3,
+          "nextIndex": 1150,
+          "tailOperations": 348,
+          "tailMonths": 282,
+          "captureMs": 93.38790999999765,
+          "writeMs": 330.6837930000038,
+          "bytes": 4187171,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "contextHash": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+            "timings": {
+              "manifestReadMs": 0.152986999999996,
+              "fileReadMs": 8.014328000000006,
+              "parseMs": 19.801192000000015,
+              "adapterImportMs": 45.50631200000001,
+              "localVerifyMs": 177.91515200000003,
+              "tailMs": 39238.841142000005,
+              "finalizeMs": 0.47920000000158325,
+              "compareMs": 51.69739500000287
+            },
+            "replayed": 348,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 21,
+            "totalMs": 39692.178165,
+            "peakRssBytes": 741154816,
+            "memory": {
+              "rss": 741154816,
+              "heapTotal": 489918464,
+              "heapUsed": 411995464,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "annual",
+          "checkpointCount": 100,
+          "nextIndex": 1486,
+          "tailOperations": 12,
+          "tailMonths": 12,
+          "captureMs": 91.39135399999213,
+          "writeMs": 125.08945700002369,
+          "bytes": 5491474,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "contextHash": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+            "timings": {
+              "manifestReadMs": 0.1494819999999777,
+              "fileReadMs": 11.419686999999982,
+              "parseMs": 30.94606299999998,
+              "adapterImportMs": 43.54843299999999,
+              "localVerifyMs": 266.96007599999996,
+              "tailMs": 745.3349330000001,
+              "finalizeMs": 0.13216600000009748,
+              "compareMs": 23.674591999999848
+            },
+            "replayed": 12,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 29,
+            "totalMs": 1291.8461069999998,
+            "peakRssBytes": 355561472,
+            "memory": {
+              "rss": 334508032,
+              "heapTotal": 272510976,
+              "heapUsed": 163345680,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "operations64",
+          "checkpointCount": 23,
+          "nextIndex": 1472,
+          "tailOperations": 26,
+          "tailMonths": 24,
+          "captureMs": 79.97888200001034,
+          "writeMs": 172.6259480000008,
+          "bytes": 5424813,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "contextHash": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+            "timings": {
+              "manifestReadMs": 0.13699300000000392,
+              "fileReadMs": 11.858687000000003,
+              "parseMs": 24.70954499999999,
+              "adapterImportMs": 54.392638000000005,
+              "localVerifyMs": 226.18701299999998,
+              "tailMs": 1584.6089510000002,
+              "finalizeMs": 0.1418100000000777,
+              "compareMs": 26.981290000000172
+            },
+            "replayed": 26,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 37,
+            "totalMs": 2088.849953,
+            "peakRssBytes": 407138304,
+            "memory": {
+              "rss": 386080768,
+              "heapTotal": 318193664,
+              "heapUsed": 228918152,
+              "external": 4284282,
+              "arrayBuffers": 354823
+            }
+          }
+        },
+        {
+          "policy": "operations128",
+          "checkpointCount": 11,
+          "nextIndex": 1408,
+          "tailOperations": 90,
+          "tailMonths": 77,
+          "captureMs": 74.59391799999867,
+          "writeMs": 134.78836100001354,
+          "bytes": 5174945,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "contextHash": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+            "timings": {
+              "manifestReadMs": 0.19305599999999856,
+              "fileReadMs": 15.12676900000001,
+              "parseMs": 23.287177000000014,
+              "adapterImportMs": 54.33688700000002,
+              "localVerifyMs": 215.080654,
+              "tailMs": 12962.880603000001,
+              "finalizeMs": 0.11455000000023574,
+              "compareMs": 83.91725899999983
+            },
+            "replayed": 90,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 45,
+            "totalMs": 13535.155172,
+            "peakRssBytes": 522653696,
+            "memory": {
+              "rss": 501600256,
+              "heapTotal": 431505408,
+              "heapUsed": 341447632,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        },
+        {
+          "policy": "workload64MiB",
+          "checkpointCount": 57,
+          "nextIndex": 1487,
+          "tailOperations": 11,
+          "tailMonths": 11,
+          "captureMs": 93.552926999997,
+          "writeMs": 198.95965299999807,
+          "bytes": 5494957,
+          "cold": {
+            "mode": "checkpoint",
+            "stateHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+            "contextHash": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+            "timings": {
+              "manifestReadMs": 0.13636200000001963,
+              "fileReadMs": 15.878442000000007,
+              "parseMs": 37.253052999999994,
+              "adapterImportMs": 46.980418000000014,
+              "localVerifyMs": 483.44007200000004,
+              "tailMs": 738.084841,
+              "finalizeMs": 0.11129500000015469,
+              "compareMs": 34.27953900000011
+            },
+            "replayed": 11,
+            "guarantee": "local integrity plus creator trust; independent full verification NOT performed on this load",
+            "node": "v24.22.1",
+            "pid": 53,
+            "totalMs": 1557.6967450000002,
+            "peakRssBytes": 341667840,
+            "memory": {
+              "rss": 341667840,
+              "heapTotal": 263004160,
+              "heapUsed": 174119664,
+              "external": 4141574,
+              "arrayBuffers": 212115
+            }
+          }
+        }
+      ],
+      "peakRssBytes": 958275584,
+      "policy": "fresh Node per restore, OS cache uncontrolled, one sample, explicit GC before restore; no speedup ratio across trust guarantees"
+    }
+  ],
+  "materials": [
+    {
+      "schema": "ambertime-h1-a3-material-result/1",
+      "status": "complete",
+      "id": "local",
+      "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "operations": 1521,
+      "fullMs": 94528.093566,
+      "collectorMs": 3241.88999599987,
+      "finishMs": 32.3667540000024,
+      "annualCaptureMs": 146.76065599999856,
+      "rawEvents": 3280,
+      "viewDigest": "3c65a4228672ce13bff7eed07194f2bd9a22e1f41c4643ac6610299be0526b1f",
+      "independentRawEqual": true,
+      "boundaries": [
+        {
+          "handoverId": "handover:1",
+          "month": 321,
+          "nextIndex": 482,
+          "candidates": 238,
+          "seed": 1951059788,
+          "selectedIds": [
+            "bottling:1",
+            "shop-start:town-liquor:1",
+            "delivery:1",
+            "sale:retail:63:26",
+            "bottling:9",
+            "bottling:11",
+            "arrival:e768",
+            "inquiry:e783",
+            "visit:e980",
+            "delivery:29",
+            "arrival:e1114",
+            "inquiry:e1164",
+            "handover:1"
+          ],
+          "sentences": [
+            "2026年7月、6か月熟成の『石蔵』を46本瓶詰めした。",
+            "2027年6月、町の酒店と取引を始めた。",
+            "2027年12月、町の酒店に『石蔵』を初めて1本納品した。",
+            "2031年4月、自家販売で『石蔵』が5本売れた。",
+            "2031年10月、3年熟成の『石蔵』を43本瓶詰めした。",
+            "2033年3月、4年熟成の『石蔵』を43本瓶詰めした。",
+            "2033年12月、海外の飲食文化圏に口コミが届いた。",
+            "2034年1月、周辺の食文化圏から問い合わせが届いた。",
+            "2035年10月、海外の飲食文化圏で銘柄を知った人が蒸留所を訪れた。",
+            "2038年7月、町の酒店に『石蔵』を1本納品した。",
+            "2039年5月、海外の飲食文化圏に口コミが届いた。",
+            "2040年4月、海外の飲食文化圏から問い合わせが届いた。",
+            "2052年10月、蒸留所を第2世代へ引き継いだ。"
+          ],
+          "materialDigest": "89fcbb6e28b1aae761beee348f69cf6a19b9c84a551a5ab937e6245ac92f6fee",
+          "collectorBytes": 832007,
+          "captureMs": 119.2050190000009,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        },
+        {
+          "handoverId": "handover:2",
+          "month": 636,
+          "nextIndex": 849,
+          "candidates": 360,
+          "seed": 3292650147,
+          "selectedIds": [
+            "bottling:1",
+            "shop-start:town-liquor:1",
+            "visit:e51",
+            "delivery:1",
+            "arrival:e429",
+            "bottling:9",
+            "sale:retail:96:35",
+            "sale:retail:169:39",
+            "inquiry:e1164",
+            "handover:1",
+            "bottling:14",
+            "bottling:15",
+            "visit:e1832",
+            "delivery:99",
+            "bottling:16",
+            "arrival:e2395",
+            "delivery:131",
+            "handover:2"
+          ],
+          "sentences": [
+            "2026年7月、6か月熟成の『石蔵』を46本瓶詰めした。",
+            "2027年6月、町の酒店と取引を始めた。",
+            "2027年7月、町の酒店で銘柄を知った人が蒸留所を訪れた。",
+            "2027年12月、町の酒店に『石蔵』を初めて1本納品した。",
+            "2030年10月、周辺の食文化圏に口コミが届いた。",
+            "2031年10月、3年熟成の『石蔵』を43本瓶詰めした。",
+            "2034年1月、自家販売で『石蔵』が2本売れた。",
+            "2040年2月、自家販売で『石蔵』が5本売れた。",
+            "2040年4月、海外の飲食文化圏から問い合わせが届いた。",
+            "2052年10月、蒸留所を第2世代へ引き継いだ。",
+            "2054年1月、4年熟成の『石蔵』を42本瓶詰めした。",
+            "2057年8月、3年熟成の『石蔵』を43本瓶詰めした。",
+            "2058年6月、町の酒店で銘柄を知った人が蒸留所を訪れた。",
+            "2066年7月、町の酒店に『石蔵』を1本納品した。",
+            "2069年7月、3年熟成の『石蔵』を43本瓶詰めした。",
+            "2077年2月、周辺の食文化圏に口コミが届いた。",
+            "2079年1月、町の酒店に『石蔵』を1本納品した。",
+            "2079年1月、蒸留所を第3世代へ引き継いだ。"
+          ],
+          "materialDigest": "a5d6e1cef65d9a11b72eac46a8da41fa3f139ac134feb9edec98986fe6ef1bd5",
+          "collectorBytes": 1220710,
+          "captureMs": 126.158492999999,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        },
+        {
+          "handoverId": "handover:3",
+          "month": 955,
+          "nextIndex": 1234,
+          "candidates": 483,
+          "seed": 2938167181,
+          "selectedIds": [
+            "bottling:1",
+            "arrival:e36",
+            "delivery:1",
+            "sale:retail:64:26",
+            "fill:38",
+            "arrival:e1114",
+            "inquiry:e1164",
+            "handover:1",
+            "bottling:14",
+            "delivery:71",
+            "visit:e1850",
+            "bottling:16",
+            "delivery:114",
+            "handover:2",
+            "inquiry:e2477",
+            "bottling:19",
+            "inquiry:e2898",
+            "delivery:178",
+            "bottling:20",
+            "handover:3"
+          ],
+          "sentences": [
+            "2026年7月、6か月熟成の『石蔵』を46本瓶詰めした。",
+            "2027年5月、全国の飲食のつながりに口コミが届いた。",
+            "2027年12月、町の酒店に『石蔵』を初めて1本納品した。",
+            "2031年5月、自家販売で『石蔵』が1本売れた。",
+            "2037年1月、原酒を樽に詰めた。",
+            "2039年5月、海外の飲食文化圏に口コミが届いた。",
+            "2040年4月、海外の飲食文化圏から問い合わせが届いた。",
+            "2052年10月、蒸留所を第2世代へ引き継いだ。",
+            "2054年1月、4年熟成の『石蔵』を42本瓶詰めした。",
+            "2055年5月、町の酒店に『石蔵』を1本納品した。",
+            "2058年10月、海外の飲食文化圏で銘柄を知った人が蒸留所を訪れた。",
+            "2069年7月、3年熟成の『石蔵』を43本瓶詰めした。",
+            "2072年6月、町の酒店に『石蔵』を1本納品した。",
+            "2079年1月、蒸留所を第3世代へ引き継いだ。",
+            "2080年3月、海外の飲食文化圏から問い合わせが届いた。",
+            "2084年12月、3年熟成の『石蔵』を43本瓶詰めした。",
+            "2089年5月、全国の飲食のつながりから問い合わせが届いた。",
+            "2098年9月、町の酒店に『石蔵』を1本納品した。",
+            "2099年2月、3年熟成の『石蔵』を43本瓶詰めした。",
+            "2105年8月、蒸留所を第4世代へ引き継いだ。"
+          ],
+          "materialDigest": "4dc8dd814138afd6df59c3997cd1a923dd70b5dd88cb73becd679cb57b34a7d2",
+          "collectorBytes": 1651642,
+          "captureMs": 236.50383999999758,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        }
+      ],
+      "cold": {
+        "status": "complete",
+        "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+        "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+        "stateHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+        "contextDigest": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+        "viewDigest": "3c65a4228672ce13bff7eed07194f2bd9a22e1f41c4643ac6610299be0526b1f",
+        "rawDigest": "93df23868c5048f58e369e26e2727b137281889e3446add8c693ba4c3293642c",
+        "recallDigest": "8611725cf31a9419e681b5705d92d84f7ff73805deb1849b298ef32d101c9910",
+        "rawEvents": 3280,
+        "candidateEvents": 575,
+        "timings": {
+          "readMs": 81.116727,
+          "parseMs": 52.08880099999999,
+          "adapterLoadMs": 41.26610299999999,
+          "hydrateMs": 91.81953900000002,
+          "verifyMs": 116.43377500000003,
+          "tailMs": 1437.414944,
+          "observeMs": 54.01369400000033,
+          "finalizeMs": 0.323949999999968,
+          "stateCompareMs": 15.05126300000029,
+          "finishMs": 64.95224899999994,
+          "recallMs": 25.004593000000114,
+          "totalMs": 2104.4096360000003
+        },
+        "memory": {
+          "rss": 387055616,
+          "heapTotal": 314818560,
+          "heapUsed": 245538728,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRssBytes": 387055616
+        },
+        "checkpointBytes": 12867269,
+        "tailOperations": 13,
+        "node": "v24.22.1",
+        "gc": true,
+        "guarantee": "Creation path plus local file/prefix/model checks; not independent prefix revalidation at load."
+      },
+      "memory": {
+        "rss": 600068096,
+        "heapTotal": 401838080,
+        "heapUsed": 316383552,
+        "external": 9488908,
+        "arrayBuffers": 2059429,
+        "peakRssBytes": 600068096
+      },
+      "limits": [
+        "Single cold child trial; OS page cache is not flushed.",
+        "Cold child imports fresh modules but the host file cache may be warm.",
+        "Collector stores Maps/Sets and facts, never per-operation state snapshots.",
+        "Full raw rendering consults current persistent shipment/release state. That state is not compacted in this study.",
+        "Formal-equivalent prefix revalidation at each load is not included."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-a3-material-result/1",
+      "status": "complete",
+      "id": "wide",
+      "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "operations": 1528,
+      "fullMs": 163794.556746,
+      "collectorMs": 3680.9722050001938,
+      "finishMs": 67.34021999998367,
+      "annualCaptureMs": 347.0719209999952,
+      "rawEvents": 5093,
+      "viewDigest": "8b495d38a4fdb9201b963513c114ad6404e06945d6ee6e220d5175c2643e51e4",
+      "independentRawEqual": true,
+      "boundaries": [
+        {
+          "handoverId": "handover:1",
+          "month": 314,
+          "nextIndex": 460,
+          "candidates": 316,
+          "seed": 3375526789,
+          "selectedIds": [
+            "distillation:29",
+            "bottling:1",
+            "shop-start:town-liquor:1",
+            "delivery:1",
+            "shop-start:supermarket:1",
+            "arrival:e714",
+            "arrival:e1187",
+            "inquiry:e1391",
+            "visit:e1470",
+            "sale:retail:151:39",
+            "delivery:49",
+            "inquiry:e2000",
+            "handover:1"
+          ],
+          "sentences": [
+            "2026年1月、原酒を採り終えた。",
+            "2026年7月、6か月熟成の『川霧』を46本瓶詰めした。",
+            "2027年6月、町の酒店と取引を始めた。",
+            "2027年12月、町の酒店に『川霧』を初めて1本納品した。",
+            "2029年11月、町のスーパーと取引を始めた。",
+            "2031年12月、周辺の食文化圏に口コミが届いた。",
+            "2033年7月、全国の飲食のつながりに口コミが届いた。",
+            "2034年11月、全国の飲食のつながりから問い合わせが届いた。",
+            "2035年10月、海外の飲食文化圏で銘柄を知った人が蒸留所を訪れた。",
+            "2038年8月、自家販売で『川霧』が5本売れた。",
+            "2042年6月、町の酒店に『川霧』を1本納品した。",
+            "2045年7月、海外の飲食文化圏から問い合わせが届いた。",
+            "2052年3月、蒸留所を第2世代へ引き継いだ。"
+          ],
+          "materialDigest": "c160a97c4344e097475c7b878882a60d32a997bfc8fbe0b0ac23c6683ca9f19f",
+          "collectorBytes": 1080939,
+          "captureMs": 132.8683629999996,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        },
+        {
+          "handoverId": "handover:2",
+          "month": 630,
+          "nextIndex": 835,
+          "candidates": 492,
+          "seed": 3640528030,
+          "selectedIds": [
+            "bottling:1",
+            "delivery:1",
+            "delivery:8",
+            "arrival:e787",
+            "visit:e1470",
+            "reaction:customer:retail:153:39",
+            "inquiry:e2000",
+            "handover:1",
+            "arrival:e2274",
+            "bottling:15",
+            "reaction:customer:retail:349:45",
+            "inquiry:e2646",
+            "delivery:120",
+            "inquiry:e3080",
+            "distillation:730",
+            "bottling:20",
+            "delivery:152",
+            "delivery:153",
+            "delivery:166",
+            "handover:2"
+          ],
+          "sentences": [
+            "2026年7月、6か月熟成の『川霧』を46本瓶詰めした。",
+            "2027年12月、町の酒店に『川霧』を初めて1本納品した。",
+            "2030年4月、町のスーパーに『川霧』を初めて9本納品した。",
+            "2032年3月、海外の飲食文化圏に口コミが届いた。",
+            "2035年10月、海外の飲食文化圏で銘柄を知った人が蒸留所を訪れた。",
+            "2038年10月、自家販売で『川霧』に「こういう果実の香り、好きです。」という反応があった。",
+            "2045年7月、海外の飲食文化圏から問い合わせが届いた。",
+            "2052年3月、蒸留所を第2世代へ引き継いだ。",
+            "2052年11月、海外の飲食文化圏に口コミが届いた。",
+            "2054年10月、18か月熟成の『川霧』を45本瓶詰めした。",
+            "2055年2月、自家販売で『川霧』に「果実の香りがよく出ていますね。」という反応があった。",
+            "2061年7月、周辺の食文化圏から問い合わせが届いた。",
+            "2065年4月、町のスーパーに『川霧』を2本納品した。",
+            "2069年3月、海外の飲食文化圏から問い合わせが届いた。",
+            "2071年6月、原酒を採り終えた。",
+            "2074年1月、2年熟成の『川霧』を44本瓶詰めした。",
+            "2074年3月、町のデパートに『川霧』を5本納品した。",
+            "2074年3月、町のスーパーに『川霧』を2本納品した。",
+            "2078年6月、町の酒店に『川霧』を1本納品した。",
+            "2078年7月、蒸留所を第3世代へ引き継いだ。"
+          ],
+          "materialDigest": "4edf1d34f5e204e9b3181ba3f978a4058d55870f510d1081c12d1684d6b264ad",
+          "collectorBytes": 1722803,
+          "captureMs": 166.88976700000057,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        },
+        {
+          "handoverId": "handover:3",
+          "month": 930,
+          "nextIndex": 1201,
+          "candidates": 667,
+          "seed": 998091086,
+          "selectedIds": [
+            "bottling:1",
+            "arrival:e25",
+            "visit:e51",
+            "delivery:1",
+            "delivery:8",
+            "visit:e1470",
+            "reaction:customer:retail:153:39",
+            "inquiry:e2000",
+            "handover:1",
+            "inquiry:e2519",
+            "delivery:105",
+            "fill:47",
+            "sale:retail:503:54",
+            "bottling:19",
+            "bottling:20",
+            "handover:2",
+            "inquiry:e3849",
+            "bottling:23",
+            "delivery:208",
+            "inquiry:e4543",
+            "delivery:235",
+            "bottling:26",
+            "handover:3"
+          ],
+          "sentences": [
+            "2026年7月、6か月熟成の『川霧』を46本瓶詰めした。",
+            "2027年3月、食堂に口コミが届いた。",
+            "2027年7月、町の酒店で銘柄を知った人が蒸留所を訪れた。",
+            "2027年12月、町の酒店に『川霧』を初めて1本納品した。",
+            "2030年4月、町のスーパーに『川霧』を初めて9本納品した。",
+            "2035年10月、海外の飲食文化圏で銘柄を知った人が蒸留所を訪れた。",
+            "2038年10月、自家販売で『川霧』に「こういう果実の香り、好きです。」という反応があった。",
+            "2045年7月、海外の飲食文化圏から問い合わせが届いた。",
+            "2052年3月、蒸留所を第2世代へ引き継いだ。",
+            "2057年9月、全国の飲食のつながりから問い合わせが届いた。",
+            "2060年8月、町の酒店に『川霧』を1本納品した。",
+            "2063年2月、原酒を樽に詰めた。",
+            "2067年12月、自家販売で『川霧』が5本売れた。",
+            "2072年12月、18か月熟成の『川霧』を45本瓶詰めした。",
+            "2074年1月、2年熟成の『川霧』を44本瓶詰めした。",
+            "2078年7月、蒸留所を第3世代へ引き継いだ。",
+            "2083年10月、食堂から問い合わせが届いた。",
+            "2089年3月、18か月熟成の『川霧』を45本瓶詰めした。",
+            "2090年11月、町のスーパーに『川霧』を2本納品した。",
+            "2097年5月、町の酒店から問い合わせが届いた。",
+            "2099年4月、町の酒店に『川霧』を1本納品した。",
+            "2101年12月、1年熟成の『川霧』を45本瓶詰めした。",
+            "2103年7月、蒸留所を第4世代へ引き継いだ。"
+          ],
+          "materialDigest": "70de0fcf318eb6d5ef4af416a8b2d530b71198e61460a710a495343e1c1ad21f",
+          "collectorBytes": 2320729,
+          "captureMs": 263.25122399999236,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        }
+      ],
+      "cold": {
+        "status": "complete",
+        "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+        "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+        "stateHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+        "contextDigest": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+        "viewDigest": "8b495d38a4fdb9201b963513c114ad6404e06945d6ee6e220d5175c2643e51e4",
+        "rawDigest": "a9f1d0c1963ba82b0bf678d5871e3f284d83e63d0bf70a6283ad6d5cb8794e7d",
+        "recallDigest": "7c1a02bd329ef63647e0f8f297f3f547588c40182b0d813e0573ddca3c4819f5",
+        "rawEvents": 5093,
+        "candidateEvents": 838,
+        "timings": {
+          "readMs": 227.06692999999999,
+          "parseMs": 139.58579099999997,
+          "adapterLoadMs": 86.64798199999996,
+          "hydrateMs": 170.31873300000007,
+          "verifyMs": 230.16937200000007,
+          "tailMs": 3783.10405,
+          "observeMs": 79.53480099999933,
+          "finalizeMs": 0.16043700000045646,
+          "stateCompareMs": 72.22244599999976,
+          "finishMs": 76.39069299999937,
+          "recallMs": 57.80088999999953,
+          "totalMs": 5200.846593
+        },
+        "memory": {
+          "rss": 659066880,
+          "heapTotal": 378396672,
+          "heapUsed": 297430928,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRssBytes": 659066880
+        },
+        "checkpointBytes": 19451546,
+        "tailOperations": 17,
+        "node": "v24.22.1",
+        "gc": true,
+        "guarantee": "Creation path plus local file/prefix/model checks; not independent prefix revalidation at load."
+      },
+      "memory": {
+        "rss": 799805440,
+        "heapTotal": 583544832,
+        "heapUsed": 314182312,
+        "external": 12422864,
+        "arrayBuffers": 3095789,
+        "peakRssBytes": 799805440
+      },
+      "limits": [
+        "Single cold child trial; OS page cache is not flushed.",
+        "Cold child imports fresh modules but the host file cache may be warm.",
+        "Collector stores Maps/Sets and facts, never per-operation state snapshots.",
+        "Full raw rendering consults current persistent shipment/release state. That state is not compacted in this study.",
+        "Formal-equivalent prefix revalidation at each load is not included."
+      ]
+    },
+    {
+      "schema": "ambertime-h1-a3-material-result/1",
+      "status": "complete",
+      "id": "mixed",
+      "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "operations": 1498,
+      "fullMs": 129751.756705,
+      "collectorMs": 3386.9295930000253,
+      "finishMs": 56.839856000005966,
+      "annualCaptureMs": 227.8160199999984,
+      "rawEvents": 4285,
+      "viewDigest": "94c3502f5a3a38499f027828adc99b6915e8a1efea911dffebd1d34da9dcec82",
+      "independentRawEqual": true,
+      "boundaries": [
+        {
+          "handoverId": "handover:1",
+          "month": 306,
+          "nextIndex": 456,
+          "candidates": 253,
+          "seed": 3734367846,
+          "selectedIds": [
+            "bottling:1",
+            "arrival:e36",
+            "shop-start:town-liquor:1",
+            "reaction:customer:retail:47:31",
+            "delivery:13",
+            "bottling:11",
+            "bottling:12",
+            "arrival:e1064",
+            "inquiry:e1135",
+            "shop-start:supermarket:1",
+            "arrival:e1478",
+            "inquiry:e1535",
+            "handover:1"
+          ],
+          "sentences": [
+            "2026年7月、6か月熟成の『朝霞』を46本瓶詰めした。",
+            "2027年5月、全国の飲食のつながりに口コミが届いた。",
+            "2027年6月、町の酒店と取引を始めた。",
+            "2029年12月、自家販売で『朝霞』に「こういう果実の香り、好きです。」という反応があった。",
+            "2032年3月、町の酒店に『朝霞』を1本納品した。",
+            "2032年3月、3年熟成の『朝霞』を43本瓶詰めした。",
+            "2034年2月、4年熟成の『朝霞』を42本瓶詰めした。",
+            "2035年1月、全国の飲食のつながりに口コミが届いた。",
+            "2035年12月、全国の飲食のつながりから問い合わせが届いた。",
+            "2041年11月、町のスーパーと取引を始めた。",
+            "2043年4月、海外の飲食文化圏に口コミが届いた。",
+            "2044年11月、海外の飲食文化圏から問い合わせが届いた。",
+            "2051年7月、蒸留所を第2世代へ引き継いだ。"
+          ],
+          "materialDigest": "d67dccb313b0b23eb8c27d13ee744d46aacb9d91bc5cb340967dc8c96d9b6106",
+          "collectorBytes": 867093,
+          "captureMs": 101.34245600000031,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        },
+        {
+          "handoverId": "handover:2",
+          "month": 610,
+          "nextIndex": 792,
+          "candidates": 389,
+          "seed": 1034288908,
+          "selectedIds": [
+            "bottling:1",
+            "delivery:1",
+            "sale:retail:53:31",
+            "arrival:e752",
+            "bottling:12",
+            "shop-start:supermarket:1",
+            "arrival:e1478",
+            "inquiry:e1535",
+            "handover:1",
+            "bottling:14",
+            "delivery:73",
+            "inquiry:e1871",
+            "visit:e2064",
+            "delivery:100",
+            "distillation:697",
+            "bottling:16",
+            "delivery:141",
+            "handover:2"
+          ],
+          "sentences": [
+            "2026年7月、6か月熟成の『朝霞』を46本瓶詰めした。",
+            "2027年12月、町の酒店に『朝霞』を初めて1本納品した。",
+            "2030年6月、自家販売で『朝霞』が1本売れた。",
+            "2032年5月、海外の飲食文化圏に口コミが届いた。",
+            "2034年2月、4年熟成の『朝霞』を42本瓶詰めした。",
+            "2041年11月、町のスーパーと取引を始めた。",
+            "2043年4月、海外の飲食文化圏に口コミが届いた。",
+            "2044年11月、海外の飲食文化圏から問い合わせが届いた。",
+            "2051年7月、蒸留所を第2世代へ引き継いだ。",
+            "2054年7月、3年熟成の『朝霞』を43本瓶詰めした。",
+            "2054年8月、町のスーパーに『朝霞』を初めて5本納品した。",
+            "2055年7月、周辺の食文化圏から問い合わせが届いた。",
+            "2058年6月、海外の飲食文化圏で銘柄を知った人が蒸留所を訪れた。",
+            "2062年11月、町の酒店に『朝霞』を1本納品した。",
+            "2070年3月、原酒を採り終えた。",
+            "2074年3月、4年熟成の『朝霞』を42本瓶詰めした。",
+            "2076年11月、町の酒店に『朝霞』を1本納品した。",
+            "2076年11月、蒸留所を第3世代へ引き継いだ。"
+          ],
+          "materialDigest": "5f9b8d336c94b8ad20d97aeb8a4e109cd1ee9b432ae986bc815c39e03fa57e3a",
+          "collectorBytes": 1322481,
+          "captureMs": 128.40806599999996,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        },
+        {
+          "handoverId": "handover:3",
+          "month": 918,
+          "nextIndex": 1150,
+          "candidates": 547,
+          "seed": 101964278,
+          "selectedIds": [
+            "bottling:1",
+            "arrival:e36",
+            "visit:e51",
+            "delivery:1",
+            "sale:retail:62:31",
+            "bottling:12",
+            "delivery:33",
+            "inquiry:e1535",
+            "handover:1",
+            "delivery:73",
+            "bottling:15",
+            "inquiry:e2065",
+            "arrival:e2546",
+            "handover:2",
+            "inquiry:e2906",
+            "visit:e3070",
+            "delivery:176",
+            "bottling:19",
+            "bottling:20",
+            "delivery:205",
+            "arrival:e3880",
+            "handover:3"
+          ],
+          "sentences": [
+            "2026年7月、6か月熟成の『朝霞』を46本瓶詰めした。",
+            "2027年5月、全国の飲食のつながりに口コミが届いた。",
+            "2027年7月、町の酒店で銘柄を知った人が蒸留所を訪れた。",
+            "2027年12月、町の酒店に『朝霞』を初めて1本納品した。",
+            "2031年3月、自家販売で『朝霞』が2本売れた。",
+            "2034年2月、4年熟成の『朝霞』を42本瓶詰めした。",
+            "2040年1月、町の酒店に『朝霞』を1本納品した。",
+            "2044年11月、海外の飲食文化圏から問い合わせが届いた。",
+            "2051年7月、蒸留所を第2世代へ引き継いだ。",
+            "2054年8月、町のスーパーに『朝霞』を初めて5本納品した。",
+            "2056年11月、1年熟成の『朝霞』を45本瓶詰めした。",
+            "2058年6月、町の酒店から問い合わせが届いた。",
+            "2073年10月、海外の熟成酒文化圏に口コミが届いた。",
+            "2076年11月、蒸留所を第3世代へ引き継いだ。",
+            "2080年4月、周辺の食文化圏から問い合わせが届いた。",
+            "2085年7月、全国の飲食のつながりで銘柄を知った人が蒸留所を訪れた。",
+            "2088年12月、町の酒店に『朝霞』を1本納品した。",
+            "2089年10月、3年熟成の『朝霞』を43本瓶詰めした。",
+            "2095年12月、4年熟成の『朝霞』を42本瓶詰めした。",
+            "2096年8月、町のスーパーに『朝霞』を1本納品した。",
+            "2101年8月、海外の熟成酒文化圏に口コミが届いた。",
+            "2102年7月、蒸留所を第4世代へ引き継いだ。"
+          ],
+          "materialDigest": "a3f36974a6c0af1cefe3a1356c1b5128be09ef8d995f4c98f334d35c56f74f11",
+          "collectorBytes": 1882338,
+          "captureMs": 204.38352499999746,
+          "immediateEqualsLater": true,
+          "publishedEqual": true
+        }
+      ],
+      "cold": {
+        "status": "complete",
+        "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+        "codeFingerprint": "aa33ab8b917ea9408dfacce69b8dea12171ee1a220238aa5db8caac77755e434",
+        "stateHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+        "contextDigest": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+        "viewDigest": "94c3502f5a3a38499f027828adc99b6915e8a1efea911dffebd1d34da9dcec82",
+        "rawDigest": "0e1149c134095181c9b3f2c8ad1f7f949fe2eb948e74c886268a31bc0751fb0f",
+        "recallDigest": "5ff34f45c681c8e71bb1a4959b7201167eb6a7f2e4e4199cc6e347654ac48488",
+        "rawEvents": 4285,
+        "candidateEvents": 716,
+        "timings": {
+          "readMs": 78.542599,
+          "parseMs": 126.31600500000002,
+          "adapterLoadMs": 59.02628400000003,
+          "hydrateMs": 133.59604900000005,
+          "verifyMs": 102.48138400000005,
+          "tailMs": 1974.463542,
+          "observeMs": 73.07715599999938,
+          "finalizeMs": 0.10288199999968128,
+          "stateCompareMs": 42.34055899999976,
+          "finishMs": 64.11821899999995,
+          "recallMs": 36.40058799999997,
+          "totalMs": 2833.115934
+        },
+        "memory": {
+          "rss": 512991232,
+          "heapTotal": 440643584,
+          "heapUsed": 330138104,
+          "external": 4309075,
+          "arrayBuffers": 277651,
+          "peakRssBytes": 515690496
+        },
+        "checkpointBytes": 16547740,
+        "tailOperations": 12,
+        "node": "v24.22.1",
+        "gc": true,
+        "guarantee": "Creation path plus local file/prefix/model checks; not independent prefix revalidation at load."
+      },
+      "memory": {
+        "rss": 676343808,
+        "heapTotal": 363761664,
+        "heapUsed": 111963840,
+        "external": 11109155,
+        "arrayBuffers": 2632024,
+        "peakRssBytes": 759238656
+      },
+      "limits": [
+        "Single cold child trial; OS page cache is not flushed.",
+        "Cold child imports fresh modules but the host file cache may be warm.",
+        "Collector stores Maps/Sets and facts, never per-operation state snapshots.",
+        "Full raw rendering consults current persistent shipment/release state. That state is not compacted in this study.",
+        "Formal-equivalent prefix revalidation at each load is not included."
+      ]
+    }
+  ],
+  "contextProbe": {
+    "schema": "ambertime-context-probe/1",
+    "status": "complete",
+    "codeFingerprint": "a35a65d7ce653e23b46a194e69e1378ffe6c677ef3666dbb965c2de4d7b5c625",
+    "note": "Fresh Node, one isolated decodeContext trial. Not a partition to add to integrated localVerifyMs, which already includes decode. No forced GC; OS cache uncontrolled.",
+    "rows": [
+      {
+        "id": "local",
+        "policy": "generation",
+        "sourceHash": "6011c044a4a91518bdb45bd04d95dcc9ad4d2fb0a2eca797f96b6a740ce52d12",
+        "readMs": 24.359748999999994,
+        "parseMs": 20.165036999999998,
+        "integrityMs": 27.488192999999995,
+        "decodeMs": 1.2486700000000042,
+        "mapSizes": {
+          "manualSources": 20,
+          "nearbyProducts": 20,
+          "nearbyCasks": 20
+        },
+        "peakRssBytes": 73936896
+      },
+      {
+        "id": "local",
+        "policy": "annual",
+        "sourceHash": "269b6627fdf1a8e8d122a4ba6f4d076eea31ccff715d2811c30a744a84957b0e",
+        "readMs": 19.838012000000006,
+        "parseMs": 23.72981700000001,
+        "integrityMs": 43.37545399999999,
+        "decodeMs": 1.3192940000000135,
+        "mapSizes": {
+          "manualSources": 23,
+          "nearbyProducts": 22,
+          "nearbyCasks": 23
+        },
+        "peakRssBytes": 81895424
+      },
+      {
+        "id": "local",
+        "policy": "operations64",
+        "sourceHash": "73fed77fc002ae7eb0a693f72652c15967a86e888d56e972ad60ac670dabadc1",
+        "readMs": 25.173574999999992,
+        "parseMs": 26.00179200000001,
+        "integrityMs": 50.510330999999994,
+        "decodeMs": 1.1873180000000048,
+        "mapSizes": {
+          "manualSources": 22,
+          "nearbyProducts": 22,
+          "nearbyCasks": 22
+        },
+        "peakRssBytes": 77307904
+      },
+      {
+        "id": "local",
+        "policy": "operations128",
+        "sourceHash": "02940623cb5dd03c521eded403a4d3c78877c1a295060be102c3935e07f04a84",
+        "readMs": 11.019020999999995,
+        "parseMs": 21.297404999999998,
+        "integrityMs": 29.394276000000005,
+        "decodeMs": 1.5452779999999962,
+        "mapSizes": {
+          "manualSources": 22,
+          "nearbyProducts": 21,
+          "nearbyCasks": 22
+        },
+        "peakRssBytes": 76328960
+      },
+      {
+        "id": "local",
+        "policy": "workload64MiB",
+        "sourceHash": "7ec97ee3825c2e39ca3b79ddd7d475fed035beb552f7147f1f6e11c3dd29d433",
+        "readMs": 9.779975,
+        "parseMs": 25.934111999999992,
+        "integrityMs": 27.666066,
+        "decodeMs": 1.084606000000008,
+        "mapSizes": {
+          "manualSources": 23,
+          "nearbyProducts": 22,
+          "nearbyCasks": 23
+        },
+        "peakRssBytes": 82186240
+      },
+      {
+        "id": "wide",
+        "policy": "generation",
+        "sourceHash": "f9e1a3e8959fda445118e19937dc57d3a40c0b8817bc3fa11ab26c902f182fb1",
+        "readMs": 12.977671,
+        "parseMs": 32.75653700000001,
+        "integrityMs": 39.20691000000001,
+        "decodeMs": 1.143293,
+        "mapSizes": {
+          "manualSources": 28,
+          "nearbyProducts": 26,
+          "nearbyCasks": 28
+        },
+        "peakRssBytes": 88326144
+      },
+      {
+        "id": "wide",
+        "policy": "annual",
+        "sourceHash": "bb60e2e803b84f1efae20dfcf4e076bb6aa839405a5e9e0a2a53e1c41f1d4007",
+        "readMs": 14.821753000000001,
+        "parseMs": 33.50885100000001,
+        "integrityMs": 56.20360600000001,
+        "decodeMs": 1.5485180000000014,
+        "mapSizes": {
+          "manualSources": 33,
+          "nearbyProducts": 32,
+          "nearbyCasks": 33
+        },
+        "peakRssBytes": 98095104
+      },
+      {
+        "id": "wide",
+        "policy": "operations64",
+        "sourceHash": "d5d21e80cc375fe3d792b6191a25ab8b803b3a2aa6996f9b306fc893f72cc531",
+        "readMs": 12.239594000000004,
+        "parseMs": 30.633483000000005,
+        "integrityMs": 44.21705,
+        "decodeMs": 1.2048580000000015,
+        "mapSizes": {
+          "manualSources": 32,
+          "nearbyProducts": 32,
+          "nearbyCasks": 32
+        },
+        "peakRssBytes": 96997376
+      },
+      {
+        "id": "wide",
+        "policy": "operations128",
+        "sourceHash": "62a7dec805f061e7f84c151cd057d658bdd4d5d5b1db4580950fcd466ddbc681",
+        "readMs": 10.969629999999995,
+        "parseMs": 27.77474,
+        "integrityMs": 46.635457999999986,
+        "decodeMs": 1.183006000000006,
+        "mapSizes": {
+          "manualSources": 32,
+          "nearbyProducts": 30,
+          "nearbyCasks": 32
+        },
+        "peakRssBytes": 94240768
+      },
+      {
+        "id": "wide",
+        "policy": "workload64MiB",
+        "sourceHash": "dd67d57d8d98f187ce9f6d9315bfc2fefad5287bf9c446656a77e2c812863645",
+        "readMs": 13.573414,
+        "parseMs": 31.204217999999997,
+        "integrityMs": 49.128528999999986,
+        "decodeMs": 1.181412999999992,
+        "mapSizes": {
+          "manualSources": 33,
+          "nearbyProducts": 33,
+          "nearbyCasks": 33
+        },
+        "peakRssBytes": 98861056
+      },
+      {
+        "id": "mixed",
+        "policy": "generation",
+        "sourceHash": "a8e269c06daab2ca6ebe80c125902b9344ac60a1fcc8cea52531911eb083b743",
+        "readMs": 12.396447000000002,
+        "parseMs": 21.915253,
+        "integrityMs": 27.532099000000002,
+        "decodeMs": 1.148303999999996,
+        "mapSizes": {
+          "manualSources": 22,
+          "nearbyProducts": 21,
+          "nearbyCasks": 22
+        },
+        "peakRssBytes": 77053952
+      },
+      {
+        "id": "mixed",
+        "policy": "annual",
+        "sourceHash": "7505b88ace7004e74d0d4009c4e24721c058ba547de93ba6904eeeaf7c3ed5c2",
+        "readMs": 13.313246999999997,
+        "parseMs": 22.996488999999997,
+        "integrityMs": 41.134840999999994,
+        "decodeMs": 1.412737000000007,
+        "mapSizes": {
+          "manualSources": 29,
+          "nearbyProducts": 28,
+          "nearbyCasks": 29
+        },
+        "peakRssBytes": 90734592
+      },
+      {
+        "id": "mixed",
+        "policy": "operations64",
+        "sourceHash": "a2328c650ba13d5f9632f7b5d08c83d13909c0ae88b495cd31e8b378e0c61fd9",
+        "readMs": 14.845631999999995,
+        "parseMs": 23.918997000000005,
+        "integrityMs": 37.85106300000001,
+        "decodeMs": 1.3634339999999838,
+        "mapSizes": {
+          "manualSources": 29,
+          "nearbyProducts": 28,
+          "nearbyCasks": 29
+        },
+        "peakRssBytes": 90333184
+      },
+      {
+        "id": "mixed",
+        "policy": "operations128",
+        "sourceHash": "9107d446e9c8f397af5d3f5411e5869736816e93fbb0176a63c1c74d2b1d7f01",
+        "readMs": 13.049245999999997,
+        "parseMs": 22.130242000000003,
+        "integrityMs": 36.43506099999999,
+        "decodeMs": 1.14313700000001,
+        "mapSizes": {
+          "manualSources": 27,
+          "nearbyProducts": 27,
+          "nearbyCasks": 27
+        },
+        "peakRssBytes": 88260608
+      },
+      {
+        "id": "mixed",
+        "policy": "workload64MiB",
+        "sourceHash": "f2104ec070820c7bccfd23e821a0640bbf7f752755bffff4ea9ef0f3f00ae00a",
+        "readMs": 13.385423999999993,
+        "parseMs": 24.447722000000013,
+        "integrityMs": 42.207121,
+        "decodeMs": 1.1342699999999866,
+        "mapSizes": {
+          "manualSources": 29,
+          "nearbyProducts": 28,
+          "nearbyCasks": 29
+        },
+        "peakRssBytes": 90488832
+      }
+    ]
+  },
+  "independentHandoverBoundaries": 9,
+  "coldStatePolicies": 15,
+  "measurement": "single fresh Node process per policy/condition; separate worker for material; no OS-cache flush; GC before state worker restoration; no CI or Safari performance inference",
+  "formalEquivalentFastRestoreMs": null
+}
