@@ -1,0 +1,3170 @@
+{
+  "schema": "ambertime-h1-a4-results/1",
+  "status": "research-complete-with-declared-limits",
+  "currentProtocol": {
+    "schema": "ambertime-h1-a4-p2-browser-results/1",
+    "status": "complete",
+    "codeFingerprint": "cc4533ea5053651bae4075ec72023202831838054653cb5a20ce57efe65f8927",
+    "fixtureHash": "9ae474b6357b87d13ed5c8d0a92381d2e5e6b807cd186c40b018519fba8ae4ef",
+    "browser": "153.0.8010.0",
+    "base": {
+      "cases": [
+        {
+          "label": "research namespace excludes production DB names",
+          "status": "pass",
+          "ms": 0.3999999910593033,
+          "name": "Error",
+          "message": "Research database namespace required"
+        },
+        {
+          "label": "A normal complete atomic generation",
+          "status": "pass",
+          "ms": 37.29999999701977
+        },
+        {
+          "label": "A injected before preserves previous head",
+          "status": "pass",
+          "ms": 4.5,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "A injected checkpoint preserves previous head",
+          "status": "pass",
+          "ms": 4.4000000059604645,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "A injected context preserves previous head",
+          "status": "pass",
+          "ms": 5.0999999940395355,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "A injected manifest preserves previous head",
+          "status": "pass",
+          "ms": 4.399999991059303,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "A injected abort preserves previous head",
+          "status": "pass",
+          "ms": 4.4000000059604645,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "A injected quota preserves previous head",
+          "status": "pass",
+          "ms": 4.5999999940395355,
+          "faultType": "injected",
+          "errorName": "QuotaExceededError"
+        },
+        {
+          "label": "B normal complete atomic generation",
+          "status": "pass",
+          "ms": 3.800000011920929
+        },
+        {
+          "label": "B injected before preserves previous head",
+          "status": "pass",
+          "ms": 4.5,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "B injected checkpoint preserves previous head",
+          "status": "pass",
+          "ms": 4.199999988079071,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "B injected context preserves previous head",
+          "status": "pass",
+          "ms": 4.600000008940697,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "B injected manifest preserves previous head",
+          "status": "pass",
+          "ms": 5.299999997019768,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "B injected abort preserves previous head",
+          "status": "pass",
+          "ms": 5.200000002980232,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "B injected quota preserves previous head",
+          "status": "pass",
+          "ms": 4.700000002980232,
+          "faultType": "injected",
+          "errorName": "QuotaExceededError"
+        },
+        {
+          "label": "C normal complete atomic generation",
+          "status": "pass",
+          "ms": 3.8999999910593033
+        },
+        {
+          "label": "C injected before preserves previous head",
+          "status": "pass",
+          "ms": 4.100000008940697,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "C injected checkpoint preserves previous head",
+          "status": "pass",
+          "ms": 4.299999997019768,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "C injected context preserves previous head",
+          "status": "pass",
+          "ms": 3.7999999970197678,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "C injected manifest preserves previous head",
+          "status": "pass",
+          "ms": 3.9000000059604645,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "C injected abort preserves previous head",
+          "status": "pass",
+          "ms": 3.699999988079071,
+          "faultType": "injected",
+          "errorName": "AbortError"
+        },
+        {
+          "label": "C injected quota preserves previous head",
+          "status": "pass",
+          "ms": 3.2000000029802322,
+          "faultType": "injected",
+          "errorName": "QuotaExceededError"
+        },
+        {
+          "label": "mismatched checkpoint, collector and tail boundaries refuse commit creation",
+          "status": "pass",
+          "ms": 0.5
+        },
+        {
+          "label": "mixed component from another boundary cannot be published",
+          "status": "pass",
+          "ms": 3.7000000029802322
+        },
+        {
+          "label": "policy D retains separately marked known-good fallback",
+          "status": "pass",
+          "ms": 21.700000002980232
+        },
+        {
+          "label": "corrupt latest then previous: compatible fallback then full-replay-required",
+          "status": "pass",
+          "ms": 9.299999997019768
+        },
+        {
+          "label": "different model/source reject without pretending an empty game",
+          "status": "pass",
+          "ms": 5.0999999940395355
+        },
+        {
+          "label": "migration backup survives interrupted candidate, rollback and resave",
+          "status": "pass",
+          "ms": 12.100000008940697
+        },
+        {
+          "label": "retention A GC preserves history/backup and abort is atomic",
+          "status": "pass",
+          "ms": 22
+        },
+        {
+          "label": "retention B GC preserves history/backup and abort is atomic",
+          "status": "pass",
+          "ms": 20.200000002980232
+        },
+        {
+          "label": "retention C GC preserves history/backup and abort is atomic",
+          "status": "pass",
+          "ms": 14.699999988079071
+        },
+        {
+          "label": "retention D GC preserves history/backup and abort is atomic",
+          "status": "pass",
+          "ms": 14.600000008940697
+        },
+        {
+          "label": "ABA rollback rejects old tab revision even when head ID matches again",
+          "status": "pass",
+          "ms": 7.200000002980232
+        },
+        {
+          "label": "same-branch historical memory cannot be rewritten; another branch remains independent",
+          "status": "pass",
+          "ms": 7
+        },
+        {
+          "label": "candidate publication remains complete when GC removes prepared invisible parts",
+          "status": "pass",
+          "ms": 10.899999991059303
+        },
+        {
+          "label": "rollback refuses target swept after external validation and preserves current head",
+          "status": "pass",
+          "ms": 6.700000002980232
+        },
+        {
+          "label": "version update reports blocked until stale connection closes",
+          "status": "pass",
+          "ms": 1.5999999940395355
+        },
+        {
+          "label": "orphan prepared candidate is invisible and GC reclaimable",
+          "status": "pass",
+          "ms": 6.800000011920929
+        },
+        {
+          "label": "both checkpoints invalid use retained native formal save; missing backup stops safely",
+          "status": "pass",
+          "ms": 56.29999999701977,
+          "nativeOfficialReader": true,
+          "sourceBytes": 3231
+        },
+        {
+          "label": "generated H1-A3 checkpoint/context/collector and nine immutable historical boundaries round-trip",
+          "status": "pass",
+          "ms": 2289.5999999940395,
+          "commits": 3,
+          "boundaries": 9,
+          "kind": "real H1-A3 generated payload, no browser replay oracle"
+        }
+      ],
+      "metrics": [
+        {
+          "strategy": "A",
+          "writeMs": 4.5,
+          "readMs": 1.3999999910593033,
+          "payloadBytes": 1876
+        },
+        {
+          "strategy": "B",
+          "writeMs": 1.7999999970197678,
+          "readMs": 0.800000011920929,
+          "payloadBytes": 1876
+        },
+        {
+          "strategy": "C",
+          "writeMs": 1.800000011920929,
+          "readMs": 0.8999999910593033,
+          "payloadBytes": 1876
+        },
+        {
+          "retention": "A",
+          "gcMs": 6,
+          "beforeBytes": 8632,
+          "afterBytes": 2164,
+          "commits": 1,
+          "removed": 16
+        },
+        {
+          "retention": "B",
+          "gcMs": 4.600000008940697,
+          "beforeBytes": 8632,
+          "afterBytes": 3781,
+          "commits": 2,
+          "removed": 12
+        },
+        {
+          "retention": "C",
+          "gcMs": 3.5999999940395355,
+          "beforeBytes": 8632,
+          "afterBytes": 3781,
+          "commits": 2,
+          "removed": 12
+        },
+        {
+          "retention": "D",
+          "gcMs": 3.8999999910593033,
+          "beforeBytes": 8632,
+          "afterBytes": 3781,
+          "commits": 2,
+          "removed": 12
+        }
+      ],
+      "passed": 40,
+      "failed": 0,
+      "environment": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+        "storageEstimate": {
+          "quota": 2153385984,
+          "usage": 5902336,
+          "usageDetails": {
+            "indexedDB": 5902336
+          }
+        }
+      },
+      "limits": [
+        "Fault quota is injected DOMException, not observed physical quota exhaustion.",
+        "Transaction atomicity is distinct from physical durability.",
+        "Web engine results do not prove iPhone Safari power-loss or eviction behavior."
+      ],
+      "databases": [
+        "ambertime-h1-a4-research-616bb8bd-2ec2-4c80-82f1-3d0955231f44-0",
+        "ambertime-h1-a4-research-95f2b353-f86c-4af5-b53c-d721281baa89-1",
+        "ambertime-h1-a4-research-4bd405b2-bf68-4ac5-81ed-6005ebc8f5cc-2",
+        "ambertime-h1-a4-research-261a6967-a0eb-40b8-b01f-59210f2af14e-3",
+        "ambertime-h1-a4-research-c375414e-bffd-4616-b0a9-33d921fa7b36-4",
+        "ambertime-h1-a4-research-1e40bb5c-5139-47df-8428-7b13bf9f4c85-5",
+        "ambertime-h1-a4-research-25f14dde-ed3b-4ec0-8a4a-5d82eb781b49-6",
+        "ambertime-h1-a4-research-4401f72b-03b2-48ea-ba75-40534edb4fa5-7",
+        "ambertime-h1-a4-research-d5c00867-05e2-4cad-a790-d65ea4aaa650-8",
+        "ambertime-h1-a4-research-321a6bb6-805a-450f-b646-9316bde2c478-9",
+        "ambertime-h1-a4-research-38a63010-78f5-4a63-bd25-83cef3647af4-10",
+        "ambertime-h1-a4-research-38c73413-d292-48ca-a871-8f2d54a7f639-11",
+        "ambertime-h1-a4-research-2f5787be-ce23-4bf0-9f77-3eaccde9cdb8-12",
+        "ambertime-h1-a4-research-c810f1fd-abd6-44f0-b063-37f885b5e369-13",
+        "ambertime-h1-a4-research-25f9c2a9-014d-4910-b1ee-1805035eb0b1-14",
+        "ambertime-h1-a4-research-be8de943-a6f9-4749-9579-41239f9018df-15",
+        "ambertime-h1-a4-research-08b99dbc-887d-4998-a9d9-cad4a66621d6-16",
+        "ambertime-h1-a4-research-3becb414-2214-41e0-8ca9-9c6472bf4340-17",
+        "ambertime-h1-a4-research-48eeb631-058f-4df5-acbc-ac310b009876-18",
+        "ambertime-h1-a4-research-5236f9ea-36a5-45b9-b132-e4b590913477-19",
+        "ambertime-h1-a4-research-d43db475-6276-4651-904b-7340dc29d437-20",
+        "ambertime-h1-a4-research-d3767b14-5ce8-42cc-906f-61861db33bc2-21",
+        "ambertime-h1-a4-research-2c5a407e-0bf2-48b4-a5d6-29a6bf5bc538-22",
+        "ambertime-h1-a4-research-36b6d3b1-719b-47aa-b364-643e31bd0b37-23",
+        "ambertime-h1-a4-research-f54f6e28-fa45-43c2-9586-ab8e92c6063b-24",
+        "ambertime-h1-a4-research-29a0186d-4c47-4572-8c8d-2483f299f2c0-25",
+        "ambertime-h1-a4-research-bef73986-ba3a-42f2-9642-f863a33ebf3b-26",
+        "ambertime-h1-a4-research-fa3b457d-2e83-40ba-897a-86355008c564-27",
+        "ambertime-h1-a4-research-f54807b8-72f4-4e34-84cd-b8dced48f2f8-28",
+        "ambertime-h1-a4-research-90825fea-7ba7-41c7-afe0-1f1c3620a61a-29",
+        "ambertime-h1-a4-research-74306721-c388-4a1d-b7bb-91b49fd0e74f-30",
+        "ambertime-h1-a4-research-2b6b2be8-7818-4019-9ddf-26d8cddf49fa-31",
+        "ambertime-h1-a4-research-45155e83-3304-47d6-858e-6960c3cdde8e-32",
+        "ambertime-h1-a4-research-75912b26-321c-41d9-a064-7cb8379253c2-33",
+        "ambertime-h1-a4-research-9680349a-05b5-4776-ae85-1f4b359b1304-34",
+        "ambertime-h1-a4-research-4cfeeb3b-1cd7-4677-9721-cb06f19e2b18-35",
+        "ambertime-h1-a4-research-6022fa67-d358-46c3-bb1f-82e66b1668e3-36",
+        "ambertime-h1-a4-research-74a460c1-7c0c-4ee1-8d1c-8b01a5aa1333-37",
+        "ambertime-h1-a4-research-eac30afd-e8f9-461f-b9fb-a4be953babad-38"
+      ]
+    },
+    "cases": [
+      {
+        "label": "atomic read remains complete while prepared publication and GC queue concurrently",
+        "status": "pass",
+        "ms": 82,
+        "iterations": 20
+      },
+      {
+        "label": "retained A/B commits recover older compatible state after latest corruption",
+        "status": "pass",
+        "ms": 10,
+        "strategies": [
+          {
+            "strategy": "A",
+            "mode": "retained",
+            "recoveredId": "6868481211bcebdc7c53df8deefb4271d9b26188784613bf3d0b8ec736545a74"
+          },
+          {
+            "strategy": "B",
+            "mode": "retained",
+            "recoveredId": "6868481211bcebdc7c53df8deefb4271d9b26188784613bf3d0b8ec736545a74"
+          }
+        ]
+      }
+    ],
+    "passed": 42,
+    "failed": 0,
+    "limits": [
+      "Targeted post-review protocol regression, no repeated100-cycle maintenance or low-memory performance measurement.",
+      "The separate pre-P2 browser-final-4 timings retain their original fingerprint and are not relabelled as current-code benchmarks."
+    ]
+  },
+  "preP2StorageAndPressureEvidence": {
+    "schema": "ambertime-h1-a4-browser-results/1",
+    "status": "complete-with-declared-limits",
+    "node": "v24.22.1",
+    "platform": "linux",
+    "codeFingerprint": "476b8134f10c6ce0bdb4ef7865d29a5269cfd2ae8b9b10d99540171c2cbbf10d",
+    "results": [
+      {
+        "id": "chromium",
+        "status": "complete",
+        "version": "153.0.8010.0",
+        "executable": "/tmp/amber-h0-browser/chromium",
+        "limitedHeap": false,
+        "codeFingerprint": "476b8134f10c6ce0bdb4ef7865d29a5269cfd2ae8b9b10d99540171c2cbbf10d",
+        "fixtureHash": "9ae474b6357b87d13ed5c8d0a92381d2e5e6b807cd186c40b018519fba8ae4ef",
+        "fixturePresent": true,
+        "fullFixtureInMainSuite": true,
+        "nativeQuota": {
+          "status": "unverified-override-not-enforced",
+          "kind": "Chromium CDP origin quota override with incompressible payload",
+          "isolatedOrigin": "http://localhost:39829",
+          "quotaObservation": {
+            "usage": 15994,
+            "quota": 65536,
+            "overrideActive": true,
+            "usageBreakdown": [
+              {
+                "storageType": "file_systems",
+                "usage": 0
+              },
+              {
+                "storageType": "indexeddb",
+                "usage": 15994
+              },
+              {
+                "storageType": "cache_storage",
+                "usage": 0
+              },
+              {
+                "storageType": "service_workers",
+                "usage": 0
+              }
+            ]
+          },
+          "rejected": false,
+          "head": "e85546709468f281ad75960c7adce67c7b30eb6dea7377dee58ba9cabfef9068"
+        },
+        "resourceProbe": {
+          "status": "not-run"
+        },
+        "maintenance": {
+          "schema": "ambertime-idb-maintenance/1",
+          "cycles": 100,
+          "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "payloadBytes": 6954404,
+          "historyCount": 3,
+          "policies": [
+            {
+              "policy": "A",
+              "keep": 2,
+              "beforeCommits": 5,
+              "afterCommits": 1,
+              "beforeLogicalBytes": 31841395,
+              "afterLogicalBytes": 6956595,
+              "gcMs": 16,
+              "removedParts": 16,
+              "histories": 3,
+              "backupRetained": true,
+              "knownGoodRetained": null
+            },
+            {
+              "policy": "B",
+              "keep": 2,
+              "beforeCommits": 5,
+              "afterCommits": 2,
+              "beforeLogicalBytes": 31841395,
+              "afterLogicalBytes": 13177795,
+              "gcMs": 11.5,
+              "removedParts": 12,
+              "histories": 3,
+              "backupRetained": true,
+              "knownGoodRetained": null
+            },
+            {
+              "policy": "C",
+              "keep": 2,
+              "beforeCommits": 5,
+              "afterCommits": 2,
+              "beforeLogicalBytes": 31841395,
+              "afterLogicalBytes": 13177795,
+              "gcMs": 14.799999997019768,
+              "removedParts": 12,
+              "histories": 3,
+              "backupRetained": true,
+              "knownGoodRetained": null
+            },
+            {
+              "policy": "D",
+              "keep": 3,
+              "beforeCommits": 5,
+              "afterCommits": 4,
+              "beforeLogicalBytes": 31841395,
+              "afterLogicalBytes": 25620195,
+              "gcMs": 12.399999991059303,
+              "removedParts": 4,
+              "histories": 3,
+              "backupRetained": true,
+              "knownGoodRetained": true
+            }
+          ],
+          "totals": {
+            "createMs": 15938.000000044703,
+            "writeMs": 27721.30000001192,
+            "readMs": 9303.000000014901,
+            "gcMs": 1117.6000000089407
+          },
+          "measurements": [
+            {
+              "cycle": 0,
+              "createMs": 160.29999999701977,
+              "writeMs": 284.19999998807907,
+              "readMs": 79.90000000596046,
+              "gcMs": 3.7000000029802322,
+              "logicalBytes": 6956331,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 1,
+              "createMs": 160,
+              "writeMs": 248.79999999701977,
+              "readMs": 85.90000000596046,
+              "gcMs": 18.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 2,
+              "createMs": 169.8999999910593,
+              "writeMs": 248.70000000298023,
+              "readMs": 79.09999999403954,
+              "gcMs": 10.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 3,
+              "createMs": 141.40000000596046,
+              "writeMs": 243.90000000596046,
+              "readMs": 82.70000000298023,
+              "gcMs": 7.5999999940395355,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 4,
+              "createMs": 145.5,
+              "writeMs": 253.79999999701977,
+              "readMs": 88.3999999910593,
+              "gcMs": 7.9000000059604645,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 5,
+              "createMs": 151,
+              "writeMs": 257.3999999910593,
+              "readMs": 86.20000000298023,
+              "gcMs": 7.799999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 6,
+              "createMs": 147.09999999403954,
+              "writeMs": 266.79999999701977,
+              "readMs": 90.20000000298023,
+              "gcMs": 9.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 7,
+              "createMs": 142.29999999701977,
+              "writeMs": 251.1000000089407,
+              "readMs": 81.20000000298023,
+              "gcMs": 8.099999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 8,
+              "createMs": 145.5,
+              "writeMs": 247.79999999701977,
+              "readMs": 95.59999999403954,
+              "gcMs": 10,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 9,
+              "createMs": 147.19999998807907,
+              "writeMs": 270.1000000089407,
+              "readMs": 172.3999999910593,
+              "gcMs": 14.299999997019768,
+              "logicalBytes": 13177585,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 10,
+              "createMs": 158.79999999701977,
+              "writeMs": 323.69999998807907,
+              "readMs": 81.20000000298023,
+              "gcMs": 9.900000005960464,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 11,
+              "createMs": 145.70000000298023,
+              "writeMs": 256.29999999701977,
+              "readMs": 83.29999999701977,
+              "gcMs": 9.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 12,
+              "createMs": 145.40000000596046,
+              "writeMs": 260.40000000596046,
+              "readMs": 88.3999999910593,
+              "gcMs": 9.200000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 13,
+              "createMs": 143.70000000298023,
+              "writeMs": 282.19999998807907,
+              "readMs": 82.1000000089407,
+              "gcMs": 8.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 14,
+              "createMs": 142.29999999701977,
+              "writeMs": 257.8999999910593,
+              "readMs": 83.90000000596046,
+              "gcMs": 10.899999991059303,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 15,
+              "createMs": 144.3999999910593,
+              "writeMs": 256.79999999701977,
+              "readMs": 81.20000000298023,
+              "gcMs": 8.799999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 16,
+              "createMs": 140.29999999701977,
+              "writeMs": 256.40000000596046,
+              "readMs": 88.70000000298023,
+              "gcMs": 10.399999991059303,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 17,
+              "createMs": 137.40000000596046,
+              "writeMs": 331.79999999701977,
+              "readMs": 98.5,
+              "gcMs": 11.100000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 18,
+              "createMs": 141.70000000298023,
+              "writeMs": 242.6000000089407,
+              "readMs": 85.5,
+              "gcMs": 17,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 19,
+              "createMs": 139.6000000089407,
+              "writeMs": 306.20000000298023,
+              "readMs": 98.09999999403954,
+              "gcMs": 11.5,
+              "logicalBytes": 13177587,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 20,
+              "createMs": 163.6000000089407,
+              "writeMs": 281.59999999403954,
+              "readMs": 91.30000001192093,
+              "gcMs": 11.199999988079071,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 21,
+              "createMs": 163.70000000298023,
+              "writeMs": 359.09999999403954,
+              "readMs": 112.20000000298023,
+              "gcMs": 12.799999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 22,
+              "createMs": 160.29999999701977,
+              "writeMs": 286.29999999701977,
+              "readMs": 97.80000001192093,
+              "gcMs": 9.799999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 23,
+              "createMs": 149.70000000298023,
+              "writeMs": 268,
+              "readMs": 93.29999999701977,
+              "gcMs": 8.900000005960464,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 24,
+              "createMs": 143.09999999403954,
+              "writeMs": 256.1000000089407,
+              "readMs": 103.5,
+              "gcMs": 9.599999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 25,
+              "createMs": 152.5,
+              "writeMs": 266.5,
+              "readMs": 97.5,
+              "gcMs": 10.600000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 26,
+              "createMs": 151,
+              "writeMs": 271.80000001192093,
+              "readMs": 105,
+              "gcMs": 10.800000011920929,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 27,
+              "createMs": 156.19999998807907,
+              "writeMs": 332.29999999701977,
+              "readMs": 124.29999999701977,
+              "gcMs": 13.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 28,
+              "createMs": 165.70000000298023,
+              "writeMs": 365.29999999701977,
+              "readMs": 99.5,
+              "gcMs": 9.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 29,
+              "createMs": 241.20000000298023,
+              "writeMs": 281.69999998807907,
+              "readMs": 96.1000000089407,
+              "gcMs": 11.5,
+              "logicalBytes": 13177587,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 30,
+              "createMs": 170.20000000298023,
+              "writeMs": 283,
+              "readMs": 83.79999999701977,
+              "gcMs": 9.400000005960464,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 31,
+              "createMs": 228,
+              "writeMs": 273.5,
+              "readMs": 90.3999999910593,
+              "gcMs": 9.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 32,
+              "createMs": 246.70000000298023,
+              "writeMs": 275.20000000298023,
+              "readMs": 87.5,
+              "gcMs": 7.9000000059604645,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 33,
+              "createMs": 413.5,
+              "writeMs": 387.20000000298023,
+              "readMs": 100.3999999910593,
+              "gcMs": 13.200000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 34,
+              "createMs": 167.29999999701977,
+              "writeMs": 269.30000001192093,
+              "readMs": 93.8999999910593,
+              "gcMs": 10.600000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 35,
+              "createMs": 148.8999999910593,
+              "writeMs": 298.29999999701977,
+              "readMs": 122.59999999403954,
+              "gcMs": 13.100000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 36,
+              "createMs": 156.70000000298023,
+              "writeMs": 252.30000001192093,
+              "readMs": 96.79999999701977,
+              "gcMs": 35.70000000298023,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 37,
+              "createMs": 167.69999998807907,
+              "writeMs": 285.6000000089407,
+              "readMs": 92.8999999910593,
+              "gcMs": 10.400000005960464,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 38,
+              "createMs": 173.59999999403954,
+              "writeMs": 338.5,
+              "readMs": 99.20000000298023,
+              "gcMs": 11.600000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 39,
+              "createMs": 164.70000000298023,
+              "writeMs": 271,
+              "readMs": 91.70000000298023,
+              "gcMs": 10.399999991059303,
+              "logicalBytes": 13177587,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 40,
+              "createMs": 145.40000000596046,
+              "writeMs": 263.29999999701977,
+              "readMs": 88.30000001192093,
+              "gcMs": 10.199999988079071,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 41,
+              "createMs": 181.09999999403954,
+              "writeMs": 286.30000001192093,
+              "readMs": 94.19999998807907,
+              "gcMs": 12.300000011920929,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 42,
+              "createMs": 180.70000000298023,
+              "writeMs": 283.5,
+              "readMs": 93.79999999701977,
+              "gcMs": 9.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 43,
+              "createMs": 142.6000000089407,
+              "writeMs": 265.79999999701977,
+              "readMs": 101.5,
+              "gcMs": 11,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 44,
+              "createMs": 147.90000000596046,
+              "writeMs": 262.59999999403954,
+              "readMs": 91.80000001192093,
+              "gcMs": 21.299999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 45,
+              "createMs": 155.79999999701977,
+              "writeMs": 406.20000000298023,
+              "readMs": 96.90000000596046,
+              "gcMs": 10.599999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 46,
+              "createMs": 236.1000000089407,
+              "writeMs": 279.09999999403954,
+              "readMs": 99.20000000298023,
+              "gcMs": 12.599999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 47,
+              "createMs": 166.90000000596046,
+              "writeMs": 275.29999999701977,
+              "readMs": 102.29999999701977,
+              "gcMs": 11.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 48,
+              "createMs": 147.70000000298023,
+              "writeMs": 322.40000000596046,
+              "readMs": 107.8999999910593,
+              "gcMs": 11.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 49,
+              "createMs": 155.6000000089407,
+              "writeMs": 320.30000001192093,
+              "readMs": 111.40000000596046,
+              "gcMs": 11.699999988079071,
+              "logicalBytes": 13177587,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 50,
+              "createMs": 226.30000001192093,
+              "writeMs": 284.29999999701977,
+              "readMs": 85.79999999701977,
+              "gcMs": 10.900000005960464,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 51,
+              "createMs": 175,
+              "writeMs": 286,
+              "readMs": 100.1000000089407,
+              "gcMs": 10.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 52,
+              "createMs": 158.3999999910593,
+              "writeMs": 269.40000000596046,
+              "readMs": 92.70000000298023,
+              "gcMs": 11.599999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 53,
+              "createMs": 162.8999999910593,
+              "writeMs": 293,
+              "readMs": 98.1000000089407,
+              "gcMs": 45.29999999701977,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 54,
+              "createMs": 180.20000000298023,
+              "writeMs": 263,
+              "readMs": 82.79999999701977,
+              "gcMs": 10.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 55,
+              "createMs": 158.90000000596046,
+              "writeMs": 271.29999999701977,
+              "readMs": 93.90000000596046,
+              "gcMs": 10.799999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 56,
+              "createMs": 159.59999999403954,
+              "writeMs": 268.90000000596046,
+              "readMs": 99.19999998807907,
+              "gcMs": 11.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 57,
+              "createMs": 156.70000000298023,
+              "writeMs": 263.29999999701977,
+              "readMs": 88.20000000298023,
+              "gcMs": 10.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 58,
+              "createMs": 149.29999999701977,
+              "writeMs": 262.70000000298023,
+              "readMs": 92.40000000596046,
+              "gcMs": 10.599999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 59,
+              "createMs": 160.19999998807907,
+              "writeMs": 301.29999999701977,
+              "readMs": 94.09999999403954,
+              "gcMs": 9.5,
+              "logicalBytes": 13177587,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 60,
+              "createMs": 137.5,
+              "writeMs": 252.5,
+              "readMs": 85.3999999910593,
+              "gcMs": 7.9000000059604645,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 61,
+              "createMs": 140.40000000596046,
+              "writeMs": 261.79999999701977,
+              "readMs": 138.70000000298023,
+              "gcMs": 10.400000005960464,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 62,
+              "createMs": 165.40000000596046,
+              "writeMs": 385.6000000089407,
+              "readMs": 84.8999999910593,
+              "gcMs": 11.700000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 63,
+              "createMs": 152.90000000596046,
+              "writeMs": 260.29999999701977,
+              "readMs": 95.20000000298023,
+              "gcMs": 12.799999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 64,
+              "createMs": 163.90000000596046,
+              "writeMs": 263.29999999701977,
+              "readMs": 89.1000000089407,
+              "gcMs": 9.599999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 65,
+              "createMs": 155.29999999701977,
+              "writeMs": 269.5,
+              "readMs": 88.5,
+              "gcMs": 9.399999991059303,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 66,
+              "createMs": 150,
+              "writeMs": 267.20000000298023,
+              "readMs": 85.59999999403954,
+              "gcMs": 9.100000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 67,
+              "createMs": 153.19999998807907,
+              "writeMs": 250.70000000298023,
+              "readMs": 83.1000000089407,
+              "gcMs": 9,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 68,
+              "createMs": 140.79999999701977,
+              "writeMs": 252.20000000298023,
+              "readMs": 92.70000000298023,
+              "gcMs": 9,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 69,
+              "createMs": 158.20000000298023,
+              "writeMs": 265.6000000089407,
+              "readMs": 93.79999999701977,
+              "gcMs": 9.099999994039536,
+              "logicalBytes": 13177587,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 70,
+              "createMs": 147.8999999910593,
+              "writeMs": 253.3999999910593,
+              "readMs": 80.6000000089407,
+              "gcMs": 9.399999991059303,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 71,
+              "createMs": 141.1000000089407,
+              "writeMs": 335.5,
+              "readMs": 84,
+              "gcMs": 8.099999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 72,
+              "createMs": 148.09999999403954,
+              "writeMs": 250.40000000596046,
+              "readMs": 96.5,
+              "gcMs": 9.099999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 73,
+              "createMs": 154.59999999403954,
+              "writeMs": 269.29999999701977,
+              "readMs": 88.30000001192093,
+              "gcMs": 9.299999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 74,
+              "createMs": 150.90000000596046,
+              "writeMs": 258.40000000596046,
+              "readMs": 85.70000000298023,
+              "gcMs": 10.200000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 75,
+              "createMs": 151.5,
+              "writeMs": 262.8999999910593,
+              "readMs": 89.5,
+              "gcMs": 8.900000005960464,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 76,
+              "createMs": 148.30000001192093,
+              "writeMs": 258.3999999910593,
+              "readMs": 88.20000000298023,
+              "gcMs": 10.200000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 77,
+              "createMs": 168.59999999403954,
+              "writeMs": 284.79999999701977,
+              "readMs": 84.90000000596046,
+              "gcMs": 8,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 78,
+              "createMs": 140.5,
+              "writeMs": 251,
+              "readMs": 91.3999999910593,
+              "gcMs": 11.200000002980232,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 79,
+              "createMs": 137,
+              "writeMs": 241.79999999701977,
+              "readMs": 87.09999999403954,
+              "gcMs": 8.299999997019768,
+              "logicalBytes": 13177587,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 80,
+              "createMs": 140.90000000596046,
+              "writeMs": 337.3999999910593,
+              "readMs": 98.20000000298023,
+              "gcMs": 9.299999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 81,
+              "createMs": 157.5,
+              "writeMs": 260.70000000298023,
+              "readMs": 92,
+              "gcMs": 9.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 82,
+              "createMs": 171.90000000596046,
+              "writeMs": 269.5,
+              "readMs": 93.30000001192093,
+              "gcMs": 10.799999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 83,
+              "createMs": 142.29999999701977,
+              "writeMs": 263.1000000089407,
+              "readMs": 95.5,
+              "gcMs": 9.699999988079071,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 84,
+              "createMs": 144.80000001192093,
+              "writeMs": 254,
+              "readMs": 94.79999999701977,
+              "gcMs": 8.599999994039536,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 85,
+              "createMs": 144.70000000298023,
+              "writeMs": 265.09999999403954,
+              "readMs": 90.70000000298023,
+              "gcMs": 7.600000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 86,
+              "createMs": 142.40000000596046,
+              "writeMs": 265.79999999701977,
+              "readMs": 92.90000000596046,
+              "gcMs": 11.899999991059303,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 87,
+              "createMs": 140.5,
+              "writeMs": 250.5,
+              "readMs": 86.59999999403954,
+              "gcMs": 12,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 88,
+              "createMs": 140.1000000089407,
+              "writeMs": 259.59999999403954,
+              "readMs": 88.79999999701977,
+              "gcMs": 11.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 89,
+              "createMs": 147.1000000089407,
+              "writeMs": 338.30000001192093,
+              "readMs": 91.69999998807907,
+              "gcMs": 8.700000002980232,
+              "logicalBytes": 13177587,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 90,
+              "createMs": 173.29999999701977,
+              "writeMs": 266.59999999403954,
+              "readMs": 85,
+              "gcMs": 9.100000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 91,
+              "createMs": 142.70000000298023,
+              "writeMs": 252.40000000596046,
+              "readMs": 81.8999999910593,
+              "gcMs": 10.400000005960464,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 92,
+              "createMs": 141.30000001192093,
+              "writeMs": 248.70000000298023,
+              "readMs": 80.29999999701977,
+              "gcMs": 9.100000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 93,
+              "createMs": 143.19999998807907,
+              "writeMs": 257.79999999701977,
+              "readMs": 80.59999999403954,
+              "gcMs": 9.299999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 94,
+              "createMs": 141,
+              "writeMs": 257.29999999701977,
+              "readMs": 95.5,
+              "gcMs": 10.600000008940697,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 95,
+              "createMs": 140.20000000298023,
+              "writeMs": 250.70000000298023,
+              "readMs": 87.5,
+              "gcMs": 9.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 96,
+              "createMs": 141.29999999701977,
+              "writeMs": 255.09999999403954,
+              "readMs": 87,
+              "gcMs": 10.299999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 97,
+              "createMs": 139.09999999403954,
+              "writeMs": 274,
+              "readMs": 88,
+              "gcMs": 30.299999997019768,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 98,
+              "createMs": 169.79999999701977,
+              "writeMs": 266.20000000298023,
+              "readMs": 86.1000000089407,
+              "gcMs": 9.5,
+              "logicalBytes": null,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            },
+            {
+              "cycle": 99,
+              "createMs": 146.70000000298023,
+              "writeMs": 256.40000000596046,
+              "readMs": 86.59999999403954,
+              "gcMs": 9,
+              "logicalBytes": 13177588,
+              "heap": {
+                "usedJSHeapSize": 588000000,
+                "totalJSHeapSize": 662000000,
+                "jsHeapSizeLimit": 3760000000
+              }
+            }
+          ],
+          "peakLogicalBytes": 13177588,
+          "peakJSHeapBytes": 588000000,
+          "initialStorage": {
+            "quota": 10763206364,
+            "usage": 25788124,
+            "usageDetails": {
+              "indexedDB": 25788124
+            }
+          },
+          "finalStorage": {
+            "quota": 10782050700,
+            "usage": 44632460,
+            "usageDetails": {
+              "indexedDB": 44632460
+            }
+          },
+          "initialHeap": {
+            "usedJSHeapSize": 588000000,
+            "totalJSHeapSize": 662000000,
+            "jsHeapSizeLimit": 3760000000
+          },
+          "finalRetainedCommits": 2,
+          "limits": [
+            "Repeated 100-year end-size payload, not a historical 100-year simulation.",
+            "Logical JSON bytes are not physical IndexedDB allocation.",
+            "navigator.storage.estimate covers the entire test origin and is approximate.",
+            "performance.memory is Chromium-specific and is not process RSS or iPhone memory.",
+            "Peak logical size sampled after GC; transient candidate size is separately bounded by old retained payloads plus new candidate, not directly sampled."
+          ]
+        },
+        "cases": [
+          {
+            "label": "research namespace excludes production DB names",
+            "status": "pass",
+            "ms": 0.4000000059604645,
+            "name": "Error",
+            "message": "Research database namespace required"
+          },
+          {
+            "label": "A normal complete atomic generation",
+            "status": "pass",
+            "ms": 796.2999999970198
+          },
+          {
+            "label": "A injected before preserves previous head",
+            "status": "pass",
+            "ms": 4,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected checkpoint preserves previous head",
+            "status": "pass",
+            "ms": 3.9000000059604645,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected context preserves previous head",
+            "status": "pass",
+            "ms": 4,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected manifest preserves previous head",
+            "status": "pass",
+            "ms": 4.799999997019768,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected abort preserves previous head",
+            "status": "pass",
+            "ms": 4.5,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected quota preserves previous head",
+            "status": "pass",
+            "ms": 3.9000000059604645,
+            "faultType": "injected",
+            "errorName": "QuotaExceededError"
+          },
+          {
+            "label": "B normal complete atomic generation",
+            "status": "pass",
+            "ms": 4.200000002980232
+          },
+          {
+            "label": "B injected before preserves previous head",
+            "status": "pass",
+            "ms": 4.5,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected checkpoint preserves previous head",
+            "status": "pass",
+            "ms": 4.799999997019768,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected context preserves previous head",
+            "status": "pass",
+            "ms": 4.5,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected manifest preserves previous head",
+            "status": "pass",
+            "ms": 5.200000002980232,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected abort preserves previous head",
+            "status": "pass",
+            "ms": 5.699999988079071,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected quota preserves previous head",
+            "status": "pass",
+            "ms": 4.200000002980232,
+            "faultType": "injected",
+            "errorName": "QuotaExceededError"
+          },
+          {
+            "label": "C normal complete atomic generation",
+            "status": "pass",
+            "ms": 3.9000000059604645
+          },
+          {
+            "label": "C injected before preserves previous head",
+            "status": "pass",
+            "ms": 3.8999999910593033,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected checkpoint preserves previous head",
+            "status": "pass",
+            "ms": 3.800000011920929,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected context preserves previous head",
+            "status": "pass",
+            "ms": 4.299999997019768,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected manifest preserves previous head",
+            "status": "pass",
+            "ms": 4.899999991059303,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected abort preserves previous head",
+            "status": "pass",
+            "ms": 5.100000008940697,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected quota preserves previous head",
+            "status": "pass",
+            "ms": 4,
+            "faultType": "injected",
+            "errorName": "QuotaExceededError"
+          },
+          {
+            "label": "mismatched checkpoint, collector and tail boundaries refuse commit creation",
+            "status": "pass",
+            "ms": 0.5999999940395355
+          },
+          {
+            "label": "mixed component from another boundary cannot be published",
+            "status": "pass",
+            "ms": 3.7999999970197678
+          },
+          {
+            "label": "policy D retains separately marked known-good fallback",
+            "status": "pass",
+            "ms": 17.400000005960464
+          },
+          {
+            "label": "corrupt latest then previous: compatible fallback then full-replay-required",
+            "status": "pass",
+            "ms": 10.599999994039536
+          },
+          {
+            "label": "different model/source reject without pretending an empty game",
+            "status": "pass",
+            "ms": 4.700000002980232
+          },
+          {
+            "label": "migration backup survives interrupted candidate, rollback and resave",
+            "status": "pass",
+            "ms": 10
+          },
+          {
+            "label": "retention A GC preserves history/backup and abort is atomic",
+            "status": "pass",
+            "ms": 16.799999997019768
+          },
+          {
+            "label": "retention B GC preserves history/backup and abort is atomic",
+            "status": "pass",
+            "ms": 16
+          },
+          {
+            "label": "retention C GC preserves history/backup and abort is atomic",
+            "status": "pass",
+            "ms": 17.100000008940697
+          },
+          {
+            "label": "retention D GC preserves history/backup and abort is atomic",
+            "status": "pass",
+            "ms": 17.299999997019768
+          },
+          {
+            "label": "ABA rollback rejects old tab revision even when head ID matches again",
+            "status": "pass",
+            "ms": 7.299999997019768
+          },
+          {
+            "label": "same-branch historical memory cannot be rewritten; another branch remains independent",
+            "status": "pass",
+            "ms": 8.200000002980232
+          },
+          {
+            "label": "candidate publication remains complete when GC removes prepared invisible parts",
+            "status": "pass",
+            "ms": 13.400000005960464
+          },
+          {
+            "label": "rollback refuses target swept after external validation and preserves current head",
+            "status": "pass",
+            "ms": 7.0999999940395355
+          },
+          {
+            "label": "version update reports blocked until stale connection closes",
+            "status": "pass",
+            "ms": 3.5
+          },
+          {
+            "label": "orphan prepared candidate is invisible and GC reclaimable",
+            "status": "pass",
+            "ms": 7.799999997019768
+          },
+          {
+            "label": "both checkpoints invalid use retained native formal save; missing backup stops safely",
+            "status": "pass",
+            "ms": 68.20000000298023,
+            "nativeOfficialReader": true,
+            "sourceBytes": 3231
+          },
+          {
+            "label": "generated H1-A3 checkpoint/context/collector and nine immutable historical boundaries round-trip",
+            "status": "pass",
+            "ms": 2327,
+            "commits": 3,
+            "boundaries": 9,
+            "kind": "real H1-A3 generated payload, no browser replay oracle"
+          }
+        ],
+        "metrics": [
+          {
+            "strategy": "A",
+            "writeMs": 4.299999997019768,
+            "readMs": 0.7999999970197678,
+            "payloadBytes": 1876
+          },
+          {
+            "strategy": "B",
+            "writeMs": 2,
+            "readMs": 0.6000000089406967,
+            "payloadBytes": 1876
+          },
+          {
+            "strategy": "C",
+            "writeMs": 1.7000000029802322,
+            "readMs": 0.5,
+            "payloadBytes": 1876
+          },
+          {
+            "retention": "A",
+            "gcMs": 4.0999999940395355,
+            "beforeBytes": 8632,
+            "afterBytes": 2164,
+            "commits": 1,
+            "removed": 16
+          },
+          {
+            "retention": "B",
+            "gcMs": 3.9000000059604645,
+            "beforeBytes": 8632,
+            "afterBytes": 3781,
+            "commits": 2,
+            "removed": 12
+          },
+          {
+            "retention": "C",
+            "gcMs": 3.5999999940395355,
+            "beforeBytes": 8632,
+            "afterBytes": 3781,
+            "commits": 2,
+            "removed": 12
+          },
+          {
+            "retention": "D",
+            "gcMs": 4.300000011920929,
+            "beforeBytes": 8632,
+            "afterBytes": 3781,
+            "commits": 2,
+            "removed": 12
+          }
+        ],
+        "passed": 40,
+        "failed": 0,
+        "environment": {
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+          "storageEstimate": {
+            "quota": 10742938005,
+            "usage": 5519765,
+            "usageDetails": {
+              "indexedDB": 5519765
+            }
+          }
+        },
+        "limits": [
+          "Fault quota is injected DOMException, not observed physical quota exhaustion.",
+          "Transaction atomicity is distinct from physical durability.",
+          "Web engine results do not prove iPhone Safari power-loss or eviction behavior."
+        ],
+        "databases": [
+          "ambertime-h1-a4-research-a8c00732-afc1-47cd-a7ed-a2f9b3c62ffc-0",
+          "ambertime-h1-a4-research-643c83f1-165c-4cc7-96bf-29638f37f572-1",
+          "ambertime-h1-a4-research-cf368778-75b4-4d63-a5ad-f13b51f972b4-2",
+          "ambertime-h1-a4-research-a8957715-37a0-4e69-9002-c921fce3d543-3",
+          "ambertime-h1-a4-research-c90023f0-2e9d-4d25-8072-67d4f212764a-4",
+          "ambertime-h1-a4-research-67ff4405-1174-4522-9e68-2cce8c175b69-5",
+          "ambertime-h1-a4-research-3787f074-f83d-404c-8b1f-c0eee156d7c2-6",
+          "ambertime-h1-a4-research-df05b5ca-83ff-4ee6-b79b-b7eb9dd2bccd-7",
+          "ambertime-h1-a4-research-c2b93c05-8dbc-4835-85c5-7ee01a49b834-8",
+          "ambertime-h1-a4-research-b456d212-5f3b-4ba8-80d8-5bb4a3a4caea-9",
+          "ambertime-h1-a4-research-8344adf8-3bc4-41af-b384-936e35797c55-10",
+          "ambertime-h1-a4-research-9301f049-680f-47bf-a119-f68bac232b3a-11",
+          "ambertime-h1-a4-research-02dcc20b-0db8-4ae8-bc79-02398c34c73c-12",
+          "ambertime-h1-a4-research-91050e41-16bc-407c-9e46-e4bd9c8ffb5b-13",
+          "ambertime-h1-a4-research-3a023f78-edcf-4071-8d24-d5c144fcdf92-14",
+          "ambertime-h1-a4-research-d6f6ad72-dafd-415d-bdff-a4360e2f3577-15",
+          "ambertime-h1-a4-research-dc7508e3-79e7-4fc0-a368-3f615541bbc3-16",
+          "ambertime-h1-a4-research-1dca7a56-6e3d-48e2-94d7-d6f85d624fd6-17",
+          "ambertime-h1-a4-research-c17ac7cc-f3bf-433e-9fda-089d7b03750f-18",
+          "ambertime-h1-a4-research-f69f5f1a-7ede-4bbc-9c23-e8577658faef-19",
+          "ambertime-h1-a4-research-67f77d91-6358-4ed8-9d12-09aa7e3c9ef4-20",
+          "ambertime-h1-a4-research-3b1b557d-dd8a-4808-8a17-317a5722be5a-21",
+          "ambertime-h1-a4-research-7be72b1b-ab19-46fc-9939-33b125ea319e-22",
+          "ambertime-h1-a4-research-367564bd-fe24-4492-bc15-9f780dd5a21e-23",
+          "ambertime-h1-a4-research-236d5d1f-02c0-4d7b-b698-612f6d5b66af-24",
+          "ambertime-h1-a4-research-1ba21514-afb4-4f1e-9147-87cd6404d270-25",
+          "ambertime-h1-a4-research-43a54754-3187-4cfc-98c3-abe5cf35c820-26",
+          "ambertime-h1-a4-research-40b5781e-b39e-400c-b685-0f17b053d20a-27",
+          "ambertime-h1-a4-research-6126443d-f072-4af7-b7bb-9f076a4b8e14-28",
+          "ambertime-h1-a4-research-0c407b6f-b0e7-4e39-a63b-d96d5867d70b-29",
+          "ambertime-h1-a4-research-46ac7947-ee09-4901-a094-8759c3c226d5-30",
+          "ambertime-h1-a4-research-489a9938-eced-4d68-89de-92271a8af2b4-31",
+          "ambertime-h1-a4-research-ecc0e9f8-f4de-4113-a8eb-c9720f25bb09-32",
+          "ambertime-h1-a4-research-78245bb0-979a-40eb-97ec-82b05c3f9a6f-33",
+          "ambertime-h1-a4-research-07ce708a-548a-4c68-bf81-7f02e63cc38f-34",
+          "ambertime-h1-a4-research-b559fe99-c5c5-43e7-a854-c695c1283566-35",
+          "ambertime-h1-a4-research-aa8948d8-1382-439b-aab4-94ca7e65a450-36",
+          "ambertime-h1-a4-research-d45ae0ea-cc0e-49cf-b3c9-4d4d696691d1-37",
+          "ambertime-h1-a4-research-f7814156-98f9-4081-a70f-f262e6720ccc-38"
+        ],
+        "multiTab": {
+          "concurrentCAS": true,
+          "staleWriterRejected": true
+        },
+        "reload": true,
+        "newBrowserProcessCleanShutdown": true,
+        "pageErrors": []
+      },
+      {
+        "id": "chromium-limited-js-heap",
+        "status": "complete",
+        "version": "153.0.8010.0",
+        "executable": "/tmp/amber-h0-browser/chromium",
+        "limitedHeap": true,
+        "codeFingerprint": "476b8134f10c6ce0bdb4ef7865d29a5269cfd2ae8b9b10d99540171c2cbbf10d",
+        "fixtureHash": "9ae474b6357b87d13ed5c8d0a92381d2e5e6b807cd186c40b018519fba8ae4ef",
+        "fixturePresent": true,
+        "fullFixtureInMainSuite": false,
+        "nativeQuota": {
+          "status": "unverified-override-not-enforced",
+          "kind": "Chromium CDP origin quota override with incompressible payload",
+          "isolatedOrigin": "http://localhost:39829",
+          "quotaObservation": {
+            "usage": 16026,
+            "quota": 65536,
+            "overrideActive": true,
+            "usageBreakdown": [
+              {
+                "storageType": "file_systems",
+                "usage": 0
+              },
+              {
+                "storageType": "indexeddb",
+                "usage": 16026
+              },
+              {
+                "storageType": "cache_storage",
+                "usage": 0
+              },
+              {
+                "storageType": "service_workers",
+                "usage": 0
+              }
+            ]
+          },
+          "rejected": false,
+          "head": "c8ef4a0874d42dba1f9f62a96a7f5f41f291033cb62ec55733f58794996cf3e0"
+        },
+        "resourceProbe": {
+          "status": "resource-failure",
+          "error": "Error: page.evaluate: Target crashed ",
+          "condition": "26MB fixture with V8 heap128MiB",
+          "committedHeadRecovered": true,
+          "recoveryHeap": "normal"
+        },
+        "maintenance": null,
+        "cases": [
+          {
+            "label": "research namespace excludes production DB names",
+            "status": "pass",
+            "ms": 0.29999999701976776,
+            "name": "Error",
+            "message": "Research database namespace required"
+          },
+          {
+            "label": "A normal complete atomic generation",
+            "status": "pass",
+            "ms": 13.599999994039536
+          },
+          {
+            "label": "A injected before preserves previous head",
+            "status": "pass",
+            "ms": 3.5,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected checkpoint preserves previous head",
+            "status": "pass",
+            "ms": 3.6000000089406967,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected context preserves previous head",
+            "status": "pass",
+            "ms": 3.199999988079071,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected manifest preserves previous head",
+            "status": "pass",
+            "ms": 4.100000008940697,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected abort preserves previous head",
+            "status": "pass",
+            "ms": 3.699999988079071,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "A injected quota preserves previous head",
+            "status": "pass",
+            "ms": 4.100000008940697,
+            "faultType": "injected",
+            "errorName": "QuotaExceededError"
+          },
+          {
+            "label": "B normal complete atomic generation",
+            "status": "pass",
+            "ms": 3.5
+          },
+          {
+            "label": "B injected before preserves previous head",
+            "status": "pass",
+            "ms": 3.5999999940395355,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected checkpoint preserves previous head",
+            "status": "pass",
+            "ms": 4.100000008940697,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected context preserves previous head",
+            "status": "pass",
+            "ms": 3.3999999910593033,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected manifest preserves previous head",
+            "status": "pass",
+            "ms": 3.9000000059604645,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected abort preserves previous head",
+            "status": "pass",
+            "ms": 4.5,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "B injected quota preserves previous head",
+            "status": "pass",
+            "ms": 4,
+            "faultType": "injected",
+            "errorName": "QuotaExceededError"
+          },
+          {
+            "label": "C normal complete atomic generation",
+            "status": "pass",
+            "ms": 3.2000000029802322
+          },
+          {
+            "label": "C injected before preserves previous head",
+            "status": "pass",
+            "ms": 3.5999999940395355,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected checkpoint preserves previous head",
+            "status": "pass",
+            "ms": 3.5999999940395355,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected context preserves previous head",
+            "status": "pass",
+            "ms": 3.4000000059604645,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected manifest preserves previous head",
+            "status": "pass",
+            "ms": 4.4000000059604645,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected abort preserves previous head",
+            "status": "pass",
+            "ms": 3.8999999910593033,
+            "faultType": "injected",
+            "errorName": "AbortError"
+          },
+          {
+            "label": "C injected quota preserves previous head",
+            "status": "pass",
+            "ms": 3.6000000089406967,
+            "faultType": "injected",
+            "errorName": "QuotaExceededError"
+          },
+          {
+            "label": "mismatched checkpoint, collector and tail boundaries refuse commit creation",
+            "status": "pass",
+            "ms": 0.699999988079071
+          },
+          {
+            "label": "mixed component from another boundary cannot be published",
+            "status": "pass",
+            "ms": 3.1000000089406967
+          },
+          {
+            "label": "policy D retains separately marked known-good fallback",
+            "status": "pass",
+            "ms": 13.099999994039536
+          },
+          {
+            "label": "corrupt latest then previous: compatible fallback then full-replay-required",
+            "status": "pass",
+            "ms": 7.200000002980232
+          },
+          {
+            "label": "different model/source reject without pretending an empty game",
+            "status": "pass",
+            "ms": 4
+          },
+          {
+            "label": "migration backup survives interrupted candidate, rollback and resave",
+            "status": "pass",
+            "ms": 8.5
+          },
+          {
+            "label": "retention A GC preserves history/backup and abort is atomic",
+            "status": "pass",
+            "ms": 15.799999997019768
+          },
+          {
+            "label": "retention B GC preserves history/backup and abort is atomic",
+            "status": "pass",
+            "ms": 22.5
+          },
+          {
+            "label": "retention C GC preserves history/backup and abort is atomic",
+            "status": "pass",
+            "ms": 17.100000008940697
+          },
+          {
+            "label": "retention D GC preserves history/backup and abort is atomic",
+            "status": "pass",
+            "ms": 20.69999998807907
+          },
+          {
+            "label": "ABA rollback rejects old tab revision even when head ID matches again",
+            "status": "pass",
+            "ms": 9.400000005960464
+          },
+          {
+            "label": "same-branch historical memory cannot be rewritten; another branch remains independent",
+            "status": "pass",
+            "ms": 7.799999997019768
+          },
+          {
+            "label": "candidate publication remains complete when GC removes prepared invisible parts",
+            "status": "pass",
+            "ms": 13.100000008940697
+          },
+          {
+            "label": "rollback refuses target swept after external validation and preserves current head",
+            "status": "pass",
+            "ms": 8.399999991059303
+          },
+          {
+            "label": "version update reports blocked until stale connection closes",
+            "status": "pass",
+            "ms": 2.7999999970197678
+          },
+          {
+            "label": "orphan prepared candidate is invisible and GC reclaimable",
+            "status": "pass",
+            "ms": 8
+          },
+          {
+            "label": "both checkpoints invalid use retained native formal save; missing backup stops safely",
+            "status": "pass",
+            "ms": 76.90000000596046,
+            "nativeOfficialReader": true,
+            "sourceBytes": 3231
+          }
+        ],
+        "metrics": [
+          {
+            "strategy": "A",
+            "writeMs": 2.1000000089406967,
+            "readMs": 0.8999999910593033,
+            "payloadBytes": 1876
+          },
+          {
+            "strategy": "B",
+            "writeMs": 1.5,
+            "readMs": 0.5,
+            "payloadBytes": 1876
+          },
+          {
+            "strategy": "C",
+            "writeMs": 1.4000000059604645,
+            "readMs": 0.4000000059604645,
+            "payloadBytes": 1876
+          },
+          {
+            "retention": "A",
+            "gcMs": 4.299999997019768,
+            "beforeBytes": 8632,
+            "afterBytes": 2164,
+            "commits": 1,
+            "removed": 16
+          },
+          {
+            "retention": "B",
+            "gcMs": 4.799999997019768,
+            "beforeBytes": 8632,
+            "afterBytes": 3781,
+            "commits": 2,
+            "removed": 12
+          },
+          {
+            "retention": "C",
+            "gcMs": 4.100000008940697,
+            "beforeBytes": 8632,
+            "afterBytes": 3781,
+            "commits": 2,
+            "removed": 12
+          },
+          {
+            "retention": "D",
+            "gcMs": 5.0999999940395355,
+            "beforeBytes": 8632,
+            "afterBytes": 3781,
+            "commits": 2,
+            "removed": 12
+          }
+        ],
+        "passed": 39,
+        "failed": 0,
+        "environment": {
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+          "storageEstimate": {
+            "quota": 10738803236,
+            "usage": 1384996,
+            "usageDetails": {
+              "indexedDB": 1384996
+            }
+          }
+        },
+        "limits": [
+          "Fault quota is injected DOMException, not observed physical quota exhaustion.",
+          "Transaction atomicity is distinct from physical durability.",
+          "Web engine results do not prove iPhone Safari power-loss or eviction behavior."
+        ],
+        "databases": [
+          "ambertime-h1-a4-research-4bd70fc9-7571-4819-bce7-ac619bcd795c-0",
+          "ambertime-h1-a4-research-b81ae0cf-52f7-42e3-9234-cd24924be709-1",
+          "ambertime-h1-a4-research-327de637-f706-4c1c-8769-8c336f24d8c5-2",
+          "ambertime-h1-a4-research-f15c3163-834d-4c75-b0da-ad9f20878f27-3",
+          "ambertime-h1-a4-research-aa3cbec5-272c-4297-8853-3eb321eb7784-4",
+          "ambertime-h1-a4-research-37c7d938-45ca-41e3-88ea-e7adc4352d53-5",
+          "ambertime-h1-a4-research-f2aed201-2b9e-4c43-953a-92a728790cd6-6",
+          "ambertime-h1-a4-research-7b60de99-df5e-43dc-b06d-b8c244911d1d-7",
+          "ambertime-h1-a4-research-89dcbf8e-0f48-4715-8836-29761cb926c5-8",
+          "ambertime-h1-a4-research-870ff922-e40c-44f1-b34e-1d675e6f79dd-9",
+          "ambertime-h1-a4-research-7e1f81d1-62ae-4944-84f6-4c2d5d015a9b-10",
+          "ambertime-h1-a4-research-10b67003-bd47-4fda-9bd7-4c1f913affc3-11",
+          "ambertime-h1-a4-research-3898404a-952f-4ef1-8fed-da00bf25326b-12",
+          "ambertime-h1-a4-research-bd8d8a9e-c8a3-4ba0-aee3-b19267179884-13",
+          "ambertime-h1-a4-research-e4a333c0-4fc3-4306-b1e5-908cdd698d76-14",
+          "ambertime-h1-a4-research-f976d8c0-224b-43fa-8601-35b877b0e7d4-15",
+          "ambertime-h1-a4-research-6e111746-9f14-4dc8-a2cf-438ffce0bc93-16",
+          "ambertime-h1-a4-research-f6290e56-14cd-408a-b463-cf24562b98db-17",
+          "ambertime-h1-a4-research-9226e606-f16a-4787-bca4-0963f5e7d759-18",
+          "ambertime-h1-a4-research-15c40c13-b071-4798-8966-71fe774bb06f-19",
+          "ambertime-h1-a4-research-39f2a5a7-dbc5-4876-8dc4-94954605f1eb-20",
+          "ambertime-h1-a4-research-a0975b94-c323-47d5-af4c-8d25e1914145-21",
+          "ambertime-h1-a4-research-edc5d43f-6b92-4e19-8998-60e24d56f696-22",
+          "ambertime-h1-a4-research-f86e5b3e-7557-4af2-a0be-d60dc5e7be94-23",
+          "ambertime-h1-a4-research-90032cd0-6e2c-465e-a940-7666b38fec94-24",
+          "ambertime-h1-a4-research-6adc4c08-1eff-4648-91fe-78bb98a65424-25",
+          "ambertime-h1-a4-research-a42c6060-7667-4a2d-8345-50e22699aa52-26",
+          "ambertime-h1-a4-research-458a8482-7ec9-4c76-98ff-390780d6e686-27",
+          "ambertime-h1-a4-research-80b36e23-8e8d-47fa-b8f1-f5694ba6d0c0-28",
+          "ambertime-h1-a4-research-7eb3ede1-8496-4daa-99dc-c504f79a36e3-29",
+          "ambertime-h1-a4-research-063ae400-3b3b-4cc1-b857-5c59fa246d2e-30",
+          "ambertime-h1-a4-research-6e2e6cc8-fd8c-4cd1-8414-5025ec415e66-31",
+          "ambertime-h1-a4-research-8b752739-cd3b-4567-996c-f7fc20daec9a-32",
+          "ambertime-h1-a4-research-d651aef5-8143-4dc9-9e64-9d041fba7295-33",
+          "ambertime-h1-a4-research-f97a39be-10c5-43c6-b7b0-190c30334462-34",
+          "ambertime-h1-a4-research-6d0b133b-b60f-4b2e-ab1b-d1d0493f6af8-35",
+          "ambertime-h1-a4-research-5f9f4e02-f079-4363-8a3d-8a57d1964f34-36",
+          "ambertime-h1-a4-research-072d318d-7e77-401e-aeff-8d086582d926-37"
+        ],
+        "multiTab": {
+          "concurrentCAS": true,
+          "staleWriterRejected": true
+        },
+        "reload": true,
+        "newBrowserProcessCleanShutdown": true,
+        "pageErrors": []
+      },
+      {
+        "id": "webkit",
+        "status": "unavailable",
+        "error": "browserType.launchPersistentContext: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libgstreamer-1.0.so.0                            ║\n║     libgtk-4.so.1                                    ║\n║     libgraphene-1.0.so.0                             ║\n║     libevent-2.1.so.7                                ║\n║     libgstallocators-1.0.so.0                        ║\n║     libgstapp-1.0.so.0                               ║\n║     libgstbase-1.0.so.0                              ║\n║     libgstpbutils-1.0.so.0                           ║\n║     libgstaudio-1.0.so.0                             ║\n║     libgsttag-1.0.so.0                               ║\n║     libgstvideo-1.0.so.0                             ║\n║     libgstgl-1.0.so.0                                ║\n║     libgstcodecparsers-1.0.so.0                      ║\n║     libgstfft-1.0.so.0                               ║\n║     libavif.so.16                                    ║\n║     libharfbuzz-icu.so.0                             ║\n║     libwayland-server.so.0                           ║\n║     libmanette-0.2.so.0                              ║\n║     libhyphen.so.0                                   ║\n║     libsecret-1.so.0                                 ║\n║     libGLESv2.so.2                                   ║\n╚══════════════════════════════════════════════════════╝\n    at async file:///workspace/scratch/0cf734f2526c/repo/works/ambertime/checkpoint-idb-research/browser-run.mjs:31:13",
+        "codeFingerprint": "476b8134f10c6ce0bdb4ef7865d29a5269cfd2ae8b9b10d99540171c2cbbf10d"
+      }
+    ],
+    "limitations": [
+      "Chromium limited-js-heap sets V8 heap128MiB, not iOS process memory pressure.",
+      "Fault-suite quota is injected; nativeQuota separately records controlled CDP engine quota when supported. Physical device-disk exhaustion is unverified.",
+      "Browser clean close/reopen and reload do not prove OS kill/power-loss durability.",
+      "WebKit automation, when available, does not establish iPhone Safari real-device equivalence."
+    ]
+  },
+  "analysis": {
+    "schema": "ambertime-h1-a4-analysis/1",
+    "sources": [
+      {
+        "path": "works/ambertime/checkpoint-research/results.json",
+        "sha256": "3760069fb2fb913b2ce25fc341b732b3e3629da706b263aaf95c52a6dae9bcc7"
+      },
+      {
+        "path": "works/ambertime/checkpoint-persistence/results.json",
+        "sha256": "38065c82dfa863584e754cad3e5ef27a66206815356cc7b17a7a0eb56d23951a"
+      }
+    ],
+    "schedules": [
+      {
+        "id": "local",
+        "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+        "schedules": [
+          {
+            "policy": "generation",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 3,
+            "finalTailOperations": 287,
+            "finalTailMonths": 245,
+            "finalBundleBytes": 3611797,
+            "coldTotalMs": 19609.997127000002,
+            "finalCaptureMs": 82.06157900000107,
+            "finalWriteMs": 100.27730000001611,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "annual",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 100,
+            "finalTailOperations": 13,
+            "finalTailMonths": 12,
+            "finalBundleBytes": 4257776,
+            "coldTotalMs": 1141.690699,
+            "finalCaptureMs": 119.56015900000057,
+            "finalWriteMs": 124.62067500001285,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "operations64",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 23,
+            "finalTailOperations": 49,
+            "finalTailMonths": 42,
+            "finalBundleBytes": 4179474,
+            "coldTotalMs": 6060.015557000001,
+            "finalCaptureMs": 75.67508700000326,
+            "finalWriteMs": 98.69896100001642,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "operations128",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 11,
+            "finalTailOperations": 113,
+            "finalTailMonths": 96,
+            "finalBundleBytes": 4007592,
+            "coldTotalMs": 7635.945301,
+            "finalCaptureMs": 115.13081100000272,
+            "finalWriteMs": 91.45663600001717,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "workload64MiB",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 50,
+            "finalTailOperations": 1,
+            "finalTailMonths": 1,
+            "finalBundleBytes": 4277017,
+            "coldTotalMs": 420.840096,
+            "finalCaptureMs": 66.38601600000402,
+            "finalWriteMs": 95.32002000001376,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "annual-or-64-operations",
+            "kind": "design bound, not executed or timed",
+            "checkpointCount": null,
+            "checkpointCountUpperBound": 123,
+            "maximumTailOperationsExclusive": 64,
+            "maximumTailMonths": 12,
+            "boundAssumptions": "Trigger after every operation when either threshold is met; includes final pending tail. Operation duration/work is not bounded.",
+            "coldTotalMs": null,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          }
+        ]
+      },
+      {
+        "id": "wide",
+        "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+        "schedules": [
+          {
+            "policy": "generation",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 3,
+            "finalTailOperations": 327,
+            "finalTailMonths": 270,
+            "finalBundleBytes": 5202023,
+            "coldTotalMs": 40791.949962,
+            "finalCaptureMs": 73.31902799999807,
+            "finalWriteMs": 134.26814100000774,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "annual",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 100,
+            "finalTailOperations": 17,
+            "finalTailMonths": 12,
+            "finalBundleBytes": 6500317,
+            "coldTotalMs": 1854.807707,
+            "finalCaptureMs": 116.8146759999945,
+            "finalWriteMs": 285.7860680000158,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "operations64",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 23,
+            "finalTailOperations": 56,
+            "finalTailMonths": 47,
+            "finalBundleBytes": 6381986,
+            "coldTotalMs": 8817.584472,
+            "finalCaptureMs": 122.60101899999427,
+            "finalWriteMs": 119.93015999998897,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "operations128",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 11,
+            "finalTailOperations": 120,
+            "finalTailMonths": 100,
+            "finalBundleBytes": 6026463,
+            "coldTotalMs": 12249.170149,
+            "finalCaptureMs": 117.49446099999477,
+            "finalWriteMs": 121.89101200003643,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "workload64MiB",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 73,
+            "finalTailOperations": 1,
+            "finalTailMonths": 1,
+            "finalBundleBytes": 6564506,
+            "coldTotalMs": 559.8514,
+            "finalCaptureMs": 160.86666400000104,
+            "finalWriteMs": 139.96839600004023,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "annual-or-64-operations",
+            "kind": "design bound, not executed or timed",
+            "checkpointCount": null,
+            "checkpointCountUpperBound": 123,
+            "maximumTailOperationsExclusive": 64,
+            "maximumTailMonths": 12,
+            "boundAssumptions": "Trigger after every operation when either threshold is met; includes final pending tail. Operation duration/work is not bounded.",
+            "coldTotalMs": null,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          }
+        ]
+      },
+      {
+        "id": "mixed",
+        "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+        "schedules": [
+          {
+            "policy": "generation",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 3,
+            "finalTailOperations": 348,
+            "finalTailMonths": 282,
+            "finalBundleBytes": 4187171,
+            "coldTotalMs": 39692.178165,
+            "finalCaptureMs": 93.38790999999765,
+            "finalWriteMs": 330.6837930000038,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "annual",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 100,
+            "finalTailOperations": 12,
+            "finalTailMonths": 12,
+            "finalBundleBytes": 5491474,
+            "coldTotalMs": 1291.8461069999998,
+            "finalCaptureMs": 91.39135399999213,
+            "finalWriteMs": 125.08945700002369,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "operations64",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 23,
+            "finalTailOperations": 26,
+            "finalTailMonths": 24,
+            "finalBundleBytes": 5424813,
+            "coldTotalMs": 2088.849953,
+            "finalCaptureMs": 79.97888200001034,
+            "finalWriteMs": 172.6259480000008,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "operations128",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 11,
+            "finalTailOperations": 90,
+            "finalTailMonths": 77,
+            "finalBundleBytes": 5174945,
+            "coldTotalMs": 13535.155172,
+            "finalCaptureMs": 74.59391799999867,
+            "finalWriteMs": 134.78836100001354,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "workload64MiB",
+            "kind": "H1-A3 observed, one sample",
+            "checkpointCount": 57,
+            "finalTailOperations": 11,
+            "finalTailMonths": 11,
+            "finalBundleBytes": 5494957,
+            "coldTotalMs": 1557.6967450000002,
+            "finalCaptureMs": 93.552926999997,
+            "finalWriteMs": 198.95965299999807,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          },
+          {
+            "policy": "annual-or-64-operations",
+            "kind": "design bound, not executed or timed",
+            "checkpointCount": null,
+            "checkpointCountUpperBound": 123,
+            "maximumTailOperationsExclusive": 64,
+            "maximumTailMonths": 12,
+            "boundAssumptions": "Trigger after every operation when either threshold is met; includes final pending tail. Operation duration/work is not bounded.",
+            "coldTotalMs": null,
+            "cumulativeWrittenBytes": null,
+            "physicalIndexedDBBytes": null
+          }
+        ]
+      }
+    ],
+    "prefixGrowth": [
+      {
+        "id": "local",
+        "finalMonth": 360,
+        "checkpointMonth": 348,
+        "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+        "collectorPrefixBytes": 882394,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "wide",
+        "finalMonth": 360,
+        "checkpointMonth": 348,
+        "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+        "collectorPrefixBytes": 1150413,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "mixed",
+        "finalMonth": 360,
+        "checkpointMonth": 348,
+        "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+        "collectorPrefixBytes": 933214,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "local",
+        "finalMonth": 720,
+        "checkpointMonth": 708,
+        "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+        "collectorPrefixBytes": 1359272,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "wide",
+        "finalMonth": 720,
+        "checkpointMonth": 708,
+        "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+        "collectorPrefixBytes": 1852834,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "mixed",
+        "finalMonth": 720,
+        "checkpointMonth": 708,
+        "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+        "collectorPrefixBytes": 1468604,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "local",
+        "finalMonth": 1080,
+        "checkpointMonth": 1068,
+        "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+        "collectorPrefixBytes": 1780309,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "wide",
+        "finalMonth": 1080,
+        "checkpointMonth": 1068,
+        "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+        "collectorPrefixBytes": 2617286,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "mixed",
+        "finalMonth": 1080,
+        "checkpointMonth": 1068,
+        "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+        "collectorPrefixBytes": 2231826,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "local",
+        "finalMonth": 1200,
+        "checkpointMonth": 1188,
+        "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+        "collectorPrefixBytes": 1944746,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "wide",
+        "finalMonth": 1200,
+        "checkpointMonth": 1188,
+        "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+        "collectorPrefixBytes": 2903150,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      },
+      {
+        "id": "mixed",
+        "finalMonth": 1200,
+        "checkpointMonth": 1188,
+        "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+        "collectorPrefixBytes": 2495276,
+        "interpretation": "H1-A2 offline collector prefix; final-save-bound, not future-neutral archive or physical IndexedDB allocation"
+      }
+    ],
+    "history": [
+      {
+        "id": "local",
+        "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+        "boundaries": [
+          {
+            "handoverId": "handover:1",
+            "month": 321,
+            "nextIndex": 482,
+            "candidates": 238,
+            "collectorBytes": 832007,
+            "materialDigest": "89fcbb6e28b1aae761beee348f69cf6a19b9c84a551a5ab937e6245ac92f6fee",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          },
+          {
+            "handoverId": "handover:2",
+            "month": 636,
+            "nextIndex": 849,
+            "candidates": 360,
+            "collectorBytes": 1220710,
+            "materialDigest": "a5d6e1cef65d9a11b72eac46a8da41fa3f139ac134feb9edec98986fe6ef1bd5",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          },
+          {
+            "handoverId": "handover:3",
+            "month": 955,
+            "nextIndex": 1234,
+            "candidates": 483,
+            "collectorBytes": 1651642,
+            "materialDigest": "4dc8dd814138afd6df59c3997cd1a923dd70b5dd88cb73becd679cb57b34a7d2",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          }
+        ],
+        "interpretation": "collectorBytes is the growing continuation collector, not the serialized frozen-candidate archive size; do not sum to claim unique storage"
+      },
+      {
+        "id": "wide",
+        "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+        "boundaries": [
+          {
+            "handoverId": "handover:1",
+            "month": 314,
+            "nextIndex": 460,
+            "candidates": 316,
+            "collectorBytes": 1080939,
+            "materialDigest": "c160a97c4344e097475c7b878882a60d32a997bfc8fbe0b0ac23c6683ca9f19f",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          },
+          {
+            "handoverId": "handover:2",
+            "month": 630,
+            "nextIndex": 835,
+            "candidates": 492,
+            "collectorBytes": 1722803,
+            "materialDigest": "4edf1d34f5e204e9b3181ba3f978a4058d55870f510d1081c12d1684d6b264ad",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          },
+          {
+            "handoverId": "handover:3",
+            "month": 930,
+            "nextIndex": 1201,
+            "candidates": 667,
+            "collectorBytes": 2320729,
+            "materialDigest": "70de0fcf318eb6d5ef4af416a8b2d530b71198e61460a710a495343e1c1ad21f",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          }
+        ],
+        "interpretation": "collectorBytes is the growing continuation collector, not the serialized frozen-candidate archive size; do not sum to claim unique storage"
+      },
+      {
+        "id": "mixed",
+        "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+        "boundaries": [
+          {
+            "handoverId": "handover:1",
+            "month": 306,
+            "nextIndex": 456,
+            "candidates": 253,
+            "collectorBytes": 867093,
+            "materialDigest": "d67dccb313b0b23eb8c27d13ee744d46aacb9d91bc5cb340967dc8c96d9b6106",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          },
+          {
+            "handoverId": "handover:2",
+            "month": 610,
+            "nextIndex": 792,
+            "candidates": 389,
+            "collectorBytes": 1322481,
+            "materialDigest": "5f9b8d336c94b8ad20d97aeb8a4e109cd1ee9b432ae986bc815c39e03fa57e3a",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          },
+          {
+            "handoverId": "handover:3",
+            "month": 918,
+            "nextIndex": 1150,
+            "candidates": 547,
+            "collectorBytes": 1882338,
+            "materialDigest": "a3f36974a6c0af1cefe3a1356c1b5128be09ef8d995f4c98f334d35c56f74f11",
+            "immediateEqualsLater": true,
+            "publishedEqual": true
+          }
+        ],
+        "interpretation": "collectorBytes is the growing continuation collector, not the serialized frozen-candidate archive size; do not sum to claim unique storage"
+      }
+    ],
+    "retentionPolicies": [
+      {
+        "policy": "A",
+        "dailyCheckpointCount": 1,
+        "protectHistoryInEveryPolicy": true,
+        "protectOriginalPrefixAndBackup": true,
+        "physicalIndexedDBBytes": null,
+        "cumulativeWrittenBytes": null
+      },
+      {
+        "policy": "B",
+        "dailyCheckpointCount": 2,
+        "protectHistoryInEveryPolicy": true,
+        "protectOriginalPrefixAndBackup": true,
+        "physicalIndexedDBBytes": null,
+        "cumulativeWrittenBytes": null
+      },
+      {
+        "policy": "C",
+        "dailyCheckpointCount": 2,
+        "immutableGenerationHistory": true,
+        "protectHistoryInEveryPolicy": true,
+        "protectOriginalPrefixAndBackup": true,
+        "physicalIndexedDBBytes": null,
+        "cumulativeWrittenBytes": null
+      },
+      {
+        "policy": "D",
+        "dailyCheckpointCount": "N",
+        "separateLastKnownGood": true,
+        "protectHistoryInEveryPolicy": true,
+        "protectOriginalPrefixAndBackup": true,
+        "physicalIndexedDBBytes": null,
+        "cumulativeWrittenBytes": null
+      }
+    ],
+    "browserEvidence": null,
+    "limits": [
+      "No new replay or browser storage measurement in this analysis. Browser measurements must come from the browser suite.",
+      "Latest checkpoint byte size times frequency is not cumulative written bytes: earlier states and tails differ.",
+      "A bounded count of checkpoints does not bound collector, town state, immutable history, or full original-save bytes.",
+      "H1-A3 local integrity and creator verification do not implement authenticated correctness or independent full-prefix validation on every load.",
+      "H1-A2 warm timings are not used as cold estimates; H1-A3 one-sample timings have uncontrolled OS cache and concurrent host contention."
+    ]
+  },
+  "nodeTests": {
+    "total": 31,
+    "passed": 31,
+    "failed": 0
+  },
+  "existingRegression": {
+    "total": 109,
+    "passed": 108,
+    "failed": 1,
+    "baseR5SameFailure": true
+  },
+  "provenance": {
+    "currentProtocolIsCurrentCode": true,
+    "maintenanceIsPreP2Only": true,
+    "maintenanceCodeFingerprint": "476b8134f10c6ce0bdb4ef7865d29a5269cfd2ae8b9b10d99540171c2cbbf10d",
+    "inputFixtureSHA256": "9ae474b6357b87d13ed5c8d0a92381d2e5e6b807cd186c40b018519fba8ae4ef"
+  },
+  "unverified": [
+    "iPhone Safari and WebKit actual execution",
+    "physical power loss/OS kill durability",
+    "native quota refusal (controlled CDP override not enforced)",
+    "physical total and cumulative written bytes",
+    "current post-P2 maintenance performance/limited-heap resource behavior"
+  ],
+  "resourceFailure": "Pre-P2 128MiB V8 pipeline with 26MB fixture crashed; old committed research DB recovered after normal-heap restart. Crash phase unknown."
+}
