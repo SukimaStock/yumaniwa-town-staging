@@ -1,4 +1,5 @@
-// Explicit trial boundary only. The native model owns serialization and replay.
+import {compactFormalGame,expandFormalGame,assertFormalSize,MAX_SESSION_CODE_UNITS} from './save-codec.mjs?v=h1-b2-1';
+// Formal and legacy session boundary. The native model owns state validation and replay.
 export const LEGACY_SAVE_KEY='sukimastock.ambertime.wholesale.v20';
 export const PLACEMENT_SAVE_KEY='sukimastock.ambertime.placement-trial.v1';
 const assert=(ok,message)=>{if(!ok)throw Error(message);};
@@ -7,16 +8,36 @@ export function assertMode(game,enabled){
  assert(typeof enabled==='boolean'&&enabled===(game?.placement?.version===1),'この保存は別の方式のものです。元の記録を残して停止しています。');
  return game;
 }
-export function readSession(text,{enabled,restore,monthMs,stepMs}={}){
- assert(typeof text==='string'&&typeof restore==='function','保存を読み取れません。元の記録は残しています。');
+const sessionKeys=['version','game','userPaused','elapsed'];
+function parseSession(text,{monthMs,stepMs}={}){
+ assert(typeof text==='string'&&text.length<MAX_SESSION_CODE_UNITS,'保存を読み取れません。元の記録は残しています。');
  assert(Number.isInteger(monthMs)&&monthMs>0&&Number.isInteger(stepMs)&&stepMs>0,'時間の設定を確認できません。');
  let session;try{session=JSON.parse(text);}catch{throw Error('保存を読み取れません。元の記録は残しています。');}
- const keys=['version','game','userPaused','elapsed'];
- assert(session&&typeof session==='object'&&!Array.isArray(session)&&Object.keys(session).length===keys.length&&keys.every(k=>Object.hasOwn(session,k))&&session.version===2&&session.game?.version===20&&typeof session.userPaused==='boolean'&&Number.isInteger(session.elapsed)&&session.elapsed>=0&&session.elapsed<monthMs&&session.elapsed%stepMs===0,'この保存は開けません。元の記録を残して停止しています。');
+ assert(session&&typeof session==='object'&&!Array.isArray(session)&&Object.keys(session).length===sessionKeys.length&&sessionKeys.every(k=>Object.hasOwn(session,k))&&[2,3].includes(session.version)&&session.game?.version===20&&typeof session.userPaused==='boolean'&&Number.isInteger(session.elapsed)&&session.elapsed>=0&&session.elapsed<monthMs&&session.elapsed%stepMs===0,'この保存は開けません。元の記録を残して停止しています。');
+ if(session.version===3)assert(JSON.stringify(session)===text,'新しい保存の形式を確認できません。元の記録を残して停止しています。');
+ return session;
+}
+export function isCompactSession(text){
+ try{const session=JSON.parse(text);return session?.version===3;}catch{return false;}
+}
+export function readSession(text,{enabled,restore,monthMs,stepMs}={}){
+ assert(typeof restore==='function','保存を読み取れません。元の記録は残しています。');
+ const session=parseSession(text,{monthMs,stepMs});
  assertMode(session.game,enabled);
- const game=restore(JSON.stringify(session.game));
+ const raw=session.version===3?expandFormalGame(session.game):assertFormalSize(JSON.stringify(session.game));
+ const game=restore(raw);
  assertMode(game,enabled);
  return {game,userPaused:session.userPaused,elapsed:session.elapsed};
+}
+export function serializeSession(game,{userPaused,elapsed},{serialize,restore,enabled,monthMs,stepMs}={}){
+ assert(typeof serialize==='function'&&typeof restore==='function','正式な保存の確認方法がありません。');
+ assertMode(game,enabled);
+ const raw=assertFormalSize(serialize(game)),compact=compactFormalGame(raw);
+ const text=JSON.stringify({version:3,game:compact,userPaused,elapsed});
+ // The exact candidate passes the same reader used at startup before any write.
+ const restored=readSession(text,{enabled,restore,monthMs,stepMs});
+ assert(JSON.stringify(restored.game)===raw,'保存から戻した記録が一致しません。元の記録を残して停止しています。');
+ return text;
 }
 export function writeCandidate(storage,key,expected,text){
  assert(typeof key==='string'&&(expected===null||typeof expected==='string')&&typeof text==='string','保存の指定を確認できません。');
@@ -40,17 +61,18 @@ export function formalSources(storage,options){
   catch(error){return [{...source,raw,session:null,error:error.message}];}
  });
 }
-export function copyToFormal(storage,source,{policy='listed',prepare,adopt,serialize,...options}={}){
+export function copyToFormal(storage,source,{policy='listed',prepare,adopt,serialize,encodeSession,...options}={}){
  const known=FORMAL_SOURCES.find(x=>x.id===source?.id&&x.key===source?.key);
  assert(known&&typeof source.raw==='string','引きつぐ記録を確認してください。元の記録は残っています。');
  assert(storage.getItem(FORMAL_SAVE_KEY)===null,'正式版の保存が見つかりました。上書きせず停止しています。再読み込みしてください。');
  const session=readSession(source.raw,{...options,enabled:known.enabled});
- let text=source.raw;
+ let text=source.raw,destinationGame=session.game;
  if(!known.enabled){
   assert(typeof prepare==='function'&&typeof adopt==='function'&&typeof serialize==='function','引きつぎの準備ができません。元の記録は残っています。');
-  const game=adopt(prepare(session.game),policy);
+  const game=adopt(prepare(session.game),policy);destinationGame=game;
   text=JSON.stringify({version:2,game:JSON.parse(serialize(game)),userPaused:session.userPaused,elapsed:session.elapsed});
  }
+ if(encodeSession)text=encodeSession(destinationGame,{userPaused:session.userPaused,elapsed:session.elapsed});
  // Validate the exact candidate before storage and before live state is assigned.
  readSession(text,{...options,enabled:true});
  assert(storage.getItem(known.key)===source.raw,'元の記録が別の画面で変わりました。引きつがず停止しています。再読み込みしてください。');

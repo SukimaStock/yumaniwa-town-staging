@@ -21,7 +21,7 @@ test('shared chevrons are authored integer cells, identical SVG and Canvas patte
 });
 test('presentation scope keeps formal source and critical notices; cache dependencies are complete',()=>{
  const read=n=>fs.readFileSync(new URL('../'+n,import.meta.url),'utf8'),app=read('shop-app.mjs'),canvas=read('canvas-scene.mjs');
- assert(!app.includes("phaseSummary:collection.expired?'採取できる範囲を過ぎました。'"));assert(app.includes('以前の蒸留を続けています。'));assert(app.includes('保存できません。元の記録を残して停止しています。'));assert(app.includes("guide.textContent=tools.hint??''"));assert(canvas.includes("if(item.selected&&v.room!=='warehouse')"));
+ assert(!app.includes("phaseSummary:collection.expired?'採取できる範囲を過ぎました。'"));assert(app.includes('以前の蒸留を続けています。'));assert(app.includes('保存できません。最後の正常な記録を残して停止しています。'));assert(app.includes("guide.textContent=tools.hint??''"));assert(canvas.includes("if(item.selected&&v.room!=='warehouse')"));
  for(const name of ['index.html','shop-app.mjs','canvas-scene.mjs','market-ui.mjs'])assert(read(name).includes('stage2-r1'));
  assert(app.includes("pixel-symbols.mjs?v=rooms-stage2-r1"));assert(canvas.includes("pixel-symbols.mjs?v=rooms-stage2-r1"));assert(read('market-ui.mjs').includes("pixel-symbols.mjs?v=rooms-stage2-r1"));
 });

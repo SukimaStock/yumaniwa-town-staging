@@ -27,12 +27,12 @@ test('save menu distinguishes a validated record, no record, storage failure and
 
 test('export and reset are separate, while actionable transition stays outside archived options',()=>{
  const {body,actions}=menu({rules:false});
- assert.match(body,/記録を書き出す.*ファイルは読み込めません/);
+ assert.match(body,/記録を書き出す.*記録を読み込む/);
  assert.match(body,/market-rules-adopt.*<details><summary>.*以前の記録・方式/);
  assert.match(body,/<details>.*market-export-before[\s\S]*<\/details>[\s\S]*上書きされます.*settings-reset/);
  assert.match(actions,/閉じる/);
  assert.match(menu().body,/market-rules-export-before/);
  assert.doesNotMatch(menu().body,/market-rules-adopt/);
  assert.match(menu({rules:false,store:false,placementEnabled:false}).body,/connected-export-before/);
- assert.match(app,/confirm\(preview\?'試遊を最初からやり直しますか？':'新しい蒸留所で始めますか？\\nこのブラウザの現在の保存を上書きします。/);
+ assert.match(app,/confirm\(preview\?'試遊を最初からやり直しますか？':'新しい蒸留所で始めますか？現在の進行は上書きされます。/);
 });
