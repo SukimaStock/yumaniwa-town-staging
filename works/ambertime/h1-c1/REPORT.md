@@ -131,3 +131,7 @@ Production変更なし。完了条件を満たすまでマージしない。
 残る比較: 広域・混合30/60/90年（6条件）、100年実操作、必須CI・配信・Safari実機。既存の完了ペアは`matrix.mjs`で入力・runner・製品fingerprintを照合し、片側だけ別環境へ持ち越さない。30年の実操作記録は`f0dbd930ae89b32b261dba32d3453a71d70fab44`のrunnerに対応し、新runnerはnative保存transactionを別計測する。
 
 地元100年の実操作は完了。起動/描画機会 133.157秒、通知を閉じた後の最初の蒸留室操作 0.410秒。地図・三室・帳面・歩みを開き、閲覧前後の正式JSON不変。仕込み初回 133.822秒、たるは仕込み後の同Worker cacheで 0.067秒、歩み初回 86.297秒。正式tickと次月JSON一致、v3を正式readerで読戻し、再読込 135.464秒の後も完全一致。時計操作中のsaveCandidate呼出3件は 0.378, 0.429, 0.385秒（再開・月次・停止の区間の各取引。localStorage書込だけの値ではない）。pageerrorなし。
+
+広域・混合30年も比較完了。広域39.8→29.4秒、混合31.6→24.3秒。両方で起動後の全JSON一致。残りは広域・混合の60年・90年。
+
+PR #815ではLock単独コミットを先行させ、同じ製品treeを登録した。head 36c854f753bb38de4b214319e21e7c19b3aa1e06で plan-risk-gate / trusted-mechanical-evidence / validate 成功。
