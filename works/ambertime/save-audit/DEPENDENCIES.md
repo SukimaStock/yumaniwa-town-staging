@@ -18,7 +18,7 @@ A=現在状態、B=最近の帳面、C=歴史記憶、D=復元検証。複数役
 | town.shipments | A,B,C,D | 受領重複防止、release別瓶数保存則、relationshipの全期間集計 | 実売/納品の根拠 | 2：受領ID index、release別shipped total、適合contact数・distinct quarter・first/last・fit集計 |
 | town.events | A,B,C,D | 配列lengthによる採番、直近12か月rumor上限、因果source | 口コミ・問い合わせ・訪問の参照chain | 2：単調ID、直近rumor窓、live source closure、歴史候補根拠 |
 | town.arrivals | B,C,D、一部A | eventsと同じ出来事の実体を別保持。world-map-view.mjs:7–24の到達段階判定からも参照 | 到達・評判の履歴 | 1：共通実体とID参照への変更可能性。地図の到達済み段階をevents由来の索引/集計で維持し、全参照とvalidatorの置換証明が必要 |
-| town.attempts | D、研究 | appendのみ。将来計算からの読取は確認されず | 抽選経過の研究・debug | 1：古い詳細の集約候補。検証統計・必要なら別debug記録を保持。現形式では全状態一致の対象 |
+| town.attempts | D、研究 | 試行詳細を追記。将来の抽選結果決定には使われないが、quantizeReactionの全件走査・再丸めと正式状態検証の対象 | 抽選経過の研究・debug | 1：古い詳細の集約候補。検証統計・必要なら別debug記録を保持。現形式では全状態一致の対象 |
 | town.seen | A,D | cohort/place再到達を抑止 | 重複の根拠 | 3：live keyを保持。cohort退役条件が証明されるまで古いkeyも削除不可 |
 | town.memories / pending / packets | A,C,D | 将来の反応、長期再登場、dueとsource参照 | 因果根拠 | 3：active記録と参照先closureを保持。retiredの整理は別検証 |
 | generations | A,B,C,D | 現在phase、最後の仕込み・経験・世代移行 | 世代境界、summary、seed | 3：active完全保持。completedは節目・集計・境界を保持 |
@@ -97,7 +97,7 @@ H2-5は **raw事実を対象境界で切ってからC-3** の順。現在時点�
 将来像はD。ただし最初に削除や正式形式変更をせず、Aの契約を基準に研究用Bを証明し、その後Cを段階的に分離する。
 
 1. **H1-A2の最初**：scratch専用checkpoint＋tailプロトタイプ。既存正式保存と操作を丸ごと保持したまま、交代境界の状態とreplay context（manualSources/manualFills/manualBottles、nearby product/cask資料など）を切り出す。現行全再生と状態・RNG・将来分岐・資料を比較する。実装対象は保存reader交換ではなく同値検証の入口。
-2. 世代交代は歴史境界と揃うが、約25〜27年のtailが残る。年次・一定操作数・容量閾値も同じ復元試験で比較する。固定間隔の採用値は実測後に決める。蒸留途中・試飲・旧origin・分岐・staff/委任・未処理決裁も試験する。
+2. 世代交代は歴史境界と揃う。今回の3政策の交代間隔は約25〜27年なので、交代直前にはそれに近いtailとなり得る。100年時点の実測tailは地元245・広域270・混合282か月（20.4〜23.5年）。年次・一定操作数・容量閾値も同じ復元試験で比較する。固定間隔の採用値は実測後に決める。蒸留途中・試飲・旧origin・分岐・staff/委任・未処理決裁も試験する。
 3. raw製造/販売/評判事実の増分生成と、交代境界を先に確定する不変candidate snapshotをshadow生成。既存抽出・H2-5の9境界と候補・根拠・seed・採用順が一致するまで本編readerへ接続しない。
 4. 日常の帳面を最近詳細・店/年/銘柄集計・節目に分離する設計と索引を試す。全履歴の参照先を個別に置換。UIの採用と正式データ集約は別判断。
 5. townのattempts、arrivals/event重複、表示reasonを最初の集約候補にし、ID/counter/seen/因果closure/受領保存則を守って同じ未来を生成するか検証。複数銘柄・50年後の再登場・長期memoryも含める。
@@ -108,3 +108,27 @@ Bのcheckpointは不正な状態を「検証済み」と自己申告するだけ
 ## 再生負荷のコード上の根拠
 
 `experiments/town-simulation/v01/model.mjs:274–278`のquantizeReactionはnodes/events/arrivals/memories/pending/packets/attemptsを再帰走査する。外部受領後と月次反応のたびに過去の実体も再走査するため、単純なJSON解析だけでなく、全状態複製と累積履歴の再走査が再生負荷に含まれる。個別のquantizeReaction時間は今回分離していないので、clone以外の残差すべてをこの関数の時間とみなさない。
+
+## 未解決と適用限界
+
+- 実測はseed 42の3政策。H2-4と同じ単一銘柄・origin=nullの経路であり、複数銘柄、旧保存origin、全ての委任・試飲・抽出途中・破損分岐を網羅した保存方式の安全性証明ではない。
+- 現行の完全再生とJSON一致を保った計測である。新しいcheckpoint、集約index、増分歴史生成、候補正本の移行は未実装・未検証。削減率・高速化倍率は未確定。
+- 保存上限の近さはUTF-16長による。checkpointだけではtownの累積実体は小さくならない。Bの成功だけで容量問題の解決とせず、Cの集約・重複整理も別に証明する必要がある。
+- NodeのGC・OS cache・host他負荷の影響は残る。測定2回の範囲を信頼区間とみなさない。iPhone Safari実機、DOM/worker転送/描画、低メモリ端末での安定性は未測定。
+- オフラインinstrumentation/抽出は既存sourceの厳密な文字列境界に依存する。仕様が進んだらassert停止後に境界を再レビューし、条件の違う測定を同じ結果へ混ぜない。
+
+## 重複・再生成可能性の区別
+
+- `town.arrivals`と同IDの`town.events`は今回、実体JSONの完全一致を件数で確認する。配列を丸ごと削る案ではなく、共通実体＋到達索引などへの正規化候補。
+- `core.archive`、`records`、`releases`、`town.releases.product`、`result`には同じ瓶詰め/樽のprofileや由来が重なる。ただし項目・寿命・参照元が異なり、同じ情報が含まれることだけでは互換な代替にならない。
+- `shop.deliveries`と`town.shipments/events`は同じ受領を別のモデルで記録する。前者は金額・販売mirror、後者は受領保存則・関係・評判sourceに必要。単純重複として引かない。
+- `operations`から多数の保存事実を再生成できる一方、現行ではそれを使って改変・不整合を検出する。この論理的冗長性は検証契約であり、表示用の重複とは異なる。
+- module-local検証checkpoint、projection token、帳面workerのcacheは派生・一時状態で、正式JSONの容量表には含まれない。将来永続化すると新たな保存容量と版管理が増える。
+
+既存`origin`は旧v0.9保存を取り込むためのversion 5境界に限定されている（`partner-orders.mjs:1304`）。新しい世代checkpointをこの欄へ押し込んで旧再生を読み替えない。正式採用時は、checkpointの状態・context・規則版・検証範囲を明示する新契約とreaderを設計する。旧版由来のcoverage欠落と、新しいcheckpoint以前の歴史を独立保持することも区別する。ブラウザ保存先のquota・Safari実機の保存/読込成功は本監査のNode文字列長検査とは別の未確認項目。
+
+checkpoint以前の操作を別扱いにしても、operationIndex・各ID・生涯の操作件数をtailの0から採番し直さない。歴史IDや境界位置をつなぐoffset/counterが必要で、現在の操作上限の意味を黙って変更しない。集計を置き換える際も、丸めの順序・金額単位・適合度の加算順を含めて同一性を検証する。見た目の同じ集計やchecksumだけで、現在の全操作再生と同じ検証保証が得られたとは扱わない。
+
+Dの「分離」はまず責務の分離とする。現在状態・tail・歴史候補・境界snapshotが別々の保存成功時点へずれないよう、共通の確定境界と原子的な保存/復旧を設計する。保存失敗や途中終了によって、進行していない月や未成立の納品が記憶側だけに残る構成を避ける。この保存契約もH1-A2以降の別判断であり、今回新しい保存keyや外部archiveは導入していない。
+
+過去の未保存の手動仕込みも、現行帳面では「製法を残す」「元の仕込み」「比べる」の入口である（`shop-app.mjs:452–491`、`partner-orders.mjs:689–701`）。仕込み一覧の最近分だけを表示する案と、古いmanual sourceを削る案は別に扱う。UI/機能の変更を別途判断するまでは、保存済み製法だけでなく、これらの操作に必要な確定製造事実・manual sourceも維持する。

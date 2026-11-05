@@ -1,0 +1,5427 @@
+[
+  {
+    "id": "local",
+    "month": 360,
+    "sources": {
+      "operations": 534,
+      "releases": 14,
+      "records": 12,
+      "deliveries": 73,
+      "relations": 1,
+      "currentCasks": 1,
+      "archivedCasks": 14,
+      "townEvents": 1738
+    },
+    "timingsMs": {
+      "releaseFacts": 7262.632783,
+      "releaseProjection": 1.3385119999993549,
+      "releaseTotal": 7263.971294999999,
+      "shopProjection": 0.56378500000028,
+      "caskManualFacts": 31.141843999999764,
+      "caskFacts": 34.91161699999975,
+      "caskProjectionWithColdReplay": 12463.162524000001,
+      "caskWorkerDataTotal": 12529.360167000003,
+      "historyProjectionWithColdReplay": 12279.188260000003
+    },
+    "screens": {
+      "recipes": {
+        "generated": 15,
+        "visiblePerPage": 15,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 15,
+        "visiblePerPage": 15,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 14,
+        "visible": 14,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 1,
+        "visiblePerPage": 1,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 73,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 134,
+        "yearButtons": 30,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 3,
+            "visiblePerPage": 3
+          }
+        ]
+      },
+      "generations": {
+        "generated": 2,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": false,
+            "visibleMilestones": 1
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "local",
+    "month": 720,
+    "sources": {
+      "operations": 968,
+      "releases": 19,
+      "records": 12,
+      "deliveries": 148,
+      "relations": 1,
+      "currentCasks": 0,
+      "archivedCasks": 19,
+      "townEvents": 2752
+    },
+    "timingsMs": {
+      "releaseFacts": 20311.343557,
+      "releaseProjection": 1.7060769999989134,
+      "releaseTotal": 20313.049634,
+      "shopProjection": 1.0127699999975448,
+      "caskManualFacts": 54.46852099999887,
+      "caskFacts": 50.294337000003,
+      "caskProjectionWithColdReplay": 36796.723808,
+      "caskWorkerDataTotal": 36901.606485,
+      "historyProjectionWithColdReplay": 34626.708613999996
+    },
+    "screens": {
+      "recipes": {
+        "generated": 19,
+        "visiblePerPage": 19,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 19,
+        "visiblePerPage": 19,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 19,
+        "visible": 19,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 1,
+        "visiblePerPage": 1,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 148,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 228,
+        "yearButtons": 61,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 60,
+            "generated": 1,
+            "visiblePerPage": 1
+          }
+        ]
+      },
+      "generations": {
+        "generated": 3,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 1
+          },
+          {
+            "id": 3,
+            "completed": false,
+            "visibleMilestones": 1
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "local",
+    "month": 1080,
+    "sources": {
+      "operations": 1382,
+      "releases": 21,
+      "records": 12,
+      "deliveries": 220,
+      "relations": 1,
+      "currentCasks": 1,
+      "archivedCasks": 21,
+      "townEvents": 3665
+    },
+    "timingsMs": {
+      "releaseFacts": 36420.525585999996,
+      "releaseProjection": 1.6762610000005225,
+      "releaseTotal": 36422.201847,
+      "shopProjection": 0.9582589999990887,
+      "caskManualFacts": 89.25758499999938,
+      "caskFacts": 93.88171000000148,
+      "caskProjectionWithColdReplay": 66806.355914,
+      "caskWorkerDataTotal": 66989.625223,
+      "historyProjectionWithColdReplay": 64547.67291800001
+    },
+    "screens": {
+      "recipes": {
+        "generated": 22,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 22,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 21,
+        "visible": 21,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 1,
+        "visiblePerPage": 1,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 220,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 311,
+        "yearButtons": 90,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 60,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 61,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 62,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 63,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 64,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 65,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 66,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 67,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 68,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 69,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 70,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 71,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 72,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 73,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 74,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 75,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 76,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 77,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 78,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 79,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 80,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 81,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 82,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 83,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 84,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 85,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 86,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 87,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 88,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 89,
+            "generated": 5,
+            "visiblePerPage": 5
+          }
+        ]
+      },
+      "generations": {
+        "generated": 4,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 1
+          },
+          {
+            "id": 3,
+            "completed": true,
+            "visibleMilestones": 1
+          },
+          {
+            "id": 4,
+            "completed": false,
+            "visibleMilestones": 1
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "local",
+    "month": 1200,
+    "sources": {
+      "operations": 1521,
+      "releases": 22,
+      "records": 12,
+      "deliveries": 243,
+      "relations": 1,
+      "currentCasks": 1,
+      "archivedCasks": 22,
+      "townEvents": 3985
+    },
+    "timingsMs": {
+      "releaseFacts": 43612.071734000005,
+      "releaseProjection": 1.9033589999962715,
+      "releaseTotal": 43613.975093,
+      "shopProjection": 1.994883999999729,
+      "caskManualFacts": 80.43607599999814,
+      "caskFacts": 79.20456299999933,
+      "caskProjectionWithColdReplay": 81101.63668200001,
+      "caskWorkerDataTotal": 81261.40822499999,
+      "historyProjectionWithColdReplay": 77200.29489599999
+    },
+    "screens": {
+      "recipes": {
+        "generated": 23,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 23,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 22,
+        "visible": 22,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 1,
+        "visiblePerPage": 1,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 243,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 338,
+        "yearButtons": 100,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 60,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 61,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 62,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 63,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 64,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 65,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 66,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 67,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 68,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 69,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 70,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 71,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 72,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 73,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 74,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 75,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 76,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 77,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 78,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 79,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 80,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 81,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 82,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 83,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 84,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 85,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 86,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 87,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 88,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 89,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 90,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 91,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 92,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 93,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 94,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 95,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 96,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 97,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 98,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 99,
+            "generated": 2,
+            "visiblePerPage": 2
+          }
+        ]
+      },
+      "generations": {
+        "generated": 4,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 1
+          },
+          {
+            "id": 3,
+            "completed": true,
+            "visibleMilestones": 1
+          },
+          {
+            "id": 4,
+            "completed": false,
+            "visibleMilestones": 1
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "wide",
+    "month": 360,
+    "sources": {
+      "operations": 515,
+      "releases": 15,
+      "records": 12,
+      "deliveries": 91,
+      "relations": 3,
+      "currentCasks": 0,
+      "archivedCasks": 15,
+      "townEvents": 2446
+    },
+    "timingsMs": {
+      "releaseFacts": 10296.390453,
+      "releaseProjection": 1.7773529999994935,
+      "releaseTotal": 10298.167806,
+      "shopProjection": 0.8932629999999335,
+      "caskManualFacts": 45.6131690000002,
+      "caskFacts": 46.02564900000107,
+      "caskProjectionWithColdReplay": 17307.721576000004,
+      "caskWorkerDataTotal": 17399.474310999998,
+      "historyProjectionWithColdReplay": 16342.58051
+    },
+    "screens": {
+      "recipes": {
+        "generated": 15,
+        "visiblePerPage": 15,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 15,
+        "visiblePerPage": 15,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 15,
+        "visible": 15,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 3,
+        "visiblePerPage": 3,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 78,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "supermarket",
+          "generated": 12,
+          "visiblePerPage": 12,
+          "pageSize": 20
+        },
+        {
+          "id": "department",
+          "generated": 1,
+          "visiblePerPage": 1,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 156,
+        "yearButtons": 31,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 10,
+            "visiblePerPage": 10
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 1,
+            "visiblePerPage": 1
+          }
+        ]
+      },
+      "generations": {
+        "generated": 2,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": false,
+            "visibleMilestones": 0
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "wide",
+    "month": 720,
+    "sources": {
+      "operations": 943,
+      "releases": 22,
+      "records": 12,
+      "deliveries": 191,
+      "relations": 3,
+      "currentCasks": 0,
+      "archivedCasks": 22,
+      "townEvents": 3933
+    },
+    "timingsMs": {
+      "releaseFacts": 32763.027711000002,
+      "releaseProjection": 2.140117000002647,
+      "releaseTotal": 32765.167828000005,
+      "shopProjection": 1.1893089999939548,
+      "caskManualFacts": 71.220567999997,
+      "caskFacts": 65.85362599999644,
+      "caskProjectionWithColdReplay": 53645.04567399999,
+      "caskWorkerDataTotal": 53782.24529300001,
+      "historyProjectionWithColdReplay": 52921.55496499999
+    },
+    "screens": {
+      "recipes": {
+        "generated": 22,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 22,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 22,
+        "visible": 22,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 3,
+        "visiblePerPage": 3,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 162,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "supermarket",
+          "generated": 26,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "department",
+          "generated": 3,
+          "visiblePerPage": 3,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 285,
+        "yearButtons": 60,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 10,
+            "visiblePerPage": 10
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 8,
+            "visiblePerPage": 8
+          }
+        ]
+      },
+      "generations": {
+        "generated": 3,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 3,
+            "completed": false,
+            "visibleMilestones": 0
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "wide",
+    "month": 1080,
+    "sources": {
+      "operations": 1375,
+      "releases": 29,
+      "records": 12,
+      "deliveries": 288,
+      "relations": 3,
+      "currentCasks": 1,
+      "archivedCasks": 24,
+      "townEvents": 5528
+    },
+    "timingsMs": {
+      "releaseFacts": 71190.669484,
+      "releaseProjection": 1.908065000010538,
+      "releaseTotal": 71192.57754900001,
+      "shopProjection": 1.1265180000045802,
+      "caskManualFacts": 98.65990499999316,
+      "caskFacts": 109.56175800001074,
+      "caskProjectionWithColdReplay": 114251.40654299999,
+      "caskWorkerDataTotal": 114459.780501,
+      "historyProjectionWithColdReplay": 113356.15047699999
+    },
+    "screens": {
+      "recipes": {
+        "generated": 30,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 30,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 29,
+        "visible": 29,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 3,
+        "visiblePerPage": 3,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 243,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "supermarket",
+          "generated": 40,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "department",
+          "generated": 5,
+          "visiblePerPage": 5,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 413,
+        "yearButtons": 90,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 10,
+            "visiblePerPage": 10
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 60,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 61,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 62,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 63,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 64,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 65,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 66,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 67,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 68,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 69,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 70,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 71,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 72,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 73,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 74,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 75,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 76,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 77,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 78,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 79,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 80,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 81,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 82,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 83,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 84,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 85,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 86,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 87,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 88,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 89,
+            "generated": 5,
+            "visiblePerPage": 5
+          }
+        ]
+      },
+      "generations": {
+        "generated": 4,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 3,
+            "completed": true,
+            "visibleMilestones": 1
+          },
+          {
+            "id": 4,
+            "completed": false,
+            "visibleMilestones": 1
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "wide",
+    "month": 1200,
+    "sources": {
+      "operations": 1528,
+      "releases": 33,
+      "records": 12,
+      "deliveries": 324,
+      "relations": 3,
+      "currentCasks": 0,
+      "archivedCasks": 24,
+      "townEvents": 6138
+    },
+    "timingsMs": {
+      "releaseFacts": 89833.29149599999,
+      "releaseProjection": 2.849279000001843,
+      "releaseTotal": 89836.14077499999,
+      "shopProjection": 3.0097870000026887,
+      "caskManualFacts": 128.6678760000068,
+      "caskFacts": 219.19741800001066,
+      "caskProjectionWithColdReplay": 143241.336957,
+      "caskWorkerDataTotal": 143589.35778199998,
+      "historyProjectionWithColdReplay": 139589.10235300002
+    },
+    "screens": {
+      "recipes": {
+        "generated": 33,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 33,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 33,
+        "visible": 33,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 3,
+        "visiblePerPage": 3,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 270,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "supermarket",
+          "generated": 48,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "department",
+          "generated": 6,
+          "visiblePerPage": 6,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 463,
+        "yearButtons": 100,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 10,
+            "visiblePerPage": 10
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 60,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 61,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 62,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 63,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 64,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 65,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 66,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 67,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 68,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 69,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 70,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 71,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 72,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 73,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 74,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 75,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 76,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 77,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 78,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 79,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 80,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 81,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 82,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 83,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 84,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 85,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 86,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 87,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 88,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 89,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 90,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 91,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 92,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 93,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 94,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 95,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 96,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 97,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 98,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 99,
+            "generated": 7,
+            "visiblePerPage": 7
+          }
+        ]
+      },
+      "generations": {
+        "generated": 4,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 3,
+            "completed": true,
+            "visibleMilestones": 1
+          },
+          {
+            "id": 4,
+            "completed": false,
+            "visibleMilestones": 2
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "mixed",
+    "month": 360,
+    "sources": {
+      "operations": 520,
+      "releases": 14,
+      "records": 12,
+      "deliveries": 80,
+      "relations": 3,
+      "currentCasks": 1,
+      "archivedCasks": 14,
+      "townEvents": 1908
+    },
+    "timingsMs": {
+      "releaseFacts": 8267.815258,
+      "releaseProjection": 1.3098200000003999,
+      "releaseTotal": 8269.125078000001,
+      "shopProjection": 0.6585650000015448,
+      "caskManualFacts": 38.621892000001026,
+      "caskFacts": 46.63733299999876,
+      "caskProjectionWithColdReplay": 14172.038523,
+      "caskWorkerDataTotal": 14257.431868,
+      "historyProjectionWithColdReplay": 13276.643651999999
+    },
+    "screens": {
+      "recipes": {
+        "generated": 15,
+        "visiblePerPage": 15,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 15,
+        "visiblePerPage": 15,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 14,
+        "visible": 14,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 3,
+        "visiblePerPage": 3,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 77,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "supermarket",
+          "generated": 2,
+          "visiblePerPage": 2,
+          "pageSize": 20
+        },
+        {
+          "id": "department",
+          "generated": 1,
+          "visiblePerPage": 1,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 143,
+        "yearButtons": 30,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 6,
+            "visiblePerPage": 6
+          }
+        ]
+      },
+      "generations": {
+        "generated": 2,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": false,
+            "visibleMilestones": 2
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "mixed",
+    "month": 720,
+    "sources": {
+      "operations": 907,
+      "releases": 17,
+      "records": 12,
+      "deliveries": 166,
+      "relations": 3,
+      "currentCasks": 0,
+      "archivedCasks": 17,
+      "townEvents": 3082
+    },
+    "timingsMs": {
+      "releaseFacts": 18958.423171000002,
+      "releaseProjection": 1.603411000000051,
+      "releaseTotal": 18960.026582000002,
+      "shopProjection": 0.9813409999987925,
+      "caskManualFacts": 59.06845600000088,
+      "caskFacts": 59.48954700000104,
+      "caskProjectionWithColdReplay": 35031.329778,
+      "caskWorkerDataTotal": 35150.018354,
+      "historyProjectionWithColdReplay": 33286.15036300001
+    },
+    "screens": {
+      "recipes": {
+        "generated": 17,
+        "visiblePerPage": 17,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 17,
+        "visiblePerPage": 17,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 17,
+        "visible": 17,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 3,
+        "visiblePerPage": 3,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 156,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "supermarket",
+          "generated": 8,
+          "visiblePerPage": 8,
+          "pageSize": 20
+        },
+        {
+          "id": "department",
+          "generated": 2,
+          "visiblePerPage": 2,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 240,
+        "yearButtons": 60,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 1,
+            "visiblePerPage": 1
+          }
+        ]
+      },
+      "generations": {
+        "generated": 3,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 3,
+            "completed": false,
+            "visibleMilestones": 0
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "mixed",
+    "month": 1080,
+    "sources": {
+      "operations": 1346,
+      "releases": 25,
+      "records": 12,
+      "deliveries": 267,
+      "relations": 3,
+      "currentCasks": 0,
+      "archivedCasks": 24,
+      "townEvents": 4663
+    },
+    "timingsMs": {
+      "releaseFacts": 49609.392477999994,
+      "releaseProjection": 1.857308999999077,
+      "releaseTotal": 49611.24978699999,
+      "shopProjection": 1.1866659999941476,
+      "caskManualFacts": 94.29721900000004,
+      "caskFacts": 87.77983200000017,
+      "caskProjectionWithColdReplay": 84439.31999400002,
+      "caskWorkerDataTotal": 84621.535209,
+      "historyProjectionWithColdReplay": 81556.88460400002
+    },
+    "screens": {
+      "recipes": {
+        "generated": 25,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 25,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 25,
+        "visible": 25,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 3,
+        "visiblePerPage": 3,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 237,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "supermarket",
+          "generated": 24,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "department",
+          "generated": 6,
+          "visiblePerPage": 6,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 374,
+        "yearButtons": 90,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 60,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 61,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 62,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 63,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 64,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 65,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 66,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 67,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 68,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 69,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 70,
+            "generated": 10,
+            "visiblePerPage": 10
+          },
+          {
+            "elapsedYear": 71,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 72,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 73,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 74,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 75,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 76,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 77,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 78,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 79,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 80,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 81,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 82,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 83,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 84,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 85,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 86,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 87,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 88,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 89,
+            "generated": 3,
+            "visiblePerPage": 3
+          }
+        ]
+      },
+      "generations": {
+        "generated": 4,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 3,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 4,
+            "completed": false,
+            "visibleMilestones": 2
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  },
+  {
+    "id": "mixed",
+    "month": 1200,
+    "sources": {
+      "operations": 1498,
+      "releases": 28,
+      "records": 12,
+      "deliveries": 301,
+      "relations": 3,
+      "currentCasks": 1,
+      "archivedCasks": 24,
+      "townEvents": 5201
+    },
+    "timingsMs": {
+      "releaseFacts": 66878.25134,
+      "releaseProjection": 1.9659369999862975,
+      "releaseTotal": 66880.21727699999,
+      "shopProjection": 1.2247910000005504,
+      "caskManualFacts": 121.29474699999264,
+      "caskFacts": 128.10884300000907,
+      "caskProjectionWithColdReplay": 109974.51837100001,
+      "caskWorkerDataTotal": 110224.08711600001,
+      "historyProjectionWithColdReplay": 105339.54989200001
+    },
+    "screens": {
+      "recipes": {
+        "generated": 29,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "casks": {
+        "generated": 29,
+        "visiblePerPage": 20,
+        "pageSize": 20
+      },
+      "releases": {
+        "generated": 28,
+        "visible": 28,
+        "pageSize": null
+      },
+      "shops": {
+        "generated": 3,
+        "established": 3,
+        "visiblePerPage": 3,
+        "pageSize": 20
+      },
+      "shopDetails": [
+        {
+          "id": "town-liquor",
+          "generated": 264,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "supermarket",
+          "generated": 30,
+          "visiblePerPage": 20,
+          "pageSize": 20
+        },
+        {
+          "id": "department",
+          "generated": 7,
+          "visiblePerPage": 7,
+          "pageSize": 20
+        }
+      ],
+      "history": {
+        "generated": 422,
+        "yearButtons": 100,
+        "pageSize": 50,
+        "years": [
+          {
+            "elapsedYear": 0,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 1,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 2,
+            "generated": 12,
+            "visiblePerPage": 12
+          },
+          {
+            "elapsedYear": 3,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 4,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 5,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 6,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 7,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 8,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 9,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 10,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 11,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 12,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 13,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 14,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 15,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 16,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 17,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 18,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 19,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 20,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 21,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 22,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 23,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 24,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 25,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 26,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 27,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 28,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 29,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 30,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 31,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 32,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 33,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 34,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 35,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 36,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 37,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 38,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 39,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 40,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 41,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 42,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 43,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 44,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 45,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 46,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 47,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 48,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 49,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 50,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 51,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 52,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 53,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 54,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 55,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 56,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 57,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 58,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 59,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 60,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 61,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 62,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 63,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 64,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 65,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 66,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 67,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 68,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 69,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 70,
+            "generated": 10,
+            "visiblePerPage": 10
+          },
+          {
+            "elapsedYear": 71,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 72,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 73,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 74,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 75,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 76,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 77,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 78,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 79,
+            "generated": 9,
+            "visiblePerPage": 9
+          },
+          {
+            "elapsedYear": 80,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 81,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 82,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 83,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 84,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 85,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 86,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 87,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 88,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 89,
+            "generated": 3,
+            "visiblePerPage": 3
+          },
+          {
+            "elapsedYear": 90,
+            "generated": 7,
+            "visiblePerPage": 7
+          },
+          {
+            "elapsedYear": 91,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 92,
+            "generated": 2,
+            "visiblePerPage": 2
+          },
+          {
+            "elapsedYear": 93,
+            "generated": 8,
+            "visiblePerPage": 8
+          },
+          {
+            "elapsedYear": 94,
+            "generated": 4,
+            "visiblePerPage": 4
+          },
+          {
+            "elapsedYear": 95,
+            "generated": 1,
+            "visiblePerPage": 1
+          },
+          {
+            "elapsedYear": 96,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 97,
+            "generated": 5,
+            "visiblePerPage": 5
+          },
+          {
+            "elapsedYear": 98,
+            "generated": 6,
+            "visiblePerPage": 6
+          },
+          {
+            "elapsedYear": 99,
+            "generated": 3,
+            "visiblePerPage": 3
+          }
+        ]
+      },
+      "generations": {
+        "generated": 4,
+        "rows": [
+          {
+            "id": 1,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 2,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 3,
+            "completed": true,
+            "visibleMilestones": 2
+          },
+          {
+            "id": 4,
+            "completed": false,
+            "visibleMilestones": 2
+          }
+        ]
+      }
+    },
+    "caveats": [
+      "Projection generation only; DOM formatting/painting, postMessage cloning, workers and iPhone Safari are not measured.",
+      "Source counts are array cardinalities, not loop iteration counts. Nested scans and snapshots can revisit all prior records for every operation.",
+      "Release facts start cold in this process; later cask facts are warm in the same module, unlike a newly created independent UI worker. caskProjectionWithColdReplay is still a full replay.",
+      "nearbyComparisonFacts validates and may use its module-local prefix cache; it must not be reported as cold full restoration.",
+      "History and cask public observer paths always perform a cold operation replay, independently of validation cache.",
+      "Recipes, casks and deliveries paginate after full projection; releases currently render all entries.",
+      "UI caches are snapshot/operation keyed and avoid repeated work only while the applicable snapshot remains unchanged."
+    ]
+  }
+]
