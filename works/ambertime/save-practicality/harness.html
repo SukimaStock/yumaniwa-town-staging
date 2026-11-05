@@ -1,0 +1,8 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>AmberTime H1-A5 保存検証</title><h1>H1-A5 保存検証</h1><p>研究用JSONを選んでください。本編保存は読み書きしません。同じサイト全体の削除はしないでください。</p><input id="file" type="file" accept=".json"><button id="save">研究用保存</button><button id="read">研究用保存を確認</button><button id="remove">研究用保存だけ削除</button><pre id="out" role="status"></pre><script type="module">
+import {writeLocal,readLocal,clearResearch} from './browser-suite.mjs';
+const out=document.querySelector('#out');
+document.querySelector('#save').onclick=async()=>{try{const file=document.querySelector('#file').files[0];if(!file)throw Error('JSONを選んでください');const parsed=JSON.parse(await file.text());const raw=parsed.version===20?JSON.stringify({version:2,game:parsed,userPaused:false,elapsed:0}):parsed.version===2&&parsed.game?.version===20?JSON.stringify(parsed):null;if(raw===null)throw Error('正式gameまたはsessionのJSONを選んでください');out.textContent=JSON.stringify(await writeLocal(raw),null,2);}catch(e){out.textContent=String(e);}};
+document.querySelector('#read').onclick=async()=>{out.textContent=JSON.stringify(await readLocal(),null,2);};
+document.querySelector('#remove').onclick=()=>{clearResearch();out.textContent='研究用保存を削除しました';};
+window.harness=await import('./browser-suite.mjs');
+</script></html>
