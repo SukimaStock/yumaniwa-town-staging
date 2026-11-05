@@ -5,13 +5,14 @@ import {resolve} from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {hash,loadAdapter,fullReplay,createCheckpoint,encodeContext} from '../checkpoint-research/prototype.mjs';
 import {seal,FORMAT,atomicJSON,writeBundle} from './persistence.mjs';
+import {dependencyFingerprint} from './fingerprint.mjs';
 const [source,directory,id]=process.argv.slice(2);assert(source&&directory&&id);
 const a2=JSON.parse(readFileSync(new URL('../checkpoint-research/results.json',import.meta.url))),prior=a2.results.find(r=>r.id===id&&r.month===1200);assert(prior);
 const raw=readFileSync(source,'utf8');assert.equal(hash(raw),prior.sourceHash);
-const codeFingerprint=hash(['persistence.mjs','worker.mjs','long-run.mjs'].map(p=>[p,hash(readFileSync(new URL(p,import.meta.url),'utf8'))]));
-mkdirSync(directory,{recursive:true});const resultPath=resolve(directory,'result.json');
-if(existsSync(resultPath)){const old=JSON.parse(readFileSync(resultPath));assert.equal(old.status,'complete');assert.equal(old.codeFingerprint,codeFingerprint);assert.equal(old.sourceHash,hash(raw));console.log(JSON.stringify({...old,reused:true}));process.exit(0);}
 const adapter=await loadAdapter();assert.equal(adapter.fingerprint,prior.modelFingerprint);
+const codeFingerprint=dependencyFingerprint(adapter.fingerprint);
+mkdirSync(directory,{recursive:true});const resultPath=resolve(directory,'result.json');
+if(existsSync(resultPath)){const old=JSON.parse(readFileSync(resultPath));assert.equal(old.status,'complete');assert.equal(old.codeFingerprint,codeFingerprint);assert.equal(old.sourceHash,hash(raw));assert.equal(old.modelFingerprint,adapter.fingerprint);console.log(JSON.stringify({...old,reused:true}));process.exit(0);}
 const target=JSON.parse(raw),wanted=new Set(prior.policies.map(p=>p.nextIndex)),captures=new Map();
 const replayStart=performance.now();
 const full=fullReplay(adapter,raw,{onStep:event=>{if(wanted.has(event.nextIndex)){
@@ -37,4 +38,5 @@ for(const policy of prior.policies){
  console.error(JSON.stringify({id,policy:policy.policy,tailMs:cold.timings.tailMs}));
 }
 const result={status:'complete',id,sourceHash:hash(raw),codeFingerprint,modelFingerprint:adapter.fingerprint,creationFullReplayMs,officialRestoreMs,boundaryVerificationMs,officialCold,rows,peakRssBytes:process.resourceUsage().maxRSS*1024,policy:'fresh Node per restore, OS cache uncontrolled, one sample, explicit GC before restore; no speedup ratio across trust guarantees'};
+assert.equal(dependencyFingerprint(adapter.fingerprint),codeFingerprint,'Research dependencies changed during condition');
 atomicJSON(resultPath,result);console.log(JSON.stringify(result));

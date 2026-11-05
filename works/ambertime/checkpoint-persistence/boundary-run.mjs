@@ -6,6 +6,7 @@ import {resolve,dirname} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {createOnlineCollectors} from './online.mjs';
+import {dependencyFingerprint} from './fingerprint.mjs';
 import {loadAdapter,fullReplay,createCheckpoint,replayTail,encodeContext,hash,bytes} from '../checkpoint-research/prototype.mjs';
 import {prepareRecallArchive,readRecallArchive} from '../chronicle-lab/research-h25.mjs';
 import {recallSentence,firstDeliveryIds} from '../chronicle-lab/caption.mjs';
@@ -14,7 +15,7 @@ import {buildChronicle} from '../chronicle-lab/editor.mjs';
 
 const atom=(file,value)=>{mkdirSync(dirname(file),{recursive:true});writeFileSync(file+'.tmp',JSON.stringify(value,null,2)+'\n');renameSync(file+'.tmp',file);};
 const memory=()=>({...process.memoryUsage(),peakRssBytes:process.resourceUsage().maxRSS*1024});
-function fingerprint(adapter){return hash({model:adapter.fingerprint,sources:['./online.mjs','./boundary-run.mjs','../checkpoint-research/prototype.mjs','../chronicle-lab/facts-recalls-long.json'].map(p=>[p,hash(readFileSync(new URL(p,import.meta.url),'utf8'))])});}
+function fingerprint(adapter){return dependencyFingerprint(adapter.fingerprint);}
 function recalled(view,handoverId){
  const archive=prepareRecallArchive(view.rawRecord),edition=readRecallArchive(archive,handoverId),firsts=firstDeliveryIds(view.rawRecord);
  return {cutoff:edition.cutoff,seedGeneration:edition.seedGeneration,events:edition.record.events,result:edition.result,sentences:edition.result.frames.map(frame=>recallSentence(frame.events[0],firsts))};
@@ -33,13 +34,14 @@ export async function materialWorker(bundleFile,saveFile,id,output){
  const recallStart=performance.now(),recall=prepareRecallArchive(view.rawRecord),recallMs=performance.now()-recallStart;
  const result={status:'complete',sourceHash:hash(saveRaw),codeFingerprint:fingerprint(adapter),stateHash:hash(JSON.stringify(replay.state)),contextDigest:hash(encodeContext(replay.context)),viewDigest:viewDigest(view),rawDigest:hash(view.rawRecord),recallDigest:hash(recall),rawEvents:view.rawRecord.events.length,candidateEvents:recall.events.length,
  timings:{readMs,parseMs,adapterLoadMs,hydrateMs,verifyMs:replay.verifyMs,tailMs:replay.tailMs,observeMs,finalizeMs:replay.finalizeMs,stateCompareMs:replay.compareMs,finishMs,recallMs,totalMs:performance.now()-start},memory:memory(),checkpointBytes:Buffer.byteLength(checkpointText),tailOperations:replay.replayed,node:process.version,gc:typeof globalThis.gc==='function',guarantee:'Creation path plus local file/prefix/model checks; not independent prefix revalidation at load.'};
+ assert.equal(dependencyFingerprint(adapter.fingerprint),bundle.codeFingerprint,'Dependencies changed during cold material replay');
  atom(output,result);return result;
 }
 
 export async function measureBoundaries(saveFile,id,outdir){
  mkdirSync(outdir,{recursive:true});
  const raw=readFileSync(saveFile,'utf8'),target=JSON.parse(raw),adapter=await loadAdapter(),sourceHash=hash(raw),codeFingerprint=fingerprint(adapter),output=resolve(outdir,id+'-materials.json');
- if(existsSync(output)){const prior=JSON.parse(readFileSync(output,'utf8'));assert.equal(prior.status,'complete');assert.equal(prior.sourceHash,sourceHash);assert.equal(prior.codeFingerprint,codeFingerprint);return {...prior,reused:true};}
+ if(existsSync(output)){const prior=JSON.parse(readFileSync(output,'utf8'));assert.equal(prior.status,'complete');assert.equal(prior.sourceHash,sourceHash);assert.equal(prior.codeFingerprint,codeFingerprint);assert.equal(prior.modelFingerprint,adapter.fingerprint);return {...prior,reused:true};}
  const published=JSON.parse(readFileSync(new URL('../chronicle-lab/facts-recalls-long.json',import.meta.url),'utf8'));
  assert.equal(target.core.month,1200);assert.equal(published.records[id].sourceSha256,sourceHash);
  const oldResults=JSON.parse(readFileSync(new URL('../checkpoint-research/results.json',import.meta.url),'utf8'));
@@ -83,6 +85,7 @@ export async function measureBoundaries(saveFile,id,outdir){
  const oracle=JSON.parse(independent.stdout);assert.deepEqual(view.rawRecord,oracle.record,'Independent H2-5 raw extraction differs');
  assert.equal(readFileSync(saveFile,'utf8'),raw);
  const result={schema:'ambertime-h1-a3-material-result/1',status:'complete',id,sourceHash,codeFingerprint,modelFingerprint:adapter.fingerprint,operations:target.operations.length,fullMs,collectorMs,finishMs,annualCaptureMs:captureMs,rawEvents:view.rawRecord.events.length,viewDigest:viewDigest(view),independentRawEqual:true,boundaries:comparisons,cold,memory:memory(),limits:['Single cold child trial; OS page cache is not flushed.','Cold child imports fresh modules but the host file cache may be warm.','Collector stores Maps/Sets and facts, never per-operation state snapshots.','Full raw rendering consults current persistent shipment/release state. That state is not compacted in this study.','Formal-equivalent prefix revalidation at each load is not included.']};
+ assert.equal(dependencyFingerprint(adapter.fingerprint),codeFingerprint,'Dependencies changed during material condition');
  atom(output,result);return result;
 }
 
