@@ -1,3 +1,4 @@
+import {withRecallSnapshots} from './recall-snapshots.mjs';
 import {withReputationCandidates} from './facts-d.mjs';
 import {firstDeliveryIds,recallSentence} from './caption.mjs';
 import {buildChronicle} from './editor.mjs';
@@ -8,7 +9,8 @@ import {monthLabel} from '../model.mjs';
 
 const $ = id => document.getElementById(id);
 const menu = $('menu'), recall = $('recall'), record = $('record'), horizon = $('horizon');
-const mode = $('mode'), jump = $('jump');
+const mode = $('mode'), jump = $('jump'), handover = $('handover');
+const longView = new URLSearchParams(location.search).get('long')==='1';
 const open = $('open'), close = $('close'), previous = $('previous'), next = $('next');
 const picture = $('picture'), evidence = $('evidence');
 const drawMap = createSceneMap(picture.querySelector('canvas'));
@@ -16,8 +18,11 @@ let records, recordsD, deliveryFirsts, frames = [], index = 0;
 const editions = new Map();
 
 function currentEdition(method) {
-  const key = [record.value,horizon.value,method].join('/');
-  if (!editions.has(key)) editions.set(key,buildChronicle((method === 'd' ? recordsD : records)[record.value],horizon.value,method));
+  const key = [record.value,horizon.value,method,handover.value].join('/');
+  const selected = records[record.value].events.find(event=>event.id===handover.value);
+  const options = horizon.value==='handover' && selected ?
+    {handoverId:selected.id,targetGeneration:selected.generationId} : {};
+  if (!editions.has(key)) editions.set(key,buildChronicle((method === 'd' ? recordsD : records)[record.value],horizon.value,method,options));
   return editions.get(key);
 }
 
@@ -138,11 +143,23 @@ $('compare').addEventListener('click',() => {
   if (pastOmissions.length < omitted.length) $('omitted-events').append(
     textNode('li',`回想時点より後のため対象外　${omitted.length-pastOmissions.length}件`));
   $('edition-audit').textContent = JSON.stringify({
-    ...audit,旧資料の省略集計_30年全体:records[record.value].omitted,追加候補数:recordsD[record.value].events.length-records[record.value].events.length,
+    ...audit,旧資料の省略集計_全期間:records[record.value].omitted,追加候補数:recordsD[record.value].events.length-records[record.value].events.length,
   },null,2);
   for (const details of comparison.querySelectorAll('details')) details.open = false;
   comparison.showModal();
 });
+
+function updateHandovers() {
+  const previous = handover.value;
+  const events = records[record.value].events.filter(event=>event.kind==='handover')
+    .sort((a,b)=>a.month-b.month || a.operationIndex-b.operationIndex);
+  handover.replaceChildren(...events.map(event=>new Option(
+    '第'+event.ids.fromGeneration+'世代から第'+event.ids.toGeneration+'世代へ',event.id)));
+  if (events.some(event=>event.id===previous)) handover.value=previous;
+  $('handover-choice').hidden = events.length<2 || horizon.value!=='handover';
+}
+record.addEventListener('change',updateHandovers);
+horizon.addEventListener('change',updateHandovers);
 
 const labels = {local:'地元密着型',wide:'広域展開型',mixed:'混合型'};
 async function loadFacts(path) {
@@ -150,10 +167,19 @@ async function loadFacts(path) {
   if (!response.ok) throw Error('履歴の読み込み');
   return response.json();
 }
-Promise.all([loadFacts('./facts.json'),loadFacts('./facts-d.json').catch(() => null)]).then(([data,extra]) => {
-  if (extra) {
+async function loadRecords() {
+  if (longView) {
+    const long = await loadFacts('./facts-recalls-long.json');
+    return [long.records,null,long.recalls];
+  }
+  return Promise.all([loadFacts('./facts.json'),loadFacts('./facts-d.json').catch(()=>null),
+    loadFacts('./facts-recalls.json').catch(()=>null)]);
+}
+loadRecords().then(([data,extra,snapshots]) => {
+  if ((extra || longView) && snapshots) {
     try {
-      recordsD = Object.fromEntries(Object.entries(data).map(([id,item]) => [id,withReputationCandidates(item,extra[id])]));
+      recordsD = Object.fromEntries(Object.entries(data).map(([id,item]) => [id,withRecallSnapshots(
+        longView ? item : withReputationCandidates(item,extra[id]),snapshots[id])]));
     } catch {
       recordsD = null;
     }
@@ -165,7 +191,13 @@ Promise.all([loadFacts('./facts.json'),loadFacts('./facts-d.json').catch(() => n
   records = data;
   for (const id of Object.keys(labels)) if (Object.hasOwn(data,id)) record.add(new Option(labels[id],id));
   if (!record.options.length) throw Error('履歴なし');
+  updateHandovers();
+  if (longView) {
+    $('title').textContent='100年の歩み';
+    document.body.classList.add('long-history');
+    horizon.querySelector('option[value=anniversary]').textContent='100年経過';
+  }
   record.disabled = open.disabled = false;
   $('compare').disabled = !recordsD;
-  $('status').textContent = recordsD ? '' : 'D案の追加資料を読み込めませんでした。';
+  $('status').textContent = recordsD ? '' : 'D案の回想資料を読み込めませんでした。';
 }).catch(() => { $('status').textContent = '記録を読み込めませんでした。'; });

@@ -1,3 +1,4 @@
+import {buildSnapshotChronicle} from './recall-snapshots.mjs';
 import {buildEdition} from './edition-d.mjs';
 
 // The editor only reads the prepared history. It never calls model replay.
@@ -45,6 +46,9 @@ function frameFor(event,reason) {
 }
 
 export function buildChronicle(record,horizon,mode,options={}) {
+  if (mode==='d' && horizon==='handover' && record?.recallSnapshots) {
+    return buildSnapshotChronicle(record,options);
+  }
   const cutoffEvent = record?.events?.filter(event => event.kind === 'handover' &&
     Number.isInteger(event.month) && Number.isInteger(event.operationIndex) &&
     (options.targetGeneration == null || event.generationId === options.targetGeneration)).sort(chronological)[0];

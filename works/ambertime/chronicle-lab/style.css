@@ -11,3 +11,6 @@
 #comparison details { margin: .75rem 0; }
 #comparison li { margin-block: .4rem; }
 .caption:has(#date[hidden]) #fact { font-size: 1rem; line-height: 1.5; }
+#handover-choice[hidden] { display: none; }
+.long-history #menu h1 { margin-block: .5rem; font-size: 1.6rem; }
+.long-history #menu label { margin-block: .5rem; }
