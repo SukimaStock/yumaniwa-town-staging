@@ -17,7 +17,8 @@ const base='74924b2729565531dcc3a499dcb7e24bcc0dced8';
 const files=['index.html','shop-app.mjs','cask-serials.mjs','partner-orders.mjs','placement-save.mjs','save-codec.mjs'];
 const fingerprint=mode=>hash(files.map(p=>mode==='before'?execFileSync('git',['show',base+':works/ambertime/'+p],{cwd:root,encoding:'utf8',maxBuffer:8e6}):readFileSync(new URL('../'+p,import.meta.url),'utf8')).join('\n'));
 const fingerprints=Object.fromEntries(['before','separated'].map(mode=>[mode,fingerprint(mode)])),results=[];
-const valid=(r,mode,source)=>r.status==='complete'&&!r.error&&r.errors?.length===0&&r.mode===mode&&r.baseSha===base&&r.inputSha256===source&&r.runnerFingerprint===runnerFingerprint&&r.codeFingerprint===fingerprints[mode]&&r.firstFormalCheck?.checkpointLength===r.firstFormalCheck?.operations&&Number.isInteger(r.firstFormalCheck?.operations);
+const isSha=value=>typeof value==='string'&&/^[0-9a-f]{64}$/.test(value);
+const valid=(r,mode,source)=>isSha(r.wireSha256)&&isSha(r.gameSha256)&&isSha(r.servedAppSha256)&&typeof r.browser==='string'&&r.browser.length>0&&r.status==='complete'&&!r.error&&r.errors?.length===0&&r.mode===mode&&r.baseSha===base&&r.inputSha256===source&&r.runnerFingerprint===runnerFingerprint&&r.codeFingerprint===fingerprints[mode]&&r.firstFormalCheck?.checkpointLength===r.firstFormalCheck?.operations&&Number.isInteger(r.firstFormalCheck?.operations);
 for(const month of [1200,360,720,1080])for(const id of ['local','wide','mixed']){
  if(only&&only!==`${id}-${month}`)continue;
  const input=resolve(saves,`${id}-${month}.json`),source=hash(readFileSync(input));assert.equal(source,expected.find(r=>r.id===id&&r.month===month).sourceHash);
@@ -46,4 +47,4 @@ for(const month of [1200,360,720,1080])for(const id of ['local','wide','mixed'])
 }
 assert.equal(results.length,only?2:24);
 for(const mode of Object.keys(fingerprints))assert.equal(fingerprint(mode),fingerprints[mode]);assert.equal(hash(readFileSync(runner)),runnerFingerprint);
-writeFileSync(resolve(output,only?`${only}-pair.json`:'results.json'),JSON.stringify({status:'complete',results},null,2));
+writeFileSync(resolve(output,only?`${only}-pair.json`:'results.json'),JSON.stringify({status:'complete',runEnvironmentFingerprint:environmentFingerprint,results},null,2));
