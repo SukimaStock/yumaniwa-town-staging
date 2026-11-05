@@ -1,0 +1,707 @@
+{
+  "status": "complete",
+  "results": [
+    {
+      "status": "complete",
+      "mode": "before",
+      "runnerFingerprint": "c1995e1445dceac23ec27e89aeb71e3d9155cd70996fb16feeb5d06d0bc6f441",
+      "baseSha": "74924b2729565531dcc3a499dcb7e24bcc0dced8",
+      "codeFingerprint": "ca3eed6da9895a9de4bd89dc95ea024eded6711cc34f9609080f57c8410acf1b",
+      "inputSha256": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "wireSha256": "31d916f842c5d444f7a55d885d7be890a9f9ff91bae41089f8aa2b325b4f3800",
+      "firstFormalCheck": {
+        "checkpointLength": 1529,
+        "operations": 1529,
+        "serializeMs": 161.69999999925494
+      },
+      "observationCompleteMs": 358922,
+      "servedAppSha256": "ea70491cad54e76134013f613d403bc5cde866d60c1c677dedd5e7e30f246ed6",
+      "browser": "153.0.8010.0",
+      "gameSha256": "5202d0f8f40b99da8e3a7a0a55cec90c3be3fa91231f0ecfc265dcbd813019c4",
+      "inputResponseMs": 4,
+      "paintEntries": [
+        {
+          "name": "first-paint",
+          "entryType": "paint",
+          "startTime": 116,
+          "duration": 0,
+          "navigationId": 2973,
+          "paintTime": 98.90000000223517,
+          "presentationTime": 116
+        },
+        {
+          "name": "first-contentful-paint",
+          "entryType": "paint",
+          "startTime": 358156,
+          "duration": 0,
+          "navigationId": 2973,
+          "paintTime": 358151.30000000075,
+          "presentationTime": 358156
+        }
+      ],
+      "diagnostics": {
+        "placement": true,
+        "saveKey": "sukimastock.ambertime.main.v1",
+        "clockPending": false,
+        "playbackRate": 1,
+        "canSave": true,
+        "migrationPending": false,
+        "saveVersion": 3,
+        "ui": {
+          "motions": 0,
+          "draft": null
+        },
+        "market": {
+          "visible": false,
+          "selected": null,
+          "portion": "1",
+          "editing": null,
+          "motions": 0,
+          "scrollTasks": 0,
+          "feedback": []
+        }
+      },
+      "memory": {
+        "used": 91700000,
+        "total": 131000000
+      },
+      "navigation": {
+        "name": "http://127.0.0.1:33857/works/ambertime/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 358191.6000000015,
+        "navigationId": 2973,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.19999999925494194,
+        "domainLookupStart": 0.19999999925494194,
+        "domainLookupEnd": 0.19999999925494194,
+        "connectStart": 0.19999999925494194,
+        "secureConnectionStart": 0,
+        "connectEnd": 0.19999999925494194,
+        "requestStart": 0.8000000007450581,
+        "responseStart": 2.5,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 2.5,
+        "responseEnd": 3.199999999254942,
+        "transferSize": 12747,
+        "encodedBodySize": 12447,
+        "decodedBodySize": 12447,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 16.400000002235174,
+        "unloadEventEnd": 16.400000002235174,
+        "domInteractive": 29.199999999254942,
+        "domContentLoadedEventStart": 358149,
+        "domContentLoadedEventEnd": 358149.1000000015,
+        "domComplete": 358191.6000000015,
+        "loadEventStart": 358191.6000000015,
+        "loadEventEnd": 358191.6000000015,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      },
+      "events": [
+        {
+          "name": "readSession:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/placement-save.mjs?v=h1-b2-1",
+          "duration": null,
+          "time": 160.69999999925494
+        },
+        {
+          "name": "restoreDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 277.30000000074506
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 293.30000000074506
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 297.6000000014901
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 1.0999999977648258,
+          "time": 298.69999999925494
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 98947.39999999851,
+          "time": 99240.80000000075
+        },
+        {
+          "name": "restoreDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 98963.69999999925,
+          "time": 99241
+        },
+        {
+          "name": "readSession:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/placement-save.mjs?v=h1-b2-1",
+          "duration": 99080.30000000075,
+          "time": 99241
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 99241.10000000149
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 131.69999999925494,
+          "time": 99372.80000000075
+        },
+        {
+          "name": "render-start",
+          "url": null,
+          "duration": null,
+          "time": 99388.60000000149
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 99390.5
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 186.30000000074506,
+          "time": 99576.80000000075
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 99631.19999999925
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 213.60000000149012,
+          "time": 99844.80000000075
+        },
+        {
+          "name": "readSession:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/placement-save.mjs?v=h1-b2-1",
+          "duration": null,
+          "time": 99975.19999999925
+        },
+        {
+          "name": "restoreDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 100119.19999999925
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 100133.40000000224
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 171.69999999925494,
+          "time": 100305.10000000149
+        },
+        {
+          "name": "restoreDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 186.10000000149012,
+          "time": 100305.30000000075
+        },
+        {
+          "name": "readSession:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/placement-save.mjs?v=h1-b2-1",
+          "duration": 330.1000000014901,
+          "time": 100305.30000000075
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 100378.30000000075
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 156.60000000149012,
+          "time": 100534.90000000224
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 100535.19999999925
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 144.60000000149012,
+          "time": 100679.80000000075
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 100700.10000000149
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 152.80000000074506,
+          "time": 100852.90000000224
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": null,
+          "time": 100854.19999999925
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": null,
+          "time": 100860.69999999925
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": 0.9000000022351742,
+          "time": 100861.60000000149
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": 98475.30000000075,
+          "time": 199329.5
+        },
+        {
+          "name": "createProjectionReplay:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": null,
+          "time": 199329.80000000075
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": null,
+          "time": 199331.90000000224
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": 1,
+          "time": 199332.90000000224
+        },
+        {
+          "name": "createProjectionReplay:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": 158805.30000000075,
+          "time": 358135.1000000015
+        },
+        {
+          "name": "boot-complete",
+          "url": null,
+          "duration": null,
+          "time": 358148.90000000224
+        },
+        {
+          "name": "paint-opportunity",
+          "url": null,
+          "duration": null,
+          "time": 358158.1000000015
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 358754.80000000075
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:33857/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 129.39999999850988,
+          "time": 358884.19999999925
+        }
+      ],
+      "errors": [],
+      "id": "wide",
+      "month": 1200
+    },
+    {
+      "status": "complete",
+      "mode": "separated",
+      "runnerFingerprint": "c1995e1445dceac23ec27e89aeb71e3d9155cd70996fb16feeb5d06d0bc6f441",
+      "baseSha": "74924b2729565531dcc3a499dcb7e24bcc0dced8",
+      "codeFingerprint": "cadecab82e87aba1ceb60f1a32155ac4a24bdcd450f307fa4494bd64c683e62e",
+      "inputSha256": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "wireSha256": "31d916f842c5d444f7a55d885d7be890a9f9ff91bae41089f8aa2b325b4f3800",
+      "firstFormalCheck": {
+        "checkpointLength": 1529,
+        "operations": 1529,
+        "serializeMs": 188.19999999925494
+      },
+      "observationCompleteMs": 255552,
+      "servedAppSha256": "3e3c136c283ebaff0a2e3995caca8c3cb23bebf9d86a934ac1039982d13ceeaf",
+      "browser": "153.0.8010.0",
+      "gameSha256": "5202d0f8f40b99da8e3a7a0a55cec90c3be3fa91231f0ecfc265dcbd813019c4",
+      "inputResponseMs": 13,
+      "paintEntries": [
+        {
+          "name": "first-paint",
+          "entryType": "paint",
+          "startTime": 112,
+          "duration": 0,
+          "navigationId": 6099,
+          "paintTime": 105.70000000298023,
+          "presentationTime": 112
+        },
+        {
+          "name": "first-contentful-paint",
+          "entryType": "paint",
+          "startTime": 254804,
+          "duration": 0,
+          "navigationId": 6099,
+          "paintTime": 254794.1000000015,
+          "presentationTime": 254804
+        }
+      ],
+      "diagnostics": {
+        "placement": true,
+        "saveKey": "sukimastock.ambertime.main.v1",
+        "clockPending": false,
+        "playbackRate": 1,
+        "canSave": true,
+        "migrationPending": false,
+        "saveVersion": 3,
+        "ui": {
+          "motions": 0,
+          "draft": null
+        },
+        "market": {
+          "visible": false,
+          "selected": null,
+          "portion": "1",
+          "editing": null,
+          "motions": 0,
+          "scrollTasks": 0,
+          "feedback": []
+        }
+      },
+      "memory": {
+        "used": 72200000,
+        "total": 131000000
+      },
+      "navigation": {
+        "name": "http://127.0.0.1:41911/works/ambertime/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 254804.30000000075,
+        "navigationId": 6099,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.20000000298023224,
+        "domainLookupStart": 0.20000000298023224,
+        "domainLookupEnd": 0.20000000298023224,
+        "connectStart": 0.20000000298023224,
+        "secureConnectionStart": 0,
+        "connectEnd": 0.20000000298023224,
+        "requestStart": 1.1000000014901161,
+        "responseStart": 2.7000000029802322,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 2.7000000029802322,
+        "responseEnd": 3.5,
+        "transferSize": 12747,
+        "encodedBodySize": 12447,
+        "decodedBodySize": 12447,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 14.400000002235174,
+        "unloadEventEnd": 14.400000002235174,
+        "domInteractive": 23.400000002235174,
+        "domContentLoadedEventStart": 254791.6000000015,
+        "domContentLoadedEventEnd": 254791.6000000015,
+        "domComplete": 254804.30000000075,
+        "loadEventStart": 254804.30000000075,
+        "loadEventEnd": 254804.30000000075,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      },
+      "events": [
+        {
+          "name": "readSession:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/placement-save.mjs?v=h1-b2-1",
+          "duration": null,
+          "time": 161.60000000149012
+        },
+        {
+          "name": "restoreDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 273.20000000298023
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 289.5
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 294.70000000298023
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 1,
+          "time": 295.70000000298023
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 96847.80000000075,
+          "time": 97137.30000000075
+        },
+        {
+          "name": "restoreDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 96864.39999999851,
+          "time": 97137.60000000149
+        },
+        {
+          "name": "readSession:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/placement-save.mjs?v=h1-b2-1",
+          "duration": 96976.10000000149,
+          "time": 97137.60000000149
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 97137.80000000075
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 126.69999999925494,
+          "time": 97264.5
+        },
+        {
+          "name": "render-start",
+          "url": null,
+          "duration": null,
+          "time": 97277.70000000298
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 97279.30000000075
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 141.69999999925494,
+          "time": 97421
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 97461.30000000075
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 163.40000000223517,
+          "time": 97624.70000000298
+        },
+        {
+          "name": "readSession:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/placement-save.mjs?v=h1-b2-1",
+          "duration": null,
+          "time": 97738
+        },
+        {
+          "name": "restoreDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 97844
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 97860.10000000149
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 144.30000000074506,
+          "time": 98004.40000000224
+        },
+        {
+          "name": "restoreDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 160.60000000149012,
+          "time": 98004.60000000149
+        },
+        {
+          "name": "readSession:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/placement-save.mjs?v=h1-b2-1",
+          "duration": 266.6000000014901,
+          "time": 98004.60000000149
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 98072.5
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 166.80000000074506,
+          "time": 98239.30000000075
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 98239.60000000149
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 141.80000000074506,
+          "time": 98381.40000000224
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 98398.70000000298
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 126.39999999850988,
+          "time": 98525.10000000149
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 98526.60000000149
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 125.30000000074506,
+          "time": 98651.90000000224
+        },
+        {
+          "name": "createProjectionReplay:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": null,
+          "time": 98652.30000000075
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": null,
+          "time": 98656.20000000298
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": 1.0999999977648258,
+          "time": 98657.30000000075
+        },
+        {
+          "name": "createProjectionReplay:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1",
+          "duration": 156131,
+          "time": 254783.20000000298
+        },
+        {
+          "name": "boot-complete",
+          "url": null,
+          "duration": null,
+          "time": 254791.5
+        },
+        {
+          "name": "paint-opportunity",
+          "url": null,
+          "duration": null,
+          "time": 254807.40000000224
+        },
+        {
+          "name": "validateDistillery:start",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": null,
+          "time": 255358.40000000224
+        },
+        {
+          "name": "validateDistillery:end",
+          "url": "http://127.0.0.1:41911/works/ambertime/partner-orders.mjs?v=market-rules-r1&touch=1",
+          "duration": 151.39999999850988,
+          "time": 255509.80000000075
+        }
+      ],
+      "errors": [],
+      "id": "wide",
+      "month": 1200
+    }
+  ]
+}
