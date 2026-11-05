@@ -42,3 +42,7 @@ node works/ambertime/checkpoint-research/summarize.mjs /new/scratch/h1-a2/result
 ```
 
 `all`は年数順、方針順で新しいchild processを逐次起動する。完了済みの条件が同じfingerprintなら再実行せず、残りだけ実行する。研究資料prefixはその最終対象へのbindingを持つため、異なる将来の帳面へ流用する入口ではない。
+
+次段階の検証順序と復旧条件は[NEXT.md](NEXT.md)に整理した。
+
+保留申し出の補助分岐試験は[OFFER-CHECK.md](OFFER-CHECK.md)。

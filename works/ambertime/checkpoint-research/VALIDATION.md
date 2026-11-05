@@ -56,3 +56,20 @@ partialは正式全復元と研究全再生の後に同じprocessで測るwarm�
 本編・正式保存形式・経済・乱数・帳面UI・既存H2-4/H2-5/H1-A1資料・Productionは変更しない。H1-A3は提案のみ。ブラウザー入口を持たないオフライン研究のため、新しいLAB画面や作品identityは作らない。
 
 Change Verificationの最終状態は`UNVERIFIED`を維持する。研究検証・CI・Stagingマージを作者実機確認や正式採用、Production公開承認として扱わない。
+
+計測範囲の補足：checkpoint作成msはstate/contextの複製・hash・collectorの直列化までの処理時間で、checkpointファイルの書込・fsync時間は測定していない。module importとsource fingerprint作成もtail時間には含まない。正式な移行時の総作成負荷・永続化負荷は未確定。
+
+容量列の補足：checkpointBytesとprojectionPrefixBytesは`JSON.stringify`したcompact JSONのUTF-8容量。combinedCheckpointBytesはscratchへ書き込んだ整形済みJSONファイルの実バイト数で、空白・改行を含む。元の正式保存は別途完全保持しており、これらを正式保存の置換後容量や削減率として扱わない。
+
+## 最終長期結果
+
+12条件・5方式の計60本で、非空tailから正式状態全JSON、再生context、帳面資料、raw歴史事実、回想archive・全境界の編集・文章が一致した。独立した正式readerの全復元・再保存も各条件で元JSONと一致。100年の既存H2-5資料9交代境界と、30年の既存3境界も一致した。
+
+計測コードfingerprint: `4b291acbfe0bfd7c5dadb8b79e145e11288aaddf7e245cf9874028d53f515a34`。
+モデルfingerprint: `6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02`。
+
+完了後に同じallコマンドを再実行し、12条件すべて`reused:true`で終了。重い復元・シミュレーションは再実行せず、同じSHA/fingerprintの完了結果だけを再利用できた。最初のsmokeや未完了結果は最終集計へ入っていない。
+
+補助試験では自然生成した61か月・保留申し出2件の正式状態を起点に、「受諾→納品→月次」の3操作と「辞退→月次」の2操作を同一checkpointから分岐。各操作後の全状態、最終context、正式復元・再保存が一致した。[再現用コード](OFFER-CHECK.md)を参照。長期local90/100保存にある保留shop.offerも全状態比較の対象である。
+
+最終独立レビューでは、12条件・60件の同値フラグ、全入力SHA/容量、単一fingerprint、時間内訳、tail月数/操作数、REPORTとCSVの全行を照合し、不整合なし。Scope → Risk → Impact、全研究mjsの構文、Lifecycle検査も成功。必須CIと最終候補SHAは[PR #806](https://github.com/SukimaStock/yumaniwa-town-staging/pull/806)のchecks/本文を参照する。
