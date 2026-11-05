@@ -111,3 +111,7 @@ Production変更なし。完了条件を満たすまでマージしない。
 各行で入力・v3 wire・起動後全JSONが同一。起動直後の正式serializeも通常の検証を通り、最新operation境界を維持。heapは計測終了時の粗いサンプルで、ピーク比較ではない。
 
 後継Draft PR #814。新LockのScope/Risk/Impact、変更後の固定証拠5件、独立レビューは成功。先行PR #813は引継ぎ済み。広域・混合100年の最終比較と残る年数の比較、必須CI、Staging配信は未完了。
+
+新規ゲームChromium: 0か月でv3を実保存、貯蔵庫への移動成功。2つのWorkerをナビゲーションから約328msで生成、モジュール準備完了は約427/430ms。ページからWorkerへのsnapshot要求は0件。隔離計測だけに準備完了マーカーを追加した。新規ゲームの値であり、100年時のWorker準備時間は未分離。`worker-init.mjs` / `worker-init-results.json`。
+
+広域100年・最終runner変更前: boot-complete 358.149秒、描画機会358.158秒。正式reader98.964秒、重複検証98.475秒、樽番号projection158.805秒。現在の正式cache保持を起動直後にも確認した。修正版の同条件は計測中。
