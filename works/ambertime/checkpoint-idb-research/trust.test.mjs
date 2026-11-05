@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {auditDecision,assessAuditCadence} from './trust.mjs';
+const valid={localIntegrity:true,prefixBinding:true,modelMatches:true,collectorMatches:true,creatorMatches:true};
+test('local integrity never implies independent replay or authentication',()=>{assert.equal(auditDecision(valid).fullReplay,false);assert.equal(auditDecision(valid).state,'local-consistency-only');for(const key of Object.keys(valid)){const r=auditDecision({...valid,[key]:false});assert(r.fullReplay);assert.notEqual(r.action,'conditional-partial-restore');}});
+test('migration, anomaly, explicit audit and caller selected experimental cadence require full replay',()=>{for(const key of ['migration','corruption','explicit'])assert(auditDecision({...valid,[key]:true}).fullReplay);assert(auditDecision({...valid,elapsedOperations:20,budget:{operations:20}}).fullReplay);assert(auditDecision({...valid,elapsedMonths:12,budget:{months:12}}).fullReplay);assert(!auditDecision({...valid,elapsedOperations:19,budget:{operations:20}}).fullReplay);assert(assessAuditCadence({restoreCount:100,fullReplayMs:500,candidateIntervals:[1,10,20]}).every(x=>!x.measured));});
