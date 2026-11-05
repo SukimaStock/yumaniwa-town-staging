@@ -1,0 +1,1862 @@
+{
+  "schema": "ambertime-h1-b1-capacity/1",
+  "baseSha": "fcc14b249733b6cccd598bcd2e567e64848bcd7f",
+  "node": "v24.22.1",
+  "platform": "linux",
+  "codeFingerprint": "351542ec1aa9e4c89b4e46c10f543fad8da1905a701a6fcc7daef81b8fbbc7a6",
+  "rows": [
+    {
+      "id": "local",
+      "month": 360,
+      "sourceHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "baseline": {
+        "utf8Bytes": 1868397,
+        "codeUnits": 1663003
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 630263,
+          "codeUnits": 525053,
+          "count": 1738,
+          "utf8Share": 0.3373282016616383
+        },
+        "arrivals": {
+          "utf8Bytes": 513667,
+          "codeUnits": 431775,
+          "count": 1312,
+          "utf8Share": 0.27492390535844363
+        },
+        "attempts": {
+          "utf8Bytes": 488339,
+          "codeUnits": 488339,
+          "count": 4260,
+          "utf8Share": 0.2613678998628236
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 1868397,
+          "codeUnits": 1663003,
+          "wireHash": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+          "sessionHash": "5a226eb5829e91e4385f8e31504785edbc95921381356156d200ec2dfb4a8ab7",
+          "sessionSize": {
+            "utf8Bytes": 1868449,
+            "codeUnits": 1663055
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 19.678450999999995,
+          "decodeMs": 20.945965,
+          "before": {
+            "rss": 53268480,
+            "heapTotal": 31170560,
+            "heapUsed": 13531712,
+            "external": 4045703,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 63361024,
+            "heapTotal": 34762752,
+            "heapUsed": 22135824,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 67911680,
+            "heapTotal": 31432704,
+            "heapUsed": 18673544,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 76038144,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 1364521,
+          "codeUnits": 1241019,
+          "wireHash": "c132377ce2550f155eb042f76f22ecc4ac830f64bea8db4c3a88e5042c68f350",
+          "sessionHash": "62b43fab05996a5ed22769fe9f31cde62fda01e30dc30c3f5f5f543b43f3522d",
+          "sessionSize": {
+            "utf8Bytes": 1364573,
+            "codeUnits": 1241071
+          },
+          "savedUtf8Bytes": 503876,
+          "savedCodeUnits": 421984,
+          "savedRatio": 0.26968358437741013,
+          "arrivalsIndexBytes": 9705,
+          "researchMetadataBytes": 78,
+          "encodeMs": 22.996753000000012,
+          "decodeMs": 26.432581,
+          "before": {
+            "rss": 76431360,
+            "heapTotal": 54423552,
+            "heapUsed": 19742008,
+            "external": 5914104,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 87048192,
+            "heapTotal": 60235776,
+            "heapUsed": 30830632,
+            "external": 5914104,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 96485376,
+            "heapTotal": 66048000,
+            "heapUsed": 42998728,
+            "external": 5914104,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 101335040,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 1354804,
+          "codeUnits": 1231302,
+          "wireHash": "391c87e73241531dfdb6e96c714ae67295af74871445748e9a605822afc6faf5",
+          "sessionHash": "2b6b6a7caefb91640f52e3e127c24a6d446103c02444201c55e2cc140dbb50ca",
+          "sessionSize": {
+            "utf8Bytes": 1354856,
+            "codeUnits": 1231354
+          },
+          "savedUtf8Bytes": 513593,
+          "savedCodeUnits": 431701,
+          "savedRatio": 0.2748842992147814,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 24.531337000000008,
+          "decodeMs": 27.124589999999955,
+          "before": {
+            "rss": 92278784,
+            "heapTotal": 59125760,
+            "heapUsed": 23982344,
+            "external": 5914104,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 99880960,
+            "heapTotal": 66650112,
+            "heapUsed": 36687728,
+            "external": 5914104,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 111939584,
+            "heapTotal": 72445952,
+            "heapUsed": 48968568,
+            "external": 5914104,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 116920320,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "local",
+      "month": 720,
+      "sourceHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+      "baseline": {
+        "utf8Bytes": 2946411,
+        "codeUnits": 2631181
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 1002475,
+          "codeUnits": 837851,
+          "count": 2752,
+          "utf8Share": 0.340235968437533
+        },
+        "arrivals": {
+          "utf8Bytes": 822935,
+          "codeUnits": 693803,
+          "count": 2098,
+          "utf8Share": 0.2793008171636611
+        },
+        "attempts": {
+          "utf8Bytes": 784658,
+          "codeUnits": 784658,
+          "count": 6808,
+          "utf8Share": 0.2663097578715257
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 2946411,
+          "codeUnits": 2631181,
+          "wireHash": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+          "sessionHash": "0933a5b45ea233ba6a0d99ae240d3d66e8270457d79a2914606b5e73db12c847",
+          "sessionSize": {
+            "utf8Bytes": 2946463,
+            "codeUnits": 2631233
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 45.40083699999997,
+          "decodeMs": 43.79667899999998,
+          "before": {
+            "rss": 103718912,
+            "heapTotal": 98512896,
+            "heapUsed": 30244864,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 108982272,
+            "heapTotal": 103776256,
+            "heapUsed": 44065056,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 122482688,
+            "heapTotal": 109039616,
+            "heapUsed": 57829080,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 135327744,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 2139555,
+          "codeUnits": 1953457,
+          "wireHash": "889bfe39b8820496396f053efd512ce36be81f05796c68c3274602fe17e414ce",
+          "sessionHash": "c9e9578a1de3b2cd3da3a5ff0b64933c85c59bdd3e98fd68d179a23e5c59be21",
+          "sessionSize": {
+            "utf8Bytes": 2139607,
+            "codeUnits": 1953509
+          },
+          "savedUtf8Bytes": 806856,
+          "savedCodeUnits": 677724,
+          "savedRatio": 0.27384366946770156,
+          "arrivalsIndexBytes": 15993,
+          "researchMetadataBytes": 78,
+          "encodeMs": 44.09188599999993,
+          "decodeMs": 47.17495000000008,
+          "before": {
+            "rss": 101482496,
+            "heapTotal": 100495360,
+            "heapUsed": 31821176,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 125992960,
+            "heapTotal": 109666304,
+            "heapUsed": 49571472,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 143425536,
+            "heapTotal": 118837248,
+            "heapUsed": 69452632,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 150765568,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 2123550,
+          "codeUnits": 1937452,
+          "wireHash": "e4ae468c41781eb2e7df34a4e36d195fff84cb7cbc7c564c786db301cdf450a2",
+          "sessionHash": "d0041ff6c776c20669c4fa61d5d281f121c0aaafd119646c66a9d0134893ce8c",
+          "sessionSize": {
+            "utf8Bytes": 2123602,
+            "codeUnits": 1937504
+          },
+          "savedUtf8Bytes": 822861,
+          "savedCodeUnits": 693729,
+          "savedRatio": 0.2792757018623675,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 62.869731,
+          "decodeMs": 63.884984999999915,
+          "before": {
+            "rss": 137404416,
+            "heapTotal": 172273664,
+            "heapUsed": 33705272,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 151166976,
+            "heapTotal": 184193024,
+            "heapUsed": 54265408,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 162177024,
+            "heapTotal": 193335296,
+            "heapUsed": 73836392,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 169385984,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "local",
+      "month": 1080,
+      "sourceHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+      "baseline": {
+        "utf8Bytes": 3916316,
+        "codeUnits": 3500658
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 1343512,
+          "codeUnits": 1124750,
+          "count": 3665,
+          "utf8Share": 0.3430550548015022
+        },
+        "arrivals": {
+          "utf8Bytes": 1114148,
+          "codeUnits": 940458,
+          "count": 2832,
+          "utf8Share": 0.2844887899750684
+        },
+        "attempts": {
+          "utf8Bytes": 1056623,
+          "codeUnits": 1056623,
+          "count": 9148,
+          "utf8Share": 0.269800240838584
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 3916316,
+          "codeUnits": 3500658,
+          "wireHash": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+          "sessionHash": "7a0fe4a44c43088d2b8ef3db1fb941f460c939cf2677fb71cd982f9d0e12ad0d",
+          "sessionSize": {
+            "utf8Bytes": 3916368,
+            "codeUnits": 3500710
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 57.89839900000004,
+          "decodeMs": 56.65646300000003,
+          "before": {
+            "rss": 152379392,
+            "heapTotal": 177041408,
+            "heapUsed": 41170528,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 162078720,
+            "heapTotal": 184246272,
+            "heapUsed": 59397896,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 171778048,
+            "heapTotal": 191451136,
+            "heapUsed": 77584008,
+            "external": 6992118,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 192978944,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 2824119,
+          "codeUnits": 2582151,
+          "wireHash": "3dedf8dc8bdc9cb08e5a002c42419afc6c25b77360135fd634209174b914d126",
+          "sessionHash": "17a990ece641d02e0d98f03eed8f2666d95c235de4281e2a454bc76084a7793c",
+          "sessionSize": {
+            "utf8Bytes": 2824171,
+            "codeUnits": 2582203
+          },
+          "savedUtf8Bytes": 1092197,
+          "savedCodeUnits": 918507,
+          "savedRatio": 0.2788837775092715,
+          "arrivalsIndexBytes": 21865,
+          "researchMetadataBytes": 78,
+          "encodeMs": 73.70692000000008,
+          "decodeMs": 83.67619600000012,
+          "before": {
+            "rss": 141479936,
+            "heapTotal": 176992256,
+            "heapUsed": 41289816,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 167038976,
+            "heapTotal": 189362176,
+            "heapUsed": 64643920,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 184471552,
+            "heapTotal": 201732096,
+            "heapUsed": 90561144,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 193253376,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 2802242,
+          "codeUnits": 2560274,
+          "wireHash": "64b5e8f08cea3fd3986a8849f13bbb61d170e8bea55b6d0557a6aedac7853abb",
+          "sessionHash": "769f0818f8574bc237b1495152c335571fa3af48c262694a56aa3284472c3589",
+          "sessionSize": {
+            "utf8Bytes": 2802294,
+            "codeUnits": 2560326
+          },
+          "savedUtf8Bytes": 1114074,
+          "savedCodeUnits": 940384,
+          "savedRatio": 0.284469894666314,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 75.47430799999984,
+          "decodeMs": 59.488860999999815,
+          "before": {
+            "rss": 158445568,
+            "heapTotal": 179195904,
+            "heapUsed": 42453424,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 187674624,
+            "heapTotal": 195293184,
+            "heapUsed": 69638480,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 202223616,
+            "heapTotal": 207622144,
+            "heapUsed": 95313056,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 210743296,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "local",
+      "month": 1200,
+      "sourceHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "baseline": {
+        "utf8Bytes": 4257604,
+        "codeUnits": 3806900
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 1462464,
+          "codeUnits": 1224918,
+          "count": 3985,
+          "utf8Share": 0.3434946040073243
+        },
+        "arrivals": {
+          "utf8Bytes": 1213806,
+          "codeUnits": 1025164,
+          "count": 3084,
+          "utf8Share": 0.285091333059627
+        },
+        "attempts": {
+          "utf8Bytes": 1152652,
+          "codeUnits": 1152652,
+          "count": 9967,
+          "utf8Share": 0.2707278553853294
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 4257604,
+          "codeUnits": 3806900,
+          "wireHash": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+          "sessionHash": "f8076f589443f932eef9f1b3f7a07592fab03ad024515548b40a8e93c1e2fb4f",
+          "sessionSize": {
+            "utf8Bytes": 4257656,
+            "codeUnits": 3806952
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 47.910909000000174,
+          "decodeMs": 41.14305399999989,
+          "before": {
+            "rss": 168861696,
+            "heapTotal": 185167872,
+            "heapUsed": 49161656,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 190750720,
+            "heapTotal": 192983040,
+            "heapUsed": 68872472,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 198615040,
+            "heapTotal": 200798208,
+            "heapUsed": 88420184,
+            "external": 7962023,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 236171264,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 3067765,
+          "codeUnits": 2805703,
+          "wireHash": "745643fdfbb4be87bad1ab219ed17e6c1e6db6d027e05cadc6870ec82558c70c",
+          "sessionHash": "1ec1e130289570ecdeea32f3a0cb3e7da0b3321950fe4a90fa797c2d9ea61e91",
+          "sessionSize": {
+            "utf8Bytes": 3067817,
+            "codeUnits": 2805755
+          },
+          "savedUtf8Bytes": 1189839,
+          "savedCodeUnits": 1001197,
+          "savedRatio": 0.2794621106143268,
+          "arrivalsIndexBytes": 23881,
+          "researchMetadataBytes": 78,
+          "encodeMs": 52.78603500000008,
+          "decodeMs": 61.23901799999999,
+          "before": {
+            "rss": 165199872,
+            "heapTotal": 181760000,
+            "heapUsed": 46167416,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 192331776,
+            "heapTotal": 195186688,
+            "heapUsed": 71597808,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 208060416,
+            "heapTotal": 208613376,
+            "heapUsed": 99793688,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 236171264,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 3043872,
+          "codeUnits": 2781810,
+          "wireHash": "e348418093c8a3a2ea6c4ac7c82a7941683f431be4f59a21e20845ded3f54200",
+          "sessionHash": "dcaa9206275f18438c4569cc16ec385fb64d73d31c88c171b757a25b6f674679",
+          "sessionSize": {
+            "utf8Bytes": 3043924,
+            "codeUnits": 2781862
+          },
+          "savedUtf8Bytes": 1213732,
+          "savedCodeUnits": 1025090,
+          "savedRatio": 0.2850739523920026,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 75.15853399999969,
+          "decodeMs": 61.487040000000434,
+          "before": {
+            "rss": 183017472,
+            "heapTotal": 182099968,
+            "heapUsed": 45478560,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 214212608,
+            "heapTotal": 199585792,
+            "heapUsed": 75061688,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 230596608,
+            "heapTotal": 212967424,
+            "heapUsed": 102989872,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 243179520,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "sourceHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+      "baseline": {
+        "utf8Bytes": 2613479,
+        "codeUnits": 2328417
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 897940,
+          "codeUnits": 748564,
+          "count": 2446,
+          "utf8Share": 0.3435803386979578
+        },
+        "arrivals": {
+          "utf8Bytes": 743514,
+          "codeUnits": 624482,
+          "count": 1885,
+          "utf8Share": 0.28449205063442257
+        },
+        "attempts": {
+          "utf8Bytes": 698797,
+          "codeUnits": 698797,
+          "count": 6099,
+          "utf8Share": 0.2673819074115384
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 2613479,
+          "codeUnits": 2328417,
+          "wireHash": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+          "sessionHash": "9c0472acfc5cd360f16aada7002be761ea3cd7c90fa7eb118823180064f48af7",
+          "sessionSize": {
+            "utf8Bytes": 2613531,
+            "codeUnits": 2328469
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 41.53794700000026,
+          "decodeMs": 37.301600000000235,
+          "before": {
+            "rss": 191500288,
+            "heapTotal": 181669888,
+            "heapUsed": 46061656,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 206966784,
+            "heapTotal": 186327040,
+            "heapUsed": 58281136,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 211554304,
+            "heapTotal": 190984192,
+            "heapUsed": 70259960,
+            "external": 8303311,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 258646016,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 1884366,
+          "codeUnits": 1718336,
+          "wireHash": "b1a1fa73ef5095c2e8efb2763299f77731c8ac500ec5dc920aca75eafbf10948",
+          "sessionHash": "a46513f68571ddc284a2324230bf04ccb686b5b105c93c5a03e26f4abd63c1c9",
+          "sessionSize": {
+            "utf8Bytes": 1884418,
+            "codeUnits": 1718388
+          },
+          "savedUtf8Bytes": 729113,
+          "savedCodeUnits": 610081,
+          "savedRatio": 0.2789817710415886,
+          "arrivalsIndexBytes": 14315,
+          "researchMetadataBytes": 78,
+          "encodeMs": 51.033404000000246,
+          "decodeMs": 50.98025400000006,
+          "before": {
+            "rss": 177455104,
+            "heapTotal": 171511808,
+            "heapUsed": 36144312,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 196329472,
+            "heapTotal": 179609600,
+            "heapUsed": 51728528,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 204455936,
+            "heapTotal": 187707392,
+            "heapUsed": 69231880,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 258646016,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 1870039,
+          "codeUnits": 1704009,
+          "wireHash": "82b89330d218280828a4f5f50d9425d8367904dc4b10c9b1152bf176898801c2",
+          "sessionHash": "e66ec83a65e6556825dc22b763ee8c478c6acaaebe1fc59f07dc131d544e956d",
+          "sessionSize": {
+            "utf8Bytes": 1870091,
+            "codeUnits": 1704061
+          },
+          "savedUtf8Bytes": 743440,
+          "savedCodeUnits": 624408,
+          "savedRatio": 0.28446373588615026,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 44.251182999999855,
+          "decodeMs": 37.02258200000006,
+          "before": {
+            "rss": 194756608,
+            "heapTotal": 166719488,
+            "heapUsed": 30711952,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 205242368,
+            "heapTotal": 177287168,
+            "heapUsed": 48908056,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 213368832,
+            "heapTotal": 185356288,
+            "heapUsed": 66329064,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 258646016,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "wide",
+      "month": 720,
+      "sourceHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+      "baseline": {
+        "utf8Bytes": 4190187,
+        "codeUnits": 3737497
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 1454291,
+          "codeUnits": 1214143,
+          "count": 3933,
+          "utf8Share": 0.3470706677291491
+        },
+        "arrivals": {
+          "utf8Bytes": 1212165,
+          "codeUnits": 1019573,
+          "count": 3057,
+          "utf8Share": 0.28928661179083415
+        },
+        "attempts": {
+          "utf8Bytes": 1133600,
+          "codeUnits": 1133600,
+          "count": 9865,
+          "utf8Share": 0.27053685193524774
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 4190187,
+          "codeUnits": 3737497,
+          "wireHash": "51aef3d5b1179e284a12c37cf50661e47e14c2c39808e3c6ae94811004197b39",
+          "sessionHash": "94dc26c74552132607d8502e8f64b61fb40baacdf682c89487f584b50c44057f",
+          "sessionSize": {
+            "utf8Bytes": 4190239,
+            "codeUnits": 3737549
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 40.724737000000005,
+          "decodeMs": 40.995232999999644,
+          "before": {
+            "rss": 201105408,
+            "heapTotal": 175710208,
+            "heapUsed": 39749592,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 211591168,
+            "heapTotal": 183386112,
+            "heapUsed": 59308056,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 219193344,
+            "heapTotal": 191062016,
+            "heapUsed": 78654232,
+            "external": 6659186,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 258646016,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 3001799,
+          "codeUnits": 2741701,
+          "wireHash": "82b27fc765c5e8f6119033802e633e04065a3fae715c38f0142ed342ecba56c3",
+          "sessionHash": "1118fe9193e30120823bc89c47da8e2be60d2089ea94d35242cfa52c5c5f6b31",
+          "sessionSize": {
+            "utf8Bytes": 3001851,
+            "codeUnits": 2741753
+          },
+          "savedUtf8Bytes": 1188388,
+          "savedCodeUnits": 995796,
+          "savedRatio": 0.28361216337122896,
+          "arrivalsIndexBytes": 23691,
+          "researchMetadataBytes": 78,
+          "encodeMs": 59.00450499999988,
+          "decodeMs": 65.7594710000003,
+          "before": {
+            "rss": 192188416,
+            "heapTotal": 178196480,
+            "heapUsed": 42271080,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 218927104,
+            "heapTotal": 191356928,
+            "heapUsed": 67363560,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 241602560,
+            "heapTotal": 204517376,
+            "heapUsed": 95507496,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 258646016,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 2978096,
+          "codeUnits": 2717998,
+          "wireHash": "6152feb6875df99b214f51f5cb5829ab55109260a1eb1a6be68a7d78bfa5a997",
+          "sessionHash": "fcd54215c610a221851233b1a588ebbdfc9a0de0c2397529559a02070c725454",
+          "sessionSize": {
+            "utf8Bytes": 2978148,
+            "codeUnits": 2718050
+          },
+          "savedUtf8Bytes": 1212091,
+          "savedCodeUnits": 1019499,
+          "savedRatio": 0.28926895148116305,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 90.38947700000017,
+          "decodeMs": 83.33395100000007,
+          "before": {
+            "rss": 217296896,
+            "heapTotal": 181563392,
+            "heapUsed": 44766920,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 248098816,
+            "heapTotal": 198758400,
+            "heapUsed": 73980032,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 264089600,
+            "heapTotal": 212135936,
+            "heapUsed": 101681976,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 274837504,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "wide",
+      "month": 1080,
+      "sourceHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+      "baseline": {
+        "utf8Bytes": 5894269,
+        "codeUnits": 5259993
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 2057041,
+          "codeUnits": 1718739,
+          "count": 5528,
+          "utf8Share": 0.3489900104660985
+        },
+        "arrivals": {
+          "utf8Bytes": 1725964,
+          "codeUnits": 1452446,
+          "count": 4336,
+          "utf8Share": 0.2928207043146487
+        },
+        "attempts": {
+          "utf8Bytes": 1606805,
+          "codeUnits": 1606805,
+          "count": 13960,
+          "utf8Share": 0.2726046266296974
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 5894269,
+          "codeUnits": 5259993,
+          "wireHash": "8c1ebd1c3222c4cd0f8a63d053da7e4dc1d4793c9d302300f42834137050d0f8",
+          "sessionHash": "c4a59d6e266c1ff445675e684dde8e84caa1bc4442c0f6a22e88746afbd99dd7",
+          "sessionSize": {
+            "utf8Bytes": 5894321,
+            "codeUnits": 5260045
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 61.418001000000004,
+          "decodeMs": 65.13193900000033,
+          "before": {
+            "rss": 245288960,
+            "heapTotal": 192585728,
+            "heapUsed": 56434672,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 256405504,
+            "heapTotal": 203710464,
+            "heapUsed": 84017792,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 282095616,
+            "heapTotal": 214835200,
+            "heapUsed": 111181528,
+            "external": 8235894,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 304705536,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 4202314,
+          "codeUnits": 3841556,
+          "wireHash": "01cbe266ab485b4d83ba383fc69f7131c7bf79273cf90c605fe823c24b3343dd",
+          "sessionHash": "14db57d9dc038e5f055c68c8a45c97eff6a7da3e98166e0d3119cf3b581e7f8e",
+          "sessionSize": {
+            "utf8Bytes": 4202366,
+            "codeUnits": 3841608
+          },
+          "savedUtf8Bytes": 1691955,
+          "savedCodeUnits": 1418437,
+          "savedRatio": 0.2870508624563962,
+          "arrivalsIndexBytes": 33923,
+          "researchMetadataBytes": 78,
+          "encodeMs": 108.52643099999977,
+          "decodeMs": 103.3626589999999,
+          "before": {
+            "rss": 228933632,
+            "heapTotal": 193343488,
+            "heapUsed": 57686728,
+            "external": 9939976,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 272711680,
+            "heapTotal": 212152320,
+            "heapUsed": 92966592,
+            "external": 9939976,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 294993920,
+            "heapTotal": 231362560,
+            "heapUsed": 132412488,
+            "external": 9939976,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 304705536,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 4168379,
+          "codeUnits": 3807621,
+          "wireHash": "eddad4b951dd56ced7abfdfb981b8d79fb24f63e237f63064dc9211d6e843be0",
+          "sessionHash": "d692f6985026e013023ef1b8720009af4294384d18901a8d47280d9ba716d6fe",
+          "sessionSize": {
+            "utf8Bytes": 4168431,
+            "codeUnits": 3807673
+          },
+          "savedUtf8Bytes": 1725890,
+          "savedCodeUnits": 1452372,
+          "savedRatio": 0.29280814974681335,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 110.61478499999976,
+          "decodeMs": 122.82053999999971,
+          "before": {
+            "rss": 272080896,
+            "heapTotal": 195989504,
+            "heapUsed": 59695392,
+            "external": 9939976,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 296591360,
+            "heapTotal": 220811264,
+            "heapUsed": 100855064,
+            "external": 9939976,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 315596800,
+            "heapTotal": 239788032,
+            "heapUsed": 139519232,
+            "external": 9939976,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 323461120,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "wide",
+      "month": 1200,
+      "sourceHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "baseline": {
+        "utf8Bytes": 6539999,
+        "codeUnits": 5838093
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 2285019,
+          "codeUnits": 1909147,
+          "count": 6138,
+          "utf8Share": 0.3493913378274217
+        },
+        "arrivals": {
+          "utf8Bytes": 1912883,
+          "codeUnits": 1609859,
+          "count": 4801,
+          "utf8Share": 0.292489800074893
+        },
+        "attempts": {
+          "utf8Bytes": 1782557,
+          "codeUnits": 1782557,
+          "count": 15469,
+          "utf8Share": 0.27256227409209083
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 6539999,
+          "codeUnits": 5838093,
+          "wireHash": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+          "sessionHash": "250eab2b3bfdc0cf2d0eb66d6de2fdd80effe117c669d749b5cad48e176689b6",
+          "sessionSize": {
+            "utf8Bytes": 6540051,
+            "codeUnits": 5838145
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 83.88184300000012,
+          "decodeMs": 57.123616999999285,
+          "before": {
+            "rss": 273391616,
+            "heapTotal": 206651392,
+            "heapUsed": 70249960,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 286760960,
+            "heapTotal": 219193344,
+            "heapUsed": 100553176,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 299081728,
+            "heapTotal": 231473152,
+            "heapUsed": 130545856,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 339189760,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 4664845,
+          "codeUnits": 4265963,
+          "wireHash": "53e89c26489a44fc5e0cf5ba73bfd30d66416c0826146bae573f48399bbabea0",
+          "sessionHash": "3981e5e57e082359a01f39dbf742db73cdfbb0614b95f44c1453f5fc46029201",
+          "sessionSize": {
+            "utf8Bytes": 4664897,
+            "codeUnits": 4266015
+          },
+          "savedUtf8Bytes": 1875154,
+          "savedCodeUnits": 1572130,
+          "savedRatio": 0.2867208389481405,
+          "arrivalsIndexBytes": 37643,
+          "researchMetadataBytes": 78,
+          "encodeMs": 85.83918999999969,
+          "decodeMs": 112.11369999999988,
+          "before": {
+            "rss": 234524672,
+            "heapTotal": 201945088,
+            "heapUsed": 66228232,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 281448448,
+            "heapTotal": 222756864,
+            "heapUsed": 105177000,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 302682112,
+            "heapTotal": 243970048,
+            "heapUsed": 148804336,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 339189760,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 4627190,
+          "codeUnits": 4228308,
+          "wireHash": "7aa44d87ba9512f900b3d43411af9afb2a996ef81754f4e8dc600a6848dbfed1",
+          "sessionHash": "57f9cdeca7273006fb7b0acb78e7835899c3d79db55b906e309a74dd1aa6b03f",
+          "sessionSize": {
+            "utf8Bytes": 4627242,
+            "codeUnits": 4228360
+          },
+          "savedUtf8Bytes": 1912809,
+          "savedCodeUnits": 1609785,
+          "savedRatio": 0.2924784850884534,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 148.01576000000023,
+          "decodeMs": 138.9919179999997,
+          "before": {
+            "rss": 251256832,
+            "heapTotal": 204980224,
+            "heapUsed": 65405688,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 304603136,
+            "heapTotal": 232165376,
+            "heapUsed": 110857672,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 325574656,
+            "heapTotal": 253136896,
+            "heapUsed": 154006616,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 339189760,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "month": 360,
+      "sourceHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+      "baseline": {
+        "utf8Bytes": 2054345,
+        "codeUnits": 1830735
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 694769,
+          "codeUnits": 579079,
+          "count": 1908,
+          "utf8Share": 0.338194899104094
+        },
+        "arrivals": {
+          "utf8Bytes": 569738,
+          "codeUnits": 478828,
+          "count": 1454,
+          "utf8Share": 0.27733316458530577
+        },
+        "attempts": {
+          "utf8Bytes": 540891,
+          "codeUnits": 540891,
+          "count": 4718,
+          "utf8Share": 0.26329121934241817
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 2054345,
+          "codeUnits": 1830735,
+          "wireHash": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+          "sessionHash": "f63ee0f5916fd52ee1ffcba41b7124d920175a7bed2bb41bee66fefb47e0948f",
+          "sessionSize": {
+            "utf8Bytes": 2054397,
+            "codeUnits": 1830787
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 31.421125000000757,
+          "decodeMs": 28.5119880000002,
+          "before": {
+            "rss": 243167232,
+            "heapTotal": 197337088,
+            "heapUsed": 59904968,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 252342272,
+            "heapTotal": 201261056,
+            "heapUsed": 69409640,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 256012288,
+            "heapTotal": 204922880,
+            "heapUsed": 78679336,
+            "external": 10585706,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 1495529,
+          "codeUnits": 1362829,
+          "wireHash": "57b4d9101b202a78516be7afedd90e4511b04c3771d505e812c06247f6d64cb7",
+          "sessionHash": "4d1cd01af53fdbfd0f50273023e82b32047d9ec592d393685c9cc42dc1d50556",
+          "sessionSize": {
+            "utf8Bytes": 1495581,
+            "codeUnits": 1362881
+          },
+          "savedUtf8Bytes": 558816,
+          "savedCodeUnits": 467906,
+          "savedRatio": 0.2720166281710229,
+          "arrivalsIndexBytes": 10836,
+          "researchMetadataBytes": 78,
+          "encodeMs": 36.49287599999934,
+          "decodeMs": 39.536252999999306,
+          "before": {
+            "rss": 225644544,
+            "heapTotal": 175288320,
+            "heapUsed": 38196088,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 231936000,
+            "heapTotal": 181678080,
+            "heapUsed": 50293136,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 238358528,
+            "heapTotal": 188067840,
+            "heapUsed": 63639576,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 1484681,
+          "codeUnits": 1351981,
+          "wireHash": "347a074eaa550b05a0228c80075b4fdea7eb63ae9ba153a2dc814cb224c92f7a",
+          "sessionHash": "93f87c051f1af83687a9688e2a4847efff8afdbe1a8db65eb5784ee520fb82de",
+          "sessionSize": {
+            "utf8Bytes": 1484733,
+            "codeUnits": 1352033
+          },
+          "savedUtf8Bytes": 569664,
+          "savedCodeUnits": 478754,
+          "savedRatio": 0.2772971433717316,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 29.967412000000877,
+          "decodeMs": 31.447062999999616,
+          "before": {
+            "rss": 230699008,
+            "heapTotal": 163827712,
+            "heapUsed": 25865944,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 238956544,
+            "heapTotal": 172113920,
+            "heapUsed": 40040376,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 245248000,
+            "heapTotal": 178483200,
+            "heapUsed": 53606552,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "month": 720,
+      "sourceHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+      "baseline": {
+        "utf8Bytes": 3269309,
+        "codeUnits": 2917707
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 1130154,
+          "codeUnits": 943946,
+          "count": 3082,
+          "utf8Share": 0.345685892645816
+        },
+        "arrivals": {
+          "utf8Bytes": 932301,
+          "codeUnits": 785489,
+          "count": 2369,
+          "utf8Share": 0.2851675996364981
+        },
+        "attempts": {
+          "utf8Bytes": 882188,
+          "codeUnits": 882188,
+          "count": 7664,
+          "utf8Share": 0.2698392840811315
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 3269309,
+          "codeUnits": 2917707,
+          "wireHash": "be3f992ed84d1356cab15ae1b34ec25a5e3f36523319173e2da05f49e24b4666",
+          "sessionHash": "429c56e1267064ce72a62fb2b29f98e3f01234ecd2cc8d85b7e70ee0c85d1864",
+          "sessionSize": {
+            "utf8Bytes": 3269361,
+            "codeUnits": 2917759
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 34.55976499999997,
+          "decodeMs": 30.291419000000133,
+          "before": {
+            "rss": 232841216,
+            "heapTotal": 168845312,
+            "heapUsed": 32816984,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 243195904,
+            "heapTotal": 174682112,
+            "heapUsed": 48146376,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 248963072,
+            "heapTotal": 180518912,
+            "heapUsed": 63418416,
+            "external": 6100052,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 2355250,
+          "codeUnits": 2150460,
+          "wireHash": "2b956a26fd9dab37d73e29741e925564cd3695c0aa08b51085bc5ca7d5819592",
+          "sessionHash": "34fb1c4ccf7f6d61773c1494af6d746c6191f2c173c541521f6704ca095a2872",
+          "sessionSize": {
+            "utf8Bytes": 2355302,
+            "codeUnits": 2150512
+          },
+          "savedUtf8Bytes": 914059,
+          "savedCodeUnits": 767247,
+          "savedRatio": 0.27958782727481557,
+          "arrivalsIndexBytes": 18156,
+          "researchMetadataBytes": 78,
+          "encodeMs": 42.48710100000062,
+          "decodeMs": 53.24303299999974,
+          "before": {
+            "rss": 237322240,
+            "heapTotal": 170323968,
+            "heapUsed": 34630136,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 247414784,
+            "heapTotal": 180465664,
+            "heapUsed": 54286208,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 257507328,
+            "heapTotal": 190607360,
+            "heapUsed": 76312440,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 2337082,
+          "codeUnits": 2132292,
+          "wireHash": "d87cf39fcab8c5f871b5c578dc5d06f9904f65f0a479efe833fb9cf09a87205a",
+          "sessionHash": "9d5d55c923cbe6738a7a9d29618f2dc81f81445c714e0f2ad2d132491e2ad401",
+          "sessionSize": {
+            "utf8Bytes": 2337134,
+            "codeUnits": 2132344
+          },
+          "savedUtf8Bytes": 932227,
+          "savedCodeUnits": 785415,
+          "savedRatio": 0.28514496488401675,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 52.84212200000002,
+          "decodeMs": 68.29145599999993,
+          "before": {
+            "rss": 245956608,
+            "heapTotal": 173690880,
+            "heapUsed": 36549176,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 259194880,
+            "heapTotal": 186941440,
+            "heapUsed": 59380872,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 269287424,
+            "heapTotal": 197046272,
+            "heapUsed": 81188728,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "month": 1080,
+      "sourceHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+      "baseline": {
+        "utf8Bytes": 4953575,
+        "codeUnits": 4425277
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 1720344,
+          "codeUnits": 1438858,
+          "count": 4663,
+          "utf8Share": 0.34729341939912084
+        },
+        "arrivals": {
+          "utf8Bytes": 1428988,
+          "codeUnits": 1205032,
+          "count": 3614,
+          "utf8Share": 0.28847610059401546
+        },
+        "attempts": {
+          "utf8Bytes": 1346121,
+          "codeUnits": 1346121,
+          "count": 11666,
+          "utf8Share": 0.2717473743710351
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 4953575,
+          "codeUnits": 4425277,
+          "wireHash": "11059e4c71f00e7df4a8fa1ed2cae967d7d03a7de64c562807f7687d206934b6",
+          "sessionHash": "eedf8ae3e5d22aaadf7b6cd737e809908a0815c9081a81e23d10503d79c2de8d",
+          "sessionSize": {
+            "utf8Bytes": 4953627,
+            "codeUnits": 4425329
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 75.8559180000002,
+          "decodeMs": 62.7773159999997,
+          "before": {
+            "rss": 249102336,
+            "heapTotal": 182861824,
+            "heapUsed": 46848312,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 266403840,
+            "heapTotal": 192147456,
+            "heapUsed": 70049032,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 275709952,
+            "heapTotal": 201695232,
+            "heapUsed": 92955968,
+            "external": 7315016,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 3552789,
+          "codeUnits": 3248447,
+          "wireHash": "65ed1099458bd79c2162ef7df03c7b306dabc672819d481d49e2084280acda07",
+          "sessionHash": "541e0df0080b95e90a8fa719363877d6d4189353caa3697bdf635650fbd6faff",
+          "sessionSize": {
+            "utf8Bytes": 3552841,
+            "codeUnits": 3248499
+          },
+          "savedUtf8Bytes": 1400786,
+          "savedCodeUnits": 1176830,
+          "savedRatio": 0.28278283865692955,
+          "arrivalsIndexBytes": 28116,
+          "researchMetadataBytes": 78,
+          "encodeMs": 81.25394899999992,
+          "decodeMs": 101.98107999999957,
+          "before": {
+            "rss": 228491264,
+            "heapTotal": 184881152,
+            "heapUsed": 49023864,
+            "external": 8999282,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 267681792,
+            "heapTotal": 200667136,
+            "heapUsed": 78756904,
+            "external": 8999282,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 289308672,
+            "heapTotal": 216686592,
+            "heapUsed": 112129832,
+            "external": 8999282,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 3524661,
+          "codeUnits": 3220319,
+          "wireHash": "feb3e2824aefadc481d230e5f25f62850a9097719aa18c03e323fc3e655285a2",
+          "sessionHash": "4b35f95797129f168d49f0747182ddebd9e944bb8ad3f2a28162bfefe85cfeae",
+          "sessionSize": {
+            "utf8Bytes": 3524713,
+            "codeUnits": 3220371
+          },
+          "savedUtf8Bytes": 1428914,
+          "savedCodeUnits": 1204958,
+          "savedRatio": 0.2884611618881313,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 73.73732899999959,
+          "decodeMs": 75.40403100000003,
+          "before": {
+            "rss": 274571264,
+            "heapTotal": 188182528,
+            "heapUsed": 51587024,
+            "external": 8999282,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 295018496,
+            "heapTotal": 208736256,
+            "heapUsed": 86188472,
+            "external": 8999282,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 311009280,
+            "heapTotal": 224960512,
+            "heapUsed": 119161872,
+            "external": 8999282,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "month": 1200,
+      "sourceHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "baseline": {
+        "utf8Bytes": 5527716,
+        "codeUnits": 4938560
+      },
+      "parts": {
+        "events": {
+          "utf8Bytes": 1921865,
+          "codeUnits": 1607505,
+          "count": 5201,
+          "utf8Share": 0.3476779559586636
+        },
+        "arrivals": {
+          "utf8Bytes": 1598042,
+          "codeUnits": 1347528,
+          "count": 4035,
+          "utf8Share": 0.28909625603051964
+        },
+        "attempts": {
+          "utf8Bytes": 1504053,
+          "codeUnits": 1504053,
+          "count": 13022,
+          "utf8Share": 0.27209303082864605
+        }
+      },
+      "variants": [
+        {
+          "variant": "A",
+          "utf8Bytes": 5527716,
+          "codeUnits": 4938560,
+          "wireHash": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+          "sessionHash": "f1e201bdf567d86c5efd3923a1b6f37a7e82771cff569d9007efe06d7a7e9764",
+          "sessionSize": {
+            "utf8Bytes": 5527768,
+            "codeUnits": 4938612
+          },
+          "savedUtf8Bytes": 0,
+          "savedCodeUnits": 0,
+          "savedRatio": 0,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 0,
+          "encodeMs": 77.89955000000009,
+          "decodeMs": 78.93831399999999,
+          "before": {
+            "rss": 275660800,
+            "heapTotal": 196374528,
+            "heapUsed": 60546896,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 286932992,
+            "heapTotal": 206950400,
+            "heapUsed": 86148936,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 297287680,
+            "heapTotal": 217264128,
+            "heapUsed": 111655584,
+            "external": 4045707,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        },
+        {
+          "variant": "B",
+          "utf8Bytes": 3961244,
+          "codeUnits": 3622602,
+          "wireHash": "36926d57d6d5e4b47950ee5b8ae228028bf21c08be73292cbcb71a57977392b1",
+          "sessionHash": "4694fead7eb0e34239243d14e2a47c3e4e6a1e989f4d97a44617d5892056176a",
+          "sessionSize": {
+            "utf8Bytes": 3961296,
+            "codeUnits": 3622654
+          },
+          "savedUtf8Bytes": 1566472,
+          "savedCodeUnits": 1315958,
+          "savedRatio": 0.2833850364237237,
+          "arrivalsIndexBytes": 31484,
+          "researchMetadataBytes": 78,
+          "encodeMs": 87.48048299999937,
+          "decodeMs": 110.97565299999951,
+          "before": {
+            "rss": 240734208,
+            "heapTotal": 192843776,
+            "heapUsed": 57230616,
+            "external": 9573423,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 282677248,
+            "heapTotal": 210403328,
+            "heapUsed": 90136168,
+            "external": 9573423,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 302600192,
+            "heapTotal": 228196352,
+            "heapUsed": 126986248,
+            "external": 9573423,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        },
+        {
+          "variant": "C",
+          "utf8Bytes": 3929748,
+          "codeUnits": 3591106,
+          "wireHash": "7d529f03fc6702d84be95cc28412cce2606e017a219010c019f7dcacec8ee389",
+          "sessionHash": "650463923db0d1d2fe8a77450134e0baeec359899120215bb53ae7c6d6ce90f4",
+          "sessionSize": {
+            "utf8Bytes": 3929800,
+            "codeUnits": 3591158
+          },
+          "savedUtf8Bytes": 1597968,
+          "savedCodeUnits": 1347454,
+          "savedRatio": 0.2890828689462338,
+          "arrivalsIndexBytes": 0,
+          "researchMetadataBytes": 78,
+          "encodeMs": 75.18780600000082,
+          "decodeMs": 79.87155399999938,
+          "before": {
+            "rss": 281403392,
+            "heapTotal": 194088960,
+            "heapUsed": 56632944,
+            "external": 9573423,
+            "arrayBuffers": 146579
+          },
+          "encodedMemory": {
+            "rss": 304209920,
+            "heapTotal": 216977408,
+            "heapUsed": 95005288,
+            "external": 9573423,
+            "arrayBuffers": 146579
+          },
+          "decodedMemory": {
+            "rss": 321904640,
+            "heapTotal": 234708992,
+            "heapUsed": 131415472,
+            "external": 9573423,
+            "arrayBuffers": 146579
+          },
+          "observedProcessMaxRssBytes": 346546176,
+          "roundTripExact": true
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Wire storage reduction only; official runtime state is fully reconstructed and memory is not reduced.",
+    "Before/after memory samples and process maxRSS include prior conditions/runtime; not isolated synchronous peak.",
+    "Research envelope and metadata included; no compatibility with existing official reader is claimed."
+  ]
+}

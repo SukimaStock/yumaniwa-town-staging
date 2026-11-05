@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "30d48effbe8fe6e7d55d4161345e7df8cdeb4394489743a8149e58428ded1d4b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "fcc14b249733b6cccd598bcd2e567e64848bcd7f",
+    "changeId": "ambertime-h1-b1",
+    "revision": 0,
+    "change": "events/arrivals重複の研究用wire変換・復元・将来と歴史同値・実quota検証",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs",
+      "works/ambertime/checkpoint-persistence/DESIGN.md",
+      "works/ambertime/checkpoint-persistence/results.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h1-b1/r0.lock.json",
+      "works/ambertime/reputation-dedup-research/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "works/ambertime/history-lab/**",
+      "works/ambertime/chronicle-lab/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "A完全/B ID参照/C派生の研究adapter、12入力容量・実ブラウザIO・将来分岐・9歴史境界同値、監査・最小導入案"
+    ],
+    "ownerDecisions": [
+      "2026-11-05 H1-B1依頼全文：独立研究・PR・CI・安全なStaging merge。正式保存形式/reader/writer/本編/model変更禁止"
+    ],
+    "hqDecisions": [
+      "正式runtimeと形式は変えず、研究wireから正式構造へ厳密復元して操作する。順序・ID・全事実保護、attempts不変。既存入力不在なら既存generatorで再生成してH24 SHA照合。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "研究実装・同値比較・保証境界・計測条件の独立レビュー"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本研究PRのみrevert。元保存と既存研究結果は保持",
+    "outOfScope": [
+      "正式本編・reader・保存形式・ユーザー保存DB/key・既存研究資料・操作prefix削除・Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機・OS kill・origin消失・100年超継続保証"
+    ],
+    "alternativesRejected": [
+      "検証省略による高速化",
+      "無条件の過去記録削除"
+    ],
+    "boundaryCases": [
+      "欠落/重複/非arrival参照/順序/異内容/未来source拒否",
+      "12条件、将来arrival追加・納品・問い合わせ・月次・世代交代、9境界候補と一文一致"
+    ],
+    "testPlan": [
+      "原典H24入力SHA照合、変換往復byte一致・将来model同値・9境界照合",
+      "独立profile/origin/keyでA/B/C書込読戻と余裕、関連回帰・既存R5 base比較・独立review・必須CI"
+    ],
+    "problem": "広域90/100年localStorage書込不能、町の評判の重複が大半",
+    "currentContract": "正式全状態・評判計算・乱数・因果・過去回想不変",
+    "whyExistingIsInsufficient": "同一arrival実体をeventsとarrivalsへ重複JSON保持",
+    "design": "A現行/B arrivals ID/C events type arrivalから派生を研究専用envelopeで比較。元とbyte同値へ戻して既存モデルを呼ぶ。未知/不整合は拒否。既存完了証拠はSHAと依存確認後に再利用。",
+    "migration": "なし。正式reader/writer/キーへ未接続",
+    "compatibility": "元保存は完全保持、正式moduleのGit blob不変",
+    "promotionRisk": "研究専用Stagingのみ。Productionなし"
+  }
+}
