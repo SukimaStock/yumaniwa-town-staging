@@ -1,12 +1,18 @@
 import {spawn,execFileSync} from 'node:child_process';
-import {mkdirSync,readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {mkdirSync,readFileSync,writeFileSync,existsSync,statSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {resolve} from 'node:path';
+import {hostname,release,arch,cpus} from 'node:os';
 const [saves,output,only]=process.argv.slice(2);assert(saves&&output);mkdirSync(output,{recursive:true});
 const expected=JSON.parse(readFileSync(new URL('../reputation-dedup-research/capacity-results.json',import.meta.url))).rows;
 const hash=x=>createHash('sha256').update(x).digest('hex'),root=resolve(import.meta.dirname,'../../..');
 const runner=new URL('./browser-safe-timing.mjs',import.meta.url),runnerFingerprint=hash(readFileSync(runner));
+const binary=statSync('/tmp/h1-b1-browser/runtime/chromium');
+const environmentFingerprint=hash(JSON.stringify([hostname(),release(),arch(),cpus()[0]?.model,process.version,binary.size,binary.mtimeMs]));
+const environmentFile=resolve(output,'environment.json'),reuseScratch=existsSync(environmentFile);
+if(reuseScratch)assert.equal(JSON.parse(readFileSync(environmentFile)).environmentFingerprint,environmentFingerprint,'Use a fresh output directory on a different benchmark host');
+else writeFileSync(environmentFile,JSON.stringify({environmentFingerprint,node:process.version,platform:process.platform,arch:arch()},null,2));
 const base='74924b2729565531dcc3a499dcb7e24bcc0dced8';
 const files=['index.html','shop-app.mjs','cask-serials.mjs','partner-orders.mjs','placement-save.mjs','save-codec.mjs'];
 const fingerprint=mode=>hash(files.map(p=>mode==='before'?execFileSync('git',['show',base+':works/ambertime/'+p],{cwd:root,encoding:'utf8',maxBuffer:8e6}):readFileSync(new URL('../'+p,import.meta.url),'utf8')).join('\n'));
@@ -15,9 +21,20 @@ const valid=(r,mode,source)=>r.status==='complete'&&!r.error&&r.errors?.length==
 for(const month of [1200,360,720,1080])for(const id of ['local','wide','mixed']){
  if(only&&only!==`${id}-${month}`)continue;
  const input=resolve(saves,`${id}-${month}.json`),source=hash(readFileSync(input));assert.equal(source,expected.find(r=>r.id===id&&r.month===month).sourceHash);
+ // A whole completed pair can be reused as historical evidence. Do not
+ // combine only one side from a stored report with a new environment.
+ const recorded=new URL(`./${id}-${month/12}-final-pair.json`,import.meta.url);
+ if(existsSync(recorded)){
+  const prior=JSON.parse(readFileSync(recorded));const [before,after]=prior.results??[];
+  if(prior.status==='complete'&&before&&after&&valid(before,'before',source)&&valid(after,'separated',source)&&['wireSha256','gameSha256','browser'].every(field=>before[field]===after[field])){
+   results.push({...before,id,month},{...after,id,month});
+   console.log(JSON.stringify({id,month,status:'reused-complete-pair'}));
+   continue;
+  }
+ }
  const pair=[];
  for(const mode of ['before','separated']){
-  const destination=resolve(output,`${id}-${month}-${mode}.json`);let result=existsSync(destination)?JSON.parse(readFileSync(destination)):null;
+  const destination=resolve(output,`${id}-${month}-${mode}.json`);let result=reuseScratch&&existsSync(destination)?JSON.parse(readFileSync(destination)):null;
   if(!result||!valid(result,mode,source)){
    console.log(JSON.stringify({id,month,mode,status:'starting'}));
    const child=spawn(process.execPath,[runner.pathname,input,mode,destination],{stdio:'inherit'});assert.equal(await new Promise(r=>child.once('exit',r)),0);
