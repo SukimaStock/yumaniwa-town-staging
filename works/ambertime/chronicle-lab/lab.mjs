@@ -193,7 +193,8 @@ loadRecords().then(([data,extra,snapshots]) => {
   if (!record.options.length) throw Error('履歴なし');
   updateHandovers();
   if (longView) {
-    $('title').textContent='蒸留所の歩み · 長期検証';
+    $('title').textContent='100年の歩み';
+    document.body.classList.add('long-history');
     horizon.querySelector('option[value=anniversary]').textContent='100年経過';
   }
   record.disabled = open.disabled = false;
