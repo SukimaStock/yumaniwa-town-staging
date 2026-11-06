@@ -1,0 +1,50 @@
+{
+  "probes": {
+    "node": "v24.22.1",
+    "scope": "Small independent official fixture, not 100-year performance or persistence test",
+    "rows": [
+      {
+        "name": "proxy cannot impersonate valid token",
+        "passed": true
+      },
+      {
+        "name": "prototype inheritance cannot impersonate token",
+        "passed": true
+      },
+      {
+        "name": "post-game validation failure historyRecord does not poison future checks",
+        "passed": true
+      },
+      {
+        "name": "post-game validation failure recallRecord does not poison future checks",
+        "passed": true
+      },
+      {
+        "name": "post-game validation failure recentLedger does not poison future checks",
+        "passed": true
+      },
+      {
+        "name": "post-game validation failure caskSlots does not poison future checks",
+        "passed": true
+      },
+      {
+        "name": "returned read state and receipt nested mutation cannot alter private cache",
+        "passed": true
+      },
+      {
+        "name": "valid stale branch is valid but does not enforce storage revision",
+        "passed": true
+      }
+    ]
+  },
+  "fingerprint": {
+    "node": "v24.22.1",
+    "isolatedCopy": true,
+    "afterDependencyEdit": {
+      "readRejected": true,
+      "nextRejected": true,
+      "saveRejected": true,
+      "admitRejected": true
+    }
+  }
+}

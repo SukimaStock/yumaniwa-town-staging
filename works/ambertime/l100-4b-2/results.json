@@ -1,0 +1,1042 @@
+{
+  "verdict": "追加研究",
+  "coldGatePassed": false,
+  "twelveMonthIncremental": "not run: cold trust gate failed",
+  "nineGenerationNewPath": "not run: no new persisted checkpoint path adopted; prior B1 evidence only",
+  "comparisons": [
+    {
+      "policy": "local",
+      "trial": 1,
+      "source": true,
+      "initialSession": true,
+      "initialContext": true,
+      "firstV8Bytes": true,
+      "secondV8Bytes": true
+    },
+    {
+      "policy": "local",
+      "trial": 2,
+      "source": true,
+      "initialSession": true,
+      "initialContext": true,
+      "firstV8Bytes": true,
+      "secondV8Bytes": true
+    },
+    {
+      "policy": "mixed",
+      "trial": 1,
+      "source": true,
+      "initialSession": true,
+      "initialContext": true,
+      "firstV8Bytes": true,
+      "secondV8Bytes": true
+    },
+    {
+      "policy": "mixed",
+      "trial": 2,
+      "source": true,
+      "initialSession": true,
+      "initialContext": true,
+      "firstV8Bytes": true,
+      "secondV8Bytes": true
+    },
+    {
+      "policy": "wide",
+      "trial": 1,
+      "source": true,
+      "initialSession": true,
+      "initialContext": true,
+      "firstV8Bytes": true,
+      "secondV8Bytes": true
+    },
+    {
+      "policy": "wide",
+      "trial": 2,
+      "source": true,
+      "initialSession": true,
+      "initialContext": true,
+      "firstV8Bytes": true,
+      "secondV8Bytes": true
+    }
+  ],
+  "measurements": {
+    "local": {
+      "baseline": [
+        {
+          "node": "v24.22.1",
+          "pid": 9,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+          "inputSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+          "checkpointSHA": "7d1c7d7cd5d8d393c80599c339c3b5a78e8ff79fd135ba29e65606615c2ae643",
+          "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+          "priorAdapterSHA": "f2049523f1e412bfa06ae37863ad87c48eaf1ec1cf77e27376fadb16c4ca4ace",
+          "rows": [
+            {
+              "name": "B1-fast-cold",
+              "ms": 1133.926078,
+              "clones": 1879,
+              "cloneMs": 527.0571600000038
+            },
+            {
+              "name": "first-month",
+              "ms": 74.151928,
+              "clones": 2986,
+              "cloneMs": 33.48191599999882
+            },
+            {
+              "name": "first-official-save",
+              "ms": 49780.789742,
+              "clones": 37549,
+              "cloneMs": 40490.53383000041
+            },
+            {
+              "name": "second-month",
+              "ms": 71.52107200000319,
+              "clones": 2985,
+              "cloneMs": 48.859945000142034
+            },
+            {
+              "name": "second-official-save",
+              "ms": 408.583762000002,
+              "clones": 2972,
+              "cloneMs": 116.92757999994501
+            },
+            {
+              "name": "warm-official-reload",
+              "ms": 186.17178299999796,
+              "clones": 1470,
+              "cloneMs": 56.37335900022299
+            }
+          ],
+          "initialSessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+          "initialContextSHA": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+          "firstSaveSHA": "fcb3c8db488d2ed7b9c82ddedc47042849d2de9fa1d7f9b8668f249e04fe573e",
+          "secondSaveSHA": "f5a08a09becc80331f43c9e5d2f21f0454db7a1283592f20dc18fd346adad26a",
+          "v8Bytes": 3467349,
+          "checkpointBytes": 4256776,
+          "secondSaveBytes": 3473080,
+          "formalCodeUnits": 3812791,
+          "roundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 446701568,
+            "heapTotal": 257880064,
+            "heapUsed": 121364000,
+            "external": 4142675,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 455396,
+          "scope": "Fresh Node/module cache; B1 exact source reused. No official full reader before fast. IO excluded; OS cache uncontrolled; no Safari/browser claim."
+        },
+        {
+          "node": "v24.22.1",
+          "pid": 57,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+          "inputSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+          "checkpointSHA": "7d1c7d7cd5d8d393c80599c339c3b5a78e8ff79fd135ba29e65606615c2ae643",
+          "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+          "priorAdapterSHA": "f2049523f1e412bfa06ae37863ad87c48eaf1ec1cf77e27376fadb16c4ca4ace",
+          "rows": [
+            {
+              "name": "B1-fast-cold",
+              "ms": 1104.032825,
+              "clones": 1879,
+              "cloneMs": 487.0000720000067
+            },
+            {
+              "name": "first-month",
+              "ms": 85.32466899999986,
+              "clones": 2986,
+              "cloneMs": 44.386869999997316
+            },
+            {
+              "name": "first-official-save",
+              "ms": 50984.274166,
+              "clones": 37549,
+              "cloneMs": 41651.82686699961
+            },
+            {
+              "name": "second-month",
+              "ms": 70.88788699999714,
+              "clones": 2985,
+              "cloneMs": 44.41654699992068
+            },
+            {
+              "name": "second-official-save",
+              "ms": 590.7242399999959,
+              "clones": 2972,
+              "cloneMs": 132.89531400003762
+            },
+            {
+              "name": "warm-official-reload",
+              "ms": 220.80221000000165,
+              "clones": 1470,
+              "cloneMs": 62.73738599996432
+            }
+          ],
+          "initialSessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+          "initialContextSHA": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+          "firstSaveSHA": "fcb3c8db488d2ed7b9c82ddedc47042849d2de9fa1d7f9b8668f249e04fe573e",
+          "secondSaveSHA": "f5a08a09becc80331f43c9e5d2f21f0454db7a1283592f20dc18fd346adad26a",
+          "v8Bytes": 3467349,
+          "checkpointBytes": 4256776,
+          "secondSaveBytes": 3473080,
+          "formalCodeUnits": 3812791,
+          "roundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 467415040,
+            "heapTotal": 257880064,
+            "heapUsed": 121376720,
+            "external": 4142675,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 482384,
+          "scope": "Fresh Node/module cache; B1 exact source reused. No official full reader before fast. IO excluded; OS cache uncontrolled; no Safari/browser claim."
+        }
+      ],
+      "safe": [
+        {
+          "node": "v24.22.1",
+          "pid": 17,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+          "inputSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+          "v8Bytes": 3467349,
+          "rows": [
+            {
+              "name": "full-admission-no-cold-speedup",
+              "ms": 48244.103717,
+              "clones": 36049,
+              "cloneMs": 39419.337385999825,
+              "replayed": 1544
+            },
+            {
+              "name": "first-month",
+              "ms": 161.30987800000003,
+              "clones": 2987,
+              "cloneMs": 68.94951100034086,
+              "replayed": 0
+            },
+            {
+              "name": "first-save-after-full-admission",
+              "ms": 704.4098899999954,
+              "clones": 4446,
+              "cloneMs": 264.1247120000189,
+              "replayed": 1
+            },
+            {
+              "name": "second-month",
+              "ms": 159.0616560000053,
+              "clones": 2986,
+              "cloneMs": 67.86757099975512,
+              "replayed": 0
+            },
+            {
+              "name": "second-save",
+              "ms": 749.439069,
+              "clones": 4445,
+              "cloneMs": 269.94003399977373,
+              "replayed": 1
+            },
+            {
+              "name": "same-process-reload",
+              "ms": 232.2375830000019,
+              "clones": 1470,
+              "cloneMs": 48.76476799984812,
+              "replayed": 0
+            },
+            {
+              "name": "continued-month",
+              "ms": 157.55181400000583,
+              "clones": 2986,
+              "cloneMs": 72.18557999994664,
+              "replayed": 0
+            }
+          ],
+          "firstSaveSHA": "fcb3c8db488d2ed7b9c82ddedc47042849d2de9fa1d7f9b8668f249e04fe573e",
+          "secondSaveSHA": "f5a08a09becc80331f43c9e5d2f21f0454db7a1283592f20dc18fd346adad26a",
+          "secondSaveBytes": 3473080,
+          "formalCodeUnits": 3812791,
+          "formalStateAndCollectorRoundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 429621248,
+            "heapTotal": 321437696,
+            "heapUsed": 202537592,
+            "external": 4142675,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 460960,
+          "coldGate": "NOT PASSED: full replay admission cost remains; no persisted capability",
+          "scope": "Fresh process; official code reused with read-only cache diagnostics and apply counter. Internal timings include proof work; no IDB/browser claims; OS cache uncontrolled.",
+          "initial": {
+            "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+            "rootSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+            "previousSHA": null,
+            "prefixLength": 1521,
+            "prefixDigest": "f628dcb071f260ff6b16e2c9ce262091f84fcfa74b012a24596c85b2f5679839",
+            "contextSHA": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+            "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          },
+          "final": {
+            "sourceSHA": "f5a08a09becc80331f43c9e5d2f21f0454db7a1283592f20dc18fd346adad26a",
+            "rootSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+            "previousSHA": "fcb3c8db488d2ed7b9c82ddedc47042849d2de9fa1d7f9b8668f249e04fe573e",
+            "prefixLength": 1523,
+            "prefixDigest": "8875a573dca45453a91311db392e8fd921b17b5d8dcefd947e66c1cc25129450",
+            "contextSHA": "b7418f00ec17df661acbca984d0eb6b40eb689db362abd51c5dd6c8350197817",
+            "sessionSHA": "c62449c693fde0587b331d4213f0fa4bbd9d9c81bea1cd4616553c2f28dea5f7",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          }
+        },
+        {
+          "node": "v24.22.1",
+          "pid": 65,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+          "inputSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+          "v8Bytes": 3467349,
+          "rows": [
+            {
+              "name": "full-admission-no-cold-speedup",
+              "ms": 49925.539861000005,
+              "clones": 36049,
+              "cloneMs": 40817.16669900021,
+              "replayed": 1544
+            },
+            {
+              "name": "first-month",
+              "ms": 171.7958010000002,
+              "clones": 2987,
+              "cloneMs": 73.84344099998998,
+              "replayed": 0
+            },
+            {
+              "name": "first-save-after-full-admission",
+              "ms": 787.707183999999,
+              "clones": 4446,
+              "cloneMs": 302.0254740004166,
+              "replayed": 1
+            },
+            {
+              "name": "second-month",
+              "ms": 200.25273300000117,
+              "clones": 2986,
+              "cloneMs": 109.69956099970295,
+              "replayed": 0
+            },
+            {
+              "name": "second-save",
+              "ms": 733.9000990000059,
+              "clones": 4445,
+              "cloneMs": 267.2307980000114,
+              "replayed": 1
+            },
+            {
+              "name": "same-process-reload",
+              "ms": 211.54787199999555,
+              "clones": 1470,
+              "cloneMs": 44.21102900002734,
+              "replayed": 0
+            },
+            {
+              "name": "continued-month",
+              "ms": 133.46093100000144,
+              "clones": 2986,
+              "cloneMs": 73.65580199967371,
+              "replayed": 0
+            }
+          ],
+          "firstSaveSHA": "fcb3c8db488d2ed7b9c82ddedc47042849d2de9fa1d7f9b8668f249e04fe573e",
+          "secondSaveSHA": "f5a08a09becc80331f43c9e5d2f21f0454db7a1283592f20dc18fd346adad26a",
+          "secondSaveBytes": 3473080,
+          "formalCodeUnits": 3812791,
+          "formalStateAndCollectorRoundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 494448640,
+            "heapTotal": 329302016,
+            "heapUsed": 202385104,
+            "external": 4142675,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 525096,
+          "coldGate": "NOT PASSED: full replay admission cost remains; no persisted capability",
+          "scope": "Fresh process; official code reused with read-only cache diagnostics and apply counter. Internal timings include proof work; no IDB/browser claims; OS cache uncontrolled.",
+          "initial": {
+            "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+            "rootSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+            "previousSHA": null,
+            "prefixLength": 1521,
+            "prefixDigest": "f628dcb071f260ff6b16e2c9ce262091f84fcfa74b012a24596c85b2f5679839",
+            "contextSHA": "893b4cfa7970f3f159753ac7fb13342bdd743384466b85f70aa0dfd23e18254c",
+            "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          },
+          "final": {
+            "sourceSHA": "f5a08a09becc80331f43c9e5d2f21f0454db7a1283592f20dc18fd346adad26a",
+            "rootSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+            "previousSHA": "fcb3c8db488d2ed7b9c82ddedc47042849d2de9fa1d7f9b8668f249e04fe573e",
+            "prefixLength": 1523,
+            "prefixDigest": "8875a573dca45453a91311db392e8fd921b17b5d8dcefd947e66c1cc25129450",
+            "contextSHA": "b7418f00ec17df661acbca984d0eb6b40eb689db362abd51c5dd6c8350197817",
+            "sessionSHA": "c62449c693fde0587b331d4213f0fa4bbd9d9c81bea1cd4616553c2f28dea5f7",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          }
+        }
+      ]
+    },
+    "mixed": {
+      "baseline": [
+        {
+          "node": "v24.22.1",
+          "pid": 25,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+          "inputSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+          "checkpointSHA": "e8bf1c0973e6bbd4b7247b27ede62e9558dec98c5beaf8a117e6c2d32cbfc7c3",
+          "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+          "priorAdapterSHA": "f2049523f1e412bfa06ae37863ad87c48eaf1ec1cf77e27376fadb16c4ca4ace",
+          "rows": [
+            {
+              "name": "B1-fast-cold",
+              "ms": 1612.0797229999998,
+              "clones": 2096,
+              "cloneMs": 705.9845450000016
+            },
+            {
+              "name": "first-month",
+              "ms": 111.97431000000006,
+              "clones": 3303,
+              "cloneMs": 51.78072600000132
+            },
+            {
+              "name": "first-official-save",
+              "ms": 78048.74744899999,
+              "clones": 40159,
+              "cloneMs": 66119.97123999968
+            },
+            {
+              "name": "second-month",
+              "ms": 82.21449299999222,
+              "clones": 3302,
+              "cloneMs": 44.30938999984937
+            },
+            {
+              "name": "second-official-save",
+              "ms": 514.2382690000086,
+              "clones": 3289,
+              "cloneMs": 162.57619699978386
+            },
+            {
+              "name": "warm-official-reload",
+              "ms": 215.22601399999985,
+              "clones": 1625,
+              "cloneMs": 65.6927090001991
+            }
+          ],
+          "initialSessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+          "initialContextSHA": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+          "firstSaveSHA": "5433bdf32ca095e0a389e8f023b608898d6066c7de5ab70d87f383cace395e1f",
+          "secondSaveSHA": "9814320c000aa6b9bf5c6a9889c41d16cce4b3dab824827bca7878557557e608",
+          "v8Bytes": 4535936,
+          "checkpointBytes": 5490479,
+          "secondSaveBytes": 4544424,
+          "formalCodeUnits": 4946635,
+          "roundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 614477824,
+            "heapTotal": 316784640,
+            "heapUsed": 151744656,
+            "external": 4138523,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 640952,
+          "scope": "Fresh Node/module cache; B1 exact source reused. No official full reader before fast. IO excluded; OS cache uncontrolled; no Safari/browser claim."
+        },
+        {
+          "node": "v24.22.1",
+          "pid": 73,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+          "inputSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+          "checkpointSHA": "e8bf1c0973e6bbd4b7247b27ede62e9558dec98c5beaf8a117e6c2d32cbfc7c3",
+          "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+          "priorAdapterSHA": "f2049523f1e412bfa06ae37863ad87c48eaf1ec1cf77e27376fadb16c4ca4ace",
+          "rows": [
+            {
+              "name": "B1-fast-cold",
+              "ms": 1371.767332,
+              "clones": 2096,
+              "cloneMs": 586.5577239999981
+            },
+            {
+              "name": "first-month",
+              "ms": 89.40949499999988,
+              "clones": 3303,
+              "cloneMs": 40.21411699999953
+            },
+            {
+              "name": "first-official-save",
+              "ms": 75164.882514,
+              "clones": 40159,
+              "cloneMs": 63633.73862400061
+            },
+            {
+              "name": "second-month",
+              "ms": 95.47078200000396,
+              "clones": 3302,
+              "cloneMs": 49.75101099953463
+            },
+            {
+              "name": "second-official-save",
+              "ms": 627.534673999995,
+              "clones": 3289,
+              "cloneMs": 190.44531699949584
+            },
+            {
+              "name": "warm-official-reload",
+              "ms": 289.26408300000185,
+              "clones": 1625,
+              "cloneMs": 96.3210429995961
+            }
+          ],
+          "initialSessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+          "initialContextSHA": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+          "firstSaveSHA": "5433bdf32ca095e0a389e8f023b608898d6066c7de5ab70d87f383cace395e1f",
+          "secondSaveSHA": "9814320c000aa6b9bf5c6a9889c41d16cce4b3dab824827bca7878557557e608",
+          "v8Bytes": 4535936,
+          "checkpointBytes": 5490479,
+          "secondSaveBytes": 4544424,
+          "formalCodeUnits": 4946635,
+          "roundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 617824256,
+            "heapTotal": 290308096,
+            "heapUsed": 151738048,
+            "external": 4138523,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 630844,
+          "scope": "Fresh Node/module cache; B1 exact source reused. No official full reader before fast. IO excluded; OS cache uncontrolled; no Safari/browser claim."
+        }
+      ],
+      "safe": [
+        {
+          "node": "v24.22.1",
+          "pid": 33,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+          "inputSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+          "v8Bytes": 4535936,
+          "rows": [
+            {
+              "name": "full-admission-no-cold-speedup",
+              "ms": 74579.042463,
+              "clones": 38497,
+              "cloneMs": 63380.179268000924,
+              "replayed": 1521
+            },
+            {
+              "name": "first-month",
+              "ms": 184.11273800001072,
+              "clones": 3304,
+              "cloneMs": 92.76436099980492,
+              "replayed": 0
+            },
+            {
+              "name": "first-save-after-full-admission",
+              "ms": 1040.4340040000097,
+              "clones": 4918,
+              "cloneMs": 367.12819300056435,
+              "replayed": 1
+            },
+            {
+              "name": "second-month",
+              "ms": 176.21447500000068,
+              "clones": 3303,
+              "cloneMs": 95.10086699994281,
+              "replayed": 0
+            },
+            {
+              "name": "second-save",
+              "ms": 909.9565710000024,
+              "clones": 4917,
+              "cloneMs": 333.5509240001993,
+              "replayed": 1
+            },
+            {
+              "name": "same-process-reload",
+              "ms": 275.3549700000003,
+              "clones": 1625,
+              "cloneMs": 62.4640670002409,
+              "replayed": 0
+            },
+            {
+              "name": "continued-month",
+              "ms": 181.22096999999485,
+              "clones": 3303,
+              "cloneMs": 95.36695199967653,
+              "replayed": 0
+            }
+          ],
+          "firstSaveSHA": "5433bdf32ca095e0a389e8f023b608898d6066c7de5ab70d87f383cace395e1f",
+          "secondSaveSHA": "9814320c000aa6b9bf5c6a9889c41d16cce4b3dab824827bca7878557557e608",
+          "secondSaveBytes": 4544424,
+          "formalCodeUnits": 4946635,
+          "formalStateAndCollectorRoundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 581705728,
+            "heapTotal": 377348096,
+            "heapUsed": 240884184,
+            "external": 4138523,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 632200,
+          "coldGate": "NOT PASSED: full replay admission cost remains; no persisted capability",
+          "scope": "Fresh process; official code reused with read-only cache diagnostics and apply counter. Internal timings include proof work; no IDB/browser claims; OS cache uncontrolled.",
+          "initial": {
+            "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+            "rootSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+            "previousSHA": null,
+            "prefixLength": 1498,
+            "prefixDigest": "cada2942ce582a9612c08e01d103254126cf716446d60875824d368564e51753",
+            "contextSHA": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+            "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          },
+          "final": {
+            "sourceSHA": "9814320c000aa6b9bf5c6a9889c41d16cce4b3dab824827bca7878557557e608",
+            "rootSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+            "previousSHA": "5433bdf32ca095e0a389e8f023b608898d6066c7de5ab70d87f383cace395e1f",
+            "prefixLength": 1500,
+            "prefixDigest": "040db853218a179abcf287c26910186a38f74d9a2d78d516a629713bdfc3b970",
+            "contextSHA": "125eab3db82d68dff02041972e3580dac1181083e54e6e0ecbad2060944208f3",
+            "sessionSHA": "3f48287b26d4c65c0b7c3b2fd942b56a247b8df395524967bdbc10b3ba84f1fa",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          }
+        },
+        {
+          "node": "v24.22.1",
+          "pid": 81,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+          "inputSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+          "v8Bytes": 4535936,
+          "rows": [
+            {
+              "name": "full-admission-no-cold-speedup",
+              "ms": 76687.142852,
+              "clones": 38497,
+              "cloneMs": 65175.004403999774,
+              "replayed": 1521
+            },
+            {
+              "name": "first-month",
+              "ms": 194.98419000000285,
+              "clones": 3304,
+              "cloneMs": 90.68790099998296,
+              "replayed": 0
+            },
+            {
+              "name": "first-save-after-full-admission",
+              "ms": 996.0492260000028,
+              "clones": 4918,
+              "cloneMs": 362.55885399984254,
+              "replayed": 1
+            },
+            {
+              "name": "second-month",
+              "ms": 226.46810100000584,
+              "clones": 3303,
+              "cloneMs": 137.54316400023527,
+              "replayed": 0
+            },
+            {
+              "name": "second-save",
+              "ms": 926.9599460000027,
+              "clones": 4917,
+              "cloneMs": 345.68051000068954,
+              "replayed": 1
+            },
+            {
+              "name": "same-process-reload",
+              "ms": 272.8906120000029,
+              "clones": 1625,
+              "cloneMs": 58.15034600008221,
+              "replayed": 0
+            },
+            {
+              "name": "continued-month",
+              "ms": 173.40243500001088,
+              "clones": 3303,
+              "cloneMs": 97.96037500021339,
+              "replayed": 0
+            }
+          ],
+          "firstSaveSHA": "5433bdf32ca095e0a389e8f023b608898d6066c7de5ab70d87f383cace395e1f",
+          "secondSaveSHA": "9814320c000aa6b9bf5c6a9889c41d16cce4b3dab824827bca7878557557e608",
+          "secondSaveBytes": 4544424,
+          "formalCodeUnits": 4946635,
+          "formalStateAndCollectorRoundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 609300480,
+            "heapTotal": 375513088,
+            "heapUsed": 240715544,
+            "external": 4138523,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 653364,
+          "coldGate": "NOT PASSED: full replay admission cost remains; no persisted capability",
+          "scope": "Fresh process; official code reused with read-only cache diagnostics and apply counter. Internal timings include proof work; no IDB/browser claims; OS cache uncontrolled.",
+          "initial": {
+            "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+            "rootSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+            "previousSHA": null,
+            "prefixLength": 1498,
+            "prefixDigest": "cada2942ce582a9612c08e01d103254126cf716446d60875824d368564e51753",
+            "contextSHA": "c16add359ff3f5a343f35c2e311ccca44acf56a750910bbb302444aa58621f09",
+            "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          },
+          "final": {
+            "sourceSHA": "9814320c000aa6b9bf5c6a9889c41d16cce4b3dab824827bca7878557557e608",
+            "rootSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+            "previousSHA": "5433bdf32ca095e0a389e8f023b608898d6066c7de5ab70d87f383cace395e1f",
+            "prefixLength": 1500,
+            "prefixDigest": "040db853218a179abcf287c26910186a38f74d9a2d78d516a629713bdfc3b970",
+            "contextSHA": "125eab3db82d68dff02041972e3580dac1181083e54e6e0ecbad2060944208f3",
+            "sessionSHA": "3f48287b26d4c65c0b7c3b2fd942b56a247b8df395524967bdbc10b3ba84f1fa",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          }
+        }
+      ]
+    },
+    "wide": {
+      "baseline": [
+        {
+          "node": "v24.22.1",
+          "pid": 41,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+          "inputSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+          "checkpointSHA": "a21400d3d2beea02a491cd24cf4c42e0ee58239b47e548cdef896a7142231c8c",
+          "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+          "priorAdapterSHA": "f2049523f1e412bfa06ae37863ad87c48eaf1ec1cf77e27376fadb16c4ca4ace",
+          "rows": [
+            {
+              "name": "B1-fast-cold",
+              "ms": 1752.0106219999998,
+              "clones": 2227,
+              "cloneMs": 853.7089839999965
+            },
+            {
+              "name": "first-month",
+              "ms": 87.59189300000003,
+              "clones": 3277,
+              "cloneMs": 50.59163699999681
+            },
+            {
+              "name": "first-official-save",
+              "ms": 102815.22917400001,
+              "clones": 43887,
+              "cloneMs": 87778.62367500062
+            },
+            {
+              "name": "second-month",
+              "ms": 98.1991890000063,
+              "clones": 3278,
+              "cloneMs": 51.893487999434
+            },
+            {
+              "name": "second-official-save",
+              "ms": 624.9995490000001,
+              "clones": 3265,
+              "cloneMs": 189.83004999975674
+            },
+            {
+              "name": "warm-official-reload",
+              "ms": 242.12363699999696,
+              "clones": 1613,
+              "cloneMs": 65.48800800018944
+            }
+          ],
+          "initialSessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+          "initialContextSHA": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+          "firstSaveSHA": "cb48fb4bbd47441cb452d672ee44e6aed9fbf1a3898cf0d054970df45671be61",
+          "secondSaveSHA": "d2305281d998b8d5759facbfffe9836576e6448f1a2fb0055074af7e5d4d5780",
+          "v8Bytes": 5282030,
+          "checkpointBytes": 6499321,
+          "secondSaveBytes": 5290682,
+          "formalCodeUnits": 5848547,
+          "roundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 713715712,
+            "heapTotal": 316731392,
+            "heapUsed": 175336712,
+            "external": 4138523,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 713316,
+          "scope": "Fresh Node/module cache; B1 exact source reused. No official full reader before fast. IO excluded; OS cache uncontrolled; no Safari/browser claim."
+        },
+        {
+          "node": "v24.22.1",
+          "pid": 89,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+          "inputSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+          "checkpointSHA": "a21400d3d2beea02a491cd24cf4c42e0ee58239b47e548cdef896a7142231c8c",
+          "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+          "priorAdapterSHA": "f2049523f1e412bfa06ae37863ad87c48eaf1ec1cf77e27376fadb16c4ca4ace",
+          "rows": [
+            {
+              "name": "B1-fast-cold",
+              "ms": 1986.6900050000002,
+              "clones": 2227,
+              "cloneMs": 981.4655860000101
+            },
+            {
+              "name": "first-month",
+              "ms": 102.91882299999997,
+              "clones": 3277,
+              "cloneMs": 56.728233999982876
+            },
+            {
+              "name": "first-official-save",
+              "ms": 102452.62691,
+              "clones": 43887,
+              "cloneMs": 87662.40199700033
+            },
+            {
+              "name": "second-month",
+              "ms": 86.29344800001127,
+              "clones": 3278,
+              "cloneMs": 46.59359399997629
+            },
+            {
+              "name": "second-official-save",
+              "ms": 598.7104969999928,
+              "clones": 3265,
+              "cloneMs": 169.56750199972885
+            },
+            {
+              "name": "warm-official-reload",
+              "ms": 301.40801500000816,
+              "clones": 1613,
+              "cloneMs": 76.72593000017514
+            }
+          ],
+          "initialSessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+          "initialContextSHA": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+          "firstSaveSHA": "cb48fb4bbd47441cb452d672ee44e6aed9fbf1a3898cf0d054970df45671be61",
+          "secondSaveSHA": "d2305281d998b8d5759facbfffe9836576e6448f1a2fb0055074af7e5d4d5780",
+          "v8Bytes": 5282030,
+          "checkpointBytes": 6499321,
+          "secondSaveBytes": 5290682,
+          "formalCodeUnits": 5848547,
+          "roundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 715902976,
+            "heapTotal": 313323520,
+            "heapUsed": 175336144,
+            "external": 4138523,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 746360,
+          "scope": "Fresh Node/module cache; B1 exact source reused. No official full reader before fast. IO excluded; OS cache uncontrolled; no Safari/browser claim."
+        }
+      ],
+      "safe": [
+        {
+          "node": "v24.22.1",
+          "pid": 49,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+          "inputSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+          "v8Bytes": 5282030,
+          "rows": [
+            {
+              "name": "full-admission-no-cold-speedup",
+              "ms": 104742.929111,
+              "clones": 42239,
+              "cloneMs": 89945.87687500058,
+              "replayed": 1551
+            },
+            {
+              "name": "first-month",
+              "ms": 212.44801700000244,
+              "clones": 3278,
+              "cloneMs": 106.30632000011974,
+              "replayed": 0
+            },
+            {
+              "name": "first-save-after-full-admission",
+              "ms": 1051.0234930000006,
+              "clones": 4880,
+              "cloneMs": 365.5487609996344,
+              "replayed": 1
+            },
+            {
+              "name": "second-month",
+              "ms": 196.41992300000857,
+              "clones": 3279,
+              "cloneMs": 104.10399100031646,
+              "replayed": 0
+            },
+            {
+              "name": "second-save",
+              "ms": 1221.9297890000016,
+              "clones": 4881,
+              "cloneMs": 403.111722000147,
+              "replayed": 1
+            },
+            {
+              "name": "same-process-reload",
+              "ms": 301.94602300001134,
+              "clones": 1613,
+              "cloneMs": 69.34917599974142,
+              "replayed": 0
+            },
+            {
+              "name": "continued-month",
+              "ms": 192.0311209999927,
+              "clones": 3278,
+              "cloneMs": 110.08511399985582,
+              "replayed": 0
+            }
+          ],
+          "firstSaveSHA": "cb48fb4bbd47441cb452d672ee44e6aed9fbf1a3898cf0d054970df45671be61",
+          "secondSaveSHA": "d2305281d998b8d5759facbfffe9836576e6448f1a2fb0055074af7e5d4d5780",
+          "secondSaveBytes": 5290682,
+          "formalCodeUnits": 5848547,
+          "formalStateAndCollectorRoundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 619470848,
+            "heapTotal": 396566528,
+            "heapUsed": 268631208,
+            "external": 4138523,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 674004,
+          "coldGate": "NOT PASSED: full replay admission cost remains; no persisted capability",
+          "scope": "Fresh process; official code reused with read-only cache diagnostics and apply counter. Internal timings include proof work; no IDB/browser claims; OS cache uncontrolled.",
+          "initial": {
+            "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+            "rootSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+            "previousSHA": null,
+            "prefixLength": 1528,
+            "prefixDigest": "90ff61d2cb962f12dc8cdfcb80f6b6902d8410ddd64d21c8c17a7e2ade63227d",
+            "contextSHA": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+            "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          },
+          "final": {
+            "sourceSHA": "d2305281d998b8d5759facbfffe9836576e6448f1a2fb0055074af7e5d4d5780",
+            "rootSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+            "previousSHA": "cb48fb4bbd47441cb452d672ee44e6aed9fbf1a3898cf0d054970df45671be61",
+            "prefixLength": 1530,
+            "prefixDigest": "68f7e9d68648332ce29713f0659ed3eda235e7febebc7df8d7ee1e80740c0d94",
+            "contextSHA": "4016b60300a92363c650d63fa93b9fee6ff913b5d78e2eeaeaf487f7a14df633",
+            "sessionSHA": "abfe5b9cc6f0621ea93d16ca2b5314e167896d85618c45c3537b01c394b2a7dd",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          }
+        },
+        {
+          "node": "v24.22.1",
+          "pid": 97,
+          "input": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+          "inputSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+          "v8Bytes": 5282030,
+          "rows": [
+            {
+              "name": "full-admission-no-cold-speedup",
+              "ms": 99143.137429,
+              "clones": 42239,
+              "cloneMs": 85075.66573899938,
+              "replayed": 1551
+            },
+            {
+              "name": "first-month",
+              "ms": 187.63043499999912,
+              "clones": 3278,
+              "cloneMs": 106.94350800020038,
+              "replayed": 0
+            },
+            {
+              "name": "first-save-after-full-admission",
+              "ms": 1054.7489720000012,
+              "clones": 4880,
+              "cloneMs": 373.4941629994719,
+              "replayed": 1
+            },
+            {
+              "name": "second-month",
+              "ms": 220.5126270000037,
+              "clones": 3279,
+              "cloneMs": 112.54245099959371,
+              "replayed": 0
+            },
+            {
+              "name": "second-save",
+              "ms": 1080.7944849999913,
+              "clones": 4881,
+              "cloneMs": 395.7391029999708,
+              "replayed": 1
+            },
+            {
+              "name": "same-process-reload",
+              "ms": 316.222311000005,
+              "clones": 1613,
+              "cloneMs": 83.61231199961912,
+              "replayed": 0
+            },
+            {
+              "name": "continued-month",
+              "ms": 188.23224299999129,
+              "clones": 3278,
+              "cloneMs": 108.03297999956703,
+              "replayed": 0
+            }
+          ],
+          "firstSaveSHA": "cb48fb4bbd47441cb452d672ee44e6aed9fbf1a3898cf0d054970df45671be61",
+          "secondSaveSHA": "d2305281d998b8d5759facbfffe9836576e6448f1a2fb0055074af7e5d4d5780",
+          "secondSaveBytes": 5290682,
+          "formalCodeUnits": 5848547,
+          "formalStateAndCollectorRoundtrip": true,
+          "sourcePreserved": true,
+          "memory": {
+            "rss": 655511552,
+            "heapTotal": 412295168,
+            "heapUsed": 268719408,
+            "external": 4138523,
+            "arrayBuffers": 212115
+          },
+          "maxRSSKiB": 714456,
+          "coldGate": "NOT PASSED: full replay admission cost remains; no persisted capability",
+          "scope": "Fresh process; official code reused with read-only cache diagnostics and apply counter. Internal timings include proof work; no IDB/browser claims; OS cache uncontrolled.",
+          "initial": {
+            "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+            "rootSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+            "previousSHA": null,
+            "prefixLength": 1528,
+            "prefixDigest": "90ff61d2cb962f12dc8cdfcb80f6b6902d8410ddd64d21c8c17a7e2ade63227d",
+            "contextSHA": "ad8ab50047693f9ba2c5aed3d936df873029c9fdddd178e089475f64303ee0a4",
+            "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          },
+          "final": {
+            "sourceSHA": "d2305281d998b8d5759facbfffe9836576e6448f1a2fb0055074af7e5d4d5780",
+            "rootSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+            "previousSHA": "cb48fb4bbd47441cb452d672ee44e6aed9fbf1a3898cf0d054970df45671be61",
+            "prefixLength": 1530,
+            "prefixDigest": "68f7e9d68648332ce29713f0659ed3eda235e7febebc7df8d7ee1e80740c0d94",
+            "contextSHA": "4016b60300a92363c650d63fa93b9fee6ff913b5d78e2eeaeaf487f7a14df633",
+            "sessionSHA": "abfe5b9cc6f0621ea93d16ca2b5314e167896d85618c45c3537b01c394b2a7dd",
+            "fingerprint": "b737d83aec714d318d4712817e1e0be7b27181ae3f10f524263d7461e9f8c06a"
+          }
+        }
+      ]
+    }
+  }
+}

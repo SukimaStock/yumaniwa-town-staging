@@ -1,0 +1,39 @@
+✔ source discovery returns both independent native records without selection, merging or writes (373.45498ms)
+✔ explicit legacy listed and hand copies preserve all prior facts and clock state, leaving both sources exact (1234.123797ms)
+✔ trial selection copies the exact source text including whitespace without prepare, adoption or serialization (418.136235ms)
+✔ valid or corrupt existing formal destinations are never overwritten or replaced by a source (760.303726ms)
+✔ a source changed since preview blocks copying and preserves the newer source bytes (463.256597ms)
+✔ a concurrent destination writer during validation is protected by the final conditional write (387.041656ms)
+✔ quota failure rejects before returning live state or changing either original (412.731814ms)
+✔ failed readback rejects even when destination was written; callers receive no successful live state (424.013518ms)
+✔ invalid source selection, envelope, policy, native facts or candidate mode rejects without writes (1477.695099ms)
+✔ version1 and version2 map metadata copy verbatim and retain compatible notice baselines (787.215188ms)
+✔ invalid or existing map metadata is left intact; optional metadata failure cannot damage game sources (2004.200789ms)
+✔ an older pre-stage4 v20 session copies explicitly with only connection and adoption boundaries appended (212.327562ms)
+✔ v8 requires the recall record and rejects v7 before running the official reader (47.371606ms)
+✔ a post-write read exception does not claim failure left persistent state unchanged (21.135743ms)
+✔ a changed readback rejects success and preserves the competing writer for recovery (26.529153ms)
+✔ quota failure leaves the complete old session and retry commits the complete candidate (22.015315ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9402.950805
+✔ formal compact session uses the startup reader and restores exact game, pause and clock (152.144555ms)
+✔ old v2 session still loads via unchanged official reader without altering source text (99.151885ms)
+✔ strict C encoder refuses incomplete or reordered arrivals without normalizing input (11.582808ms)
+✔ current compact envelope rejects malformed marker, envelope, duplicates, metadata and noncanonical input before formal restore (40.285872ms)
+✔ expanded size guard matches official boundary and rejects before cloning or reader bypass (34.954914ms)
+✔ save candidate is rejected when official restore refuses or changes the formal state (93.131807ms)
+✔ source copy may encode v5 without mutating either older source or unrelated storage (53.509468ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 609.274247
