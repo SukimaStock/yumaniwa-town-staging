@@ -56,7 +56,9 @@ test('historical replay cannot replace the formal reader’s current checkpoint'
 
 test('reviewed C1 inverse preserves the prior exact source and rejects duplicated hunks',()=>{
  for(const name of ['shop-app.mjs','index.html','cask-serials.mjs']){
-  const actual=beforeS1(text(name),name),base=execFileSync('git',['show','74924b2729565531dcc3a499dcb7e24bcc0dced8:works/ambertime/'+name],{encoding:'utf8',maxBuffer:8e6});
+  // The inverse proves the historical S1/C1 transition, not later app revisions.
+  const reviewedS1=execFileSync('git',['show','083bd63ef2d43074350e7220785d3819ee85919b:works/ambertime/'+name],{encoding:'utf8',maxBuffer:8e6});
+  const actual=beforeS1(reviewedS1,name),base=execFileSync('git',['show','74924b2729565531dcc3a499dcb7e24bcc0dced8:works/ambertime/'+name],{encoding:'utf8',maxBuffer:8e6});
   assert.equal(beforeC1(actual,name),base);
   assert.equal(beforeC1(actual+'\n// unrelated change',name),base+'\n// unrelated change');
   assert.throws(()=>beforeC1(actual+actual,name),/exact reviewed C1 hunk/);
