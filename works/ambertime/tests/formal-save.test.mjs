@@ -1,3 +1,4 @@
+import {initializeCaskSlots} from '../cask-slots.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -25,7 +26,7 @@ test('explicit legacy listed and hand copies preserve all prior facts and clock 
  for(const policy of ['listed','hand']){const store=both(),before=source(store),result=S.copyToFormal(store,before,{...options,policy}),session=read(result.text);assert.equal(result.mapCopied,false);assert.equal(store.getItem(S.FORMAL_SAVE_KEY),result.text);assert.equal(session.userPaused,true);assert.equal(session.elapsed,200);assert.deepEqual(facts(session.game),facts(legacy));assert.deepEqual(session.game.operations.slice(0,-1),legacy.operations);assert.equal(session.game.operations.at(-1).key,'adopt-placement');assert.equal(session.game.operations.at(-1).value.policy,policy);for(const p of legacy.core.products)assert.equal(D.placementInventory(session.game,p.id).retail,policy==='listed'&&legacy.productsById[p.id]?.listed?D.placementInventory(legacy,p.id).available:0);originalBytes(store);assert.deepEqual(store.writes,[[S.FORMAL_SAVE_KEY,result.text]]);}
 });
 test('trial selection copies the exact source text including whitespace without prepare, adoption or serialization',()=>{
- const store=both(),never=()=>{throw Error('trial must remain verbatim');},result=S.copyToFormal(store,source(store,'placement'),{...options,prepare:never,adopt:never,serialize:never});assert.equal(result.text,trialRaw);assert.deepEqual(read(result.text),{game:trial,userPaused:false,elapsed:300});assert.deepEqual(store.writes,[[S.FORMAL_SAVE_KEY,trialRaw]]);originalBytes(store);
+ const store=both(),never=()=>{throw Error('trial must remain verbatim');},result=S.copyToFormal(store,source(store,'placement'),{...options,prepare:never,adopt:never,serialize:never});assert.equal(result.text,trialRaw);assert.deepEqual(read(result.text),{game:trial,userPaused:false,elapsed:300,caskSlots:initializeCaskSlots(trial)});assert.deepEqual(store.writes,[[S.FORMAL_SAVE_KEY,trialRaw]]);originalBytes(store);
 });
 test('valid or corrupt existing formal destinations are never overwritten or replaced by a source',()=>{
  for(const destination of [trialRaw,'{corrupt','']){const store=both();store.values.set(S.FORMAL_SAVE_KEY,destination);assert.throws(()=>S.copyToFormal(store,source(store),options),/上書きせず/);assert.equal(store.getItem(S.FORMAL_SAVE_KEY),destination);assert.deepEqual(store.writes,[]);originalBytes(store);}

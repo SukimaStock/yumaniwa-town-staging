@@ -1,3 +1,4 @@
+import {beforeS1} from './s1-source-inverse.mjs';
 import {beforeC1} from '../h1-c1/source-inverse.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -7,10 +8,11 @@ import * as D from '../partner-orders.mjs?v=market-rules-r1&touch=1';
 import {createCaskSerials} from '../cask-serials.mjs?v=market-rules-r1';
 import {fill,advance} from './brands-helpers.mjs';
 const text=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
-test('app supplies its strict validator and retains separate historical replay',()=>{
- const main=text('shop-app.mjs'),serial=text('cask-serials.mjs');
- assert.match(main,/createCaskSerials\(\{validate:D\.validateDistillery\}\)/);
- assert.notEqual(main.match(/import \* as D from '([^']+)'/)[1],serial.match(/import \* as D from '([^']+)'/)[1]);
+test('S1 app uses only current slots and keeps historical serial replay outside the live path',()=>{
+ const main=text('shop-app.mjs'),slots=text('cask-slots.mjs');
+ assert.match(main,/cask-slots\.mjs/);
+ assert.doesNotMatch(main,/cask-serials|createCaskSerials|displayCaskSerials/);
+ assert.doesNotMatch(slots,/createProjectionReplay|snapshot|validateDistillery/);
 });
 test('shared validation preserves partial progress, divergent operations, reset and rejected state',()=>{
  const resolver=createCaskSerials({validate:D.validateDistillery});
@@ -54,7 +56,7 @@ test('historical replay cannot replace the formal reader’s current checkpoint'
 
 test('reviewed C1 inverse preserves the prior exact source and rejects duplicated hunks',()=>{
  for(const name of ['shop-app.mjs','index.html','cask-serials.mjs']){
-  const actual=text(name),base=execFileSync('git',['show','74924b2729565531dcc3a499dcb7e24bcc0dced8:works/ambertime/'+name],{encoding:'utf8',maxBuffer:8e6});
+  const actual=beforeS1(text(name),name),base=execFileSync('git',['show','74924b2729565531dcc3a499dcb7e24bcc0dced8:works/ambertime/'+name],{encoding:'utf8',maxBuffer:8e6});
   assert.equal(beforeC1(actual,name),base);
   assert.equal(beforeC1(actual+'\n// unrelated change',name),base+'\n// unrelated change');
   assert.throws(()=>beforeC1(actual+actual,name),/exact reviewed C1 hunk/);

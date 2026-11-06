@@ -1,6 +1,7 @@
 import {createWarehouseRoomController} from '../warehouse-room-controller.mjs';
 // Execute current application boundaries. DOM/clock/notice adapters are inert;
 // formal operations, serialization, conditional writes and handlers are real.
+import {initializeCaskSlots,reconcileCaskSlots} from '../cask-slots.mjs';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
@@ -30,7 +31,7 @@ export function host({preview=false,state=D.selectFlavorCards(D.newMarketRulesDi
  let raw=JSON.stringify({version:2,game:JSON.parse(D.serializeDistillery(state)),userPaused:false,elapsed:0}),writes=0,reads=0,fail=false;
  const storage={getItem(){reads++;return raw;},setItem(key,value){writes++;if(fail)throw Error('storage denied');raw=value;}};
  const nodes=new Map(),node=id=>{if(!nodes.has(id))nodes.set(id,{dataset:{},hidden:true,textContent:'',innerHTML:'',open:false,classList:{toggle(){}},querySelector(){return {focus(){}};},removeAttribute(){},showModal(){this.open=true;},close(){this.open=false;}});return nodes.get(id);};
- const ctx={scene:scenePort,D,createDistillRoomController,createWarehouseRoomController,manualCompletedRuns,distillToolsView,rangeRestartAvailable,distillationReadout,spiritProfile,manualCards,writeCandidate,serializeSession,SAVE_KEY:FORMAL_SAVE_KEY,P,barrel,glassColor,localStorage:storage,
+ const ctx={initializeCaskSlots,reconcileCaskSlots,scene:scenePort,D,createDistillRoomController,createWarehouseRoomController,manualCompletedRuns,distillToolsView,rangeRestartAvailable,distillationReadout,spiritProfile,manualCards,writeCandidate,serializeSession,SAVE_KEY:FORMAL_SAVE_KEY,P,barrel,glassColor,localStorage:storage,
   document:{hidden:false,activeElement:null},T:{...NATIVE_TIME,minimumStop:30},$ :node,
   stopClock(){},schedule(){},message(){},noteMapReach(){},automaticNews:{push(){}},automaticEvents:()=>[],soldOutLabel:()=>'',caskName:String,
   placementUI:{reset(){}},showStaffOpportunity(){},showShopOffer(){},showGeneration(){},showInitialMapNotice(){},vaultPanels(){},shopOffers:()=>[],comparisonKinds:[],
@@ -38,7 +39,7 @@ export function host({preview=false,state=D.selectFlavorCards(D.newMarketRulesDi
   queueMicrotask:fn=>fn(),initial:state,initialRaw:raw,initialPreview:preview,restored};
  vm.createContext(ctx);
  vm.runInContext(`let game=initial,room='distill',modal=null,userPaused=false,canSave=!initialPreview,preview=initialPreview,shownFillSpiritId=restored&&game.still.phase==='filling'?game.core.spirit.id:null,lastSavedText=initialRaw,elapsed=0,runtimeHalted=false,selectedCaskId=null,modalReturnFocus=null,modalReturnObject=null,pointerInteraction=false,mapLabelObserver=null,pendingCountdown=null;
- let migrationPending=null,committedSession={game,userPaused,elapsed};
+ let caskSlots=initializeCaskSlots(game),migrationPending=null,committedSession={game,userPaused,elapsed,caskSlots};
  const warehouseRoom=createWarehouseRoomController();
  const distillRoom=createDistillRoomController();distillRoom.confirm({},game.core.lastDistillation);
  const countdown={active:false,start(fn){this.active=true;pendingCountdown=fn;},cancel(){this.active=false;pendingCountdown=null;}};

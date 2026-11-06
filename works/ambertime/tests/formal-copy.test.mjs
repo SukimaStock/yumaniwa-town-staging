@@ -60,9 +60,10 @@ test('ordinary URL uses native store market and preserves legacy placement detai
 });
 test('cache reader chain updates every changed helper and worker entry',()=>{
  contains(html,['shop-app.mjs?v=market-layout-r1','shop.css?v=placement-hand-delta-r2','market.css?v=compact-three-r1']);
- contains(app,['placement-save.mjs?v=h1-b2-1']);
+ contains(app,['placement-save.mjs?v=s1-slots-1','cask-slots.mjs?v=s1-1']);
+ assert.ok(!app.includes('cask-serials.mjs'));
  for(const helper of ['shop-order-view','cask-detail-view','flavor-view'])contains(app,[helper+'.mjs?v=formal-copy-r1']);
- for(const helper of ['cask-serials','nearby-comparison','history-worker','cask-ledger-worker'])contains(app,[helper+'.mjs?v=market-rules-r1']);
+ for(const helper of ['nearby-comparison','history-worker','cask-ledger-worker'])contains(app,[helper+'.mjs?v=market-rules-r1']);
  contains(app,['placement-ui.mjs?v=visual14-r1','partner-orders.mjs?v=market-rules-r1','market-ui.mjs?v=compact-three-r1']);
  contains(app,['brewing-cards.mjs?v=confirmed-brewing-r1']);
  contains(read('cask-detail-view.mjs'),['flavor-view.mjs?v=formal-copy-r1']);

@@ -1,3 +1,4 @@
+import {initializeCaskSlots,reconcileCaskSlots} from '../cask-slots.mjs';
 import {expandFormalGame} from '../save-codec.mjs';
 import {serializeSession,writeCandidate} from '../placement-save.mjs';
 import test from 'node:test';
@@ -48,7 +49,7 @@ function host(source,state,{restored=false}={}){
  const model={...D};
  for(const name of ['sampleDistillery','endTasting','pauseBottling','bottleBranded','delegateBottling'])model[name]=(...args)=>{log.push('model:'+name);if(mode==='model-throw'&&name!=='endTasting')throw Error('model refused');return D[name](...args);};
  model.serializeDistillery=s=>{log.push('serialize');return D.serializeDistillery(s);};
- const ctx={scene:{isDistillCompletion:()=>false,cancelDistillCompletion(){},startDistillCompletion:()=>false},D:model,P,createWarehouseRoomController,createDistillRoomController,bottleChoices,defaultBottleCount,identityDefaults,brandNameError,serializeSession,writeCandidate,T:{monthMs:6000,distillStepMs:100},
+ const ctx={scene:{isDistillCompletion:()=>false,cancelDistillCompletion(){},startDistillCompletion:()=>false},D:model,P,initializeCaskSlots,reconcileCaskSlots,createWarehouseRoomController,createDistillRoomController,bottleChoices,defaultBottleCount,identityDefaults,brandNameError,serializeSession,writeCandidate,T:{monthMs:6000,distillStepMs:100},
   initial:state,initialRaw:stored,restored,snapshotRaw:D.serializeDistillery,localStorage:storage,SAVE_KEY:'formal',$:node,document:{hidden:false,activeElement:null},
   stopClock:()=>log.push('clock:stop'),schedule:()=>log.push('clock:schedule'),recordRender:()=>log.push('render'),
   message:text=>log.push(['message',text]),storageNotice:text=>log.push(['storageNotice',text]),
@@ -67,7 +68,7 @@ function host(source,state,{restored=false}={}){
  const bootSelection=bootLine.slice(bootLine.indexOf(candidate?'warehouseRoom.select(':'selectedCaskId='),bootLine.indexOf('canSave=true;'));
  vm.createContext(ctx);
  vm.runInContext(`let game=initial,room='distill',modal=null,selectedProductId=null,userPaused=false,canSave=true,preview=false,lastSavedText=initialRaw,elapsed=0,runtimeHalted=false,marketEditing=false,deliveryNotice='',shownFillSpiritId=null,modalReturnFocus=null,modalReturnObject=null;
- let migrationPending=null,committedSession={game,userPaused,elapsed};
+ let caskSlots=initializeCaskSlots(game),migrationPending=null,committedSession={game,userPaused,elapsed,caskSlots:[...caskSlots]};
  ${candidate?'const warehouseRoom=createWarehouseRoomController();':'let selectedCaskId=null;'}
  const placementEnabled=true,distillRoom=createDistillRoomController(),countdown={active:false,cancel(){logCountdown();}};
  ${source.split('\n').find(x=>x.startsWith('const manualDistilling='))}
@@ -86,7 +87,7 @@ function host(source,state,{restored=false}={}){
  return {call(name,...args){return ctx.api[name](...args);},fail(kind){mode=kind;if(kind==='conflict')stored='external-save';},result(){return plain({...ctx.api.result(),stored,log,nodes:[...nodes].map(([id,n])=>({id,text:n.textContent,value:n.value,disabled:n.disabled,hidden:n.hidden}))});}};
 }
 function checkedB2(actual,baseline,tag,failed){
- const normalize=text=>{if(text==='external-save')return text;const v=JSON.parse(text);if(v.version===3){v.game=JSON.parse(expandFormalGame(v.game));v.version=2;}return JSON.stringify(v);};
+ const normalize=text=>{if(text==='external-save')return text;const v=JSON.parse(text);if([3,4].includes(v.version)){v.game=JSON.parse(expandFormalGame(v.game));v.version=2;delete v.caskSlots;}return JSON.stringify(v);};
  if(!failed){for(const key of Object.keys(baseline).filter(k=>!['stored','log','nodes'].includes(k)))assert.deepEqual(actual[key],baseline[key],tag+':'+key);assert.equal(normalize(actual.stored),normalize(baseline.stored),tag+':durable formal state');}
  const writes=actual.log.map((x,i)=>x==='storage:write'?i:-1).filter(i=>i>=0);for(let i=0;i<actual.log.length;i++)if(Array.isArray(actual.log[i])&&actual.log[i][0]==='notices')assert(writes.some(w=>w<i),'success notice follows durable write');
 }
@@ -123,7 +124,7 @@ test('R4 actual root select/taste/previous comparison/end/quote quantity/cancel 
 test('R4 actual root partial/full bottling keeps surviving selection or first-cask fallback and exact cold save replay',()=>{
  const s=warehouse(),id=s.core.casks.at(-1).id,p=pair(s);p.call('render');p.call('rack',id);p.call('quoteModal',id);p.call('setCount',1);
  const before=p.compare('before partial'),partial=p.call('bottle');assert.equal(partial.room,'sales');assert.equal(partial.modal,null);assert.equal(partial.selectedId,id);assert.equal(game(partial).result.bottles,1);assert.equal(game(partial).core.casks.length,s.core.casks.length);assert.notEqual(partial.raw,before.raw);
- cold(partial.raw);assert.equal(JSON.stringify(JSON.parse(partial.stored).version===3?JSON.parse(expandFormalGame(JSON.parse(partial.stored).game)):JSON.parse(partial.stored).game),partial.raw);
+ cold(partial.raw);assert.equal(JSON.stringify([3,4].includes(JSON.parse(partial.stored).version)?JSON.parse(expandFormalGame(JSON.parse(partial.stored).game)):JSON.parse(partial.stored).game),partial.raw);
  p.call('selectRoom','warehouse');p.call('rack',id);p.call('quoteModal',id);p.call('quantity','bottle-all');const full=p.call('bottle');assert(!game(full).core.casks.some(c=>c.id===id));assert.equal(full.selectedId,game(full).core.casks[0]?.id??null);cold(full.raw);
  const reload=p.call('reload');assert.equal(reload.selectedId,game(full).core.casks[0]?.id??null);assert.equal(reload.raw,full.raw);assert.equal(reload.modal,null);
  const first=fill(D.newMarketRulesDistillery(42)),onlyState=D.bottleBranded(first,first.core.casks[0].id,{name:'One cask'},1);

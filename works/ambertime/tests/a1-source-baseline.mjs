@@ -3,6 +3,7 @@
 // must match once; all other source bytes must hash to immutable L1 main.
 // A1 behavior is tested independently in a1-ledger-workers/a1-glint/browser runners.
 import assert from 'node:assert/strict';
+import {beforeS1} from './s1-source-inverse.mjs';
 import {beforeB2} from './h1-b2-source-inverse.mjs';
 import {createHash} from 'node:crypto';
 const deltas={
@@ -141,6 +142,7 @@ function beforeA4(source,name){
 }
 
 export function beforeA1(source,name='shop-app.mjs'){
+ if(source.includes('s1-1'))source=beforeS1(source,name);
  source=beforeB2(source,name);
  source=beforeA4(source,name);
  const a3=name==='shop-app.mjs'?
