@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7987bb1a5bbaa158d1252a8d0aaf0c33b5862d2b1e5df38f548d593582df54a3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "eabd3de962c48260dea94dac98fe647ca015ba4b",
+    "changeId": "ambertime-s3-development-save",
+    "revision": 0,
+    "change": "開発用セーブを単一形式へ整理し保存エラー原因と新規開始不能を修正",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s3-development-save/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/cask-slots.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/style.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/s3/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/chronicle-lab/**",
+      "works/ambertime/experiments/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "提供v5セーブを不変の再現資料として直接例外を特定し最小修正",
+      "通常読込を現開発形式のみへ限定。旧形式は新規開始または任意書出し",
+      "確認付き新規開始はcanSave/game有無に依存せず原子的にゲーム・枠・帳面・時計を置換",
+      "通常メニューは自動保存と新規開始。書出し・読込・診断はdebugへ"
+    ],
+    "ownerDecisions": [
+      "2026-11-06 S3依頼全文：旧v2-v5継承は不要、確認付き置換を承認。Stagingのみ、Chromium未確認はDraft停止"
+    ],
+    "hqDecisions": [
+      "正式gameと計算は不変。現開発sessionの明示的形式管理と同一key一体保存。旧移行は通常経路から除外。新規開始は現在保存の期待値照合後のみ置換"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact",
+      "表示説明を増やさず既存操作維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "保存・初期化・競合の独立レビュー",
+      "Chromium新規・保存・復元・エラー復帰"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "旧セーブ自動継承へ戻さず新形式readerを保持してUIを戻す。確認前の削除は禁止。",
+    "outOfScope": [
+      "正式モデル/評判/歴史/S1-S2仕様変更",
+      "checkpoint/IDB/全履歴削除/100年新研究/Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機は本人確認。未完了計測は未完了として記録"
+    ],
+    "alternativesRejected": [
+      "検証を削除して例外を隠す",
+      "全localStorage削除",
+      "旧全形式の強制移行",
+      "正式モデル変更"
+    ],
+    "boundaryCases": [
+      "提供v5 filling33操作から樽詰め",
+      "正常/失敗/不正/旧形式/取消/容量不足/別タブ/新規開始",
+      "同一版cold復元・S1枠・S2帳面・保存製法"
+    ],
+    "testPlan": [
+      "原因再現と修正前後、正式JSON/RNG同値",
+      "初期化・取消・quota・競合・import失敗の回帰",
+      "Chromium起動制限時は未確認Draft停止",
+      "Scope/Risk/Impact・CI"
+    ],
+    "problem": "保存例外で停止しcanSave=falseが新規開始も遮断する",
+    "currentContract": "S2 session v5と旧v2-v4移行、正式readerと一体保存",
+    "whyExistingIsInsufficient": "開発版の多段階継承が復帰を妨げ、保存停止と初期化を区別できない",
+    "design": "現在開発形式のみ通常読込。確認付き新規候補の検証・単一key条件付き書込み成功後だけ進行。診断はdebugに分離。",
+    "migration": "通常移行廃止。旧形式は自動読込/変換せず明示新規開始と任意元記録書出し。",
+    "compatibility": "旧v2-v5継承不要という作者判断を適用。正式game計算・固定枠・最近帳面・歴史は維持。",
+    "promotionRisk": "研究専用Stagingのみ。Productionなし"
+  }
+}
