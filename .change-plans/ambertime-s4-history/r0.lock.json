@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "597b56f7d43aeafa416a6cad1729ca08908e268457f7a23dc504aa49c8bd19c5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "246b8da4daabff1bfe6c2854fa95d00bc5cbcd0b",
+    "changeId": "ambertime-s4-history",
+    "revision": 0,
+    "change": "重要な歩みと世代集計を発生時に確定し表示専用再生を廃止",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s4-history/r0.lock.json",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/generation-record.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/s4/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/chronicle-lab/**",
+      "works/ambertime/experiments/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "創業・初蒸留・全発売・店初取扱・世代交代と根拠ある地域/長期関係の節目を記録",
+      "世代別実績は正式結果の差分で確定。表示時再生なし",
+      "開発session v7で歩みをゲーム・枠・帳面と一体保存。旧版自動移行なし",
+      "既存H2資料と選別差分を比較し未解決回想品質判断は分離"
+    ],
+    "ownerDecisions": [
+      "2026-11-06 S4依頼全文。Stagingのみ、旧開発保存の継承不要。正式計算/H2選出変更禁止"
+    ],
+    "hqDecisions": [
+      "正式モデル不変の表示用sidecar。小さな確定事実と世代集計のみ。通常表示と保存に新規履歴再生を追加しない"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact",
+      "表示説明を増やさず既存操作維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "記録/世代集計/保存の独立レビュー",
+      "Chromium歩み・世代・再読込"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "旧開発形式は自動移行せず確認付き新規開始。変更PRを戻す場合も元記録は確認なしに削除しない",
+    "outOfScope": [
+      "正式計算/評判モデル変更、checkpoint/IDB、H2演出/選出変更、Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機は本人確認。未完了計測は未完了として記録"
+    ],
+    "alternativesRejected": [
+      "全操作snapshot保存",
+      "全履歴を歩み表示のため再生",
+      "旧形式移行用再生"
+    ],
+    "boundaryCases": [
+      "全発売/同月複数/先代由来/長期店/地域/再登場",
+      "複数世代/最後の仕込み/引継ぎ",
+      "保存失敗/quota/競合/新規開始/旧版拒否"
+    ],
+    "testPlan": [
+      "選別・順序・根拠・世代集計・正式同値",
+      "S1-S3保存回帰",
+      "H2固定資料比較と30/60/90/100年容量・表示生成測定",
+      "Chromium制限は未確認Draft、Scope/Risk/Impact/CI"
+    ],
+    "problem": "通常の歩み・世代表示が累積操作再生に依存",
+    "currentContract": "S3 session v6と履歴Workerによる歩み/世代資料",
+    "whyExistingIsInsufficient": "重要な出来事だけを読む際にも全操作再生が必要",
+    "design": "正式操作の前後から重要な事実と世代別実績を追加し一体保存。日常操作を表示せず由来は内部IDで固定",
+    "migration": "開発v7のみ。旧形式は書出しまたは確認付き新規開始。変換なし",
+    "compatibility": "S1/S2/S3操作と正式ゲーム結果/H2研究固定証拠は維持",
+    "promotionRisk": "Stagingのみ。ブラウザー未確認または重大不一致ならDraft停止"
+  }
+}

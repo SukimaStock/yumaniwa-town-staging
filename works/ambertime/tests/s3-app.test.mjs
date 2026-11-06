@@ -7,6 +7,7 @@ import {PARALLEL_PARAMETERS as T} from '../economy-parameters.mjs';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY} from '../development-save.mjs';
 import {initializeCaskSlots,reconcileCaskSlots} from '../cask-slots.mjs';
 import {migrateRecentLedger,advanceRecentLedger} from '../recent-ledger.mjs';
+import {initializeHistoryRecord,advanceHistoryRecord} from '../history-record.mjs';
 const source=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
 function slice(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert(a>=0&&b>a,start);return source.slice(a,b);}
 const code=slice('function rememberCommitted()','const displayProductStock')+'\n'+slice('function installSession(','window.amberPlacement=');
@@ -15,8 +16,8 @@ function harness(raw=null){
  const nodes=new Map();let writes=0,quota=false,approved=true,renders=0;
  const storage={getItem:key=>data.get(key)??null,setItem(key,value){if(quota)throw Object.assign(Error('full'),{name:'QuotaExceededError'});writes++;data.set(key,value);}};
  const noop=()=>{},reset={reset:noop},context=vm.createContext({
-  D,T,readSession,serializeSession,isCurrentSession,writeCandidate,initializeCaskSlots,reconcileCaskSlots,migrateRecentLedger,advanceRecentLedger,
-  game:null,userPaused:false,elapsed:0,caskSlots:[null,null,null,null],recentLedger:null,committedSession:null,lastSavedText:null,lastSaveError:null,legacyRecord:null,
+  D,T,readSession,serializeSession,isCurrentSession,writeCandidate,initializeCaskSlots,reconcileCaskSlots,migrateRecentLedger,advanceRecentLedger,initializeHistoryRecord,advanceHistoryRecord,
+  game:null,userPaused:false,elapsed:0,caskSlots:[null,null,null,null],recentLedger:null,historyRecord:null,historyData:null,historySnapshot:null,historyFactsSnapshot:null,committedSession:null,lastSavedText:null,lastSaveError:null,legacyRecord:null,
   preview:false,debugEnabled:true,canSave:false,runtimeHalted:false,modal:null,localStorage:storage,SAVE_KEY:FORMAL_SAVE_KEY,
   sessionOptions:{restore:D.restoreDistillery,monthMs:T.monthMs,stepMs:T.distillStepMs},newNativeGame:()=>D.newMarketRulesDistillery(81),
   $:id=>{if(!nodes.has(id))nodes.set(id,{hidden:false,open:false,textContent:'',addEventListener:noop,click:noop});return nodes.get(id);},
@@ -28,16 +29,16 @@ function harness(raw=null){
  vm.runInContext(code,context);
  return {context,data,nodes,run:text=>vm.runInContext(text,context),writes:()=>writes,renders:()=>renders,setQuota:value=>{quota=value;},approve:value=>{approved=value;}};
 }
-for(const raw of ['{broken',JSON.stringify({version:5}),JSON.stringify({version:4}),JSON.stringify({version:3}),JSON.stringify({version:2})]){
+for(const raw of ['{broken',JSON.stringify({version:6}),JSON.stringify({version:5}),JSON.stringify({version:4}),JSON.stringify({version:3}),JSON.stringify({version:2})]){
  test(`unsupported/corrupt boot preserves original and permits confirmed restart: ${raw}`,async()=>{
   const h=harness(raw);await h.run('boot()');assert.equal(h.context.game,null);assert.equal(h.context.canSave,false);assert.equal(h.writes(),0);assert.equal(h.data.get(FORMAL_SAVE_KEY),raw);assert.equal(h.nodes.get('recovery').hidden,false);
-  assert.equal(h.run('startNew()'),true);assert.equal(h.context.canSave,true);assert.equal(h.context.runtimeHalted,false);assert.equal(JSON.parse(h.data.get(FORMAL_SAVE_KEY)).version,6);assert.equal(h.data.get('unrelated-work'),'keep');
+  assert.equal(h.run('startNew()'),true);assert.equal(h.context.canSave,true);assert.equal(h.context.runtimeHalted,false);assert.equal(JSON.parse(h.data.get(FORMAL_SAVE_KEY)).version,7);assert.equal(h.data.get('unrelated-work'),'keep');
   assert.deepEqual(Array.from(h.context.caskSlots),[null,null,null,null]);assert.equal(h.context.elapsed,0);assert.equal(h.nodes.get('recovery').hidden,true);
  });
 }
 test('new game autosaves and a cold boot restores exact state, slots, ledger and clock',async()=>{
  const h=harness();await h.run('boot()');assert.equal(h.context.canSave,true);h.context.elapsed=T.distillStepMs;h.context.userPaused=true;assert.equal(h.run('save()'),true);
- const raw=h.data.get(FORMAL_SAVE_KEY),cold=harness(raw);await cold.run('boot()');assert.equal(cold.writes(),0);assert.equal(JSON.stringify(cold.context.game),JSON.stringify(h.context.game));assert.equal(cold.context.elapsed,T.distillStepMs);assert.equal(cold.context.userPaused,true);assert.equal(JSON.stringify(cold.context.recentLedger),JSON.stringify(h.context.recentLedger));
+ const raw=h.data.get(FORMAL_SAVE_KEY),cold=harness(raw);await cold.run('boot()');assert.equal(cold.writes(),0);assert.equal(JSON.stringify(cold.context.game),JSON.stringify(h.context.game));assert.equal(cold.context.elapsed,T.distillStepMs);assert.equal(cold.context.userPaused,true);assert.equal(JSON.stringify(cold.context.recentLedger),JSON.stringify(h.context.recentLedger));assert.equal(JSON.stringify(cold.context.historyRecord),JSON.stringify(h.context.historyRecord));
 });
 test('cancel restart makes no changes even when saving is blocked',async()=>{
  const h=harness('old');await h.run('boot()');h.approve(false);assert.equal(h.run('startNew()'),false);assert.equal(h.writes(),0);assert.equal(h.data.get(FORMAL_SAVE_KEY),'old');assert.equal(h.context.game,null);assert.equal(h.context.canSave,false);
@@ -61,7 +62,7 @@ test('debug import is inaccessible outside debug mode',async()=>{
 
 for(const key of ['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20'])test('legacy key is exportable, never auto-converted or deleted: '+key,async()=>{
  const h=harness();h.data.set(key,'original legacy');await h.run('boot()');assert.equal(h.context.game,null);assert.equal(h.writes(),0);assert.equal(h.nodes.get('recovery-export').hidden,false);assert.equal(h.context.legacyRecord.raw,'original legacy');
- assert.equal(h.run('startNew()'),true);assert.equal(h.data.get(key),'original legacy');assert.equal(h.context.legacyRecord,null);assert.equal(JSON.parse(h.data.get(FORMAL_SAVE_KEY)).version,6);
+ assert.equal(h.run('startNew()'),true);assert.equal(h.data.get(key),'original legacy');assert.equal(h.context.legacyRecord,null);assert.equal(JSON.parse(h.data.get(FORMAL_SAVE_KEY)).version,7);
 });
 test('legacy-key concurrent change prevents confirmed replacement',async()=>{
  const h=harness(),key='sukimastock.ambertime.placement-trial.v1';h.data.set(key,'old');await h.run('boot()');h.data.set(key,'new from other tab');assert.equal(h.run('startNew()'),false);assert.equal(h.data.has(FORMAL_SAVE_KEY),false);assert.equal(h.data.get(key),'new from other tab');assert.equal(h.context.lastSaveError.code,'conflict');
