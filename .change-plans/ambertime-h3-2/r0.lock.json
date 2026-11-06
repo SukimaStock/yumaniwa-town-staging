@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "801f49b98143d84d495d993d0707a4d2ef1506adef95597eabe41f2ef63b4950",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "bc73b8558648a1cfe736860b2c9bc99b76659563",
+    "changeId": "ambertime-h3-2",
+    "revision": 0,
+    "change": "世界の動きの増分収集・世代回想確定・100年保存の研究",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs",
+      "works/ambertime/chronicle-lab/H25.md",
+      "works/ambertime/chronicle-lab/recall-snapshots.mjs",
+      "works/ambertime/s4/h2-comparison.md",
+      "works/ambertime/s4/h2-comparison-actual.json",
+      "works/ambertime/h3-1/REPORT.md",
+      "works/ambertime/h3-1/STORAGE.md",
+      "works/ambertime/h3-1/selection.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h3-2/r0.lock.json",
+      "works/ambertime/h3-2/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/works.js",
+      "works/ambertime/history-lab/**",
+      "works/ambertime/h3-1/**",
+      "works/ambertime/chronicle-lab/**"
+    ],
+    "expectedChanges": [
+      "研究用collector、C案接続、世代確定・整理、一体保存試験、30〜100年比較・性能・全文・テスト・報告"
+    ],
+    "ownerDecisions": [
+      "今回のH3-2指示：H3-1を基点とする積み重ね型Draft PRのみ。mainマージ・本編変更禁止"
+    ],
+    "hqDecisions": [
+      "正式操作前後の観測と保持を分離し、研究用一体保存で失敗時の整合性を確認する"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "回想全文・因果と再登場・表現監査の読取レビュー"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "H3-2追加ディレクトリとlockのみ取り消す",
+    "outOfScope": [
+      "本編UI、正式計算・世代交代、session v7、S4、既存H2/H3-1証拠、全操作履歴追加、IndexedDB/checkpoint正式導入、mainマージ、Production"
+    ],
+    "promotion": "none; draft PR only",
+    "unverified": [
+      "実ブラウザー・Safari実機性能・本編統合は未確認"
+    ],
+    "alternativesRejected": [
+      "本編への常時追加",
+      "架空の感情や因果",
+      "閲覧時の長期再生"
+    ],
+    "boundaryCases": [
+      "重複操作、同月同操作順、整理済み因果元、別発売、引継ぎ未発売樽、候補少数、保存失敗・競合・破損"
+    ],
+    "testPlan": [
+      "30/60/90/100年3方針、9境界、H3-1差分、JSON再開、不変性、因果・由来、保存失敗・競合・破損・再試行、独立レビュー、Scope/Risk/Impact/必須CI"
+    ],
+    "problem": "H3-1は保持済みC-3入力のみで進行時収集と保存の実運用が未検証",
+    "currentContract": "既存C-3/D1.1/D1.2/H2-5とS1〜S4を不変",
+    "whyExistingIsInsufficient": "整理済み因果元の位置・未発売樽由来・保存失敗の整合性が未検証",
+    "design": "正式操作を一度再生して増分collectorへ渡し、広い保持と世代確定保持を比較。位置範囲索引と正式状態の参照で二重履歴を避ける",
+    "migration": "なし",
+    "compatibility": "既存の元記録・セーブ・経済・乱数は変更せず、A/B/Cは維持。編集ルール版D1.1を付与",
+    "promotionRisk": "研究専用。正式保存と画面へ未接続"
+  }
+}
