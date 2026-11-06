@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d324a85fa8af6a0199c1cb9027c56964d54ea2a9196a7d7dde02f0412cf6509d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "9561989b289a876d3e07dca9bcd447ed203ec660",
+    "changeId": "ambertime-h3-3b-debug-preview",
+    "revision": 0,
+    "change": "H3-3B: 回想画面のデバッグ限定ダミー表示と自動・手動送り",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/recall/collector.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h3-3b-debug-preview/r0.lock.json",
+      "works/ambertime/recall/debug-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/tests/recall-debug.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/selection.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/history-record.mjs",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "?debug=1の既存デバッグ画面から回想サンプルを開く",
+      "固定ダミー6場面を既存パレットの低解像度Canvasと一文で表示",
+      "自動5秒進行・タップ送り・戻る・一時停止・最終場面停止",
+      "デバッグ終了で閉じ、正式世代交代・保存・進行へ一切影響しない"
+    ],
+    "ownerDecisions": [
+      "2026-11-06: ダミーデータで実際の回想シーンを見られるデバッグ用実装を明示依頼。自動進行、タップ、戻る、一時停止、最終場面停止は先行合意"
+    ],
+    "hqDecisions": [
+      "既存のdebug=1以外へ入口を露出せず、本編保存・計算・正式回想選定は変更しない。新ドット絵素材や共通runtimeを追加しない"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact",
+      "EXPRESSION-AUDIT、プレイヤーUIは変更せずデバッグ内のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "デバッグ画面のタップ・自動送り・戻る・停止・最終場面・狭いiPhone表示",
+      "通常プレイ、世代交代、保存の非干渉"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "新しいdebug moduleと設定内入口だけを戻す。保存形式・既存記録には触れない",
+    "outOfScope": [
+      "実際の保存済み回想の再生",
+      "正式世代交代との接続",
+      "通常のゲーム画面への新入口",
+      "Production反映",
+      "新しい保存形式・全履歴再生"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実ブラウザ・iPhone Safariのタップ速度・フォーカス・表示はユーザー実機で確認。成功未観測なら未確認"
+    ],
+    "alternativesRejected": [
+      "本編の世代交代を実行してプレビュー",
+      "ダミーを正式保存に混ぜる",
+      "画面常設の新規入口"
+    ],
+    "boundaryCases": [
+      "自動送りと連続タップ",
+      "最終場面で停止しdebug終了だけ",
+      "一時停止・戻るで再生時計リセット",
+      "reduced-motion・背景タブ・Esc・キーボード",
+      "再度開いて初場面に戻る"
+    ],
+    "testPlan": [
+      "デバッグサンプル6場面と純粋描画呼出しのテスト",
+      "既存S3/S4/H3-3A関連回帰、node --check",
+      "Scope/Risk/Impact、必須CI、実ブラウザ確認"
+    ],
+    "problem": "回想シーンを本編世代交代せず実機で評価できない",
+    "currentContract": "H3-3A session v8で回想内容は保存済み。H3-3Bの画面は未実装",
+    "whyExistingIsInsufficient": "研究資料は文章のみでタップと5秒テンポを評価できない",
+    "design": "debug=1から開く独立dialog。Canvasアートと固定短文。時計・ゲーム・保存は読まず書かず",
+    "migration": "なし",
+    "compatibility": "通常プレイ・開発セーブv8・世代交代・Productionを不変に保つ",
+    "promotionRisk": "Stagingのみ。実機表示未確認で作者による採否を代替しない"
+  }
+}
