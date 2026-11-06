@@ -36,8 +36,9 @@ import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-me
 import {CanvasScene} from './canvas-scene.mjs?s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1';
 import * as nativeModel from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {createObservedModel} from './recall/operations.mjs?v=h3-3a-1';
-import {createRecallDebugPreview} from './recall/debug-scene.mjs?v=h3-3b-debug-1';
-import {initializeRecall,advanceRecall,prepareRecall} from './recall/collector.mjs?v=h3-3a-1';
+import {createRecallDebugPreview} from './recall/debug-scene.mjs?v=h3-3b-live-1';
+import {playbackScenes} from './recall/live-scene.mjs?v=h3-3b-live-1';
+import {initializeRecall,advanceRecall,prepareRecall,readCompletedRecalls} from './recall/collector.mjs?v=h3-3a-1';
 let recallRecord=null,pendingRecall=null,recallPreview=null;
 const D=createObservedModel(nativeModel,({before,after,operation})=>{
  if(!pendingRecall)return;
@@ -83,7 +84,8 @@ const query=new URLSearchParams(location.search),preview=query.get('preview')===
 // The authoring tools are reachable only through an explicit debug URL.
 const debugEnabled=query.get('debug')==='1';
 $('open-settings').hidden=!debugEnabled;$('recovery-import').hidden=!debugEnabled;
-const recallSceneDebug=debugEnabled?createRecallDebugPreview({document,window}):null;
+const recallScenePlayer=createRecallDebugPreview({document,window});
+const recallSceneDebug=debugEnabled?recallScenePlayer:null;
 let game=null,room='distill',selectedProductId=null,userPaused=false,runtimeHalted=false,modal=null,timer=null,generation=0,elapsed=0,playbackRate=1,canSave=!preview,lastSavedText=null;
 let committedSession=null,lastSaveError=null,legacyRecord=null;
 const newNativeGame=()=>D.newMarketRulesDistillery(seed);
@@ -300,7 +302,7 @@ function historyView(){
  const months=historyData.elapsedMonths,years=historyYears(),selected=modal.year;
  let out='<p class="history-elapsed">'+Math.floor(months/12)+'年'+(months%12)+'か月</p>';
  if(historyData.coverage?.notes?.length)out+='<p class="quiet history-coverage">'+historyData.coverage.notes.map(esc).join('<br>')+'</p>';
- out+=(historyData.generations??[]).filter(g=>g.completed).map(g=>'<p>'+button(generationName(g.id),'history-generation',g.id,'id="history-generation-'+g.id+'"')+'</p>').join('');
+ out+=(historyData.generations??[]).filter(g=>g.completed).map(g=>'<p>'+button(generationName(g.id),'history-generation',g.id,'id="history-generation-'+g.id+'"')+(hasCompletedRecall(g.id)?button('回想','history-recall',g.id):'')+'</p>').join('');
  if(!years.length)return out+'<p>記録なし</p>';
  out+='<div class="history-years">'+years.map(y=>'<section class="history-year"><h3>'+button(y+'年','history-year',y,'aria-expanded="'+(selected===y)+'"')+'</h3>'+(selected===y?historyYearEvents(y):'')+'</section>').join('')+'</div>';
  return out;
@@ -319,13 +321,40 @@ function historyShopView(shopId){
 }
 const generationName=id=>id===1?'初代':({2:'二代',3:'三代',4:'四代',5:'五代',6:'六代',7:'七代',8:'八代',9:'九代',10:'十代'}[id]??id+'代');
 const generationState=()=>game?D.generationStatus(game):null;
+const hasCompletedRecall=id=>!!recallRecord?.completed?.some(r=>r.generation===id&&Array.isArray(r.scenes)&&r.scenes.length>0);
+function openCompletedRecall(id){
+ if(!hasCompletedRecall(id))return false;
+ try{
+  const edition=readCompletedRecalls(recallRecord,id);
+  if(!edition)return false;
+  recallScenePlayer.open({scenes:playbackScenes(edition),mode:'history',title:generationName(id)+'の回想'});
+  return true;
+ }catch(error){storageNotice(error.message);return false;}
+}
+function openGenerationRecall(){
+ const g=generationState();
+ if(!game||g?.phase!=='review'||modal?.kind!=='generation-review'||modal.id!==g.id)return false;
+ try{
+  recallPreview??=prepareRecall(pendingRecall,game,game.operations.length);
+  const scenes=playbackScenes(recallPreview);
+  if(!scenes.length)return false;
+  stopClock();
+  recallScenePlayer.open({scenes,mode:'handover',title:generationName(g.id)+'の回想',onComplete:()=>{
+   if(generationState()?.phase!=='review'||generationState()?.id!==g.id)return false;
+   return act(s=>D.handoverGeneration(s,g.id),()=>{modal=null;runtimeHalted=false;room='distill';message(generationName(generationState().id)+'へ引き継ぎました。');});
+  }});
+  return true;
+ }catch(error){storageNotice(error.message);return false;}
+}
 function provenanceLabel(caskId){const g=D.finalBatchProvenance(game,caskId);return g?generationName(g.id)+'の最後の仕込み':'';}
 const provenanceTag=caskId=>{const label=provenanceLabel(caskId);return label?'<small class="generation-provenance">'+esc(label)+'</small>':'';};
 function showGeneration(){
  const g=generationState();if(!g||g.phase==='working'||g.phase==='last-batch'&&!g.needsNotice)return false;
  if(g.phase==='last-batch'&&game.still.phase!=='ready')return false;
  stopClock();const before=game;
- try{if(g.needsNotice){game=D.noticeGeneration(game,g.id);if(!save())return false;}if(g.phase==='review'&&pendingRecall)recallPreview=prepareRecall(pendingRecall,game,game.operations.length);modal={kind:g.phase==='review'?'generation-review':'generation-notice',id:g.id};return true;}
+ try{if(g.needsNotice){game=D.noticeGeneration(game,g.id);if(!save())return false;}if(g.phase==='review'&&pendingRecall)recallPreview=prepareRecall(pendingRecall,game,game.operations.length);modal={kind:g.phase==='review'?'generation-review':'generation-notice',id:g.id};
+  if(g.phase==='review'&&recallPreview?.scenes.length){const expectedGame=game;queueMicrotask(()=>{if(game===expectedGame&&modal?.kind==='generation-review'&&modal.id===g.id&&!recallScenePlayer.isOpen())openGenerationRecall();});}
+  return true;}
  catch(e){saveFailure(e,'回想準備');return false;}
 }
 function generationCauseText(g){
@@ -823,12 +852,12 @@ function syncModal(){
   actions=mayUse?button('依頼','staff-confirm','',staffCanRequest()?'':'disabled'):button('採用 '+money(status.hireCost),'staff-hire-request','',status.canHire&&!game.decisions.length&&!game.trade.offer?'':'disabled');
   if(!staffCanRequest())body+='<p class="quiet">'+(generationState()?.phase!=='working'?'最後の仕込みは自分で行います。':game.usual.reservation?'依頼済み':'今の作業が終わってから')+'</p>';
   actions+=button('戻る','staff-back');
- }else if(kind==='history-generation'){title=generationName(id);body=generationSummaryView(id);actions=button('歩みへ戻る','comparison-back');
+ }else if(kind==='history-generation'){title=generationName(id);body=generationSummaryView(id);actions=button('歩みへ戻る','comparison-back')+(hasCompletedRecall(id)?button('回想を見る','history-recall',id):'');
  }else if(comparisonKinds.includes(kind)){title=({'cask-picker':'比べるたるを選ぶ','cask-comparison':'たるを比べる','release-comparison':'前と比べる','recipe-source':'元の仕込み','recipes':'製法','comparison-brand-record':'記録'})[kind];body=kind==='cask-picker'?caskPickerView():kind==='cask-comparison'?caskComparisonView():kind==='release-comparison'?releaseComparisonView():kind==='recipe-source'?recipeSourceView():kind==='comparison-brand-record'?brandComparisonRecordView(modal.brandId):recipesView();actions=(kind==='release-comparison'&&modal.pair?button('記録','compare-brand-record',modal.pair.current.brandId):'')+button('戻る','comparison-back');
  }else if(kind==='generation-notice'||kind==='generation-review'){
   const g=generationState();if(!g||g.id!==id||g.phase==='working'){modal=null;return;}title=generationName(g.id)+(kind==='generation-review'?'':'の最後の仕込み');
   body=kind==='generation-review'?generationReview(g):'<p>'+monthLabel(g.fixedMonth)+'<br>'+esc(generationCauseText(g))+'</p><p>たる詰め期限 '+monthLabel(g.fixedMonth+12)+'<br>未完成の原酒も引きつぎ</p>'+(game.usual.reservation?.status==='queued'?'<p class="quiet">'+(game.usual.reservation.mode?'繰り返し依頼は引きつぎ時に終了':'仕込み予約は次の代へ引きつぎ')+'</p>':'');
-  actions=kind==='generation-review'?button('次の代へ引き継ぐ','generation-handover',g.id)+button('歩み','generation-history',g.id):button('仕込みへ','generation-continue',g.id);
+  actions=kind==='generation-review'?(recallPreview?.scenes.length?button('回想を見る','generation-recall',g.id):button('次の代へ引き継ぐ','generation-handover',g.id))+button('歩み','generation-history',g.id):button('仕込みへ','generation-continue',g.id);
  }else if(kind==='history'||kind==='history-brand'||kind==='history-shop'){
   title=kind==='history'?'歩み':kind==='history-brand'?(game.brands.find(b=>b.id===modal.brandId)?.name??'ブランド'):shopName(modal.shopId)+'の記録';
   body=kind==='history'?historyView():kind==='history-brand'?historyBrandView(modal.brandId):historyShopView(modal.shopId);
@@ -1228,11 +1257,13 @@ function handleModal(e){
  if(a==='recipe-source-page'&&(kind==='recipes'||kind==='ledger'&&modal.section==='recipes')&&id>=0){modal.sourcePage=id;modal.sourcesOpen=true;render();return;}
  if(a==='recipe-select'&&(kind==='recipes'||kind==='ledger-recipe'||kind==='ledger'&&modal.section==='recipes')){recipeAction(s=>D.selectRecipe(s,b.dataset.id==='latest'?null:b.dataset.id));return;}
  if(a==='recipe-save'&&(comparisonKinds.includes(kind)||kind==='ledger'&&modal.section==='recipes')){recipeAction(s=>D.saveRecipe(s,id));return;}
+ if(a==='generation-recall'&&kind==='generation-review'&&generationState()?.id===id){openGenerationRecall();return;}
+ if(a==='history-recall'&&['history','history-generation'].includes(kind)&&hasCompletedRecall(id)){openCompletedRecall(id);return;}
  if(a==='generation-history'&&kind==='generation-review'&&generationState()?.id===id){openHistory();return;}
  if(a==='history-release'&&kind==='history'&&game.releases.some(r=>r.productId===id)){modal={kind:'ledger-release',key:'release:'+game.releases.find(r=>r.productId===id).id,parent:rememberLedger(),returnFocusId:b.id};render();return;}
  if(a==='history-generation'&&kind==='history'&&historyData?.generations?.some(g=>g.id===id)){modal={kind:'history-generation',id,parent:rememberLedger(),returnFocusId:b.id};render();$('dialog-body').scrollTop=0;return;}
  if(a==='generation-continue'&&kind==='generation-notice'&&generationState()?.id===id){modal=null;room='distill';render();schedule();return;}
- if(a==='generation-handover'&&kind==='generation-review'&&generationState()?.id===id){act(s=>D.handoverGeneration(s,id),()=>{modal=null;runtimeHalted=false;room='distill';message(generationName(generationState().id)+'へ引き継ぎました。');});return;}
+ if(a==='generation-handover'&&kind==='generation-review'&&generationState()?.id===id&&!recallPreview?.scenes.length){act(s=>D.handoverGeneration(s,id),()=>{modal=null;runtimeHalted=false;room='distill';message(generationName(generationState().id)+'へ引き継ぎました。');});return;}
  if(a==='history-year'&&kind==='history'){modal.year=modal.year===b.dataset.id?null:b.dataset.id;modal.page=0;render();return;}
  if(a==='history-brand'&&['history','history-shop'].includes(kind)){modal={kind:'history-brand',brandId:id,year:modal.year??null,page:modal.page??0,parent:modal.parent};render();return;}
  if(a==='history-shop'&&['history','history-brand'].includes(kind)){modal={kind:'history-shop',shopId:b.dataset.id,year:modal.year??null,page:modal.page??0,parent:modal.parent};render();return;}

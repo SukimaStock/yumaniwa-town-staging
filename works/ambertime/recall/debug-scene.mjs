@@ -88,27 +88,27 @@ export function createRecallDebugPreview({document,window=globalThis,scenes=RECA
  const $=selector=>dialog.querySelector(selector),frame=$('.at-recall-content'),picture=$('.at-recall-image');
  const previous=$('[data-recall-action="previous"]'),pause=$('[data-recall-action="pause"]'),forward=$('.at-recall-controls [data-recall-action="next"]');
  const meter=$('[data-recall-meter]');
- let index=0,paused=false,timer=null,returnFocus=null;
+ let index=0,paused=false,timer=null,returnFocus=null,playingScenes=scenes,mode='debug',onComplete=null;
  const prefersReduced=()=>!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
  const clear=()=>{if(timer!==null){window.clearTimeout(timer);timer=null;}};
- const schedule=()=>{clear();if(dialog.open&&!paused&&!prefersReduced()&&!document.hidden&&index<scenes.length-1)timer=window.setTimeout(()=>{index++;render();},5000);};
+ const schedule=()=>{clear();if(dialog.open&&!paused&&!prefersReduced()&&!document.hidden&&index<playingScenes.length-1)timer=window.setTimeout(()=>{index++;render();},5000);};
  function render(){
-  const s=scenes[index],last=index===scenes.length-1;
-  $('[data-recall-counter]').textContent=`${index+1} / ${scenes.length}`;
+  const s=playingScenes[index],last=index===playingScenes.length-1;
+  $('[data-recall-counter]').textContent=`${index+1} / ${playingScenes.length}`;
   $('[data-recall-date]').textContent=s.date;
   $('[data-recall-sentence]').textContent=s.sentence;
   drawRecallDebugScene($('canvas'),s.scene);
   previous.disabled=index===0;
   picture.disabled=last;
-  forward.textContent=last?'次の代へ':'次へ';
+  forward.textContent=last?(mode==='history'?'閉じる':'次の代へ'):'次へ';
   pause.textContent=paused?'再生':'一時停止';pause.setAttribute('aria-pressed',String(paused));
   if(prefersReduced()){paused=true;pause.textContent='再生';pause.disabled=true;}else pause.disabled=last;
-  meter.replaceChildren(...scenes.map((_,i)=>{const cell=document.createElement('span');if(i<=index)cell.setAttribute('aria-current','true');return cell;}));
+  meter.replaceChildren(...playingScenes.map((_,i)=>{const cell=document.createElement('span');if(i<=index)cell.setAttribute('aria-current','true');return cell;}));
   frame.classList.remove('at-recall-fade');void frame.offsetWidth;frame.classList.add('at-recall-fade');
   schedule();
  }
  function close(){clear();if(dialog.open)dialog.close();returnFocus?.focus?.({preventScroll:true});returnFocus=null;}
- function next(){if(index===scenes.length-1){close();return;}index++;render();}
+ function next(){if(index===playingScenes.length-1){if(mode==='handover')try{onComplete?.();}finally{close();}else close();return;}index++;render();}
  function back(){if(index===0)return;index--;render();}
  const actions={next,previous:back,close,pause:()=>{if(prefersReduced())return;paused=!paused;render();}};
  dialog.addEventListener('click',e=>{const target=e.target.closest('[data-recall-action]');if(target&&dialog.contains(target))actions[target.dataset.recallAction]?.();});
@@ -116,6 +116,16 @@ export function createRecallDebugPreview({document,window=globalThis,scenes=RECA
  dialog.addEventListener('close',clear);
  dialog.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==='ArrowLeft'){e.preventDefault();back();}else if(e.key==='ArrowRight'){e.preventDefault();next();}});
  document.addEventListener('visibilitychange',schedule);
- function open(){if(dialog.open)return;returnFocus=document.activeElement;index=0;paused=false;dialog.showModal();render();picture.focus({preventScroll:true});}
+ function open(options={}){if(dialog.open)return;
+  const values=options.scenes??scenes;
+  if(!Array.isArray(values)||values.length===0||values.some(v=>typeof v?.sentence!=='string'||typeof v?.date!=='string'||typeof v?.scene!=='string'))throw Error('回想の場面を読み取れません。');
+  const nextMode=options.mode??'debug';
+  if(!['debug','handover','history'].includes(nextMode)||nextMode==='handover'&&typeof options.onComplete!=='function')throw Error('回想の操作を確認できません。');
+  playingScenes=values;mode=nextMode;onComplete=options.onComplete??null;
+  $('#at-recall-title').textContent=options.title??'二代目の回想';
+  $('.at-recall-kicker').textContent=nextMode==='debug'?'デバッグ用サンプル':'';
+  $('.at-recall-help').hidden=nextMode!=='debug';
+  returnFocus=document.activeElement;index=0;paused=false;dialog.showModal();render();picture.focus({preventScroll:true});
+ }
  return {open,close,isOpen:()=>dialog.open};
 }

@@ -1,0 +1,124 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3bdbca311051ec46c048a19bd762e0649c64d65f3b11ed48e7cd2c809c15951b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "276248e2856e0002752cb87591e0cad1712a649e",
+    "changeId": "ambertime-h3-3b-live-recall",
+    "revision": 0,
+    "change": "世代交代時に実際の回想場面を再生・確定し、確定回想を歩みから再閲覧する",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/debug-scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h3-3b-live-recall/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/recall/debug-scene.mjs",
+      "works/ambertime/recall/live-scene.mjs",
+      "works/ambertime/tests/recall-live.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/selection.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/chronicle-lab/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "H3-3Aの準備済み場面を既存のドット絵・一文プレイヤーへ渡す",
+      "最終場面の「次の代へ」で既存の保存付きhandoverを実行する。キャンセル・戻るでは実行しない",
+      "保存済み回想を歩みの世代欄から読み出し、再閲覧では交代させない",
+      "debug=1のサンプル回想は継続し、保存・ゲーム計算・正式履歴生成は不変"
+    ],
+    "ownerDecisions": [
+      "2026-11-06：デバッグ画面の表示と操作感を作者が採用。次に実際の回想を世代交代へ接続し、過去回想を見返す方針へ「はい、お願いします」と明示依頼"
+    ],
+    "hqDecisions": [
+      "既存generation-reviewとrecallPreview・saveCandidateを利用し、新しい保存方式や第二の操作・回想キーを追加しない",
+      "画面は世代交代完了までは鑑賞状態。最後の明示タップだけが正式handoverを呼ぶ。過去場面の再閲覧は完全に読取専用"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact",
+      "表現監査・iPhone・reduced-motion配慮"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone Safariで現実の世代交代・自動/タップ/戻る/停止/再開・過去回想・復旧の確認",
+      "誤ってダミーが正式記録へ混入せず、現行保存やゲームRNGが変わらないこと"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "PRの画面接続差分を戻す。セーブv8・既存正式記録は変更せず、旧版自動移行も行わない",
+    "outOfScope": [
+      "正式保存バージョン変更",
+      "回想候補アルゴリズム変更",
+      "経済・町・世代の正式計算変更",
+      "全操作再生追加",
+      "Production反映"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Chromium・Safariでの実機タップ/遷移は確認できない場合未確認とする。重要な世代交代・保存の検証不足ならDraft停止"
+    ],
+    "alternativesRejected": [
+      "ダミーデータから本編回想を再生成",
+      "鑑賞開始で先にhandover",
+      "再閲覧で世代を進める"
+    ],
+    "boundaryCases": [
+      "回想0件・1件・6件",
+      "自動進行と最後の画面停止",
+      "中途キャンセル・再開と下層modalの整合",
+      "失敗時旧世代保持と既存recovery",
+      "過去回想はデータをそのまま読出す",
+      "既存debugプレビューの非干渉"
+    ],
+    "testPlan": [
+      "回想データadapterと表示のユニットテスト",
+      "S1-S4・H3-3Aの回帰",
+      "交代成功/失敗・復帰の統合確認",
+      "Scope/Risk/Impactと必須CI、可能なら実ブラウザー"
+    ],
+    "problem": "回想は正式に保存されるが世代交代時の表示と再閲覧導線がない",
+    "currentContract": "H3-3A session v8で準備・確定データが存在し、H3-3Bデバッグの場面プレイヤーが採用済み",
+    "whyExistingIsInsufficient": "デバッグ画面の6場面は固定サンプルで、実プレイ中の世界の動きを表示しない",
+    "design": "プレイヤーを実データにも再利用。最終ボタンで従来act→saveCandidate。履歴は確定recall本文のread-only再生",
+    "migration": "なし",
+    "compatibility": "既存ダミーdebug、保存v8、正式モデル・RNG・S4の歩みを維持",
+    "promotionRisk": "Stagingのみ。未確認は未確認、Productionは禁止"
+  }
+}
