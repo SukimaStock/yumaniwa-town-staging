@@ -24,12 +24,8 @@ export function debugSkipMonth(game,model){
  if(barrier)return {next:game,advanced:false,reason:barrier};
  const next=model.tickDistillery(game,game.core.month);
  if(next===game)return {next,advanced:false,reason:'月次処理が停止しました。'};
- if(!Array.isArray(next.operations)||next.operations.length!==game.operations.length+1||
-    next.operations.at(-1)?.key!=='month'&&next.operations.at(-1)?.key!=='generation-stalled'&&next.operations.at(-1)?.key!=='stalled'){
-  // Some native stopping operations have their own formal opcode.
-  if(!Array.isArray(next.operations)||next.operations.length!==game.operations.length+1)
-   throw Error('月次の正式操作が1件であることを確認できません。');
- }
+ if(!Array.isArray(next.operations)||next.operations.length!==game.operations.length+1)
+  throw Error('月次の正式操作が1件であることを確認できません。');
  const delta=next.core.month-game.core.month;
  if(delta!==0&&delta!==1)throw Error('月次進行の増分が不正です。');
  return {next,advanced:delta===1,reason:delta===0?'資金などの条件により月が進みませんでした。':null};
