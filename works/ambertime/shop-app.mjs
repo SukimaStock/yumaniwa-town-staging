@@ -585,10 +585,10 @@ function runDebugSkipChunk(job){
     if(!saveCandidate(result.next,true,elapsed)){debugSkipJob=null;render();return;}
     game=result.next;userPaused=true;runtimeHalted=false;
    }
-   if(result.reason){finishDebugSkip(result.reason,{needsAction:!!result.advanced||result.next!==game||['last-batch','review'].includes(generationState()?.phase)});return;}
+   if(result.reason){finishDebugSkip(result.reason,{needsAction:['last-batch','review'].includes(generationState()?.phase)});return;}
    // A new choice or a generation boundary must be shown before another month.
    const status=D.generationStatus(game);
-   if(game.decisions.length||game.trade.offer||game.shop.offer||game.shop.pendingOffers?.length||status?.phase!=='working'){
+   if(game.decisions.length||game.trade.offer||game.shop.offer||status?.phase!=='working'){
     finishDebugSkip('操作や世代交代の確認が必要です。',{needsAction:true});return;
    }
   }
