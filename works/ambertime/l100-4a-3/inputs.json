@@ -1,0 +1,76 @@
+{
+  "inputs": [
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+      "bytes": 3467349,
+      "sha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+      "bytes": 4535936,
+      "sha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+      "bytes": 5282030,
+      "sha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/local-before-handover-321-v8.json",
+      "bytes": 1585052,
+      "sha256": "32a3dc9f460f40f0d620bb2c5d3b06df453e4ba14081edd8aa08ed26a50b7d78"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/local-before-handover-636-v8.json",
+      "bytes": 2207668,
+      "sha256": "a1cb17bf32dd7aeb08b2113571b72b7356ef7bca026dbef7f22f094fd3a18103"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/local-before-handover-955-v8.json",
+      "bytes": 2971487,
+      "sha256": "354bcdf0ebbccc343d09b0188b2d79a841fb1b954634c3178a9facb5d333123e"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/mixed-before-handover-306-v8.json",
+      "bytes": 1669635,
+      "sha256": "0db92744373112172fe392b44368bf6b91dbbf3d62e154a713752a3874aaaa0a"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/mixed-before-handover-610-v8.json",
+      "bytes": 2445234,
+      "sha256": "4fe510e94d4010ec328175e310e1ce72a9540a931d6a37917cbb0ce77292e5ec"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/mixed-before-handover-918-v8.json",
+      "bytes": 3465505,
+      "sha256": "bed0e3417c7c7ec2e9de32c4edca350b77c62de922aeb2b8f4b19bac0705d7a1"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/wide-before-handover-314-v8.json",
+      "bytes": 2113705,
+      "sha256": "7d15a600e2c53dc2195148481fb492094c741aaaff5a330292ab9864cd556a7d"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/wide-before-handover-630-v8.json",
+      "bytes": 3216307,
+      "sha256": "489050f1106c390250f878852f8f6100133c5cbc7678985dc9afca525a086960"
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/saves/wide-before-handover-930-v8.json",
+      "bytes": 4206291,
+      "sha256": "aa2ee7fd57d60a2406cd236a40583e592a944e8693bc5ccafe29147be609f741"
+    }
+  ],
+  "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+  "sourceSha256": {
+    "partner-orders.mjs": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b",
+    "save-codec.mjs": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e",
+    "world-map-view.mjs": "2060e8be29ee2bdae9e8987a66d54f5b7e99f551a5d5789b0510d080b770f283",
+    "development-save.mjs": "320092f6e8380d7850c19b814bc4fca00c7c00804e6be020a71b2e0394cffeca",
+    "town-connection.mjs": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051",
+    "experiments/town-simulation/v01/model.mjs": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1",
+    "history-record.mjs": "59632bb28395a29194097494d034691eb5a83b9edfaa682601bed92225dcae5f",
+    "recent-ledger.mjs": "31b6c540711f6e56007dcd148da03057d9b74351fd5a8730a67cd906bac4d312",
+    "recall/collector.mjs": "2eefca1a14f75ca030339e87068bd0688f253a8c0a5ed9dbe5b2f1529658cef2"
+  }
+}
