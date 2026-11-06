@@ -1,0 +1,5275 @@
+{
+  "runtime": "v24.22.1",
+  "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+  "scope": "Node snapshot reconstruction and LIVE unmodified advanceTown; NOT compact full distillery runtime, formal replay or browser",
+  "rows": [
+    {
+      "file": "local-100-year-1200-v8.json",
+      "inputSha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+      "month": 1200,
+      "formalUnits": 3806900,
+      "arrivalUnits": 1025164,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.0023130000000151085,
+              "memoryBefore": {
+                "rss": 104529920,
+                "heapTotal": 110338048,
+                "heapUsed": 41887624,
+                "external": 4108867,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 104513536,
+                "heapTotal": 110075904,
+                "heapUsed": 41877680,
+                "external": 4108871,
+                "arrayBuffers": 212115
+              },
+              "heapAfter": 41877680,
+              "retainedDeltaBytes": -9944,
+              "single100Ms": 0.2003610000000151,
+              "scanMs": 0.7759749999999883,
+              "id20Ms": 1.1708270000000027,
+              "equalityMs": 15.197266999999982
+            },
+            {
+              "run": 1,
+              "constructMs": 0.001813000000026932,
+              "memoryBefore": {
+                "rss": 94257152,
+                "heapTotal": 116568064,
+                "heapUsed": 48536128,
+                "external": 4108871,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 94257152,
+                "heapTotal": 116568064,
+                "heapUsed": 48536272,
+                "external": 4108871,
+                "arrayBuffers": 212115
+              },
+              "heapAfter": 48536272,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.024045999999998457,
+              "scanMs": 0.6914379999999483,
+              "id20Ms": 1.9946640000000002,
+              "equalityMs": 18.776778999999976
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0017730000000142354,
+              "memoryBefore": {
+                "rss": 100696064,
+                "heapTotal": 116830208,
+                "heapUsed": 48536960,
+                "external": 4108871,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 100696064,
+                "heapTotal": 116830208,
+                "heapUsed": 48537104,
+                "external": 4108871,
+                "arrayBuffers": 212115
+              },
+              "heapAfter": 48537104,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.013059999999995853,
+              "scanMs": 0.292398999999989,
+              "id20Ms": 2.0335130000000277,
+              "equalityMs": 18.713775
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 11.09962999999999,
+              "heapDeltaBytes": 6093688
+            },
+            {
+              "ms": 17.255394999999965,
+              "heapDeltaBytes": -29237072
+            },
+            {
+              "ms": 9.267158999999992,
+              "heapDeltaBytes": 4950368
+            },
+            {
+              "ms": 9.996514000000047,
+              "heapDeltaBytes": 4868152
+            },
+            {
+              "ms": 8.922320000000013,
+              "heapDeltaBytes": 4874592
+            },
+            {
+              "ms": 13.27081099999998,
+              "heapDeltaBytes": 4932608
+            },
+            {
+              "ms": 8.354597000000012,
+              "heapDeltaBytes": 4860216
+            },
+            {
+              "ms": 8.37857299999996,
+              "heapDeltaBytes": 4860696
+            },
+            {
+              "ms": 8.65061199999991,
+              "heapDeltaBytes": 4909600
+            },
+            {
+              "ms": 8.85002099999997,
+              "heapDeltaBytes": 4863544
+            },
+            {
+              "ms": 8.21933399999989,
+              "heapDeltaBytes": 4893112
+            },
+            {
+              "ms": 8.05321499999991,
+              "heapDeltaBytes": 4881976
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 63.37263700000017,
+          "compactGameUnits": 2791503,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 2.1921920000002046,
+              "memoryBefore": {
+                "rss": 192409600,
+                "heapTotal": 203821056,
+                "heapUsed": 65937504,
+                "external": 4140343,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 192671744,
+                "heapTotal": 200151040,
+                "heapUsed": 64095952,
+                "external": 4172855,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 64095952,
+              "retainedDeltaBytes": -1841552,
+              "single100Ms": 0.3014729999999872,
+              "scanMs": 2.019954000000098,
+              "id20Ms": 7.617950999999948,
+              "equalityMs": 20.004613999999947
+            },
+            {
+              "run": 1,
+              "constructMs": 1.3819859999998698,
+              "memoryBefore": {
+                "rss": 188116992,
+                "heapTotal": 200794112,
+                "heapUsed": 65199512,
+                "external": 4156727,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 188116992,
+                "heapTotal": 199483392,
+                "heapUsed": 63346808,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 63346808,
+              "retainedDeltaBytes": -1852704,
+              "single100Ms": 0.042482999999947424,
+              "scanMs": 1.149746999999934,
+              "id20Ms": 7.742738000000145,
+              "equalityMs": 20.594039000000066
+            },
+            {
+              "run": 2,
+              "constructMs": 1.3889960000001338,
+              "memoryBefore": {
+                "rss": 188092416,
+                "heapTotal": 201056256,
+                "heapUsed": 65200416,
+                "external": 4173111,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 188092416,
+                "heapTotal": 199745536,
+                "heapUsed": 63347728,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 63347728,
+              "retainedDeltaBytes": -1852688,
+              "single100Ms": 0.07005500000013853,
+              "scanMs": 1.1272730000000593,
+              "id20Ms": 5.167620999999826,
+              "equalityMs": 19.26568999999995
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 5.692047999999886,
+              "heapDeltaBytes": 3939664
+            },
+            {
+              "ms": 5.810686999999916,
+              "heapDeltaBytes": 3713016
+            },
+            {
+              "ms": 5.274482000000262,
+              "heapDeltaBytes": 3729664
+            },
+            {
+              "ms": 9.43820100000039,
+              "heapDeltaBytes": 3697320
+            },
+            {
+              "ms": 9.735861999999997,
+              "heapDeltaBytes": 3703224
+            },
+            {
+              "ms": 7.998763000000054,
+              "heapDeltaBytes": 3715944
+            },
+            {
+              "ms": 5.388652999999977,
+              "heapDeltaBytes": 3688664
+            },
+            {
+              "ms": 5.643064999999751,
+              "heapDeltaBytes": 3688496
+            },
+            {
+              "ms": 5.169013000000177,
+              "heapDeltaBytes": 3778312
+            },
+            {
+              "ms": 4.982592999999724,
+              "heapDeltaBytes": 3690536
+            },
+            {
+              "ms": 5.329373999999916,
+              "heapDeltaBytes": 3719632
+            },
+            {
+              "ms": 5.100781000000097,
+              "heapDeltaBytes": 3706480
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 3099,
+            "indexEntries": 4096,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 16384,
+            "packedIndexBytes": 12396
+          },
+          "compactMs": 58.409673999999995,
+          "compactGameUnits": 2791503,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.4654609999997774,
+              "memoryBefore": {
+                "rss": 255741952,
+                "heapTotal": 208539648,
+                "heapUsed": 64421584,
+                "external": 4205623,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 255729664,
+                "heapTotal": 198578176,
+                "heapUsed": 62565144,
+                "external": 4164791,
+                "arrayBuffers": 232595
+              },
+              "heapAfter": 62565144,
+              "retainedDeltaBytes": -1856440,
+              "single100Ms": 7.350348999999824,
+              "scanMs": 1.3310989999999947,
+              "id20Ms": 7.214285999999902,
+              "equalityMs": 23.61614899999995
+            },
+            {
+              "run": 1,
+              "constructMs": 0.7999610000001667,
+              "memoryBefore": {
+                "rss": 250839040,
+                "heapTotal": 200007680,
+                "heapUsed": 63637696,
+                "external": 4160823,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 250830848,
+                "heapTotal": 198172672,
+                "heapUsed": 61860136,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 61860136,
+              "retainedDeltaBytes": -1777560,
+              "single100Ms": 4.260469000000285,
+              "scanMs": 0.7855799999997544,
+              "id20Ms": 4.576574000000164,
+              "equalityMs": 27.214282999999796
+            },
+            {
+              "run": 2,
+              "constructMs": 1.32015199999978,
+              "memoryBefore": {
+                "rss": 250822656,
+                "heapTotal": 200531968,
+                "heapUsed": 63631200,
+                "external": 4164919,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 250822656,
+                "heapTotal": 197910528,
+                "heapUsed": 61778248,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 61778248,
+              "retainedDeltaBytes": -1852952,
+              "single100Ms": 7.485722000000351,
+              "scanMs": 1.1747140000002219,
+              "id20Ms": 8.014505999999983,
+              "equalityMs": 28.45101999999997
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 9.443241999999827,
+              "heapDeltaBytes": 3932112
+            },
+            {
+              "ms": 9.9148110000001,
+              "heapDeltaBytes": 3713072
+            },
+            {
+              "ms": 9.462050999999974,
+              "heapDeltaBytes": 3729880
+            },
+            {
+              "ms": 7.938954000000194,
+              "heapDeltaBytes": -87255936
+            },
+            {
+              "ms": 6.13984100000016,
+              "heapDeltaBytes": 3703272
+            },
+            {
+              "ms": 5.569764999999279,
+              "heapDeltaBytes": 3778312
+            },
+            {
+              "ms": 5.9027249999999185,
+              "heapDeltaBytes": 3688680
+            },
+            {
+              "ms": 5.738849999999729,
+              "heapDeltaBytes": 3688664
+            },
+            {
+              "ms": 6.043246000000181,
+              "heapDeltaBytes": 3721936
+            },
+            {
+              "ms": 9.603031999999985,
+              "heapDeltaBytes": 3690688
+            },
+            {
+              "ms": 5.43621499999972,
+              "heapDeltaBytes": 3788400
+            },
+            {
+              "ms": 5.678989000000001,
+              "heapDeltaBytes": 3706440
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 3099,
+            "indexEntries": 0,
+            "varintBytes": 3099,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 4096,
+            "packedIndexBytes": 3099
+          },
+          "compactMs": 69.93589900000006,
+          "compactGameUnits": 2791503,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "local-30-year-360-v8.json",
+      "inputSha256": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9",
+      "month": 360,
+      "formalUnits": 1663003,
+      "arrivalUnits": 431775,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.0020230000000083237,
+              "memoryBefore": {
+                "rss": 255533056,
+                "heapTotal": 191447040,
+                "heapUsed": 46022512,
+                "external": 4169015,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 255516672,
+                "heapTotal": 180961280,
+                "heapUsed": 46019448,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 46019448,
+              "retainedDeltaBytes": -3064,
+              "single100Ms": 0.009815000000344298,
+              "scanMs": 0.23186799999984942,
+              "id20Ms": 0.4675330000000031,
+              "equalityMs": 6.352250999999342
+            },
+            {
+              "run": 1,
+              "constructMs": 0.001322000000072876,
+              "memoryBefore": {
+                "rss": 249966592,
+                "heapTotal": 178257920,
+                "heapUsed": 43302240,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 249966592,
+                "heapTotal": 178520064,
+                "heapUsed": 43302384,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 43302384,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.008101999999780674,
+              "scanMs": 0.1302559999994628,
+              "id20Ms": 0.42540899999949033,
+              "equalityMs": 6.581204000000071
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0018230000005132752,
+              "memoryBefore": {
+                "rss": 249970688,
+                "heapTotal": 179044352,
+                "heapUsed": 43302744,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 249970688,
+                "heapTotal": 178520064,
+                "heapUsed": 43302888,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 43302888,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.012109000000236847,
+              "scanMs": 0.24921399999948335,
+              "id20Ms": 0.7521500000002561,
+              "equalityMs": 8.878934999999728
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 3.593727000000399,
+              "heapDeltaBytes": 2209584
+            },
+            {
+              "ms": 3.0776630000000296,
+              "heapDeltaBytes": 2127088
+            },
+            {
+              "ms": 3.3489900000004127,
+              "heapDeltaBytes": 2138864
+            },
+            {
+              "ms": 3.59289600000011,
+              "heapDeltaBytes": 2148112
+            },
+            {
+              "ms": 3.4473079999997935,
+              "heapDeltaBytes": 2150392
+            },
+            {
+              "ms": 3.1338669999995545,
+              "heapDeltaBytes": 2149080
+            },
+            {
+              "ms": 3.314277999999831,
+              "heapDeltaBytes": 2106288
+            },
+            {
+              "ms": 3.3039119999994,
+              "heapDeltaBytes": 2138624
+            },
+            {
+              "ms": 3.3702219999995577,
+              "heapDeltaBytes": 2138920
+            },
+            {
+              "ms": 3.0687290000005305,
+              "heapDeltaBytes": 2110240
+            },
+            {
+              "ms": 3.111112999999932,
+              "heapDeltaBytes": 2127424
+            },
+            {
+              "ms": 3.6128459999999905,
+              "heapDeltaBytes": 2127624
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 22.401362999999947,
+          "compactGameUnits": 1244490,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.7947439999998096,
+              "memoryBefore": {
+                "rss": 251863040,
+                "heapTotal": 174641152,
+                "heapUsed": 34410672,
+                "external": 4144439,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 251863040,
+                "heapTotal": 169398272,
+                "heapUsed": 33594880,
+                "external": 4156471,
+                "arrayBuffers": 220307
+              },
+              "heapAfter": 33594880,
+              "retainedDeltaBytes": -815792,
+              "single100Ms": 0.06053100000008271,
+              "scanMs": 0.7065410000004704,
+              "id20Ms": 4.348471000000245,
+              "equalityMs": 6.928536000000349
+            },
+            {
+              "run": 1,
+              "constructMs": 0.6028959999994186,
+              "memoryBefore": {
+                "rss": 249364480,
+                "heapTotal": 169791488,
+                "heapUsed": 34002640,
+                "external": 4148535,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 249364480,
+                "heapTotal": 169529344,
+                "heapUsed": 33260640,
+                "external": 4164663,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 33260640,
+              "retainedDeltaBytes": -742000,
+              "single100Ms": 0.03441099999963626,
+              "scanMs": 0.6046180000003005,
+              "id20Ms": 2.9350780000004306,
+              "equalityMs": 6.436807000000044
+            },
+            {
+              "run": 2,
+              "constructMs": 0.6312179999995351,
+              "memoryBefore": {
+                "rss": 249364480,
+                "heapTotal": 170315776,
+                "heapUsed": 34015472,
+                "external": 4156727,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 249364480,
+                "heapTotal": 169529344,
+                "heapUsed": 33231720,
+                "external": 4164663,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 33231720,
+              "retainedDeltaBytes": -783752,
+              "single100Ms": 0.035033000000112224,
+              "scanMs": 0.5416740000000573,
+              "id20Ms": 2.6185220000006666,
+              "equalityMs": 6.550327000000834
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 3.909241999999722,
+              "heapDeltaBytes": 1696576
+            },
+            {
+              "ms": 2.416399000000638,
+              "heapDeltaBytes": 1626424
+            },
+            {
+              "ms": 2.7082879999998113,
+              "heapDeltaBytes": 1639728
+            },
+            {
+              "ms": 2.439744000000246,
+              "heapDeltaBytes": 1647656
+            },
+            {
+              "ms": 2.1991829999997208,
+              "heapDeltaBytes": 1649152
+            },
+            {
+              "ms": 2.6768599999995786,
+              "heapDeltaBytes": 1646504
+            },
+            {
+              "ms": 2.213764999999512,
+              "heapDeltaBytes": 1603640
+            },
+            {
+              "ms": 2.632774000000609,
+              "heapDeltaBytes": 1623472
+            },
+            {
+              "ms": 4.879643999999644,
+              "heapDeltaBytes": 1634592
+            },
+            {
+              "ms": 4.195180000000619,
+              "heapDeltaBytes": 1606736
+            },
+            {
+              "ms": 4.199026000000231,
+              "heapDeltaBytes": 1623000
+            },
+            {
+              "ms": 3.929661999999553,
+              "heapDeltaBytes": 1622896
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 1333,
+            "indexEntries": 2048,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 8192,
+            "packedIndexBytes": 5332
+          },
+          "compactMs": 29.165452999999616,
+          "compactGameUnits": 1244490,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.5693949999995311,
+              "memoryBefore": {
+                "rss": 252153856,
+                "heapTotal": 173068288,
+                "heapUsed": 33654488,
+                "external": 4172855,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 252153856,
+                "heapTotal": 168873984,
+                "heapUsed": 32865288,
+                "external": 4152503,
+                "arrayBuffers": 222355
+              },
+              "heapAfter": 32865288,
+              "retainedDeltaBytes": -789200,
+              "single100Ms": 3.0604560000001584,
+              "scanMs": 0.265599000000293,
+              "id20Ms": 3.3984019999998054,
+              "equalityMs": 9.62315800000033
+            },
+            {
+              "run": 1,
+              "constructMs": 0.6116590000001452,
+              "memoryBefore": {
+                "rss": 249659392,
+                "heapTotal": 169005056,
+                "heapUsed": 33267136,
+                "external": 4150583,
+                "arrayBuffers": 222355
+              },
+              "memoryAfter": {
+                "rss": 249659392,
+                "heapTotal": 168742912,
+                "heapUsed": 32483384,
+                "external": 4154551,
+                "arrayBuffers": 224403
+              },
+              "heapAfter": 32483384,
+              "retainedDeltaBytes": -783752,
+              "single100Ms": 3.1916620000001785,
+              "scanMs": 0.35487300000022515,
+              "id20Ms": 3.3208770000001095,
+              "equalityMs": 10.203760999999758
+            },
+            {
+              "run": 2,
+              "constructMs": 0.5917380000000776,
+              "memoryBefore": {
+                "rss": 249659392,
+                "heapTotal": 169529344,
+                "heapUsed": 33265720,
+                "external": 4152631,
+                "arrayBuffers": 222355
+              },
+              "memoryAfter": {
+                "rss": 249659392,
+                "heapTotal": 168742912,
+                "heapUsed": 32481968,
+                "external": 4154551,
+                "arrayBuffers": 224403
+              },
+              "heapAfter": 32481968,
+              "retainedDeltaBytes": -783752,
+              "single100Ms": 3.0674660000004224,
+              "scanMs": 0.30223300000034214,
+              "id20Ms": 3.133904999999686,
+              "equalityMs": 9.592131999999765
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 2.2282850000001417,
+              "heapDeltaBytes": 1682536
+            },
+            {
+              "ms": 2.3885360000003857,
+              "heapDeltaBytes": 1608000
+            },
+            {
+              "ms": 2.4345549999998184,
+              "heapDeltaBytes": 1615744
+            },
+            {
+              "ms": 4.200155999999879,
+              "heapDeltaBytes": 1619528
+            },
+            {
+              "ms": 4.250240999999733,
+              "heapDeltaBytes": 1651320
+            },
+            {
+              "ms": 4.3776230000003125,
+              "heapDeltaBytes": 1622680
+            },
+            {
+              "ms": 3.942869999999857,
+              "heapDeltaBytes": 1603848
+            },
+            {
+              "ms": 4.3201460000000225,
+              "heapDeltaBytes": 1612896
+            },
+            {
+              "ms": 4.294457999999395,
+              "heapDeltaBytes": 1620160
+            },
+            {
+              "ms": 2.299181000000317,
+              "heapDeltaBytes": 1611256
+            },
+            {
+              "ms": 3.1142360000003464,
+              "heapDeltaBytes": 1615376
+            },
+            {
+              "ms": 2.776593999999932,
+              "heapDeltaBytes": 1617512
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 1333,
+            "indexEntries": 0,
+            "varintBytes": 1333,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 2048,
+            "packedIndexBytes": 1333
+          },
+          "compactMs": 23.228457000000162,
+          "compactGameUnits": 1244490,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "local-60-year-720-v8.json",
+      "inputSha256": "07394cf9aa7c0a31f39d75dec9a6a42d955eff9ebb194a2a8815511d439f8568",
+      "month": 720,
+      "formalUnits": 2631181,
+      "arrivalUnits": 693803,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.001983000000109314,
+              "memoryBefore": {
+                "rss": 261734400,
+                "heapTotal": 182112256,
+                "heapUsed": 42059720,
+                "external": 4156599,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 261734400,
+                "heapTotal": 177655808,
+                "heapUsed": 42056768,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 42056768,
+              "retainedDeltaBytes": -2952,
+              "single100Ms": 0.01203799999984767,
+              "scanMs": 0.4314379999996163,
+              "id20Ms": 1.3179389999995692,
+              "equalityMs": 16.566413999999895
+            },
+            {
+              "run": 1,
+              "constructMs": 0.00189200000022538,
+              "memoryBefore": {
+                "rss": 259280896,
+                "heapTotal": 179884032,
+                "heapUsed": 44117376,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 259280896,
+                "heapTotal": 179884032,
+                "heapUsed": 44117520,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 44117520,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.012058000000251923,
+              "scanMs": 0.3496450000002369,
+              "id20Ms": 1.3038380000007237,
+              "equalityMs": 13.954161999999997
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0016729999997551204,
+              "memoryBefore": {
+                "rss": 259280896,
+                "heapTotal": 180146176,
+                "heapUsed": 44117880,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 259280896,
+                "heapTotal": 180146176,
+                "heapUsed": 44118024,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 44118024,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.008834000000206288,
+              "scanMs": 0.3641669999997248,
+              "id20Ms": 1.4610989999991943,
+              "equalityMs": 13.75050100000044
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 5.601130000000012,
+              "heapDeltaBytes": 3547888
+            },
+            {
+              "ms": 6.444506000000729,
+              "heapDeltaBytes": 3377808
+            },
+            {
+              "ms": 7.7384039999997185,
+              "heapDeltaBytes": 3409416
+            },
+            {
+              "ms": 5.724565000000439,
+              "heapDeltaBytes": 3376760
+            },
+            {
+              "ms": 6.2687129999994795,
+              "heapDeltaBytes": 3393840
+            },
+            {
+              "ms": 5.409582000000228,
+              "heapDeltaBytes": 3395648
+            },
+            {
+              "ms": 5.947019999999611,
+              "heapDeltaBytes": 3412560
+            },
+            {
+              "ms": 5.14100899999994,
+              "heapDeltaBytes": 3419728
+            },
+            {
+              "ms": 5.581951000000117,
+              "heapDeltaBytes": 3423728
+            },
+            {
+              "ms": 6.042402000000038,
+              "heapDeltaBytes": 3415152
+            },
+            {
+              "ms": 5.109953000000132,
+              "heapDeltaBytes": 3478840
+            },
+            {
+              "ms": 5.3966019999998025,
+              "heapDeltaBytes": 3421048
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 35.00376800000049,
+          "compactGameUnits": 1970473,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.864528999999493,
+              "memoryBefore": {
+                "rss": 263294976,
+                "heapTotal": 192217088,
+                "heapUsed": 48973856,
+                "external": 4142391,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 263294976,
+                "heapTotal": 183042048,
+                "heapUsed": 47680472,
+                "external": 4172855,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 47680472,
+              "retainedDeltaBytes": -1293384,
+              "single100Ms": 0.058426999999937834,
+              "scanMs": 0.5250179999993634,
+              "id20Ms": 5.8034340000003795,
+              "equalityMs": 14.810476999999992
+            },
+            {
+              "run": 1,
+              "constructMs": 1.1203919999998107,
+              "memoryBefore": {
+                "rss": 259362816,
+                "heapTotal": 183816192,
+                "heapUsed": 48334928,
+                "external": 4156727,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 259362816,
+                "heapTotal": 183029760,
+                "heapUsed": 47078920,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 47078920,
+              "retainedDeltaBytes": -1256008,
+              "single100Ms": 0.021892999999181484,
+              "scanMs": 0.28930399999990186,
+              "id20Ms": 3.984161999999742,
+              "equalityMs": 11.885936000000584
+            },
+            {
+              "run": 2,
+              "constructMs": 0.7148129999995945,
+              "memoryBefore": {
+                "rss": 259358720,
+                "heapTotal": 184602624,
+                "heapUsed": 48337584,
+                "external": 4173111,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 259358720,
+                "heapTotal": 183816192,
+                "heapUsed": 47081576,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 47081576,
+              "retainedDeltaBytes": -1256008,
+              "single100Ms": 0.024206999999478285,
+              "scanMs": 0.43188800000007177,
+              "id20Ms": 3.163880000000063,
+              "equalityMs": 10.595718999999917
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 3.6905109999997876,
+              "heapDeltaBytes": 2709224
+            },
+            {
+              "ms": 3.457010999999511,
+              "heapDeltaBytes": 2576888
+            },
+            {
+              "ms": 3.529688999999962,
+              "heapDeltaBytes": 2623032
+            },
+            {
+              "ms": 5.699879000000692,
+              "heapDeltaBytes": -80854720
+            },
+            {
+              "ms": 3.4991930000005596,
+              "heapDeltaBytes": 2622720
+            },
+            {
+              "ms": 3.9004460000005565,
+              "heapDeltaBytes": 2592368
+            },
+            {
+              "ms": 3.6111919999993916,
+              "heapDeltaBytes": 2623344
+            },
+            {
+              "ms": 3.9024790000003122,
+              "heapDeltaBytes": 2624392
+            },
+            {
+              "ms": 3.915998999999829,
+              "heapDeltaBytes": 2613064
+            },
+            {
+              "ms": 3.8220379999993384,
+              "heapDeltaBytes": 2603400
+            },
+            {
+              "ms": 4.609220999999707,
+              "heapDeltaBytes": 2613864
+            },
+            {
+              "ms": 3.68282999999974,
+              "heapDeltaBytes": 2622408
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 2151,
+            "indexEntries": 4096,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 16384,
+            "packedIndexBytes": 8604
+          },
+          "compactMs": 37.27354500000001,
+          "compactGameUnits": 1970473,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.3660209999998187,
+              "memoryBefore": {
+                "rss": 263340032,
+                "heapTotal": 188547072,
+                "heapUsed": 47752288,
+                "external": 4205623,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 263340032,
+                "heapTotal": 182517760,
+                "heapUsed": 46490928,
+                "external": 4164791,
+                "arrayBuffers": 232595
+              },
+              "heapAfter": 46490928,
+              "retainedDeltaBytes": -1261360,
+              "single100Ms": 5.651205000000118,
+              "scanMs": 0.49365100000068196,
+              "id20Ms": 3.426263999999719,
+              "equalityMs": 10.020966000000044
+            },
+            {
+              "run": 1,
+              "constructMs": 1.0901870000006966,
+              "memoryBefore": {
+                "rss": 259538944,
+                "heapTotal": 183554048,
+                "heapUsed": 47124104,
+                "external": 4160823,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 259538944,
+                "heapTotal": 182243328,
+                "heapUsed": 45868096,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 45868096,
+              "retainedDeltaBytes": -1256008,
+              "single100Ms": 3.6980830000002243,
+              "scanMs": 0.5880729999998948,
+              "id20Ms": 3.0338150000006863,
+              "equalityMs": 10.085073000000193
+            },
+            {
+              "run": 2,
+              "constructMs": 1.192471000000296,
+              "memoryBefore": {
+                "rss": 259538944,
+                "heapTotal": 184078336,
+                "heapUsed": 47124608,
+                "external": 4164919,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 259538944,
+                "heapTotal": 182505472,
+                "heapUsed": 45868600,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 45868600,
+              "retainedDeltaBytes": -1256008,
+              "single100Ms": 3.6486180000001696,
+              "scanMs": 0.4215229999999792,
+              "id20Ms": 3.094657000000552,
+              "equalityMs": 9.867885999999999
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 3.9452329999985523,
+              "heapDeltaBytes": 2715320
+            },
+            {
+              "ms": 3.7903210000004037,
+              "heapDeltaBytes": 2575480
+            },
+            {
+              "ms": 5.369972000000416,
+              "heapDeltaBytes": -70309680
+            },
+            {
+              "ms": 10.540030000000115,
+              "heapDeltaBytes": 2576216
+            },
+            {
+              "ms": 4.413105999999971,
+              "heapDeltaBytes": 2585488
+            },
+            {
+              "ms": 4.632714999999735,
+              "heapDeltaBytes": 2591848
+            },
+            {
+              "ms": 4.6863460000004125,
+              "heapDeltaBytes": 2606256
+            },
+            {
+              "ms": 4.582810999998401,
+              "heapDeltaBytes": 2611040
+            },
+            {
+              "ms": 3.8063140000012936,
+              "heapDeltaBytes": 2624296
+            },
+            {
+              "ms": 4.51917499999945,
+              "heapDeltaBytes": 2604280
+            },
+            {
+              "ms": 4.166224999999031,
+              "heapDeltaBytes": 2629592
+            },
+            {
+              "ms": 4.439876000000368,
+              "heapDeltaBytes": 2622408
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 2151,
+            "indexEntries": 0,
+            "varintBytes": 2151,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 4096,
+            "packedIndexBytes": 2151
+          },
+          "compactMs": 43.81109199999992,
+          "compactGameUnits": 1970473,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "local-90-year-1080-v8.json",
+      "inputSha256": "31a68b7d5153862668251cc5e7131fbaf73a503c23fd5c54934c00771b310bbc",
+      "month": 1080,
+      "formalUnits": 3500658,
+      "arrivalUnits": 940458,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.0018529999997554114,
+              "memoryBefore": {
+                "rss": 268828672,
+                "heapTotal": 198025216,
+                "heapUsed": 55312936,
+                "external": 4172983,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 268828672,
+                "heapTotal": 190685184,
+                "heapUsed": 55310368,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 55310368,
+              "retainedDeltaBytes": -2568,
+              "single100Ms": 0.012087999999494059,
+              "scanMs": 0.39251900000090245,
+              "id20Ms": 1.6974179999997432,
+              "equalityMs": 13.189973999998983
+            },
+            {
+              "run": 1,
+              "constructMs": 0.0018820000004780013,
+              "memoryBefore": {
+                "rss": 265117696,
+                "heapTotal": 192970752,
+                "heapUsed": 57479400,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 265117696,
+                "heapTotal": 192970752,
+                "heapUsed": 57479544,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 57479544,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.008331999999427353,
+              "scanMs": 0.9315289999995002,
+              "id20Ms": 1.0071220000008907,
+              "equalityMs": 15.132270000000062
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0019529999990481883,
+              "memoryBefore": {
+                "rss": 265117696,
+                "heapTotal": 193495040,
+                "heapUsed": 57479904,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 265117696,
+                "heapTotal": 192970752,
+                "heapUsed": 57480048,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 57480048,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.012057999998432933,
+              "scanMs": 0.4122090000000753,
+              "id20Ms": 1.8371880000013334,
+              "equalityMs": 13.744495999999344
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 7.587351000000126,
+              "heapDeltaBytes": 4713032
+            },
+            {
+              "ms": 6.82042999999976,
+              "heapDeltaBytes": 4466976
+            },
+            {
+              "ms": 6.864235999999437,
+              "heapDeltaBytes": 4456904
+            },
+            {
+              "ms": 7.455332999999882,
+              "heapDeltaBytes": 4482896
+            },
+            {
+              "ms": 7.358919000000242,
+              "heapDeltaBytes": 4461056
+            },
+            {
+              "ms": 7.137026000000333,
+              "heapDeltaBytes": 4490952
+            },
+            {
+              "ms": 7.5432049999999435,
+              "heapDeltaBytes": 4493824
+            },
+            {
+              "ms": 7.05341000000044,
+              "heapDeltaBytes": 4474672
+            },
+            {
+              "ms": 7.301621999999043,
+              "heapDeltaBytes": 4468568
+            },
+            {
+              "ms": 7.139709999999468,
+              "heapDeltaBytes": 4492512
+            },
+            {
+              "ms": 8.279250999999931,
+              "heapDeltaBytes": 4494656
+            },
+            {
+              "ms": 7.010967000000164,
+              "heapDeltaBytes": 4556520
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 53.3984619999992,
+          "compactGameUnits": 2570397,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.5161369999987073,
+              "memoryBefore": {
+                "rss": 270663680,
+                "heapTotal": 206381056,
+                "heapUsed": 61946080,
+                "external": 4144439,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 270663680,
+                "heapTotal": 196681728,
+                "heapUsed": 60208584,
+                "external": 4172855,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 60208584,
+              "retainedDeltaBytes": -1737496,
+              "single100Ms": 0.0765849999988859,
+              "scanMs": 1.237938000000213,
+              "id20Ms": 8.330517000000327,
+              "equalityMs": 14.8292849999998
+            },
+            {
+              "run": 1,
+              "constructMs": 1.58167499999945,
+              "memoryBefore": {
+                "rss": 265723904,
+                "heapTotal": 197505024,
+                "heapUsed": 61228464,
+                "external": 4156727,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 265723904,
+                "heapTotal": 195932160,
+                "heapUsed": 59528136,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 59528136,
+              "retainedDeltaBytes": -1700328,
+              "single100Ms": 0.03496199999972305,
+              "scanMs": 0.9217740000003687,
+              "id20Ms": 5.673197000000073,
+              "equalityMs": 13.033767999999327
+            },
+            {
+              "run": 2,
+              "constructMs": 1.2332310000001598,
+              "memoryBefore": {
+                "rss": 265752576,
+                "heapTotal": 198029312,
+                "heapUsed": 61226848,
+                "external": 4173111,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 265752576,
+                "heapTotal": 196456448,
+                "heapUsed": 59612752,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 59612752,
+              "retainedDeltaBytes": -1614096,
+              "single100Ms": 0.03664500000013504,
+              "scanMs": 1.0142419999992853,
+              "id20Ms": 4.543572000000495,
+              "equalityMs": 13.138495999999577
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 5.1034229999986565,
+              "heapDeltaBytes": 3542776
+            },
+            {
+              "ms": 5.659256999999343,
+              "heapDeltaBytes": 3408168
+            },
+            {
+              "ms": 5.33249700000124,
+              "heapDeltaBytes": 3383624
+            },
+            {
+              "ms": 9.062566000000515,
+              "heapDeltaBytes": -85612312
+            },
+            {
+              "ms": 4.958525000000009,
+              "heapDeltaBytes": 3414536
+            },
+            {
+              "ms": 5.385906999999861,
+              "heapDeltaBytes": 3414920
+            },
+            {
+              "ms": 5.457574000000022,
+              "heapDeltaBytes": 3395856
+            },
+            {
+              "ms": 5.725497000001269,
+              "heapDeltaBytes": 3406824
+            },
+            {
+              "ms": 6.882944000000862,
+              "heapDeltaBytes": 3391624
+            },
+            {
+              "ms": 5.1865710000001854,
+              "heapDeltaBytes": 3431384
+            },
+            {
+              "ms": 5.828901000000769,
+              "heapDeltaBytes": 3394752
+            },
+            {
+              "ms": 4.825584999998682,
+              "heapDeltaBytes": 3436384
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 2848,
+            "indexEntries": 4096,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 16384,
+            "packedIndexBytes": 11392
+          },
+          "compactMs": 49.211857000000236,
+          "compactGameUnits": 2570397,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.5710980000003474,
+              "memoryBefore": {
+                "rss": 270663680,
+                "heapTotal": 204021760,
+                "heapUsed": 60285992,
+                "external": 4205623,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 270663680,
+                "heapTotal": 194584576,
+                "heapUsed": 58583504,
+                "external": 4164791,
+                "arrayBuffers": 232595
+              },
+              "heapAfter": 58583504,
+              "retainedDeltaBytes": -1702488,
+              "single100Ms": 8.2813129999995,
+              "scanMs": 0.8019440000007307,
+              "id20Ms": 4.3125249999993684,
+              "equalityMs": 13.377094999999827
+            },
+            {
+              "run": 1,
+              "constructMs": 0.9140520000000834,
+              "memoryBefore": {
+                "rss": 265867264,
+                "heapTotal": 195407872,
+                "heapUsed": 59577368,
+                "external": 4160823,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 265867264,
+                "heapTotal": 194359296,
+                "heapUsed": 57953096,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 57953096,
+              "retainedDeltaBytes": -1624272,
+              "single100Ms": 4.7080279999991035,
+              "scanMs": 0.7701859999997396,
+              "id20Ms": 4.563661999998658,
+              "equalityMs": 13.58878200000072
+            },
+            {
+              "run": 2,
+              "constructMs": 1.594293000000107,
+              "memoryBefore": {
+                "rss": 265867264,
+                "heapTotal": 195670016,
+                "heapUsed": 59571872,
+                "external": 4164919,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 265867264,
+                "heapTotal": 194621440,
+                "heapUsed": 57871544,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 57871544,
+              "retainedDeltaBytes": -1700328,
+              "single100Ms": 4.848659999999654,
+              "scanMs": 0.7340120000008028,
+              "id20Ms": 4.164141999999629,
+              "equalityMs": 13.41630299999997
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 11.841929000000164,
+              "heapDeltaBytes": -57212200
+            },
+            {
+              "ms": 4.947278000001461,
+              "heapDeltaBytes": 3394104
+            },
+            {
+              "ms": 4.373176000000967,
+              "heapDeltaBytes": 3383440
+            },
+            {
+              "ms": 5.261069000000134,
+              "heapDeltaBytes": 3408088
+            },
+            {
+              "ms": 5.5514750000002095,
+              "heapDeltaBytes": 3407856
+            },
+            {
+              "ms": 4.629340000001321,
+              "heapDeltaBytes": 3414992
+            },
+            {
+              "ms": 4.501428999999916,
+              "heapDeltaBytes": 3395768
+            },
+            {
+              "ms": 4.581018000000768,
+              "heapDeltaBytes": 3408168
+            },
+            {
+              "ms": 5.061740000001009,
+              "heapDeltaBytes": 3391888
+            },
+            {
+              "ms": 5.180958999999348,
+              "heapDeltaBytes": 3415760
+            },
+            {
+              "ms": 4.881900000000314,
+              "heapDeltaBytes": 3394616
+            },
+            {
+              "ms": 7.044597000000067,
+              "heapDeltaBytes": 3409664
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 2848,
+            "indexEntries": 0,
+            "varintBytes": 2848,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 4096,
+            "packedIndexBytes": 2848
+          },
+          "compactMs": 48.87189500000022,
+          "compactGameUnits": 2570397,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "mixed-100-year-1200-v8.json",
+      "inputSha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+      "month": 1200,
+      "formalUnits": 4938560,
+      "arrivalUnits": 1347528,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.001772999999957392,
+              "memoryBefore": {
+                "rss": 277688320,
+                "heapTotal": 219664384,
+                "heapUsed": 72854640,
+                "external": 4172983,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 277688320,
+                "heapTotal": 208130048,
+                "heapUsed": 72852392,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 72852392,
+              "retainedDeltaBytes": -2248,
+              "single100Ms": 0.013349999999263673,
+              "scanMs": 0.7603909999997995,
+              "id20Ms": 2.112080999999307,
+              "equalityMs": 22.242723999999725
+            },
+            {
+              "run": 1,
+              "constructMs": 0.0016720000003260793,
+              "memoryBefore": {
+                "rss": 256368640,
+                "heapTotal": 211574784,
+                "heapUsed": 76239272,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 256368640,
+                "heapTotal": 211574784,
+                "heapUsed": 76239416,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 76239416,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.013120000001435983,
+              "scanMs": 0.6457300000001851,
+              "id20Ms": 2.611940999999206,
+              "equalityMs": 26.58035800000107
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0015720000010333024,
+              "memoryBefore": {
+                "rss": 256360448,
+                "heapTotal": 212361216,
+                "heapUsed": 76239776,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 256360448,
+                "heapTotal": 211574784,
+                "heapUsed": 76239920,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 76239920,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.014500999999654596,
+              "scanMs": 0.7193900000002031,
+              "id20Ms": 2.7262030000001687,
+              "equalityMs": 26.10240999999951
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 10.081836999999723,
+              "heapDeltaBytes": 6710744
+            },
+            {
+              "ms": 9.965092000000368,
+              "heapDeltaBytes": 6363112
+            },
+            {
+              "ms": 10.762097999999241,
+              "heapDeltaBytes": 6354448
+            },
+            {
+              "ms": 9.435166000001118,
+              "heapDeltaBytes": 6363872
+            },
+            {
+              "ms": 10.104511999999886,
+              "heapDeltaBytes": 6395144
+            },
+            {
+              "ms": 9.922167000000627,
+              "heapDeltaBytes": 6420008
+            },
+            {
+              "ms": 9.563998999999967,
+              "heapDeltaBytes": 6397936
+            },
+            {
+              "ms": 9.5735339999992,
+              "heapDeltaBytes": 6362808
+            },
+            {
+              "ms": 10.212392999999793,
+              "heapDeltaBytes": 6417344
+            },
+            {
+              "ms": 9.690570000000662,
+              "heapDeltaBytes": 6382432
+            },
+            {
+              "ms": 10.117089999999735,
+              "heapDeltaBytes": 6491296
+            },
+            {
+              "ms": 10.234285999998974,
+              "heapDeltaBytes": 6379128
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 83.6766719999996,
+          "compactGameUnits": 3609292,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 2.091339999999036,
+              "memoryBefore": {
+                "rss": 288497664,
+                "heapTotal": 224681984,
+                "heapUsed": 83122200,
+                "external": 4144439,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 288641024,
+                "heapTotal": 217079808,
+                "heapUsed": 80653208,
+                "external": 4172855,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 80653208,
+              "retainedDeltaBytes": -2468992,
+              "single100Ms": 0.23469199999999546,
+              "scanMs": 1.4493160000001808,
+              "id20Ms": 9.913434000000052,
+              "equalityMs": 23.18211599999995
+            },
+            {
+              "run": 1,
+              "constructMs": 1.9462419999999838,
+              "memoryBefore": {
+                "rss": 266350592,
+                "heapTotal": 218447872,
+                "heapUsed": 82020416,
+                "external": 4156727,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 266350592,
+                "heapTotal": 216088576,
+                "heapUsed": 79587480,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 79587480,
+              "retainedDeltaBytes": -2432936,
+              "single100Ms": 0.039059000000634114,
+              "scanMs": 1.5602120000003197,
+              "id20Ms": 7.861042999998972,
+              "equalityMs": 26.906005999999252
+            },
+            {
+              "run": 2,
+              "constructMs": 1.8348649999988993,
+              "memoryBefore": {
+                "rss": 266305536,
+                "heapTotal": 218447872,
+                "heapUsed": 82016952,
+                "external": 4173111,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 266436608,
+                "heapTotal": 216780800,
+                "heapUsed": 79748064,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 79748064,
+              "retainedDeltaBytes": -2268888,
+              "single100Ms": 0.035834000000249944,
+              "scanMs": 1.483367000000726,
+              "id20Ms": 7.412358999999924,
+              "equalityMs": 26.775800999999774
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 7.157726999999795,
+              "heapDeltaBytes": 5049400
+            },
+            {
+              "ms": 7.310326000000714,
+              "heapDeltaBytes": 4956448
+            },
+            {
+              "ms": 8.024658000000272,
+              "heapDeltaBytes": 4823168
+            },
+            {
+              "ms": 7.084026000000449,
+              "heapDeltaBytes": 4899416
+            },
+            {
+              "ms": 6.992098000000624,
+              "heapDeltaBytes": 4982496
+            },
+            {
+              "ms": 7.009955000001355,
+              "heapDeltaBytes": 4844624
+            },
+            {
+              "ms": 6.900891999999658,
+              "heapDeltaBytes": 4846584
+            },
+            {
+              "ms": 7.13433200000145,
+              "heapDeltaBytes": 4929320
+            },
+            {
+              "ms": 6.708813000001101,
+              "heapDeltaBytes": 4836984
+            },
+            {
+              "ms": 7.197275999998965,
+              "heapDeltaBytes": 4844808
+            },
+            {
+              "ms": 7.1965739999996,
+              "heapDeltaBytes": 4906648
+            },
+            {
+              "ms": 7.537976999999955,
+              "heapDeltaBytes": 4954296
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 4063,
+            "indexEntries": 4096,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 16384,
+            "packedIndexBytes": 16252
+          },
+          "compactMs": 88.2116500000011,
+          "compactGameUnits": 3609292,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 2.5452409999998054,
+              "memoryBefore": {
+                "rss": 291971072,
+                "heapTotal": 225992704,
+                "heapUsed": 80781552,
+                "external": 4205623,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 292233216,
+                "heapTotal": 214364160,
+                "heapUsed": 78508008,
+                "external": 4164791,
+                "arrayBuffers": 232595
+              },
+              "heapAfter": 78508008,
+              "retainedDeltaBytes": -2273544,
+              "single100Ms": 9.987304000000222,
+              "scanMs": 1.1654099999996106,
+              "id20Ms": 7.522003000000041,
+              "equalityMs": 23.98950800000057
+            },
+            {
+              "run": 1,
+              "constructMs": 2.467153999999937,
+              "memoryBefore": {
+                "rss": 296148992,
+                "heapTotal": 215826432,
+                "heapUsed": 79694800,
+                "external": 4160823,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 296148992,
+                "heapTotal": 212942848,
+                "heapUsed": 77261848,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 77261848,
+              "retainedDeltaBytes": -2432952,
+              "single100Ms": 6.9365449999986595,
+              "scanMs": 1.234943999999814,
+              "id20Ms": 7.2023430000008375,
+              "equalityMs": 20.161330000000817
+            },
+            {
+              "run": 2,
+              "constructMs": 1.935946999999942,
+              "memoryBefore": {
+                "rss": 269623296,
+                "heapTotal": 215826432,
+                "heapUsed": 79697760,
+                "external": 4164919,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 269754368,
+                "heapTotal": 213372928,
+                "heapUsed": 77428872,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 77428872,
+              "retainedDeltaBytes": -2268888,
+              "single100Ms": 5.466476999999941,
+              "scanMs": 1.1260309999997844,
+              "id20Ms": 6.964076000000205,
+              "equalityMs": 27.594881000000896
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 9.565418000001955,
+              "heapDeltaBytes": -53630256
+            },
+            {
+              "ms": 7.126236000000063,
+              "heapDeltaBytes": 4922952
+            },
+            {
+              "ms": 7.03592099999878,
+              "heapDeltaBytes": 4931200
+            },
+            {
+              "ms": 6.826496999998199,
+              "heapDeltaBytes": 4924080
+            },
+            {
+              "ms": 7.2063859999980195,
+              "heapDeltaBytes": 4899592
+            },
+            {
+              "ms": 7.56137999999919,
+              "heapDeltaBytes": 4913656
+            },
+            {
+              "ms": 7.556071000002703,
+              "heapDeltaBytes": 4918816
+            },
+            {
+              "ms": 6.591874999998254,
+              "heapDeltaBytes": 4826088
+            },
+            {
+              "ms": 6.993066999999428,
+              "heapDeltaBytes": 4836984
+            },
+            {
+              "ms": 6.870802999997977,
+              "heapDeltaBytes": 4844856
+            },
+            {
+              "ms": 7.129582000001392,
+              "heapDeltaBytes": 4939544
+            },
+            {
+              "ms": 6.804384000002756,
+              "heapDeltaBytes": 4904208
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 4063,
+            "indexEntries": 0,
+            "varintBytes": 4063,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 4096,
+            "packedIndexBytes": 4063
+          },
+          "compactMs": 95.88207700000203,
+          "compactGameUnits": 3609292,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "mixed-30-year-360-v8.json",
+      "inputSha256": "4f042009960cc58785cce01bc7ee413c8503b72dc2e08a3b9f6dbc80bc1afde4",
+      "month": 360,
+      "formalUnits": 1830735,
+      "arrivalUnits": 478828,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.001392000001942506,
+              "memoryBefore": {
+                "rss": 280457216,
+                "heapTotal": 199258112,
+                "heapUsed": 54198344,
+                "external": 4169015,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 280457216,
+                "heapTotal": 189820928,
+                "heapUsed": 54195584,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 54195584,
+              "retainedDeltaBytes": -2760,
+              "single100Ms": 0.008111999999528052,
+              "scanMs": 0.10003999999753432,
+              "id20Ms": 2.654024000003119,
+              "equalityMs": 8.424474999999802
+            },
+            {
+              "run": 1,
+              "constructMs": 0.001631999999517575,
+              "memoryBefore": {
+                "rss": 273235968,
+                "heapTotal": 186007552,
+                "heapUsed": 50173784,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 273235968,
+                "heapTotal": 186007552,
+                "heapUsed": 50173912,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 50173912,
+              "retainedDeltaBytes": 128,
+              "single100Ms": 0.008092000000033295,
+              "scanMs": 0.23556299999836483,
+              "id20Ms": 0.5943219999971916,
+              "equalityMs": 7.636854000000312
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0015120000025490299,
+              "memoryBefore": {
+                "rss": 273235968,
+                "heapTotal": 186269696,
+                "heapUsed": 50174272,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 273235968,
+                "heapTotal": 186269696,
+                "heapUsed": 50174416,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 50174416,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.011416999997891253,
+              "scanMs": 0.1655289999980596,
+              "id20Ms": 0.8391100000008009,
+              "equalityMs": 7.878956000000471
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 4.859053000000131,
+              "heapDeltaBytes": 2464024
+            },
+            {
+              "ms": 3.9952569999986736,
+              "heapDeltaBytes": 2365792
+            },
+            {
+              "ms": 3.740303999999014,
+              "heapDeltaBytes": 2386696
+            },
+            {
+              "ms": 4.6527249999999185,
+              "heapDeltaBytes": 2373568
+            },
+            {
+              "ms": 5.379574999999022,
+              "heapDeltaBytes": 2382744
+            },
+            {
+              "ms": 3.8492179999993823,
+              "heapDeltaBytes": 2396032
+            },
+            {
+              "ms": 3.815696999998181,
+              "heapDeltaBytes": 2367760
+            },
+            {
+              "ms": 3.8379410000015923,
+              "heapDeltaBytes": 2385016
+            },
+            {
+              "ms": 4.124309999999241,
+              "heapDeltaBytes": 2386672
+            },
+            {
+              "ms": 3.7540349999981117,
+              "heapDeltaBytes": 2394032
+            },
+            {
+              "ms": 4.066444000000047,
+              "heapDeltaBytes": 2399376
+            },
+            {
+              "ms": 4.200455000001966,
+              "heapDeltaBytes": 2392088
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 27.202571999998327,
+          "compactGameUnits": 1381298,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.9222239999980957,
+              "memoryBefore": {
+                "rss": 275079168,
+                "heapTotal": 179200000,
+                "heapUsed": 37567736,
+                "external": 4144439,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 275079168,
+                "heapTotal": 172646400,
+                "heapUsed": 36660696,
+                "external": 4156471,
+                "arrayBuffers": 220307
+              },
+              "heapAfter": 36660696,
+              "retainedDeltaBytes": -907040,
+              "single100Ms": 0.0778969999992114,
+              "scanMs": 0.548743999999715,
+              "id20Ms": 5.5586829999992915,
+              "equalityMs": 7.564664999998058
+            },
+            {
+              "run": 1,
+              "constructMs": 0.7836859999988519,
+              "memoryBefore": {
+                "rss": 272314368,
+                "heapTotal": 173289472,
+                "heapUsed": 37126144,
+                "external": 4148535,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 272314368,
+                "heapTotal": 173027328,
+                "heapUsed": 36257744,
+                "external": 4164663,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 36257744,
+              "retainedDeltaBytes": -868400,
+              "single100Ms": 0.035964000002422836,
+              "scanMs": 0.4187889999993786,
+              "id20Ms": 3.311721000001853,
+              "equalityMs": 7.225275000000693
+            },
+            {
+              "run": 2,
+              "constructMs": 0.8195410000007541,
+              "memoryBefore": {
+                "rss": 272314368,
+                "heapTotal": 173289472,
+                "heapUsed": 37136656,
+                "external": 4156727,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 272314368,
+                "heapTotal": 172503040,
+                "heapUsed": 36309424,
+                "external": 4164663,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 36309424,
+              "retainedDeltaBytes": -827232,
+              "single100Ms": 0.0354940000033821,
+              "scanMs": 0.5235460000003513,
+              "id20Ms": 2.477097999999387,
+              "equalityMs": 7.452938000002177
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 2.6920000000027358,
+              "heapDeltaBytes": 1871816
+            },
+            {
+              "ms": 2.723627999999735,
+              "heapDeltaBytes": 1836960
+            },
+            {
+              "ms": 4.791551999998774,
+              "heapDeltaBytes": -69159840
+            },
+            {
+              "ms": 2.5645689999983006,
+              "heapDeltaBytes": 1818576
+            },
+            {
+              "ms": 2.7685749999982363,
+              "heapDeltaBytes": 1822056
+            },
+            {
+              "ms": 3.0365080000010494,
+              "heapDeltaBytes": 1834152
+            },
+            {
+              "ms": 2.5352060000004712,
+              "heapDeltaBytes": 1835608
+            },
+            {
+              "ms": 2.5954659999988507,
+              "heapDeltaBytes": 1836024
+            },
+            {
+              "ms": 3.2042599999986123,
+              "heapDeltaBytes": 1836024
+            },
+            {
+              "ms": 2.91679799999838,
+              "heapDeltaBytes": 1819840
+            },
+            {
+              "ms": 2.7721310000015364,
+              "heapDeltaBytes": 1832608
+            },
+            {
+              "ms": 2.7496869999995397,
+              "heapDeltaBytes": 1825008
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 1500,
+            "indexEntries": 2048,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 8192,
+            "packedIndexBytes": 6000
+          },
+          "compactMs": 26.841165000001638,
+          "compactGameUnits": 1381298,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.8933209999995597,
+              "memoryBefore": {
+                "rss": 275079168,
+                "heapTotal": 178675712,
+                "heapUsed": 36738872,
+                "external": 4172855,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 275079168,
+                "heapTotal": 171073536,
+                "heapUsed": 35868384,
+                "external": 4152503,
+                "arrayBuffers": 222355
+              },
+              "heapAfter": 35868384,
+              "retainedDeltaBytes": -870488,
+              "single100Ms": 3.735637999998289,
+              "scanMs": 0.2777569999998377,
+              "id20Ms": 2.3966569999975036,
+              "equalityMs": 7.448238999997557
+            },
+            {
+              "run": 1,
+              "constructMs": 0.6735010000011243,
+              "memoryBefore": {
+                "rss": 272449536,
+                "heapTotal": 171716608,
+                "heapUsed": 36318968,
+                "external": 4150583,
+                "arrayBuffers": 222355
+              },
+              "memoryAfter": {
+                "rss": 272449536,
+                "heapTotal": 171454464,
+                "heapUsed": 35444464,
+                "external": 4154551,
+                "arrayBuffers": 224403
+              },
+              "heapAfter": 35444464,
+              "retainedDeltaBytes": -874504,
+              "single100Ms": 2.3635170000015933,
+              "scanMs": 0.27574400000230526,
+              "id20Ms": 2.3372180000005756,
+              "equalityMs": 7.403041999998095
+            },
+            {
+              "run": 2,
+              "constructMs": 0.6073319999995874,
+              "memoryBefore": {
+                "rss": 272449536,
+                "heapTotal": 172240896,
+                "heapUsed": 36313848,
+                "external": 4152631,
+                "arrayBuffers": 222355
+              },
+              "memoryAfter": {
+                "rss": 272449536,
+                "heapTotal": 171978752,
+                "heapUsed": 35445448,
+                "external": 4154551,
+                "arrayBuffers": 224403
+              },
+              "heapAfter": 35445448,
+              "retainedDeltaBytes": -868400,
+              "single100Ms": 2.086382000001322,
+              "scanMs": 0.2738309999986086,
+              "id20Ms": 2.0195009999988542,
+              "equalityMs": 7.606116999999358
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 3.021485000001121,
+              "heapDeltaBytes": 1888624
+            },
+            {
+              "ms": 3.161294999998063,
+              "heapDeltaBytes": 1812088
+            },
+            {
+              "ms": 6.393006999998761,
+              "heapDeltaBytes": -69283136
+            },
+            {
+              "ms": 2.728115000001708,
+              "heapDeltaBytes": 1836544
+            },
+            {
+              "ms": 3.1915509999998903,
+              "heapDeltaBytes": 1822040
+            },
+            {
+              "ms": 2.5716299999985495,
+              "heapDeltaBytes": 1833880
+            },
+            {
+              "ms": 2.5826369999995222,
+              "heapDeltaBytes": 1805352
+            },
+            {
+              "ms": 2.603436999997939,
+              "heapDeltaBytes": 1836024
+            },
+            {
+              "ms": 2.7622560000017984,
+              "heapDeltaBytes": 1822144
+            },
+            {
+              "ms": 2.7953960000013467,
+              "heapDeltaBytes": 1822992
+            },
+            {
+              "ms": 2.5291870000000927,
+              "heapDeltaBytes": 1836336
+            },
+            {
+              "ms": 2.9185400000023947,
+              "heapDeltaBytes": 1824408
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 1500,
+            "indexEntries": 0,
+            "varintBytes": 1500,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 2048,
+            "packedIndexBytes": 1500
+          },
+          "compactMs": 24.197242000002007,
+          "compactGameUnits": 1381298,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "mixed-60-year-720-v8.json",
+      "inputSha256": "c7a123afd6734977de4f46d244b7b4085c278128630e73d90156cd88095b4ff6",
+      "month": 720,
+      "formalUnits": 2917707,
+      "arrivalUnits": 785489,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.0019030000003112946,
+              "memoryBefore": {
+                "rss": 279154688,
+                "heapTotal": 186798080,
+                "heapUsed": 45863800,
+                "external": 4156599,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 279154688,
+                "heapTotal": 181293056,
+                "heapUsed": 45861088,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 45861088,
+              "retainedDeltaBytes": -2712,
+              "single100Ms": 0.013640000001032604,
+              "scanMs": 0.32005000000208383,
+              "id20Ms": 1.4100969999999506,
+              "equalityMs": 11.526541999999608
+            },
+            {
+              "run": 1,
+              "constructMs": 0.0019520000023476314,
+              "memoryBefore": {
+                "rss": 276381696,
+                "heapTotal": 183508992,
+                "heapUsed": 48130528,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 276381696,
+                "heapTotal": 183771136,
+                "heapUsed": 48130672,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 48130672,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.014171999999234686,
+              "scanMs": 0.38963499999954365,
+              "id20Ms": 1.4662810000008903,
+              "equalityMs": 11.169034999998985
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0018530000015744008,
+              "memoryBefore": {
+                "rss": 276381696,
+                "heapTotal": 184033280,
+                "heapUsed": 48131032,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 276381696,
+                "heapTotal": 184033280,
+                "heapUsed": 48131176,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 48131176,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.014341000001877546,
+              "scanMs": 0.2780669999992824,
+              "id20Ms": 1.4853499999990163,
+              "equalityMs": 11.540192000000388
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 6.226205999999365,
+              "heapDeltaBytes": 3768904
+            },
+            {
+              "ms": 5.668299000000843,
+              "heapDeltaBytes": 3906528
+            },
+            {
+              "ms": 10.135122999996383,
+              "heapDeltaBytes": 3759176
+            },
+            {
+              "ms": 6.052094000002398,
+              "heapDeltaBytes": 3760144
+            },
+            {
+              "ms": 6.77451800000199,
+              "heapDeltaBytes": 3760800
+            },
+            {
+              "ms": 5.981618999998318,
+              "heapDeltaBytes": 3760488
+            },
+            {
+              "ms": 6.315340000001015,
+              "heapDeltaBytes": 3762520
+            },
+            {
+              "ms": 5.824463000000833,
+              "heapDeltaBytes": 3760488
+            },
+            {
+              "ms": 5.7144570000018575,
+              "heapDeltaBytes": 3760488
+            },
+            {
+              "ms": 6.318162999999913,
+              "heapDeltaBytes": 3762856
+            },
+            {
+              "ms": 6.010362000000896,
+              "heapDeltaBytes": 3763752
+            },
+            {
+              "ms": 6.312365999998292,
+              "heapDeltaBytes": 3764408
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 42.94640399999844,
+          "compactGameUnits": 2138312,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.417937999998685,
+              "memoryBefore": {
+                "rss": 280662016,
+                "heapTotal": 194605056,
+                "heapUsed": 53132384,
+                "external": 4142391,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 280662016,
+                "heapTotal": 187265024,
+                "heapUsed": 51754504,
+                "external": 4172855,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 51754504,
+              "retainedDeltaBytes": -1377880,
+              "single100Ms": 0.18207299999994575,
+              "scanMs": 1.1689239999977872,
+              "id20Ms": 7.922300999998697,
+              "equalityMs": 11.045579000001453
+            },
+            {
+              "run": 1,
+              "constructMs": 1.4389699999992445,
+              "memoryBefore": {
+                "rss": 276471808,
+                "heapTotal": 188227584,
+                "heapUsed": 52476456,
+                "external": 4156727,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 276471808,
+                "heapTotal": 186654720,
+                "heapUsed": 51054576,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 51054576,
+              "retainedDeltaBytes": -1421880,
+              "single100Ms": 0.058598000003257766,
+              "scanMs": 0.862064000000828,
+              "id20Ms": 4.829980999998952,
+              "equalityMs": 11.640843000001041
+            },
+            {
+              "run": 2,
+              "constructMs": 1.3054789999987406,
+              "memoryBefore": {
+                "rss": 276475904,
+                "heapTotal": 188751872,
+                "heapUsed": 52473992,
+                "external": 4173111,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 276475904,
+                "heapTotal": 186916864,
+                "heapUsed": 51052112,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 51052112,
+              "retainedDeltaBytes": -1421880,
+              "single100Ms": 0.03598400000191759,
+              "scanMs": 0.8629049999981362,
+              "id20Ms": 4.294095999997808,
+              "equalityMs": 11.083756999996695
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 3.7831590000023425,
+              "heapDeltaBytes": 2835424
+            },
+            {
+              "ms": 4.017640999998548,
+              "heapDeltaBytes": 2980296
+            },
+            {
+              "ms": 4.182637999998406,
+              "heapDeltaBytes": 2837200
+            },
+            {
+              "ms": 6.835315000000264,
+              "heapDeltaBytes": -82241048
+            },
+            {
+              "ms": 4.079703999999765,
+              "heapDeltaBytes": 2863064
+            },
+            {
+              "ms": 3.71502700000201,
+              "heapDeltaBytes": 2868544
+            },
+            {
+              "ms": 3.747826000002533,
+              "heapDeltaBytes": 2868544
+            },
+            {
+              "ms": 4.267626000000746,
+              "heapDeltaBytes": 2868544
+            },
+            {
+              "ms": 3.840535000003001,
+              "heapDeltaBytes": 2868544
+            },
+            {
+              "ms": 4.455057999999553,
+              "heapDeltaBytes": 2855728
+            },
+            {
+              "ms": 4.341967999996996,
+              "heapDeltaBytes": 2853848
+            },
+            {
+              "ms": 3.8653720000002068,
+              "heapDeltaBytes": 2855536
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 2379,
+            "indexEntries": 4096,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 16384,
+            "packedIndexBytes": 9516
+          },
+          "compactMs": 39.71848800000225,
+          "compactGameUnits": 2138312,
+          "formalCapChanged": false,
+          "fullModelBoundary": "unexpected success; not certified"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.9017739999981131,
+              "memoryBefore": {
+                "rss": 280760320,
+                "heapTotal": 192507904,
+                "heapUsed": 51727832,
+                "external": 4205623,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 280760320,
+                "heapTotal": 186740736,
+                "heapUsed": 50382376,
+                "external": 4164791,
+                "arrayBuffers": 232595
+              },
+              "heapAfter": 50382376,
+              "retainedDeltaBytes": -1345456,
+              "single100Ms": 5.49292499999865,
+              "scanMs": 0.6963549999964016,
+              "id20Ms": 3.8960279999992053,
+              "equalityMs": 11.349416000000929
+            },
+            {
+              "run": 1,
+              "constructMs": 1.4898360000006505,
+              "memoryBefore": {
+                "rss": 276488192,
+                "heapTotal": 187179008,
+                "heapUsed": 51084696,
+                "external": 4160823,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 276488192,
+                "heapTotal": 186392576,
+                "heapUsed": 49662816,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 49662816,
+              "retainedDeltaBytes": -1421880,
+              "single100Ms": 4.395487999998295,
+              "scanMs": 0.6533110000018496,
+              "id20Ms": 4.925223999998707,
+              "equalityMs": 14.78545899999881
+            },
+            {
+              "run": 2,
+              "constructMs": 0.8985000000029686,
+              "memoryBefore": {
+                "rss": 276488192,
+                "heapTotal": 187441152,
+                "heapUsed": 51085200,
+                "external": 4164919,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 276488192,
+                "heapTotal": 186654720,
+                "heapUsed": 49663320,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 49663320,
+              "retainedDeltaBytes": -1421880,
+              "single100Ms": 4.2745580000009795,
+              "scanMs": 0.5612629999995988,
+              "id20Ms": 4.577572000001965,
+              "equalityMs": 12.70475499999884
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 4.510882999999012,
+              "heapDeltaBytes": 2867888
+            },
+            {
+              "ms": 6.157756000000518,
+              "heapDeltaBytes": -58880560
+            },
+            {
+              "ms": 5.765036000000691,
+              "heapDeltaBytes": 2883600
+            },
+            {
+              "ms": 5.031624999999622,
+              "heapDeltaBytes": 2883912
+            },
+            {
+              "ms": 4.471824000000197,
+              "heapDeltaBytes": 2883912
+            },
+            {
+              "ms": 5.930655000000115,
+              "heapDeltaBytes": 2839112
+            },
+            {
+              "ms": 4.188487999999779,
+              "heapDeltaBytes": 2839320
+            },
+            {
+              "ms": 4.6484700000000885,
+              "heapDeltaBytes": 2883600
+            },
+            {
+              "ms": 3.844782000000123,
+              "heapDeltaBytes": 2839256
+            },
+            {
+              "ms": 3.9208769999968354,
+              "heapDeltaBytes": 2855648
+            },
+            {
+              "ms": 3.9967599999981758,
+              "heapDeltaBytes": 2861808
+            },
+            {
+              "ms": 4.324472000000242,
+              "heapDeltaBytes": 2884224
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 2379,
+            "indexEntries": 0,
+            "varintBytes": 2379,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 4096,
+            "packedIndexBytes": 2379
+          },
+          "compactMs": 42.13216800000009,
+          "compactGameUnits": 2138312,
+          "formalCapChanged": false,
+          "fullModelBoundary": "unexpected success; not certified"
+        }
+      }
+    },
+    {
+      "file": "mixed-90-year-1080-v8.json",
+      "inputSha256": "54fa50613773295f2fec14ce10d59ba51ee39cdfdd1de5bf23f1c52b5aada842",
+      "month": 1080,
+      "formalUnits": 4425277,
+      "arrivalUnits": 1205032,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.0017219999972439837,
+              "memoryBefore": {
+                "rss": 277864448,
+                "heapTotal": 209666048,
+                "heapUsed": 64848768,
+                "external": 4169015,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 277864448,
+                "heapTotal": 201015296,
+                "heapUsed": 64845816,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 64845816,
+              "retainedDeltaBytes": -2952,
+              "single100Ms": 0.013130000003002351,
+              "scanMs": 0.5938419999984035,
+              "id20Ms": 2.0787710000004154,
+              "equalityMs": 23.931852000001527
+            },
+            {
+              "run": 1,
+              "constructMs": 0.0016030000006139744,
+              "memoryBefore": {
+                "rss": 267546624,
+                "heapTotal": 204537856,
+                "heapUsed": 68233984,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 267546624,
+                "heapTotal": 204537856,
+                "heapUsed": 68234128,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 68234128,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.012958999999682419,
+              "scanMs": 0.6958539999977802,
+              "id20Ms": 2.3293270000031043,
+              "equalityMs": 24.60777600000074
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0016329999998561107,
+              "memoryBefore": {
+                "rss": 292741120,
+                "heapTotal": 204800000,
+                "heapUsed": 68234488,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 292741120,
+                "heapTotal": 204275712,
+                "heapUsed": 68234632,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 68234632,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.013138999998773215,
+              "scanMs": 0.7575770000003104,
+              "id20Ms": 2.3644899999999325,
+              "equalityMs": 18.44369099999676
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 8.421583999999712,
+              "heapDeltaBytes": 5968472
+            },
+            {
+              "ms": 8.39828900000066,
+              "heapDeltaBytes": 5712256
+            },
+            {
+              "ms": 8.655044999999518,
+              "heapDeltaBytes": 5711216
+            },
+            {
+              "ms": 9.052010999999766,
+              "heapDeltaBytes": 5768568
+            },
+            {
+              "ms": 9.305680999998003,
+              "heapDeltaBytes": 5713656
+            },
+            {
+              "ms": 8.596536000000924,
+              "heapDeltaBytes": 5715080
+            },
+            {
+              "ms": 9.204589000000851,
+              "heapDeltaBytes": 5767632
+            },
+            {
+              "ms": 8.84371800000008,
+              "heapDeltaBytes": 5767008
+            },
+            {
+              "ms": 8.672129999999015,
+              "heapDeltaBytes": 5767320
+            },
+            {
+              "ms": 10.319804999999178,
+              "heapDeltaBytes": 5767632
+            },
+            {
+              "ms": 9.180362999999488,
+              "heapDeltaBytes": 5707664
+            },
+            {
+              "ms": 8.708784999998898,
+              "heapDeltaBytes": 5730128
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 86.64361700000154,
+          "compactGameUnits": 3237465,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 2.7530539999970642,
+              "memoryBefore": {
+                "rss": 304648192,
+                "heapTotal": 221401088,
+                "heapUsed": 75793272,
+                "external": 4144439,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 304648192,
+                "heapTotal": 209866752,
+                "heapUsed": 73526408,
+                "external": 4172855,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 73526408,
+              "retainedDeltaBytes": -2266864,
+              "single100Ms": 0.022553999999217922,
+              "scanMs": 1.479009999999107,
+              "id20Ms": 6.950936000001093,
+              "equalityMs": 22.58551499999885
+            },
+            {
+              "run": 1,
+              "constructMs": 1.7117299999990792,
+              "memoryBefore": {
+                "rss": 298328064,
+                "heapTotal": 210931712,
+                "heapUsed": 74746312,
+                "external": 4156727,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 298328064,
+                "heapTotal": 209358848,
+                "heapUsed": 72569648,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 72569648,
+              "retainedDeltaBytes": -2176664,
+              "single100Ms": 0.015714000001025852,
+              "scanMs": 2.301606000000902,
+              "id20Ms": 7.151157000000239,
+              "equalityMs": 22.251898999998957
+            },
+            {
+              "run": 2,
+              "constructMs": 1.8976499999989755,
+              "memoryBefore": {
+                "rss": 298328064,
+                "heapTotal": 210931712,
+                "heapUsed": 74746816,
+                "external": 4173111,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 298328064,
+                "heapTotal": 209358848,
+                "heapUsed": 72570152,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 72570152,
+              "retainedDeltaBytes": -2176664,
+              "single100Ms": 0.016124000001582317,
+              "scanMs": 1.5104080000019167,
+              "id20Ms": 7.6546330000019225,
+              "equalityMs": 23.22975199999928
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 6.081589999997959,
+              "heapDeltaBytes": 4580880
+            },
+            {
+              "ms": 6.549933999998757,
+              "heapDeltaBytes": 4328416
+            },
+            {
+              "ms": 7.532600000002276,
+              "heapDeltaBytes": 4338408
+            },
+            {
+              "ms": 7.039270000001125,
+              "heapDeltaBytes": 4353608
+            },
+            {
+              "ms": 6.378467000002274,
+              "heapDeltaBytes": 4337312
+            },
+            {
+              "ms": 6.515062000002217,
+              "heapDeltaBytes": 4349048
+            },
+            {
+              "ms": 6.098336000002746,
+              "heapDeltaBytes": 4338760
+            },
+            {
+              "ms": 6.6337989999992715,
+              "heapDeltaBytes": 4326920
+            },
+            {
+              "ms": 6.458145999997214,
+              "heapDeltaBytes": 4334216
+            },
+            {
+              "ms": 5.83480100000088,
+              "heapDeltaBytes": 4347320
+            },
+            {
+              "ms": 6.215280999997049,
+              "heapDeltaBytes": 4329544
+            },
+            {
+              "ms": 6.306738999999652,
+              "heapDeltaBytes": 4350840
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 3640,
+            "indexEntries": 4096,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 16384,
+            "packedIndexBytes": 14560
+          },
+          "compactMs": 61.76169900000241,
+          "compactGameUnits": 3237465,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.0550640000001295,
+              "memoryBefore": {
+                "rss": 297279488,
+                "heapTotal": 208039936,
+                "heapUsed": 59676704,
+                "external": 4205623,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 297279488,
+                "heapTotal": 193622016,
+                "heapUsed": 57496344,
+                "external": 4164791,
+                "arrayBuffers": 232595
+              },
+              "heapAfter": 57496344,
+              "retainedDeltaBytes": -2180360,
+              "single100Ms": 5.425886000000901,
+              "scanMs": 1.0799209999968298,
+              "id20Ms": 6.0042150000008405,
+              "equalityMs": 19.6681290000015
+            },
+            {
+              "run": 1,
+              "constructMs": 1.3633060000029218,
+              "memoryBefore": {
+                "rss": 290938880,
+                "heapTotal": 194949120,
+                "heapUsed": 58715312,
+                "external": 4160823,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 291069952,
+                "heapTotal": 193544192,
+                "heapUsed": 56702696,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 56702696,
+              "retainedDeltaBytes": -2012616,
+              "single100Ms": 6.738387000001239,
+              "scanMs": 1.3361259999983304,
+              "id20Ms": 6.236222999999882,
+              "equalityMs": 20.916403999999602
+            },
+            {
+              "run": 2,
+              "constructMs": 1.7699769999999262,
+              "memoryBefore": {
+                "rss": 290938880,
+                "heapTotal": 195473408,
+                "heapUsed": 58715816,
+                "external": 4164919,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 290938880,
+                "heapTotal": 193114112,
+                "heapUsed": 56539152,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 56539152,
+              "retainedDeltaBytes": -2176664,
+              "single100Ms": 6.19701399999758,
+              "scanMs": 1.0697959999997693,
+              "id20Ms": 7.324367000001075,
+              "equalityMs": 18.897793000000092
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 6.268121000000974,
+              "heapDeltaBytes": 4597760
+            },
+            {
+              "ms": 6.162222000002657,
+              "heapDeltaBytes": 4382792
+            },
+            {
+              "ms": 6.3989070000025094,
+              "heapDeltaBytes": 4381768
+            },
+            {
+              "ms": 6.401090999999724,
+              "heapDeltaBytes": 4353416
+            },
+            {
+              "ms": 6.445196999997279,
+              "heapDeltaBytes": 4336984
+            },
+            {
+              "ms": 6.203794999997626,
+              "heapDeltaBytes": 4378944
+            },
+            {
+              "ms": 9.605792999998812,
+              "heapDeltaBytes": 4378208
+            },
+            {
+              "ms": 5.773517999998148,
+              "heapDeltaBytes": 4326856
+            },
+            {
+              "ms": 6.935973000003287,
+              "heapDeltaBytes": 4333992
+            },
+            {
+              "ms": 6.063712999999552,
+              "heapDeltaBytes": 4377824
+            },
+            {
+              "ms": 6.018255999999383,
+              "heapDeltaBytes": 4377200
+            },
+            {
+              "ms": 6.089453000000503,
+              "heapDeltaBytes": 4350872
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 3640,
+            "indexEntries": 0,
+            "varintBytes": 3640,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 4096,
+            "packedIndexBytes": 3640
+          },
+          "compactMs": 60.15654899999936,
+          "compactGameUnits": 3237465,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "wide-100-year-1200-v8.json",
+      "inputSha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+      "month": 1200,
+      "formalUnits": 5838093,
+      "arrivalUnits": 1609859,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.002072999999654712,
+              "memoryBefore": {
+                "rss": 312737792,
+                "heapTotal": 230473728,
+                "heapUsed": 85579048,
+                "external": 4169015,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 312737792,
+                "heapTotal": 221822976,
+                "heapUsed": 85577360,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 85577360,
+              "retainedDeltaBytes": -1688,
+              "single100Ms": 0.01466200000140816,
+              "scanMs": 0.8903570000002219,
+              "id20Ms": 3.1180609999973967,
+              "equalityMs": 22.32431799999904
+            },
+            {
+              "run": 1,
+              "constructMs": 0.0015419999981531873,
+              "memoryBefore": {
+                "rss": 306462720,
+                "heapTotal": 225247232,
+                "heapUsed": 89138704,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 306462720,
+                "heapTotal": 225247232,
+                "heapUsed": 89132776,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 89132776,
+              "retainedDeltaBytes": -5928,
+              "single100Ms": 0.01395099999717786,
+              "scanMs": 0.9795909999993455,
+              "id20Ms": 3.173012999999628,
+              "equalityMs": 22.466780999999173
+            },
+            {
+              "run": 2,
+              "constructMs": 0.001511999998911051,
+              "memoryBefore": {
+                "rss": 306462720,
+                "heapTotal": 226033664,
+                "heapUsed": 89133136,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 306462720,
+                "heapTotal": 225247232,
+                "heapUsed": 89133280,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 89133280,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.010605999999825144,
+              "scanMs": 1.0208329999986745,
+              "id20Ms": 2.00931700000001,
+              "equalityMs": 23.041283999998996
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 12.69250699999975,
+              "heapDeltaBytes": 7920184
+            },
+            {
+              "ms": 12.299215999999433,
+              "heapDeltaBytes": 7603464
+            },
+            {
+              "ms": 12.333496999999625,
+              "heapDeltaBytes": 7602840
+            },
+            {
+              "ms": 11.54038700000092,
+              "heapDeltaBytes": 7622072
+            },
+            {
+              "ms": 12.531504999999015,
+              "heapDeltaBytes": 7602528
+            },
+            {
+              "ms": 11.922761000001628,
+              "heapDeltaBytes": 7574544
+            },
+            {
+              "ms": 12.13124500000049,
+              "heapDeltaBytes": 7623616
+            },
+            {
+              "ms": 16.315866999997525,
+              "heapDeltaBytes": 7623544
+            },
+            {
+              "ms": 11.298623999999108,
+              "heapDeltaBytes": 7628240
+            },
+            {
+              "ms": 11.353426000001491,
+              "heapDeltaBytes": 7625832
+            },
+            {
+              "ms": 11.354348000000755,
+              "heapDeltaBytes": 7607656
+            },
+            {
+              "ms": 12.04780799999935,
+              "heapDeltaBytes": 7611624
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 82.31941899999947,
+          "compactGameUnits": 4260476,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 3.0337340000005497,
+              "memoryBefore": {
+                "rss": 322060288,
+                "heapTotal": 236806144,
+                "heapUsed": 96160304,
+                "external": 4144439,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 322060288,
+                "heapTotal": 229203968,
+                "heapUsed": 93219680,
+                "external": 4205623,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 93219680,
+              "retainedDeltaBytes": -2940624,
+              "single100Ms": 0.08266399999774876,
+              "scanMs": 2.4445699999996577,
+              "id20Ms": 14.112669000001915,
+              "equalityMs": 24.561836000000767
+            },
+            {
+              "run": 1,
+              "constructMs": 2.356959000000643,
+              "memoryBefore": {
+                "rss": 313737216,
+                "heapTotal": 230842368,
+                "heapUsed": 94806224,
+                "external": 4173111,
+                "arrayBuffers": 244883
+              },
+              "memoryAfter": {
+                "rss": 313737216,
+                "heapTotal": 228483072,
+                "heapUsed": 91902120,
+                "external": 4238391,
+                "arrayBuffers": 277651
+              },
+              "heapAfter": 91902120,
+              "retainedDeltaBytes": -2904104,
+              "single100Ms": 0.06141199999910896,
+              "scanMs": 1.778149999998277,
+              "id20Ms": 9.941005999997287,
+              "equalityMs": 23.704799999999523
+            },
+            {
+              "run": 2,
+              "constructMs": 2.2759770000011486,
+              "memoryBefore": {
+                "rss": 313741312,
+                "heapTotal": 231366656,
+                "heapUsed": 94802760,
+                "external": 4205879,
+                "arrayBuffers": 244883
+              },
+              "memoryAfter": {
+                "rss": 314114048,
+                "heapTotal": 229437440,
+                "heapUsed": 92066392,
+                "external": 4238391,
+                "arrayBuffers": 277651
+              },
+              "heapAfter": 92066392,
+              "retainedDeltaBytes": -2736368,
+              "single100Ms": 0.04052100000262726,
+              "scanMs": 1.7597920000007434,
+              "id20Ms": 8.078758999999991,
+              "equalityMs": 23.158048999997845
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 9.90807599999971,
+              "heapDeltaBytes": 6000664
+            },
+            {
+              "ms": 8.98875500000213,
+              "heapDeltaBytes": 5747024
+            },
+            {
+              "ms": 8.394123000001855,
+              "heapDeltaBytes": 5767944
+            },
+            {
+              "ms": 9.767815999999584,
+              "heapDeltaBytes": 5768880
+            },
+            {
+              "ms": 8.5081339999997,
+              "heapDeltaBytes": 5767632
+            },
+            {
+              "ms": 9.609897999998793,
+              "heapDeltaBytes": 5767632
+            },
+            {
+              "ms": 7.720070999999734,
+              "heapDeltaBytes": 5768568
+            },
+            {
+              "ms": 8.301322999999684,
+              "heapDeltaBytes": 5768256
+            },
+            {
+              "ms": 8.891109000000142,
+              "heapDeltaBytes": 5786200
+            },
+            {
+              "ms": 8.12550000000192,
+              "heapDeltaBytes": 5785376
+            },
+            {
+              "ms": 9.965832999998383,
+              "heapDeltaBytes": 5893984
+            },
+            {
+              "ms": 8.537458000002516,
+              "heapDeltaBytes": 5772552
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 4852,
+            "indexEntries": 8192,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 32768,
+            "packedIndexBytes": 19408
+          },
+          "compactMs": 86.1642860000029,
+          "compactGameUnits": 4260476,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 4.1126750000003085,
+              "memoryBefore": {
+                "rss": 297107456,
+                "heapTotal": 236806144,
+                "heapUsed": 93275168,
+                "external": 4271159,
+                "arrayBuffers": 244883
+              },
+              "memoryAfter": {
+                "rss": 297127936,
+                "heapTotal": 227106816,
+                "heapUsed": 90370112,
+                "external": 4189367,
+                "arrayBuffers": 253075
+              },
+              "heapAfter": 90370112,
+              "retainedDeltaBytes": -2905056,
+              "single100Ms": 11.137651999997615,
+              "scanMs": 1.317458000001352,
+              "id20Ms": 7.322103999998944,
+              "equalityMs": 30.610187999998743
+            },
+            {
+              "run": 1,
+              "constructMs": 2.8851319999994303,
+              "memoryBefore": {
+                "rss": 316727296,
+                "heapTotal": 228745216,
+                "heapUsed": 91934792,
+                "external": 4181303,
+                "arrayBuffers": 253075
+              },
+              "memoryAfter": {
+                "rss": 316727296,
+                "heapTotal": 226123776,
+                "heapUsed": 89030672,
+                "external": 4197559,
+                "arrayBuffers": 261267
+              },
+              "heapAfter": 89030672,
+              "retainedDeltaBytes": -2904120,
+              "single100Ms": 8.231649999997899,
+              "scanMs": 1.373873000000458,
+              "id20Ms": 7.652939999999944,
+              "equalityMs": 21.945698999999877
+            },
+            {
+              "run": 2,
+              "constructMs": 2.4277149999979883,
+              "memoryBefore": {
+                "rss": 316899328,
+                "heapTotal": 229531648,
+                "heapUsed": 91937824,
+                "external": 4189495,
+                "arrayBuffers": 253075
+              },
+              "memoryAfter": {
+                "rss": 317161472,
+                "heapTotal": 226816000,
+                "heapUsed": 89201560,
+                "external": 4197559,
+                "arrayBuffers": 261267
+              },
+              "heapAfter": 89201560,
+              "retainedDeltaBytes": -2736264,
+              "single100Ms": 8.329785999998421,
+              "scanMs": 1.2280339999997523,
+              "id20Ms": 7.099349000000075,
+              "equalityMs": 22.118899999997666
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 8.691440999995393,
+              "heapDeltaBytes": 6030464
+            },
+            {
+              "ms": 8.524971999999252,
+              "heapDeltaBytes": 5746856
+            },
+            {
+              "ms": 8.302567999999155,
+              "heapDeltaBytes": 5743016
+            },
+            {
+              "ms": 8.715167000002111,
+              "heapDeltaBytes": 5763408
+            },
+            {
+              "ms": 8.202016000002914,
+              "heapDeltaBytes": 5743800
+            },
+            {
+              "ms": 9.15092100000038,
+              "heapDeltaBytes": 5767632
+            },
+            {
+              "ms": 8.876518999997643,
+              "heapDeltaBytes": 5768568
+            },
+            {
+              "ms": 10.074688000000606,
+              "heapDeltaBytes": 5761136
+            },
+            {
+              "ms": 8.260484000005818,
+              "heapDeltaBytes": 5785976
+            },
+            {
+              "ms": 9.520156999999017,
+              "heapDeltaBytes": 5785072
+            },
+            {
+              "ms": 8.08348699999624,
+              "heapDeltaBytes": 5893984
+            },
+            {
+              "ms": 10.1667679999955,
+              "heapDeltaBytes": 5772616
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 4852,
+            "indexEntries": 0,
+            "varintBytes": 4852,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 8192,
+            "packedIndexBytes": 4852
+          },
+          "compactMs": 98.26636800000415,
+          "compactGameUnits": 4260476,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "wide-30-year-360-v8.json",
+      "inputSha256": "3e5464f100f92d25ca27e8f0c001e335aa13750b35e4ba7ef698bbb4ddd1d221",
+      "month": 360,
+      "formalUnits": 2328417,
+      "arrivalUnits": 624482,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.0015720000010333024,
+              "memoryBefore": {
+                "rss": 315867136,
+                "heapTotal": 213876736,
+                "heapUsed": 63401960,
+                "external": 4197687,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 315736064,
+                "heapTotal": 198672384,
+                "heapUsed": 63399688,
+                "external": 4148535,
+                "arrayBuffers": 220307
+              },
+              "heapAfter": 63399688,
+              "retainedDeltaBytes": -2272,
+              "single100Ms": 0.014130999996268656,
+              "scanMs": 0.3990899999989779,
+              "id20Ms": 1.2446490000002086,
+              "equalityMs": 11.34943299999577
+            },
+            {
+              "run": 1,
+              "constructMs": 0.0017630000002100132,
+              "memoryBefore": {
+                "rss": 307208192,
+                "heapTotal": 194080768,
+                "heapUsed": 58916160,
+                "external": 4148535,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 307208192,
+                "heapTotal": 194342912,
+                "heapUsed": 58916304,
+                "external": 4148535,
+                "arrayBuffers": 220307
+              },
+              "heapAfter": 58916304,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.01054600000497885,
+              "scanMs": 0.19910900000104448,
+              "id20Ms": 0.6443469999940135,
+              "equalityMs": 14.286783000003197
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0019730000058189034,
+              "memoryBefore": {
+                "rss": 307208192,
+                "heapTotal": 194605056,
+                "heapUsed": 58916664,
+                "external": 4148535,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 307208192,
+                "heapTotal": 194080768,
+                "heapUsed": 58916808,
+                "external": 4148535,
+                "arrayBuffers": 220307
+              },
+              "heapAfter": 58916808,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.00926400000025751,
+              "scanMs": 0.19349000000511296,
+              "id20Ms": 0.8102760000037961,
+              "equalityMs": 9.145123000002059
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 4.902672999996867,
+              "heapDeltaBytes": 3200656
+            },
+            {
+              "ms": 4.5542980000027455,
+              "heapDeltaBytes": 3014312
+            },
+            {
+              "ms": 4.954318999996758,
+              "heapDeltaBytes": 3004608
+            },
+            {
+              "ms": 5.2158219999982975,
+              "heapDeltaBytes": 3040000
+            },
+            {
+              "ms": 5.3153910000037285,
+              "heapDeltaBytes": 3055472
+            },
+            {
+              "ms": 4.907038999997894,
+              "heapDeltaBytes": 3053664
+            },
+            {
+              "ms": 5.176923999999417,
+              "heapDeltaBytes": 3051792
+            },
+            {
+              "ms": 4.635489999993297,
+              "heapDeltaBytes": 3036000
+            },
+            {
+              "ms": 5.464184999997087,
+              "heapDeltaBytes": 3044432
+            },
+            {
+              "ms": 4.755220000006375,
+              "heapDeltaBytes": 3036544
+            },
+            {
+              "ms": 4.833308000001125,
+              "heapDeltaBytes": 3043104
+            },
+            {
+              "ms": 4.694890000006126,
+              "heapDeltaBytes": 3053024
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 34.22899899999902,
+          "compactGameUnits": 1727619,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.2678939999968861,
+              "memoryBefore": {
+                "rss": 310423552,
+                "heapTotal": 185810944,
+                "heapUsed": 44675424,
+                "external": 4148535,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 310423552,
+                "heapTotal": 179257344,
+                "heapUsed": 43505872,
+                "external": 4156471,
+                "arrayBuffers": 220307
+              },
+              "heapAfter": 43505872,
+              "retainedDeltaBytes": -1169552,
+              "single100Ms": 0.07991000000038184,
+              "scanMs": 0.8030259999941336,
+              "id20Ms": 6.062893000002077,
+              "equalityMs": 11.2490919999982
+            },
+            {
+              "run": 1,
+              "constructMs": 1.4286649999994552,
+              "memoryBefore": {
+                "rss": 306888704,
+                "heapTotal": 180256768,
+                "heapUsed": 44120304,
+                "external": 4148535,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 306888704,
+                "heapTotal": 179470336,
+                "heapUsed": 43071616,
+                "external": 4164663,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 43071616,
+              "retainedDeltaBytes": -1048688,
+              "single100Ms": 0.0366550000035204,
+              "scanMs": 0.746049999994284,
+              "id20Ms": 4.83055400000012,
+              "equalityMs": 9.565664000001561
+            },
+            {
+              "run": 2,
+              "constructMs": 0.8688949999996112,
+              "memoryBefore": {
+                "rss": 306843648,
+                "heapTotal": 180518912,
+                "heapUsed": 44129752,
+                "external": 4156727,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 306843648,
+                "heapTotal": 179208192,
+                "heapUsed": 42998936,
+                "external": 4164663,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 42998936,
+              "retainedDeltaBytes": -1130816,
+              "single100Ms": 0.02529800000047544,
+              "scanMs": 0.3293150000026799,
+              "id20Ms": 2.697039999999106,
+              "equalityMs": 9.570621999999275
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 3.3541869999971823,
+              "heapDeltaBytes": 2443008
+            },
+            {
+              "ms": 3.1711619999987306,
+              "heapDeltaBytes": 2298480
+            },
+            {
+              "ms": 3.1968500000002678,
+              "heapDeltaBytes": 2305984
+            },
+            {
+              "ms": 3.135338000000047,
+              "heapDeltaBytes": 2285752
+            },
+            {
+              "ms": 3.9608880000014324,
+              "heapDeltaBytes": 2343240
+            },
+            {
+              "ms": 3.232994999998482,
+              "heapDeltaBytes": 2355360
+            },
+            {
+              "ms": 3.514506999999867,
+              "heapDeltaBytes": 2360904
+            },
+            {
+              "ms": 3.425783999999112,
+              "heapDeltaBytes": 2309648
+            },
+            {
+              "ms": 3.3931460000021616,
+              "heapDeltaBytes": 2360280
+            },
+            {
+              "ms": 3.077830999995058,
+              "heapDeltaBytes": 2309272
+            },
+            {
+              "ms": 3.4799349999957485,
+              "heapDeltaBytes": 2314920
+            },
+            {
+              "ms": 3.311302000001888,
+              "heapDeltaBytes": 2323152
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 1924,
+            "indexEntries": 2048,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 8192,
+            "packedIndexBytes": 7696
+          },
+          "compactMs": 31.98738299999968,
+          "compactGameUnits": 1727619,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.1405929999964428,
+              "memoryBefore": {
+                "rss": 310304768,
+                "heapTotal": 185810944,
+                "heapUsed": 43543280,
+                "external": 4172855,
+                "arrayBuffers": 220307
+              },
+              "memoryAfter": {
+                "rss": 310304768,
+                "heapTotal": 178470912,
+                "heapUsed": 42410424,
+                "external": 4152503,
+                "arrayBuffers": 222355
+              },
+              "heapAfter": 42410424,
+              "retainedDeltaBytes": -1132856,
+              "single100Ms": 4.927258999996411,
+              "scanMs": 0.42158300000301097,
+              "id20Ms": 2.9518729999981588,
+              "equalityMs": 9.223530000002938
+            },
+            {
+              "run": 1,
+              "constructMs": 1.1468220000024303,
+              "memoryBefore": {
+                "rss": 306851840,
+                "heapTotal": 178946048,
+                "heapUsed": 43016288,
+                "external": 4150583,
+                "arrayBuffers": 222355
+              },
+              "memoryAfter": {
+                "rss": 306851840,
+                "heapTotal": 178421760,
+                "heapUsed": 41885472,
+                "external": 4154551,
+                "arrayBuffers": 224403
+              },
+              "heapAfter": 41885472,
+              "retainedDeltaBytes": -1130816,
+              "single100Ms": 4.528871000002255,
+              "scanMs": 0.5628450000003795,
+              "id20Ms": 2.864491000000271,
+              "equalityMs": 9.02685499999643
+            },
+            {
+              "run": 2,
+              "constructMs": 0.9992209999982151,
+              "memoryBefore": {
+                "rss": 306851840,
+                "heapTotal": 179208192,
+                "heapUsed": 43018048,
+                "external": 4152631,
+                "arrayBuffers": 222355
+              },
+              "memoryAfter": {
+                "rss": 306851840,
+                "heapTotal": 178683904,
+                "heapUsed": 41969360,
+                "external": 4154551,
+                "arrayBuffers": 224403
+              },
+              "heapAfter": 41969360,
+              "retainedDeltaBytes": -1048688,
+              "single100Ms": 3.409169999998994,
+              "scanMs": 0.45830800000112504,
+              "id20Ms": 2.7273260000001756,
+              "equalityMs": 9.667347000002337
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 3.2518530000015744,
+              "heapDeltaBytes": 2410544
+            },
+            {
+              "ms": 3.1503609999999753,
+              "heapDeltaBytes": 2295968
+            },
+            {
+              "ms": 3.016810000000987,
+              "heapDeltaBytes": 2284760
+            },
+            {
+              "ms": 3.0179619999980787,
+              "heapDeltaBytes": 2285056
+            },
+            {
+              "ms": 3.578122999999323,
+              "heapDeltaBytes": 2329472
+            },
+            {
+              "ms": 3.649010000000999,
+              "heapDeltaBytes": 2328120
+            },
+            {
+              "ms": 3.2173509999993257,
+              "heapDeltaBytes": 2363656
+            },
+            {
+              "ms": 6.392928999994183,
+              "heapDeltaBytes": -116790776
+            },
+            {
+              "ms": 3.0828790000014124,
+              "heapDeltaBytes": 2317000
+            },
+            {
+              "ms": 4.045375000001513,
+              "heapDeltaBytes": 2309272
+            },
+            {
+              "ms": 3.6651829999973415,
+              "heapDeltaBytes": 2334352
+            },
+            {
+              "ms": 3.7315830000006827,
+              "heapDeltaBytes": 2323312
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 1924,
+            "indexEntries": 0,
+            "varintBytes": 1924,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 2048,
+            "packedIndexBytes": 1924
+          },
+          "compactMs": 34.6339169999992,
+          "compactGameUnits": 1727619,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "wide-60-year-720-v8.json",
+      "inputSha256": "dda24b698d0c09ab6d6583c246a94f675d348c48a112da5aed927bb3a85e7711",
+      "month": 720,
+      "formalUnits": 3737497,
+      "arrivalUnits": 1019573,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.0015930000008665957,
+              "memoryBefore": {
+                "rss": 315990016,
+                "heapTotal": 200667136,
+                "heapUsed": 55626576,
+                "external": 4156599,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 315990016,
+                "heapTotal": 191229952,
+                "heapUsed": 55624336,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 55624336,
+              "retainedDeltaBytes": -2240,
+              "single100Ms": 0.014260999996622559,
+              "scanMs": 0.2806909999999334,
+              "id20Ms": 1.8531829999992624,
+              "equalityMs": 14.093552999998792
+            },
+            {
+              "run": 1,
+              "constructMs": 0.0018030000064754859,
+              "memoryBefore": {
+                "rss": 312733696,
+                "heapTotal": 194265088,
+                "heapUsed": 58676536,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 312733696,
+                "heapTotal": 194265088,
+                "heapUsed": 58676680,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 58676680,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.014211000001523644,
+              "scanMs": 0.574652999996033,
+              "id20Ms": 1.9860929999995278,
+              "equalityMs": 13.76300700000138
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0023629999996046536,
+              "memoryBefore": {
+                "rss": 312733696,
+                "heapTotal": 194527232,
+                "heapUsed": 58677040,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "memoryAfter": {
+                "rss": 312733696,
+                "heapTotal": 194265088,
+                "heapUsed": 58677184,
+                "external": 4142391,
+                "arrayBuffers": 214163
+              },
+              "heapAfter": 58677184,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.013691000000108033,
+              "scanMs": 0.48909500000445405,
+              "id20Ms": 2.098359999996319,
+              "equalityMs": 14.05429500000173
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 8.125781999995525,
+              "heapDeltaBytes": 5035104
+            },
+            {
+              "ms": 7.789226000000781,
+              "heapDeltaBytes": 4895112
+            },
+            {
+              "ms": 7.206691999999748,
+              "heapDeltaBytes": 4847328
+            },
+            {
+              "ms": 7.365030000000843,
+              "heapDeltaBytes": 4903048
+            },
+            {
+              "ms": 8.481204999996407,
+              "heapDeltaBytes": 4854792
+            },
+            {
+              "ms": 6.957897999993293,
+              "heapDeltaBytes": 4856848
+            },
+            {
+              "ms": 7.358679000004486,
+              "heapDeltaBytes": 4866288
+            },
+            {
+              "ms": 7.424938999996812,
+              "heapDeltaBytes": 4844624
+            },
+            {
+              "ms": 7.566891999995278,
+              "heapDeltaBytes": 4855224
+            },
+            {
+              "ms": 7.49924099999771,
+              "heapDeltaBytes": 4851320
+            },
+            {
+              "ms": 7.468334999997751,
+              "heapDeltaBytes": 4958792
+            },
+            {
+              "ms": 11.088580000003276,
+              "heapDeltaBytes": 4878088
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 56.36451799999486,
+          "compactGameUnits": 2743265,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.3214640000005602,
+              "memoryBefore": {
+                "rss": 318623744,
+                "heapTotal": 210116608,
+                "heapUsed": 65547160,
+                "external": 4142391,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 318623744,
+                "heapTotal": 199630848,
+                "heapUsed": 63666616,
+                "external": 4172855,
+                "arrayBuffers": 228499
+              },
+              "heapAfter": 63666616,
+              "retainedDeltaBytes": -1880544,
+              "single100Ms": 0.06302499999583233,
+              "scanMs": 1.1035180000035325,
+              "id20Ms": 9.541737999999896,
+              "equalityMs": 15.737011999997776
+            },
+            {
+              "run": 1,
+              "constructMs": 1.2672329999986687,
+              "memoryBefore": {
+                "rss": 313335808,
+                "heapTotal": 200634368,
+                "heapUsed": 64739152,
+                "external": 4156727,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 313335808,
+                "heapTotal": 199323648,
+                "heapUsed": 62978704,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 62978704,
+              "retainedDeltaBytes": -1760448,
+              "single100Ms": 0.02567799999815179,
+              "scanMs": 0.9147640000010142,
+              "id20Ms": 5.035792000002402,
+              "equalityMs": 17.339506999996956
+            },
+            {
+              "run": 2,
+              "constructMs": 1.0968080000020564,
+              "memoryBefore": {
+                "rss": 313335808,
+                "heapTotal": 200634368,
+                "heapUsed": 64734504,
+                "external": 4173111,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 313335808,
+                "heapTotal": 199323648,
+                "heapUsed": 62891928,
+                "external": 4189239,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 62891928,
+              "retainedDeltaBytes": -1842576,
+              "single100Ms": 0.02575799999613082,
+              "scanMs": 0.8960160000060569,
+              "id20Ms": 5.3442140000042855,
+              "equalityMs": 14.956688999998732
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 6.094300000004296,
+              "heapDeltaBytes": 3933320
+            },
+            {
+              "ms": 5.777756000003137,
+              "heapDeltaBytes": 3662368
+            },
+            {
+              "ms": 5.585316999997303,
+              "heapDeltaBytes": 3652720
+            },
+            {
+              "ms": 5.564345999999205,
+              "heapDeltaBytes": 3671784
+            },
+            {
+              "ms": 7.133732000002055,
+              "heapDeltaBytes": 3690880
+            },
+            {
+              "ms": 5.488800999999512,
+              "heapDeltaBytes": 3692616
+            },
+            {
+              "ms": 6.812259999998787,
+              "heapDeltaBytes": 3701536
+            },
+            {
+              "ms": 6.260410999995656,
+              "heapDeltaBytes": 3688544
+            },
+            {
+              "ms": 6.128613000000769,
+              "heapDeltaBytes": 3675120
+            },
+            {
+              "ms": 5.429944000003161,
+              "heapDeltaBytes": 3683912
+            },
+            {
+              "ms": 5.640639999997802,
+              "heapDeltaBytes": 3710208
+            },
+            {
+              "ms": 5.602573000003758,
+              "heapDeltaBytes": 3707552
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 3090,
+            "indexEntries": 4096,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 16384,
+            "packedIndexBytes": 12360
+          },
+          "compactMs": 53.14020700000401,
+          "compactGameUnits": 2743265,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.888385999998718,
+              "memoryBefore": {
+                "rss": 318623744,
+                "heapTotal": 207757312,
+                "heapUsed": 63719144,
+                "external": 4205623,
+                "arrayBuffers": 228499
+              },
+              "memoryAfter": {
+                "rss": 318619648,
+                "heapTotal": 198057984,
+                "heapUsed": 61875488,
+                "external": 4164791,
+                "arrayBuffers": 232595
+              },
+              "heapAfter": 61875488,
+              "retainedDeltaBytes": -1843656,
+              "single100Ms": 7.46498900000006,
+              "scanMs": 0.798560000002908,
+              "id20Ms": 6.466930999995384,
+              "equalityMs": 15.562919000003603
+            },
+            {
+              "run": 1,
+              "constructMs": 0.9792610000004061,
+              "memoryBefore": {
+                "rss": 313466880,
+                "heapTotal": 199061504,
+                "heapUsed": 62923504,
+                "external": 4160823,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 313466880,
+                "heapTotal": 197750784,
+                "heapUsed": 61080912,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 61080912,
+              "retainedDeltaBytes": -1842592,
+              "single100Ms": 5.657505999995919,
+              "scanMs": 0.765278999999282,
+              "id20Ms": 4.682972000002337,
+              "equalityMs": 14.786354000003485
+            },
+            {
+              "run": 2,
+              "constructMs": 1.6570579999970505,
+              "memoryBefore": {
+                "rss": 313466880,
+                "heapTotal": 199323648,
+                "heapUsed": 62923992,
+                "external": 4164919,
+                "arrayBuffers": 232595
+              },
+              "memoryAfter": {
+                "rss": 313466880,
+                "heapTotal": 198012928,
+                "heapUsed": 61241784,
+                "external": 4168887,
+                "arrayBuffers": 236691
+              },
+              "heapAfter": 61241784,
+              "retainedDeltaBytes": -1682208,
+              "single100Ms": 5.702993999999308,
+              "scanMs": 0.7812029999986407,
+              "id20Ms": 5.265976999995473,
+              "equalityMs": 14.573874000001524
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 9.27452600000106,
+              "heapDeltaBytes": 3858832
+            },
+            {
+              "ms": 5.277163000006112,
+              "heapDeltaBytes": 3662760
+            },
+            {
+              "ms": 4.8362209999977495,
+              "heapDeltaBytes": 3652464
+            },
+            {
+              "ms": 5.182091999995464,
+              "heapDeltaBytes": 3671640
+            },
+            {
+              "ms": 5.723214999998163,
+              "heapDeltaBytes": 3691192
+            },
+            {
+              "ms": 5.030033999995794,
+              "heapDeltaBytes": 3692912
+            },
+            {
+              "ms": 5.232877999995253,
+              "heapDeltaBytes": 3768488
+            },
+            {
+              "ms": 5.03338800000347,
+              "heapDeltaBytes": 3669280
+            },
+            {
+              "ms": 5.112667000001238,
+              "heapDeltaBytes": 3674904
+            },
+            {
+              "ms": 4.959477999997034,
+              "heapDeltaBytes": 3683976
+            },
+            {
+              "ms": 5.14529699999548,
+              "heapDeltaBytes": 3778904
+            },
+            {
+              "ms": 5.176403999998001,
+              "heapDeltaBytes": 3710520
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 3090,
+            "indexEntries": 0,
+            "varintBytes": 3090,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 4096,
+            "packedIndexBytes": 3090
+          },
+          "compactMs": 49.682858999993186,
+          "compactGameUnits": 2743265,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    },
+    {
+      "file": "wide-90-year-1080-v8.json",
+      "inputSha256": "d208a9133d736af8d2cc1af85efed8d436bf85c22abf6148719ce33e756f5e89",
+      "month": 1080,
+      "formalUnits": 5259993,
+      "arrivalUnits": 1452446,
+      "methods": {
+        "A": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 0.002043000000412576,
+              "memoryBefore": {
+                "rss": 324313088,
+                "heapTotal": 220663808,
+                "heapUsed": 76632160,
+                "external": 4169015,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 324308992,
+                "heapTotal": 212799488,
+                "heapUsed": 76629864,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 76629864,
+              "retainedDeltaBytes": -2296,
+              "single100Ms": 0.013571000003139488,
+              "scanMs": 0.7366560000009486,
+              "id20Ms": 2.4653309999994235,
+              "equalityMs": 19.55797999999777
+            },
+            {
+              "run": 1,
+              "constructMs": 0.0019529999990481883,
+              "memoryBefore": {
+                "rss": 319033344,
+                "heapTotal": 216424448,
+                "heapUsed": 80202968,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 319033344,
+                "heapTotal": 216162304,
+                "heapUsed": 80197008,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 80197008,
+              "retainedDeltaBytes": -5960,
+              "single100Ms": 0.014140999999654014,
+              "scanMs": 0.8630550000016228,
+              "id20Ms": 2.9549260000057984,
+              "equalityMs": 19.508687000001373
+            },
+            {
+              "run": 2,
+              "constructMs": 0.0022229999958653934,
+              "memoryBefore": {
+                "rss": 319029248,
+                "heapTotal": 216424448,
+                "heapUsed": 80197368,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "memoryAfter": {
+                "rss": 319029248,
+                "heapTotal": 216424448,
+                "heapUsed": 80197512,
+                "external": 4144439,
+                "arrayBuffers": 216211
+              },
+              "heapAfter": 80197512,
+              "retainedDeltaBytes": 144,
+              "single100Ms": 0.012879999994765967,
+              "scanMs": 0.8657800000000861,
+              "id20Ms": 2.882406999997329,
+              "equalityMs": 19.401856000004045
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 10.193943999998737,
+              "heapDeltaBytes": 7125600
+            },
+            {
+              "ms": 9.833803000001353,
+              "heapDeltaBytes": 6797320
+            },
+            {
+              "ms": 9.873162000003504,
+              "heapDeltaBytes": 6815520
+            },
+            {
+              "ms": 9.879480999996304,
+              "heapDeltaBytes": 6815832
+            },
+            {
+              "ms": 10.414083999996365,
+              "heapDeltaBytes": 6794624
+            },
+            {
+              "ms": 10.786432999993849,
+              "heapDeltaBytes": 6816144
+            },
+            {
+              "ms": 10.017638000004808,
+              "heapDeltaBytes": 6815832
+            },
+            {
+              "ms": 10.489858000000822,
+              "heapDeltaBytes": 6816144
+            },
+            {
+              "ms": 10.491609999997308,
+              "heapDeltaBytes": 6794736
+            },
+            {
+              "ms": 10.193632000002253,
+              "heapDeltaBytes": 6815520
+            },
+            {
+              "ms": 10.361284999999043,
+              "heapDeltaBytes": 6800672
+            },
+            {
+              "ms": 10.507984999996552,
+              "heapDeltaBytes": 6821272
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "baseline",
+          "index": null,
+          "compactMs": 68.02461899999616,
+          "compactGameUnits": 3818404,
+          "formalCapChanged": false,
+          "fullModelBoundary": null
+        },
+        "B": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 1.6896759999945061,
+              "memoryBefore": {
+                "rss": 326684672,
+                "heapTotal": 232587264,
+                "heapUsed": 87494192,
+                "external": 4144439,
+                "arrayBuffers": 212115
+              },
+              "memoryAfter": {
+                "rss": 326684672,
+                "heapTotal": 221052928,
+                "heapUsed": 84834472,
+                "external": 4205623,
+                "arrayBuffers": 244883
+              },
+              "heapAfter": 84834472,
+              "retainedDeltaBytes": -2659720,
+              "single100Ms": 0.0828239999973448,
+              "scanMs": 1.648084000000381,
+              "id20Ms": 9.554293000001053,
+              "equalityMs": 19.775796999994782
+            },
+            {
+              "run": 1,
+              "constructMs": 1.2144530000005034,
+              "memoryBefore": {
+                "rss": 319254528,
+                "heapTotal": 222789632,
+                "heapUsed": 86330064,
+                "external": 4173111,
+                "arrayBuffers": 244883
+              },
+              "memoryAfter": {
+                "rss": 319385600,
+                "heapTotal": 220860416,
+                "heapUsed": 83872888,
+                "external": 4238391,
+                "arrayBuffers": 277651
+              },
+              "heapAfter": 83872888,
+              "retainedDeltaBytes": -2457176,
+              "single100Ms": 0.027041000001190696,
+              "scanMs": 1.4882950000028359,
+              "id20Ms": 7.070484999996552,
+              "equalityMs": 20.33341400000063
+            },
+            {
+              "run": 2,
+              "constructMs": 1.339841000000888,
+              "memoryBefore": {
+                "rss": 319254528,
+                "heapTotal": 223838208,
+                "heapUsed": 86326600,
+                "external": 4205879,
+                "arrayBuffers": 244883
+              },
+              "memoryAfter": {
+                "rss": 319254528,
+                "heapTotal": 221216768,
+                "heapUsed": 83705376,
+                "external": 4238391,
+                "arrayBuffers": 277651
+              },
+              "heapAfter": 83705376,
+              "retainedDeltaBytes": -2621224,
+              "single100Ms": 0.02566800000204239,
+              "scanMs": 1.1166660000017146,
+              "id20Ms": 6.238826000000699,
+              "equalityMs": 20.872924000002968
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 7.989794000000984,
+              "heapDeltaBytes": 5432824
+            },
+            {
+              "ms": 7.370764999999665,
+              "heapDeltaBytes": 5214080
+            },
+            {
+              "ms": 6.887288999998418,
+              "heapDeltaBytes": 5224856
+            },
+            {
+              "ms": 6.920819999999367,
+              "heapDeltaBytes": 5219456
+            },
+            {
+              "ms": 7.484506000000692,
+              "heapDeltaBytes": 5169632
+            },
+            {
+              "ms": 7.500820000001113,
+              "heapDeltaBytes": 5209920
+            },
+            {
+              "ms": 7.719577999996545,
+              "heapDeltaBytes": 5214440
+            },
+            {
+              "ms": 7.093979999997828,
+              "heapDeltaBytes": 5215256
+            },
+            {
+              "ms": 7.592067000005045,
+              "heapDeltaBytes": 5220232
+            },
+            {
+              "ms": 7.024765000001935,
+              "heapDeltaBytes": 5217816
+            },
+            {
+              "ms": 7.433549000001221,
+              "heapDeltaBytes": 5221616
+            },
+            {
+              "ms": 8.026418999994348,
+              "heapDeltaBytes": 5199208
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 4352,
+            "indexEntries": 8192,
+            "varintBytes": 0,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 32768,
+            "packedIndexBytes": 17408
+          },
+          "compactMs": 76.86914100000286,
+          "compactGameUnits": 3818404,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        },
+        "C": {
+          "timings": [
+            {
+              "run": 0,
+              "constructMs": 2.9319109999996726,
+              "memoryBefore": {
+                "rss": 326828032,
+                "heapTotal": 227606528,
+                "heapUsed": 84889680,
+                "external": 4238647,
+                "arrayBuffers": 244883
+              },
+              "memoryAfter": {
+                "rss": 326828032,
+                "heapTotal": 219217920,
+                "heapUsed": 82267408,
+                "external": 4189367,
+                "arrayBuffers": 253075
+              },
+              "heapAfter": 82267408,
+              "retainedDeltaBytes": -2622272,
+              "single100Ms": 11.73298299999442,
+              "scanMs": 1.371908999994048,
+              "id20Ms": 7.174149999998917,
+              "equalityMs": 22.374829000000318
+            },
+            {
+              "run": 1,
+              "constructMs": 2.5603530000007595,
+              "memoryBefore": {
+                "rss": 319406080,
+                "heapTotal": 221216768,
+                "heapUsed": 83740584,
+                "external": 4181303,
+                "arrayBuffers": 253075
+              },
+              "memoryAfter": {
+                "rss": 319668224,
+                "heapTotal": 219287552,
+                "heapUsed": 81283632,
+                "external": 4197559,
+                "arrayBuffers": 261267
+              },
+              "heapAfter": 81283632,
+              "retainedDeltaBytes": -2456952,
+              "single100Ms": 7.396473000000697,
+              "scanMs": 1.17345199999545,
+              "id20Ms": 7.167179999996733,
+              "equalityMs": 21.43795300000056
+            },
+            {
+              "run": 2,
+              "constructMs": 1.2360960000005434,
+              "memoryBefore": {
+                "rss": 319389696,
+                "heapTotal": 221741056,
+                "heapUsed": 83743560,
+                "external": 4189495,
+                "arrayBuffers": 253075
+              },
+              "memoryAfter": {
+                "rss": 319389696,
+                "heapTotal": 219119616,
+                "heapUsed": 81122336,
+                "external": 4197559,
+                "arrayBuffers": 261267
+              },
+              "heapAfter": 81122336,
+              "retainedDeltaBytes": -2621224,
+              "single100Ms": 7.410494999996445,
+              "scanMs": 1.1808729999975185,
+              "id20Ms": 6.787249000000884,
+              "equalityMs": 22.06437300000107
+            }
+          ],
+          "monthly": [
+            {
+              "ms": 8.517396000002918,
+              "heapDeltaBytes": 5431224
+            },
+            {
+              "ms": 9.728555000001506,
+              "heapDeltaBytes": 5152584
+            },
+            {
+              "ms": 7.5623129999949015,
+              "heapDeltaBytes": 5162984
+            },
+            {
+              "ms": 7.040269000004628,
+              "heapDeltaBytes": 5157312
+            },
+            {
+              "ms": 7.354271000003791,
+              "heapDeltaBytes": 5215168
+            },
+            {
+              "ms": 7.92868200000521,
+              "heapDeltaBytes": 5157760
+            },
+            {
+              "ms": 8.508982999999716,
+              "heapDeltaBytes": 5243064
+            },
+            {
+              "ms": 7.4312959999952,
+              "heapDeltaBytes": 5168120
+            },
+            {
+              "ms": 7.783949999997276,
+              "heapDeltaBytes": 5146544
+            },
+            {
+              "ms": 7.1206400000010035,
+              "heapDeltaBytes": 5242752
+            },
+            {
+              "ms": 7.3261380000039935,
+              "heapDeltaBytes": 5243064
+            },
+            {
+              "ms": 7.421120999999403,
+              "heapDeltaBytes": 5171704
+            }
+          ],
+          "orderedValues": true,
+          "wholeGameReconstruction": true,
+          "liveTownMonths": 12,
+          "liveFullModel": false,
+          "existingSessionHistoryUnchanged": true,
+          "mapAfterExplicitHydrationEqual": true,
+          "directMap": "{\"max\":6,\"reached\":{\"town\":false,\"near\":false,\"national\":false,\"overseas\":false},\"activeShops\":{},\"firstSale\":true,\"overseasContact\":true,\"bottled\":true}",
+          "index": {
+            "count": 4352,
+            "indexEntries": 0,
+            "varintBytes": 4352,
+            "cacheRecords": 0,
+            "indexStorage": "TypedArray capacity included",
+            "allocatedIndexBytes": 8192,
+            "packedIndexBytes": 4352
+          },
+          "compactMs": 72.9484900000025,
+          "compactGameUnits": 3818404,
+          "formalCapChanged": false,
+          "fullModelBoundary": "s.arrivals.push is not a function"
+        }
+      }
+    }
+  ]
+}
