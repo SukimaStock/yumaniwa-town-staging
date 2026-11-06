@@ -1,0 +1,139 @@
+{
+  "policy": "local",
+  "runtime": "v24.22.1",
+  "sourceSha256": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+  "method": "Final collector source differential-only replay: scene semantic and byte identity at all three boundaries, exact formal checkpoints/RNG and frozen-content invariance. Official reader and JSON-resume checks skipped here; separate measure-local.json contains executed full session checks.",
+  "measurements": [],
+  "boundaries": [
+    {
+      "generation": 1,
+      "month": 321,
+      "index": 481,
+      "sameIds": true,
+      "sameScenes": true,
+      "byteIdenticalScenes": true,
+      "differentFields": [],
+      "candidateCount": 351,
+      "researchCandidateCount": 351,
+      "selectedIds": [
+        "delivery:1",
+        "reaction:customer:retail:171:39",
+        "arrival:e1508",
+        "inquiry:e1562",
+        "visit:e1578"
+      ],
+      "researchIds": [
+        "delivery:1",
+        "reaction:customer:retail:171:39",
+        "arrival:e1508",
+        "inquiry:e1562",
+        "visit:e1578"
+      ],
+      "prepareMs": 14.770299000001614
+    },
+    {
+      "generation": 2,
+      "month": 636,
+      "index": 848,
+      "sameIds": true,
+      "sameScenes": true,
+      "byteIdenticalScenes": true,
+      "differentFields": [],
+      "candidateCount": 220,
+      "researchCandidateCount": 220,
+      "selectedIds": [
+        "bottling:14",
+        "reaction:customer:retail:339:42",
+        "arrival:e1747",
+        "visit:e1850",
+        "inquiry:e1989",
+        "delivery:128"
+      ],
+      "researchIds": [
+        "bottling:14",
+        "reaction:customer:retail:339:42",
+        "arrival:e1747",
+        "visit:e1850",
+        "inquiry:e1989",
+        "delivery:128"
+      ],
+      "prepareMs": 11.14077399999951
+    },
+    {
+      "generation": 3,
+      "month": 955,
+      "index": 1233,
+      "sameIds": true,
+      "sameScenes": true,
+      "byteIdenticalScenes": true,
+      "differentFields": [],
+      "candidateCount": 258,
+      "researchCandidateCount": 258,
+      "selectedIds": [
+        "visit:e2488",
+        "reaction:customer:retail:685:55",
+        "delivery:148",
+        "arrival:e3004",
+        "inquiry:e3037",
+        "visit:e3173"
+      ],
+      "researchIds": [
+        "visit:e2488",
+        "reaction:customer:retail:685:55",
+        "delivery:148",
+        "arrival:e3004",
+        "inquiry:e3037",
+        "visit:e3173"
+      ],
+      "prepareMs": 10.497028999991016
+    }
+  ],
+  "checks": {
+    "sourceUnchanged": true,
+    "formalCheckpointsAndRngIdentical": true,
+    "officialSessionRoundTrip": null,
+    "frozenRecallsUnchanged": true,
+    "jsonResumeContinues": null,
+    "researchBoundaries": 3,
+    "allResearchScenesIdentical": true
+  },
+  "timings": {
+    "all": {
+      "count": 1494,
+      "medianMs": 4.199593000001187,
+      "p95Ms": 7.541575000002922,
+      "maxMs": 49.56324100001075
+    },
+    "month": {
+      "count": 1201,
+      "medianMs": 4.327059999999619,
+      "p95Ms": 7.654041000001598,
+      "maxMs": 49.56324100001075
+    },
+    "prepare": {
+      "count": 3,
+      "medianMs": 11.14077399999951,
+      "p95Ms": 14.770299000001614,
+      "maxMs": 14.770299000001614
+    },
+    "commit": {
+      "count": 3,
+      "medianMs": 6.283575000001292,
+      "p95Ms": 6.5724909999989904,
+      "maxMs": 6.5724909999989904
+    },
+    "totalHarnessMs": 110111.000327
+  },
+  "implementation": {
+    "collector": "2eefca1a14f75ca030339e87068bd0688f253a8c0a5ed9dbe5b2f1529658cef2",
+    "observe": "74f745ee49e8f6a0e72e81231c31b605901a99847245904b55b496a8320d7e23",
+    "selection": "1c3333467ae0b3493cd0339f35030bb8ccc9f18ff3a392a201c41dc6afcf3ff5",
+    "operations": "45850ae49d46b5bc9b84375bc7b74c90439e8121275a02b252828543009ddd6a"
+  },
+  "implementationAtEnd": {
+    "collector": "2eefca1a14f75ca030339e87068bd0688f253a8c0a5ed9dbe5b2f1529658cef2",
+    "observe": "74f745ee49e8f6a0e72e81231c31b605901a99847245904b55b496a8320d7e23",
+    "selection": "1c3333467ae0b3493cd0339f35030bb8ccc9f18ff3a392a201c41dc6afcf3ff5",
+    "operations": "45850ae49d46b5bc9b84375bc7b74c90439e8121275a02b252828543009ddd6a"
+  }
+}
