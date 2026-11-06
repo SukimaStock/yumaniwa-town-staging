@@ -1,3 +1,4 @@
+import {initializeCaskSlots,reconcileCaskSlots} from '../cask-slots.mjs';
 import {expandFormalGame} from '../save-codec.mjs';
 import {createWarehouseRoomController} from '../warehouse-room-controller.mjs';
 import test from 'node:test';
@@ -89,7 +90,7 @@ function appHost(source,{state=D.newMarketRulesDistillery(42),preview=false,rest
  const model={...D};for(const name of ['selectFlavorCards','startDistillation','startRangeDistillation','beginCollection','stopDistillation','restartRangeDistillation','fillBarrel'])model[name]=(...args)=>{log.push('model:'+name);if(mode==='model-throw')throw Error('model refused');return D[name](...args);};
  model.serializeDistillery=s=>{log.push('serialize');return D.serializeDistillery(s);};
  const storage={getItem(){log.push('storage:read');return stored;},setItem(k,value){log.push('storage:write');if(mode==='quota')throw Error('quota');if(mode!=='refuse')stored=value;}};
- const ctx={scene:{isDistillCompletion:()=>false,startDistillCompletion:()=>false,cancelDistillCompletion(){}},D:model,P,createDistillRoomController,manualCards,chooseManualCard,brewingPanelState,distillToolsView,rangeRestartAvailable,manualCompletedRuns,distillationReadout,writeCandidate,serializeSession,
+ const ctx={initializeCaskSlots,reconcileCaskSlots,scene:{isDistillCompletion:()=>false,startDistillCompletion:()=>false,cancelDistillCompletion(){}},D:model,P,createDistillRoomController,manualCards,chooseManualCard,brewingPanelState,distillToolsView,rangeRestartAvailable,manualCompletedRuns,distillationReadout,writeCandidate,serializeSession,
   snapshotRaw:D.serializeDistillery,initial:state,initialRaw:stored,initialPreview:preview,restored,$:node,document:{hidden:false,activeElement:null},T:{minimumStop:30,monthMs:6000,distillStepMs:100},localStorage:storage,SAVE_KEY:'formal',
   stopClock(){log.push('clock:stop');},schedule(){log.push('clock:schedule');},message:text=>log.push(['message',text]),storageNotice:text=>log.push(['storageNotice',text]),
   automaticEvents,automaticNews:{push:events=>log.push(['notices',plain(events)])},caskName:String,soldOutLabel:()=>'',noteMapReach:()=>log.push('map:reach'),
@@ -106,7 +107,7 @@ function appHost(source,{state=D.newMarketRulesDistillery(42),preview=false,rest
  const countdown=source.split('\n').find(x=>x.startsWith('const countdown=new StartCountdown('));
  const reset=candidate?'distillRoom.reset();':'distillPrepared=false;confirmedBrewing=null;';
  vm.runInContext(`let game=initial,room='distill',modal=null,userPaused=false,canSave=!initialPreview,preview=initialPreview,lastSavedText=initialRaw,elapsed=0,runtimeHalted=false,selectedCaskId=null,marketEditing=false,deliveryNotice='',shownFillSpiritId=restored&&game.still.phase==='filling'?game.core.spirit.id:null,modalReturnFocus=null,modalReturnObject=null;
- let migrationPending=null,committedSession={game,userPaused,elapsed};
+ let caskSlots=initializeCaskSlots(game),migrationPending=null,committedSession={game,userPaused,elapsed,caskSlots};
  ${source.includes('createWarehouseRoomController')?'const warehouseRoom=createWarehouseRoomController();':''}\n ${init}\n${countdown}\n${source.split('\n').find(x=>x.startsWith('const manualDistilling='))}
  function render(){recordRender();${renderPrefix}}
  ${sync.slice(0,endSync)+'\n}'}
@@ -129,7 +130,7 @@ function appHost(source,{state=D.newMarketRulesDistillery(42),preview=false,rest
   result(){const out=ctx.api.result();return plain({...out,stored,log:[...log]});}};
 }
 function checkedB2(actual,baseline,tag,failed){
- const normalize=text=>{if(text==='external-save')return text;const v=JSON.parse(text);if(v.version===3){v.game=JSON.parse(expandFormalGame(v.game));v.version=2;}return JSON.stringify(v);};
+ const normalize=text=>{if(text==='external-save')return text;const v=JSON.parse(text);if(v.version===3||v.version===4){v.game=JSON.parse(expandFormalGame(v.game));v.version=2;delete v.caskSlots;}return JSON.stringify(v);};
  if(!failed){for(const key of Object.keys(baseline).filter(k=>!['stored','log','nodes'].includes(k)))assert.deepEqual(actual[key],baseline[key],tag+':'+key);assert.equal(normalize(actual.stored),normalize(baseline.stored),tag+':durable formal state');}
  const writes=actual.log.map((x,i)=>x==='storage:write'?i:-1).filter(i=>i>=0);for(let i=0;i<actual.log.length;i++)if(Array.isArray(actual.log[i])&&actual.log[i][0]==='notices')assert(writes.some(w=>w<i),'success notice follows durable write');
 }
@@ -162,7 +163,7 @@ test('R3 generic start/stop failures and candidate fill failures retain their di
  for(const mode of ['quota','refuse','conflict','model-throw']){
   const p=pair({state:filling});p.call('render');p.call('fillSelect','refill');const before=p.compare('before fill failure');p.fail(mode);const failed=p.call('fill');assert.equal(failed.raw,before.raw);if(mode==='model-throw')assert.equal(failed.modal.kind,'fill');else assert.equal(failed.modal,null,'failed storage releases modal for recovery');assert.equal(failed.room,'distill');assert(!failed.log.some(x=>Array.isArray(x)&&x[0]==='notices'));
  }
- const p=pair();p.call('openBrewing');p.call('confirmBrewing');p.call('startFromLever');p.tick();p.tick();p.tick();p.call('finishDistillation');p.call('stepTo',12);const before=p.compare('before stop quota');p.fail('quota');const stopped=p.call('finishDistillation');assert.equal(JSON.parse(stopped.raw).still.phase,'distilling');assert.equal(stopped.raw,JSON.stringify(JSON.parse(stopped.stored).version===3?JSON.parse(expandFormalGame(JSON.parse(stopped.stored).game)):JSON.parse(stopped.stored).game));assert.equal(stopped.modal,null,'failed generic save does not publish result');
+ const p=pair();p.call('openBrewing');p.call('confirmBrewing');p.call('startFromLever');p.tick();p.tick();p.tick();p.call('finishDistillation');p.call('stepTo',12);const before=p.compare('before stop quota');p.fail('quota');const stopped=p.call('finishDistillation');assert.equal(JSON.parse(stopped.raw).still.phase,'distilling');assert.equal(stopped.raw,JSON.stringify([3,4].includes(JSON.parse(stopped.stored).version)?JSON.parse(expandFormalGame(JSON.parse(stopped.stored).game)):JSON.parse(stopped.stored).game));assert.equal(stopped.modal,null,'failed generic save does not publish result');
 });
 test('R3 hidden, room change, restart and reload preserve preparation boundaries without new formal operations',()=>{
  for(const interrupt of ['hidden','room']){

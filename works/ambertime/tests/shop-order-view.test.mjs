@@ -63,7 +63,10 @@ test('legacy calculation pins and unchanged clock paths survive approved native-
  const previousCanvas=execFileSync('git',['show',base+':works/ambertime/canvas-scene.mjs'],{encoding:'utf8'}),canvas=beforeA12CanvasScheduler(fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8'));
  for(const [a,b]of [[' drawTimeBar(){',' draw(){'],[' stopDrawing(){',' controls(){']])assert.equal(canvas.slice(canvas.indexOf(a),canvas.indexOf(b)),previousCanvas.slice(previousCanvas.indexOf(a),previousCanvas.indexOf(b)));
  const old=execFileSync('git',['show',base+':works/ambertime/shop-app.mjs'],{encoding:'utf8',maxBuffer:4e6}),now=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
- for(const [a,b]of [['function renderProgress(){','function render(){'],['function staffDisplayStatus(){','function renderProgress(){'],['function displayCaskSerials(){','const FLAVOR_AXES']])assert.equal(now.slice(now.indexOf(a),now.indexOf(b)),old.slice(old.indexOf(a),old.indexOf(b)));
+ for(const [a,b]of [['function renderProgress(){','function render(){'],['function staffDisplayStatus(){','function renderProgress(){']])assert.equal(now.slice(now.indexOf(a),now.indexOf(b)),old.slice(old.indexOf(a),old.indexOf(b)));
+ // S1 explicitly replaces the historical serial projection with current-place metadata.
+ assert.doesNotMatch(now,/displayCaskSerials|createCaskSerials|createProjectionReplay/);
+ assert.match(now,/import \{initializeCaskSlots,reconcileCaskSlots,caskSlotMap\} from '\.\/cask-slots\.mjs/);
 });
 
 test('simultaneous ordinary-store rows and retail-first audit examples keep store-specific facts',()=>{

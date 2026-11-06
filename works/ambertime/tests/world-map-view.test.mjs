@@ -1,3 +1,4 @@
+import {caskSlotIndex} from '../canvas-layout.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mapProgress,mapStep,drawGameMap,newlyUnlocked,revealStart,mapIntroduction,mapSeenBaseline,mapNoticeBaseline} from '../world-map-view.mjs';
@@ -72,7 +73,7 @@ test('scene queue coalesces, cancels all presentation work hidden and after page
 });
 test('actual scene keeps warehouse selection static and sales selection blink pauses behind dialog or reduced motion',()=>{
  const c=clock(),dialog={open:false},document={hidden:false,getElementById:id=>id==='action-dialog'?dialog:null};
- const sandbox={document,setTimeout:c.set,clearTimeout:c.clear,cancelAnimationFrame:c.clear,performance:{now:()=>100},BODY_SIZE:16,drawSymbol(){}};
+ const sandbox={caskSlotIndex,document,setTimeout:c.set,clearTimeout:c.clear,cancelAnimationFrame:c.clear,performance:{now:()=>100},BODY_SIZE:16,drawSymbol(){}};
  vm.runInNewContext(fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8').replace(/^import[^\n]*\n/gm,'').replace('export class CanvasScene','globalThis.CanvasScene=class CanvasScene'),sandbox);
  const scene=Object.create(sandbox.CanvasScene.prototype),ctx=new Proxy({},{get:()=>()=>{},set:()=>true});
  Object.assign(scene,{fontSettled:true,view:{room:'warehouse',casks:[{id:1,selected:true}],products:[],calendar:'',generation:'',cash:''},root:{dataset:{}},ctx,world:{},viewport:{dpr:1,width:360,height:640,scale:1,offsetX:0,offsetY:0},layout:{caskSlots:[],productSlots:[],equipment:{y:0}},reducedMotion:{matches:false},motion:{sample:()=>({nextMs:null})},activeControls:[],idleSince:0,controls(){},drawWorld(){},window(){},pixelRect(){},text(){},measure:()=>0,textMetrics:()=>({logical:16})});

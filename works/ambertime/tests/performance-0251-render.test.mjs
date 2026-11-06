@@ -1,3 +1,5 @@
+import {initializeCaskSlots,reconcileCaskSlots,caskSlotMap} from '../cask-slots.mjs';
+import {caskSlotIndex} from '../canvas-layout.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -7,7 +9,7 @@ import vm from 'node:vm';
 // loop. Imports are presentation dependencies unused by these empty-room cases.
 function sceneHarness(){
  const source=fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8').replace(/^import.*\n/gm,'').replace('export class CanvasScene','class CanvasScene');
- const attrs={},environment={document:{hidden:false,getElementById:()=>({setAttribute:(key,value)=>{attrs[key]=value;}})},performance:{now:()=>100}};
+ const attrs={},environment={caskSlotIndex,document:{hidden:false,getElementById:()=>({setAttribute:(key,value)=>{attrs[key]=value;}})},performance:{now:()=>100}};
  const Scene=vm.runInNewContext(source+'\nCanvasScene;',environment),scene=Object.create(Scene.prototype),rects=[];
  scene.view={room:'warehouse',monthProgress:0,timeStatus:'進行中',casks:[],products:[],inspectId:null};
  scene.layout={floorY:460,shelf:{x:24,y:180,w:312,h:270,rails:[270,450]},caskSlots:[],productSlots:[]};
@@ -40,21 +42,16 @@ test('room bitmap cache invalidates for room content, inspection and arrival cha
  s.drawWorld();assert.equal(h.worldPaints(),7);
 });
 
-test('display serials remain stable while extraction moves and refresh after creation operations',()=>{
- const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),start=source.indexOf('let serialDisplayKey='),end=source.indexOf('const caskName=',start);
- assert(start>=0&&end>start);
- let projections=0;
- const context={caskSerials:state=>{
-  projections++;return new Map(state.operations.filter(o=>o.key==='fill').map((o,i)=>[o.id,i+1]));
- }};
- vm.runInNewContext('let game;'+source.slice(start,end)+'\nglobalThis.read=state=>{game=state;return displayCaskSerials();};',context);
- const initial={seed:42,operations:[{key:'fill',id:9}],still:{progress:0}},first=context.read(initial);
- assert.equal(first.get(9),1);assert.equal(projections,1);
- const advanced={...initial,still:{progress:50}};
- assert.equal(context.read(advanced),first);assert.equal(projections,1,'moving extraction does not request history projection');
- const created={...advanced,operations:[...advanced.operations,{key:'fill',id:15}]},second=context.read(created);
- assert.equal(second.get(9),1);assert.equal(second.get(15),2);assert.equal(projections,2);
- const otherSeed={...created,seed:43};context.read(otherSeed);assert.equal(projections,3);
+test('display slots remain stable during extraction and update without history projection',()=>{
+ const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
+ assert.doesNotMatch(source,/serialDisplayKey|displayCaskSerials|createCaskSerials/);
+ const initial={core:{casks:[{id:9,filledMonth:0}]},get operations(){throw Error('history must not be read');}};
+ const first=initializeCaskSlots(initial);assert.equal(caskSlotMap(first).get(9),1);
+ const advanced={core:initial.core,still:{progress:50},get operations(){throw Error('history must not be read');}};
+ assert.deepEqual(reconcileCaskSlots(advanced,first),first);
+ const created={core:{casks:[...initial.core.casks,{id:15,filledMonth:1}]}};
+ const second=reconcileCaskSlots(created,first);assert.equal(caskSlotMap(second).get(9),1);assert.equal(caskSlotMap(second).get(15),2);
+ const removed=reconcileCaskSlots({core:{casks:[created.core.casks[1]]}},second);assert.equal(caskSlotMap(removed).get(15),2);
 });
 
 test('staff presentation snapshot refreshes eligibility and work state after operations',()=>{

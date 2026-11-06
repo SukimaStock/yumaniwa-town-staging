@@ -1,0 +1,32 @@
+[
+  {
+    "name": "local-1080.json",
+    "sha256": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+    "bytes": 3916316,
+    "month": 1080
+  },
+  {
+    "name": "local-1200.json",
+    "sha256": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+    "bytes": 4257604,
+    "month": 1200
+  },
+  {
+    "name": "local-360.json",
+    "sha256": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+    "bytes": 1868397,
+    "month": 360
+  },
+  {
+    "name": "local-720.json",
+    "sha256": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+    "bytes": 2946411,
+    "month": 720
+  },
+  {
+    "name": "wide-360.json",
+    "sha256": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+    "bytes": 2613479,
+    "month": 360
+  }
+]

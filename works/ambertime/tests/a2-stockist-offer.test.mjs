@@ -1,3 +1,4 @@
+import {beforeS1} from './s1-source-inverse.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
@@ -32,6 +33,7 @@ test('A2 retains spoken words and one decision, with department special handling
 
 test('A2 reviewed inverse rejects edited or duplicated display hunks while preserving original L1 protection',async()=>{
  const {beforeA2,beforeA1}=await import('./a1-source-baseline.mjs');
+ const source=beforeS1(fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),'shop-app.mjs');
  assert(beforeA2(source).includes("button('受ける','shop-accept'"));
  assert.throws(()=>beforeA2(source.replace('この店にお酒を置けるようになります。','unreviewed choice')),/exact reviewed A2 hunk/);
  assert.throws(()=>beforeA2(source+'\n'+source),/exact reviewed A2 hunk/);

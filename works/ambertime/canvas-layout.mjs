@@ -9,6 +9,8 @@ export function computeViewport({width,height,left=0,top=0,dpr=1}){
 export function projectRect(v,r){return{x:v.offsetX+r.x*v.scale,y:v.offsetY+r.y*v.scale,width:r.w*v.scale,height:r.h*v.scale};}
 export function toLogical(v,x,y){return{x:(x-v.left-v.offsetX)/v.scale,y:(y-v.top-v.offsetY)/v.scale};}
 export function hitTest(controls,x,y){return controls.findLast(r=>x>=r.x&&x<=r.x+r.w&&y>=r.y&&y<=r.y+r.h)??null;}
+// A saved place belongs to the current cask; legacy standalone views use array order.
+export const caskSlotIndex=(c,index)=>Number.isInteger(c?.slot)&&c.slot>=1&&c.slot<=4?c.slot-1:index;
 export function layoutScene(view={}){
  const controls=[],add=(key,selector,x,y,w,h=45)=>controls.push({key,selector,x,y,w,h});
  for(const[name,i]of['distill','warehouse','sales'].map((n,i)=>[n,i]))add('room-'+name,'#room-nav [data-room="'+name+'"]',12+i*114,582,108);
@@ -20,7 +22,7 @@ export function layoutScene(view={}){
  const caskSlots=Array.from({length:4},(_,i)=>({x:60+(i%2)*132,y:180+Math.floor(i/2)*144,w:108,h:120,base:234+Math.floor(i/2)*144}));
  const productSlots=caskSlots.map((s,i)=>({...s,y:144+Math.floor(i/2)*144,h:144,base:234+Math.floor(i/2)*144}));
  if(view.room==='warehouse'){
-  (view.casks??[]).forEach((c,i)=>{const r=caskSlots[i];if(r)add('cask-'+c.id,'#cask-rack [data-cask-id="'+c.id+'"]',r.x,r.y,r.w,r.h);});
+  (view.casks??[]).forEach((c,i)=>{const r=caskSlots[caskSlotIndex(c,i)];if(r)add('cask-'+c.id,'#cask-rack [data-cask-id="'+c.id+'"]',r.x,r.y,r.w,r.h);});
   if(!view.casks?.length)add('go-distill','#go-distill',126,408,108);
  }else if(view.room==='sales'&&!view.marketMode){
   (view.products??[]).forEach((p,i)=>{const r=productSlots[i];if(r)add('product-'+p.id,'#product-shelf [data-product-id="'+p.id+'"]',r.x,r.y,r.w,r.h);});

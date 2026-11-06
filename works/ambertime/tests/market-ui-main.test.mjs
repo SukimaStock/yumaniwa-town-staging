@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {reconcileCaskSlots} from '../cask-slots.mjs';
 import {writeCandidate} from '../placement-save.mjs';
 import {createMarketUI,savedMarketSales,visibleMarketRows,compactReleaseDate} from '../market-ui.mjs';
 const fixture=()=>({core:{month:4,products:[{id:7,stock:5,flavor:{primary:'fruit',label:'果実香が強い'}},{id:9,stock:4,flavor:{primary:'smoke',label:'煙の香り'}}]},releases:[{id:3,productId:7,brandId:1,bottledMonth:2},{id:4,productId:9,brandId:1,bottledMonth:3}],brands:[{id:1,name:'AmberTime'}],productsById:{},shop:{relations:[{shopId:'town-liquor',brandId:1}]},retail:{7:1,9:0},assigned:{7:2,9:1}});
@@ -123,9 +124,9 @@ test('sale quantities do not replace recorded remaining inventory and use saved 
 function nativeTransaction({failWrite=false,conflict=false,invalid=false}={}){
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
  const start=source.indexOf('function actMarket(fn){'),end=source.indexOf('function commitPlacement(',start);
- const old={id:'before'},next={id:'after'},calls={writes:0,receipts:0,news:0,renders:0},saveStatus={textContent:'保存済み'};
+ const old={id:'before',core:{casks:[]}},next={id:'after',core:{casks:[]}},calls={writes:0,receipts:0,news:0,renders:0},saveStatus={textContent:'保存済み'};
  let stored=conflict?'another-tab':'old';
- const context={game:old,committedSession:{game:old,userPaused:false,elapsed:0},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
+ const context={reconcileCaskSlots,caskSlots:[null,null,null,null],game:old,committedSession:{game:old,userPaused:false,elapsed:0,caskSlots:[null,null,null,null]},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
   D:{serializeDistillery:g=>{if(invalid)throw Error('invalid state');return JSON.stringify(g);}},
   countdown:{cancel(){}},stopClock(){},vaultPanels(){},writeCandidate,serializeSession:(game,ui,{serialize})=>JSON.stringify({version:3,game:JSON.parse(serialize(game)),...ui}),T:{monthMs:6000,distillStepMs:100},
   localStorage:{getItem:()=>stored,setItem:(key,value)=>{calls.writes++;if(failWrite)throw Error('quota');stored=value;}},
