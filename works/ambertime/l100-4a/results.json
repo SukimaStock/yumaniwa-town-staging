@@ -1,0 +1,4824 @@
+{
+  "method": "Node isolated research, not formal saves; full game JSON equality then same advanceTown(month+1) on original and hydrated copies. Future test covers town transition only. No browser, archive persistence, formal adoption or full future-equivalence proof.",
+  "runtime": "v24.22.1",
+  "formalCapExclusive": 6016384,
+  "archiveAccounting": "totalUnits/currentBytes sum manifest+integrity and unique raw archive blobs. Transport envelope escaping reported separately. Database keys/index/transaction overhead unmeasured.",
+  "rows": [
+    {
+      "file": "local-100-year-1200-v8.json",
+      "policy": "local",
+      "month": 1200,
+      "sourceHash": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+      "formalUnits": 3806900,
+      "formalBytes": 4257604,
+      "townUnits": 3590644,
+      "townBytes": 4017624,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 19846,
+          "bytes": 20638,
+          "count": 22
+        },
+        "shipments": {
+          "units": 42785,
+          "bytes": 42785,
+          "count": 398
+        },
+        "arrivals": {
+          "units": 1025164,
+          "bytes": 1213806,
+          "count": 3084
+        },
+        "events": {
+          "units": 1224918,
+          "bytes": 1462464,
+          "count": 3985
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 261,
+          "bytes": 261,
+          "count": 2
+        },
+        "packets": {
+          "units": 7483,
+          "bytes": 7483,
+          "count": 34
+        },
+        "attempts": {
+          "units": 1152652,
+          "bytes": 1152652,
+          "count": 9967
+        },
+        "seen": {
+          "units": 113383,
+          "bytes": 113383,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 13,
+          "bytes": 13,
+          "count": null
+        },
+        "nodes": {
+          "units": 3890,
+          "bytes": 3890,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 3807116,
+          "currentBytes": 4257820,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3807116,
+          "totalBytes": 4257820,
+          "transportUnits": 3807127,
+          "transportBytes": 4257831,
+          "blobCount": 0,
+          "encodeMs": 127.61852299999998,
+          "hydrateMs": 111.656655,
+          "nextTownMs": 19.815059999999903,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 2781956,
+          "currentBytes": 3044018,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2781956,
+          "totalBytes": 3044018,
+          "transportUnits": 2781967,
+          "transportBytes": 3044029,
+          "blobCount": 0,
+          "encodeMs": 114.19991300000004,
+          "hydrateMs": 116.60013500000002,
+          "nextTownMs": 16.684811999999965,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1690016,
+          "currentBytes": 1952078,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1690016,
+          "totalBytes": 1952078,
+          "transportUnits": 1690027,
+          "transportBytes": 1952089,
+          "blobCount": 0,
+          "encodeMs": 141.38918099999978,
+          "hydrateMs": 134.47907900000018,
+          "nextTownMs": 15.295796999999993,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 367476,
+          "currentBytes": 391992,
+          "archiveUnits": 1345519,
+          "archiveBytes": 1583065,
+          "totalUnits": 1712995,
+          "totalBytes": 1975057,
+          "transportUnits": 1840551,
+          "transportBytes": 2102613,
+          "blobCount": 57,
+          "encodeMs": 135.66970700000002,
+          "hydrateMs": 88.98914300000001,
+          "nextTownMs": 15.039762999999994,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 3984,
+            "ms": 4.586013999999977,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 32.29036400000001,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-30-year-360-v8.json",
+      "policy": "local",
+      "month": 360,
+      "sourceHash": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9",
+      "formalUnits": 1663003,
+      "formalBytes": 1868397,
+      "townUnits": 1539045,
+      "townBytes": 1726651,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 3,
+          "bytes": 3,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 12602,
+          "bytes": 13106,
+          "count": 14
+        },
+        "shipments": {
+          "units": 19213,
+          "bytes": 19213,
+          "count": 180
+        },
+        "arrivals": {
+          "units": 431775,
+          "bytes": 513667,
+          "count": 1312
+        },
+        "events": {
+          "units": 525053,
+          "bytes": 630263,
+          "count": 1738
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 253,
+          "bytes": 253,
+          "count": 2
+        },
+        "packets": {
+          "units": 9683,
+          "bytes": 9683,
+          "count": 46
+        },
+        "attempts": {
+          "units": 488339,
+          "bytes": 488339,
+          "count": 4260
+        },
+        "seen": {
+          "units": 47994,
+          "bytes": 47994,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 12,
+          "bytes": 12,
+          "count": null
+        },
+        "nodes": {
+          "units": 3873,
+          "bytes": 3873,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 1663219,
+          "currentBytes": 1868613,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1663219,
+          "totalBytes": 1868613,
+          "transportUnits": 1663230,
+          "transportBytes": 1868624,
+          "blobCount": 0,
+          "encodeMs": 51.92731600000002,
+          "hydrateMs": 56.271302000000105,
+          "nextTownMs": 6.2473879999997735,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 1231448,
+          "currentBytes": 1354950,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1231448,
+          "totalBytes": 1354950,
+          "transportUnits": 1231459,
+          "transportBytes": 1354961,
+          "blobCount": 0,
+          "encodeMs": 50.60015800000019,
+          "hydrateMs": 46.066597999999885,
+          "nextTownMs": 6.211663999999928,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 761114,
+          "currentBytes": 884616,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 761114,
+          "totalBytes": 884616,
+          "transportUnits": 761125,
+          "transportBytes": 884627,
+          "blobCount": 0,
+          "encodeMs": 54.00574800000004,
+          "hydrateMs": 59.090074000000186,
+          "nextTownMs": 3.9557549999999537,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 201487,
+          "currentBytes": 219779,
+          "archiveUnits": 569042,
+          "archiveBytes": 674252,
+          "totalUnits": 770529,
+          "totalBytes": 894031,
+          "transportUnits": 825469,
+          "transportBytes": 948971,
+          "blobCount": 25,
+          "encodeMs": 52.715126000000055,
+          "hydrateMs": 36.21761599999991,
+          "nextTownMs": 6.8410869999997885,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 1737,
+            "ms": 2.905080999999882,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 6.788387999999941,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-60-year-720-v8.json",
+      "policy": "local",
+      "month": 720,
+      "sourceHash": "07394cf9aa7c0a31f39d75dec9a6a42d955eff9ebb194a2a8815511d439f8568",
+      "formalUnits": 2631181,
+      "formalBytes": 2946411,
+      "townUnits": 2463697,
+      "townBytes": 2758137,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 3,
+          "bytes": 3,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 17128,
+          "bytes": 17812,
+          "count": 19
+        },
+        "shipments": {
+          "units": 30551,
+          "bytes": 30551,
+          "count": 285
+        },
+        "arrivals": {
+          "units": 693803,
+          "bytes": 822935,
+          "count": 2098
+        },
+        "events": {
+          "units": 837851,
+          "bytes": 1002475,
+          "count": 2752
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 489,
+          "bytes": 489,
+          "count": 4
+        },
+        "packets": {
+          "units": 18399,
+          "bytes": 18399,
+          "count": 90
+        },
+        "attempts": {
+          "units": 784658,
+          "bytes": 784658,
+          "count": 6808
+        },
+        "seen": {
+          "units": 76673,
+          "bytes": 76673,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 12,
+          "bytes": 12,
+          "count": null
+        },
+        "nodes": {
+          "units": 3885,
+          "bytes": 3885,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 2631397,
+          "currentBytes": 2946627,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2631397,
+          "totalBytes": 2946627,
+          "transportUnits": 2631408,
+          "transportBytes": 2946638,
+          "blobCount": 0,
+          "encodeMs": 84.86139299999968,
+          "hydrateMs": 72.37200699999994,
+          "nextTownMs": 5.4026920000001155,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 1937598,
+          "currentBytes": 2123696,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1937598,
+          "totalBytes": 2123696,
+          "transportUnits": 1937609,
+          "transportBytes": 2123707,
+          "blobCount": 0,
+          "encodeMs": 111.63260100000025,
+          "hydrateMs": 56.933684000000085,
+          "nextTownMs": 5.939695999999913,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1188302,
+          "currentBytes": 1374400,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1188302,
+          "totalBytes": 1374400,
+          "transportUnits": 1188313,
+          "transportBytes": 1374411,
+          "blobCount": 0,
+          "encodeMs": 56.937990000000354,
+          "hydrateMs": 57.48493000000008,
+          "nextTownMs": 6.669538999999986,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 288695,
+          "currentBytes": 310169,
+          "archiveUnits": 915232,
+          "archiveBytes": 1079856,
+          "totalUnits": 1203927,
+          "totalBytes": 1390025,
+          "transportUnits": 1291479,
+          "transportBytes": 1477577,
+          "blobCount": 40,
+          "encodeMs": 82.97882299999992,
+          "hydrateMs": 56.83832099999972,
+          "nextTownMs": 11.454987000000074,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 2751,
+            "ms": 3.8202220000002853,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 10.085926999999629,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-90-year-1080-v8.json",
+      "policy": "local",
+      "month": 1080,
+      "sourceHash": "31a68b7d5153862668251cc5e7131fbaf73a503c23fd5c54934c00771b310bbc",
+      "formalUnits": 3500658,
+      "formalBytes": 3916316,
+      "townUnits": 3297424,
+      "townBytes": 3690632,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 18941,
+          "bytes": 19697,
+          "count": 21
+        },
+        "shipments": {
+          "units": 39619,
+          "bytes": 39619,
+          "count": 369
+        },
+        "arrivals": {
+          "units": 940458,
+          "bytes": 1114148,
+          "count": 2832
+        },
+        "events": {
+          "units": 1124750,
+          "bytes": 1343512,
+          "count": 3665
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 261,
+          "bytes": 261,
+          "count": 2
+        },
+        "packets": {
+          "units": 8655,
+          "bytes": 8655,
+          "count": 41
+        },
+        "attempts": {
+          "units": 1056623,
+          "bytes": 1056623,
+          "count": 9148
+        },
+        "seen": {
+          "units": 103963,
+          "bytes": 103963,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 13,
+          "bytes": 13,
+          "count": null
+        },
+        "nodes": {
+          "units": 3892,
+          "bytes": 3892,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 3500874,
+          "currentBytes": 3916532,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3500874,
+          "totalBytes": 3916532,
+          "transportUnits": 3500885,
+          "transportBytes": 3916543,
+          "blobCount": 0,
+          "encodeMs": 124.5565730000003,
+          "hydrateMs": 143.1422789999997,
+          "nextTownMs": 15.647555999999895,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 2560420,
+          "currentBytes": 2802388,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2560420,
+          "totalBytes": 2802388,
+          "transportUnits": 2560431,
+          "transportBytes": 2802399,
+          "blobCount": 0,
+          "encodeMs": 102.75916399999915,
+          "hydrateMs": 93.69248999999945,
+          "nextTownMs": 12.50816500000019,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1557188,
+          "currentBytes": 1799156,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1557188,
+          "totalBytes": 1799156,
+          "transportUnits": 1557199,
+          "transportBytes": 1799167,
+          "blobCount": 0,
+          "encodeMs": 123.86028499999975,
+          "hydrateMs": 100.785664,
+          "nextTownMs": 14.480679000000237,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 344898,
+          "currentBytes": 368104,
+          "archiveUnits": 1233599,
+          "archiveBytes": 1452361,
+          "totalUnits": 1578497,
+          "totalBytes": 1820465,
+          "transportUnits": 1695799,
+          "transportBytes": 1937767,
+          "blobCount": 53,
+          "encodeMs": 107.80325499999981,
+          "hydrateMs": 82.15592699999979,
+          "nextTownMs": 14.092177000000447,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 3664,
+            "ms": 3.8609719999994923,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 12.090238000000227,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-100-year-1200-v8.json",
+      "policy": "mixed",
+      "month": 1200,
+      "sourceHash": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+      "formalUnits": 4938560,
+      "formalBytes": 5527716,
+      "townUnits": 4708105,
+      "townBytes": 5273987,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 25232,
+          "bytes": 26240,
+          "count": 28
+        },
+        "shipments": {
+          "units": 54884,
+          "bytes": 54884,
+          "count": 508
+        },
+        "arrivals": {
+          "units": 1347528,
+          "bytes": 1598042,
+          "count": 4035
+        },
+        "events": {
+          "units": 1607505,
+          "bytes": 1921865,
+          "count": 5201
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 134,
+          "bytes": 134,
+          "count": 1
+        },
+        "packets": {
+          "units": 14999,
+          "bytes": 14999,
+          "count": 69
+        },
+        "attempts": {
+          "units": 1504053,
+          "bytes": 1504053,
+          "count": 13022
+        },
+        "seen": {
+          "units": 149489,
+          "bytes": 149489,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 26,
+          "bytes": 26,
+          "count": null
+        },
+        "nodes": {
+          "units": 4006,
+          "bytes": 4006,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 4938776,
+          "currentBytes": 5527932,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4938776,
+          "totalBytes": 5527932,
+          "transportUnits": 4938787,
+          "transportBytes": 5527943,
+          "blobCount": 0,
+          "encodeMs": 164.20134700000017,
+          "hydrateMs": 123.03409600000032,
+          "nextTownMs": 12.853874999999789,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3591252,
+          "currentBytes": 3929894,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3591252,
+          "totalBytes": 3929894,
+          "transportUnits": 3591263,
+          "transportBytes": 3929905,
+          "blobCount": 0,
+          "encodeMs": 124.98157699999956,
+          "hydrateMs": 135.30688399999963,
+          "nextTownMs": 15.019967000000179,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2165204,
+          "currentBytes": 2503846,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2165204,
+          "totalBytes": 2503846,
+          "transportUnits": 2165215,
+          "transportBytes": 2503857,
+          "blobCount": 0,
+          "encodeMs": 168.2631190000002,
+          "hydrateMs": 142.41048500000034,
+          "nextTownMs": 20.85527000000002,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 432413,
+          "currentBytes": 456695,
+          "archiveUnits": 1763028,
+          "archiveBytes": 2077388,
+          "totalUnits": 2195441,
+          "totalBytes": 2534083,
+          "transportUnits": 2362011,
+          "transportBytes": 2700653,
+          "blobCount": 74,
+          "encodeMs": 127.16796900000008,
+          "hydrateMs": 105.19501899999977,
+          "nextTownMs": 29.902546000000257,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 5200,
+            "ms": 3.3851409999997486,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 18.464686000000256,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-30-year-360-v8.json",
+      "policy": "mixed",
+      "month": 360,
+      "sourceHash": "4f042009960cc58785cce01bc7ee413c8503b72dc2e08a3b9f6dbc80bc1afde4",
+      "formalUnits": 1830735,
+      "formalBytes": 2054345,
+      "townUnits": 1706779,
+      "townBytes": 1913883,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 3,
+          "bytes": 3,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 12589,
+          "bytes": 13093,
+          "count": 14
+        },
+        "shipments": {
+          "units": 21706,
+          "bytes": 21706,
+          "count": 203
+        },
+        "arrivals": {
+          "units": 478828,
+          "bytes": 569738,
+          "count": 1454
+        },
+        "events": {
+          "units": 579079,
+          "bytes": 694769,
+          "count": 1908
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 496,
+          "bytes": 496,
+          "count": 4
+        },
+        "packets": {
+          "units": 15708,
+          "bytes": 15708,
+          "count": 77
+        },
+        "attempts": {
+          "units": 540891,
+          "bytes": 540891,
+          "count": 4718
+        },
+        "seen": {
+          "units": 53306,
+          "bytes": 53306,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 12,
+          "bytes": 12,
+          "count": null
+        },
+        "nodes": {
+          "units": 3916,
+          "bytes": 3916,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 1830951,
+          "currentBytes": 2054561,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1830951,
+          "totalBytes": 2054561,
+          "transportUnits": 1830962,
+          "transportBytes": 2054572,
+          "blobCount": 0,
+          "encodeMs": 52.522539000000506,
+          "hydrateMs": 61.23375699999997,
+          "nextTownMs": 7.063781999999264,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 1352127,
+          "currentBytes": 1484827,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1352127,
+          "totalBytes": 1484827,
+          "transportUnits": 1352138,
+          "transportBytes": 1484838,
+          "blobCount": 0,
+          "encodeMs": 53.843526999999995,
+          "hydrateMs": 48.30213100000037,
+          "nextTownMs": 6.976440000000366,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 832534,
+          "currentBytes": 965234,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 832534,
+          "totalBytes": 965234,
+          "transportUnits": 832545,
+          "transportBytes": 965245,
+          "blobCount": 0,
+          "encodeMs": 59.80275999999958,
+          "hydrateMs": 50.087680000000546,
+          "nextTownMs": 7.922008999999889,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 213398,
+          "currentBytes": 230408,
+          "archiveUnits": 630249,
+          "archiveBytes": 745939,
+          "totalUnits": 843647,
+          "totalBytes": 976347,
+          "transportUnits": 904531,
+          "transportBytes": 1037231,
+          "blobCount": 28,
+          "encodeMs": 57.3476899999996,
+          "hydrateMs": 37.084915999999794,
+          "nextTownMs": 7.984062000000449,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 1907,
+            "ms": 2.6955950000001394,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 7.761147999999594,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-60-year-720-v8.json",
+      "policy": "mixed",
+      "month": 720,
+      "sourceHash": "c7a123afd6734977de4f46d244b7b4085c278128630e73d90156cd88095b4ff6",
+      "formalUnits": 2917707,
+      "formalBytes": 3269309,
+      "townUnits": 2758638,
+      "townBytes": 3092270,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 3,
+          "bytes": 3,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 15295,
+          "bytes": 15907,
+          "count": 17
+        },
+        "shipments": {
+          "units": 32891,
+          "bytes": 32891,
+          "count": 307
+        },
+        "arrivals": {
+          "units": 785489,
+          "bytes": 932301,
+          "count": 2369
+        },
+        "events": {
+          "units": 943946,
+          "bytes": 1130154,
+          "count": 3082
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 243,
+          "bytes": 243,
+          "count": 2
+        },
+        "packets": {
+          "units": 7632,
+          "bytes": 7632,
+          "count": 34
+        },
+        "attempts": {
+          "units": 882188,
+          "bytes": 882188,
+          "count": 7664
+        },
+        "seen": {
+          "units": 86722,
+          "bytes": 86722,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 24,
+          "bytes": 24,
+          "count": null
+        },
+        "nodes": {
+          "units": 3960,
+          "bytes": 3960,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 2917923,
+          "currentBytes": 3269525,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2917923,
+          "totalBytes": 3269525,
+          "transportUnits": 2917934,
+          "transportBytes": 3269536,
+          "blobCount": 0,
+          "encodeMs": 65.11891899999955,
+          "hydrateMs": 60.73253600000044,
+          "nextTownMs": 14.141532999999981,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 2132438,
+          "currentBytes": 2337228,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2132438,
+          "totalBytes": 2337228,
+          "transportUnits": 2132449,
+          "transportBytes": 2337239,
+          "blobCount": 0,
+          "encodeMs": 61.1525359999996,
+          "hydrateMs": 62.87301800000023,
+          "nextTownMs": 10.8260879999998,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1290822,
+          "currentBytes": 1495612,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1290822,
+          "totalBytes": 1495612,
+          "transportUnits": 1290833,
+          "transportBytes": 1495623,
+          "blobCount": 0,
+          "encodeMs": 89.49319400000059,
+          "hydrateMs": 80.05987099999948,
+          "nextTownMs": 11.891716000000088,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 278074,
+          "currentBytes": 296656,
+          "archiveUnits": 1030314,
+          "archiveBytes": 1216522,
+          "totalUnits": 1308388,
+          "totalBytes": 1513178,
+          "transportUnits": 1406786,
+          "transportBytes": 1611576,
+          "blobCount": 45,
+          "encodeMs": 82.6534929999998,
+          "hydrateMs": 62.56606699999975,
+          "nextTownMs": 7.7125749999995605,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 3081,
+            "ms": 2.2349039999990055,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 5.9654630000004545,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-90-year-1080-v8.json",
+      "policy": "mixed",
+      "month": 1080,
+      "sourceHash": "54fa50613773295f2fec14ce10d59ba51ee39cdfdd1de5bf23f1c52b5aada842",
+      "formalUnits": 4425277,
+      "formalBytes": 4953575,
+      "townUnits": 4211750,
+      "townBytes": 4718092,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 22521,
+          "bytes": 23421,
+          "count": 25
+        },
+        "shipments": {
+          "units": 49149,
+          "bytes": 49149,
+          "count": 456
+        },
+        "arrivals": {
+          "units": 1205032,
+          "bytes": 1428988,
+          "count": 3614
+        },
+        "events": {
+          "units": 1438858,
+          "bytes": 1720344,
+          "count": 4663
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 249,
+          "bytes": 249,
+          "count": 2
+        },
+        "packets": {
+          "units": 12016,
+          "bytes": 12016,
+          "count": 55
+        },
+        "attempts": {
+          "units": 1346121,
+          "bytes": 1346121,
+          "count": 11666
+        },
+        "seen": {
+          "units": 133525,
+          "bytes": 133525,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 26,
+          "bytes": 26,
+          "count": null
+        },
+        "nodes": {
+          "units": 4004,
+          "bytes": 4004,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 4425493,
+          "currentBytes": 4953791,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4425493,
+          "totalBytes": 4953791,
+          "transportUnits": 4425504,
+          "transportBytes": 4953802,
+          "blobCount": 0,
+          "encodeMs": 163.39584500000092,
+          "hydrateMs": 170.28309099999933,
+          "nextTownMs": 20.43284499999936,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3220465,
+          "currentBytes": 3524807,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3220465,
+          "totalBytes": 3524807,
+          "transportUnits": 3220476,
+          "transportBytes": 3524818,
+          "blobCount": 0,
+          "encodeMs": 131.10813400000006,
+          "hydrateMs": 112.2521770000003,
+          "nextTownMs": 16.324624000000767,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1942479,
+          "currentBytes": 2246821,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1942479,
+          "totalBytes": 2246821,
+          "transportUnits": 1942490,
+          "transportBytes": 2246832,
+          "blobCount": 0,
+          "encodeMs": 146.1743230000011,
+          "hydrateMs": 122.16174800000044,
+          "nextTownMs": 17.068169000000125,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 393228,
+          "currentBytes": 416084,
+          "archiveUnits": 1576399,
+          "archiveBytes": 1857885,
+          "totalUnits": 1969627,
+          "totalBytes": 2273969,
+          "transportUnits": 2118971,
+          "transportBytes": 2423313,
+          "blobCount": 67,
+          "encodeMs": 130.05409399999917,
+          "hydrateMs": 84.2820159999992,
+          "nextTownMs": 17.030593000001318,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 4662,
+            "ms": 4.655372999999599,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 9.877575000000434,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "wide-100-year-1200-v8.json",
+      "policy": "wide",
+      "month": 1200,
+      "sourceHash": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+      "formalUnits": 5838093,
+      "formalBytes": 6539999,
+      "townUnits": 5600017,
+      "townBytes": 6280101,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 29760,
+          "bytes": 30948,
+          "count": 33
+        },
+        "shipments": {
+          "units": 64290,
+          "bytes": 64290,
+          "count": 594
+        },
+        "arrivals": {
+          "units": 1609859,
+          "bytes": 1912883,
+          "count": 4801
+        },
+        "events": {
+          "units": 1909147,
+          "bytes": 2285019,
+          "count": 6138
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 598,
+          "bytes": 598,
+          "count": 5
+        },
+        "packets": {
+          "units": 20088,
+          "bytes": 20088,
+          "count": 94
+        },
+        "attempts": {
+          "units": 1782557,
+          "bytes": 1782557,
+          "count": 15469
+        },
+        "seen": {
+          "units": 179464,
+          "bytes": 179464,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 43,
+          "bytes": 43,
+          "count": null
+        },
+        "nodes": {
+          "units": 3962,
+          "bytes": 3962,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5838309,
+          "currentBytes": 6540215,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5838309,
+          "totalBytes": 6540215,
+          "transportUnits": 5838320,
+          "transportBytes": 6540226,
+          "blobCount": 0,
+          "encodeMs": 225.7929349999995,
+          "hydrateMs": 151.04686000000038,
+          "nextTownMs": 21.765443000000232,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 4228454,
+          "currentBytes": 4627336,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4228454,
+          "totalBytes": 4627336,
+          "transportUnits": 4228465,
+          "transportBytes": 4627347,
+          "blobCount": 0,
+          "encodeMs": 160.24447099999998,
+          "hydrateMs": 144.35525899999993,
+          "nextTownMs": 24.33715099999972,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2538595,
+          "currentBytes": 2937477,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2538595,
+          "totalBytes": 2937477,
+          "transportUnits": 2538606,
+          "transportBytes": 2937488,
+          "blobCount": 0,
+          "encodeMs": 161.0644200000006,
+          "hydrateMs": 163.68581199999971,
+          "nextTownMs": 25.224221000000398,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 481486,
+          "currentBytes": 504496,
+          "archiveUnits": 2093509,
+          "archiveBytes": 2469381,
+          "totalUnits": 2574995,
+          "totalBytes": 2973877,
+          "transportUnits": 2772675,
+          "transportBytes": 3171557,
+          "blobCount": 88,
+          "encodeMs": 162.12258099999963,
+          "hydrateMs": 113.32656700000007,
+          "nextTownMs": 12.749722000000475,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 6137,
+            "ms": 5.040279999999257,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 13.041909999999916,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "wide-30-year-360-v8.json",
+      "policy": "wide",
+      "month": 360,
+      "sourceHash": "3e5464f100f92d25ca27e8f0c001e335aa13750b35e4ba7ef698bbb4ddd1d221",
+      "formalUnits": 2328417,
+      "formalBytes": 2613479,
+      "townUnits": 2202878,
+      "townBytes": 2471826,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 3,
+          "bytes": 3,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 13492,
+          "bytes": 14032,
+          "count": 15
+        },
+        "shipments": {
+          "units": 27121,
+          "bytes": 27121,
+          "count": 253
+        },
+        "arrivals": {
+          "units": 624482,
+          "bytes": 743514,
+          "count": 1885
+        },
+        "events": {
+          "units": 748564,
+          "bytes": 897940,
+          "count": 2446
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 506,
+          "bytes": 506,
+          "count": 4
+        },
+        "packets": {
+          "units": 15891,
+          "bytes": 15891,
+          "count": 76
+        },
+        "attempts": {
+          "units": 698797,
+          "bytes": 698797,
+          "count": 6099
+        },
+        "seen": {
+          "units": 69812,
+          "bytes": 69812,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 24,
+          "bytes": 24,
+          "count": null
+        },
+        "nodes": {
+          "units": 3941,
+          "bytes": 3941,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 2328633,
+          "currentBytes": 2613695,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2328633,
+          "totalBytes": 2613695,
+          "transportUnits": 2328644,
+          "transportBytes": 2613706,
+          "blobCount": 0,
+          "encodeMs": 73.95268399999986,
+          "hydrateMs": 66.21064300000035,
+          "nextTownMs": 8.686147000000346,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 1704155,
+          "currentBytes": 1870185,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1704155,
+          "totalBytes": 1870185,
+          "transportUnits": 1704166,
+          "transportBytes": 1870196,
+          "blobCount": 0,
+          "encodeMs": 68.36466799999835,
+          "hydrateMs": 50.09952499999963,
+          "nextTownMs": 8.57848600000034,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1034814,
+          "currentBytes": 1200844,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1034814,
+          "totalBytes": 1200844,
+          "transportUnits": 1034825,
+          "transportBytes": 1200855,
+          "blobCount": 0,
+          "encodeMs": 67.14012700000058,
+          "hydrateMs": 61.91180499999973,
+          "nextTownMs": 5.6843659999995,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 233327,
+          "currentBytes": 249981,
+          "archiveUnits": 815569,
+          "archiveBytes": 964945,
+          "totalUnits": 1048896,
+          "totalBytes": 1214926,
+          "transportUnits": 1127226,
+          "transportBytes": 1293256,
+          "blobCount": 35,
+          "encodeMs": 71.4644929999995,
+          "hydrateMs": 50.47944899999857,
+          "nextTownMs": 10.506548000001203,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 2445,
+            "ms": 2.9203400000005786,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 9.22765999999865,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "wide-60-year-720-v8.json",
+      "policy": "wide",
+      "month": 720,
+      "sourceHash": "dda24b698d0c09ab6d6583c246a94f675d348c48a112da5aed927bb3a85e7711",
+      "formalUnits": 3737497,
+      "formalBytes": 4190187,
+      "townUnits": 3560666,
+      "townBytes": 3994198,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 3,
+          "bytes": 3,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 19814,
+          "bytes": 20606,
+          "count": 22
+        },
+        "shipments": {
+          "units": 42182,
+          "bytes": 42182,
+          "count": 392
+        },
+        "arrivals": {
+          "units": 1019573,
+          "bytes": 1212165,
+          "count": 3057
+        },
+        "events": {
+          "units": 1214143,
+          "bytes": 1454291,
+          "count": 3933
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 802,
+          "bytes": 802,
+          "count": 6
+        },
+        "packets": {
+          "units": 12807,
+          "bytes": 12807,
+          "count": 62
+        },
+        "attempts": {
+          "units": 1133600,
+          "bytes": 1133600,
+          "count": 9865
+        },
+        "seen": {
+          "units": 113516,
+          "bytes": 113516,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 24,
+          "bytes": 24,
+          "count": null
+        },
+        "nodes": {
+          "units": 3957,
+          "bytes": 3957,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 3737713,
+          "currentBytes": 4190403,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3737713,
+          "totalBytes": 4190403,
+          "transportUnits": 3737724,
+          "transportBytes": 4190414,
+          "blobCount": 0,
+          "encodeMs": 110.83099900000161,
+          "hydrateMs": 100.89859799999977,
+          "nextTownMs": 14.098523999999088,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 2718144,
+          "currentBytes": 2978242,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2718144,
+          "totalBytes": 2978242,
+          "transportUnits": 2718155,
+          "transportBytes": 2978253,
+          "blobCount": 0,
+          "encodeMs": 131.6691920000012,
+          "hydrateMs": 95.3146029999989,
+          "nextTownMs": 17.14067800000157,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1638448,
+          "currentBytes": 1898546,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1638448,
+          "totalBytes": 1898546,
+          "transportUnits": 1638459,
+          "transportBytes": 1898557,
+          "blobCount": 0,
+          "encodeMs": 121.11541300000135,
+          "hydrateMs": 97.99762700000065,
+          "nextTownMs": 16.169110000000728,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 334093,
+          "currentBytes": 354043,
+          "archiveUnits": 1327563,
+          "archiveBytes": 1567711,
+          "totalUnits": 1661656,
+          "totalBytes": 1921754,
+          "transportUnits": 1788080,
+          "transportBytes": 2048178,
+          "blobCount": 57,
+          "encodeMs": 116.95787799999925,
+          "hydrateMs": 74.77525800000149,
+          "nextTownMs": 9.961970999998812,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 3932,
+            "ms": 2.597386000001279,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 8.882531999999628,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "wide-90-year-1080-v8.json",
+      "policy": "wide",
+      "month": 1080,
+      "sourceHash": "d208a9133d736af8d2cc1af85efed8d436bf85c22abf6148719ce33e756f5e89",
+      "formalUnits": 5259993,
+      "formalBytes": 5894269,
+      "townUnits": 5037723,
+      "townBytes": 5650587,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 26142,
+          "bytes": 27186,
+          "count": 29
+        },
+        "shipments": {
+          "units": 57653,
+          "bytes": 57653,
+          "count": 534
+        },
+        "arrivals": {
+          "units": 1452446,
+          "bytes": 1725964,
+          "count": 4336
+        },
+        "events": {
+          "units": 1718739,
+          "bytes": 2057041,
+          "count": 5528
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 275,
+          "bytes": 275,
+          "count": 2
+        },
+        "packets": {
+          "units": 9612,
+          "bytes": 9612,
+          "count": 44
+        },
+        "attempts": {
+          "units": 1606805,
+          "bytes": 1606805,
+          "count": 13960
+        },
+        "seen": {
+          "units": 161798,
+          "bytes": 161798,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 42,
+          "bytes": 42,
+          "count": null
+        },
+        "nodes": {
+          "units": 3962,
+          "bytes": 3962,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5260209,
+          "currentBytes": 5894485,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5260209,
+          "totalBytes": 5894485,
+          "transportUnits": 5260220,
+          "transportBytes": 5894496,
+          "blobCount": 0,
+          "encodeMs": 161.25308699999914,
+          "hydrateMs": 117.78500399999939,
+          "nextTownMs": 20.671543000000383,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3807767,
+          "currentBytes": 4168525,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3807767,
+          "totalBytes": 4168525,
+          "transportUnits": 3807778,
+          "transportBytes": 4168536,
+          "blobCount": 0,
+          "encodeMs": 137.22760899999776,
+          "hydrateMs": 135.06058399999893,
+          "nextTownMs": 22.31546900000103,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2284178,
+          "currentBytes": 2644936,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2284178,
+          "totalBytes": 2644936,
+          "transportUnits": 2284189,
+          "transportBytes": 2644947,
+          "blobCount": 0,
+          "encodeMs": 177.31276300000172,
+          "hydrateMs": 138.88576599999942,
+          "nextTownMs": 17.630982999999105,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 432782,
+          "currentBytes": 455238,
+          "archiveUnits": 1884169,
+          "archiveBytes": 2222471,
+          "totalUnits": 2316951,
+          "totalBytes": 2677709,
+          "transportUnits": 2495273,
+          "transportBytes": 2856031,
+          "blobCount": 80,
+          "encodeMs": 171.96525400000246,
+          "hydrateMs": 91.99326199999996,
+          "nextTownMs": 22.655789000000368,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 5527,
+            "ms": 3.6289030000007187,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 11.336864000000787,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-1200-v8.json",
+      "policy": "local",
+      "month": 1200,
+      "sourceHash": "e684e4cc831c178921f4eff4ff4f8d4838407c58a0d95d53889071c9f1ab5519",
+      "formalUnits": 3806900,
+      "formalBytes": 4257604,
+      "townUnits": 3590644,
+      "townBytes": 4017624,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 19846,
+          "bytes": 20638,
+          "count": 22
+        },
+        "shipments": {
+          "units": 42785,
+          "bytes": 42785,
+          "count": 398
+        },
+        "arrivals": {
+          "units": 1025164,
+          "bytes": 1213806,
+          "count": 3084
+        },
+        "events": {
+          "units": 1224918,
+          "bytes": 1462464,
+          "count": 3985
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 261,
+          "bytes": 261,
+          "count": 2
+        },
+        "packets": {
+          "units": 7483,
+          "bytes": 7483,
+          "count": 34
+        },
+        "attempts": {
+          "units": 1152652,
+          "bytes": 1152652,
+          "count": 9967
+        },
+        "seen": {
+          "units": 113383,
+          "bytes": 113383,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 13,
+          "bytes": 13,
+          "count": null
+        },
+        "nodes": {
+          "units": 3890,
+          "bytes": 3890,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 3807116,
+          "currentBytes": 4257820,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3807116,
+          "totalBytes": 4257820,
+          "transportUnits": 3807127,
+          "transportBytes": 4257831,
+          "blobCount": 0,
+          "encodeMs": 117.68007700000089,
+          "hydrateMs": 92.78876899999887,
+          "nextTownMs": 16.095296999999846,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 2781956,
+          "currentBytes": 3044018,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2781956,
+          "totalBytes": 3044018,
+          "transportUnits": 2781967,
+          "transportBytes": 3044029,
+          "blobCount": 0,
+          "encodeMs": 101.12103399999978,
+          "hydrateMs": 107.052969999997,
+          "nextTownMs": 8.984303000001091,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1690016,
+          "currentBytes": 1952078,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1690016,
+          "totalBytes": 1952078,
+          "transportUnits": 1690027,
+          "transportBytes": 1952089,
+          "blobCount": 0,
+          "encodeMs": 104.2870019999973,
+          "hydrateMs": 114.69132000000172,
+          "nextTownMs": 14.465464000000793,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 367476,
+          "currentBytes": 391992,
+          "archiveUnits": 1345519,
+          "archiveBytes": 1583065,
+          "totalUnits": 1712995,
+          "totalBytes": 1975057,
+          "transportUnits": 1840551,
+          "transportBytes": 2102613,
+          "blobCount": 57,
+          "encodeMs": 93.30807199999981,
+          "hydrateMs": 65.60541999999987,
+          "nextTownMs": 14.4457730000031,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 3984,
+            "ms": 4.506869000000734,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 14.50692699999854,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-1212-v8.json",
+      "policy": "local",
+      "month": 1212,
+      "sourceHash": "e9b02ecd9b582c9e75bad1c867e3b8df767d0183fa7d24bb6c72d818867ade9b",
+      "formalUnits": 3846288,
+      "formalBytes": 4300856,
+      "townUnits": 3626790,
+      "townBytes": 4057512,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 20753,
+          "bytes": 21581,
+          "count": 23
+        },
+        "shipments": {
+          "units": 43678,
+          "bytes": 43678,
+          "count": 406
+        },
+        "arrivals": {
+          "units": 1032895,
+          "bytes": 1222861,
+          "count": 3107
+        },
+        "events": {
+          "units": 1237181,
+          "bytes": 1477109,
+          "count": 4028
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 913,
+          "bytes": 913,
+          "count": 7
+        },
+        "packets": {
+          "units": 10804,
+          "bytes": 10804,
+          "count": 52
+        },
+        "attempts": {
+          "units": 1162181,
+          "bytes": 1162181,
+          "count": 10047
+        },
+        "seen": {
+          "units": 114231,
+          "bytes": 114231,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 13,
+          "bytes": 13,
+          "count": null
+        },
+        "nodes": {
+          "units": 3892,
+          "bytes": 3892,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 3846504,
+          "currentBytes": 4301072,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3846504,
+          "totalBytes": 4301072,
+          "transportUnits": 3846515,
+          "transportBytes": 4301083,
+          "blobCount": 0,
+          "encodeMs": 108.61158799999976,
+          "hydrateMs": 109.88157200000205,
+          "nextTownMs": 15.670500000000175,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 2813613,
+          "currentBytes": 3078215,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2813613,
+          "totalBytes": 3078215,
+          "transportUnits": 2813624,
+          "transportBytes": 3078226,
+          "blobCount": 0,
+          "encodeMs": 112.28112600000168,
+          "hydrateMs": 124.1997279999996,
+          "nextTownMs": 16.10895800000071,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1711462,
+          "currentBytes": 1976064,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1711462,
+          "totalBytes": 1976064,
+          "transportUnits": 1711473,
+          "transportBytes": 1976075,
+          "blobCount": 0,
+          "encodeMs": 121.85229400000026,
+          "hydrateMs": 97.38248300000123,
+          "nextTownMs": 14.293314999998984,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 376549,
+          "currentBytes": 401223,
+          "archiveUnits": 1358261,
+          "archiveBytes": 1598189,
+          "totalUnits": 1734810,
+          "totalBytes": 1999412,
+          "transportUnits": 1863636,
+          "transportBytes": 2128238,
+          "blobCount": 58,
+          "encodeMs": 117.36058799999955,
+          "hydrateMs": 67.4736410000005,
+          "nextTownMs": 12.134146999997029,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 4027,
+            "ms": 3.332568000001629,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 14.531691000000137,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-1320-v8.json",
+      "policy": "local",
+      "month": 1320,
+      "sourceHash": "cee26990ea049749e8c7efbcc347d3487d109af3262d18c9665038c94dc04e74",
+      "formalUnits": 4128503,
+      "formalBytes": 4616497,
+      "townUnits": 3901465,
+      "townBytes": 4365487,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 20753,
+          "bytes": 21581,
+          "count": 23
+        },
+        "shipments": {
+          "units": 46167,
+          "bytes": 46167,
+          "count": 429
+        },
+        "arrivals": {
+          "units": 1113383,
+          "bytes": 1317895,
+          "count": 3346
+        },
+        "events": {
+          "units": 1333750,
+          "bytes": 1592432,
+          "count": 4338
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 249,
+          "bytes": 249,
+          "count": 2
+        },
+        "packets": {
+          "units": 7112,
+          "bytes": 7112,
+          "count": 33
+        },
+        "attempts": {
+          "units": 1252758,
+          "bytes": 1252758,
+          "count": 10822
+        },
+        "seen": {
+          "units": 123137,
+          "bytes": 123137,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 13,
+          "bytes": 13,
+          "count": null
+        },
+        "nodes": {
+          "units": 3894,
+          "bytes": 3894,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 4128719,
+          "currentBytes": 4616713,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4128719,
+          "totalBytes": 4616713,
+          "transportUnits": 4128730,
+          "transportBytes": 4616724,
+          "blobCount": 0,
+          "encodeMs": 105.79487399999925,
+          "hydrateMs": 117.32122300000265,
+          "nextTownMs": 17.209247999999207,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3015340,
+          "currentBytes": 3298822,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3015340,
+          "totalBytes": 3298822,
+          "transportUnits": 3015351,
+          "transportBytes": 3298833,
+          "blobCount": 0,
+          "encodeMs": 105.83348599999954,
+          "hydrateMs": 109.99933899999814,
+          "nextTownMs": 15.145802999999432,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1828635,
+          "currentBytes": 2112117,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1828635,
+          "totalBytes": 2112117,
+          "transportUnits": 1828646,
+          "transportBytes": 2112128,
+          "blobCount": 0,
+          "encodeMs": 129.9346289999994,
+          "hydrateMs": 110.61541299999953,
+          "nextTownMs": 14.486038999999437,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 389048,
+          "currentBytes": 413848,
+          "archiveUnits": 1464492,
+          "archiveBytes": 1723174,
+          "totalUnits": 1853540,
+          "totalBytes": 2137022,
+          "transportUnits": 1992120,
+          "transportBytes": 2275602,
+          "blobCount": 62,
+          "encodeMs": 123.93164199999956,
+          "hydrateMs": 86.80098999999973,
+          "nextTownMs": 16.28118600000016,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 4337,
+            "ms": 4.3967329999977665,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 7.85577099999864,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-1321-v8.json",
+      "policy": "local",
+      "month": 1321,
+      "sourceHash": "3f2c23e3225418febb495158456745beeea869ad23196369f9668e33a225805a",
+      "formalUnits": 4131370,
+      "formalBytes": 4619630,
+      "townUnits": 3903931,
+      "townBytes": 4368219,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 20753,
+          "bytes": 21581,
+          "count": 23
+        },
+        "shipments": {
+          "units": 46275,
+          "bytes": 46275,
+          "count": 430
+        },
+        "arrivals": {
+          "units": 1114131,
+          "bytes": 1318755,
+          "count": 3348
+        },
+        "events": {
+          "units": 1334732,
+          "bytes": 1593568,
+          "count": 4341
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 382,
+          "bytes": 382,
+          "count": 3
+        },
+        "packets": {
+          "units": 6818,
+          "bytes": 6818,
+          "count": 32
+        },
+        "attempts": {
+          "units": 1253464,
+          "bytes": 1253464,
+          "count": 10828
+        },
+        "seen": {
+          "units": 123224,
+          "bytes": 123224,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 13,
+          "bytes": 13,
+          "count": null
+        },
+        "nodes": {
+          "units": 3890,
+          "bytes": 3890,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 4131586,
+          "currentBytes": 4619846,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4131586,
+          "totalBytes": 4619846,
+          "transportUnits": 4131597,
+          "transportBytes": 4619857,
+          "blobCount": 0,
+          "encodeMs": 120.9177320000017,
+          "hydrateMs": 86.23603800000274,
+          "nextTownMs": 10.409045000000333,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3017459,
+          "currentBytes": 3301095,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3017459,
+          "totalBytes": 3301095,
+          "transportUnits": 3017470,
+          "transportBytes": 3301106,
+          "blobCount": 0,
+          "encodeMs": 121.46301999999923,
+          "hydrateMs": 107.26599999999962,
+          "nextTownMs": 11.122308999998495,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1829994,
+          "currentBytes": 2113630,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1829994,
+          "totalBytes": 2113630,
+          "transportUnits": 1830005,
+          "transportBytes": 2113641,
+          "blobCount": 0,
+          "encodeMs": 123.95956800000204,
+          "hydrateMs": 123.59778099999676,
+          "nextTownMs": 16.528486999999586,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 389371,
+          "currentBytes": 414171,
+          "archiveUnits": 1465528,
+          "archiveBytes": 1724364,
+          "totalUnits": 1854899,
+          "totalBytes": 2138535,
+          "transportUnits": 1993577,
+          "transportBytes": 2277213,
+          "blobCount": 62,
+          "encodeMs": 128.06399899999815,
+          "hydrateMs": 87.20132000000012,
+          "nextTownMs": 15.587981000000582,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 4340,
+            "ms": 4.479987999999139,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 7.992025999999896,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-1200-v8.json",
+      "policy": "mixed",
+      "month": 1200,
+      "sourceHash": "9bd7802658b408da0eefab57323a7c94afeca837c016bf621bd2150f7794d7b9",
+      "formalUnits": 4938560,
+      "formalBytes": 5527716,
+      "townUnits": 4708105,
+      "townBytes": 5273987,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 25232,
+          "bytes": 26240,
+          "count": 28
+        },
+        "shipments": {
+          "units": 54884,
+          "bytes": 54884,
+          "count": 508
+        },
+        "arrivals": {
+          "units": 1347528,
+          "bytes": 1598042,
+          "count": 4035
+        },
+        "events": {
+          "units": 1607505,
+          "bytes": 1921865,
+          "count": 5201
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 134,
+          "bytes": 134,
+          "count": 1
+        },
+        "packets": {
+          "units": 14999,
+          "bytes": 14999,
+          "count": 69
+        },
+        "attempts": {
+          "units": 1504053,
+          "bytes": 1504053,
+          "count": 13022
+        },
+        "seen": {
+          "units": 149489,
+          "bytes": 149489,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 26,
+          "bytes": 26,
+          "count": null
+        },
+        "nodes": {
+          "units": 4006,
+          "bytes": 4006,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 4938776,
+          "currentBytes": 5527932,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4938776,
+          "totalBytes": 5527932,
+          "transportUnits": 4938787,
+          "transportBytes": 5527943,
+          "blobCount": 0,
+          "encodeMs": 172.29151899999852,
+          "hydrateMs": 172.74325099999987,
+          "nextTownMs": 21.79098900000099,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3591252,
+          "currentBytes": 3929894,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3591252,
+          "totalBytes": 3929894,
+          "transportUnits": 3591263,
+          "transportBytes": 3929905,
+          "blobCount": 0,
+          "encodeMs": 148.26370099999986,
+          "hydrateMs": 116.98850999999922,
+          "nextTownMs": 17.82456000000093,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2165204,
+          "currentBytes": 2503846,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2165204,
+          "totalBytes": 2503846,
+          "transportUnits": 2165215,
+          "transportBytes": 2503857,
+          "blobCount": 0,
+          "encodeMs": 158.98921500000142,
+          "hydrateMs": 137.30647899999894,
+          "nextTownMs": 21.020392999998876,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 432413,
+          "currentBytes": 456695,
+          "archiveUnits": 1763028,
+          "archiveBytes": 2077388,
+          "totalUnits": 2195441,
+          "totalBytes": 2534083,
+          "transportUnits": 2362011,
+          "transportBytes": 2700653,
+          "blobCount": 74,
+          "encodeMs": 143.58845500000098,
+          "hydrateMs": 103.78745300000082,
+          "nextTownMs": 21.196257999999943,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 5200,
+            "ms": 4.990840000002208,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 18.399532999999792,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-1212-v8.json",
+      "policy": "mixed",
+      "month": 1212,
+      "sourceHash": "9fd0fdfd9bbf4b520442d511d9bc1e298f6d8b5c93192890b487216956ad5d3a",
+      "formalUnits": 4994889,
+      "formalBytes": 5589295,
+      "townUnits": 4760761,
+      "townBytes": 5332003,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 26137,
+          "bytes": 27181,
+          "count": 29
+        },
+        "shipments": {
+          "units": 55997,
+          "bytes": 55997,
+          "count": 518
+        },
+        "arrivals": {
+          "units": 1360673,
+          "bytes": 1613423,
+          "count": 4074
+        },
+        "events": {
+          "units": 1624489,
+          "bytes": 1941937,
+          "count": 5257
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 958,
+          "bytes": 958,
+          "count": 7
+        },
+        "packets": {
+          "units": 18127,
+          "bytes": 18127,
+          "count": 86
+        },
+        "attempts": {
+          "units": 1519122,
+          "bytes": 1519122,
+          "count": 13150
+        },
+        "seen": {
+          "units": 150978,
+          "bytes": 150978,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 26,
+          "bytes": 26,
+          "count": null
+        },
+        "nodes": {
+          "units": 4005,
+          "bytes": 4005,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 4995105,
+          "currentBytes": 5589511,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4995105,
+          "totalBytes": 5589511,
+          "transportUnits": 4995116,
+          "transportBytes": 5589522,
+          "blobCount": 0,
+          "encodeMs": 153.08523600000262,
+          "hydrateMs": 153.59246100000018,
+          "nextTownMs": 21.541886999999406,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3634436,
+          "currentBytes": 3976092,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3634436,
+          "totalBytes": 3976092,
+          "transportUnits": 3634447,
+          "transportBytes": 3976103,
+          "blobCount": 0,
+          "encodeMs": 154.78965299999982,
+          "hydrateMs": 117.9739069999996,
+          "nextTownMs": 18.844539000001532,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2193636,
+          "currentBytes": 2535292,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2193636,
+          "totalBytes": 2535292,
+          "transportUnits": 2193647,
+          "transportBytes": 2535303,
+          "blobCount": 0,
+          "encodeMs": 167.65862500000003,
+          "hydrateMs": 148.00574399999823,
+          "nextTownMs": 20.055366000000504,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 442631,
+          "currentBytes": 466839,
+          "archiveUnits": 1781768,
+          "archiveBytes": 2099216,
+          "totalUnits": 2224399,
+          "totalBytes": 2566055,
+          "transportUnits": 2392833,
+          "transportBytes": 2734489,
+          "blobCount": 76,
+          "encodeMs": 157.50541800000065,
+          "hydrateMs": 116.9611670000013,
+          "nextTownMs": 20.910570000000007,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 5256,
+            "ms": 4.919040999997378,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 10.157832999997481,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-1320-v8.json",
+      "policy": "mixed",
+      "month": 1320,
+      "sourceHash": "19c2e5350d494068559f8136e72d55e6cd6babbdc9f154d1899a351e653c9faa",
+      "formalUnits": 5510116,
+      "formalBytes": 6166184,
+      "townUnits": 5263920,
+      "townBytes": 5896156,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 27946,
+          "bytes": 29062,
+          "count": 31
+        },
+        "shipments": {
+          "units": 60627,
+          "bytes": 60627,
+          "count": 560
+        },
+        "arrivals": {
+          "units": 1508059,
+          "bytes": 1787695,
+          "count": 4508
+        },
+        "events": {
+          "units": 1799595,
+          "bytes": 2151079,
+          "count": 5812
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 265,
+          "bytes": 265,
+          "count": 2
+        },
+        "packets": {
+          "units": 12382,
+          "bytes": 12382,
+          "count": 56
+        },
+        "attempts": {
+          "units": 1683159,
+          "bytes": 1683159,
+          "count": 14556
+        },
+        "seen": {
+          "units": 167608,
+          "bytes": 167608,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 26,
+          "bytes": 26,
+          "count": null
+        },
+        "nodes": {
+          "units": 4004,
+          "bytes": 4004,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5510332,
+          "currentBytes": 6166400,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5510332,
+          "totalBytes": 6166400,
+          "transportUnits": 5510343,
+          "transportBytes": 6166411,
+          "blobCount": 0,
+          "encodeMs": 165.17203399999926,
+          "hydrateMs": 156.8700400000016,
+          "nextTownMs": 20.566732999999658,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 4002277,
+          "currentBytes": 4378709,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4002277,
+          "totalBytes": 4378709,
+          "transportUnits": 4002288,
+          "transportBytes": 4378720,
+          "blobCount": 0,
+          "encodeMs": 138.46646899999905,
+          "hydrateMs": 121.05186500000127,
+          "nextTownMs": 16.43526400000337,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2408795,
+          "currentBytes": 2785227,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2408795,
+          "totalBytes": 2785227,
+          "transportUnits": 2408806,
+          "transportBytes": 2785238,
+          "blobCount": 0,
+          "encodeMs": 173.11608499999784,
+          "hydrateMs": 146.2995469999987,
+          "nextTownMs": 23.385043000002042,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 467413,
+          "currentBytes": 492361,
+          "archiveUnits": 1974953,
+          "archiveBytes": 2326437,
+          "totalUnits": 2442366,
+          "totalBytes": 2818798,
+          "transportUnits": 2628430,
+          "transportBytes": 3004862,
+          "blobCount": 83,
+          "encodeMs": 177.47454500000094,
+          "hydrateMs": 94.78309400000217,
+          "nextTownMs": 32.92789300000004,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 5811,
+            "ms": 5.186472999997932,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 12.783243000001676,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-1321-v8.json",
+      "policy": "mixed",
+      "month": 1321,
+      "sourceHash": "09940b66963fe1fffb442cade7d87ce9a53ef13d1c8b78ef54362fb672f3825a",
+      "formalUnits": 5515064,
+      "formalBytes": 6171666,
+      "townUnits": 5268488,
+      "townBytes": 5901258,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 27946,
+          "bytes": 29062,
+          "count": 31
+        },
+        "shipments": {
+          "units": 60735,
+          "bytes": 60735,
+          "count": 561
+        },
+        "arrivals": {
+          "units": 1509436,
+          "bytes": 1789318,
+          "count": 4512
+        },
+        "events": {
+          "units": 1801206,
+          "bytes": 2152978,
+          "count": 5817
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 398,
+          "bytes": 398,
+          "count": 3
+        },
+        "packets": {
+          "units": 12182,
+          "bytes": 12182,
+          "count": 55
+        },
+        "attempts": {
+          "units": 1684546,
+          "bytes": 1684546,
+          "count": 14568
+        },
+        "seen": {
+          "units": 167760,
+          "bytes": 167760,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 26,
+          "bytes": 26,
+          "count": null
+        },
+        "nodes": {
+          "units": 4004,
+          "bytes": 4004,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5515280,
+          "currentBytes": 6171882,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5515280,
+          "totalBytes": 6171882,
+          "transportUnits": 5515291,
+          "transportBytes": 6171893,
+          "blobCount": 0,
+          "encodeMs": 208.6352599999991,
+          "hydrateMs": 150.65403800000058,
+          "nextTownMs": 23.97318500000256,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 4005848,
+          "currentBytes": 4382568,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4005848,
+          "totalBytes": 4382568,
+          "transportUnits": 4005859,
+          "transportBytes": 4382579,
+          "blobCount": 0,
+          "encodeMs": 151.75436799999807,
+          "hydrateMs": 118.9602670000022,
+          "nextTownMs": 12.31859600000098,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2411002,
+          "currentBytes": 2787722,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2411002,
+          "totalBytes": 2787722,
+          "transportUnits": 2411013,
+          "transportBytes": 2787733,
+          "blobCount": 0,
+          "encodeMs": 174.92234499999904,
+          "hydrateMs": 140.20249899999908,
+          "nextTownMs": 14.56847099999868,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 467878,
+          "currentBytes": 492826,
+          "archiveUnits": 1976695,
+          "archiveBytes": 2328467,
+          "totalUnits": 2444573,
+          "totalBytes": 2821293,
+          "transportUnits": 2630797,
+          "transportBytes": 3007517,
+          "blobCount": 83,
+          "encodeMs": 138.68264199999976,
+          "hydrateMs": 94.61682600000131,
+          "nextTownMs": 22.872293000000354,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 5816,
+            "ms": 5.3521509999991395,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 20.113452999998117,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "wide-1200-v8.json",
+      "policy": "wide",
+      "month": 1200,
+      "sourceHash": "baaf4ff9b5714053691cd2fabfc7a0d951091e63e007704e5b8f32aeb937879f",
+      "formalUnits": 5838093,
+      "formalBytes": 6539999,
+      "townUnits": 5600017,
+      "townBytes": 6280101,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 29760,
+          "bytes": 30948,
+          "count": 33
+        },
+        "shipments": {
+          "units": 64290,
+          "bytes": 64290,
+          "count": 594
+        },
+        "arrivals": {
+          "units": 1609859,
+          "bytes": 1912883,
+          "count": 4801
+        },
+        "events": {
+          "units": 1909147,
+          "bytes": 2285019,
+          "count": 6138
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 598,
+          "bytes": 598,
+          "count": 5
+        },
+        "packets": {
+          "units": 20088,
+          "bytes": 20088,
+          "count": 94
+        },
+        "attempts": {
+          "units": 1782557,
+          "bytes": 1782557,
+          "count": 15469
+        },
+        "seen": {
+          "units": 179464,
+          "bytes": 179464,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 43,
+          "bytes": 43,
+          "count": null
+        },
+        "nodes": {
+          "units": 3962,
+          "bytes": 3962,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5838309,
+          "currentBytes": 6540215,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5838309,
+          "totalBytes": 6540215,
+          "transportUnits": 5838320,
+          "transportBytes": 6540226,
+          "blobCount": 0,
+          "encodeMs": 174.22147899999982,
+          "hydrateMs": 154.17216099999496,
+          "nextTownMs": 21.59042000000045,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 4228454,
+          "currentBytes": 4627336,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4228454,
+          "totalBytes": 4627336,
+          "transportUnits": 4228465,
+          "transportBytes": 4627347,
+          "blobCount": 0,
+          "encodeMs": 151.25803299999825,
+          "hydrateMs": 157.69693600000028,
+          "nextTownMs": 21.930990000000747,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2538595,
+          "currentBytes": 2937477,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2538595,
+          "totalBytes": 2937477,
+          "transportUnits": 2538606,
+          "transportBytes": 2937488,
+          "blobCount": 0,
+          "encodeMs": 187.53482800000347,
+          "hydrateMs": 176.07055700000637,
+          "nextTownMs": 22.67960899999889,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 481486,
+          "currentBytes": 504496,
+          "archiveUnits": 2093509,
+          "archiveBytes": 2469381,
+          "totalUnits": 2574995,
+          "totalBytes": 2973877,
+          "transportUnits": 2772675,
+          "transportBytes": 3171557,
+          "blobCount": 88,
+          "encodeMs": 188.12079800000356,
+          "hydrateMs": 128.92410199999722,
+          "nextTownMs": 16.704090999999607,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 6137,
+            "ms": 4.343038999999408,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 22.373625000000175,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "wide-1212-v8.json",
+      "policy": "wide",
+      "month": 1212,
+      "sourceHash": "3cdcc30f653d728a66ff483a15cfd43ea5f8389cdc7ee37c67f5e0e429ff50e3",
+      "formalUnits": 5897842,
+      "formalBytes": 6607930,
+      "townUnits": 5658809,
+      "townBytes": 6346981,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 29760,
+          "bytes": 30948,
+          "count": 33
+        },
+        "shipments": {
+          "units": 64614,
+          "bytes": 64614,
+          "count": 597
+        },
+        "arrivals": {
+          "units": 1628985,
+          "bytes": 1935737,
+          "count": 4857
+        },
+        "events": {
+          "units": 1930662,
+          "bytes": 2310894,
+          "count": 6205
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 497,
+          "bytes": 497,
+          "count": 4
+        },
+        "packets": {
+          "units": 16199,
+          "bytes": 16199,
+          "count": 74
+        },
+        "attempts": {
+          "units": 1802250,
+          "bytes": 1802250,
+          "count": 15641
+        },
+        "seen": {
+          "units": 181590,
+          "bytes": 181590,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 43,
+          "bytes": 43,
+          "count": null
+        },
+        "nodes": {
+          "units": 3960,
+          "bytes": 3960,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5898058,
+          "currentBytes": 6608146,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5898058,
+          "totalBytes": 6608146,
+          "transportUnits": 5898069,
+          "transportBytes": 6608157,
+          "blobCount": 0,
+          "encodeMs": 211.8686349999989,
+          "hydrateMs": 119.29637699999876,
+          "nextTownMs": 15.84572200000548,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 4269077,
+          "currentBytes": 4672413,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4269077,
+          "totalBytes": 4672413,
+          "transportUnits": 4269088,
+          "transportBytes": 4672424,
+          "blobCount": 0,
+          "encodeMs": 192.64757799999643,
+          "hydrateMs": 159.49010299999645,
+          "nextTownMs": 22.645057000001543,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2560732,
+          "currentBytes": 2964068,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2560732,
+          "totalBytes": 2964068,
+          "transportUnits": 2560743,
+          "transportBytes": 2964079,
+          "blobCount": 0,
+          "encodeMs": 186.9117830000032,
+          "hydrateMs": 152.70177400000102,
+          "nextTownMs": 16.383549000005587,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 480778,
+          "currentBytes": 503882,
+          "archiveUnits": 2117231,
+          "archiveBytes": 2497463,
+          "totalUnits": 2598009,
+          "totalBytes": 3001345,
+          "transportUnits": 2798003,
+          "transportBytes": 3201339,
+          "blobCount": 90,
+          "encodeMs": 187.70851500000572,
+          "hydrateMs": 115.30300299999362,
+          "nextTownMs": 17.0703199999989,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 6204,
+            "ms": 3.2814149999976507,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 23.144186000004993,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "wide-1242-v8.json",
+      "policy": "wide",
+      "month": 1242,
+      "sourceHash": "3a661273787c386683537bca9bee45d676b9f3bdbf5d52fd3e2e2af35747f9b2",
+      "formalUnits": 5998059,
+      "formalBytes": 6720153,
+      "townUnits": 5754131,
+      "townBytes": 6454175,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 29760,
+          "bytes": 30948,
+          "count": 33
+        },
+        "shipments": {
+          "units": 65478,
+          "bytes": 65478,
+          "count": 605
+        },
+        "arrivals": {
+          "units": 1659230,
+          "bytes": 1971344,
+          "count": 4944
+        },
+        "events": {
+          "units": 1965486,
+          "bytes": 2352228,
+          "count": 6312
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 793,
+          "bytes": 793,
+          "count": 6
+        },
+        "packets": {
+          "units": 10087,
+          "bytes": 10087,
+          "count": 46
+        },
+        "attempts": {
+          "units": 1834035,
+          "bytes": 1834035,
+          "count": 15914
+        },
+        "seen": {
+          "units": 185007,
+          "bytes": 185007,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 43,
+          "bytes": 43,
+          "count": null
+        },
+        "nodes": {
+          "units": 3963,
+          "bytes": 3963,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5998275,
+          "currentBytes": 6720369,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5998275,
+          "totalBytes": 6720369,
+          "transportUnits": 5998286,
+          "transportBytes": 6720380,
+          "blobCount": 0,
+          "encodeMs": 146.5148379999955,
+          "hydrateMs": 128.19163300000218,
+          "nextTownMs": 25.16925600000104,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 4339049,
+          "currentBytes": 4749029,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4339049,
+          "totalBytes": 4749029,
+          "transportUnits": 4339060,
+          "transportBytes": 4749040,
+          "blobCount": 0,
+          "encodeMs": 124.49372800000128,
+          "hydrateMs": 159.16850499999418,
+          "nextTownMs": 26.121115000001737,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2601120,
+          "currentBytes": 3011100,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2601120,
+          "totalBytes": 3011100,
+          "transportUnits": 2601131,
+          "transportBytes": 3011111,
+          "blobCount": 0,
+          "encodeMs": 192.64198400000168,
+          "hydrateMs": 133.95465700000204,
+          "nextTownMs": 16.735288000003493,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 483380,
+          "currentBytes": 506618,
+          "archiveUnits": 2155366,
+          "archiveBytes": 2542108,
+          "totalUnits": 2638746,
+          "totalBytes": 3048726,
+          "transportUnits": 2842178,
+          "transportBytes": 3252158,
+          "blobCount": 91,
+          "encodeMs": 174.65681599999516,
+          "hydrateMs": 103.69287800000166,
+          "nextTownMs": 13.628615000001446,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 6311,
+            "ms": 3.997128999995766,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 29.067150999995647,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-1380-v8.json",
+      "policy": "local",
+      "month": 1380,
+      "sourceHash": "08ce296d35a96008b46c2fb62e0865eefe11afbaf37f5f1893ffb1ae83bfda3e",
+      "formalUnits": 4278079,
+      "formalBytes": 4782225,
+      "townUnits": 4043207,
+      "townBytes": 4522765,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 21660,
+          "bytes": 22524,
+          "count": 24
+        },
+        "shipments": {
+          "units": 48146,
+          "bytes": 48146,
+          "count": 447
+        },
+        "arrivals": {
+          "units": 1152108,
+          "bytes": 1363508,
+          "count": 3462
+        },
+        "events": {
+          "units": 1380080,
+          "bytes": 1647374,
+          "count": 4487
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 374,
+          "bytes": 374,
+          "count": 3
+        },
+        "packets": {
+          "units": 11585,
+          "bytes": 11585,
+          "count": 56
+        },
+        "attempts": {
+          "units": 1297734,
+          "bytes": 1297734,
+          "count": 11204
+        },
+        "seen": {
+          "units": 127363,
+          "bytes": 127363,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 13,
+          "bytes": 13,
+          "count": null
+        },
+        "nodes": {
+          "units": 3895,
+          "bytes": 3895,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 4278295,
+          "currentBytes": 4782441,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4278295,
+          "totalBytes": 4782441,
+          "transportUnits": 4278306,
+          "transportBytes": 4782452,
+          "blobCount": 0,
+          "encodeMs": 135.52597599999717,
+          "hydrateMs": 122.60062600000674,
+          "nextTownMs": 15.588576000001922,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3126191,
+          "currentBytes": 3418937,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3126191,
+          "totalBytes": 3418937,
+          "transportUnits": 3126202,
+          "transportBytes": 3418948,
+          "blobCount": 0,
+          "encodeMs": 101.26542499999778,
+          "hydrateMs": 85.05914200000552,
+          "nextTownMs": 9.7830529999992,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1897852,
+          "currentBytes": 2190598,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1897852,
+          "totalBytes": 2190598,
+          "transportUnits": 1897863,
+          "transportBytes": 2190609,
+          "blobCount": 0,
+          "encodeMs": 94.20066199999565,
+          "hydrateMs": 87.36297999999806,
+          "nextTownMs": 11.49679499999911,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 406818,
+          "currentBytes": 432270,
+          "archiveUnits": 1517102,
+          "archiveBytes": 1784396,
+          "totalUnits": 1923920,
+          "totalBytes": 2216666,
+          "transportUnits": 2067400,
+          "transportBytes": 2360146,
+          "blobCount": 64,
+          "encodeMs": 121.98629400000209,
+          "hydrateMs": 93.52513800000452,
+          "nextTownMs": 17.580925999995088,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 4486,
+            "ms": 5.191111000000092,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 10.90096099999937,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "local-1440-v8.json",
+      "policy": "local",
+      "month": 1440,
+      "sourceHash": "485ce44d1e468f1d724997893b0487804d120502237501505f7241d10d1de7b6",
+      "formalUnits": 4418608,
+      "formalBytes": 4939190,
+      "townUnits": 4179317,
+      "townBytes": 4675311,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 21660,
+          "bytes": 22524,
+          "count": 24
+        },
+        "shipments": {
+          "units": 49334,
+          "bytes": 49334,
+          "count": 458
+        },
+        "arrivals": {
+          "units": 1193709,
+          "bytes": 1412585,
+          "count": 3585
+        },
+        "events": {
+          "units": 1427437,
+          "bytes": 1703691,
+          "count": 4636
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "packets": {
+          "units": 7632,
+          "bytes": 7632,
+          "count": 35
+        },
+        "attempts": {
+          "units": 1343365,
+          "bytes": 1343365,
+          "count": 11595
+        },
+        "seen": {
+          "units": 132023,
+          "bytes": 132023,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 13,
+          "bytes": 13,
+          "count": null
+        },
+        "nodes": {
+          "units": 3893,
+          "bytes": 3893,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 4418824,
+          "currentBytes": 4939406,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4418824,
+          "totalBytes": 4939406,
+          "transportUnits": 4418835,
+          "transportBytes": 4939417,
+          "blobCount": 0,
+          "encodeMs": 151.28341600000567,
+          "hydrateMs": 122.1006419999976,
+          "nextTownMs": 15.985743999997794,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 3225119,
+          "currentBytes": 3526825,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 3225119,
+          "totalBytes": 3526825,
+          "transportUnits": 3225130,
+          "transportBytes": 3526836,
+          "blobCount": 0,
+          "encodeMs": 114.73535800000536,
+          "hydrateMs": 112.87012700000196,
+          "nextTownMs": 17.486408000004303,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 1954974,
+          "currentBytes": 2256680,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 1954974,
+          "totalBytes": 2256680,
+          "transportUnits": 1954985,
+          "transportBytes": 2256691,
+          "blobCount": 0,
+          "encodeMs": 128.60390500000358,
+          "hydrateMs": 132.87309300000197,
+          "nextTownMs": 16.945056000004115,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 411873,
+          "currentBytes": 437325,
+          "archiveUnits": 1570185,
+          "archiveBytes": 1846439,
+          "totalUnits": 1982058,
+          "totalBytes": 2283764,
+          "transportUnits": 2130488,
+          "transportBytes": 2432194,
+          "blobCount": 67,
+          "encodeMs": 88.62728200000129,
+          "hydrateMs": 105.33438599999499,
+          "nextTownMs": 31.174876000004588,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 4635,
+            "ms": 6.199034999997821,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 19.143561999997473,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-1380-v8.json",
+      "policy": "mixed",
+      "month": 1380,
+      "sourceHash": "38e89597d2c7ca4bfdd870c71ac99618be84e8bbe170e2f03ea9a5b961f1fa3a",
+      "formalUnits": 5794496,
+      "formalBytes": 6482146,
+      "townUnits": 5535778,
+      "townBytes": 6198786,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 30663,
+          "bytes": 31887,
+          "count": 34
+        },
+        "shipments": {
+          "units": 64745,
+          "bytes": 64745,
+          "count": 597
+        },
+        "arrivals": {
+          "units": 1580356,
+          "bytes": 1873228,
+          "count": 4722
+        },
+        "events": {
+          "units": 1889825,
+          "bytes": 2258737,
+          "count": 6104
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 1459,
+          "bytes": 1459,
+          "count": 11
+        },
+        "packets": {
+          "units": 23720,
+          "bytes": 23720,
+          "count": 115
+        },
+        "attempts": {
+          "units": 1764988,
+          "bytes": 1764988,
+          "count": 15255
+        },
+        "seen": {
+          "units": 175743,
+          "bytes": 175743,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 26,
+          "bytes": 26,
+          "count": null
+        },
+        "nodes": {
+          "units": 4004,
+          "bytes": 4004,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5794712,
+          "currentBytes": 6482362,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5794712,
+          "totalBytes": 6482362,
+          "transportUnits": 5794723,
+          "transportBytes": 6482373,
+          "blobCount": 0,
+          "encodeMs": 161.95313500000339,
+          "hydrateMs": 157.68318600000202,
+          "nextTownMs": 22.417841000002227,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 4214360,
+          "currentBytes": 4609138,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4214360,
+          "totalBytes": 4609138,
+          "transportUnits": 4214371,
+          "transportBytes": 4609149,
+          "blobCount": 0,
+          "encodeMs": 154.6662260000012,
+          "hydrateMs": 153.65816399999312,
+          "nextTownMs": 12.513694000001124,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2542362,
+          "currentBytes": 2937140,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2542362,
+          "totalBytes": 2937140,
+          "transportUnits": 2542373,
+          "transportBytes": 2937151,
+          "blobCount": 0,
+          "encodeMs": 190.92776800000138,
+          "hydrateMs": 107.42959100000007,
+          "nextTownMs": 14.562369999999646,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 503726,
+          "currentBytes": 529592,
+          "archiveUnits": 2073994,
+          "archiveBytes": 2442906,
+          "totalUnits": 2577720,
+          "totalBytes": 2972498,
+          "transportUnits": 2772990,
+          "transportBytes": 3167768,
+          "blobCount": 87,
+          "encodeMs": 162.35178299999825,
+          "hydrateMs": 83.83699599999818,
+          "nextTownMs": 12.93526700000075,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 6103,
+            "ms": 3.836228000000119,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 13.661145999998553,
+      "sourceUnchanged": true
+    },
+    {
+      "file": "mixed-1408-v8.json",
+      "policy": "mixed",
+      "month": 1408,
+      "sourceHash": "42052f64c28b65ebaebe5d2d07a66fb2723f8871c1d7a757ff508ad9cceb3eee",
+      "formalUnits": 5998756,
+      "formalBytes": 6710496,
+      "townUnits": 5735927,
+      "townBytes": 6423357,
+      "groups": {
+        "external": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "version": {
+          "units": 23,
+          "bytes": 23,
+          "count": null
+        },
+        "seed": {
+          "units": 2,
+          "bytes": 2,
+          "count": null
+        },
+        "month": {
+          "units": 4,
+          "bytes": 4,
+          "count": null
+        },
+        "generation": {
+          "units": 1,
+          "bytes": 1,
+          "count": null
+        },
+        "mode": {
+          "units": 11,
+          "bytes": 11,
+          "count": null
+        },
+        "releases": {
+          "units": 31566,
+          "bytes": 32826,
+          "count": 35
+        },
+        "shipments": {
+          "units": 66301,
+          "bytes": 66301,
+          "count": 611
+        },
+        "arrivals": {
+          "units": 1640561,
+          "bytes": 1944389,
+          "count": 4899
+        },
+        "events": {
+          "units": 1959924,
+          "bytes": 2342266,
+          "count": 6324
+        },
+        "memories": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "trades": {
+          "units": 2,
+          "bytes": 2,
+          "count": 0
+        },
+        "pending": {
+          "units": 943,
+          "bytes": 943,
+          "count": 7
+        },
+        "packets": {
+          "units": 19452,
+          "bytes": 19452,
+          "count": 91
+        },
+        "attempts": {
+          "units": 1830231,
+          "bytes": 1830231,
+          "count": 15816
+        },
+        "seen": {
+          "units": 182668,
+          "bytes": 182668,
+          "count": null
+        },
+        "lastEncounter": {
+          "units": 26,
+          "bytes": 26,
+          "count": null
+        },
+        "nodes": {
+          "units": 4006,
+          "bytes": 4006,
+          "count": null
+        }
+      },
+      "methods": {
+        "A": {
+          "currentUnits": 5998972,
+          "currentBytes": 6710712,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 5998972,
+          "totalBytes": 6710712,
+          "transportUnits": 5998983,
+          "transportBytes": 6710723,
+          "blobCount": 0,
+          "encodeMs": 168.41941600000428,
+          "hydrateMs": 171.79284100000223,
+          "nextTownMs": 15.505635000001348,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "B": {
+          "currentUnits": 4358415,
+          "currentBytes": 4766327,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 4358415,
+          "totalBytes": 4766327,
+          "transportUnits": 4358426,
+          "transportBytes": 4766338,
+          "blobCount": 0,
+          "encodeMs": 156.23838700000488,
+          "hydrateMs": 126.66972700000042,
+          "nextTownMs": 22.88688600000023,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "C": {
+          "currentUnits": 2625647,
+          "currentBytes": 3033559,
+          "archiveUnits": 0,
+          "archiveBytes": 0,
+          "totalUnits": 2625647,
+          "totalBytes": 3033559,
+          "transportUnits": 2625658,
+          "transportBytes": 3033570,
+          "blobCount": 0,
+          "encodeMs": 140.91905599999882,
+          "hydrateMs": 167.22802299999603,
+          "nextTownMs": 24.16473300000507,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": null
+        },
+        "D": {
+          "currentUnits": 511188,
+          "currentBytes": 536758,
+          "archiveUnits": 2151234,
+          "archiveBytes": 2533576,
+          "totalUnits": 2662422,
+          "totalBytes": 3070334,
+          "transportUnits": 2864788,
+          "transportBytes": 3272700,
+          "blobCount": 90,
+          "encodeMs": 167.89577999999892,
+          "hydrateMs": 125.26420199999848,
+          "nextTownMs": 15.936993000002985,
+          "fullJsonEqual": true,
+          "townNextFullJsonEqual": true,
+          "lazy": {
+            "index": 6323,
+            "ms": 3.7445110000044224,
+            "exact": true
+          }
+        }
+      },
+      "controlTownNextMs": 26.90071999999782,
+      "sourceUnchanged": true
+    }
+  ],
+  "duplicateInputs": [
+    {
+      "file": "local-1320-v8.json",
+      "sourceHash": "cee26990ea049749e8c7efbcc347d3487d109af3262d18c9665038c94dc04e74"
+    },
+    {
+      "file": "mixed-1320-v8.json",
+      "sourceHash": "19c2e5350d494068559f8136e72d55e6cd6babbdc9f154d1899a351e653c9faa"
+    }
+  ]
+}

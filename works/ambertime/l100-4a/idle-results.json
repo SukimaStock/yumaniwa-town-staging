@@ -1,0 +1,53 @@
+[
+  {
+    "policy": "local",
+    "method": "Town clock only for12 months; no new external receipts, releases or distillation. Not a valid advanced formal game save.",
+    "startUnits": 3806900,
+    "endUnits": 3821847,
+    "deltaUnits": 14947,
+    "groupsDelta": {
+      "events": 5834,
+      "arrivals": 5184,
+      "attempts": 5368,
+      "seen": 568,
+      "shipments": 0,
+      "releases": 0
+    },
+    "inputSha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+    "sourceUnchanged": true
+  },
+  {
+    "policy": "mixed",
+    "method": "Town clock only for12 months; no new external receipts, releases or distillation. Not a valid advanced formal game save.",
+    "startUnits": 4938560,
+    "endUnits": 4966443,
+    "deltaUnits": 27883,
+    "groupsDelta": {
+      "events": 10288,
+      "arrivals": 9627,
+      "attempts": 10145,
+      "seen": 1110,
+      "shipments": 0,
+      "releases": 0
+    },
+    "inputSha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+    "sourceUnchanged": true
+  },
+  {
+    "policy": "wide",
+    "method": "Town clock only for12 months; no new external receipts, releases or distillation. Not a valid advanced formal game save.",
+    "startUnits": 5838093,
+    "endUnits": 5887872,
+    "deltaUnits": 49779,
+    "groupsDelta": {
+      "events": 18825,
+      "arrivals": 17541,
+      "attempts": 17403,
+      "seen": 1966,
+      "shipments": 0,
+      "releases": 0
+    },
+    "inputSha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+    "sourceUnchanged": true
+  }
+]
