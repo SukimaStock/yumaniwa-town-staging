@@ -1,0 +1,98 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3c01df582c77c1f7826e9934bb540ed9ea8bf10e00d0f16f1063a1c86617d35a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "8a145ec4bb810baccbb2dfb353e990db72a3ef21",
+    "changeId": "ambertime-h4-2",
+    "revision": 0,
+    "change": "Integrate approved H4 pixel recall presentation into main, with manual playback",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "Current H4-1 user request",
+      "works/ambertime/recall/debug-scene.mjs",
+      "works/ambertime/recall/live-scene.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h4-2/r0.lock.json",
+      "works/ambertime/recall/pixel-scene.mjs",
+      "works/ambertime/recall/player.mjs",
+      "works/ambertime/recall-canvas-lab/scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/h4-*.mjs",
+      "works/ambertime/design/h4-2/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/selection.mjs",
+      "works/ambertime/recall/operations.mjs",
+      "works/ambertime/recall/observe.mjs",
+      "works/ambertime/recall/live-scene.mjs",
+      "works/ambertime/recall/debug-scene.mjs",
+      "works/ambertime/*save*",
+      "works/ambertime/*checkpoint*",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Promote approved Lab art unchanged into pure production module; Lab reexports canonical renderer",
+      "Introduce scoped native dialog player using approved Canvas plus DOM design and manual navigation, existing open/close/isOpen interface",
+      "Replace main presentation imports only; preserve generation and history callbacks and all save/state logic",
+      "Cover reaction/sale with shared counter parts and unknown IDs with neutral background; approved four compositions remain identical",
+      "Focused controller/data/source isolation tests; public browser and screenshot verification after required CI and staging merge"
+    ],
+    "ownerDecisions": [
+      "User confirmed H4 Lab and explicitly requested main integration; existing staging task authority includes PR, checks, merge and public verification; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard scoped presentation only",
+      "Keep immutable Plan lock and unchanged formal model/save/RNG",
+      "No comparison panels in main; manual previous/next and existing close/end semantics"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Approved four scene pixel parity; one-shot handover callback and history nonmutation",
+      "Main source inverse comparison proves only presentation imports and cache tags change",
+      "Published browser debug playback and navigation; physical iPhone remains unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert main presentation imports/cache and new modules; saves unaffected",
+    "outOfScope": [
+      "Save/history/collector/selection/checkpoint",
+      "Production",
+      "Unrelated existing failing recall-app test"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and VoiceOver"
+    ]
+  }
+}
