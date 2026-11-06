@@ -321,7 +321,7 @@ function historyShopView(shopId){
 }
 const generationName=id=>id===1?'初代':({2:'二代',3:'三代',4:'四代',5:'五代',6:'六代',7:'七代',8:'八代',9:'九代',10:'十代'}[id]??id+'代');
 const generationState=()=>game?D.generationStatus(game):null;
-const hasCompletedRecall=id=>!!recallRecord?.completed?.some(r=>r.generation===id);
+const hasCompletedRecall=id=>!!recallRecord?.completed?.some(r=>r.generation===id&&Array.isArray(r.scenes)&&r.scenes.length>0);
 function openCompletedRecall(id){
  if(!hasCompletedRecall(id))return false;
  try{
