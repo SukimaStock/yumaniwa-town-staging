@@ -1,0 +1,53 @@
+{
+  "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+  "inputSha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+  "node": "v24.22.1",
+  "formalReadMs": 128710.603883,
+  "recoveryFormalReadMs": 284.9628859999939,
+  "twoNextMs": 178.52624999999534,
+  "wireUtf8Bytes": 5282030,
+  "wireUtf16Units": 4853106,
+  "naiveLocalStorageUtf16Bytes": 9706212,
+  "results": [
+    {
+      "mode": "C",
+      "times": {
+        "candidateMs": 31.506844999996247,
+        "modelWriteAndReadbackMs": 173.56626300000062,
+        "modelRecoveryMs": 121.21526299999095
+      },
+      "oneGenerationEnvelopeBytes": 6003353,
+      "oneGenerationRawBytes": 5282030,
+      "twoGenerationLogicalBytes": 12006706,
+      "threeGenerationPreparedPeakBytes": 18010166,
+      "metadataAndChunkOverheadBytes": 585,
+      "parts": 1,
+      "recoveredExact": true
+    },
+    {
+      "mode": "D",
+      "times": {
+        "candidateMs": 36.905463999995845,
+        "modelWriteAndReadbackMs": 211.05856600000698,
+        "modelRecoveryMs": 162.12632500000473
+      },
+      "oneGenerationEnvelopeBytes": 6007617,
+      "oneGenerationRawBytes": 5282030,
+      "twoGenerationLogicalBytes": 12015234,
+      "threeGenerationPreparedPeakBytes": 18022904,
+      "metadataAndChunkOverheadBytes": 4849,
+      "parts": 19,
+      "recoveredExact": true
+    }
+  ],
+  "stateExact": true,
+  "rngExact": true,
+  "ledgerExact": true,
+  "historyExact": true,
+  "recallExact": true,
+  "nextMonthExact": true,
+  "from": 1200,
+  "to": 1201,
+  "sourceUnchanged": true,
+  "limitations": "Node MemoryDriver transaction model; no real IndexedDB/localStorage capacity, I/O or durability measurement. Timings one-shot and include JS cloning. Exact input validation cache only in process after full formal read. No checkpoint implementation, no full 100-year repeat, no new 9-handover test."
+}

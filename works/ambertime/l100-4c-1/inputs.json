@@ -1,0 +1,33 @@
+{
+  "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+  "inputs": [
+    {
+      "policy": "local",
+      "sha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+      "bytes": 3467349,
+      "units": 3189109
+    },
+    {
+      "policy": "mixed",
+      "sha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+      "bytes": 4535936,
+      "units": 4170204
+    },
+    {
+      "policy": "wide",
+      "sha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+      "bytes": 5282030,
+      "units": 4853106
+    }
+  ],
+  "baselineLibrary": "libfile_20c1714ee5a0819198bc3f20c80174c2",
+  "priorEvidenceLibrary": "libfile_3366c1b246f081919494565e043b1c00",
+  "priorPRs": {
+    "828": "739754b57e80620235ca2550d2978f69c0813294",
+    "831": "05d20df8148d14b6f5029e59b989d252b4d05923",
+    "832": "03f8312f65cfffb869393bda431beabcec746aea",
+    "833": "2b3dcc99b10cce336e1b39d4af451c5d867b2200",
+    "834": "0e2df2f9b9d589bfe64a02fae90d1a6617b1e2f7"
+  },
+  "states": "All five open Draft and unmerged at research start; no prior research code cherry-picked."
+}

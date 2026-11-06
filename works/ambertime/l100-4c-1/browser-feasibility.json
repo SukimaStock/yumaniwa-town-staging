@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-11-06T19:16:29.891Z",
+  "node": "v24.22.1",
+  "platform": "linux",
+  "attempts": [
+    {
+      "name": "chromium",
+      "path": "/usr/bin/chromium",
+      "status": "blocked",
+      "error": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-xloLmq --remote-debugging-pipe --no-startup-window\n<launched> pid=18\n[pid=18][err] [18:18:1106/201629.976092:ERROR:third_party/crashpad/crashpad/util/file/filesystem_posix.cc:63] mkdir : No such file or directory (2)\n[pid=18][err] chrome_crashpad_handler: --database is required\n[pid=18][err] Try 'chrome_crashpad_handler --help' for more information.\n[pid=18][err] [18:18:1106/201629.981280:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)\nCall log:\n\u001b[2m  - <launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-xloLmq --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=18\u001b[22m\n\u001b[2m  - [pid=18][err] [18:18:1106/201629.976092:ERROR:third_party/crashpad/crashpad/util/file/filesystem_posix.cc:63] mkdir : No such file or directory (2)\u001b[22m\n\u001b[2m  - [pid=18][err] chrome_crashpad_handler: --database is required\u001b[22m\n\u001b[2m  - [pid=18][err] Try 'chrome_crashpad_handler --help' for more information.\u001b[22m\n\u001b[2m  - [pid=18][err] [18:18:1106/201629.981280:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=18] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=18] <kill>\u001b[22m\n\u001b[2m  - [pid=18] <will force kill>\u001b[22m\n\u001b[2m  - [pid=18] <process did exit: exitCode=null, signal=SIGABRT>\u001b[22m\n\u001b[2m  - [pid=18] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=18] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=18] <gracefully close end>\u001b[22m\n"
+    },
+    {
+      "name": "firefox",
+      "path": "/home/agent/.cache/ms-playwright/firefox-1497/firefox/firefox",
+      "status": "unavailable",
+      "reason": "Executable absent; no install attempted."
+    },
+    {
+      "name": "webkit",
+      "path": "/home/agent/.cache/ms-playwright/webkit-2227/pw_run.sh",
+      "status": "unavailable",
+      "reason": "Executable absent; no install attempted."
+    }
+  ],
+  "scope": "Fresh isolated browser only, no game origin or player storage.",
+  "browserStorageTests": "NOT RUN by launch probe"
+}
