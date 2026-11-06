@@ -10,7 +10,7 @@ export function debugSkipBarrier(game,model){
  if(!game?.core||!Number.isInteger(game.core.month))return 'ゲームを開始してください。';
  if(game.tastingId!==null)return '試飲を終えてください。';
  if(game.decisions?.length)return 'たるの判断が必要です。';
- if(game.trade?.offer||game.shop?.offer||game.shop?.pendingOffers?.length)return '取扱いなどの申し出を確認してください。';
+ if(game.trade?.offer||game.shop?.offer)return '取扱いなどの申し出を確認してください。';
  if(model.generationStatus(game)?.phase!=='working')return '世代交代の確認が必要です。';
  if(game.still?.phase!=='ready'||game.core.spirit)return '蒸留またはたる詰めを終えてください。';
  if(['queued','active'].includes(game.usual?.reservation?.status)||model.canBeginUsual(game)?.ok)return '担当者の仕込みを確認してください。';
