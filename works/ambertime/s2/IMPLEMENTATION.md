@@ -40,3 +40,16 @@ The existing R5 historical reverse-source pin also fails on the base S1 tree. S2
 Run real Chromium on the exact candidate: recent8 + saved recipes; current4/ended8; compare/reuse/save/staff; taste/care/bottle; partial/automatic removal; slot reuse; v2/v3/v4 backup migration; quota/conflict/interruption; new-v5 cold reload and generation review. Measure recipes, casks, saved recipes, reopen, month advancement, startup, memory and storage at 30/60/90/100 years against S1 in the same environment sequentially.
 
 On iPhone Safari: confirm narrow-screen tap targets and scroll behavior, saved recipe outside recent8, fixed slots after removal/reload/cold reopen, and backup confirmation/recovery. No physical-device result is claimed. Production is untouched.
+
+## Sequential Node diagnostics (final source)
+
+These are fresh-process diagnostics of local-policy S1 inputs with SHA checks. They are not before/after browser measurements. All four final runs use dependency fingerprint `205182856a6d583f322e19021287e80985698c44658c0d3d2f02d68946ef4fa2`. The formal reader cost and one-time migration cost are reported separately. View timing includes bounded data projection, not DOM/Canvas rendering.
+
+| Years | Formal restore (s) | One-time migration (s) | First bounded view (ms) | Mean of 100 views (ms) | Added UTF-8 bytes | Ledger bytes |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 30 | 8.14 | 13.00 | 1.38 | 0.59 | 25770 | 25754 |
+| 60 | 22.49 | 37.50 | 1.29 | 0.57 | 24673 | 24657 |
+| 90 | 40.30 | 68.35 | 1.28 | 0.59 | 25821 | 25805 |
+| 100 | 46.96 | 82.93 | 1.62 | 0.65 | 25831 | 25815 |
+
+Each run verifies exact formal JSON, slots, notebook roundtrip, manual-source context, ended archive order and the same next-month formal state/RNG. Raw values, input SHA, source manifest, after-month/reopen timings and whole-process memory are in `long-save-results.json`. V5 read in this diagnostic is warm; separate-process cold v5 restoration is covered by the focused fixture test. Browser cold launch, first paint/interaction, localStorage capacity and actual browser memory remain UNVERIFIED. No speedup factor is derived from older H1-C1 measurements.

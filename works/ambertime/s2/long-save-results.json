@@ -1,0 +1,974 @@
+[
+  {
+    "schema": "ambertime-s2-node-diagnostic/1",
+    "started": "2026-11-06T05:03:48.053Z",
+    "finished": "2026-11-06T05:04:17.381Z",
+    "environment": {
+      "node": "v24.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "chromium": "UNVERIFIED: OS socket EPERM before launch"
+    },
+    "input": {
+      "name": "local-360.json",
+      "sha256": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "bytes": 1868397,
+      "month": 360,
+      "operations": 534
+    },
+    "dependencyFingerprint": "205182856a6d583f322e19021287e80985698c44658c0d3d2f02d68946ef4fa2",
+    "dependencies": [
+      {
+        "path": "../ambertime-flavor-lab-v02/bridge.mjs",
+        "sha256": "7c67199a05cfdda45a5e67da10c3c712c97087179e1d3f19cd50cce589e1ac3b"
+      },
+      {
+        "path": "../ambertime-flavor-lab-v02/model.mjs",
+        "sha256": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a"
+      },
+      {
+        "path": "aroma-extraction.mjs",
+        "sha256": "b5f72397fc17387302320042bbe8c11629efac495361b379aad53a62cb01a3b6"
+      },
+      {
+        "path": "bottle-storage.mjs",
+        "sha256": "7fb29615fd0ecaaeaad9e0084f1fb7b26f7ffe44a2b10a7c4f31a525bee6d652"
+      },
+      {
+        "path": "brand-identity.mjs",
+        "sha256": "81150e429e9309db94a979ddeaecad03b55cb0898acb75a25e6bcfa6e2963596"
+      },
+      {
+        "path": "brand-reputation.mjs",
+        "sha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+      },
+      {
+        "path": "cask-slots.mjs",
+        "sha256": "93cd399e4532062c87e87bc1c8c38469cf6a57a51684dfcf342c79febbe7cdfe"
+      },
+      {
+        "path": "character.mjs",
+        "sha256": "aad7d88de1a654703305c3714268cf843e3018c94cababdb0835c0faa66e5ebb"
+      },
+      {
+        "path": "department-projects.mjs",
+        "sha256": "a8ecffd62f208309c1f96e0ac1c737ceeb3bc1bf7851d80aa20ce802d09a8a59"
+      },
+      {
+        "path": "distiller.mjs",
+        "sha256": "8f2e7d776c6cdd74f60f1193c395d0665129463591b78f3730c3fbe49adb87a2"
+      },
+      {
+        "path": "distillery-parameters.mjs",
+        "sha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710"
+      },
+      {
+        "path": "distillery.mjs",
+        "sha256": "29af98be3ebb0032cc761ca2f6ca179d5054eba92ae7855be3cf509e4dae5061"
+      },
+      {
+        "path": "economy-parameters.mjs",
+        "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32"
+      },
+      {
+        "path": "economy.mjs",
+        "sha256": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037"
+      },
+      {
+        "path": "experiments/reputation/v03/model.mjs",
+        "sha256": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067"
+      },
+      {
+        "path": "experiments/reputation/v05/core.mjs",
+        "sha256": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f"
+      },
+      {
+        "path": "experiments/reputation/v05/model.mjs",
+        "sha256": "5c8b827b880d6867283e04b03aa145521d16f74259ffcf793418c7869e780e7d"
+      },
+      {
+        "path": "experiments/town-simulation/v01/model.mjs",
+        "sha256": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1"
+      },
+      {
+        "path": "generations.mjs",
+        "sha256": "670373d967120f2de2290da2ac29393e8861d79bd1f8dad6f0be41414a12dfa7"
+      },
+      {
+        "path": "lab-flavor.mjs",
+        "sha256": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca"
+      },
+      {
+        "path": "market-sales.mjs",
+        "sha256": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136"
+      },
+      {
+        "path": "model.mjs",
+        "sha256": "8103594438971fee50c5e8f17ebbeb78e66365edc895f46eca22c51ea864eac0"
+      },
+      {
+        "path": "monthly.mjs",
+        "sha256": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2"
+      },
+      {
+        "path": "parallel-parameters.mjs",
+        "sha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f"
+      },
+      {
+        "path": "parameters.mjs",
+        "sha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822"
+      },
+      {
+        "path": "partial-bottling.mjs",
+        "sha256": "49b66d4b40ecf3daa467143832374eb5833f9c77ce3925ac25d028f3433ec17e"
+      },
+      {
+        "path": "partner-orders.mjs",
+        "sha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b"
+      },
+      {
+        "path": "partner-parameters.mjs",
+        "sha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838"
+      },
+      {
+        "path": "placement-mode.mjs",
+        "sha256": "12fd5824bfff03f300fb1ebd669b31541f00e8825f8fcae9425fc9face858053"
+      },
+      {
+        "path": "placement-save.mjs",
+        "sha256": "cb52a18aaa6887002a4e7671778f4bf4ceb098904728c5a926f736b717b78d41"
+      },
+      {
+        "path": "recent-ledger.mjs",
+        "sha256": "73dd2d4469a419029cc22b61c270fbdd7e00fea1c195b3896dfe8b7aac3c7c44"
+      },
+      {
+        "path": "recipe-book.mjs",
+        "sha256": "b7a8b880ade24fb92c528c72e059648d37b7029bcc0259b842c789ba3717c2ad"
+      },
+      {
+        "path": "save-codec.mjs",
+        "sha256": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e"
+      },
+      {
+        "path": "shop-demand.mjs",
+        "sha256": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893"
+      },
+      {
+        "path": "shop-model.mjs",
+        "sha256": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508"
+      },
+      {
+        "path": "store-market.mjs",
+        "sha256": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9"
+      },
+      {
+        "path": "town-connection.mjs",
+        "sha256": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051"
+      },
+      {
+        "path": "trade-parameters.mjs",
+        "sha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c"
+      },
+      {
+        "path": "trade.mjs",
+        "sha256": "158e63767bcde24b134dcf21a44c7ec8961e73edbbe0d791d2a62f333648b1c5"
+      },
+      {
+        "path": "wholesale-parameters.mjs",
+        "sha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1"
+      },
+      {
+        "path": "wholesale-v08.mjs",
+        "sha256": "ccb886cdec4ff8b23cbe304907f0ca3c1403f94e45bdd71388d014ec3e816478"
+      },
+      {
+        "path": "wholesale.mjs",
+        "sha256": "e4e11ca467f63c944a3dc41182f0b4326fac66ac4bded534986b9ca44f5f7609"
+      }
+    ],
+    "timingMs": {
+      "coldFormalRestore": 8135.3860429999995,
+      "oneTimeLedgerMigrationAfterRestore": 13002.113392,
+      "v5EncodeAndWarmValidation": 131.45281800000157,
+      "v5WarmRead": 62.539403999999195,
+      "boundedFirstView": 1.377185000001191,
+      "boundedView100Mean": 0.5865529700000116,
+      "boundedView100Max": 1.071540000000823,
+      "boundedAfterMonthView": 6.368523000001005
+    },
+    "cpuMs": {
+      "coldFormalRestore": 8442.049,
+      "oneTimeMigration": 13414.642
+    },
+    "size": {
+      "v4CodeUnits": 1231315,
+      "v5CodeUnits": 1256485,
+      "addedCodeUnits": 25170,
+      "v4Utf8Bytes": 1354817,
+      "v5Utf8Bytes": 1380587,
+      "ledgerUtf8Bytes": 25754
+    },
+    "retained": {
+      "manuals": 8,
+      "active": 1,
+      "ended": 8,
+      "savedRecipes": 0
+    },
+    "memory": {
+      "end": {
+        "rss": 294412288,
+        "heapTotal": 224116736,
+        "heapUsed": 96003336,
+        "external": 4142691,
+        "arrayBuffers": 212131
+      },
+      "processMaxRssKiB": 334320
+    },
+    "checks": {
+      "inputShaMatchesS1": true,
+      "formalJsonExact": true,
+      "manualSourcesMatchFormalContext": true,
+      "endedIdsMatchFormalArchive": true,
+      "slotsExact": true,
+      "ledgerRoundTripExact": true,
+      "nextMonthFormalStateAndRngExact": true,
+      "afterMonthLedgerValid": true
+    },
+    "limitations": [
+      "Node timing only; no browser display, first paint, interaction or localStorage capacity evidence.",
+      "v5 read is warm in the same process; cold formal reader remains unchanged.",
+      "Old session migration is intentionally measured once after formal restore.",
+      "Memory is whole process, not isolated browser ledger memory."
+    ]
+  },
+  {
+    "schema": "ambertime-s2-node-diagnostic/1",
+    "started": "2026-11-06T05:04:17.517Z",
+    "finished": "2026-11-06T05:05:40.376Z",
+    "environment": {
+      "node": "v24.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "chromium": "UNVERIFIED: OS socket EPERM before launch"
+    },
+    "input": {
+      "name": "local-720.json",
+      "sha256": "7d10e629a583877c868792c40e950529ce122a901307c09102bb61a2b0b110ea",
+      "bytes": 2946411,
+      "month": 720,
+      "operations": 968
+    },
+    "dependencyFingerprint": "205182856a6d583f322e19021287e80985698c44658c0d3d2f02d68946ef4fa2",
+    "dependencies": [
+      {
+        "path": "../ambertime-flavor-lab-v02/bridge.mjs",
+        "sha256": "7c67199a05cfdda45a5e67da10c3c712c97087179e1d3f19cd50cce589e1ac3b"
+      },
+      {
+        "path": "../ambertime-flavor-lab-v02/model.mjs",
+        "sha256": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a"
+      },
+      {
+        "path": "aroma-extraction.mjs",
+        "sha256": "b5f72397fc17387302320042bbe8c11629efac495361b379aad53a62cb01a3b6"
+      },
+      {
+        "path": "bottle-storage.mjs",
+        "sha256": "7fb29615fd0ecaaeaad9e0084f1fb7b26f7ffe44a2b10a7c4f31a525bee6d652"
+      },
+      {
+        "path": "brand-identity.mjs",
+        "sha256": "81150e429e9309db94a979ddeaecad03b55cb0898acb75a25e6bcfa6e2963596"
+      },
+      {
+        "path": "brand-reputation.mjs",
+        "sha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+      },
+      {
+        "path": "cask-slots.mjs",
+        "sha256": "93cd399e4532062c87e87bc1c8c38469cf6a57a51684dfcf342c79febbe7cdfe"
+      },
+      {
+        "path": "character.mjs",
+        "sha256": "aad7d88de1a654703305c3714268cf843e3018c94cababdb0835c0faa66e5ebb"
+      },
+      {
+        "path": "department-projects.mjs",
+        "sha256": "a8ecffd62f208309c1f96e0ac1c737ceeb3bc1bf7851d80aa20ce802d09a8a59"
+      },
+      {
+        "path": "distiller.mjs",
+        "sha256": "8f2e7d776c6cdd74f60f1193c395d0665129463591b78f3730c3fbe49adb87a2"
+      },
+      {
+        "path": "distillery-parameters.mjs",
+        "sha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710"
+      },
+      {
+        "path": "distillery.mjs",
+        "sha256": "29af98be3ebb0032cc761ca2f6ca179d5054eba92ae7855be3cf509e4dae5061"
+      },
+      {
+        "path": "economy-parameters.mjs",
+        "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32"
+      },
+      {
+        "path": "economy.mjs",
+        "sha256": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037"
+      },
+      {
+        "path": "experiments/reputation/v03/model.mjs",
+        "sha256": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067"
+      },
+      {
+        "path": "experiments/reputation/v05/core.mjs",
+        "sha256": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f"
+      },
+      {
+        "path": "experiments/reputation/v05/model.mjs",
+        "sha256": "5c8b827b880d6867283e04b03aa145521d16f74259ffcf793418c7869e780e7d"
+      },
+      {
+        "path": "experiments/town-simulation/v01/model.mjs",
+        "sha256": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1"
+      },
+      {
+        "path": "generations.mjs",
+        "sha256": "670373d967120f2de2290da2ac29393e8861d79bd1f8dad6f0be41414a12dfa7"
+      },
+      {
+        "path": "lab-flavor.mjs",
+        "sha256": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca"
+      },
+      {
+        "path": "market-sales.mjs",
+        "sha256": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136"
+      },
+      {
+        "path": "model.mjs",
+        "sha256": "8103594438971fee50c5e8f17ebbeb78e66365edc895f46eca22c51ea864eac0"
+      },
+      {
+        "path": "monthly.mjs",
+        "sha256": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2"
+      },
+      {
+        "path": "parallel-parameters.mjs",
+        "sha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f"
+      },
+      {
+        "path": "parameters.mjs",
+        "sha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822"
+      },
+      {
+        "path": "partial-bottling.mjs",
+        "sha256": "49b66d4b40ecf3daa467143832374eb5833f9c77ce3925ac25d028f3433ec17e"
+      },
+      {
+        "path": "partner-orders.mjs",
+        "sha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b"
+      },
+      {
+        "path": "partner-parameters.mjs",
+        "sha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838"
+      },
+      {
+        "path": "placement-mode.mjs",
+        "sha256": "12fd5824bfff03f300fb1ebd669b31541f00e8825f8fcae9425fc9face858053"
+      },
+      {
+        "path": "placement-save.mjs",
+        "sha256": "cb52a18aaa6887002a4e7671778f4bf4ceb098904728c5a926f736b717b78d41"
+      },
+      {
+        "path": "recent-ledger.mjs",
+        "sha256": "73dd2d4469a419029cc22b61c270fbdd7e00fea1c195b3896dfe8b7aac3c7c44"
+      },
+      {
+        "path": "recipe-book.mjs",
+        "sha256": "b7a8b880ade24fb92c528c72e059648d37b7029bcc0259b842c789ba3717c2ad"
+      },
+      {
+        "path": "save-codec.mjs",
+        "sha256": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e"
+      },
+      {
+        "path": "shop-demand.mjs",
+        "sha256": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893"
+      },
+      {
+        "path": "shop-model.mjs",
+        "sha256": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508"
+      },
+      {
+        "path": "store-market.mjs",
+        "sha256": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9"
+      },
+      {
+        "path": "town-connection.mjs",
+        "sha256": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051"
+      },
+      {
+        "path": "trade-parameters.mjs",
+        "sha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c"
+      },
+      {
+        "path": "trade.mjs",
+        "sha256": "158e63767bcde24b134dcf21a44c7ec8961e73edbbe0d791d2a62f333648b1c5"
+      },
+      {
+        "path": "wholesale-parameters.mjs",
+        "sha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1"
+      },
+      {
+        "path": "wholesale-v08.mjs",
+        "sha256": "ccb886cdec4ff8b23cbe304907f0ca3c1403f94e45bdd71388d014ec3e816478"
+      },
+      {
+        "path": "wholesale.mjs",
+        "sha256": "e4e11ca467f63c944a3dc41182f0b4326fac66ac4bded534986b9ca44f5f7609"
+      }
+    ],
+    "timingMs": {
+      "coldFormalRestore": 22485.607686,
+      "oneTimeLedgerMigrationAfterRestore": 37495.759527999995,
+      "v5EncodeAndWarmValidation": 224.58755599999859,
+      "v5WarmRead": 104.93375399999786,
+      "boundedFirstView": 1.2854999999981374,
+      "boundedView100Mean": 0.5746428699998068,
+      "boundedView100Max": 4.754641999999876,
+      "boundedAfterMonthView": 0.5641900000046007
+    },
+    "cpuMs": {
+      "coldFormalRestore": 23439.537,
+      "oneTimeMigration": 39131.145
+    },
+    "size": {
+      "v4CodeUnits": 1937467,
+      "v5CodeUnits": 1961564,
+      "addedCodeUnits": 24097,
+      "v4Utf8Bytes": 2123565,
+      "v5Utf8Bytes": 2148238,
+      "ledgerUtf8Bytes": 24657
+    },
+    "retained": {
+      "manuals": 8,
+      "active": 0,
+      "ended": 8,
+      "savedRecipes": 0
+    },
+    "memory": {
+      "end": {
+        "rss": 400293888,
+        "heapTotal": 285495296,
+        "heapUsed": 210260456,
+        "external": 4142691,
+        "arrayBuffers": 212131
+      },
+      "processMaxRssKiB": 432244
+    },
+    "checks": {
+      "inputShaMatchesS1": true,
+      "formalJsonExact": true,
+      "manualSourcesMatchFormalContext": true,
+      "endedIdsMatchFormalArchive": true,
+      "slotsExact": true,
+      "ledgerRoundTripExact": true,
+      "nextMonthFormalStateAndRngExact": true,
+      "afterMonthLedgerValid": true
+    },
+    "limitations": [
+      "Node timing only; no browser display, first paint, interaction or localStorage capacity evidence.",
+      "v5 read is warm in the same process; cold formal reader remains unchanged.",
+      "Old session migration is intentionally measured once after formal restore.",
+      "Memory is whole process, not isolated browser ledger memory."
+    ]
+  },
+  {
+    "schema": "ambertime-s2-node-diagnostic/1",
+    "started": "2026-11-06T05:05:40.521Z",
+    "finished": "2026-11-06T05:08:10.642Z",
+    "environment": {
+      "node": "v24.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "chromium": "UNVERIFIED: OS socket EPERM before launch"
+    },
+    "input": {
+      "name": "local-1080.json",
+      "sha256": "c1ed2918cbc5e47ce501e93a1d50bb0017eb5d4b48ab1abb0b1f0bfe14b90325",
+      "bytes": 3916316,
+      "month": 1080,
+      "operations": 1382
+    },
+    "dependencyFingerprint": "205182856a6d583f322e19021287e80985698c44658c0d3d2f02d68946ef4fa2",
+    "dependencies": [
+      {
+        "path": "../ambertime-flavor-lab-v02/bridge.mjs",
+        "sha256": "7c67199a05cfdda45a5e67da10c3c712c97087179e1d3f19cd50cce589e1ac3b"
+      },
+      {
+        "path": "../ambertime-flavor-lab-v02/model.mjs",
+        "sha256": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a"
+      },
+      {
+        "path": "aroma-extraction.mjs",
+        "sha256": "b5f72397fc17387302320042bbe8c11629efac495361b379aad53a62cb01a3b6"
+      },
+      {
+        "path": "bottle-storage.mjs",
+        "sha256": "7fb29615fd0ecaaeaad9e0084f1fb7b26f7ffe44a2b10a7c4f31a525bee6d652"
+      },
+      {
+        "path": "brand-identity.mjs",
+        "sha256": "81150e429e9309db94a979ddeaecad03b55cb0898acb75a25e6bcfa6e2963596"
+      },
+      {
+        "path": "brand-reputation.mjs",
+        "sha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+      },
+      {
+        "path": "cask-slots.mjs",
+        "sha256": "93cd399e4532062c87e87bc1c8c38469cf6a57a51684dfcf342c79febbe7cdfe"
+      },
+      {
+        "path": "character.mjs",
+        "sha256": "aad7d88de1a654703305c3714268cf843e3018c94cababdb0835c0faa66e5ebb"
+      },
+      {
+        "path": "department-projects.mjs",
+        "sha256": "a8ecffd62f208309c1f96e0ac1c737ceeb3bc1bf7851d80aa20ce802d09a8a59"
+      },
+      {
+        "path": "distiller.mjs",
+        "sha256": "8f2e7d776c6cdd74f60f1193c395d0665129463591b78f3730c3fbe49adb87a2"
+      },
+      {
+        "path": "distillery-parameters.mjs",
+        "sha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710"
+      },
+      {
+        "path": "distillery.mjs",
+        "sha256": "29af98be3ebb0032cc761ca2f6ca179d5054eba92ae7855be3cf509e4dae5061"
+      },
+      {
+        "path": "economy-parameters.mjs",
+        "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32"
+      },
+      {
+        "path": "economy.mjs",
+        "sha256": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037"
+      },
+      {
+        "path": "experiments/reputation/v03/model.mjs",
+        "sha256": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067"
+      },
+      {
+        "path": "experiments/reputation/v05/core.mjs",
+        "sha256": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f"
+      },
+      {
+        "path": "experiments/reputation/v05/model.mjs",
+        "sha256": "5c8b827b880d6867283e04b03aa145521d16f74259ffcf793418c7869e780e7d"
+      },
+      {
+        "path": "experiments/town-simulation/v01/model.mjs",
+        "sha256": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1"
+      },
+      {
+        "path": "generations.mjs",
+        "sha256": "670373d967120f2de2290da2ac29393e8861d79bd1f8dad6f0be41414a12dfa7"
+      },
+      {
+        "path": "lab-flavor.mjs",
+        "sha256": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca"
+      },
+      {
+        "path": "market-sales.mjs",
+        "sha256": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136"
+      },
+      {
+        "path": "model.mjs",
+        "sha256": "8103594438971fee50c5e8f17ebbeb78e66365edc895f46eca22c51ea864eac0"
+      },
+      {
+        "path": "monthly.mjs",
+        "sha256": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2"
+      },
+      {
+        "path": "parallel-parameters.mjs",
+        "sha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f"
+      },
+      {
+        "path": "parameters.mjs",
+        "sha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822"
+      },
+      {
+        "path": "partial-bottling.mjs",
+        "sha256": "49b66d4b40ecf3daa467143832374eb5833f9c77ce3925ac25d028f3433ec17e"
+      },
+      {
+        "path": "partner-orders.mjs",
+        "sha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b"
+      },
+      {
+        "path": "partner-parameters.mjs",
+        "sha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838"
+      },
+      {
+        "path": "placement-mode.mjs",
+        "sha256": "12fd5824bfff03f300fb1ebd669b31541f00e8825f8fcae9425fc9face858053"
+      },
+      {
+        "path": "placement-save.mjs",
+        "sha256": "cb52a18aaa6887002a4e7671778f4bf4ceb098904728c5a926f736b717b78d41"
+      },
+      {
+        "path": "recent-ledger.mjs",
+        "sha256": "73dd2d4469a419029cc22b61c270fbdd7e00fea1c195b3896dfe8b7aac3c7c44"
+      },
+      {
+        "path": "recipe-book.mjs",
+        "sha256": "b7a8b880ade24fb92c528c72e059648d37b7029bcc0259b842c789ba3717c2ad"
+      },
+      {
+        "path": "save-codec.mjs",
+        "sha256": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e"
+      },
+      {
+        "path": "shop-demand.mjs",
+        "sha256": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893"
+      },
+      {
+        "path": "shop-model.mjs",
+        "sha256": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508"
+      },
+      {
+        "path": "store-market.mjs",
+        "sha256": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9"
+      },
+      {
+        "path": "town-connection.mjs",
+        "sha256": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051"
+      },
+      {
+        "path": "trade-parameters.mjs",
+        "sha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c"
+      },
+      {
+        "path": "trade.mjs",
+        "sha256": "158e63767bcde24b134dcf21a44c7ec8961e73edbbe0d791d2a62f333648b1c5"
+      },
+      {
+        "path": "wholesale-parameters.mjs",
+        "sha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1"
+      },
+      {
+        "path": "wholesale-v08.mjs",
+        "sha256": "ccb886cdec4ff8b23cbe304907f0ca3c1403f94e45bdd71388d014ec3e816478"
+      },
+      {
+        "path": "wholesale.mjs",
+        "sha256": "e4e11ca467f63c944a3dc41182f0b4326fac66ac4bded534986b9ca44f5f7609"
+      }
+    ],
+    "timingMs": {
+      "coldFormalRestore": 40296.898343,
+      "oneTimeLedgerMigrationAfterRestore": 68348.07702900001,
+      "v5EncodeAndWarmValidation": 367.65050999997766,
+      "v5WarmRead": 175.47685300000012,
+      "boundedFirstView": 1.279171000001952,
+      "boundedView100Mean": 0.5893903000000864,
+      "boundedView100Max": 3.4467580000055023,
+      "boundedAfterMonthView": 0.6330509999825153
+    },
+    "cpuMs": {
+      "coldFormalRestore": 42147.267,
+      "oneTimeMigration": 72225.782
+    },
+    "size": {
+      "v4CodeUnits": 2560287,
+      "v5CodeUnits": 2585508,
+      "addedCodeUnits": 25221,
+      "v4Utf8Bytes": 2802255,
+      "v5Utf8Bytes": 2828076,
+      "ledgerUtf8Bytes": 25805
+    },
+    "retained": {
+      "manuals": 8,
+      "active": 1,
+      "ended": 8,
+      "savedRecipes": 0
+    },
+    "memory": {
+      "end": {
+        "rss": 506961920,
+        "heapTotal": 250982400,
+        "heapUsed": 158584064,
+        "external": 4138539,
+        "arrayBuffers": 212131
+      },
+      "processMaxRssKiB": 544668
+    },
+    "checks": {
+      "inputShaMatchesS1": true,
+      "formalJsonExact": true,
+      "manualSourcesMatchFormalContext": true,
+      "endedIdsMatchFormalArchive": true,
+      "slotsExact": true,
+      "ledgerRoundTripExact": true,
+      "nextMonthFormalStateAndRngExact": true,
+      "afterMonthLedgerValid": true
+    },
+    "limitations": [
+      "Node timing only; no browser display, first paint, interaction or localStorage capacity evidence.",
+      "v5 read is warm in the same process; cold formal reader remains unchanged.",
+      "Old session migration is intentionally measured once after formal restore.",
+      "Memory is whole process, not isolated browser ledger memory."
+    ]
+  },
+  {
+    "schema": "ambertime-s2-node-diagnostic/1",
+    "started": "2026-11-06T05:08:10.798Z",
+    "finished": "2026-11-06T05:11:08.013Z",
+    "environment": {
+      "node": "v24.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "chromium": "UNVERIFIED: OS socket EPERM before launch"
+    },
+    "input": {
+      "name": "local-1200.json",
+      "sha256": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "bytes": 4257604,
+      "month": 1200,
+      "operations": 1521
+    },
+    "dependencyFingerprint": "205182856a6d583f322e19021287e80985698c44658c0d3d2f02d68946ef4fa2",
+    "dependencies": [
+      {
+        "path": "../ambertime-flavor-lab-v02/bridge.mjs",
+        "sha256": "7c67199a05cfdda45a5e67da10c3c712c97087179e1d3f19cd50cce589e1ac3b"
+      },
+      {
+        "path": "../ambertime-flavor-lab-v02/model.mjs",
+        "sha256": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a"
+      },
+      {
+        "path": "aroma-extraction.mjs",
+        "sha256": "b5f72397fc17387302320042bbe8c11629efac495361b379aad53a62cb01a3b6"
+      },
+      {
+        "path": "bottle-storage.mjs",
+        "sha256": "7fb29615fd0ecaaeaad9e0084f1fb7b26f7ffe44a2b10a7c4f31a525bee6d652"
+      },
+      {
+        "path": "brand-identity.mjs",
+        "sha256": "81150e429e9309db94a979ddeaecad03b55cb0898acb75a25e6bcfa6e2963596"
+      },
+      {
+        "path": "brand-reputation.mjs",
+        "sha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+      },
+      {
+        "path": "cask-slots.mjs",
+        "sha256": "93cd399e4532062c87e87bc1c8c38469cf6a57a51684dfcf342c79febbe7cdfe"
+      },
+      {
+        "path": "character.mjs",
+        "sha256": "aad7d88de1a654703305c3714268cf843e3018c94cababdb0835c0faa66e5ebb"
+      },
+      {
+        "path": "department-projects.mjs",
+        "sha256": "a8ecffd62f208309c1f96e0ac1c737ceeb3bc1bf7851d80aa20ce802d09a8a59"
+      },
+      {
+        "path": "distiller.mjs",
+        "sha256": "8f2e7d776c6cdd74f60f1193c395d0665129463591b78f3730c3fbe49adb87a2"
+      },
+      {
+        "path": "distillery-parameters.mjs",
+        "sha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710"
+      },
+      {
+        "path": "distillery.mjs",
+        "sha256": "29af98be3ebb0032cc761ca2f6ca179d5054eba92ae7855be3cf509e4dae5061"
+      },
+      {
+        "path": "economy-parameters.mjs",
+        "sha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32"
+      },
+      {
+        "path": "economy.mjs",
+        "sha256": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037"
+      },
+      {
+        "path": "experiments/reputation/v03/model.mjs",
+        "sha256": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067"
+      },
+      {
+        "path": "experiments/reputation/v05/core.mjs",
+        "sha256": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f"
+      },
+      {
+        "path": "experiments/reputation/v05/model.mjs",
+        "sha256": "5c8b827b880d6867283e04b03aa145521d16f74259ffcf793418c7869e780e7d"
+      },
+      {
+        "path": "experiments/town-simulation/v01/model.mjs",
+        "sha256": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1"
+      },
+      {
+        "path": "generations.mjs",
+        "sha256": "670373d967120f2de2290da2ac29393e8861d79bd1f8dad6f0be41414a12dfa7"
+      },
+      {
+        "path": "lab-flavor.mjs",
+        "sha256": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca"
+      },
+      {
+        "path": "market-sales.mjs",
+        "sha256": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136"
+      },
+      {
+        "path": "model.mjs",
+        "sha256": "8103594438971fee50c5e8f17ebbeb78e66365edc895f46eca22c51ea864eac0"
+      },
+      {
+        "path": "monthly.mjs",
+        "sha256": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2"
+      },
+      {
+        "path": "parallel-parameters.mjs",
+        "sha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f"
+      },
+      {
+        "path": "parameters.mjs",
+        "sha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822"
+      },
+      {
+        "path": "partial-bottling.mjs",
+        "sha256": "49b66d4b40ecf3daa467143832374eb5833f9c77ce3925ac25d028f3433ec17e"
+      },
+      {
+        "path": "partner-orders.mjs",
+        "sha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b"
+      },
+      {
+        "path": "partner-parameters.mjs",
+        "sha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838"
+      },
+      {
+        "path": "placement-mode.mjs",
+        "sha256": "12fd5824bfff03f300fb1ebd669b31541f00e8825f8fcae9425fc9face858053"
+      },
+      {
+        "path": "placement-save.mjs",
+        "sha256": "cb52a18aaa6887002a4e7671778f4bf4ceb098904728c5a926f736b717b78d41"
+      },
+      {
+        "path": "recent-ledger.mjs",
+        "sha256": "73dd2d4469a419029cc22b61c270fbdd7e00fea1c195b3896dfe8b7aac3c7c44"
+      },
+      {
+        "path": "recipe-book.mjs",
+        "sha256": "b7a8b880ade24fb92c528c72e059648d37b7029bcc0259b842c789ba3717c2ad"
+      },
+      {
+        "path": "save-codec.mjs",
+        "sha256": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e"
+      },
+      {
+        "path": "shop-demand.mjs",
+        "sha256": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893"
+      },
+      {
+        "path": "shop-model.mjs",
+        "sha256": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508"
+      },
+      {
+        "path": "store-market.mjs",
+        "sha256": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9"
+      },
+      {
+        "path": "town-connection.mjs",
+        "sha256": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051"
+      },
+      {
+        "path": "trade-parameters.mjs",
+        "sha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c"
+      },
+      {
+        "path": "trade.mjs",
+        "sha256": "158e63767bcde24b134dcf21a44c7ec8961e73edbbe0d791d2a62f333648b1c5"
+      },
+      {
+        "path": "wholesale-parameters.mjs",
+        "sha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1"
+      },
+      {
+        "path": "wholesale-v08.mjs",
+        "sha256": "ccb886cdec4ff8b23cbe304907f0ca3c1403f94e45bdd71388d014ec3e816478"
+      },
+      {
+        "path": "wholesale.mjs",
+        "sha256": "e4e11ca467f63c944a3dc41182f0b4326fac66ac4bded534986b9ca44f5f7609"
+      }
+    ],
+    "timingMs": {
+      "coldFormalRestore": 46956.08944900001,
+      "oneTimeLedgerMigrationAfterRestore": 82930.850974,
+      "v5EncodeAndWarmValidation": 406.35025499999756,
+      "v5WarmRead": 159.99090800000704,
+      "boundedFirstView": 1.62101299999631,
+      "boundedView100Mean": 0.6513171700009843,
+      "boundedView100Max": 4.616157000011299,
+      "boundedAfterMonthView": 0.7257979999994859
+    },
+    "cpuMs": {
+      "coldFormalRestore": 49365.753,
+      "oneTimeMigration": 87787.176
+    },
+    "size": {
+      "v4CodeUnits": 2781823,
+      "v5CodeUnits": 2807054,
+      "addedCodeUnits": 25231,
+      "v4Utf8Bytes": 3043885,
+      "v5Utf8Bytes": 3069716,
+      "ledgerUtf8Bytes": 25815
+    },
+    "retained": {
+      "manuals": 8,
+      "active": 1,
+      "ended": 8,
+      "savedRecipes": 0
+    },
+    "memory": {
+      "end": {
+        "rss": 525692928,
+        "heapTotal": 343773184,
+        "heapUsed": 225468720,
+        "external": 4138539,
+        "arrayBuffers": 212131
+      },
+      "processMaxRssKiB": 566924
+    },
+    "checks": {
+      "inputShaMatchesS1": true,
+      "formalJsonExact": true,
+      "manualSourcesMatchFormalContext": true,
+      "endedIdsMatchFormalArchive": true,
+      "slotsExact": true,
+      "ledgerRoundTripExact": true,
+      "nextMonthFormalStateAndRngExact": true,
+      "afterMonthLedgerValid": true
+    },
+    "limitations": [
+      "Node timing only; no browser display, first paint, interaction or localStorage capacity evidence.",
+      "v5 read is warm in the same process; cold formal reader remains unchanged.",
+      "Old session migration is intentionally measured once after formal restore.",
+      "Memory is whole process, not isolated browser ledger memory."
+    ]
+  }
+]
