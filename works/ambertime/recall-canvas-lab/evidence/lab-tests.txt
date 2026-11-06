@@ -1,0 +1,14 @@
+﹣ H4 proposal phone layouts, unchanged captions, navigation and reduced motion (1.013239ms) # SKIP
+✔ existing sentences, dates and frozen edition remain unchanged through display (4.430313ms)
+✔ same shop across time keeps the same existing building composition (0.801919ms)
+✔ unknown IDs and event kinds fall back without falsely identifying a known shop (0.472014ms)
+✔ native assets remain rect-only and every source cell is consumed (1.326791ms)
+✔ known regions retain complete native national/overseas geography; unknown regions stay neutral (7.656005ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 143.850561
