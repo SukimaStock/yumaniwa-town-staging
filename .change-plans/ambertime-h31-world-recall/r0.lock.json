@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6904bea69a85146f6035fa021eedfbb2a9eab1a2366118dd465e4446af262ffe",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2df1ca9db957de576fbf9fa7e29b762c83023cb3",
+    "changeId": "ambertime-h31-world-recall",
+    "revision": 0,
+    "change": "世代回想の世界の動き候補と保存方式を研究比較",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h31-world-recall/r0.lock.json",
+      "works/ambertime/h3-1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/chronicle-lab/**",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "既存H2時点固定候補によるA/B/C世代単位選出比較",
+      "世界の動き・再登場・因果を区別した一文と場面資料",
+      "保存3方式の測定と制約を研究用スクリプトで比較"
+    ],
+    "ownerDecisions": [
+      "2026-11-06 H3-1依頼。研究のみDraft PR。本編接続・マージ・Production禁止"
+    ],
+    "hqDecisions": [
+      "既存H2固定資料/期待ハッシュ不変、時点固定snapshotを使用。各世代期間外は背景参照のみ。欠落資料は補完しない"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact",
+      "表示説明を増やさず既存操作維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "候補/因果/世代境界の独立レビュー",
+      "研究文章・比較例の事実照合"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "研究branchを閉じる。本編変更なし",
+    "outOfScope": [
+      "本編UI/計算/保存形式変更、H2固定証拠書換、マージ、Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機は本人確認。未完了計測は未完了として記録"
+    ],
+    "alternativesRejected": [
+      "全操作snapshot保存",
+      "全履歴を歩み表示のため再生",
+      "旧形式移行用再生"
+    ],
+    "boundaryCases": [
+      "30/100年三政策の各交代時点",
+      "期間外背景と未来参照",
+      "同月順序/seed/再現性",
+      "候補少数/重複/保存失敗"
+    ],
+    "testPlan": [
+      "境界・再現性・選定・因果の回帰",
+      "固定H2資料SHA保護",
+      "容量と編集時間の分離測定",
+      "Scope/Risk/Impact/CI"
+    ],
+    "problem": "歩みと異なる世界の動きを世代回想として選ぶ必要",
+    "currentContract": "S4歩みとH2研究回想は別役割",
+    "whyExistingIsInsufficient": "累積100年編集は世代中心の世界回想と同義でない",
+    "design": "H2時点固定資料からA基準・B世界重視・C関係重視を比較。保存は候補/小事実/世代確定を実測",
+    "migration": "なし。研究専用",
+    "compatibility": "本編と既存H2成果を一切変更しない",
+    "promotionRisk": "Draft研究PRのみ、マージしない"
+  }
+}
