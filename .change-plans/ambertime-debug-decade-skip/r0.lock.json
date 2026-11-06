@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e334f5c60ce1c3941c110031ae887e48ec086648d0a26f3d238210f810e1180d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "958b5317fb74ff865a75795c93d00d1c950656ae",
+    "changeId": "ambertime-debug-decade-skip",
+    "revision": 0,
+    "change": "デバッグ画面から10/20/30年を通常の月次処理で安全に早送りする",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-debug-decade-skip/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/recall/debug-time-skip.mjs",
+      "works/ambertime/tests/debug-time-skip.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/history-record.mjs",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "?debug=1のみで10年・20年・30年スキップの実行・中止を提供する",
+      "通常の正式月次tickを順番に使用し、各月で既存の一体保存とreadbackを実行する",
+      "判断・資金停止・世代交代・蒸留中に必ず停止して不自然な自動操作を作らない",
+      "非同期に分割してUI操作を妨げず、途中キャンセル、タブ非表示や保存失敗でも状態を保護する"
+    ],
+    "ownerDecisions": [
+      "2026-11-06 ユーザーが『デバッグ機能として、数十年スキップ機能を追加してください』と指示。10/20/30年を採用し、中断時は停止年月を報告"
+    ],
+    "hqDecisions": [
+      "正式月次計算と世代ルールをスキップしない。未完了プレイヤー判断・手動蒸留は自動化しない。保存キーとsession v8を維持し、確認ダイアログで記録への変更を明示"
+    ],
+    "rulesApplied": [
+      "Change OS Plan Lock → Scope → Risk → Impact",
+      "debug=1以外は入口・処理なし",
+      "EXPRESSION-AUDIT"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "debug=1の入口・確認・進行・中止・停止理由・世代交代直前の停止",
+      "iPhone Safariで長時間進行、保存失敗、再読込"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "この機能のUIと操作モジュールのみを取り消す。既存保存は新規形式へ変えない。既に進んだ記録の巻戻しは自動では行わない",
+    "outOfScope": [
+      "生成用シナリオ・ダミーのゲーム状態注入",
+      "資金や世代条件のチート",
+      "自動世代交代、瓶詰め、仕込み、承認操作",
+      "正式保存形式変更",
+      "Production反映"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Chromium/iPhone Safariの実操作と100年容量未確認なら記録する",
+      "実行が資金・入力待ちで途中停止する可能性を案内"
+    ],
+    "alternativesRejected": [
+      "年月カウンターのみ進める",
+      "全操作を飛ばして未来状態を注入",
+      "必要な判断を自動承認",
+      "保存無しで数十年を一括計算"
+    ],
+    "boundaryCases": [
+      "保存開始前の確認取消",
+      "中止・非表示・ページ破棄",
+      "月が進まないケース",
+      "保存失敗とreadback/競合",
+      "世代交代に入る前で停止",
+      "手動仕込み・スタッフ仕込みを勝手に進めない"
+    ],
+    "testPlan": [
+      "純粋停止判定と期間換算・月次進行テスト",
+      "同値性、session v8/S4/H3回帰、ブラウザー基本操作",
+      "Scope/Risk/Impact、必須CI",
+      "実機未確認は未確認として報告"
+    ],
+    "problem": "回想の長期動作を実際のプレイで検証するには数十年の経過が必要",
+    "currentContract": "debug=1内に設定デバッグ画面があり、通常の月次進行はD.tickDistilleryと一体保存で処理",
+    "whyExistingIsInsufficient": "通常の月時計では数十年の確認に時間がかかる",
+    "design": "月次正式操作を逐次実行・一体保存して進行状況を表示。判断イベントや財務停止で中断し、手動操作を自動代行しない",
+    "migration": "なし",
+    "compatibility": "session v8 / S4 / H3-3B / 既存debugを保持",
+    "promotionRisk": "Stagingのみ。不可逆な経過は確認後に実行"
+  }
+}
