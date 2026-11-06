@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "34f79bbf5eac03e35f90f18a8ff0ca7c73bf992479f2d0bb77182c8d4682d07a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "29697583d15f4e4524ba39ba9052b790fd66ae9c",
+    "changeId": "ambertime-h4-1",
+    "revision": 0,
+    "change": "H4-1 isolated recall Canvas comparison Lab; no main integration",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "Current H4-1 user request",
+      "works/ambertime/recall/debug-scene.mjs",
+      "works/ambertime/recall/live-scene.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h4-1/r0.lock.json",
+      "works/ambertime/recall-canvas-lab/**",
+      "works/ambertime/recall-lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/*save*",
+      "works/ambertime/*checkpoint*",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Audit existing Canvas/DOM rendering and capture actual main debug screen",
+      "Compare A/B/C; implement isolated B/C hybrid Lab with four frozen edition scenes, original player comparison and phone layouts",
+      "Reuse native art and fonts; no scene text rewriting, history, save, RNG or main renderer change",
+      "Link from existing registered recall Lab; no new independent work or shared registries",
+      "Relevant tests, visual captures, report and Draft PR only"
+    ],
+    "ownerDecisions": [
+      "H4-1 explicitly authorizes investigation, Lab and Draft PR; prohibits merge and production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard isolated presentation research",
+      "No unnecessary explanatory UI within proposed playback; comparison controls stay in Lab"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Desktop browser phone viewport screenshots and touch/keyboard navigation",
+      "No save or main source changes; existing recall regressions",
+      "Physical iPhone Safari and VoiceOver remain unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated Lab and entry link",
+    "outOfScope": [
+      "Main integration",
+      "Save/restore/history/selection/checkpoint",
+      "Staging merge and production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Owner visual adoption"
+    ]
+  }
+}

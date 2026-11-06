@@ -1,0 +1,57 @@
+✖ recall preparation failure after saved generation notice retains the committed game and collector (3.10861ms)
+✔ rendering both barrel choices only probes native operations and leaves live recall untouched (32.18382ms)
+﹣ Chromium v8 boot, observed formal operations, reload and failed write recovery (1.02733ms) # SKIP
+✔ fresh-only initialization, immutable increments and explicit compound boundary (25.68387ms)
+✔ batch start, fill and distinct releases reuse formal provenance and S4 (34.865793ms)
+✔ pruned causal source reconstructs from native positions, then remains pinned (19.088039ms)
+✔ same region without source path has no causal link; stale preparation rejected (1.968835ms)
+✔ reader rejects missing and corrupt causal positions, counts and pin references (1.733798ms)
+✔ six fixed sample scenes, with no persistence references (1.311117ms)
+✔ each scene draws a distinct pixel composition (0.97258ms)
+✔ auto advance, tap, pause, previous, final stop and debug-only close (2.266171ms)
+✔ reduced-motion keeps scenes under manual control (0.377485ms)
+✔ real selected scenes preserve frozen sentences and map their artwork (4.715502ms)
+✔ live handover executes only after explicitly advancing final scene (3.110332ms)
+✔ historical recall never calls a handover, even at the final scene (0.786466ms)
+✔ existing debug playback remains its own fixed sample (0.522948ms)
+✔ live outer calls preserve native results and observe both same-month UI operations (91.93874ms)
+✔ temporary nested native actions are not reported as durable operations (0.470962ms)
+✔ skipped operations, truncation, changed append boundary and wrong game are rejected (0.832283ms)
+✔ native and observation failures propagate; model calls are never retried (0.381721ms)
+✔ historical export projections are queries, not live transitions (32.038707ms)
+✔ v8 requires the recall record and rejects v7 before running the official reader (38.928386ms)
+✔ a post-write read exception does not claim failure left persistent state unchanged (18.065767ms)
+✔ a changed readback rejects success and preserves the competing writer for recovery (26.0613ms)
+✔ quota failure leaves the complete old session and retry commits the complete candidate (22.350665ms)
+✔ pure production C preserves all 12 research boundary seeds and complete scenes (161.240875ms)
+✔ new observer starts after opt-in operations without replay, and rejects progressed saves (12.220214ms)
+✔ source proof rejects missing position, release mismatch, cycle and same-operation future (0.932961ms)
+✔ operation facts survive JSON resume, match customer wording and materialize exact source positions (7042.036277ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 27
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 7425.652554
+
+✖ failing tests:
+
+test at works/ambertime/tests/recall-app.test.mjs:12:1
+✖ recall preparation failure after saved generation notice retains the committed game and collector (3.10861ms)
+  evalmachine.<anonymous>:3
+   if(debugSkipJob){clearTimeout(debugSkipJob.timer);debugSkipJob=null;}
+   ^
+  
+  ReferenceError: debugSkipJob is not defined
+      at saveFailure (evalmachine.<anonymous>:3:2)
+      at showGeneration (evalmachine.<anonymous>:8:11)
+      at evalmachine.<anonymous>:1:1
+      at Script.runInContext (node:vm:149:12)
+      at Object.runInContext (node:vm:301:6)
+      at TestContext.<anonymous> (file:///workspace/scratch/eb0c6f82651c/yumaniwa-town-staging/works/ambertime/tests/recall-app.test.mjs:25:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
