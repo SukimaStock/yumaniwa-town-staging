@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c1687653b95ac7194d94177bf3eb80d0ec540347a8a582aba23329a4dca9edcf",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "083bd63ef2d43074350e7220785d3819ee85919b",
+    "changeId": "ambertime-s2-recent-ledger",
+    "revision": 0,
+    "change": "帳面を手動仕込み8件・現役4樽・終了8樽と独立保存製法へ整理",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/cask-ledger.mjs",
+      "works/ambertime/recipe-book.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s2-recent-ledger/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/cask-ledger.mjs",
+      "works/ambertime/cask-ledger-worker.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/ledger-history-view.mjs",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/warehouse-room-controller.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/s2/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/chronicle-lab/**",
+      "works/ambertime/experiments/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "手動仕込み8件、現役4樽と終了8樽の通常帳面。保存製法は独立維持",
+      "bounded帳面事実をsession内でゲーム・固定枠と同時確定。必要なら明示的v5",
+      "旧v2/v3/v4は正確な既存事実または初回限定再生で移行。backup・確認・救出維持",
+      "通常帳面の全履歴Worker再生を廃止し正式readerと歴史を維持"
+    ],
+    "ownerDecisions": [
+      "2026-11-06 S2依頼全文。必要最小の形式拡張・検証・PR・必須条件成立時のみStaging mergeを承認。Production禁止"
+    ],
+    "hqDecisions": [
+      "正式gameを変更せずsession sidecarにbounded帳面事実を保持。旧形式は確認移行し元保存を保護。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact",
+      "表示説明を増やさず既存操作維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "保存・移行・参照の独立レビュー",
+      "Chromium本編操作と同環境表示性能"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "新session readerを保持してUIを戻す。新形式保存を旧コードで上書きしない。元backup復元を保護。",
+    "outOfScope": [
+      "正式game計算・履歴・RNG・checkpoint・IDB・Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機は本人確認。未完了計測は未完了として記録"
+    ],
+    "alternativesRejected": [
+      "通常帳面の全再生",
+      "別key非原子的保存",
+      "正式game変更",
+      "保存製法を8件制限"
+    ],
+    "boundaryCases": [
+      "手動1/7/8/9・自動混在・同一batch複数樽",
+      "終了7/8/9・部分瓶詰め・蒸発・固定枠再利用",
+      "v2/v3/v4/新形式・競合・容量不足・破損・移行中断"
+    ],
+    "testPlan": [
+      "bounded帳面・保存互換性・操作回帰・ゲーム同値性",
+      "Chromium実操作・30/60/90/100年同環境前後計測",
+      "H25依存fingerprint照合、必要時のみ再実行",
+      "Scope/Risk/Impact・CI"
+    ],
+    "problem": "最近の帳面表示に創業から全操作再生が必要",
+    "currentContract": "session v4はgameと固定4枠を一体保存。通常帳面は別Worker再生",
+    "whyExistingIsInsufficient": "最近の手動仕込みと終了樽のbounded確定事実がない",
+    "design": "bounded帳面事実をsessionで原子的に保持し通常表示は現在状態と小さな記録から作る。保存製法は正式recipeBookを維持。",
+    "migration": "既存情報の正確性を調査し初回限定再生を含め最小抽出。失敗時は元保存維持し停止。読込だけで上書きしない。",
+    "compatibility": "v2/v3/v4読込維持。正式game JSON・RNG・歴史不変。必要な新session形式は明示識別。",
+    "promotionRisk": "研究専用Stagingのみ。Productionなし"
+  }
+}
