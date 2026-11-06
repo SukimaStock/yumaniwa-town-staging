@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {EDITION} from './fixtures.mjs';
 import {sceneViews,drawScene,assetCells,sceneDimensions} from './scene.mjs';
-import {renderMap} from '../experiments/world-map/v01/map.mjs';
 import {codeaBottle,codeaCask} from '../codea-object-art.mjs';
 function context(){return {rects:[],clearRect(){},save(){},restore(){},beginPath(){},rect(){},clip(){},translate(){},fillRect(...r){assert(r.every(Number.isInteger));this.rects.push([...r,this.fillStyle]);}};}
 test('existing sentences, dates and frozen edition remain unchanged through display',()=>{
@@ -28,14 +27,18 @@ test('native assets remain rect-only and every source cell is consumed',()=>{
  }
 });
 
-test('known regions retain complete native national/overseas geography; unknown regions stay neutral',()=>{
- for(const [id,art,stage] of [['overseas-food','overseas',6],['national-food','national',5],['near-local','region',4]]){
-  for(const kind of ['arrival','inquiry']){
-   const [view]=sceneViews({scenes:[{month:0,sentence:'確定済みの文。',event:{kind,ids:{regionId:id}}}]});
-   assert.equal(view.art,art);assert.deepEqual(sceneDimensions(view),{width:144,height:144});
-   const actual=context(),expected=context();drawScene(actual,view);renderMap(expected,stage);assert.deepEqual(actual.rects,expected.rects);
-  }
+test('street and letter preserve event meaning without requiring geography',()=>{
+ for(const regionId of ['overseas-food','national-food','unknown'])for(const [kind,art] of [['arrival','street'],['inquiry','letter']]){
+  const [view]=sceneViews({scenes:[{month:0,sentence:'確定済みの文。',event:{kind,ids:{regionId}}}]});
+  assert.equal(view.art,art);assert.deepEqual(sceneDimensions(view),{width:120,height:72});
  }
- const [view]=sceneViews({scenes:[{month:0,sentence:'確定済みの文。',event:{kind:'arrival',ids:{regionId:'unknown'}}}]});
- assert.equal(view.art,'neutral');assert.deepEqual(sceneDimensions(view),{width:120,height:72});
+});
+test('all compositions use integral cells inside the same native frame',()=>{
+ const outputs=[];
+ for(const art of ['shop','supermarket','street','distillery','bottle','letter','neutral']){
+  const ctx=context();drawScene(ctx,{art});
+  for(const [x,y,w,h] of ctx.rects){assert(x>=0&&y>=0&&w>0&&h>0&&x+w<=120&&y+h<=72,`${art}: ${[x,y,w,h]}`);}
+  outputs.push(JSON.stringify(ctx.rects));
+ }
+ assert.equal(new Set(outputs).size,outputs.length);
 });
