@@ -1,0 +1,118 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "60906db5a1f7c0efb743aa2cb6edf8c9fc52d7c3a0a14dd4f4100ffcd2a80d49",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "29697583d15f4e4524ba39ba9052b790fd66ae9c",
+    "changeId": "ambertime-l100-3",
+    "revision": 0,
+    "change": "L100-3: isolated endurance/save fault evidence and repair two test harness defects",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-l100-3/r0.lock.json",
+      "works/ambertime/tests/recall-app.test.mjs",
+      "works/ambertime/tests/h1-c1-module-cache.test.mjs",
+      "works/ambertime/tests/l100-3-save-faults.test.mjs",
+      "works/ambertime/l100-3/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recall/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Analyze and measure current storage, load, capacity, recovery and recall without modifying game behavior.",
+      "Repair missing debugSkipJob VM binding and pin historical inverse test to its original historical source. Preserve assertions.",
+      "Add isolated failure tests and honest report distinguishing mocks, browser runs, research and physical Safari."
+    ],
+    "ownerDecisions": [
+      "User L100-3 request Sentinel_23a99af2d404819180ccfa503e966b6f explicitly authorizes safe test fixes and Draft PR only, no merge, Production unchanged."
+    ],
+    "hqDecisions": [
+      "Phase 1 is tests and analysis only. No saving-format, cap, runtime, replay or recall changes. Any proposed runtime improvement must receive a new prior Plan Lock and material design changes must be reported before implementation."
+    ],
+    "rulesApplied": [
+      "Change OS Plan Lock → Scope → Risk → Impact",
+      "debug=1以外は入口・処理なし",
+      "EXPRESSION-AUDIT"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Real Chromium fault injection and internal timing if supported; mark unavailable cases unverified.",
+      "Physical iPhone Safari remains unverified unless actually exercised."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only added evidence/tests and two test harness fixes. No user data or game state changes.",
+    "outOfScope": [
+      "Production, merges, player data",
+      "Save version, size cap, persistence backend, replay semantics, recall selection, canvas",
+      "New external permissions or browser safety bypass"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Browser storage failure and physical iPhone Safari require actual observed runs; Node mocks do not establish browser durability."
+    ],
+    "alternativesRejected": [
+      "Raise cap without analysis",
+      "Skip assertions or modify expected state to pass",
+      "Add checkpoint persistence to formal storage without a separate design stage"
+    ],
+    "boundaryCases": [
+      "Quota/write exception preserves prior bytes",
+      "Readback corruption/conflict never silently succeeds",
+      "Corrupt boot stops; missing key behavior documented",
+      "Recall preparation failure cancels a pending debug skip",
+      "Legacy v5 safe rejection distinguished from migration"
+    ],
+    "testPlan": [
+      "Run repaired tests and isolated failure tests",
+      "Run formal save, S3/S4, recall, generation and debug skip regressions",
+      "Reuse baseline hashes and compare all state/RNG/history where feasible",
+      "Scope/Risk/Impact and exact SHA CI if Draft PR can be published"
+    ],
+    "problem": "Long-term capacity, restart time and recovery confidence remain unresolved after L100-2.",
+    "currentContract": "Formal v8 localStorage session wraps game v20 with slots, ledger, history and recall; validated by official restore before writing.",
+    "whyExistingIsInsufficient": "100-year wide save near expanded cap; restart observations slow; fault tests absent.",
+    "design": "Measure first; isolate fault inputs and repair only test harness errors in phase 1. Recommend separately any runtime change.",
+    "migration": "None",
+    "compatibility": "No production code changes.",
+    "promotionRisk": "Draft PR only; do not merge."
+  }
+}
