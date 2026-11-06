@@ -894,11 +894,13 @@ function syncModal(){
  }else if(kind==='settings'){
   title='デバッグ';
   const status=preview?'試遊中・保存しません':!canSave?'未保存':lastSavedText===null?'未保存':'保存済み';
-  body='<p>'+status+'</p>'+button('回想を試す（サンプル）','debug-recall')+
-   '<p class="quiet">年送り（通常の月次処理で進めます。途中で操作が必要なら停止）</p>'+
-   (debugSkipJob?button('中止','debug-skip-stop'):DEBUG_SKIP_YEARS.map(years=>button(years+'年進める','debug-skip',years)).join(''))+
+  body='<p>'+status+'</p>'+
+   (debugSkipJob?'<p class="quiet">年送りを実行中です。</p>'+button('中止','debug-skip-stop'):
+    button('回想を試す（サンプル）','debug-recall')+
+    '<p class="quiet">年送り：現在の記録を更新します。操作が必要な場面では停止します。</p>'+
+    (preview?'<p class="quiet">保存なしの試遊では年送りできません。</p>':DEBUG_SKIP_YEARS.map(years=>button(years+'年進める','debug-skip',years)).join(''))+
+    button('記録を書き出す','connected-export')+button('記録を読み込む','connected-import'))+
    '<p role="status" aria-live="polite" data-debug-skip-status>'+esc(debugSkipStatus())+'</p>'+
-   button('記録を書き出す','connected-export')+button('記録を読み込む','connected-import')+
    (lastSaveError?'<pre>'+esc(JSON.stringify(lastSaveError,null,2))+'</pre>':'');
   actions=button('閉じる','cancel');
  }else if(kind==='staff-request'){
@@ -1367,7 +1369,7 @@ function handleModal(e){
 }
 function suspend(){scene.cancelDistillCompletion();marketUI.cancel();placementUI?.cancel();countdown.cancel();stopClock();if(manualDistilling())userPaused=true;save();if(game)render();}
 function resume(){if(game){render();schedule();}}
-document.addEventListener('visibilitychange',()=>{if(document.hidden){if(debugSkipJob)finishDebugSkip('タブが非表示になったため中断しました。');suspend();}else resume();});window.addEventListener('pagehide',suspend);window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(debugSkipJob)finishDebugSkip('タブが非表示になったため中断しました。');suspend();}else resume();});window.addEventListener('pagehide',()=>{if(debugSkipJob)finishDebugSkip('ページを離れたため中断しました。');suspend();});window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){saveFailure(Object.assign(Error('別の画面で保存が変わりました。'),{code:'conflict'}),'別タブ');if(game)render();}});
 const sessionOptions={restore:D.restoreDistillery,monthMs:T.monthMs,stepMs:T.distillStepMs};
 function exportRaw(text,name='ambertime-save.json'){
