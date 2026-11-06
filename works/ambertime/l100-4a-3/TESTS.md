@@ -2,7 +2,7 @@
 
 Node v24.22.1, Linux cloud workspace, --expose-gc for heap samples. No browser or physical Safari certification. Test inputs are copies, never the current browser save or original player storage.
 
-Base main: 28f00c81cb1b374758da34dc79cf7f63dfe657c2. Plan Lock committed before implementation. Official runtime files remain identical to base. Source hashes and input SHA-256 are in inputs.json; complete data and final test output accompany the evidence attachment.
+Base main: 28f00c81cb1b374758da34dc79cf7f63dfe657c2. Published pre-implementation Plan Lock: a514a69ca23af2ab2883a6859ea9e5c43242f220 (identical tree to local 42d327d6). Official runtime files remain identical to base. Source hashes and input SHA-256 are in inputs.json; complete data and final test output accompany the evidence attachment.
 
 From repository root:
 
@@ -18,7 +18,7 @@ node works/ambertime/l100-4a-3/handover.mjs /INPUT/saves /OUTPUT/handovers.json
 node works/ambertime/l100-4a-3/reconnections.mjs /INPUT/paused /OUTPUT/reconnections.json
 ```
 
-The final 12-month runs were sequential after all three one-month gates passed. Gate cold timings were concurrent and must not be compared as controlled performance results. A preliminary local pilot was excluded from the retained evidence. Formal cold timings in *-12 results are sequential. Supplemental handover/reconnection trials decode existing fixture bytes via official codec but do not repeat the authoritative cold replay validation; their scope is equal subsequent formal transitions.
+The final 12-month runs were sequential after all three one-month gates passed. During the recovered wide official cold read, one short diagnostic local measurement overlapped and is excluded from performance evidence; wide cold time is consequently an observation, not a controlled benchmark. All retained A/B/C phase measurements ran serially afterward. Gate cold timings were concurrent and must not be compared as controlled performance results. A preliminary local pilot was excluded from the retained evidence. Formal cold timings in *-12 results are sequential. Supplemental handover/reconnection trials decode existing fixture bytes via official codec but do not repeat the authoritative cold replay validation; their scope is equal subsequent formal transitions.
 
 A/B/C performance: three fresh wide100 processes each, each process three same-input clone/month samples, with post-phase GC samples. First sample and subsequent warm samples are separated. Local/mixed have one additional process per method, three samples per process. GC checkpoints are retained heap, not exact synchronous allocation peaks. process.resourceUsage().maxRSS is a process lifetime high-water including prior phases. No precise phase peak is claimed. Inputs' cold codec timings exclude full formal replay; official readSession time is reported separately.
 
