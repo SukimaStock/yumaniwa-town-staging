@@ -1,0 +1,416 @@
+{
+  "schema": "ambertime-s2-h25-dependency-audit/1",
+  "baseSha": "083bd63ef2d43074350e7220785d3819ee85919b",
+  "candidate": "S2 working-tree source bytes recorded per file; no candidate commit claim",
+  "entrypoints": [
+    "works/ambertime/chronicle-lab/research-h25.mjs",
+    "works/ambertime/chronicle-lab/research-h25-generate.mjs",
+    "works/ambertime/chronicle-lab/research-h25-immediate.mjs",
+    "works/ambertime/chronicle-lab/research-h25-connect.mjs"
+  ],
+  "dynamicSourceEdges": {
+    "works/ambertime/chronicle-lab/research-h25-generate.mjs": [
+      "works/ambertime/chronicle-lab/research-h24-facts.mjs"
+    ],
+    "works/ambertime/chronicle-lab/research-h24-facts.mjs": [
+      "works/ambertime/chronicle-lab/facts-generate.mjs",
+      "works/ambertime/chronicle-lab/research-h23b.mjs"
+    ]
+  },
+  "method": "Conservative transitive local imports and literal URL data dependencies, plus explicitly identified loadSection/data-URL source-body edges; entire source files hashed even when loader uses only a section. Query strings removed for file identity. Sorted path + NUL + SHA256(file bytes) + LF concatenation hashed with SHA256.",
+  "fileCount": 63,
+  "baseFingerprint": "e5bfcdcc2e4db3685612636053efa2666bd229b2fc051ddd59940bdc5aed3e5a",
+  "candidateFingerprint": "e5bfcdcc2e4db3685612636053efa2666bd229b2fc051ddd59940bdc5aed3e5a",
+  "changedPaths": [],
+  "equal": true,
+  "verification": {
+    "smallTests": {
+      "command": "node --test works/ambertime/chronicle-lab/research-h25.test.mjs works/ambertime/chronicle-lab/research-h25-archive.test.mjs",
+      "passed": 5,
+      "failed": 0,
+      "observedEarlierInThisS2Task": true
+    },
+    "hundredYearNineBoundariesRerun": false,
+    "claim": "H2-5 reachable source and published fixture bytes unchanged from S1 main; this is dependency evidence, not a new 100-year replay result. Not the broad H1 all-mjs fingerprint."
+  },
+  "files": [
+    {
+      "path": "works/ambertime-flavor-lab-v02/bridge.mjs",
+      "baseSha256": "7c67199a05cfdda45a5e67da10c3c712c97087179e1d3f19cd50cce589e1ac3b",
+      "candidateSha256": "7c67199a05cfdda45a5e67da10c3c712c97087179e1d3f19cd50cce589e1ac3b",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime-flavor-lab-v02/model.mjs",
+      "baseSha256": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a",
+      "candidateSha256": "18165f8a71b3cddabea366f0c1cef80baabf311ce3f0084f36f3f6ddef01473a",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/aroma-extraction.mjs",
+      "baseSha256": "b5f72397fc17387302320042bbe8c11629efac495361b379aad53a62cb01a3b6",
+      "candidateSha256": "b5f72397fc17387302320042bbe8c11629efac495361b379aad53a62cb01a3b6",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/bottle-storage.mjs",
+      "baseSha256": "7fb29615fd0ecaaeaad9e0084f1fb7b26f7ffe44a2b10a7c4f31a525bee6d652",
+      "candidateSha256": "7fb29615fd0ecaaeaad9e0084f1fb7b26f7ffe44a2b10a7c4f31a525bee6d652",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/brand-identity.mjs",
+      "baseSha256": "81150e429e9309db94a979ddeaecad03b55cb0898acb75a25e6bcfa6e2963596",
+      "candidateSha256": "81150e429e9309db94a979ddeaecad03b55cb0898acb75a25e6bcfa6e2963596",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/brand-reputation.mjs",
+      "baseSha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+      "candidateSha256": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/character.mjs",
+      "baseSha256": "aad7d88de1a654703305c3714268cf843e3018c94cababdb0835c0faa66e5ebb",
+      "candidateSha256": "aad7d88de1a654703305c3714268cf843e3018c94cababdb0835c0faa66e5ebb",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/caption.mjs",
+      "baseSha256": "c4ef3e3775d3a49407b2fdd5129aee2055ed58867a422980e088702b15c9b6c1",
+      "candidateSha256": "c4ef3e3775d3a49407b2fdd5129aee2055ed58867a422980e088702b15c9b6c1",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/edition-d.mjs",
+      "baseSha256": "fc17145ce0bb3d16a8dc5365482ce94ee03f0781810ed9f70efd0f91f06b1cd1",
+      "candidateSha256": "fc17145ce0bb3d16a8dc5365482ce94ee03f0781810ed9f70efd0f91f06b1cd1",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/editor.mjs",
+      "baseSha256": "ece2f7bb0d1a716af794820873dac983bb1b5cdefd5a0ddcd742081cccf13447",
+      "candidateSha256": "ece2f7bb0d1a716af794820873dac983bb1b5cdefd5a0ddcd742081cccf13447",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/facts-compact.mjs",
+      "baseSha256": "cafd20e3be1d31a056027d5200dfb7ba6a47ece20738d39f29a1dc8aec1b953b",
+      "candidateSha256": "cafd20e3be1d31a056027d5200dfb7ba6a47ece20738d39f29a1dc8aec1b953b",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/facts-d.json",
+      "baseSha256": "9ecaf4bf74eba974ebc901e9b926d09bb74c14ec5dd2ddc8d91ca537fd3f8505",
+      "candidateSha256": "9ecaf4bf74eba974ebc901e9b926d09bb74c14ec5dd2ddc8d91ca537fd3f8505",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/facts-d.mjs",
+      "baseSha256": "e79493157357cd89a89defd0594c07047160978e3d467b7836f1656843cd5642",
+      "candidateSha256": "e79493157357cd89a89defd0594c07047160978e3d467b7836f1656843cd5642",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/facts-generate.mjs",
+      "baseSha256": "b7e24370300a1679dbd58bb828c0a65212712b01c703b2797bdc27a3a9598ab5",
+      "candidateSha256": "b7e24370300a1679dbd58bb828c0a65212712b01c703b2797bdc27a3a9598ab5",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/facts-recalls-long.json",
+      "baseSha256": "cc94034034d68781cc10423948f6a437983413a178731a45b4fcf211a44b37ca",
+      "candidateSha256": "cc94034034d68781cc10423948f6a437983413a178731a45b4fcf211a44b37ca",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/facts-recalls.json",
+      "baseSha256": "b8affd6a4b348af69224c0ca4031297766c9a837777375a39d5b31567f724d1f",
+      "candidateSha256": "b8affd6a4b348af69224c0ca4031297766c9a837777375a39d5b31567f724d1f",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/facts.json",
+      "baseSha256": "14d4887043fb6da849ca10f578cadb729feee7366003ab21cff7fdcc8599c2c9",
+      "candidateSha256": "14d4887043fb6da849ca10f578cadb729feee7366003ab21cff7fdcc8599c2c9",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/recall-boundary.mjs",
+      "baseSha256": "98f533973875f988a21dc319165ffd71dae7a23b949b55aa6170a7586609c898",
+      "candidateSha256": "98f533973875f988a21dc319165ffd71dae7a23b949b55aa6170a7586609c898",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/recall-snapshots.mjs",
+      "baseSha256": "50864e7c06bcab45c974664e4e73038336391f0863acf3d88886cce84becc2ee",
+      "candidateSha256": "50864e7c06bcab45c974664e4e73038336391f0863acf3d88886cce84becc2ee",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/research-h23b.mjs",
+      "baseSha256": "5c41e25267a541b7aabe1e67a2d9a4badd22b57b4783c9c51aa34b8add0f19b3",
+      "candidateSha256": "5c41e25267a541b7aabe1e67a2d9a4badd22b57b4783c9c51aa34b8add0f19b3",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/research-h24-facts.mjs",
+      "baseSha256": "14404f80b657c6f77118c2ab4ab7976846726a7e1105a567dff5ed61235ebb7d",
+      "candidateSha256": "14404f80b657c6f77118c2ab4ab7976846726a7e1105a567dff5ed61235ebb7d",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/research-h25-connect.mjs",
+      "baseSha256": "90ac6f4f9ac8e3a61fab10177dcb159adaef1f531d3a9f75cf125a0e95ea9938",
+      "candidateSha256": "90ac6f4f9ac8e3a61fab10177dcb159adaef1f531d3a9f75cf125a0e95ea9938",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/research-h25-generate.mjs",
+      "baseSha256": "1186da13c6ad7b85b4d42198b7c45730b4466c0a92bd15bdb3b9193849ee6438",
+      "candidateSha256": "1186da13c6ad7b85b4d42198b7c45730b4466c0a92bd15bdb3b9193849ee6438",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/research-h25-immediate.mjs",
+      "baseSha256": "0a50a01a80cff07b49bbd22555918c14be321ca59dc386bd2ac7a6da95750ba3",
+      "candidateSha256": "0a50a01a80cff07b49bbd22555918c14be321ca59dc386bd2ac7a6da95750ba3",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/chronicle-lab/research-h25.mjs",
+      "baseSha256": "3f95cabd7f1ad5f94e9fe1554b702b35cbf1ab009f62a8c6b3802551c916fb98",
+      "candidateSha256": "3f95cabd7f1ad5f94e9fe1554b702b35cbf1ab009f62a8c6b3802551c916fb98",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/department-projects.mjs",
+      "baseSha256": "a8ecffd62f208309c1f96e0ac1c737ceeb3bc1bf7851d80aa20ce802d09a8a59",
+      "candidateSha256": "a8ecffd62f208309c1f96e0ac1c737ceeb3bc1bf7851d80aa20ce802d09a8a59",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/distiller.mjs",
+      "baseSha256": "8f2e7d776c6cdd74f60f1193c395d0665129463591b78f3730c3fbe49adb87a2",
+      "candidateSha256": "8f2e7d776c6cdd74f60f1193c395d0665129463591b78f3730c3fbe49adb87a2",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/distillery-parameters.mjs",
+      "baseSha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710",
+      "candidateSha256": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/distillery.mjs",
+      "baseSha256": "29af98be3ebb0032cc761ca2f6ca179d5054eba92ae7855be3cf509e4dae5061",
+      "candidateSha256": "29af98be3ebb0032cc761ca2f6ca179d5054eba92ae7855be3cf509e4dae5061",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/economy-parameters.mjs",
+      "baseSha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "candidateSha256": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/economy.mjs",
+      "baseSha256": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037",
+      "candidateSha256": "a0c7c02805f825123b0d5e65ef5125e15cad33403ea2f9cd5e90ea8bace5a037",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/experiments/reputation/v03/model.mjs",
+      "baseSha256": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067",
+      "candidateSha256": "1005303c0971e9c6b265dcc4ce07d94a39f707498ba9c9dde887312634a88067",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/experiments/reputation/v05/core.mjs",
+      "baseSha256": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f",
+      "candidateSha256": "86221031c15c300561d6ca0cbab48b777290651a124776405995872a46ee2e3f",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/experiments/reputation/v05/model.mjs",
+      "baseSha256": "5c8b827b880d6867283e04b03aa145521d16f74259ffcf793418c7869e780e7d",
+      "candidateSha256": "5c8b827b880d6867283e04b03aa145521d16f74259ffcf793418c7869e780e7d",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "baseSha256": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1",
+      "candidateSha256": "cb32ec1ba9009e0a43dbf82172a9d686edc9f0328d928dc27d91014e806dbef1",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/generation-summary.mjs",
+      "baseSha256": "1c7608321562968ed91b4983f82ecb10d198d24cf4611d0da14ea23d964d9d68",
+      "candidateSha256": "1c7608321562968ed91b4983f82ecb10d198d24cf4611d0da14ea23d964d9d68",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/generations.mjs",
+      "baseSha256": "670373d967120f2de2290da2ac29393e8861d79bd1f8dad6f0be41414a12dfa7",
+      "candidateSha256": "670373d967120f2de2290da2ac29393e8861d79bd1f8dad6f0be41414a12dfa7",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/history-lab/analysis.mjs",
+      "baseSha256": "8a23f63d641f653ac2e28a10875755767b5129221056ac46bece5f2560a37471",
+      "candidateSha256": "8a23f63d641f653ac2e28a10875755767b5129221056ac46bece5f2560a37471",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/history-lab/fixtures.json",
+      "baseSha256": "e6047636bace6222a7f27e3381ca6608eec561ca14022919af6db81f793b2771",
+      "candidateSha256": "e6047636bace6222a7f27e3381ca6608eec561ca14022919af6db81f793b2771",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/history-lab/scenarios.mjs",
+      "baseSha256": "3fc738845770d8dabf0d372478f7e321179b45913cf5bd404ca3f165b7727213",
+      "candidateSha256": "3fc738845770d8dabf0d372478f7e321179b45913cf5bd404ca3f165b7727213",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/lab-flavor.mjs",
+      "baseSha256": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca",
+      "candidateSha256": "2e617470bf6069052522194741d83795468d9b3c4ffff3910e4b7b60ad8377ca",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/market-sales.mjs",
+      "baseSha256": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136",
+      "candidateSha256": "5b40fb74ee0f1e3a74c331c30e205a4d6a60c2e3d5ae89380491815f21892136",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/memory-lab/connections.mjs",
+      "baseSha256": "0d69abc6f17a81b3237c19d24978819f3bf4879f6052e8fb5db009d26c39125d",
+      "candidateSha256": "0d69abc6f17a81b3237c19d24978819f3bf4879f6052e8fb5db009d26c39125d",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/model.mjs",
+      "baseSha256": "8103594438971fee50c5e8f17ebbeb78e66365edc895f46eca22c51ea864eac0",
+      "candidateSha256": "8103594438971fee50c5e8f17ebbeb78e66365edc895f46eca22c51ea864eac0",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/monthly.mjs",
+      "baseSha256": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2",
+      "candidateSha256": "5f0a52a5c002b2e8971bd5a2b9e04cdf05ccb271f53d8b130e05ae98658b3ca2",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/parallel-parameters.mjs",
+      "baseSha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f",
+      "candidateSha256": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/parameters.mjs",
+      "baseSha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "candidateSha256": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/partial-bottling.mjs",
+      "baseSha256": "49b66d4b40ecf3daa467143832374eb5833f9c77ce3925ac25d028f3433ec17e",
+      "candidateSha256": "49b66d4b40ecf3daa467143832374eb5833f9c77ce3925ac25d028f3433ec17e",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/partner-orders.mjs",
+      "baseSha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b",
+      "candidateSha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/partner-parameters.mjs",
+      "baseSha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "candidateSha256": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/placement-mode.mjs",
+      "baseSha256": "12fd5824bfff03f300fb1ebd669b31541f00e8825f8fcae9425fc9face858053",
+      "candidateSha256": "12fd5824bfff03f300fb1ebd669b31541f00e8825f8fcae9425fc9face858053",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/player-news.mjs",
+      "baseSha256": "8647a27eacf7425199cf2526f43c541f9481f514a3ba994cf8de02443a5d7641",
+      "candidateSha256": "8647a27eacf7425199cf2526f43c541f9481f514a3ba994cf8de02443a5d7641",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/recipe-book.mjs",
+      "baseSha256": "b7a8b880ade24fb92c528c72e059648d37b7029bcc0259b842c789ba3717c2ad",
+      "candidateSha256": "b7a8b880ade24fb92c528c72e059648d37b7029bcc0259b842c789ba3717c2ad",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/shop-demand.mjs",
+      "baseSha256": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893",
+      "candidateSha256": "1dcfd4be23018e554bc84cf8015bd51014690f2f03d381d3b92a62297f9e1893",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/shop-ledger.mjs",
+      "baseSha256": "114af25675b026322ad57bdf6c4829099255cf8b42a60a5f4ad2fb475c826c55",
+      "candidateSha256": "114af25675b026322ad57bdf6c4829099255cf8b42a60a5f4ad2fb475c826c55",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/shop-model.mjs",
+      "baseSha256": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508",
+      "candidateSha256": "d7bf2e9939a7b4cde41b5e99a44e55a0d39eee077e7eaec47016d51f36caa508",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/store-market.mjs",
+      "baseSha256": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9",
+      "candidateSha256": "8d269216c67d04d5b8c640fba30b51a5484684506d6c5286f9ba81936445bee9",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/town-connection.mjs",
+      "baseSha256": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051",
+      "candidateSha256": "4d53bbe12f4573f45f8a1f3cfee04336612b06c581ccda0ad0e87a777bf12051",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/trade-parameters.mjs",
+      "baseSha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c",
+      "candidateSha256": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/trade.mjs",
+      "baseSha256": "158e63767bcde24b134dcf21a44c7ec8961e73edbbe0d791d2a62f333648b1c5",
+      "candidateSha256": "158e63767bcde24b134dcf21a44c7ec8961e73edbbe0d791d2a62f333648b1c5",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/wholesale-parameters.mjs",
+      "baseSha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1",
+      "candidateSha256": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/wholesale-v08.mjs",
+      "baseSha256": "ccb886cdec4ff8b23cbe304907f0ca3c1403f94e45bdd71388d014ec3e816478",
+      "candidateSha256": "ccb886cdec4ff8b23cbe304907f0ca3c1403f94e45bdd71388d014ec3e816478",
+      "equal": true
+    },
+    {
+      "path": "works/ambertime/wholesale.mjs",
+      "baseSha256": "e4e11ca467f63c944a3dc41182f0b4326fac66ac4bded534986b9ca44f5f7609",
+      "candidateSha256": "e4e11ca467f63c944a3dc41182f0b4326fac66ac4bded534986b9ca44f5f7609",
+      "equal": true
+    }
+  ]
+}

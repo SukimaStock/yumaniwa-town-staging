@@ -25,7 +25,11 @@ Malformed schema, mismatched operation count/month, duplicate IDs, invalid sourc
 
 ## Validation and known limits
 
-Pending final test summary. Formal model/recipe/reputation/history sources and fixed expected hashes are not changed. Synthetic reducer edge cases are distinguished from actual formal play tests.
+Final focused regression: 98/98 pass (S2 notebook/app, history Worker lifecycle, formal save/codec/recovery, S1 slots, market UI, warehouse effects and render lifecycle). Existing recipe-book/nearby/cask-ledger regression: 32/32 pass. H2-5 unit/archive checks: 5/5 pass. Scope, Risk and Impact checks pass. Formal model/recipe/reputation/history sources and fixed expected hashes are not changed.
+
+Actual trajectories cover nine manual batches and endings, saved recipe retained beyond both limits, automatic usual production, real monthly automatic bottling, partial extraction, four-slot reuse, exact paired formal state/RNG and separate-process cold session restoration. Multiple-cask-per-batch and evaporation are synthetic reducer boundary checks, not claims of a newly reproduced real-model evaporation trajectory. H2-5's 63-file closure is byte-identical to base; see `h25-dependencies.json`. The 100-year nine-boundary research was not rerun.
+
+The sidecar's omitted/reordered ended records are rejected against bounded archive24; persistence reads/writes also check the last eight manual fill indices. Normal open/update skips that cumulative index scan. Evicted manual profile/source values are not independently replay-proven during v5 read; required schema, operation position and surviving formal references are checked, and unchanged formal APIs resolve the actual recipe/cask ID for every game operation.
 
 Chromium failed before page load with `socket() failed: Operation not permitted (1)`. No before/after browser display, startup, first interaction, browser memory or localStorage-capacity measurements are claimed. Node diagnostics in `long-save-results.json` are supplementary, not browser acceptance. Do not merge this Draft until the required browser behavior and same-environment before/after measurements pass.
 

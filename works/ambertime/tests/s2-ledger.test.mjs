@@ -53,7 +53,8 @@ test('four current casks survive old manual pruning; partial bottling does not e
  const ids=t.game.core.casks.map(c=>c.id);assert.equal(t.ledger.active.length,4);
  t.step(s=>D.bottleBranded(s,ids[0],{},1));assert.equal(t.ledger.ended.length,0);assert.equal(t.ledger.active.length,4);
  t.step(s=>D.bottleBranded(s,ids[3],{},D.quote(s,ids[3]).count));t.step(s=>D.bottleBranded(s,ids[0],{},D.quote(s,ids[0]).count));
- assert.deepEqual(t.ledger.ended.map(c=>c.caskId),[ids[0],ids[3]]);assert.deepEqual(t.slots,[null,ids[1],ids[2],null]);
+ assert.deepEqual(t.ledger.ended.map(c=>c.caskId),[ids[0],ids[3]]);
+ assert.throws(()=>assertRecentLedger(t.game,{...t.ledger,ended:[]}));assert.throws(()=>assertRecentLedger(t.game,{...t.ledger,ended:t.ledger.ended.slice().reverse()}));assert.deepEqual(t.slots,[null,ids[1],ids[2],null]);
  assert.equal(t.ledger.ended[0].caskId,ids[0]);assert.deepEqual(migrate(t.game),t.ledger);
 });
 test('one manual batch filling two casks is one recipe while both cask identities remain distinct',()=>{

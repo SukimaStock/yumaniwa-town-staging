@@ -85,6 +85,8 @@ export function assertRecentLedger(game,ledger,{checkHistory=true}={}){
  assert(JSON.stringify(ledger).length<=262144&&finiteTree(ledger));
  const caskIds=game.core.casks.map(c=>c.id),activeIds=ledger.active.map(c=>c.caskId),endedIds=ledger.ended.map(c=>c.caskId);
  assert(activeIds.every(id)&&endedIds.every(id)&&new Set([...activeIds,...endedIds]).size===activeIds.length+endedIds.length&&activeIds.length===caskIds.length&&caskIds.every(id=>activeIds.includes(id)));
+ const expectedEndedIds=(game.core.archive??[]).filter(c=>Number.isFinite(c.bottledMonth)||Number.isFinite(c.endedMonth)).slice(0,8).map(c=>c.id);
+ assert(expectedEndedIds.length===endedIds.length&&expectedEndedIds.every((id,i)=>endedIds[i]===id));
  const baseKeys=['caskId','batchId','type','filledMonth','distilledMonth','stopAt','manual','manualSource','commissionedFrom','initialProfile','releaseKeys'];
  for(const c of [...ledger.active,...ledger.ended]){
   assert(exactKeys(c,activeIds.includes(c.caskId)?baseKeys:[...baseKeys,'profile','age','litres','initialLitres','cut','status','bottledMonth','endedMonth','endReason','samples']));
