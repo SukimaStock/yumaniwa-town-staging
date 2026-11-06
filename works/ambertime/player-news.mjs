@@ -55,12 +55,12 @@ export function selectedTownEvents(before,after){
   .map(e=>({...e,kind:'message'}));
 }
 
-function displayHash(seed,key){
+export function displayHash(seed,key){
  let hash=seed>>>0;
  for(const char of key)hash=Math.imul(hash^char.charCodeAt(0),16777619)>>>0;
  return hash;
 }
-function commentLines(release,context){
+export function commentLines(release,context){
  const profile=release.profile,flavor=profile?.flavor,raw=flavor?.version===1?flavor.profile:null;
  if(!profile||!['roughness','character','wood'].every(k=>Number.isFinite(profile[k])))return [];
  const rough=raw?.rough??profile.roughness,wood=raw?Math.max(raw.wood,raw.vanilla):profile.wood;
@@ -117,7 +117,7 @@ function commentStyle(legacy,{raw,rough,wood,fit}){
  const style=commentStyles[key];
  return style?{descriptions:low&&key==='gentle'?['刺激が控えめですね。','穏やかな飲み口ですね。']:style.descriptions,preferences:low?legacy:[style.preference]}:{descriptions:legacy,preferences:[]};
 }
-function commentWording(game,receipt,legacy,context,previous){
+export function commentWording(game,receipt,legacy,context,previous){
  const style=commentStyle(legacy,context),hash=displayHash(game.seed,'customer-wording:'+receipt.id);
  // Low bits correlate with the existing hash%8 occurrence filter. Use high
  // bits for the occasional preference and separate bits for the wording.

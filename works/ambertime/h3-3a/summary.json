@@ -1,0 +1,148 @@
+{
+  "schema": "ambertime-h3-3a-measurement-summary/1",
+  "finalBoundaryCount": 9,
+  "results": [
+    {
+      "policy": "local",
+      "evidence": "measure-local.json",
+      "finalIdentityEvidence": "differential-local.json",
+      "sourceSha256": "4a8a6c476b82ad320ea70feabd8465243dd095dd30b4ee5e24bcdb69dbfaf019",
+      "finalBoundaryCount": 3,
+      "finalScenesSeedDependenciesProofsIdentical": true,
+      "candidateCountsIdentical": true,
+      "fullOfficialSessionRoundTrip": true,
+      "formalGameAndRngIdentical": true,
+      "frozenRecallsUnchanged": true,
+      "jsonResumeContinues": true,
+      "capacity": [
+        {
+          "years": 30,
+          "utf8Bytes": 1542358,
+          "codeUnits": 1411874,
+          "collectorBytes": 127819
+        },
+        {
+          "years": 60,
+          "utf8Bytes": 2411803,
+          "codeUnits": 2214563,
+          "collectorBytes": 217461
+        },
+        {
+          "years": 90,
+          "utf8Bytes": 3154434,
+          "codeUnits": 2899420,
+          "collectorBytes": 269636
+        },
+        {
+          "years": 100,
+          "utf8Bytes": 3467319,
+          "codeUnits": 3189079,
+          "collectorBytes": 334599
+        }
+      ],
+      "monthMedianMs": 3.119004000000132,
+      "prepareMedianMs": 13.708325999992667,
+      "commitMedianMs": 5.356480999995256,
+      "officialWarmRead100Ms": 173.91449000002467,
+      "recallValidation100Ms": 6.3865180000138935,
+      "maxRssBytes": 833519616
+    },
+    {
+      "policy": "wide",
+      "evidence": "measure-wide.json",
+      "finalIdentityEvidence": "measure-wide.json",
+      "sourceSha256": "8ea9a402b8a55662695a28f2e8514f64f778dd334fa1d8faccc5f0016a718ec2",
+      "finalBoundaryCount": 3,
+      "finalScenesSeedDependenciesProofsIdentical": true,
+      "candidateCountsIdentical": true,
+      "fullOfficialSessionRoundTrip": true,
+      "formalGameAndRngIdentical": true,
+      "frozenRecallsUnchanged": true,
+      "jsonResumeContinues": true,
+      "capacity": [
+        {
+          "years": 30,
+          "utf8Bytes": 2093870,
+          "codeUnits": 1918390,
+          "collectorBytes": 163161
+        },
+        {
+          "years": 60,
+          "utf8Bytes": 3323465,
+          "codeUnits": 3049151,
+          "collectorBytes": 266524
+        },
+        {
+          "years": 90,
+          "utf8Bytes": 4690749,
+          "codeUnits": 4307047,
+          "collectorBytes": 423696
+        },
+        {
+          "years": 100,
+          "utf8Bytes": 5282031,
+          "codeUnits": 4853107,
+          "collectorBytes": 548225
+        }
+      ],
+      "monthMedianMs": 5.451442000001407,
+      "prepareMedianMs": 26.664334000030067,
+      "commitMedianMs": 7.911798999994062,
+      "officialWarmRead100Ms": 291.49678099999437,
+      "recallValidation100Ms": 12.83837399998447,
+      "maxRssBytes": 1016225792
+    },
+    {
+      "policy": "mixed",
+      "evidence": "measure-mixed.json",
+      "finalIdentityEvidence": "measure-mixed.json",
+      "sourceSha256": "9ff87b385d704501802bd0fe5b9f1c3f79e23276da3deb7d40741bc36d9ece87",
+      "finalBoundaryCount": 3,
+      "finalScenesSeedDependenciesProofsIdentical": true,
+      "candidateCountsIdentical": true,
+      "fullOfficialSessionRoundTrip": true,
+      "formalGameAndRngIdentical": true,
+      "frozenRecallsUnchanged": true,
+      "jsonResumeContinues": true,
+      "capacity": [
+        {
+          "years": 30,
+          "utf8Bytes": 1694893,
+          "codeUnits": 1553983,
+          "collectorBytes": 146664
+        },
+        {
+          "years": 60,
+          "utf8Bytes": 2646569,
+          "codeUnits": 2429479,
+          "collectorBytes": 233565
+        },
+        {
+          "years": 90,
+          "utf8Bytes": 4022135,
+          "codeUnits": 3696281,
+          "collectorBytes": 403767
+        },
+        {
+          "years": 100,
+          "utf8Bytes": 4535937,
+          "codeUnits": 4170205,
+          "collectorBytes": 503541
+        }
+      ],
+      "monthMedianMs": 5.22529200000281,
+      "prepareMedianMs": 22.39696200000617,
+      "commitMedianMs": 9.484671999991406,
+      "officialWarmRead100Ms": 255.1478140000254,
+      "recallValidation100Ms": 12.075300999975298,
+      "maxRssBytes": 913829888
+    }
+  ],
+  "limitations": [
+    "Node shared-host indicative timing; some runs overlapped. No Chromium or iPhone Safari quota/performance certification.",
+    "Official reader samples are warm after serializer validation; serializeAndValidate includes existing model prefix catch-up.",
+    "Initial local payload key-order mismatch was corrected. Full local capacity/roundtrip evidence remains original; final local differential separately confirms byte-identical scenes with unchanged semantic values.",
+    "RSS includes offline fixtures/baselines/replay snapshots, not runtime collector-only usage."
+  ],
+  "research30PrefixEvidence": "research-prefix-comparison.json"
+}

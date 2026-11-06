@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e5ea4ca96027604ed2aa0f4ece69b37b0f816a36b402f133792815b3a97242fa",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2df1ca9db957de576fbf9fa7e29b762c83023cb3",
+    "changeId": "ambertime-h3-3a",
+    "revision": 0,
+    "change": "世代回想の増分収集・準備・確定と開発session v8への一体保存",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h3-3a/r0.lock.json",
+      "works/ambertime/recall/**",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/h3-3a/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/chronicle-lab/**",
+      "works/ambertime/h3-1/**",
+      "works/ambertime/h3-2/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "研究C案と小さい保持Bの純粋な本編向け抽出。研究ハーネス依存なし",
+      "本編の正式公開操作ごとの増分観測。複合操作の途中境界を失う場合は接続せず報告",
+      "S4正式ID・発売由来を参照し必要な不足情報のみ保持",
+      "世代交代前プレビューと正式操作後の確定を既存保存候補に一体化",
+      "session v8。旧版は保全して拒否、自動移行なし"
+    ],
+    "ownerDecisions": [
+      "2026-11-06添付H3-3A全文。C案・小さいB・既知delivery差分許容。独立レビュー、新規PR、重要検証成功時のみStaging。Production禁止"
+    ],
+    "hqDecisions": [
+      "正式モデル・S4計算と表示は不変。公開操作境界を外側で観測するsidecar。正式readerと既存write/readback保護を維持。安全な観測が不可能なら広範囲改修せずDraft報告"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact",
+      "表示説明を増やさず既存操作維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "collector・因果・保存の独立レビュー",
+      "Chromium正式操作・世代交代・再開・保存障害"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "旧開発形式は自動移行せず確認付き新規開始。変更PRを戻す場合も元記録は確認なしに削除しない",
+    "outOfScope": [
+      "回想UI・描画・Production・正式計算変更・研究PR直接マージ・全履歴再生による移行"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safariは未確認。容量不足、未説明差分、競合不整合、重要ブラウザー未確認ならDraft停止"
+    ],
+    "alternativesRejected": [
+      "全操作snapshot保存",
+      "全履歴を歩み表示のため再生",
+      "旧形式移行用再生"
+    ],
+    "boundaryCases": [
+      "全発売/同月複数/先代由来/長期店/地域/再登場",
+      "複数世代/最後の仕込み/引継ぎ",
+      "保存失敗/quota/競合/新規開始/旧版拒否"
+    ],
+    "testPlan": [
+      "操作順・同操作内順序・因果・由来・世代境界・確定不変",
+      "S1-S4回帰と保存失敗/readback/quota/競合",
+      "H3-2固定期待値との3方針比較、30/60/90/100年全体保存容量と性能",
+      "正式ゲーム/RNG同値、Chromium、Scope/Risk/Impact/必須CI"
+    ],
+    "problem": "研究の回想基盤が本編の進行と保存へ未接続",
+    "currentContract": "session v7、一体保存、S4増分歩み。H3-2は研究専用",
+    "whyExistingIsInsufficient": "本編に世界の動きの候補と確定回想がない",
+    "design": "操作境界で候補を収集し交代前に純粋選定、交代と確定回想を既存保存で確定",
+    "migration": "session v8のみ。旧版の保全と確認付き新規開始",
+    "compatibility": "正式ゲーム・RNG・S4表示・研究期待値を維持",
+    "promotionRisk": "Stagingのみ。ブラウザー未確認または重大不一致ならDraft停止"
+  }
+}

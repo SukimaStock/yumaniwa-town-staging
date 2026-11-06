@@ -47,7 +47,7 @@ test('history release navigation uses product identity to locate release and ret
 });
 function savingHarness(){
  const before={operations:[1],tag:'before'},after={operations:[1,2],tag:'after'},facts={events:[{id:'founding'}]},nodes=new Map();let saved;
- const c=vm.createContext({game:before,userPaused:false,elapsed:0,caskSlots:[37,null,null,null],recentLedger:{tag:'ledger'},historyRecord:facts,committedSession:null,
+ const c=vm.createContext({game:before,userPaused:false,elapsed:0,caskSlots:[37,null,null,null],recentLedger:{tag:'ledger'},historyRecord:facts,recallRecord:{tag:'recall'},pendingRecall:{tag:'next-recall'},recallPreview:null,committedSession:null,
   preview:false,canSave:true,lastSaveError:null,legacyRecord:null,isCurrentSession:()=>true,lastSavedText:'old',runtimeHalted:false,modal:null,
   $:id=>{if(!nodes.has(id))nodes.set(id,{hidden:false,open:false,textContent:''});return nodes.get(id);},vaultPanels:()=>{},stopClock:()=>{},storageNotice:()=>{},
   advanceRecentLedger:()=>({tag:'new-ledger'}),migrateRecentLedger:()=>{throw Error('unexpected ledger replay');},
@@ -60,14 +60,14 @@ function savingHarness(){
 }
 test('history is published only after the same candidate write as game and notebook',()=>{
  const h=savingHarness();h.context.game=h.after;h.context.next=h.after;
- h.context.writer=(_s,_k,expected,text)=>{assert.equal(expected,'old');assert.equal(h.context.historyRecord,h.facts);assert.equal(JSON.parse(text).historyRecord.events[1].id,'release:1');};
- assert.equal(h.run('saveCandidate(next,false,0,writer)'),true);assert.deepEqual(json(h.context.historyRecord.events.map(e=>e.id)),['founding','release:1']);assert.equal(h.context.committedSession.historyRecord,h.context.historyRecord);
+ h.context.writer=(_s,_k,expected,text)=>{assert.equal(expected,'old');assert.equal(h.context.historyRecord,h.facts);assert.equal(h.context.recallRecord.tag,'recall');assert.equal(JSON.parse(text).recallRecord.tag,'next-recall');assert.equal(JSON.parse(text).historyRecord.events[1].id,'release:1');};
+ assert.equal(h.run('saveCandidate(next,false,0,writer)'),true);assert.deepEqual(json(h.context.historyRecord.events.map(e=>e.id)),['founding','release:1']);assert.equal(h.context.committedSession.historyRecord,h.context.historyRecord);assert.equal(h.context.recallRecord.tag,'next-recall');assert.equal(h.context.committedSession.recallRecord,h.context.recallRecord);
 });
 test('quota and conflict rollback restore history with game, slots, notebook and clock',()=>{
  for(const code of ['QuotaExceededError','conflict']){
   const h=savingHarness();h.context.game=h.after;h.context.next=h.after;h.context.elapsed=100;
   h.context.writer=()=>{throw Object.assign(Error(code),{code});};
-  assert.equal(h.run('saveCandidate(next,false,100,writer)'),false);assert.equal(h.context.game,h.before);assert.equal(h.context.historyRecord,h.facts);assert.equal(h.context.recentLedger.tag,'ledger');assert.equal(h.context.elapsed,0);assert.deepEqual(json(h.context.caskSlots),[37,null,null,null]);assert.equal(h.context.canSave,false);assert.equal(h.context.lastSavedText,'old');
+  assert.equal(h.run('saveCandidate(next,false,100,writer)'),false);assert.equal(h.context.game,h.before);assert.equal(h.context.historyRecord,h.facts);assert.equal(h.context.recallRecord.tag,'recall');assert.equal(h.context.pendingRecall,h.context.recallRecord);assert.equal(h.context.recallPreview,null);assert.equal(h.context.recentLedger.tag,'ledger');assert.equal(h.context.elapsed,0);assert.deepEqual(json(h.context.caskSlots),[37,null,null,null]);assert.equal(h.context.canSave,false);assert.equal(h.context.lastSavedText,'old');
  }
 });
 

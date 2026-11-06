@@ -1,0 +1,32 @@
+{
+  "method": "Read-only fixed H3-2 30/100-year baseline comparison; production100 first boundary identity is established in each measure/differential result. Native360 checkpoint is asserted against the exact30-year fixture in the offline replay.",
+  "rows": [
+    {
+      "policy": "local",
+      "research30FirstEquals100First": true,
+      "source30Sha256": "2550ee79b65d2aa241cef2ec0fed8b4137d69d10323a24556e9ebeeb1f90e7e1",
+      "source30MatchesFixedResearch": true,
+      "firstBoundaryGeneration": 1,
+      "firstBoundaryMonth": 321,
+      "firstBoundarySeed": 1951059788
+    },
+    {
+      "policy": "wide",
+      "research30FirstEquals100First": true,
+      "source30Sha256": "a86c22856bf04b35444d8506cb5e6a8c912a011f049ea4040f0e7d1413a8fe4d",
+      "source30MatchesFixedResearch": true,
+      "firstBoundaryGeneration": 1,
+      "firstBoundaryMonth": 314,
+      "firstBoundarySeed": 3375526789
+    },
+    {
+      "policy": "mixed",
+      "research30FirstEquals100First": true,
+      "source30Sha256": "0196980a551cb4e8d7e7162f506616e8812bd95bc88ccca51cac8919514a5439",
+      "source30MatchesFixedResearch": true,
+      "firstBoundaryGeneration": 1,
+      "firstBoundaryMonth": 306,
+      "firstBoundarySeed": 3734367846
+    }
+  ]
+}
