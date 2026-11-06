@@ -1,0 +1,24 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as D from '../partner-orders.mjs';
+import {createTrustManager} from './trust.mjs';
+import {hash} from '../checkpoint-research/prototype.mjs';
+import {initializeRecall} from '../recall/collector.mjs';
+import {initializeHistoryRecord} from '../history-record.mjs';
+import {initializeCaskSlots} from '../cask-slots.mjs';
+import {migrateRecentLedger} from '../recent-ledger.mjs';
+import {serializeSession,readSession} from '../development-save.mjs';
+import {PARALLEL_PARAMETERS as P} from '../economy-parameters.mjs';
+const options={enabled:true,serialize:D.serializeDistillery,restore:D.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs};
+function fixture(seed=141){const game=D.newMarketRulesDistillery(seed),s={game,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(game),recentLedger:migrateRecentLedger(game,{replay:o=>D.replayDistilleryOperations(game,o)}),historyRecord:initializeHistoryRecord(game),recallRecord:initializeRecall(game)};return serializeSession(game,s,options);}
+const original=fixture();
+test('valid prefix, first save, next save and detached roundtrip preserve formal session',async()=>{const m=await createTrustManager(),a=m.admit(original),b=m.save(a.token,m.next(a.token));assert.deepEqual(readSession(b.text,options),b.session);assert.equal(b.session.game.core.month,1);const c=m.save(b.token,m.next(b.token));assert.deepEqual(m.read(c.token),readSession(c.text,options));assert.equal(c.session.game.core.month,2);assert.equal(m.inspect(c.token).rootSHA,hash(original));});
+for(const [name,fake] of [['empty',()=>({})],['cloned',t=>structuredClone(t)],['JSON token',t=>JSON.parse(JSON.stringify(t))],['self-hashed receipt',(t,m)=>m.receipt(t)],['altered resealed context',(t,m)=>{const r=m.receipt(t);r.context.manualFills++;r.integrity=hash({...r,integrity:undefined});return r;}],['wrong model receipt',(t,m)=>({...m.receipt(t),fingerprint:'wrong'})],['wrong storage-generation receipt',(t,m)=>({...m.receipt(t),storageGeneration:'other',storageRevision:99})]])test('reject '+name+' capability without writes',async()=>{const m=await createTrustManager(),a=m.admit(original),before=m.inspect(a.token);assert.throws(()=>m.save(fake(a.token,m),m.next(a.token)),/capability/);assert.deepEqual(m.inspect(a.token),before);});
+test('cross-instance and cross-source capabilities cannot be confused',async()=>{const a=await createTrustManager(),b=await createTrustManager(),x=a.admit(original),y=b.admit(fixture(142));assert.throws(()=>b.read(x.token),/capability/);assert.throws(()=>a.save(x.token,b.next(y.token)));assert.equal(a.inspect(x.token).sourceSHA,hash(original));});
+for(const [name,mutate] of [
+ ['changed prefix',s=>{s.game.operations[0].key='wrong';}],['missing tail',s=>s.game.operations.pop()],['duplicate tail',s=>s.game.operations.push(structuredClone(s.game.operations.at(-1)))],['RNG',s=>s.game.core.rngState++],['generation',s=>s.game.generations.active.id++],['wrong history',s=>{s.historyRecord={};}],['wrong recall',s=>{s.recallRecord={};}],['wrong elapsed',s=>s.elapsed=-1]
+])test('reject '+name+' and retain old capability after failed update',async()=>{const m=await createTrustManager(),a=m.admit(original),before=m.inspect(a.token),s=m.next(a.token);mutate(s);assert.throws(()=>m.save(a.token,s));assert.deepEqual(m.inspect(a.token),before);assert.deepEqual(m.read(a.token),a.session);assert.equal(m.save(a.token,m.next(a.token)).session.game.core.month,1);});
+test('reordered new tail is rejected',async()=>{const m=await createTrustManager(),a=m.admit(original),s=m.next(a.token);s.game.operations=[...s.game.operations].reverse();assert.throws(()=>m.save(a.token,s));});
+test('caller mutating state or inspect context never changes trusted private records',async()=>{const m=await createTrustManager(),a=m.admit(original),before=m.inspect(a.token);a.session.game.core.cash=0;const d=m.inspect(a.token);d.context.manualFills=999;d.context.nearbyProducts.push([999,{}]);assert.deepEqual(m.inspect(a.token),before);assert.deepEqual(m.read(a.token),readSession(original,options));});
+test('corrupt v8 and mismatched version cannot mint a capability',async()=>{const m=await createTrustManager();assert.throws(()=>m.admit('{broken'));assert.throws(()=>m.admit(JSON.stringify({...JSON.parse(original),version:5})));const bad=JSON.parse(original);bad.game.core.cash++;assert.throws(()=>m.admit(JSON.stringify(bad)));assert.deepEqual(m.admit(original).session,readSession(original,options));});
+test('receipt cannot cross cold module lifetime; full original admission is required',async()=>{const m=await createTrustManager(),a=m.admit(original),receipt=JSON.parse(JSON.stringify(m.receipt(a.token))),cold=await createTrustManager();assert.throws(()=>cold.read(receipt),/full formal admission/);assert.deepEqual(cold.admit(original).session,a.session);});
