@@ -1,0 +1,43 @@
+{
+  "node": "v24.22.1",
+  "pid": 2,
+  "sourceSHA": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9",
+  "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+  "age": "30",
+  "phases": [
+    {
+      "name": "fast-only-cold",
+      "ms": 776.7411599999999,
+      "cloneCount": 979,
+      "cloneMs": 320.5558149999979
+    },
+    {
+      "name": "first-official-month",
+      "ms": 49.84706700000004,
+      "cloneCount": 1373,
+      "cloneMs": 24.206811000000926
+    },
+    {
+      "name": "first-official-save-after-month",
+      "ms": 12684.673493,
+      "cloneCount": 11819,
+      "cloneMs": 10286.01621199998
+    },
+    {
+      "name": "second-official-month",
+      "ms": 36.729567000000316,
+      "cloneCount": 1373,
+      "cloneMs": 22.63266000000658
+    },
+    {
+      "name": "second-official-save",
+      "ms": 268.2102670000004,
+      "cloneCount": 1370,
+      "cloneMs": 81.81182300003456
+    }
+  ],
+  "initialMonth": 360,
+  "nextMonth": 361,
+  "savedSHA": "00ad97b36d2339e837cc80c4b610e8941f09abf1ef868a213bc114c4bf1cbedd",
+  "scope": "Fresh Node/module caches; no A/full read before fast; original v8 untouched; input/checkpoint IO excluded; first interaction and save costs separated; not browser evidence."
+}

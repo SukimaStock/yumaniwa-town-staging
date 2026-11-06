@@ -1,0 +1,37 @@
+✔ cold continuations use distinct seeds and retain two independent brands (1514.51497ms)
+✔ one pending-offer checkpoint cold-restores accepted delivery and declined futures independently (2932.522162ms)
+✔ staff source context survives cold active delegation and automatic completion (657.716506ms)
+✔ checkpoint before overlays cold-restores unlogged distillation and active tasting (538.638353ms)
+✔ legacy origin is retained across cold checkpoint and recipe-book continuation (562.225949ms)
+✔ checkpoints immediately before and after handover preserve generation and replay context (10112.272443ms)
+✔ historical extraction, caption, boundary and oracle changes invalidate completion reuse (24.254682ms)
+✔ dependency manifest covers research/test sources, additions/deletions and excludes generated result cycles (9.900028ms)
+✔ online 60-month collectors match independent official ledgers/raw extraction and finish is pure (18026.332002ms)
+✔ a past-only checkpoint continues into independent future branches without collector contamination (20433.622658ms)
+✔ creator -> disk -> independent Node process; forked futures remain independent (758.283124ms)
+✔ corrupt/missing/misbound/version/context/interrupted bundles refuse and recover authoritative full source (319.509211ms)
+✔ checksum re-signing is explicitly not a correctness proof; full oracle detects changed state (121.069817ms)
+✔ missing authoritative source/prefix cannot be repaired by its hash (0.475413ms)
+✔ resealed semantic invalidity reaches version, context and prefix gates (209.377792ms)
+✔ resealed tail corruption and old checkpoint/new tail pairing are rejected semantically (340.711697ms)
+✔ orphan writes before commit retain old readable transaction; observers cannot leak through fallback (284.18195ms)
+✔ resumable compact collectors reproduce independent official ledgers and raw H2-5 facts without replaying prefix (20620.965283ms)
+✔ tail-only collectors expose lost prefix facts; corrupted or mismatched prefix is rejected (848.698492ms)
+✔ detached JSON checkpoint replays a nonempty tail with exact state, source indices, context and official observer events (139.314709ms)
+✔ missing manual source can leave current state equal but breaks future recipe operation; checksum is not correctness proof (64.762949ms)
+✔ integrity, prefix branch, model expiry and exact tail/source binding reject corruption (59.618407ms)
+✔ explicit fork binding permits independent valid suffixes without cross-branch reuse (64.296088ms)
+✔ unlogged distillation progress and tasting overlays remain separate from operation boundary (85.69243ms)
+✔ legacy-origin coverage is preserved and cannot be rebound to another origin (237.879959ms)
+✔ staff reservation uses a prefix manual source and future automatic completion matches full replay (127.022996ms)
+✔ generation boundary before and after handover preserves IDs, future operation states and context (1696.662147ms)
+✔ active delegated extraction retains partial progress and reservation source at checkpoint tail (55.067888ms)
+✔ public production, tasting, bottling and sales actions match tail state after every logged operation (52.469018ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 38679.105264

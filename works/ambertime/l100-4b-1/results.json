@@ -1,0 +1,2904 @@
+{
+  "verdict": "追加研究",
+  "base": "6a1707c106afb4bf0658a274edf404bbc541de64",
+  "creation": {
+    "mixed60": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/mixed-60-year-720-v8.json",
+      "sourceSHA": "c7a123afd6734977de4f46d244b7b4085c278128630e73d90156cd88095b4ff6",
+      "formalCodeUnits": 2917707,
+      "v8Bytes": 2646568,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 31673.29534,
+      "officialMs": 27631.608093999996,
+      "cloneCount": 39449,
+      "cloneMs": 47037.644236999324,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 12,
+          "checkpointMonth": 708,
+          "captureMs": 83.01306500000283,
+          "checkpointBytes": 3258843,
+          "tailBytes": 505,
+          "warmFastMs": 1019.0743690000018,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 360022016,
+        "heapTotal": 196362240,
+        "heapUsed": 56331120,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 423718912
+      },
+      "status": "complete"
+    },
+    "boundary-wide-before-handover-930-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/wide-before-handover-930-v8-paused.json",
+      "sourceSHA": "cc00aebd002e61673b417b19448e8b3b35590b4e70287dd284a24dd149c9e516",
+      "formalCodeUnits": 4606687,
+      "v8Bytes": 4206290,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 68706.022607,
+      "officialMs": 68816.92098499999,
+      "cloneCount": 60684,
+      "cloneMs": 125208.2733819998,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 22,
+          "checkpointMonth": 918,
+          "captureMs": 83.77753500000108,
+          "checkpointBytes": 5114685,
+          "tailBytes": 935,
+          "warmFastMs": 7507.9970349999785,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 616325120,
+        "heapTotal": 262733824,
+        "heapUsed": 79398976,
+        "external": 4239387,
+        "arrayBuffers": 212115,
+        "peakRSS": 739311616
+      },
+      "status": "complete"
+    },
+    "wide30": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/wide-30-year-360-v8.json",
+      "sourceSHA": "3e5464f100f92d25ca27e8f0c001e335aa13750b35e4ba7ef698bbb4ddd1d221",
+      "formalCodeUnits": 2328417,
+      "v8Bytes": 2093869,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 15300.006057,
+      "officialMs": 13459.460191999999,
+      "cloneCount": 21132,
+      "cloneMs": 23325.291372999938,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 12,
+          "checkpointMonth": 348,
+          "captureMs": 70.3062659999996,
+          "checkpointBytes": 2554938,
+          "tailBytes": 505,
+          "warmFastMs": 563.5618539999996,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 310452224,
+        "heapTotal": 200450048,
+        "heapUsed": 47674568,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 353026048
+      },
+      "status": "complete"
+    },
+    "boundary-wide-before-handover-630-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/wide-before-handover-630-v8-paused.json",
+      "sourceSHA": "d1a17a910b82c8a0fe1ea7108b26c80c54780eb0270d19cff1de466def48d89c",
+      "formalCodeUnits": 3432583,
+      "v8Bytes": 3216306,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 41284.631911,
+      "officialMs": 33804.457468,
+      "cloneCount": 37433,
+      "cloneMs": 62899.789419999564,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 14,
+          "checkpointMonth": 618,
+          "captureMs": 89.20291100000031,
+          "checkpointBytes": 3829892,
+          "tailBytes": 627,
+          "warmFastMs": 841.002708,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 431874048,
+        "heapTotal": 222912512,
+        "heapUsed": 64681384,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 488579072
+      },
+      "status": "complete"
+    },
+    "mixed30": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/mixed-30-year-360-v8.json",
+      "sourceSHA": "4f042009960cc58785cce01bc7ee413c8503b72dc2e08a3b9f6dbc80bc1afde4",
+      "formalCodeUnits": 1830735,
+      "v8Bytes": 1694892,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 14451.939401,
+      "officialMs": 12289.91162,
+      "cloneCount": 21736,
+      "cloneMs": 23712.268212000225,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 16,
+          "checkpointMonth": 348,
+          "captureMs": 51.49224099999992,
+          "checkpointBytes": 2000888,
+          "tailBytes": 659,
+          "warmFastMs": 2330.748599999999,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 294264832,
+        "heapTotal": 190861312,
+        "heapUsed": 41177520,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 322379776
+      },
+      "status": "complete"
+    },
+    "local90": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/local-90-year-1080-v8.json",
+      "sourceSHA": "31a68b7d5153862668251cc5e7131fbaf73a503c23fd5c54934c00771b310bbc",
+      "formalCodeUnits": 3500658,
+      "v8Bytes": 3154464,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 59990.85331,
+      "officialMs": 60656.957466,
+      "cloneCount": 64056,
+      "cloneMs": 102445.49739700106,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 17,
+          "checkpointMonth": 1068,
+          "captureMs": 90.43280300000333,
+          "checkpointBytes": 3888637,
+          "tailBytes": 748,
+          "warmFastMs": 4947.849344999995,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 489631744,
+        "heapTotal": 224124928,
+        "heapUsed": 65385776,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 552955904
+      },
+      "status": "complete"
+    },
+    "wide100": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+      "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+      "formalCodeUnits": 5838093,
+      "v8Bytes": 5282030,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 136476.52452799998,
+      "officialMs": 129922.47881999999,
+      "cloneCount": 94078,
+      "cloneMs": 241673.5387399993,
+      "rows": [
+        {
+          "interval": 60,
+          "file": "checkpoint-60.json",
+          "tailOperations": 69,
+          "checkpointMonth": 1140,
+          "captureMs": 150.41062299998885,
+          "checkpointBytes": 6307675,
+          "tailBytes": 3089,
+          "warmFastMs": 10517.753828999994,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 24,
+          "file": "checkpoint-24.json",
+          "tailOperations": 33,
+          "checkpointMonth": 1176,
+          "captureMs": 155.59610199999588,
+          "checkpointBytes": 6462190,
+          "tailBytes": 1577,
+          "warmFastMs": 7314.320545000024,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 17,
+          "checkpointMonth": 1188,
+          "captureMs": 170.8814940000011,
+          "checkpointBytes": 6499321,
+          "tailBytes": 919,
+          "warmFastMs": 1701.2597480000113,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 6,
+          "file": "checkpoint-6.json",
+          "tailOperations": 6,
+          "checkpointMonth": 1194,
+          "captureMs": 148.47018599999137,
+          "checkpointBytes": 6532514,
+          "tailBytes": 253,
+          "warmFastMs": 1139.9538859999739,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 847757312,
+        "heapTotal": 354684928,
+        "heapUsed": 121424072,
+        "external": 4239387,
+        "arrayBuffers": 212115,
+        "peakRSS": 979292160
+      },
+      "status": "complete"
+    },
+    "boundary-mixed-before-handover-610-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/mixed-before-handover-610-v8-paused.json",
+      "sourceSHA": "e87f7513fe41612d9183b928cc3232d24254138f39f3c4f30125d6c3930b2987",
+      "formalCodeUnits": 2582475,
+      "v8Bytes": 2445233,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 19747.043771999997,
+      "officialMs": 19407.988011,
+      "cloneCount": 34059,
+      "cloneMs": 34110.519224000396,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 18,
+          "checkpointMonth": 598,
+          "captureMs": 59.517987999999605,
+          "checkpointBytes": 2857324,
+          "tailBytes": 781,
+          "warmFastMs": 3109.4588870000007,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 363061248,
+        "heapTotal": 216293376,
+        "heapUsed": 52370328,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 406024192
+      },
+      "status": "complete"
+    },
+    "mixed100": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+      "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+      "formalCodeUnits": 4938560,
+      "v8Bytes": 4535936,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 110560.10893999999,
+      "officialMs": 104673.976064,
+      "cloneCount": 86361,
+      "cloneMs": 194908.90994399926,
+      "rows": [
+        {
+          "interval": 60,
+          "file": "checkpoint-60.json",
+          "tailOperations": 73,
+          "checkpointMonth": 1140,
+          "captureMs": 127.6120099999971,
+          "checkpointBytes": 5279481,
+          "tailBytes": 3243,
+          "warmFastMs": 14000.945437999995,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 24,
+          "file": "checkpoint-24.json",
+          "tailOperations": 29,
+          "checkpointMonth": 1176,
+          "captureMs": 101.66895399999339,
+          "checkpointBytes": 5424373,
+          "tailBytes": 1423,
+          "warmFastMs": 2151.8137419999985,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 12,
+          "checkpointMonth": 1188,
+          "captureMs": 111.71186200001102,
+          "checkpointBytes": 5490479,
+          "tailBytes": 505,
+          "warmFastMs": 1472.8272740000102,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 6,
+          "file": "checkpoint-6.json",
+          "tailOperations": 6,
+          "checkpointMonth": 1194,
+          "captureMs": 126.4154120000021,
+          "checkpointBytes": 5516824,
+          "tailBytes": 253,
+          "warmFastMs": 848.8362879999913,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 761032704,
+        "heapTotal": 313188352,
+        "heapUsed": 106401656,
+        "external": 4239387,
+        "arrayBuffers": 212115,
+        "peakRSS": 896765952
+      },
+      "status": "complete"
+    },
+    "boundary-mixed-before-handover-918-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/mixed-before-handover-918-v8-paused.json",
+      "sourceSHA": "eea966e7290c0baf623b9d7b17f778a4bb7dc32acdb86452a1a5945c2d75b634",
+      "formalCodeUnits": 3707042,
+      "v8Bytes": 3465504,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 43594.218721000005,
+      "officialMs": 54500.766150999996,
+      "cloneCount": 53483,
+      "cloneMs": 85290.243180999,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 18,
+          "checkpointMonth": 906,
+          "captureMs": 93.44884099999763,
+          "checkpointBytes": 4138067,
+          "tailBytes": 781,
+          "warmFastMs": 4561.225991999992,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 510988288,
+        "heapTotal": 244899840,
+        "heapUsed": 68954368,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 591302656
+      },
+      "status": "complete"
+    },
+    "local60": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/local-60-year-720-v8.json",
+      "sourceSHA": "07394cf9aa7c0a31f39d75dec9a6a42d955eff9ebb194a2a8815511d439f8568",
+      "formalCodeUnits": 2631181,
+      "v8Bytes": 2411833,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 33494.578732,
+      "officialMs": 33707.78576500001,
+      "cloneCount": 42574,
+      "cloneMs": 55649.55810800038,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 14,
+          "checkpointMonth": 708,
+          "captureMs": 74.19321399999899,
+          "checkpointBytes": 2877111,
+          "tailBytes": 682,
+          "warmFastMs": 1035.1856379999954,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 363245568,
+        "heapTotal": 208728064,
+        "heapUsed": 52597128,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 408535040
+      },
+      "status": "complete"
+    },
+    "wide90": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/wide-90-year-1080-v8.json",
+      "sourceSHA": "d208a9133d736af8d2cc1af85efed8d436bf85c22abf6148719ce33e756f5e89",
+      "formalCodeUnits": 5259993,
+      "v8Bytes": 4690748,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 97595.30219999999,
+      "officialMs": 94497.90330899999,
+      "cloneCount": 72996,
+      "cloneMs": 168740.3406039967,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 16,
+          "checkpointMonth": 1068,
+          "captureMs": 98.38924200000474,
+          "checkpointBytes": 5878903,
+          "tailBytes": 659,
+          "warmFastMs": 6186.013414999994,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 702939136,
+        "heapTotal": 226467840,
+        "heapUsed": 87726472,
+        "external": 4239387,
+        "arrayBuffers": 212115,
+        "peakRSS": 829665280
+      },
+      "status": "complete"
+    },
+    "boundary-local-before-handover-321-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/local-before-handover-321-v8-paused.json",
+      "sourceSHA": "83e217b8b2a7a43908463e9bb9149e479af4ede8ef8d9f774630bcd49b0fa578",
+      "formalCodeUnits": 1531331,
+      "v8Bytes": 1585051,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 7898.196289,
+      "officialMs": 7736.521575999999,
+      "cloneCount": 20104,
+      "cloneMs": 12844.017884000084,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 15,
+          "checkpointMonth": 309,
+          "captureMs": 43.50881299999946,
+          "checkpointBytes": 1706324,
+          "tailBytes": 716,
+          "warmFastMs": 526.0294059999978,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 255639552,
+        "heapTotal": 185868288,
+        "heapUsed": 37953208,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 283070464
+      },
+      "status": "complete"
+    },
+    "mixed90": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/mixed-90-year-1080-v8.json",
+      "sourceSHA": "54fa50613773295f2fec14ce10d59ba51ee39cdfdd1de5bf23f1c52b5aada842",
+      "formalCodeUnits": 4425277,
+      "v8Bytes": 4022134,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 78815.564789,
+      "officialMs": 72562.078289,
+      "cloneCount": 66062,
+      "cloneMs": 125970.59568999834,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 12,
+          "checkpointMonth": 1068,
+          "captureMs": 187.02787499999977,
+          "checkpointBytes": 4939042,
+          "tailBytes": 505,
+          "warmFastMs": 1175.9088060000213,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 600211456,
+        "heapTotal": 256815104,
+        "heapUsed": 78340208,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 688984064
+      },
+      "status": "complete"
+    },
+    "local30": {
+      "source": "ambertime-l100-baseline/extracted/paused/local-30-year-360-v8.json",
+      "sourceSHA": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9",
+      "formalCodeUnits": 1663003,
+      "v8Bytes": 1542388,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 8557.012619,
+      "officialMs": 9244.037569999999,
+      "cloneCount": 22554,
+      "cloneMs": 14890.58990399983,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 13,
+          "checkpointMonth": 348,
+          "captureMs": 42.78616599999987,
+          "checkpointBytes": 1832221,
+          "tailBytes": 594,
+          "warmFastMs": 447.5616579999987,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 279535616,
+        "heapTotal": 191557632,
+        "heapUsed": 38577296,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 311828480
+      },
+      "status": "complete"
+    },
+    "boundary-mixed-before-handover-306-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/mixed-before-handover-306-v8-paused.json",
+      "sourceSHA": "2ea66c5c0d5bc21a543c762374ee9c5c850867bf01f2547c23df3bfca653425a",
+      "formalCodeUnits": 1649469,
+      "v8Bytes": 1669634,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 8613.220444,
+      "officialMs": 8526.121197999999,
+      "cloneCount": 18338,
+      "cloneMs": 15447.151212999914,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 18,
+          "checkpointMonth": 294,
+          "captureMs": 28.663351999999577,
+          "checkpointBytes": 1835446,
+          "tailBytes": 781,
+          "warmFastMs": 1825.2428200000031,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 273141760,
+        "heapTotal": 194654208,
+        "heapUsed": 39313672,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 303108096
+      },
+      "status": "complete"
+    },
+    "boundary-wide-before-handover-314-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/wide-before-handover-314-v8-paused.json",
+      "sourceSHA": "30bb56897e7869bae281354e9f7313007d8001f7564573cbc5c0cb03e6dbb67a",
+      "formalCodeUnits": 2135903,
+      "v8Bytes": 2113704,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 10049.701533,
+      "officialMs": 10446.199138,
+      "cloneCount": 18741,
+      "cloneMs": 16465.921877000124,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 19,
+          "checkpointMonth": 302,
+          "captureMs": 58.33144999999968,
+          "checkpointBytes": 2343235,
+          "tailBytes": 1041,
+          "warmFastMs": 777.9350979999981,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 296280064,
+        "heapTotal": 197488640,
+        "heapUsed": 46314104,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 336449536
+      },
+      "status": "complete"
+    },
+    "local100": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+      "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+      "formalCodeUnits": 3806900,
+      "v8Bytes": 3467349,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 69484.156316,
+      "officialMs": 69981.17281999999,
+      "cloneCount": 79943,
+      "cloneMs": 120250.97709599974,
+      "rows": [
+        {
+          "interval": 60,
+          "file": "checkpoint-60.json",
+          "tailOperations": 69,
+          "checkpointMonth": 1140,
+          "captureMs": 104.92899799999577,
+          "checkpointBytes": 4109136,
+          "tailBytes": 3125,
+          "warmFastMs": 6812.240995,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 24,
+          "file": "checkpoint-24.json",
+          "tailOperations": 26,
+          "checkpointMonth": 1176,
+          "captureMs": 95.69954200000211,
+          "checkpointBytes": 4226833,
+          "tailBytes": 1189,
+          "warmFastMs": 1712.2843679999933,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 13,
+          "checkpointMonth": 1188,
+          "captureMs": 101.92877500000759,
+          "checkpointBytes": 4256776,
+          "tailBytes": 595,
+          "warmFastMs": 1241.459834999987,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        },
+        {
+          "interval": 6,
+          "file": "checkpoint-6.json",
+          "tailOperations": 6,
+          "checkpointMonth": 1194,
+          "captureMs": 105.04015899999649,
+          "checkpointBytes": 4266079,
+          "tailBytes": 253,
+          "warmFastMs": 998.9228120000043,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 604942336,
+        "heapTotal": 252026880,
+        "heapUsed": 88042296,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 719470592
+      },
+      "status": "complete"
+    },
+    "boundary-local-before-handover-636-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/local-before-handover-636-v8-paused.json",
+      "sourceSHA": "e806590176c9ceaba2d8abd4ba128c3d7f81aad7bf55ba3e571510049136be61",
+      "formalCodeUnits": 2342713,
+      "v8Bytes": 2207667,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 17105.958321000002,
+      "officialMs": 20333.993857,
+      "cloneCount": 35674,
+      "cloneMs": 29832.380349000556,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 15,
+          "checkpointMonth": 624,
+          "captureMs": 44.83016399999906,
+          "checkpointBytes": 2606150,
+          "tailBytes": 716,
+          "warmFastMs": 860.5777750000052,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 312049664,
+        "heapTotal": 202272768,
+        "heapUsed": 48916664,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 345444352
+      },
+      "status": "complete"
+    },
+    "boundary-local-before-handover-955-v8-paused": {
+      "source": "/workspace/scratch/de42cc6691b2/l100-2/handover-fixtures/local-before-handover-955-v8-paused.json",
+      "sourceSHA": "8d64036c967614778eb1408515302e5c5be5bc7fc9ad6a1f2d8dff89b90c094e",
+      "formalCodeUnits": 3198315,
+      "v8Bytes": 2971486,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 37321.441755,
+      "officialMs": 38060.831984000004,
+      "cloneCount": 55958,
+      "cloneMs": 61186.80923700012,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 15,
+          "checkpointMonth": 943,
+          "captureMs": 85.65637900000002,
+          "checkpointBytes": 3574493,
+          "tailBytes": 716,
+          "warmFastMs": 922.8080250000057,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 396394496,
+        "heapTotal": 203034624,
+        "heapUsed": 60982896,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 444370944
+      },
+      "status": "complete"
+    },
+    "wide60": {
+      "source": "/workspace/scratch/de42cc6691b2/ambertime-l100-baseline/extracted/paused/wide-60-year-720-v8.json",
+      "sourceSHA": "dda24b698d0c09ab6d6583c246a94f675d348c48a112da5aed927bb3a85e7711",
+      "formalCodeUnits": 3737497,
+      "v8Bytes": 3323464,
+      "node": "v24.22.1",
+      "modelFingerprint": "6376ca506af87c597d638369ec4d1ac9957773e4bd2aef767115dbc70663fc02",
+      "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+      "creationMs": 53601.939005,
+      "officialMs": 52913.786198,
+      "cloneCount": 43779,
+      "cloneMs": 89523.84075799982,
+      "rows": [
+        {
+          "interval": 12,
+          "file": "checkpoint-12.json",
+          "tailOperations": 17,
+          "checkpointMonth": 708,
+          "captureMs": 64.7665049999996,
+          "checkpointBytes": 4157810,
+          "tailBytes": 919,
+          "warmFastMs": 1412.0899749999953,
+          "fullSessionEqual": true,
+          "contextEqual": true
+        }
+      ],
+      "memory": {
+        "rss": 473563136,
+        "heapTotal": 239964160,
+        "heapUsed": 67911640,
+        "external": 4243539,
+        "arrayBuffers": 212115,
+        "peakRSS": 571842560
+      },
+      "status": "complete"
+    }
+  },
+  "cold": {
+    "wide100": [
+      {
+        "method": "A",
+        "interval": "A",
+        "pid": 345,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 113034.792094,
+        "cloneCount": 42236,
+        "cloneMs": 97092.25817099924,
+        "memory": {
+          "rss": 637845504,
+          "heapTotal": 238919680,
+          "heapUsed": 69365448,
+          "external": 4207915,
+          "arrayBuffers": 212115,
+          "peakRSS": 712904704
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 113513.54401700155
+      },
+      {
+        "method": "B",
+        "interval": "6",
+        "pid": 353,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 1367.057828,
+        "cloneCount": 1842,
+        "cloneMs": 455.21578499999873,
+        "timings": {
+          "decodeMs": 149.26081000000005,
+          "validationMs": 290.28811499999995,
+          "tailMs": 491.05707499999994,
+          "contextAndVerifyMs": 124.76109900000006,
+          "finalizeMs": 0.12413600000013503,
+          "compareMs": 26.999023999999963,
+          "collectorAndSessionValidationMs": 184.99732599999993,
+          "totalMs": 1366.849335
+        },
+        "memory": {
+          "rss": 329809920,
+          "heapTotal": 218652672,
+          "heapUsed": 73117304,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 425631744
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 1895.5640489984944
+      },
+      {
+        "method": "B",
+        "interval": "12",
+        "pid": 361,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 2237.165383,
+        "cloneCount": 2227,
+        "cloneMs": 1091.0881219999983,
+        "timings": {
+          "decodeMs": 134.85725000000002,
+          "validationMs": 267.022281,
+          "tailMs": 1398.960758,
+          "contextAndVerifyMs": 122.27806699999996,
+          "finalizeMs": 0.11966900000015812,
+          "compareMs": 26.038101000000097,
+          "collectorAndSessionValidationMs": 188.11800099999982,
+          "totalMs": 2236.9231790000003
+        },
+        "memory": {
+          "rss": 397471744,
+          "heapTotal": 218390528,
+          "heapUsed": 73356472,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 495988736
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 2728.485724001075
+      },
+      {
+        "method": "B",
+        "interval": "24",
+        "pid": 369,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 8971.563889000001,
+        "cloneCount": 2900,
+        "cloneMs": 7641.730192000029,
+        "timings": {
+          "decodeMs": 119.82819799999999,
+          "validationMs": 269.115808,
+          "tailMs": 8153.0958470000005,
+          "contextAndVerifyMs": 130.207946,
+          "finalizeMs": 0.12053100000048289,
+          "compareMs": 28.615979000000152,
+          "collectorAndSessionValidationMs": 171.2933720000001,
+          "totalMs": 8971.332802
+        },
+        "memory": {
+          "rss": 555622400,
+          "heapTotal": 229138432,
+          "heapUsed": 73438888,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 639897600
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 9463.383954000165
+      },
+      {
+        "method": "B",
+        "interval": "60",
+        "pid": 377,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 11970.886901999998,
+        "cloneCount": 4240,
+        "cloneMs": 9904.845207000033,
+        "timings": {
+          "decodeMs": 108.35063600000001,
+          "validationMs": 229.40702,
+          "tailMs": 11183.192903000001,
+          "contextAndVerifyMs": 126.50728300000003,
+          "finalizeMs": 0.19448100000045088,
+          "compareMs": 39.4082240000007,
+          "collectorAndSessionValidationMs": 196.83998399999837,
+          "totalMs": 11970.59977
+        },
+        "memory": {
+          "rss": 724893696,
+          "heapTotal": 245391360,
+          "heapUsed": 73195584,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 824958976
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 12505.796122997708
+      },
+      {
+        "method": "A",
+        "interval": "A",
+        "pid": 385,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 104725.693871,
+        "cloneCount": 42236,
+        "cloneMs": 89783.57651500148,
+        "memory": {
+          "rss": 554217472,
+          "heapTotal": 234987520,
+          "heapUsed": 69350136,
+          "external": 4207915,
+          "arrayBuffers": 212115,
+          "peakRSS": 616751104
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 105182.03666699992
+      },
+      {
+        "method": "B",
+        "interval": "6",
+        "pid": 393,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 1299.0323819999999,
+        "cloneCount": 1842,
+        "cloneMs": 467.53826799999433,
+        "timings": {
+          "decodeMs": 118.18783400000001,
+          "validationMs": 242.752745,
+          "tailMs": 519.7874699999999,
+          "contextAndVerifyMs": 128.09614899999997,
+          "finalizeMs": 0.11049600000001192,
+          "compareMs": 26.116682999999966,
+          "collectorAndSessionValidationMs": 168.71502399999986,
+          "totalMs": 1298.8143140000002
+        },
+        "memory": {
+          "rss": 335335424,
+          "heapTotal": 220487680,
+          "heapUsed": 73112848,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 431144960
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 1783.6279740004102
+      },
+      {
+        "method": "B",
+        "interval": "12",
+        "pid": 401,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 2006.696014,
+        "cloneCount": 2227,
+        "cloneMs": 1007.8865629999904,
+        "timings": {
+          "decodeMs": 118.40332700000005,
+          "validationMs": 255.18501199999992,
+          "tailMs": 1243.587219,
+          "contextAndVerifyMs": 125.98945000000003,
+          "finalizeMs": 0.11552400000027774,
+          "compareMs": 23.133986000000277,
+          "collectorAndSessionValidationMs": 151.27819799999997,
+          "totalMs": 2006.4809109999999
+        },
+        "memory": {
+          "rss": 390144000,
+          "heapTotal": 213147648,
+          "heapUsed": 73366120,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 488439808
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 2507.9214539982786
+      },
+      {
+        "method": "B",
+        "interval": "24",
+        "pid": 409,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 9201.152219,
+        "cloneCount": 2900,
+        "cloneMs": 7859.3378609999745,
+        "timings": {
+          "decodeMs": 97.40351500000003,
+          "validationMs": 227.69788299999993,
+          "tailMs": 8443.939466,
+          "contextAndVerifyMs": 116.13425500000005,
+          "finalizeMs": 0.12131200000112585,
+          "compareMs": 29.343974000001253,
+          "collectorAndSessionValidationMs": 214.53513500000008,
+          "totalMs": 9200.931719
+        },
+        "memory": {
+          "rss": 556093440,
+          "heapTotal": 209477632,
+          "heapUsed": 73429648,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 668737536
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 9706.407434998255
+      },
+      {
+        "method": "B",
+        "interval": "60",
+        "pid": 417,
+        "node": "v24.22.1",
+        "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+        "sessionSHA": "0de3a47431ee4f88aed3acb92ffe2a167fa810ce061b21a6188bd148fe64a466",
+        "ms": 12341.024352,
+        "cloneCount": 4240,
+        "cloneMs": 10202.367198999986,
+        "timings": {
+          "decodeMs": 133.31508300000002,
+          "validationMs": 238.57816100000002,
+          "tailMs": 11525.961032,
+          "contextAndVerifyMs": 142.005807,
+          "finalizeMs": 0.1706560000002355,
+          "compareMs": 31.50721699999849,
+          "collectorAndSessionValidationMs": 166.05727599999955,
+          "totalMs": 12340.364461000001
+        },
+        "memory": {
+          "rss": 750301184,
+          "heapTotal": 244867072,
+          "heapUsed": 73196904,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 849522688
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 12901.004191997345
+      }
+    ],
+    "mixed100": [
+      {
+        "method": "A",
+        "interval": "A",
+        "pid": 257,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 87469.25922400001,
+        "cloneCount": 38494,
+        "cloneMs": 74256.94376699875,
+        "memory": {
+          "rss": 519794688,
+          "heapTotal": 219762688,
+          "heapUsed": 60847192,
+          "external": 4207915,
+          "arrayBuffers": 212115,
+          "peakRSS": 574742528
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 88035.92713800026
+      },
+      {
+        "method": "B",
+        "interval": "6",
+        "pid": 265,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 1375.314567,
+        "cloneCount": 1860,
+        "cloneMs": 431.6914760000004,
+        "timings": {
+          "decodeMs": 144.44305899999995,
+          "validationMs": 288.90268000000003,
+          "tailMs": 522.195434,
+          "contextAndVerifyMs": 137.39295199999992,
+          "finalizeMs": 0.18331499999999323,
+          "compareMs": 20.647713000000067,
+          "collectorAndSessionValidationMs": 136.28249000000005,
+          "totalMs": 1375.037712
+        },
+        "memory": {
+          "rss": 302845952,
+          "heapTotal": 203141120,
+          "heapUsed": 64191040,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 386170880
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 1976.7956220021006
+      },
+      {
+        "method": "B",
+        "interval": "12",
+        "pid": 273,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 2141.219389,
+        "cloneCount": 2096,
+        "cloneMs": 970.9713160000061,
+        "timings": {
+          "decodeMs": 127.53464399999996,
+          "validationMs": 288.433634,
+          "tailMs": 1225.554782,
+          "contextAndVerifyMs": 156.444709,
+          "finalizeMs": 0.1329699999996592,
+          "compareMs": 30.070406000000276,
+          "collectorAndSessionValidationMs": 192.99520400000029,
+          "totalMs": 2140.989323
+        },
+        "memory": {
+          "rss": 329285632,
+          "heapTotal": 204713984,
+          "heapUsed": 64346632,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 425365504
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 2708.2453059992986
+      },
+      {
+        "method": "B",
+        "interval": "24",
+        "pid": 281,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 2684.529586,
+        "cloneCount": 2697,
+        "cloneMs": 1450.636372999994,
+        "timings": {
+          "decodeMs": 100.49449500000003,
+          "validationMs": 234.95825100000002,
+          "tailMs": 1992.395763,
+          "contextAndVerifyMs": 111.42413699999997,
+          "finalizeMs": 0.13505299999997078,
+          "compareMs": 22.107634999999846,
+          "collectorAndSessionValidationMs": 136.43761300000006,
+          "totalMs": 2684.297858
+        },
+        "memory": {
+          "rss": 358674432,
+          "heapTotal": 210219008,
+          "heapUsed": 64404080,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 458309632
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 3157.665866998286
+      },
+      {
+        "method": "B",
+        "interval": "60",
+        "pid": 289,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 14823.848783,
+        "cloneCount": 4335,
+        "cloneMs": 13062.777632999996,
+        "timings": {
+          "decodeMs": 93.48008299999998,
+          "validationMs": 209.79493200000002,
+          "tailMs": 14108.945233,
+          "contextAndVerifyMs": 115.30348000000004,
+          "finalizeMs": 0.12475699999959033,
+          "compareMs": 41.114041000000725,
+          "collectorAndSessionValidationMs": 143.61059999999998,
+          "totalMs": 14823.518687
+        },
+        "memory": {
+          "rss": 485097472,
+          "heapTotal": 223064064,
+          "heapUsed": 64210152,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 559620096
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 15231.42510100297
+      },
+      {
+        "method": "A",
+        "interval": "A",
+        "pid": 297,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 79792.556498,
+        "cloneCount": 38494,
+        "cloneMs": 67863.02750300086,
+        "memory": {
+          "rss": 446210048,
+          "heapTotal": 218451968,
+          "heapUsed": 60844544,
+          "external": 4207915,
+          "arrayBuffers": 212115,
+          "peakRSS": 513064960
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 80161.2731139976
+      },
+      {
+        "method": "B",
+        "interval": "6",
+        "pid": 305,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 1065.704643,
+        "cloneCount": 1860,
+        "cloneMs": 357.4347689999952,
+        "timings": {
+          "decodeMs": 111.18571600000001,
+          "validationMs": 202.54186800000002,
+          "tailMs": 394.814613,
+          "contextAndVerifyMs": 104.29337399999997,
+          "finalizeMs": 0.17080699999996796,
+          "compareMs": 20.62896899999987,
+          "collectorAndSessionValidationMs": 142.465377,
+          "totalMs": 1065.509661
+        },
+        "memory": {
+          "rss": 302981120,
+          "heapTotal": 203927552,
+          "heapUsed": 64192320,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 386379776
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 1466.369237001345
+      },
+      {
+        "method": "B",
+        "interval": "12",
+        "pid": 313,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 1411.658251,
+        "cloneCount": 2096,
+        "cloneMs": 598.3950870000062,
+        "timings": {
+          "decodeMs": 105.01320999999996,
+          "validationMs": 207.81472499999995,
+          "tailMs": 756.0344160000001,
+          "contextAndVerifyMs": 94.557323,
+          "finalizeMs": 0.14501799999993636,
+          "compareMs": 21.752567999999883,
+          "collectorAndSessionValidationMs": 131.98152299999992,
+          "totalMs": 1411.44518
+        },
+        "memory": {
+          "rss": 324370432,
+          "heapTotal": 204451840,
+          "heapUsed": 64347304,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 420352000
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 1846.0849719995167
+      },
+      {
+        "method": "B",
+        "interval": "24",
+        "pid": 321,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 2432.0194170000004,
+        "cloneCount": 2697,
+        "cloneMs": 1332.0916070000176,
+        "timings": {
+          "decodeMs": 88.72776599999997,
+          "validationMs": 212.001151,
+          "tailMs": 1771.5304340000002,
+          "contextAndVerifyMs": 101.466766,
+          "finalizeMs": 0.3252089999996315,
+          "compareMs": 23.06557299999986,
+          "collectorAndSessionValidationMs": 148.39421999999968,
+          "totalMs": 2431.756532
+        },
+        "memory": {
+          "rss": 347107328,
+          "heapTotal": 210743296,
+          "heapUsed": 64405384,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 468312064
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 2841.1673120026535
+      },
+      {
+        "method": "B",
+        "interval": "60",
+        "pid": 329,
+        "node": "v24.22.1",
+        "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+        "sessionSHA": "c348cfef69fb1d2d44df1141cbb2ea10326e0b356feb6c36e8370faee87ff1fd",
+        "ms": 14592.405572000001,
+        "cloneCount": 4335,
+        "cloneMs": 12795.875361999982,
+        "timings": {
+          "decodeMs": 96.54165899999998,
+          "validationMs": 218.16056600000002,
+          "tailMs": 13917.809652999998,
+          "contextAndVerifyMs": 97.43396999999993,
+          "finalizeMs": 0.10736100000031001,
+          "compareMs": 22.534875999999713,
+          "collectorAndSessionValidationMs": 151.77844300000106,
+          "totalMs": 14592.173233
+        },
+        "memory": {
+          "rss": 484438016,
+          "heapTotal": 214413312,
+          "heapUsed": 64196752,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 558391296
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 15039.552103997266
+      }
+    ],
+    "local100": [
+      {
+        "method": "A",
+        "interval": "A",
+        "pid": 169,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 51268.297778,
+        "cloneCount": 36046,
+        "cloneMs": 41823.060213000565,
+        "memory": {
+          "rss": 361885696,
+          "heapTotal": 201650176,
+          "heapUsed": 50841240,
+          "external": 4212067,
+          "arrayBuffers": 212115,
+          "peakRSS": 417255424
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 51628.57030500163
+      },
+      {
+        "method": "B",
+        "interval": "6",
+        "pid": 177,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 815.6854579999999,
+        "cloneCount": 1663,
+        "cloneMs": 291.45998400000224,
+        "timings": {
+          "decodeMs": 72.155326,
+          "validationMs": 188.314838,
+          "tailMs": 310.35361,
+          "contextAndVerifyMs": 70.55869899999993,
+          "finalizeMs": 0.08197299999994812,
+          "compareMs": 15.876006999999959,
+          "collectorAndSessionValidationMs": 96.83612300000004,
+          "totalMs": 815.473809
+        },
+        "memory": {
+          "rss": 277307392,
+          "heapTotal": 191938560,
+          "heapUsed": 52211392,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 357634048
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 1181.1225870005728
+      },
+      {
+        "method": "B",
+        "interval": "12",
+        "pid": 185,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 1203.1008849999998,
+        "cloneCount": 1879,
+        "cloneMs": 551.8268929999903,
+        "timings": {
+          "decodeMs": 100.42092500000001,
+          "validationMs": 181.64437699999996,
+          "tailMs": 680.4821890000001,
+          "contextAndVerifyMs": 63.290527,
+          "finalizeMs": 0.10263400000008005,
+          "compareMs": 16.462277000000086,
+          "collectorAndSessionValidationMs": 100.62110600000005,
+          "totalMs": 1202.8517510000001
+        },
+        "memory": {
+          "rss": 285671424,
+          "heapTotal": 191152128,
+          "heapUsed": 52387904,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 367583232
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 1625.8036459985306
+      },
+      {
+        "method": "B",
+        "interval": "24",
+        "pid": 193,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 1737.936182,
+        "cloneCount": 2288,
+        "cloneMs": 970.291747999993,
+        "timings": {
+          "decodeMs": 80.79490299999998,
+          "validationMs": 156.55171200000007,
+          "tailMs": 1259.5774470000001,
+          "contextAndVerifyMs": 81.024183,
+          "finalizeMs": 0.10206400000015492,
+          "compareMs": 15.044340999999804,
+          "collectorAndSessionValidationMs": 90.93440400000009,
+          "totalMs": 1737.731024
+        },
+        "memory": {
+          "rss": 288743424,
+          "heapTotal": 196395008,
+          "heapUsed": 52448128,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 371560448
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 2091.2435240024934
+      },
+      {
+        "method": "B",
+        "interval": "60",
+        "pid": 201,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 6905.430566,
+        "cloneCount": 3481,
+        "cloneMs": 5654.515054000028,
+        "timings": {
+          "decodeMs": 76.822453,
+          "validationMs": 188.01771299999996,
+          "tailMs": 6322.062618,
+          "contextAndVerifyMs": 63.698060000000055,
+          "finalizeMs": 0.10904399999981251,
+          "compareMs": 22.969121999999516,
+          "collectorAndSessionValidationMs": 127.72696900000028,
+          "totalMs": 6905.2277810000005
+        },
+        "memory": {
+          "rss": 376737792,
+          "heapTotal": 201900032,
+          "heapUsed": 52346312,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 469696512
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 0,
+        "wallIncludingStartupMs": 7279.86994100138
+      },
+      {
+        "method": "A",
+        "interval": "A",
+        "pid": 209,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 54259.067375,
+        "cloneCount": 36046,
+        "cloneMs": 44297.41874000009,
+        "memory": {
+          "rss": 403197952,
+          "heapTotal": 192475136,
+          "heapUsed": 50840144,
+          "external": 4212067,
+          "arrayBuffers": 212115,
+          "peakRSS": 448360448
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 54661.29762200217
+      },
+      {
+        "method": "B",
+        "interval": "6",
+        "pid": 217,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 881.17461,
+        "cloneCount": 1663,
+        "cloneMs": 325.9872689999968,
+        "timings": {
+          "decodeMs": 78.547462,
+          "validationMs": 177.79166099999998,
+          "tailMs": 356.445596,
+          "contextAndVerifyMs": 78.47501399999999,
+          "finalizeMs": 0.10120099999994636,
+          "compareMs": 15.380220000000008,
+          "collectorAndSessionValidationMs": 105.531882,
+          "totalMs": 880.9644460000001
+        },
+        "memory": {
+          "rss": 277831680,
+          "heapTotal": 190627840,
+          "heapUsed": 52210048,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 358072320
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 1256.3333290017908
+      },
+      {
+        "method": "B",
+        "interval": "12",
+        "pid": 225,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 1188.202515,
+        "cloneCount": 1879,
+        "cloneMs": 545.0755009999992,
+        "timings": {
+          "decodeMs": 83.48440299999999,
+          "validationMs": 184.60635599999995,
+          "tailMs": 645.4522310000001,
+          "contextAndVerifyMs": 76.656656,
+          "finalizeMs": 1.2378929999999855,
+          "compareMs": 16.516446000000087,
+          "collectorAndSessionValidationMs": 106.89629400000013,
+          "totalMs": 1187.9914
+        },
+        "memory": {
+          "rss": 284430336,
+          "heapTotal": 191414272,
+          "heapUsed": 52389624,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 366395392
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 1602.1645830005582
+      },
+      {
+        "method": "B",
+        "interval": "24",
+        "pid": 233,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 1815.2211590000002,
+        "cloneCount": 2288,
+        "cloneMs": 992.4201930000079,
+        "timings": {
+          "decodeMs": 93.027898,
+          "validationMs": 199.91107200000005,
+          "tailMs": 1260.6685559999999,
+          "contextAndVerifyMs": 78.45176600000002,
+          "finalizeMs": 0.15519100000005892,
+          "compareMs": 16.462224000000106,
+          "collectorAndSessionValidationMs": 100.7211490000002,
+          "totalMs": 1815.042203
+        },
+        "memory": {
+          "rss": 287510528,
+          "heapTotal": 194822144,
+          "heapUsed": 52447960,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 371007488
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 2174.658415002341
+      },
+      {
+        "method": "B",
+        "interval": "60",
+        "pid": 241,
+        "node": "v24.22.1",
+        "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+        "sessionSHA": "f8fff9500d2f065567d4571dc3da2d2519d6d7f48c49e1ecc98e53f574d5fe57",
+        "ms": 7004.161794,
+        "cloneCount": 3481,
+        "cloneMs": 5842.8862889999855,
+        "timings": {
+          "decodeMs": 68.74253800000002,
+          "validationMs": 161.17705800000005,
+          "tailMs": 6516.955561000001,
+          "contextAndVerifyMs": 70.70901700000002,
+          "finalizeMs": 0.12437600000066595,
+          "compareMs": 16.575872000000345,
+          "collectorAndSessionValidationMs": 107.62355899999966,
+          "totalMs": 7003.920784999999
+        },
+        "memory": {
+          "rss": 340455424,
+          "heapTotal": 200065024,
+          "heapUsed": 52347456,
+          "external": 4243539,
+          "arrayBuffers": 212115,
+          "peakRSS": 417492992
+        },
+        "scope": "Fresh process/module cache; OS file cache uncontrolled; input file IO excluded; JSON parse/checkpoint IO excluded, source decode/fingerprint/session validation included",
+        "repeat": 1,
+        "wallIncludingStartupMs": 7401.843137002288
+      }
+    ]
+  },
+  "coldSummary": [
+    {
+      "policy": "wide100",
+      "method": "A",
+      "n": 2,
+      "internalMsMin": 104725.693871,
+      "internalMsMax": 113034.792094,
+      "meanMs": 108880.2429825,
+      "wallMsMean": 109347.79034200074,
+      "cloneCount": [
+        42236,
+        42236
+      ],
+      "cloneMs": [
+        97092.25817099924,
+        89783.57651500148
+      ],
+      "heapUsed": [
+        69365448,
+        69350136
+      ],
+      "peakRSS": [
+        712904704,
+        616751104
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "wide100",
+      "method": "6",
+      "n": 2,
+      "internalMsMin": 1299.0323819999999,
+      "internalMsMax": 1367.057828,
+      "meanMs": 1333.045105,
+      "wallMsMean": 1839.5960114994523,
+      "cloneCount": [
+        1842,
+        1842
+      ],
+      "cloneMs": [
+        455.21578499999873,
+        467.53826799999433
+      ],
+      "heapUsed": [
+        73117304,
+        73112848
+      ],
+      "peakRSS": [
+        425631744,
+        431144960
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "wide100",
+      "method": "12",
+      "n": 2,
+      "internalMsMin": 2006.696014,
+      "internalMsMax": 2237.165383,
+      "meanMs": 2121.9306985000003,
+      "wallMsMean": 2618.203588999677,
+      "cloneCount": [
+        2227,
+        2227
+      ],
+      "cloneMs": [
+        1091.0881219999983,
+        1007.8865629999904
+      ],
+      "heapUsed": [
+        73356472,
+        73366120
+      ],
+      "peakRSS": [
+        495988736,
+        488439808
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "wide100",
+      "method": "24",
+      "n": 2,
+      "internalMsMin": 8971.563889000001,
+      "internalMsMax": 9201.152219,
+      "meanMs": 9086.358054,
+      "wallMsMean": 9584.89569449921,
+      "cloneCount": [
+        2900,
+        2900
+      ],
+      "cloneMs": [
+        7641.730192000029,
+        7859.3378609999745
+      ],
+      "heapUsed": [
+        73438888,
+        73429648
+      ],
+      "peakRSS": [
+        639897600,
+        668737536
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "wide100",
+      "method": "60",
+      "n": 2,
+      "internalMsMin": 11970.886901999998,
+      "internalMsMax": 12341.024352,
+      "meanMs": 12155.955627,
+      "wallMsMean": 12703.400157497526,
+      "cloneCount": [
+        4240,
+        4240
+      ],
+      "cloneMs": [
+        9904.845207000033,
+        10202.367198999986
+      ],
+      "heapUsed": [
+        73195584,
+        73196904
+      ],
+      "peakRSS": [
+        824958976,
+        849522688
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "mixed100",
+      "method": "A",
+      "n": 2,
+      "internalMsMin": 79792.556498,
+      "internalMsMax": 87469.25922400001,
+      "meanMs": 83630.90786100001,
+      "wallMsMean": 84098.60012599893,
+      "cloneCount": [
+        38494,
+        38494
+      ],
+      "cloneMs": [
+        74256.94376699875,
+        67863.02750300086
+      ],
+      "heapUsed": [
+        60847192,
+        60844544
+      ],
+      "peakRSS": [
+        574742528,
+        513064960
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "mixed100",
+      "method": "6",
+      "n": 2,
+      "internalMsMin": 1065.704643,
+      "internalMsMax": 1375.314567,
+      "meanMs": 1220.509605,
+      "wallMsMean": 1721.5824295017228,
+      "cloneCount": [
+        1860,
+        1860
+      ],
+      "cloneMs": [
+        431.6914760000004,
+        357.4347689999952
+      ],
+      "heapUsed": [
+        64191040,
+        64192320
+      ],
+      "peakRSS": [
+        386170880,
+        386379776
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "mixed100",
+      "method": "12",
+      "n": 2,
+      "internalMsMin": 1411.658251,
+      "internalMsMax": 2141.219389,
+      "meanMs": 1776.4388199999999,
+      "wallMsMean": 2277.1651389994076,
+      "cloneCount": [
+        2096,
+        2096
+      ],
+      "cloneMs": [
+        970.9713160000061,
+        598.3950870000062
+      ],
+      "heapUsed": [
+        64346632,
+        64347304
+      ],
+      "peakRSS": [
+        425365504,
+        420352000
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "mixed100",
+      "method": "24",
+      "n": 2,
+      "internalMsMin": 2432.0194170000004,
+      "internalMsMax": 2684.529586,
+      "meanMs": 2558.2745015,
+      "wallMsMean": 2999.41658950047,
+      "cloneCount": [
+        2697,
+        2697
+      ],
+      "cloneMs": [
+        1450.636372999994,
+        1332.0916070000176
+      ],
+      "heapUsed": [
+        64404080,
+        64405384
+      ],
+      "peakRSS": [
+        458309632,
+        468312064
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "mixed100",
+      "method": "60",
+      "n": 2,
+      "internalMsMin": 14592.405572000001,
+      "internalMsMax": 14823.848783,
+      "meanMs": 14708.1271775,
+      "wallMsMean": 15135.488602500118,
+      "cloneCount": [
+        4335,
+        4335
+      ],
+      "cloneMs": [
+        13062.777632999996,
+        12795.875361999982
+      ],
+      "heapUsed": [
+        64210152,
+        64196752
+      ],
+      "peakRSS": [
+        559620096,
+        558391296
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "local100",
+      "method": "A",
+      "n": 2,
+      "internalMsMin": 51268.297778,
+      "internalMsMax": 54259.067375,
+      "meanMs": 52763.682576499996,
+      "wallMsMean": 53144.9339635019,
+      "cloneCount": [
+        36046,
+        36046
+      ],
+      "cloneMs": [
+        41823.060213000565,
+        44297.41874000009
+      ],
+      "heapUsed": [
+        50841240,
+        50840144
+      ],
+      "peakRSS": [
+        417255424,
+        448360448
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "local100",
+      "method": "6",
+      "n": 2,
+      "internalMsMin": 815.6854579999999,
+      "internalMsMax": 881.17461,
+      "meanMs": 848.430034,
+      "wallMsMean": 1218.7279580011818,
+      "cloneCount": [
+        1663,
+        1663
+      ],
+      "cloneMs": [
+        291.45998400000224,
+        325.9872689999968
+      ],
+      "heapUsed": [
+        52211392,
+        52210048
+      ],
+      "peakRSS": [
+        357634048,
+        358072320
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "local100",
+      "method": "12",
+      "n": 2,
+      "internalMsMin": 1188.202515,
+      "internalMsMax": 1203.1008849999998,
+      "meanMs": 1195.6517,
+      "wallMsMean": 1613.9841144995444,
+      "cloneCount": [
+        1879,
+        1879
+      ],
+      "cloneMs": [
+        551.8268929999903,
+        545.0755009999992
+      ],
+      "heapUsed": [
+        52387904,
+        52389624
+      ],
+      "peakRSS": [
+        367583232,
+        366395392
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "local100",
+      "method": "24",
+      "n": 2,
+      "internalMsMin": 1737.936182,
+      "internalMsMax": 1815.2211590000002,
+      "meanMs": 1776.5786705,
+      "wallMsMean": 2132.950969502417,
+      "cloneCount": [
+        2288,
+        2288
+      ],
+      "cloneMs": [
+        970.291747999993,
+        992.4201930000079
+      ],
+      "heapUsed": [
+        52448128,
+        52447960
+      ],
+      "peakRSS": [
+        371560448,
+        371007488
+      ],
+      "fullSessionDigestEqual": true
+    },
+    {
+      "policy": "local100",
+      "method": "60",
+      "n": 2,
+      "internalMsMin": 6905.430566,
+      "internalMsMax": 7004.161794,
+      "meanMs": 6954.796179999999,
+      "wallMsMean": 7340.856539001834,
+      "cloneCount": [
+        3481,
+        3481
+      ],
+      "cloneMs": [
+        5654.515054000028,
+        5842.8862889999855
+      ],
+      "heapUsed": [
+        52346312,
+        52347456
+      ],
+      "peakRSS": [
+        469696512,
+        417492992
+      ],
+      "fullSessionDigestEqual": true
+    }
+  ],
+  "future": {
+    "wide100": {
+      "rows": [
+        {
+          "month": 1201,
+          "sessionSHA": "83133b56d305c48c88ec8cad2460ebdc64eba5dde04c2add81176409e2e93b91",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5842869
+        },
+        {
+          "month": 1202,
+          "sessionSHA": "abfe5b9cc6f0621ea93d16ca2b5314e167896d85618c45c3537b01c394b2a7dd",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5848547
+        },
+        {
+          "month": 1203,
+          "sessionSHA": "9583912befe672e3a73680c81ff4c1cd4d4616b41853938706625768884252f3",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5854089
+        },
+        {
+          "month": 1204,
+          "sessionSHA": "03d04f0db34cfa955122b91200bfdf8e70001ebda8550f7d1f9151b8f189b991",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5860394
+        },
+        {
+          "month": 1205,
+          "sessionSHA": "960bd34ed2209af616fc276b3419ce1abe9de638f28e002478a3eb99c4f5a325",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5862876
+        },
+        {
+          "month": 1206,
+          "sessionSHA": "178b0409700126259369e5700ec927e72b7762898f94e75ca886636a4819da44",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5866207
+        },
+        {
+          "month": 1207,
+          "sessionSHA": "ae4711779f046cc9256a11b37b912331f783aa7245efa1860d24e361d22af56c",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5872875
+        },
+        {
+          "month": 1208,
+          "sessionSHA": "7eb3725a6304bafc7f5665086eccec09ed2b57731b268592185fb7f65b1f4d3b",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5876439
+        },
+        {
+          "month": 1209,
+          "sessionSHA": "22add66e7b466b043bfd6ac5cc2f54d5c1d722e9f5bed7dcc2eb8a463991c85f",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5884634
+        },
+        {
+          "month": 1210,
+          "sessionSHA": "071cf23f4bd265d5722489a767e8d4e56bda2172cfa28e3cdca2282bd91de517",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5891115
+        },
+        {
+          "month": 1211,
+          "sessionSHA": "839233a0eaa7a39d9dcc6f41c973c7acc338c327f6cf5a6a102ae3e753d4789e",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5895112
+        },
+        {
+          "month": 1212,
+          "sessionSHA": "3fa440f9fa49076b89f09c707234a1140d1de27d764e768a79196a5b4d9aa2ef",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 5897842
+        }
+      ],
+      "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+      "status": "complete"
+    },
+    "mixed100": {
+      "rows": [
+        {
+          "month": 1201,
+          "sessionSHA": "45000159df0da03a808fc6f52cdaaa42b591822f01f57080b94bd07fbe3aac6c",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4942593
+        },
+        {
+          "month": 1202,
+          "sessionSHA": "3f48287b26d4c65c0b7c3b2fd942b56a247b8df395524967bdbc10b3ba84f1fa",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4946635
+        },
+        {
+          "month": 1203,
+          "sessionSHA": "d1035db21913e897ac7dab4edd246c070467d76b5fd7621be6ed1484adc6feeb",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4947583
+        },
+        {
+          "month": 1204,
+          "sessionSHA": "d9b9b4c15dc43af177fcb43e8af5ad7de236958ce5b1a37df16d544ffa5d1949",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4949810
+        },
+        {
+          "month": 1205,
+          "sessionSHA": "f8ee56a09075fa148c5fe6126e5cc63a0006283fed75f5765482c73543e8d455",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4955391
+        },
+        {
+          "month": 1206,
+          "sessionSHA": "370850f701085463eafa940cbb8d0ce777809329206395b2d72b836bafb043cc",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4958488
+        },
+        {
+          "month": 1207,
+          "sessionSHA": "2a9f7dfe23630c74bd3e0a635278a3a512dfc551612c8aa593c1f91565292e67",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4960284
+        },
+        {
+          "month": 1208,
+          "sessionSHA": "48bd02e4033dc07ee4f3d2e01feeebb2e21bd8e53fefa7675b3b746ed3380c40",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4963015
+        },
+        {
+          "month": 1209,
+          "sessionSHA": "7af5b441d7f739c5e9a7ab8c701fcfe1406d4bc007a8c822f5d4a522f1090894",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4966113
+        },
+        {
+          "month": 1210,
+          "sessionSHA": "f8509660edcec911fcc3220188e375cda4940f4b3c36395eb165e0860333b01e",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4968640
+        },
+        {
+          "month": 1211,
+          "sessionSHA": "da141b0e5dc664c5bc43c5f392804d3ea2507ab9e090a96a36d3d90782e36f79",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4972413
+        },
+        {
+          "month": 1212,
+          "sessionSHA": "405f957cc082587818dc5eafab69fcab33fe0ed33bd8a01f38475c8edf7f1eea",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 4973397
+        }
+      ],
+      "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+      "status": "complete"
+    },
+    "local100": {
+      "rows": [
+        {
+          "month": 1201,
+          "sessionSHA": "ffc761b1acf0cbd21d2269a43a3fd128daa7859231adae15def6818a8efd919d",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3809364
+        },
+        {
+          "month": 1202,
+          "sessionSHA": "c62449c693fde0587b331d4213f0fa4bbd9d9c81bea1cd4616553c2f28dea5f7",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3812791
+        },
+        {
+          "month": 1203,
+          "sessionSHA": "33ac2e72aaa35ee891abdeb4f2c5057d7e726b4c2508b27bd29fc9287696806b",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3815948
+        },
+        {
+          "month": 1204,
+          "sessionSHA": "495d7356b6f773d067deda5361624e842d1046dd2d2b17a29357d581c40c86cb",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3816941
+        },
+        {
+          "month": 1205,
+          "sessionSHA": "b1ea106899e42539725a535d99e0f02f5aa0476aca7ffa5cd7061c1eceab006e",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3817841
+        },
+        {
+          "month": 1206,
+          "sessionSHA": "770e004334326f7b38bd4b254556fdfd3becd4414251d70ef47064b52fb85338",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3819756
+        },
+        {
+          "month": 1207,
+          "sessionSHA": "d61907ebb5769f2d863fcf0c9230c64e467ab591c395b145813d39af51eac0ac",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3819822
+        },
+        {
+          "month": 1208,
+          "sessionSHA": "6a2d029a60e9932297cd702e8bb4adc8c6df01e41ef979b0099139ed40b5a4e2",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3822742
+        },
+        {
+          "month": 1209,
+          "sessionSHA": "3391bbcf4fc4ee31c3dd97f830e9ffc1b95774a3ea491361c10b2f4b41de06eb",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3826049
+        },
+        {
+          "month": 1210,
+          "sessionSHA": "19f83d46ccab950d35e2dc8ab4d234bf9373f8ab8442704c32c89a8002044fa1",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3826093
+        },
+        {
+          "month": 1211,
+          "sessionSHA": "c164b7240b84e289aa4fba292a791918c494d6c4c8b689da487fa75d7250df20",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3828188
+        },
+        {
+          "month": 1212,
+          "sessionSHA": "070e03209bf5098388473e8ae0d4b33bf9a94d0787d1ce2c30c8fbc89f3407ee",
+          "equal": true,
+          "roundtrip": true,
+          "formalCodeUnits": 3830067
+        }
+      ],
+      "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+      "status": "complete"
+    }
+  },
+  "boundaries": {
+    "boundary-wide-before-handover-930-v8-paused": {
+      "sourceSHA": "cc00aebd002e61673b417b19448e8b3b35590b4e70287dd284a24dd149c9e516",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "69917ad33a7286f538547bcad12350dc10f05b035969a1366b2bf89e15f166d8",
+          "recallSHA": "115d72475a2fbb2b0c0dcc62d71dc0fef789cd4bca5840ac9b343f9eb4643bf5",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 4
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "a52df98f1b22f3e2ecce1faa03139b58ff0366d33b5234d772adb4ba791caa68",
+          "recallSHA": "8c3b7a31bbfc2f8b1ccf8456072f558df35140fe3d58ea00254282fb463a419d",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 4
+        }
+      ],
+      "status": "complete"
+    },
+    "boundary-wide-before-handover-630-v8-paused": {
+      "sourceSHA": "d1a17a910b82c8a0fe1ea7108b26c80c54780eb0270d19cff1de466def48d89c",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "6e61fd0f8b0ca4ca73a83b5d16a48340591b75e20221412466628c3b0ae7a421",
+          "recallSHA": "dc8524aa83f15bef8a7c02c91bfde78ea911372cdde85fa89153867cf5e31b4a",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 3
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "b019f8f966dfee179f720bab99836efd59df1bb7a6295bb6bd0445c2d38912bd",
+          "recallSHA": "d03c8c7e7f9ab600e310a888fa605524558993901150dae70fc805690de68aa6",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 3
+        }
+      ],
+      "status": "complete"
+    },
+    "boundary-mixed-before-handover-610-v8-paused": {
+      "sourceSHA": "e87f7513fe41612d9183b928cc3232d24254138f39f3c4f30125d6c3930b2987",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "33d3189c0112a5df9ddbf1df48c60b17cd1f2069f5cc6e173a79c4a4d83c7153",
+          "recallSHA": "12fd058e3ab2e186dc1d3605a048afe61fcdbb2790b17d5d071f6b555cfdccb2",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 3
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "9fdc53d14f1711880c842eaba6181f3a9e614dac8ea9d29b84103666c0b5b5a9",
+          "recallSHA": "51900f4147c8038226e6cf46a95493ebfdaa597cce4533404b5c38d6f4221a17",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 3
+        }
+      ],
+      "status": "complete"
+    },
+    "boundary-mixed-before-handover-918-v8-paused": {
+      "sourceSHA": "eea966e7290c0baf623b9d7b17f778a4bb7dc32acdb86452a1a5945c2d75b634",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "bc68f95eb50ca392c1d0da419c2a5815792a5dd63929b61326ace08c6713f991",
+          "recallSHA": "5b3f7373204180f6e1907b7529c8f3cff5847a3557ef81dbca6c575950dc0537",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 4
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "45cf71f52679e73360d802d43465af5019185e5568b82eb96c519bd03531bc53",
+          "recallSHA": "c21d1331cce2ae9551fb04f4edf532e47231443ddc214f354d3174017eea2649",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 4
+        }
+      ],
+      "status": "complete"
+    },
+    "boundary-local-before-handover-321-v8-paused": {
+      "sourceSHA": "83e217b8b2a7a43908463e9bb9149e479af4ede8ef8d9f774630bcd49b0fa578",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "61a971e64434fcace454129e75a5c377800fc997601b17aa711ce9618d4cd7d9",
+          "recallSHA": "963826a359f34e121d89da4ac87c56831cb1f9aed963b4eda6380a0bbf161f51",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 2
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "0a80197e18f03af3fa630b1c88e45a131003ceeb1e3034e1abebeb78373404b0",
+          "recallSHA": "ee079950b94e5b521017ead02bc00bf1caff247dd6a3439bd28c64edd3b7c83e",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 2
+        }
+      ],
+      "status": "complete"
+    },
+    "boundary-mixed-before-handover-306-v8-paused": {
+      "sourceSHA": "2ea66c5c0d5bc21a543c762374ee9c5c850867bf01f2547c23df3bfca653425a",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "e387fc7ebcd55f76cdff41f70b4100ccc69632f85453544d369010e0e384ff8a",
+          "recallSHA": "cfd8f2d4833ba6bf4e8ed5d5ca3f2a087738ffecdc342e8682e138520517d400",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 2
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "6467eae17e2a7b050c7a8ae3ad4982f43e65bf2ec03545f3c4191f4d4e5ed5cf",
+          "recallSHA": "81078a2e6736424f8e9592cd3c6441c8f39f918e170030e2593c5c7db69bc247",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 2
+        }
+      ],
+      "status": "complete"
+    },
+    "boundary-wide-before-handover-314-v8-paused": {
+      "sourceSHA": "30bb56897e7869bae281354e9f7313007d8001f7564573cbc5c0cb03e6dbb67a",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "5f32b17aa28c9d2f911e3bd0e1fe8d349d8a14f81f3b5709ae277acb62ef79d5",
+          "recallSHA": "28f462c29478818e18a6c1b84de5f34567e873f8bd199288944d4bc64eb341dc",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 2
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "9da523ab1efb22e4f4ff06ffabaeb34d78e86738ba3bcbcf8368585ed639aad6",
+          "recallSHA": "6cff6c1bd9a34a967cd3c1f9f2e140779b0e77a2514bdbdd3c22a36d621822b0",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 2
+        }
+      ],
+      "status": "complete"
+    },
+    "boundary-local-before-handover-636-v8-paused": {
+      "sourceSHA": "e806590176c9ceaba2d8abd4ba128c3d7f81aad7bf55ba3e571510049136be61",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "6ce6424f219c46148378ec8831c883c36f8fa8ceb9b37572d8af69f5d8cd93c8",
+          "recallSHA": "fb2c1383007aad38eb99838180eeeee0080e1ccdea1e68b5fed35b0877ca1ba0",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 3
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "34ec9842b65fc0759d777bc4fd3f92643574034533822c5712d17270629493e2",
+          "recallSHA": "af6364a9db6deae2cd686eb37f782dcc21fd9572c36845d4c40ccee692763158",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 3
+        }
+      ],
+      "status": "complete"
+    },
+    "boundary-local-before-handover-955-v8-paused": {
+      "sourceSHA": "8d64036c967614778eb1408515302e5c5be5bc7fc9ad6a1f2d8dff89b90c094e",
+      "rows": [
+        {
+          "label": "handover",
+          "sessionSHA": "abe30f16337d8394f69926188e3fa06b2e13699f7683249b11b50ff9628fdbf7",
+          "recallSHA": "68c1bfa18a2caee03bf9e977b0786076b8b5c191f9a4006c58ab9c8cf4e1787e",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 4
+        },
+        {
+          "label": "next-month",
+          "sessionSHA": "c5b066f2803e95983befefcd13132487dd3e4d6afb06db6aa3f19933cd82edf2",
+          "recallSHA": "750f1dcb01fa42014249777d10eb9d1f6ab70f3c9ce40e1a6dd06b8aee73e1c6",
+          "equal": true,
+          "roundtrip": true,
+          "generation": 4
+        }
+      ],
+      "status": "complete"
+    }
+  },
+  "roundtrips": {
+    "mixed60": {
+      "sourceSHA": "c7a123afd6734977de4f46d244b7b4085c278128630e73d90156cd88095b4ff6",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 30130.362567,
+      "node": "v24.22.1"
+    },
+    "wide30": {
+      "sourceSHA": "3e5464f100f92d25ca27e8f0c001e335aa13750b35e4ba7ef698bbb4ddd1d221",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 14263.228524,
+      "node": "v24.22.1"
+    },
+    "mixed30": {
+      "sourceSHA": "4f042009960cc58785cce01bc7ee413c8503b72dc2e08a3b9f6dbc80bc1afde4",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 16203.603675999999,
+      "node": "v24.22.1"
+    },
+    "local90": {
+      "sourceSHA": "31a68b7d5153862668251cc5e7131fbaf73a503c23fd5c54934c00771b310bbc",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 61497.263206,
+      "node": "v24.22.1"
+    },
+    "wide100": {
+      "sourceSHA": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 125921.65893399999,
+      "node": "v24.22.1"
+    },
+    "mixed100": {
+      "sourceSHA": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 102185.798305,
+      "node": "v24.22.1"
+    },
+    "local60": {
+      "sourceSHA": "07394cf9aa7c0a31f39d75dec9a6a42d955eff9ebb194a2a8815511d439f8568",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 32587.568418000003,
+      "node": "v24.22.1"
+    },
+    "wide90": {
+      "sourceSHA": "d208a9133d736af8d2cc1af85efed8d436bf85c22abf6148719ce33e756f5e89",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 97847.775266,
+      "node": "v24.22.1"
+    },
+    "mixed90": {
+      "sourceSHA": "54fa50613773295f2fec14ce10d59ba51ee39cdfdd1de5bf23f1c52b5aada842",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 69334.307107,
+      "node": "v24.22.1"
+    },
+    "local30": {
+      "sourceSHA": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 12552.015362,
+      "node": "v24.22.1"
+    },
+    "local100": {
+      "sourceSHA": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 67446.174203,
+      "node": "v24.22.1"
+    },
+    "wide60": {
+      "sourceSHA": "dda24b698d0c09ab6d6583c246a94f675d348c48a112da5aed927bb3a85e7711",
+      "diskCheckpointRead": true,
+      "officialWireExact": true,
+      "officialReadEqual": true,
+      "sourcePreserved": true,
+      "ms": 49689.823349,
+      "node": "v24.22.1"
+    }
+  },
+  "checkpointFiles": [
+    {
+      "path": "results/boundary-local-before-handover-321-v8-paused/checkpoint-12.json",
+      "sha256": "cb07334c0b4d3c8aa6f4f8a3ba81eed6e50a684b105d24de119f6fb1dd675ee8",
+      "bytes": 3287441
+    },
+    {
+      "path": "results/boundary-local-before-handover-636-v8-paused/checkpoint-12.json",
+      "sha256": "86716fd137a75b3b476c4ea4857171466e7a71ba54eb2801ae070d0ec04d68a2",
+      "bytes": 5021921
+    },
+    {
+      "path": "results/boundary-local-before-handover-955-v8-paused/checkpoint-12.json",
+      "sha256": "5af3bae4a140ad566dfb09ee4cc8b7ef2f1f588ebd9283e0fc46e27a35403022",
+      "bytes": 6884213
+    },
+    {
+      "path": "results/boundary-mixed-before-handover-306-v8-paused/checkpoint-12.json",
+      "sha256": "f81aef8896a79422a6089b268fb02fc097ea4748bcbbd8b48ef86f4ced662969",
+      "bytes": 3534169
+    },
+    {
+      "path": "results/boundary-mixed-before-handover-610-v8-paused/checkpoint-12.json",
+      "sha256": "b2405c0abab00fde7c880ef9766a23d3e7b945588aa28f583e4627c22b7a76a3",
+      "bytes": 5501920
+    },
+    {
+      "path": "results/boundary-mixed-before-handover-918-v8-paused/checkpoint-12.json",
+      "sha256": "3e868258cdd003cd5081a53bdd8c8e0083f991ffeefda74dc070f464413d201c",
+      "bytes": 7957061
+    },
+    {
+      "path": "results/boundary-wide-before-handover-314-v8-paused/checkpoint-12.json",
+      "sha256": "a4002cd9aa55bbd0278314c4788d61eac6b570415d57c7eae6e599e2f813bebb",
+      "bytes": 4502099
+    },
+    {
+      "path": "results/boundary-wide-before-handover-630-v8-paused/checkpoint-12.json",
+      "sha256": "4b0f724cab4845190d24e974290cc97f40d6b4570c82f82b2c7c925702175532",
+      "bytes": 7352889
+    },
+    {
+      "path": "results/boundary-wide-before-handover-930-v8-paused/checkpoint-12.json",
+      "sha256": "17516c6c45ff23c50c3e609b9e9007aca2348437087c7e72fccd54579ab89d14",
+      "bytes": 9817255
+    },
+    {
+      "path": "results/local100/checkpoint-12.json",
+      "sha256": "7d1c7d7cd5d8d393c80599c339c3b5a78e8ff79fd135ba29e65606615c2ae643",
+      "bytes": 8195244
+    },
+    {
+      "path": "results/local100/checkpoint-24.json",
+      "sha256": "dfae2cc9332cd053c02c3de6698f8df441c7afdbbd01e0cc76d8e774f58c7e1e",
+      "bytes": 8138131
+    },
+    {
+      "path": "results/local100/checkpoint-6.json",
+      "sha256": "2812cd0850d00537825e3d6396d017831f6acd71b10b18c85d4a9fa680a31aaf",
+      "bytes": 8213214
+    },
+    {
+      "path": "results/local100/checkpoint-60.json",
+      "sha256": "26cf6406e5315560dbb6fa6589ab1175703d16ed8c02ddb693d8e522ad6d7b04",
+      "bytes": 7913835
+    },
+    {
+      "path": "results/local30/checkpoint-12.json",
+      "sha256": "1c3504501cccc5e2c857ce94025de79ea8eba43a4b5b558ccf2bdc0c4fe15434",
+      "bytes": 3532450
+    },
+    {
+      "path": "results/local60/checkpoint-12.json",
+      "sha256": "46e2a497f7eb3470d5014a513bcabedee63a0b4662e03943c1648734c9b9c6db",
+      "bytes": 5546295
+    },
+    {
+      "path": "results/local90/checkpoint-12.json",
+      "sha256": "de2161b6322833d791a6705c776a05804c71f7ce19a06c3227774081e59ade10",
+      "bytes": 7490290
+    },
+    {
+      "path": "results/mixed100/checkpoint-12.json",
+      "sha256": "e8bf1c0973e6bbd4b7247b27ede62e9558dec98c5beaf8a117e6c2d32cbfc7c3",
+      "bytes": 10546936
+    },
+    {
+      "path": "results/mixed100/checkpoint-24.json",
+      "sha256": "05e12f21e1e57a560070c458d6fc7ceda5b1731c551bc9b303ebeb69bd2ba451",
+      "bytes": 10417968
+    },
+    {
+      "path": "results/mixed100/checkpoint-6.json",
+      "sha256": "2a2980b5bd8051c740ddee8ba95625431a9c211656b39bf9c4cc53b5b8df72b0",
+      "bytes": 10597221
+    },
+    {
+      "path": "results/mixed100/checkpoint-60.json",
+      "sha256": "6db6aae59183ec4d38344ec198f3f8989eb02c987b0198ea63ef16afc5598f3c",
+      "bytes": 10144305
+    },
+    {
+      "path": "results/mixed30/checkpoint-12.json",
+      "sha256": "b3aae983c4934912f8a368d8fd3c884f9995db40bb2ca063e0eea40540561af5",
+      "bytes": 3856165
+    },
+    {
+      "path": "results/mixed60/checkpoint-12.json",
+      "sha256": "dd59a241ce78282e349d9cfc424ceedb6bda03cd0a6c274135df35cb11bb64b8",
+      "bytes": 6270104
+    },
+    {
+      "path": "results/mixed90/checkpoint-12.json",
+      "sha256": "57565271110ffef761d17a42405bd3f78d89948ea73d6a631b50a87d10997aa0",
+      "bytes": 9490527
+    },
+    {
+      "path": "results/wide100/checkpoint-12.json",
+      "sha256": "a21400d3d2beea02a491cd24cf4c42e0ee58239b47e548cdef896a7142231c8c",
+      "bytes": 12459868
+    },
+    {
+      "path": "results/wide100/checkpoint-24.json",
+      "sha256": "2647648cb6c7c74c5bd03d586aceb91a5b97dfb9d9079bdce389ac6d4115617d",
+      "bytes": 12388828
+    },
+    {
+      "path": "results/wide100/checkpoint-6.json",
+      "sha256": "d78a81df57b17e197b69e081a0d8d75564cbdc9aa6998751830327a45989852f",
+      "bytes": 12525788
+    },
+    {
+      "path": "results/wide100/checkpoint-60.json",
+      "sha256": "b5c86d38e53c8aa1a7ae2da226516393c176bd02bd7d2b3b8c9efd0080fe77b0",
+      "bytes": 12098205
+    },
+    {
+      "path": "results/wide30/checkpoint-12.json",
+      "sha256": "4bb644781acb6f59cca00d51168b0175c548dde9c1fa317056c8736d1eff5562",
+      "bytes": 4911406
+    },
+    {
+      "path": "results/wide60/checkpoint-12.json",
+      "sha256": "ee7e7ad7f3c50da16b91a9dc86dfcb5cbb8a70a7dfd84b9849b9c5f49f1d4f4b",
+      "bytes": 7981769
+    },
+    {
+      "path": "results/wide90/checkpoint-12.json",
+      "sha256": "4b870d2eda20a00d1d403a8de8bb7ad3cae993c73789dcb7d36f3c343b32dcd9",
+      "bytes": 11274653
+    }
+  ]
+}
