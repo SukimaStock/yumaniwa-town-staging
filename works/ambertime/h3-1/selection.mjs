@@ -1,5 +1,5 @@
 // Research only. Never imported by the game or public Lab.
-// Recovered after executor loss; this saved revision requires a fresh test run.
+// Scope: published exact-boundary candidates; no formal game mutation.
 import {buildChronicle} from '../chronicle-lab/editor.mjs';
 import {firstDeliveryIds,recallSentence} from '../chronicle-lab/caption.mjs';
 import {monthLabel} from '../model.mjs';
@@ -88,12 +88,17 @@ function select(ctx,mode,seed){
  }
  selected.sort(order);return {selected,reason};
 }
-export function compareBoundary(record,handoverId){
- const ctx=boundaryInput(record,handoverId),a=buildChronicle(record,'handover','d',{handoverId});
+export function compareBoundary(record,handoverId,timing=null){
+ const started=performance.now(),ctx=boundaryInput(record,handoverId);
+ if(timing)timing.extractMs=performance.now()-started;
+ const aStarted=performance.now(),a=buildChronicle(record,'handover','d',{handoverId});
+ const aMs=performance.now()-aStarted;
  const output={handoverId,generation:ctx.boundary.generationId,cutoff:ctx.snapshot.cutoff,seed:a.audit.seed,seedGeneration:ctx.snapshot.seedGeneration,startMonth:ctx.startMonth,candidateCount:ctx.events.length,currentCandidateCount:ctx.current.length,modes:{}};
  for(const mode of ['A','B','C']){
+  const modeStarted=performance.now();
   const {selected,reason}=mode==='A'?{selected:a.frames.map(f=>f.events[0]),reason:new Map(a.frames.map(f=>[f.id,f.reason]))}:select(ctx,mode,a.audit.seed);
   output.modes[mode]={scenes:selected.map(e=>scene(e,ctx,mode,selected,reason.get(e.id))),selectedIds:selected.map(e=>e.id)};
+  if(timing)timing[mode+'Ms']=performance.now()-modeStarted+(mode==='A'?aMs:0);
  }
  output.aCurrentIds=output.modes.A.scenes.filter(s=>s.event.generationId===ctx.boundary.generationId).map(s=>s.eventId);
  return output;

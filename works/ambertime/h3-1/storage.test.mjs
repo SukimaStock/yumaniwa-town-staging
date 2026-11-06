@@ -1,3 +1,4 @@
+import {compareBoundary} from './selection.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -77,4 +78,105 @@ test('measurements count UTF-8 bytes and identify retained-input limitation',()=
   assert.equal(measured.methods.length,3);
   assert.ok(measured.methods.every(x=>x.bytes>0 && x.serializeMedianMs>=0 && x.parseMedianMs>=0));
   assert.ok(measured.limitations[0].includes('retained C-3'));
+});
+
+test('actual C scene links and illustration survive frozen playback with source facts',()=>{
+  for(const policy of ['local','wide','mixed']) {
+    const input=withRecallSnapshots(long.records[policy],long.recalls[policy]);
+    const actual=input.recallSnapshots.map(s=>{
+      const result=compareBoundary(input,s.handoverId);
+      return {...result,scenes:result.modes.C.scenes};
+    });
+    const frozen=buildStorage(input,actual).method3.completed;
+    assert.ok(actual.some(e=>e.scenes.some(s=>s.links.length>0)));
+    for(let i=0;i<actual.length;i++)for(let j=0;j<actual[i].scenes.length;j++) {
+      const before=actual[i].scenes[j],after=frozen[i].scenes[j];
+      assert.deepEqual(after.links,before.links);
+      assert.deepEqual(after.illustration,before.illustration);
+      assert.equal(after.sentence,before.sentence);
+      for(const link of after.links) {
+        const fact=after.sourceFacts.find(f=>f.id===link.sourceId);
+        assert.ok(fact);
+        assert.equal(fact.month,link.sourceMonth);
+        assert.equal(fact.generationId,link.sourceGeneration);
+      }
+    }
+  }
+});
+
+test('frozen link rejects absent source and invented causal annotation',()=>{
+  const result=compareBoundary(record,record.recallSnapshots[1].handoverId);
+  const actual={...result,scenes:result.modes.C.scenes};
+  const linked=actual.scenes.find(s=>s.links.some(l=>!l.causal));
+  assert.ok(linked);
+  const missing=structuredClone(actual);
+  missing.scenes.find(s=>s.eventId===linked.eventId).links[0].sourceId='absent';
+  assert.throws(()=>buildStorage(record,[missing]),/link source/);
+  const invented=structuredClone(actual);
+  const link=invented.scenes.find(s=>s.eventId===linked.eventId).links.find(l=>!l.causal);
+  link.causal=true;
+  assert.throws(()=>buildStorage(record,[invented]),/causal evidence mismatch/);
+});
+
+test('all active and anchor causal witnesses retain source bodies at 100 years',()=>{
+  for(const policy of ['local','wide','mixed']) {
+    const input=withRecallSnapshots(long.records[policy],long.recalls[policy]);
+    const actual=input.recallSnapshots.map(s=>{
+      const result=compareBoundary(input,s.handoverId);
+      return {...result,scenes:result.modes.C.scenes};
+    });
+    const saved=buildStorage(input,actual).method3;
+    const retained=new Map([...saved.active,...saved.anchorFacts,...saved.witnessFacts].map(f=>[f.id,f]));
+    assert.equal(new Set(saved.witnessFacts.map(f=>f.id)).size,saved.witnessFacts.length);
+    for(const witness of saved.witnesses) {
+      const source=retained.get(witness.from),target=retained.get(witness.to);
+      assert.ok(source,witness.from);assert.ok(target,witness.to);
+      const canonical=input.events.find(e=>e.id===source.id);
+      assert.deepEqual(source,smallFact(canonical));
+      assert.deepEqual([source.month,source.operationIndex,source.position],witness.sourcePosition);
+      assert.equal(source.generationId,canonical.generationId);
+      assert.deepEqual(source.scene,canonical.scene);
+      assert.deepEqual(causalWitness(target,[source]),witness);
+    }
+    for(const id of policy==='wide'?['arrival:e4721','arrival:e4808']:policy==='mixed'?['arrival:e3904']:[]) {
+      assert.ok(saved.witnessFacts.some(f=>f.id===id),id);
+    }
+  }
+});
+
+test('same-ID altered release or source chain cannot replace frozen evidence',()=>{
+  const result=compareBoundary(record,snapshot.handoverId);
+  const actual={...result,scenes:result.modes.C.scenes};
+  const alteredRelease=structuredClone(actual);
+  alteredRelease.scenes[0].event.ids.releaseId='invented';
+  assert.throws(()=>buildStorage(record,[alteredRelease]),/semantic fact differs/);
+  const alteredChain=structuredClone(actual);
+  alteredChain.scenes[0].event.evidence.sourceChain=['invented'];
+  assert.throws(()=>buildStorage(record,[alteredChain]),/semantic fact differs/);
+});
+test('unbottled inherited cask origin survives completed-generation candidate pruning',()=>{
+  const fill={id:'fill:stable-cask',kind:'fill',month:10,operationIndex:10,ordinal:0,generationId:1,
+    ids:{caskId:41,batchId:9},label:'樽に詰めた。',scene:{kind:'production',entity:{id:41,name:'貯蔵庫'}},
+    evidence:{record:'core.casks',sourceId:'41'}};
+  const handover={id:'handover:1',kind:'handover',month:20,operationIndex:20,ordinal:0,generationId:1,
+    ids:{fromGeneration:1,toGeneration:2},label:'引き継いだ。',scene:{kind:'distillery'},
+    evidence:{record:'generations.completed',sourceId:'1'}};
+  const input={seed:1,elapsedMonths:30,sourceSha256:'synthetic',events:[fill,handover],
+    recallSnapshots:[{handoverId:handover.id,cutoff:{month:20,operationIndex:20,replayOrdinal:0},
+      seedGeneration:2,eventIds:[fill.id,handover.id],ordinalOverrides:{}}]};
+  const saved=buildStorage(input,[{handoverId:handover.id,scenes:[{event:handover}]}]).method3;
+  assert.equal(saved.active.length,0);
+  assert.equal(saved.origins.length,0);
+  assert.deepEqual(saved.pendingOrigins,[smallFact(fill)]);
+});
+
+test('delivery anchors retain separate releases within the same shop and brand',()=>{
+  const deliveries=[1,2,3].map((releaseId,index)=>({id:'delivery:'+releaseId,kind:'delivery',month:index+1,
+    operationIndex:index+1,ordinal:0,generationId:1,ids:{shopId:'shop',brandId:1,releaseId},
+    label:'届いた。',scene:{kind:'shop'},evidence:{record:'deliveries',sourceId:String(releaseId)}}));
+  const input={seed:1,elapsedMonths:3,sourceSha256:'synthetic',events:deliveries,recallSnapshots:[]};
+  const saved=buildStorage(input).method3;
+  const combined=saved.anchors.filter(a=>a.subject.startsWith('shop-brand-release:'));
+  assert.equal(combined.length,3);
+  assert.deepEqual(combined.map(a=>a.firstId),deliveries.map(e=>e.id));
 });

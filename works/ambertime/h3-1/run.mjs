@@ -10,7 +10,10 @@ for(const {years,policy,record} of records){
  const editions=[];
  for(const {handoverId} of record.recallSnapshots){
   const before=JSON.stringify(record),start=performance.now(),r=compareBoundary(record,handoverId);
-  timings.push({years,policy,handoverId,comparisonMs:performance.now()-start});
+  const comparisonMs=performance.now()-start,samples=[];
+  for(let repeat=0;repeat<7;repeat++){const timing={};compareBoundary(record,handoverId,timing);samples.push(timing);}
+  const median=key=>samples.map(t=>t[key]).sort((a,b)=>a-b)[3];
+  timings.push({years,policy,handoverId,comparisonMs,extractMedianMs:median('extractMs'),AMedianMs:median('AMs'),BMedianMs:median('BMs'),CMedianMs:median('CMs')});
   assert.equal(JSON.stringify(record),before);
   const baseline=frozen.results.find(x=>x.years===years&&x.policy===policy&&x.boundary===handoverId);
   assert.deepEqual(r.modes.A.selectedIds,baseline.selected.map(e=>e.id));assert.equal(r.seed,baseline.seed);
@@ -19,7 +22,7 @@ for(const {years,policy,record} of records){
    edition.lostFromA=r.modes.A.selectedIds.filter(id=>!edition.selectedIds.includes(id));
    edition.newFromA=edition.selectedIds.filter(id=>!r.modes.A.selectedIds.includes(id));
   }
-  editions.push({...r,scenes:r.modes.C.scenes});
+  editions.push({...r,version,scenes:r.modes.C.scenes});
   results.push({years,policy,sourceSha256:record.sourceSha256,...r});
  }
  storage.push({years,policy,...compareStorage(record,editions)});

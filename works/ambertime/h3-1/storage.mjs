@@ -41,6 +41,9 @@ function subjects(event) {
   if (ids.shopId != null) out.push('shop:'+ids.shopId);
   if (ids.regionId != null) out.push('region:'+ids.regionId);
   if (ids.brandId != null && ['bottling','delivery','reaction'].includes(event.kind)) out.push('brand:'+ids.brandId);
+  if (event.kind==='delivery' && ids.shopId!=null && ids.brandId!=null && ids.releaseId!=null) {
+    out.push('shop-brand-release:'+JSON.stringify([ids.shopId,ids.brandId,ids.releaseId]));
+  }
   return out;
 }
 
@@ -63,15 +66,53 @@ function frozenEdition(record,edition) {
   return {handoverId:edition.handoverId,cutoff:clone(snapshot.cutoff),seedGeneration:snapshot.seedGeneration,
     seed:edition.seed ?? null,editionVersion:edition.version ?? 'H3-1-research',
     scenes:edition.scenes.map(scene=>{
-      const event=scene.event;
-      if (!event || !allowed.has(event.id)) throw new Error('Scene outside frozen boundary');
-      const canonical=byId.get(event.id);
-      if (event.month!==canonical.month || event.operationIndex!==canonical.operationIndex || pos(event)!==pos(canonical)) {
-        throw new Error('Scene position differs from frozen source');
+      const supplied=scene.event;
+      if (!supplied || !allowed.has(supplied.id)) throw new Error('Scene outside frozen boundary');
+      const event=byId.get(supplied.id);
+      if (JSON.stringify(smallFact(supplied))!==JSON.stringify(smallFact(event))) {
+        throw new Error('Scene semantic fact differs from frozen source');
       }
+      const sourceFacts=new Map();
+      const links=(scene.links ?? []).map(link=>{
+        const source=byId.get(link.sourceId);
+        if (!source || !allowed.has(source.id) || order(source,event)>=0) {
+          throw new Error('Missing or future frozen link source');
+        }
+        if (link.sourceMonth!==source.month || link.sourceGeneration!==source.generationId ||
+            link.crossGeneration!==(source.generationId<event.generationId)) {
+          throw new Error('Frozen link provenance differs from source');
+        }
+        const same=(key)=>source.ids?.[key]!=null && source.ids[key]===event.ids?.[key];
+        let valid=false;
+        switch(link.type) {
+          case '再登場':
+            valid=(same('shopId') || same('regionId')) &&
+              (event.kind!=='delivery' || source.kind==='delivery');
+            break;
+          case '確認済み口コミ経路':
+            valid=Boolean(causalWitness(event,[source]));
+            break;
+          case '先代の樽':
+            valid=event.kind==='bottling' && source.kind==='fill' && same('caskId') && link.crossGeneration;
+            break;
+          case '先代の発売':
+            valid=world.has(event.kind) && source.kind==='bottling' && same('releaseId') &&
+              (event.ids?.productId==null || same('productId')) && link.crossGeneration;
+            break;
+          case '同じ銘柄の別発売':
+            valid=event.kind==='delivery' && source.kind==='delivery' && same('shopId') && same('brandId') &&
+              source.ids.releaseId!==event.ids.releaseId && link.crossGeneration;
+            break;
+        }
+        if (!valid || link.causal!==(link.type==='確認済み口コミ経路')) {
+          throw new Error('Frozen link identity or causal evidence mismatch');
+        }
+        sourceFacts.set(source.id,smallFact(source));
+        return clone(link);
+      });
       return {fact:smallFact(event),sentence:scene.sentence ?? null,
-        witness:causalWitness(event,candidateEvents),
-        ...(scene.relations ? {relations:clone(scene.relations)} : {})};
+        illustration:clone(scene.illustration ?? null),links,sourceFacts:[...sourceFacts.values()],
+        witness:causalWitness(event,candidateEvents)};
     })};
 }
 
@@ -102,10 +143,17 @@ export function buildStorage(record,editions=[]) {
     const witness=causalWitness(fact,events);
     if(witness) witnesses.push(witness);
   }
+  const retainedWitnesses=[...new Map(witnesses.map(w=>[w.to,w])).values()];
+  const byId=new Map(events.map(e=>[e.id,e]));
+  // A future active visit may point to an arrival pruned from the main pool.
+  // Preserve its actual body, generation and place, rather than an orphan ID.
+  const witnessFacts=[...new Map(retainedWitnesses.map(w=>[w.from,smallFact(byId.get(w.from))])).values()];
+  const bottledCasks=new Set(events.filter(e=>e.kind==='bottling').map(e=>e.ids.caskId));
+  const pendingOrigins=events.filter(e=>e.kind==='fill' && !bottledCasks.has(e.ids.caskId)).map(smallFact);
   const method3={schema:'h31-generation-frozen/1',...common,completed,active:active.map(smallFact),
     anchors:[...anchors.values()].map(a=>({subject:a.subject,kind:a.kind,firstId:a.first.id,lastId:a.last.id})),
     anchorFacts:[...new Map(anchorFacts.map(f=>[f.id,f])).values()],origins:originLedger(events),
-    witnesses:[...new Map(witnesses.map(w=>[w.to,w])).values()]};
+    witnesses:retainedWitnesses,witnessFacts,pendingOrigins};
   return {method1,method2,method3};
 }
 
@@ -126,7 +174,10 @@ export function compareStorage(record,editions=[]) {
     const facts=method==='method1'?representation.events.length:method==='method2'?representation.facts.length:
       representation.active.length+representation.completed.reduce((n,e)=>n+e.scenes.length,0);
     return {method,bytes:Buffer.byteLength(encoded),retainedFacts:facts,
-      anchors:representation.anchors?.length ?? 0,origins:representation.origins?.length ?? 0,
+      anchors:representation.anchors?.length ?? 0,anchorFacts:representation.anchorFacts?.length ?? 0,
+      witnessFacts:representation.witnessFacts?.length ?? 0,pendingOrigins:representation.pendingOrigins?.length ?? 0,origins:representation.origins?.length ?? 0,
+      witnessFacts:representation.witnessFacts?.length ?? 0,
+      pendingOrigins:representation.pendingOrigins?.length ?? 0,
       frozenScenes:representation.completed?.reduce((n,e)=>n+e.scenes.length,0) ?? 0,
       activeCandidates:representation.active?.length ?? null,
       serializeMedianMs:serial.medianMs,parseMedianMs:parse.medianMs};
