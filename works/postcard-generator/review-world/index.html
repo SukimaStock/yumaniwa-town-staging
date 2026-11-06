@@ -52,6 +52,7 @@ function trial(original,profile){
   b.height=Math.round(b.height*profile.heightFactor*100)/100;
   b.y=Math.round((b.base-b.height)*100)/100;
   if(profile.heightFactor!==1)b.rows=Math.max(2,Math.min(5,Math.floor(b.rows*profile.heightFactor)));
+  if(b.groundFloor&&(b.height<180||b.groundFloor.height>b.height*.5)){b.groundFloor=null;if(b.shade?.source==='awning')b.shade=null;}
   b.roof=choose(profile.roofWeights,randomStream(scene.seed,'regional-roof-'+b.id));
   b.roofHeight=Math.round((b.roof==='flat'?Math.min(12,b.width*.08):Math.min(70,b.width*.24))*100)/100;
   b.windowShape=choose(profile.windowWeights,randomStream(scene.seed,'regional-window-'+b.id));
