@@ -15,6 +15,10 @@
 
 `atomic-integration.test.mjs` は `/tmp/h32-saves/local-360.json`（または H32_INTEGRATION_SAVE）を必要とする。未配置のCI環境では明示的にskipする。今回ローカルでは入力を配置して実行済みであり、skipを成功として数えていない。`evidence.test.mjs` も100年の研究入力を必要とする独立照合で、入力未配置時はskipする。
 
+追加の独立100年全件照合は3テスト成功、skip0。合計92テスト成功。全429問い合わせ・訪問、全85樽・83発売を検証し、evidence.jsonへ保存した。初回の診断カウンターは「操作前に整理済み」と「同操作内で整理・復元」を混同したため一致しなかった。両者を分け、因果・位置・由来の検査はそのまま再実行して成功した。
+
+Scope → Risk → Impactはローカルで順に成功。Draft PR #822の初回公開head a718606a991264f8134fbad6ca3b3b2e0ea548e2ではChange PR Gate、Change Verification Evidence、Release Validator Testsが成功。最終追補headの検査結果はPR本文で対象SHAとともに報告する。
+
 ## 境界と未確認
 
 - Scope / Risk / Impactとrequired CIは、PR上の実際の対象SHAに対して確認し、結果をPR本文へ記録する。旧checkerの整合成功をfinal VERIFIEDと呼ばない。

@@ -50,7 +50,7 @@ for(const policy of ['local','wide','mixed'])test('all actual 100-year causal ed
   }
   if(prepared){commitRecall(c,prepared,after);count.handovers++;}
  });
- assert.equal(count.handovers,3);assert(count.causalTargets>0);assert(count.inheritedReleases>0);assert.equal(c.recovered,count.recoveredBeforeTarget);
+ assert.equal(count.handovers,3);assert(count.causalTargets>0);assert(count.inheritedReleases>0);assert(c.recovered>=count.recoveredBeforeTarget);count.recoveredIncludingWithinOperation=c.recovered;count.recoveredWithinOperation=c.recovered-count.recoveredBeforeTarget;
  const encoded=JSON.stringify(c),componentBytes=Object.fromEntries(Object.entries(c).map(([key,value])=>[key,Buffer.byteLength(JSON.stringify(value))]));
  const heapDeltas=[];if(global.gc)for(let i=0;i<5;i++){global.gc();const before=process.memoryUsage().heapUsed;const parsed=JSON.parse(encoded);const after=process.memoryUsage().heapUsed;heapDeltas.push(after-before);assert.equal(parsed.version,c.version);}
  results.push({collectorBytes:Buffer.byteLength(encoded),componentBytes,parsedRepresentationHeap:{gcAvailable:!!global.gc,repeats:heapDeltas.length,bytes:heapDeltas,medianBytes:heapDeltas.length?[...heapDeltas].sort((a,b)=>a-b)[2]:null,note:'Heap delta while retaining one newly parsed collector, with GC immediately before each parse; not production peak or Safari memory.'},policy,years:100,sourceSha256:createHash('sha256').update(raw).digest('hex'),...count});

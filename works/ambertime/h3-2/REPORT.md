@@ -81,6 +81,14 @@ Node v24.22.1、共有実行環境。1操作と月次は実進行での観測＋
 
 JSONは7回の計測。p95・最大値・各チェックポイントのheap/RSS・再生時間はcomparison.jsonへ記録。研究ハーネスは正式状態、全観測の比較リスト、H3-1資料、3個のcollectorを同時に持つため、そのRSSを本編collector単体のメモリと呼ばない。Safari・実機・保存I/O・正式reader起動は未計測。実際の統合で毎月全collectorをJSONコピーする費用も上の増分中央値には含めない。
 
+## 全件の独立照合とメモリ内訳
+
+[evidence.json](evidence.json) は選出された場面だけの検査ではない。100年の全問い合わせ・訪問429件（112／168／149）を別の参照走査で照合し、実際の到達を因果元に持つ256件（66／100／90）の全根拠・位置が一致した。残る173件に到達を原因として付けていない。整理済みの因果元を35／50／44件復元できた。うち3／4／1件は同じ操作内での整理後の復元であり、過去の操作で整理済みだったものと区別する。
+
+全85樽の開始・樽詰め世代と全83発売の発売世代を照合した。開始世代が不明な樽は0。実記録中の先代樽の発売は1／2／3件あり、選出された1／0／2場面とは区別する。発売される前の由来も保持されていた。
+
+GC直後にcollector JSONを1個復元した追加ヒープ量は、5回中央値で地元686,368／広域1,069,856／混合996,976bytes。本編ピークメモリ・Safari値ではない。100年のobserver（位置索引とカーソル）は123／132／129KB、確定回想3世代は38／40／35KB、保持事実本文は156／331／302KB。大きな追加全操作履歴を作る代わりに、現役候補と位置証明が主な増分になっている。
+
 ## 保存失敗と再開
 
 通常操作・月次・交代直前・確定直後のJSON往復と再開を確認した。100年各実行でも別のcollectorを途中でJSON復元して継続し、採用ID・文章・情景・根拠と全collector状態が一致。後の世代を進めても確定回想は不変。
@@ -111,6 +119,7 @@ node works/ambertime/h3-2/run.mjs local 100 /tmp/h32-saves
 # wide / mixed も30/100を実行
 node works/ambertime/h3-2/run.mjs aggregate
 node --test works/ambertime/h3-2/*.test.mjs
+H32_EVIDENCE_OUTPUT=works/ambertime/h3-2/evidence.json node --expose-gc --test works/ambertime/h3-2/evidence.test.mjs
 ```
 
 comparison.jsonは保存時に空白のみを除去している。再生成した整形JSONとJSON.parse後の内容は同じ。result-policy-years.jsonは再実行の中間出力で、リポジトリでは集約結果だけを保存する。新しい公開URLや遊べるLabは追加しないため、LAB台帳・部屋・導線も変更しない。

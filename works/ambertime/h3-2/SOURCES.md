@@ -13,7 +13,7 @@
 | 客の反応 | player-news.mjs | 正式な決定的表示関数と前回採用状態。新しい実売上だけ評価 |
 | 発売 | releases | 配列長以降。発売IDと商品IDを区別 |
 | 樽詰め | core.casks | 最大4樽の内部ID差分。表示番号は使わない |
-| 仕込み由来 | start の still.batch | 仕込みID・世代・年月・操作位置 |
+| 仕込み由来 | start / start-usual の still.batch | 仕込みID・世代・年月・操作位置 |
 | 世代交代 | generations.completed | 配列長以降、引継ぎ樽・店舗 |
 
 H2のID・文章・情景・分類順を原典 `chronicle-lab/facts-generate.mjs` に合わせる。S4の瓶詰めIDは商品IDだが、H2は発売IDであり置換しない。反応文の private helper は研究用 Node ソース読込で再利用する。正式ファイルは変更しない。将来の統合では正式な増分表示APIへの整理が必要。
