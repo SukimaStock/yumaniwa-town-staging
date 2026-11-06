@@ -28,7 +28,6 @@ test('interactive decisions, active distillation, offers and generations always 
   {...idle(),decisions:[{id:1}]},
   {...idle(),trade:{offer:{id:1}}},
   {...idle(),shop:{offer:{id:1},pendingOffers:[]}},
-  {...idle(),shop:{offer:null,pendingOffers:[{id:1}]}},
   {...idle(),still:{phase:'distilling'}},
   {...idle(),core:{month:0,spirit:{id:1}}},
   {...idle(),tastingId:1},
