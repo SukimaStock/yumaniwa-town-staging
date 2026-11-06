@@ -1,19 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as D from '../partner-orders.mjs';
+import {initializeRecall,advanceRecall} from '../recall/collector.mjs';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from '../history-record.mjs';
 import {initializeCaskSlots,reconcileCaskSlots} from '../cask-slots.mjs';
 import {migrateRecentLedger,advanceRecentLedger} from '../recent-ledger.mjs';
 import {readSession,serializeSession,writeCandidate,FORMAL_SAVE_KEY} from '../development-save.mjs';
 import {PARALLEL_PARAMETERS as P} from '../economy-parameters.mjs';
 const options={enabled:true,serialize:D.serializeDistillery,restore:D.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs};
-function fresh(){const game=D.newMarketRulesDistillery(141);return {game,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(game),recentLedger:migrateRecentLedger(game,{replay:o=>D.replayDistilleryOperations(game,o)}),historyRecord:initializeHistoryRecord(game)};}
-function next(s,fn){const game=fn(s.game);return {...s,game,caskSlots:reconcileCaskSlots(game,s.caskSlots),recentLedger:advanceRecentLedger(s.game,game,s.recentLedger),historyRecord:advanceHistoryRecord(s.game,game,s.historyRecord)};}
+function fresh(){const game=D.newMarketRulesDistillery(141);return {game,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(game),recentLedger:migrateRecentLedger(game,{replay:o=>D.replayDistilleryOperations(game,o)}),recallRecord:initializeRecall(game),historyRecord:initializeHistoryRecord(game)};}
+function next(s,fn){const game=fn(s.game);return {...s,game,caskSlots:reconcileCaskSlots(game,s.caskSlots),recentLedger:advanceRecentLedger(s.game,game,s.recentLedger),recallRecord:advanceRecall(s.game,game,s.recallRecord),historyRecord:advanceHistoryRecord(s.game,game,s.historyRecord)};}
 const encode=s=>serializeSession(s.game,s,options);
-test('v7 never supplies missing history or converts a v6 save',()=>{
- const session=fresh(),raw=JSON.parse(encode(session));assert.equal(raw.version,7);
+test('v8 never supplies missing history or converts a v7 save',()=>{
+ const session=fresh(),raw=JSON.parse(encode(session));assert.equal(raw.version,8);
  for(const value of [undefined,null,{},[],session.recentLedger]){const input={...raw,historyRecord:value};assert.throws(()=>readSession(JSON.stringify(input),options));}
- const previous={...raw,version:6};delete previous.historyRecord;let restores=0;
+ const previous={...raw,version:7};delete previous.historyRecord;let restores=0;
  assert.throws(()=>readSession(JSON.stringify(previous),{...options,restore:()=>{restores++;}}),e=>e.code==='unsupported-version');assert.equal(restores,0);
 });
 test('history is part of the same candidate and stale history cannot accompany a later game',()=>{

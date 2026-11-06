@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import * as D from '../partner-orders.mjs';
+import {initializeRecall,advanceRecall} from '../recall/collector.mjs';
 import {initializeHistoryRecord,advanceHistoryRecord} from '../history-record.mjs';
 import {readSession as readLegacy} from '../placement-save.mjs';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY} from '../development-save.mjs';
@@ -13,9 +14,18 @@ import {PARALLEL_PARAMETERS as P} from '../economy-parameters.mjs';
 const options={enabled:true,serialize:D.serializeDistillery,restore:D.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs};
 const original=readFileSync(new URL('./fixtures/s3-filling-v5.json',import.meta.url),'utf8');
 // Historical fixture reconstruction belongs only to regression setup, never the normal reader.
-function withHistory(session){let historyRecord;D.replayDistilleryOperations(session.game,({operation,index,before,after})=>{const state=(facts,count)=>({...facts,origin:session.game.origin,operations:session.game.operations.slice(0,count)});historyRecord=operation?advanceHistoryRecord(state(before,index),state(after,index+1),historyRecord):initializeHistoryRecord(state(after,0));});return {...session,historyRecord};}
-function fresh(){const game=D.newMarketRulesDistillery(42);return {game,historyRecord:initializeHistoryRecord(game),userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(game),recentLedger:migrateRecentLedger(game,{replay:o=>D.replayDistilleryOperations(game,o)})};}
-function transition(s,fn){const game=fn(s.game);return {...s,game,historyRecord:advanceHistoryRecord(s.game,game,s.historyRecord),caskSlots:reconcileCaskSlots(game,s.caskSlots),recentLedger:advanceRecentLedger(s.game,game,s.recentLedger)};}
+function withHistory(session){
+ let historyRecord,recallRecord;
+ D.replayDistilleryOperations(session.game,({operation,index,before,after})=>{
+  const state=(facts,count)=>({...facts,origin:session.game.origin,operations:session.game.operations.slice(0,count)}),next=state(after,index+1);
+  historyRecord=operation?advanceHistoryRecord(state(before,index),next,historyRecord):initializeHistoryRecord(state(after,0));
+  if(operation?.key==='enable-market-rules')recallRecord=initializeRecall(next);
+  else if(recallRecord)recallRecord=advanceRecall(state(before,index),next,recallRecord);
+ });
+ assert(recallRecord,'fixture must contain pristine market initialization before play');return {...session,historyRecord,recallRecord};
+}
+function fresh(){const game=D.newMarketRulesDistillery(42);return {game,recallRecord:initializeRecall(game),historyRecord:initializeHistoryRecord(game),userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(game),recentLedger:migrateRecentLedger(game,{replay:o=>D.replayDistilleryOperations(game,o)})};}
+function transition(s,fn){const game=fn(s.game);return {...s,game,recallRecord:advanceRecall(s.game,game,s.recallRecord),historyRecord:advanceHistoryRecord(s.game,game,s.historyRecord),caskSlots:reconcileCaskSlots(game,s.caskSlots),recentLedger:advanceRecentLedger(s.game,game,s.recentLedger)};}
 const encode=s=>serializeSession(s.game,s,options);
 function storage(initial){const entries=new Map([[FORMAL_SAVE_KEY,initial],['another-work','untouched']]);return {entries,getItem:k=>entries.get(k)??null,setItem:(k,v)=>entries.set(k,v)};}
 test('original v5 filling fixture is unmodified and both cask choices retain official state through save/restart',()=>{
@@ -30,13 +40,13 @@ test('original v5 filling fixture is unmodified and both cask choices retain off
 });
 test('current format cold restore preserves game clock pause slots and ledger exactly',()=>{
  const state=transition(withHistory(readLegacy(original,options)),s=>D.fillBarrel(s,'bourbon'));state.userPaused=true;state.elapsed=P.distillStepMs;
- const text=encode(state);assert.equal(JSON.parse(text).version,7);assert(isCurrentSession(text));assert.deepEqual(readSession(text,options),state);
+ const text=encode(state);assert.equal(JSON.parse(text).version,8);assert(isCurrentSession(text));assert.deepEqual(readSession(text,options),state);
  const program=`import fs from 'node:fs';import * as D from ${JSON.stringify(new URL('../partner-orders.mjs',import.meta.url).href)};import {readSession,serializeSession} from ${JSON.stringify(new URL('../development-save.mjs',import.meta.url).href)};const o={enabled:true,serialize:D.serializeDistillery,restore:D.restoreDistillery,monthMs:${P.monthMs},stepMs:${P.distillStepMs}};const s=readSession(fs.readFileSync(0,'utf8'),o);process.stdout.write(serializeSession(s.game,s,o));`;
  assert.equal(execFileSync(process.execPath,['--input-type=module','-e',program],{input:text,encoding:'utf8'}),text);
 });
 test('old formats reject before formal restore and never migrate by normal reader',()=>{
  const current=JSON.parse(encode(fresh()));let calls=0;
- for(const version of [2,3,4,5,6,8]){const text=JSON.stringify({...current,version});assert(!isCurrentSession(text));assert.throws(()=>readSession(text,{...options,restore:()=>{calls++;}}),e=>e.code==='unsupported-version');}
+ for(const version of [2,3,4,5,6,7,9]){const text=JSON.stringify({...current,version});assert(!isCurrentSession(text));assert.throws(()=>readSession(text,{...options,restore:()=>{calls++;}}),e=>e.code==='unsupported-version');}
  assert.equal(calls,0);
 });
 test('current format retains formal replay validation and strict sidecar/clock contracts',()=>{
@@ -65,6 +75,6 @@ test('saved recipe partial/full bottling sale and reused slot remain official ac
  step(s=>D.bottleBranded(s,first,{},D.quote(s,first).count));assert.deepEqual(state.caskSlots,[null,null,null,null]);assert.equal(state.recentLedger.ended[0].caskId,first);
  step(s=>D.setSalePrice(s,'low',s.result.productId));step(s=>D.listBottles(s,s.result.productId));step(D.tickDistillery);
  assert.equal(state.game.recipeBook.entries[0].source.caskId,first);
- step(s=>{s=D.startRangeDistillation(s);while(s.still.distillation.progress<24)s=D.distillStep(s);s=D.beginCollection(s);while(s.still.distillation.progress<36)s=D.distillStep(s);return D.fillBarrel(D.stopDistillation(s),'refill');});
+ step(D.startRangeDistillation);while(state.game.still.distillation.progress<24)step(D.distillStep);step(D.beginCollection);while(state.game.still.distillation.progress<36)step(D.distillStep);step(D.stopDistillation);step(s=>D.fillBarrel(s,'refill'));
  assert.notEqual(state.caskSlots[0],first);assert.equal(state.recentLedger.ended[0].caskId,first);assert.equal(state.game.recipeBook.entries[0].source.caskId,first);
 });
