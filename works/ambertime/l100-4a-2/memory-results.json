@@ -1,0 +1,968 @@
+{
+  "C-2": {
+    "mode": "C",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64610304,
+        "heapTotal": 44040192,
+        "heapUsed": 25973792,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 63096
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 135.510128,
+        "rss": 121540608,
+        "heapTotal": 114900992,
+        "heapUsed": 46410544,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 130088
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99954688,
+        "heapTotal": 88334336,
+        "heapUsed": 17886880,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 130088
+      },
+      {
+        "phase": "construct",
+        "ms": 2.182557000000031,
+        "rss": 99954688,
+        "heapTotal": 83615744,
+        "heapUsed": 14996856,
+        "external": 4062919,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 130088
+      },
+      {
+        "phase": "townMonth",
+        "ms": 14.063315999999986,
+        "rss": 107163648,
+        "heapTotal": 83804160,
+        "heapUsed": 15133656,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 130088
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 40.68748199999999,
+        "rss": 115924992,
+        "heapTotal": 91607040,
+        "heapUsed": 22743824,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 130088
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 115724288,
+        "heapTotal": 84852736,
+        "heapUsed": 15138888,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 130088
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 96.56873200000001,
+        "rss": 92106752,
+        "heapTotal": 90820608,
+        "heapUsed": 22331952,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 146804
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 103784448,
+        "heapTotal": 102506496,
+        "heapUsed": 34029776,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 146804
+      }
+    ],
+    "nativeCloneCompatible": false,
+    "index": {
+      "count": 4806,
+      "indexEntries": 0,
+      "varintBytes": 4806,
+      "cacheRecords": 0,
+      "indexStorage": "TypedArray capacity included",
+      "allocatedIndexBytes": 8192,
+      "packedIndexBytes": 4806
+    },
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  },
+  "A-1": {
+    "mode": "A",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64393216,
+        "heapTotal": 44302336,
+        "heapUsed": 25972928,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 62884
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 96.813421,
+        "rss": 121352192,
+        "heapTotal": 115425280,
+        "heapUsed": 46409392,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129832
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99778560,
+        "heapTotal": 89645056,
+        "heapUsed": 17886016,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129832
+      },
+      {
+        "phase": "construct",
+        "ms": 0.001923000000005004,
+        "rss": 99909632,
+        "heapTotal": 85712896,
+        "heapUsed": 17886120,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129832
+      },
+      {
+        "phase": "townMonth",
+        "ms": 29.53633000000002,
+        "rss": 108167168,
+        "heapTotal": 86163456,
+        "heapUsed": 18041648,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129832
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 70.67177899999996,
+        "rss": 124932096,
+        "heapTotal": 98160640,
+        "heapUsed": 28502704,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129832
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 124796928,
+        "heapTotal": 90619904,
+        "heapUsed": 21033080,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129832
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 103.50451499999997,
+        "rss": 107786240,
+        "heapTotal": 93179904,
+        "heapUsed": 25188328,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 147604
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 112295936,
+        "heapTotal": 104865792,
+        "heapUsed": 36885600,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 148748
+      }
+    ],
+    "nativeCloneCompatible": true,
+    "index": null,
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  },
+  "A-3": {
+    "mode": "A",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64753664,
+        "heapTotal": 44040192,
+        "heapUsed": 25973072,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 63236
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 118.37490400000002,
+        "rss": 121081856,
+        "heapTotal": 115425280,
+        "heapUsed": 46410528,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129572
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99495936,
+        "heapTotal": 88072192,
+        "heapUsed": 17886032,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129572
+      },
+      {
+        "phase": "construct",
+        "ms": 0.0016120000000228174,
+        "rss": 99627008,
+        "heapTotal": 85712896,
+        "heapUsed": 17886264,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129572
+      },
+      {
+        "phase": "townMonth",
+        "ms": 17.97232200000002,
+        "rss": 109719552,
+        "heapTotal": 86163456,
+        "heapUsed": 18041792,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129572
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 48.438897999999995,
+        "rss": 127197184,
+        "heapTotal": 97636352,
+        "heapUsed": 28802464,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129572
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 127053824,
+        "heapTotal": 90619904,
+        "heapUsed": 21033352,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129572
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 127.89253299999996,
+        "rss": 109568000,
+        "heapTotal": 93442048,
+        "heapUsed": 25188472,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 149736
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 113963008,
+        "heapTotal": 105127936,
+        "heapUsed": 36885736,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 150376
+      }
+    ],
+    "nativeCloneCompatible": true,
+    "index": null,
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  },
+  "B-3": {
+    "mode": "B",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64413696,
+        "heapTotal": 44302336,
+        "heapUsed": 25972928,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 62904
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 92.585174,
+        "rss": 121409536,
+        "heapTotal": 115687424,
+        "heapUsed": 46409856,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129856
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99823616,
+        "heapTotal": 88596480,
+        "heapUsed": 17886016,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129856
+      },
+      {
+        "phase": "construct",
+        "ms": 2.4939939999999865,
+        "rss": 99954688,
+        "heapTotal": 84140032,
+        "heapUsed": 14992704,
+        "external": 4111943,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129856
+      },
+      {
+        "phase": "townMonth",
+        "ms": 20.59100699999999,
+        "rss": 106770432,
+        "heapTotal": 84066304,
+        "heapUsed": 15129576,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129856
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 53.61148700000001,
+        "rss": 119328768,
+        "heapTotal": 91344896,
+        "heapUsed": 22895936,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129856
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 119128064,
+        "heapTotal": 85114880,
+        "heapUsed": 15134808,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129856
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 114.02806600000002,
+        "rss": 102543360,
+        "heapTotal": 90820608,
+        "heapUsed": 22327864,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 142792
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 106872832,
+        "heapTotal": 102506496,
+        "heapUsed": 34025392,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 143452
+      }
+    ],
+    "nativeCloneCompatible": false,
+    "index": {
+      "count": 4806,
+      "indexEntries": 8192,
+      "varintBytes": 0,
+      "cacheRecords": 0,
+      "indexStorage": "TypedArray capacity included",
+      "allocatedIndexBytes": 32768,
+      "packedIndexBytes": 19224
+    },
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  },
+  "B-2": {
+    "mode": "B",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64229376,
+        "heapTotal": 44302336,
+        "heapUsed": 25972928,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 62724
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 99.653962,
+        "rss": 121413632,
+        "heapTotal": 115163136,
+        "heapUsed": 46409392,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129976
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99835904,
+        "heapTotal": 88334336,
+        "heapUsed": 17886016,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129976
+      },
+      {
+        "phase": "construct",
+        "ms": 1.9556670000000054,
+        "rss": 99835904,
+        "heapTotal": 83877888,
+        "heapUsed": 14992704,
+        "external": 4111943,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129976
+      },
+      {
+        "phase": "townMonth",
+        "ms": 16.522700999999984,
+        "rss": 106782720,
+        "heapTotal": 84066304,
+        "heapUsed": 15129576,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129976
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 43.76246500000002,
+        "rss": 115150848,
+        "heapTotal": 91344896,
+        "heapUsed": 22827536,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129976
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 114950144,
+        "heapTotal": 84590592,
+        "heapUsed": 15134808,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129976
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 127.15659199999999,
+        "rss": 98856960,
+        "heapTotal": 90820608,
+        "heapUsed": 22327864,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 138560
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 103301120,
+        "heapTotal": 102506496,
+        "heapUsed": 34025520,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 140016
+      }
+    ],
+    "nativeCloneCompatible": false,
+    "index": {
+      "count": 4806,
+      "indexEntries": 8192,
+      "varintBytes": 0,
+      "cacheRecords": 0,
+      "indexStorage": "TypedArray capacity included",
+      "allocatedIndexBytes": 32768,
+      "packedIndexBytes": 19224
+    },
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  },
+  "A-2": {
+    "mode": "A",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64712704,
+        "heapTotal": 44302336,
+        "heapUsed": 25972928,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 63196
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 106.164189,
+        "rss": 121446400,
+        "heapTotal": 115425280,
+        "heapUsed": 46410384,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129924
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99872768,
+        "heapTotal": 89120768,
+        "heapUsed": 17886016,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129924
+      },
+      {
+        "phase": "construct",
+        "ms": 0.0020429999999578285,
+        "rss": 100003840,
+        "heapTotal": 85975040,
+        "heapUsed": 17886120,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129924
+      },
+      {
+        "phase": "townMonth",
+        "ms": 17.363267000000008,
+        "rss": 109572096,
+        "heapTotal": 86163456,
+        "heapUsed": 18041648,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129924
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 56.47484800000001,
+        "rss": 121917440,
+        "heapTotal": 98160640,
+        "heapUsed": 28890256,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129924
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 121663488,
+        "heapTotal": 90619904,
+        "heapUsed": 21033080,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129924
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 134.544328,
+        "rss": 104325120,
+        "heapTotal": 93442048,
+        "heapUsed": 25188328,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 144464
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 108707840,
+        "heapTotal": 105390080,
+        "heapUsed": 36885600,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 145372
+      }
+    ],
+    "nativeCloneCompatible": true,
+    "index": null,
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  },
+  "B-1": {
+    "mode": "B",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64499712,
+        "heapTotal": 44302336,
+        "heapUsed": 25972928,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 62988
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 110.276185,
+        "rss": 121360384,
+        "heapTotal": 115425280,
+        "heapUsed": 46409856,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129916
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99782656,
+        "heapTotal": 88596480,
+        "heapUsed": 17886016,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129916
+      },
+      {
+        "phase": "construct",
+        "ms": 1.6900379999999586,
+        "rss": 99913728,
+        "heapTotal": 83615744,
+        "heapUsed": 14992704,
+        "external": 4111943,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129916
+      },
+      {
+        "phase": "townMonth",
+        "ms": 12.855166999999994,
+        "rss": 107646976,
+        "heapTotal": 83804160,
+        "heapUsed": 15129576,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129916
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 36.96094500000004,
+        "rss": 116269056,
+        "heapTotal": 91344896,
+        "heapUsed": 22519784,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129916
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 115949568,
+        "heapTotal": 84852736,
+        "heapUsed": 15134808,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 129916
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 90.11084399999999,
+        "rss": 99483648,
+        "heapTotal": 91082752,
+        "heapUsed": 22327864,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 139668
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 103981056,
+        "heapTotal": 102768640,
+        "heapUsed": 34025520,
+        "external": 4079431,
+        "arrayBuffers": 244883,
+        "processLifetimeMaxRSSKiB": 140756
+      }
+    ],
+    "nativeCloneCompatible": false,
+    "index": {
+      "count": 4806,
+      "indexEntries": 8192,
+      "varintBytes": 0,
+      "cacheRecords": 0,
+      "indexStorage": "TypedArray capacity included",
+      "allocatedIndexBytes": 32768,
+      "packedIndexBytes": 19224
+    },
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  },
+  "C-3": {
+    "mode": "C",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64823296,
+        "heapTotal": 43778048,
+        "heapUsed": 25970936,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 63304
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 106.40699300000003,
+        "rss": 121241600,
+        "heapTotal": 115163136,
+        "heapUsed": 46409640,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129692
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99643392,
+        "heapTotal": 88596480,
+        "heapUsed": 17886152,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129692
+      },
+      {
+        "phase": "construct",
+        "ms": 2.1259319999999775,
+        "rss": 99905536,
+        "heapTotal": 84140032,
+        "heapUsed": 14996256,
+        "external": 4062919,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 129692
+      },
+      {
+        "phase": "townMonth",
+        "ms": 13.329613999999992,
+        "rss": 107114496,
+        "heapTotal": 84328448,
+        "heapUsed": 15133056,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 129692
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 37.13691,
+        "rss": 115949568,
+        "heapTotal": 91607040,
+        "heapUsed": 22890272,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 129692
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 115748864,
+        "heapTotal": 85114880,
+        "heapUsed": 15138288,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 129692
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 95.72070300000001,
+        "rss": 99786752,
+        "heapTotal": 90820608,
+        "heapUsed": 22331352,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 139664
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 132513792,
+        "heapTotal": 102506496,
+        "heapUsed": 34029056,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 140968
+      }
+    ],
+    "nativeCloneCompatible": false,
+    "index": {
+      "count": 4806,
+      "indexEntries": 0,
+      "varintBytes": 4806,
+      "cacheRecords": 0,
+      "indexStorage": "TypedArray capacity included",
+      "allocatedIndexBytes": 8192,
+      "packedIndexBytes": 4806
+    },
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  },
+  "C-1": {
+    "mode": "C",
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "node": "v24.22.1",
+    "samples": [
+      {
+        "phase": "input",
+        "ms": null,
+        "rss": 64724992,
+        "heapTotal": 44040192,
+        "heapUsed": 25972544,
+        "external": 4046659,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 63208
+      },
+      {
+        "phase": "decodeExpandParse",
+        "ms": 104.363585,
+        "rss": 121327616,
+        "heapTotal": 114900992,
+        "heapUsed": 46409752,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129820
+      },
+      {
+        "phase": "onlyGame",
+        "ms": null,
+        "rss": 99733504,
+        "heapTotal": 88858624,
+        "heapUsed": 17886088,
+        "external": 4046663,
+        "arrayBuffers": 212115,
+        "processLifetimeMaxRSSKiB": 129820
+      },
+      {
+        "phase": "construct",
+        "ms": 1.920254,
+        "rss": 99733504,
+        "heapTotal": 84140032,
+        "heapUsed": 14995992,
+        "external": 4062919,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 129820
+      },
+      {
+        "phase": "townMonth",
+        "ms": 13.195087999999998,
+        "rss": 107859968,
+        "heapTotal": 84328448,
+        "heapUsed": 15132864,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 129820
+      },
+      {
+        "phase": "nativeClone",
+        "ms": 46.34660600000001,
+        "rss": 116252672,
+        "heapTotal": 91607040,
+        "heapUsed": 23232136,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 129820
+      },
+      {
+        "phase": "cloneReleased",
+        "ms": null,
+        "rss": 115933184,
+        "heapTotal": 85114880,
+        "heapUsed": 15138096,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 129820
+      },
+      {
+        "phase": "explicitHydrateAndWireSave",
+        "ms": 130.09842599999996,
+        "rss": 99692544,
+        "heapTotal": 91082752,
+        "heapUsed": 22331160,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 140004
+      },
+      {
+        "phase": "expandedAgain",
+        "ms": null,
+        "rss": 104108032,
+        "heapTotal": 102768640,
+        "heapUsed": 34028864,
+        "external": 4054855,
+        "arrayBuffers": 220307,
+        "processLifetimeMaxRSSKiB": 140808
+      }
+    ],
+    "nativeCloneCompatible": false,
+    "index": {
+      "count": 4806,
+      "indexEntries": 0,
+      "varintBytes": 4806,
+      "cacheRecords": 0,
+      "indexStorage": "TypedArray capacity included",
+      "allocatedIndexBytes": 8192,
+      "packedIndexBytes": 4806
+    },
+    "formalUnits": 5842831,
+    "compactGameUnits": 4231256,
+    "warning": "GC retained samples and lifetime MaxRSS, NOT per-phase peak; parse still expands baseline. Native B/C clone loses view; no compact formal reload."
+  }
+}
