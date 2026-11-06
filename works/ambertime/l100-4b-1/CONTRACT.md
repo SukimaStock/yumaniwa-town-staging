@@ -90,3 +90,17 @@ Creation compares complete context against independent replay; B does not repeat
 that oracle on every load. A C context guarantee requires independent context
 comparison in addition to the formal-session reader. Do not call these accepted
 cases semantic validation success. No source data was repaired or overwritten.
+
+## Maintenance scope not proven
+
+This experiment extracts historical boundaries while replaying a complete target
+v8, then binds the acceleration envelope to that exact target. The prefix state
+and context are captured at that boundary, but target-identifying hashes are
+assembled with the full known target. This is not a deployed online periodic
+checkpoint scheduler. After the v8 advances, its old envelope is intentionally
+invalid; incremental renewal without redoing full creation verification is not
+implemented or benchmarked here. Twelve-month tests compare resumed normal game
+progress and formal v8 roundtrips, not twelve successive fast-checkpoint updates.
+A future reusable prefix-branch receipt and atomic tail renewal need separate
+creation/load trust and model-version contracts. Do not interpret short B times
+as a verified bounded long-term maintenance cost.

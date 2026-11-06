@@ -1,0 +1,31 @@
+✔ source discovery returns both independent native records without selection, merging or writes (390.276666ms)
+✔ explicit legacy listed and hand copies preserve all prior facts and clock state, leaving both sources exact (1324.378392ms)
+✔ trial selection copies the exact source text including whitespace without prepare, adoption or serialization (459.354826ms)
+✔ valid or corrupt existing formal destinations are never overwritten or replaced by a source (811.619294ms)
+✔ a source changed since preview blocks copying and preserves the newer source bytes (565.981769ms)
+✔ a concurrent destination writer during validation is protected by the final conditional write (580.201379ms)
+✔ quota failure rejects before returning live state or changing either original (567.756628ms)
+✔ failed readback rejects even when destination was written; callers receive no successful live state (766.630341ms)
+✔ invalid source selection, envelope, policy, native facts or candidate mode rejects without writes (1830.461359ms)
+✔ version1 and version2 map metadata copy verbatim and retain compatible notice baselines (1071.270888ms)
+✔ invalid or existing map metadata is left intact; optional metadata failure cannot damage game sources (2831.581999ms)
+✔ an older pre-stage4 v20 session copies explicitly with only connection and adoption boundaries appended (295.853039ms)
+✔ formal compact session uses the startup reader and restores exact game, pause and clock (210.557739ms)
+✔ old v2 session still loads via unchanged official reader without altering source text (103.719379ms)
+✔ strict C encoder refuses incomplete or reordered arrivals without normalizing input (13.833264ms)
+✔ current compact envelope rejects malformed marker, envelope, duplicates, metadata and noncanonical input before formal restore (65.850866ms)
+✔ expanded size guard matches official boundary and rejects before cloning or reader bypass (37.125807ms)
+✔ save candidate is rejected when official restore refuses or changes the formal state (101.769ms)
+✔ source copy may encode v5 without mutating either older source or unrelated storage (70.125152ms)
+✔ v8 requires the recall record and rejects v7 before running the official reader (45.060899ms)
+✔ a post-write read exception does not claim failure left persistent state unchanged (25.472ms)
+✔ a changed readback rejects success and preserves the competing writer for recovery (29.123386ms)
+✔ quota failure leaves the complete old session and retry commits the complete candidate (26.067469ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11978.010366

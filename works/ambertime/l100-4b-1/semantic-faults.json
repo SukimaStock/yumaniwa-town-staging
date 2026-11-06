@@ -1,0 +1,77 @@
+{
+  "node": "v24.22.1",
+  "sourceSHA": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9",
+  "checkpointSHA": "1c3504501cccc5e2c857ce94025de79ea8eba43a4b5b558ccf2bdc0c4fe15434",
+  "codeFingerprint": "cffa21099e994a85ad7d007e0d25a6521a9c3cab88430708d028f5cf7ad54c59",
+  "baselineContextSHA": "a80be8484886c5d9bf3be6226b21d9ab03d1244f10a35bb5a9ae888e7eecdb08",
+  "rows": [
+    {
+      "name": "coreRNG",
+      "nestedAndOuterResealed": true,
+      "accepted": false,
+      "error": "Checkpoint tail differs from native source\n+ actual - expected\n\n+ '{\"version\":20,\"rules\":\"delegated-distillery\",\"seed\":42,\"core\":{\"version\":1,\"modelVersion\":1,\"seed\":42,\"rngState\":4268691131,\"month\":360,\"cash\":1642.81,\"nextId\":45,\"lastDistillation\":343,\"spirit\":null,\"casks\":[{\"id\":44,\"batchMonth\":34",
+      "formalFallbackEqual": true,
+      "originalsPreserved": true
+    },
+    {
+      "name": "tradeRNG",
+      "nestedAndOuterResealed": true,
+      "accepted": false,
+      "error": "Checkpoint tail differs from native source\n+ actual - expected\n\n+ '{\"version\":20,\"rules\":\"delegated-distillery\",\"seed\":42,\"core\":{\"version\":1,\"modelVersion\":1,\"seed\":42,\"rngState\":4268691130,\"month\":360,\"cash\":1642.81,\"nextId\":45,\"lastDistillation\":343,\"spirit\":null,\"casks\":[{\"id\":44,\"batchMonth\":34",
+      "formalFallbackEqual": true,
+      "originalsPreserved": true
+    },
+    {
+      "name": "contextManualFills",
+      "nestedAndOuterResealed": true,
+      "accepted": true,
+      "sessionEqual": true,
+      "contextEqual": false,
+      "meaning": "Local B checks accepted this coherently resealed candidate; no independent prefix provenance claim.",
+      "originalsPreserved": true
+    },
+    {
+      "name": "contextManualBottles",
+      "nestedAndOuterResealed": true,
+      "accepted": true,
+      "sessionEqual": true,
+      "contextEqual": false,
+      "meaning": "Local B checks accepted this coherently resealed candidate; no independent prefix provenance claim.",
+      "originalsPreserved": true
+    },
+    {
+      "name": "contextUnusedMapEntry",
+      "nestedAndOuterResealed": true,
+      "accepted": true,
+      "sessionEqual": true,
+      "contextEqual": false,
+      "meaning": "Local B checks accepted this coherently resealed candidate; no independent prefix provenance claim.",
+      "originalsPreserved": true
+    },
+    {
+      "name": "contextMissingMap",
+      "nestedAndOuterResealed": true,
+      "accepted": false,
+      "error": "Unknown replay context\n+ actual - expected\n\n  [\n    'manualBottles',\n    'manualFills',\n-   'manualSources',\n    'nearbyCasks',\n    'nearbyProducts'\n  ]\n",
+      "formalFallbackEqual": true,
+      "originalsPreserved": true
+    },
+    {
+      "name": "stateGeneration",
+      "nestedAndOuterResealed": true,
+      "accepted": false,
+      "error": "Checkpoint tail differs from native source\n+ actual - expected\n\n+ '{\"version\":20,\"rules\":\"delegated-distillery\",\"seed\":42,\"core\":{\"version\":1,\"modelVersion\":1,\"seed\":42,\"rngState\":4268691130,\"month\":360,\"cash\":1642.81,\"nextId\":45,\"lastDistillation\":343,\"spirit\":null,\"casks\":[{\"id\":44,\"batchMonth\":34",
+      "formalFallbackEqual": true,
+      "originalsPreserved": true
+    },
+    {
+      "name": "stateMonth",
+      "nestedAndOuterResealed": true,
+      "accepted": false,
+      "error": "保存データの樽が不正です。",
+      "formalFallbackEqual": true,
+      "originalsPreserved": true
+    }
+  ],
+  "scope": "Independent Node adversarial consistency tests. Resealing models coordinated changes, not an accidental single-byte fault. Accepted semantically changed context is a creator-trust limitation, not an authenticated safety claim."
+}
