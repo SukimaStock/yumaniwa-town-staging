@@ -36,6 +36,7 @@ import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-me
 import {CanvasScene} from './canvas-scene.mjs?s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1';
 import * as nativeModel from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {createObservedModel} from './recall/operations.mjs?v=h3-3a-1';
+import {createRecallDebugPreview} from './recall/debug-scene.mjs?v=h3-3b-debug-1';
 import {initializeRecall,advanceRecall,prepareRecall} from './recall/collector.mjs?v=h3-3a-1';
 let recallRecord=null,pendingRecall=null,recallPreview=null;
 const D=createObservedModel(nativeModel,({before,after,operation})=>{
@@ -82,6 +83,7 @@ const query=new URLSearchParams(location.search),preview=query.get('preview')===
 // The authoring tools are reachable only through an explicit debug URL.
 const debugEnabled=query.get('debug')==='1';
 $('open-settings').hidden=!debugEnabled;$('recovery-import').hidden=!debugEnabled;
+const recallSceneDebug=debugEnabled?createRecallDebugPreview({document,window}):null;
 let game=null,room='distill',selectedProductId=null,userPaused=false,runtimeHalted=false,modal=null,timer=null,generation=0,elapsed=0,playbackRate=1,canSave=!preview,lastSavedText=null;
 let committedSession=null,lastSaveError=null,legacyRecord=null;
 const newNativeGame=()=>D.newMarketRulesDistillery(seed);
@@ -813,7 +815,7 @@ function syncModal(){
  }else if(kind==='settings'){
   title='デバッグ';
   const status=preview?'試遊中・保存しません':!canSave?'未保存':lastSavedText===null?'未保存':'保存済み';
-  body='<p>'+status+'</p>'+button('記録を書き出す','connected-export')+button('記録を読み込む','connected-import')+
+  body='<p>'+status+'</p>'+button('回想を試す（サンプル）','debug-recall')+button('記録を書き出す','connected-export')+button('記録を読み込む','connected-import')+
    (lastSaveError?'<pre>'+esc(JSON.stringify(lastSaveError,null,2))+'</pre>':'');
   actions=button('閉じる','cancel');
  }else if(kind==='staff-request'){
@@ -1205,6 +1207,7 @@ function handleModal(e){
  }
  if(a==='market-rules-export-before'&&kind==='settings'){const snapshot=D.preMarketRulesState(game);exportRaw(JSON.stringify({version:2,game:JSON.parse(D.serializeDistillery(snapshot)),userPaused:true,elapsed:0}),'ambertime-before-market-rules.json');return;}
  if(a==='market-export-before'&&kind==='settings'){const snapshot=D.preStoreMarketState(game);exportRaw(JSON.stringify({version:2,game:JSON.parse(D.serializeDistillery(snapshot)),userPaused:true,elapsed:0}),'ambertime-before-store-market.json');return;}
+ if(a==='debug-recall'&&debugEnabled&&kind==='settings'){recallSceneDebug?.open();return;}
  if(a==='connected-import'&&debugEnabled&&kind==='settings'){if(preview)return;$('restore-file').click();return;}
  if(a==='connected-export'&&debugEnabled&&kind==='settings'){exportRaw(lastSavedText??sessionText(game));return;}
  if(a==='ledger-cask-taste'&&kind==='ledger-cask'&&D.currentCask(game,id)){const parent=rememberLedger();stopClock();warehouseRoom.select(id);room='warehouse';act(s=>D.sampleDistillery(s,id),()=>{modal={kind:'inspect',id,ledgerParent:parent};});return;}
@@ -1355,3 +1358,4 @@ function syncDistillTools(tools){
 }
 // Warm only after the settled scene has painted; ledger demand never waits for this.
 boot();
+if(debugEnabled&&query.get('recall-preview')==='1')queueMicrotask(()=>recallSceneDebug?.open());
