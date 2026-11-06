@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9d58aec4a1535dd0842d0bc0e63dbedcb30f9508512c091979ef4d64d529cf3b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "6a1707c106afb4bf0658a274edf404bbc541de64",
+    "changeId": "ambertime-l100-4b-2",
+    "revision": 0,
+    "change": "Audit first-save cache provenance and bounded safe prefix inheritance research",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-l100-4b-2/r0.lock.json",
+      "works/ambertime/l100-4b-2/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recall/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Audit official replay cache and compare A formal B imported cache C verified prefix D full independent replay",
+      "Isolated opaque capability prototype using unchanged formal validation; reject forged/imported provenance and preserve v8",
+      "Measure 3 policies in independent Node processes; gate twelve months on safe cold first save; bounded stop if trust unavailable"
+    ],
+    "ownerDecisions": [
+      "User Sentinel_7698d43842fc819189e26599483ae146 explicitly authorizes L100-4B-2 research, tests and Draft PR; forbids formal changes, merges, Production and IndexedDB."
+    ],
+    "hqDecisions": [
+      "No formal adoption. Research objects never enter official storage. Formal model/save/caps/RNG/history/UI remain unchanged."
+    ],
+    "rulesApplied": [
+      "Change OS Plan Lock → Scope → Risk → Impact",
+      "debug=1以外は入口・処理なし",
+      "EXPRESSION-AUDIT"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Research only; real browser and physical Safari not certified"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove only isolated research files and Plan Lock; player data unchanged.",
+    "outOfScope": [
+      "Production/merges/player data/formal code/UI/caps/IDB/checkpoint formal adoption"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No formal adoption or persistent archive durability certification"
+    ],
+    "alternativesRejected": [
+      "Delete historical records",
+      "Increase or bypass cap",
+      "Treat wire-only reduction as formal-state improvement"
+    ],
+    "boundaryCases": [
+      "Fake, cloned or cross-instance capability; source/context/prefix/RNG/model/storage-generation tampering; interrupted update preserves prior token",
+      "No disk receipt import; invalid input falls back through full formal v8 reader, no source writes",
+      "Only extend to twelve months if cold first-save assurance gate passes"
+    ],
+    "testPlan": [
+      "Audit official replay cache and compare A formal B imported cache C verified prefix D full independent replay",
+      "Isolated opaque capability prototype using unchanged formal validation; reject forged/imported provenance and preserve v8",
+      "Measure 3 policies in independent Node processes; gate twelve months on safe cold first save; bounded stop if trust unavailable"
+    ],
+    "problem": "Fast checkpoint restoration lacks formal replay cache provenance, moving full replay to first save.",
+    "currentContract": "Formal v8/game20 validates full expanded JSON below6016384 units.",
+    "whyExistingIsInsufficient": "Hashes and terminal session equality do not prove context history; current cache cannot be safely seeded by arbitrary checkpoint.",
+    "design": "Preserve private official-cache provenance; no importing self-hashed cache. Isolated diagnostic copy exposes only detached cache snapshot internally, no setter. Full reader issues opaque private capability; incremental save uses unchanged official serializer/validator. Cold creator-trust is separate and not claimed unchanged assurance.",
+    "migration": "None",
+    "compatibility": "Inputs read-only and untouched; research representations are not formal saves.",
+    "promotionRisk": "Draft PR only; do not merge."
+  }
+}
