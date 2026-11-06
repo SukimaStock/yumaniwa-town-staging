@@ -37,8 +37,8 @@ import {CanvasScene} from './canvas-scene.mjs?s1=1&tools=rooms-stage3-r1&touch=1
 import * as nativeModel from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {createObservedModel} from './recall/operations.mjs?v=h3-3a-1';
 import {DEBUG_SKIP_YEARS,monthsForDebugSkip,debugSkipMonth} from './recall/debug-time-skip.mjs?v=debug-years-1';
-import {createRecallDebugPreview} from './recall/debug-scene.mjs?v=h3-3b-live-1';
-import {playbackScenes} from './recall/live-scene.mjs?v=h3-3b-live-1';
+import {createRecallPlayer as createRecallDebugPreview} from './recall/player.mjs?v=h4-2-1';
+import {sceneViews as playbackScenes} from './recall/pixel-scene.mjs?v=h4-2-1';
 import {initializeRecall,advanceRecall,prepareRecall,readCompletedRecalls} from './recall/collector.mjs?v=h3-3a-1';
 let recallRecord=null,pendingRecall=null,recallPreview=null;
 const D=createObservedModel(nativeModel,({before,after,operation})=>{
