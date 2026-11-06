@@ -1,3 +1,4 @@
+import {migrateRecentLedger,advanceRecentLedger,recentLedgerView} from './recent-ledger.mjs?v=s2-1';
 import {ledgerProfile,caskTimeline,recordTimeline,recordText} from './ledger-history-view.mjs?v=refactor-r5-1';
 import {fontReady} from './font-loader.mjs?v=0.35-font-1';
 import {createWarehouseRoomController} from './warehouse-room-controller.mjs?v=refactor-r4-1';
@@ -8,7 +9,7 @@ import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1&geomet
 import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
-import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} from './placement-save.mjs?v=s1-slots-1';
+import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,formalSources,copyToFormal} from './placement-save.mjs?v=s2-1';
 import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=compact-three-r1&fields=count-linked-r1&rooms=stage2-r1&quantity=a3-1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
@@ -49,9 +50,11 @@ import {uiText,agingEventText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1&a
 // Slots belong only to current inventory; all operations retain the native ID.
 let caskSlots=[null,null,null,null];
 function pastCaskName(id,facts={}){
- const c=game?.core.casks.find(c=>c.id===id)??game?.core.archive.find(c=>c.id===id),r=game?.releases.find(r=>r.caskId===id),recipe=game?.recipeBook?.entries.find(r=>r.source?.caskId===id);
+ if(Number.isInteger(facts.filledMonth))return monthLabel(facts.filledMonth)+'の仕込み';
+ const c=game?.core.casks.find(c=>c.id===id)??game?.core.archive.find(c=>c.id===id),recipe=game?.recipeBook?.entries.find(r=>r.source?.caskId===id);
  const month=facts.filledMonth??c?.filledMonth??recipe?.source?.filledMonth;
- return Number.isInteger(month)?monthLabel(month)+'の仕込み':r?'第'+r.id+'回発売の元のたる':'元のたる';
+ if(Number.isInteger(month))return monthLabel(month)+'の仕込み';
+ const r=game?.releases.find(r=>r.caskId===id);return r?'第'+r.id+'回発売の元のたる':'元のたる';
 }
 const caskName=id=>{const n=caskSlotMap(caskSlots).get(id);return n?'たる'+n:pastCaskName(id);};
 const slotCasks=()=>caskSlots.map(id=>game.core.casks.find(c=>c.id===id)??null);
@@ -155,11 +158,11 @@ const historyVisible=()=>['history','history-brand','history-shop','history-gene
 // No game snapshot is sent during warm-up, and no projection cache is added.
 function prepareLedgerWorkers(){
  if(!game||document.hidden)return;
- for(const kind of ['history','cask'])try{
-  if(kind==='history'?historyWorker:caskWorker)continue;
-  const worker=kind==='history'?new Worker(new URL('./history-worker.mjs?v=market-rules-r1',import.meta.url),{type:'module'}):new Worker(new URL('./cask-ledger-worker.mjs?v=market-rules-r1',import.meta.url),{type:'module'});
-  if(kind==='history')historyWorker=worker;else caskWorker=worker;
-  worker.onerror=e=>{e.preventDefault();worker.terminate();if(kind==='history'&&historyWorker===worker)historyWorker=null;if(kind==='cask'&&caskWorker===worker)caskWorker=null;};
+ if(historyWorker)return;
+ try{
+  const worker=new Worker(new URL('./history-worker.mjs?v=market-rules-r1',import.meta.url),{type:'module'});
+  historyWorker=worker;
+  worker.onerror=e=>{e.preventDefault();worker.terminate();if(historyWorker===worker)historyWorker=null;};
  }catch{}
 }
 function readHistory(){
@@ -415,41 +418,26 @@ function ledgerReleaseView(){
  let out='<article class="ledger-release-detail"><span class="release-bottle">'+releaseArt(e.productId,e.profile?.wood??0,e.brandId)+'</span><h3>'+esc(known(e.date,monthLabel))+'</h3><p>'+esc(b?.name??e.name??'記録なし')+'</p>'+copyFacts([['元のたる',ledgerCask(e)],['瓶詰め時',known(e.age,ageLabel)],['瓶詰め',known(e.bottles,n=>n+'本')],['在庫',known(e.stock,n=>n+'本')],['価格',known(e.price,n=>unit(n)+'／本')],['自家販売',known(e.retail.count,n=>n+'本')],['売上',known(e.retail.revenue,money)],[e.deliveryComplete?'取扱店へ納品':'確認できた納品',known(e.deliveries.count,n=>n+'本')],[e.deliveryComplete?'入金':'確認できた入金',known(e.deliveries.revenue,money)]])+'<p>'+esc(comparisonStatus(e))+'</p>'+(e.profile?flavorTypeView(e.profile):'<p>風味 記録なし</p>');
  if(comments.length)out='<section class="release-comments" aria-label="客の感想">'+comments.map(x=>'<p class="quiet">'+esc(monthLabel(x.month))+'</p><p>'+esc(x.text)+'</p>').join('')+'</section>'+out;
  if(e.wholesale)out+='<p>卸売出荷 '+esc(e.wholesale.partner??'')+'</p>'+copyFacts([['出荷',known(e.wholesale.count,n=>n+'本')],['入金',known(e.wholesale.revenue,money)]]);
- if(Number.isFinite(e.caskId))out+=button('元のたる','ledger-cask-open',e.caskId);
+ if(Number.isFinite(e.caskId)&&caskEntry(e.caskId))out+=button('元のたる','ledger-cask-open',e.caskId);
  const release=game.releases.find(r=>r.id===e.releaseId);out+=releaseComparisonButton(release);
  if(record){out+='<details><summary>試飲・熟成</summary>'+provenanceTag(e.caskId)+recordText(record.description)+(record.taste??[]).filter(text=>!(record.samples??[]).some(s=>s.text?.includes(text))).map(recordText).join('')+recordTimeline(record.samples,record.observations,record.choices)+recordText(({'fulfilled':'特別注文達成','unmet-retail':'特別注文から自分で販売','unmet-wholesale':'特別注文から通常卸売'})[record.order?.outcome])+'</details>';}
  else out+='<p class="quiet">試飲の記録なし</p>';
  return out+'</article>';
 }
 
-// Recipe/cask history is an ephemeral read projection, never part of a saved game.
-let caskSnapshot=null,caskProjection=null,caskWorker=null,caskRequest=0;
-const caskModalVisible=()=>modal?.kind==='ledger'&&['recipes','aging'].includes(modal.section)||['recipes','ledger-recipe','ledger-cask','ledger-recipe-comparison'].includes(modal?.kind);
-const emptyCaskView=(loading,error=false)=>({recipes:{latestManual:null,saved:[],unsaved:[]},casks:[],coverage:{complete:false,fromMonth:null,replayed:false},loading,error});
+// Normal ledger views use only bounded committed facts and current inventory.
+let recentLedger=null,caskSnapshot=null,caskProjection=null,caskFactsSnapshot=null;
 function caskData(){
- if(caskSnapshot!==game){
-  const snapshot=game,requestId=++caskRequest;caskSnapshot=snapshot;caskProjection=emptyCaskView(true);
-  try{
-   prepareLedgerWorkers();const worker=caskWorker;if(!worker)throw Error('worker unavailable');
-   const current=()=>caskWorker===worker&&caskSnapshot===snapshot&&game===snapshot;
-   const fail=()=>{worker.terminate();if(caskWorker===worker)caskWorker=null;};
-   const redraw=()=>{if(caskModalVisible()){
-    const active=document.activeElement,action=active?.dataset?.action,target=active?.dataset?.id;
-    render();restoreLedger(active?.id);
-    if(action)queueMicrotask(()=>$('action-dialog').querySelector('[data-action="'+CSS.escape(action)+'"][data-id="'+CSS.escape(target??'')+'"]')?.focus({preventScroll:true}));
-   }};
-   worker.onmessage=({data})=>{if(data.requestId!==requestId||!current())return;caskProjection=data.error||!data.ledger?emptyCaskView(false,true):data.ledger;redraw();};
-   worker.onerror=event=>{event.preventDefault();const active=current();fail();if(!active)return;caskProjection=emptyCaskView(false,true);redraw();};
-   worker.postMessage({requestId,state:snapshot});
-  }catch{caskWorker?.terminate();caskWorker=null;caskProjection=emptyCaskView(false,true);}
+ if(caskSnapshot!==game||caskFactsSnapshot!==recentLedger){
+  caskProjection=recentLedgerView(game,recentLedger);caskSnapshot=game;caskFactsSnapshot=recentLedger;
  }
  return caskProjection;
 }
-function caskLoadingView(){const data=caskData();return data.loading?'<p role="status" data-ledger-loading>記録を読んでいます…</p>':data.error?'<p role="alert">記録を読めませんでした。</p>'+button('もう一度読む','ledger-record-retry'):null;}
+function caskLoadingView(){return null;}
 
 function recipeRows(){
  const recipes=caskData().recipes,rows=new Map();
- for(const r of [...recipes.saved,...recipes.unsaved,...(recipes.latestManual?[recipes.latestManual]:[])]){if(!Number.isFinite(r.caskId))continue;const existing=rows.get(r.caskId);if(existing){if(r.saved&&!existing.savedRecipes.some(x=>x.id===r.id))existing.savedRecipes.push(r);continue;}rows.set(r.caskId,{...r,savedRecipes:r.saved?[r]:[]});}
+ for(const r of [...(recipes.recent??recipes.unsaved),...recipes.saved]){if(!Number.isFinite(r.caskId))continue;const existing=rows.get(r.caskId);if(existing){if(r.saved&&!existing.savedRecipes.some(x=>x.id===r.id))existing.savedRecipes.push(r);continue;}rows.set(r.caskId,{...r,savedRecipes:r.saved?[r]:[]});}
  return [...rows.values()].sort((a,b)=>(b.filledMonth??-1)-(a.filledMonth??-1)||b.caskId-a.caskId);
 }
 const caskEntry=id=>caskData().casks.find(c=>c.caskId===id);
@@ -458,15 +446,15 @@ const ledgerBarrel=c=>P.casks[c?.type]?barrel(c.type):'';
 const cooledCask=c=>game.notesById[c.caskId]?.cooled===true||(c.choices??[]).some(x=>x.key==='cool')||(c.observations??[]).some(x=>x.eventId==='manual-cool');
 const ledgerCaskStatus=c=>c.status==='aging'?'熟成中':c.status==='ended'?'熟成終了':['bottled','bottled-out','finished'].includes(c.status)?'ビン詰め済み':'状態の記録なし';
 function ledgerPaged(rows,renderRow){const page=Math.min(modal.listPage??0,Math.max(0,Math.ceil(rows.length/20)-1)),start=page*20;return '<div class="ledger-release-list">'+rows.slice(start,start+20).map(renderRow).join('')+'</div>'+(rows.length>20?'<div class="history-pagination">'+button('前の20件','ledger-list-page',page-1,page===0?'disabled':'')+'<span>'+(start+1)+'–'+Math.min(rows.length,start+20)+' / '+rows.length+'</span>'+button('次の20件','ledger-list-page',page+1,start+20>=rows.length?'disabled':'')+'</div>':'');}
-function ledgerRecipeList(){const waiting=caskLoadingView();if(waiting)return waiting;const rows=recipeRows();return rows.length?ledgerPaged(rows,r=>'<button type="button" class="ledger-release-row" id="ledger-recipe-'+r.caskId+'" data-action="ledger-recipe-open" data-id="'+r.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(r)+'</span><span>'+esc(r.savedRecipes.map(x=>x.name).filter(Boolean).join('／')||'手動仕込み')+'<br>'+esc(pastCaskName(r.caskId,r))+' · '+esc(ledgerType(r))+'<br>'+esc(known(r.filledMonth,monthLabel))+'</span></button>'):'<p>記録なし</p>';}
-function ledgerCaskList(){const waiting=caskLoadingView();if(waiting)return waiting;const rows=caskData().casks.slice().sort((a,b)=>(b.filledMonth??-1)-(a.filledMonth??-1)||b.caskId-a.caskId);return rows.length?ledgerPaged(rows,c=>'<button type="button" class="ledger-release-row" id="ledger-cask-'+c.caskId+'" data-action="ledger-cask-open" data-id="'+c.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(c)+'</span><span>'+esc(c.status==='aging'?caskName(c.caskId):pastCaskName(c.caskId,c))+' · '+esc(ledgerType(c))+'<br>'+esc(known(c.filledMonth,monthLabel))+'<br>'+esc(ledgerCaskStatus(c))+(cooledCask(c)?' · 冷暗所':'')+' · '+esc(known(c.age,ageLabel))+'</span></button>'):'<p>記録なし</p>';}
+function ledgerRecipeList(){const waiting=caskLoadingView();if(waiting)return waiting;const rows=recipeRows();return rows.length?'<div class="ledger-release-list">'+rows.map(r=>'<button type="button" class="ledger-release-row" id="ledger-recipe-'+r.caskId+'" data-action="ledger-recipe-open" data-id="'+r.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(r)+'</span><span>'+esc(r.savedRecipes.map(x=>x.name).filter(Boolean).join('／')||'手動仕込み')+'<br>'+esc(pastCaskName(r.caskId,r))+' · '+esc(ledgerType(r))+'<br>'+esc(known(r.filledMonth,monthLabel))+'</span></button>').join('')+'</div>':'<p>記録なし</p>';}
+function ledgerCaskList(){const waiting=caskLoadingView();if(waiting)return waiting;const rows=caskData().casks.slice().sort((a,b)=>(a.status==='aging'?0:1)-(b.status==='aging'?0:1)||(a.status==='aging'?caskSlotMap(caskSlots).get(a.caskId)-caskSlotMap(caskSlots).get(b.caskId):0));return rows.length?'<div class="ledger-release-list">'+rows.map(c=>'<button type="button" class="ledger-release-row" id="ledger-cask-'+c.caskId+'" data-action="ledger-cask-open" data-id="'+c.caskId+'"><span class="ledger-bottle">'+ledgerBarrel(c)+'</span><span>'+esc(c.status==='aging'?caskName(c.caskId):pastCaskName(c.caskId,c))+' · '+esc(ledgerType(c))+'<br>'+esc(known(c.filledMonth,monthLabel))+'<br>'+esc(ledgerCaskStatus(c))+(cooledCask(c)?' · 冷暗所':'')+' · '+esc(known(c.age,ageLabel))+'</span></button>').join('')+'</div>':'<p>記録なし</p>';}
 function openLedgerDetail(kind,caskId,focusId){const parent=rememberLedger();modal={kind,caskId,parent,returnFocusId:focusId};render();$('dialog-body').scrollTop=0;}
 const rangeText=(choice,stop)=>choice?(choice.collectionVersion===2?'':'旧製法 ')+Math.round(choice.start*100)+'〜'+Math.round(choice.end*100)+'％':known(stop,n=>n+' / '+extractionMaximum);
-function linkedReleases(c){const rows=ledgerData().entries.filter(r=>(c.releaseKeys??[]).includes(r.key));return rows.length?'<details class="ledger-related"><summary>発売 '+rows.length+'回</summary>'+rows.map(releaseRow).join('')+'</details>':'';}
+function linkedReleases(c){const keys=c.releaseKeys??[];return keys.length?'<details class="ledger-related"><summary>発売 '+keys.length+'回</summary>'+keys.map(key=>button('第'+key.split(':')[1]+'回発売','ledger-release',key)).join('')+'</details>':'';}
 function recipeCardFacts(choice){return choice?copyFacts([['malt','麦芽'],['ferment','発酵']].map(([group,label])=>[label,BREWING_CARDS.find(c=>c.group===group&&c.value===choice[group])?.label??'記録なし'])):'<p class="quiet">仕込みカード 記録なし</p>';}
 function ledgerRecipeDetail(){
  const waiting=caskLoadingView();if(waiting)return waiting;
- const r=recipeRows().find(r=>r.caskId===modal.caskId),c=caskEntry(modal.caskId);if(!r||!c)return '<p>記録なし</p>';
+ const r=recipeRows().find(r=>r.caskId===modal.caskId);if(!r)return '<p>記録なし</p>';const retained=caskEntry(modal.caskId),c={...r,...retained,initialProfile:r.initialProfile??retained?.initialProfile,manualSource:r.source};
  const latest=caskData().recipes.latestManual?.caskId===r.caskId,selected=game.recipeBook?.selectedId??null;
  let out='<article class="ledger-cask-detail"><span class="release-bottle">'+ledgerBarrel(c)+'</span><h3>'+esc(r.savedRecipes.map(x=>x.name).filter(Boolean).join('／')||'手動仕込み')+'</h3><p>'+esc(c.status==='aging'?caskName(c.caskId):pastCaskName(c.caskId,c))+'</p>'+copyFacts([['仕込み',known(r.filledMonth,monthLabel)],['採取',rangeText(c.initialProfile?.flavor?.choice??c.profile?.flavor?.choice??r.source?.flavorChoice,r.stopAt)],['たる',ledgerType(r)]])+recipeCardFacts(c.initialProfile?.flavor?.choice??c.profile?.flavor?.choice??r.source?.flavorChoice)+'<details><summary>原酒</summary>'+ledgerProfile(c.initialProfile)+'</details>';
  for(const saved of r.savedRecipes)out+=button(selected===saved.id?'保存製法を選択中':'使う','recipe-select',saved.id,'aria-pressed="'+(selected===saved.id)+'"');
@@ -474,12 +462,12 @@ function ledgerRecipeDetail(){
  if(!r.savedRecipes.length&&c.manualSource)out+=button('製法を残す','recipe-save',c.caskId,(game.recipeBook?.entries.length??0)>=64?'disabled':'');
  if(recipeRows().length>1)out+=button('比べる','ledger-source-compare',c.caskId);
  if(D.staffStatus(game).hired&&D.staffQuote(game,c.caskId))out+=button('任せる','ledger-recipe-request',c.caskId);
- out+=button('たるの記録','ledger-cask-open',c.caskId)+linkedReleases(c);return out+'</article>';
+ if(retained)out+=button('たるの記録','ledger-cask-open',c.caskId)+linkedReleases(c);return out+'</article>';
 }
 function ledgerRecipeComparison(){
  const waiting=caskLoadingView();if(waiting)return waiting;
  const rows=recipeRows(),a=rows.find(r=>r.caskId===modal.caskId),b=rows.find(r=>r.caskId===modal.otherId);if(!a||!b)return '<p>記録なし</p>';const pair=[a,b];
- return '<label for="ledger-compare-choice">比べる仕込み</label><select id="ledger-compare-choice">'+rows.filter(r=>r.caskId!==a.caskId).map(r=>'<option value="'+r.caskId+'"'+(r.caskId===b.caskId?' selected':'')+'>'+esc(pastCaskName(r.caskId,r)+' '+(r.savedRecipes[0]?.name??ledgerType(r)))+'</option>').join('')+'</select><div class="nearby-pair">'+pair.map(r=>'<article><span class="nearby-art">'+ledgerBarrel(r)+'</span><strong>'+esc(pastCaskName(r.caskId,r))+'</strong></article>').join('')+'</div>'+compareFact('採取',...pair.map(r=>esc(rangeText(caskEntry(r.caskId)?.initialProfile?.flavor?.choice??r.source?.flavorChoice,r.stopAt))))+compareFact('たる',...pair.map(r=>esc(ledgerType(r))))+compareFact('仕込み',...pair.map(r=>esc(known(r.filledMonth,monthLabel))))+FLAVOR_AXES.map(({label,key})=>compareFact(label,...pair.map(r=>flavorMeter(caskEntry(r.caskId)?.initialProfile,key)))).join('');
+ return '<label for="ledger-compare-choice">比べる仕込み</label><select id="ledger-compare-choice">'+rows.filter(r=>r.caskId!==a.caskId).map(r=>'<option value="'+r.caskId+'"'+(r.caskId===b.caskId?' selected':'')+'>'+esc(pastCaskName(r.caskId,r)+' '+(r.savedRecipes[0]?.name??ledgerType(r)))+'</option>').join('')+'</select><div class="nearby-pair">'+pair.map(r=>'<article><span class="nearby-art">'+ledgerBarrel(r)+'</span><strong>'+esc(pastCaskName(r.caskId,r))+'</strong></article>').join('')+'</div>'+compareFact('採取',...pair.map(r=>esc(rangeText(r.initialProfile?.flavor?.choice??r.source?.flavorChoice,r.stopAt))))+compareFact('たる',...pair.map(r=>esc(ledgerType(r))))+compareFact('仕込み',...pair.map(r=>esc(known(r.filledMonth,monthLabel))))+FLAVOR_AXES.map(({label,key})=>compareFact(label,...pair.map(r=>flavorMeter(r.initialProfile,key)))).join('');
 }
 function ledgerCaskDetail(){
  const waiting=caskLoadingView();if(waiting)return waiting;
@@ -510,8 +498,8 @@ const message=t=>{$('work-notice').textContent=t;};
 function storageNotice(t){$('storage-notice').textContent=t;$('storage-notice').hidden=!t;}
 const wallClock=new RuntimeClock(T.distillStepMs);
 function stopClock(reset=true){if(reset)wallClock.reset();generation++;if(timer!==null){clearTimeout(timer);timer=null;}}
-function rememberCommitted(){committedSession={game,userPaused,elapsed,caskSlots:[...caskSlots]};}
-function restoreCommitted(){if(committedSession){game=committedSession.game;userPaused=committedSession.userPaused;elapsed=committedSession.elapsed;caskSlots=[...committedSession.caskSlots];}}
+function rememberCommitted(){committedSession={game,userPaused,elapsed,caskSlots:[...caskSlots],recentLedger};}
+function restoreCommitted(){if(committedSession){game=committedSession.game;userPaused=committedSession.userPaused;elapsed=committedSession.elapsed;caskSlots=[...committedSession.caskSlots];recentLedger=committedSession.recentLedger;}}
 function recoveryAccess(){
  modal=null;vaultPanels();const dialog=$('action-dialog');if(dialog.open)dialog.close();$('recovery').hidden=false;
  const existing=$('recovery-export');if(existing)existing.hidden=migrationPending!==null||lastSavedText===null;
@@ -520,15 +508,17 @@ function recoveryAccess(){
 function saveFailure(error){
  restoreCommitted();canSave=false;runtimeHalted=true;stopClock();recoveryAccess();storageNotice(error?.message==='conflict'?'別の画面で保存が変わりました。再読み込みしてください。':'保存できません。最後の正常な記録を残して停止しています。');$('save-status').textContent='未保存';$('retry-save').hidden=false;$('recovery').hidden=false;
 }
-function sessionText(next,paused=userPaused,time=elapsed,slots=reconcileCaskSlots(next,caskSlots)){return serializeSession(next,{userPaused:paused,elapsed:time,caskSlots:slots},{serialize:D.serializeDistillery,restore:D.restoreDistillery,enabled:true,monthMs:T.monthMs,stepMs:T.distillStepMs});}
-function saveCandidate(next,paused=userPaused,time=elapsed,writer=writeCandidate){
- if(preview){caskSlots=reconcileCaskSlots(next,caskSlots);return true;}
+const initializeLedger=next=>migrateRecentLedger(next,{replay:observer=>D.replayDistilleryOperations(next,observer)});
+function candidateLedger(next){return recentLedger&&committedSession&&next.operations.length>=committedSession.game.operations.length?advanceRecentLedger(committedSession.game,next,committedSession.recentLedger):initializeLedger(next);}
+function sessionText(next,paused=userPaused,time=elapsed,slots=reconcileCaskSlots(next,caskSlots),ledger=candidateLedger(next)){return serializeSession(next,{userPaused:paused,elapsed:time,caskSlots:slots,recentLedger:ledger},{serialize:D.serializeDistillery,restore:D.restoreDistillery,enabled:true,monthMs:T.monthMs,stepMs:T.distillStepMs});}
+function saveCandidate(next,paused=userPaused,time=elapsed,writer=writeCandidate,ledgerOverride=null){
+ if(preview){recentLedger=ledgerOverride??candidateLedger(next);caskSlots=reconcileCaskSlots(next,caskSlots);committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...caskSlots],recentLedger};return true;}
  if(!canSave||migrationPending!==null)return false;
- try{const slots=reconcileCaskSlots(next,caskSlots),text=sessionText(next,paused,time,slots);writer(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;caskSlots=slots;committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...slots]};$('save-status').textContent='保存済み';return true;}
+ try{const slots=reconcileCaskSlots(next,caskSlots),ledger=ledgerOverride??candidateLedger(next),text=sessionText(next,paused,time,slots,ledger);writer(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;caskSlots=slots;recentLedger=ledger;committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...slots],recentLedger};$('save-status').textContent='保存済み';return true;}
  catch(error){saveFailure(error);return false;}
 }
 function save(){
- if(preview){caskSlots=reconcileCaskSlots(game,caskSlots);$('save-status').textContent='試遊中 · 保存しません';return true;}
+ if(preview){saveCandidate(game);$('save-status').textContent='試遊中 · 保存しません';return true;}
  if(!game)return false;
  if(!canSave||migrationPending!==null){restoreCommitted();return false;}
  return saveCandidate(game);
@@ -1214,10 +1204,9 @@ function handleModal(e){
  if(a==='staff-mode'&&kind==='staff-request'&&['once','three','continuous'].includes(b.dataset.id)&&game.staff.hired){modal.requestMode=b.dataset.id;render();return;}
  if(a==='staff-confirm'&&kind==='staff-request'&&staffCanRequest()){const sourceId=modal.caskId,mode=modal.requestMode;act(s=>sourceId===null?D.reserveUsual(D.endTasting(s),mode):D.reserveStaff(D.endTasting(s),sourceId,mode),()=>{modal=null;room='distill';message('依頼しました');});return;}
 
- if(a==='ledger-record-retry'&&caskModalVisible()){caskSnapshot=null;render();return;}
  if(a==='ledger-recipe-open'&&['ledger','recipes','ledger-cask'].includes(kind)&&recipeRows().some(r=>r.caskId===id)){openLedgerDetail('ledger-recipe',id,b.id);return;}
- if(a==='ledger-cask-open'&&(['ledger','ledger-recipe','ledger-cask'].includes(kind)&&caskData().casks.some(c=>c.caskId===id)||kind==='ledger-release'&&ledgerData().entries.some(e=>e.key===modal.key&&e.caskId===id))){openLedgerDetail('ledger-cask',id,b.id);return;}
- if(a==='ledger-list-page'&&(kind==='recipes'||kind==='ledger-shop'||kind==='ledger'&&['recipes','aging','shops'].includes(modal.section))&&Number.isInteger(id)&&id>=0){modal.listPage=id;modal.openDetails=[];modal.scrollTop=0;render();$('dialog-body').scrollTop=0;return;}
+ if(a==='ledger-cask-open'&&(['ledger','ledger-recipe','ledger-cask','ledger-release'].includes(kind)&&caskData().casks.some(c=>c.caskId===id))){openLedgerDetail('ledger-cask',id,b.id);return;}
+ if(a==='ledger-list-page'&&(kind==='ledger-shop'||kind==='ledger'&&modal.section==='shops')&&Number.isInteger(id)&&id>=0){modal.listPage=id;modal.openDetails=[];modal.scrollTop=0;render();$('dialog-body').scrollTop=0;return;}
  if(a==='ledger-source-compare'&&kind==='ledger-recipe'){const other=recipeRows().find(r=>r.caskId!==modal.caskId);if(other){const parent=rememberLedger();modal={kind:'ledger-recipe-comparison',caskId:parent.caskId,otherId:other.caskId,parent,returnFocusId:b.id};render();$('dialog-body').scrollTop=0;}return;}
  if(a==='ledger-recipe-request'&&kind==='ledger-recipe'){rememberLedger();openStaffRequest(modal.caskId);return;}
  if(a==='flavor-card'&&kind==='flavor-cards'){const cards=chooseManualCard(game,b.dataset.group,b.dataset.id);if(cards)act(x=>D.selectFlavorCards(x,cards));return;}
@@ -1305,7 +1294,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();e
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;runtimeHalted=true;restoreCommitted();stopClock();$('save-status').textContent='未保存';$('retry-save').hidden=false;storageNotice('別の画面で保存が変わりました。再読み込みしてください。');if(game)render();}});
 $('reset').addEventListener('click',()=>{
  if(!game||!preview&&(!canSave||migrationPending!==null)||!confirm(preview?'試遊を最初からやり直しますか？':'新しい蒸留所で始めますか？現在の進行は上書きされます。残す場合は先に記録を書き出してください。'))return;
- countdown.cancel();stopClock();const next=newNativeGame();if(!saveCandidate(next,false,0)){if(game)render();return;}
+ countdown.cancel();stopClock();const next=newNativeGame();if(!saveCandidate(next,false,0,writeCandidate,initializeLedger(next))){if(game)render();return;}
  game=next;distillRoom.reset();scene.resetMotion();marketUI.reset();marketEditing=false;feedbackComments.reset();staffDisplayKey=null;staffDisplay=null;mapShown=0;mapAnnounced=0;mapPending=0;mapBrowse=null;try{mapUIStorage()?.removeItem(MAP_VIEW_KEY);}catch{}mapNoticeSave();automaticNews.reset();staffMigrationNotice=false;shownFillSpiritId=null;room='distill';warehouseRoom.select(null);modal=null;userPaused=false;runtimeHalted=false;elapsed=0;playbackRate=1;glassKey='';storageNotice('');render();schedule();
 });
 $('retry-save').addEventListener('click',()=>{if(migrationPending!==null){showMigration();return;}if(!game){boot();return;}canSave=!preview;if(save()){storageNotice('');$('recovery').hidden=true;}render();schedule();});
@@ -1323,8 +1312,7 @@ $('backup-file').addEventListener('change',async event=>{
  try{
   const text=await file.text();if(migrationPending!==original||localStorage.getItem(SAVE_KEY)!==original)throw Error('元の記録が変わりました。上書きせず停止しています。再読み込みしてください。');
   if(text!==original)throw Error('元の記録と一致しません。書き出したファイルを選んでください。');
-  readSession(text,{...sessionOptions,enabled:true});
-  if(!confirm('この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、枠を保存できる形式へ切り替えます。'))return;
+  if(!confirm('この元の記録を端末外にも保管しましたか？\nアプリはファイルの内容一致を確認しましたが、保管先や端末外への保存完了は確認できません。\n確認できた場合だけ、帳面を保存できる形式へ切り替えます。'))return;
   migrationPending=null;canSave=true;
   if(!saveCandidate(game)){migrationPending=original;showMigration();if(game)render();return;}
   runtimeHalted=false;$('save-migration').hidden=true;$('recovery').hidden=true;$('retry-save').hidden=false;storageNotice('');render();schedule();
@@ -1337,7 +1325,7 @@ $('restore-file').addEventListener('change',async event=>{
   if(migrationPending!==null)throw Error('先に現在の元の記録を保管し、同じファイルの確認を終えてください。');
   const text=await file.text(),session=readSession(text,{...sessionOptions,enabled:true});
   if(!confirm('元のファイルを端末外にも保管したことを確認して、この記録を読み込みますか？現在の記録がある場合は置き換えます。保管先や保管完了はアプリから確認できません。'))return;
-  const candidate=sessionText(session.game,session.userPaused,session.elapsed,session.caskSlots);writeCandidate(localStorage,SAVE_KEY,expected,candidate);lastSavedText=candidate;game=session.game;caskSlots=session.caskSlots;userPaused=session.userPaused;elapsed=session.elapsed;rememberCommitted();canSave=true;runtimeHalted=false;modal=null;$('save-migration').hidden=true;await boot();
+  const candidate=sessionText(session.game,session.userPaused,session.elapsed,session.caskSlots,session.recentLedger);writeCandidate(localStorage,SAVE_KEY,expected,candidate);lastSavedText=candidate;game=session.game;caskSlots=session.caskSlots;recentLedger=session.recentLedger;userPaused=session.userPaused;elapsed=session.elapsed;rememberCommitted();canSave=true;runtimeHalted=false;modal=null;$('save-migration').hidden=true;await boot();
  }catch(error){canSave=false;runtimeHalted=true;stopClock();storageNotice(error.message);$('save-status').textContent='未保存';$('recovery').hidden=false;}
 });
 function chooseSave(sources){
@@ -1358,7 +1346,7 @@ $('save-source-new').addEventListener('click',()=>{
  try{const fresh=newNativeGame(),text=sessionText(fresh,false,0);writeCandidate(localStorage,SAVE_KEY,null,text);$('save-choice').close();boot();}catch(error){sourceError(error);}
 });
 async function boot(){
- migrationPending=null;caskSlots=[null,null,null,null];$('save-migration').hidden=true;distillRoom.reset();shownFillSpiritId=null;
+ migrationPending=null;recentLedger=null;committedSession=null;caskSlots=[null,null,null,null];$('save-migration').hidden=true;distillRoom.reset();shownFillSpiritId=null;
  staffDisplayKey=null;staffDisplay=null;playbackRate=1;scene.resetMotion();
  if(preview){
   try{
@@ -1373,10 +1361,11 @@ async function boot(){
  try{
   lastSavedText=localStorage.getItem(SAVE_KEY);
   if(lastSavedText===null){const sources=formalSources(localStorage,sessionOptions);if(sources.length){chooseSave(sources);return;}game=newNativeGame();userPaused=false;elapsed=0;}
-  else{const session=readSession(lastSavedText,{...sessionOptions,enabled:true});game=session.game;caskSlots=session.caskSlots;userPaused=session.userPaused;elapsed=session.elapsed;}
-  if(lastSavedText===null)caskSlots=initializeCaskSlots(game);
+  else{const session=readSession(lastSavedText,{...sessionOptions,enabled:true});game=session.game;caskSlots=session.caskSlots;recentLedger=session.recentLedger;userPaused=session.userPaused;elapsed=session.elapsed;}
+  if(lastSavedText===null){caskSlots=initializeCaskSlots(game);recentLedger=initializeLedger(game);}
   const restoredGame=game,restoredPaused=userPaused,restoredElapsed=elapsed;game=D.enableStoreMarket(D.enableStage4(game));if(manualDistilling())userPaused=true;const corrected=game!==restoredGame;
-  migrationPending=lastSavedText!==null&&!isCurrentSession(lastSavedText)?lastSavedText:null;committedSession={game:restoredGame,userPaused:restoredPaused,elapsed:restoredElapsed,caskSlots:[...caskSlots]};
+  migrationPending=lastSavedText!==null&&!isCurrentSession(lastSavedText)?lastSavedText:null;committedSession={game:restoredGame,userPaused:restoredPaused,elapsed:restoredElapsed,caskSlots:[...caskSlots],recentLedger};
+  if(corrected)recentLedger=advanceRecentLedger(restoredGame,game,recentLedger);
   // Restoring an unfinished batch keeps its explicit entrance, never a repeated interruption.
   shownFillSpiritId=game.still.phase==='filling'?game.core.spirit?.id??null:null;
   mapNoticeLoad(lastSavedText!==null);warehouseRoom.select(game.tastingId??game.core.casks[0]?.id??null);room=warehouseRoom.selectedId!==null?'warehouse':'distill';canSave=true;$('game').hidden=false;$('recovery').hidden=true;storageNotice('');if(migrationPending!==null){canSave=false;showMigration();render();return;}if(lastSavedText===null||corrected){if(!save()){game=restoredGame;render();return;}}render();schedule();

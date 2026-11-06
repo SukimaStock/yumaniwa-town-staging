@@ -124,9 +124,9 @@ test('sale quantities do not replace recorded remaining inventory and use saved 
 function nativeTransaction({failWrite=false,conflict=false,invalid=false}={}){
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
  const start=source.indexOf('function actMarket(fn){'),end=source.indexOf('function commitPlacement(',start);
- const old={id:'before',core:{casks:[]}},next={id:'after',core:{casks:[]}},calls={writes:0,receipts:0,news:0,renders:0},saveStatus={textContent:'保存済み'};
+ const old={id:'before',core:{casks:[]},operations:[]},next={id:'after',core:{casks:[]},operations:[]},calls={writes:0,receipts:0,news:0,renders:0},saveStatus={textContent:'保存済み'};
  let stored=conflict?'another-tab':'old';
- const context={reconcileCaskSlots,caskSlots:[null,null,null,null],game:old,committedSession:{game:old,userPaused:false,elapsed:0,caskSlots:[null,null,null,null]},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
+ const context={recentLedger:{},advanceRecentLedger:(_before,_after,ledger)=>ledger,migrateRecentLedger:()=>({}),reconcileCaskSlots,caskSlots:[null,null,null,null],game:old,committedSession:{game:old,userPaused:false,elapsed:0,caskSlots:[null,null,null,null]},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
   D:{serializeDistillery:g=>{if(invalid)throw Error('invalid state');return JSON.stringify(g);}},
   countdown:{cancel(){}},stopClock(){},vaultPanels(){},writeCandidate,serializeSession:(game,ui,{serialize})=>JSON.stringify({version:3,game:JSON.parse(serialize(game)),...ui}),T:{monthMs:6000,distillStepMs:100},
   localStorage:{getItem:()=>stored,setItem:(key,value)=>{calls.writes++;if(failWrite)throw Error('quota');stored=value;}},

@@ -32,23 +32,23 @@ test('rejects fifth cask, duplicate live identity and invalid persisted assignme
  for(const slots of [null,[],[1,null,null],[1,1,null,null],[1,9,null,null],[null,null,null,null],[0,null,null,null],['1',null,null,null],new Array(4)])assert.throws(()=>assertCaskSlots(state([1]),slots));
  assert.throws(()=>reconcileCaskSlots(state([1]),[1,1,null,null]));
 });
-test('v2 and v3 read without source writes; v4 retains exact slots and exact formal game',()=>{
+test('v2 and v3 read without source writes; v5 retains exact slots and exact formal game',()=>{
  const game=fixture(),gameRaw=D.serializeDistillery(game),initial=initializeCaskSlots(game);
  for(const version of [2,3]){
   const text=JSON.stringify({version,game:version===2?game:compactFormalGame(gameRaw),...ui}),before=text;
   const read=readSession(text,options);assert.equal(JSON.stringify(read.game),gameRaw);assert.deepEqual(read.caskSlots,initial);assert.equal(text,before);assert(!isCurrentSession(text));
  }
  const slots=initial.slice().reverse(),text=serializeSession(game,{...ui,caskSlots:slots},options),envelope=JSON.parse(text);
- assert.equal(envelope.version,4);assert.deepEqual(Object.keys(envelope),['version','game','userPaused','elapsed','caskSlots']);assert(isCompactSession(text));assert(isCurrentSession(text));
+ assert.equal(envelope.version,5);assert.deepEqual(Object.keys(envelope),['version','game','userPaused','elapsed','caskSlots','recentLedger']);assert(isCompactSession(text));assert(isCurrentSession(text));
  const loaded=readSession(text,options);assert.deepEqual(loaded.caskSlots,slots);assert.equal(JSON.stringify(loaded.game),gameRaw);assert.equal(JSON.stringify(game),gameRaw);
  assert.equal(serializeSession(loaded.game,loaded,options),text);
 });
-test('v4 rejects corrupt slots, unknown schema and noncanonical bytes',()=>{
+test('v5 rejects corrupt slots, unknown schema and noncanonical bytes',()=>{
  const text=serializeSession(fixture(),ui,options);
- for(const change of [s=>s.version=5,s=>delete s.caskSlots,s=>s.extra=true,s=>s.caskSlots=[999999,null,null,null],s=>s.caskSlots=[1,1,null,null],s=>s.caskSlots=[],s=>s.version=3]){
+ for(const change of [s=>s.version=6,s=>delete s.caskSlots,s=>s.extra=true,s=>s.caskSlots=[999999,null,null,null],s=>s.caskSlots=[1,1,null,null],s=>s.caskSlots=[],s=>s.version=3]){
   const value=JSON.parse(text);change(value);assert.throws(()=>readSession(JSON.stringify(value),options));
  }
- assert.throws(()=>readSession(text+'\n',options));assert.throws(()=>readSession(text.replace('"version":4','"version":4,"version":4'),options));
+ assert.throws(()=>readSession(text+'\n',options));assert.throws(()=>readSession(text.replace('"version":5','"version":5,"version":5'),options));
 });
 test('single candidate write keeps slot and game envelope together on quota or stale writer',()=>{
  const old=serializeSession(fixture(),ui,options),next=serializeSession(fixture(),{...ui,elapsed:300},options);let saved=old;
