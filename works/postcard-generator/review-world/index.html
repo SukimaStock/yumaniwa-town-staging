@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>地域別ポストカード比較 · Postcard Generator Lab</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Helvetica Neue",sans-serif;color:#273c42;background:#f3f0e8;font-synthesis:none}*{box-sizing:border-box}
+body{margin:0}main{max-width:1200px;margin:auto;padding:20px 16px 70px}
+header{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+header a{font-size:13px;color:inherit}h1{font-size:20px;margin:0;font-weight:600}p{line-height:1.6}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin:18px 0 26px}
+label{font-size:13px;display:grid;gap:5px}select{min-height:44px;background:#fffdf8;border:1px solid #b9c5c2;color:inherit;padding:8px 12px;border-radius:4px;font:inherit}
+.legend{font-size:13px;color:#53676a;margin:0 0 16px}
+.region{margin:24px 0 32px}h2{font-size:17px;margin:0 0 5px}.desc{font-size:13px;color:#53676a;margin:0 0 14px}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.panel{background:#fffdf7;border:1px solid #deded5;padding:12px;min-width:0}
+.panel h3{font-size:14px;margin:0 0 8px;font-weight:600}.art{max-width:420px;margin:auto;aspect-ratio:4/5;background:#e4e4da}.art svg{display:block;width:100%;height:100%}
+.info{font-size:12px;line-height:1.6;color:#566968;margin:9px 0 0}#status{font-size:13px;min-height:1.5em}
+a:focus-visible,select:focus-visible{outline:3px solid #c7663b;outline-offset:3px}
+footer{font-size:12px;color:#586a6a;border-top:1px solid #cbd0c9;margin-top:24px;padding-top:14px}
+@media(min-width:900px){.region-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.region{min-width:0}.pair{grid-template-columns:1fr;gap:12px}}
+@media(max-width:560px){.pair{gap:8px}.panel{padding:7px}.panel h3{font-size:12px}.info{font-size:11px}}
+</style>
+</head>
+<body><main>
+<header><a href="../">← Postcard Generator</a><h1>地域別の風景を比較</h1></header>
+<p class="legend">共通の図形だけで、ポルト・京都・シャウエンを描き分ける実験。左（上）が現行設定、右（下）が比率調整案。国専用パーツはありません。</p>
+<div class="controls">
+<label>構図<select id="scene"><option value="street">道路沿い</option><option value="alley">路地</option><option value="waterfront">水辺</option></select></label>
+<label>seed<select id="seed"><option value="world-compare-01">01</option><option value="world-compare-02">02</option><option value="world-compare-03">03</option><option value="world-compare-04">04</option><option value="world-compare-05">05</option><option value="world-compare-06">06</option><option value="world-compare-07">07</option><option value="world-compare-08">08</option></select></label>
+</div>
+<div id="status" role="status"></div>
+<div class="region-grid" id="regions"></div>
+<footer>この画面は比較専用です。現行の生成エンジンと既存seedの結果は変更しません。比率調整版は保存用の正式な生成バージョンではありません。</footer>
+</main>
+<script type="module">
+import {generateScene,validateScene,randomStream} from '../engine.mjs';
+import {renderSVG} from '../renderer.mjs';
+const profiles=[
+ {id:'porto',name:'ポルト',note:'細長い住宅・暖色・比較的高密度',palette:'clay',density:'dense',roofs:'gable',windows:'rect',colorMode:'varied',facade:'terrace',groundFloor:'plain',accents:'plants',heightFactor:1,roofWeights:[['gable',.72],['hip',.20],['flat',.08]],windowWeights:[['rect',.72],['paired',.20],['arch',.08]]},
+ {id:'kyoto',name:'京都',note:'高さを抑え、四角窓と切妻を中心に比較',palette:'garden',density:'normal',roofs:'gable',windows:'rect',colorMode:'tonal',facade:'grid',groundFloor:'awning',accents:'shade',heightFactor:.77,roofWeights:[['gable',.85],['hip',.15]],windowWeights:[['rect',.93],['paired',.07]]},
+ {id:'chefchaouen',name:'シャウエン',note:'青系の壁・平屋根・小さな形の揺らぎ',palette:'blue',density:'dense',roofs:'flat',windows:'arch',colorMode:'tonal',facade:'plain',groundFloor:'plain',accents:'plain',heightFactor:.9,roofWeights:[['flat',.78],['shed',.17],['gable',.05]],windowWeights:[['arch',.75],['rect',.22],['paired',.03]]}
+];
+const $=id=>document.getElementById(id);
+const choose=(weights,r)=>{let x=r();for(const [value,weight] of weights){x-=weight;if(x<0)return value;}return weights[weights.length-1][0];};
+function trial(original,profile){
+ const scene=JSON.parse(JSON.stringify(original));
+ for(const block of scene.blocks)for(const b of block.buildings){
+  const oldY=b.y;
+  b.height=Math.round(b.height*profile.heightFactor*100)/100;
+  b.y=Math.round((b.base-b.height)*100)/100;
+  if(profile.heightFactor!==1)b.rows=Math.max(2,Math.min(5,Math.floor(b.rows*profile.heightFactor)));
+  if(b.groundFloor&&(b.height<180||b.groundFloor.height>b.height*.5)){b.groundFloor=null;if(b.shade?.source==='awning')b.shade=null;}
+  b.roof=choose(profile.roofWeights,randomStream(scene.seed,'regional-roof-'+b.id));
+  b.roofHeight=Math.round((b.roof==='flat'?Math.min(12,b.width*.08):Math.min(70,b.width*.24))*100)/100;
+  b.windowShape=choose(profile.windowWeights,randomStream(scene.seed,'regional-window-'+b.id));
+  if(b.corner)b.corner.roofEnvelope=b.roofHeight;
+  if(b.shade?.source==='eave')for(const pt of b.shade.points)pt[1]=Math.round((pt[1]+b.y-oldY)*100)/100;
+ }
+ return scene;
+}
+function panel(title,scene){
+ const panel=document.createElement('div');panel.className='panel';
+ const h=document.createElement('h3');h.textContent=title;
+ const art=document.createElement('div');art.className='art';art.innerHTML=renderSVG(scene);
+ const status=document.createElement('p');status.className='info';
+ const check=validateScene(scene),buildings=scene.blocks.flatMap(b=>b.buildings);
+ const ratio=buildings.reduce((n,b)=>n+b.height/b.width,0)/Math.max(1,buildings.length);
+ const roofs=[...new Set(buildings.map(b=>b.roof))].length,windows=[...new Set(buildings.map(b=>b.windowShape))].length;
+ status.textContent=buildings.length+'棟 · 高さ/幅 '+ratio.toFixed(2)+' · 屋根 '+roofs+'種 · 窓 '+windows+'種 · '+(check.errors.length?'構造要確認: '+check.errors.slice(0,3).join(', '):'構造OK');
+ panel.append(h,art,status);
+ return panel;
+}
+function draw(){
+ const seed=$('seed').value,sceneId=$('scene').value;
+ const root=$('regions');root.replaceChildren();
+ let issues=0;
+ for(const p of profiles){
+  const config={version:'0.2',scene:sceneId,palette:p.palette,density:p.density,roofs:p.roofs,windows:p.windows,colorMode:p.colorMode,facade:p.facade,groundFloor:p.groundFloor,accents:p.accents};
+  try{
+   const original=generateScene(seed,config),adjusted=trial(original,p);
+   const section=document.createElement('section');section.className='region';
+   const title=document.createElement('h2');title.textContent=p.name;
+   const note=document.createElement('p');note.className='desc';note.textContent=p.note;
+   const pair=document.createElement('div');pair.className='pair';
+   pair.append(panel('A · 現行',original),panel('B · 比率調整',adjusted));
+   section.append(title,note,pair);root.append(section);
+   if(validateScene(adjusted).errors.length)issues++;
+  }catch(error){
+   issues++;const msg=document.createElement('p');msg.textContent=p.name+': '+error.message;root.append(msg);
+  }
+ }
+ $('status').textContent=issues?'構造・描画の確認が必要な地域: '+issues:'3地域とも生成・構造検査が完了しました。';
+}
+$('seed').addEventListener('change',draw);$('scene').addEventListener('change',draw);draw();
+</script></body></html>

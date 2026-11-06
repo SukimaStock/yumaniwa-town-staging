@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bbe70516cd5560b1d46b749dca35720ddd29d5a945d77773e6b6aecc9f650ba5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+    "changeId": "postcard-world-compare-20261106",
+    "revision": 0,
+    "change": "Add the isolated Postcard Generator regional visual A/B comparison lab, migrating the exact approved experiment from PR #821. No edits to existing generator or Production.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs",
+      "works/postcard-generator/index.html",
+      "works/postcard-generator/DESIGN-0.2.md",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/postcard-world-compare-20261106/r0.lock.json",
+      "works/postcard-generator/review-world/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs",
+      "works/postcard-generator/index.html",
+      "works/postcard-generator/app.mjs",
+      "works/postcard-generator/exporter.mjs",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add an isolated one-page visual comparison inside the existing Postcard Generator work; compare baseline and trial for Porto, Kyoto and Chefchaouen, three scene types and eight deterministic seeds.",
+      "Trial changes only existing building height, roof/window selection probabilities, within the new page; no new visual parts.",
+      "Retain the exact old PR #821 comparison page content; preserve all old generator settings, versions, save formats, paths and exports.",
+      "Leave the trial as a noncanonical research view with no automatic use in the public generator."
+    ],
+    "ownerDecisions": [
+      "User requested this 3-region visual comparison Lab and then explicitly authorized staging merge; Kyoto appeared too foreign; preserve no-new-parts design principle."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard; new local HTML file in existing active work is outside the bounded fast path and requires immutable Plan Lock.",
+      "Plan Lock first commit; no changes outside this work and its lock.",
+      "Only Staging; author retains visual adoption and Production authorization."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare Porto, Kyoto and Chefchaouen under same seed and scene, baseline A versus trial B in mobile and desktop browser.",
+      "Check all eight seeds, three scene types, layout and controls; physical iPhone Safari and author visual acceptance remain UNVERIFIED until observed."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the one new comparison HTML and its plan-only lock; existing generator remains unchanged.",
+    "outOfScope": [
+      "Main generator runtime, palettes and settings",
+      "Global/shared runtime or Lab registry changes",
+      "New country-specific geometric parts",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari, author aesthetic judgment and final human attestation."
+    ]
+  }
+}
