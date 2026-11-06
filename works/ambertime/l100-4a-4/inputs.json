@@ -1,0 +1,53 @@
+{
+  "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+  "inputs": [
+    {
+      "name": "local-100-year-1200-v8.json",
+      "sha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244"
+    },
+    {
+      "name": "local-30-year-360-v8.json",
+      "sha256": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9"
+    },
+    {
+      "name": "local-60-year-720-v8.json",
+      "sha256": "07394cf9aa7c0a31f39d75dec9a6a42d955eff9ebb194a2a8815511d439f8568"
+    },
+    {
+      "name": "local-90-year-1080-v8.json",
+      "sha256": "31a68b7d5153862668251cc5e7131fbaf73a503c23fd5c54934c00771b310bbc"
+    },
+    {
+      "name": "mixed-100-year-1200-v8.json",
+      "sha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb"
+    },
+    {
+      "name": "mixed-30-year-360-v8.json",
+      "sha256": "4f042009960cc58785cce01bc7ee413c8503b72dc2e08a3b9f6dbc80bc1afde4"
+    },
+    {
+      "name": "mixed-60-year-720-v8.json",
+      "sha256": "c7a123afd6734977de4f46d244b7b4085c278128630e73d90156cd88095b4ff6"
+    },
+    {
+      "name": "mixed-90-year-1080-v8.json",
+      "sha256": "54fa50613773295f2fec14ce10d59ba51ee39cdfdd1de5bf23f1c52b5aada842"
+    },
+    {
+      "name": "wide-100-year-1200-v8.json",
+      "sha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015"
+    },
+    {
+      "name": "wide-30-year-360-v8.json",
+      "sha256": "3e5464f100f92d25ca27e8f0c001e335aa13750b35e4ba7ef698bbb4ddd1d221"
+    },
+    {
+      "name": "wide-60-year-720-v8.json",
+      "sha256": "dda24b698d0c09ab6d6583c246a94f675d348c48a112da5aed927bb3a85e7711"
+    },
+    {
+      "name": "wide-90-year-1080-v8.json",
+      "sha256": "d208a9133d736af8d2cc1af85efed8d436bf85c22abf6148719ce33e756f5e89"
+    }
+  ]
+}

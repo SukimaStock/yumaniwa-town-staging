@@ -1,0 +1,10 @@
+// Isolated research. D is deliberately a restricted plain-graph comparator.
+import assert from 'node:assert/strict';
+import {ArrivalView,nativeClone} from './adapter.mjs';
+export function plainClone(root){const seen=new Map();function walk(v){if(v===null||typeof v!=='object')return v;if(seen.has(v))return seen.get(v);if(v instanceof ArrivalView){const out=new ArrivalView(walk(v.source()));seen.set(v,out);return out;}const out=Array.isArray(v)?new Array(v.length):{};seen.set(v,out);for(const k of Object.keys(v)){const x=walk(v[k]);if(k==='__proto__')Object.defineProperty(out,k,{value:x,enumerable:true,writable:true,configurable:true});else out[k]=x;}return out;}return walk(root);}
+// E only accepts the exact game-root boundary after caller-established plain,
+// parent-alias-free formal graph provenance. Not a general structuredClone replacement.
+export function projectedClone(game){const t=game.labConnection.town;assert(t.arrivals instanceof ArrivalView);t.arrivals.validate();const projected={...game,labConnection:{...game.labConnection,town:{...t,arrivals:null}}};const copied=nativeClone(projected);copied.labConnection.town.arrivals=new ArrivalView(copied.labConnection.town.events);return copied;}
+// Untimed structural inventory separates graph/descriptor/alias workload without
+// pretending per-property timers sum to uninstrumented clone runtime.
+export function inventory(root){const seen=new Set();const m={objects:0,properties:0,seenLookups:0,aliases:0,views:0,events:0,arrivalRecords:0,descriptorChecksInC:0,prototypeChecksInC:0,specialKeys:0};function walk(v){if(v===null||typeof v!=='object')return;m.seenLookups++;if(seen.has(v)){m.aliases++;return;}seen.add(v);if(v instanceof ArrivalView){m.views++;m.arrivalRecords+=v.length;walk(v.source());return;}m.objects++;m.prototypeChecksInC++;for(const k of Reflect.ownKeys(v)){if(k==='length'&&Array.isArray(v))continue;m.properties++;m.descriptorChecksInC++;if(k==='__proto__')m.specialKeys++;const d=Object.getOwnPropertyDescriptor(v,k);assert('value'in d);walk(d.value);}}walk(root);m.events=root.labConnection.town.events.length;return m;}
