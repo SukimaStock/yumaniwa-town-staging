@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7d465edcf2d299ab5ec10ff8c16e29fad5629102dbef249e300f73611da106e4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "6a1707c106afb4bf0658a274edf404bbc541de64",
+    "changeId": "ambertime-l100-4b-1",
+    "revision": 0,
+    "change": "Research trusted checkpoint plus tail and independent cold full-session comparison",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-l100-4b-1/r0.lock.json",
+      "works/ambertime/l100-4b-1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recall/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Audit current restore and H1 reuse; compare A full replay B trusted checkpoint C independent replay D fallback",
+      "Isolated v8-bound checkpoint adapter and twelve baselines, nine handovers, twelve future months",
+      "Independent cold processes, 6/12/24/60-month intervals, corruption rejection and report; Draft PR only"
+    ],
+    "ownerDecisions": [
+      "User Sentinel_e07ec56f05188191b8365d9b79ad707a explicitly authorizes L100-4B-1 isolated Node checkpoint research/tests/Draft PR; forbids formal changes, IDB, merge and Production"
+    ],
+    "hqDecisions": [
+      "No formal adoption. Research objects never enter official storage. Formal model/save/caps/RNG/history/UI remain unchanged."
+    ],
+    "rulesApplied": [
+      "Change OS Plan Lock → Scope → Risk → Impact",
+      "debug=1以外は入口・処理なし",
+      "EXPRESSION-AUDIT"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Research only; real browser and physical Safari not certified"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove only isolated research files and Plan Lock; player data unchanged.",
+    "outOfScope": [
+      "Production/merges/player data/formal code/UI/caps/IDB/checkpoint formal adoption"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No formal adoption or persistent archive durability certification"
+    ],
+    "alternativesRejected": [
+      "Delete historical records",
+      "Increase or bypass cap",
+      "Treat wire-only reduction as formal-state improvement"
+    ],
+    "boundaryCases": [
+      "Corrupt or mismatched checkpoint/prefix/tail/RNG/context/version/generation; intact v8 fallback; invalid all sources safe stop",
+      "Checkpoint hashes detect corruption, do not authenticate malicious re-signing; no source mutation",
+      "Formal cap unchanged; checkpoint accelerates replay but cannot cure town growth"
+    ],
+    "testPlan": [
+      "Audit current restore and H1 reuse; compare A full replay B trusted checkpoint C independent replay D fallback",
+      "Isolated v8-bound checkpoint adapter and twelve baselines, nine handovers, twelve future months",
+      "Independent cold processes, 6/12/24/60-month intervals, corruption rejection and report; Draft PR only"
+    ],
+    "problem": "Full historical operation replay and state copying dominate 100-year cold restoration.",
+    "currentContract": "Formal v8/game20 validates full expanded JSON below6016384 units.",
+    "whyExistingIsInsufficient": "Prior checkpoint research requires current full session contract and fresh cold evidence.",
+    "design": "Reuse H1-A2 adapter, immutable v8-bound game checkpoint plus tail; unchanged endpoint collector validation via official readSession; independent full replay comparison remains separate trust guarantee.",
+    "migration": "None",
+    "compatibility": "Inputs read-only and untouched; research representations are not formal saves.",
+    "promotionRisk": "Draft PR only; do not merge."
+  }
+}
