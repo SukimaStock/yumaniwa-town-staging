@@ -13,7 +13,7 @@ test('formal compact session uses the startup reader and restores exact game, pa
  const game=fixture(),raw=D.serializeDistillery(game),before=JSON.stringify(game);let calls=0;
  const text=serializeSession(game,ui,{...options,restore:raw=>{calls++;return D.restoreDistillery(raw);}});
  assert.equal(calls,1);assert(isCompactSession(text));assert(!isCompactSession('{'));assert(!isCompactSession(JSON.stringify({version:2})));
- const saved=JSON.parse(text);assert.deepEqual(Object.keys(saved),['version','game','userPaused','elapsed','caskSlots']);assert.equal(saved.version,4);assert.equal(saved.game.labConnection.town.arrivals,null);
+ const saved=JSON.parse(text);assert.deepEqual(Object.keys(saved),['version','game','userPaused','elapsed','caskSlots','recentLedger']);assert.equal(saved.version,5);assert.equal(saved.game.labConnection.town.arrivals,null);
  const loaded=readSession(text,options);assert.equal(D.serializeDistillery(loaded.game),raw);assert.equal(loaded.elapsed,ui.elapsed);assert.equal(loaded.userPaused,ui.userPaused);assert.equal(JSON.stringify(game),before);
  assert.equal(serializeSession(loaded.game,ui,options),text);
  const events=loaded.game.labConnection.town.events,arrivals=loaded.game.labConnection.town.arrivals;for(const arrival of arrivals)assert.notEqual(arrival,events.find(e=>e.id===arrival.id));
@@ -31,8 +31,8 @@ test('strict C encoder refuses incomplete or reordered arrivals without normaliz
 });
 test('current compact envelope rejects malformed marker, envelope, duplicates, metadata and noncanonical input before formal restore',()=>{
  const text=serializeSession(fixture(),ui,options);let calls=0;const injected={...options,restore:()=>{calls++;throw Error('must not call');}};
- for(const change of [s=>s.version=5,s=>s.extra=true,s=>delete s.elapsed,s=>s.elapsed=1,s=>s.userPaused=1,s=>s.game.labConnection.town.arrivals=[],s=>delete s.game.labConnection.town.arrivals,s=>s.game.labConnection.town.events.push(s.game.labConnection.town.events[0])])assert.throws(()=>readSession(edit(text,change),injected));
- for(const bad of [text+'\n',' '+text,text.replace('"version":4','"version":4,"version":4')])assert.throws(()=>readSession(bad,injected));assert.equal(calls,0);
+ for(const change of [s=>s.version=6,s=>s.extra=true,s=>delete s.elapsed,s=>s.elapsed=1,s=>s.userPaused=1,s=>s.game.labConnection.town.arrivals=[],s=>delete s.game.labConnection.town.arrivals,s=>s.game.labConnection.town.events.push(s.game.labConnection.town.events[0])])assert.throws(()=>readSession(edit(text,change),injected));
+ for(const bad of [text+'\n',' '+text,text.replace('"version":5','"version":5,"version":5')])assert.throws(()=>readSession(bad,injected));assert.equal(calls,0);
 });
 test('expanded size guard matches official boundary and rejects before cloning or reader bypass',()=>{
  assert.equal(MAX_FORMAL_CODE_UNITS,6016384);assert.equal(MAX_FORMAL_CODE_UNITS,P.maxSaveBytes*4+16384);
@@ -44,7 +44,7 @@ test('save candidate is rejected when official restore refuses or changes the fo
  const game=fixture();assert.throws(()=>serializeSession(game,ui,{...options,restore:()=>{throw Error('formal rejected');}}),/formal rejected/);
  assert.throws(()=>serializeSession(game,ui,{...options,restore:raw=>({...JSON.parse(raw),extra:true})}),/一致しません/);
 });
-test('source copy may encode v4 without mutating either older source or unrelated storage',()=>{
+test('source copy may encode v5 without mutating either older source or unrelated storage',()=>{
  const game=fixture(),old=JSON.stringify({version:2,game:JSON.parse(D.serializeDistillery(game)),...ui}),values=new Map([[PLACEMENT_SAVE_KEY,old],['unrelated','keep']]);
  const storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
  const result=copyToFormal(storage,{id:'placement',key:PLACEMENT_SAVE_KEY,raw:old},{...options,encodeSession:(game,ui)=>serializeSession(game,ui,options)});
