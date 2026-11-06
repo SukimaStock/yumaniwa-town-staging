@@ -2,7 +2,7 @@
 // Inputs are immutable, reviewable fact summaries, not PR-authored declarations.
 const SYSTEM = /^(?:\.github\/|tools\/|tests\/|data\/|engine\/|scripts\/|CHANGE-|AGENTS\.md|OPERATIONS\.md|index\.html$|style\.css$)/;
 const DANGEROUS = /(?:^|\/)(?:package(?:-lock)?\.json|manifest\.(?:json|webmanifest)|service-worker\.[cm]?js|sw\.[cm]?js|work-meta\.js|standalone-export\.json|build[^/]*|export[^/]*)(?:$|\/)/i;
-const CONTRACT = /(?:localStorage|sessionStorage|indexedDB|serviceWorker|\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|postMessage|\beval\s*\(|new\s+Function|\bimport\s*\(|\brequire\s*\(|\bWorker\s*\(|\b(?:save|storage|schema|migration|persist|token|auth)\b|https?:\/\/|\.\.\/)/i;
+const CONTRACT = /(?:localStorage|sessionStorage|indexedDB|serviceWorker|\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|postMessage|\beval\s*\(|new\s+Function|\bimport\s*\(|\brequire\s*\(|\bWorker\s*\(|\b(?:save|storage|schema|migration|persist|token|auth)\b|https?:\/\/)/i;
 const SAME_WORK = /^works\/([a-z][a-z0-9-]{2,48})\/(.+)$/;
 const safe = p => typeof p === 'string' && !p.split('/').some(x => !x || x === '.' || x === '..' || x.startsWith('.'));
 const unique = x => [...new Set(x)];
@@ -24,7 +24,7 @@ export function classify(change) {
   if (change.isolatedLab === true && change.labEntryWasAbsentAtBase === true &&
       change.files.every(f => f.status === 'added' && f.path.startsWith('works/'+ids[0]+'/'+change.labDirectory+'/')) &&
       typeof change.labDirectory === 'string' && /^[-a-z0-9]+$/.test(change.labDirectory) &&
-      change.noExistingEntryPointModified === true && change.noRuntimeReachability === true &&
+      change.noExistingEntryPointModified === true && change.noRuntimeReachability === true && change.sameWorkImportsVerified === true &&
       change.noExternalSideEffects === true) {
     return {route:'A',reason:'ISOLATED_NESTED_LAB_CANDIDATE',gate:'SCOPED_LAB_CHECKS',confidence:'candidate'};
   }

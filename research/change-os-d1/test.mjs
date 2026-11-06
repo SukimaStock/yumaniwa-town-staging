@@ -7,7 +7,7 @@ const base={trustedFacts:true,baseIsAncestor:true,exactHead:true,changesProducti
 const f=(path,status='modified',addedText='const color = "#ddd";')=>({path,status,addedText});
 const lab={...base,files:[f('works/postcard-generator/review-world/index.html','added')],
   isolatedLab:true,labEntryWasAbsentAtBase:true,labDirectory:'review-world',
-  noExistingEntryPointModified:true,noRuntimeReachability:true};
+  noExistingEntryPointModified:true,noRuntimeReachability:true,sameWorkImportsVerified:true};
 const cases=[
  ['PR #821 nested research Lab',lab,'A','ISOLATED_NESTED_LAB_CANDIDATE'],
  ['AmberTime visual local edit',{...base,files:[f('works/ambertime/style.css')]},'B','SCOPED_ACTIVE_WORK_CANDIDATE'],
@@ -20,6 +20,7 @@ const cases=[
  ['production promotion',{...lab,changesProduction:true},'C','RELEASE_BOUNDARY'],
  ['multiple works',{...base,files:[f('works/ambertime/style.css'),f('works/postcard-generator/style.css')]},'C','MULTI_WORK_OR_OUT_OF_WORK'],
  ['untrusted evidence',{...lab,trustedFacts:false},'C','UNTRUSTED_FACTS'],
+ ['unverified lab imports',{...lab,sameWorkImportsVerified:false},'C','NOT_PROVEN_ISOLATED'],
  ['new lab referenced by existing app',{...lab,noRuntimeReachability:false},'C','NOT_PROVEN_ISOLATED'],
  ['readiness unknown',{...lab,dependenciesReviewed:false},'C','INCOMPLETE_REVIEW']
 ];

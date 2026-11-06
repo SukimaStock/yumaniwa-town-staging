@@ -8,7 +8,7 @@ The current trusted Fast Path accepts a wholly new single work and bounded chang
 
 ## New candidate scheme
 
-- **A Explore**: isolated nested Lab with trusted Git evidence of a new directory, additive-only diff, no existing entry-point changes, no reachable runtime side effects. Scope-level checks.
+- **A Explore**: isolated nested Lab with trusted Git evidence of a new directory, additive-only diff, no existing entry-point changes, no reachable runtime side effects, and imported dependencies resolved under the same work by trusted Git-tree inspection. Scope-level checks.
 - **B Improve**: active single-work changes with trusted dependency and semantic review, no contract changes. Relevant regression.
 - **C Protect**: shared systems, persistence, game rules, release, unsafe or ambiguous/unknown evidence. Existing strict reviews.
 
@@ -28,6 +28,6 @@ Run: `node research/change-os-d1/test.mjs`.
 
 ## Important limits
 
-This prototype accepts a structured fact summary rather than inspecting immutable Git blobs itself. `trustedFacts`, `noRuntimeReachability`, `noExternalSideEffects`, and the semantic review fields **cannot** be supplied by a candidate PR and accepted as proof. Text scanning is a deliberately conservative signal, **not** a semantic security analysis: dynamic calls and indirect dependencies may evade it. The existing pinned base-owned validation remains authoritative until D2 is proven. Do not add this research classifier to required checks, remove Plan Lock, or relax Ruleset on the basis of this draft.
+This prototype accepts a structured fact summary rather than inspecting immutable Git blobs itself. `trustedFacts`, `noRuntimeReachability`, `noExternalSideEffects`, and the semantic review fields **cannot** be supplied by a candidate PR and accepted as proof. Relative imports are allowed only with separately verified same-work resolution. Text scanning is a deliberately conservative signal, **not** a semantic security analysis: dynamic calls and indirect dependencies may evade it. The existing pinned base-owned validation remains authoritative until D2 is proven. Do not add this research classifier to required checks, remove Plan Lock, or relax Ruleset on the basis of this draft.
 
 D2 readiness: bind immutable base/head trees, reproduce existing negative-case corpus, validate no false allow on modified hidden behavior, preserve failures on unknowns, exercise PR #821 and several representative existing PR diffs, then independently review before gate changes.
