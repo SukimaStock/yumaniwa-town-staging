@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c111370d4aaaf18bf055352e66a7b3895d9579e0cd917f971628f9d77d1255cc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "d521c3a8677239994599384e1bae2942bf7855a1",
+    "changeId": "ambertime-s1-fixed-slots",
+    "revision": 0,
+    "change": "固定4枠と原子的session保存で樽番号専用全再生を廃止",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs",
+      "works/ambertime/checkpoint-persistence/DESIGN.md",
+      "works/ambertime/checkpoint-persistence/results.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s1-fixed-slots/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/cask-slots.mjs",
+      "works/ambertime/cask-serials.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/s1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/chronicle-lab/**",
+      "works/ambertime/experiments/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "現存樽最大4件を固定枠に割当て、内部ID不変",
+      "session v4に枠を含め原子的保存。v2/v3読込と確認backup移行を維持",
+      "現在の樽を固定位置表示、過去は由来表示",
+      "樽番号専用projection廃止、正式reader維持"
+    ],
+    "ownerDecisions": [
+      "2026-11-06 S1依頼全文：固定4枠、必要な明示的session形式管理、検証、PR、Stagingマージを承認。Production禁止"
+    ],
+    "hqDecisions": [
+      "ユーザーの固定枠・保存原子性条件を満たす最小案：正式gameを変えずsession v4の4要素配列で保持。旧v2/v3は読取と確認backup移行。"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact",
+      "表示説明を増やさず既存操作維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "保存・枠・参照の独立レビュー",
+      "Chromium本編操作"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "v4 readerを保持して表示変更を戻す。旧保存backupからの復元を伴わない単純旧版戻しは禁止",
+    "outOfScope": [
+      "正式game計算・履歴・RNG・checkpoint・IDB・Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機は本人確認。未完了計測は未完了として記録"
+    ],
+    "alternativesRejected": [
+      "別key非原子的保存",
+      "正式gameへの枠追加",
+      "樽番号全再生"
+    ],
+    "boundaryCases": [
+      "新規/v2/v3/v4/破損枠/満杯/消滅/再利用/保存失敗/競合/中断"
+    ],
+    "testPlan": [
+      "固定枠とv2/v3/v4保存、ゲーム同値性",
+      "実Chromium操作・旧保存復旧・失敗",
+      "100年3方針逐次比較・H25依存照合",
+      "Scope/Risk/Impact・CI"
+    ],
+    "problem": "4樽の表示番号に100年全再生が必要",
+    "currentContract": "正式gameは全再生検証、session v3は4キー",
+    "whyExistingIsInsufficient": "固定枠を同時保存できず番号表示が全履歴依存",
+    "design": "枠配列をsession v4に保持。生存IDの枠維持、消滅解放、新規最小空枠。保存成功時だけgameと枠を確定。",
+    "migration": "v2/v3を現在樽のfilledMonth/idで初期割当て、既存backup確認経路後v4確定。読込だけでは上書きしない。",
+    "compatibility": "v2/v3 reader維持。正式game全JSON不変。旧コードはv4非対応。",
+    "promotionRisk": "研究専用Stagingのみ。Productionなし"
+  }
+}
