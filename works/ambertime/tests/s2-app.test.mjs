@@ -51,7 +51,7 @@ const saveCode=slice('function rememberCommitted()','const displayProductStock')
 function savingHarness(){
  const before={operations:[1],tag:'before'},after={operations:[1,2],tag:'after'},facts={tag:'old'},nodes=new Map();let passedBefore,writes=0;
  const context=vm.createContext({game:before,userPaused:false,elapsed:0,caskSlots:[37,null,null,null],recentLedger:facts,committedSession:null,
-  preview:false,canSave:true,migrationPending:null,lastSavedText:'old',runtimeHalted:false,modal:null,
+  preview:false,canSave:true,lastSaveError:null,legacyRecord:null,isCurrentSession:()=>true,lastSavedText:'old',runtimeHalted:false,modal:null,
   $:id=>{if(!nodes.has(id))nodes.set(id,{hidden:false,open:false,textContent:''});return nodes.get(id);},vaultPanels:()=>{},stopClock:()=>{},storageNotice:()=>{},
   advanceRecentLedger:(a,b,old)=>{passedBefore=a;assert.equal(old,facts);return {tag:b.tag};},migrateRecentLedger:next=>({tag:next.tag}),
   reconcileCaskSlots:()=>[37,42,null,null],serializeSession:(g,ui)=>JSON.stringify({game:g,...ui}),D:{},T:{monthMs:1000,distillStepMs:100},

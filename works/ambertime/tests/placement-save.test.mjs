@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as S from '../placement-save.mjs';
-const trial={version:20,core:{casks:[]},placement:{version:1,retailByProduct:{}}},legacy={version:20,core:{casks:[]}};
+const trial={version:20,origin:null,operations:[],core:{month:0,casks:[]},placement:{version:1,retailByProduct:{}}},legacy={version:20,origin:null,operations:[],core:{month:0,casks:[]}};
+const recentLedger={version:1,operationCount:0,month:0,coverage:{complete:true,fromMonth:0},manuals:[],active:[],ended:[]};
 const envelope=(game=trial,changes={})=>({version:2,game:structuredClone(game),userPaused:true,elapsed:200,...changes});
 const options=(enabled=true,restore=JSON.parse)=>({enabled,restore,monthMs:6000,stepMs:100});
 function storage(entries={}){const values=new Map(Object.entries(entries)),writes=[];return {values,writes,getItem(key){return values.has(key)?values.get(key):null;},setItem(key,value){writes.push([key,value]);values.set(key,value);}};}
@@ -12,8 +13,8 @@ test('only the explicit placement=1 query requests the trial, with separate stab
 });
 test('valid envelopes use the injected native restore and preserve pause/time and derive empty slot metadata',()=>{
  let called=0;const text=JSON.stringify(envelope()),sent=[];const out=S.readSession(text,options(true,raw=>{called++;sent.push(raw);return {...JSON.parse(raw),validated:true};}));
- assert.equal(called,1);assert.equal(sent[0],JSON.stringify(trial));assert.deepEqual(out,{game:{...trial,validated:true},userPaused:true,elapsed:200,caskSlots:[null,null,null,null]});assert.equal(text,JSON.stringify(envelope()));
- assert.deepEqual(S.readSession(JSON.stringify(envelope(legacy,{elapsed:0,userPaused:false})),options(false)),{game:legacy,userPaused:false,elapsed:0,caskSlots:[null,null,null,null]});
+ assert.equal(called,1);assert.equal(sent[0],JSON.stringify(trial));assert.deepEqual(out,{game:{...trial,validated:true},userPaused:true,elapsed:200,caskSlots:[null,null,null,null],recentLedger});assert.equal(text,JSON.stringify(envelope()));
+ assert.deepEqual(S.readSession(JSON.stringify(envelope(legacy,{elapsed:0,userPaused:false})),options(false)),{game:legacy,userPaused:false,elapsed:0,caskSlots:[null,null,null,null],recentLedger});
 });
 test('mode guards reject both wrong-key directions before restore, and after restore',()=>{
  for(const [game,enabled] of [[legacy,true],[trial,false]]){let called=0;assert.throws(()=>S.readSession(JSON.stringify(envelope(game)),options(enabled,()=>{called++;return game;})),/別の方式/);assert.equal(called,0);assert.throws(()=>S.assertMode(game,enabled),/別の方式/);}
