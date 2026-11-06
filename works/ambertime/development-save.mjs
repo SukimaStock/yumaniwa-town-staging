@@ -1,11 +1,12 @@
+import {assertHistoryRecord} from './history-record.mjs?v=s4-1';
 import {assertCaskSlots} from './cask-slots.mjs?v=s1-1';
 import {assertRecentLedger} from './recent-ledger.mjs?v=s3-1';
 import {compactFormalGame,expandFormalGame,assertFormalSize,MAX_SESSION_CODE_UNITS} from './save-codec.mjs?v=h1-b2-1';
 
 // One current development format. Historical readers remain research tools only.
-export const DEVELOPMENT_SAVE_VERSION=6;
+export const DEVELOPMENT_SAVE_VERSION=7;
 export const FORMAL_SAVE_KEY='sukimastock.ambertime.main.v1';
-const keys=['version','game','userPaused','elapsed','caskSlots','recentLedger'];
+const keys=['version','game','userPaused','elapsed','caskSlots','recentLedger','historyRecord'];
 function require(ok,code,message){if(!ok)throw Object.assign(Error(message),{code});}
 function assertMode(game,enabled){require(enabled===true&&game?.placement?.version===1,'invalid-session','この記録は現在の開発版では開けません。');}
 export function isCurrentSession(text){try{return JSON.parse(text)?.version===DEVELOPMENT_SAVE_VERSION;}catch{return false;}}
@@ -21,17 +22,18 @@ export function readSession(text,{enabled,restore,monthMs,stepMs}={}){
  assertMode(game,enabled);
  const caskSlots=assertCaskSlots(game,session.caskSlots).slice();
  const recentLedger=assertRecentLedger(game,session.recentLedger);
- return {game,userPaused:session.userPaused,elapsed:session.elapsed,caskSlots,recentLedger};
+ const historyRecord=assertHistoryRecord(game,session.historyRecord);
+ return {game,userPaused:session.userPaused,elapsed:session.elapsed,caskSlots,recentLedger,historyRecord};
 }
-export function serializeSession(game,{userPaused,elapsed,caskSlots,recentLedger},{serialize,restore,enabled,monthMs,stepMs}={}){
+export function serializeSession(game,{userPaused,elapsed,caskSlots,recentLedger,historyRecord},{serialize,restore,enabled,monthMs,stepMs}={}){
  require(typeof serialize==='function'&&typeof restore==='function','invalid-session','正式な保存の確認方法がありません。');
  assertMode(game,enabled);
  const raw=assertFormalSize(serialize(game));
- assertCaskSlots(game,caskSlots);assertRecentLedger(game,recentLedger);
- const text=JSON.stringify({version:DEVELOPMENT_SAVE_VERSION,game:compactFormalGame(raw),userPaused,elapsed,caskSlots,recentLedger});
+ assertCaskSlots(game,caskSlots);assertRecentLedger(game,recentLedger);assertHistoryRecord(game,historyRecord);
+ const text=JSON.stringify({version:DEVELOPMENT_SAVE_VERSION,game:compactFormalGame(raw),userPaused,elapsed,caskSlots,recentLedger,historyRecord});
  // Validate exactly what will be written using the same official reader as boot.
  const restored=readSession(text,{enabled,restore,monthMs,stepMs});
- require(JSON.stringify(restored.game)===raw&&JSON.stringify(restored.caskSlots)===JSON.stringify(caskSlots)&&JSON.stringify(restored.recentLedger)===JSON.stringify(recentLedger),'invalid-session','保存から戻した記録が一致しません。');
+ require(JSON.stringify(restored.game)===raw&&JSON.stringify(restored.caskSlots)===JSON.stringify(caskSlots)&&JSON.stringify(restored.recentLedger)===JSON.stringify(recentLedger)&&JSON.stringify(restored.historyRecord)===JSON.stringify(historyRecord),'invalid-session','保存から戻した記録が一致しません。');
  return text;
 }
 export function writeCandidate(storage,key,expected,text){

@@ -1,0 +1,693 @@
+{
+  "schema": "ambertime-s4-h2-actual-local-mapping/1",
+  "scope": "Local policy only; IDs match semantic release/shop/region event identity, not new editor output. Evidence-only checks membership of final checkpoint ancestor facts; it is not permission to insert those into an earlier H2 boundary.",
+  "dependencyFingerprint": "5aec138c63f5c4482fba2feaab166f57c18de9ce4a8e86d601b1591a7a76f366",
+  "checkpoints": [
+    {
+      "month": 360,
+      "eventCount": 38,
+      "generations": {
+        "1": 36,
+        "2": 2
+      },
+      "eventKinds": {
+        "generation-start": 1,
+        "distillation": 1,
+        "bottling": 14,
+        "region-reached": 9,
+        "shop-start": 1,
+        "visit": 5,
+        "inquiry": 4,
+        "shop-anniversary": 2,
+        "generation-handover": 1
+      }
+    },
+    {
+      "month": 720,
+      "eventCount": 52,
+      "generations": {
+        "1": 36,
+        "2": 11,
+        "3": 5
+      },
+      "eventKinds": {
+        "generation-start": 1,
+        "distillation": 1,
+        "bottling": 19,
+        "region-reached": 10,
+        "shop-start": 1,
+        "visit": 7,
+        "inquiry": 6,
+        "shop-anniversary": 5,
+        "generation-handover": 2
+      }
+    },
+    {
+      "month": 1080,
+      "eventCount": 64,
+      "generations": {
+        "1": 36,
+        "2": 11,
+        "3": 14,
+        "4": 3
+      },
+      "eventKinds": {
+        "generation-start": 1,
+        "distillation": 1,
+        "bottling": 21,
+        "region-reached": 10,
+        "shop-start": 1,
+        "visit": 10,
+        "inquiry": 9,
+        "shop-anniversary": 8,
+        "generation-handover": 3
+      }
+    },
+    {
+      "month": 1200,
+      "eventCount": 71,
+      "generations": {
+        "1": 36,
+        "2": 11,
+        "3": 14,
+        "4": 10
+      },
+      "eventKinds": {
+        "generation-start": 1,
+        "distillation": 1,
+        "bottling": 22,
+        "region-reached": 10,
+        "shop-start": 1,
+        "visit": 13,
+        "inquiry": 11,
+        "shop-anniversary": 9,
+        "generation-handover": 3
+      }
+    }
+  ],
+  "results": [
+    {
+      "policy": "local",
+      "years": 30,
+      "boundary": null,
+      "cutoff": {
+        "month": 360,
+        "operationIndex": null,
+        "ordinal": null
+      },
+      "selectedCount": 16,
+      "visible": 8,
+      "evidenceOnly": 2,
+      "notRetained": 6,
+      "selected": [
+        {
+          "h2Id": "bottling:1",
+          "kind": "bottling",
+          "month": 6,
+          "generationId": 1,
+          "ids": {
+            "brandId": 1,
+            "releaseId": 1,
+            "productId": 5,
+            "caskId": 2,
+            "age": 6,
+            "count": 46
+          },
+          "status": "visible-fact",
+          "s4Id": "bottling:5"
+        },
+        {
+          "h2Id": "shop-start:town-liquor:1",
+          "kind": "shop-start",
+          "month": 17,
+          "generationId": 1,
+          "ids": {
+            "shopId": "town-liquor",
+            "brandId": 1
+          },
+          "status": "visible-fact",
+          "s4Id": "shop-start:town-liquor"
+        },
+        {
+          "h2Id": "delivery:1",
+          "kind": "delivery",
+          "month": 23,
+          "generationId": 1,
+          "ids": {
+            "shopId": "town-liquor",
+            "receiptId": 1,
+            "brandId": 1,
+            "productId": 15,
+            "releaseId": 5,
+            "count": 1
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "arrival:e604",
+          "kind": "arrival",
+          "month": 76,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e604",
+            "sourceId": "e36",
+            "regionId": "overseas-food",
+            "level": "海外",
+            "townReleaseId": 1,
+            "releaseId": 1,
+            "channel": "chance"
+          },
+          "status": "visible-fact",
+          "s4Id": "town:e604"
+        },
+        {
+          "h2Id": "bottling:11",
+          "kind": "bottling",
+          "month": 86,
+          "generationId": 1,
+          "ids": {
+            "brandId": 1,
+            "releaseId": 11,
+            "productId": 35,
+            "caskId": 28,
+            "age": 48,
+            "count": 43
+          },
+          "status": "visible-fact",
+          "s4Id": "bottling:35"
+        },
+        {
+          "h2Id": "sale:retail:93:36",
+          "kind": "sale",
+          "month": 93,
+          "generationId": 1,
+          "ids": {
+            "saleReceiptId": "retail:93:36",
+            "releaseId": 12,
+            "brandId": 1,
+            "productId": 36,
+            "count": 2
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "arrival:e907",
+          "kind": "arrival",
+          "month": 108,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e907",
+            "sourceId": "e618",
+            "regionId": "national-food",
+            "level": "全国",
+            "townReleaseId": 8,
+            "releaseId": 8,
+            "channel": "road"
+          },
+          "status": "evidence-only",
+          "s4Id": null
+        },
+        {
+          "h2Id": "inquiry:e1028",
+          "kind": "inquiry",
+          "month": 132,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e1028",
+            "sourceId": "e908",
+            "regionId": "national-food",
+            "level": "全国",
+            "townReleaseId": 8,
+            "releaseId": 8,
+            "channel": null
+          },
+          "status": "visible-fact",
+          "s4Id": "town:e1028"
+        },
+        {
+          "h2Id": "distillation:264",
+          "kind": "distillation",
+          "month": 132,
+          "generationId": 1,
+          "ids": {
+            "batchId": 37
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "arrival:e1114",
+          "kind": "arrival",
+          "month": 160,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e1114",
+            "sourceId": "e821",
+            "regionId": "overseas-food",
+            "level": "海外",
+            "townReleaseId": 11,
+            "releaseId": 11,
+            "channel": "chance"
+          },
+          "status": "evidence-only",
+          "s4Id": null
+        },
+        {
+          "h2Id": "inquiry:e1164",
+          "kind": "inquiry",
+          "month": 171,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e1164",
+            "sourceId": "e1115",
+            "regionId": "overseas-food",
+            "level": "海外",
+            "townReleaseId": 11,
+            "releaseId": 11,
+            "channel": null
+          },
+          "status": "visible-fact",
+          "s4Id": "town:e1164"
+        },
+        {
+          "h2Id": "delivery:55",
+          "kind": "delivery",
+          "month": 276,
+          "generationId": 1,
+          "ids": {
+            "shopId": "town-liquor",
+            "receiptId": 55,
+            "brandId": 1,
+            "productId": 20,
+            "releaseId": 6,
+            "count": 1
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "handover:1",
+          "kind": "handover",
+          "month": 321,
+          "generationId": 1,
+          "ids": {
+            "fromGeneration": 1,
+            "toGeneration": 2
+          },
+          "status": "visible-fact",
+          "s4Id": "generation-handover:1"
+        },
+        {
+          "h2Id": "inquiry:e1628",
+          "kind": "inquiry",
+          "month": 333,
+          "generationId": 2,
+          "ids": {
+            "townEventId": "e1628",
+            "sourceId": "e1586",
+            "regionId": "overseas-food",
+            "level": "海外",
+            "townReleaseId": 11,
+            "releaseId": 11,
+            "channel": null
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "bottling:14",
+          "kind": "bottling",
+          "month": 336,
+          "generationId": 2,
+          "ids": {
+            "brandId": 1,
+            "releaseId": 14,
+            "productId": 42,
+            "caskId": 41,
+            "age": 48,
+            "count": 42
+          },
+          "status": "visible-fact",
+          "s4Id": "bottling:42"
+        },
+        {
+          "h2Id": "delivery:73",
+          "kind": "delivery",
+          "month": 356,
+          "generationId": 2,
+          "ids": {
+            "shopId": "town-liquor",
+            "receiptId": 73,
+            "brandId": 1,
+            "productId": 23,
+            "releaseId": 7,
+            "count": 1
+          },
+          "status": "not-retained",
+          "s4Id": null
+        }
+      ]
+    },
+    {
+      "policy": "local",
+      "years": 100,
+      "boundary": null,
+      "cutoff": {
+        "month": 1200,
+        "operationIndex": null,
+        "ordinal": null
+      },
+      "selectedCount": 21,
+      "visible": 11,
+      "evidenceOnly": 2,
+      "notRetained": 8,
+      "selected": [
+        {
+          "h2Id": "bottling:1",
+          "kind": "bottling",
+          "month": 6,
+          "generationId": 1,
+          "ids": {
+            "brandId": 1,
+            "releaseId": 1,
+            "productId": 5,
+            "caskId": 2,
+            "age": 6,
+            "count": 46
+          },
+          "status": "visible-fact",
+          "s4Id": "bottling:5"
+        },
+        {
+          "h2Id": "arrival:e36",
+          "kind": "arrival",
+          "month": 16,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e36",
+            "sourceId": "e14",
+            "regionId": "national-food",
+            "level": "全国",
+            "townReleaseId": 1,
+            "releaseId": 1,
+            "channel": "chance"
+          },
+          "status": "visible-fact",
+          "s4Id": "town:e36"
+        },
+        {
+          "h2Id": "delivery:1",
+          "kind": "delivery",
+          "month": 23,
+          "generationId": 1,
+          "ids": {
+            "shopId": "town-liquor",
+            "receiptId": 1,
+            "brandId": 1,
+            "productId": 15,
+            "releaseId": 5,
+            "count": 1
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "sale:retail:92:35",
+          "kind": "sale",
+          "month": 92,
+          "generationId": 1,
+          "ids": {
+            "saleReceiptId": "retail:92:35",
+            "releaseId": 11,
+            "brandId": 1,
+            "productId": 35,
+            "count": 3
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "arrival:e907",
+          "kind": "arrival",
+          "month": 108,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e907",
+            "sourceId": "e618",
+            "regionId": "national-food",
+            "level": "全国",
+            "townReleaseId": 8,
+            "releaseId": 8,
+            "channel": "road"
+          },
+          "status": "evidence-only",
+          "s4Id": null
+        },
+        {
+          "h2Id": "arrival:e1114",
+          "kind": "arrival",
+          "month": 160,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e1114",
+            "sourceId": "e821",
+            "regionId": "overseas-food",
+            "level": "海外",
+            "townReleaseId": 11,
+            "releaseId": 11,
+            "channel": "chance"
+          },
+          "status": "evidence-only",
+          "s4Id": null
+        },
+        {
+          "h2Id": "inquiry:e1164",
+          "kind": "inquiry",
+          "month": 171,
+          "generationId": 1,
+          "ids": {
+            "townEventId": "e1164",
+            "sourceId": "e1115",
+            "regionId": "overseas-food",
+            "level": "海外",
+            "townReleaseId": 11,
+            "releaseId": 11,
+            "channel": null
+          },
+          "status": "visible-fact",
+          "s4Id": "town:e1164"
+        },
+        {
+          "h2Id": "handover:1",
+          "kind": "handover",
+          "month": 321,
+          "generationId": 1,
+          "ids": {
+            "fromGeneration": 1,
+            "toGeneration": 2
+          },
+          "status": "visible-fact",
+          "s4Id": "generation-handover:1"
+        },
+        {
+          "h2Id": "delivery:78",
+          "kind": "delivery",
+          "month": 382,
+          "generationId": 2,
+          "ids": {
+            "shopId": "town-liquor",
+            "receiptId": 78,
+            "brandId": 1,
+            "productId": 23,
+            "releaseId": 7,
+            "count": 1
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "reaction:customer:retail:385:45",
+          "kind": "reaction",
+          "month": 385,
+          "generationId": 2,
+          "ids": {
+            "saleReceiptId": "retail:385:45",
+            "releaseId": 15,
+            "brandId": 1,
+            "productId": 45,
+            "count": 1
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "distillation:677",
+          "kind": "distillation",
+          "month": 486,
+          "generationId": 2,
+          "ids": {
+            "batchId": 46
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "handover:2",
+          "kind": "handover",
+          "month": 636,
+          "generationId": 2,
+          "ids": {
+            "fromGeneration": 2,
+            "toGeneration": 3
+          },
+          "status": "visible-fact",
+          "s4Id": "generation-handover:2"
+        },
+        {
+          "h2Id": "bottling:18",
+          "kind": "bottling",
+          "month": 701,
+          "generationId": 3,
+          "ids": {
+            "brandId": 1,
+            "releaseId": 18,
+            "productId": 56,
+            "caskId": 52,
+            "age": 48,
+            "count": 42
+          },
+          "status": "visible-fact",
+          "s4Id": "bottling:56"
+        },
+        {
+          "h2Id": "delivery:153",
+          "kind": "delivery",
+          "month": 750,
+          "generationId": 3,
+          "ids": {
+            "shopId": "town-liquor",
+            "receiptId": 153,
+            "brandId": 1,
+            "productId": 39,
+            "releaseId": 13,
+            "count": 1
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "bottling:20",
+          "kind": "bottling",
+          "month": 877,
+          "generationId": 3,
+          "ids": {
+            "brandId": 1,
+            "releaseId": 20,
+            "productId": 60,
+            "caskId": 59,
+            "age": 36,
+            "count": 43
+          },
+          "status": "visible-fact",
+          "s4Id": "bottling:60"
+        },
+        {
+          "h2Id": "handover:3",
+          "kind": "handover",
+          "month": 955,
+          "generationId": 3,
+          "ids": {
+            "fromGeneration": 3,
+            "toGeneration": 4
+          },
+          "status": "visible-fact",
+          "s4Id": "generation-handover:3"
+        },
+        {
+          "h2Id": "arrival:e3431",
+          "kind": "arrival",
+          "month": 994,
+          "generationId": 4,
+          "ids": {
+            "townEventId": "e3431",
+            "sourceId": "e3401",
+            "regionId": "restaurant",
+            "level": "町",
+            "townReleaseId": 14,
+            "releaseId": 14,
+            "channel": "road"
+          },
+          "status": "not-retained",
+          "s4Id": null
+        },
+        {
+          "h2Id": "bottling:21",
+          "kind": "bottling",
+          "month": 1049,
+          "generationId": 4,
+          "ids": {
+            "brandId": 1,
+            "releaseId": 21,
+            "productId": 63,
+            "caskId": 62,
+            "age": 36,
+            "count": 43
+          },
+          "status": "visible-fact",
+          "s4Id": "bottling:63"
+        },
+        {
+          "h2Id": "visit:e3669",
+          "kind": "visit",
+          "month": 1084,
+          "generationId": 4,
+          "ids": {
+            "townEventId": "e3669",
+            "sourceId": "e3561",
+            "regionId": "national-food",
+            "level": "全国",
+            "townReleaseId": 16,
+            "releaseId": 16,
+            "channel": null
+          },
+          "status": "visible-fact",
+          "s4Id": "town:e3669"
+        },
+        {
+          "h2Id": "bottling:22",
+          "kind": "bottling",
+          "month": 1127,
+          "generationId": 4,
+          "ids": {
+            "brandId": 1,
+            "releaseId": 22,
+            "productId": 66,
+            "caskId": 65,
+            "age": 48,
+            "count": 42
+          },
+          "status": "visible-fact",
+          "s4Id": "bottling:66"
+        },
+        {
+          "h2Id": "delivery:238",
+          "kind": "delivery",
+          "month": 1167,
+          "generationId": 4,
+          "ids": {
+            "shopId": "town-liquor",
+            "receiptId": 238,
+            "brandId": 1,
+            "productId": 56,
+            "releaseId": 18,
+            "count": 1
+          },
+          "status": "not-retained",
+          "s4Id": null
+        }
+      ]
+    }
+  ]
+}

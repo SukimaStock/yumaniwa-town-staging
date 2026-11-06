@@ -9,7 +9,9 @@ import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1&geomet
 import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
-import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY} from './development-save.mjs?v=s3-1';
+import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=s4-1';
+import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
+import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
 import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=compact-three-r1&fields=count-linked-r1&rooms=stage2-r1&quantity=a3-1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
@@ -152,33 +154,13 @@ document.addEventListener('keydown',()=>inputMode(false),true);
 // Ephemeral display only; never stored or used by the simulation.
 let deliveryNotice='';
 let staffMigrationNotice=false;
-// History is a read-only projection in an isolated worker, never save data.
-let historyWorker=null,historyRequest=0,historyData=null,historyError='',historyLoading=false,historySnapshot=null;
-const historyVisible=()=>['history','history-brand','history-shop','history-generation','generation-review'].includes(modal?.kind);
-// Load the existing worker modules once; replay remains demand-driven and off-thread.
-// No game snapshot is sent during warm-up, and no projection cache is added.
-function prepareLedgerWorkers(){
- if(!game||document.hidden)return;
- if(historyWorker)return;
- try{
-  const worker=new Worker(new URL('./history-worker.mjs?v=market-rules-r1',import.meta.url),{type:'module'});
-  historyWorker=worker;
-  worker.onerror=e=>{e.preventDefault();worker.terminate();if(historyWorker===worker)historyWorker=null;};
- }catch{}
-}
+// Display reads committed facts; opening history never replays game operations.
+let historyRecord=null,historyData=null,historySnapshot=null,historyFactsSnapshot=null;
 function readHistory(){
- if(historySnapshot===game)return;
- const snapshot=game,requestId=++historyRequest;historySnapshot=snapshot;historyData=null;historyError='';historyLoading=true;
- const finish=(data,error)=>{
-  if(requestId!==historyRequest||historySnapshot!==snapshot)return;
-  if(game!==snapshot){historySnapshot=null;historyLoading=false;return;}
-  const active=document.activeElement,action=active?.dataset?.action,target=active?.dataset?.id;
-  historyLoading=false;historyData=data;historyError=error?'記録を読めませんでした。':'';
-  if(historyVisible()){render();restoreLedger(active?.id);if(action)queueMicrotask(()=>$('action-dialog').querySelector('[data-action="'+CSS.escape(action)+'"][data-id="'+CSS.escape(target??'')+'"]')?.focus({preventScroll:true}));}
- };
- try{prepareLedgerWorkers();const worker=historyWorker;if(!worker)throw Error('worker unavailable');worker.onmessage=({data})=>{if(historyWorker===worker&&data.requestId===requestId)finish(data.history??null,data.error||!data.history);};worker.onerror=e=>{e.preventDefault();worker.terminate();if(historyWorker===worker){historyWorker=null;finish(null,true);}};worker.postMessage({requestId,state:snapshot});}catch{finish(null,true);}
+ if(historySnapshot===game&&historyFactsSnapshot===historyRecord)return;
+ historyData=historyRecordView(game,historyRecord);historySnapshot=game;historyFactsSnapshot=historyRecord;
 }
-function historyWaiting(){readHistory();return historyLoading?'<p role="status" data-history-loading>記録を読んでいます…</p>':historyError?'<p role="alert">'+esc(historyError)+'</p>'+button('もう一度読む','history-retry'):null;}
+function historyWaiting(){if(preview&&!historyRecord)return '<p>この試遊には歩みの記録がありません。</p>';readHistory();return null;}
 function openHistory(){
  if(!game||(modal&&!['aux-panel','ledger','generation-review'].includes(modal.kind)))return;
  const parent=['ledger','generation-review'].includes(modal?.kind)?rememberLedger():null;stopClock();modal={kind:'history',year:null,page:0,parent};render();
@@ -287,16 +269,19 @@ function recipeAction(fn){const halted=runtimeHalted;if(act(fn))runtimeHalted=ha
 
 const historyYears=()=>[...new Set((historyData?.events??[]).map(e=>monthLabel(e.month).split('年')[0]))];
 function historyEventText(e){
- if(e.kind==='generation-start')return generationName(e.generationNumber??e.generationId??1)+'が蒸留所を始めた';
- if(e.kind==='generation-handover')return generationName(e.generationNumber??e.generationId)+'から'+generationName(e.nextGeneration??e.nextGenerationNumber??e.nextGenerationId??(e.generationNumber??e.generationId)+1)+'へ引きつぎ';
- if(e.kind==='generation-fixed')return generationName(e.generationNumber??e.generationId)+'の最後の仕込みを決めた'+(e.trigger?.kind==='tenure-limit'?' · 在任期限':e.trigger?.kind==='funds-stalled'?' · 資金の状況':'');
- const brand=e.brandName??(game.brands.find(b=>b.id===e.brandId)?.name),name=brand? '「'+brand+'」':'';
- const release=e.productId!==undefined?' · '+releaseTag(e.productId):'',count=Number.isFinite(e.count)?' · '+e.count+'本':'',age=Number.isFinite(e.age)?' · '+ageLabel(e.age):'';
- const first=historyData?.coverage?.complete&&historyData.events.find(x=>x.kind==='distillation')?.id===e.id;
- const kinds={distillation:first?'初めての蒸留':'蒸留',fill:'たる詰め',bottling:e.rerelease?'再発売のビン詰め':'ビン詰め','retail-first-sale':'自家販売で初めて売れた','shop-start':'取扱い開始','shop-delivery':'納品','department-adoption':(e.projectName??'特選ウイスキー')+'に採用','wholesale-start':'卸売の取引開始','wholesale-shipment':'卸売出荷','special-order-accepted':'特別注文を受注','special-order-fulfilled':'特別注文を出荷','special-order-cancelled':'特別注文を取消','special-order-unmet':'特別注文の風味を確認','special-order-resolved':'特別注文の販売方法を選択'};
- const extraction=Number.isInteger(e.stopAt)?'抽出位置 '+e.stopAt+' / '+extractionMaximum:Number.isFinite(e.cut)?'抽出'+Math.round(e.cut*100)+'%':({early:'早め抽出',middle:'中盤抽出',late:'後半抽出'}[e.cut]??'');
- const type=uiText(P.casks[e.type]?.short),profile=e.kind==='distillation'?spiritProfile({...e.profile,litres:0})?.phrase:null;
- return name+(name?' · ':'')+(Number.isInteger(e.caskId)?pastCaskName(e.caskId)+' · ':'')+(e.kind==='distillation'&&extraction?extraction+' · ':'')+(type?type+' · ':'')+(e.shopId?shopName(e.shopId)+' · ':e.partner?e.partner+' · ':'')+(kinds[e.kind]??'記録')+release+age+count+(Number.isFinite(e.revenue)?' · '+unit(e.revenue):'')+(profile?' · '+profile:'')+(e.generationTrigger?' · '+generationName(e.generationTrigger)+'の最後の仕込みを決めた':'')+(e.finalGeneration?' · '+generationName(typeof e.finalGeneration==='number'?e.finalGeneration:e.finalGeneration.id??e.generationNumber)+'の最後の仕込み':'');
+ const region=HISTORY_REGIONS.find(r=>r.id===e.regionId)?.name??e.regionId;
+ if(e.kind==='generation-start')return '蒸留所を始めた。';
+ if(e.kind==='generation-handover')return generationName(e.nextGeneration)+'へ蒸留所を引き継いだ。';
+ if(e.kind==='distillation')return '初めての蒸留を終えた。';
+ if(e.kind==='bottling')return (e.firstRelease?'初めてのウイスキー':(e.brandName||'ウイスキー'))+'を発売した。'+ageLabel(e.age)+' · '+e.count+'本'+(e.longestAge&&!e.firstRelease?' · 最長熟成':'');
+ if(e.kind==='shop-start')return shopName(e.shopId)+'で取扱いが始まった。';
+ if(e.kind==='shop-anniversary')return shopName(e.shopId)+'への納品が'+e.years+'年にわたった。';
+ if(e.kind==='region-reached')return region+'へ初めて評判が届いた。';
+ if(e.kind==='inquiry')return region+'から'+(e.first?'初めて':'久しぶりに')+'問い合わせが届いた。';
+ if(e.kind==='visit')return region+'から'+(e.first?'初めて':'久しぶりに')+'訪問があった。';
+ if(e.kind==='department-adoption')return (e.projectName??'特選ウイスキー')+'に採用された。';
+ if(e.kind==='special-order-fulfilled')return '特別注文の酒を届けた。';
+ return '記録';
 }
 function historyView(){
  const waiting=historyWaiting();if(waiting)return waiting;
@@ -310,8 +295,8 @@ function historyView(){
  return out;
 }
 function historyYearEvents(year){
- const events=historyData.events.filter(e=>monthLabel(e.month).split('年')[0]===year),page=modal.page??0,start=page*50;
- return '<ol class="history-events">'+events.slice(start,start+50).map(e=>'<li data-history-event="'+esc(e.id)+'"><time>'+monthLabel(e.month)+'</time><p>'+esc(historyEventText(e))+'</p><div class="history-links">'+(e.brandId!==undefined&&e.brandId!==null?button('ブランド','history-brand',e.brandId):'')+(e.shopId?button('取扱店','history-shop',e.shopId):'')+'</div></li>').join('')+'</ol>'+(events.length>50?'<div class="history-pagination">'+button('前へ','history-page',page-1,page===0?'disabled':'')+'<span>'+(start+1)+'–'+Math.min(start+50,events.length)+' / '+events.length+'件</span>'+button('次へ','history-page',page+1,start+50>=events.length?'disabled':'')+'</div>':'');
+ const events=historyData.events.filter(e=>monthLabel(e.month).split('年')[0]===year);
+ return '<ol class="history-events">'+events.map(e=>'<li data-history-event="'+esc(e.id)+'"><time>'+monthLabel(e.month)+' · '+generationName(e.generationNumber)+'</time><p>'+esc(historyEventText(e))+'</p><div class="history-links">'+(e.productId!=null?button('発売','history-release',e.productId):'')+(e.shopId?button('取扱店','history-shop',e.shopId):'')+'</div></li>').join('')+'</ol>';
 }
 function historyBrandView(brandId){
  const brand=game.brands.find(b=>b.id===brandId);if(!brand)return '<p>ブランドの記録なし</p>';
@@ -499,8 +484,8 @@ const message=t=>{$('work-notice').textContent=t;};
 function storageNotice(t){$('storage-notice').textContent=t;$('storage-notice').hidden=!t;}
 const wallClock=new RuntimeClock(T.distillStepMs);
 function stopClock(reset=true){if(reset)wallClock.reset();generation++;if(timer!==null){clearTimeout(timer);timer=null;}}
-function rememberCommitted(){committedSession={game,userPaused,elapsed,caskSlots:[...caskSlots],recentLedger};}
-function restoreCommitted(){if(committedSession){game=committedSession.game;userPaused=committedSession.userPaused;elapsed=committedSession.elapsed;caskSlots=[...committedSession.caskSlots];recentLedger=committedSession.recentLedger;}}
+function rememberCommitted(){committedSession={game,userPaused,elapsed,caskSlots:[...caskSlots],recentLedger,historyRecord};}
+function restoreCommitted(){if(committedSession){game=committedSession.game;userPaused=committedSession.userPaused;elapsed=committedSession.elapsed;caskSlots=[...committedSession.caskSlots];recentLedger=committedSession.recentLedger;historyRecord=committedSession.historyRecord;}}
 function recoveryAccess(){
  modal=null;vaultPanels();const dialog=$('action-dialog');if(dialog.open)dialog.close();$('recovery').hidden=false;
  $('recovery-export').hidden=lastSavedText===null&&legacyRecord===null;
@@ -513,12 +498,13 @@ function saveFailure(error,phase='保存'){
 }
 const initializeLedger=next=>migrateRecentLedger(next,{replay:observer=>D.replayDistilleryOperations(next,observer)});
 function candidateLedger(next){return recentLedger&&committedSession&&next.operations.length>=committedSession.game.operations.length?advanceRecentLedger(committedSession.game,next,committedSession.recentLedger):initializeLedger(next);}
-function sessionText(next,paused=userPaused,time=elapsed,slots=reconcileCaskSlots(next,caskSlots),ledger=candidateLedger(next)){return serializeSession(next,{userPaused:paused,elapsed:time,caskSlots:slots,recentLedger:ledger},{serialize:D.serializeDistillery,restore:D.restoreDistillery,enabled:true,monthMs:T.monthMs,stepMs:T.distillStepMs});}
+function candidateHistory(next){if(preview&&!historyRecord&&committedSession)return null;return historyRecord&&committedSession?advanceHistoryRecord(committedSession.game,next,committedSession.historyRecord):initializeHistoryRecord(next);}
+function sessionText(next,paused=userPaused,time=elapsed,slots=reconcileCaskSlots(next,caskSlots),ledger=candidateLedger(next),history=candidateHistory(next)){return serializeSession(next,{userPaused:paused,elapsed:time,caskSlots:slots,recentLedger:ledger,historyRecord:history},{serialize:D.serializeDistillery,restore:D.restoreDistillery,enabled:true,monthMs:T.monthMs,stepMs:T.distillStepMs});}
 function saveCandidate(next,paused=userPaused,time=elapsed,writer=writeCandidate,ledgerOverride=null){
- if(preview){recentLedger=ledgerOverride??candidateLedger(next);caskSlots=reconcileCaskSlots(next,caskSlots);committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...caskSlots],recentLedger};return true;}
+ if(preview){historyRecord=candidateHistory(next);recentLedger=ledgerOverride??candidateLedger(next);caskSlots=reconcileCaskSlots(next,caskSlots);committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...caskSlots],recentLedger,historyRecord};return true;}
  if(!canSave)return false;
  let phase='帳面';
- try{const slots=reconcileCaskSlots(next,caskSlots),ledger=ledgerOverride??candidateLedger(next);phase='保存検証';const text=sessionText(next,paused,time,slots,ledger);phase='書込み・読戻し';writer(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;caskSlots=slots;recentLedger=ledger;committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...slots],recentLedger};lastSaveError=null;$('save-status').textContent='保存済み';return true;}
+ try{const slots=reconcileCaskSlots(next,caskSlots),ledger=ledgerOverride??candidateLedger(next);phase='歩み';const history= candidateHistory(next);phase='保存検証';const text=sessionText(next,paused,time,slots,ledger,history);phase='書込み・読戻し';writer(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;caskSlots=slots;recentLedger=ledger;historyRecord=history;committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...slots],recentLedger,historyRecord};lastSaveError=null;$('save-status').textContent='保存済み';return true;}
  catch(error){saveFailure(error,phase);return false;}
 }
 function save(){
@@ -540,15 +526,15 @@ function schedule(continuing=false){
  timer=setTimeout(()=>{
   if(token!==generation)return;timer=null;if(blocked())return;
   try{
-   const beforeStep=game;let saved=true;
+   const beforeStep=game;let saved=true,completionSaved=false;
    if(D.canBeginUsual(game).ok){game=D.beginUsual(game);if(!save())return;}
    const wasAutomatic=game.usual.reservation?.status==='active',wasDistilling=game.still.phase==='distilling';
-   if(wasDistilling){game=D.distillStep(game);if(!wasAutomatic&&atExtractionLimit())game=D.stopDistillation(game);if(!wasAutomatic&&heldRange()){save();render();return;}}
+   if(wasDistilling){game=D.distillStep(game);if(!wasAutomatic&&atExtractionLimit())game=D.stopDistillation(game);if(!wasAutomatic&&heldRange()){save();render();return;}if(game.still.phase!=='distilling'){const completedTime=elapsed+T.distillStepMs<T.monthMs?elapsed+T.distillStepMs:elapsed;if(!saveCandidate(game,userPaused,completedTime)){render();return;}completionSaved=true;}}
    elapsed+=T.distillStepMs;
    const completed=wasAutomatic&&game.usual.reservation?.status!=='active';
    if(elapsed>=T.monthMs){const before=game.core.month,beforeMonth=game,beforeElapsed=elapsed-T.distillStepMs;game=D.tickDistillery(game,expectedMonth);elapsed=0;if(game.core.month===before&&!game.decisions.length&&generationState()?.phase!=='review'){runtimeHalted=true;message('資金を残して停止しています。たる詰めや販売を確かめられます。');}saved=save();if(!saved){restoreCommitted();render();return;}}
-   else if(wasDistilling&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))saved=save();
-   if(completed&&saved)saved=save();
+   else if(wasDistilling&&!completionSaved&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))saved=save();
+   if(completed&&saved&&!completionSaved)saved=save();
    if(!saved){restoreCommitted();render();return;}
    if(saved){automaticNews.push(automaticEvents(beforeStep,game,caskName,id=>soldOutLabel(game,id,beforeStep)));noteMapReach();marketUI.consume(beforeStep,game);}
    // Pure extraction/clock steps do not change other rooms' content. Keep
@@ -1231,12 +1217,11 @@ function handleModal(e){
  if(a==='recipe-select'&&(kind==='recipes'||kind==='ledger-recipe'||kind==='ledger'&&modal.section==='recipes')){recipeAction(s=>D.selectRecipe(s,b.dataset.id==='latest'?null:b.dataset.id));return;}
  if(a==='recipe-save'&&(comparisonKinds.includes(kind)||kind==='ledger'&&modal.section==='recipes')){recipeAction(s=>D.saveRecipe(s,id));return;}
  if(a==='generation-history'&&kind==='generation-review'&&generationState()?.id===id){openHistory();return;}
- if(a==='history-retry'&&historyVisible()){historySnapshot=null;render();return;}
+ if(a==='history-release'&&kind==='history'&&game.releases.some(r=>r.productId===id)){modal={kind:'ledger-release',key:'release:'+game.releases.find(r=>r.productId===id).id,parent:rememberLedger(),returnFocusId:b.id};render();return;}
  if(a==='history-generation'&&kind==='history'&&historyData?.generations?.some(g=>g.id===id)){modal={kind:'history-generation',id,parent:rememberLedger(),returnFocusId:b.id};render();$('dialog-body').scrollTop=0;return;}
  if(a==='generation-continue'&&kind==='generation-notice'&&generationState()?.id===id){modal=null;room='distill';render();schedule();return;}
  if(a==='generation-handover'&&kind==='generation-review'&&generationState()?.id===id){act(s=>D.handoverGeneration(s,id),()=>{modal=null;runtimeHalted=false;room='distill';message(generationName(generationState().id)+'へ引き継ぎました。');});return;}
  if(a==='history-year'&&kind==='history'){modal.year=modal.year===b.dataset.id?null:b.dataset.id;modal.page=0;render();return;}
- if(a==='history-page'&&kind==='history'&&Number.isInteger(id)&&id>=0){modal.page=id;render();return;}
  if(a==='history-brand'&&['history','history-shop'].includes(kind)){modal={kind:'history-brand',brandId:id,year:modal.year??null,page:modal.page??0,parent:modal.parent};render();return;}
  if(a==='history-shop'&&['history','history-brand'].includes(kind)){modal={kind:'history-shop',shopId:b.dataset.id,year:modal.year??null,page:modal.page??0,parent:modal.parent};render();return;}
  if(a==='history-back'&&['history-brand','history-shop'].includes(kind)){modal={kind:'history',year:modal.year??null,page:modal.page??0,parent:modal.parent};render();return;}
@@ -1290,7 +1275,7 @@ function exportRaw(text,name='ambertime-save.json'){
  const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
 }
 function installSession(session,{fresh=false}={}){
- countdown.cancel();stopClock();game=session.game;caskSlots=session.caskSlots;recentLedger=session.recentLedger;userPaused=session.userPaused;elapsed=session.elapsed;
+ countdown.cancel();stopClock();game=session.game;caskSlots=session.caskSlots;recentLedger=session.recentLedger;historyRecord=session.historyRecord;userPaused=session.userPaused;elapsed=session.elapsed;
  if(manualDistilling())userPaused=true;
  committedSession={...session,caskSlots:[...caskSlots]};canSave=!preview;runtimeHalted=false;lastSaveError=null;
  distillRoom.reset();scene.resetMotion();marketUI.reset();placementUI?.reset();marketEditing=false;feedbackComments.reset();staffDisplayKey=null;staffDisplay=null;
@@ -1303,8 +1288,8 @@ function installSession(session,{fresh=false}={}){
 function startNew(){
  if(!confirm(preview?'試遊を最初からやり直しますか？':'新しく始めますか？現在の記録は置き換わります。'))return false;
  try{
-  const next=newNativeGame(),session={game:next,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next)};
-  const text=sessionText(next,false,0,session.caskSlots,session.recentLedger);
+  const next=newNativeGame(),session={game:next,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next),historyRecord:initializeHistoryRecord(next)};
+  const text=sessionText(next,false,0,session.caskSlots,session.recentLedger,session.historyRecord);
   if(!preview){if(legacyRecord&&localStorage.getItem(legacyRecord.key)!==legacyRecord.raw)throw Object.assign(Error('別の画面で保存が変わりました。'),{code:'conflict'});writeCandidate(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;legacyRecord=null;}
   installSession(session,{fresh:true});return true;
  }catch(error){saveFailure(error,'新規開始');return false;}
@@ -1317,7 +1302,7 @@ $('recovery-import').addEventListener('click',()=>{if(debugEnabled)$('restore-fi
 async function importRecord(file){
  if(!file||preview||!debugEnabled)return false;const expected=lastSavedText;
  let session,text;
- try{session=readSession(await file.text(),{...sessionOptions,enabled:true});text=sessionText(session.game,session.userPaused,session.elapsed,session.caskSlots,session.recentLedger);}
+ try{session=readSession(await file.text(),{...sessionOptions,enabled:true});text=sessionText(session.game,session.userPaused,session.elapsed,session.caskSlots,session.recentLedger,session.historyRecord);}
  catch(error){recordSaveError(error,'ファイル検証');storageNotice('このファイルは読み込めません。現在の進行は変更していません。');return false;}
  if(!confirm('この記録を読み込みますか？現在の記録は置き換わります。'))return false;
  try{writeCandidate(localStorage,SAVE_KEY,expected,text);lastSavedText=text;installSession(session,{fresh:true});return true;}
@@ -1325,7 +1310,7 @@ async function importRecord(file){
 }
 $('restore-file').addEventListener('change',async event=>{const file=event.target.files?.[0];event.target.value='';await importRecord(file);});
 async function boot(){
- recentLedger=null;committedSession=null;caskSlots=[null,null,null,null];distillRoom.reset();shownFillSpiritId=null;
+ historyRecord=null;historyData=null;historySnapshot=null;historyFactsSnapshot=null;recentLedger=null;committedSession=null;caskSlots=[null,null,null,null];distillRoom.reset();shownFillSpiritId=null;
  staffDisplayKey=null;staffDisplay=null;playbackRate=1;scene.resetMotion();
  if(preview){
   try{
@@ -1333,22 +1318,22 @@ async function boot(){
     const response=await fetch('./tests/fixtures/placement-established-six.json');if(!response.ok)throw Error('試遊用の記録を開けません。');
     const fixture=await response.json();next=D.enableMarketRules(D.enableStoreMarket(D.enableStage4(D.restoreDistillery(fixture.raw))));
    }else next=newNativeGame();
-   installSession({game:next,userPaused:query.get('market-fixture')==='established',elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next)},{fresh:true});
+   installSession({game:next,userPaused:query.get('market-fixture')==='established',elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next),historyRecord:query.get('market-fixture')==='established'?null:initializeHistoryRecord(next)},{fresh:true});
   }catch(error){game=null;saveFailure(error,'試遊開始');$('game').hidden=true;}return;
  }
  try{
   legacyRecord=null;lastSavedText=localStorage.getItem(SAVE_KEY);
   if(lastSavedText!==null){installSession(readSession(lastSavedText,{...sessionOptions,enabled:true}));return;}
   for(const key of ['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20']){const raw=localStorage.getItem(key);if(raw!==null){legacyRecord={key,raw};throw Object.assign(Error('以前の開発版の記録です。'),{code:'unsupported-version'});}}
-  const next=newNativeGame(),session={game:next,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next)};
-  const text=sessionText(next,false,0,session.caskSlots,session.recentLedger);writeCandidate(localStorage,SAVE_KEY,null,text);lastSavedText=text;installSession(session,{fresh:true});
+  const next=newNativeGame(),session={game:next,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next),historyRecord:initializeHistoryRecord(next)};
+  const text=sessionText(next,false,0,session.caskSlots,session.recentLedger,session.historyRecord);writeCandidate(localStorage,SAVE_KEY,null,text);lastSavedText=text;installSession(session,{fresh:true});
  }catch(error){
   game=null;recordSaveError(error,'起動');canSave=false;runtimeHalted=true;stopClock();$('game').hidden=true;recoveryAccess();$('save-status').textContent='未保存';
   storageNotice(error?.code==='unsupported-version'?'以前の開発版の記録です。新しく始めてください。':'この記録は開けません。新しく始めることができます。');
  }
 }
 
-window.amberPlacement={snapshot:()=>structuredClone(game),diagnostics:()=>({placement:true,saveKey:SAVE_KEY,clockPending:timer!==null,playbackRate,canSave,lastSaveError:debugEnabled?lastSaveError:null,caskSlots:[...caskSlots],saveVersion:isCurrentSession(lastSavedText)?6:null,ui:placementUI.diagnostics(),market:marketUI.diagnostics()} )};
+window.amberPlacement={snapshot:()=>structuredClone(game),diagnostics:()=>({placement:true,saveKey:SAVE_KEY,clockPending:timer!==null,playbackRate,canSave,lastSaveError:debugEnabled?lastSaveError:null,caskSlots:[...caskSlots],saveVersion:isCurrentSession(lastSavedText)?DEVELOPMENT_SAVE_VERSION:null,ui:placementUI.diagnostics(),market:marketUI.diagnostics()} )};
 const scene=new CanvasScene();
 for(const [id,label] of [['distill-lever','レバーを下に引く'],['distill-glass','グラス']]){const node=document.createElement('button');node.type='button';node.id=id;node.className='distill-tool-hit';node.setAttribute('aria-label',label);node.setAttribute('aria-describedby','distill-tool-guide');scene.controlRoot.append(node);}
 const guide=document.createElement('span');guide.id='distill-tool-guide';guide.className='sr-only';$('scene-access').append(guide);
@@ -1360,4 +1345,4 @@ function syncDistillTools(tools){
  glass.setAttribute('aria-label',tools.glassMode==='start'?'グラスで受ける':tools.glassMode==='stop'?'グラスを戻して採取を終える':'グラス');guide.textContent=tools.hint??'';
 }
 // Warm only after the settled scene has painted; ledger demand never waits for this.
-boot().then(()=>fontReady).then(()=>requestAnimationFrame(()=>requestAnimationFrame(prepareLedgerWorkers)));
+boot();
