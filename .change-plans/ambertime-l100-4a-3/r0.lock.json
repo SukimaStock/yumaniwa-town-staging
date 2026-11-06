@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0628d5e76ff8a4082c164553ae85a239b0b952403c8aef21e464a4903e3ca9cb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+    "changeId": "ambertime-l100-4a-3",
+    "revision": 0,
+    "change": "Research compact arrivals at clone, map and formal monthly boundaries",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-l100-4a-3/r0.lock.json",
+      "works/ambertime/l100-4a-3/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recall/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Clone A/B/C independence and metrics",
+      "Map iterator/accessor comparison",
+      "Three 100-year formal month gates then 12-month exact sessions",
+      "Save and checkpoint trust-boundary design; Draft PR only"
+    ],
+    "ownerDecisions": [
+      "User message Sentinel_6cf912a68190819188c0b8e5cbdac33a explicitly authorizes isolated L100-4A-3 adapters, tests, report and Draft PR; no merges or formal changes."
+    ],
+    "hqDecisions": [
+      "No formal adoption. Research objects never enter official storage. Formal model/save/caps/RNG/history/UI remain unchanged."
+    ],
+    "rulesApplied": [
+      "Change OS Plan Lock → Scope → Risk → Impact",
+      "debug=1以外は入口・処理なし",
+      "EXPRESSION-AUDIT"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Research only; real browser and physical Safari not certified"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove only isolated research files and Plan Lock; player data unchanged.",
+    "outOfScope": [
+      "Production, merges, player data",
+      "Save version, size cap, persistence backend, replay semantics, recall selection, canvas",
+      "New external permissions or browser safety bypass"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No formal adoption or persistent archive durability certification"
+    ],
+    "alternativesRejected": [
+      "Delete historical records",
+      "Increase or bypass cap",
+      "Treat wire-only reduction as formal-state improvement"
+    ],
+    "boundaryCases": [
+      "Missing corrupt archive rejects without partial adoption",
+      "Repeated identities and property order preserve exact JSON",
+      "No future comparison beyond existing formal cap"
+    ],
+    "testPlan": [
+      "A/B/C clone equality, IDs, isolation and faults",
+      "Three policy official cold read then compact formal monthly gate and 12-month per-month session equality",
+      "Map exact data and silent-empty rejection",
+      "Separate decode, construction, clone, tick, map, equality and save metrics; expansion instrumentation",
+      "Independent review and relevant regressions; Scope Risk Impact"
+    ],
+    "problem": "Town arrays dominate formal-state growth and approach cap after wide103 years.",
+    "currentContract": "Formal v8/game20 validates full expanded JSON below6016384 units.",
+    "whyExistingIsInsufficient": "Near-limit town histories grow indefinitely.",
+    "design": "Research-only synchronous clone adapter; events-clone index rebuild B versus dedicated graph clone C; map read boundary; actual unmodified formal tick; no persistence/model edits.",
+    "migration": "None",
+    "compatibility": "Inputs read-only and untouched; research representations are not formal saves.",
+    "promotionRisk": "Draft PR only; do not merge."
+  }
+}
