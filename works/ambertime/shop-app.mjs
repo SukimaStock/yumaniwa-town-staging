@@ -1358,4 +1358,4 @@ function syncDistillTools(tools){
 }
 // Warm only after the settled scene has painted; ledger demand never waits for this.
 boot();
-if(debugEnabled&&query.get('recall-preview')==='1')queueMicrotask(()=>recallSceneDebug?.open());
+if(debugEnabled&&query.get('recall-preview')==='1')queueMicrotask(()=>{if(game&&!modal)openModal('settings');recallSceneDebug?.open();});
