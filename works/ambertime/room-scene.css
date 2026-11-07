@@ -393,8 +393,7 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 #action-dialog .first-bottle-base{animation:first-bottle-arrive 150ms steps(2,end) both}
 #action-dialog .first-bottle-label{animation:first-bottle-apply-label 250ms steps(5,end) 150ms both}
 #action-dialog .first-bottle-finished-name{max-width:100%;overflow-wrap:anywhere;text-align:center}
-#action-dialog .first-bottle-tap-hint{color:#c6c0a9}
-#action-dialog .first-bottle-proceed :is(.first-bottle-finished-name,.first-bottle-tap-hint){font-size:16px!important;line-height:24px!important}
+#action-dialog .first-bottle-proceed .first-bottle-finished-name{font-size:16px!important;line-height:24px!important}
 @keyframes first-bottle-arrive{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes first-bottle-apply-label{from{opacity:0;transform:translateX(15px)}to{opacity:1;transform:translateX(0)}}
 @media(prefers-reduced-motion:reduce){
