@@ -1,3 +1,5 @@
+> Historical D1 stop record, preserved unchanged below. The separately authorized repair is documented in [D1-R-REPORT.md](D1-R-REPORT.md). D1 overall remains incomplete.
+
 # S3-D1 — stopped at malformed-candidate acceptance
 
 ## Decision

@@ -1,3 +1,5 @@
+> Historical D1 stop record, preserved unchanged below. The separately authorized repair is documented in [D1-R-REPORT.md](D1-R-REPORT.md). D1 overall remains incomplete.
+
 # Decision: do not proceed to D2
 
 B's exact reconstruction and short future equivalence are promising, but D1 has not met all acceptance conditions. In particular malformed active-history data is silently overwritten rather than rejected. Preserve this failed prototype and evidence; do not call it a successful limited trial.
