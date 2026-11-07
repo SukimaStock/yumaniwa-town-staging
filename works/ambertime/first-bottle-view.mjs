@@ -55,6 +55,5 @@ export function firstBottleCompletion(brand,productId,priceTier,{esc},staticDone
     '<span class="first-bottle-label">'+packageLayer(firstBottleLabelLayer(brand),snapshot,{box:false,shape})+'</span>'+
    '</span>'+
    '<span class="first-bottle-finished-name">'+esc(brand.name)+'</span>'+
-   '<span class="first-bottle-tap-hint">ビンをタップ</span>'+
   '</button></section>';
 }

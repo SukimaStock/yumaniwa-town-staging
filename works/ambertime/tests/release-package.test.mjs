@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {PACKAGE_PALETTE,packageFamily,packageArt,releasePackageArt,packageLayer} from '../release-package.mjs';
+import {PACKAGE_PALETTE,packageFamily,packageBox,packageArt,releasePackageArt,packageLayer} from '../release-package.mjs';
 import {glassColor} from '../flavor-color.mjs';
 import {bottles,codeaBottle} from '../codea-object-art.mjs';
 import {IDENTITY_BOTTLES,IDENTITY_LABELS} from '../brand-identity.mjs';
@@ -35,7 +35,7 @@ test('all 24 bottle, label and cap combinations preserve native cells behind exa
   assert.equal(front(svg),contents(codeaBottle(bottle.shape,{label:label.id,priceTier:tier})));
   assert.match(svg,/viewBox="0 0 24 24"/);
   assert.match(svg,/shape-rendering="crispEdges"/);
-  assert.match(svg,/<rect x="12" y="4" width="11" height="19"/);
+  assert.match(svg,/<rect x="12" y="5" width="10" height="18"/);
   assert.ok(svg.indexOf('class="package-box"')<svg.indexOf('class="package-bottle"'));
   assert.doesNotMatch(svg,/gradient|filter|blur/i);
  }
@@ -96,5 +96,29 @@ test('every bottle silhouette sits on the box baseline without changing cells or
   assert.equal(bottom*2+offset,23);
   assert.equal(offset,bottle.id==='square'?3:1);
   assert.equal(front(svg),contents(codeaBottle(bottle.shape,{label:'cream',priceTier:'standard'})));
+ }
+});
+
+// The box shares the bottle cells' pitch AND phase, not merely crisp edges.
+test('box borders and decoration share the bottle two-unit pixel grid in all five colors',()=>{
+ for(const family of Object.keys(PACKAGE_PALETTE)){
+  const box=packageBox(snapshot(family));
+  const cells=[...box.matchAll(/<rect x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"/g)].map(m=>m.slice(1).map(Number));
+  assert.equal(cells.length,5);
+  for(const [x,y,w,h] of cells){
+   assert.equal(x%2,0);assert.equal(y%2,1);
+   assert.equal(w%2,0);assert.equal(h%2,0);
+   assert.ok(x>=12&&x+w<=22&&y>=5&&y+h<=23);
+  }
+  assert.deepEqual(cells[0],[12,5,10,18]);
+ }
+});
+test('completion omits visible tap copy while preserving native button and accessible action',()=>{
+ for(const staticDone of [false,true])for(const input of [null,snapshot()]){
+  const html=firstBottleCompletion({name:'AmberTime',bottle:'square',label:'cream'},7,'standard',{esc:String},staticDone,input);
+  assert.doesNotMatch(html,/first-bottle-tap-hint|>ビンをタップ</);
+  assert.match(html,/<button type="button"[^>]*data-action="first-bottle-proceed"[^>]*data-id="7"/);
+  assert.match(html,/aria-label="AmberTime。完成したビンをタップして販売室へ進む"/);
+  assert.match(html,/first-bottle-label/);
  }
 });
