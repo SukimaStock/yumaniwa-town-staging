@@ -13,10 +13,10 @@ const shade=(color,amount)=>'#'+[1,3,5].map(i=>{const v=parseInt(color.slice(i,i
 const rect=(x,y,w,h,color)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${color}"/>`;
 export function packageBox(snapshot){
  const family=packageFamily(snapshot);if(!family)return '';
- const color=PACKAGE_PALETTE[family],light=shade(color,.26);
+ const color=PACKAGE_PALETTE[family],light=shade(color,.12);
  // C1-L on the bottle's 2-unit pixel grid (x even, y odd), anchored at y=23.
- // 10x18 keeps the box subordinate; no half-size border or decoration pixels.
- return '<g class="package-box">'+rect(12,5,10,18,shade(color,-.34))+rect(14,7,6,14,color)+rect(14,7,2,14,light)+rect(16,9,4,2,'#e1d3af')+rect(16,19,4,2,light)+'</g>';
+ // Owner-selected comparison E: 10x16, soft edges, same y=23 baseline.
+ return '<g class="package-box">'+rect(12,7,10,16,shade(color,-.16))+rect(14,9,6,12,color)+rect(14,9,2,12,light)+rect(16,11,4,2,shade(color,.35))+rect(16,19,4,2,light)+'</g>';
 }
 // Reuse the original SVG cells verbatim, including the ceremony's separate label.
 export function packageLayer(bottle,snapshot,{box=true,shape='standard'}={}){

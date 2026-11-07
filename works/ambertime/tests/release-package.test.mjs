@@ -35,7 +35,7 @@ test('all 24 bottle, label and cap combinations preserve native cells behind exa
   assert.equal(front(svg),contents(codeaBottle(bottle.shape,{label:label.id,priceTier:tier})));
   assert.match(svg,/viewBox="0 0 24 24"/);
   assert.match(svg,/shape-rendering="crispEdges"/);
-  assert.match(svg,/<rect x="12" y="5" width="10" height="18"/);
+  assert.match(svg,/<rect x="12" y="7" width="10" height="16"/);
   assert.ok(svg.indexOf('class="package-box"')<svg.indexOf('class="package-bottle"'));
   assert.doesNotMatch(svg,/gradient|filter|blur/i);
  }
@@ -108,9 +108,9 @@ test('box borders and decoration share the bottle two-unit pixel grid in all fiv
   for(const [x,y,w,h] of cells){
    assert.equal(x%2,0);assert.equal(y%2,1);
    assert.equal(w%2,0);assert.equal(h%2,0);
-   assert.ok(x>=12&&x+w<=22&&y>=5&&y+h<=23);
+   assert.ok(x>=12&&x+w<=22&&y>=7&&y+h<=23);
   }
-  assert.deepEqual(cells[0],[12,5,10,18]);
+  assert.deepEqual(cells[0],[12,7,10,16]);
  }
 });
 test('completion omits visible tap copy while preserving native button and accessible action',()=>{
@@ -120,5 +120,14 @@ test('completion omits visible tap copy while preserving native button and acces
   assert.match(html,/<button type="button"[^>]*data-action="first-bottle-proceed"[^>]*data-id="7"/);
   assert.match(html,/aria-label="AmberTime。完成したビンをタップして販売室へ進む"/);
   assert.match(html,/first-bottle-label/);
+ }
+});
+
+// Exact owner-selected E from the standalone balance comparison (not B or C).
+test('E preserves the selected 10x16 soft-edge geometry and shades in all families',()=>{
+ const shade=(color,a)=>'#'+[1,3,5].map(i=>{const v=parseInt(color.slice(i,i+2),16);return Math.round(a>=0?v+(255-v)*a:v*(1+a)).toString(16).padStart(2,'0');}).join('');
+ for(const [family,c] of Object.entries(PACKAGE_PALETTE)){
+  const cells=[...packageBox(snapshot(family)).matchAll(/<rect x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)" fill="([^"]+)"\/>/g)].map(m=>[...m.slice(1,5).map(Number),m[5]]);
+  assert.deepEqual(cells,[[12,7,10,16,shade(c,-.16)],[14,9,6,12,c],[14,9,2,12,shade(c,.12)],[16,11,4,2,shade(c,.35)],[16,19,4,2,shade(c,.12)]]);
  }
 });
