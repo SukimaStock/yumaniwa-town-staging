@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0f5da35a444af474cec315aa11f45a126169079806fb52c4410d56c6e33c3409",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-package-c1l-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "C1-L classic flavor packages derived from bottled release profiles",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "6a1707c106afb4bf0658a274edf404bbc541de64",
+    "canonicalSources": [
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/flavor-color.mjs",
+      "works/ambertime/brand-identity.mjs",
+      "Adopted AmberTime-C1-Smaller-Boxes-Actual-Shelf-Lab-20261107.html C1-L"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-package-c1l-20261107/r0.lock.json",
+      "works/ambertime/release-package.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/first-bottle-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/release-package.test.mjs",
+      "works/ambertime/tests/release-package-browser.test.mjs",
+      "works/ambertime/tests/first-bottle.test.mjs",
+      "works/ambertime/design/flavor-packages-20261107/**",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/flavor-color.mjs",
+      "works/ambertime/codea-object-art.mjs"
+    ],
+    "expectedChanges": [
+      "Pure release-profile package renderer, preserve source bottle cells and C1-L geometry",
+      "Connect releaseArt for market, details, ledger and comparison",
+      "Retain first bottle label ceremony with rear box and matching transforms",
+      "Tests and actual browser screenshots only; no new copy or controls",
+      "Refresh entry and changed helper cache keys"
+    ],
+    "ownerDecisions": [
+      "User request 2026-11-07 selects C1-L/classic and authorizes Draft PR only; no merge or publish"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-packages",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this display-only change",
+    "outOfScope": [
+      "Flavor/economy/save changes",
+      "Production",
+      "Merge",
+      "100-year simulations"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari and owner visual acceptance"
+    ]
+  }
+}

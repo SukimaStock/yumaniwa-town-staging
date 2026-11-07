@@ -1,3 +1,4 @@
+import {packageLayer} from './release-package.mjs?v=package-c1l-1';
 // A5 presentation only: the formal first brand is still committed by bottleBranded.
 import {IDENTITY_BOTTLES,IDENTITY_LABELS,bottleShape} from './brand-identity.mjs?v=0.58-first-brand';
 import {bottles,codeaBottle,sourcePalette} from './codea-object-art.mjs?v=0.62-bottle-shelf-wall';
@@ -42,15 +43,15 @@ export function firstBrandEditor(draft,{art,esc,button,error}){
   '<input id="brand-name" type="text" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" aria-describedby="brand-name-error" value="'+esc(draft.name)+'">'+
   '<p id="brand-name-error" role="status">'+esc(error(draft.name))+'</p></section>';
 }
-export function firstBottleCompletion(brand,productId,priceTier,{esc},staticDone=false){
+export function firstBottleCompletion(brand,productId,priceTier,{esc},staticDone=false,snapshot=null){
  // The unlabeled asset keeps the original glass, cap and silhouette; the
  // separate label pixels slide into their exact final Codea grid cells.
- const bare=firstBottleBareBottle(brand,priceTier);
+ const bare=packageLayer(firstBottleBareBottle(brand,priceTier),snapshot);
  return '<section class="first-bottle-complete"'+(staticDone?' data-static="true"':'')+' aria-label="最初の一本が完成">'+
   '<button type="button" class="first-bottle-proceed" data-action="first-bottle-proceed" data-id="'+productId+'" aria-label="'+esc(brand.name)+'。完成したビンをタップして販売室へ進む">'+
    '<span class="first-bottle-assembly" aria-hidden="true">'+
     '<span class="first-bottle-base">'+bare+'</span>'+
-    '<span class="first-bottle-label">'+firstBottleLabelLayer(brand)+'</span>'+
+    '<span class="first-bottle-label">'+packageLayer(firstBottleLabelLayer(brand),snapshot,{box:false})+'</span>'+
    '</span>'+
    '<span class="first-bottle-finished-name">'+esc(brand.name)+'</span>'+
    '<span class="first-bottle-tap-hint">ビンをタップ</span>'+
