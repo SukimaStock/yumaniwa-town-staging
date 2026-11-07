@@ -24,5 +24,5 @@ test('pointer is captured; click and keyboard are consumed before dismiss',()=>{
 });
 test('cache URLs, accessible content, no bottom card styling, shared palette',()=>{
  const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8'),app=read('shop-app.mjs'),html=read('index.html'),css=read('shop-dialogue.css');
- assert.match(html,/shop-app\.mjs\?dialogue=a6-1/);assert.match(html,/room-scene\.css\?a6=1/);assert.match(app,/canvas-scene\.mjs\?a6=1/);assert.match(app,/setAttribute\('aria-label',`町の酒店。\$\{entry.text\} 閉じる`\)/);assert.doesNotMatch(css,/(?:^|[;{])bottom:|#242b26|#77715c|pointer-events:none/);assert.match(read('canvas-scene.mjs'),/dialogueNoticeLayout\(entry.text/);assert.match(app,/new MutationObserver\(\(\)=>dialogueNotice.update\(\)\)/);
+ assert.match(html,/shop-app\.mjs\?reactions=s1-1&dialogue=a6-1/);assert.match(html,/room-scene\.css\?reactions=s1-1&a6=1/);assert.match(app,/canvas-scene\.mjs\?a6=1/);assert.match(app,/setAttribute\('aria-label',`町の酒店。\$\{entry.text\} 閉じる`\)/);assert.doesNotMatch(css,/(?:^|[;{])bottom:|#242b26|#77715c|pointer-events:none/);assert.match(read('canvas-scene.mjs'),/dialogueNoticeLayout\(entry.text/);assert.match(app,/new MutationObserver\(\(\)=>dialogueNotice.update\(\)\)/);
 });

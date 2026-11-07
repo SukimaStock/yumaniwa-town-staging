@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "57a146dc67e0ce38939a9167ffb509d78b42f04be83bf4a2a0d111183622656b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-reactions-stage1-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage 1 audit and room-scoped transient reactions",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "00f270076e92808315ed906e9065660c3edd3d3c",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/flavor-feedback-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-reactions-stage1-20261107/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/flavor-feedback-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/reaction-rules.test.mjs",
+      "works/ambertime/tests/reaction-browser.test.mjs",
+      "works/ambertime/tests/shop-dialogue-view.test.mjs",
+      "works/ambertime/tests/shop-dialogue-a6.test.mjs",
+      "works/ambertime/tests/shop-dialogue-browser.test.mjs",
+      "works/ambertime/design/reactions-stage1-20261107/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/release-package.mjs"
+    ],
+    "expectedChanges": [
+      "Audit all transient and decision text triggers, location, length, expiry, taps, priority and persistence",
+      "Sales-only shop dialogue: latest unseen pending, leaving discards shown line, no replay on reload",
+      "Room-scoped dismissible operation results; latest world news deferred to sales, no backlog; preserve durable warnings",
+      "Recent customer preview uses same three-game-month window as aging; archive and detail taps preserved",
+      "Regression and browser checks without economy/save/model changes"
+    ],
+    "ownerDecisions": [
+      "User 2026-11-07 full staged request: implement and merge Stage 1 to Staging then stop for author browser review. Sales-only shop dialogue; preserve nine scripts, calculations, saved data and detail taps."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "four-width-browser",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this presentation-only change",
+    "outOfScope": [
+      "Production",
+      "Stage 2 hiring portraits and Stage 3 direct staff access",
+      "Dialogue scripts/frequency, economy, RNG, saved structure, recall and packages"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari; browser until actual checks complete"
+    ]
+  }
+}

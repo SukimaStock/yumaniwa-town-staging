@@ -72,3 +72,8 @@ export function warehouseFeedbackPreview(caskTitle,fact){
  const text=fact.kind==='sample'&&fact.text.startsWith('前回の試飲から：')?'前回から：'+fact.text.slice('前回の試飲から：'.length):fact.text;
  return title+' · '+text;
 }
+
+// Only the room preview expires; the release ledger retains every comment.
+export function recentCustomerFeedback(game,comments){
+ return comments.filter(comment=>recent(game,comment.month)).at(-1)??null;
+}
