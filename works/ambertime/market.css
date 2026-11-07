@@ -100,7 +100,14 @@
 #market-board .market-stock{grid-template-columns:calc(24px * var(--market-scale,1)) max-content;min-width:44px;min-height:44px;position:relative}
 #market-board .market-sale-slot{position:absolute;grid-column:1/-1;top:calc(-1 * var(--uniform-line-height,24px));left:calc(26px * var(--market-scale,1));margin:0;width:0;min-width:0}
 
-/* Keep self sales visible; additional partners share one bounded shelf. */
-#market-board .market-switcher{display:flex;align-items:center;justify-content:space-between;gap:calc(4px * var(--market-scale,1));flex:none}
-#market-board .market-switcher button{min-width:calc(52px * var(--market-scale,1))}
-#market-board .market-switcher span{white-space:nowrap}
+/* Only partner shops scroll. Natural height leaves the room visible for few shops. */
+#market-board{overflow:hidden}
+#market-board .market-content{max-height:var(--market-max-height,409px)}
+#market-board .market-shops{flex:0 1 auto;min-height:0}
+#market-board .market-partners{display:flex;flex-direction:column;gap:calc(2px * var(--market-scale,1));min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;touch-action:pan-y pinch-zoom;scrollbar-width:thin;overflow-anchor:none}
+#market-board .market-partners:focus-visible{outline:3px solid #f7cd58;outline-offset:-3px}
+#market-board [data-market-shop="retail"]{flex:none}
+/* The fixed retail shelf can grow horizontally without consuming partner height. */
+#market-board [data-market-shop="retail"] .market-stock-list{display:flex;overflow-x:auto;overflow-y:hidden;touch-action:pan-x pinch-zoom;padding-bottom:2px}
+#market-board [data-market-shop="retail"] .market-stock-row{flex:none}
+#market-board .market-partners button{touch-action:pan-y pinch-zoom}

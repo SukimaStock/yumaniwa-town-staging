@@ -1,0 +1,118 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4e7ce979e9ba2aba9148d1224c851a98acb05b67288ec35045b3bf3e753edf41",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-sales-scroll-s1",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "S1: fixed hand, quantity and retail; scroll contracted shops, actual-sale ordering and UI anchor continuity",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "678119b0745e89adca484e94a6d6a0f769764028",
+    "canonicalSources": [
+      "Current user S1–S3 request: implement and merge S1 only",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "store-market.mjs and partner-orders.mjs actual-sale journal"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-sales-scroll-s1/r0.lock.json",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/market-compact-browser.test.mjs",
+      "works/ambertime/tests/market-browser-fixture.mjs",
+      "works/ambertime/tests/market-scroll*.mjs",
+      "works/ambertime/design/sales-scroll-s1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "expectedChanges": [
+      "Replace partner paging with fixed hand/quantity/retail and a natural-height bounded vertical partner scroller. Preserve native shelf controls and artwork.",
+      "Derive actual sale month only from proven post-storeMarket boundary receipts; stable shop-definition ties, append new contracts during current sales-room visit. Refresh order only at room entry, not modal close.",
+      "Keep scrollTop plus visible shop ID and relative offset in ephemeral UI state, preserve focus without automatic viewport jumps; never auto-reveal offscreen sales. Defer destructive painting during pointer/scroll gestures.",
+      "Update cache tokens and relevant tests; verify 0/1/2/3/5/10 partners, 4 phone sizes and desktop, gestures, keyboard, sale/save equivalence. Document S2/S3 findings only."
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes S1 implementation, PR, CI, Staging merge and publication verification; stop for author review before S2."
+    ],
+    "hqDecisions": [
+      "Existing work-local UI only; no new game/save/RNG or shared runtime contracts."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Automated Chromium layout and interaction in requested viewport and store-count cases; touch emulation is not real Safari.",
+      "Public file-byte agreement and Pages run."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert S1 implementation commit; UI-only state discarded on reload; no save migration.",
+    "outOfScope": [
+      "Production",
+      "Economy/save/RNG",
+      "S2 dialogue text/frequency",
+      "S3 long-term implementation",
+      "Maps/new stores"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and author visual/feel acceptance"
+    ],
+    "alternativesRejected": [
+      "scrollTop alone loses viewed shop after reordering",
+      "scroll entire sales board",
+      "reorder while interacting"
+    ],
+    "boundaryCases": [
+      "0/1/2/3/5/10 partners; legacy boundary and ties; offscreen sale; modal vs room; gesture redraw"
+    ],
+    "testPlan": [
+      "Baseline and candidate relevant node tests; actual Chromium existing and new regression; byte comparison of untouched economic modules"
+    ],
+    "problem": "Uncontracted shops clutter normal board and sale delta looks like negative stock; unframed left labels conceal placement action.",
+    "currentContract": "Native shop.relations proves available outlets, physical inventory holds true remaining quantities; sale feedback is transient.",
+    "whyExistingIsInsufficient": "UI displays all ordinary venues and substitutes negative sold delta for remaining count.",
+    "design": "Derived visible outlets and separate permanent remaining count/transient sale notification; framed labeled left targets.",
+    "migration": "None; display-only.",
+    "compatibility": "Native saves/rules/replay untouched.",
+    "promotionRisk": "Staging only; no economic changes."
+  }
+}
