@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a7e8f7741b120443ae8bd13db5d94b7844cf017969033afed82a55fc6a8d0022",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-all-shop-dialogue-s2",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "S2: exact author supermarket/department dialogue and future-only four-store presentation policy",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "3a98288fc53daf925c153414f33e4125e689f0af",
+    "canonicalSources": [
+      "Current author exact fourteen revised lines; S1–S3 original task and S2 go-ahead",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "Existing v1 shop-dialogue policy, shop.deliveries, department.adoptions"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-all-shop-dialogue-s2/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-dialogue-text.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/shop-dialogue-s2*.mjs",
+      "works/ambertime/design/shop-dialogue-s2/**",
+      "works/ambertime/tests/bar-model.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/shop-dialogue-a6.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "expectedChanges": [
+      "Add author fourteen lines exactly, preserving all town/bar manuscripts. Supermarket daily and original-package memories require factual receipts; department memories/5-bottle line require matched adoption+delivery.",
+      "Preserve v1 historical projection up to journal boundary. Append one optional enable-shop-dialogue operation in existing envelope with policy version/month/progress/tasting; no top-level game field, save version/key change, economy or RNG mutation. Existing saves lacking boundary remain v1 until successful native app activation write.",
+      "Use same global opportunity stream and min gap, weighted store selection including quiet bar and special department; no independent per-shop rolls. v1 cooldowns carry across boundary.",
+      "Keep existing sales-room-only notice, auto/tap dismissal and store latest-only readback. New daily text has no image; memory uses exact real release C1–L package.",
+      "Refresh changed main module dependency URLs only. Add boundary/replay/economy invariance, exact text, factual eligibility, legacy hash/prefix, frequency/notice and cache tests. Report/PR/CI/Staging merge/public verification then stop before S3.",
+      "Extend existing bar migration test stub with dialogue policy API; keep bar save-failure assertions unchanged. Fresh pre-implementation lock from unchanged base replaces prior draft scope before reapplying work.",
+      "Update only expected native factory name and changed dialogue cache URLs in existing source-contract tests, retaining other prior failures and behavioral assertions."
+    ],
+    "ownerDecisions": [
+      "User approved S1 on device, requested S2, then supplied exact revised 14 lines in response to author manuscript review. Implement those lines without rephrasing."
+    ],
+    "hqDecisions": [
+      "Journal-only future presentation boundary reuses existing validated enable-action convention. Durable boundary needed to preserve dialogue across reload/import; no save schema/version/key or economic behavior changes."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Attempt browser notice/store detail display, physical Safari unverified if launch fails.",
+      "Public main module byte agreement after Pages deploy."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert UI policy only while retaining operation reader support for saves carrying new boundary; do not boot new-boundary saves with an old reader.",
+    "outOfScope": [
+      "Production",
+      "S3 long simulations",
+      "Map/new shops",
+      "Economic parameters/RNG",
+      "Rewriting existing town/bar text or v1 history",
+      "New conversation archive/UI controls"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone display and timing",
+      "S3 10/30/100-year endurance"
+    ],
+    "alternativesRejected": [
+      "Rewrite historical v1 chooser globally",
+      "Ephemeral/local UI boundary lost on export/import",
+      "Per-shop frequency rolls increasing notifications"
+    ],
+    "boundaryCases": [
+      "No relations, offer-only, allocation-only, legacy wholesale vs actual shelf sale, exact department count5 adoption link, same-month exclusion, stale delivery",
+      "Old save unchanged; no boundary/duplicate/tampered boundary; partial distillation/tasting; failed save does not enable policy",
+      "Global min gap and bar quietness with 1/2/3/4 eligible shops; previous v1 history prefix invariant"
+    ],
+    "testPlan": [
+      "Existing dialogue/notice tests baseline and candidate; new model cold replay and economy equivalence; existing save/bar/market regression; exact author text and package tests; browser attempt"
+    ],
+    "problem": "Uncontracted shops clutter normal board and sale delta looks like negative stock; unframed left labels conceal placement action.",
+    "currentContract": "Native shop.relations proves available outlets, physical inventory holds true remaining quantities; sale feedback is transient.",
+    "whyExistingIsInsufficient": "UI displays all ordinary venues and substitutes negative sold delta for remaining count.",
+    "design": "Derived visible outlets and separate permanent remaining count/transient sale notification; framed labeled left targets.",
+    "migration": "None; display-only.",
+    "compatibility": "Native saves/rules/replay untouched.",
+    "promotionRisk": "Staging only; no economic changes."
+  }
+}
