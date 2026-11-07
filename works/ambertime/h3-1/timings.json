@@ -1,0 +1,482 @@
+{
+  "runtime": "v24.22.1",
+  "measurement": "Warm process; no game replay or input IO",
+  "timings": [
+    {
+      "years": 30,
+      "policy": "local",
+      "handoverId": "handover:1",
+      "comparisonMs": 30.457611,
+      "extractMedianMs": 0.10820900000000222,
+      "AMedianMs": 3.160853000000003,
+      "BMedianMs": 2.9390470000000164,
+      "CMedianMs": 2.75296400000002
+    },
+    {
+      "years": 30,
+      "policy": "wide",
+      "handoverId": "handover:1",
+      "comparisonMs": 17.061200999999983,
+      "extractMedianMs": 0.06045899999998028,
+      "AMedianMs": 2.563196000000005,
+      "BMedianMs": 4.421774999999968,
+      "CMedianMs": 4.259838000000002
+    },
+    {
+      "years": 30,
+      "policy": "mixed",
+      "handoverId": "handover:1",
+      "comparisonMs": 12.699534999999969,
+      "extractMedianMs": 0.05255699999997887,
+      "AMedianMs": 2.9573950000000195,
+      "BMedianMs": 3.287198999999987,
+      "CMedianMs": 3.1314199999999914
+    },
+    {
+      "years": 100,
+      "policy": "local",
+      "handoverId": "handover:1",
+      "comparisonMs": 13.926458000000025,
+      "extractMedianMs": 0.10416299999997136,
+      "AMedianMs": 3.4366589999999633,
+      "BMedianMs": 3.2245260000000826,
+      "CMedianMs": 3.1716180000000804
+    },
+    {
+      "years": 100,
+      "policy": "local",
+      "handoverId": "handover:2",
+      "comparisonMs": 13.158638999999994,
+      "extractMedianMs": 0.20434999999997672,
+      "AMedianMs": 4.538115000000062,
+      "BMedianMs": 3.447774000000095,
+      "CMedianMs": 3.686715999999933
+    },
+    {
+      "years": 100,
+      "policy": "local",
+      "handoverId": "handover:3",
+      "comparisonMs": 15.847819999999956,
+      "extractMedianMs": 0.21766900000000078,
+      "AMedianMs": 6.507008000000042,
+      "BMedianMs": 3.855502999999999,
+      "CMedianMs": 4.107915000000048
+    },
+    {
+      "years": 100,
+      "policy": "wide",
+      "handoverId": "handover:1",
+      "comparisonMs": 13.2737189999998,
+      "extractMedianMs": 0.13158399999997528,
+      "AMedianMs": 3.386254000000008,
+      "BMedianMs": 5.074314000000186,
+      "CMedianMs": 4.483015999999907
+    },
+    {
+      "years": 100,
+      "policy": "wide",
+      "handoverId": "handover:2",
+      "comparisonMs": 16.391478000000006,
+      "extractMedianMs": 0.1759380000000874,
+      "AMedianMs": 5.3552270000000135,
+      "BMedianMs": 4.881529999999884,
+      "CMedianMs": 4.401294999999891
+    },
+    {
+      "years": 100,
+      "policy": "wide",
+      "handoverId": "handover:3",
+      "comparisonMs": 18.23771099999999,
+      "extractMedianMs": 0.23607700000002296,
+      "AMedianMs": 8.387861999999814,
+      "BMedianMs": 5.313744999999926,
+      "CMedianMs": 5.0103200000000925
+    },
+    {
+      "years": 100,
+      "policy": "mixed",
+      "handoverId": "handover:1",
+      "comparisonMs": 8.394239999999854,
+      "extractMedianMs": 0.08089900000004491,
+      "AMedianMs": 1.8461019999999735,
+      "BMedianMs": 2.881362000000081,
+      "CMedianMs": 2.2048389999999927
+    },
+    {
+      "years": 100,
+      "policy": "mixed",
+      "handoverId": "handover:2",
+      "comparisonMs": 8.76159000000007,
+      "extractMedianMs": 0.11082299999998213,
+      "AMedianMs": 3.3733660000000327,
+      "BMedianMs": 2.5572760000000017,
+      "CMedianMs": 2.5351740000000973
+    },
+    {
+      "years": 100,
+      "policy": "mixed",
+      "handoverId": "handover:3",
+      "comparisonMs": 14.584573999999975,
+      "extractMedianMs": 0.1818580000001475,
+      "AMedianMs": 5.710357999999815,
+      "BMedianMs": 3.8937389999998686,
+      "CMedianMs": 3.923974000000044
+    }
+  ],
+  "storage": [
+    {
+      "years": 30,
+      "policy": "local",
+      "methods": [
+        {
+          "method": "method1",
+          "bytes": 142556,
+          "retainedFacts": 270,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 0,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 0.41758400000000506,
+          "parseMedianMs": 0.5839379999999892
+        },
+        {
+          "method": "method2",
+          "bytes": 122648,
+          "retainedFacts": 255,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 14,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 0.3632739999999899,
+          "parseMedianMs": 0.46950999999998544
+        },
+        {
+          "method": "method3",
+          "bytes": 55147,
+          "retainedFacts": 34,
+          "anchors": 29,
+          "anchorFacts": 44,
+          "witnessFacts": 10,
+          "pendingOrigins": 1,
+          "origins": 14,
+          "frozenScenes": 5,
+          "activeCandidates": 29,
+          "serializeMedianMs": 0.12856899999999882,
+          "parseMedianMs": 0.21046899999998914
+        }
+      ],
+      "allThreeBuildMedianMs": 3.476576999999992,
+      "compactMappingMedianMs": 0.6167560000000094,
+      "compactMappingPerInputUs": 2.2842814814815164,
+      "measurement": "Node, seven warm repeats; JSON UTF-8, excludes formal save, replay, storage I/O and full live event collection",
+      "limitations": [
+        "Input is published retained C-3 facts, not the complete uncompressed event stream.",
+        "Method 2 preserves all useful input facts; this is a conservative upper envelope, not an online significance selector.",
+        "Method 3 supports first/latest recurrence and frozen playback; arbitrary discarded historical middle events cannot be reselected.",
+        "Origin ledger is conservative; integration may reference existing formal releases instead of duplicating it.",
+        "No browser quota, atomic storage or monthly frame-time claim is made from pure Node measurements."
+      ]
+    },
+    {
+      "years": 30,
+      "policy": "wide",
+      "methods": [
+        {
+          "method": "method1",
+          "bytes": 190095,
+          "retainedFacts": 357,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 0,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 0.5447599999999966,
+          "parseMedianMs": 0.7131780000000276
+        },
+        {
+          "method": "method2",
+          "bytes": 164614,
+          "retainedFacts": 342,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 15,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 0.4865249999999719,
+          "parseMedianMs": 0.6263299999999958
+        },
+        {
+          "method": "method3",
+          "bytes": 76857,
+          "retainedFacts": 45,
+          "anchors": 45,
+          "anchorFacts": 72,
+          "witnessFacts": 11,
+          "pendingOrigins": 0,
+          "origins": 15,
+          "frozenScenes": 6,
+          "activeCandidates": 39,
+          "serializeMedianMs": 0.2895149999999944,
+          "parseMedianMs": 0.33173800000002984
+        }
+      ],
+      "allThreeBuildMedianMs": 5.755593999999974,
+      "compactMappingMedianMs": 0.9257900000000063,
+      "compactMappingPerInputUs": 2.5932492997199055,
+      "measurement": "Node, seven warm repeats; JSON UTF-8, excludes formal save, replay, storage I/O and full live event collection",
+      "limitations": [
+        "Input is published retained C-3 facts, not the complete uncompressed event stream.",
+        "Method 2 preserves all useful input facts; this is a conservative upper envelope, not an online significance selector.",
+        "Method 3 supports first/latest recurrence and frozen playback; arbitrary discarded historical middle events cannot be reselected.",
+        "Origin ledger is conservative; integration may reference existing formal releases instead of duplicating it.",
+        "No browser quota, atomic storage or monthly frame-time claim is made from pure Node measurements."
+      ]
+    },
+    {
+      "years": 30,
+      "policy": "mixed",
+      "methods": [
+        {
+          "method": "method1",
+          "bytes": 158412,
+          "retainedFacts": 299,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 0,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 0.4665650000000596,
+          "parseMedianMs": 0.7272280000000819
+        },
+        {
+          "method": "method2",
+          "bytes": 136531,
+          "retainedFacts": 284,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 14,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 0.36516599999993105,
+          "parseMedianMs": 0.5572579999999334
+        },
+        {
+          "method": "method3",
+          "bytes": 70604,
+          "retainedFacts": 50,
+          "anchors": 35,
+          "anchorFacts": 53,
+          "witnessFacts": 12,
+          "pendingOrigins": 1,
+          "origins": 14,
+          "frozenScenes": 6,
+          "activeCandidates": 44,
+          "serializeMedianMs": 0.20094600000004448,
+          "parseMedianMs": 0.27541499999995267
+        }
+      ],
+      "allThreeBuildMedianMs": 4.340186000000017,
+      "compactMappingMedianMs": 0.7456849999999804,
+      "compactMappingPerInputUs": 2.493929765886222,
+      "measurement": "Node, seven warm repeats; JSON UTF-8, excludes formal save, replay, storage I/O and full live event collection",
+      "limitations": [
+        "Input is published retained C-3 facts, not the complete uncompressed event stream.",
+        "Method 2 preserves all useful input facts; this is a conservative upper envelope, not an online significance selector.",
+        "Method 3 supports first/latest recurrence and frozen playback; arbitrary discarded historical middle events cannot be reselected.",
+        "Origin ledger is conservative; integration may reference existing formal releases instead of duplicating it.",
+        "No browser quota, atomic storage or monthly frame-time claim is made from pure Node measurements."
+      ]
+    },
+    {
+      "years": 100,
+      "policy": "local",
+      "methods": [
+        {
+          "method": "method1",
+          "bytes": 316194,
+          "retainedFacts": 575,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 0,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 0.9123610000000326,
+          "parseMedianMs": 1.162967999999978
+        },
+        {
+          "method": "method2",
+          "bytes": 274415,
+          "retainedFacts": 552,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 22,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 0.7554290000000492,
+          "parseMedianMs": 1.0262769999999364
+        },
+        {
+          "method": "method3",
+          "bytes": 128136,
+          "retainedFacts": 106,
+          "anchors": 39,
+          "anchorFacts": 73,
+          "witnessFacts": 16,
+          "pendingOrigins": 1,
+          "origins": 22,
+          "frozenScenes": 17,
+          "activeCandidates": 89,
+          "serializeMedianMs": 0.37204700000006596,
+          "parseMedianMs": 0.5257420000000366
+        }
+      ],
+      "allThreeBuildMedianMs": 8.545993000000067,
+      "compactMappingMedianMs": 1.323073999999906,
+      "compactMappingPerInputUs": 2.3009982608694015,
+      "measurement": "Node, seven warm repeats; JSON UTF-8, excludes formal save, replay, storage I/O and full live event collection",
+      "limitations": [
+        "Input is published retained C-3 facts, not the complete uncompressed event stream.",
+        "Method 2 preserves all useful input facts; this is a conservative upper envelope, not an online significance selector.",
+        "Method 3 supports first/latest recurrence and frozen playback; arbitrary discarded historical middle events cannot be reselected.",
+        "Origin ledger is conservative; integration may reference existing formal releases instead of duplicating it.",
+        "No browser quota, atomic storage or monthly frame-time claim is made from pure Node measurements."
+      ]
+    },
+    {
+      "years": 100,
+      "policy": "wide",
+      "methods": [
+        {
+          "method": "method1",
+          "bytes": 460212,
+          "retainedFacts": 838,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 0,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 1.422198999999864,
+          "parseMedianMs": 1.958406999999852
+        },
+        {
+          "method": "method2",
+          "bytes": 400272,
+          "retainedFacts": 805,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 33,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 1.394078000000036,
+          "parseMedianMs": 1.76237900000001
+        },
+        {
+          "method": "method3",
+          "bytes": 210156,
+          "retainedFacts": 182,
+          "anchors": 87,
+          "anchorFacts": 158,
+          "witnessFacts": 15,
+          "pendingOrigins": 0,
+          "origins": 33,
+          "frozenScenes": 18,
+          "activeCandidates": 164,
+          "serializeMedianMs": 0.674551000000065,
+          "parseMedianMs": 0.9454690000000028
+        }
+      ],
+      "allThreeBuildMedianMs": 12.558467999999948,
+      "compactMappingMedianMs": 2.163047000000006,
+      "compactMappingPerInputUs": 2.5812016706443983,
+      "measurement": "Node, seven warm repeats; JSON UTF-8, excludes formal save, replay, storage I/O and full live event collection",
+      "limitations": [
+        "Input is published retained C-3 facts, not the complete uncompressed event stream.",
+        "Method 2 preserves all useful input facts; this is a conservative upper envelope, not an online significance selector.",
+        "Method 3 supports first/latest recurrence and frozen playback; arbitrary discarded historical middle events cannot be reselected.",
+        "Origin ledger is conservative; integration may reference existing formal releases instead of duplicating it.",
+        "No browser quota, atomic storage or monthly frame-time claim is made from pure Node measurements."
+      ]
+    },
+    {
+      "years": 100,
+      "policy": "mixed",
+      "methods": [
+        {
+          "method": "method1",
+          "bytes": 390306,
+          "retainedFacts": 716,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 0,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 1.1200850000000173,
+          "parseMedianMs": 1.4946749999999156
+        },
+        {
+          "method": "method2",
+          "bytes": 338695,
+          "retainedFacts": 687,
+          "anchors": 0,
+          "anchorFacts": 0,
+          "witnessFacts": 0,
+          "pendingOrigins": 0,
+          "origins": 28,
+          "frozenScenes": 0,
+          "activeCandidates": null,
+          "serializeMedianMs": 1.0246349999999893,
+          "parseMedianMs": 1.272077999999965
+        },
+        {
+          "method": "method3",
+          "bytes": 191168,
+          "retainedFacts": 179,
+          "anchors": 75,
+          "anchorFacts": 131,
+          "witnessFacts": 14,
+          "pendingOrigins": 1,
+          "origins": 28,
+          "frozenScenes": 18,
+          "activeCandidates": 161,
+          "serializeMedianMs": 0.5759060000000318,
+          "parseMedianMs": 0.7641519999999673
+        }
+      ],
+      "allThreeBuildMedianMs": 10.018986999999925,
+      "compactMappingMedianMs": 1.641552000000047,
+      "compactMappingPerInputUs": 2.292670391061518,
+      "measurement": "Node, seven warm repeats; JSON UTF-8, excludes formal save, replay, storage I/O and full live event collection",
+      "limitations": [
+        "Input is published retained C-3 facts, not the complete uncompressed event stream.",
+        "Method 2 preserves all useful input facts; this is a conservative upper envelope, not an online significance selector.",
+        "Method 3 supports first/latest recurrence and frozen playback; arbitrary discarded historical middle events cannot be reselected.",
+        "Origin ledger is conservative; integration may reference existing formal releases instead of duplicating it.",
+        "No browser quota, atomic storage or monthly frame-time claim is made from pure Node measurements."
+      ]
+    }
+  ]
+}
