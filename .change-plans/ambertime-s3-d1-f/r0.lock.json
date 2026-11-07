@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "59cdcd1a33741090d1d14f6e4b5cca26a9c1581e4afe8cd42c7fe85ec76c38b2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-s3-d1-f",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "S3-D1-F remaining canonical research: 12-month equivalence, release/resale, v8 protection, generation recall, resource measurements and final decision",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f95afed5fd6d245333b9af35805aa670d06a6ae7",
+    "canonicalSources": [
+      "User message Sentinel_fe22c304c3a08191af4a1b217e888463 S3-D1-F 2026-11-07",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "PR #856 head f95afed5; main b7b5473; #854 fixture and #855 design"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s3-d1-f/plan.json",
+      ".change-plans/ambertime-s3-d1-f/r0.lock.json",
+      "works/ambertime/design/s3-d1/f-*",
+      "works/ambertime/design/s3-d1/evidence/final/**",
+      "works/ambertime/design/s3-d1/D1-F-REPORT.md",
+      "works/ambertime/design/s3-d1/D1-F-VALIDATION.md",
+      "works/ambertime/design/s3-d1/D2-DECISION.md",
+      "works/ambertime/tests/s3-d1-f-*.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/design/s3-d1/codec.mjs",
+      "works/ambertime/design/s3-d1/evidence/repair/**",
+      "works/ambertime/design/s3-d1/D1-REPORT.md",
+      "works/ambertime/design/s3-d1/D1-R-REPORT.md"
+    ],
+    "expectedChanges": [
+      "Freeze repaired codec and reuse prior evidence; gate all implementation/tests on saved plan, verified digest, preceding GitHub commit.",
+      "Compare full state and sidecars at each public operation/month across 1/3/12 months; separate natural and targeted release/resale scenarios.",
+      "Locate formal old v8 or generate new formally valid wire via public operations; isolate fault/fallback tests and preserve originals.",
+      "Audit prior nine-boundary materials, run current-model comparisons where supported; do not manufacture historical fixtures.",
+      "Separate cold read, encode, anchor, validation, hydrate, equality, necessary official replay and peak resources; independent review; final honest checklist."
+    ],
+    "ownerDecisions": [
+      "User authorizes D1-F isolated remaining tests and Draft #856 updates only. No merge, Pages, D2, formal save changes or cap bypass."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Validation-only isolated runners; Plan Lock before repository changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Node only; no browser capacity claim."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated research/test/report additions; runtime and saves unchanged.",
+    "outOfScope": [
+      "D2 implementation",
+      "Formal save/model/caps/validator/UI/Canvas",
+      "Production",
+      "Staging merge",
+      "Pages publication",
+      "Codec redesign or optimization"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Chromium actual storage",
+      "iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "Truncate history or raise caps",
+      "Claim research codec is formal save"
+    ],
+    "boundaryCases": [
+      "Stop at game/RNG/history/source differences, malformed acceptance, original loss, unsafe recovery, recall inconsistency, abnormal hydrate memory, need for formal cap bypass or broken process.",
+      "No expected-value adjustment to hide failure; stop further evaluation, preserve first failure and report."
+    ],
+    "testPlan": [
+      "FIRST: save plan/lock, verify digest, commit, publish and fetch GitHub commit. Stop if unavailable.",
+      "Verify codec SHA unchanged and reuse/recheck D1-R safety tests. Verify required fixture SHA.",
+      "F1 public-operation 1/3/12-month paired exact equality, stop first difference. Ensure actual new release/resale via separate public-only scenario if needed.",
+      "F2 isolated formal v8 source preservation and candidate fault/fallback; no-origin safe stop.",
+      "F3 inspect frozen boundary/code identities; current-model exact recall/generation comparison where possible; clearly label missing evidence.",
+      "F4 sequential independent-process phase/resource measurement, no big codec optimization.",
+      "Independent review; Scope then Risk then Impact and exact-SHA CI; Draft report only."
+    ]
+  }
+}
