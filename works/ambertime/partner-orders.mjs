@@ -116,6 +116,20 @@ function enableAlleyBarTransaction(s,value=null){
 }
 export function enableAlleyBar(s){validateDistillery(s);const j=enableAlleyBarTransaction(s);if(j!==s)validateDistillery(j);return j;}
 export const newAlleyBarDistillery=seed=>enableAlleyBar(newMarketRulesDistillery(seed));
+// A presentation-policy boundary uses the existing operation envelope only.
+// No economic state, schema version, town event or RNG is changed by enabling it.
+export const shopDialogueMode=s=>s?.operations?.some(o=>o.key==='enable-shop-dialogue'&&o.value?.version===2)??false;
+function enableShopDialogueTransaction(s,value=null){
+ if(shopDialogueMode(s)){assert(value===null,'店舗会話の切替記録が重複しています。');return s;}
+ assert(!s.operations.some(o=>o.key==='enable-shop-dialogue'),'対応していない店舗会話の記録です。');
+ assert(marketRulesMode(s),'販売ルールに対応した記録を確認してください。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ const boundary={version:2,boundaryMonth:s.core.month,progress:shopProgress(s),tastingId:s.tastingId};
+ if(value!==null)assert(JSON.stringify(value)===JSON.stringify(boundary),'店舗会話の切替記録が一致しません。');
+ const j=clone(s);j.operations.push({key:'enable-shop-dialogue',value:boundary});return j;
+}
+export function enableShopDialogue(s){validateDistillery(s);const j=enableShopDialogueTransaction(s);if(j!==s)validateDistillery(j);return j;}
+export const newShopDialogueDistillery=seed=>enableShopDialogue(newAlleyBarDistillery(seed));
 function storeAssignmentTransaction(s,value,returning=false){
  const {productId,shopId,count}=value??{},p=s.core.products.find(p=>p.id===productId),r=s.releases.find(r=>r.productId===productId);
  assert(storeMarketMode(s)&&p&&r&&(alleyBarMode(s)?['town-liquor','supermarket','bar']:['town-liquor','supermarket']).includes(shopId),'割り当てる発売回と店を確認してください。');
@@ -1242,7 +1256,11 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(s.still.distillation?.collectionVersion!==2||s.still.distillation.collectStart!==null||value<=88,'採取できる範囲を過ぎています。');assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-alley-bar':
+function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-shop-dialogue':
+ if(o.value?.progress!==null)s=progress(s,o.value?.progress);
+ if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
+ return enableShopDialogueTransaction(s,o.value);
+ case 'enable-alley-bar':
  if(o.value?.progress!==null)s=progress(s,o.value?.progress);
  if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
  return enableAlleyBarTransaction(s,o.value);

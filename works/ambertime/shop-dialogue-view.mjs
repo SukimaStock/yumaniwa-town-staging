@@ -1,4 +1,4 @@
-import {dialogueShopName} from './shop-dialogue.mjs?v=bar-v01-1';
+import {dialogueShopName} from './shop-dialogue.mjs?v=all-stores-s2-1';
 import {packageArt} from './release-package.mjs?v=package-c1l-1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function dialogueMarkup(entry,state,{heading=false}={}){

@@ -1,6 +1,32 @@
 import {BAR_DIALOGUE_TEXT} from './bar-dialogue-text.mjs?v=bar-v01-1';
 // Author manuscript v0.2. Edit wording here, never in sales or selection code.
 export const SHOP_DIALOGUE_TEXT=Object.freeze({
+ supermarket:Object.freeze({
+  daily:Object.freeze({
+   evening:'晩酌用に買ってもらえるといいですね。',
+   home:'家で気軽に飲めるお酒もあるといいですよね。',
+   sold:'このお酒、少しずつ売れてますよ。',
+   gap:'お久しぶりです。また置きたいお酒があればどうぞ。'
+  }),
+  memory:Object.freeze({
+   remember:'このお酒、前売ってましたね。',
+   years:'この箱覚えてます！もう何年か前ですね。',
+   return:'このお酒、久しぶりに売れましたね！'
+  })
+ }),
+ department:Object.freeze({
+  daily:Object.freeze({
+   gift:'贈り物としてもご紹介したいですね。',
+   flavor:'味の特徴を広めてみたいですね。',
+   next:'次のお酒も楽しみにしております。',
+   five:'今回お預かりした5本、大切にご紹介します。'
+  }),
+  memory:Object.freeze({
+   remember:'以前お預かりしたお酒ですね。',
+   years:'このお酒をご紹介してから、もう何年か経つのですね。',
+   box:'この箱は覚えております。以前、当店でも扱いましたね。'
+  })
+ }),
  bar:BAR_DIALOGUE_TEXT,
  'town-liquor':Object.freeze({
   daily:Object.freeze({
