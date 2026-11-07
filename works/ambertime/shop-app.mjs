@@ -133,7 +133,7 @@ dialogueElement.addEventListener('dialogue-layout-blocked',()=>dialogueNotice.up
 // Some market warnings do not render the game; react to priority DOM changes too.
 for(const id of ['automatic-news','storage-notice','scene-notice'])new MutationObserver(()=>dialogueNotice.update()).observe($(id),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});
 function noteDialogueCommit(before,next){if(before&&next.core.month>before.core.month)dialogueNotice.commit(before,next,dialogueProjection.read(next));}
-function latestDialogueMarkup(shopId){return dialogueMarkup(dialogueProjection.read(game,shopId),game);}
+function latestDialogueMarkup(shopId){return room==='sales'?dialogueMarkup(dialogueProjection.read(game,shopId),game):'';}
 
 const feedbackComments=createFeedbackComments();
 let roomFeedback=null;
