@@ -1,0 +1,73 @@
+{
+  "schema": "s3-d0-capacity/1",
+  "gameSha256": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+  "game": {
+    "utf16": 9808696,
+    "utf8": 10994786
+  },
+  "town": {
+    "utf16": 9492444,
+    "utf8": 10655992
+  },
+  "counts": {
+    "events": 10333,
+    "attempts": 26221,
+    "arrivals": 8153
+  },
+  "component": {
+    "active": {
+      "utf16": 806607,
+      "utf8": 830913
+    },
+    "events": {
+      "utf16": 3238341,
+      "utf8": 3879233
+    },
+    "attempts": {
+      "utf16": 3017047,
+      "utf8": 3017047
+    },
+    "arrivalPositions": {
+      "utf16": 40245,
+      "utf8": 40245
+    },
+    "sessionFields": {
+      "utf16": 836443,
+      "utf8": 879195
+    }
+  },
+  "A": {
+    "combinedRepresentation": {
+      "utf16": 7938765,
+      "utf8": 8646715
+    },
+    "note": "capacity-only logical buckets; not a formal save or a playable hot-state proof"
+  },
+  "B": {
+    "schemaTableRepresentation": {
+      "utf16": 5113409,
+      "utf8": 5821359
+    },
+    "note": "schema per ordered property set; exact JSON roundtrip checked; size-only prototype, not a formal codec"
+  },
+  "C": {
+    "chunks": 73,
+    "chunkPayload": {
+      "utf16": 6258536,
+      "utf8": 6899428
+    },
+    "largestChunk": {
+      "utf16": 165658,
+      "utf8": 197718
+    },
+    "chunkWrapperOverhead": {
+      "utf16": 3148,
+      "utf8": 3148
+    },
+    "note": "excludes unmeasured checkpoint, manifest, driver overhead; physical quota unmeasured"
+  },
+  "envelope": {
+    "utf16": 10645147,
+    "utf8": 11873989
+  }
+}

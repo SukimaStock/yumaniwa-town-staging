@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4e50e064298a9d74f0bd02dc0151afc6175d89c0400cb50e35cd8f391396d4c0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-s3-d0-design",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "S3-D0: compare lossless history retention and validation boundaries; no D1/runtime implementation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5191c22a6ca82737c650477bbafbf15365e85820",
+    "canonicalSources": [
+      "User S3-D0 request 2026-11-07",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "PR #854 and #840"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s3-d0-design/r0.lock.json",
+      "works/ambertime/design/s3-d0/**",
+      "works/ambertime/tests/s3-d0-capacity.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/partner-orders.mjs"
+    ],
+    "expectedChanges": [
+      "Audit live/history/index dependencies and prior evidence.",
+      "Measure A/B/C accounting on existing verified synthetic fixture only.",
+      "Publish design, validation contract and D1 plan only."
+    ],
+    "ownerDecisions": [
+      "User requests design-only D0, permits research PR Staging merge after CI; D1 requires separate decision."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Validation-only isolated runners; Plan Lock before repository changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Node only; no browser capacity claim."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated research/test/report additions; runtime and saves unchanged.",
+    "outOfScope": [
+      "D1 implementation",
+      "Runtime or formal storage changes",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Chromium actual storage",
+      "iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "Raise caps or truncate history",
+      "Implement D1 before owner decision"
+    ],
+    "boundaryCases": [
+      "Missing records, reordered IDs, cross-generation mix, untrusted checkpoint, old v8 compatibility."
+    ],
+    "testPlan": [
+      "Verify archive/game SHA; exact lossless accounting and independent review; run existing codec regression."
+    ]
+  }
+}
