@@ -30,8 +30,8 @@ test('native hiring dialogs, fees, defer/reentry, keyboard and five viewports',{
   await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(6700);assert(await portrait.isVisible());
   const before=await page.evaluate(()=>window.amberPlacement.snapshot());await page.locator('[data-action="staff-opportunity-later"]').click();assert(await portrait.isHidden());
   for(let i=0;i<5&&await page.locator('#action-dialog').evaluate(e=>e.open);i++)await page.locator('#close-dialog').click();
-  await page.locator('#open-staff-panel').click();await page.locator(`[data-action="staff-job-hire"][data-id="${kind}"]`).focus();await page.keyboard.press('Enter');await portrait.waitFor({state:'visible'});
-  assert.equal(await page.evaluate(()=>document.activeElement.dataset.action),'staff-opportunity-hire');await page.keyboard.press('Enter');
+  await page.locator(`#room-nav [data-room="${kind==='distill'?'distill':'warehouse'}"]`).click();await page.locator('#open-staff-panel').focus();await page.keyboard.press('Enter');await portrait.waitFor({state:'visible'});
+  await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.dataset.action),'staff-opportunity-hire');await page.keyboard.press('Enter');
   const after=await page.evaluate(()=>window.amberPlacement.snapshot()),cost=kind==='distill'?D.staffStatus(before).hireCost:D.bottlingStaffStatus(before).hireCost;assert.equal(after.core.cash,before.core.cash-cost);assert(kind==='distill'?D.staffStatus(after).hired:D.bottlingStaffStatus(after).hired);
   assert.equal(D.serializeDistillery(D.restoreDistillery(D.serializeDistillery(after))),D.serializeDistillery(after));await page.unroute('**/tests/fixtures/placement-established-six.json');
  }
