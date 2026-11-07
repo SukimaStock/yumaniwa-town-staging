@@ -1,0 +1,366 @@
+{
+  "study": "L100-4B-3",
+  "baseSHA": "6a1707c106afb4bf0658a274edf404bbc541de64",
+  "environment": {
+    "node": "v24.22.1",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41"
+  },
+  "sources": [
+    {
+      "path": "works/ambertime/partner-orders.mjs",
+      "sha256": "ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b",
+      "sameAsB2": true,
+      "sameAsB1": true
+    },
+    {
+      "path": "works/ambertime/development-save.mjs",
+      "sha256": "320092f6e8380d7850c19b814bc4fca00c7c00804e6be020a71b2e0394cffeca",
+      "sameAsB2": true,
+      "sameAsB1": true
+    },
+    {
+      "path": "works/ambertime/save-codec.mjs",
+      "sha256": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e",
+      "sameAsB2": true,
+      "sameAsB1": true
+    },
+    {
+      "path": "works/ambertime/checkpoint-research/prototype.mjs",
+      "sha256": "6db28b859dadbc1e1a2471cbfff659a3b1c835da694d79cd5607f8b923cfd9da",
+      "sameAsB2": true,
+      "sameAsB1": true
+    },
+    {
+      "path": "works/ambertime/checkpoint-persistence/fingerprint.mjs",
+      "sha256": "751dc20299694888ccaec21762994b18efbc2b1d4428af2b4f7a7edd8e4e22b7",
+      "sameAsB2": true,
+      "sameAsB1": true
+    }
+  ],
+  "reusedInputProvenance": [
+    {
+      "policy": "local",
+      "file": "local-100-year-1200-v8.json",
+      "sha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+      "bytes": 3467349,
+      "priorCheckpointSHA256": "7d1c7d7cd5d8d393c80599c339c3b5a78e8ff79fd135ba29e65606615c2ae643",
+      "priorCheckpointFileBytes": 8195244
+    },
+    {
+      "policy": "mixed",
+      "file": "mixed-100-year-1200-v8.json",
+      "sha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+      "bytes": 4535936,
+      "priorCheckpointSHA256": "e8bf1c0973e6bbd4b7247b27ede62e9558dec98c5beaf8a117e6c2d32cbfc7c3",
+      "priorCheckpointFileBytes": 10546936
+    },
+    {
+      "policy": "wide",
+      "file": "wide-100-year-1200-v8.json",
+      "sha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+      "bytes": 5282030,
+      "priorCheckpointSHA256": "a21400d3d2beea02a491cd24cf4c42e0ee58239b47e548cdef896a7142231c8c",
+      "priorCheckpointFileBytes": 12459868
+    }
+  ],
+  "reusedTwelveInputs": [
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+      "sha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+      "bytes": 3467349
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/local-30-year-360-v8.json",
+      "sha256": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9",
+      "bytes": 1542388
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/local-60-year-720-v8.json",
+      "sha256": "07394cf9aa7c0a31f39d75dec9a6a42d955eff9ebb194a2a8815511d439f8568",
+      "bytes": 2411833
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/local-90-year-1080-v8.json",
+      "sha256": "31a68b7d5153862668251cc5e7131fbaf73a503c23fd5c54934c00771b310bbc",
+      "bytes": 3154464
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+      "sha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+      "bytes": 4535936
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/mixed-30-year-360-v8.json",
+      "sha256": "4f042009960cc58785cce01bc7ee413c8503b72dc2e08a3b9f6dbc80bc1afde4",
+      "bytes": 1694892
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/mixed-60-year-720-v8.json",
+      "sha256": "c7a123afd6734977de4f46d244b7b4085c278128630e73d90156cd88095b4ff6",
+      "bytes": 2646568
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/mixed-90-year-1080-v8.json",
+      "sha256": "54fa50613773295f2fec14ce10d59ba51ee39cdfdd1de5bf23f1c52b5aada842",
+      "bytes": 4022134
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+      "sha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+      "bytes": 5282030
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/wide-30-year-360-v8.json",
+      "sha256": "3e5464f100f92d25ca27e8f0c001e335aa13750b35e4ba7ef698bbb4ddd1d221",
+      "bytes": 2093869
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/wide-60-year-720-v8.json",
+      "sha256": "dda24b698d0c09ab6d6583c246a94f675d348c48a112da5aed927bb3a85e7711",
+      "bytes": 3323464
+    },
+    {
+      "file": "ambertime-l100-baseline/extracted/paused/wide-90-year-1080-v8.json",
+      "sha256": "d208a9133d736af8d2cc1af85efed8d436bf85c22abf6148719ce33e756f5e89",
+      "bytes": 4690748
+    },
+    {
+      "file": "l100-2/handover-fixtures/local-before-handover-321-v8-paused.json",
+      "sha256": "83e217b8b2a7a43908463e9bb9149e479af4ede8ef8d9f774630bcd49b0fa578",
+      "bytes": 1585051
+    },
+    {
+      "file": "l100-2/handover-fixtures/local-before-handover-636-v8-paused.json",
+      "sha256": "e806590176c9ceaba2d8abd4ba128c3d7f81aad7bf55ba3e571510049136be61",
+      "bytes": 2207667
+    },
+    {
+      "file": "l100-2/handover-fixtures/local-before-handover-955-v8-paused.json",
+      "sha256": "8d64036c967614778eb1408515302e5c5be5bc7fc9ad6a1f2d8dff89b90c094e",
+      "bytes": 2971486
+    },
+    {
+      "file": "l100-2/handover-fixtures/mixed-before-handover-306-v8-paused.json",
+      "sha256": "2ea66c5c0d5bc21a543c762374ee9c5c850867bf01f2547c23df3bfca653425a",
+      "bytes": 1669634
+    },
+    {
+      "file": "l100-2/handover-fixtures/mixed-before-handover-610-v8-paused.json",
+      "sha256": "e87f7513fe41612d9183b928cc3232d24254138f39f3c4f30125d6c3930b2987",
+      "bytes": 2445233
+    },
+    {
+      "file": "l100-2/handover-fixtures/mixed-before-handover-918-v8-paused.json",
+      "sha256": "eea966e7290c0baf623b9d7b17f778a4bb7dc32acdb86452a1a5945c2d75b634",
+      "bytes": 3465504
+    },
+    {
+      "file": "l100-2/handover-fixtures/wide-before-handover-314-v8-paused.json",
+      "sha256": "30bb56897e7869bae281354e9f7313007d8001f7564573cbc5c0cb03e6dbb67a",
+      "bytes": 2113704
+    },
+    {
+      "file": "l100-2/handover-fixtures/wide-before-handover-630-v8-paused.json",
+      "sha256": "d1a17a910b82c8a0fe1ea7108b26c80c54780eb0270d19cff1de466def48d89c",
+      "bytes": 3216306
+    },
+    {
+      "file": "l100-2/handover-fixtures/wide-before-handover-930-v8-paused.json",
+      "sha256": "cc00aebd002e61673b417b19448e8b3b35590b4e70287dd284a24dd149c9e516",
+      "bytes": 4206290
+    }
+  ],
+  "newLongReplayRuns": 0,
+  "newPerformanceRuns": 0,
+  "newBrowserRuns": 0,
+  "note": "Input save hashes are reused pinned provenance, not freshly materialized input validation. No original saves touched.",
+  "pullRequests": [
+    {
+      "number": 805,
+      "title": "AmberTime H1-A1：100年保存の構造・復元負荷監査",
+      "state": "closed",
+      "draft": false,
+      "merged": true,
+      "head": "ccc921c5b044bc33cc1d6f8d3e3bea6d78e106d3",
+      "merge": "0f22b025542ebb09abb464c632d998fbc88cac2c",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/805",
+      "mergeAncestorOfBase": true
+    },
+    {
+      "number": 806,
+      "title": "AmberTime H1-A2：checkpoint＋tailの同値検証と長期復元研究",
+      "state": "closed",
+      "draft": false,
+      "merged": true,
+      "head": "b9f39fba855be064d55ee5917164d05b1442732a",
+      "merge": "74eb99ec28102c67b9e765684cfaf072a2a1c2e5",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/806",
+      "mergeAncestorOfBase": true
+    },
+    {
+      "number": 807,
+      "title": "AmberTime H1-A3：永続checkpoint・cold復元・歴史記憶の増分継続研究",
+      "state": "closed",
+      "draft": false,
+      "merged": true,
+      "head": "dc45ead440b130a641b56cf971ccb4ff73c28c82",
+      "merge": "00e6a0090d068b5d917dd806244a654dfa09bba3",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/807",
+      "mergeAncestorOfBase": true
+    },
+    {
+      "number": 808,
+      "title": "AmberTime H1-A4：IndexedDB原子保存・復旧・保持と歴史保護の研究",
+      "state": "closed",
+      "draft": false,
+      "merged": true,
+      "head": "c4ba18385427a8901921302d8016fcc474834e68",
+      "merge": "306524e1e7df3a5b2e2ba27310fb269d6e15aa4a",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/808",
+      "mergeAncestorOfBase": true
+    },
+    {
+      "number": 810,
+      "title": "AmberTime H1-B1：到達記録の重複整理・100年保存の軽量化研究",
+      "state": "closed",
+      "draft": false,
+      "merged": true,
+      "head": "ae68a855b5124b50a2a3072c4fb10f2501bc3621",
+      "merge": "778f783043256bed02197988caecd65cda576167",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/810",
+      "mergeAncestorOfBase": true
+    },
+    {
+      "number": 811,
+      "title": "AmberTime H1-B2：正式C保存・旧記録の確認移行と失敗時の保護",
+      "state": "closed",
+      "draft": false,
+      "merged": true,
+      "head": "1d4692b973c7b51be76ef57fa6b6e33535c4f832",
+      "merge": "57ad539c26cef0d12a76e2603c482c586bcf878c",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/811",
+      "mergeAncestorOfBase": true
+    },
+    {
+      "number": 812,
+      "title": "AmberTime H1-B2：保存失敗後も復旧操作へ戻れるようにする",
+      "state": "closed",
+      "draft": false,
+      "merged": true,
+      "head": "bcdb665565bf23b132c65b6d303b7ffe9a015a06",
+      "merge": "74924b2729565531dcc3a499dcb7e24bcc0dced8",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/812",
+      "mergeAncestorOfBase": true
+    },
+    {
+      "number": 828,
+      "title": "AmberTime L100-3: 保存障害の隔離試験と検証コード修復（本編無変更）",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "739754b57e80620235ca2550d2978f69c0813294",
+      "merge": "840fc1e72c407b1fe77dd1ed0e6242192aa88bf9",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/828",
+      "mergeAncestorOfBase": false,
+      "headAncestorOfBase": false
+    },
+    {
+      "number": 831,
+      "title": "AmberTime L100-4A: 町の記録の可逆保持・容量比較研究",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "05d20df8148d14b6f5029e59b989d252b4d05923",
+      "merge": "c4d7268e17be854e5c6737ff618496c30fa6e2af",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/831",
+      "mergeAncestorOfBase": false,
+      "headAncestorOfBase": false
+    },
+    {
+      "number": 832,
+      "title": "AmberTime L100-4A-2: arrivals参照層の比較と正式ランタイム境界",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "03f8312f65cfffb869393bda431beabcec746aea",
+      "merge": "d8c734e96e80de40a6e42c5e8332e2198d749b87",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/832",
+      "mergeAncestorOfBase": false,
+      "headAncestorOfBase": false
+    },
+    {
+      "number": 833,
+      "title": "AmberTime L100-4A-3: isolated compact arrivals boundary research",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "2b3dcc99b10cce336e1b39d4af451c5d867b2200",
+      "merge": "f02fd90d30ca1423c86c13f9a824d72bb59d2149",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/833",
+      "mergeAncestorOfBase": false,
+      "headAncestorOfBase": false
+    },
+    {
+      "number": 834,
+      "title": "AmberTime L100-4A-4: 非展開保存検証とclone負荷の隔離研究",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "0e2df2f9b9d589bfe64a02fae90d1a6617b1e2f7",
+      "merge": "1316468d22152bcbb50fec5246c9145a608441dc",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/834",
+      "mergeAncestorOfBase": false,
+      "headAncestorOfBase": false
+    },
+    {
+      "number": 835,
+      "title": "AmberTime L100-4C-1: 永続保存世代・旧正常保存・復旧契約の隔離研究",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "54071ffb2d4301360e61ebcbc8440de8aab74ced",
+      "merge": "8fe3a4a62495e281e88d8c20ee159e6018611400",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/835",
+      "mergeAncestorOfBase": false,
+      "headAncestorOfBase": false
+    },
+    {
+      "number": 837,
+      "title": "AmberTime L100-4B-1: checkpoint cold復元・検証保証の隔離研究",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "d674cb58b14ad1c7f45819694cd2367dfd11ccc8",
+      "merge": "81ada502e909ba4671beca0cf2c6a8b77d0869fa",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/837",
+      "mergeAncestorOfBase": false,
+      "headAncestorOfBase": false
+    },
+    {
+      "number": 839,
+      "title": "AmberTime L100-4B-2: 初回保存と検証cache信頼継承の隔離研究",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "51cd037e2a715283840cba43c3dbf806c8293a85",
+      "merge": "fb59e618da7cb080c573cfde23bc8b54edbdaa9c",
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/839",
+      "mergeAncestorOfBase": false,
+      "headAncestorOfBase": false
+    }
+  ],
+  "h1c1": {
+    "pr": 815,
+    "merged": true,
+    "head": "42adc59d076cdf1929f15384d4f37133b3982a94",
+    "merge": "d521c3a8677239994599384e1bae2942bf7855a1"
+  },
+  "newRegression": {
+    "command": "node --test works/ambertime/tests/formal-save.test.mjs works/ambertime/tests/recall-save.test.mjs works/ambertime/tests/h1-b2-codec.test.mjs",
+    "pass": 23,
+    "fail": 0,
+    "durationMs": 9064.67913,
+    "logSHA256": "35c2a7824d95b328aefc3c6aa0dc40714ddbba2a14d2895eb13887a59d37bf14",
+    "log": "✔ source discovery returns both independent native records without selection, merging or writes (277.888651ms)\n✔ explicit legacy listed and hand copies preserve all prior facts and clock state, leaving both sources exact (1004.924122ms)\n✔ trial selection copies the exact source text including whitespace without prepare, adoption or serialization (419.416655ms)\n✔ valid or corrupt existing formal destinations are never overwritten or replaced by a source (649.681545ms)\n✔ a source changed since preview blocks copying and preserves the newer source bytes (385.212317ms)\n✔ a concurrent destination writer during validation is protected by the final conditional write (392.388104ms)\n✔ quota failure rejects before returning live state or changing either original (382.40317ms)\n✔ failed readback rejects even when destination was written; callers receive no successful live state (423.494681ms)\n✔ invalid source selection, envelope, policy, native facts or candidate mode rejects without writes (1443.821544ms)\n✔ version1 and version2 map metadata copy verbatim and retain compatible notice baselines (889.57621ms)\n✔ invalid or existing map metadata is left intact; optional metadata failure cannot damage game sources (2043.128246ms)\n✔ an older pre-stage4 v20 session copies explicitly with only connection and adoption boundaries appended (316.152721ms)\n✔ formal compact session uses the startup reader and restores exact game, pause and clock (189.289468ms)\n✔ old v2 session still loads via unchanged official reader without altering source text (91.08396ms)\n✔ strict C encoder refuses incomplete or reordered arrivals without normalizing input (8.591625ms)\n✔ current compact envelope rejects malformed marker, envelope, duplicates, metadata and noncanonical input before formal restore (43.830177ms)\n✔ expanded size guard matches official boundary and rejects before cloning or reader bypass (29.030001ms)\n✔ save candidate is rejected when official restore refuses or changes the formal state (91.050811ms)\n✔ source copy may encode v5 without mutating either older source or unrelated storage (64.288488ms)\n✔ v8 requires the recall record and rejects v7 before running the official reader (37.341567ms)\n✔ a post-write read exception does not claim failure left persistent state unchanged (21.253413ms)\n✔ a changed readback rejects success and preserves the competing writer for recovery (28.747014ms)\n✔ quota failure leaves the complete old session and retry commits the complete candidate (16.504508ms)\nℹ tests 23\nℹ suites 0\nℹ pass 23\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 9064.67913\n"
+  }
+}
