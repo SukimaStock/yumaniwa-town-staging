@@ -1,0 +1,125 @@
+{
+  "sourceSha": "d12bdbde20f357d193c19a23ad25d3b74e92c10b",
+  "node": "v24.22.1",
+  "method": "Five desktop Node samples; synthetic display facts, not actual-model saves or browser frames. No timing assertions.",
+  "ordering": [
+    {
+      "count": 3,
+      "receipts": 1000,
+      "minMs": 0.11154900000001078,
+      "medianMs": 0.15701799999999366,
+      "maxMs": 0.49609100000000694
+    },
+    {
+      "count": 3,
+      "receipts": 10000,
+      "minMs": 0.4743169999999992,
+      "medianMs": 0.5379630000000049,
+      "maxMs": 1.5525090000000006
+    },
+    {
+      "count": 3,
+      "receipts": 100000,
+      "minMs": 3.2552129999999977,
+      "medianMs": 5.025621000000001,
+      "maxMs": 7.772807
+    },
+    {
+      "count": 5,
+      "receipts": 1000,
+      "minMs": 0.02698100000000636,
+      "medianMs": 0.03056599999999321,
+      "maxMs": 0.132559999999998
+    },
+    {
+      "count": 5,
+      "receipts": 10000,
+      "minMs": 0.392713999999998,
+      "medianMs": 0.5306520000000035,
+      "maxMs": 0.7495440000000002
+    },
+    {
+      "count": 5,
+      "receipts": 100000,
+      "minMs": 2.7612159999999903,
+      "medianMs": 3.96717000000001,
+      "maxMs": 12.935494000000006
+    },
+    {
+      "count": 10,
+      "receipts": 1000,
+      "minMs": 0.03117799999998283,
+      "medianMs": 0.0323190000000011,
+      "maxMs": 0.10360700000001088
+    },
+    {
+      "count": 10,
+      "receipts": 10000,
+      "minMs": 0.2888360000000034,
+      "medianMs": 0.3472549999999899,
+      "maxMs": 0.4392040000000179
+    },
+    {
+      "count": 10,
+      "receipts": 100000,
+      "minMs": 3.391469999999998,
+      "medianMs": 3.872788000000014,
+      "maxMs": 6.855637999999999
+    }
+  ],
+  "dialogue": [
+    {
+      "month": 120,
+      "releases": 40,
+      "receipts": 745,
+      "lines": 7,
+      "full": {
+        "minMs": 1.067464000000001,
+        "medianMs": 2.4599910000000023,
+        "maxMs": 6.197278000000011
+      },
+      "cached400Readbacks": {
+        "minMs": 0.07643600000000106,
+        "medianMs": 0.09360099999997828,
+        "maxMs": 0.20419899999998847
+      }
+    },
+    {
+      "month": 360,
+      "releases": 120,
+      "receipts": 2265,
+      "lines": 20,
+      "full": {
+        "minMs": 8.497973000000002,
+        "medianMs": 10.54763299999999,
+        "maxMs": 13.718533000000008
+      },
+      "cached400Readbacks": {
+        "minMs": 0.09203899999999976,
+        "medianMs": 0.12055200000003197,
+        "maxMs": 0.15825899999998683
+      }
+    },
+    {
+      "month": 1200,
+      "releases": 400,
+      "receipts": 7585,
+      "lines": 59,
+      "full": {
+        "minMs": 147.20671399999992,
+        "medianMs": 165.098068,
+        "maxMs": 184.68577900000003
+      },
+      "cached400Readbacks": {
+        "minMs": 0.20631200000002536,
+        "medianMs": 0.20959700000003068,
+        "maxMs": 0.3698699999999917
+      }
+    }
+  ],
+  "limitations": [
+    "Receipt scan is once per room entry, not every repaint.",
+    "Dialogue cache is exact game-object identity; a new immutable game object recomputes history.",
+    "No physical Safari, DOM layout, native touch or localStorage capacity measured."
+  ]
+}

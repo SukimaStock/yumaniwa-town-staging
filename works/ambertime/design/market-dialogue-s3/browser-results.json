@@ -1,0 +1,17 @@
+{
+  "sourceSha": "d12bdbde20f357d193c19a23ad25d3b74e92c10b",
+  "attempted": ["tests/market-scroll-browser.test.mjs", "tests/shop-dialogue-browser.test.mjs"],
+  "module": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright-core/index.mjs",
+  "executable": "/usr/bin/chromium",
+  "status": "blocked-before-page",
+  "error": "process_singleton_posix.cc:297 socket() failed: Operation not permitted",
+  "executedBrowserCases": 0,
+  "definedButUnexecuted": {
+    "partnerCounts": [0,1,2,3,5,10],
+    "viewports": [[360,568],[375,620],[390,680],[430,740],[1024,768]],
+    "market": ["fixed controls", "placement and return", "modal and room return", "offscreen sale", "anchor after reorder", "pointercancel suppression", "reduced motion", "keyboard focus"],
+    "dialogue": ["town and bar fixtures only"]
+  },
+  "unverified": ["Actual DOM layout", "Supermarket and department browser visuals", "Native touch inertia", "Physical iPhone Safari", "Browser localStorage capacity"],
+  "authorEvidence": "User confirmed S1 and S2 before S3; not a claim of the full S3 matrix."
+}

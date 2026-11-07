@@ -1,0 +1,29 @@
+{"progress":"wide","month":120}
+{"id":"wide","month":120,"reused":true}
+{"progress":"wide","month":240}
+{"progress":"wide","month":360}
+{"id":"wide","month":360,"reused":true}
+{"progress":"wide","month":480}
+{"progress":"wide","month":600}
+{"progress":"wide","month":720}
+{"progress":"wide","month":840}
+{"progress":"wide","month":960}
+{"progress":"wide","month":1080}
+{"progress":"wide","month":1200}
+file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/save-codec.mjs?v=h1-b2-1:6
+const assert=(ok,message)=>{if(!ok)throw Error(message);};
+                                         ^
+
+Error: 保存が大きすぎます。元の記録を残して停止しています。
+    at assert (file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/save-codec.mjs?v=h1-b2-1:6:42)
+    at assertFormalSize (file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/save-codec.mjs?v=h1-b2-1:21:2)
+    at serializeSession (file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/development-save.mjs:33:12)
+    at file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/design/market-dialogue-s3/long-run.mjs:217:29
+    at measure (file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/design/market-dialogue-s3/long-run.mjs:193:60)
+    at onCheckpoint (file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/design/market-dialogue-s3/long-run.mjs:217:17)
+    at simulateScenario (file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/design/market-dialogue-s3/long-run.mjs:187:48)
+    at run (file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/design/market-dialogue-s3/long-run.mjs:205:2)
+    at file:///workspace/scratch/0f0484a549fd/repo/works/ambertime/design/market-dialogue-s3/long-run.mjs:227:102
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+
+Node.js v24.22.1
