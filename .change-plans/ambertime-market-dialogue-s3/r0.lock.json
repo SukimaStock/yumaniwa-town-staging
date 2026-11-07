@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ef3dbaa2ae340b86fd4ee2df51433194a739eddea2cb16921200187083659fad",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-market-dialogue-s3",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "S3: reproducible multi-store and 10/30/100-year dialogue/save validation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d12bdbde20f357d193c19a23ad25d3b74e92c10b",
+    "canonicalSources": [
+      "User S1–S3 specification and S3 go-ahead after S2 confirmation",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "S1 market controller and S2 dialogue implementation"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-market-dialogue-s3/r0.lock.json",
+      "works/ambertime/design/market-dialogue-s3/**",
+      "works/ambertime/tests/market-dialogue-s3*.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/market-ui.mjs"
+    ],
+    "expectedChanges": [
+      "Add isolated reproducible actual-model long-play and synthetic store-count validation; keep production runtime and formal save unchanged.",
+      "Record exact inputs, factual coverage, time/size measurements and browser launch limitations. Run relevant regression.",
+      "Check old saves, 10/30/100-year save/restart, dormant store return and conversation memories/cooldowns; report gaps honestly, no fake official stores."
+    ],
+    "ownerDecisions": [
+      "User confirmed S2 and explicitly requested S3."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Validation-only isolated runners; Plan Lock before repository changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Attempt browser widths, touch and focus; physical iPhone remains author-only."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated research/test/report additions; runtime and saves unchanged.",
+    "outOfScope": [
+      "Production",
+      "New shops",
+      "Map changes",
+      "Dialogue prose/rules",
+      "Economic/save schema changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone gestures",
+      "Browser measurements if browser cannot launch"
+    ],
+    "alternativesRejected": [
+      "Claim synthetic 10 shops are formal model shops",
+      "Treat Node timing as Safari performance"
+    ],
+    "boundaryCases": [
+      "0/1/2/3/5/10 shops; old wholesale vs actual sales; dormant and returning shops; missing sale date",
+      "10/30/100 years and restored continuation; dialogue fact/package/cooldown consistency"
+    ],
+    "testPlan": [
+      "Existing controller/state and S2 tests; actual public model long play; cold restore; synthetic many-record projection; browser attempt"
+    ]
+  }
+}
