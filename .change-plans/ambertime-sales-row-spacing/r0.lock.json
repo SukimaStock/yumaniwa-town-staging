@@ -1,0 +1,106 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5711f094015b5fc89aa4937417eade625c58aeeb31dbd8b0be2f49d242e33329",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-sales-row-spacing",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Tighten store-row top inset by ten logical pixels while retaining sale delta line and touch sizes",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "b8750dcbeee3aceef32dea52a51f657f3cd02946",
+    "canonicalSources": [
+      "Current two author screenshots and requested S1 spacing adjustment",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-sales-row-spacing/r0.lock.json",
+      "works/ambertime/market.css",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/market-balance-audit/**",
+      "works/ambertime/placement-save.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "expectedChanges": [
+      "Reduce store bottle shelf top padding from 18 to 8 scaled px; shift delta, stock and date together; keep reserved delta line, 44px taps, scroll controller and all model logic.",
+      "Refresh only market.css cache token in existing HTML entry; no script content or URLs changed."
+    ],
+    "ownerDecisions": [
+      "User confirms S1 works on device and requests shorter store frames by moving delta, inventory and dates upward before S2. Existing authorized Staging fix/merge flow applies."
+    ],
+    "hqDecisions": [
+      "Existing work-local UI only; no new game/save/RNG or shared runtime contracts."
+    ],
+    "rulesApplied": [
+      "Plan Lock commit before implementation; Scope→Risk→Impact; existing lifecycle generator",
+      "Expression audit: only operational stock/sales/location information on normal screen; detailed numbers folded away"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect CSS cascade and reported screenshot geometry; browser attempt, report real Safari unverified.",
+      "Staging Pages and exact published CSS/HTML bytes."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the two-file spacing/cache change.",
+    "outOfScope": [
+      "S2/S3",
+      "Production",
+      "Scroll ordering/state",
+      "Economy/save/RNG",
+      "Package artwork",
+      "Sale delta line or tap target reduction"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual updated iPhone appearance; Chromium socket failure"
+    ],
+    "alternativesRejected": [
+      "Remove delta line and let sales change row height",
+      "Shrink text or 44px tap targets"
+    ],
+    "boundaryCases": [
+      "Idle vs sale delta same fixed height; wrapped products retain one reserved delta line"
+    ],
+    "testPlan": [
+      "Existing market UI, scroll state, formal-copy and market-rules-ui; compare known three baseline failures."
+    ],
+    "problem": "Uncontracted shops clutter normal board and sale delta looks like negative stock; unframed left labels conceal placement action.",
+    "currentContract": "Native shop.relations proves available outlets, physical inventory holds true remaining quantities; sale feedback is transient.",
+    "whyExistingIsInsufficient": "UI displays all ordinary venues and substitutes negative sold delta for remaining count.",
+    "design": "Derived visible outlets and separate permanent remaining count/transient sale notification; framed labeled left targets.",
+    "migration": "None; display-only.",
+    "compatibility": "Native saves/rules/replay untouched.",
+    "promotionRisk": "Staging only; no economic changes."
+  }
+}
