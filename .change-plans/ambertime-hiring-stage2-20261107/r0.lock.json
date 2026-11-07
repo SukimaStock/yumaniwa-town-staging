@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a5c5f8de96a8e0be8bcffc03768282bc446141f1ae7494cdfb7c919e82e2ed24",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-hiring-stage2-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage 2 staff hiring encounter portraits and editable dialogue",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d06b9584e03e8339b68a3b246b498ded29a15cdb",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/recall/pixel-scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-hiring-stage2-20261107/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/staff-encounter-text.mjs",
+      "works/ambertime/staff-encounter-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/staff-encounter.test.mjs",
+      "works/ambertime/tests/staff-encounter-browser.test.mjs",
+      "works/ambertime/design/hiring-stage2-20261107/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/release-package.mjs"
+    ],
+    "expectedChanges": [
+      "Native integer-grid portraits using existing source palette and recall person silhouette, two garment variants only",
+      "Independent editable author manuscript, portrait then dialogue then existing costs and hire/defer actions",
+      "Confirm opportunity noticed only after its dialog is opened; preserve save failure rollback, hiring conditions and existing model operations",
+      "Deferred hire reentry through existing manager opens the same encounter; room icons unchanged until Stage 3"
+    ],
+    "ownerDecisions": [
+      "User original staged specification plus 2026-11-07 confirmation that Stage 1 is perfect and instruction to proceed to next stage; Stage 2 implement/test/merge Staging then stop for visual review"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "four-width-browser",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this presentation-only change",
+    "outOfScope": [
+      "Production",
+      "Stage 3 direct room staff access",
+      "Economy, eligibility, hire costs, salary, reservations, save schema, recall content, Stage 1 reaction rules"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari; browser until actual checks complete"
+    ]
+  }
+}
