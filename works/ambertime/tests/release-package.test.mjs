@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PACKAGE_PALETTE,packageFamily,packageArt,releasePackageArt,packageLayer} from '../release-package.mjs';
 import {glassColor} from '../flavor-color.mjs';
-import {codeaBottle} from '../codea-object-art.mjs';
+import {bottles,codeaBottle} from '../codea-object-art.mjs';
 import {IDENTITY_BOTTLES,IDENTITY_LABELS} from '../brand-identity.mjs';
 import {firstBottleCompletion,firstBottleBareBottle,firstBottleLabelLayer} from '../first-bottle-view.mjs';
 import * as D from '../partner-orders.mjs';
 const snapshot=(family='fruit')=>({flavor:{version:1,primary:'smoke',profile:{fruit:.1,grain:.1,smoke:.1,body:.1,rough:.2,spice:.2,wood:.2,vanilla:.2,...(family==='mixed'?{fruit:.92,grain:1}:{[family]:.9})}}});
 const contents=svg=>svg.slice(svg.indexOf('>')+1,svg.lastIndexOf('</svg>'));
-const front=svg=>svg.match(/<g class="package-bottle" transform="translate\(-2 0\) scale\(2\)">([\s\S]*)<\/g><\/svg>/)?.[1];
+const front=svg=>svg.match(/<g class="package-bottle" transform="translate\(-2 \d+\) scale\(2\)">([\s\S]*)<\/g><\/svg>/)?.[1];
 
 test('five classic colors reuse glass display family, independently of original primary',()=>{
  for(const family of Object.keys(PACKAGE_PALETTE)){
@@ -70,14 +70,31 @@ test('actual bottling, source aging and serialization retain identical package w
 });
 
 test('first-bottle label and base use identical package transform while only the base adds a box',()=>{
- const brand={name:'AmberTime',bottle:'fancy',label:'dark'},input=snapshot('body');
- const bare=packageLayer(firstBottleBareBottle(brand,'high'),input),label=packageLayer(firstBottleLabelLayer(brand),input,{box:false});
+ for(const bottle of IDENTITY_BOTTLES)for(const labelChoice of IDENTITY_LABELS){
+ const brand={name:'AmberTime',bottle:bottle.id,label:labelChoice.id},input=snapshot('body'),shape=bottle.shape;
+ const bare=packageLayer(firstBottleBareBottle(brand,'high'),input,{shape}),label=packageLayer(firstBottleLabelLayer(brand),input,{box:false,shape});
  assert.equal(front(bare),contents(firstBottleBareBottle(brand,'high')));
  assert.equal(front(label),contents(firstBottleLabelLayer(brand)));
  assert.doesNotMatch(label,/class="package-box"/);
  const html=firstBottleCompletion(brand,7,'high',{esc:String},true,input);
  assert.ok(html.includes(bare));assert.ok(html.includes(label));
  assert.equal((html.match(/class="package-box"/g)??[]).length,1);
- assert.equal((html.match(/transform="translate\(-2 0\) scale\(2\)"/g)??[]).length,2);
+ assert.equal((html.match(/transform="translate\(-2 \d+\) scale\(2\)"/g)??[]).length,2);
+ const baseTransform=bare.match(/transform="([^"]+)"/)[1];
+ assert.equal(label.match(/transform="([^"]+)"/)[1],baseTransform);
  assert.match(html,/data-static="true"/);assert.equal((html.match(/<button /g)??[]).length,1);
+ }
+});
+
+// Regression: compare visible pixel bounds, not the SVG viewport bottom.
+test('every bottle silhouette sits on the box baseline without changing cells or scale',()=>{
+ for(const bottle of IDENTITY_BOTTLES){
+  const svg=packageArt(snapshot(),{bottle:bottle.id});
+  const offset=Number(svg.match(/translate\(-2 (\d+)\)/)[1]);
+  const rows=bottles[bottle.shape];
+  const bottom=rows.reduce((last,row,y)=>row.some(Boolean)?y+1:last,0);
+  assert.equal(bottom*2+offset,23);
+  assert.equal(offset,bottle.id==='square'?3:1);
+  assert.equal(front(svg),contents(codeaBottle(bottle.shape,{label:'cream',priceTier:'standard'})));
+ }
 });
