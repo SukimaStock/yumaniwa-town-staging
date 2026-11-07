@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "efbafb678aa9a9f0a167c97c903cc40377ecae6d29be57143acaafb580a6a698",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-shop-dialogue-v02-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Town liquor dialogue v0.2 stage 1: factual, deterministic, passive presentation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d8f31510837c8ee07369ff2270fe46b9698edf99",
+    "canonicalSources": [
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/release-package.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-shop-dialogue-v02-20261107/r0.lock.json",
+      "works/ambertime/shop-dialogue-text.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/shop-dialogue.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/shop-dialogue.test.mjs",
+      "works/ambertime/tests/shop-dialogue-view.test.mjs",
+      "works/ambertime/tests/shop-dialogue-browser.test.mjs",
+      "works/ambertime/design/shop-dialogue-v02-20261107/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/release-package.mjs"
+    ],
+    "expectedChanges": [
+      "Exact author text separated from facts and opportunity selection; town liquor only",
+      "Derive latest dialogue from prior-month immutable saved facts without modifying save or RNG",
+      "Passive low-priority popup only after successful monthly save; clear pending on install; latest in existing store modal",
+      "Reuse package E and test factual eligibility, history stability, persistence, interruptions and narrow widths"
+    ],
+    "ownerDecisions": [
+      "Owner attachment libfile_a22256d990e08191ac3de9eba24aeccf: shop dialogue v0.2 stage 1; Draft PR only, no merge or publication"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-dialogue-comparison",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this presentation-only change",
+    "outOfScope": [
+      "Merge, Staging publication, Production",
+      "Game calculation, RNG, save format, history or recall changes",
+      "Other shops, orders, new scoring or package design"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari; browser until actual checks complete"
+    ]
+  }
+}
