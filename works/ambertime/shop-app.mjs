@@ -1,5 +1,5 @@
 import {createDialogueProjection} from './shop-dialogue.mjs?v=dialogue-v02-1';
-import {dialogueMarkup,createDialogueNotice} from './shop-dialogue-view.mjs?v=dialogue-v02-1';
+import {dialogueMarkup,createDialogueNotice,installDialogueDismissal} from './shop-dialogue-view.mjs?v=dialogue-a6-1';
 import {releasePackageArt} from './release-package.mjs?v=package-c1l-1';
 import {migrateRecentLedger,advanceRecentLedger,recentLedgerView} from './recent-ledger.mjs?v=s3-1';
 import {ledgerProfile,caskTimeline,recordTimeline,recordText} from './ledger-history-view.mjs?v=refactor-r5-1';
@@ -36,7 +36,7 @@ import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-messages-r1';
-import {CanvasScene} from './canvas-scene.mjs?s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1';
+import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1';
 import * as nativeModel from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {createObservedModel} from './recall/operations.mjs?v=h3-3a-1';
 import {DEBUG_SKIP_YEARS,monthsForDebugSkip,debugSkipMonth} from './recall/debug-time-skip.mjs?v=debug-years-1';
@@ -115,12 +115,18 @@ const automaticNews=transientNotices({show:text=>{$('automatic-news').textConten
 // Keep transient notices above the body-mounted sales board.
 document.body.append($('automatic-news'),$('market-action-status'));
 const dialogueProjection=createDialogueProjection();
-const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.hidden=true;dialogueElement.setAttribute('role','status');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
+const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.hidden=true;dialogueElement.setAttribute('role','button');dialogueElement.tabIndex=0;dialogueElement.setAttribute('aria-label','町の酒店の一言を閉じる');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
 const dialogueNotice=createDialogueNotice({
- show:entry=>{dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.hidden=false;},
+ show:entry=>{dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;dialogueElement.setAttribute('aria-label',`町の酒店。${entry.text} 閉じる`);dialogueElement.hidden=false;scene.positionDialogue();},
  hide:()=>{dialogueElement.hidden=true;dialogueElement.innerHTML='';},
- safe:()=>!!game&&(preview||canSave)&&!document.hidden&&!modal&&!runtimeHalted&&!marketEditing&&!countdown.active&&game.still.phase==='ready'&&game.tastingId===null&&!game.decisions.length&&generationState()?.phase!=='review'&&generationState()?.phase!=='handover'&&!debugSkipJob&&$('automatic-news').hidden&&$('storage-notice').hidden&&!$('scene-notice').textContent.trim()
+ safe:entry=>!!game&&(preview||canSave)&&!document.hidden&&!modal&&!runtimeHalted&&!marketEditing&&!countdown.active&&game.still.phase==='ready'&&game.tastingId===null&&!game.decisions.length&&generationState()?.phase!=='review'&&generationState()?.phase!=='handover'&&!debugSkipJob&&$('automatic-news').hidden&&$('storage-notice').hidden&&!$('scene-notice').textContent.trim()&&!!scene.dialogueLayout(entry)
 });
+installDialogueDismissal(dialogueElement,()=>dialogueNotice.dismiss());
+document.addEventListener('visibilitychange',()=>dialogueNotice.update());
+window.addEventListener('resize',()=>requestAnimationFrame(()=>dialogueNotice.update()));
+dialogueElement.addEventListener('dialogue-layout-blocked',()=>dialogueNotice.update());
+// Some market warnings do not render the game; react to priority DOM changes too.
+for(const id of ['automatic-news','storage-notice','scene-notice'])new MutationObserver(()=>dialogueNotice.update()).observe($(id),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});
 function noteDialogueCommit(before,next){if(before&&next.core.month>before.core.month)dialogueNotice.commit(before,next,dialogueProjection.read(next));}
 function latestDialogueMarkup(shopId){return shopId==='town-liquor'?dialogueMarkup(dialogueProjection.read(game),game):'';}
 
