@@ -1,0 +1,170 @@
+{
+  "sourceSha": "d12bdbde20f357d193c19a23ad25d3b74e92c10b",
+  "policy": "wide",
+  "seed": 42,
+  "status": "blocked-at-100-year-formal-save",
+  "method": "Actual public operations with newShopDialogueDistillery; existing scenario routed to town/supermarket/bar/department. Formal v8 session with history/recall/recent ledger. Each cold restoration in fresh Node process.",
+  "rows": [
+    {
+      "id": "wide",
+      "month": 120,
+      "years": 10,
+      "fills": 13,
+      "forcedBottlings": 0,
+      "operations": 268,
+      "releases": 13,
+      "deliveries": 106,
+      "relations": [
+        "bar",
+        "town-liquor",
+        "supermarket",
+        "department"
+      ],
+      "deliveriesByShop": {
+        "town-liquor": 22,
+        "supermarket": 26,
+        "bar": 75,
+        "department": 5
+      },
+      "departmentAdoptions": 1,
+      "handovers": [],
+      "dialogueCount": 5,
+      "dialogueByShop": {
+        "town-liquor": 3,
+        "supermarket": 1,
+        "bar": 1,
+        "department": 0
+      },
+      "memories": [
+        {
+          "shopId": "bar",
+          "month": 87,
+          "releaseId": 4,
+          "key": "remember"
+        }
+      ],
+      "dialogueProjectionMs": 2.2908650000008492,
+      "cached1000ReadsMs": 0.30371000000013737,
+      "sessionBytes": 1748803,
+      "sessionCodeUnits": 1605251,
+      "serializeAndValidateMs": 438.72199100000034,
+      "cold": {
+        "restoreMs": 4585.213419,
+        "stateHash": "de8e462c70e80a2b91bc458e1e75ef4207f22a38940056707009116f94fc5621",
+        "sessionHash": "533991ceb815d7fb51037fd79ccff15afb7446390b37f6f53b87983b201f531b",
+        "historyHash": "58c3a10dddcf0d671acc6b4077ac23dd62ad6120ea4b65f1eb7b966fb0ac35be",
+        "nextHash": "47817105244649b0dfb60b5f4fd71771c30653359e5a05985d77cca317bb7c05",
+        "month": 120,
+        "peakRssKiB": 239168
+      },
+      "cumulativeMs": 10286.02264,
+      "checks": {
+        "formalV8ColdExact": true,
+        "nextMonthlyStateExact": true,
+        "dialogueColdExact": true,
+        "pastDialoguePrefixExact": true,
+        "globalAndTextAndMemoryCooldowns": true,
+        "inventoryConserved": true
+      }
+    },
+    {
+      "id": "wide",
+      "month": 360,
+      "years": 30,
+      "fills": 20,
+      "forcedBottlings": 0,
+      "operations": 583,
+      "releases": 20,
+      "deliveries": 249,
+      "relations": [
+        "bar",
+        "town-liquor",
+        "supermarket",
+        "department"
+      ],
+      "deliveriesByShop": {
+        "town-liquor": 77,
+        "supermarket": 71,
+        "bar": 147,
+        "department": 15
+      },
+      "departmentAdoptions": 3,
+      "handovers": [
+        312
+      ],
+      "dialogueCount": 18,
+      "dialogueByShop": {
+        "town-liquor": 8,
+        "supermarket": 3,
+        "bar": 5,
+        "department": 2
+      },
+      "memories": [
+        {
+          "shopId": "bar",
+          "month": 87,
+          "releaseId": 4,
+          "key": "remember"
+        },
+        {
+          "shopId": "town-liquor",
+          "month": 157,
+          "releaseId": 9,
+          "key": "remember"
+        },
+        {
+          "shopId": "bar",
+          "month": 266,
+          "releaseId": 6,
+          "key": "years"
+        }
+      ],
+      "dialogueProjectionMs": 2.942589999998745,
+      "cached1000ReadsMs": 0.469028999999864,
+      "sessionBytes": 3290897,
+      "sessionCodeUnits": 3014885,
+      "serializeAndValidateMs": 509.7112110000089,
+      "cold": {
+        "restoreMs": 26150.731441,
+        "stateHash": "40bed80bb05838d357fdb317b20226c469207a77cfec797ab823a0e90ecc9a52",
+        "sessionHash": "5585a2c6a03b8f15700980ce41064b4385e13f19ccdaa1c452f52949aa9c20e5",
+        "historyHash": "78524cf4c6b3e1b9cd19bb2416e22affa3e96fb9401975f4059aa25376566a95",
+        "nextHash": "43b42e16b6927ccf1a2cbf015d40ac1789b715b2341fbfa0844ef47cdc1a2a5e",
+        "month": 360,
+        "peakRssKiB": 416368
+      },
+      "cumulativeMs": 65367.361621000004,
+      "checks": {
+        "formalV8ColdExact": true,
+        "nextMonthlyStateExact": true,
+        "dialogueColdExact": true,
+        "pastDialoguePrefixExact": true,
+        "globalAndTextAndMemoryCooldowns": true,
+        "inventoryConserved": true
+      }
+    }
+  ],
+  "limitations": [
+    "One routing policy and one seed, not exhaustive economy validation.",
+    "No browser storage quota or iPhone timing measured.",
+    "Monthly dialogue projections measured at checkpoints, not browser frames."
+  ],
+  "failure": {
+    "month": 1200,
+    "years": 100,
+    "stage": "serializeSession -> assertFormalSize",
+    "message": "保存が大きすぎます。元の記録を残して停止しています。",
+    "formalCodeUnitLimitExclusive": 6016384,
+    "observedSourceSize": null,
+    "reasonSizeUnknown": "The rejected 100-year state was not exported before process exit; do not infer exact size.",
+    "coldRestoreExecuted": false,
+    "browserQuotaTestExecuted": false,
+    "checksPassedBeforeFailure": [
+      "Reached 1200 by actual public operations",
+      "Earlier dialogue prefixes unchanged",
+      "Global/text/memory cooldowns",
+      "Inventory conservation"
+    ],
+    "lastCompletedFormalCheckpointMonth": 360
+  }
+}
