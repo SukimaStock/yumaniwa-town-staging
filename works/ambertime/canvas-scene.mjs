@@ -4,7 +4,7 @@ import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./di
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
 import{RoomMotion}from'./room-motion.mjs?v=0.68-ui-refinements';
 import{installSceneInput}from'./scene-input.mjs?v=0.21-space-1';
-import{computeViewport,caskSlotIndex,layoutScene,projectRect,toLogical,hitTest,noticeLayout,collectionGeometry,feedbackLine}from'./canvas-layout.mjs?v=store-market-main-r1&rooms=stage3-r1&geometry=r2-1&slots=s1';
+import{computeViewport,caskSlotIndex,layoutScene,projectRect,toLogical,hitTest,noticeLayout,dialogueNoticeLayout,NOTICE_WINDOW,collectionGeometry,feedbackLine}from'./canvas-layout.mjs?v=store-market-main-r1&rooms=stage3-r1&geometry=r2-1&slots=s1&a6=1';
 import{barrel}from'./cask-glass-art.mjs?v=0.58-first-brand';
 import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottle-shelf-wall&tools=r2';
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
@@ -61,7 +61,7 @@ export class CanvasScene{
    const zoomed=vv?.scale>1.01;this.root.dataset.zoomed=String(!!zoomed);
    const scene=zoomed?{width:document.documentElement.clientWidth,height:innerHeight,left:0,top:0}:{width:visible.width,height:visible.height,left:0,top:0};
    this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;this.uniformTypography?.resize(v);Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');document.documentElement.style.setProperty('--pixel',Math.round(3*v.scale*v.dpr)/v.dpr+'px');document.documentElement.style.setProperty('--icon-cell',Math.round(3*v.scale*v.dpr)/v.dpr+'px');this.root.dataset.viewport=JSON.stringify(v);this.alignDialog();this.queue();};
-  new MutationObserver(()=>this.queue()).observe($('automatic-news'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});
+  for(const id of ['automatic-news','shop-dialogue-notice']){const el=$(id);if(el)new MutationObserver(()=>this.queue()).observe(el,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});}
   window.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('scroll',this.resize);this.resize();
   installSceneInput(this.root,$('action-dialog'),()=>{this.pressed=null;this.queue();});
   this.root.addEventListener('pointerdown',e=>{const p=toLogical(this.viewport,e.clientX,e.clientY),hit=hitTest(this.activeControls??[],p.x,p.y);this.root.dataset.lastPointer=JSON.stringify({...p,key:hit?.key??null});this.pressed=hit?.key;this.queue();});
@@ -173,6 +173,27 @@ export class CanvasScene{
   }
 
  }
+ // Native dialogue shares Canvas font measurement, viewport and notice geometry.
+ dialogueLayout(entry){
+  if(!this.viewport||!this.view||!entry)return null;
+  const v=this.viewport,obstacles=[];
+  const board=$('market-board');
+  if(board&&!board.hidden){const b=board.getBoundingClientRect();obstacles.push({x:(b.left-v.offsetX-v.left)/v.scale,y:(b.top-v.offsetY-v.top)/v.scale,w:b.width/v.scale,h:b.height/v.scale});}
+  for(const a of this.layout?.controls??[]){const node=document.querySelector(a.selector);if(a.y<514&&node&&!node.closest('[hidden]'))obstacles.push(a);}
+  if(this.view.room==='distill'){obstacles.push({x:24,y:270,w:312,h:165});if(this.view.phaseSummary)obstacles.push({x:12,y:108,w:336,h:48});if(this.view.spirit)obstacles.push({x:24,y:141,w:312,h:114});}
+  const step=this.uniformTypography?.metrics.lineLogical??Math.max(26,this.textMetrics().logical+4);
+  return dialogueNoticeLayout(entry.text,t=>this.measure(t),{step,image:entry.kind==='memory',obstacles});
+ }
+ positionDialogue(){
+  const el=$('shop-dialogue-notice');if(!el||el.hidden)return;
+  const p=el.querySelector('p'),entry={text:el.dataset.text??p?.textContent??'',kind:el.querySelector('.shop-dialogue-package')?'memory':'daily'};
+  const n=this.dialogueLayout(entry);if(!n){el.style.visibility='hidden';el.dispatchEvent(new Event('dialogue-layout-blocked'));return;}el.style.visibility='';
+  const v=this.viewport,r=projectRect(v,n),metrics=this.textMetrics(),border=Math.round(NOTICE_WINDOW.dot*v.scale*v.dpr)/v.dpr;
+  Object.assign(el.style,{left:(r.x+v.left)+'px',top:(r.y+v.top)+'px',width:r.width+'px',height:r.height+'px',fontSize:metrics.pixels/v.dpr+'px',lineHeight:n.step*v.scale+'px',padding:Math.max(0,n.padding*v.scale-border)+'px',borderWidth:border+'px'});
+  el.style.setProperty('--dialogue-art',n.imageSize*v.scale+'px');el.style.setProperty('--dialogue-gap',n.gap*v.scale+'px');
+  const wrapped=n.lines.join('\n');if(p&&p.textContent!==wrapped)p.textContent=wrapped;
+  el.dataset.noticeLayout=JSON.stringify(n);
+ }
  // Text is rasterized at integral physical dots, independently of the room scale.
  textMetrics(size=BODY_SIZE){return pixelTypography(this.uniformTypography?BODY_SIZE:size,this.viewport.scale*this.viewport.dpr,document.documentElement.dataset.fontState==='ready');}
  runs(text,size=BODY_SIZE){const c=this.ctx,m=this.textMetrics(size);return textRuns(text).map(run=>{const pixels=run.number?m.numberPixels:m.pixels;c.font=`400 ${pixels}px ${FONT_STACK}`;return{...run,pixels,width:c.measureText(run.text).width,drop:run.number?m.numberDrop:0};});}
@@ -268,7 +289,7 @@ export class CanvasScene{
   }else delete this.root.dataset.collectionBar;
   const noticeStep=this.uniformTypography?this.uniformTypography.metrics.lineLogical:Math.max(26,this.textMetrics().logical+4),metrics=this.textMetrics();
   // The same normal scene font and wrapping apply to both transient notice paths.
-  if(view.notice){const n=noticeLayout(view.notice,t=>this.measure(t),{step:noticeStep});this.window(n.x,n.y,n.w,n.h,'#2e3143','#858995');
+  if(view.notice){const n=noticeLayout(view.notice,t=>this.measure(t),{step:noticeStep});this.window(n.x,n.y,n.w,n.h,NOTICE_WINDOW.fill,NOTICE_WINDOW.border);
    c.save();c.font=`400 ${metrics.pixels}px ${FONT_STACK}`;const bounds=c.measureText('国Ag');c.restore();const baseline=(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/metrics.unit/2;
    n.lines.forEach((line,i)=>this.text(line,n.x+n.w/2,n.y+n.padding+n.step*(i+.5)+baseline,BODY_SIZE,'center'));this.root.dataset.noticeLayout=JSON.stringify(n);
   }else delete this.root.dataset.noticeLayout;
@@ -277,6 +298,7 @@ export class CanvasScene{
    Object.assign(news.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px',fontSize:metrics.pixels/v.dpr+'px',lineHeight:noticeStep*v.scale+'px',padding:Math.max(0,n.padding*v.scale-border)+'px'});news.dataset.noticeLayout=JSON.stringify(n);
   }
 
+  this.positionDialogue();
   this.window(9,582,342,45,'#292b39','#d8d5df');for(const x of[123,237])this.pixelRect(x,588,3,33,'#858995');
   delete this.root.dataset.feedbackLine;
   for(const a of this.activeControls){

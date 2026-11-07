@@ -42,8 +42,9 @@ export function layoutScene(view={}){
 
 // Shared by the existing Canvas notice and native automatic notice. Width follows
 // the actual font measure; long messages grow upward away from the controls.
-export function noticeLayout(text,measure,{step=26,padding=9}={}){
- const maxWidth=318,lines=[];let line='';
+export const NOTICE_WINDOW=Object.freeze({fill:'#2e3143',border:'#858995',ink:'#f0e6c8',shadow:'#19141e',dot:3,padding:9});
+export function noticeLayout(text,measure,{step=26,padding=NOTICE_WINDOW.padding,maxWidth=318}={}){
+ const lines=[];let line='';
  for(const piece of textPieces(text))for(const ch of measure(piece)>maxWidth?Array.from(piece):[piece]){
   if(ch==='\n'){lines.push(line);line='';continue;}
   if(line&&measure(line+ch)>maxWidth){lines.push(line);line='';}
@@ -69,4 +70,18 @@ export function feedbackLine(text,measure,width){
  if(measure(full)<=width)return {label:full,truncated:false};
  let chars=Array.from(full);while(chars.length&&measure(chars.join('')+'…')>width)chars.pop();
  return {label:measure('…')<=width?chars.join('')+'…':'',truncated:true};
+}
+
+// Same wrapping/padding as ordinary notices, with one optional package column.
+// Obstacles are logical rectangles. No free space means defer, never cover controls.
+export function dialogueNoticeLayout(text,measure,{step=26,image=false,obstacles=[]}={}){
+ const padding=NOTICE_WINDOW.padding,w=336,imageSize=image?48:0,gap=image?9:0;
+ const body=noticeLayout(text,measure,{step,padding,maxWidth:w-padding*2-imageSize-gap});
+ const h=padding*2+step+Math.max(imageSize,body.lines.length*step);
+ const overlaps=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
+ for(let y=514-h;y>=99;y-=3){
+  const n={x:12,y,w,h,padding,step,lines:body.lines,imageSize,gap};
+  if(!obstacles.some(o=>overlaps({...n,y:n.y-3,h:n.h+6},o)))return n;
+ }
+ return null;
 }

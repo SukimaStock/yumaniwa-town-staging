@@ -1,6 +1,7 @@
-/* Work-local, passive dialogue. No modal, controls, score or new visual language. */
-#shop-dialogue-notice{position:fixed;z-index:75;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 86px);transform:translateX(-50%);width:min(320px,calc(100vw - 32px));padding:12px 14px;background:#242b26;color:#eee4cb;border:1px solid #77715c;box-shadow:0 3px 0 #151b16;pointer-events:none;font:inherit;box-sizing:border-box}
+/* Transient geometry/font size are projected by CanvasScene, not viewport CSS. */
+#shop-dialogue-notice{position:fixed;z-index:75;margin:0;cursor:pointer;touch-action:manipulation;user-select:none;overflow-wrap:anywhere}
 #shop-dialogue-notice[hidden]{display:none}
+#shop-dialogue-notice:focus-visible{outline:var(--pixel) solid #f7cd58;outline-offset:var(--pixel)}
 .shop-dialogue-store{font-size:.8em;color:#c5b99a;margin-bottom:5px}
 .shop-dialogue-content{display:flex;gap:10px;align-items:center;min-width:0}
 .shop-dialogue-content p{margin:0;line-height:1.6;overflow-wrap:anywhere;text-align:left}
@@ -8,3 +9,10 @@
 .shop-dialogue-package .release-package{display:block!important;width:48px!important;height:48px!important;image-rendering:pixelated}
 #dialog-body .shop-dialogue-line{margin:0 0 14px;padding:8px 0}
 @media(prefers-reduced-motion:reduce){#shop-dialogue-notice{animation:none;transition:none}}
+
+/* Scope to the automatic line; the approved store information stays unchanged. */
+#shop-dialogue-notice .shop-dialogue-store{font:inherit;margin:0;color:inherit}
+#shop-dialogue-notice .shop-dialogue-content{gap:var(--dialogue-gap,0px);align-items:center}
+#shop-dialogue-notice .shop-dialogue-content p{font:inherit;white-space:pre;overflow-wrap:normal}
+#shop-dialogue-notice .shop-dialogue-package{flex:0 0 var(--dialogue-art);width:var(--dialogue-art);height:var(--dialogue-art)}
+#shop-dialogue-notice .shop-dialogue-package .release-package{width:var(--dialogue-art)!important;height:var(--dialogue-art)!important}
