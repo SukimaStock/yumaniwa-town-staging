@@ -1,13 +1,13 @@
-import {RULES as MARKET_RULES} from './market-sales.mjs?v=market-rules-r1';
+import {RULES as MARKET_RULES} from './market-sales.mjs?v=bar-v01-1';
 import {attachFlavor,setFlavorCask,flavorName} from './lab-flavor.mjs?v=stage4-r2';
 import {createTown,recordBottle,receiveActual,advanceTown,townNews} from './town-connection.mjs?v=stage4-r2';
 import {brandIdentityMode,needsBrandSetup,checkedBrandDraft} from './brand-identity.mjs?v=0.58-first-brand';
 export {brandIdentityMode,needsBrandSetup} from './brand-identity.mjs?v=0.58-first-brand';
-import {placementMode,placementInventory} from './placement-mode.mjs?v=store-market-main-r1';
-export {placementMode,placementInventory} from './placement-mode.mjs?v=store-market-main-r1';
-import {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows,planStoreMarketSales} from './store-market.mjs?v=market-rules-r1';
-export {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows} from './store-market.mjs?v=market-rules-r1';
-import {NORMAL_SHOP_DEMAND,normalShopOrders,planShopFulfillment} from './shop-demand.mjs?v=adjust-b-r1';
+import {placementMode,placementInventory} from './placement-mode.mjs?v=bar-v01-1';
+export {placementMode,placementInventory} from './placement-mode.mjs?v=bar-v01-1';
+import {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows,planStoreMarketSales} from './store-market.mjs?v=bar-v01-1';
+export {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows} from './store-market.mjs?v=bar-v01-1';
+import {NORMAL_SHOP_DEMAND,normalShopOrders,planShopFulfillment} from './shop-demand.mjs?v=bar-v01-1';
 import {PARTIAL_BOTTLING,partialMode,DELEGATION,delegationMode} from './partial-bottling.mjs?v=0.41-delegation';
 export {PARTIAL_BOTTLING,partialMode,DELEGATION,delegationMode} from './partial-bottling.mjs?v=0.41-delegation';
 import {DISTILLER,staffMode} from './distiller.mjs?v=0.41-delegation';
@@ -19,21 +19,21 @@ export {GENERATIONS,generationMode,generationStatus,generationNeedsClock,finalBa
 import {BOTTLE_STORAGE,bottleStorageMode} from './bottle-storage.mjs?v=0.41-delegation';
 export {BOTTLE_STORAGE,bottleStorageMode} from './bottle-storage.mjs?v=0.41-delegation';
 // New execution contract. The complete v0.9 reader remains frozen.
-import * as V09 from './trade.mjs?v=adjust-b-r1';
-import * as E from './economy.mjs?v=market-rules-r1';
+import * as V09 from './trade.mjs?v=bar-v01-1';
+import * as E from './economy.mjs?v=bar-v01-1';
 import * as M from './model.mjs?v=stage4-r2';
 import {mixSeed,CHARACTER_PARAMETERS as CHARACTER,profile as characterProfile} from './character.mjs?v=stage4-r2';
 import {PARALLEL_PARAMETERS as P,ECONOMY_PARAMETERS as C} from './economy-parameters.mjs';
 import {WHOLESALE as W} from './wholesale-parameters.mjs';
 import {PARTNER_ORDERS as T,PARTNERS,SPECIAL_ORDER} from './partner-parameters.mjs';
 import {AROMA_MODEL,aromaPreview} from './aroma-extraction.mjs?v=stage4-r2';
-import {SHOP,STOCKISTS,SHOPS,stockistsMode,shopMode,deliveryTotals,shopEvidence,shopProductCondition} from './shop-model.mjs?v=0.41-delegation';
-export {SHOP,STOCKISTS,SHOPS,stockistsMode,shopProductCondition,shopBrandStats,shopEvidence} from './shop-model.mjs?v=0.41-delegation';
+import {SHOP,STOCKISTS,SHOPS,stockistsMode,shopMode,deliveryTotals,shopEvidence,shopProductCondition} from './shop-model.mjs?v=bar-v01-1';
+export {SHOP,STOCKISTS,SHOPS,stockistsMode,shopProductCondition,shopBrandStats,shopEvidence} from './shop-model.mjs?v=bar-v01-1';
 import {DEPARTMENT,departmentMode,departmentReleaseEligible,departmentUsedRelease,departmentSource,departmentSelection} from './department-projects.mjs?v=0.44-monthly-timing';
 export {DEPARTMENT,departmentMode,departmentInterests,departmentAdoptions,departmentStatus} from './department-projects.mjs?v=0.44-monthly-timing';
 import {brandReputation,retailReputationFactors} from './brand-reputation.mjs?v=0.12';
 export {SPECIAL_ORDER} from './partner-parameters.mjs';
-export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting} from './economy.mjs?v=market-rules-r1';
+export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting} from './economy.mjs?v=bar-v01-1';
 const clone=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
 const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
 const blocked=s=>s.tastingId!==null||s.decisions.length>0||s.trade.offer!==null;
@@ -103,9 +103,22 @@ function enableMarketRulesTransaction(s,value=null){
 }
 export function enableMarketRules(s){validateDistillery(s);const j=enableMarketRulesTransaction(s);if(j!==s)validateDistillery(j);return j;}
 export const newMarketRulesDistillery=seed=>enableMarketRules(newStoreMarketDistillery(seed));
+// Explicit operation boundary: never add offers while replaying an older career.
+export const alleyBarMode=s=>s?.alleyBar?.version===1;
+function enableAlleyBarTransaction(s,value=null){
+ if(alleyBarMode(s))return s;
+ assert(marketRulesMode(s),'販売ルールに対応した記録を確認してください。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ const boundary={version:1,boundaryMonth:s.core.month,progress:shopProgress(s),tastingId:s.tastingId};
+ if(value!==null)assert(JSON.stringify(value)===JSON.stringify(boundary),'バーの切替記録が一致しません。');
+ const j=clone(s);j.alleyBar={version:1,boundaryMonth:s.core.month};j.storeMarket.byShop.bar={};
+ j.operations.push({key:'enable-alley-bar',value:boundary});return j;
+}
+export function enableAlleyBar(s){validateDistillery(s);const j=enableAlleyBarTransaction(s);if(j!==s)validateDistillery(j);return j;}
+export const newAlleyBarDistillery=seed=>enableAlleyBar(newMarketRulesDistillery(seed));
 function storeAssignmentTransaction(s,value,returning=false){
  const {productId,shopId,count}=value??{},p=s.core.products.find(p=>p.id===productId),r=s.releases.find(r=>r.productId===productId);
- assert(storeMarketMode(s)&&p&&r&&['town-liquor','supermarket'].includes(shopId),'割り当てる発売回と店を確認してください。');
+ assert(storeMarketMode(s)&&p&&r&&(alleyBarMode(s)?['town-liquor','supermarket','bar']:['town-liquor','supermarket']).includes(shopId),'割り当てる発売回と店を確認してください。');
  assert(s.tastingId===null&&s.trade.offer===null,'先に試飲・卸売の申し出を確認します。');
  const current=s.storeMarket.byShop[shopId][productId]??0;
  if(returning){if(!current)return s;}
@@ -873,9 +886,10 @@ function maybeStockistOffers(s,evidence=s){
  if(blocked(s)||s.still.phase!=='ready'||s.core.month<s.shop.nextOfferMonth)return;
  // Queue one opportunity per store. A deferred active offer never discards others.
  for(const store of SHOPS){
+  if(store.id==='bar'&&(!alleyBarMode(s)||s.shop.relations.some(r=>r.shopId==='bar')))continue;
   if(departmentMode(s)&&store.id==='department'){maybeDepartmentOffer(s,store,evidence);continue;}
   if([s.shop.offer,...s.shop.pendingOffers].some(o=>o?.shopId===store.id))continue;
-  const b=s.brands.find(b=>!s.shop.relations.some(r=>r.brandId===b.id&&r.shopId===store.id)&&s.core.month>=(s.shop.declinedUntil[`${store.id}:${b.id}`]??0)&&shopEvidence(evidence,b.id,store.id).eligible&&brandReputation(evidence,b.id).bonus>0);
+  const b=s.brands.find(b=>!s.shop.relations.some(r=>r.brandId===b.id&&r.shopId===store.id)&&s.core.month>=(s.shop.declinedUntil[`${store.id}:${b.id}`]??0)&&shopEvidence(evidence,b.id,store.id).eligible&&(store.id==='bar'||brandReputation(evidence,b.id).bonus>0));
   if(!b)continue;
   const offer={id:++s.shop.offerSerial,shopId:store.id,name:store.name,brandId:b.id,month:s.core.month};
   if(!s.shop.offer)s.shop.offer=offer;else s.shop.pendingOffers.push(offer);
@@ -1228,7 +1242,11 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(s.still.distillation?.collectionVersion!==2||s.still.distillation.collectStart!==null||value<=88,'採取できる範囲を過ぎています。');assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-market-rules':
+function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-alley-bar':
+ if(o.value?.progress!==null)s=progress(s,o.value?.progress);
+ if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
+ return enableAlleyBarTransaction(s,o.value);
+ case 'enable-market-rules':
  if(o.value?.progress!==null)s=progress(s,o.value?.progress);
  if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
  return enableMarketRulesTransaction(s,o.value);
@@ -1353,6 +1371,19 @@ export function createProjectionReplay(s,observer,previousToken){
 export function replayDistilleryOperations(s,observer){return createProjectionReplay(s,observer).manualSources;}
 
 // Recover the validated pre-connection state for rollback without a second save key.
+export function preAlleyBarState(s){
+ validateDistillery(s);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),context=emptyReplayContext();
+ for(let index=0;index<s.operations.length;index++){
+  const op=s.operations[index];
+  if(op.key==='enable-alley-bar'){
+   if(op.value?.progress!==null)j=progress(j,op.value.progress);
+   if(op.value?.tastingId!==null)j=sampleDistillery(j,op.value.tastingId);
+   validateDistillery(j);return j;
+  }
+  j=apply(j,op,context,index);
+ }
+ return clone(s);
+}
 export function preMarketRulesState(s){
  validateDistillery(s);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),context=emptyReplayContext();
  for(let index=0;index<s.operations.length;index++){

@@ -1,9 +1,9 @@
 // One ordinary-shop request per month; a capacity limit is not an order.
 // Pure projections: no clocks, RNG writes, state mutations, or player settings.
-import {SHOPS} from './shop-model.mjs?v=0.41-delegation';
-import {marketValue,salePrices} from './economy.mjs?v=adjust-b-r1';
+import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
+import {marketValue,salePrices} from './economy.mjs?v=bar-v01-1';
 import {ECONOMY_PARAMETERS as C} from './economy-parameters.mjs';
-export const NORMAL_SHOP_DEMAND=Object.freeze({version:1,modes:Object.freeze(['capacity','fixed','variable']),monthlyMultipliers:Object.freeze([0,.5,1,1.5,2,2.5]),base:Object.freeze({'town-liquor':3,supermarket:6}),referencePaidPrice:Object.freeze({'town-liquor':16,supermarket:20})});
+export const NORMAL_SHOP_DEMAND=Object.freeze({version:1,modes:Object.freeze(['capacity','fixed','variable']),monthlyMultipliers:Object.freeze([0,.5,1,1.5,2,2.5]),base:Object.freeze({'town-liquor':3,supermarket:6,bar:2}),referencePaidPrice:Object.freeze({'town-liquor':16,supermarket:20,bar:22})});
 const round=n=>Math.round(n*100)/100,clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const shops=()=>SHOPS.filter(x=>x.id!=='department');
 function monthlyIndex(seed,month,id){let h=(seed>>>0)^Math.imul(month,0x9e3779b1);for(let i=0;i<id.length;i++){h=Math.imul(h^id.charCodeAt(i),0x85ebca6b);h^=h>>>13;}h^=h>>>16;return (h>>>0)%6;}

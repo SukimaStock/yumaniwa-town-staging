@@ -4,6 +4,8 @@ import {execFileSync} from 'node:child_process';
 import * as D from '../partner-orders.mjs';
 import {brandReputation,retailReputationFactors} from '../brand-reputation.mjs';
 import {fill,release,advance,exact} from './brands-helpers.mjs';
+// This v13 suite exercises the original three retailers; bar requires its later logged boundary.
+const legacyShops=D.SHOPS.filter(s=>s.id!=='bar');
 const round=n=>Math.round(n*100)/100;
 let cache;
 function offered(){if(!cache){let s=D.newStockistsDistillery(42);for(let i=0;i<3;i++){s=release(s,{age:6,progress:65,selection:i?{brandId:1}:{name:'川霧'},tier:'low'});s=advance(s,6);}s=release(s,{age:24,progress:65,selection:{brandId:1},tier:'high'});cache=advance(s,1);}return structuredClone(cache);}
@@ -19,7 +21,7 @@ function identity(s){assert.equal(round(s.core.cash-(1600+s.core.totals.revenue-
 function projection({age=24,roughness=.3,stock=36}={}){const s=accepted(),p=s.core.products.find(p=>p.id===product(s));Object.assign(p,{age,roughness,stock});return s;}
 
 test('store definitions encode distinct roles with no predecessor-store requirement',()=>{
- assert.deepEqual(D.SHOPS.map(x=>[x.id,x.minAge,x.maxRoughness,x.minQuantity,x.monthlyLimit,x.rate]),[['town-liquor',0,null,1,10,.8],['supermarket',12,null,10,20,1],['department',24,.3,5,5,1.4]]);
+ assert.deepEqual(D.SHOPS.map(x=>[x.id,x.minAge,x.maxRoughness,x.minQuantity,x.monthlyLimit,x.rate]),[['town-liquor',0,null,1,10,.8],['supermarket',12,null,10,20,1],['department',24,.3,5,5,1.4],['bar',0,null,1,4,1.1]]);
  const s=offered();assert.equal(s.shop.relations.length,0);assert.equal(s.shop.offer.shopId,'town-liquor');assert.deepEqual(s.shop.pendingOffers.map(o=>o.shopId),['supermarket','department']);cold(s);
 });
 
@@ -52,7 +54,7 @@ test('monthly caps are per retailer, shared across releases of a brand, and cann
  let s=accepted(),id=product(s),before=structuredClone(s.core.products.find(p=>p.id===id)),cash=s.core.cash,total=s.core.totals.bottlesSold,rep=brandReputation(s,1),factors=retailReputationFactors(s),evidence=D.offerEvidence(s);let revenue=0;
  for(const [store,n]of[['town-liquor',10],['supermarket',20],['department',5]]){const q=D.shopQuote(s,id,store);revenue=round(revenue+n*q.unitPrice);s=D.deliverShop(s,id,n,store);assert.equal(D.shopQuote(s,id,store).remaining,0);assert.equal(D.shopQuote(s,id,store).ok,false);}
  assert.equal(s.core.products.find(p=>p.id===id).stock,before.stock-35);assert.equal(s.core.cash,round(cash+revenue));assert.equal(s.core.totals.bottlesSold,total+35);assert.deepEqual(brandReputation(s,1),rep);assert.deepEqual(retailReputationFactors(s),factors);assert.deepEqual(D.offerEvidence(s),evidence);assert.equal(s.releases.at(-1).delivered,35);identity(s);cold(s);
- for(const store of D.SHOPS){const stats=D.shopBrandStats(s,1,store.id);assert.equal(stats.history.length,1);assert.equal(stats.history[0].shopId,store.id);assert.equal(stats.history[0].releaseId,s.releases.at(-1).id);assert.equal(stats.history[0].productId,id);assert.equal(stats.history[0].month,s.core.month);assert.equal(stats.revenue,round(stats.bottles*D.shopQuote(s,id,store.id).unitPrice));}
+ for(const store of legacyShops){const stats=D.shopBrandStats(s,1,store.id);assert.equal(stats.history.length,1);assert.equal(stats.history[0].shopId,store.id);assert.equal(stats.history[0].releaseId,s.releases.at(-1).id);assert.equal(stats.history[0].productId,id);assert.equal(stats.history[0].month,s.core.month);assert.equal(stats.revenue,round(stats.bottles*D.shopQuote(s,id,store.id).unitPrice));}
 });
 
 test('delivery to an exact later release leaves other SKUs intact and shares only that store month cap',()=>{
@@ -106,7 +108,7 @@ test('operation and delivery ledger limits reject atomically without half-create
  // Isolated capacity projections are not saved histories.
  let s=offered(),o=s.shop.offer,id=product(s);s.operations=Array.from({length:12000},()=>({key:'placeholder'}));unchanged(s,()=>D.acceptShopDelivery(s,id,1,o.shopId,o.id));assert.equal(s.shop.relations.length,0);assert.equal(s.shop.deliveries.length,0);
  s=offered();o=s.shop.offer;s.operations=Array.from({length:11999},()=>({key:'placeholder'}));const next=D.acceptShopDelivery(s,product(s),1,o.shopId,o.id);assert.equal(next.operations.length,12000);assert.equal(next.shop.relations.length,1);assert.equal(next.shop.deliveries.length,1);
- s=accepted();s.shop.deliveries=Array.from({length:2048},(_,i)=>({id:i+1,month:0,brandId:1,releaseId:1,productId:0,shopId:'town-liquor',count:1,unitPrice:1,revenue:1}));for(const store of D.SHOPS){assert.match(D.shopQuote(s,product(s),store.id).reason,/納品帳/);unchanged(s,()=>D.deliverShop(s,product(s),store.minQuantity,store.id));}
+ s=accepted();s.shop.deliveries=Array.from({length:2048},(_,i)=>({id:i+1,month:0,brandId:1,releaseId:1,productId:0,shopId:'town-liquor',count:1,unitPrice:1,revenue:1}));for(const store of legacyShops){assert.match(D.shopQuote(s,product(s),store.id).reason,/納品帳/);unchanged(s,()=>D.deliverShop(s,product(s),store.minQuantity,store.id));}
 });
 
 test('unknown store IDs and omitted transaction identity cannot silently choose another buyer',()=>{

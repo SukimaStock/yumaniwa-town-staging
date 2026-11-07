@@ -1,6 +1,6 @@
 // Production recall sidecar. Formal state is read-only; no replay or game RNG.
 const assert=(value,message='回想の記録を確認できません。')=>{if(!value)throw Error(message);};
-import {createObserverState,observeOperation,materializeTownFact,resolveChain} from './observe.mjs';
+import {createObserverState,observeOperation,materializeTownFact,resolveChain} from './observe.mjs?v=bar-v01-1';
 import {order,before,world,selectC,selectionSeed,selectionSourceSha256} from './selection.mjs';
 export const collectorVersion='recall/1';
 const clone=x=>JSON.parse(JSON.stringify(x));

@@ -2,7 +2,7 @@
 // The native model remains the authority for append-only operation history.
 const isGame=value=>value?.core&&Number.isInteger(value.seed)&&Array.isArray(value.operations);
 const require=value=>{if(!value)throw Error('回想の正式操作境界を確認できません。');};
-const historicalProjections=new Set(['preMarketRulesState','preStoreMarketState','preStage4State']);
+const historicalProjections=new Set(['preAlleyBarState','preMarketRulesState','preStoreMarketState','preStage4State']);
 
 export function createObservedModel(native,onTransition){
  require(native&&typeof onTransition==='function');

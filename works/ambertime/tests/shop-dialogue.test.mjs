@@ -41,3 +41,52 @@ test('package uses immutable release color and original standard cap, not curren
 test('actual lawful saved fixture: projection preserves formal bytes and restored latest, reset isolates saves',()=>{
  const input=JSON.parse(readFileSync(new URL('./fixtures/placement-established-six.json',import.meta.url),'utf8'));const raw=typeof input==='string'?input:input.raw??input.distillery??input.game??input.state;assert.equal(typeof raw,'string');const s=D.restoreDistillery(raw),before=D.serializeDistillery(s),cache=createDialogueProjection();const a=cache.read(s);assert.equal(D.serializeDistillery(s),before);assert.deepEqual(latestShopDialogue(D.restoreDistillery(before)),a);cache.reset();assert.equal(cache.read({core:{month:0}}),null);
 });
+
+const withBar=(month=1200)=>{
+ const s=fixture(month);s.alleyBar={version:1,boundaryMonth:60};s.shop.relations.push({shopId:'bar',brandId:1,startedMonth:60});
+ s.shop.deliveries.push({...s.shop.deliveries[0],id:2,shopId:'bar',month:62});return s;
+};
+test('bar manuscript preserves all nine author lines independently of town',()=>{
+ assert.deepEqual(Object.values(SHOP_DIALOGUE_TEXT.bar.daily),['……面白い香りですね。','悪くないですね。','アーモンドに合うウイスキーはありますか。','もう少しスモーキーでもいいかも。','今度は長く寝かせてみてもいいのでは？']);
+ assert.deepEqual(Object.values(SHOP_DIALOGUE_TEXT.bar.memory),['あの青い箱、今も作ってますか？','前の一本、よかったですね。','あれはよく覚えてますよ。','このお酒、久しぶりですね。']);assert(Object.isFrozen(SHOP_DIALOGUE_TEXT.bar.memory));
+});
+test('bar requires migration and actual relation, not offer, allocation or arrival',()=>{
+ const s=withBar(63);s.shop.relations=s.shop.relations.filter(r=>r.shopId!=='bar');s.shop.offer={shopId:'bar'};s.storeMarket={byShop:{bar:{3:50}}};
+ assert.deepEqual(dialogueCandidates(s,63,'bar'),{daily:[],memory:[]});
+ s.shop.relations.push({shopId:'bar',brandId:1,startedMonth:60});delete s.alleyBar;assert.deepEqual(dialogueCandidates(s,63,'bar'),{daily:[],memory:[]});
+ s.alleyBar={version:1,boundaryMonth:63};assert.deepEqual(dialogueCandidates(s,63,'bar'),{daily:[],memory:[]});
+ s.alleyBar.boundaryMonth=60;s.shop.deliveries=s.shop.deliveries.filter(d=>d.shopId!=='bar');assert.deepEqual(dialogueCandidates(s,63,'bar').daily.map(x=>x.key),['almond','smoke','aging']);assert.equal(dialogueCandidates(s,120,'bar').memory.length,0);
+});
+test('bar memory needs its own past sale and exact original release; blue and return are factual',()=>{
+ const s=withBar(86);let candidates=dialogueCandidates(s,86,'bar');assert(candidates.memory.some(x=>x.key==='blue'));assert(!candidates.memory.some(x=>x.key==='return'));
+ for(const field of ['releaseId','productId','brandId']){const bad=structuredClone(s);bad.shop.deliveries[1][field]=999;assert.equal(dialogueCandidates(bad,86,'bar').memory.length,0);}
+ s.shop.deliveries.push({...s.shop.deliveries[1],id:3,month:85});assert(dialogueCandidates(s,86,'bar').memory.some(x=>x.key==='return'));
+ s.releases[0].profile=profile(0);assert(!dialogueCandidates(s,86,'bar').memory.some(x=>x.key==='blue'));
+});
+test('bar packages and headings retain exact historical store and release after live stock disappears',()=>{
+ const s=withBar(),entry={...dialogueCandidates(s,1200,'bar').memory.find(x=>x.key==='blue'),id:'bar-memory',shopId:'bar',kind:'memory',text:SHOP_DIALOGUE_TEXT.bar.memory.blue};
+ const html=dialogueMarkup(entry,s,{heading:true});assert.match(html,/路地裏のバー/);assert.doesNotMatch(html,/町の酒店/);assert.match(html,/data-package-family="smoke"/);assert.match(html,/#354c62/);
+ s.core.products=[];s.productsById={3:{selectedPrice:'high'}};assert.equal(dialogueMarkup(entry,s,{heading:true}),html);
+ assert.doesNotMatch(dialogueMarkup({...entry,kind:'daily'},s),/<svg/);
+});
+test('legacy dialogue history is byte-identical and a later bar never rewrites its prefix',async()=>{
+ const {createHash}=await import('node:crypto');const legacy=shopDialogueHistory(fixture(1200));
+ assert.equal(createHash('sha256').update(JSON.stringify(legacy)).digest('hex'),'3ab78a27ed39fcde7dd53022c5ff7182ce958b97c35d18e2a2a7eac391092cc1');
+ const s=withBar();assert.deepEqual(shopDialogueHistory(s).filter(x=>x.month<=60),legacy.filter(x=>x.month<=60));
+ const at=withBar(86),prefix=shopDialogueHistory(at);at.core.month=1200;at.shop.deliveries.push({...at.shop.deliveries[1],id:3,month:87});assert.deepEqual(shopDialogueHistory(at).filter(x=>x.month<=86),prefix);
+});
+test('one global opportunity stays bounded; bar is quieter across early and late relationships',()=>{
+ const totals={early:{bar:0,town:0},late:{bar:0,town:0}};
+ for(let seed=1;seed<=80;seed++){
+  const s=withBar();s.seed=seed;const history=shopDialogueHistory(s);
+  for(let i=1;i<history.length;i++)assert(history[i].month-history[i-1].month>=DIALOGUE_POLICY.minGap);
+  const lastText=new Map();for(const entry of history){assert.equal(entry.text,SHOP_DIALOGUE_TEXT[entry.shopId][entry.kind][entry.key]);const k=entry.shopId+':'+entry.key;if(lastText.has(k))assert(entry.month-lastText.get(k)>=DIALOGUE_POLICY.sameTextGap);lastText.set(k,entry.month);if(entry.month>60)totals[entry.month<=600?'early':'late'][entry.shopId==='bar'?'bar':'town']++;}
+  assert(history.length<=Math.ceil(1200/DIALOGUE_POLICY.minGap));
+ }
+ for(const range of Object.values(totals)){assert(range.bar>0);assert(range.bar<range.town);assert(range.bar/(range.bar+range.town)<.4);}
+});
+test('projection distinguishes latest global notice from each store, with no state changes',()=>{
+ const s=freeze(withBar()),raw=JSON.stringify(s),history=shopDialogueHistory(s),cache=createDialogueProjection();
+ assert.deepEqual(cache.read(s),history.at(-1));for(const shopId of ['bar','town-liquor']){const expected=history.filter(x=>x.shopId===shopId).at(-1);assert.deepEqual(latestShopDialogue(s,shopId),expected);assert.deepEqual(cache.read(s,shopId),expected);}
+ assert.equal(cache.read(s,'supermarket'),null);assert.equal(JSON.stringify(s),raw);assert.deepEqual(shopDialogueHistory(JSON.parse(raw)),history);
+});

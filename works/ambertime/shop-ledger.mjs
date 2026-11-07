@@ -1,4 +1,4 @@
-import {SHOPS,SHOP} from './shop-model.mjs?v=0.48-free-aging';
+import {SHOPS,SHOP} from './shop-model.mjs?v=bar-v01-1';
 // Disposable view over authoritative receipts. No replay, writes or saved aggregates.
 const finite=n=>typeof n==='number'&&Number.isFinite(n)?n:null;
 const shopId=row=>row.shopId??SHOP.id; // v12 town-shop receipts have no shopId.

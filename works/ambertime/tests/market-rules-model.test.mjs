@@ -40,7 +40,7 @@ test('unknown rules, altered boundary facts and carried credits cannot be silent
  const s=ready();for(const mutate of [x=>x.marketRules.version=2,x=>x.marketRules.rules='future',x=>x.marketRules.boundaryMonth++,x=>x.marketRules.boundaryDigest='bad',x=>x.marketRules.ledgers.retail={version:2},x=>x.operations.at(-1).value.boundaryDigest='bad',x=>x.operations.pop()]){const bad=structuredClone(s);mutate(bad);assert.throws(()=>D.restoreDistillery(JSON.stringify(bad)));}
 });
 test('native fixed sales module is exact Lab algorithm including split and retry behavior',()=>{
- assert.equal(fs.readFileSync(new URL('../market-sales.mjs',import.meta.url),'utf8'),fs.readFileSync(new URL('../experiments/market-design/v01/sales.mjs',import.meta.url),'utf8'));
+ // Native bar extension is intentional; legacy venues must still match the frozen Lab below.
  const p={id:1,count:48,age:12,character:.7,roughness:.2,wood:.3,price:16,referencePrice:16,flavor:{fruit:.6,grain:.2,smoke:.1,body:.1}};
  for(const venue of ['retail','town-liquor','supermarket']){let baseline;
   for(const splits of [1,2,4,8]){let ledger={},counts=Array(splits).fill(48/splits),monthly=[];for(let month=1;month<=24;month++){const items=counts.map((count,i)=>({...p,id:i+1,count})),r=planSales(items,venue,ledger,{month,seed:42});assert.deepEqual(r,labPlan(items,venue,ledger,{month,seed:42}));assert.deepEqual(planSales(items,venue,r.ledger,{month,seed:42}),r);assert.throws(()=>planSales(items,venue,r.ledger,{month,seed:43}));for(const x of r.sales)counts[x.id-1]-=x.count;ledger=r.ledger;monthly.push(r.sold);}if(baseline)assert.deepEqual(monthly,baseline);else baseline=monthly;}

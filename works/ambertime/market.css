@@ -99,3 +99,8 @@
 #market-board .market-stock-row{position:relative;margin-top:var(--uniform-line-height,24px)}
 #market-board .market-stock{grid-template-columns:calc(24px * var(--market-scale,1)) max-content;min-width:44px;min-height:44px;position:relative}
 #market-board .market-sale-slot{position:absolute;grid-column:1/-1;top:calc(-1 * var(--uniform-line-height,24px));left:calc(26px * var(--market-scale,1));margin:0;width:0;min-width:0}
+
+/* Keep self sales visible; additional partners share one bounded shelf. */
+#market-board .market-switcher{display:flex;align-items:center;justify-content:space-between;gap:calc(4px * var(--market-scale,1));flex:none}
+#market-board .market-switcher button{min-width:calc(52px * var(--market-scale,1))}
+#market-board .market-switcher span{white-space:nowrap}

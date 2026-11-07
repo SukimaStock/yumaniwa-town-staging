@@ -1,3 +1,4 @@
+import {dialogueShopName} from './shop-dialogue.mjs?v=bar-v01-1';
 import {packageArt} from './release-package.mjs?v=package-c1l-1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function dialogueMarkup(entry,state,{heading=false}={}){
@@ -7,7 +8,7 @@ export function dialogueMarkup(entry,state,{heading=false}={}){
  // Bottling creates selectedPrice=standard. Reconstruct that original package,
  // not today's mutable sale-price cap. Box colors use the frozen release profile.
  const art=release?packageArt(release.profile,brand??{},'standard'):'';
- return `<div class="shop-dialogue-line" data-dialogue-id="${esc(entry.id)}" data-dialogue-kind="${esc(entry.kind)}">${heading?'<div class="shop-dialogue-store">町の酒店</div>':''}<div class="shop-dialogue-content">${art?`<span class="shop-dialogue-package" aria-hidden="true">${art}</span>`:''}<p>${esc(entry.text)}</p></div></div>`;
+ return `<div class="shop-dialogue-line" data-dialogue-id="${esc(entry.id)}" data-dialogue-kind="${esc(entry.kind)}">${heading?'<div class="shop-dialogue-store">'+esc(dialogueShopName(entry.shopId??'town-liquor'))+'</div>':''}<div class="shop-dialogue-content">${art?`<span class="shop-dialogue-package" aria-hidden="true">${art}</span>`:''}<p>${esc(entry.text)}</p></div></div>`;
 }
 // Transient only. No saved state or RNG. The latest store entry is separate.
 export function createDialogueNotice({show,hide,safe,inRoom=()=>true,setTimer=setTimeout,clearTimer=clearTimeout,duration=6500}){

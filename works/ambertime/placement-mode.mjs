@@ -6,7 +6,7 @@ export function placementInventory(s,productId){
  const held=s.department?.interests?.reduce((n,o)=>n+(o.pendingDelivery?.productId===productId?o.pendingDelivery.count:0),0)??0;
  const retail=placementMode(s)?s.placement.retailByProduct[productId]??0:0;
  if(storeMarketMode(s)){
-  const shops=Object.fromEntries(['town-liquor','supermarket'].map(id=>[id,s.storeMarket.byShop[id]?.[productId]??0])),assigned=Object.values(shops).reduce((n,x)=>n+x,0);
+  const shops=Object.fromEntries((s.alleyBar?.version===1?['town-liquor','supermarket','bar']:['town-liquor','supermarket']).map(id=>[id,s.storeMarket.byShop[id]?.[productId]??0])),assigned=Object.values(shops).reduce((n,x)=>n+x,0);
   return {stock,held,retail,assigned,shops,hand:Math.max(0,stock-held-retail-assigned),available:Math.max(0,stock-held-assigned)};
  }
  return {stock,held,retail,hand:Math.max(0,stock-held-retail),available:Math.max(0,stock-held)};

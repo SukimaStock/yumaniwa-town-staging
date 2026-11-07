@@ -6,10 +6,12 @@ export const SHOP=Object.freeze({version:12,rules:'town-shop',id:'town-liquor',n
 export const STOCKISTS=Object.freeze({version:13,rules:'distinct-stockists'});
 export const stockistsMode=s=>s?.version===STOCKISTS.version&&s.rules===STOCKISTS.rules||departmentMode(s);
 export const shopMode=s=>s?.version===SHOP.version&&s.rules===SHOP.rules||stockistsMode(s);
+export const alleyBarMode=s=>s?.alleyBar?.version===1;
 export const SHOPS=Object.freeze([
  {id:SHOP.id,name:SHOP.name,minAge:0,maxRoughness:null,minQuantity:1,monthlyLimit:10,rate:.8,minRetailSold:40,minSoldReleases:2,minBrandAge:2},
  {id:'supermarket',name:'町のスーパー',minAge:12,maxRoughness:null,minQuantity:10,monthlyLimit:20,rate:1,minRetailSold:80,minSoldReleases:3,minBrandAge:2},
  {id:'department',name:'町のデパート',minAge:24,maxRoughness:.30,minQuantity:5,monthlyLimit:5,rate:1.4,minRetailSold:40,minSoldReleases:2,minBrandAge:2}
+,{id:'bar',name:'路地裏のバー',minAge:0,maxRoughness:null,minQuantity:1,monthlyLimit:4,rate:1.1,minRetailSold:24,minSoldReleases:1,minBrandAge:3}
 ].map(Object.freeze));
 export function shopProductCondition(s,productId,shopId=SHOP.id){
  const shop=SHOPS.find(x=>x.id===shopId),p=s.core.products.find(x=>x.id===productId);
@@ -30,6 +32,11 @@ export function shopBrandStats(s,brandId,shopId=SHOP.id){
  return {...relation,bottles:history.reduce((n,d)=>n+d.count,0),revenue:history.reduce((n,d)=>n+Math.round(d.revenue*100),0)/100,history};
 }
 export function shopEvidence(s,brandId,shopId=SHOP.id){
+ if(shopId==='bar'){
+  const releases=s.releases?.filter(r=>r.brandId===brandId)??[],sold=releases.reduce((n,r)=>n+r.sold,0),age=Math.max(0,s.core.month-(s.brands?.find(b=>b.id===brandId)?.createdMonth??s.core.month));
+  const reached=s.labConnection?.town?.events?.some(e=>e.to==='bar'&&['interest','inquiry','visit'].includes(e.type)&&e.month<s.core.month&&releases.some(r=>r.id===e.mainReleaseId));
+  return {sold,soldReleases:releases.filter(r=>r.sold>0).length,age,eligible:alleyBarMode(s)&&releases.length>0&&age>=3&&(reached||sold>=24)};
+ }
  const b=s.brands?.find(b=>b.id===brandId),releases=s.releases?.filter(r=>r.brandId===brandId)??[];
  const sold=releases.reduce((n,r)=>n+r.sold,0),soldReleases=releases.filter(r=>r.sold>0).length,age=b?Math.max(0,s.core.month-b.createdMonth):0;
  const store=stockistsMode(s)?SHOPS.find(x=>x.id===shopId):SHOP;

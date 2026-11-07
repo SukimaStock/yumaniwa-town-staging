@@ -1,7 +1,7 @@
 // Daily map presentation only. Native receipts, relationships and save data stay owned
 // by the existing model. The optional storage helpers write only the supplied UI key.
-import {SHOPS} from './shop-model.mjs?v=0.48-free-aging';
-import {mapSalesProjection,mapShopDetail} from './map-sales-view.mjs?v=map-stage2-r1';
+import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
+import {mapSalesProjection,mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1';
 import {mapProgress} from './world-map-view.mjs?v=0.28.0-map';
 
 const validStage=n=>Number.isInteger(n)&&n>=1&&n<=6;
