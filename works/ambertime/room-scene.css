@@ -419,3 +419,8 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 #action-dialog .first-bottle-label svg.release-package{width:100%!important;height:100%!important}
 
 .automatic-news:focus-visible{outline:3px solid #f0e6c8;outline-offset:3px}
+
+/* Hiring is an untimed decision, using the existing dialog and normal font. */
+.staff-encounter{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0 0 9px}
+.staff-portrait{display:block;width:48px;height:72px;flex:none;image-rendering:pixelated;shape-rendering:crispEdges}
+#dialog-body .staff-encounter-line{margin:0;width:100%;text-align:center;overflow-wrap:anywhere}

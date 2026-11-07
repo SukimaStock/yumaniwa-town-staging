@@ -1,3 +1,4 @@
+import {staffEncounterMarkup} from './staff-encounter-view.mjs?v=hiring-s2-1';
 import {createDialogueProjection} from './shop-dialogue.mjs?v=dialogue-v02-1';
 import {dialogueMarkup,createDialogueNotice,installDialogueDismissal} from './shop-dialogue-view.mjs?v=reactions-s1-1';
 import {releasePackageArt} from './release-package.mjs?v=package-c1l-1';
@@ -236,9 +237,16 @@ const jobStatus=kind=>kind==='distill'?D.staffStatus(game):D.bottlingStaffStatus
 function showStaffOpportunity(returnModal=null){
  if(!game||game.tastingId!==null||game.decisions.length||(!preview&&!canSave))return false;
  const opportunity=D.staffOpportunities(game)[0];if(!opportunity)return false;
- stopClock();const before=game;
- try{game=D.noticeStaffOpportunity(game,opportunity.kind);if(!save())return false;modal={kind:'staff-opportunity',job:opportunity.kind,returnModal};return true;}
- catch(e){game=before;runtimeHalted=true;storageNotice(e.message);return false;}
+ stopClock();modal={kind:'staff-opportunity',job:opportunity.kind,returnModal,noticePending:true};return true;
+}
+function acknowledgeStaffOpportunity(){
+ const target=modal;
+ if(target?.kind!=='staff-opportunity'||!target.noticePending||document.hidden||!$('action-dialog').open)return;
+ try{
+  const next=D.noticeStaffOpportunity(game,target.job);
+  if(!saveCandidate(next))return;
+  game=next;target.noticePending=false;
+ }catch(e){runtimeHalted=true;storageNotice(e.message);}
 }
 function staffCostView(kind){const status=jobStatus(kind);return '<p>'+copyFacts([['採用費',money(status.hireCost)],['給与',money(status.salary)+(kind==='distill'?'／仕込み':'／回')]])+'</p><p class="quiet">'+(kind==='distill'?'仕込み開始時に支払い':'ビン詰め時に支払い')+'<br>待機中は無料</p>'+(status.canHire||status.hired?'':'<p class="quiet">'+esc(uiText(status.reason))+'</p>');}
 function staffManagerView(){return ['distill','bottling'].filter(kind=>jobStatus(kind).unlocked).map(kind=>{const status=jobStatus(kind);return '<section class="staff-job"><h3>'+jobName(kind)+'</h3>'+(status.hired?'<p>給与 '+money(status.salary)+(kind==='distill'?'／仕込み':'／回')+'</p>':staffCostView(kind))+(status.hired?button(kind==='distill'?'依頼':'設定','staff-job-open',kind):button('採用 '+money(status.hireCost),'staff-job-hire',kind,status.canHire?'':'disabled'))+'</section>';}).join('');}
@@ -907,7 +915,7 @@ function syncModal(){
   title='地図';body='<div class="world-map-view">'+(introduction?'<p class="map-introduction" role="status">'+esc(mapIntroduction(game,worldMapStage))+'</p>'+surface:'<div class="map-browse-row">'+surface+controls+'</div>'+mapSalesReport(data,selected))+'</div>';
   actions=(!introduction?button('販売室へ','map-sales-room'):'')+button(introduction?'つづける':'戻る',introduction?'map-continue':'map-back');
  }else if(kind==='staff-manager'){title='担当者';body=staffManagerView();actions=button('閉じる','cancel');
- }else if(kind==='staff-opportunity'){title=jobName(modal.job);const status=jobStatus(modal.job);body=staffCostView(modal.job);actions=button('採用','staff-opportunity-hire',modal.job,status.canHire?'':'disabled')+button('見送る','staff-opportunity-later');
+ }else if(kind==='staff-opportunity'){title=jobName(modal.job);const status=jobStatus(modal.job);body=staffEncounterMarkup(modal.job)+staffCostView(modal.job);actions=button('採用する','staff-opportunity-hire',modal.job,status.canHire?'':'disabled')+button('見送る','staff-opportunity-later');
  }else if(kind==='bottler-panel'){title='ビン詰め担当者';body=bottlerManagerView();actions=button('戻る','staff-manage-back');
  }else if(kind==='staff-panel'){title='蒸留担当者';actions=button('戻る','staff-manage-back');
  }else if(kind==='ledger'){title='帳面';body=ledgerView();actions=button('閉じる','cancel');
@@ -1055,8 +1063,9 @@ function syncModal(){
  if(kind==='first-bottle-complete')modal.ceremonyStarted=true;
  dialog.dataset.kind=kind;$('close-dialog').hidden=kind==='decision'||kind==='generation-review'||kind==='first-bottle-complete';
  if(!dialog.open){$('dialog-title').removeAttribute('tabindex');dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}
- else if(previousKind!==kind&&['stockists','stockist','stockist-delivery'].includes(kind)){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else document.querySelector('#dialog-body button:not(:disabled), #dialog-actions button')?.focus({preventScroll:true});}
+ else if(previousKind!==kind&&['stockists','stockist','stockist-delivery','staff-opportunity','staff-manager'].includes(kind)){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else document.querySelector('#dialog-body button:not(:disabled), #dialog-actions button')?.focus({preventScroll:true});}
  else if(previousKind!==kind&&kind==='first-bottle-complete')$('dialog-body').querySelector('[data-action="first-bottle-proceed"]')?.focus({preventScroll:true});
+ acknowledgeStaffOpportunity();
  if(kind==='world-map')observeMapLabels();else{mapLabelObserver?.disconnect();mapLabelObserver=null;}
 }
 function renderSpirit(){
@@ -1265,7 +1274,7 @@ function handleModal(e){
  if(kind==='world-map'&&['menu','direct'].includes(modal.source)&&['world-map-in','world-map-out'].includes(a)){worldMapStage=mapStep(worldMapStage,a==='world-map-out'?'out':'in',mapViewMax());modal.selectedShop=null;rememberMapBrowse();render();return;}
   if(a==='staff-opportunity-later'&&kind==='staff-opportunity'){closeModal();return;}
  if(a==='staff-opportunity-hire'&&kind==='staff-opportunity'&&b.dataset.id===modal.job){const target=modal.returnModal??null,job=modal.job;act(job==='distill'?D.hireStaff:D.hireBottlingStaff,()=>{modal=target;});return;}
- if(a==='staff-job-hire'&&kind==='staff-manager'&&['distill','bottling'].includes(b.dataset.id)){act(b.dataset.id==='distill'?D.hireStaff:D.hireBottlingStaff);return;}
+ if(a==='staff-job-hire'&&kind==='staff-manager'&&['distill','bottling'].includes(b.dataset.id)&&jobStatus(b.dataset.id).canHire){modal={kind:'staff-opportunity',job:b.dataset.id,returnModal:modal};render();return;}
  if(a==='staff-job-open'&&kind==='staff-manager'){if(b.dataset.id==='distill'&&D.staffStatus(game).hired){modal={kind:'staff-panel'};render();}else if(b.dataset.id==='bottling'&&D.bottlingStaffStatus(game).hired){modal={kind:'bottler-panel'};render();}return;}
  if(a==='staff-manage-back'&&['staff-panel','bottler-panel'].includes(kind)){modal={kind:'staff-manager'};render();return;}
  if(['policy-count-less','policy-count-more'].includes(a)&&kind==='bottler-panel'&&modal.planDraft){const max=Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres);modal.planDraft.count=Math.max(1,Math.min(max,(modal.planDraft.count??1)+(a==='policy-count-more'?1:-1)));render();return;}
