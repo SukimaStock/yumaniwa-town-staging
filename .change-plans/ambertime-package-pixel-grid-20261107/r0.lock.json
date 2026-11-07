@@ -1,0 +1,85 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ed3b989f0856af18565f9aa257119170c0218eba9ab15484e6b480f93506a055",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-package-pixel-grid-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Align package pixel pitch with bottle and remove visible first-bottle tap hint",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f9241deb4c19dcdc5c5f5b542f7dc590ca47a009",
+    "canonicalSources": [
+      "works/ambertime/release-package.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/first-bottle-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-package-pixel-grid-20261107/r0.lock.json",
+      "works/ambertime/release-package.mjs",
+      "works/ambertime/first-bottle-view.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/release-package.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/flavor-color.mjs",
+      "works/ambertime/codea-object-art.mjs"
+    ],
+    "expectedChanges": [
+      "Use two-unit grid for box boundaries and accents; preserve classic colors, subordinate size and y=23 baseline",
+      "Remove visible tap hint only; preserve action, native button, accessible name and label animation"
+    ],
+    "ownerDecisions": [
+      "2026-11-07 Sentinel_e4b278ea7b2c8191b2914f62d9ae7708: はい、お願いします。こういう細かい部分が世界観の統一に大事なのでお願いします。"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-pixel-comparison",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this display-only change",
+    "outOfScope": [
+      "Merge, Production",
+      "Performance fixes",
+      "Game or save changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari and owner visual acceptance"
+    ]
+  }
+}
