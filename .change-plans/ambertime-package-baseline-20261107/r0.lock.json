@@ -1,0 +1,84 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2386cabc44571b6ba2ae9254c7fd8517abc3b683ab51e95472dd9dde2c24b3a7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-package-baseline-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Align bottle and attached label bottoms with the unchanged C1-L box",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "927f59447f5cabf12c6b2a6a6889d65317cc98fc",
+    "canonicalSources": [
+      "works/ambertime/release-package.mjs",
+      "works/ambertime/codea-object-art.mjs",
+      "works/ambertime/first-bottle-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-package-baseline-20261107/r0.lock.json",
+      "works/ambertime/release-package.mjs",
+      "works/ambertime/first-bottle-view.mjs",
+      "works/ambertime/tests/release-package.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/flavor-color.mjs",
+      "works/ambertime/codea-object-art.mjs"
+    ],
+    "expectedChanges": [
+      "Compute vertical translation from the canonical bottle silhouette; move base and label together",
+      "Preserve original pixels, size, palette, save and game logic"
+    ],
+    "ownerDecisions": [
+      "2026-11-07 Sentinel_a1b3eb8afd288191bbff368d32c41d24: 瓶と箱の底位置のみ修正、マージをお願いします。"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-bottom-alignment",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this display-only change",
+    "outOfScope": [
+      "Production",
+      "Freeze/performance fixes",
+      "Game or save changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari and owner visual acceptance"
+    ]
+  }
+}
