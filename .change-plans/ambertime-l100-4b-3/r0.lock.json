@@ -1,0 +1,108 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "56cb2dc8133426496fbaa9e49c9eb0ef2ddb47a88bb29896ce7c915bf8229ae5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-l100-4b-3",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Design checkpoint trust policy and audit existing evidence only",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "6a1707c106afb4bf0658a274edf404bbc541de64",
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-l100-4b-3/r0.lock.json",
+      "works/ambertime/l100-4b-3/REPORT.md",
+      "works/ambertime/l100-4b-3/EVIDENCE.json",
+      "works/ambertime/l100-4b-3/REVIEW.md",
+      "works/ambertime/l100-4b-3/VERIFICATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/recall/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Design-only audit of guarantees, A/B/C policy, context, provenance, first-save and incremental trust, fallback and 4C contracts",
+      "Reuse pinned evidence and record limitations; define acceptance checklist and bounded next-stage plan",
+      "No formal implementation or new serializer/checkpoint prototypes"
+    ],
+    "ownerDecisions": [
+      "User Sentinel_d117104bfd108191ab961660cf68fd95 authorizes L100-4B-3 design and Draft PR only; forbids formal implementation, merge, Production, player-data changes and browser-environment retry."
+    ],
+    "hqDecisions": [
+      "This document is a recommendation, not approval or implementation of a new formal trust contract."
+    ],
+    "rulesApplied": [
+      "Plan-only first commit; Scope → Risk → Impact",
+      "Expression audit: concise factual design without UI or promotional copy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent trust-policy review and source-to-claim audit; no physical-device certification"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close unmerged Draft PR; documents only, no player data affected.",
+    "outOfScope": [
+      "Formal model/reader/cache/validator/save/cap/UI/Canvas changes",
+      "IndexedDB implementation, browser retry, new checkpoint prototypes, merge and Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Conditional trust admission and incremental update implementation",
+      "Real-browser persistence and iPhone Safari acceptance"
+    ],
+    "testPlan": [
+      "Read pinned source and research evidence",
+      "Verify PR states and ancestor integration",
+      "Independent design review",
+      "Scope, Risk, Impact and exact-head required CI"
+    ],
+    "problem": "Cold checkpoint trust and initial-save replay remain unresolved under independent-replay semantics.",
+    "design": "Define an explicit conditional local trust policy, incompatibility/import invalidation, fallback, and acceptance gates without changing runtime.",
+    "compatibility": "Current v8, limits, game computation and player data unchanged.",
+    "migration": "No migration performed.",
+    "alternativesRejected": [
+      "Treat self-hashed metadata as creator authentication",
+      "Claim every-load independent replay guarantee for a trusted checkpoint"
+    ],
+    "boundaryCases": [
+      "External import, stale code, corrupted context, missing v8, mixed generations, storage conflict and all sources lost"
+    ],
+    "currentContract": "Official module-private replay cache derives from formal replay and is not restored from disk.",
+    "whyExistingIsInsufficient": "A persisted checkpoint cannot recreate the process-local proof; design must state a different trust assumption explicitly.",
+    "promotionRisk": "No promotion; formal adoption requires separate explicit authorization and acceptance tests."
+  }
+}
