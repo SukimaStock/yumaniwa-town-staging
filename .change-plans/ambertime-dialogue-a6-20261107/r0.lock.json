@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "69e9e1136d66db7610e67b3ca850fc48da64ce66e5cc180ac0b71e526c20c51d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-dialogue-a6-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "A6 shared scene notice geometry and shop dialogue dismissal",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "44404305a56f421f14203c17f9ff8c6bdabb0f19",
+    "canonicalSources": [
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/font-uniform.mjs",
+      "works/ambertime/room-scene.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-dialogue-a6-20261107/r0.lock.json",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/shop-dialogue.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/shop-dialogue-view.test.mjs",
+      "works/ambertime/tests/shop-dialogue-a6.test.mjs",
+      "works/ambertime/tests/shop-dialogue-a6-browser.test.mjs",
+      "works/ambertime/tests/shop-dialogue-browser.test.mjs",
+      "works/ambertime/design/dialogue-a6-20261107/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/release-package.mjs"
+    ],
+    "expectedChanges": [
+      "Audit text roles; reuse notice wrapping, font metrics, logical viewport and window colors",
+      "Dismiss only transient dialogue by tap/keyboard or timer, no click-through; preserve latest in store modal",
+      "Keep important UI priority; defer if no unobstructed scene space; no backlog",
+      "Test geometry, dismissal/timer/interruption and protected game/save paths"
+    ],
+    "ownerDecisions": [
+      "Owner attachment libfile_60a9ba778a54819189f6acee5f45405f: audit role-based text; shared scene appearance; 6500ms and tap dismissal; merge Staging after automated checks, owner browser review afterward."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "four-width-browser",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this presentation-only change",
+    "outOfScope": [
+      "Production",
+      "Dialogue text/frequency, economy, RNG, saves, recall and package designs",
+      "Broad changes to other notices or reading information"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari; browser until actual checks complete"
+    ]
+  }
+}
