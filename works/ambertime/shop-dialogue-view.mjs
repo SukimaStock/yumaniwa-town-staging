@@ -10,14 +10,15 @@ export function dialogueMarkup(entry,state,{heading=false}={}){
  return `<div class="shop-dialogue-line" data-dialogue-id="${esc(entry.id)}" data-dialogue-kind="${esc(entry.kind)}">${heading?'<div class="shop-dialogue-store">町の酒店</div>':''}<div class="shop-dialogue-content">${art?`<span class="shop-dialogue-package" aria-hidden="true">${art}</span>`:''}<p>${esc(entry.text)}</p></div></div>`;
 }
 // Transient only. No saved state or RNG. The latest store entry is separate.
-export function createDialogueNotice({show,hide,safe,setTimer=setTimeout,clearTimer=clearTimeout,duration=6500}){
- let pending=null,current=null,timer=null,token=0,lastMonth=-1;
+export function createDialogueNotice({show,hide,safe,inRoom=()=>true,setTimer=setTimeout,clearTimer=clearTimeout,duration=6500}){
+ let pending=null,current=null,timer=null,token=0,lastMonth=-1,shownMonth=-1;
  const clear=()=>{if(timer!==null)clearTimer(timer);timer=null;token++;};
  function defer(){if(current){if(!pending||current.month>=pending.month)pending=current;current=null;hide();}}
  function poll(){
   clear();if(!pending&&!current)return;
+  if(!inRoom()){if(current){current=null;hide();}return;}
   if(!safe(current??pending)){defer();timer=setTimer(poll,250);return;}
-  if(!current&&pending){current=pending;pending=null;show(current);const epoch=token;
+  if(!current&&pending){current=pending;pending=null;shownMonth=current.month;show(current);const epoch=token;
    timer=setTimer(()=>{if(epoch!==token)return;timer=null;current=null;hide();poll();},duration);
   }
  }
@@ -28,9 +29,9 @@ export function createDialogueNotice({show,hide,safe,setTimer=setTimeout,clearTi
    // A newer letter replaces the old one; there is never a historical queue.
    if(current){current=null;hide();}clear();timer=setTimer(poll,0);
   },
-  update(){if(current&&!safe(current)){clear();defer();}if(!current&&pending)poll();},
+  update(){if(!inRoom()){clear();if(pending?.month<=shownMonth)pending=null;if(current){current=null;hide();}return;}if(current&&!safe(current)){clear();defer();}if(!current&&pending)poll();},
   dismiss(){if(!current)return;clear();current=null;hide();if(pending)poll();},
-  reset(){clear();pending=null;current=null;lastMonth=-1;hide();}
+  reset(){clear();pending=null;current=null;lastMonth=-1;shownMonth=-1;hide();}
  };
 }
 // Consume the entire pointer sequence locally; dismiss on click, not pointerdown,

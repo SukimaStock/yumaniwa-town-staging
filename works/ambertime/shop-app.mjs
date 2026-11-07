@@ -1,5 +1,5 @@
 import {createDialogueProjection} from './shop-dialogue.mjs?v=dialogue-v02-1';
-import {dialogueMarkup,createDialogueNotice,installDialogueDismissal} from './shop-dialogue-view.mjs?v=dialogue-a6-1';
+import {dialogueMarkup,createDialogueNotice,installDialogueDismissal} from './shop-dialogue-view.mjs?v=reactions-s1-1';
 import {releasePackageArt} from './release-package.mjs?v=package-c1l-1';
 import {migrateRecentLedger,advanceRecentLedger,recentLedgerView} from './recent-ledger.mjs?v=s3-1';
 import {ledgerProfile,caskTimeline,recordTimeline,recordText} from './ledger-history-view.mjs?v=refactor-r5-1';
@@ -18,7 +18,7 @@ import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
 import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=compact-three-r1&fields=count-linked-r1&rooms=stage2-r1&quantity=a3-1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
-import {createFeedbackComments,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=0.25.4&rooms=stage3-r1&status=1&aging=1';
+import {createFeedbackComments,recentCustomerFeedback,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=reactions-s1-1&rooms=stage3-r1&status=1&aging=1';
 import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=formal-copy-r1';
 import {RuntimeClock} from './runtime-clock.mjs?v=0.25.1';
 import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1';
@@ -35,7 +35,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {automaticEvents,transientNotices} from './event-notices.mjs?v=uniform-messages-r1';
+import {automaticEvents,scopedNotices} from './event-notices.mjs?v=reactions-s1-1';
 import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1';
 import * as nativeModel from './partner-orders.mjs?v=market-rules-r1&touch=1';
 import {createObservedModel} from './recall/operations.mjs?v=h3-3a-1';
@@ -111,18 +111,21 @@ function prepareDistillation(start){
  if(countdown.active||!game||document.hidden||room!=='distill'||!D.canStart(game).ok||modal&&modal.kind!=='flavor-cards')return;
  stopClock();modal=null;countdown.start(()=>act(start,()=>distillRoom.clearPrepared(),null,{paused:false}));
 }
-const automaticNews=transientNotices({show:text=>{$('automatic-news').textContent=text;$('automatic-news').hidden=false;},hide:()=>{$('automatic-news').hidden=true;$('automatic-news').textContent='';}});
+const automaticNews=scopedNotices({room:()=>room,safe:()=>!!game&&!modal&&!document.hidden&&!runtimeHalted&&(preview||canSave)&&$('storage-notice').hidden&&$('generation-notice').hidden,show:text=>{$('automatic-news').setAttribute('aria-label',text+' 閉じる');$('automatic-news').textContent=text;$('automatic-news').hidden=false;},hide:()=>{$('automatic-news').hidden=true;$('automatic-news').textContent='';}});
 // Keep transient notices above the body-mounted sales board.
 document.body.append($('automatic-news'),$('market-action-status'));
 const dialogueProjection=createDialogueProjection();
 const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.hidden=true;dialogueElement.setAttribute('role','button');dialogueElement.tabIndex=0;dialogueElement.setAttribute('aria-label','町の酒店の一言を閉じる');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
 const dialogueNotice=createDialogueNotice({
+ inRoom:()=>room==='sales',
  show:entry=>{dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;dialogueElement.setAttribute('aria-label',`町の酒店。${entry.text} 閉じる`);dialogueElement.hidden=false;scene.positionDialogue();},
  hide:()=>{dialogueElement.hidden=true;dialogueElement.innerHTML='';},
  safe:entry=>!!game&&(preview||canSave)&&!document.hidden&&!modal&&!runtimeHalted&&!marketEditing&&!countdown.active&&game.still.phase==='ready'&&game.tastingId===null&&!game.decisions.length&&generationState()?.phase!=='review'&&generationState()?.phase!=='handover'&&!debugSkipJob&&$('automatic-news').hidden&&$('storage-notice').hidden&&!$('scene-notice').textContent.trim()&&!!scene.dialogueLayout(entry)
 });
 installDialogueDismissal(dialogueElement,()=>dialogueNotice.dismiss());
-document.addEventListener('visibilitychange',()=>dialogueNotice.update());
+$('automatic-news').setAttribute('role','button');$('automatic-news').tabIndex=0;$('automatic-news').setAttribute('aria-label','知らせを閉じる');
+installDialogueDismissal($('automatic-news'),()=>automaticNews.clear());
+document.addEventListener('visibilitychange',()=>{automaticNews.update();dialogueNotice.update();});
 window.addEventListener('resize',()=>requestAnimationFrame(()=>dialogueNotice.update()));
 dialogueElement.addEventListener('dialogue-layout-blocked',()=>dialogueNotice.update());
 // Some market warnings do not render the game; react to priority DOM changes too.
@@ -542,7 +545,7 @@ const heldRange=()=>game?.still.phase==='distilling'&&D.collectionState(game).fu
 const manualDistilling=()=>game?.still.phase==='distilling'&&game.usual?.reservation?.status!=='active';
 $('still').innerHTML=stillArt();
 const message=t=>{$('work-notice').textContent=t;};
-function storageNotice(t){$('storage-notice').textContent=t;$('storage-notice').hidden=!t;}
+function storageNotice(t){$('storage-notice').textContent=t;$('storage-notice').hidden=!t;automaticNews.update();}
 const wallClock=new RuntimeClock(T.distillStepMs);
 function stopClock(reset=true){if(reset)wallClock.reset();generation++;if(timer!==null){clearTimeout(timer);timer=null;}}
 function rememberCommitted(){committedSession={game,userPaused,elapsed,caskSlots:[...caskSlots],recentLedger,historyRecord,recallRecord};}
@@ -1156,7 +1159,8 @@ function render(){
  $('time-status').textContent=(!preview&&!canSave)?'保存エラー・停止中':modal||marketEditing?'確認中・停止中':tasting?'試飲中・停止中':document.hidden?'画面を離れて停止中':runtimeHalted?'資金を残して停止中':userPaused||heldRange()?'停止中':!hasMonthlyWork()?'停止中':playbackRate===2?'2倍速で進行中':'進行中';
  $('time-change').textContent=last?monthLabel(last.month)+' 維持費 '+money(last.upkeep)+(last.revenue?' · 売上 '+money(last.revenue):''):'';
  $('records').hidden=true;
- const comment=room==='sales'?feedbackComments.read(game).at(-1):null,aging=room==='warehouse'?warehouseFeedback(game):null;
+ automaticNews.update();
+ const comment=room==='sales'?recentCustomerFeedback(game,feedbackComments.read(game)):null,aging=room==='warehouse'?warehouseFeedback(game):null;
  roomFeedback=comment?{kind:'comment',releaseId:comment.releaseId,text:commentExcerpt(game,comment)}:aging?{kind:'aging',caskId:aging.caskId,text:caskName(aging.caskId)+' · '+aging.text,previewText:warehouseFeedbackPreview(caskName(aging.caskId),aging)}:null;
  const feedbackButton=$('room-feedback'),feedbackHidden=!roomFeedback||!!modal||!$('automatic-news').hidden||!$('storage-notice').hidden||!banner.hidden||runtimeHalted;
  feedbackButton.hidden=feedbackHidden;feedbackButton.textContent=roomFeedback?.text??'';feedbackButton.disabled=!!modal;

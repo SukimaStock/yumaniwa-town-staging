@@ -1,0 +1,19 @@
+{
+  "summary": [
+    "ℹ tests 37",
+    "ℹ suites 0",
+    "ℹ pass 32",
+    "ℹ fail 5",
+    "ℹ cancelled 0",
+    "ℹ skipped 0",
+    "ℹ todo 0",
+    "ℹ duration_ms 353.390281"
+  ],
+  "failures": [
+    "✖ cache reader chain updates every changed helper and worker entry",
+    "✖ main entry and all main projection readers refresh the new rules closure",
+    "✖ native market commits live state and receipt presentation only after exact conditional save",
+    "✖ quota, conflict and invalid state never publish market inventory or success receipts",
+    "✖ staff and ledger displays keep contextual short labels and important operation distinctions"
+  ]
+}

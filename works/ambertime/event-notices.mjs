@@ -38,8 +38,33 @@ export function noticeText(events){
  const total=kind=>events.filter(e=>e.kind===kind).reduce((a,e)=>({count:a.count+(e.count??0),revenue:a.revenue+(e.revenue??0),shipped:a.shipped+(e.shipped??0),unmet:a.unmet+(e.unmet??0)}),{count:0,revenue:0,shipped:0,unmet:0}),filled=total('filled'),bottled=total('bottled'),completed=events.filter(e=>e.kind==='bottled'&&e.mode==='age'),completionCount=completed.reduce((n,e)=>n+e.count,0),sales=total('sales'),orders=total('orders'),shipping=total('shipping');
  return [filled.count?'仕込み完了 '+filled.count+'たる':'',bottled.count>completionCount?'ビン詰め完了 '+(bottled.count-completionCount)+'本':'',...completed.map(e=>'ビン詰め完了 '+e.count+'本'+(Number.isFinite(e.remainingLitres)?' · '+(e.caskLabel?e.caskLabel+' ':'')+'残り '+e.remainingLitres.toFixed(1)+'L':'')),...events.filter(e=>e.kind==='sold-out').map(e=>(e.releaseLabel?e.releaseLabel+' ':Number.isInteger(e.releaseId)?'発売'+e.releaseId+' ':'')+'完売'),sales.count?'販売 '+sales.count+'本 · 入金 £'+sales.revenue.toLocaleString('en-GB',{maximumFractionDigits:0}):'',shipping.count?'発送 '+shipping.count+'本':'',events.some(e=>e.kind==='orders')?'注文 '+orders.count+'本 · 発送 '+orders.shipped+'本'+(orders.unmet?' · 未発送 '+orders.unmet+'本':''):'',events.filter(e=>e.kind==='message').reduce((best,e)=>(e.priority??0)>=(best?.priority??-1)?e:best,null)?.text??''].filter(Boolean).join(' / ');
 }
-export function transientNotices({show,hide,setTimer=setTimeout,clearTimer=clearTimeout,duration=3500}){
+export function transientNotices({show,hide,setTimer=setTimeout,clearTimer=clearTimeout,duration=3500,onExpire=()=>{}}){
  const seen=new Set();let visible=[],timer=null;
  const clear=()=>{if(timer!==null)clearTimer(timer);timer=null;visible=[];hide();};
- return {push(events){const batchIds=new Set(),fresh=events.filter(e=>{if(seen.has(e.id)||batchIds.has(e.id))return false;batchIds.add(e.id);return true;});if(!fresh.length)return;for(const e of fresh){seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);}visible.push(...fresh);if(visible.length>32)visible=visible.slice(-32);if(timer!==null)clearTimer(timer);show(noticeText(visible));timer=setTimer(clear,duration);},clear,reset(){clear();seen.clear();}};
+ return {push(events,lifetime=duration){const batchIds=new Set(),fresh=events.filter(e=>{if(seen.has(e.id)||batchIds.has(e.id))return false;batchIds.add(e.id);return true;});if(!fresh.length)return;for(const e of fresh){seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);}visible.push(...fresh);if(visible.length>32)visible=visible.slice(-32);if(timer!==null)clearTimer(timer);show(noticeText(visible));timer=setTimer(()=>{clear();onExpire();},lifetime);},clear,reset(){clear();seen.clear();}};
+}
+
+// Room ownership is ephemeral. World news keeps only the latest unseen fact;
+// operation results stay where they happened and never follow a room change.
+export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTimer=clearTimeout}){
+ let owner=room(),pending=null,active=false,serial=0;
+ const seen=new Set();
+ const display=transientNotices({show:text=>{active=true;show(text);},hide:()=>{active=false;hide();},setTimer,clearTimer,onExpire:()=>update()});
+ function sync(){if(owner!==room()){display.clear();owner=room();}if(!safe())display.clear();}
+ function update(){sync();if(!active&&pending&&room()==='sales'&&safe()){const event=pending;pending=null;display.push([{...event,id:'world-display:'+ ++serial}],6500);}}
+ return {
+  push(events){
+   sync();const fresh=events.filter(e=>!seen.has(e.id));for(const e of fresh){seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);}
+   const world=fresh.filter(e=>e.id.startsWith('town:'));
+   if(world.length)pending=world.at(-1);
+   const results=fresh.filter(e=>!e.id.startsWith('town:'));
+   // A single saved transition replaces the previous result, without joining
+   // unrelated months. Full details remain in the existing ledger.
+   if(results.length&&safe()){display.clear();display.push(results);}
+   update();
+  },
+  update,
+  clear(){display.clear();update();},
+  reset(){display.reset();seen.clear();pending=null;owner=room();}
+ };
 }
