@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "514928a4f5ef05bcd37c833d9529e16c32e7ffbd175d18b15392ee03c6d94348",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-s3-r0-capacity",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "S3-R R0: measure exact expanded capacity and safe fix feasibility before runtime changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "7635a2637da741d333934915dd68dce8a2314202",
+    "canonicalSources": [
+      "User S1–S3 specification and S3 go-ahead after S2 confirmation",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "S1 market controller and S2 dialogue implementation"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s3-r0-capacity/r0.lock.json",
+      "works/ambertime/design/s3-r0-capacity/**",
+      "works/ambertime/tests/s3-r0-capacity.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/partner-orders.mjs"
+    ],
+    "expectedChanges": [
+      "Reuse S3 public-operation scenario and record per-month lengths, checkpoint breakdowns, hashes and isolated fixtures before size rejection.",
+      "Compare existing evidence and preserve cap; identify whether safe R1 can exist without changing formal state or guard.",
+      "Publish research and tests only, no runtime change."
+    ],
+    "ownerDecisions": [
+      "User explicitly requested S3-R phased R0/R1/R2; merge each safe stage to Staging."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Validation-only isolated runners; Plan Lock before repository changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Node only; no browser capacity claim."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated research/test/report additions; runtime and saves unchanged.",
+    "outOfScope": [
+      "Runtime/model/save limit changes",
+      "Production",
+      "Forced R1 when no safe fix"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Chromium actual storage",
+      "iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "Claim synthetic 10 shops are formal model shops",
+      "Treat Node timing as Safari performance"
+    ],
+    "boundaryCases": [
+      "0/1/2/3/5/10 shops; old wholesale vs actual sales; dormant and returning shops; missing sale date",
+      "10/30/100 years and restored continuation; dialogue fact/package/cooldown consistency"
+    ],
+    "testPlan": [
+      "Reproduce wide seed42 once; compare 10/30-year prior hashes; capacity metric unit tests and existing save regression."
+    ]
+  }
+}
