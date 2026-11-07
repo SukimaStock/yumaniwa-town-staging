@@ -1,0 +1,10 @@
+/* Work-local, passive dialogue. No modal, controls, score or new visual language. */
+#shop-dialogue-notice{position:fixed;z-index:75;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 86px);transform:translateX(-50%);width:min(320px,calc(100vw - 32px));padding:12px 14px;background:#242b26;color:#eee4cb;border:1px solid #77715c;box-shadow:0 3px 0 #151b16;pointer-events:none;font:inherit;box-sizing:border-box}
+#shop-dialogue-notice[hidden]{display:none}
+.shop-dialogue-store{font-size:.8em;color:#c5b99a;margin-bottom:5px}
+.shop-dialogue-content{display:flex;gap:10px;align-items:center;min-width:0}
+.shop-dialogue-content p{margin:0;line-height:1.6;overflow-wrap:anywhere;text-align:left}
+.shop-dialogue-package{display:block;flex:0 0 48px;width:48px;height:48px}
+.shop-dialogue-package .release-package{display:block!important;width:48px!important;height:48px!important;image-rendering:pixelated}
+#dialog-body .shop-dialogue-line{margin:0 0 14px;padding:8px 0}
+@media(prefers-reduced-motion:reduce){#shop-dialogue-notice{animation:none;transition:none}}

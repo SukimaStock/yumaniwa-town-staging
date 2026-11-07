@@ -1,0 +1,15 @@
+{
+  "kind": "synthetic read-only projection, NOT lawful game or browser measurement",
+  "node": "v24.22.1",
+  "months": 1200,
+  "releases": 200,
+  "deliveries": 2048,
+  "timesMs": [
+    39.318915000000004,
+    21.678079999999994,
+    21.879318000000012,
+    20.202882999999986,
+    23.622794999999996
+  ],
+  "entries": 45
+}

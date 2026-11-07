@@ -1,0 +1,14 @@
+{
+  "passed": false,
+  "status": "blocked-before-browser-page",
+  "date": "2026-11-07",
+  "command": "AMBER_BROWSER_MODULE=/opt/codex/cua_node/lib/node_modules/playwright/index.mjs AMBER_BROWSER_EXECUTABLE=/usr/bin/chromium node --test works/ambertime/tests/shop-dialogue-browser.test.mjs",
+  "attempts": [
+    {"mode": "workspace sandbox", "result": "Chromium failed before page load: process_singleton_posix.cc socket() failed: Operation not permitted (1)"},
+    {"mode": "reviewed require_escalated", "result": "Chromium failed before page load with the same socket restriction; no further launch or restriction workaround attempted"}
+  ],
+  "completed": ["Test script syntax check", "Native test fixture opportunity derived from current model: month 21 to 22", "Source review of native integration"],
+  "notVerified": ["Native popup in actual browser", "Latest store modal browser layout", "360x568, 375x620, 390x680, 430x740 screenshots", "Reduced motion in browser", "Native memory opportunity", "Physical Safari and author device acceptance"],
+  "screenshots": [],
+  "testDesign": "Native clock and existing store-modal test use isolated preview fixture advanced with native public operations. Memory layout section is explicitly synthetic presentation on the real game background and does not mutate the game or assert a naturally occurring memory. No real user save is accessed."
+}
