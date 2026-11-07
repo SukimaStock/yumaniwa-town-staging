@@ -1,0 +1,91 @@
+{
+  "status": "complete",
+  "provenance": "new isolated v8 from current public-operation 24-month wide seed42 career; NOT rediscovered old 10/30-year wire",
+  "directory": "/tmp/s3-d1-f-v8-cQWcSC",
+  "originalPath": "/tmp/s3-d1-f-v8-cQWcSC/original-v8.json",
+  "originalSha": "48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693",
+  "wireBytes": 209412,
+  "wireUnits": 195686,
+  "writerMs": 47.368989000000056,
+  "formalReadMs": 13.525629000000208,
+  "gameSha": "0a4feefc34316a23a91121f4692e6b20c09b3c511c3e204b92d1970ba1f33e35",
+  "fullInputSha": "aef4009a9d5b9c60d5f352b2447fde72d8ebb4fb693ed6dcefba1890642d9439",
+  "month": 24,
+  "candidateBytes": 185067,
+  "roundtripExact": true,
+  "nextMonth": 25,
+  "cases": [
+    {
+      "name": "events",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "nextMonthExact": true,
+      "noOriginalSafeStop": true
+    },
+    {
+      "name": "attempts",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "nextMonthExact": true,
+      "noOriginalSafeStop": true
+    },
+    {
+      "name": "schema",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "nextMonthExact": true,
+      "noOriginalSafeStop": true
+    },
+    {
+      "name": "integrity",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "nextMonthExact": true,
+      "noOriginalSafeStop": true
+    },
+    {
+      "name": "source",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "nextMonthExact": true,
+      "noOriginalSafeStop": true
+    },
+    {
+      "name": "version",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "nextMonthExact": true,
+      "noOriginalSafeStop": true
+    },
+    {
+      "name": "generation",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "nextMonthExact": true,
+      "noOriginalSafeStop": true
+    },
+    {
+      "name": "candidate-truncated",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "noOriginalSafeStop": true
+    },
+    {
+      "name": "candidate-creation-interrupted",
+      "rejected": true,
+      "originalBytesUnchanged": true,
+      "fallbackFullInputExact": true,
+      "noOriginalSafeStop": true
+    }
+  ],
+  "scope": "isolated files only; not browser atomicity, power loss or IndexedDB",
+  "node": "v24.22.1"
+}

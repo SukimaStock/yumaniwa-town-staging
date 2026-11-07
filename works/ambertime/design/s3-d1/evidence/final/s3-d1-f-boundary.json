@@ -1,0 +1,1018 @@
+{
+  "status": "complete",
+  "inputGameSha": "82ec4f599a4bf126e4129467be05280d0286e57ff002a3c283cc346ec7a34226",
+  "fullRoundtrip": true,
+  "steps": [
+    {
+      "name": "tickDistillery",
+      "month": 1212,
+      "index": 1748,
+      "afterMonth": 1213,
+      "stateSha": "3fa58108b1e96cebd68c8576bee3b0306dbeb3b524f9fd722cd2b1852166a5fd",
+      "operations": 1749
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1213,
+      "index": 1749,
+      "afterMonth": 1214,
+      "stateSha": "33d8b4c03589b56a23bbeb4e409c3770d7f5acac0c2e08601bfd509462f72211",
+      "operations": 1750
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1214,
+      "index": 1750,
+      "afterMonth": 1215,
+      "stateSha": "cc9a2a15055004529ae03ecd000899124078fc4d3111cc078f8d7a7be6b959b0",
+      "operations": 1751
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1215,
+      "index": 1751,
+      "afterMonth": 1216,
+      "stateSha": "c9de7a73c8ee4f7f9d8dc0d238504165a2a1bc3ceb4ad13d993a351de414b2bb",
+      "operations": 1752
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1216,
+      "index": 1752,
+      "afterMonth": 1217,
+      "stateSha": "14a0eb2cb4b654d4061930ba1f377e0fc88e1a8ce20a19957df757d6e44528b4",
+      "operations": 1753
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1217,
+      "index": 1753,
+      "afterMonth": 1218,
+      "stateSha": "7c63756c4619321138be215d6a7db5f3ea5471b6c630e2e01d93b9eb1524cedd",
+      "operations": 1754
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1218,
+      "index": 1754,
+      "afterMonth": 1219,
+      "stateSha": "2059bec8195589fe435d34e9e1100a9957a5ea34a753dc3a6808175a8d20d180",
+      "operations": 1755
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1219,
+      "index": 1755,
+      "afterMonth": 1220,
+      "stateSha": "212f95f49c78cc52b38a31cd3383f38613c1387672490a9bc38ad40d5b4b3d3a",
+      "operations": 1756
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1220,
+      "index": 1756,
+      "afterMonth": 1221,
+      "stateSha": "81a51317f294e0d63574e781dd56e79dcbfeaf6bd6e72479baecc0275551d496",
+      "operations": 1757
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1221,
+      "index": 1757,
+      "afterMonth": 1222,
+      "stateSha": "ad1a38618b9e824604b00e9e6523ad17e0ff53d6164c4cdade82e09cdcb3db75",
+      "operations": 1758
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1222,
+      "index": 1758,
+      "afterMonth": 1223,
+      "stateSha": "18cdd291ac7a395b32aeb3d60c9268290fa8a5957f91b257d7071f262fbf0d5f",
+      "operations": 1759
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1223,
+      "index": 1759,
+      "afterMonth": 1224,
+      "stateSha": "74e48ce2543f0bd6defe6908908d9ff465fa6da8a3796689e9e022e3d00c8844",
+      "operations": 1760
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1224,
+      "index": 1760,
+      "afterMonth": 1225,
+      "stateSha": "74710daca3508b6b76ef1d0ad0c067122cf1d2c8d87d13a7a5af8236c138d585",
+      "operations": 1761
+    },
+    {
+      "name": "noticeGeneration",
+      "month": 1225,
+      "index": 1761,
+      "afterMonth": 1225,
+      "stateSha": "f6c4ff7e4784d1d2fdcc0a635abef5b62543ab97a6586c71f7c0cc5a1c581aae",
+      "operations": 1762
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1225,
+      "index": 1762,
+      "afterMonth": 1226,
+      "stateSha": "aac496408d4a9ac0a29b25d38634edf4836605ae62c72d794a47964ff9539b90",
+      "operations": 1763
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1226,
+      "index": 1763,
+      "afterMonth": 1227,
+      "stateSha": "4ca9f7b878d22ebee86e301ab04ddcc630441776102a7fea32771a03f892e45d",
+      "operations": 1764
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1227,
+      "index": 1764,
+      "afterMonth": 1228,
+      "stateSha": "747a409d4a08dbbb8040b74b7e2b5ec0f0a4d37128134347e7034023cc26eb57",
+      "operations": 1765
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1228,
+      "index": 1765,
+      "afterMonth": 1229,
+      "stateSha": "7f77f6db819afdd1e1930a2563524bde08686925208ef54a7375f1dcdd4bd43a",
+      "operations": 1766
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1229,
+      "index": 1766,
+      "afterMonth": 1230,
+      "stateSha": "53b23d39ed209c908379d38107b2f2faa09e8ccb2fa50df96a1106ef27aec841",
+      "operations": 1767
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1230,
+      "index": 1767,
+      "afterMonth": 1231,
+      "stateSha": "0107be4fbd03f76c2fe12259038bb870781180116f9bedb78ddf6f97d2eab582",
+      "operations": 1768
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1231,
+      "index": 1768,
+      "afterMonth": 1232,
+      "stateSha": "2df9f2786943019893f3111adf8af6c268ce438c7591deab13a0888199e81ce4",
+      "operations": 1769
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1232,
+      "index": 1769,
+      "afterMonth": 1233,
+      "stateSha": "36809fcff2828d297037df4a35b66431c55ad8ce2b4183e4f5aa833719b66db3",
+      "operations": 1770
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1233,
+      "index": 1770,
+      "afterMonth": 1234,
+      "stateSha": "e66e2a1fa7da35696dc8c6d053826bb4b3c97fccd1324e40385d0ed2f141c6e2",
+      "operations": 1771
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1234,
+      "index": 1771,
+      "afterMonth": 1235,
+      "stateSha": "52fa03fe1d4e1bad093c9ffcd7e8a26fe1a1b4a4d2baefdda521bbbe7b81af1c",
+      "operations": 1772
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1235,
+      "index": 1772,
+      "afterMonth": 1236,
+      "stateSha": "8b3d46974b2f41497f252d972c570515b104bfe4358e8e2a64e5a156ca0bb67d",
+      "operations": 1773
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1236,
+      "index": 1773,
+      "afterMonth": 1237,
+      "stateSha": "5470f2b6d627a49fca50af852e61f6598dc922f11fbcdcdaa784e201dfc9cc1d",
+      "operations": 1774
+    },
+    {
+      "name": "noticeGeneration",
+      "month": 1237,
+      "index": 1774,
+      "afterMonth": 1237,
+      "stateSha": "bad78b765432c38e6a8e1d58c94db236fe46a5839363ea4d6179eaa00f212190",
+      "operations": 1775
+    },
+    {
+      "name": "handoverGeneration",
+      "month": 1237,
+      "index": 1775,
+      "afterMonth": 1237,
+      "stateSha": "31d2e006d9b1c8a66f22d44d40bfe2c70a8cba7f6894d288eb11ec661f438475",
+      "operations": 1776
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1237,
+      "index": 1776,
+      "afterMonth": 1238,
+      "stateSha": "96e5b16ccf72b9aa0a672792167a2f7d3f71fb0fbe3f7f2824fb12bed5161c7b",
+      "operations": 1777
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1238,
+      "index": 1777,
+      "afterMonth": 1239,
+      "stateSha": "1ccf3e0ce2010bc4b405e5430c6308b28f34da7de1e3160b4768f38f27a52d7b",
+      "operations": 1778
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1239,
+      "index": 1778,
+      "afterMonth": 1240,
+      "stateSha": "dc626e1e60d907ddc2e859f410cdf435f1c818f69d4bf90758a579f1b7d42c5d",
+      "operations": 1779
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1240,
+      "index": 1779,
+      "afterMonth": 1241,
+      "stateSha": "ad6663327abd1433d32c757bc4ac3742fd29744a33c848b10ff68a6eb2ccb7fe",
+      "operations": 1780
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1241,
+      "index": 1780,
+      "afterMonth": 1242,
+      "stateSha": "2cd7b629f8835ccca61f1c475c13af2f6044958b30f5d821b7c8e9f0e9aa5afd",
+      "operations": 1781
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1242,
+      "index": 1781,
+      "afterMonth": 1243,
+      "stateSha": "43bbc85d029f67643ffa7df5a428606c6d5f13e45c2012d27ce465370572229b",
+      "operations": 1782
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1243,
+      "index": 1782,
+      "afterMonth": 1244,
+      "stateSha": "ae282514da38ad397e3052ba90f4caf4b258180c9d0867811f4fd0e031ac3ac3",
+      "operations": 1783
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1244,
+      "index": 1783,
+      "afterMonth": 1245,
+      "stateSha": "d98e4981dc61963d869f4d08752dbb593d462dcbf0e1dc2119e1bdb383e7141c",
+      "operations": 1784
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1245,
+      "index": 1784,
+      "afterMonth": 1246,
+      "stateSha": "cd099e4841303927f4f1997b1fac1e949376b6bd0dbbaf7890bea1d350fd7129",
+      "operations": 1785
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1246,
+      "index": 1785,
+      "afterMonth": 1247,
+      "stateSha": "cd1a6b8ebba2cba7a9fca4ae9892a03b5f804c128028efc52dbc5636835ca01a",
+      "operations": 1786
+    },
+    {
+      "name": "startRangeDistillation",
+      "month": 1247,
+      "index": 1786,
+      "afterMonth": 1247,
+      "stateSha": "d2a260ba10e7f932fc6372e9d808c4523f40e1bffaaced28e02ca03d60e3fe89",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "aa0af6d20e879b7263e1f794c11fd40ecb32c3a056e5c5bc2ccc89a2643b741e",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "c8506d7240c39d80650f20048be754922d0a372863f70d3965093ce266819c74",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "232867e4391edb9739d70b48257d0b490fc3b5d6d67f41a0353d25e7c2fa7d0f",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "4964b6c280d893cedd8b9595e63221e6518ddb8b24c84019afc9ee3a5b4c8de0",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "7da5ea6e7f6101087ada84ee6c12e1e028bdc3b72efcb3989165f8b6e81da875",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "030a3c03da57795832e0f94481492ae1deb4825b71e50928605db894df960787",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "5600f33d40961ad76eb1246123489281b91329b5e23dd7839562137692b3f5f3",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "badcd36dd2a5bb3dd58aeaeccf00dae88ce42e190522921a9a19251b57dc63ce",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "886e50ac2f4db431c2318553d513017ad4090444db15e8e244f17a36b20c1922",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "cbf3f8f4239ad5dbfe162e818061aaf0da038ba97a3da924c82c218d58e0c6c5",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "32208f7088da779d3cd710488972374202789527d59bc9dbed24a1f461bd2017",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "efdc390c7dc1c7891e550435badc961bc530013c2325c4665beeafb9eea78e12",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "019435085230fdbd7b754f2ec9e49e70040cbf7e2bdfd987e6bb3b3b79aea669",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "e3a05852e641adb938aca8f50f5a6b5a9afd8d2552e51d95fad16130ed041749",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "0e3ae3fdd5cbef52ad0ae03d75a3d044022693481631a6cdd09be30d00601d93",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "5ba2e4b9294b7fab0ed7c91f3fe81fbaf8260c9df55c9d9e94946f47f764f06a",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "1a8b5a582092b7113ccba0683f1378d8094e211ff2bbf2e040a713fa9181091b",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "277835beaa67e53b93673c9f325b226aeecc88adf7cebc3d1d48e338fc4e1088",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "83ed1ebf6a741766b9cb9476a991cd3ab832f62c944870c34e074f0b1b4d4f4d",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "ea4bd298fc5402a72041ca7b572cbbdf1357fc351b8b5ba05229a032c2c4ad72",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "c02ed3778552feef37f751ce5ec7e0dc9d78d41452c78e38a6ff00a30ea9bf1d",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "bf86cfece190c65c7575b075f115a59b5c6076fcc0ca40c8d5e8ca800c26ce2e",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "8e701a01ad9c7d4b4b3a2ed501674a0c4ba50f5c625bf9973a85e7402c7c6b5c",
+      "operations": 1787
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "f195eabb53c3188f477b38a5196b8feafd909d0160107146ea00e86a8e9f6cb9",
+      "operations": 1787
+    },
+    {
+      "name": "beginCollection",
+      "month": 1247,
+      "index": 1787,
+      "afterMonth": 1247,
+      "stateSha": "c637edbb579d9b75f1644de02f78ebbdae8f7becac8b70b08e2a735549e4276f",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "609ae2b30ab4ee61e868abbddacfee7df254a4f42f168ed63da1c244f24f48a9",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "772a0fdbf2f112ab9450b2993ca41c5139b507bad430915b91846bb5d609e849",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "a03f819ef8625cd576785642dc43f423292e10ce208e4e8509e8eb2a99e40b6e",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "98eef06ed78f4f17e40760812795cea8ecd813c03b886a7723c7f085b05bf705",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "23e9e9c0cdb3c1788f78a422801dd7c03461a4d106e0bea30093a89a3cc09b5f",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "0a199136596c2be160dce6f7ff16714d77a60efec0b1d730db727ad4b3290e7b",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "447adf50f29e2d9415548368227bf0d321b91224d98be3d6b5c589fdb77c6b75",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "7efb9fe45d952ff24659f0a7539ecfc0d2ff49c1b234f3dd57a31f62d1cca171",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "fdd496a27ea6baed19708943a9eb738a329ec2d0ad931dc05b48f9e83fb3a847",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "b26b25766ace4ac786625766490308de324c9756e6260de99d3a3befd0627f1c",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "fe4d7ea11e778222eea1e5a398d6bcf6b3ff82dba7107b5c8ac23fcab148c730",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "3421b1597492d7c7d6f7f0d5acd127d3b3c7aad08594eed5462d45420a02d2b4",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "774bf7d80f624ec8124b66a1fcd8fa467f9f6bcaaf1da7c7a356f8d207f590ed",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "68ad147b2eaf6b70a6614aae70aab7e558bfb4d38cb1541034da9f5f0bec86f4",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "71c40de963886942a36ced93e82d81b56f34bbd8edd6291cc9db3b7da020d3d8",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "6d7fb8a6cdc9fae71f80429f9dff4bf90c92ae5be56ad0e679b67f7822399f65",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "f122c533e7163d79c6915dfb3db820a1622946943976c6bbe82c8f5d4897efe0",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "b0f0fa1c5b5764f294316ccb3c3d5fe86c8b040cfe7e25d55a3dcb0cf4511fd7",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "f4c20359caaf43b0d28b280c26b5054cada392563b143fc24730c8624ea4948e",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "8bbd6467c94ef96b2421ceb469a93e69355a2ed6a54f912e1dd2c472540b525d",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "b20b1a198175e0d7afc6e74cc4537795224fc3a380ab6377d9dda4c568049cc9",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "240212e96c593ee368b700a38a5b4c722b972f3cce1d19b893e8c6722b1235d4",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "fbf1d86f7f5644dc09b897b91114cdc82dd05d249cad0047e5eacd2da8d0ad05",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "f5a6379f0a5533d0179de084fd8f6572145d122c035f89ef5d4e7a0f5092837a",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "a76f64cf2a7530eb6b28ee6b7b92d849e1ff52b9c1b342ff9c84668b11850956",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "342533b025887113c03536f8582c2f669202cdb083bd18f4dc98f367bece8890",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "6f39c35d2ebcfb5e3a298e8daf590a537b316572ba626fb971cdae6f05375279",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "a59a90edea8fbe36742858c6f90841fb4d7d6e76e8f755872a13e99bc57b639f",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "b999a821ee7ca0f3674848e2e1ebac52f1d737f92e719abf1a3079379f652d37",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "a5f73ebe874844098d169fcffd55547bb2d788c351d03bf24bd54da7565ea10c",
+      "operations": 1788
+    },
+    {
+      "name": "distillStep",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "d85964781c3b32ce42f3fe186147100bcdc965bc3e2fc8fc03f06eb1e00cbeeb",
+      "operations": 1788
+    },
+    {
+      "name": "stopDistillation",
+      "month": 1247,
+      "index": 1788,
+      "afterMonth": 1247,
+      "stateSha": "881053c4cb7030ad379edc5d4ffae01f3bbc96214d943a20e32b286ec65b6c54",
+      "operations": 1789
+    },
+    {
+      "name": "fillBarrel",
+      "month": 1247,
+      "index": 1789,
+      "afterMonth": 1247,
+      "stateSha": "5ab90a695b66b9243f9f33955188869bae61df1b681cd8d8911c7ece92e07d1a",
+      "operations": 1790
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1247,
+      "index": 1790,
+      "afterMonth": 1248,
+      "stateSha": "cb7f1b7c58126b04395bd672cc9f959b689a70f2db43b5a89679adf6ec451941",
+      "operations": 1791
+    }
+  ],
+  "months": [
+    {
+      "month": 1213,
+      "game": "3fa58108b1e96cebd68c8576bee3b0306dbeb3b524f9fd722cd2b1852166a5fd",
+      "records": "c70c2c41c0c7995f0959afa68fea4c020a1ac0fc0847a02a358a2c20ff3fd672",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1214,
+      "game": "33d8b4c03589b56a23bbeb4e409c3770d7f5acac0c2e08601bfd509462f72211",
+      "records": "7327eb56a440b0995212da9d087166d0c148d93d7f20335dfad7cb8bd5763d23",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1215,
+      "game": "cc9a2a15055004529ae03ecd000899124078fc4d3111cc078f8d7a7be6b959b0",
+      "records": "9cad25c4b5a07bd74aea77982c755caa9b04a3bb13477a8c59f79371948d3927",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1216,
+      "game": "c9de7a73c8ee4f7f9d8dc0d238504165a2a1bc3ceb4ad13d993a351de414b2bb",
+      "records": "1d36be0dffb29247646adfe085dc84846b16240fca3d842c4d06d847465b9704",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1217,
+      "game": "14a0eb2cb4b654d4061930ba1f377e0fc88e1a8ce20a19957df757d6e44528b4",
+      "records": "20e747d2f039fe7e2174c726976c9f18638a1fe7b46da6232a3f0ed345b94dbb",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1218,
+      "game": "7c63756c4619321138be215d6a7db5f3ea5471b6c630e2e01d93b9eb1524cedd",
+      "records": "c7ff731c0519eb290a930f700df9a2e17ce65f224da1f6496a9cb5ee91eda86c",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1219,
+      "game": "2059bec8195589fe435d34e9e1100a9957a5ea34a753dc3a6808175a8d20d180",
+      "records": "388b0eac5c0944987467824e345d8de9f82312201a77e3f0d6f475686ea11747",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1220,
+      "game": "212f95f49c78cc52b38a31cd3383f38613c1387672490a9bc38ad40d5b4b3d3a",
+      "records": "355c92e67d299ad6895135af6b092e2e0cf04ae626f4e5173fab303c2120d989",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1221,
+      "game": "81a51317f294e0d63574e781dd56e79dcbfeaf6bd6e72479baecc0275551d496",
+      "records": "fab524802650adf53371627428ef01e67ef707952fde567c9cff05bd75e00c71",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1222,
+      "game": "ad1a38618b9e824604b00e9e6523ad17e0ff53d6164c4cdade82e09cdcb3db75",
+      "records": "b33cd77540746965862278f72c5976b9cb8f8f8f00984e94f60e06e86d07acda",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1223,
+      "game": "18cdd291ac7a395b32aeb3d60c9268290fa8a5957f91b257d7071f262fbf0d5f",
+      "records": "578e9cb65be62eeccfef40017416c072a5f3947ec82f9f0e4b35c3b1dba51c84",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    },
+    {
+      "month": 1224,
+      "game": "74e48ce2543f0bd6defe6908908d9ff465fa6da8a3796689e9e022e3d00c8844",
+      "records": "896f9c0e5dd50a8cf211d5fbeb59a67ceddb6357f3022e8a76cd194af7e574c1",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1225,
+      "game": "74710daca3508b6b76ef1d0ad0c067122cf1d2c8d87d13a7a5af8236c138d585",
+      "records": "9e646451fb5225e0fc9ba6822a1c7d3489c97f3b8a992f4b17d3d473df96a2a4",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1226,
+      "game": "aac496408d4a9ac0a29b25d38634edf4836605ae62c72d794a47964ff9539b90",
+      "records": "78a7c89ae46f259a79a60ef28cd692d7997bfafb84bd9b3901d1ed0931b70a29",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1227,
+      "game": "4ca9f7b878d22ebee86e301ab04ddcc630441776102a7fea32771a03f892e45d",
+      "records": "d460f559f5da8d4a978e82aa545887d01b677c270674e99696f9b2e1e38ac266",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1228,
+      "game": "747a409d4a08dbbb8040b74b7e2b5ec0f0a4d37128134347e7034023cc26eb57",
+      "records": "516cc88c838e6b33b9b7c0c8b0b83a76f721db2d6c3c43d423e0474d63ed2fdb",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1229,
+      "game": "7f77f6db819afdd1e1930a2563524bde08686925208ef54a7375f1dcdd4bd43a",
+      "records": "ecdf641ddf3d441b5d46b654faa5e892cd1416452ba794ca7441b42d45abe94a",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1230,
+      "game": "53b23d39ed209c908379d38107b2f2faa09e8ccb2fa50df96a1106ef27aec841",
+      "records": "c9e2eaf6cc5fcb25c2af3f88e476d695ba147ec7f9b39447840bdc0dac28604e",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1231,
+      "game": "0107be4fbd03f76c2fe12259038bb870781180116f9bedb78ddf6f97d2eab582",
+      "records": "bb17f2b63d47db768b459ced3953394bd352838c9fd2c2406dfddb892295965f",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1232,
+      "game": "2df9f2786943019893f3111adf8af6c268ce438c7591deab13a0888199e81ce4",
+      "records": "f0c0e4863e47e2788bcfb186340f66f8e06ba7fc8cc25e9e41b1acb46ec7e9c6",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1233,
+      "game": "36809fcff2828d297037df4a35b66431c55ad8ce2b4183e4f5aa833719b66db3",
+      "records": "dfd28fcf9e8f28e701c4993599e284206dcbca8f8e6992cfa75400f591ad6ee9",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1234,
+      "game": "e66e2a1fa7da35696dc8c6d053826bb4b3c97fccd1324e40385d0ed2f141c6e2",
+      "records": "fd75d9e32e70008a975265ad3dc7f227a17864494e6e71fd54053436e30c0c54",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1235,
+      "game": "52fa03fe1d4e1bad093c9ffcd7e8a26fe1a1b4a4d2baefdda521bbbe7b81af1c",
+      "records": "4c790438250d930d01b75b274317b30f06f6e5ef0f25d8b1f3ee2c3b2f3a9b6f",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1236,
+      "game": "8b3d46974b2f41497f252d972c570515b104bfe4358e8e2a64e5a156ca0bb67d",
+      "records": "59b9f3da650065da7da2ac5dc21220b12dc6c634b70062465e6ae97d6d168201",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1237,
+      "game": "5470f2b6d627a49fca50af852e61f6598dc922f11fbcdcdaa784e201dfc9cc1d",
+      "records": "e8f898871470e927361329f34a44dcebed8fd72772944635faa6add58add3405",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1238,
+      "game": "96e5b16ccf72b9aa0a672792167a2f7d3f71fb0fbe3f7f2824fb12bed5161c7b",
+      "records": "383aea8b2705ede369a970ba899e0e216242386e2597ab1f83d2759d4e622c00",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1239,
+      "game": "1ccf3e0ce2010bc4b405e5430c6308b28f34da7de1e3160b4768f38f27a52d7b",
+      "records": "4609c9c0214bd26b89ee6ae3ba4e3d998ea1f2d40410dd402db508761dd93483",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1240,
+      "game": "dc626e1e60d907ddc2e859f410cdf435f1c818f69d4bf90758a579f1b7d42c5d",
+      "records": "13d99033abf9473f74bf61976a85d1215341e2eb44eb198a6372224470d5313d",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1241,
+      "game": "ad6663327abd1433d32c757bc4ac3742fd29744a33c848b10ff68a6eb2ccb7fe",
+      "records": "921898825cfdb028b3e793b7f8b64c0d8b8836039c6bbe39b018ca07ca249ffe",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1242,
+      "game": "2cd7b629f8835ccca61f1c475c13af2f6044958b30f5d821b7c8e9f0e9aa5afd",
+      "records": "085b5d58466742ad38c7c5074fb9d2742212d9ee7b61ec861bf23bb2779d0744",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1243,
+      "game": "43bbc85d029f67643ffa7df5a428606c6d5f13e45c2012d27ce465370572229b",
+      "records": "0d42421c7c9b57e1589d9e3c406c4934be92d23367e8e08029c5b11543b28ed3",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1244,
+      "game": "ae282514da38ad397e3052ba90f4caf4b258180c9d0867811f4fd0e031ac3ac3",
+      "records": "82459e430b2e8e3bd50906a7790f4824004168ec2e45cf005a6f55286d66416b",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1245,
+      "game": "d98e4981dc61963d869f4d08752dbb593d462dcbf0e1dc2119e1bdb383e7141c",
+      "records": "424d5dd83ca2b1be0b296f7ed7590730208313b96f6a09704852a05aaaf19a13",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1246,
+      "game": "cd099e4841303927f4f1997b1fac1e949376b6bd0dbbaf7890bea1d350fd7129",
+      "records": "2592cc1ab75098edf443e2cfa8ddaee43fcf7a0064dc86f0aa2443f6c088a0ec",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1247,
+      "game": "cd1a6b8ebba2cba7a9fca4ae9892a03b5f804c128028efc52dbc5636835ca01a",
+      "records": "7ff9bdb501de1918caf49b8641c825e066c880fdd20372e96ec65c7a6e84e9f4",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    },
+    {
+      "month": 1248,
+      "game": "cb7f1b7c58126b04395bd672cc9f959b689a70f2db43b5a89679adf6ec451941",
+      "records": "15c4d61a632f0900379411b99f37c21487c43afea654ec37fee88048a03ec90a",
+      "dialogue": "31467e1c4d410c0ba8c0653c5dc047278c35230a7183a3f6b603e3b561ad6d16"
+    }
+  ],
+  "newGenerations": 1,
+  "newEvents": 269,
+  "newAttempts": 721,
+  "newArrivals": 225,
+  "newReleases": 0,
+  "newDeliveries": 9,
+  "finalGameSha": "cb7f1b7c58126b04395bd672cc9f959b689a70f2db43b5a89679adf6ec451941",
+  "finalInputSha": "2b2cc8f4bb63a2af90e676e125d0e43d8acf5279929a84421abf2e72bbf56f87",
+  "peakRssKiB": 1064972
+}

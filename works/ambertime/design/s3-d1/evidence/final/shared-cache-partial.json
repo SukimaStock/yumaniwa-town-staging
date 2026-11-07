@@ -1,0 +1,77 @@
+{
+  "status": "running",
+  "steps": [
+    {
+      "name": "tickDistillery",
+      "month": 1200,
+      "index": 1730,
+      "afterMonth": 1201,
+      "stateSha": "20f384e06cda9d33292c8d57531cf2fd0a4c049e5fbe65ae6e43b278564c6cbd",
+      "operations": 1731
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1201,
+      "index": 1731,
+      "afterMonth": 1202,
+      "stateSha": "91390d30d3e47bb4895aa0d6ad3ba5562681ab31d09ec0946c29d9bebf432b92",
+      "operations": 1732
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1202,
+      "index": 1732,
+      "afterMonth": 1203,
+      "stateSha": "93fc4bc4be9df3e0e8e6b9ce6c188012ea296f4296aba02e00768e6a23552d50",
+      "operations": 1733
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1203,
+      "index": 1733,
+      "afterMonth": 1204,
+      "stateSha": "cff43d61a1c975bc47995f3530325d623337f9b897921f0a2ffa65bb09778226",
+      "operations": 1734
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1204,
+      "index": 1734,
+      "afterMonth": 1205,
+      "stateSha": "ce714c41ca4a6731a78731ef45511a7777038def2d2519376024381e8cac8c9e",
+      "operations": 1735
+    }
+  ],
+  "months": [
+    {
+      "month": 1201,
+      "game": "20f384e06cda9d33292c8d57531cf2fd0a4c049e5fbe65ae6e43b278564c6cbd",
+      "records": "8af43fac43c083646a9d161d790a31fb82ff64ebf5a3fec64e60b44997d5f3ad",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1202,
+      "game": "91390d30d3e47bb4895aa0d6ad3ba5562681ab31d09ec0946c29d9bebf432b92",
+      "records": "90251d7d4f9ba555715e9565e65da374d84b52c074e8855d7e1542f065a76858",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1203,
+      "game": "93fc4bc4be9df3e0e8e6b9ce6c188012ea296f4296aba02e00768e6a23552d50",
+      "records": "1789eca4b791f118cd954d508ab6a59d0aaf2b90607f8771c00cf43a96f7ff32",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1204,
+      "game": "cff43d61a1c975bc47995f3530325d623337f9b897921f0a2ffa65bb09778226",
+      "records": "97c6693982155080867d433871afa623c7dee7906a7cddf965e303d9c4f3217b",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1205,
+      "game": "ce714c41ca4a6731a78731ef45511a7777038def2d2519376024381e8cac8c9e",
+      "records": "c052e8af7a95aeaab76d17858937f28ea801eb77fbc1a5cd79a68d7e615bfb1d",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    }
+  ]
+}

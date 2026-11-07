@@ -1,0 +1,947 @@
+{
+  "game": {
+    "id": 4,
+    "startedMonth": 925,
+    "fixedMonth": 1225,
+    "trigger": {
+      "kind": "long-shop-delivery",
+      "month": 1225,
+      "deliveryId": 682,
+      "shopId": "town-liquor",
+      "brandId": 1,
+      "releaseId": 45,
+      "productId": 135
+    },
+    "lastBatchId": null,
+    "lastCaskId": null,
+    "lastStatus": "not-made",
+    "reason": "grace-ended",
+    "endedMonth": 1237
+  },
+  "recall": {
+    "version": "recall/1",
+    "inputDigest": "6e35ad680c4243d6",
+    "algorithm": "H3-1 C / 4c3e11af2be1e911235225f2cb7d266a85f471d07d630537ceacedf73a29a3b4",
+    "seed": 1388269035,
+    "generation": 4,
+    "startMonth": 925,
+    "boundary": {
+      "id": "handover:4",
+      "kind": "handover",
+      "month": 1237,
+      "operationIndex": 1775,
+      "ordinal": 0,
+      "replayOrdinal": 0,
+      "generationId": 4,
+      "ids": {
+        "fromGeneration": 4,
+        "toGeneration": 5
+      }
+    },
+    "cutoff": {
+      "month": 1237,
+      "operationIndex": 1775,
+      "exclusive": true
+    },
+    "candidateCount": 662,
+    "contextCount": 967,
+    "scenes": [
+      {
+        "event": {
+          "id": "reaction:customer:retail:927:117",
+          "kind": "reaction",
+          "month": 927,
+          "operationIndex": 1353,
+          "operationKey": "month",
+          "generationId": 4,
+          "agency": "automatic",
+          "ids": {
+            "saleReceiptId": "retail:927:117",
+            "releaseId": 39,
+            "brandId": 1,
+            "productId": 117,
+            "count": 5
+          },
+          "label": "川霧・第39回のお客さん「こういう果実の香り、好きです。」",
+          "scene": {
+            "kind": "production",
+            "entity": {
+              "id": "retail",
+              "name": "自家販売のお客さん"
+            },
+            "bottle": {
+              "id": 1,
+              "name": "川霧",
+              "shape": "round",
+              "label": "cream"
+            }
+          },
+          "evidence": {
+            "record": "player-news.customerComments",
+            "sourceId": "customer:retail:927:117",
+            "saleReceiptId": "retail:927:117"
+          },
+          "ordinal": 7,
+          "replayOrdinal": 7
+        },
+        "number": 1,
+        "month": 927,
+        "sentence": "2103年4月、自家販売で『川霧』に「こういう果実の香り、好きです。」という反応があった。",
+        "category": "人",
+        "eventId": "reaction:customer:retail:927:117",
+        "reason": "過去世代との事実上のつながり",
+        "links": [
+          {
+            "sourceId": "bottling:39",
+            "type": "先代の発売",
+            "causal": false,
+            "sourceMonth": 924,
+            "sourceGeneration": 3,
+            "crossGeneration": true,
+            "role": "背景参照"
+          }
+        ],
+        "illustration": {
+          "location": "自家販売のお客さん",
+          "bottle": {
+            "id": 1,
+            "name": "川霧",
+            "shape": "round",
+            "label": "cream"
+          },
+          "action": "自家販売の客と瓶"
+        }
+      },
+      {
+        "event": {
+          "id": "bottling:40",
+          "kind": "bottling",
+          "month": 949,
+          "operationIndex": 1376,
+          "operationKey": "bottle-branded",
+          "generationId": 4,
+          "agency": "manual",
+          "ids": {
+            "brandId": 1,
+            "releaseId": 40,
+            "productId": 120,
+            "caskId": 119,
+            "age": 24,
+            "count": 44
+          },
+          "label": "2年熟成の「川霧」を44本、瓶詰めした。",
+          "scene": {
+            "kind": "production",
+            "entity": {
+              "id": "bottling",
+              "name": "瓶詰め"
+            },
+            "bottle": {
+              "id": 1,
+              "name": "川霧",
+              "shape": "round",
+              "label": "cream"
+            }
+          },
+          "evidence": {
+            "record": "releases",
+            "sourceId": "40",
+            "flavorName": "果実香が強い"
+          },
+          "ordinal": 0,
+          "replayOrdinal": 0
+        },
+        "number": 2,
+        "month": 949,
+        "sentence": "2105年2月、先代が樽に詰めた『川霧』を瓶詰めした。",
+        "category": "蒸留所",
+        "eventId": "bottling:40",
+        "reason": "過去世代との事実上のつながり",
+        "links": [
+          {
+            "sourceId": "fill:119",
+            "type": "先代の樽",
+            "causal": false,
+            "sourceMonth": 925,
+            "sourceGeneration": 3,
+            "crossGeneration": true,
+            "role": "背景参照"
+          }
+        ],
+        "illustration": {
+          "location": "瓶詰め",
+          "bottle": {
+            "id": 1,
+            "name": "川霧",
+            "shape": "round",
+            "label": "cream"
+          },
+          "action": "貯蔵庫の樽と瓶"
+        }
+      },
+      {
+        "event": {
+          "id": "arrival:e8610",
+          "kind": "arrival",
+          "month": 975,
+          "operationIndex": 1422,
+          "operationKey": "month",
+          "generationId": 4,
+          "agency": "automatic",
+          "ids": {
+            "townEventId": "e8610",
+            "sourceId": "e8138",
+            "regionId": "overseas-food",
+            "level": "海外",
+            "townReleaseId": 38,
+            "releaseId": 38,
+            "channel": "road"
+          },
+          "label": "海外の飲食文化圏に口コミが届いた。",
+          "scene": {
+            "kind": "reputation",
+            "entity": {
+              "id": "overseas-food",
+              "name": "海外の飲食文化圏",
+              "level": "海外"
+            }
+          },
+          "evidence": {
+            "record": "labConnection.town.events",
+            "sourceId": "e8610",
+            "sourceChain": [
+              "e7823",
+              "e7836",
+              "e7838",
+              "e8005",
+              "e8138",
+              "e8610"
+            ],
+            "townOrdinal": 8609
+          },
+          "ordinal": 4,
+          "replayOrdinal": 4
+        },
+        "number": 3,
+        "month": 975,
+        "sentence": "2107年4月、海外の飲食文化圏に口コミが届いた。",
+        "category": "地域",
+        "eventId": "arrival:e8610",
+        "reason": "同じ発売・記録済み参照経路の2場面",
+        "links": [
+          {
+            "sourceId": "arrival:e1137",
+            "type": "再登場",
+            "causal": false,
+            "sourceMonth": 76,
+            "sourceGeneration": 1,
+            "crossGeneration": true,
+            "role": "背景参照"
+          },
+          {
+            "sourceId": "bottling:38",
+            "type": "先代の発売",
+            "causal": false,
+            "sourceMonth": 865,
+            "sourceGeneration": 3,
+            "crossGeneration": true,
+            "role": "背景参照"
+          }
+        ],
+        "illustration": {
+          "location": "海外の飲食文化圏",
+          "bottle": null,
+          "action": "地域の店先で酒の話が交わされる"
+        }
+      },
+      {
+        "event": {
+          "id": "inquiry:e8866",
+          "kind": "inquiry",
+          "month": 999,
+          "operationIndex": 1452,
+          "operationKey": "month",
+          "generationId": 4,
+          "agency": "automatic",
+          "ids": {
+            "townEventId": "e8866",
+            "sourceId": "e8611",
+            "regionId": "overseas-food",
+            "level": "海外",
+            "townReleaseId": 38,
+            "releaseId": 38,
+            "channel": null
+          },
+          "label": "海外の飲食文化圏から問い合わせが届いた。",
+          "scene": {
+            "kind": "reputation",
+            "entity": {
+              "id": "overseas-food",
+              "name": "海外の飲食文化圏",
+              "level": "海外"
+            }
+          },
+          "evidence": {
+            "record": "labConnection.town.events",
+            "sourceId": "e8866",
+            "sourceChain": [
+              "e7823",
+              "e7836",
+              "e7838",
+              "e8005",
+              "e8138",
+              "e8610",
+              "e8611",
+              "e8866"
+            ],
+            "townOrdinal": 8865
+          },
+          "ordinal": 0,
+          "replayOrdinal": 0
+        },
+        "number": 4,
+        "month": 999,
+        "sentence": "2109年4月、海外の飲食文化圏から問い合わせが届いた。",
+        "category": "地域",
+        "eventId": "inquiry:e8866",
+        "reason": "同じ発売・記録済み参照経路の2場面",
+        "links": [
+          {
+            "sourceId": "arrival:e1137",
+            "type": "再登場",
+            "causal": false,
+            "sourceMonth": 76,
+            "sourceGeneration": 1,
+            "crossGeneration": true,
+            "role": "背景参照"
+          },
+          {
+            "sourceId": "arrival:e8610",
+            "type": "確認済み口コミ経路",
+            "causal": true,
+            "sourceMonth": 975,
+            "sourceGeneration": 4,
+            "crossGeneration": false,
+            "role": "主場面間"
+          },
+          {
+            "sourceId": "bottling:38",
+            "type": "先代の発売",
+            "causal": false,
+            "sourceMonth": 865,
+            "sourceGeneration": 3,
+            "crossGeneration": true,
+            "role": "背景参照"
+          }
+        ],
+        "illustration": {
+          "location": "海外の飲食文化圏",
+          "bottle": null,
+          "action": "蒸留所に問い合わせが届く"
+        }
+      },
+      {
+        "event": {
+          "id": "delivery:591",
+          "kind": "delivery",
+          "month": 1059,
+          "operationIndex": 1526,
+          "operationKey": "month",
+          "generationId": 4,
+          "agency": "automatic",
+          "ids": {
+            "shopId": "town-liquor",
+            "receiptId": 591,
+            "brandId": 1,
+            "productId": 114,
+            "releaseId": 38,
+            "count": 1
+          },
+          "label": "町の酒店に1本納品。",
+          "scene": {
+            "kind": "shop",
+            "entity": {
+              "id": "town-liquor",
+              "name": "町の酒店"
+            },
+            "bottle": {
+              "id": 1,
+              "name": "川霧",
+              "shape": "round",
+              "label": "cream"
+            }
+          },
+          "evidence": {
+            "record": "shop.deliveries",
+            "sourceId": "591"
+          },
+          "ordinal": 0,
+          "replayOrdinal": 0
+        },
+        "number": 5,
+        "month": 1059,
+        "sentence": "2114年4月、初代の頃に酒を届けた町の酒店に『川霧』が届いた。",
+        "category": "店",
+        "eventId": "delivery:591",
+        "reason": "過去世代との事実上のつながり",
+        "links": [
+          {
+            "sourceId": "delivery:8",
+            "type": "再登場",
+            "causal": false,
+            "sourceMonth": 23,
+            "sourceGeneration": 1,
+            "crossGeneration": true,
+            "role": "背景参照"
+          },
+          {
+            "sourceId": "bottling:38",
+            "type": "先代の発売",
+            "causal": false,
+            "sourceMonth": 865,
+            "sourceGeneration": 3,
+            "crossGeneration": true,
+            "role": "背景参照"
+          },
+          {
+            "sourceId": "delivery:8",
+            "type": "同じ銘柄の別発売",
+            "causal": false,
+            "sourceMonth": 23,
+            "sourceGeneration": 1,
+            "crossGeneration": true,
+            "role": "背景参照"
+          }
+        ],
+        "illustration": {
+          "location": "町の酒店",
+          "bottle": {
+            "id": 1,
+            "name": "川霧",
+            "shape": "round",
+            "label": "cream"
+          },
+          "action": "店に瓶が届く"
+        }
+      },
+      {
+        "event": {
+          "id": "visit:e9941",
+          "kind": "visit",
+          "month": 1151,
+          "operationIndex": 1655,
+          "operationKey": "month",
+          "generationId": 4,
+          "agency": "automatic",
+          "ids": {
+            "townEventId": "e9941",
+            "sourceId": "e9867",
+            "regionId": "national-food",
+            "level": "全国",
+            "townReleaseId": 45,
+            "releaseId": 45,
+            "channel": null
+          },
+          "label": "全国の飲食のつながりで銘柄を知った人が蒸留所を訪れた。",
+          "scene": {
+            "kind": "reputation",
+            "entity": {
+              "id": "national-food",
+              "name": "全国の飲食のつながり",
+              "level": "全国"
+            }
+          },
+          "evidence": {
+            "record": "labConnection.town.events",
+            "sourceId": "e9941",
+            "sourceChain": [
+              "e9378",
+              "e9442",
+              "e9448",
+              "e9679",
+              "e9866",
+              "e9867",
+              "e9941"
+            ],
+            "townOrdinal": 9940
+          },
+          "ordinal": 2,
+          "replayOrdinal": 2
+        },
+        "number": 6,
+        "month": 1151,
+        "sentence": "2121年12月、全国の飲食のつながりで銘柄を知った人が蒸留所を訪れた。",
+        "category": "地域",
+        "eventId": "visit:e9941",
+        "reason": "過去世代との事実上のつながり",
+        "links": [
+          {
+            "sourceId": "arrival:e39",
+            "type": "再登場",
+            "causal": false,
+            "sourceMonth": 16,
+            "sourceGeneration": 1,
+            "crossGeneration": true,
+            "role": "背景参照"
+          },
+          {
+            "sourceId": "arrival:e9866",
+            "type": "確認済み口コミ経路",
+            "causal": true,
+            "sourceMonth": 1134,
+            "sourceGeneration": 4,
+            "crossGeneration": false,
+            "role": "背景参照"
+          }
+        ],
+        "illustration": {
+          "location": "全国の飲食のつながり",
+          "bottle": null,
+          "action": "蒸留所の入口に訪問者"
+        }
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "bottling:39",
+        "kind": "bottling",
+        "month": 924,
+        "operationIndex": 1338,
+        "operationKey": "bottle-branded",
+        "generationId": 3,
+        "agency": "manual",
+        "ids": {
+          "brandId": 1,
+          "releaseId": 39,
+          "productId": 117,
+          "caskId": 116,
+          "age": 18,
+          "count": 45
+        },
+        "label": "18か月熟成の「川霧」を45本、瓶詰めした。",
+        "scene": {
+          "kind": "production",
+          "entity": {
+            "id": "bottling",
+            "name": "瓶詰め"
+          },
+          "bottle": {
+            "id": 1,
+            "name": "川霧",
+            "shape": "round",
+            "label": "cream"
+          }
+        },
+        "evidence": {
+          "record": "releases",
+          "sourceId": "39",
+          "flavorName": "果実香が強い"
+        },
+        "ordinal": 0,
+        "replayOrdinal": 0
+      },
+      {
+        "id": "fill:119",
+        "kind": "fill",
+        "month": 925,
+        "operationIndex": 1349,
+        "operationKey": "fill",
+        "generationId": 3,
+        "agency": "manual",
+        "ids": {
+          "caskId": 119,
+          "batchId": 118
+        },
+        "label": "原酒を樽に詰めた。",
+        "scene": {
+          "kind": "production",
+          "entity": {
+            "id": 119,
+            "name": "貯蔵庫"
+          },
+          "caskType": "refill"
+        },
+        "evidence": {
+          "record": "core.casks",
+          "sourceId": "119"
+        },
+        "ordinal": 0,
+        "replayOrdinal": 0
+      },
+      {
+        "id": "arrival:e1137",
+        "kind": "arrival",
+        "month": 76,
+        "operationIndex": 202,
+        "operationKey": "month",
+        "generationId": 1,
+        "agency": "automatic",
+        "ids": {
+          "townEventId": "e1137",
+          "sourceId": "e39",
+          "regionId": "overseas-food",
+          "level": "海外",
+          "townReleaseId": 1,
+          "releaseId": 1,
+          "channel": "chance"
+        },
+        "label": "海外の飲食文化圏に口コミが届いた。",
+        "scene": {
+          "kind": "reputation",
+          "entity": {
+            "id": "overseas-food",
+            "name": "海外の飲食文化圏",
+            "level": "海外"
+          }
+        },
+        "evidence": {
+          "record": "labConnection.town.events",
+          "sourceId": "e1137",
+          "sourceChain": [
+            "e1",
+            "e11",
+            "e14",
+            "e39",
+            "e1137"
+          ],
+          "townOrdinal": 1136
+        },
+        "ordinal": 1,
+        "replayOrdinal": 1
+      },
+      {
+        "id": "bottling:38",
+        "kind": "bottling",
+        "month": 865,
+        "operationIndex": 1269,
+        "operationKey": "bottle-branded",
+        "generationId": 3,
+        "agency": "manual",
+        "ids": {
+          "brandId": 1,
+          "releaseId": 38,
+          "productId": 114,
+          "caskId": 113,
+          "age": 12,
+          "count": 45
+        },
+        "label": "1年熟成の「川霧」を45本、瓶詰めした。",
+        "scene": {
+          "kind": "production",
+          "entity": {
+            "id": "bottling",
+            "name": "瓶詰め"
+          },
+          "bottle": {
+            "id": 1,
+            "name": "川霧",
+            "shape": "round",
+            "label": "cream"
+          }
+        },
+        "evidence": {
+          "record": "releases",
+          "sourceId": "38",
+          "flavorName": "果実香が強い"
+        },
+        "ordinal": 0,
+        "replayOrdinal": 0
+      },
+      {
+        "id": "arrival:e8610",
+        "kind": "arrival",
+        "month": 975,
+        "operationIndex": 1422,
+        "operationKey": "month",
+        "generationId": 4,
+        "agency": "automatic",
+        "ids": {
+          "townEventId": "e8610",
+          "sourceId": "e8138",
+          "regionId": "overseas-food",
+          "level": "海外",
+          "townReleaseId": 38,
+          "releaseId": 38,
+          "channel": "road"
+        },
+        "label": "海外の飲食文化圏に口コミが届いた。",
+        "scene": {
+          "kind": "reputation",
+          "entity": {
+            "id": "overseas-food",
+            "name": "海外の飲食文化圏",
+            "level": "海外"
+          }
+        },
+        "evidence": {
+          "record": "labConnection.town.events",
+          "sourceId": "e8610",
+          "sourceChain": [
+            "e7823",
+            "e7836",
+            "e7838",
+            "e8005",
+            "e8138",
+            "e8610"
+          ],
+          "townOrdinal": 8609
+        },
+        "ordinal": 4,
+        "replayOrdinal": 4
+      },
+      {
+        "id": "delivery:8",
+        "kind": "delivery",
+        "month": 23,
+        "operationIndex": 100,
+        "operationKey": "month",
+        "generationId": 1,
+        "agency": "automatic",
+        "ids": {
+          "shopId": "town-liquor",
+          "receiptId": 8,
+          "brandId": 1,
+          "productId": 17,
+          "releaseId": 5,
+          "count": 1
+        },
+        "label": "町の酒店に1本納品。",
+        "scene": {
+          "kind": "shop",
+          "entity": {
+            "id": "town-liquor",
+            "name": "町の酒店"
+          },
+          "bottle": {
+            "id": 1,
+            "name": "川霧",
+            "shape": "round",
+            "label": "cream"
+          }
+        },
+        "evidence": {
+          "record": "shop.deliveries",
+          "sourceId": "8"
+        },
+        "ordinal": 1,
+        "replayOrdinal": 1
+      },
+      {
+        "id": "arrival:e39",
+        "kind": "arrival",
+        "month": 16,
+        "operationIndex": 79,
+        "operationKey": "month",
+        "generationId": 1,
+        "agency": "automatic",
+        "ids": {
+          "townEventId": "e39",
+          "sourceId": "e14",
+          "regionId": "national-food",
+          "level": "全国",
+          "townReleaseId": 1,
+          "releaseId": 1,
+          "channel": "chance"
+        },
+        "label": "全国の飲食のつながりに口コミが届いた。",
+        "scene": {
+          "kind": "reputation",
+          "entity": {
+            "id": "national-food",
+            "name": "全国の飲食のつながり",
+            "level": "全国"
+          }
+        },
+        "evidence": {
+          "record": "labConnection.town.events",
+          "sourceId": "e39",
+          "sourceChain": [
+            "e1",
+            "e11",
+            "e14",
+            "e39"
+          ],
+          "townOrdinal": 38
+        },
+        "ordinal": 3,
+        "replayOrdinal": 3
+      },
+      {
+        "id": "arrival:e9866",
+        "kind": "arrival",
+        "month": 1134,
+        "operationIndex": 1632,
+        "operationKey": "month",
+        "generationId": 4,
+        "agency": "automatic",
+        "ids": {
+          "townEventId": "e9866",
+          "sourceId": "e9679",
+          "regionId": "national-food",
+          "level": "全国",
+          "townReleaseId": 45,
+          "releaseId": 45,
+          "channel": "road"
+        },
+        "label": "全国の飲食のつながりに口コミが届いた。",
+        "scene": {
+          "kind": "reputation",
+          "entity": {
+            "id": "national-food",
+            "name": "全国の飲食のつながり",
+            "level": "全国"
+          }
+        },
+        "evidence": {
+          "record": "labConnection.town.events",
+          "sourceId": "e9866",
+          "sourceChain": [
+            "e9378",
+            "e9442",
+            "e9448",
+            "e9679",
+            "e9866"
+          ],
+          "townOrdinal": 9865
+        },
+        "ordinal": 1,
+        "replayOrdinal": 1
+      }
+    ],
+    "proofs": [
+      {
+        "sourceId": "arrival:e8610",
+        "chain": [
+          {
+            "id": "e7823",
+            "month": 865,
+            "releaseId": 38,
+            "sourceId": null,
+            "operationIndex": 1269,
+            "nativeOrdinal": 0
+          },
+          {
+            "id": "e7836",
+            "month": 866,
+            "releaseId": 38,
+            "sourceId": "e7823",
+            "operationIndex": 1275,
+            "nativeOrdinal": 12
+          },
+          {
+            "id": "e7838",
+            "month": 867,
+            "releaseId": 38,
+            "sourceId": "e7836",
+            "operationIndex": 1276,
+            "nativeOrdinal": 1
+          },
+          {
+            "id": "e8005",
+            "month": 885,
+            "releaseId": 38,
+            "sourceId": "e7838",
+            "operationIndex": 1294,
+            "nativeOrdinal": 2
+          },
+          {
+            "id": "e8138",
+            "month": 915,
+            "releaseId": 38,
+            "sourceId": "e8005",
+            "operationIndex": 1328,
+            "nativeOrdinal": 0
+          },
+          {
+            "id": "e8610",
+            "month": 975,
+            "releaseId": 38,
+            "sourceId": "e8138",
+            "operationIndex": 1422,
+            "nativeOrdinal": 8
+          },
+          {
+            "id": "e8611",
+            "month": 975,
+            "releaseId": 38,
+            "sourceId": "e8610",
+            "operationIndex": 1422,
+            "nativeOrdinal": 9
+          },
+          {
+            "id": "e8866",
+            "month": 999,
+            "releaseId": 38,
+            "sourceId": "e8611",
+            "operationIndex": 1452,
+            "nativeOrdinal": 0
+          }
+        ],
+        "targetId": "inquiry:e8866"
+      },
+      {
+        "sourceId": "arrival:e9866",
+        "chain": [
+          {
+            "id": "e9378",
+            "month": 1079,
+            "releaseId": 45,
+            "sourceId": null,
+            "operationIndex": 1558,
+            "nativeOrdinal": 0
+          },
+          {
+            "id": "e9442",
+            "month": 1085,
+            "releaseId": 45,
+            "sourceId": "e9378",
+            "operationIndex": 1573,
+            "nativeOrdinal": 14
+          },
+          {
+            "id": "e9448",
+            "month": 1086,
+            "releaseId": 45,
+            "sourceId": "e9442",
+            "operationIndex": 1574,
+            "nativeOrdinal": 4
+          },
+          {
+            "id": "e9679",
+            "month": 1104,
+            "releaseId": 45,
+            "sourceId": "e9448",
+            "operationIndex": 1598,
+            "nativeOrdinal": 3
+          },
+          {
+            "id": "e9866",
+            "month": 1134,
+            "releaseId": 45,
+            "sourceId": "e9679",
+            "operationIndex": 1632,
+            "nativeOrdinal": 0
+          },
+          {
+            "id": "e9867",
+            "month": 1134,
+            "releaseId": 45,
+            "sourceId": "e9866",
+            "operationIndex": 1632,
+            "nativeOrdinal": 1
+          },
+          {
+            "id": "e9941",
+            "month": 1151,
+            "releaseId": 45,
+            "sourceId": "e9867",
+            "operationIndex": 1655,
+            "nativeOrdinal": 0
+          }
+        ],
+        "targetId": "visit:e9941"
+      }
+    ],
+    "digest": "58cd0da59705f349"
+  }
+}
