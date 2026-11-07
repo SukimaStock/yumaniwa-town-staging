@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {size,measureGame} from '../design/s3-r0-capacity/measure.mjs';
+import {compactFormalGame,expandFormalGame,MAX_FORMAL_CODE_UNITS} from '../save-codec.mjs';
+const sample=()=>{const e={id:'a1',type:'arrival',text:'町😀'};return {version:20,labConnection:{town:{events:[e],arrivals:[structuredClone(e)]}},shop:{deliveries:[]}};};
+test('audit distinguishes UTF-16 code units and UTF-8 bytes',()=>{const text=JSON.stringify('町😀');assert.equal(size('町😀').utf16,text.length);assert.equal(size('町😀').utf8,Buffer.byteLength(text));assert.notEqual(text.length,Buffer.byteLength(text));});
+test('theoretical C estimate is exact and leaves full research source untouched',()=>{const game=sample(),before=JSON.stringify(game),records={userPaused:true};const measured=measureGame(game,records);const compact=compactFormalGame(before);assert.deepEqual(measured.compactGame,size(compact));assert.deepEqual(measured.theoreticalSession,size({version:8,game:compact,...records}));assert.equal(JSON.stringify(game),before);assert.equal(expandFormalGame(compact),before);});
+test('audit does not silently compact inconsistent arrivals',()=>{const game=sample();game.labConnection.town.arrivals[0].text='changed';const before=JSON.stringify(game);assert.throws(()=>measureGame(game,{}));assert.equal(JSON.stringify(game),before);});
+test('smaller wire representation cannot bypass expanded formal guard',()=>{const game=sample();game.labConnection.town.events[0].text='x'.repeat(3100000);game.labConnection.town.arrivals=[structuredClone(game.labConnection.town.events[0])];const before=JSON.stringify(game),measured=measureGame(game,{});assert(before.length>=MAX_FORMAL_CODE_UNITS);assert(measured.compactGame.utf16<MAX_FORMAL_CODE_UNITS);assert.throws(()=>compactFormalGame(before));const compact=JSON.parse(before);compact.labConnection.town.arrivals=null;assert.throws(()=>expandFormalGame(compact));assert.equal(JSON.stringify(game),before);});
+
+test('audit rejects equal values with noncanonical arrival property order',()=>{const game=sample(),e=game.labConnection.town.arrivals[0];game.labConnection.town.arrivals[0]={text:e.text,type:e.type,id:e.id};assert.throws(()=>measureGame(game,{}));assert.throws(()=>compactFormalGame(JSON.stringify(game)));});
