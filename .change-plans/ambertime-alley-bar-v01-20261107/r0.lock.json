@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2ffa7d32bcc348886f4fc3262da51009417878a3d367e5f3f5f2366d123e332e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-alley-bar-v01-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add formal alley bar with logged adoption, sales, factual dialogue and bounded shelf pages",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "34c537c17e5a17085fc7a47fdfa6912b5fb1824b",
+    "canonicalSources": [
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/release-package.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-alley-bar-v01-20261107/r0.lock.json",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-dialogue-text.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/bar-model.test.mjs",
+      "works/ambertime/tests/bar-browser.test.mjs",
+      "works/ambertime/tests/shop-dialogue.test.mjs",
+      "works/ambertime/tests/shop-dialogue-a6.test.mjs",
+      "works/ambertime/tests/shop-dialogue-view.test.mjs",
+      "works/ambertime/tests/shop-dialogue-browser.test.mjs",
+      "works/ambertime/tests/market-rules-model.test.mjs",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/market-compact-browser.test.mjs",
+      "works/ambertime/design/alley-bar-v01-20261107/**",
+      "works/ambertime/bar-dialogue-text.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      ".github/**",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Explicit replayed enable-alley-bar boundary preserves every older operation and state",
+      "Bar offer from actual rumor arrival or sustained retail evidence; no unlock chain; optional acceptance and stock",
+      "Bar only low-volume smoke/body affinity and price; existing venues byte-identical outcomes",
+      "Author exact store-specific dialogue, actual sale memories and global opportunity budget",
+      "Retail always visible; conditional partner pagination preserves selection and quantities; compare alternatives"
+    ],
+    "ownerDecisions": [
+      "2026-11-07 current request authorizes bar specification, minimum switching comparison and safe Staging merge; Production excluded"
+    ],
+    "hqDecisions": [
+      "Use existing operation-log migration pattern and state flag, no new save key/version or rumor model; pre-boundary paths unchanged"
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "four-viewport-browser",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert feature commit; export pre-adoption prefix for saves with bar operations before older runtime",
+    "outOfScope": [
+      "Production",
+      "New restaurant stockist",
+      "Rumor engine redesign",
+      "Map integration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari"
+    ],
+    "design": "Logged boundary; append bar to store definitions but gate offers and shelf state on boundary. Existing sales branches unchanged.",
+    "migration": "enable-alley-bar opcode adds empty bar bucket and boundary month; replay only at recorded index; persist before displaying availability.",
+    "compatibility": "Old saves replay without bar offers; old factories remain unchanged; main factory opts in.",
+    "boundaryCases": [
+      "old save",
+      "cold replay",
+      "partial distillation",
+      "tasting",
+      "empty shelf",
+      "1 bottle",
+      "multiple releases",
+      "save failure",
+      "generation recall"
+    ],
+    "problem": "Formal shelves and dialogue currently support only existing shops",
+    "currentContract": "Replay validated operation log, store-market reservations and global dialogue opportunities",
+    "whyExistingIsInsufficient": "Bar is currently only a rumor node",
+    "promotionRisk": "Staging only; bar saves require this runtime or pre-adoption export",
+    "alternativesRejected": [
+      "Vertical additional rows overflow short phones",
+      "Horizontal tabs require overflow at ten stores",
+      "Changing old save replay would invalidate existing records"
+    ],
+    "testPlan": [
+      "Cold restore and migration identity",
+      "Existing sales golden outcomes",
+      "Bar offer, placement, sales, rumor and conservation",
+      "Bounded dialogue and exact memory",
+      "Four viewport browser and existing sales UI regressions"
+    ]
+  }
+}
