@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {reconcileCaskSlots} from '../cask-slots.mjs';
 import {writeCandidate} from '../placement-save.mjs';
-import {createMarketUI,savedMarketSales,visibleMarketRows,compactReleaseDate,availableMarketShops,marketShopWindow} from '../market-ui.mjs';
+import {createMarketUI,savedMarketSales,visibleMarketRows,compactReleaseDate,availableMarketShops,marketShopOrder} from '../market-ui.mjs';
 const fixture=()=>({core:{month:4,products:[{id:7,stock:5,flavor:{primary:'fruit',label:'果実香が強い'}},{id:9,stock:4,flavor:{primary:'smoke',label:'煙の香り'}}]},releases:[{id:3,productId:7,brandId:1,bottledMonth:2},{id:4,productId:9,brandId:1,bottledMonth:3}],brands:[{id:1,name:'AmberTime'}],productsById:{},shop:{relations:[{shopId:'town-liquor',brandId:1}]},retail:{7:1,9:0},assigned:{7:2,9:1}});
 const model={
  storeMarketInventory:(s,id)=>({hand:s.core.products.find(p=>p.id===id).stock-(s.retail[id]??0)-(s.assigned[id]??0)-(s.held?.[id]??0),retail:s.retail[id]??0,shops:{'town-liquor':s.assigned[id]??0,supermarket:0}}),
@@ -216,43 +216,42 @@ test('rapid placement replaces the previous delta and leaves unsigned current st
 });
 
 
-test('partner switch stays bounded at 5 and 10 shops, keeps self sales and every partner reachable',()=>{
- for(const count of [5,10]){
-  const shops=[{id:'retail'},...Array.from({length:count-1},(_,i)=>({id:'partner-'+i}))];
-  for(const partner of shops.slice(1)){
-   const view=marketShopWindow(shops,partner.id);
-   assert.equal(view.paged,true);assert.equal(view.shops.length,2);
-   assert.deepEqual(view.shops.map(shop=>shop.id),['retail',partner.id]);
-  }
-  assert.equal(marketShopWindow(shops,'missing').selectedShopId,'partner-0');
- }
- const three=[{id:'retail'},{id:'town-liquor'},{id:'supermarket'}];
- assert.deepEqual(marketShopWindow(three,'supermarket').shops,three);
- assert.equal(marketShopWindow(three,'supermarket').paged,false);
+test('actual-sale ordering excludes legacy deliveries, boundary month, invalid and zero receipts; ties use definition order',()=>{
+ const shops=[{id:'retail'},{id:'town-liquor'},{id:'supermarket'},{id:'bar'},{id:'never'}];
+ const s=fixture();s.core.month=10;s.storeMarket={version:1,startedMonth:4};
+ s.shop.deliveries=[{shopId:'town-liquor',month:4,count:100},{shopId:'bar',month:9,count:1},{shopId:'supermarket',month:9,count:2},{shopId:'town-liquor',month:10,count:0},{shopId:'never',month:11,count:1}];
+ assert.deepEqual(marketShopOrder(s,shops).map(x=>x.id),['retail','supermarket','bar','town-liquor','never']);
+ delete s.storeMarket;assert.deepEqual(marketShopOrder(s,shops),shops);
+ for(const count of [0,1,2,3,5,10]){const many=[{id:'retail'},...Array.from({length:count},(_,i)=>({id:'p'+i}))];assert.deepEqual(marketShopOrder(s,many),many);}
 });
-test('bar offer alone is hidden; accepted bar can be selected without changing bottles, quantity or durable state',()=>{
+test('bar offer alone is hidden; all contracted partners stay reachable without a pager or durable change',()=>{
  const h=harness();h.read().alleyBar={version:1};h.read().shop.relations.push({shopId:'supermarket',brandId:1});
  h.read().shop.offer={shopId:'bar',brandId:1};h.ui.update({visible:true});
  assert(!availableMarketShops(h.read()).some(shop=>shop.id==='bar'));
- assert.doesNotMatch(h.root.innerHTML,/market-switcher/);
  h.read().shop.relations.push({shopId:'bar',brandId:1});h.ui.update({visible:true});
  h.click({marketRelease:'9'});h.click({marketPortion:'5'});const before=structuredClone(h.read());
- assert.match(h.root.innerHTML,/market-switcher/);assert.match(h.root.innerHTML,/data-market-shop="retail"/);
- h.click({marketSwitch:'next'});h.click({marketSwitch:'next'});
- assert.match(h.root.innerHTML,/data-market-shop="bar"/);assert.match(h.root.innerHTML,/路地裏のバー/);
- assert.doesNotMatch(h.root.innerHTML,/data-market-shop="town-liquor"|data-market-shop="supermarket"/);
+ assert.doesNotMatch(h.root.innerHTML,/market-switcher/);
+ for(const id of ['retail','town-liquor','supermarket','bar'])assert(h.root.innerHTML.includes('data-market-shop="'+id+'"'));
+ assert(h.root.innerHTML.indexOf('data-market-shop="retail"')<h.root.innerHTML.indexOf('class="market-partners"'));
  assert.equal(h.ui.diagnostics().selected,9);assert.equal(h.ui.diagnostics().portion,'5');assert.deepEqual(h.read(),before);
  h.click({marketDetails:'bar'});assert.equal(h.opened.at(-1),'bar');
- h.ui.update({visible:false});h.ui.update({visible:true});assert.equal(h.ui.diagnostics().selectedShopId,'bar');
- h.ui.reset();h.ui.update({visible:true});assert.equal(h.ui.diagnostics().selectedShopId,'town-liquor');
 });
-
+test('order changes on room entry only, never on monthly repaint, placement or modal close',()=>{
+ const h=harness(),s=h.read();s.alleyBar={version:1};s.storeMarket={version:1,startedMonth:0};s.shop.deliveries=[];
+ s.shop.relations.push({shopId:'supermarket',brandId:1},{shopId:'bar',brandId:1});h.ui.update({visible:true,sessionActive:true});
+ const initial=h.ui.diagnostics().order;h.click({marketPlace:'town-liquor'});assert.deepEqual(h.ui.diagnostics().order,initial);
+ s.shop.deliveries.push({shopId:'bar',month:4,count:1}); // act replaced state; update current receipt journal too
+ h.read().shop.deliveries=s.shop.deliveries;
+ h.ui.update({visible:true,sessionActive:true});assert.deepEqual(h.ui.diagnostics().order,initial);
+ h.ui.update({visible:false,sessionActive:true});h.ui.update({visible:true,sessionActive:true});assert.deepEqual(h.ui.diagnostics().order,initial);
+ h.ui.update({visible:false,sessionActive:false});h.ui.update({visible:true,sessionActive:true});assert.deepEqual(h.ui.diagnostics().order,['retail','bar','town-liquor','supermarket']);
+});
 test('bar sale receipts join ordinary saved sales without changing the selected partner',async t=>{
  t.mock.timers.enable({apis:['setTimeout']});const h=harness();h.read().alleyBar={version:1};h.read().shop.relations.push({shopId:'supermarket',brandId:1},{shopId:'bar',brandId:1});h.ui.update({visible:true});
  const before=structuredClone(h.read()),after=structuredClone(before);after.core.month++;
  after.core.lastMonth={month:after.core.month,sales:[{id:7,sold:1,revenue:12,channel:'stockist',shopId:'bar'}]};
  assert.deepEqual(savedMarketSales(before,after),[{productId:7,shopId:'bar',count:1,revenue:12,month:5}]);
- h.ui.consume(before,after);assert.equal(h.ui.diagnostics().selectedShopId,'town-liquor');assert.deepEqual(h.savedNotices,['路地裏のバーで1本売れました。']);
- h.click({marketSwitch:'next'});h.click({marketSwitch:'next'});assert.equal(h.ui.diagnostics().selectedShopId,'bar');
+ h.ui.consume(before,after);assert.deepEqual(h.ui.diagnostics().order,['retail','town-liquor','supermarket','bar']);assert.deepEqual(h.savedNotices,['路地裏のバーで1本売れました。']);
+ assert.match(h.root.innerHTML,/data-market-shop="bar"/);
  await Promise.resolve();await Promise.resolve();t.mock.timers.tick(1400);assert.equal(h.ui.diagnostics().feedback.length,0);
 });
