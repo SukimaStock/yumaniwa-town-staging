@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2fc9769a953f0dfa80e97150ac1422bae9eea8d76e87ee8e585f5ec80034cbb2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-staff-access-stage3-20261107",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage 3 direct room-specific staff access",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b73c00273befb1184d967bf65cae3be89708d21d",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/staff-encounter-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-staff-access-stage3-20261107/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/staff-access-view.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/staff-access.test.mjs",
+      "works/ambertime/tests/staff-access-browser.test.mjs",
+      "works/ambertime/tests/staff-encounter-browser.test.mjs",
+      "works/ambertime/design/staff-access-stage3-20261107/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/release-package.mjs"
+    ],
+    "expectedChanges": [
+      "Room-owned icon: distill staff in distill, bottler in warehouse, none in sales; hidden while corresponding job locked",
+      "Unhired direct encounter, hired direct existing panel even while work active; return closes to room without staff manager",
+      "Preserve pending opportunity acknowledgement only after display and direct-entry hiring routes to the same job settings",
+      "Existing recipes, work requests, bottling settings, costs, saves and earlier reaction/portrait behavior remain unchanged"
+    ],
+    "ownerDecisions": [
+      "Original staged request plus 2026-11-07 author confirmation of Stage 2 and instruction to proceed. Implement Stage 3, CI, merge Staging, verify Pages."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "EXPRESSION-AUDIT.md; no new explanatory UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "four-width-browser",
+      "iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this presentation-only change",
+    "outOfScope": [
+      "Production",
+      "Economy, hiring eligibility, salaries, saved schema, work reservations",
+      "New staff roles, new icons/portraits or changes to automatic opportunity location"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari; browser until actual checks complete"
+    ]
+  }
+}
