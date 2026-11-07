@@ -1,6 +1,7 @@
 // Candidate-only pure monthly market. No native saves, money or inventory writes.
 export const RULES='ambertime-market-design/1';
 export const VENUES=Object.freeze([
+ Object.freeze({id:'bar',name:'路地裏のバー',opportunities:4,preference:'煙・味の厚み'}),
  Object.freeze({id:'retail',name:'直販売',opportunities:6,preference:'少量を直接売る'}),
  Object.freeze({id:'town-liquor',name:'町の酒店',opportunities:8,preference:'煙・味の厚み'}),
  Object.freeze({id:'supermarket',name:'町のスーパー',opportunities:12,preference:'麦・果実'})
@@ -15,6 +16,7 @@ export function profileKey(item){return JSON.stringify([num(item.age),...axes.ma
 export function affinity(venue,item){
  assert(VENUES.some(v=>v.id===venue),'Unknown venue');
  if(venue==='retail')return 1;
+ if(venue==='bar'){const f=flavorOf(item),sum=['fruit','grain','smoke','body'].reduce((n,k)=>n+num(f[k]),0);return clamp(sum>0?(num(f.smoke)+num(f.body))/sum:.7*num(item.character)+.3*num(item.wood));}
  const f=flavorOf(item),sum=['fruit','grain','smoke','body'].reduce((n,k)=>n+num(f[k]),0);
  // Legacy axis-only fixtures remain usable; no invented aroma is persisted.
  const favored=sum>0?(venue==='town-liquor'?(num(f.smoke)+num(f.body))/sum:(num(f.fruit)+num(f.grain))/sum):venue==='town-liquor'?clamp(.7*num(item.character)+.3*num(item.wood)):clamp(1-num(item.roughness));
@@ -23,7 +25,7 @@ export function affinity(venue,item){
 export function acceptance(venue,item,multiplier=1){
  if(venue==='supermarket'&&item.age<12)return 0;
  const fit=affinity(venue,item),reference=item.referencePrice??(venue==='retail'?item.price:venue==='town-liquor'?16:20),priceFactor=Math.sqrt(reference/Math.max(.01,item.price));
- const base=venue==='retail'?(item.age<6?.26:.84):.025+.925*fit**3;
+ const base=venue==='bar'?.12+.80*fit**2:venue==='retail'?(item.age<6?.26:.84):.025+.925*fit**3;
  return clamp(base*priceFactor*multiplier);
 }
 export function unit(seed,key){let h=seed>>>0;for(const c of key)h=Math.imul(h^c.charCodeAt(0),16777619)>>>0;h=Math.imul(h^(h>>>16),2246822507);return ((h^(h>>>13))>>>0)/4294967296;}

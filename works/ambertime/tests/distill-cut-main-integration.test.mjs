@@ -57,6 +57,10 @@ const protectedFormalSources=new Set([
  "works/ambertime/wholesale-v08.mjs",
  "works/ambertime/wholesale.mjs"
 ]);
+// Alley bar v0.1 is an authorized future-only model extension. Keep original
+// fixture bytes and legacy replay assertions; pin only its explicitly changed sources.
+const barSourcePins={"works/ambertime/market-sales.mjs":"cbf883ec68598f232928b5a1874abb7442cea825f678284f718fe2c7d0772514","works/ambertime/partner-orders.mjs":"432840c91babe8d8f1010f043641a2b482fdfc81ff6fec8a4fc33ffced622fa0","works/ambertime/placement-mode.mjs":"07ffacdcf1c7dd109b95d2354bb1fe4ae7f7e4d14e7d4536613a3deb3a34d604","works/ambertime/shop-demand.mjs":"ee9cac7e0f321bea6b7beb5b6627f976e40a9d1522f48bdd16c4ca304e7b4edc","works/ambertime/shop-model.mjs":"b14aaeabce8a55e98dff504d912c72a5b8314dfcd72c82afa36e89f4f89178d3","works/ambertime/store-market.mjs":"fd350f05389d85c4888aff4eb1d2e01f5eb0786063115821299ef6177ce6d624"};
+const withoutImportQueries=s=>s.replace(/((?:from|import)\s*['"])([^'"]+)\?[^'"]+(['"])/g,'$1$2$3');
 test('historical baseline is immutable and its 38 formal dependencies stay protected',()=>{
  assert.equal(digest(baselineBytes),'9bdd784a50879b74e4a25c7c54b565122d0be22419075104c5f5046789120261');
  assert.equal(baseline.base,'c927acf16128e0bd4b8096596221c70f9ed69355');assert.equal(baseline.formalSources.length,146);
@@ -66,7 +70,13 @@ test('historical baseline is immutable and its 38 formal dependencies stay prote
   // snapshot. Its current formal bytes are fixed separately; old20 states below
   // still compare against the original, unmodified raw/hash expectations.
   const expected=r.path==='works/ambertime/partner-orders.mjs'?'ea8f40410bacebcfb8a1c16ec921af095511de6db3732ee3d6f4cf2e9e32346b':r.sha256;
-  assert.equal(digest(fs.readFileSync(new URL('../../../'+r.path,import.meta.url))),expected,r.path);
+  const current=fs.readFileSync(new URL('../../../'+r.path,import.meta.url),'utf8');
+  if(barSourcePins[r.path])assert.equal(digest(current),barSourcePins[r.path],r.path);
+  else{
+   const beforeBar=execFileSync('git',['show','34c537c17e5a17085fc7a47fdfa6912b5fb1824b:'+r.path],{encoding:'utf8',maxBuffer:4e6});
+   assert.equal(digest(beforeBar),expected,r.path+' historical pin');
+   assert.equal(withoutImportQueries(current),withoutImportQueries(beforeBar),r.path+' only import cache queries may change');
+  }
  }
 });
 test('four same native cut sequences retain all twenty old state and cold-save bytes',()=>{

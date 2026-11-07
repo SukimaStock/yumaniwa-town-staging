@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {reconcileCaskSlots} from '../cask-slots.mjs';
 import {writeCandidate} from '../placement-save.mjs';
-import {createMarketUI,savedMarketSales,visibleMarketRows,compactReleaseDate} from '../market-ui.mjs';
+import {createMarketUI,savedMarketSales,visibleMarketRows,compactReleaseDate,availableMarketShops,marketShopWindow} from '../market-ui.mjs';
 const fixture=()=>({core:{month:4,products:[{id:7,stock:5,flavor:{primary:'fruit',label:'果実香が強い'}},{id:9,stock:4,flavor:{primary:'smoke',label:'煙の香り'}}]},releases:[{id:3,productId:7,brandId:1,bottledMonth:2},{id:4,productId:9,brandId:1,bottledMonth:3}],brands:[{id:1,name:'AmberTime'}],productsById:{},shop:{relations:[{shopId:'town-liquor',brandId:1}]},retail:{7:1,9:0},assigned:{7:2,9:1}});
 const model={
  storeMarketInventory:(s,id)=>({hand:s.core.products.find(p=>p.id===id).stock-(s.retail[id]??0)-(s.assigned[id]??0)-(s.held?.[id]??0),retail:s.retail[id]??0,shops:{'town-liquor':s.assigned[id]??0,supermarket:0}}),
@@ -126,7 +126,7 @@ function nativeTransaction({failWrite=false,conflict=false,invalid=false}={}){
  const start=source.indexOf('function actMarket(fn){'),end=source.indexOf('function commitPlacement(',start);
  const old={id:'before',core:{casks:[]},operations:[]},next={id:'after',core:{casks:[]},operations:[]},calls={writes:0,receipts:0,news:0,renders:0},saveStatus={textContent:'保存済み'};
  let stored=conflict?'another-tab':'old';
- const context={recentLedger:{},advanceRecentLedger:(_before,_after,ledger)=>ledger,migrateRecentLedger:()=>({}),reconcileCaskSlots,caskSlots:[null,null,null,null],game:old,committedSession:{game:old,userPaused:false,elapsed:0,caskSlots:[null,null,null,null]},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
+ const context={historyRecord:{},pendingRecall:null,recallRecord:null,recallPreview:null,debugSkipJob:null,lastSaveError:null,legacyRecord:null,dialogueNotice:{reset(){}},noteDialogueCommit(){},advanceHistoryRecord:(_before,_after,history)=>history,initializeHistoryRecord:()=>({}),recentLedger:{},advanceRecentLedger:(_before,_after,ledger)=>ledger,migrateRecentLedger:()=>({}),reconcileCaskSlots,caskSlots:[null,null,null,null],game:old,committedSession:{game:old,userPaused:false,elapsed:0,caskSlots:[null,null,null,null]},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
   D:{serializeDistillery:g=>{if(invalid)throw Error('invalid state');return JSON.stringify(g);}},
   countdown:{cancel(){}},stopClock(){},vaultPanels(){},writeCandidate,serializeSession:(game,ui,{serialize})=>JSON.stringify({version:3,game:JSON.parse(serialize(game)),...ui}),T:{monthMs:6000,distillStepMs:100},
   localStorage:{getItem:()=>stored,setItem:(key,value)=>{calls.writes++;if(failWrite)throw Error('quota');stored=value;}},
@@ -213,4 +213,46 @@ test('rapid placement replaces the previous delta and leaves unsigned current st
  assert.match(h.root.innerHTML,/class="market-count">4本/);
  t.mock.timers.tick(650);
  assert.equal(h.overlays.length,0);
+});
+
+
+test('partner switch stays bounded at 5 and 10 shops, keeps self sales and every partner reachable',()=>{
+ for(const count of [5,10]){
+  const shops=[{id:'retail'},...Array.from({length:count-1},(_,i)=>({id:'partner-'+i}))];
+  for(const partner of shops.slice(1)){
+   const view=marketShopWindow(shops,partner.id);
+   assert.equal(view.paged,true);assert.equal(view.shops.length,2);
+   assert.deepEqual(view.shops.map(shop=>shop.id),['retail',partner.id]);
+  }
+  assert.equal(marketShopWindow(shops,'missing').selectedShopId,'partner-0');
+ }
+ const three=[{id:'retail'},{id:'town-liquor'},{id:'supermarket'}];
+ assert.deepEqual(marketShopWindow(three,'supermarket').shops,three);
+ assert.equal(marketShopWindow(three,'supermarket').paged,false);
+});
+test('bar offer alone is hidden; accepted bar can be selected without changing bottles, quantity or durable state',()=>{
+ const h=harness();h.read().alleyBar={version:1};h.read().shop.relations.push({shopId:'supermarket',brandId:1});
+ h.read().shop.offer={shopId:'bar',brandId:1};h.ui.update({visible:true});
+ assert(!availableMarketShops(h.read()).some(shop=>shop.id==='bar'));
+ assert.doesNotMatch(h.root.innerHTML,/market-switcher/);
+ h.read().shop.relations.push({shopId:'bar',brandId:1});h.ui.update({visible:true});
+ h.click({marketRelease:'9'});h.click({marketPortion:'5'});const before=structuredClone(h.read());
+ assert.match(h.root.innerHTML,/market-switcher/);assert.match(h.root.innerHTML,/data-market-shop="retail"/);
+ h.click({marketSwitch:'next'});h.click({marketSwitch:'next'});
+ assert.match(h.root.innerHTML,/data-market-shop="bar"/);assert.match(h.root.innerHTML,/路地裏のバー/);
+ assert.doesNotMatch(h.root.innerHTML,/data-market-shop="town-liquor"|data-market-shop="supermarket"/);
+ assert.equal(h.ui.diagnostics().selected,9);assert.equal(h.ui.diagnostics().portion,'5');assert.deepEqual(h.read(),before);
+ h.click({marketDetails:'bar'});assert.equal(h.opened.at(-1),'bar');
+ h.ui.update({visible:false});h.ui.update({visible:true});assert.equal(h.ui.diagnostics().selectedShopId,'bar');
+ h.ui.reset();h.ui.update({visible:true});assert.equal(h.ui.diagnostics().selectedShopId,'town-liquor');
+});
+
+test('bar sale receipts join ordinary saved sales without changing the selected partner',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});const h=harness();h.read().alleyBar={version:1};h.read().shop.relations.push({shopId:'supermarket',brandId:1},{shopId:'bar',brandId:1});h.ui.update({visible:true});
+ const before=structuredClone(h.read()),after=structuredClone(before);after.core.month++;
+ after.core.lastMonth={month:after.core.month,sales:[{id:7,sold:1,revenue:12,channel:'stockist',shopId:'bar'}]};
+ assert.deepEqual(savedMarketSales(before,after),[{productId:7,shopId:'bar',count:1,revenue:12,month:5}]);
+ h.ui.consume(before,after);assert.equal(h.ui.diagnostics().selectedShopId,'town-liquor');assert.deepEqual(h.savedNotices,['路地裏のバーで1本売れました。']);
+ h.click({marketSwitch:'next'});h.click({marketSwitch:'next'});assert.equal(h.ui.diagnostics().selectedShopId,'bar');
+ await Promise.resolve();await Promise.resolve();t.mock.timers.tick(1400);assert.equal(h.ui.diagnostics().feedback.length,0);
 });

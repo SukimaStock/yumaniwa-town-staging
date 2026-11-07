@@ -1,4 +1,4 @@
-import {planSales,RULES as MARKET_RULES} from './market-sales.mjs?v=market-rules-r1';
+import {planSales,RULES as MARKET_RULES} from './market-sales.mjs?v=bar-v01-1';
 import * as M from './model.mjs?v=stage4-r2';
 import * as D from './distillery.mjs?v=stage4-r2';
 import {mixSeed,sampleCharacter,endCharacterTasting,chooseCharacter,comparisons,sampleOf,profile} from './character.mjs?v=stage4-r2';

@@ -1,9 +1,10 @@
+import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {retailSalePlan as saleFlightPlan,ordinarySaleGroups as saleFlightGroups} from './retail-sale-motion.mjs?v=count-linked-r1';
 import {monthLabel} from './model.mjs?v=stage4-r2';
 import {flavorType} from './flavor-types.mjs?v=stage4-r2';
 const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-const ordinary=[{id:'retail',name:'自家販売'},{id:'town-liquor',name:'町の酒店'},{id:'supermarket',name:'スーパー'}];
+const ordinary=[{id:'retail',name:'自家販売'},...SHOPS.filter(shop=>shop.id!=='department').map(shop=>({id:shop.id,name:shop.id==='supermarket'?'スーパー':shop.name}))];
 const primaryNames={fruit:'果実',grain:'穀物',smoke:'煙',body:'コク',spice:'スパイス',wood:'樽',vanilla:'バニラ'};
 const portionCount=(n,choice)=>choice==='all'?n:Math.min(n,Number(choice)||0);
 const releaseFor=(s,id)=>s.releases.find(r=>r.productId===id);
@@ -31,7 +32,13 @@ export function commitMarketRulesUpdate(storage,key,expected,text){
  if(storage.getItem(key)!==text)throw Error('保存を確認できません。切替前の記録は残っています。');
  return {text,backupKey};
 }
-export const availableMarketShops=s=>ordinary.filter(shop=>shop.id==='retail'||s.shop.relations.some(r=>r.shopId===shop.id));
+export const availableMarketShops=s=>ordinary.filter(shop=>shop.id==='retail'||(shop.id!=='bar'||s.alleyBar?.version===1)&&s.shop.relations.some(r=>r.shopId===shop.id));
+// Only presentation state: retail stays available while partners share one shelf.
+export function marketShopWindow(shops,selectedShopId){
+ const partners=shops.filter(shop=>shop.id!=='retail'),paged=shops.length>3;
+ const index=Math.max(0,partners.findIndex(shop=>shop.id===selectedShopId));
+ return {paged,index,partners,selectedShopId:partners[index]?.id??null,shops:paged?shops.filter(shop=>shop.id==='retail'||shop.id===partners[index]?.id):shops};
+}
 export function savedMarketSales(before,after){
  if(!before||!after||after.core.month<=before.core.month||after.core.lastMonth?.month!==after.core.month)return [];
  const rows=[];
@@ -56,7 +63,7 @@ export function visibleMarketRows(s,model,shopId,feedback=[]){
 export function createMarketUI({document:doc,model:D,state,art,icon='',act,openProduct,openStockist,openRetailInfo=()=>{},announce=()=>{},announceSaved=()=>{},setEditing=()=>{}}){
  const root=doc.getElementById('market-board');doc.body.append(root);
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- let selected=null,portion='1',visible=false,notice='',signature='',editing=null,feedback=[],feedbackTimer=null,epoch=0,lastConsumed=null;
+ let selectedShopId=null,selected=null,portion='1',visible=false,notice='',signature='',editing=null,feedback=[],feedbackTimer=null,epoch=0,lastConsumed=null;
  const motions=new Set(),deltaTimers=new Map(),scrollTasks=new Set(),positions=new Map();
  const query=selector=>root.querySelector(selector),all=selector=>[...root.querySelectorAll(selector)];
  const iconMarkup=id=>typeof icon==='function'?icon('store',id):icon;
@@ -65,7 +72,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  const deltaSpace=p=>`--market-delta-space:calc(${String(p.stock).length+2} * var(--uniform-font-size,16px));--market-sale-width:calc(${Math.max(3,String(p.originalStock??p.stock).length+1)/2} * var(--uniform-font-size,16px))`;
  function activeKey(){
   const active=doc.activeElement;if(!active||!root.contains(active))return null;
-  for(const key of ['release','portion','place','stock','details','confirm','cancel'])if(active.dataset?.['market'+key[0].toUpperCase()+key.slice(1)])return {key,value:active.dataset['market'+key[0].toUpperCase()+key.slice(1)]};
+  for(const key of ['release','portion','place','stock','details','confirm','cancel','switch'])if(active.dataset?.['market'+key[0].toUpperCase()+key.slice(1)])return {key,value:active.dataset['market'+key[0].toUpperCase()+key.slice(1)]};
   return active.id?.startsWith('market-shelf-')?{id:active.id}:null;
  }
  function shelfTarget(row){
@@ -91,7 +98,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   epoch++;for(const finish of [...deltaTimers.values()])finish();deltaTimers.clear();for(const stop of [...scrollTasks])stop();for(const a of motions)a.cancel();motions.clear();all('.market-flight,.market-delta').forEach(e=>e.remove());
  }
  function closeEditing({focus=true}={}){const previous=editing;editing=null;signature='';setEditing(false);update({visible});if(focus&&previous)restoreFocus({key:'stock',value:`${previous.shopId}:${previous.productId}`});}
- function reset(){cancel();clearTimeout(feedbackTimer);feedback=[];lastConsumed=null;positions.clear();selected=null;portion='1';signature='';if(editing){editing=null;setEditing(false);}}
+ function reset(){cancel();clearTimeout(feedbackTimer);feedback=[];lastConsumed=null;positions.clear();selectedShopId=null;selected=null;portion='1';signature='';if(editing){editing=null;setEditing(false);}}
  function geometry(){
   let v;try{v=JSON.parse(doc.getElementById('scene-root')?.dataset.viewport??'null');}catch{}
   const scale=v?.scale??1;
@@ -108,8 +115,9 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   if(!handProducts.some(p=>p.id===selected))selected=handProducts[0]?.id??products.find(p=>p.id===selected)?.id??products[0]?.id??null;
   const handTotal=handProducts.reduce((n,p)=>n+D.storeMarketInventory(s,p.id).hand,0);
   const p=product(selected),inventory=p?D.storeMarketInventory(s,p.id):{hand:0};
-  const shops=availableMarketShops(s),rows=shops.map(shop=>visibleMarketRows(s,D,shop.id,feedback));
-  const nextSignature=JSON.stringify([products,s.releases,s.brands,s.productsById,s.shop.relations,s.shop.offer,s.marketRules?.version,selected,portion,rows,feedback,handProducts.map(p=>[p.id,D.storeMarketInventory(s,p.id).hand]),editing,notice]);
+  const window=marketShopWindow(availableMarketShops(s),selectedShopId);selectedShopId=window.selectedShopId;
+  const shops=window.shops,rows=shops.map(shop=>visibleMarketRows(s,D,shop.id,feedback));
+  const nextSignature=JSON.stringify([products,s.releases,s.brands,s.productsById,s.shop.relations,s.shop.offer,s.marketRules?.version,selected,portion,selectedShopId,window.partners.map(shop=>shop.id),rows,feedback,handProducts.map(p=>[p.id,D.storeMarketInventory(s,p.id).hand]),editing,notice]);
   if(nextSignature===signature)return;
   const focused=activeKey(),top=root.scrollTop;
   for(const shelf of all('.market-stock-list,.market-hand-list'))positions.set(shelf.id,shelf.scrollLeft);
@@ -119,7 +127,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
    return button(`<span class="market-bottle ${item.id===selected?'market-selected-bottle':''}" aria-hidden="true">${art(item)}</span><span class="market-count">${count}本</span><span class="market-date">${esc(date)}</span>`,'release',item.id,`class="market-release" style="${deltaSpace(item)}" aria-pressed="${item.id===selected}" aria-label="${esc(date+' '+tasteLabel(item)+' 手元'+count+'本')}"`);
   }).join('');
   const returnPane=editing?`<section class="market-return" role="group" aria-label="瓶を手元へ戻す"><p>${esc(ordinary.find(x=>x.id===editing.shopId)?.name)} · ${esc(releaseDate(s,editing.productId))} ${esc(tasteLabel(product(editing.productId)))} · ${editing.count}本</p><div class="market-buttons">${button('手元へ戻す','confirm','return')}${button('やめる','cancel','return')}</div></section>`:'';
-  root.innerHTML=`<div class="market-content" ${editing?'inert':''}>${notice?`<p class="market-notice" role="status" aria-live="polite" tabindex="0">${esc(notice)}</p>`:''}<div class="market-releases" aria-label="手元の瓶"><span class="market-hand">手元</span><div class="market-hand-list" id="market-shelf-hand" role="group" tabindex="0" aria-label="手元の瓶棚。横に送れます">${productsMarkup}</div></div><div class="market-portions" role="group" aria-label="一度に渡す本数">${[['1','1本'],['5','5本'],['all','全部']].map(([value,label])=>button(label,'portion',value,`aria-pressed="${portion===value}" ${handTotal>0?'':'disabled'}`)).join('')}</div><div class="market-shops">${shops.map((shop,index)=>{
+  root.innerHTML=`<div class="market-content" ${editing?'inert':''}>${notice?`<p class="market-notice" role="status" aria-live="polite" tabindex="0">${esc(notice)}</p>`:''}<div class="market-releases" aria-label="手元の瓶"><span class="market-hand">手元</span><div class="market-hand-list" id="market-shelf-hand" role="group" tabindex="0" aria-label="手元の瓶棚。横に送れます">${productsMarkup}</div></div><div class="market-portions" role="group" aria-label="一度に渡す本数">${[['1','1本'],['5','5本'],['all','全部']].map(([value,label])=>button(label,'portion',value,`aria-pressed="${portion===value}" ${handTotal>0?'':'disabled'}`)).join('')}</div>${window.paged?`<nav class="market-switcher" aria-label="取扱店の切替">${button('前','switch','previous',`aria-label="前の取扱店" ${window.index===0?'disabled':''}`)}<span aria-live="polite">取扱店 ${window.index+1}/${window.partners.length}</span>${button('次','switch','next',`aria-label="次の取扱店" ${window.index===window.partners.length-1?'disabled':''}`)}</nav>`:''}<div class="market-shops">${shops.map((shop,index)=>{
 
    return `<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}"><header class="market-shop-heading">${button(`<span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span class="market-shop-title">${shop.name}</span><span aria-hidden="true">${symbolMarkup('chevronRight')}</span>`,'details',shop.id,`class="market-shop-name" aria-label="${shop.name}の店情報"`)}</header><div class="market-shelf-body"><div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の商品一覧">${rows[index].map(row=>{
     const item=s.core.products.find(x=>x.id===row.productId);if(!item)return '';
@@ -230,6 +238,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  root.addEventListener('click',event=>{
   if(!visible)return;const b=event.target.closest('button');if(!b||b.disabled||!root.contains(b))return;
   const data=b.dataset;
+  if(data.marketSwitch&&!editing){const view=marketShopWindow(availableMarketShops(state()),selectedShopId);if(!view.paged)return;const index=view.index+(data.marketSwitch==='next'?1:-1);if(!view.partners[index])return;cancel();selectedShopId=view.partners[index].id;signature='';root.scrollTop=0;update({visible});return;}
   if(data.marketRelease&&!editing){const id=Number(data.marketRelease);if(!state().core.products.some(p=>p.id===id)||D.storeMarketInventory(state(),id).hand<1)return;cancel();selected=id;signature='';update({visible});return;}
   if(data.marketPortion){cancel();portion=data.marketPortion;signature='';update({visible});return;}
   if(data.marketCancel){closeEditing();return;}
@@ -266,5 +275,5 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  // changes. Observe that publication rather than racing its resize listener.
  const sceneRoot=doc.getElementById('scene-root');
  if(sceneRoot&&typeof MutationObserver==='function')new MutationObserver(()=>{cancel();geometry();}).observe(sceneRoot,{attributes:true,attributeFilter:['data-viewport']});
- return {update,consume,cancel,reset,diagnostics:()=>({visible,selected,portion,editing:editing?{...editing}:null,motions:motions.size,scrollTasks:scrollTasks.size,feedback:feedback.map(x=>({...x}))})};
+ return {update,consume,cancel,reset,diagnostics:()=>({visible,selected,portion,selectedShopId,editing:editing?{...editing}:null,motions:motions.size,scrollTasks:scrollTasks.size,feedback:feedback.map(x=>({...x}))})};
 }

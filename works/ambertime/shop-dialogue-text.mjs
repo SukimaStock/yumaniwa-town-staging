@@ -1,5 +1,7 @@
+import {BAR_DIALOGUE_TEXT} from './bar-dialogue-text.mjs?v=bar-v01-1';
 // Author manuscript v0.2. Edit wording here, never in sales or selection code.
 export const SHOP_DIALOGUE_TEXT=Object.freeze({
+ bar:BAR_DIALOGUE_TEXT,
  'town-liquor':Object.freeze({
   daily:Object.freeze({
    new:'新しいお酒ですか？ちょっと置いてみましょうか。',

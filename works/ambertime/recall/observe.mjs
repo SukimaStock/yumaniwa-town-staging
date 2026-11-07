@@ -1,5 +1,5 @@
 // Observe each committed formal operation without replay or game mutation.
-import {SHOPS} from '../shop-model.mjs';
+import {SHOPS} from '../shop-model.mjs?v=bar-v01-1';
 import {NODES} from '../town-connection.mjs';
 import {displayHash,commentLines,commentWording,productTitle} from '../player-news.mjs';
 const assert=(condition,message)=>{if(!condition)throw Error(message);};

@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import {beforeA12CanvasScheduler} from './a1-source-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -14,6 +15,11 @@ const audit=JSON.parse(fs.readFileSync(new URL('../design/gameplay-audit-2026102
 const view=(s,id='supermarket')=>shopOrderMarkup(s,id,{monthLabel,minQuantity:SHOPS.find(x=>x.id===id)?.minQuantity});
 const row=(reason='fulfilled',requested=10,shipped=10,unmet=0)=>({shopId:'supermarket',month:17,reason,requested,shipped,unmet,profileProductId:999});
 const state=rows=>({core:{month:17,products:[]},shopDemand:{lastOrders:rows},shop:{relations:[{shopId:'supermarket',brandId:1,startedMonth:16}]}});
+// Alley bar v0.1 is an authorized future-only model extension. Keep original
+// fixture bytes and legacy replay assertions; pin only its explicitly changed sources.
+const barSourcePins={"shop-demand.mjs":"ee9cac7e0f321bea6b7beb5b6627f976e40a9d1522f48bdd16c4ca304e7b4edc","shop-model.mjs":"b14aaeabce8a55e98dff504d912c72a5b8314dfcd72c82afa36e89f4f89178d3"};
+const withoutImportQueries=s=>s.replace(/((?:from|import)\s*['"])([^'"]+)\?[^'"]+(['"])/g,'$1$2$3');
+function assertAuthorizedSource(file,base){const now=fs.readFileSync(new URL('../'+file,import.meta.url),'utf8'),old=execFileSync('git',['show',base+':works/ambertime/'+file],{encoding:'utf8',maxBuffer:4e6});if(barSourcePins[file])assert.equal(createHash('sha256').update(now).digest('hex'),barSourcePins[file],file);else if(file==='shop-ledger.mjs')assert.equal(withoutImportQueries(now),withoutImportQueries(old),file);else assert.equal(now,old,file);}
 test('ordinary relationship labels ignore inventory and manual-delivery eligibility',()=>{
  const s=state([]);assert.equal(shopRelationshipLabel(s,'supermarket'),'取扱中');s.core.products=[{stock:0}];assert.equal(shopRelationshipLabel(s,'supermarket'),'取扱中');
  s.shop.offer={shopId:'town-liquor'};assert.equal(shopRelationshipLabel(s,'town-liquor'),'申し出あり');s.shop.offer=null;s.shop.pendingOffers=[{shopId:'town-liquor'}];assert.equal(shopRelationshipLabel(s,'town-liquor'),'申し出あり');s.shop.pendingOffers=[];assert.equal(shopRelationshipLabel(s,'town-liquor'),'取扱前');s.shop.relations.push({brandId:1});assert.equal(shopRelationshipLabel(s,'town-liquor'),'取扱中');assert.equal(shopRelationshipLabel(s,'department'),null);assert.equal(view(s,'department'),'');
@@ -59,7 +65,7 @@ test('legacy calculation pins and unchanged clock paths survive approved native-
  // PR668 explicitly added future-only market rules to economy. Legacy exact monthly bytes above, market-rules-model, and r0-formal operation traces cover that branch.
  // Changed schedule/updateProgress/drawWorld have current behavior baselines in r0-app tests; retain unchanged method pins below.
  const base='4a36600d6230042cdeb60cc3bf1034b40e1e0807';
- for(const f of ['shop-demand.mjs','shop-model.mjs','shop-ledger.mjs','model.mjs','monthly.mjs','lab-flavor.mjs','town-connection.mjs','runtime-clock.mjs','room-motion.mjs'])assert.equal(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'),execFileSync('git',['show',base+':works/ambertime/'+f],{encoding:'utf8',maxBuffer:4e6}));
+ for(const f of ['shop-demand.mjs','shop-model.mjs','shop-ledger.mjs','model.mjs','monthly.mjs','lab-flavor.mjs','town-connection.mjs','runtime-clock.mjs','room-motion.mjs'])assertAuthorizedSource(f,base);
  const previousCanvas=execFileSync('git',['show',base+':works/ambertime/canvas-scene.mjs'],{encoding:'utf8'}),canvas=beforeA12CanvasScheduler(fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8'));
  for(const [a,b]of [[' drawTimeBar(){',' draw(){'],[' stopDrawing(){',' controls(){']])assert.equal(canvas.slice(canvas.indexOf(a),canvas.indexOf(b)),previousCanvas.slice(previousCanvas.indexOf(a),previousCanvas.indexOf(b)));
  const old=execFileSync('git',['show',base+':works/ambertime/shop-app.mjs'],{encoding:'utf8',maxBuffer:4e6}),now=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');

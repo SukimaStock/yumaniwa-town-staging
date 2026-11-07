@@ -1,4 +1,4 @@
-import {assertRecall} from './recall/collector.mjs?v=h3-3a-1';
+import {assertRecall} from './recall/collector.mjs?v=bar-v01-1';
 import {assertHistoryRecord} from './history-record.mjs?v=s4-1';
 import {assertCaskSlots} from './cask-slots.mjs?v=s1-1';
 import {assertRecentLedger} from './recent-ledger.mjs?v=s3-1';

@@ -27,7 +27,7 @@ test('consultation and approval do not count as delivery; adoption metadata neve
 
 test('established eligibility hides mere offers and keeps approved ordinary shops before first receipt',()=>{
  const s={shop:{offer:{shopId:'supermarket'},pendingOffers:[{shopId:'department'}],declinedUntil:{'town-liquor:1':12},relations:[],deliveries:[]}};
- const before=JSON.stringify(s);assert(buildShopLedger(s).every(x=>!x.established));assert.equal(buildShopLedger(s).length,3,'projection keeps all catalog rows');assert.equal(JSON.stringify(s),before);
+ const before=JSON.stringify(s);assert(buildShopLedger(s).every(x=>!x.established));assert.deepEqual(buildShopLedger(s).map(x=>x.id),['town-liquor','supermarket','department','bar'],'projection keeps the expanded catalog; no relation means no established shelf');assert.equal(JSON.stringify(s),before);
  s.shop.relations=[{shopId:'supermarket',startedMonth:2}];assert.equal(get(s,'supermarket').established,true);assert.equal(get(s,'supermarket').count,0);assert.equal(get(s,'department').established,false);
 });
 test('receipt eligibility never guesses missing quantity or promotes adoption mirrors alone',()=>{

@@ -1,6 +1,6 @@
 // Disposable presentation of native sales records. Never replay or mutate the game.
-import {SHOPS,SHOP} from './shop-model.mjs?v=0.48-free-aging';
-import {storeMarketMode,placementMode} from './placement-mode.mjs?v=store-market-main-r1';
+import {SHOPS,SHOP} from './shop-model.mjs?v=bar-v01-1';
+import {storeMarketMode,placementMode} from './placement-mode.mjs?v=bar-v01-1';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {mapShopPositions} from './world-map-view.mjs?v=0.28.0-map';
 import {customerComments} from './player-news.mjs?v=0.25.4';

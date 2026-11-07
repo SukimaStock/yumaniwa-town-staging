@@ -23,3 +23,5 @@ test('actual saveCandidate hook emits only after successful write and never on r
  }
 });
 test('newer pending letter survives interruption of currently displayed old letter',()=>{const h=harness();h.notice.commit(state(11),state(12),entry(12));h.advance(0);h.notice.commit(state(23),state(24),entry(24));h.block(true);h.advance(500);h.block(false);assert.deepEqual(h.shown,['letter-12','letter-24']);});
+
+test('explicit latest dialogue stays in sales room even when a store is opened from the map',()=>{const app=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');assert.match(app,/function latestDialogueMarkup\(shopId\)\{return room==='sales'\?dialogueMarkup/);});

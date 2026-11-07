@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -10,6 +11,11 @@ const results=JSON.parse(fs.readFileSync(new URL('./stage4-results.json',import.
 const view=()=>({seed:20261021,core:{month:360,casks:[]},notesById:{},brands:[{id:7,name:'AmberTime'}],releases:[{...structuredClone(results[0].release),id:1,brandId:7},{...structuredClone(results[1].release),id:2,brandId:7}],labConnection:{version:1,town:{releases:[{id:1,externalId:1},{id:2,externalId:2}],events:[],shipments:[]}}});
 const cask=(id=1)=>({id,filledMonth:0,age:36,roughness:.3,wood:.1,character:.8,flavor:{label:'名前',history:[{months:0,label:'名前'}]}});
 const state=c=>({core:{month:36,casks:[c]},notesById:{[c.id]:{samples:[],observations:[]}}});
+// Alley bar v0.1 is an authorized future-only model extension. Keep original
+// fixture bytes and legacy replay assertions; pin only its explicitly changed sources.
+const barSourcePins={"shop-demand.mjs":"ee9cac7e0f321bea6b7beb5b6627f976e40a9d1522f48bdd16c4ca304e7b4edc","shop-model.mjs":"b14aaeabce8a55e98dff504d912c72a5b8314dfcd72c82afa36e89f4f89178d3"};
+const withoutImportQueries=s=>s.replace(/((?:from|import)\s*['"])([^'"]+)\?[^'"]+(['"])/g,'$1$2$3');
+function assertAuthorizedSource(file,base){const now=fs.readFileSync(new URL('../'+file,import.meta.url),'utf8'),old=execFileSync('git',['show',base+':works/ambertime/'+file],{encoding:'utf8',maxBuffer:4e6});if(barSourcePins[file])assert.equal(createHash('sha256').update(now).digest('hex'),barSourcePins[file],file);else if(file==='shop-ledger.mjs')assert.equal(withoutImportQueries(now),withoutImportQueries(old),file);else assert.equal(now,old,file);}
 test('existing comments retain exact release identity for distinct flavors in one brand; no fabricated drinking',()=>{
  const s=view();s.labConnection.town.shipments=Array.from({length:360},(_,i)=>({id:'retail:'+(i+1)+':3',month:i+1,count:1,parts:[{releaseId:i%2+1,count:1}]}));
  const before=JSON.stringify(s),rows=createFeedbackComments().read(s);assert.deepEqual(rows,customerComments(s));assert(rows.length>2);assert.deepEqual(new Set(rows.map(r=>r.releaseId)),new Set([1,2]));
@@ -47,7 +53,7 @@ test('legal saves and calculation sources stay identical; no view timers/validat
  const legacy027=JSON.parse(fs.readFileSync(new URL('./fixtures/placement-legacy-main.json',import.meta.url)));assert.equal(legacy027.source,'8ec6e12f79d02322561ebf284c90fc3605412942');const old027=D.restoreDistillery(legacy027.before);assert.equal(D.serializeDistillery(old027),legacy027.before);const next027=D.tickDistillery(old027);assert.deepEqual(next027,JSON.parse(legacy027.after));assert.equal(D.serializeDistillery(next027),legacy027.after);
 
  const s=D.newConnectedDistillery(42),raw=D.serializeDistillery(s);createFeedbackComments().read(s);warehouseFeedback(s);assert.equal(D.serializeDistillery(s),raw);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
- const base='1d5c2dbeaddfb10fecf8e8241d00e293910b798a';for(const f of ['monthly.mjs','tasting-view.mjs','character.mjs','lab-flavor.mjs','shop-demand.mjs','shop-model.mjs','runtime-clock.mjs','room-motion.mjs','town-connection.mjs','model.mjs'])assert.equal(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'),execFileSync('git',['show',base+':works/ambertime/'+f],{encoding:'utf8',maxBuffer:4e6}));
+ const base='1d5c2dbeaddfb10fecf8e8241d00e293910b798a';for(const f of ['monthly.mjs','tasting-view.mjs','character.mjs','lab-flavor.mjs','shop-demand.mjs','shop-model.mjs','runtime-clock.mjs','room-motion.mjs','town-connection.mjs','model.mjs'])assertAuthorizedSource(f,base);
  const source=fs.readFileSync(new URL('../flavor-feedback-view.mjs',import.meta.url),'utf8');assert(!/structuredClone\(|validate\w*\(|setTimeout\(|requestAnimationFrame\(|localStorage/.test(source));
 });
 test('incomplete old fields remain unknown and four live slots still select only one factual cue',()=>{
