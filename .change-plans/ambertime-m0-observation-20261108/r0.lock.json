@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a27bd0b02007261edba40e496f677898c66f5da52e029eb18b25507348524fee",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-m0-observation-20261108",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "採用済みM0.6半開き・全画面の販売観察地図を本編へ接続",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "8f50ecac82066fcb02958f7514d64e79d19696f5",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/retail-sale-motion.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-m0-observation-20261108/r0.lock.json",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/store-market.mjs"
+    ],
+    "expectedChanges": [
+      "半開きは既存店舗行の観察用表示と地図の店選択、全画面は同じCanvasを拡張",
+      "販売実績だけを読んで既存瓶吸込みmotionを描画、納品・販売計算は変えない",
+      "店の一言と売上・在庫は地図外の専用欄、仮のバー位置は本編地理に保存しない",
+      "通常販売室の選択・数量・スクロールと時計の停止／進行を維持する"
+    ],
+    "ownerDecisions": [
+      "2026-11-08作者：M0.6の店舗行・吸込み演出・地図下発言を採用",
+      "2026-11-08作者：半開きと全画面も採用、Stagingへの反映を指示"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "既存販売・保存契約維持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360x568,390x680,430x740,PC表示",
+      "半開き・全画面・通常販売室往復、店舗タップ、実売アニメーション",
+      "既存UI位置、販売中/停止中の時間、reduced-motion、背後操作遮断"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "このDraftブランチのM0追加差分のみrevert。正式保存形式は変更しない",
+    "outOfScope": [
+      "Production公開・マージ",
+      "保存形式・経済・RNG・口コミ・会話履歴の変更",
+      "既存の解放地図モーダルや全国ズームの変更",
+      "デパートの取扱いを通常棚に変える"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safariの実機描画・タップ",
+      "既存本編のフルブラウザ回帰"
+    ]
+  }
+}
