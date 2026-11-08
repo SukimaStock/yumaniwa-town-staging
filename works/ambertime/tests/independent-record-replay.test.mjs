@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,writeFileSync,mkdtempSync,readdirSync,symlinkSync,linkSync} from 'node:fs';
+import {spawnSync} from 'node:child_process';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import * as D from '../partner-orders.mjs';
 import {readSession,serializeSession} from '../development-save.mjs';
@@ -74,10 +78,22 @@ for(const [name,edit] of [
 test('original bytes survive rejected/truncated candidates and missing-original safe stop',()=>{
  const original=pair.per.wire,before=hash(original);for(const text of [original.slice(0,-1),'',JSON.stringify({...raw(),version:99})])assert.throws(()=>readSession(text,options));
  assert.equal(hash(original),before);assert.equal(JSON.stringify(readSession(original,options).game),JSON.stringify(pair.per.game));
- const recover=text=>{if(typeof text!=='string')throw Error('safe-stop:no-original');return readSession(text,options);};assert.throws(()=>recover(null),/safe-stop/);
+ assert.throws(()=>assess('')); // No missing original is reported as restored.
 });
-const oldPath=process.env.AMBERTIME_NORMAL_V8;
-test('existing verified 24-month v8 is optional and never silently replaced',{skip:!oldPath},()=>{
+const oldPath=process.env.AMBERTIME_NORMAL_V8??fileURLToPath(new URL('../design/independent-record-replay/evidence/reused-24-month-v8.json',import.meta.url));
+test('existing verified 24-month v8 bytes are never silently replaced',()=>{
  const bytes=readFileSync(oldPath),sha=hash(bytes);assert.equal(sha,'48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693');
  const r=allEqual(bytes.toString('utf8'));assert.equal(r.session.game.core.month,24);assert.equal(hash(readFileSync(oldPath)),sha);
+});
+
+const runner=fileURLToPath(new URL('../design/independent-record-replay/run.mjs',import.meta.url));
+for(const kind of ['same-path','symlink','hardlink'])test('runner rejects output/original collision before writing: '+kind,()=>{
+ const dir=mkdtempSync(join(tmpdir(),'record-replay-protect-')),destination=join(dir,'cadence-per-operation-v8.json'),original=kind==='same-path'?destination:join(dir,'original-v8.json');
+ const bytes=readFileSync(oldPath);writeFileSync(original,bytes);if(kind==='symlink')symlinkSync(original,destination);if(kind==='hardlink')linkSync(original,destination);
+ const result=spawnSync(process.execPath,[runner,dir],{env:{...process.env,AMBERTIME_NORMAL_V8:original},encoding:'utf8'});
+ assert.equal(result.status,1);assert.match(result.stderr,/output-exists/);assert.equal(hash(readFileSync(original)),hash(bytes));assert.equal(readdirSync(dir).includes('cadence-batched-v8.json'),false);
+});
+test('missing original fails before any result or fallback is claimed',()=>{
+ const dir=mkdtempSync(join(tmpdir(),'record-replay-missing-'));const result=spawnSync(process.execPath,[runner,dir],{env:{...process.env,AMBERTIME_NORMAL_V8:join(dir,'not-present.json')},encoding:'utf8'});
+ assert.equal(result.status,1);assert.match(result.stderr,/ENOENT/);assert.deepEqual(readdirSync(dir),[]);
 });
