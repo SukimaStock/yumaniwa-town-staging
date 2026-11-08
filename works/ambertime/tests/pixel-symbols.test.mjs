@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import {SYMBOLS,drawSymbol,symbolMarkup} from '../pixel-symbols.mjs';
 
 const fixtures={
- map:{width:11,height:11,colors:['#644632','#a0785a','#b69a65','#e7dcc0']},
+ ledger:{width:11,height:11,colors:["#6e5a42","#9a835c","#b69a65","#e4c58a","#e7dcc0"]},
+ map:{width:11,height:11,colors:["#644632","#6e5a42","#9a835c","#b69a65","#e7dcc0"]},
  handshake:{width:11,height:11,colors:['#f0e6c8']},
  pause:{width:7,height:7,colors:['#f0e6c8']},
  stock:{width:7,height:7,colors:['#f0e6c8']},
- person:{width:7,height:7,colors:['#644632','#f0e6c8']},
- store:{width:11,height:11,colors:['#644632','#b69a65','#e4c58a','#e7dcc0']}
+ person:{width:11,height:11,colors:["#6e5a42","#e7dcc0"]},
+ store:{width:11,height:11,colors:["#6e5a42","#b69a65","#e4c58a","#e7dcc0"]}
 };
 for(const [name,fixture] of Object.entries(fixtures)){
  test('Atelier '+name+' preserves exact dimensions and source colors',()=>{
@@ -33,4 +34,11 @@ test('unchanged non-Atelier symbols remain contextual monochrome',()=>{
   assert.ok(ctx.colors.every(x=>x==='#ffffff'),name);
   assert.ok(!symbolMarkup(name).includes(' fill="#f0e6c8"'),name);
  }
+});
+
+test('ledger control delegates to the shared icon renderer rather than inline squares', async()=>{
+ const fs=await import('node:fs');
+ const source=fs.readFileSync(new URL('../canvas-scene.mjs',import.meta.url),'utf8');
+ assert.ok(source.includes("if(a.key==='open-ledger'){this.icon('ledger',x,a.y,54,54);}"));
+ assert.ok(!source.includes('book(bx,by'));
 });
