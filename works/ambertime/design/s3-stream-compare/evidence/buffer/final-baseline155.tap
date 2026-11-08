@@ -1,0 +1,940 @@
+TAP version 13
+# Subtest: empty histories, six sidecars, frozen candidate and both scopes
+ok 1 - empty histories, six sidecars, frozen candidate and both scopes
+  ---
+  duration_ms: 7.315181
+  type: 'test'
+  ...
+# Subtest: Unicode values and keys, all controls, all surrogate pair classes, chunks 1 through 9
+ok 2 - Unicode values and keys, all controls, all surrogate pair classes, chunks 1 through 9
+  ---
+  duration_ms: 13.987428
+  type: 'test'
+  ...
+# Subtest: native numeric representations and nested arrays
+ok 3 - native numeric representations and nested arrays
+  ---
+  duration_ms: 1.668956
+  type: 'test'
+  ...
+# Subtest: schema and town integer-index reordering matches native object enumeration
+ok 4 - schema and town integer-index reordering matches native object enumeration
+  ---
+  duration_ms: 2.009912
+  type: 'test'
+  ...
+# Subtest: arrivals resolve repeated event data without JSON parse or comparator input mutation
+ok 5 - arrivals resolve repeated event data without JSON parse or comparator input mutation
+  ---
+  duration_ms: 1.634324
+  type: 'test'
+  ...
+# Subtest: missing/null or non-index key order change cannot pass independent content comparison
+ok 6 - missing/null or non-index key order change cannot pass independent content comparison
+  ---
+  duration_ms: 2.634748
+  type: 'test'
+  ...
+# Subtest: first difference uses exact UTF16 offset after supplementary characters
+ok 7 - first difference uses exact UTF16 offset after supplementary characters
+  ---
+  duration_ms: 0.985531
+  type: 'test'
+  ...
+# Subtest: reference truncation and trailing data reject at exact endpoint
+ok 8 - reference truncation and trailing data reject at exact endpoint
+  ---
+  duration_ms: 1.603496
+  type: 'test'
+  ...
+# Subtest: changing original between verification and comparison is refused
+ok 9 - changing original between verification and comparison is refused
+  ---
+  duration_ms: 1.135509
+  type: 'test'
+  ...
+# Subtest: invalid UTF8 must not compare equal to literal U+FFFD
+ok 10 - invalid UTF8 must not compare equal to literal U+FFFD
+  ---
+  duration_ms: 1.20929
+  type: 'test'
+  ...
+# Subtest: incremental escaping must not stringify a full large key
+ok 11 - incremental escaping must not stringify a full large key
+  ---
+  duration_ms: 8.780668
+  type: 'test'
+  ...
+# Subtest: short regular-file reads must not turn a buffered UTF8 prefix into EOF
+ok 12 - short regular-file reads must not turn a buffered UTF8 prefix into EOF
+  ---
+  duration_ms: 2.228924
+  type: 'test'
+  ...
+# Subtest: real 64KiB reference read boundaries preserve split UTF8 characters
+ok 13 - real 64KiB reference read boundaries preserve split UTF8 characters
+  ---
+  duration_ms: 22.696759
+  type: 'test'
+  ...
+# Subtest: long-key mismatch preserves exact offset and explicitly marks bounded path
+ok 14 - long-key mismatch preserves exact offset and explicitly marks bounded path
+  ---
+  duration_ms: 3.837747
+  type: 'test'
+  ...
+# Subtest: strict candidate faults are rejected before a reference open
+ok 15 - strict candidate faults are rejected before a reference open
+  ---
+  duration_ms: 1.615044
+  type: 'test'
+  ...
+# Subtest: deterministic JSON-derived differential corpus
+ok 16 - deterministic JSON-derived differential corpus
+  ---
+  duration_ms: 22.875769
+  type: 'test'
+  ...
+# Subtest: content layer rejects exact first reference unit independently of prechecks
+ok 17 - content layer rejects exact first reference unit independently of prechecks
+  ---
+  duration_ms: 1.312226
+  type: 'test'
+  ...
+# Subtest: content layer rejects exact middle reference unit independently of prechecks
+ok 18 - content layer rejects exact middle reference unit independently of prechecks
+  ---
+  duration_ms: 1.269661
+  type: 'test'
+  ...
+# Subtest: content layer rejects exact last reference unit independently of prechecks
+ok 19 - content layer rejects exact last reference unit independently of prechecks
+  ---
+  duration_ms: 1.445237
+  type: 'test'
+  ...
+# Subtest: content layer rejects changed first historical record independently of candidate anchor
+ok 20 - content layer rejects changed first historical record independently of candidate anchor
+  ---
+  duration_ms: 1.867686
+  type: 'test'
+  ...
+# Subtest: content layer rejects changed middle historical record independently of candidate anchor
+ok 21 - content layer rejects changed middle historical record independently of candidate anchor
+  ---
+  duration_ms: 2.453763
+  type: 'test'
+  ...
+# Subtest: content layer rejects changed last historical record independently of candidate anchor
+ok 22 - content layer rejects changed last historical record independently of candidate anchor
+  ---
+  duration_ms: 2.086076
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside userPaused independently of prechecks
+ok 23 - content layer rejects reference truncation inside userPaused independently of prechecks
+  ---
+  duration_ms: 1.426499
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside elapsed independently of prechecks
+ok 24 - content layer rejects reference truncation inside elapsed independently of prechecks
+  ---
+  duration_ms: 1.18301
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside caskSlots independently of prechecks
+ok 25 - content layer rejects reference truncation inside caskSlots independently of prechecks
+  ---
+  duration_ms: 1.202349
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside recentLedger independently of prechecks
+ok 26 - content layer rejects reference truncation inside recentLedger independently of prechecks
+  ---
+  duration_ms: 1.294029
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside historyRecord independently of prechecks
+ok 27 - content layer rejects reference truncation inside historyRecord independently of prechecks
+  ---
+  duration_ms: 1.43408
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside recallRecord independently of prechecks
+ok 28 - content layer rejects reference truncation inside recallRecord independently of prechecks
+  ---
+  duration_ms: 1.482383
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference missing row independently of candidate structure
+ok 29 - content layer rejects reference missing row independently of candidate structure
+  ---
+  duration_ms: 2.002631
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference extra row independently of candidate structure
+ok 30 - content layer rejects reference extra row independently of candidate structure
+  ---
+  duration_ms: 2.110624
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference reordered rows independently of candidate structure
+ok 31 - content layer rejects reference reordered rows independently of candidate structure
+  ---
+  duration_ms: 1.512819
+  type: 'test'
+  ...
+# Subtest: independent original JSON exact including container/property order and JSON boundary values
+ok 32 - independent original JSON exact including container/property order and JSON boundary values
+  ---
+  duration_ms: 3.037005
+  type: 'test'
+  ...
+# Subtest: independent anchors mandatory
+ok 33 - independent anchors mandatory
+  ---
+  duration_ms: 0.635212
+  type: 'test'
+  ...
+# Subtest: reject event missing, even after self-hash recomputation; original unchanged
+ok 34 - reject event missing, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.558024
+  type: 'test'
+  ...
+# Subtest: reject attempt missing, even after self-hash recomputation; original unchanged
+ok 35 - reject attempt missing, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 1.223461
+  type: 'test'
+  ...
+# Subtest: reject ID duplicate, even after self-hash recomputation; original unchanged
+ok 36 - reject ID duplicate, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.48242
+  type: 'test'
+  ...
+# Subtest: reject ordinal changed, even after self-hash recomputation; original unchanged
+ok 37 - reject ordinal changed, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.327876
+  type: 'test'
+  ...
+# Subtest: reject unknown schema, even after self-hash recomputation; original unchanged
+ok 38 - reject unknown schema, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.384542
+  type: 'test'
+  ...
+# Subtest: reject columns missing, even after self-hash recomputation; original unchanged
+ok 39 - reject columns missing, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.476731
+  type: 'test'
+  ...
+# Subtest: reject value changed, even after self-hash recomputation; original unchanged
+ok 40 - reject value changed, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.656283
+  type: 'test'
+  ...
+# Subtest: reject invalid source, even after self-hash recomputation; original unchanged
+ok 41 - reject invalid source, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.557464
+  type: 'test'
+  ...
+# Subtest: reject arrival changed, even after self-hash recomputation; original unchanged
+ok 42 - reject arrival changed, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.493156
+  type: 'test'
+  ...
+# Subtest: reject mixed generation, even after self-hash recomputation; original unchanged
+ok 43 - reject mixed generation, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.317991
+  type: 'test'
+  ...
+# Subtest: reject incomplete candidate, even after self-hash recomputation; original unchanged
+ok 44 - reject incomplete candidate, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.388578
+  type: 'test'
+  ...
+# Subtest: reject version mismatch, even after self-hash recomputation; original unchanged
+ok 45 - reject version mismatch, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.319834
+  type: 'test'
+  ...
+# Subtest: reject codec schema mismatch, even after self-hash recomputation; original unchanged
+ok 46 - reject codec schema mismatch, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 0.278612
+  type: 'test'
+  ...
+# Subtest: reject town property order, even after self-hash recomputation; original unchanged
+ok 47 - reject town property order, even after self-hash recomputation; original unchanged
+  ---
+  duration_ms: 1.091422
+  type: 'test'
+  ...
+# Subtest: shadowEvents, self-hash original rejected before hydrate
+ok 48 - shadowEvents, self-hash original rejected before hydrate
+  ---
+  duration_ms: 4.812443
+  type: 'test'
+  ...
+# Subtest: shadowEvents, self-hash recomputed rejected before hydrate
+ok 49 - shadowEvents, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.691556
+  type: 'test'
+  ...
+# Subtest: shadowAttempts, self-hash original rejected before hydrate
+ok 50 - shadowAttempts, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.6345
+  type: 'test'
+  ...
+# Subtest: shadowAttempts, self-hash recomputed rejected before hydrate
+ok 51 - shadowAttempts, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.491624
+  type: 'test'
+  ...
+# Subtest: shadowArrivals, self-hash original rejected before hydrate
+ok 52 - shadowArrivals, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.764547
+  type: 'test'
+  ...
+# Subtest: shadowArrivals, self-hash recomputed rejected before hydrate
+ok 53 - shadowArrivals, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.657886
+  type: 'test'
+  ...
+# Subtest: correctShadow, self-hash original rejected before hydrate
+ok 54 - correctShadow, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.492676
+  type: 'test'
+  ...
+# Subtest: correctShadow, self-hash recomputed rejected before hydrate
+ok 55 - correctShadow, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.777757
+  type: 'test'
+  ...
+# Subtest: unknownEnvelope, self-hash original rejected before hydrate
+ok 56 - unknownEnvelope, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.511284
+  type: 'test'
+  ...
+# Subtest: unknownEnvelope, self-hash recomputed rejected before hydrate
+ok 57 - unknownEnvelope, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 1.787455
+  type: 'test'
+  ...
+# Subtest: unknownTable, self-hash original rejected before hydrate
+ok 58 - unknownTable, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.551094
+  type: 'test'
+  ...
+# Subtest: unknownTable, self-hash recomputed rejected before hydrate
+ok 59 - unknownTable, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.341437
+  type: 'test'
+  ...
+# Subtest: unusedSchema, self-hash original rejected before hydrate
+ok 60 - unusedSchema, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.417812
+  type: 'test'
+  ...
+# Subtest: unusedSchema, self-hash recomputed rejected before hydrate
+ok 61 - unusedSchema, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.348307
+  type: 'test'
+  ...
+# Subtest: duplicateSchema, self-hash original rejected before hydrate
+ok 62 - duplicateSchema, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.38991
+  type: 'test'
+  ...
+# Subtest: duplicateSchema, self-hash recomputed rejected before hydrate
+ok 63 - duplicateSchema, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.377741
+  type: 'test'
+  ...
+# Subtest: emptySchema, self-hash original rejected before hydrate
+ok 64 - emptySchema, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.490072
+  type: 'test'
+  ...
+# Subtest: emptySchema, self-hash recomputed rejected before hydrate
+ok 65 - emptySchema, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.323099
+  type: 'test'
+  ...
+# Subtest: duplicateKey, self-hash original rejected before hydrate
+ok 66 - duplicateKey, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.335518
+  type: 'test'
+  ...
+# Subtest: duplicateKey, self-hash recomputed rejected before hydrate
+ok 67 - duplicateKey, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.336089
+  type: 'test'
+  ...
+# Subtest: schemaId, self-hash original rejected before hydrate
+ok 68 - schemaId, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.339774
+  type: 'test'
+  ...
+# Subtest: schemaId, self-hash recomputed rejected before hydrate
+ok 69 - schemaId, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.314836
+  type: 'test'
+  ...
+# Subtest: columns, self-hash original rejected before hydrate
+ok 70 - columns, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.392144
+  type: 'test'
+  ...
+# Subtest: columns, self-hash recomputed rejected before hydrate
+ok 71 - columns, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.307936
+  type: 'test'
+  ...
+# Subtest: missingOrdinal, self-hash original rejected before hydrate
+ok 72 - missingOrdinal, self-hash original rejected before hydrate
+  ---
+  duration_ms: 1.320749
+  type: 'test'
+  ...
+# Subtest: missingOrdinal, self-hash recomputed rejected before hydrate
+ok 73 - missingOrdinal, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.330681
+  type: 'test'
+  ...
+# Subtest: duplicateOrdinal, self-hash original rejected before hydrate
+ok 74 - duplicateOrdinal, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.375969
+  type: 'test'
+  ...
+# Subtest: duplicateOrdinal, self-hash recomputed rejected before hydrate
+ok 75 - duplicateOrdinal, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.45555
+  type: 'test'
+  ...
+# Subtest: reorderEvents, self-hash original rejected before hydrate
+ok 76 - reorderEvents, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.342488
+  type: 'test'
+  ...
+# Subtest: reorderEvents, self-hash recomputed rejected before hydrate
+ok 77 - reorderEvents, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.59457
+  type: 'test'
+  ...
+# Subtest: missingEvent, self-hash original rejected before hydrate
+ok 78 - missingEvent, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.397873
+  type: 'test'
+  ...
+# Subtest: missingEvent, self-hash recomputed rejected before hydrate
+ok 79 - missingEvent, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.3437
+  type: 'test'
+  ...
+# Subtest: duplicateRow, self-hash original rejected before hydrate
+ok 80 - duplicateRow, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.366024
+  type: 'test'
+  ...
+# Subtest: duplicateRow, self-hash recomputed rejected before hydrate
+ok 81 - duplicateRow, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.358652
+  type: 'test'
+  ...
+# Subtest: duplicateId, self-hash original rejected before hydrate
+ok 82 - duplicateId, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.427547
+  type: 'test'
+  ...
+# Subtest: duplicateId, self-hash recomputed rejected before hydrate
+ok 83 - duplicateId, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.426105
+  type: 'test'
+  ...
+# Subtest: wrongId, self-hash original rejected before hydrate
+ok 84 - wrongId, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.391863
+  type: 'test'
+  ...
+# Subtest: wrongId, self-hash recomputed rejected before hydrate
+ok 85 - wrongId, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.374167
+  type: 'test'
+  ...
+# Subtest: source, self-hash original rejected before hydrate
+ok 86 - source, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.430272
+  type: 'test'
+  ...
+# Subtest: source, self-hash recomputed rejected before hydrate
+ok 87 - source, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.417011
+  type: 'test'
+  ...
+# Subtest: futureSource, self-hash original rejected before hydrate
+ok 88 - futureSource, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.472345
+  type: 'test'
+  ...
+# Subtest: futureSource, self-hash recomputed rejected before hydrate
+ok 89 - futureSource, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.499976
+  type: 'test'
+  ...
+# Subtest: sourceTime, self-hash original rejected before hydrate
+ok 90 - sourceTime, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.510172
+  type: 'test'
+  ...
+# Subtest: sourceTime, self-hash recomputed rejected before hydrate
+ok 91 - sourceTime, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.405784
+  type: 'test'
+  ...
+# Subtest: attemptSource, self-hash original rejected before hydrate
+ok 92 - attemptSource, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.511214
+  type: 'test'
+  ...
+# Subtest: attemptSource, self-hash recomputed rejected before hydrate
+ok 93 - attemptSource, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.425024
+  type: 'test'
+  ...
+# Subtest: attemptTime, self-hash original rejected before hydrate
+ok 94 - attemptTime, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.635592
+  type: 'test'
+  ...
+# Subtest: attemptTime, self-hash recomputed rejected before hydrate
+ok 95 - attemptTime, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.374778
+  type: 'test'
+  ...
+# Subtest: missingArrival, self-hash original rejected before hydrate
+ok 96 - missingArrival, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.574459
+  type: 'test'
+  ...
+# Subtest: missingArrival, self-hash recomputed rejected before hydrate
+ok 97 - missingArrival, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.392434
+  type: 'test'
+  ...
+# Subtest: reorderArrivals, self-hash original rejected before hydrate
+ok 98 - reorderArrivals, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.506506
+  type: 'test'
+  ...
+# Subtest: reorderArrivals, self-hash recomputed rejected before hydrate
+ok 99 - reorderArrivals, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.377411
+  type: 'test'
+  ...
+# Subtest: wrongArrival, self-hash original rejected before hydrate
+ok 100 - wrongArrival, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.4297
+  type: 'test'
+  ...
+# Subtest: wrongArrival, self-hash recomputed rejected before hydrate
+ok 101 - wrongArrival, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.382489
+  type: 'test'
+  ...
+# Subtest: missingTownKey, self-hash original rejected before hydrate
+ok 102 - missingTownKey, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.616463
+  type: 'test'
+  ...
+# Subtest: missingTownKey, self-hash recomputed rejected before hydrate
+ok 103 - missingTownKey, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.467808
+  type: 'test'
+  ...
+# Subtest: duplicateTownKey, self-hash original rejected before hydrate
+ok 104 - duplicateTownKey, self-hash original rejected before hydrate
+  ---
+  duration_ms: 1.136299
+  type: 'test'
+  ...
+# Subtest: duplicateTownKey, self-hash recomputed rejected before hydrate
+ok 105 - duplicateTownKey, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.334716
+  type: 'test'
+  ...
+# Subtest: wrongTownKey, self-hash original rejected before hydrate
+ok 106 - wrongTownKey, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.353786
+  type: 'test'
+  ...
+# Subtest: wrongTownKey, self-hash recomputed rejected before hydrate
+ok 107 - wrongTownKey, self-hash recomputed rejected before hydrate
+  ---
+  duration_ms: 0.353485
+  type: 'test'
+  ...
+# Subtest: integrity, self-hash original rejected before hydrate
+ok 108 - integrity, self-hash original rejected before hydrate
+  ---
+  duration_ms: 0.380246
+  type: 'test'
+  ...
+# Subtest: normal candidate preserves legitimate active game fields
+ok 109 - normal candidate preserves legitimate active game fields
+  ---
+  duration_ms: 0.712979
+  type: 'test'
+  ...
+# Subtest: non-JSON data cannot be silently normalized away
+ok 110 - non-JSON data cannot be silently normalized away
+  ---
+  duration_ms: 0.585887
+  type: 'test'
+  ...
+# Subtest: integrity-only corruption followed by recomputation is identical normal control, not a malformed candidate
+ok 111 - integrity-only corruption followed by recomputation is identical normal control, not a malformed candidate
+  ---
+  duration_ms: 0.481268
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 1 input
+ok 112 - exact UTF16/UTF8, escape and surrogate boundaries 1 input
+  ---
+  duration_ms: 8.273476
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 1 game
+ok 113 - exact UTF16/UTF8, escape and surrogate boundaries 1 game
+  ---
+  duration_ms: 2.167721
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 2 input
+ok 114 - exact UTF16/UTF8, escape and surrogate boundaries 2 input
+  ---
+  duration_ms: 1.858994
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 2 game
+ok 115 - exact UTF16/UTF8, escape and surrogate boundaries 2 game
+  ---
+  duration_ms: 2.505801
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 3 input
+ok 116 - exact UTF16/UTF8, escape and surrogate boundaries 3 input
+  ---
+  duration_ms: 1.106234
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 3 game
+ok 117 - exact UTF16/UTF8, escape and surrogate boundaries 3 game
+  ---
+  duration_ms: 1.131543
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 7 input
+ok 118 - exact UTF16/UTF8, escape and surrogate boundaries 7 input
+  ---
+  duration_ms: 1.242631
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 7 game
+ok 119 - exact UTF16/UTF8, escape and surrogate boundaries 7 game
+  ---
+  duration_ms: 0.950238
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 31 input
+ok 120 - exact UTF16/UTF8, escape and surrogate boundaries 31 input
+  ---
+  duration_ms: 1.319407
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 31 game
+ok 121 - exact UTF16/UTF8, escape and surrogate boundaries 31 game
+  ---
+  duration_ms: 1.631168
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 16384 input
+ok 122 - exact UTF16/UTF8, escape and surrogate boundaries 16384 input
+  ---
+  duration_ms: 0.856647
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 16384 game
+ok 123 - exact UTF16/UTF8, escape and surrogate boundaries 16384 game
+  ---
+  duration_ms: 0.805088
+  type: 'test'
+  ...
+# Subtest: all finite JSON numeric forms
+ok 124 - all finite JSON numeric forms
+  ---
+  duration_ms: 1.158493
+  type: 'test'
+  ...
+# Subtest: property absence is distinct from null and order is preserved
+ok 125 - property absence is distinct from null and order is preserved
+  ---
+  duration_ms: 1.362542
+  type: 'test'
+  ...
+# Subtest: integer-like schema keys and special property names
+ok 126 - integer-like schema keys and special property names
+  ---
+  duration_ms: 1.059723
+  type: 'test'
+  ...
+# Subtest: large string escaped incrementally and no legacy aggregate stringify in comparison
+ok 127 - large string escaped incrementally and no legacy aggregate stringify in comparison
+  ---
+  duration_ms: 129.456358
+  type: 'test'
+  ...
+# Subtest: malformed shadowEvents refused even with recomputed integrity before reading reference
+ok 128 - malformed shadowEvents refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 1.001436
+  type: 'test'
+  ...
+# Subtest: malformed shadowAttempts refused even with recomputed integrity before reading reference
+ok 129 - malformed shadowAttempts refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.393706
+  type: 'test'
+  ...
+# Subtest: malformed shadowArrivals refused even with recomputed integrity before reading reference
+ok 130 - malformed shadowArrivals refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.341267
+  type: 'test'
+  ...
+# Subtest: malformed unknownEnvelope refused even with recomputed integrity before reading reference
+ok 131 - malformed unknownEnvelope refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.269067
+  type: 'test'
+  ...
+# Subtest: malformed unknownTable refused even with recomputed integrity before reading reference
+ok 132 - malformed unknownTable refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.243658
+  type: 'test'
+  ...
+# Subtest: malformed unusedSchema refused even with recomputed integrity before reading reference
+ok 133 - malformed unusedSchema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.284791
+  type: 'test'
+  ...
+# Subtest: malformed duplicateSchema refused even with recomputed integrity before reading reference
+ok 134 - malformed duplicateSchema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.264961
+  type: 'test'
+  ...
+# Subtest: malformed schema refused even with recomputed integrity before reading reference
+ok 135 - malformed schema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.278061
+  type: 'test'
+  ...
+# Subtest: malformed columns refused even with recomputed integrity before reading reference
+ok 136 - malformed columns refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.264921
+  type: 'test'
+  ...
+# Subtest: malformed ordinal refused even with recomputed integrity before reading reference
+ok 137 - malformed ordinal refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.274766
+  type: 'test'
+  ...
+# Subtest: malformed duplicateID refused even with recomputed integrity before reading reference
+ok 138 - malformed duplicateID refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.229968
+  type: 'test'
+  ...
+# Subtest: malformed source refused even with recomputed integrity before reading reference
+ok 139 - malformed source refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.214064
+  type: 'test'
+  ...
+# Subtest: malformed arrivals refused even with recomputed integrity before reading reference
+ok 140 - malformed arrivals refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.347907
+  type: 'test'
+  ...
+# Subtest: malformed townKeys refused even with recomputed integrity before reading reference
+ok 141 - malformed townKeys refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.324872
+  type: 'test'
+  ...
+# Subtest: malformed version refused even with recomputed integrity before reading reference
+ok 142 - malformed version refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.215136
+  type: 'test'
+  ...
+# Subtest: malformed missingEvents refused even with recomputed integrity before reading reference
+ok 143 - malformed missingEvents refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.260454
+  type: 'test'
+  ...
+# Subtest: integrity failure distinct from source/content
+ok 144 - integrity failure distinct from source/content
+  ---
+  duration_ms: 0.322648
+  type: 'test'
+  ...
+# Subtest: structurally valid altered value is stopped by independent candidate anchor
+ok 145 - structurally valid altered value is stopped by independent candidate anchor
+  ---
+  duration_ms: 0.309798
+  type: 'test'
+  ...
+# Subtest: independent direct content comparison catches altered value even if candidate hash supplied for altered candidate
+ok 146 - independent direct content comparison catches altered value even if candidate hash supplied for altered candidate
+  ---
+  duration_ms: 0.983779
+  type: 'test'
+  ...
+# Subtest: reference SHA mismatch is refused
+ok 147 - reference SHA mismatch is refused
+  ---
+  duration_ms: 0.462009
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: short
+ok 148 - both EOF and first difference: short
+  ---
+  duration_ms: 1.216902
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: extra
+ok 149 - both EOF and first difference: extra
+  ---
+  duration_ms: 1.005281
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: late mismatch
+ok 150 - both EOF and first difference: late mismatch
+  ---
+  duration_ms: 1.007154
+  type: 'test'
+  ...
+# Subtest: game anchor also checked in full-input comparison
+ok 151 - game anchor also checked in full-input comparison
+  ---
+  duration_ms: 0.72644
+  type: 'test'
+  ...
+# Subtest: missing reference safely fails rather than accepting output
+ok 152 - missing reference safely fails rather than accepting output
+  ---
+  duration_ms: 0.386414
+  type: 'test'
+  ...
+# Subtest: invalid chunk bound refused
+ok 153 - invalid chunk bound refused
+  ---
+  duration_ms: 0.897298
+  type: 'test'
+  ...
+# Subtest: long diagnostic key never stringifies the complete scalar
+ok 154 - long diagnostic key never stringifies the complete scalar
+  ---
+  duration_ms: 4.839994
+  type: 'test'
+  ...
+# Subtest: short byte reads inside multibyte UTF8 are not EOF
+ok 155 - short byte reads inside multibyte UTF8 are not EOF
+  ---
+  duration_ms: 2.982273
+  type: 'test'
+  ...
+1..155
+# tests 155
+# suites 0
+# pass 155
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 277.223171
