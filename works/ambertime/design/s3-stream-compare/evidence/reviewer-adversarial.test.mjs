@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {fileURLToPath} from 'node:url';
-import {encode, anchor, hash} from '../../s3-d1/codec.mjs';
+import {encode, anchor, hash, validateCandidate} from '../../s3-d1/codec.mjs';
 const {compareCandidate}=await import(process.env.AMBER_REVIEW_COMPARATOR_URL??'../compare.mjs');
 
 const directory=fs.mkdtempSync(fileURLToPath(new URL('./reviewer-temporary-',import.meta.url)));
@@ -121,6 +121,47 @@ test('deterministic JSON-derived differential corpus',()=>{
  const strings=['','text','é町😀','\ud800','\udfff','\u0000\r\n\t','"\\','4294967295','01','__proto__','constructor'];
  function value(depth){switch(next()%(depth?6:4)){case 0:return null;case 1:return !!(next()%2);case 2:return (next()%2?-1:1)*next()/10**(next()%10);case 3:return strings[next()%strings.length];case 4:return Array.from({length:next()%5},()=>value(depth-1));default:return Object.fromEntries(Array.from({length:next()%5},(_,i)=>[strings[next()%strings.length]+i,value(depth-1)]))}}
  for(let i=0;i<64;i++){const x=base();x.extra=value(3);x.game.extra=value(2);full(domain(x),{chunkUnits:1+next()%19,scope:i%2?'input':'game'})}
+});
+
+// These content-layer probes deliberately adjust only the relevant test anchor.
+// Production callers must keep independently established anchors unchanged.
+for(const positionName of ['first','middle','last'])test(`content layer rejects exact ${positionName} reference unit independently of prechecks`,()=>{
+ const x=base();x.extra='x'.repeat(200);const candidate=freeze(encode(x)),text=JSON.stringify(x);
+ const offset=positionName==='first'?0:positionName==='middle'?Math.floor(text.length/2):text.length-1;
+ const changed=text.slice(0,offset)+(text[offset]==='X'?'Y':'X')+text.slice(offset+1),a=anchor(x);
+ // Match the deliberately changed reference, retaining original candidate/game anchors.
+ a.inputSha=hash(changed);assert.equal(validateCandidate(candidate,a),true);
+ const p=reference(changed);assert.equal(hash(fs.readFileSync(p,'utf8')),a.inputSha);
+ for(const chunkUnits of [1,7,16384])assert.throws(()=>compareCandidate(candidate,a,{referenceFile:p,chunkUnits}),e=>e.stage==='content'&&e.message==='independent content mismatch'&&e.offsetUnits===offset&&e.candidateUnit===text.charCodeAt(offset)&&e.referenceUnit===changed.charCodeAt(offset));
+});
+
+for(const [positionName,index]of [['first',0],['middle',2],['last',4]])test(`content layer rejects changed ${positionName} historical record independently of candidate anchor`,()=>{
+ const x=base();x.game.labConnection.town.events=Array.from({length:5},(_,i)=>({id:`e${i+1}`,type:'release',month:i,label:`record-${i}-before`}));
+ const text=JSON.stringify(x),candidate=encode(x),a=anchor(x),row=candidate.events.rows[index],column=candidate.events.schemas[row[1]].indexOf('label')+2;
+ row[column]=`record-${index}-after`;reseal(candidate,a);assert.equal(validateCandidate(candidate,a),true);
+ const p=reference(text),offset=text.indexOf(`record-${index}-before`)+`record-${index}-`.length;
+ for(const chunkUnits of [1,7,16384])assert.throws(()=>compareCandidate(candidate,a,{referenceFile:p,chunkUnits}),e=>e.stage==='content'&&e.message==='independent content mismatch'&&e.offsetUnits===offset&&e.path===`$["game"]["labConnection"]["town"]["events"][${index}]["label"]`);
+});
+
+for(const sidecar of ['userPaused','elapsed','caskSlots','recentLedger','historyRecord','recallRecord'])test(`content layer rejects reference truncation inside ${sidecar} independently of prechecks`,()=>{
+ const x=base();Object.assign(x,{userPaused:false,elapsed:1200,caskSlots:['cask-0','cask-1'],recentLedger:{note:'ledger text'},historyRecord:{note:'history text'},recallRecord:{note:'recall text'}});
+ const text=JSON.stringify(x),marker=JSON.stringify(sidecar)+':',valueStart=text.indexOf(marker)+marker.length,offset=valueStart+1;
+ assert.ok(valueStart>=marker.length&&offset<text.length);
+ const truncated=text.slice(0,offset),candidate=freeze(encode(x)),a=anchor(x);a.inputSha=hash(truncated);
+ assert.equal(validateCandidate(candidate,a),true);const p=reference(truncated);assert.equal(hash(fs.readFileSync(p,'utf8')),a.inputSha);
+ for(const chunkUnits of [1,7,16384])assert.throws(()=>compareCandidate(candidate,a,{referenceFile:p,chunkUnits}),e=>e.stage==='content'&&e.message==='reference ended before candidate'&&e.offsetUnits===offset&&e.path.startsWith(`$["${sidecar}"]`));
+});
+
+for(const fault of ['missing row','extra row','reordered rows'])test(`content layer rejects reference ${fault} independently of candidate structure`,()=>{
+ const x=base();x.game.labConnection.town.events=Array.from({length:5},(_,i)=>({id:`e${i+1}`,type:'release',month:i,label:`record-${i}`}));
+ const candidate=freeze(encode(x)),a=anchor(x),originalText=JSON.stringify(x),changed=domain(x),rows=changed.game.labConnection.town.events;
+ if(fault==='missing row')rows.splice(2,1);
+ else if(fault==='extra row')rows.push({id:'e6',type:'release',month:5,label:'extra record'});
+ else [rows[1],rows[2]]=[rows[2],rows[1]];
+ const changedText=JSON.stringify(changed);let offset=0;while(offset<Math.min(originalText.length,changedText.length)&&originalText[offset]===changedText[offset])offset++;
+ assert.ok(offset<Math.min(originalText.length,changedText.length));a.inputSha=hash(changedText);assert.equal(validateCandidate(candidate,a),true);
+ const p=reference(changedText);assert.equal(hash(fs.readFileSync(p,'utf8')),a.inputSha);
+ for(const chunkUnits of [1,7,16384])assert.throws(()=>compareCandidate(candidate,a,{referenceFile:p,chunkUnits}),e=>e.stage==='content'&&e.message==='independent content mismatch'&&e.offsetUnits===offset&&e.path.startsWith('$["game"]["labConnection"]["town"]["events"]')&&e.candidateUnit===originalText.charCodeAt(offset)&&e.referenceUnit===changedText.charCodeAt(offset));
 });
 
 import {createHash} from 'node:crypto';

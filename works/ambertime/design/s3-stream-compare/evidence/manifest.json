@@ -1,0 +1,173 @@
+{
+  "baseSha": "b57ce881b5f5f68bc12ff1f15634178118496958",
+  "sourcePR": 856,
+  "sourceHead": "715a6b9fa88cd19a8054e59ba7035c7f3cc499f1",
+  "newPR": 864,
+  "acceptedLockCommit": "c722a4b892310d5b613a504bbda0a306d08aaa04",
+  "planDigest": "25ea6fc218a998e9dc13f6cbcd0507be49115092784afef65af15c5b2797dd75",
+  "codeCommit": "0fe93830045c98e4d9adf46deba8fe1b7f0420c1",
+  "codeHashes": {
+    "works/ambertime/design/s3-d1/codec.mjs": "f3e0748284b7e6f3e4dbed1bd7df94b37cf1e73934e33ac276800ace0ea124dd",
+    "works/ambertime/design/s3-stream-compare/compare.mjs": "f3c994374c6ed5b31587b8f7e053a695d238ae63ba77049dca58cf9da0bf93cb",
+    "works/ambertime/design/s3-stream-compare/measure.mjs": "71bc9714dc5f54d0f566c5e8663089815e5744ddf86ec2f6014498069d2dd9ee",
+    "works/ambertime/design/s3-stream-compare/protect-v8.mjs": "c376597a243fbab7fc6f6e23352d5187f13169af923847167df94b9b0570618f",
+    "works/ambertime/tests/s3-stream-compare.test.mjs": "8158d9a6b510d4e128f2b2f941dcb04e09fb8cf301410eaf01ebaf91ff827d20"
+  },
+  "measurementVersions": {
+    "comparison.json": {
+      "comparatorSha": "c6b509a61e678766f0b089af4e61b78f2a82285b411273698407d227b642def3",
+      "repetitionsPerMode": 3,
+      "status": "pre-independent-review-fix measurements, preserved not relabeled final"
+    },
+    "final-100year-regression.json": {
+      "comparatorSha": "5d7464938cf3f635b04f28e086fa5f206bfcabeb67d2a76c8dfbbc978c643b58",
+      "status": "post-substantive-fixes equality regression before diagnostic label wording"
+    },
+    "final-code-100year.json": {
+      "comparatorSha": "f3c994374c6ed5b31587b8f7e053a695d238ae63ba77049dca58cf9da0bf93cb",
+      "status": "final exact code one equality regression, not final three-repeat median"
+    },
+    "final-comparison.json": {
+      "comparatorSha": "f3c994374c6ed5b31587b8f7e053a695d238ae63ba77049dca58cf9da0bf93cb",
+      "runnerSha": "71bc9714dc5f54d0f566c5e8663089815e5744ddf86ec2f6014498069d2dd9ee",
+      "repetitionsPerMode": 3,
+      "status": "final exact comparator, same harness and source, fresh sequential alternating processes"
+    }
+  },
+  "preFixComparisonStatistics": {
+    "A": {
+      "totalMs": {
+        "median": 808.531984,
+        "min": 761.840487,
+        "max": 858.890349
+      },
+      "maxRSSMiB": {
+        "median": 218.7890625,
+        "min": 218.390625,
+        "max": 218.88671875
+      }
+    },
+    "B": {
+      "totalMs": {
+        "median": 2661.861956,
+        "min": 2417.250748,
+        "max": 2750.208158
+      },
+      "maxRSSMiB": {
+        "median": 160.875,
+        "min": 160.18359375,
+        "max": 160.89453125
+      }
+    }
+  },
+  "statuses": {
+    "oldCodec80": "pass unchanged",
+    "small44": "pass after two preserved counterexamples",
+    "independent16": "initial16 passed; original log retained",
+    "formalSave23": "pass",
+    "new24monthV8FaultCases9": "initial9passed; one mislabeledelapsed case retained",
+    "historical24monthWireReuse": "not performed; missing original",
+    "100yearFullGameAndSidecars": "pass final exact code",
+    "formal100yearReplay": "not performed; not a v8 save",
+    "browserSafari": "not performed",
+    "D1NineConditions": "still incomplete",
+    "new24monthV8FaultCases10": "final10passed using same newly generated original read-only",
+    "independent31": "final31passed; contains64 differential corpus and15 additional comparison-layer cases",
+    "combined155": "final155passed"
+  },
+  "scope": "independent known-source equality only; no formal provenance, save acceptance or durability",
+  "sourceIdentitiesNote": "core comparator in0fe93830; protect-v8 runner later corrected label/reuse with original log preserved; final evidence commit recorded in PR",
+  "v8ReportingCorrections": {
+    "initialGenerationLabel": "actually elapsed alteration; initial log retained; final run adds actual generation alteration",
+    "finalReaderTiming": "v8-protection-final.json old wording preserved; v8-protection-exact.json rerun with corrected metadata on same preserved newly generated original",
+    "interruption": "truncated in-memory candidate text injection, not a real interrupted write"
+  },
+  "finalComparisonStatistics": {
+    "A": {
+      "totalMs": {
+        "median": 734.647399,
+        "min": 687.0948229999999,
+        "max": 875.2481049999999
+      },
+      "maxRSSMiB": {
+        "median": 218.84765625,
+        "min": 218.5,
+        "max": 219.1796875
+      },
+      "loadMs": {
+        "median": 48.707499,
+        "min": 43.521347999999996,
+        "max": 60.56771599999999
+      },
+      "referenceHashMs": {
+        "median": 9.598788999999996,
+        "min": 9.303032000000002,
+        "max": 9.733612999999991
+      },
+      "comparisonMs": {
+        "median": 94.40368899999999,
+        "min": 92.99347399999999,
+        "max": 122.08556999999996
+      },
+      "heapAfterLoadMiB": {
+        "median": 31.972015380859375,
+        "min": 31.937889099121094,
+        "max": 31.98731231689453
+      },
+      "heapAfterCompareMiB": {
+        "median": 86.4464340209961,
+        "min": 86.42687225341797,
+        "max": 86.45658874511719
+      },
+      "validationHydrateAnchorMs": {
+        "median": 560.001078,
+        "min": 516.399323,
+        "max": 660.599939
+      }
+    },
+    "B": {
+      "totalMs": {
+        "median": 2462.318485,
+        "min": 2428.750016,
+        "max": 2509.5773090000002
+      },
+      "maxRSSMiB": {
+        "median": 160.015625,
+        "min": 158.99609375,
+        "max": 160.7421875
+      },
+      "loadMs": {
+        "median": 46.093552,
+        "min": 44.393078,
+        "max": 46.87639599999999
+      },
+      "referenceHashMs": {
+        "median": 9.29261699999995,
+        "min": 8.815394000000026,
+        "max": 9.78756500000003
+      },
+      "comparisonMs": {
+        "median": 2191.52794,
+        "min": 2163.953725,
+        "max": 2218.862779
+      },
+      "heapAfterLoadMiB": {
+        "median": 31.952850341796875,
+        "min": 31.952362060546875,
+        "max": 31.983253479003906
+      },
+      "heapAfterCompareMiB": {
+        "median": 26.653671264648438,
+        "min": 26.43663787841797,
+        "max": 26.800643920898438
+      },
+      "validationMs": {
+        "median": 216.20772300000002,
+        "min": 207.98886200000004,
+        "max": 234.01151800000002
+      }
+    }
+  },
+  "reviewFinalComparatorCommit": "0fe93830045c98e4d9adf46deba8fe1b7f0420c1",
+  "reviewedCodeSha": "f3c994374c6ed5b31587b8f7e053a695d238ae63ba77049dca58cf9da0bf93cb"
+}
