@@ -577,6 +577,13 @@
       "path": "works/ambertime-chronicle-lab",
       "status": "active",
       "title": "AmberTime 蒸留所の歩みLab"
+    },
+    {
+      "id": "atodama",
+      "path": "works/atodama",
+      "status": "candidate",
+      "title": "あとだま",
+      "candidateDecision": "User 2026-11-08 Europe/Skopje, this conversation: おお、すごい！ after playing the completed あとだま, followed by the explicit instruction to proceed with publication in Yumaniwa Town. The accepted game is selected as the necessary publication candidate; no exact-SHA device approval is inferred."
     }
   ]
 }

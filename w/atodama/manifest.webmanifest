@@ -1,0 +1,18 @@
+{
+  "name": "あとだま",
+  "short_name": "あとだま",
+  "id": "../../?work=atodama",
+  "start_url": "../../?work=atodama",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#e8e5dc",
+  "theme_color": "#e8e5dc",
+  "icons": [
+    {
+      "src": "../../assets/works/atodama/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

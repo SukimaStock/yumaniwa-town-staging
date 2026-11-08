@@ -21,6 +21,56 @@
 var WORK_SEARCH_META_SCHEMA = 1;
 
 var WORK_SEARCH_META = {
+    "atodama": {
+        "schemaType": "VideoGame",
+        "alternateNames": [],
+        "ja": {
+            "pageTitle": "あとだま｜前の玉と協力するビリヤードパズル｜湯間庭町",
+            "heading": "あとだま",
+            "metaDescription": "前に打った玉が、次のショットでも同じ軌道を走るビリヤードパズル。三球で扉を開け、全部の輪を光らせます。全6面とフリーモード。",
+            "body": "玉を引っぱって離すと、前に打った玉も一緒に走ります。残した軌道で扉を開け、次の玉を奥へ通し、三球以内で全部の輪を光らせるビリヤードパズルです。一球ずつ戻して狙い直せます。全6面と、配置が変わるフリーモードがあります。",
+            "shareTitle": "あとだま｜湯間庭町",
+            "shareDescription": "前に打った玉と協力する、三球のビリヤードパズル。",
+            "imageAlt": "あとだまの緑色の盤面に残る玉の軌道と、オレンジの玉",
+            "genres": [
+                "パズル",
+                "ビリヤード"
+            ],
+            "terms": [
+                "あとだま",
+                "ビリヤードパズル",
+                "ブラウザゲーム",
+                "軌道",
+                "リプレイ"
+            ]
+        },
+        "en": {
+            "pageTitle": "あとだま | A Billiards Puzzle with Replayed Shots | Yumaniwa Town",
+            "heading": "あとだま",
+            "metaDescription": "Your previous shots replay alongside the next ball. Use three balls to open shutters and light every ring in six tables and a free-play mode.",
+            "body": "Pull the ball back and release. Earlier shots replay their recorded paths alongside the new ball. Let a previous ball open a shutter, then send the next ball through to light every ring within three shots. Undo one shot at a time to refine your aim. Includes six tables and a free-play mode with changing layouts.",
+            "shareTitle": "あとだま | Yumaniwa Town",
+            "shareDescription": "A three-ball billiards puzzle where your previous shots become your teammates.",
+            "imageAlt": "Recorded ball paths and an orange ball on the green あとだま table",
+            "genres": [
+                "Puzzle",
+                "Billiards"
+            ],
+            "terms": [
+                "billiards puzzle",
+                "browser game",
+                "recorded shots",
+                "replay"
+            ]
+        },
+        "ogp": {
+            "file": "ogp.jpg",
+            "mime": "image/jpeg",
+            "width": 1200,
+            "height": 630,
+            "version": "20261108"
+        }
+    },
 
     "pumpoko": {
         "articleIds": ["note-n21f2389ac91d"],

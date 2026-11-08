@@ -7,6 +7,19 @@
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        "date": "2026-11-08",
+        "title": "レジャーセンターに『あとだま』を設置",
+        "body": "前に打った玉と協力するビリヤードパズルです。三球で全部の輪を光らせます。",
+        "tags": [
+            "leisure-center",
+            "game",
+            "open"
+        ],
+        "workIds": [
+            "atodama"
+        ]
+    },
+    {
         date: "2026-10-11",
         title: "レジャーセンターに『PUMPOKO』を設置",
         body: "地上を転がり、地下で跳ねる。カボチャとルタバガの小さな旅が始まりました。",
