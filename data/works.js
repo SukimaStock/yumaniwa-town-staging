@@ -24,6 +24,27 @@
 
 var WORKS = [
     // [WORKS:ADD_NEWEST_HERE]
+    {
+        "id": "atodama",
+        "title": "あとだま",
+        "venue": "leisure_center",
+        "kind": "game",
+        "status": "open",
+        "launch": "embedded",
+        "entry": "./works/atodama/index.html",
+        "frameTitle": "あとだま",
+        "returnLabel": "湯窓レジャーセンター",
+        "frameMode": "soft",
+        "playerLayout": "phone",
+        "playerWidth": 390,
+        "playerHeight": 740,
+        "menuTitle": "あとだま",
+        "menuCategory": "ビリヤードパズル",
+        "menuDescription": "前に打った玉と協力して、三球で全部の輪を光らせる。",
+        "description": "前に打った玉が同じ軌道を走るビリヤードパズル。三球で協力し、扉の先の輪を光らせます。",
+        "emptyText": "あとだまを読み込んでいます。"
+    },
+
 
     {
         id: "pumpoko",

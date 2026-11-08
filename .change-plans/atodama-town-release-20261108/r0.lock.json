@@ -1,0 +1,169 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5086139133fac5b9efd5b1d323d735c8b827026a68bc102d7a721ceeea75721a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "atodama-town-release-20261108",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate the user-adopted あとだま game and prepare/publish only this work in Yumaniwa Town through existing release operations.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "ASSET",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "Rule / Skill",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging-production",
+    "baseSha": "b57ce881b5f5f68bc12ff1f15634178118496958",
+    "canonicalSources": [
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "data/work-guide-meta.js",
+      "data/work-search-meta.js",
+      "data/updates.js",
+      "data/ghost-dialogue.js",
+      "RELEASE-WORKFLOW.md",
+      "EXPRESSION-AUDIT.md",
+      "Site source d5c815638a812a435bf4dcc4e18d640fb6157929 adopted by the user in this conversation"
+    ],
+    "allowedPaths": [
+      "works/atodama/index.html",
+      "works/atodama/style.css",
+      "works/atodama/app.mjs",
+      "works/atodama/core.mjs",
+      "works/atodama/tests/verify.mjs",
+      "works/atodama/tests/solutions.json",
+      "works/atodama/RELEASE.md",
+      "data/works.js",
+      "data/work-guide-meta.js",
+      "data/work-search-meta.js",
+      "data/work-lifecycle.json",
+      "data/updates.js",
+      "data/ghost-dialogue.js",
+      "assets/works/atodama/ogp.jpg",
+      "assets/works/atodama/icon.png",
+      "w/atodama/index.html",
+      "w/atodama/manifest.webmanifest",
+      "en/w/atodama/index.html",
+      "lab/index.html",
+      "index.html",
+      ".change-plans/atodama-town-release-20261108/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "town-analytics.js",
+      "work-install-meta.js",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Copy the adopted standalone game into works/atodama; preserve its rules, visuals, localStorage key and audio default. Add only existing frame lifecycle integration if necessary for pause/return.",
+      "Register embedded soft phone 390x740 at leisure_center as a menu-only game, with guide metadata and accurate Japanese/English descriptions.",
+      "Register candidate status from the user acceptance; retain the separate explicit town-publication instruction for selective production. LAB uses the existing prototype bench.",
+      "Use actual game rendering for OGP and its existing ball motif for the icon; add existing per-work manifest.",
+      "Generate only atodama JA/EN staging pages using existing generator exports; staging sitemap remains absent. Add the existing static discovery link and refresh only changed data-script fingerprints in root HTML.",
+      "Add the new-work update record and a short ghost remark. Keep extra explanatory/decorative text out of game UI.",
+      "Record validation, independent technical review and actual deployment evidence in work-local RELEASE.md."
+    ],
+    "ownerDecisions": [
+      "User 2026-11-08 Europe/Skopje in this conversation: おお、すごい！ after playing the completed あとだま Site; followed by 湯間庭町で公開しますので作業を進めてください. This accepts the presented game and authorizes town-publication work, including necessary candidate preparation and production reflection. No exact-SHA physical-device or separate artwork approval is asserted."
+    ],
+    "hqDecisions": [
+      "Existing embedded/soft/phone/leisure_center/schema/install/analytics contracts are reused. No new HQ contract decision is asserted. Full/HQ Review labels follow the unchanged risk floor for guide/lifecycle/generated HTML and root discovery/cache surface.",
+      "Read-only technical review by release_review completed before lock: existing-contract integration has no unresolved new HQ/Owner design decision. That technical review is not described as HQ approval."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing schemas and menu-only registration; no scene/runtime/Engine changes.",
+      "RELEASE-WORKFLOW: selective staging to production, candidate and explicit publication authority separately recorded.",
+      "EXPRESSION-AUDIT: use concrete game rules and concise copy; no invented intent, subtitle or recommendation placement."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Browser standalone and embedded pointer/keyboard launch, ghost opens shutter, undo/retry, mute/unmute, modal, pause/return/reentry, and reload.",
+      "390x844 and 375x667 responsive browser viewports plus desktop; physical iPhone Safari remains unobserved unless actual evidence is supplied.",
+      "Existing same-frame work and leisure_center entry/exit; guide/discovery/update/ghost identity; OGP crop.",
+      "Live production URLs, delivered bytes, JA/EN robots/canonical/hreflang/sitemap and exact-SHA Pages result."
+    ],
+    "impactChecks": [
+      "asset.cache",
+      "asset.file",
+      "asset.rendering",
+      "ghost.runtime",
+      "ghost.work-id",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "search.generated-pages",
+      "search.localized-copy",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator",
+      "surface.shared",
+      "updates.runtime",
+      "updates.work-id",
+      "work.regression",
+      "work.runtime",
+      "works.analytics-id",
+      "works.direct-route",
+      "works.release-validator",
+      "works.search-share",
+      "works.town-awareness",
+      "works.venue-menu"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only the atodama integration/promotion commits with ordinary PRs; preserve all other works, metadata entries, user best scores and shared runtime.",
+    "outOfScope": [
+      "Other staging works or whole staging publication",
+      "New shared runtime, Engine, schema, scene placement, service worker or analytics contracts",
+      "SNS/email sending or external Search Console/Plausible configuration"
+    ],
+    "promotion": "User explicitly authorized town publication in this conversation. After staging checks, select only atodama and its necessary entries/assets/pages into a branch based on current production. PR + existing Safety Checks + ordinary merge; then exact-SHA Pages and live checks. Do not copy LAB or unrelated staging changes. Record candidate -> released on staging only after actual production evidence.",
+    "unverified": [
+      "Physical iPhone Safari exact-SHA behavior",
+      "External analytics Goal configuration and ingestion unless directly observed"
+    ],
+    "problem": "The accepted game is currently hosted as a private Site and is absent from Yumaniwa Town.",
+    "currentContract": "Existing embedded soft phone player, leisure_center menu, WORKS/Guide/Search/lifecycle and install contracts.",
+    "whyExistingIsInsufficient": "A standalone Site does not supply town discovery, return, install identity or public Search/Share pages.",
+    "design": "Add the adopted game as one isolated work; use existing metadata and generators; keep town runtime unchanged.",
+    "alternativesRejected": [
+      "Publish the private Site link as an external dependency",
+      "Copy all staging works into production",
+      "Add a physical building or shared player feature"
+    ],
+    "migration": "Additive single-work registration. Preserve adopted localStorage key atodama-v1; scores from the Site are origin-local and are not migrated across origins.",
+    "compatibility": "No shared runtime change. Work-local pause/close behavior follows existing player contracts. Existing production metadata entries are preserved independently.",
+    "boundaryCases": [
+      "Pointer cancellation never fires a shot",
+      "Undo restores the previous aim without changing older recordings",
+      "Replay after clear returns to the clear result",
+      "Hidden/closed iframe pauses simulation/audio",
+      "Storage denial still allows play",
+      "Short portrait frame must keep controls reachable",
+      "Production includes existing published set plus only atodama"
+    ],
+    "testPlan": [
+      "Scope -> Risk -> Impact with fixed base",
+      "node syntax and game deterministic solver tests",
+      "Lifecycle/LAB and explicit-set staging Search checks",
+      "Release/guide/install/search and minimum existing-player regression",
+      "Independent read-only implementation review",
+      "Exact-head required CI; selective production Safety Checks; live verification"
+    ],
+    "promotionRisk": "New-work integration and portrait frame fitting require browser verification. External analytics and physical-device evidence must remain UNVERIFIED; do not label validator success Release Complete."
+  }
+}

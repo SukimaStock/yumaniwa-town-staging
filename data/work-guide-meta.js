@@ -20,6 +20,11 @@ var WORK_GUIDE_FEATURED = [
 ];
 
 var WORK_GUIDE_META = {
+    "atodama": {
+        duration: "3〜10分",
+        moods: ["short", "play"],
+        guideLine: "前に打った玉と協力する、三球のビリヤードパズル。"
+    },
     "pumpoko": {
         duration: "5〜15分",
         moods: ["play"],

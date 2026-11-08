@@ -1,0 +1,136 @@
+[
+  {
+    "level": 1,
+    "won": true,
+    "shots": [
+      {
+        "angle": -2.9670597283903604,
+        "speed": 465
+      }
+    ],
+    "hit": [
+      true,
+      true,
+      true
+    ],
+    "open": []
+  },
+  {
+    "level": 2,
+    "won": true,
+    "shots": [
+      {
+        "angle": -2.548180707911721,
+        "speed": 430
+      }
+    ],
+    "hit": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "open": []
+  },
+  {
+    "level": 3,
+    "won": true,
+    "shots": [
+      {
+        "angle": -2.6179938779914944,
+        "speed": 500
+      },
+      {
+        "angle": -2.548180707911721,
+        "speed": 500
+      }
+    ],
+    "hit": [
+      true,
+      true,
+      true
+    ],
+    "open": [
+      true
+    ]
+  },
+  {
+    "level": 4,
+    "won": true,
+    "shots": [
+      {
+        "angle": -2.6529004630313806,
+        "speed": 500
+      },
+      {
+        "angle": -2.5830872929516078,
+        "speed": 430
+      }
+    ],
+    "hit": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "open": [
+      true
+    ]
+  },
+  {
+    "level": 5,
+    "won": true,
+    "shots": [
+      {
+        "angle": -2.792526803190927,
+        "speed": 500
+      },
+      {
+        "angle": -2.722713633111154,
+        "speed": 500
+      },
+      {
+        "angle": -2.722713633111154,
+        "speed": 290
+      }
+    ],
+    "hit": [
+      true,
+      true,
+      true
+    ],
+    "open": [
+      true,
+      true
+    ]
+  },
+  {
+    "level": 6,
+    "won": true,
+    "shots": [
+      {
+        "angle": -2.792526803190927,
+        "speed": 500
+      },
+      {
+        "angle": -2.722713633111154,
+        "speed": 465
+      },
+      {
+        "angle": -2.722713633111154,
+        "speed": 430
+      }
+    ],
+    "hit": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "open": [
+      true,
+      true
+    ]
+  }
+]
