@@ -14,7 +14,7 @@ export function createM0Observation({document:doc,state,model,room,modal,art,sta
  '<div class="m0-report" role="status" aria-live="polite"></div></div></div>';
  doc.body.append(outer);
  const rows=outer.querySelector('.m0-rows'),map=outer.querySelector('canvas'),pins=outer.querySelector('.m0-pins'),report=outer.querySelector('.m0-report');
- let mode='closed',selected='town-liquor',drag=null,animationEpoch=0;
+ let mode='closed',selected='town-liquor',drag=null,animationEpoch=0,suppressAdvance=false;
  const active=()=>mode!=='closed'&&room()==='sales'&&!modal();
  const available=s=>availableMarketShops(s).map(x=>x.id);
  function align(){
@@ -76,7 +76,7 @@ export function createM0Observation({document:doc,state,model,room,modal,art,sta
  }
  function setMode(next){if(!['closed','half','full'].includes(next))return;mode=next;animationEpoch++;update();}
  function consume(before,after){
-  if(!active())return;
+  if(!active()||mode!=='half')return;
   const sales=savedMarketSales(before,after).filter(s=>s.shopId===selected);
   if(!sales.length)return;
   const originals=new Map();
@@ -107,12 +107,13 @@ export function createM0Observation({document:doc,state,model,room,modal,art,sta
  outer.addEventListener('click',event=>{
   const pin=event.target.closest('[data-m0-shop]');if(pin){const id=pin.dataset.m0Shop;if(available(state()).includes(id)){selected=id;update();}return;}
   const action=event.target.closest('[data-m0]')?.dataset.m0;
+  if(suppressAdvance&&action==='advance'){suppressAdvance=false;event.preventDefault();return;}
   if(action==='advance')setMode(mode==='half'?'full':'half');
   if(action==='close')setMode('closed');
  });
  const handle=outer.querySelector('.m0-handle');
  handle.addEventListener('pointerdown',e=>{if(e.target.closest('[data-m0="close"]'))return;drag={id:e.pointerId,y:e.clientY};handle.setPointerCapture(e.pointerId);});
- handle.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const dy=e.clientY-drag.y;drag=null;if(Math.abs(dy)>28){e.preventDefault();setMode(dy<0?'full':'half');}});
+ handle.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const dy=e.clientY-drag.y;drag=null;if(Math.abs(dy)>28){suppressAdvance=true;e.preventDefault();setMode(dy<0?'full':'half');}});
  handle.addEventListener('pointercancel',()=>{drag=null;});
  window.addEventListener('resize',update);
  return {open:()=>setMode('half'),close:()=>setMode('closed'),setMode,update,consume,reset:()=>{mode='closed';selected='town-liquor';animationEpoch++;update();},get mode(){return mode;}};
