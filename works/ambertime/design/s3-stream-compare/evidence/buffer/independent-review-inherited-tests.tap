@@ -1,0 +1,196 @@
+TAP version 13
+# Subtest: empty histories, six sidecars, frozen candidate and both scopes
+ok 1 - empty histories, six sidecars, frozen candidate and both scopes
+  ---
+  duration_ms: 5.050413
+  type: 'test'
+  ...
+# Subtest: Unicode values and keys, all controls, all surrogate pair classes, chunks 1 through 9
+ok 2 - Unicode values and keys, all controls, all surrogate pair classes, chunks 1 through 9
+  ---
+  duration_ms: 8.388044
+  type: 'test'
+  ...
+# Subtest: native numeric representations and nested arrays
+ok 3 - native numeric representations and nested arrays
+  ---
+  duration_ms: 0.757356
+  type: 'test'
+  ...
+# Subtest: schema and town integer-index reordering matches native object enumeration
+ok 4 - schema and town integer-index reordering matches native object enumeration
+  ---
+  duration_ms: 1.188288
+  type: 'test'
+  ...
+# Subtest: arrivals resolve repeated event data without JSON parse or comparator input mutation
+ok 5 - arrivals resolve repeated event data without JSON parse or comparator input mutation
+  ---
+  duration_ms: 0.995987
+  type: 'test'
+  ...
+# Subtest: missing/null or non-index key order change cannot pass independent content comparison
+ok 6 - missing/null or non-index key order change cannot pass independent content comparison
+  ---
+  duration_ms: 1.346408
+  type: 'test'
+  ...
+# Subtest: first difference uses exact UTF16 offset after supplementary characters
+ok 7 - first difference uses exact UTF16 offset after supplementary characters
+  ---
+  duration_ms: 0.584755
+  type: 'test'
+  ...
+# Subtest: reference truncation and trailing data reject at exact endpoint
+ok 8 - reference truncation and trailing data reject at exact endpoint
+  ---
+  duration_ms: 1.0573
+  type: 'test'
+  ...
+# Subtest: changing original between verification and comparison is refused
+ok 9 - changing original between verification and comparison is refused
+  ---
+  duration_ms: 1.001566
+  type: 'test'
+  ...
+# Subtest: invalid UTF8 must not compare equal to literal U+FFFD
+ok 10 - invalid UTF8 must not compare equal to literal U+FFFD
+  ---
+  duration_ms: 0.827602
+  type: 'test'
+  ...
+# Subtest: incremental escaping must not stringify a full large key
+ok 11 - incremental escaping must not stringify a full large key
+  ---
+  duration_ms: 4.292837
+  type: 'test'
+  ...
+# Subtest: short regular-file reads must not turn a buffered UTF8 prefix into EOF
+ok 12 - short regular-file reads must not turn a buffered UTF8 prefix into EOF
+  ---
+  duration_ms: 1.333968
+  type: 'test'
+  ...
+# Subtest: real 64KiB reference read boundaries preserve split UTF8 characters
+ok 13 - real 64KiB reference read boundaries preserve split UTF8 characters
+  ---
+  duration_ms: 15.787723
+  type: 'test'
+  ...
+# Subtest: long-key mismatch preserves exact offset and explicitly marks bounded path
+ok 14 - long-key mismatch preserves exact offset and explicitly marks bounded path
+  ---
+  duration_ms: 4.711531
+  type: 'test'
+  ...
+# Subtest: strict candidate faults are rejected before a reference open
+ok 15 - strict candidate faults are rejected before a reference open
+  ---
+  duration_ms: 1.715426
+  type: 'test'
+  ...
+# Subtest: deterministic JSON-derived differential corpus
+ok 16 - deterministic JSON-derived differential corpus
+  ---
+  duration_ms: 20.098926
+  type: 'test'
+  ...
+# Subtest: content layer rejects exact first reference unit independently of prechecks
+ok 17 - content layer rejects exact first reference unit independently of prechecks
+  ---
+  duration_ms: 1.201368
+  type: 'test'
+  ...
+# Subtest: content layer rejects exact middle reference unit independently of prechecks
+ok 18 - content layer rejects exact middle reference unit independently of prechecks
+  ---
+  duration_ms: 0.737516
+  type: 'test'
+  ...
+# Subtest: content layer rejects exact last reference unit independently of prechecks
+ok 19 - content layer rejects exact last reference unit independently of prechecks
+  ---
+  duration_ms: 0.949497
+  type: 'test'
+  ...
+# Subtest: content layer rejects changed first historical record independently of candidate anchor
+ok 20 - content layer rejects changed first historical record independently of candidate anchor
+  ---
+  duration_ms: 1.443495
+  type: 'test'
+  ...
+# Subtest: content layer rejects changed middle historical record independently of candidate anchor
+ok 21 - content layer rejects changed middle historical record independently of candidate anchor
+  ---
+  duration_ms: 1.562114
+  type: 'test'
+  ...
+# Subtest: content layer rejects changed last historical record independently of candidate anchor
+ok 22 - content layer rejects changed last historical record independently of candidate anchor
+  ---
+  duration_ms: 1.411677
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside userPaused independently of prechecks
+ok 23 - content layer rejects reference truncation inside userPaused independently of prechecks
+  ---
+  duration_ms: 0.970909
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside elapsed independently of prechecks
+ok 24 - content layer rejects reference truncation inside elapsed independently of prechecks
+  ---
+  duration_ms: 1.06769
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside caskSlots independently of prechecks
+ok 25 - content layer rejects reference truncation inside caskSlots independently of prechecks
+  ---
+  duration_ms: 0.916777
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside recentLedger independently of prechecks
+ok 26 - content layer rejects reference truncation inside recentLedger independently of prechecks
+  ---
+  duration_ms: 1.450966
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside historyRecord independently of prechecks
+ok 27 - content layer rejects reference truncation inside historyRecord independently of prechecks
+  ---
+  duration_ms: 1.293778
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference truncation inside recallRecord independently of prechecks
+ok 28 - content layer rejects reference truncation inside recallRecord independently of prechecks
+  ---
+  duration_ms: 1.477075
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference missing row independently of candidate structure
+ok 29 - content layer rejects reference missing row independently of candidate structure
+  ---
+  duration_ms: 3.194775
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference extra row independently of candidate structure
+ok 30 - content layer rejects reference extra row independently of candidate structure
+  ---
+  duration_ms: 1.777871
+  type: 'test'
+  ...
+# Subtest: content layer rejects reference reordered rows independently of candidate structure
+ok 31 - content layer rejects reference reordered rows independently of candidate structure
+  ---
+  duration_ms: 1.022197
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 189.628664

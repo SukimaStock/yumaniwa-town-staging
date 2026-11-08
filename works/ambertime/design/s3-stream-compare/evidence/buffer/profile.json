@@ -1,0 +1,152 @@
+{
+  "kind": "instrumented CPU profile, not final timing",
+  "node": "v24.22.1",
+  "baselineCommit": "1f04d38eae13dec58ff4c0455c8acec4d417a8da",
+  "profilePath": "/workspace/shared/ambertime-buffer-profile/CPU.20261108.090127.6.0.001.cpuprofile",
+  "profileSha": "9cbd01a6234213cfdd78d07f2638cd45ee6ae27e0176d9d6006d7694cc55bebc",
+  "topSampledMicroseconds": [
+    [
+      "walk compare.mjs:37",
+      519911
+    ],
+    [
+      "update hash:185",
+      491941
+    ],
+    [
+      "compareCandidate compare.mjs:66",
+      218648
+    ],
+    [
+      "row compare.mjs:28",
+      184021
+    ],
+    [
+      "string compare.mjs:27",
+      145711
+    ],
+    [
+      "update compare.mjs:52",
+      132074
+    ],
+    [
+      "jsonDomain codec.mjs:7",
+      131217
+    ],
+    [
+      "history compare.mjs:33",
+      128828
+    ],
+    [
+      "quoted compare.mjs:11",
+      124821
+    ],
+    [
+      " measure.mjs:0",
+      120194
+    ],
+    [
+      "keyPath compare.mjs:8",
+      112629
+    ],
+    [
+      "hash codec.mjs:2",
+      85436
+    ],
+    [
+      " :-1",
+      78718
+    ],
+    [
+      "contents compare.mjs:25",
+      76598
+    ],
+    [
+      "(garbage collector) :-1",
+      69466
+    ],
+    [
+      "segment compare.mjs:26",
+      46653
+    ],
+    [
+      "isIndex compare.mjs:9",
+      29297
+    ],
+    [
+      "write node:string_decoder:75",
+      18558
+    ],
+    [
+      "(program) :-1",
+      16176
+    ],
+    [
+      "validateCandidate codec.mjs:34",
+      14205
+    ],
+    [
+      "readFileSync node:fs:472",
+      12242
+    ],
+    [
+      "compileForInternalLoader realm:382",
+      10970
+    ]
+  ],
+  "baselineRun": {
+    "mode": "B",
+    "loadMs": 61.977890999999985,
+    "totalProcessWorkMs": 2772.631844,
+    "before": {
+      "rss": 42991616,
+      "heapTotal": 13570048,
+      "heapUsed": 9566384,
+      "external": 4146546,
+      "arrayBuffers": 146615,
+      "maxRSSKiB": 41984
+    },
+    "afterLoad": {
+      "rss": 81117184,
+      "heapTotal": 64651264,
+      "heapUsed": 34511488,
+      "external": 4146586,
+      "arrayBuffers": 146615,
+      "maxRSSKiB": 79216
+    },
+    "after": {
+      "rss": 174510080,
+      "heapTotal": 94396416,
+      "heapUsed": 28823736,
+      "external": 4212093,
+      "arrayBuffers": 212122,
+      "maxRSSKiB": 170420
+    },
+    "result": {
+      "equal": true,
+      "scope": "input",
+      "includesSidecars": true,
+      "units": 10645147,
+      "bytes": 11873989,
+      "outputSha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4",
+      "gameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+      "chunks": 2329289,
+      "maxChunkUnits": 1358,
+      "maxReferenceBytes": 65536,
+      "validationMs": 274.61368699999997,
+      "referenceHashMs": 9.591025000000002,
+      "comparisonMs": 2425.35843,
+      "totalMs": 2710.012062,
+      "heapAfterValidation": 34806728,
+      "heapAfterComparison": 28822472,
+      "provenance": false
+    },
+    "environment": {
+      "node": "v24.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "cpu": "AMD EPYC 9V74 80-Core Processor"
+    },
+    "cold": "fresh Node process; filesystem cache uncontrolled; no formal replay"
+  }
+}

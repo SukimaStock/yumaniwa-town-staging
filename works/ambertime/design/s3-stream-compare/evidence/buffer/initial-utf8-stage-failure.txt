@@ -1,0 +1,72 @@
+✔ empty histories, six sidecars, frozen candidate and both scopes (7.170322ms)
+✔ Unicode values and keys, all controls, all surrogate pair classes, chunks 1 through 9 (12.765478ms)
+✔ native numeric representations and nested arrays (1.111432ms)
+✔ schema and town integer-index reordering matches native object enumeration (1.303593ms)
+✔ arrivals resolve repeated event data without JSON parse or comparator input mutation (0.946031ms)
+✔ missing/null or non-index key order change cannot pass independent content comparison (1.418817ms)
+✔ first difference uses exact UTF16 offset after supplementary characters (0.676383ms)
+✔ reference truncation and trailing data reject at exact endpoint (1.376569ms)
+✔ changing original between verification and comparison is refused (1.019322ms)
+✖ invalid UTF8 must not compare equal to literal U+FFFD (1.71147ms)
+✔ incremental escaping must not stringify a full large key (5.172907ms)
+✔ short regular-file reads must not turn a buffered UTF8 prefix into EOF (1.662977ms)
+✔ real 64KiB reference read boundaries preserve split UTF8 characters (27.929082ms)
+✔ long-key mismatch preserves exact offset and explicitly marks bounded path (7.074065ms)
+✔ strict candidate faults are rejected before a reference open (2.79538ms)
+✔ deterministic JSON-derived differential corpus (23.209373ms)
+✔ content layer rejects exact first reference unit independently of prechecks (1.114837ms)
+✔ content layer rejects exact middle reference unit independently of prechecks (0.869566ms)
+✔ content layer rejects exact last reference unit independently of prechecks (0.919882ms)
+✔ content layer rejects changed first historical record independently of candidate anchor (1.316953ms)
+✔ content layer rejects changed middle historical record independently of candidate anchor (0.982747ms)
+✔ content layer rejects changed last historical record independently of candidate anchor (0.990198ms)
+✔ content layer rejects reference truncation inside userPaused independently of prechecks (1.022157ms)
+✔ content layer rejects reference truncation inside elapsed independently of prechecks (0.708272ms)
+✔ content layer rejects reference truncation inside caskSlots independently of prechecks (0.770025ms)
+✔ content layer rejects reference truncation inside recentLedger independently of prechecks (1.528343ms)
+✔ content layer rejects reference truncation inside historyRecord independently of prechecks (1.649055ms)
+✔ content layer rejects reference truncation inside recallRecord independently of prechecks (1.517607ms)
+✔ content layer rejects reference missing row independently of candidate structure (5.557801ms)
+✔ content layer rejects reference extra row independently of candidate structure (1.203401ms)
+✔ content layer rejects reference reordered rows independently of candidate structure (0.834302ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 30
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 221.679494
+
+✖ failing tests:
+
+test at works/ambertime/design/s3-stream-compare/evidence/reviewer-adversarial.test.mjs:81:1
+✖ invalid UTF8 must not compare equal to literal U+FFFD (1.71147ms)
+  AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false
+  
+  Caught error:
+  
+  TypeError: The encoded data was not valid for encoding utf-8
+      at TestContext.<anonymous> (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/evidence/reviewer-adversarial.test.mjs:85:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: The encoded data was not valid for encoding utf-8
+        at TextDecoder.decode (node:internal/encoding:524:21)
+        at Object.next (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare-buffered.mjs:73:148)
+        at flush (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare-buffered.mjs:90:41)
+        at emit (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare-buffered.mjs:100:149)
+        at send (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare-buffered.mjs:15:28)
+        at walk (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare-buffered.mjs:49:3)
+        at walkContents (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare-buffered.mjs:60:2)
+        at compareCandidate (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare-buffered.mjs:103:3)
+        at file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/evidence/reviewer-adversarial.test.mjs:85:20
+        at getActual (node:assert:611:5),
+    operator: 'throws',
+    diff: 'simple'
+  }

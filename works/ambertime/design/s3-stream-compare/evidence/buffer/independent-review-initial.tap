@@ -1,0 +1,216 @@
+TAP version 13
+# Subtest: accepted alias keeps identical candidate bytes and B0 parity: direct sidecar town
+ok 1 - accepted alias keeps identical candidate bytes and B0 parity: direct sidecar town
+  ---
+  duration_ms: 12.444714
+  type: 'test'
+  ...
+# Subtest: accepted alias keeps identical candidate bytes and B0 parity: nested sidecar town
+ok 2 - accepted alias keeps identical candidate bytes and B0 parity: nested sidecar town
+  ---
+  duration_ms: 5.02833
+  type: 'test'
+  ...
+# Subtest: accepted alias keeps identical candidate bytes and B0 parity: shared town ancestor
+ok 3 - accepted alias keeps identical candidate bytes and B0 parity: shared town ancestor
+  ---
+  duration_ms: 6.754963
+  type: 'test'
+  ...
+# Subtest: accepted alias keeps identical candidate bytes and B0 parity: game sibling town
+ok 4 - accepted alias keeps identical candidate bytes and B0 parity: game sibling town
+  ---
+  duration_ms: 3.500728
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 1
+ok 5 - game boundary hashes across all seven root positions, capacity 1
+  ---
+  duration_ms: 7.624438
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 2
+ok 6 - game boundary hashes across all seven root positions, capacity 2
+  ---
+  duration_ms: 7.64534
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 7
+ok 7 - game boundary hashes across all seven root positions, capacity 7
+  ---
+  duration_ms: 5.436548
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 4096
+ok 8 - game boundary hashes across all seven root positions, capacity 4096
+  ---
+  duration_ms: 4.995259
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 16384
+ok 9 - game boundary hashes across all seven root positions, capacity 16384
+  ---
+  duration_ms: 3.996047
+  type: 'test'
+  ...
+# Subtest: exact game output length 4096 -1
+ok 10 - exact game output length 4096 -1
+  ---
+  duration_ms: 1.549425
+  type: 'test'
+  ...
+# Subtest: exact game output length 4096 0
+ok 11 - exact game output length 4096 0
+  ---
+  duration_ms: 1.379247
+  type: 'test'
+  ...
+# Subtest: exact game output length 4096 1
+ok 12 - exact game output length 4096 1
+  ---
+  duration_ms: 1.135939
+  type: 'test'
+  ...
+# Subtest: exact game output length 16384 -1
+ok 13 - exact game output length 16384 -1
+  ---
+  duration_ms: 2.785406
+  type: 'test'
+  ...
+# Subtest: exact game output length 16384 0
+ok 14 - exact game output length 16384 0
+  ---
+  duration_ms: 2.285219
+  type: 'test'
+  ...
+# Subtest: exact game output length 16384 1
+ok 15 - exact game output length 16384 1
+  ---
+  duration_ms: 2.171567
+  type: 'test'
+  ...
+# Subtest: every ASCII content mismatch and truncation offset matches B0, capacity 1
+ok 16 - every ASCII content mismatch and truncation offset matches B0, capacity 1
+  ---
+  duration_ms: 410.883059
+  type: 'test'
+  ...
+# Subtest: every ASCII content mismatch and truncation offset matches B0, capacity 7
+ok 17 - every ASCII content mismatch and truncation offset matches B0, capacity 7
+  ---
+  duration_ms: 285.284367
+  type: 'test'
+  ...
+# Subtest: every ASCII content mismatch and truncation offset matches B0, capacity 16384
+ok 18 - every ASCII content mismatch and truncation offset matches B0, capacity 16384
+  ---
+  duration_ms: 274.996078
+  type: 'test'
+  ...
+# Subtest: during-read raw hash rejects bytes changed to identical decoded Unicode
+not ok 19 - during-read raw hash rejects bytes changed to identical decoded Unicode
+  ---
+  duration_ms: 2.909844
+  type: 'test'
+  location: '/workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-boundaries.test.mjs:71:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    3 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-boundaries.test.mjs:76:9)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: EOF verification reads beyond an exact 64KiB reference block
+ok 20 - EOF verification reads beyond an exact 64KiB reference block
+  ---
+  duration_ms: 6.249578
+  type: 'test'
+  ...
+# Subtest: comparison hash feeds stay bounded independent of scalar size and Unicode byte width
+ok 21 - comparison hash feeds stay bounded independent of scalar size and Unicode byte width
+  ---
+  duration_ms: 24.880754
+  type: 'test'
+  ...
+# Subtest: alternating row layouts and integer-index keys preserve all values and arrivals
+ok 22 - alternating row layouts and integer-index keys preserve all values and arrivals
+  ---
+  duration_ms: 36.956619
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: negative zero
+ok 23 - unchanged strict JSON-domain rejection before reference read: negative zero
+  ---
+  duration_ms: 0.489841
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: NaN
+ok 24 - unchanged strict JSON-domain rejection before reference read: NaN
+  ---
+  duration_ms: 0.307766
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: Infinity
+ok 25 - unchanged strict JSON-domain rejection before reference read: Infinity
+  ---
+  duration_ms: 0.181465
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: sparse array
+ok 26 - unchanged strict JSON-domain rejection before reference read: sparse array
+  ---
+  duration_ms: 0.245091
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: array extra key
+ok 27 - unchanged strict JSON-domain rejection before reference read: array extra key
+  ---
+  duration_ms: 0.294065
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: accessor
+ok 28 - unchanged strict JSON-domain rejection before reference read: accessor
+  ---
+  duration_ms: 0.209176
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: symbol
+ok 29 - unchanged strict JSON-domain rejection before reference read: symbol
+  ---
+  duration_ms: 0.199282
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: function
+ok 30 - unchanged strict JSON-domain rejection before reference read: function
+  ---
+  duration_ms: 0.19116
+  type: 'test'
+  ...
+# Subtest: independent anchors, immutable arrays and logical content survive a fresh round-trip
+ok 31 - independent anchors, immutable arrays and logical content survive a fresh round-trip
+  ---
+  duration_ms: 0.657576
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 30
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1214.161041

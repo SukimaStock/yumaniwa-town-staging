@@ -1,0 +1,28 @@
+Independent review, 2026-11-08. Actual small-probe output on B1 SHA
+750c1c099584e525c399ffa91f228ac7c5220e46a42e21ce2050237663996317:
+
+candidate bytes unchanged true validator true
+B0 true
+B1 independent content mismatch content $["recentLedger"] 168
+
+Probe input:
+{game:{labConnection:{town:{label:'town',events:[],attempts:[],arrivals:[]}}},userPaused:false,elapsed:0,caskSlots:[],recentLedger:{label:'town'},historyRecord:{},recallRecord:{}}
+
+const c=encode(input),a=anchor(input);
+c.active.recentLedger=c.active.game.labConnection.town;
+The alias preserves JSON.stringify(c), its independently established candidate
+anchor, and validateCandidate(c,a)===true. The independent reference remains
+JSON.stringify(input). B0 accepts. B1 identified town by identity, reconstructing
+histories again inside the sidecar and rejecting a byte-identical candidate.
+
+The implementation author independently found and changed this to a bounded
+structural location state. Four normal regression tests cover direct sidecar,
+nested sidecar, shared ancestor, and game-sibling alias cases. The first full
+review suite ran after that change at B1 SHA de13fea88904586b7d2d627640517e32529fb2d79f57986162cb5849e8efda04,
+so its initial TAP is not evidence for the earlier version.
+
+Initial suite had 30 PASS / 1 FAIL. The remaining failure was in reviewer probe
+accounting, not the comparator: fs.writeFileSync's write-open was counted as
+an additional read-open. The probe's during-read independent-reference rejection
+already passed. The correction limits its counter to the exact reference path
+and open mode 'r'. The original failure TAP is retained unchanged.
