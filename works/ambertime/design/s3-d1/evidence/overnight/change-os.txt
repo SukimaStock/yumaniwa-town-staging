@@ -1,0 +1,55 @@
+YUMANIWA SCOPE GUARD v0.2
+Change: Bounded overnight D1 residual proof and D2 design feasibility only
+Base:   bca9078dc19155aeb763f91a1b486f750b4ea195
+Target: 3cfb19223f4777dbc2d03cdba3065911c3a2db48 (3cfb19223f4777dbc2d03cdba3065911c3a2db48)
+Changed paths: 17
+
+PASS scope.allowed .change-plans/ambertime-s3-overnight/plan.json [.change-plans/ambertime-s3-overnight/plan.json] — changed path is within allowedPaths
+PASS scope.allowed .change-plans/ambertime-s3-overnight/r0.lock.json [.change-plans/ambertime-s3-overnight/r0.lock.json] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/DECISION.md [works/ambertime/design/s3-d1/DECISION.md] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/OVERNIGHT-REPORT.md [works/ambertime/design/s3-d1/OVERNIGHT-REPORT.md] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/evidence/overnight/g2-old-wine.json.gz [works/ambertime/design/s3-d1/evidence/overnight/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/evidence/overnight/g3-gen1.json.gz [works/ambertime/design/s3-d1/evidence/overnight/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/evidence/overnight/g3-gen2.json.gz [works/ambertime/design/s3-d1/evidence/overnight/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/evidence/overnight/g3-gen3.json.gz [works/ambertime/design/s3-d1/evidence/overnight/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/evidence/overnight/inventory.json.gz [works/ambertime/design/s3-d1/evidence/overnight/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/evidence/overnight/summary.json [works/ambertime/design/s3-d1/evidence/overnight/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/night-budget.md [works/ambertime/design/s3-d1/night-*] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/night-continue.mjs [works/ambertime/design/s3-d1/night-*] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/night-diversity.mjs [works/ambertime/design/s3-d1/night-*] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/night-g0.json [works/ambertime/design/s3-d1/night-*] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/night-generate.mjs [works/ambertime/design/s3-d1/night-*] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/night-memory.mjs [works/ambertime/design/s3-d1/night-*] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/s3-d1/night-paired.mjs [works/ambertime/design/s3-d1/night-*] — changed path is within allowedPaths
+
+Scope: PASS
+YUMANIWA RISK CHECK v0.2
+PASS risk.repository repository identity matches SukimaStock/yumaniwa-town-staging
+FAIL risk.plan-level unknown-code requires full plan
+FAIL risk.class missing required class SYSTEM
+FAIL risk.authority missing required authority HQ Review
+FAIL risk.impact-missing required risk impact is neither checked nor explicitly excluded
+FAIL risk.impact-missing required risk impact is neither checked nor explicitly excluded
+PASS risk.plan-level planLevel standard satisfies standard
+PASS risk.class required class WORK declared
+PASS risk.impact required impact is declared for checking
+PASS risk.impact required impact is declared for checking
+
+Risk: STOP
+YUMANIWA IMPACT CHECK v0.2
+Change: Bounded overnight D1 residual proof and D2 design feasibility only
+Base:   bca9078dc19155aeb763f91a1b486f750b4ea195
+Target: 3cfb19223f4777dbc2d03cdba3065911c3a2db48 (3cfb19223f4777dbc2d03cdba3065911c3a2db48)
+Changed paths: 17
+Rule-covered paths: 13
+
+FAIL impact.missing risk.high-risk-review [.change-plans/ambertime-s3-overnight/plan.json] — declare this impact in impactChecks or exclude it with a reason
+FAIL impact.missing runtime.regression [.change-plans/ambertime-s3-overnight/plan.json] — declare this impact in impactChecks or exclude it with a reason
+PASS impact.declared work.regression [works/ambertime/design/s3-d1/evidence/overnight/g2-old-wine.json.gz, works/ambertime/design/s3-d1/evidence/overnight/g3-gen1.json.gz, works/ambertime/design/s3-d1/evidence/overnight/g3-gen2.json.gz, works/ambertime/design/s3-d1/evidence/overnight/g3-gen3.json.gz, works/ambertime/design/s3-d1/evidence/overnight/inventory.json.gz, works/ambertime/design/s3-d1/evidence/overnight/summary.json, works/ambertime/design/s3-d1/night-continue.mjs, works/ambertime/design/s3-d1/night-diversity.mjs, works/ambertime/design/s3-d1/night-g0.json, works/ambertime/design/s3-d1/night-generate.mjs, works/ambertime/design/s3-d1/night-memory.mjs, works/ambertime/design/s3-d1/night-paired.mjs] — impact is declared in impactChecks
+PASS impact.declared work.runtime [works/ambertime/design/s3-d1/evidence/overnight/g2-old-wine.json.gz, works/ambertime/design/s3-d1/evidence/overnight/g3-gen1.json.gz, works/ambertime/design/s3-d1/evidence/overnight/g3-gen2.json.gz, works/ambertime/design/s3-d1/evidence/overnight/g3-gen3.json.gz, works/ambertime/design/s3-d1/evidence/overnight/inventory.json.gz, works/ambertime/design/s3-d1/evidence/overnight/summary.json, works/ambertime/design/s3-d1/night-continue.mjs, works/ambertime/design/s3-d1/night-diversity.mjs, works/ambertime/design/s3-d1/night-g0.json, works/ambertime/design/s3-d1/night-generate.mjs, works/ambertime/design/s3-d1/night-memory.mjs, works/ambertime/design/s3-d1/night-paired.mjs] — impact is declared in impactChecks
+INFO impact.no-rule [.change-plans/ambertime-s3-overnight/r0.lock.json] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/s3-d1/DECISION.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/s3-d1/OVERNIGHT-REPORT.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/s3-d1/night-budget.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+
+Impact: STOP

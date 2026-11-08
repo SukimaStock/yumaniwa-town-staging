@@ -75,3 +75,9 @@ iPhoneには一律の安全MiB値を設定せず、実機/OS/Safari版・入力S
 再現は`night-paired.mjs INPUT OUTPUT SPAN EXPECTED_GAME_SHA SNAPSHOT [RESERVE_PRODUCT RELEASE_MONTH]`。G2は84/129/1276、G3は120入力200月・360入力276月・720入力220月。詳しい固定SHAはsummaryを参照。deadlineは今回夜間枠へ固定してあるため、後日の再実行には新しい承認済み時間枠の計画が必要。
 
 独立レビューはG2の実売/パッケージ/過去記録とrunner契約、D2の信頼・容量境界を確認。現行9件へ水増ししない集計を確認した。最終gen3の独立読取レビューとexact-head CIは、最終反映時のPR記録を参照する。
+
+## 最終Change OS検査の未達
+
+head `3cfb19223f4777dbc2d03cdba3065911c3a2db48`に対しScopeはPASS、RiskとImpactはSTOP。実保存した`.change-plans/ambertime-s3-overnight/plan.json`がunknown-codeと分類され、Full/SYSTEM/HQ Reviewおよび`risk.high-risk-review`/`runtime.regression`を要求された。今回の先行計画はStandard/WORKであり、要求を満たしていない。ログは`evidence/overnight/change-os.txt`。
+
+計画保存・先行commitの事実は成立しているが、これをChange OS全体の成功と扱わない。後から元計画を差し替えたり、判定器・CIを緩めたりしていない。研究結果の同値成功と、この作業契約の未達は別に記録する。未達のある状態でマージしない。次段階では計画ファイル自身の分類を含め、必要な計画改訂・独立レビューを先に解決する。
