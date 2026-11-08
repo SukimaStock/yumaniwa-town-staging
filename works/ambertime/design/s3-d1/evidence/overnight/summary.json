@@ -1,0 +1,132 @@
+[
+  {
+    "status": "complete",
+    "inputGameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+    "finalGameSha": "cb078f9aaaee264e57ee222e14146462faf2c2cb7b95db13f30bbbfc57a9bec8",
+    "finalInputSha": "9b0b9f9d1a50785c4fe09a62be5405fae91c9320ea4d65d1e97d6fa3c2625814",
+    "targetSales": [
+      {
+        "id": 704,
+        "month": 1278,
+        "brandId": 1,
+        "releaseId": 43,
+        "productId": 129,
+        "count": 1,
+        "unitPrice": 18.7,
+        "revenue": 18.7,
+        "shopId": "supermarket",
+        "releaseAge": 242
+      },
+      {
+        "id": 706,
+        "month": 1282,
+        "brandId": 1,
+        "releaseId": 43,
+        "productId": 129,
+        "count": 1,
+        "unitPrice": 20.57,
+        "revenue": 20.57,
+        "shopId": "bar",
+        "releaseAge": 246
+      }
+    ],
+    "newGenerations": 1,
+    "newEvents": 678,
+    "newAttempts": 1735,
+    "newArrivals": 540,
+    "peakRssKiB": 1608084,
+    "priorRecallsUnchanged": true,
+    "oldReleaseFactsUnchanged": true,
+    "targetPackageArtUnchanged": true,
+    "name": "old-wine",
+    "months": 84,
+    "comparedReturnedStates": 165,
+    "boundaries": [],
+    "rawSha256": "58e533e005e895d75dada30358d1b266b959444567a7f35f51ecd06aed79779e",
+    "gzipSha256": "bc9e1aac5841547687dc5181455bc48ba1a18b85601cf82bd525ef3d95982d92"
+  },
+  {
+    "status": "complete",
+    "inputGameSha": "de8e462c70e80a2b91bc458e1e75ef4207f22a38940056707009116f94fc5621",
+    "finalGameSha": "b8c9448654048c5d875a1fdcfbc2b967e619a6a694f557eff043c4a0ddc8362c",
+    "finalInputSha": "9fd4cfc62d9ed657175194f9e2ccc4c7428576a4b66782ddf9582c775b6c8f01",
+    "targetSales": [],
+    "newGenerations": 1,
+    "newEvents": 1722,
+    "newAttempts": 4468,
+    "newArrivals": 1405,
+    "peakRssKiB": 652504,
+    "priorRecallsUnchanged": true,
+    "oldReleaseFactsUnchanged": true,
+    "targetPackageArtUnchanged": null,
+    "name": "gen1",
+    "months": 200,
+    "comparedReturnedStates": 594,
+    "boundaries": [
+      {
+        "generation": 1,
+        "month": 302,
+        "candidates": 567,
+        "contexts": 567
+      }
+    ],
+    "rawSha256": "3287f905c865acc5833366e8a68e265808cf3474be9ce000101456186f163d90",
+    "gzipSha256": "065392025d3279ad2b18f670fd514a0bd7e031fb7faa6a93ccd94d2ca3e06b0c"
+  },
+  {
+    "status": "complete",
+    "inputGameSha": "40bed80bb05838d357fdb317b20226c469207a77cfec797ab823a0e90ecc9a52",
+    "finalGameSha": "e5ee9b05e733196571f0da4130a59f4a7737cd6d9310b506e818bfdaee9c9918",
+    "finalInputSha": "f5064ac1cf9ad34c1dcb940e882146083ed960af59afd4c7842a431428eb177e",
+    "targetSales": [],
+    "newGenerations": 1,
+    "newEvents": 2003,
+    "newAttempts": 5113,
+    "newArrivals": 1587,
+    "peakRssKiB": 929856,
+    "priorRecallsUnchanged": true,
+    "oldReleaseFactsUnchanged": true,
+    "targetPackageArtUnchanged": null,
+    "name": "gen2",
+    "months": 276,
+    "comparedReturnedStates": 860,
+    "boundaries": [
+      {
+        "generation": 2,
+        "month": 624,
+        "candidates": 556,
+        "contexts": 691
+      }
+    ],
+    "rawSha256": "01931d0573510a9b5956ec4af47a9d9dccd1dc895fe61c9eee96918f58c92a02",
+    "gzipSha256": "3353380d26428428e3ef8185853a54813d37f2097839e04eec98b9c7bd386f55"
+  },
+  {
+    "status": "complete",
+    "inputGameSha": "3c5ca7a90ea19219c326b3a41ace939d25ae7142610c24ec5ceca88afed6dd39",
+    "finalGameSha": "990f3ebabad4ad2079d92c8e6431b660ecb0ea560bf2a281ae46883b11999a73",
+    "finalInputSha": "38f85bda25fa14dfb02b97eba3a5a790c25841e40050493e7cf2bcc5eef13f87",
+    "targetSales": [],
+    "newGenerations": 1,
+    "newEvents": 1673,
+    "newAttempts": 4295,
+    "newArrivals": 1344,
+    "peakRssKiB": 1203632,
+    "priorRecallsUnchanged": true,
+    "oldReleaseFactsUnchanged": true,
+    "targetPackageArtUnchanged": null,
+    "name": "gen3",
+    "months": 220,
+    "comparedReturnedStates": 744,
+    "boundaries": [
+      {
+        "generation": 3,
+        "month": 939,
+        "candidates": 594,
+        "contexts": 812
+      }
+    ],
+    "rawSha256": "8113136072e4a3cf23933a8fa1fae1f3c0a0d38ec3e8365aa06694db3a4a7631",
+    "gzipSha256": "a82bea095f878cd21445dcee39ca4dcd72a009b6fc19c7ca2f1d6ab1c4b0d063"
+  }
+]
