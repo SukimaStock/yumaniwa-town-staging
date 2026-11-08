@@ -17,7 +17,7 @@ export function createDialogueNotice({show,hide,safe,inRoom=()=>true,setTimer=se
  function defer(){if(current){if(!pending||current.month>=pending.month)pending=current;current=null;hide();}}
  function poll(){
   clear();if(!pending&&!current)return;
-  if(!inRoom()){if(current){current=null;hide();}return;}
+  if(!inRoom()){defer();return;}
   if(!safe(current??pending)){defer();timer=setTimer(poll,250);return;}
   if(!current&&pending){current=pending;pending=null;shownMonth=current.month;show(current);const epoch=token;
    timer=setTimer(()=>{if(epoch!==token)return;timer=null;current=null;hide();poll();},duration);
@@ -30,7 +30,7 @@ export function createDialogueNotice({show,hide,safe,inRoom=()=>true,setTimer=se
    // A newer letter replaces the old one; there is never a historical queue.
    if(current){current=null;hide();}clear();timer=setTimer(poll,0);
   },
-  update(){if(!inRoom()){clear();if(pending?.month<=shownMonth)pending=null;if(current){current=null;hide();}return;}if(current&&!safe(current)){clear();defer();}if(!current&&pending)poll();},
+  update(){if(!inRoom()){clear();defer();return;}if(current&&!safe(current)){clear();defer();}if(!current&&pending)poll();},
   dismiss(){if(!current)return;clear();current=null;hide();if(pending)poll();},
   reset(){clear();pending=null;current=null;lastMonth=-1;shownMonth=-1;hide();}
  };
