@@ -1,0 +1,27 @@
+YUMANIWA IMPACT CHECK v0.2
+Change: Isolated small-v8 independent replay and collector boundary investigation
+Base:   8f50ecac82066fcb02958f7514d64e79d19696f5
+Target: worktree (a20b157ac5d955812d755e50e07de694e587f1b9)
+Changed paths: 27
+Rule-covered paths: 11
+
+PASS impact.declared work.regression [works/ambertime/design/independent-record-replay/evidence/cadence-batched-v8.json, works/ambertime/design/independent-record-replay/evidence/cadence-per-operation-v8.json, works/ambertime/design/independent-record-replay/evidence/filled-origin-v8.json, works/ambertime/design/independent-record-replay/evidence/independent-review-results.json, works/ambertime/design/independent-record-replay/evidence/results-after-fix.json, works/ambertime/design/independent-record-replay/evidence/results.json, works/ambertime/design/independent-record-replay/evidence/reused-24-month-v8.json, works/ambertime/design/independent-record-replay/reference.mjs, works/ambertime/design/independent-record-replay/replay.mjs, works/ambertime/design/independent-record-replay/run.mjs, works/ambertime/tests/independent-record-replay.test.mjs] — impact is declared in impactChecks
+PASS impact.declared work.runtime [works/ambertime/design/independent-record-replay/evidence/cadence-batched-v8.json, works/ambertime/design/independent-record-replay/evidence/cadence-per-operation-v8.json, works/ambertime/design/independent-record-replay/evidence/filled-origin-v8.json, works/ambertime/design/independent-record-replay/evidence/independent-review-results.json, works/ambertime/design/independent-record-replay/evidence/results-after-fix.json, works/ambertime/design/independent-record-replay/evidence/results.json, works/ambertime/design/independent-record-replay/evidence/reused-24-month-v8.json, works/ambertime/design/independent-record-replay/reference.mjs, works/ambertime/design/independent-record-replay/replay.mjs, works/ambertime/design/independent-record-replay/run.mjs, works/ambertime/tests/independent-record-replay.test.mjs] — impact is declared in impactChecks
+INFO impact.no-rule [.change-plans/ambertime-independent-record-replay/r0.lock.json] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/REPORT.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/final-impact-check.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/final-risk-check.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/final-scope-guard.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/impact-check.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/independent-review.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/initial-run.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/related-tests.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/review-collision-raw.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/review-original-collision.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/review-repeat-output.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/risk-check.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/scope-guard.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/tests-after-protection-fix.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/tests-first.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+
+Impact: PASS

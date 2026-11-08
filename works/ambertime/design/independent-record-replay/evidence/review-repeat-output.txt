@@ -1,0 +1,11 @@
+file:///workspace/scratch/de42cc6691b2/ambertime-independent-replay/works/ambertime/design/independent-record-replay/run.mjs:17
+for(const name of names){let exists=false;try{lstatSync(`${out}/${name}`);exists=true;}catch(e){if(e.code!=='ENOENT')throw e;}if(exists)throw Error('output-exists:'+name);}
+                                                                                                                                              ^
+
+Error: output-exists:cadence-per-operation-v8.json
+    at file:///workspace/scratch/de42cc6691b2/ambertime-independent-replay/works/ambertime/design/independent-record-replay/run.mjs:17:143
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1

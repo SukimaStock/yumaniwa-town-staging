@@ -1,0 +1,143 @@
+{
+  "schema": 1,
+  "verdict": "information-insufficiency-counterexample",
+  "createdAt": "2026-11-08T09:53:49.194Z",
+  "base": "8f50ecac82066fcb02958f7514d64e79d19696f5",
+  "planCommit": "9560c6b9500c1b4e281f442dd68442e7863d0c0b",
+  "runCommit": "a20b157ac5d955812d755e50e07de694e587f1b9",
+  "codeHashes": {
+    "reference.mjs": "1b85ddb2e46d3028ca8fc4a070de3f2e48539fd26903f384ada63257e9790f59",
+    "replay.mjs": "006e1b98c9da88490886ff05fb4d2af01bc4a11ff78261e4317017aeaaa819dd",
+    "run.mjs": "e390b997d5c6d4d485d08827c693f664cd9e6466220ed6bbea890c2f9d077ac1"
+  },
+  "node": "v24.22.1",
+  "flags": [
+    "--max-old-space-size=640"
+  ],
+  "scope": "Isolated adapter of current constructor/observer/saveCandidate success order. Varied batch cadence not asserted to be emitted by current UI.",
+  "sameReplayInput": true,
+  "inputSHA256": "3b453a6a8dcc0b81553a05a775b9d857c0e30af22ed8cc4db39857bef57bc480",
+  "sameGame": true,
+  "gameSHA256": "5095e2c01a079b276f8feca74cb57f91b86ab97f353f3e4d7fae8bc819bda5b7",
+  "month": 0,
+  "operationCount": 35,
+  "per": {
+    "wireSHA256": "e81ed60a32e41631739ebb5689f833feeb50f034abae95c03bc559b227de9789",
+    "bytes": 24544,
+    "comparison": {
+      "game": {
+        "equal": true,
+        "firstDifference": null
+      },
+      "recentLedger": {
+        "equal": true,
+        "firstDifference": null
+      },
+      "historyRecord": {
+        "equal": true,
+        "firstDifference": null
+      },
+      "recallRecord": {
+        "equal": true,
+        "firstDifference": null
+      }
+    },
+    "saveBoundaries": [
+      {
+        "operationCount": 34,
+        "month": 0
+      },
+      {
+        "operationCount": 35,
+        "month": 0
+      }
+    ]
+  },
+  "batch": {
+    "wireSHA256": "b255360be4f85b0dcb7e3a8320e648a4b6fa359eced6084bc5226a379a91b555",
+    "bytes": 24544,
+    "comparison": {
+      "game": {
+        "equal": true,
+        "firstDifference": null
+      },
+      "recentLedger": {
+        "equal": true,
+        "firstDifference": null
+      },
+      "historyRecord": {
+        "equal": false,
+        "firstDifference": {
+          "path": "historyRecord.events.2.operationIndex",
+          "expected": 34,
+          "actual": 33
+        }
+      },
+      "recallRecord": {
+        "equal": true,
+        "firstDifference": null
+      }
+    },
+    "saveBoundaries": [
+      {
+        "operationCount": 35,
+        "month": 0
+      }
+    ]
+  },
+  "firstHistoryDifference": {
+    "path": "historyRecord.events.2.operationIndex",
+    "expected": 33,
+    "actual": 34
+  },
+  "nonempty": {
+    "historyEvents": 3,
+    "recallRetainedFacts": 2,
+    "recallObserved": 2,
+    "completedRecalls": 0
+  },
+  "reusedV8": {
+    "source": "/workspace/shared/ambertime-stream-new-v8/new-original-v8.json",
+    "sourceMeaning": "Existing normal 24-month v8 newly generated during prior #864 research; not historical user save",
+    "sha256": "48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693",
+    "bytes": 209412,
+    "month": 24,
+    "operations": 107,
+    "comparison": {
+      "game": {
+        "equal": true,
+        "firstDifference": null
+      },
+      "recentLedger": {
+        "equal": true,
+        "firstDifference": null
+      },
+      "historyRecord": {
+        "equal": true,
+        "firstDifference": null
+      },
+      "recallRecord": {
+        "equal": true,
+        "firstDifference": null
+      }
+    },
+    "rejectedCandidates": 3,
+    "shaAfter": "48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693",
+    "continuedMonth": 25,
+    "copiedBytes": "48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693"
+  },
+  "resource": {
+    "maxRSSKiB": 94292,
+    "heapUsedBytes": 32014288
+  },
+  "notProven": [
+    "current UI emits batched bottle+price",
+    "arbitrary legacy sidecars independently reconstructible",
+    "completed generation recall sentences",
+    "persistent atomicity/power-loss/quota",
+    "100year formal save",
+    "D1 completion",
+    "S3 completion",
+    "browser/iPhone Safari"
+  ]
+}

@@ -1,0 +1,12 @@
+Independent technical reviewer: separate read-only worker, not author self-check; no HQ approval.
+Initial target: local 5e05f8d3c43b2773ef23642b0869e9e9b1dba818 / remote d30cf9b71c37ea02eb10eb5e7a5a43b1502908f7 (same tree).
+Initial result: core counterexample valid; 39 tests PASS. Found P2 runner output/input collision and tautological missing-original test. Pre-fix evidence retained in review-original-collision.txt and review-collision-raw.txt.
+Final reviewed source: a20b157ac5d955812d755e50e07de694e587f1b9.
+Final result: P2 resolved; no additional required corrections. 43 PASS, zero fail/skip. Ran independent tests plus actual runner; no source edits.
+Commands:
+AMBERTIME_NORMAL_V8=/workspace/shared/ambertime-stream-new-v8/new-original-v8.json node --max-old-space-size=640 --test works/ambertime/tests/independent-record-replay.test.mjs
+AMBERTIME_NORMAL_V8=/workspace/shared/ambertime-stream-new-v8/new-original-v8.json node --max-old-space-size=640 works/ambertime/design/independent-record-replay/run.mjs /tmp/ambertime-review-fixed.ctkzIE
+Rerun same output directory: exit 1 output-exists, no overwrite.
+Verified no final game/RNG/collector/cursor/known SHA/save cadence leakage into replay. Core paired normal v8 same allowed replay input/game, history operationIndex 33 vs34. Actual production UI batch emission not proven. Reference adapter covers successful save ordering only, not timer or failure rollback.
+24-month v8 4 replay targets match, formal reload continuation to25; original SHA before/after 48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693.
+Current recall facts nonempty (2), completed0; no handover/finished narrative/browser durability claim. Independent maxRSS94,292KiB, not a benchmark or mobile limit.
