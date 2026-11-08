@@ -1,0 +1,87 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "60e14002dd8829fcbd33fa24b51f342416fdb840183852fcc36bff3170b5ee28",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-m0-map-entry-fix-20261108",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "販売室の地図入口を採用済みM0半開きへ統一",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "ec374f75148287ed0640d8434e2e9adcf7804eab",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/market-ui.mjs",
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-m0-map-entry-fix-20261108/r0.lock.json",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/economy-parameters.mjs"
+    ],
+    "expectedChanges": [
+      "販売室の既存地図ボタンをM0半開きの入口とする",
+      "二重のM0専用ボタンを非表示にする",
+      "地図解放と非販売室の旧地図モーダルは維持する",
+      "保存・経済・会話・時間・RNGは変更しない"
+    ],
+    "ownerDecisions": [
+      "2026-11-08作者によるM0半開きと全画面の採用",
+      "2026-11-08 PR #869のマージ指示および旧地図の修正了承",
+      "2026-11-08 PR #870の修正反映了承"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "既存M0実装と保存境界"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "販売室の地図入口から半開きになる",
+      "半開き・全画面・閉じるの往復",
+      "他室・解放演出の旧地図維持",
+      "時計・操作・店舗行の保全"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "PRの入口修正だけをrevert。正式保存データに変更なし",
+    "outOfScope": [
+      "Production",
+      "販売計算・保存形式・RNG・会話履歴",
+      "新しいマップ仕様・地理設定変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機の表示とタップ",
+      "実売アニメーションの実画面"
+    ]
+  }
+}
