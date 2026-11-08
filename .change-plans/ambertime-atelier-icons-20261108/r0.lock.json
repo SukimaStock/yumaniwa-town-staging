@@ -1,0 +1,64 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "faee4ecdfc59585f14f9f7d7b5616a7bc3f64208f9bbb2d60e452051bef0d0f0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-atelier-icons-20261108",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Apply Codea Atelier Ledger, Person, Store and Map icon revisions to AmberTime Staging",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "bc9d02c12d4f5c81906cd1601337251a0d22321a",
+    "canonicalSources": [
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/tests/pixel-symbols.test.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-atelier-icons-20261108/r0.lock.json",
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/tests/pixel-symbols.test.mjs"
+    ],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "conditionalPaths": [],
+    "expectedChanges": [
+      "Use the four supplied 11x11 Atelier color-indexed icons: Ledger, Person, Store and Map",
+      "Replace hard-coded ledger squares with centralized 11x11 ledger sprite while preserving control geometry",
+      "Update targeted icon tests without changing other icons or gameplay"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check four refreshed control icons on iPhone Safari after staging deployment; not yet observed"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "staging only; Production remains unchanged",
+    "rollback": "Revert this PR to prior icons; game saved state is unaffected",
+    "outOfScope": [
+      "No changes to map artwork, economy, save format, interactive control bounds, or other icons"
+    ],
+    "unverified": [
+      "Actual Safari visual inspection and Codea rendering parity"
+    ]
+  }
+}
