@@ -1,19 +1,36 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {SYMBOLS,drawSymbol,symbolMarkup} from '../pixel-symbols.mjs';
-function pixels(kind){const rects=[],ctx={fillStyle:null,fillRect(x,y,w,h){rects.push({x,y,w,h,color:this.fillStyle});}};drawSymbol(ctx,kind,10,20,3,'#ffffff');return rects;}
-test('store keeps the original 11 by 11 silhouette and changes exactly one roof source cell',()=>{
- assert.deepEqual(SYMBOLS.store,['00000000000','01111111110','01111111110','01100100110','01100100110','01111111110','01100100110','01100100110','01111111110','01111111110','00000000000']);
- const rects=pixels('store'),accent=rects.filter(p=>p.color!=='#ffffff');
- assert.equal(rects.length,SYMBOLS.store.join('').replaceAll('0','').length);
- assert.deepEqual(accent,[{x:25,y:23,w:3,h:3,color:'#bf7950'}]);
- const svg=symbolMarkup('store');assert.ok(svg.includes('viewBox="0 0 11 11"'));
- assert.equal((svg.match(/style="fill:/g)||[]).length,1);
- assert.ok(svg.includes('<rect x="5" y="1" width="1" height="1" style="fill:#bf7950"/>'));
-});
-test('every other icon remains monochrome in both Canvas and SVG',()=>{
- for(const kind of Object.keys(SYMBOLS).filter(k=>k!=='store')){
-  assert.ok(pixels(kind).every(p=>p.color==='#ffffff'),kind);
-  assert.ok(!symbolMarkup(kind).includes('style="fill:'),kind);
+
+const fixtures={
+ map:{width:11,height:11,colors:['#644632','#a0785a','#b69a65','#e7dcc0']},
+ handshake:{width:11,height:11,colors:['#f0e6c8']},
+ pause:{width:7,height:7,colors:['#f0e6c8']},
+ stock:{width:7,height:7,colors:['#f0e6c8']},
+ person:{width:7,height:7,colors:['#644632','#f0e6c8']},
+ store:{width:11,height:11,colors:['#644632','#b69a65','#e4c58a','#e7dcc0']}
+};
+for(const [name,fixture] of Object.entries(fixtures)){
+ test('Atelier '+name+' preserves exact dimensions and source colors',()=>{
+  const glyph=SYMBOLS[name];
+  assert.equal(glyph.length,fixture.height);
+  assert.ok(glyph.every(row=>row.length===fixture.width&&/^[01]+$/.test(row)));
+  const rects=[],ctx={fillStyle:null,fillRect(x,y,w,h){rects.push({x,y,w,h,color:this.fillStyle});}};
+  drawSymbol(ctx,name,10,20,3,'#ffffff');
+  assert.equal(rects.length,glyph.join('').replaceAll('0','').length);
+  const colors=new Set(rects.map(x=>x.color));
+  assert.deepEqual([...colors].sort(),fixture.colors.sort());
+  assert.ok(rects.every(r=>r.w===3&&r.h===3&&r.x>=10&&r.y>=20));
+  const svg=symbolMarkup(name);
+  assert.ok(svg.includes('viewBox="0 0 '+fixture.width+' '+fixture.height+'"'));
+  assert.equal((svg.match(/<rect /g)||[]).length,rects.length);
+ });
+}
+test('unchanged non-Atelier symbols remain contextual monochrome',()=>{
+ for(const name of Object.keys(SYMBOLS).filter(k=>!fixtures[k])){
+  const ctx={fillStyle:'',colors:[],fillRect(){this.colors.push(this.fillStyle);}};
+  drawSymbol(ctx,name,0,0,3,'#ffffff');
+  assert.ok(ctx.colors.every(x=>x==='#ffffff'),name);
+  assert.ok(!symbolMarkup(name).includes(' fill="#f0e6c8"'),name);
  }
 });

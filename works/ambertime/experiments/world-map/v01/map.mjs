@@ -112,4 +112,35 @@ function sixth(p){
  // Home-location dot is symbolic, not a precise geolocation.
  p(49,33,1,1,P.shine);
 }
-export function renderMap(ctx,stage){stage=clampStage(stage);ctx.imageSmoothingEnabled=false;const p=painter(ctx);[first,second,third,fourth,fifth,sixth][stage-1](p);return stage;}
+export function renderMap(ctx,stage){stage=clampStage(stage);ctx.imageSmoothingEnabled=false;if(stage===1){renderAtelierStage1(ctx);return stage;}const p=painter(ctx);[first,second,third,fourth,fifth,sixth][stage-1](p);return stage;}
+// Atelier Map1Distill A5DB6417: authored 72x72 edited image, top row first.
+// The six-stage game map remains on the same 2px-per-cell grid. Dynamic shop
+// markers and hit targets continue to be painted separately by world-map-view.
+const ATELIER_STAGE1_RLE='_g_g_g_g_g_g_g_gKgDrC6Cr_gCgHrUgCiMgCiagMrkgD6VgMrhgDrD6BrUgMrhgHr-gMr8gMr8gMr_g_gmgBr_gDgCi_g_gRgBr_g_g4gCz_gGgEyQgEkwgEyPgBjEkBj_gCiBgBjClCkBj_gCgBnBjClCkBjBnygCiMgBnBjClCkBjBn_gBgBnEjCkBn_gBgBnEjCkBnZgBrBgBrkgBnEjCkBnagBplgBnGjBnlgCnZgInkgBnBqBpBnZgGnkgBnDqBmBnagCmmgGnagCmQgEkRgBnEpBnBqDnogBjEkBjPgBnBoEnFqBnngBjClCkBjOgBnIoBnCqBnmgBnBjClCkBjBnMgBnBmIoBnCqBnIgBrBgBrbgBnBjClCkBjBnMgBnBmIoBnCqBnJgBpcgBnEjCkBnMgOnLgCiZgBnEjCkBnMgBnJrBnChBnQgEkSgBnEjCkBnMgBnCrCnFrBnChBnPgBjEkBjRgBnGjBnMgBnCrCnFrBnChBnPgBjClCkBjRgInMgOnOgBnBjClCkBjBnRgGnNgOsOgBnBjClCkBjBnTgCmPgOsOgBnEjCkBnTgCmWgCwTgBnEjCkBnRgCiYgCwTgBnEjCkBnrgCwTgBnGjBnYgBrBgBrQgCwTgInZgBpRgCwUgGnsgCwWgCmugCwWgCmtgDwRgCzygCwRgEyYgDkWgCwRgEyIgCiNgBjEkBjUgCwsgBjClCkBjTgDwrgBnBjClCkBjBnSgCwsgBnBjClCkBjBnSgCwsgBnEjCkBnEgCzMgCwsgBnEjCkBnDgEyLgCwsgBnEjCkBnDgEyHgCiCgCwsgBnGjBnSgDwrgInTgCwsgGnUgCwqgCiCgCmWgCwugCmWgCw_g_g2g';
+const ATELIER_ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+function atelierStage1Rows(){
+ const flat=[];
+ for(let i=0;i<ATELIER_STAGE1_RLE.length;i+=2){
+  const n=ATELIER_ALPHABET.indexOf(ATELIER_STAGE1_RLE[i]);
+  const v=ATELIER_ALPHABET.indexOf(ATELIER_STAGE1_RLE[i+1]);
+  if(n<1||v<32||v>61)throw Error('Invalid Atelier map cell');
+  for(let j=0;j<n;j++)flat.push(v);
+ }
+ if(flat.length!==GRID*GRID)throw Error('Invalid Atelier map size');
+ return Array.from({length:GRID},(_,y)=>Object.freeze(flat.slice(y*GRID,(y+1)*GRID)));
+}
+const ATELIER_STAGE1=Object.freeze(atelierStage1Rows());
+const ATELIER_MAP_COLORS=Object.freeze(Object.values(P));
+function renderAtelierStage1(ctx){
+ // Draw horizontally merged strips, preserving the exact 72x72 cell geometry.
+ for(let y=0;y<GRID;y++){
+  const row=ATELIER_STAGE1[y];
+  for(let x=0;x<GRID;){
+   const id=row[x];let end=x+1;
+   while(end<GRID&&row[end]===id)end++;
+   ctx.fillStyle=ATELIER_MAP_COLORS[id-32];
+   ctx.fillRect(x*MAP_CELL,y*MAP_CELL,(end-x)*MAP_CELL,MAP_CELL);
+   x=end;
+  }
+ }
+}
