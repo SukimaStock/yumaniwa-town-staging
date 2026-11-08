@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "kind": "read-only-reuse-and-contract-audit",
+  "createdAt": "2026-11-08T11:01:15.709Z",
+  "baseSha": "8f50ecac82066fcb02958f7514d64e79d19696f5",
+  "researchHead": "d79d4d654a47efe8e4f31ed7730b4dcd03271db6",
+  "planCommit": "9560c6b9500c1b4e281f442dd68442e7863d0c0b",
+  "planDigest": "1c92e01ff59ba4602526db064bac083b80906e7e931cecbc87fae3f3d0040c29",
+  "priorRunCommit": "a20b157ac5d955812d755e50e07de694e587f1b9",
+  "codeHashes": {
+    "reference.mjs": "1b85ddb2e46d3028ca8fc4a070de3f2e48539fd26903f384ada63257e9790f59",
+    "replay.mjs": "006e1b98c9da88490886ff05fb4d2af01bc4a11ff78261e4317017aeaaa819dd",
+    "run.mjs": "e390b997d5c6d4d485d08827c693f664cd9e6466220ed6bbea890c2f9d077ac1"
+  },
+  "unchangedEvidenceReused": true,
+  "originals": {
+    "cadence-per-operation-v8.json": {
+      "path": "works/ambertime/design/independent-record-replay/evidence/cadence-per-operation-v8.json",
+      "sha256": "e81ed60a32e41631739ebb5689f833feeb50f034abae95c03bc559b227de9789",
+      "bytes": 24544
+    },
+    "cadence-batched-v8.json": {
+      "path": "works/ambertime/design/independent-record-replay/evidence/cadence-batched-v8.json",
+      "sha256": "b255360be4f85b0dcb7e3a8320e648a4b6fa359eced6084bc5226a379a91b555",
+      "bytes": 24544
+    },
+    "reused-24-month-v8.json": {
+      "path": "works/ambertime/design/independent-record-replay/evidence/reused-24-month-v8.json",
+      "sha256": "48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693",
+      "bytes": 209412
+    }
+  },
+  "fixture100": {
+    "archive": "/workspace/shared/ambertime-s3-r0-fixtures.tar.gz",
+    "archiveExists": true,
+    "archiveSha256": "aa148020a3e3223b5608ec2be409d49b519ffabc165e4ac72d2160b333db4877",
+    "member": "ambertime-s3-r0/wide-1200.research.json",
+    "inputSha256": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4",
+    "bytes": 11873989,
+    "gameSha256": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+    "gameCodeUnits": 9808696,
+    "gameUtf8Bytes": 10994786,
+    "seed": 42,
+    "month": 1200,
+    "events": 10333,
+    "attempts": 26221,
+    "arrivals": 8153,
+    "sidecars": [
+      "userPaused",
+      "elapsed",
+      "caskSlots",
+      "recentLedger",
+      "historyRecord",
+      "recallRecord"
+    ],
+    "meaning": "Existing research snapshot. Not a formal100year v8. Reused, not regenerated."
+  },
+  "formalCodeHashes": {
+    "shop-app.mjs": "58c67dd195be76b5f565508be8124819ffd0c44fe92f071c0c509f406e55ddb1",
+    "development-save.mjs": "086b15eac5205ac7e3a2b75e21576247f874c736dd1d7300bf2911a8a8271a17",
+    "save-codec.mjs": "8853322725b489b426068b50bf484b25f7bb776dcc5280a901d2a4d629bc700e",
+    "partner-orders.mjs": "69d9ab9be9c2c22afa66514e86a959e5a569be7fd33c132345c5e1717084e25b",
+    "recent-ledger.mjs": "31b6c540711f6e56007dcd148da03057d9b74351fd5a8730a67cd906bac4d312",
+    "history-record.mjs": "59632bb28395a29194097494d034691eb5a83b9edfaa682601bed92225dcae5f",
+    "recall/collector.mjs": "260b8902cac1263c95fbeadbd8a7ff41f2a8721d2b36b4404572b90d580a5d18",
+    "recall/operations.mjs": "1bbc907f4c159dde3dd4bae28bfae6b0cae2390609cc2d0db43e7e530ffe8f01"
+  },
+  "newExecution": "Input existence, digest, size and counts only. No game simulation, formal replay, new codec, boundary-input implementation or performance rerun.",
+  "technicalAudit": {
+    "independent": true,
+    "reviewedSha": "d79d4d654a47efe8e4f31ed7730b4dcd03271db6",
+    "scope": "Read-only lock, app commit/rollback, writeCandidate, history/ledger/recall dependencies. Not HQ approval.",
+    "testsExecuted": [],
+    "findings": [
+      "New boundary input implementation is outside current lock; no such implementation made.",
+      "Committed-memory rollback does not prove persistent old bytes remain after readback failure.",
+      "Operation count alone is not proven sufficient for all partial/non-operation states.",
+      "Legacy reader acceptance must not be relabeled independent sidecar provenance."
+    ],
+    "documentationReview": {
+      "file": "REPORT.md",
+      "sha256": "672687397bbedda526888724bc01b37a7a4cb30e20fcb41fe27ef755a501e72b",
+      "result": "One wording issue corrected: successful retry counts as one committed boundary; failed/duplicate attempts do not. Unknown outcome requires revision/content check. No other requested correction.",
+      "newTestsRun": false
+    }
+  }
+}
