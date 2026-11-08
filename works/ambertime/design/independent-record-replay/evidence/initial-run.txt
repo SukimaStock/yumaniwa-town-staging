@@ -1,0 +1,44 @@
+pair same game true
+{ path: '$.events.2.operationIndex', expected: 33, actual: 34 }
+{
+  "per": {
+    "game": {
+      "equal": true,
+      "firstDifference": null
+    },
+    "recentLedger": {
+      "equal": true,
+      "firstDifference": null
+    },
+    "historyRecord": {
+      "equal": true,
+      "firstDifference": null
+    },
+    "recallRecord": {
+      "equal": true,
+      "firstDifference": null
+    }
+  },
+  "batch": {
+    "game": {
+      "equal": true,
+      "firstDifference": null
+    },
+    "recentLedger": {
+      "equal": true,
+      "firstDifference": null
+    },
+    "historyRecord": {
+      "equal": false,
+      "firstDifference": {
+        "path": "historyRecord.events.2.operationIndex",
+        "expected": 34,
+        "actual": 33
+      }
+    },
+    "recallRecord": {
+      "equal": true,
+      "firstDifference": null
+    }
+  }
+}
