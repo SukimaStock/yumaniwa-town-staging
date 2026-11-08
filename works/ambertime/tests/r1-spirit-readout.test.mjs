@@ -65,29 +65,31 @@ function fixtures(){
 test('formatter keeps historical/dormant labels, units, meter values and missing-readout hiding',()=>{
  assert.deepEqual(spiritReadoutView(null),{hidden:true});assert.deepEqual(spiritReadoutView(undefined),{hidden:true});
  const axes=[{id:'roughness',value:.123456,maximum:1,ratio:.123456},{id:'character',value:.6,maximum:1.35,ratio:.6/1.35}];
- const base=freeze({phase:'confirmed',litres:12.345,phrase:'原酒の香り',axes});
- assert.deepEqual(spiritReadoutView(base),{hidden:false,kind:'原酒',phrase:uiText('原酒の香り'),gaugesHidden:false,volume:'12.3 L',axes:[{id:'roughness',value:'0.123456',valueText:'0.12 / 1 · 特徴の強さ',ratio:.123456},{id:'character',value:'0.6',valueText:'0.60 / 1.35 · 特徴の強さ',ratio:.6/1.35}]});
+ const base=freeze({phase:'filled',litres:12.345,phrase:'原酒の香り',axes});
+ assert.deepEqual(spiritReadoutView(base),{hidden:false,kind:'たる詰め済み',phrase:uiText('原酒の香り'),gaugesHidden:false,volume:'12.3 L',axes:[{id:'roughness',value:'0.123456',valueText:'0.12 / 1 · 特徴の強さ',ratio:.123456},{id:'character',value:'0.6',valueText:'0.60 / 1.35 · 特徴の強さ',ratio:.6/1.35}]});
  assert.equal(spiritReadoutView({...base,phase:'estimate'}).kind,'ここまで');assert.equal(spiritReadoutView({...base,phase:'estimate'}).phrase,'');assert.equal(spiritReadoutView({...base,phase:'estimate'}).gaugesHidden,true);
  assert.equal(spiritReadoutView({...base,phase:'forecast'},{collectionVersion:2}).kind,'ここまで');assert.equal(spiritReadoutView({...base,phase:'forecast'},{collectionVersion:1}).kind,'抽出見込み');assert.equal(spiritReadoutView({...base,phase:'filled'}).kind,'たる詰め済み');
  for(const options of [{cutInProgress:true},{modalKind:'fill'}])assert.deepEqual(spiritReadoutView(base,freeze(options)),{hidden:true});
  assert.deepEqual(spiritReadoutView({...base,axes:undefined}).axes,[]);
  // Like the existing formatter, this consumes an actual readout projection;
  // it does not repair forged projections with missing numeric values.
- assert.throws(()=>spiritReadoutView({phase:'confirmed',axes:[]}));
+ assert.deepEqual(spiritReadoutView({...base,phase:'confirmed'}),{hidden:true});
+ assert.throws(()=>spiritReadoutView({phase:'forecast',axes:[]}));
  assert.throws(()=>spiritReadoutView({...base,axes:[{id:'roughness'}]}));
 });
-test('actual previous/new renderers produce identical ordered DOM writes and Canvas bridge for old/current/null states',()=>{
+test('non-completed states retain the old DOM/Canvas contract; completed results are modal-only',()=>{
  for(const [name,state] of fixtures())for(const modal of [null,{kind:'fill'},{kind:'inspect'}]){
   freeze(state);freeze(modal);const before=JSON.stringify(state),old=render(previous,state,modal),now=render(current,state,modal);
-  assert.deepEqual(now.trace,old.trace,name+' ordered DOM writes');assert.deepEqual(now.bridge,old.bridge,name+' Canvas readback');assert.equal(JSON.stringify(state),before,name+' frozen state');
+  if(distillationReadout(state)?.phase==='confirmed'){assert.deepEqual(now.trace,[['spirit-readout','hidden',true]],name+' completed result belongs to the modal');assert.equal(now.bridge,null);}else{assert.deepEqual(now.trace,old.trace,name+' ordered DOM writes');assert.deepEqual(now.bridge,old.bridge,name+' Canvas readback');}assert.equal(JSON.stringify(state),before,name+' frozen state');
  }
 });
 test('dormant forecast/filled and missing axes preserve actual DOM writes without changing the Canvas reader',()=>{
  const state=freeze({still:{phase:'ready',distillation:{collectionVersion:2}}});
  for(const phase of ['estimate','forecast','confirmed','filled'])for(const axes of [undefined,[],[{id:'roughness',value:.25,maximum:1,ratio:.25},{id:'character',value:.75,maximum:1,ratio:.75}]]){
   const readout=freeze({phase,litres:10.25,phrase:'原酒の香り',axes}),read=()=>readout;
+  if(phase==='confirmed'){assert.deepEqual(render(current,state,null,read).trace,[['spirit-readout','hidden',true]]);assert.equal(render(current,state,null,read).bridge,null);}else{
   assert.deepEqual(render(current,state,null,read).trace,render(previous,state,null,read).trace,phase);
-  assert.deepEqual(render(current,state,null,read).bridge,render(previous,state,null,read).bridge,phase+' stale/missing axes');
+  assert.deepEqual(render(current,state,null,read).bridge,render(previous,state,null,read).bridge,phase+' stale/missing axes');}
  }
 });
 test('missing panel returns before readout and hidden panels retain their prior content without extra writes',()=>{
@@ -112,7 +114,7 @@ test('actual restored old save and automatic staff readouts preserve the same DO
  const automatic=staff.raws.find(raw=>JSON.parse(raw).usual?.reservation?.status==='active');assert(automatic,'real public-operation automatic distillation exists');
  for(const raw of [legacy,automatic]){
   const state=D.restoreDistillery(raw);assert.equal(D.serializeDistillery(state),raw);freeze(state);
-  for(const modal of [null,{kind:'fill'}]){const old=render(previous,state,modal),now=render(current,state,modal);assert.deepEqual(now.trace,old.trace);assert.deepEqual(now.bridge,old.bridge);}
+  for(const modal of [null,{kind:'fill'}]){const old=render(previous,state,modal),now=render(current,state,modal);if(distillationReadout(state)?.phase==='confirmed'){assert.deepEqual(now.trace,[['spirit-readout','hidden',true]]);assert.equal(now.bridge,null);}else{assert.deepEqual(now.trace,old.trace);assert.deepEqual(now.bridge,old.bridge);}}
   assert.equal(D.serializeDistillery(state),raw);
  }
 });
