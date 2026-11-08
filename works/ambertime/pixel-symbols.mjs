@@ -7,7 +7,7 @@ const ATELIER_SOURCE=Object.freeze({
  stock:{w:7,h:7,rle:'CADREABRBABRDAFRCAFRCAFRCAFRCAFRBA',colors:{17:'#f0e6c8'}},
  person:{w:11,h:11,rle:'EADaHAFaGABaDdBaGABaDdBaHADaHABaBdBaBdBaFABaCdBaCdBaEABaCdCaBdBaEABaCdBaCdBaEABaCdBaCdBaEAHaCA',colors:{26:'#6e5a42',29:'#e7dcc0'}},
  store:{w:11,h:11,rle:'BAJaBABaJcNaJdCaCdCbBdCbCdCaCdCbBdCbCdCaJdCaCdCbBdCbCdCaCdCbBdCbCdCaJdMa',colors:{26:'#6e5a42',27:'#b69a65',28:'#e4c58a',29:'#e7dcc0'}},
- ledger:{w:11,h:11,rle:'BaBcJbBaBcIdBbBaBcBdGeBdBbBaBcIdBbBaBcBdGeBdBbBaBcIdBbBaBcBdFeCdBbBaBcIdBbBaBcIdBbBaJcBbLa',colors:{26:'#6e5a42',27:'#b69a65',28:'#e4c58a',29:'#e7dcc0',30:'#9a835c'}
+ ledger:{w:11,h:11,rle:'BaBcJbBaBcIdBbBaBcBdGeBdBbBaBcIdBbBaBcBdGeBdBbBaBcIdBbBaBcBdFeCdBbBaBcIdBbBaBcIdBbBaJcBbLa',colors:{26:'#6e5a42',27:'#b69a65',28:'#e4c58a',29:'#e7dcc0',30:'#9a835c'}}
 });
 const ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 function unpack(source){
