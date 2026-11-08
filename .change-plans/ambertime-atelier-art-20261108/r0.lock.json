@@ -1,0 +1,63 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "03c72358a9f0d8b94e93f410eafef96299f8a32e528235dc5afe1c752478493e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-atelier-art-20261108",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Import seven Codea Atelier icon/map visuals into AmberTime staging without changing game mechanics",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "b7b5473b8081ae91f69744befe7bad13188a0994",
+    "canonicalSources": [
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/tests/pixel-symbols.test.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/pixel-symbols.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/tests/pixel-symbols.test.mjs"
+    ],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/placement-save.mjs"
+    ],
+    "conditionalPaths": [],
+    "expectedChanges": [
+      "Replace six selected icon graphics with color-indexed Codea artwork",
+      "Render stage 1 distillery map from latest 72x72 Codea cells",
+      "Update narrowly scoped icon regression tests; preserve stage 2-6, tap targets and state"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare staged icon and map visuals on iPhone Safari after merge; not yet attested"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "staging only; production not authorized",
+    "rollback": "Revert change commit/PR; leave saved player state untouched",
+    "outOfScope": [
+      "No production release, world map hit targets, economy, save schema, or Codea editor changes"
+    ],
+    "unverified": [
+      "iPhone Safari appearance and actual interaction pending"
+    ]
+  }
+}
