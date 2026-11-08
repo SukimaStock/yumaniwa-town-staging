@@ -1,5 +1,5 @@
 // Fresh-process, sequential research measurement. No formal100year replay.
-import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import assert from 'node:assert/strict';import {fileURLToPath} from 'node:url';import {execFileSync} from 'node:child_process';
+import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import assert from 'node:assert/strict';import {fileURLToPath} from 'node:url';import {spawn} from 'node:child_process';
 import {encode,decode,hash} from '../s3-d1/codec.mjs';import {compareCandidate as B0,hashFile} from './compare.mjs';import {compareCandidate as B1} from './compare-buffered.mjs';
 const GAME='b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55',RAW='ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4',CANDIDATE='77aa72bca3dccf01766a8ffede1f7be2743870c3101010a8428f4a2736d92dc3';
 const self=fileURLToPath(import.meta.url),[mode,input,prepared,capacityArg]=process.argv.slice(2),chunkUnits=Number(capacityArg??16384);
@@ -35,10 +35,22 @@ function compare(which,dir){
  }else result=(which==='B0'?B0:B1)(c,a,{referenceFile:input,chunkUnits});
  return {which,loadMs,totalMs:performance.now()-start,before,afterLoad,after:mem(),result};
 }
+async function fresh(which){
+ return await new Promise((resolve,reject)=>{
+  const child=spawn(process.execPath,['--expose-gc','--max-old-space-size=512',self,which,input,prepared,String(chunkUnits)],{stdio:['ignore','pipe','pipe']});
+  let stdout='',stderr='',stopped=null,sampledPeakRSSKiB=0,samples=0;
+  const stop=reason=>{stopped??=reason;child.kill('SIGKILL')};
+  const poll=setInterval(()=>{try{const status=fs.readFileSync(`/proc/${child.pid}/status`,'utf8'),match=status.match(/^VmRSS:\s+(\d+) kB/m);if(match){samples++;const rss=Number(match[1]);sampledPeakRSSKiB=Math.max(sampledPeakRSSKiB,rss);if(rss>768*1024)stop('STOP: sampled worker RSS above768MiB')}}catch(e){if(e.code!=='ENOENT')stop(e.message)}},50);
+  const timer=setTimeout(()=>stop('STOP: worker timeout120s'),120000);
+  const cleanup=()=>{clearInterval(poll);clearTimeout(timer)};
+  child.stdout.on('data',x=>{stdout+=x;if(stdout.length>2*1024*1024)stop('STOP: output bound')});child.stderr.on('data',x=>{stderr+=x;if(stderr.length>1024*1024)stop('STOP: error output bound')});
+  child.on('error',e=>{cleanup();reject(e)});child.on('close',code=>{cleanup();if(stopped||code!==0)return reject(Error(stopped??`worker exit${code}: ${stderr}`));try{resolve({...JSON.parse(stdout),supervision:{intervalMs:50,samples,sampledPeakRSSKiB,note:'sampled safety guard; worker resourceUsage.maxRSS is the lifetime high-water measurement'}})}catch(e){reject(e)}});
+ });
+}
 if(mode==='run'){
  const groups=[['A','B0','B1'],['old-B0','old-B1','improved-B1']],runs=[];
  for(const group of groups)for(let repeat=0;repeat<3;repeat++)for(let j=0;j<group.length;j++){
-  const which=group[(j+repeat)%group.length],output=execFileSync(process.execPath,['--expose-gc','--max-old-space-size=512',self,which,input,prepared,String(chunkUnits)],{encoding:'utf8',timeout:120000,maxBuffer:2*1024*1024}),r=JSON.parse(output);assert.ok(r.comparison.result.equal);assert.ok(r.after.maxRSSKiB<=768*1024);runs.push({order:runs.length+1,repeat:repeat+1,...r});
+  const which=group[(j+repeat)%group.length],r=await fresh(which);assert.ok(r.comparison.result.equal);assert.ok(r.after.maxRSSKiB<=768*1024);runs.push({order:runs.length+1,repeat:repeat+1,...r});
  }
  console.log(JSON.stringify({runs,note:'Separate fresh processes, rotated balanced sequential order; filesystem cache uncontrolled. end-to-end preparation and compare in SAME process. No forced GC before measured completion; after-GC sample reported separately. No formal100year replay.'}));
 }else{
