@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1c92e01ff59ba4602526db064bac083b80906e7e931cecbc87fae3f3d0040c29",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-independent-record-replay",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Isolated small-v8 independent replay and collector boundary investigation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "8f50ecac82066fcb02958f7514d64e79d19696f5",
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "User request 2026-11-08T09:39:18Z B: independent replay, separate Draft"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-independent-record-replay/r0.lock.json",
+      "works/ambertime/design/independent-record-replay/**",
+      "works/ambertime/tests/independent-record-replay.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/design/s3-d1/**",
+      "works/ambertime/design/s3-stream-compare/**"
+    ],
+    "problem": "Whether saved replay inputs suffice to reconstruct nonempty derived ledger/history/recall despite commit cadence differing from operation cadence is unproven.",
+    "currentContract": "Formal v8/version20 code immutable. B codec and B0/B1 immutable. Research only uses actual formal operations/reader/collector APIs and no runtime imports.",
+    "whyExistingIsInsufficient": "Known-input equality is not provenance; formal game replay does not automatically reconstruct sidecars generated at save boundaries.",
+    "design": "Reference adapter mirrors exact shop-app constructor, saveCandidate order and successful committed-session updates. Independent replay starts from supported seed/version/origin null and allowed operation inputs only; never final game/RNG/collector/cursor/fixture SHA or unsaved timing. Generate bounded short legitimate scenarios using public operations, compare per-operation versus batched save cadence, repeated saves, partial distill/tasting inputs, reload continuation. Identify first difference. If same permitted replay input and game but different formally accepted sidecars exist, preserve paired v8 counterexample and report non-uniqueness rather than weaken acceptance. Non-derived paused/elapsed/caskSlots use existing semantic validators separately. No full100year run/new storage scheme. Independent reviewer audits leakage and adapter mapping.",
+    "expectedChanges": [
+      "One immutable lock-only first commit on current main verified remotely before implementation.",
+      "Research adapter, replay, tests, small evidence/normal v8 originals and report only.",
+      "Existing24month v8 verify if present; new short inputs explicitly labeled.",
+      "Bounded tests: save cadence/repetition/resume/partial operations; nonempty histories; mutation/unsupported versions; original SHA before/after and no-original stop.",
+      "Independent review plus Scope/Risk/Impact and exact-SHA CI; no merge."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorized task B in a separate research Draft PR, local research implementation/tests/reports only. No merge/formal code/caps/CI changes."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK/Standard work-local research classification. No formal acceptance/canonical/model contract changes.",
+      "Independent technical reviews are technical evidence only; no HQ approval asserted.",
+      "Expression audit: no UI or promotional prose.",
+      "Fresh r0 lock-only first commit; lock embeds plan; old research locks and evidence untouched."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "PLANNED: independent code/input leakage and exact app-order review; browser/Safari unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "migration": "None. Short originals read-only; new candidate outputs separate. Unsupported old origins are unsupported, not corrupt.",
+    "compatibility": "Formal code unchanged; supported origin=null/version20 subset explicitly documented; no silent record repair.",
+    "rollback": "Keep Draft unmerged; remove only new research additions if instructed, originals preserved.",
+    "promotionRisk": "No merge/publish/draft removal/production.",
+    "alternativesRejected": [
+      "Candidate final game/collector/cursor as replay seed",
+      "Inject hidden save schedule into replay",
+      "Force collector equality by overwrite",
+      "Long simulations to invent missing generation evidence",
+      "Modify actual reader/validator/model"
+    ],
+    "boundaryCases": [
+      "Per operation versus batch save/repeated no-op save; partial distill/tasting; reload continuation; legacy unsupported origins.",
+      "Operation/final state mismatch; record-only mutation; cursor version/init claims; absent/duplicate/references; invalid auxiliary input; valid clock/layout changes not corruption.",
+      "Stop enlarged tests on first unexplained difference; app bug report only; insufficient information counterexample is valid conclusion, not save success.",
+      "Short scenarios at most36months and <=300public operations each, sequential execution; no100year generation; process memory ceiling768MiB; report if exceeded."
+    ],
+    "testPlan": [
+      "Read current code and source-map reference adapter before implementation.",
+      "Remote lock-only first commit before research.",
+      "Small scenarios with actual ledger/history or recall candidates; no empty recall implies handover success.",
+      "Independent replay from allowed input only, formally accepted paired v8 counterexample if possible.",
+      "Formal reader and original SHA protection.",
+      "Independent technical review, local gates, exact head CI; report A/B task independence."
+    ],
+    "outOfScope": [
+      "Task A CI edits and any gate bypass",
+      "B codec/B0/B1 modifications",
+      "Formal save/model/sidecar implementation/caps/storage changes",
+      "100year replay/generation, nine-boundary expansion",
+      "Merge/Pages/Production/D1 or S3 complete"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "100year formal save",
+      "D1 nine policy boundaries/seeds",
+      "Persistent atomicity/power loss/browser/Safari",
+      "Generation handover if short inputs do not naturally reach it"
+    ]
+  }
+}
