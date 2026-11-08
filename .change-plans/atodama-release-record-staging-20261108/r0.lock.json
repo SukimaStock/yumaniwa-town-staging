@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "685f3c6caf045b5f2c4091dca75b1a5843712d592aa80606276fafba532acfcf",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "atodama-release-record-staging-20261108",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Record actual atodama production release evidence and candidate-to-released state; no runtime changes.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "Rule / Skill",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging-production",
+    "baseSha": "2cd863b61f5708724e58d51920164db12ea1ab37",
+    "canonicalSources": [
+      "data/work-lifecycle.json",
+      "works/atodama/RELEASE.md",
+      "Production PR68 merged 5cdb0f921550d7a394f221526c101e31709d3fb1 and its exact-SHA Pages result"
+    ],
+    "allowedPaths": [
+      "data/work-lifecycle.json",
+      "works/atodama/RELEASE.md",
+      "lab/index.html",
+      ".change-plans/atodama-release-record-staging-20261108/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "assets/**",
+      "works/atodama/app.mjs",
+      "works/atodama/core.mjs",
+      "works/atodama/style.css"
+    ],
+    "expectedChanges": [
+      "After successful same-SHA Pages and HTTP file equality are observed, record those actual identifiers and remaining browser/device/analytics limits.",
+      "Move only atodama from candidate to released, retaining actual user candidate acceptance and separate production instruction.",
+      "For staging only, regenerate LAB to reflect released status; do not edit its generated HTML manually."
+    ],
+    "ownerDecisions": [
+      "User 2026-11-08 Europe/Skopje in this conversation: おお、すごい！ after playing the completed あとだま Site; followed by 湯間庭町で公開しますので作業を進めてください. This accepts the presented game and authorizes town-publication work, including necessary candidate preparation and production reflection. No exact-SHA physical-device or separate artwork approval is asserted."
+    ],
+    "hqDecisions": [
+      "No new contract or additional user approval is asserted. Full/HQ Review category follows existing risk floor for lifecycle JSON and generated LAB HTML; the work-local evidence record is documentary."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing schemas and menu-only registration; no scene/runtime/Engine changes.",
+      "RELEASE-WORKFLOW: selective staging to production, candidate and explicit publication authority separately recorded.",
+      "EXPRESSION-AUDIT: use concrete game rules and concise copy; no invented intent, subtitle or recommendation placement."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect actual GitHub Pages run at exact production merge SHA and HTTP hashes; do not infer browser/device operation.",
+      "Confirm no runtime or existing lifecycle entry changes, and successful lifecycle/generation consistency."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this documentary/status record via ordinary PR; keep deployed game unchanged.",
+    "outOfScope": [
+      "Other staging works or whole staging publication",
+      "New shared runtime, Engine, schema, scene placement, service worker or analytics contracts",
+      "SNS/email sending or external Search Console/Plausible configuration"
+    ],
+    "promotion": "Same explicit user publication instruction in this conversation; this step records that authorized publication after actual evidence. It does not authorize new work or external messages.",
+    "unverified": [
+      "Physical iPhone Safari exact-SHA behavior",
+      "External analytics Goal configuration and ingestion unless directly observed"
+    ],
+    "problem": "The game has a production merge but lifecycle still records it as candidate and deployment evidence is not yet attached.",
+    "currentContract": "candidate to released after actual production evidence, preserving the separate instruction and lifecycle schema.",
+    "whyExistingIsInsufficient": "A merge alone is not successful public delivery evidence.",
+    "design": "Record observed deployment facts without changing any runtime or test definition.",
+    "alternativesRejected": [
+      "Claim release before Pages/HTTP confirmation",
+      "Change game or shared code while recording evidence"
+    ],
+    "migration": "Only atodama candidate -> released, with real productionInstruction/releaseEvidence.",
+    "compatibility": "No runtime, storage, public HTML or asset change.",
+    "boundaryCases": [
+      "Do not claim integrated browser/device/analytics PASS after browser auto-review denial",
+      "Preserve every existing lifecycle record",
+      "No LAB in production"
+    ],
+    "testPlan": [
+      "Exact path and lifecycle transition review",
+      "Staging lifecycle --check --base and LAB regeneration, or production exact-set audit",
+      "Required existing CI at exact head",
+      "Confirm documentation-only follow-up leaves game and Search bytes unchanged"
+    ],
+    "promotionRisk": "Browser/device/analytics remain UNVERIFIED; released lifecycle means published state, not Release Complete."
+  }
+}

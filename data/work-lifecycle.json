@@ -581,9 +581,11 @@
     {
       "id": "atodama",
       "path": "works/atodama",
-      "status": "candidate",
+      "status": "released",
       "title": "あとだま",
-      "candidateDecision": "User 2026-11-08 Europe/Skopje, this conversation: おお、すごい！ after playing the completed あとだま, followed by the explicit instruction to proceed with publication in Yumaniwa Town. The accepted game is selected as the necessary publication candidate; no exact-SHA device approval is inferred."
+      "candidateDecision": "User 2026-11-08 Europe/Skopje, this conversation: おお、すごい！ after playing the completed あとだま, followed by the explicit instruction to proceed with publication in Yumaniwa Town. The accepted game is selected as the necessary publication candidate; no exact-SHA device approval is inferred.",
+      "productionInstruction": "User 2026-11-08 Europe/Skopje, this conversation: 湯間庭町で公開しますので作業を進めてください. This explicitly authorizes publishing the accepted あとだま game in Yumaniwa Town.",
+      "releaseEvidence": "Production PR #68 merged 5cdb0f921550d7a394f221526c101e31709d3fb1; same-SHA Pages run 42461907341 success. Safety run42461908006 and PUMPOKO audit42461907960 success. 17 live files HTTP200 and byte-identical including game, JA/EN pages, OGP/icon/manifest, metadata and sitemap. Integrated browser, physical iPhone Safari and external analytics remain UNVERIFIED; not Release Complete."
     }
   ]
 }
