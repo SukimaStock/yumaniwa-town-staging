@@ -1,0 +1,31 @@
+✔ source discovery returns both independent native records without selection, merging or writes (262.785674ms)
+✔ explicit legacy listed and hand copies preserve all prior facts and clock state, leaving both sources exact (828.459056ms)
+✔ trial selection copies the exact source text including whitespace without prepare, adoption or serialization (275.790559ms)
+✔ valid or corrupt existing formal destinations are never overwritten or replaced by a source (486.980655ms)
+✔ a source changed since preview blocks copying and preserves the newer source bytes (354.67712ms)
+✔ a concurrent destination writer during validation is protected by the final conditional write (356.359206ms)
+✔ quota failure rejects before returning live state or changing either original (360.168125ms)
+✔ failed readback rejects even when destination was written; callers receive no successful live state (433.306399ms)
+✔ invalid source selection, envelope, policy, native facts or candidate mode rejects without writes (1244.911103ms)
+✔ version1 and version2 map metadata copy verbatim and retain compatible notice baselines (745.212812ms)
+✔ invalid or existing map metadata is left intact; optional metadata failure cannot damage game sources (1845.559958ms)
+✔ an older pre-stage4 v20 session copies explicitly with only connection and adoption boundaries appended (195.205589ms)
+✔ v8 requires the recall record and rejects v7 before running the official reader (30.544775ms)
+✔ a post-write read exception does not claim failure left persistent state unchanged (13.50374ms)
+✔ a changed readback rejects success and preserves the competing writer for recovery (19.869246ms)
+✔ quota failure leaves the complete old session and retry commits the complete candidate (22.371244ms)
+✔ original v5 filling fixture is unmodified and both cask choices retain official state through save/restart (97.250677ms)
+✔ current format cold restore preserves game clock pause slots and ledger exactly (187.692727ms)
+✔ old formats reject before formal restore and never migrate by normal reader (10.274812ms)
+✔ current format retains formal replay validation and strict sidecar/clock contracts (17.988889ms)
+✔ candidate write protects quota failure, stale tab, wrong key and reports failed readback (16.489756ms)
+✔ fresh candidate can replace confirmed broken or old records atomically without old clock casks or notebook (58.454641ms)
+✔ saved recipe partial/full bottling sale and reused slot remain official across each automatic-save transaction (426.98187ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7741.417767

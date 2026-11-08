@@ -1,0 +1,89 @@
+✔ exact UTF16/UTF8, escape and surrogate boundaries 1 input (6.146172ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 1 game (4.932054ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 2 input (1.604699ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 2 game (2.194371ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 3 input (1.282802ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 3 game (1.056098ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 7 input (0.996138ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 7 game (0.797637ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 31 input (0.836346ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 31 game (1.30198ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 16384 input (0.737777ms)
+✔ exact UTF16/UTF8, escape and surrogate boundaries 16384 game (0.638326ms)
+✔ all finite JSON numeric forms (1.150681ms)
+✔ property absence is distinct from null and order is preserved (1.429894ms)
+✔ integer-like schema keys and special property names (1.300508ms)
+✔ large string escaped incrementally and no legacy aggregate stringify in comparison (109.46605ms)
+✔ malformed shadowEvents refused even with recomputed integrity before reading reference (1.153876ms)
+✔ malformed shadowAttempts refused even with recomputed integrity before reading reference (0.375818ms)
+✔ malformed shadowArrivals refused even with recomputed integrity before reading reference (0.35697ms)
+✔ malformed unknownEnvelope refused even with recomputed integrity before reading reference (0.255016ms)
+✔ malformed unknownTable refused even with recomputed integrity before reading reference (0.501919ms)
+✔ malformed unusedSchema refused even with recomputed integrity before reading reference (0.311752ms)
+✔ malformed duplicateSchema refused even with recomputed integrity before reading reference (0.261235ms)
+✔ malformed schema refused even with recomputed integrity before reading reference (0.307275ms)
+✔ malformed columns refused even with recomputed integrity before reading reference (0.295027ms)
+✔ malformed ordinal refused even with recomputed integrity before reading reference (0.35674ms)
+✔ malformed duplicateID refused even with recomputed integrity before reading reference (0.436601ms)
+✔ malformed source refused even with recomputed integrity before reading reference (0.23142ms)
+✔ malformed arrivals refused even with recomputed integrity before reading reference (0.272292ms)
+✔ malformed townKeys refused even with recomputed integrity before reading reference (0.345463ms)
+✔ malformed version refused even with recomputed integrity before reading reference (0.222727ms)
+✔ malformed missingEvents refused even with recomputed integrity before reading reference (0.267595ms)
+✔ integrity failure distinct from source/content (0.658827ms)
+✔ structurally valid altered value is stopped by independent candidate anchor (0.29066ms)
+✔ independent direct content comparison catches altered value even if candidate hash supplied for altered candidate (0.982277ms)
+✔ reference SHA mismatch is refused (0.406796ms)
+✔ both EOF and first difference: short (1.265496ms)
+✔ both EOF and first difference: extra (1.022066ms)
+✔ both EOF and first difference: late mismatch (0.973002ms)
+✔ game anchor also checked in full-input comparison (0.721021ms)
+✔ missing reference safely fails rather than accepting output (0.386515ms)
+✔ invalid chunk bound refused (0.688922ms)
+✖ long diagnostic key never stringifies the complete scalar (5.486223ms)
+✖ short byte reads inside multibyte UTF8 are not EOF (1.898574ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 42
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 248.88935
+
+✖ failing tests:
+
+test at works/ambertime/tests/s3-stream-compare.test.mjs:23:1
+✖ long diagnostic key never stringifies the complete scalar (5.486223ms)
+  AssertionError [ERR_ASSERTION]: largest scalar stringify=32768
+      at TestContext.<anonymous> (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/tests/s3-stream-compare.test.mjs:23:409)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at works/ambertime/tests/s3-stream-compare.test.mjs:24:1
+✖ short byte reads inside multibyte UTF8 are not EOF (1.898574ms)
+  Error: reference ended before candidate
+      at fail (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare.mjs:7:55)
+      at compareCandidate (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/design/s3-stream-compare/compare.mjs:79:75)
+      at TestContext.<anonymous> (file:///workspace/scratch/de42cc6691b2/ambertime-stream/works/ambertime/tests/s3-stream-compare.test.mjs:24:280)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    stage: 'content',
+    offsetUnits: 250,
+    path: '$["game"]["labConnection"]["town"]["events"][1]["text"]'
+  }

@@ -1,0 +1,91 @@
+// Isolated observational comparison. Not a formal reader, save or provenance verifier.
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+import {StringDecoder} from 'node:string_decoder';
+import {validateCandidate} from '../s3-d1/codec.mjs';
+const MAX_UNITS=16384, READ_BYTES=65536;
+const fail=(message,details={})=>{throw Object.assign(new Error(message),details)};
+const keyPath=(path,key)=>`${path}[${JSON.stringify(key)}]`;
+const isIndex=k=>{const n=Number(k);return Number.isInteger(n)&&n>=0&&n<4294967295&&String(n)===k};
+const ordered=keys=>[...keys.filter(isIndex).sort((a,b)=>Number(a)-Number(b)),...keys.filter(k=>!isIndex(k))];
+function* quoted(value,limit){
+ let buffer='"';
+ for(let i=0;i<value.length;i++){
+  const n=value.charCodeAt(i);let s=value[i];
+  if(n===34)s='\\"';else if(n===92)s='\\\\';
+  else if(n<32)s=({8:'\\b',9:'\\t',10:'\\n',12:'\\f',13:'\\r'})[n]??`\\u${n.toString(16).padStart(4,'0')}`;
+  else if(n>=0xd800&&n<=0xdbff){const next=value.charCodeAt(i+1);if(next>=0xdc00&&next<=0xdfff)s+=value[++i];else s=`\\u${n.toString(16).padStart(4,'0')}`}
+  else if(n>=0xdc00&&n<=0xdfff)s=`\\u${n.toString(16).padStart(4,'0')}`;
+  buffer+=s;
+  while(buffer.length>=limit){yield buffer.slice(0,limit);buffer=buffer.slice(limit)}
+ }
+ buffer+='"';while(buffer.length){yield buffer.slice(0,limit);buffer=buffer.slice(limit)}
+}
+// These views never create historical row objects or an arrivals object array.
+function* contents(c,scope,limit){
+ const segment=function*(s,path,game){for(let i=0;i<s.length;i+=limit)yield {text:s.slice(i,i+limit),path,game}};
+ const string=function*(s,path,game){for(const text of quoted(s,limit))yield {text,path,game}};
+ function* row(table,index,path,game){
+  const values=table.rows[index],schema=table.schemas[values[1]];yield* segment('{',path,game);
+  const names=ordered(schema);for(let j=0;j<names.length;j++){const name=names[j];if(j)yield* segment(',',path,game);yield* string(name,keyPath(path,name),game);yield* segment(':',path,game);yield* walk(values[schema.indexOf(name)+2],keyPath(path,name),game)}
+  yield* segment('}',path,game);
+ }
+ function* history(name,path,game){
+  yield* segment('[',path,game);const length=name==='arrivals'?c.arrivals.length:c[name].rows.length;
+  for(let i=0;i<length;i++){if(i)yield* segment(',',path,game);yield* row(name==='arrivals'?c.events:c[name],name==='arrivals'?c.arrivals[i]:i,`${path}[${i}]`,game)}yield* segment(']',path,game);
+ }
+ function* walk(value,path,game,isTown=false){
+  if(value===null||typeof value==='boolean'||typeof value==='number'){yield* segment(JSON.stringify(value),path,game);return}
+  if(typeof value==='string'){yield* string(value,path,game);return}
+  if(Array.isArray(value)){yield* segment('[',path,game);for(let i=0;i<value.length;i++){if(i)yield* segment(',',path,game);yield* walk(value[i],`${path}[${i}]`,game)}yield* segment(']',path,game);return}
+  yield* segment('{',path,game);const names=isTown?ordered(c.townKeys):Object.keys(value);
+  for(let i=0;i<names.length;i++){
+   const k=names[i],p=keyPath(path,k);if(i)yield* segment(',',path,game);yield* string(k,p,game);yield* segment(':',path,game);
+   if(isTown&&['events','attempts','arrivals'].includes(k))yield* history(k,p,game);
+   else yield* walk(value[k],p,game||(path==='$'&&k==='game'),p==='$["game"]["labConnection"]["town"]');
+  }yield* segment('}',path,game);
+ }
+ yield* walk(scope==='game'?c.active.game:c.active,scope==='game'?'$["game"]':'$',scope==='game');
+}
+function textHash(){
+ const hash=createHash('sha256');let pending='',bytes=0;
+ return {update(text){let s=pending+text;pending='';const n=s.charCodeAt(s.length-1);if(n>=0xd800&&n<=0xdbff){pending=s.at(-1);s=s.slice(0,-1)}if(s){hash.update(s);bytes+=Buffer.byteLength(s)}},finish(){if(pending){hash.update(pending);bytes+=Buffer.byteLength(pending)}return {sha:hash.digest('hex'),bytes}}};
+}
+export function hashFile(file){
+ const fd=fs.openSync(file,'r'),buffer=Buffer.alloc(READ_BYTES),hash=createHash('sha256');let bytes=0;
+ try{if(!fs.fstatSync(fd).isFile())fail('reference must be regular file',{stage:'reference'});let n;while((n=fs.readSync(fd,buffer,0,buffer.length,null))){hash.update(buffer.subarray(0,n));bytes+=n}return {sha:hash.digest('hex'),bytes}}finally{fs.closeSync(fd)}
+}
+function fileReader(file){
+ const fd=fs.openSync(file,'r'),buffer=Buffer.alloc(READ_BYTES),decoder=new StringDecoder('utf8'),hash=createHash('sha256');let eof=false;
+ return {next(){if(eof)return '';const n=fs.readSync(fd,buffer,0,buffer.length,null);if(n){hash.update(buffer.subarray(0,n));return decoder.write(buffer.subarray(0,n))}eof=true;return decoder.end()},digest(){return hash.digest('hex')},close(){fs.closeSync(fd)}};
+}
+function classify(error){
+ const m=error.message;
+ return m.startsWith('independent ')?'independent-anchor':m==='integrity'?'integrity':/source|arrival completeness/.test(m)?'reference':'structure';
+}
+export function compareCandidate(candidate,expected,{referenceFile,scope='input',chunkUnits=MAX_UNITS}={}){
+ if(!['input','game'].includes(scope)||!Number.isSafeInteger(chunkUnits)||chunkUnits<1||chunkUnits>MAX_UNITS)fail('comparison options',{stage:'options'});
+ const allStart=performance.now(),v=performance.now();
+ try{validateCandidate(candidate,expected)}catch(error){error.stage=classify(error);throw error}
+ const validationMs=performance.now()-v,heapAfterValidation=process.memoryUsage().heapUsed;
+ const sourceStart=performance.now(),source=hashFile(referenceFile),expectedSha=scope==='input'?expected.inputSha:expected.gameSha;
+ if(source.sha!==expectedSha)fail('independent reference SHA mismatch',{stage:'independent-reference'});
+ const referenceHashMs=performance.now()-sourceStart,reader=fileReader(referenceFile),output=textHash(),gameHash=textHash();
+ let ref='',position=0,offset=0,maxChunkUnits=0,chunks=0;const compareStart=performance.now();
+ try{
+  for(const part of contents(candidate,scope,chunkUnits)){
+   let i=0;maxChunkUnits=Math.max(maxChunkUnits,part.text.length);chunks++;output.update(part.text);if(part.game)gameHash.update(part.text);
+   while(i<part.text.length){
+    if(position===ref.length){ref=reader.next();position=0;if(!ref.length)fail('reference ended before candidate',{stage:'content',offsetUnits:offset,path:part.path})}
+    const n=Math.min(ref.length-position,part.text.length-i),a=part.text.slice(i,i+n),b=ref.slice(position,position+n);
+    if(a!==b){let j=0;while(a[j]===b[j])j++;fail('independent content mismatch',{stage:'content',offsetUnits:offset+j,path:part.path,candidateUnit:a.charCodeAt(j),referenceUnit:b.charCodeAt(j)})}
+    position+=n;i+=n;offset+=n;
+   }
+  }
+  if(position<ref.length||reader.next().length)fail('reference has trailing content',{stage:'content',offsetUnits:offset,path:'$<EOF>'});
+  if(reader.digest()!==source.sha)fail('reference changed during comparison',{stage:'independent-reference'});
+  const emitted=output.finish(),game=gameHash.finish();
+  if(emitted.sha!==expectedSha||game.sha!==expected.gameSha)fail('independent output/game anchor mismatch',{stage:'independent-anchor'});
+  return {equal:true,scope,includesSidecars:scope==='input',units:offset,bytes:emitted.bytes,outputSha:emitted.sha,gameSha:game.sha,chunks,maxChunkUnits,maxReferenceBytes:READ_BYTES,validationMs,referenceHashMs,comparisonMs:performance.now()-compareStart,totalMs:performance.now()-allStart,heapAfterValidation,heapAfterComparison:process.memoryUsage().heapUsed,provenance:false};
+ }finally{reader.close()}
+}
