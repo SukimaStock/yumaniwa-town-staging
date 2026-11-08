@@ -33,6 +33,7 @@ export function createM0Observation({document:doc,state,model,room,modal,art,sta
    const original=source.querySelector('[data-market-shop="'+id+'"]');if(!original)continue;
    const node=original.cloneNode(true);
    node.classList.add('m0-shop');node.removeAttribute('data-market-shop');node.dataset.m0Shop=id;
+   node.querySelectorAll('.market-stock-row[id]').forEach(el=>{const found=el.id.match(/^market-stock-(.+)-(\\d+)$/);if(found)el.dataset.m0Product=found[2];});
    node.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
    node.querySelectorAll('button').forEach(button=>{
     const span=doc.createElement('span');span.className=button.className;span.innerHTML=button.innerHTML;
@@ -80,8 +81,7 @@ export function createM0Observation({document:doc,state,model,room,modal,art,sta
   if(!sales.length)return;
   const originals=new Map();
   for(const sale of sales){
-   const el=rows.querySelector('[data-m0-shop="'+sale.shopId+'"] .market-stock-row[data-wide], [data-m0-shop="'+sale.shopId+'"] #unused');
-   const bottle=rows.querySelector('[data-m0-shop="'+sale.shopId+'"] .market-stock-row .market-bottle');
+   const bottle=rows.querySelector('[data-m0-shop="'+sale.shopId+'"] .market-stock-row[data-m0-product="'+sale.productId+'"] .market-bottle');
    if(bottle)originals.set(sale.productId,{rect:bottle.getBoundingClientRect(),html:bottle.innerHTML});
   }
   update();
