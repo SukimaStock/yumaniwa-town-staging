@@ -33,7 +33,7 @@ export function createM0Observation({document:doc,state,model,room,modal,art,sta
    const original=source.querySelector('[data-market-shop="'+id+'"]');if(!original)continue;
    const node=original.cloneNode(true);
    node.classList.add('m0-shop');node.removeAttribute('data-market-shop');node.dataset.m0Shop=id;
-   node.querySelectorAll('.market-stock-row[id]').forEach(el=>{const found=el.id.match(/^market-stock-(.+)-(\\d+)$/);if(found)el.dataset.m0Product=found[2];});
+   node.querySelectorAll('.market-stock-row[id]').forEach(el=>{const productId=el.id.split('-').at(-1);if(Number.isSafeInteger(Number(productId)))el.dataset.m0Product=productId;});
    node.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
    node.querySelectorAll('button').forEach(button=>{
     const span=doc.createElement('span');span.className=button.className;span.innerHTML=button.innerHTML;
