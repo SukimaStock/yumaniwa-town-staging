@@ -1,7 +1,7 @@
 import {roomStaffAccess} from './staff-access-view.mjs?v=staff-access-s3-1';
 import {staffEncounterMarkup} from './staff-encounter-view.mjs?v=hiring-s2-1';
 import {createDialogueProjection,dialogueShopName} from './shop-dialogue.mjs?v=all-stores-s2-1';
-import {dialogueMarkup,createDialogueNotice,installDialogueDismissal} from './shop-dialogue-view.mjs?v=all-stores-s2-1';
+import {dialogueMarkup,createDialogueNotice,installDialogueDismissal} from './shop-dialogue-view.mjs?v=all-stores-s2-1&fix=room-resume';
 import {releasePackageArt} from './release-package.mjs?v=package-c1l-1';
 import {migrateRecentLedger,advanceRecentLedger,recentLedgerView} from './recent-ledger.mjs?v=s3-1';
 import {ledgerProfile,caskTimeline,recordTimeline,recordText} from './ledger-history-view.mjs?v=refactor-r5-1';
@@ -55,7 +55,7 @@ const D=createObservedModel(nativeModel,({before,after,operation})=>{
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 import {initializeCaskSlots,reconcileCaskSlots,caskSlotMap} from './cask-slots.mjs?v=s1-1';
 import {distillationReadout,spiritProfile} from './spirit-view.mjs?v=distill-ui-r1';
-import {spiritReadoutView} from './spirit-readout-view.mjs?v=refactor-r1-1';
+import {spiritReadoutView} from './spirit-readout-view.mjs?v=refactor-r1-1&fix=fill-modal-only';
 import {brandStats,brandReputation} from './brand-reputation.mjs?v=0.15';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
 import {ageLabel,monthLabel} from './model.mjs?v=stage4-r2';
