@@ -1,5 +1,109 @@
 # B表現の逐次独立照合 — 限定研究結果
 
+## 最新判定：固定容量バッファによる一巡の改善
+
+**改善成立（研究用の独立照合に限定）。** B0を不変の比較基準として残し、B1では全game・全6 sidecar・双方の末尾・構造/参照/独立根拠・直接内容比較・拒否条件を維持した。照合単体の時間とpeak RSSが低下し、準備手順の限定変更によって準備込みの同一プロセス経路のpeak RSSも低下した。準備そのものの高速化は示していない。
+
+これは正式復元全体の高速化でも、保存容量の削減でもない。正常100年v8、正式保存契約、D1全条件、S3完了、Safari適合は未成立/未確認のまま。#864/#856はDraft・未マージ、#856と本編は変更していない。
+
+### 続行範囲・不変基準・対象SHA
+
+- 比較基準: `1f04d38eae13dec58ff4c0455c8acec4d417a8da`。既存B0 `compare.mjs`、`measure.mjs`、D1-R `codec.mjs`はbyte-exactで不変。コード/入力のSHA一覧は[identity-final.json](evidence/buffer/identity-final.json)。
+- 作業開始時main: `b57ce881b5f5f68bc12ff1f15634178118496958`。終了前fetchでは`8f50ecac82066fcb02958f7514d64e79d19696f5`へ進んでいた（#865/#866、あとだま公開関連のみ、AmberTime変更なし）。本研究ブランチを巻き戻し/rebaseせず、基準を保持した。既存r0 lockとdigestは変更なし。独立技術レビューで、上限16384 UTF-16 unitsの観測比較・準備会計・回帰・反復計測は既存WORK/Standardのscope内と確認した。HQ承認ではない。
+- 続行理由・予算・停止条件を新実装より先に保存したコミット: `ec24cec9e19c9dfb046ca19d0df6b5f375a50df7`。[先行記録](evidence/buffer-continuation-scope.md)。lockを追加せず、元の拒否と是正履歴も下記に保持した。
+- B1/runnerの初回コード反映: `44ee2932293397de7c16a38e89312fc418ac1ec5`。監督用runnerの最終コードコミット: **`32e6ce9a3fa8f1266be6a85d1c25daad6d949ce7`**。最終計測とレビューはこのコードに対応する。以後の証拠・文書コミットによる測定対象コードの変更はない。
+- B1 SHA-256: `de13fea88904586b7d2d627640517e32529fb2d79f57986162cb5849e8efda04`。runner: `95398905c8fdcd28241e4882b819294fab7dfb85658f02dccafa8915afd95083`。
+
+### 確認した負荷と変更内容
+
+B0は100年全入力を**2,329,289出力片**で渡し、出力hashも同じ単位で更新していた。instrumented CPU profileではwalk、crypto hash update、比較、row view、文字escape/診断pathが主要なサンプルを占めた。[profile.json](evidence/buffer/profile.json)は観測用であり最終性能値には使用しない。
+
+独立モジュール`compare-buffered.mjs`では、小片を実際に最大16,384 UTF-16 unitsのbufferへ集約する。固定深さの位置状態とcallback traversalを使い、schemaは現在の2表分だけlayoutを再利用。正常時には全pathを作らず、差分時だけ再走査して最初のUTF-16位置とB0同等のpathを報告する。arrivalは元events行を参照し、全配列を複製しない。小片を全件保持する配列や全出力joinはない。
+
+4,096/16,384 unitsの2候補だけを単回pilotし、前者2,601集約片、後者652片を確認して後者を採用。pilotは最終3反復値と混在させない。最終B1は同じ2,329,289小片を**652 output hash updates、599 game hash updates、833直接比較、183 read calls**へ集約。最大output bufferは16,384 unitsであり、上限を宣言しただけの改善ではない。
+
+準備改善は別の関数で行った。raw参照のSHA確認/parseのscopeを閉じ、独立game hash計算用の文字列を一時使用後に保持せず、encode後の元入力参照を解放し、今回の全入力経路では不要なgame-only参照ファイルを作らない。元rawとgameそれぞれの独立アンカーは従来どおり確認する。candidate自体から期待値を作ってはいない。**candidate bytes/SHA・アンカー・照合対象は完全に同じ**。codec内clone/stringifyや入力全parseは削除していない。測定中に強制GCはしない。
+
+### 同じ環境での最終比較
+
+Node v24.22.1、Linux x64、AMD EPYC 9V74。全条件`--expose-gc --max-old-space-size=512`。6条件×3回=18の新規workerを逐次、順序を回転して実行。重い試験の並列実行なし。値は中央値（最小–最大）、MiBは2^20 bytes。計測開始はmodule import後、peak RSSはworkerプロセスの高水位なのでstartup/importも含む。filesystem cacheは制御しておらず、**正式cold replayではない**。
+
+|条件|時間ms|peak RSS MiB|
+|---|---:|---:|
+|A 完全展開＋照合|705.8（687.4–705.8）|220.42（220.14–220.47）|
+|B0 確定済み逐次|2,530.2（2,410.7–2,562.4）|162.87（162.33–164.09）|
+|B1 固定容量集約|683.4（651.9–717.6）|130.66（130.48–131.46）|
+|従来準備＋B0|2,836.8（2,824.9–2,853.2）|341.27（341.01–341.27）|
+|従来準備＋B1|1,172.0（1,094.5–1,175.3）|341.02（340.96–341.59）|
+|改善準備＋B1|1,171.2（1,128.8–1,195.3）|288.56（288.49–289.72）|
+
+B0→B1の照合worker時間は約73.0%、peak RSSは約19.8%低下。**bufferだけでは準備込みRSSは約341MiBのまま**。準備改善を加えると約289MiBへ15.4%低下したが、従来準備＋B1との時間差はほぼなく範囲も重なる。従来準備＋B0からの全経路時間低下は約58.7%。AとB1の時間範囲は重なり、Aには復元状態を返す追加責務があるので、Aを超える正式復元の高速化とは判定しない。
+
+|測定内訳（中央値ms）|B0|B1|注意|
+|---|---:|---:|---|
+|準備済candidate読込/parse|50.1|48.5|比較単体にも含む|
+|不変validatorの構造・参照・integrity/アンカー|232.5|228.8|codec変更なし|
+|全件直接比較＋逐次出力/読取/hash|2,237.5|391.5|検査範囲同一|
+
+準備工程の中央値は従来+B0で509.9ms、従来+B1で533.1ms、改善+B1で535.7ms。準備の速度改善の根拠にはしない。
+
+Aのvalidator/hydrate/アンカーはcodec内で合算されており、個別費用は未分離。段階の中央値を足して全体時間とみなさない。生の18実行、実行順、各substep、heap観測点、最大出力、supervisionは[final-measurements.json](evidence/buffer/final-measurements.json)、集計は[summary.json](evidence/buffer/summary.json)。最終値とpilot/途中版ログを区別する。
+
+A/B0/B1は同じ候補検査、全events/attempts/arrivals、型/順序/プロパティ、game＋全6 sidecar、独立アンカーを扱う。B0/B1は同じ事前raw確認・照合中raw hash・直接比較・両EOF・出力/game hashを実施。Aはhydrate済状態を返す。B0/B1は一致結果だけであり、プレイ可能なgameを生成しない。100年正式replayは今回も未実施、過去のreplay時間を足し引きしない。
+
+### メモリ会計と限界
+
+output最大16,384 UTF-16 units、escape scratch最大capacity+5、2つの文字列hashが各最大1 high-surrogate、raw参照buffer65,536 bytes＋現在のdecoded blockを保持する。直接比較sliceは最大capacity。schema cacheは2スロット、正常時の保持diagnostic spanは0。schema幅、object key配列、深さ/差分pathに依存する領域まで定数サイズとは主張しない。
+
+不変validator内部の候補/body完全stringify、ID Map、arrival位置等は残る。candidate全parseと、準備時の元入力・clone・一時JSONも残る。比較単体heapAfter中央値はB0 26.66MiB、B1 33.46MiBとRSSと異なる動きをする。GCタイミングの違いを含み、単独領域の差とは解釈しない。最後の強制GC後は約7.2MiBだが、比較関数とcandidateのscopeを終了した後の観測であり、candidate保持量を示さない。工程別peakを足し引きして帰属量を推定しない。
+
+準備＋比較は同じworkerで実測した。監督parentの小さい管理領域はworker RSSに含まれないが、重い準備を外部へ移した経路ではない。parentは50msごとにworker RSSを観測し768MiB超/120秒/出力上限で停止、終了後のworker高水位も検査する。短いpeakを防ぐOS上限ではなくサンプリング監督。全18実行の最大高水位341.59MiB、実測時間2,853.2ms以下。設定値は研究用予算であり、iPhone安全メモリ値ではない。
+
+保存容量は変更なし。candidateは6,018,719 UTF-8 bytes/5,310,769 UTF-16 units。元game/全入力の容量・SHAは下記の既存入力表と同じ。不要game-only参照10,994,786 bytesを今回の準備出力から省いたが、ゲーム保存表現を圧縮したわけではない。
+
+### 正常・異常・独立レビュー・原本保護
+
+最終コードに対し基準側155/155、B1側138/138、**計293テスト実行PASS**。新規138は76 B1回帰＋既存独立反例31のB1実行＋新独立レビュー31。全て追加の独立テストという意味ではない。容量直前/一致/直後、極小容量、Unicode/escape/surrogate、整数キー、数値/null/欠落、双方EOF/短read/不正UTF-8、全6 sidecar、先頭/中間/末尾/全offset、再hash済不正候補を含む。構造・参照・candidateアンカー・content・output-anchorの拒否を区別し、比較器単独の試験も維持。[baseline155](evidence/buffer/final-baseline155.tap)、[B1-138](evidence/buffer/final-b1-138.tap)。
+
+修正前の失敗を保持した。
+1. 最初のB1のfatal UTF-8 decoderは既存のoutput-anchor拒否より早く型なし例外となった。基準と同じdecoder挙動に戻し、raw/output検出と期待値を維持した。[初期ログ](evidence/buffer/initial-utf8-stage-failure.txt)。
+2. 独立レビューが、JSON化は同じでもactive内object aliasがsidecarへ共有される候補で、identityに基づくtown特別扱いによる誤拒否を発見。構造上の固定位置で判別する限定修正を行い4回帰を追加。[実際の反例](evidence/buffer/independent-review-original-alias-reproduction.txt)。
+3. reviewer試験のread監視が自身のwrite-openも数えた1失敗は、読取だけ数えるprobe訂正。元TAPを保持し、製品期待値を緩めていない。
+4. 計測runnerの終了後だけの資源上限確認に、実行中監督を追加。実際の過大割当/timeout殺処分を誘発した試験は未実施と記録。
+
+[独立レビュー報告](evidence/buffer/independent-review-report.md)は対象SHA、実行した小入力試験、修正前後、18計測の読取監査を区別する。最終artifact監査でも新しいblockerなし。自己点検を独立レビューとは呼ばず、技術レビューをHQ承認へ読み替えない。
+
+100年研究fixtureと、前回新規作成した24か月正式v8の実体を再確認し、再生成せず再利用した。元v8 SHAは`48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693`で前後不変。B1正常照合、10不正候補の拒否、原本の正式reader復元、原本なしSAFE_STOPを実行。[final-v8-protection.json](evidence/buffer/final-v8-protection.json)。このreaderは同一プロセス内の再利用でcoldではない。中断は途中JSONの模擬で、実ファイル電断/ブラウザーquota/origin消失の保証ではない。
+
+### 再現と次の最小判断
+
+```sh
+node --test works/ambertime/tests/s3-d1-codec.test.mjs works/ambertime/tests/s3-d1-r-structure.test.mjs works/ambertime/tests/s3-stream-compare.test.mjs works/ambertime/design/s3-stream-compare/evidence/reviewer-adversarial.test.mjs
+node --test works/ambertime/tests/s3-stream-buffered.test.mjs works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-boundaries.test.mjs
+# 既存reviewer31件をB1へ差し替えて実行する再現コマンドはindependent-review-report.mdを参照。
+node works/ambertime/design/s3-stream-compare/measure-buffered.mjs run /workspace/shared/ambertime-night-fixtures/ambertime-s3-r0/wide-1200.research.json /workspace/shared/ambertime-stream-inputs 16384
+node --max-old-space-size=512 works/ambertime/design/s3-stream-compare/protect-v8-buffered.mjs /workspace/shared/ambertime-stream-new-v8 reuse
+```
+
+B1のbounded aggregation、diagnostic再走査、独立内容比較、不要な同時保持の解消は研究部品として再利用できる。既知の独立入力があり、同じ候補validator/アンカー/検査範囲を使うことが条件。今回の一巡はここで終了する。
+
+|残件|解決と判断するための確認|
+|---|---|
+|準備込み約289MiB、入力全parse/codec clone/stringify|正式要件を決めた別検討で保持実体を減らし、同じ保証の全経路を実測。今回codec最適化へ拡大しない|
+|独立元入力がない通常保存の来歴|正式モデル/replayと各成分の検証根拠を明示して別途承認。自己hash/自己期待値では代替しない|
+|完全ゲームが正式上限超過|正式validatorのどの契約を変更するかを別設計判断。B1を本編へimportしない|
+|永続的な世代/原本保護|保存先を決めた後、候補読戻し・確定・競合・容量不足・中断を実ブラウザーで検証|
+|D1多方針/世代条件とSafari|元の未確認条件を残し、必要なfixture/実機試験を別判断。今回で合格にしない|
+
+最終ローカル検査とGitHub exact-SHAは最終PRコメントに対象head付きで記録する。先行lockのCI成功を最終実装のCI成功にしない。
+
+---
+
+## 前回の限定試作（以下は不変基準の履歴）
+
+以下の判定・数値は基準版の時点の記録であり、今回の最終結果と混ぜない。
+
+
 ## 判定
 
 **照合は成立、資源上の効果は実用化の判断には不足。** 全記録とsidecarを元入力へ厳密に照合し、旧形式の履歴・arrivals配列・完全出力JSONの追加生成を避けられた。比較工程のメモリ削減は観測したが、時間は増加し、候補・参照を準備する工程のピークが残る。正式保存を変更する根拠にはしない。
