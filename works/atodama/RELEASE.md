@@ -27,3 +27,16 @@
 ## 未確認と確認制限
 
 この会話の前段で、元Siteのブラウザー上のドラッグ・キーボード・扉の協力・一球戻す・クリア後再生・390×844/375×667表示を確認。今回の町への組込み後のブラウザー確認はローカルURLのアクセスを自動承認審査が拒否したため停止。町内起動・退出・再入場の実操作、物理iPhone Safari、外部Plausible Goal/実送信はUNVERIFIED。ローカルの接続失敗をサイト障害とは扱わず、拒否された操作を別経路で試していない。静的・CI・配信の証拠と実操作の証拠を分け、Release Completeとは呼ばない。
+
+## 実配信の記録（2026-11-08）
+
+Production PR [#68](https://github.com/SukimaStock/yumaniwa-town/pull/68) を `5cdb0f921550d7a394f221526c101e31709d3fb1` へマージ。PR head `1e65bc8dec7eb3045514c6828322c8ffb609900e` のProduction Safety Checks / PUMPOKO監査 / Tourist Desk監査は全成功。
+
+同merge SHAの [Pages run 42461907341](https://github.com/SukimaStock/yumaniwa-town/actions/runs/42461907341) はsuccess。同SHAのSafety run42461908006、PUMPOKO監査run42461907960もsuccess。公開先のroot、sitemap、6 metadata、4 runtime、OGP/icon、日英紹介、manifestの17ファイルをHTTP 200で取得し、候補版と全件バイト一致を確認。
+
+- 日本語共有URL：https://sukimastock.github.io/yumaniwa-town/w/atodama/
+- 町内起動：https://sukimastock.github.io/yumaniwa-town/?work=atodama
+- 英語紹介：https://sukimastock.github.io/yumaniwa-town/en/w/atodama/
+- 画像：https://sukimastock.github.io/yumaniwa-town/assets/works/atodama/ogp.jpg
+
+公開済みの記録としてcandidate → releasedへ更新する。releasedは配信状態の記録であり、町内画面の実操作・物理iPhone Safari・外部Plausibleの確認完了を意味しない。ブラウザー確認はローカルURLへの自動承認審査による拒否のため未確認のまま。Release Completeとは報告しない。SNS投稿はしておらず、共有URLと画像を作者へ引き渡す。
