@@ -1,0 +1,17 @@
+# Buffered comparison continuation — preimplementation scope record
+
+2026-11-08. User explicitly requested one limited improvement pass on PR #864. This is not a new save format or validator contract.
+
+Baseline and current remote head: 1f04d38eae13dec58ff4c0455c8acec4d417a8da. Latest main: b57ce881b5f5f68bc12ff1f15634178118496958. Worktree clean before this record. Existing r0 lock digest 25ea6fc218a998e9dc13f6cbcd0507be49115092784afef65af15c5b2797dd75; original lock-only commit c722a4b892310d5b613a504bbda0a306d08aaa04 remains unchanged.
+
+Read-only independent scope review: existing allowed research/test paths, bounded output <=16384 UTF-16 units, original independent reference, all sidecars/game digest, separate preparation accounting, and three sequential fresh repeats per mode cover this continuation. No revised lock or extra authority is required. WORK/Standard applies only to this observational work; no HQ approval is asserted. If actual scope changes, stop rather than add an incompatible second lock. Review performed by a separate native technical reviewer, not the implementation author.
+
+Planned: immutable B0 compare.mjs and measure.mjs plus unchanged D1-R codec. Add B1 callback emission into fixed 4096/16384-unit buffers; evaluate only these two sizes once, then three final repeats. Flush at game boundaries; preserve surrogate handling, direct content comparison, both EOF checks, prehash and during-read original hash. On mismatch recover first logical path by a second bounded walk rather than collecting unbounded diagnostic spans. Keep strict candidate validation unchanged, including its complete strings and maps.
+
+Preparation experiment: baseline keeps raw/original/game/candidate/text; alternative reduces lifetimes and omits optional game-only file while still checking original game hash and all-input raw hash. Do not change candidate bytes or anchors. Same-process end-to-end paths separately compare old preparation+B0, old preparation+B1, improved preparation+B1. No forced GC in measured path; GC-after samples are separate. Same Node flags, sequential fresh processes, maximum 512MiB old-space, 120s timeout, stop above768MiB RSS. Preparation and comparison are measured together, not maxima added/subtracted.
+
+Read-only CPU profile (not final performance): generator walks/row/string/history and frequent Hash.update are dominant; baseline total output is 11873989 bytes. Full profile remains external, summary to be recorded with results. New code and tests remain planned at this commit.
+
+Existing inputs verified on disk: /workspace/shared/ambertime-night-fixtures/ambertime-s3-r0/wide-1200.research.json (ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4); candidate /workspace/shared/ambertime-stream-inputs/candidate.json (77aa72bca3dccf01766a8ffede1f7be2743870c3101010a8428f4a2736d92dc3); prior newly-generated24month v8 /workspace/shared/ambertime-stream-new-v8/new-original-v8.json (48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693). These are reused read-only; no100year simulation.
+
+Planned validation: B0/codec regressions, B1 normal/adversarial/boundary/path tests, full100year direct equality, v8原本 protection, independent implementation review and postreview measurements, local Scope/Risk/Impact and exact-head required GitHub checks. No merge, Draft removal, Pages, #856 changes, formal save/model/codec edits or D1/S3 completion.
