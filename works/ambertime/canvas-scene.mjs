@@ -10,7 +10,7 @@ import{stillArt,brandArt,bottleArt,glass}from'./room-object-art.mjs?v=0.62-bottl
 const $=id=>document.getElementById(id),ink='#f0e6c8',shadow='#19141e';
 import{FONT_STACK,fontReady}from'./font-loader.mjs?v=0.35-font-1';
 import{BODY_SIZE,pixelTypography,textRuns,textPieces,numberMarkup}from'./text-metrics.mjs?v=0.24-type-ui-1';
-import{drawSymbol,symbolMarkup,disclosureSymbols,SYMBOLS}from'./pixel-symbols.mjs?v=rooms-stage2-r1';
+import{drawSymbol,symbolMarkup,disclosureSymbols,SYMBOLS}from'./pixel-symbols.mjs?v=atelier-icons-r2-20261108';
 import{uiText}from'./ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 const spriteCache=new Map();
 function sprite(markup,collection=1,active=false,frame=0){
@@ -251,7 +251,7 @@ export class CanvasScene{
   const idle=performance.now()-this.idleSince,hintBright=hintEligible&&idle>=12000&&Math.floor((idle-12000)/1200)%2===0;
   this.root.dataset.playbackHint=hintEligible?(idle<12000?'waiting':hintBright?'bright':'quiet'):'off';const c=this.ctx,v=this.viewport,view=this.view,l=this.layout;c.setTransform(v.dpr,0,0,v.dpr,0,0);c.fillStyle=shadow;c.fillRect(0,0,v.width,v.height);c.imageSmoothingEnabled=false;c.drawImage(this.world,0,0,120,640/3,v.offsetX,v.offsetY,360*v.scale,640*v.scale);this.recordDistillCompletionFrame(now);c.save();c.translate(v.offsetX,v.offsetY);c.scale(v.scale,v.scale);
   // Keep the original book cells; center their painted bounds in the button.
-  const book=(x,y,w,h,color)=>this.pixelRect(x,y,w,h,color);
+  // Ledger now uses the same color-indexed icon renderer as other buttons.
 
   this.window(6,6,348,39,'#292b39','#d8d5df');
   let headerSize=BODY_SIZE;
@@ -307,7 +307,7 @@ export class CanvasScene{
    if(['open-ledger','open-staff-panel','shop-offer','open-world-map','open-aux-menu'].includes(a.key)){
     const kind=$('action-dialog').open?$('action-dialog').dataset.kind:'',active=a.key==='open-ledger'?kind==='ledger':a.key==='open-staff-panel'?/^(staff|bottl)/.test(kind):a.key==='shop-offer'?/^(stockist|shop-offer)/.test(kind):a.key==='open-world-map'?kind==='world-map':kind==='aux-panel',x=a.x+(a.w-54)/2;
     this.window(x,a.y,54,54,pressed?'#19141e':active?'#414552':'#292b39',pressed?'#f0e6c8':'#d8d5df');if(active)this.pixelRect(x+6,a.y+45,42,3,'#d8d5df');
-    if(a.key==='open-ledger'){const bx=x+12,by=a.y+10.5;book(bx,by,30,33,'#6e5a42');book(bx+3,by,27,30,'#b69a65');book(bx+3,by,3,30,'#e4c58a');book(bx+6,by+3,21,24,'#e7dcc0');book(bx+9,by+6,15,3,'#9a835c');book(bx+9,by+12,15,3,'#9a835c');book(bx+9,by+18,12,3,'#9a835c');}
+    if(a.key==='open-ledger'){this.icon('ledger',x,a.y,54,54);}
     else if(a.key==='open-aux-menu'){for(let i=0;i<3;i++)this.pixelRect(x+15+i*9,a.y+25.5,3,3,ink);}
     else this.icon(a.key==='open-staff-panel'?'person':a.key==='open-world-map'?'map':'store',x,a.y,54,54);
     continue;

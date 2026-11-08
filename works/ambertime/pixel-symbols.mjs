@@ -1,12 +1,13 @@
 // Shared pixel glyphs for Canvas and native buttons; no font dependency.
 // Codea Atelier imports are color-indexed source artwork, top row first.
 const ATELIER_SOURCE=Object.freeze({
- map:{w:11,h:11,rle:'BAJLBABLCMBLDMBdCMCLCMBLDMBdBLBMCLCMBLGdCLCMBLBMBdBMBdCMCLCMBLBMBdBMBdCMCLCMBLBMBdCMBdBMCLCMBLBMBdCMBdBMFLBMBdBLCMBdCLCbBLBMBdDMBdBLBAJLBA',colors:{11:'#644632',12:'#a0785a',27:'#b69a65',29:'#e7dcc0'}},
+ map:{w:11,h:11,rle:'BALaBbBeBaDeBdCeCaBbBeBaDeBdBLBeCaBbBeBaGdCaBbBeBaDeBdCeCaBbBeBaDeBdCeCaBbBeBaDeBdCeCaBbBeBaEeBdBeFaEeBdBeCaBbBeBaFeBdBaBAJaBA',colors:{11:'#644632',26:'#6e5a42',27:'#b69a65',29:'#e7dcc0',30:'#9a835c'}},
  handshake:{w:11,h:11,rle:'BAIRDABRGABRDABRBAERBABRDABRGABRDABRBAERBABRBABRBABRGACRCABRBAERBABRDABRFABREABRBADRCABRDABRGABRDAIRCA',colors:{17:'#f0e6c8'}},
  pause:{w:7,h:7,rle:'IABRDABRCABRDABRCABRDABRCABRDABRCABRDABRIA',colors:{17:'#f0e6c8'}},
  stock:{w:7,h:7,rle:'CADREABRBABRDAFRCAFRCAFRCAFRCAFRBA',colors:{17:'#f0e6c8'}},
- person:{w:7,h:7,rle:'CADLDABLDRBLCABLDRBLCABLDRBLDABLBRBLDABLDRBLCABLDRBLBA',colors:{11:'#644632',17:'#f0e6c8'}},
- store:{w:11,h:11,rle:'BAJLBABLJcNLJdCLCdCbBdCbCdCLCdCbBdCbCdCLJdCLCdCbBdCbCdCLCdCbBdCbCdCLJdML',colors:{11:'#644632',27:'#b69a65',28:'#e4c58a',29:'#e7dcc0'}}
+ person:{w:11,h:11,rle:'EADaHAFaGABaDdBaGABaDdBaHADaHABaBdBaBdBaFABaCdBaCdBaEABaCdCaBdBaEABaCdBaCdBaEABaCdBaCdBaEAHaCA',colors:{26:'#6e5a42',29:'#e7dcc0'}},
+ store:{w:11,h:11,rle:'BAJaBABaJcNaJdCaCdCbBdCbCdCaCdCbBdCbCdCaJdCaCdCbBdCbCdCaCdCbBdCbCdCaJdMa',colors:{26:'#6e5a42',27:'#b69a65',28:'#e4c58a',29:'#e7dcc0'}},
+ ledger:{w:11,h:11,rle:'BaBcJbBaBcIdBbBaBcBdGeBdBbBaBcIdBbBaBcBdGeBdBbBaBcIdBbBaBcBdFeCdBbBaBcIdBbBaBcIdBbBaJcBbLa',colors:{26:'#6e5a42',27:'#b69a65',28:'#e4c58a',29:'#e7dcc0',30:'#9a835c'}}
 });
 const ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 function unpack(source){
