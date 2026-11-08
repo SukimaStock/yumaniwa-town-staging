@@ -3,7 +3,7 @@
 import {uiText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 
 export function spiritReadoutView(readout,{cutInProgress=false,modalKind=null,collectionVersion}={}){
- if(!readout||cutInProgress||modalKind==='fill'||readout.phase==='filled')return {hidden:true};
+ if(!readout||cutInProgress||modalKind==='fill'||readout.phase==='confirmed')return {hidden:true};
  const gathering=readout.phase==='estimate';
  return {
   hidden:false,
