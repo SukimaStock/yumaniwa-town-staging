@@ -1,0 +1,39 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ba9319f345419738968edabd23130ee2994392326836621b7ee360572f629302",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ui-dialogue-merge-20261108",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reapply approved PR 861 UI and dialogue corrections after an immutable pre-implementation Plan Lock; preserve fill-modal recovery and add targeted regressions",
+    "planLevel": "standard",
+    "classes": ["WORK"],
+    "authority": ["Standard", "Owner Decision"],
+    "environment": "staging",
+    "baseSha": "9d31b71b3031ff994336f75cdbbee52b136a5d13",
+    "canonicalSources": ["works/ambertime/index.html", "works/ambertime/shop-app.mjs", "works/ambertime/shop-dialogue-view.mjs", "works/ambertime/spirit-readout-view.mjs"],
+    "allowedPaths": [".change-plans/ambertime-ui-dialogue-merge-20261108/r0.lock.json", "works/ambertime/index.html", "works/ambertime/shop-app.mjs", "works/ambertime/shop-dialogue-view.mjs", "works/ambertime/spirit-readout-view.mjs", "works/ambertime/tests/r1-spirit-readout.test.mjs", "works/ambertime/tests/shop-dialogue-view.test.mjs", "works/ambertime/tests/ui-polish-regression.test.mjs"],
+    "forbiddenPaths": ["works/ambertime/model.mjs", "works/ambertime/partner-orders.mjs", "works/ambertime/development-save.mjs", "works/ambertime/recall/**", ".github/workflows/**", "tools/**", "data/**"],
+    "conditionalPaths": [],
+    "expectedChanges": [
+      "Carry forward the four work-local source changes from PR 861, with no model or saved-state changes",
+      "Keep completed distillation information in its modal and retain a way to return to it via the distillation tab and after reload",
+      "Hide only introductory map heading and close icon and suppress the pending-decision counter on hiring",
+      "Show the approved bar acceptance greeting ahead of older shop dialogue",
+      "Resume an interrupted shop dialogue in sales; expire or dismiss it once; do not retain an unbounded or persistent queue",
+      "Update tests only where the approved presentation contract deliberately changed; retain frozen model and save equivalence assertions"
+    ],
+    "staticChecks": ["node-syntax"],
+    "manualChecks": ["Exercise first-release image, fill modal close/room-return/reload, introductory and normal map, hiring, bar greeting and interrupted dialogue using isolated tests; record real-device limitations"],
+    "impactChecks": ["work.runtime", "work.regression"],
+    "impactExclusions": [],
+    "promotion": "Staging only; Production remains unchanged",
+    "rollback": "Revert this PR; there is no saved-state migration",
+    "ownerDecisions": ["The user approved the six-item UI and notification specification and explicitly requested implementation and staging merge in this conversation."],
+    "rulesApplied": ["CHANGE-PLAN section 1: regular WORK Standard path; register an immutable r0 lock before carrying forward implementation.", "No guard, workflow or required-check changes; no retroactive lock attached to PR 861."],
+    "outOfScope": ["Economy, game clock, formal save format, generation recall, external settings, Production", "No new permanent notification ledger or replay of ordinary operation results"],
+    "unverified": ["Physical iPhone Safari interaction and visual inspection remain unverified unless separately observed."]
+  }
+}
