@@ -112,7 +112,7 @@ export function createM0Observation({document:doc,state,model,room,modal,art,sta
   if(action==='close')setMode('closed');
  });
  const handle=outer.querySelector('.m0-handle');
- handle.addEventListener('pointerdown',e=>{if(e.target.closest('[data-m0="close"]'))return;drag={id:e.pointerId,y:e.clientY};handle.setPointerCapture(e.pointerId);});
+ handle.addEventListener('pointerdown',e=>{suppressAdvance=false;if(e.target.closest('[data-m0="close"]'))return;drag={id:e.pointerId,y:e.clientY};handle.setPointerCapture(e.pointerId);});
  handle.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const dy=e.clientY-drag.y;drag=null;if(Math.abs(dy)>28){suppressAdvance=true;e.preventDefault();setMode(dy<0?'full':'half');}});
  handle.addEventListener('pointercancel',()=>{drag=null;});
  window.addEventListener('resize',update);
