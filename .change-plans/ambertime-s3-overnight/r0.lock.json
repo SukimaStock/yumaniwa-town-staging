@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "37a244cb20a7d2441f9c534ae6162e3459ee26909aecca7eef0f9385d09c3c85",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-s3-overnight",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Bounded overnight D1 residual proof and D2 design feasibility only",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "bca9078dc19155aeb763f91a1b486f750b4ea195",
+    "canonicalSources": [
+      "User Sentinel_9f5668feff088191877482f0c00ee67f 2026-11-08",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "PR856 bca9078d and D1-R/F evidence; main b7b5473"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s3-overnight/plan.json",
+      ".change-plans/ambertime-s3-overnight/r0.lock.json",
+      "works/ambertime/design/s3-d1/night-*",
+      "works/ambertime/design/s3-d1/evidence/overnight/**",
+      "works/ambertime/design/s3-d1/OVERNIGHT-REPORT.md",
+      "works/ambertime/design/s3-d1/DECISION.md",
+      "works/ambertime/tests/s3-night-*.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/design/s3-d1/codec.mjs",
+      "works/ambertime/design/s3-d1/evidence/final/**",
+      "works/ambertime/design/s3-d1/evidence/repair/**"
+    ],
+    "expectedChanges": [
+      "G0 actual saved plan/digest/preceding GitHub commit readback before new research.",
+      "G1 reuse proven F evidence; inspect available fixtures/current dependencies.",
+      "G2 public-only resale >=240months with actual stock, exact original/decoded comparison. Missing viable stock is unverified, no injection.",
+      "G3 estimate bounded sequential current generation extension; preserve first difference and stop affected series. No full100year regeneration.",
+      "G4 isolated phase-memory measurements and read-only D2 trust/storage design; independent review.",
+      "Persist evidence and report by 05:45 UTC Nov8; no new heavy tests beyond06:00 UTC."
+    ],
+    "ownerDecisions": [
+      "User authorizes autonomous overnight research until Skopje2026-11-08 07:00; Draft856 only, no merge."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Validation-only isolated runners; Plan Lock before repository changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Node only; no browser capacity claim."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated research/test/report additions; runtime and saves unchanged.",
+    "outOfScope": [
+      "Merge/Draft removal/Pages/main/Production",
+      "Official model/save/reader/writer/validator/caps/UI/Canvas",
+      "Formal IndexedDB or checkpoint implementation",
+      "D2 implementation",
+      "Whole100year regeneration or parallel heavy processes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Nine current boundaries until actually proved",
+      "Native browser storage/Safari",
+      "Persistent provenance and formal canonical validation"
+    ],
+    "alternativesRejected": [
+      "Truncate history or raise caps",
+      "Claim research codec is formal save"
+    ],
+    "boundaryCases": [
+      "Stop affected series on first state/RNG/recall difference or malformed acceptance; preserve failure before limited research-only repair.",
+      "Original normal-save loss stops all changes.",
+      "No cap bypass, record deletion, invented stock/results, relaxed expected values.",
+      "05:45 UTC stop starting experiments and compile; bounded processes stopped if time/memory uncontrolled."
+    ],
+    "testPlan": [
+      "G0 save plan and lock, verify, commit, push, confirm GitHub files/SHA before implementation.",
+      "G1/G2 inventory and current fixtures first; compare public old-release resale within bounded months.",
+      "G3 sequential generation budget based on prior observed cost; stop on first difference; retain snapshots/hashes.",
+      "G4 separate fresh-process memory phases without reducing checks; reuse unchanged80tests.",
+      "Independent review; Scope/Risk/Impact; exact-SHA CI; honest partial status and next decision."
+    ]
+  }
+}
