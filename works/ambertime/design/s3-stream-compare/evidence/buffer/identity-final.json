@@ -1,0 +1,50 @@
+{
+  "codeCommit": "32e6ce9a3fa8f1266be6a85d1c25daad6d949ce7",
+  "hashes": [
+    {
+      "file": "works/ambertime/design/s3-d1/codec.mjs",
+      "bytes": 6344,
+      "sha": "f3e0748284b7e6f3e4dbed1bd7df94b37cf1e73934e33ac276800ace0ea124dd"
+    },
+    {
+      "file": "works/ambertime/design/s3-stream-compare/compare.mjs",
+      "bytes": 7661,
+      "sha": "f3c994374c6ed5b31587b8f7e053a695d238ae63ba77049dca58cf9da0bf93cb"
+    },
+    {
+      "file": "works/ambertime/design/s3-stream-compare/measure.mjs",
+      "bytes": 4988,
+      "sha": "71bc9714dc5f54d0f566c5e8663089815e5744ddf86ec2f6014498069d2dd9ee"
+    },
+    {
+      "file": "works/ambertime/design/s3-stream-compare/compare-buffered.mjs",
+      "bytes": 8607,
+      "sha": "de13fea88904586b7d2d627640517e32529fb2d79f57986162cb5849e8efda04"
+    },
+    {
+      "file": "works/ambertime/design/s3-stream-compare/measure-buffered.mjs",
+      "bytes": 8110,
+      "sha": "95398905c8fdcd28241e4882b819294fab7dfb85658f02dccafa8915afd95083"
+    },
+    {
+      "file": "works/ambertime/design/s3-stream-compare/protect-v8-buffered.mjs",
+      "bytes": 4672,
+      "sha": "1f5b321952ccaed06b7b574dea9e9b9c58fa77d94be6b612cee4ef749ed15b3b"
+    },
+    {
+      "file": "/workspace/shared/ambertime-night-fixtures/ambertime-s3-r0/wide-1200.research.json",
+      "bytes": 11873989,
+      "sha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4"
+    },
+    {
+      "file": "/workspace/shared/ambertime-stream-inputs/candidate.json",
+      "bytes": 6018719,
+      "sha": "77aa72bca3dccf01766a8ffede1f7be2743870c3101010a8428f4a2736d92dc3"
+    },
+    {
+      "file": "/workspace/shared/ambertime-stream-new-v8/new-original-v8.json",
+      "bytes": 209412,
+      "sha": "48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693"
+    }
+  ]
+}
