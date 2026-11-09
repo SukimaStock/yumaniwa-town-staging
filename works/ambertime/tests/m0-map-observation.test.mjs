@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {mapSquare,mapPanBounds} from '../m0-observation.mjs';
 import {mapObservationBounds} from '../world-map-view.mjs';
 import {SHOPS} from '../shop-model.mjs';
@@ -36,4 +37,14 @@ test('M0 names use canonical shops; department remains a special handling path',
  assert.equal(SHOPS.find(s=>s.id==='supermarket').name,'町のスーパー');
  assert.equal(SHOPS.find(s=>s.id==='bar').name,'路地裏のバー');
  assert.ok(!Object.hasOwn(mapObservationBounds(3),'department'));
+});
+test('M0 drawer uses reversible sheet positions and respects reduced motion',()=>{
+ const css=readFileSync(new URL('../m0-observation.css',import.meta.url),'utf8');
+ const js=readFileSync(new URL('../m0-observation.mjs',import.meta.url),'utf8');
+ assert.match(css,/transition:top 240ms cubic-bezier/);
+ assert.match(css,/\[data-mode=closed\] \.m0-drawer\{top:100%\}/);
+ assert.match(css,/\[data-mode=full\] \.m0-drawer\{top:0\}/);
+ assert.match(css,/prefers-reduced-motion:reduce/);
+ assert.match(js,/if\(closing\)hideTimer=setTimeout\(finishClose,DRAWER_TWEEN_MS\+80\)/);
+ assert.match(js,/const tween=!reduced.matches&&!doc.hidden/);
 });

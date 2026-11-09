@@ -32,6 +32,9 @@ export function createM0Observation({document:doc,state,room,modal}){
  const report=outer.querySelector('.m0-report'),windowEl=outer.querySelector('.m0-map-window'),layer=outer.querySelector('.m0-map-layer');
  const zoomControls=outer.querySelector('.m0-zoom'),advance=outer.querySelector('[data-m0="advance"]');
  let mode='closed',selected='town-liquor',lastStore='town-liquor',drag=null,suppressAdvance=false;
+ const DRAWER_TWEEN_MS=240;
+ const drawer=outer.querySelector('.m0-drawer');
+ let opening=false,closing=false,hideTimer=null;
  let zoom=1,pan={x:0,y:0},paintKey='',pinKey='',rowKeys=new Map(),animationEpoch=0;
  let placementKey='',squareKey='',suppressPinClick=false;
  const pointers=new Map();let gesture=null;
@@ -116,20 +119,53 @@ export function createM0Observation({document:doc,state,room,modal}){
   if(key!==squareKey){Object.assign(layer.style,{left:q.left+'px',top:q.top+'px',width:q.side+'px',height:q.side+'px'});squareKey=key;}
   transform();
  }
+ // Leave the drawer mounted while it travels out. Hide only after the final frame;
+ // that makes a close reversible, without a blank frame or replaying sales.
+ function cancelHideTimer(){if(hideTimer!==null){clearTimeout(hideTimer);hideTimer=null;}}
+ function finishClose(){
+  cancelHideTimer();if(mode!=='closed')return;
+  const restoreFocus=outer.contains(doc.activeElement);
+  closing=false;opening=false;outer.hidden=true;
+  if(restoreFocus)doc.getElementById('open-world-map')?.focus({preventScroll:true});
+ }
  function update(){
   const canShow=!!state()&&!modal();
-  if(!canShow&&mode!=='closed'){mode='closed';animationEpoch++;}
-  outer.hidden=!canShow||mode==='closed';if(outer.hidden)return;
+  if(!canShow){
+   if(mode!=='closed')animationEpoch++;
+   mode='closed';opening=false;closing=false;cancelHideTimer();outer.hidden=true;return;
+  }
+  outer.hidden=mode==='closed'&&!closing&&!opening;
+  if(outer.hidden)return;
   const ids=available(state());if(!ids.includes(selected))selected=ids.find(x=>x!=='retail')??'retail';
-  align();outer.dataset.mode=mode;syncRows();syncMap();
+  align();if(!opening)outer.dataset.mode=mode;syncRows();syncMap();
   advance.textContent=mode==='half'?'全画面':'縮小';advance.setAttribute('aria-label',mode==='half'?'地図を全画面にする':'地図を縮小する');
   zoomControls.hidden=mode!=='full';layoutMap();
  }
  function setMode(next){
   if(!['closed','half','full'].includes(next)||next===mode)return;
-  mode=next;animationEpoch++;pointers.clear();gesture=null;
-  if(next==='closed'){suppressAdvance=false;}update();
+  const previous=mode,wasClosing=closing;
+  const tween=!reduced.matches&&!doc.hidden&&!!state()&&!modal();
+  cancelHideTimer();mode=next;animationEpoch++;pointers.clear();gesture=null;
+  if(next==='closed'){
+   suppressAdvance=false;opening=false;closing=tween;
+   update();
+   if(closing)hideTimer=setTimeout(finishClose,DRAWER_TWEEN_MS+80);
+   else finishClose();
+   return;
+  }
+  closing=false;
+  if(previous==='closed'&&!wasClosing&&tween){
+   // Establish the offscreen starting frame before transitioning to the target.
+   opening=true;outer.dataset.mode='closed';update();
+   void drawer.offsetTop;
+   opening=false;outer.dataset.mode=next;
+   return;
+  }
+  opening=false;update(); // CSS continues from the current position if interrupted.
  }
+ drawer.addEventListener('transitionend',event=>{
+  if(event.target===drawer&&event.propertyName==='top'&&mode==='closed'&&closing)finishClose();
+ });
  function consume(before,after){
   if(!active()||mode!=='half')return;
   const sales=savedMarketSales(before,after).filter(s=>s.shopId===selected);
@@ -201,6 +237,6 @@ export function createM0Observation({document:doc,state,room,modal}){
  window.addEventListener('resize',()=>{placementKey='';squareKey='';update();});
  if(typeof ResizeObserver==='function')new ResizeObserver(()=>{squareKey='';layoutMap();}).observe(windowEl);
  return {open:()=>setMode('half'),close:()=>setMode('closed'),setMode,update,consume,
- reset:()=>{mode='closed';selected='town-liquor';lastStore='town-liquor';zoom=1;pan={x:0,y:0};placementKey='';squareKey='';paintKey='';pinKey='';rowKeys.clear();animationEpoch++;update();},
+ reset:()=>{cancelHideTimer();opening=false;closing=false;mode='closed';selected='town-liquor';lastStore='town-liquor';zoom=1;pan={x:0,y:0};placementKey='';squareKey='';paintKey='';pinKey='';rowKeys.clear();animationEpoch++;update();},
  get mode(){return mode;}};
 }
