@@ -18,7 +18,7 @@ import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
 import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=sales-scroll-s1-1';
-import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1';
+import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {createFeedbackComments,recentCustomerFeedback,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=reactions-s1-1&rooms=stage3-r1&status=1&aging=1';
@@ -38,7 +38,8 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {automaticEvents,scopedNotices} from './event-notices.mjs?v=daily-v01';
+import {automaticEvents,scopedNotices} from './event-notices.mjs?v=motion-v02';
+import {noticePresentation,topGenerationNotice} from './notice-motion.mjs?v=motion-v02';
 import {addDailyEvent} from './daily-events.mjs?v=daily-v01';
 import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1';
 import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1';
@@ -115,14 +116,49 @@ function prepareDistillation(start){
  if(countdown.active||!game||document.hidden||room!=='distill'||!D.canStart(game).ok||modal&&modal.kind!=='flavor-cards')return;
  stopClock();modal=null;countdown.start(()=>act(start,()=>distillRoom.clearPrepared(),null,{paused:false}));
 }
-const automaticNews=scopedNotices({room:()=>room,safe:()=>!!game&&!modal&&!document.hidden&&!runtimeHalted&&(preview||canSave)&&$('storage-notice').hidden&&$('generation-notice').hidden,show:text=>{$('automatic-news').setAttribute('aria-label',text+' 閉じる');$('automatic-news').textContent=text;$('automatic-news').hidden=false;},hide:()=>{$('automatic-news').hidden=true;$('automatic-news').textContent='';}});
+const automaticNews=scopedNotices({room:()=>room,safe:()=>!!game&&!modal&&!document.hidden&&!runtimeHalted&&(preview||canSave)&&$('storage-notice').hidden&&$('generation-notice').hidden,show:(text,entries,lifetime)=>{
+ const el=$('automatic-news'),style=noticePresentation(entries),visibleText=style.heading?style.heading+'\n'+text:text;
+ el.dataset.motion=style.motion;el.style.setProperty('--notice-life',lifetime+'ms');
+ el.textContent=visibleText;el.setAttribute('aria-label',visibleText+' 閉じる');el.hidden=false;
+},hide:()=>{$('automatic-news').hidden=true;$('automatic-news').textContent='';}});
 // Keep transient notices above the body-mounted sales board.
 document.body.append($('automatic-news'),$('market-action-status'));
 const dialogueProjection=createDialogueProjection();
-const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.hidden=true;dialogueElement.setAttribute('role','button');dialogueElement.tabIndex=0;dialogueElement.setAttribute('aria-label','店主の一言を閉じる');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
+const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.dataset.motion='ambient';dialogueElement.hidden=true;dialogueElement.setAttribute('role','button');dialogueElement.tabIndex=0;dialogueElement.setAttribute('aria-label','店主の一言を閉じる');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
+// Non-interactive top notice derives entirely from the already committed
+// generation state. Neither its display nor the map's reserved headroom is saved.
+const importantTop=document.createElement('aside');
+importantTop.id='important-top-notice';importantTop.hidden=true;importantTop.setAttribute('role','status');importantTop.setAttribute('aria-live','polite');importantTop.setAttribute('aria-atomic','true');
+importantTop.innerHTML='<div class="important-top-heading"></div><div class="important-top-text"></div>';
+document.body.append(importantTop);
+function positionImportantTop(){
+ if(importantTop.hidden||!scene.viewport)return;
+ const v=scene.viewport;
+ Object.assign(importantTop.style,{
+  left:(v.left+v.offsetX+12*v.scale)+'px',
+  top:(v.top+v.offsetY+103*v.scale)+'px',
+  width:336*v.scale+'px',
+  fontSize:Math.max(12,Math.round(15*v.scale))+'px'
+ });
+}
+function updateImportantTop(gen){
+ const notice=topGenerationNotice({generation:gen?{id:gen.id,phase:gen.phase,deadlineLabel:monthLabel(gen.fixedMonth+12)}:null,modal,canSave,preview,runtimeHalted,documentHidden:document.hidden});
+ document.body.dataset.topImportant=notice?'true':'false';
+ if(!notice){importantTop.hidden=true;return false;}
+ const nextKey=notice.heading+'|'+notice.text;
+ if(importantTop.dataset.key!==nextKey){
+  importantTop.querySelector('.important-top-heading').textContent=notice.heading;
+  importantTop.querySelector('.important-top-text').textContent=notice.text;
+  importantTop.dataset.key=nextKey;
+ }
+ importantTop.hidden=false;positionImportantTop();return true;
+}
+window.addEventListener('resize',()=>requestAnimationFrame(positionImportantTop));
+window.visualViewport?.addEventListener('resize',()=>requestAnimationFrame(positionImportantTop));
+window.visualViewport?.addEventListener('scroll',()=>requestAnimationFrame(positionImportantTop));
 const dialogueNotice=createDialogueNotice({
  inRoom:()=>room==='sales',
- show:entry=>{dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;dialogueElement.setAttribute('aria-label',`${dialogueShopName(entry.shopId)}。${entry.text} 閉じる`);dialogueElement.hidden=false;scene.positionDialogue();},
+ show:entry=>{dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;dialogueElement.setAttribute('aria-label',`${dialogueShopName(entry.shopId)}。${entry.text} 閉じる`);dialogueElement.hidden=false;dialogueElement.style.animation='none';void dialogueElement.offsetWidth;dialogueElement.style.removeProperty('animation');scene.positionDialogue();},
  hide:()=>{dialogueElement.hidden=true;dialogueElement.innerHTML='';},
  safe:entry=>!!game&&(preview||canSave)&&!document.hidden&&!modal&&!runtimeHalted&&!marketEditing&&!countdown.active&&game.still.phase==='ready'&&game.tastingId===null&&!game.decisions.length&&generationState()?.phase!=='review'&&generationState()?.phase!=='handover'&&!debugSkipJob&&$('automatic-news').hidden&&$('storage-notice').hidden&&!$('scene-notice').textContent.trim()&&!!scene.dialogueLayout(entry)
 });
@@ -675,7 +711,8 @@ function schedule(continuing=false){
     // are never actions, persisted facts, or delayed across an unsafe UI.
     const dailyAllowed=advancedMonth&&!notices.some(e=>e.id.startsWith('town:'))&&
       dialogueProjection.read(game)?.month!==game.core.month&&!game.shop.offer&&!game.trade.offer&&!game.decisions.length;
-    automaticNews.push(addDailyEvent(notices,beforeStep,game,{allow:dailyAllowed}));
+    const visibleMessages=addDailyEvent(notices,beforeStep,game,{allow:dailyAllowed}).map(e=>e.kind==='ambient'?{...e,sourceLabel:generationName(generationState()?.id??1)+'のひとこと'}:e);
+    automaticNews.push(visibleMessages);
     noteMapReach();marketUI.consume(beforeStep,game);m0.consume(beforeStep,game);
    }
    // Pure extraction/clock steps do not change other rooms' content. Keep
@@ -1138,7 +1175,7 @@ function render(){
  $('open-world-map').textContent='地図';
  $('open-world-map').setAttribute('aria-pressed',String(m0.isOpen));
  $('start-distill').hidden=countdown.active||phase!=='ready'||!D.stage4Mode(game);$('stop-distill').hidden=automatic||phase!=='distilling'||atLimit;$('open-fill').hidden=true; // Barrel selection now belongs exclusively to the fill modal.
- const gen=generationState();$('generation-name').textContent=gen?generationName(gen.id):'';const banner=$('generation-notice');banner.hidden=!gen||gen.phase==='working';banner.textContent=gen?.phase==='last-batch'?generationName(gen.id)+'の最後の仕込み · '+monthLabel(gen.fixedMonth+12)+'まで':gen?.phase==='review'?generationName(gen.id)+'の歩みを確認します。':'';
+ const gen=generationState();$('generation-name').textContent=gen?generationName(gen.id):'';const banner=$('generation-notice');banner.hidden=!gen||gen.phase==='working';banner.textContent=gen?.phase==='last-batch'?generationName(gen.id)+'の最後の仕込み · '+monthLabel(gen.fixedMonth+12)+'まで':gen?.phase==='review'?generationName(gen.id)+'の歩みを確認します。':'';const topImportantShown=updateImportantTop(gen);
  const start=D.canStart(game);$('start-distill').disabled=countdown.active||!start.ok;const confirmedChoice=D.stage4Mode(game)?brewingPanelState(game,distillRoom.confirmation):null;$('start-distill').textContent='仕込み '+money(P.distillationCost)+(confirmedChoice?'・'+({plain:'ふつう',peat:'ピート'}[confirmedChoice.malt])+'・'+({short:'短め',long:'長め'}[confirmedChoice.ferment]):'');
  const collection=D.collectionState(game);$('stop-distill').hidden=true;const access=$('collection-access');access.hidden=room!=='distill';access.setAttribute('aria-valuenow',String(Math.round(100*Math.max(0,collection.current))));access.setAttribute('aria-valuetext',collection.enabled?'現在 '+Math.round(Math.max(0,collection.current)*100)+'％'+(collection.start===null?' · 採取前':' · 開始 '+Math.round(collection.start*100)+'％')+(collection.end===null?'':' · 終了 '+Math.round(collection.end*100)+'％'):'採取前');$('stop-distill').textContent=collection.expired?'やり直す':collection.enabled&&!collection.collected?'ここから取る':'ここまで取る';$('stop-distill').disabled=collection.expired?false:collection.enabled?(collection.collected?!collection.canStop:!collection.canStart):(game.still.distillation?.progress??0)<T.minimumStop;
  $('collection').hidden=true;
@@ -1208,7 +1245,7 @@ function render(){
   feedback:feedbackHidden?null:roomFeedback,
   collection:Math.max(0,Math.min(1,game.still.distillation?.litres/40||0)),spirit:countdown.active||modal?.kind==='fill'?null:spirit,
   cutRange:collection.enabled?collection:D.stage4Mode(game)?{enabled:true,fullRange:true,current:0,start:null,end:null}:{current:0,start:null,end:null},cutCondition:game.still.distillation?.labChoice??game.core.spirit?.flavor?.choice??(D.stage4Mode(game)?manualCards(game):null),staffAvailable:!$('open-staff-panel').hidden,phaseSummary:phase==='distilling'&&collection.enabled&&!collection.fullRange?'以前の蒸留を続けています。':!reservation&&!start.ok&&phase==='ready'?displayReason(start.reason):staffWaitReason,staffBrief:room==='distill'&&(staff.hired||reservation)?staffBrief:'',
-  notice:!$('storage-notice').hidden?$('storage-notice').textContent:!banner.hidden?banner.textContent:runtimeHalted?$('work-notice').textContent:'',
+  notice:!$('storage-notice').hidden?$('storage-notice').textContent:!banner.hidden&&!topImportantShown?banner.textContent:runtimeHalted?$('work-notice').textContent:'',
   casks:slotCasks().filter(Boolean).map(c=>({id:c.id,slot:caskSlots.indexOf(c.id)+1,type:c.type,wood:c.wood,name:caskName(c.id).replace(/^たる /,''),flavorName:c.flavor?.label??null,age:ageLabel(c.age),reservationIcon:reservationSymbol(c.id),cooled:game.notesById[c.id]?.cooled===true,selected:c.id===warehouseRoom.selectedId})),
   products:shelfProducts.slice(shelfStart,shelfStart+4).map(p=>({id:p.id,releaseId:releaseFor(p.id)?.id??null,wood:p.wood,brand:brandFor(p.id),priceTier:releasePriceTier(game,p.id),name:(brandFor(p.id)?.name??'AmberTime')+'\n'+releaseTag(p.id).replace(' · たる No.',' No.').replace(' · ',' '),state:placementEnabled?displayProductStock(p)+'本':displayProductStock(p)+'本 · '+productSaleState(p),releaseDate:placementEnabled?placementShelfLabel(p):releaseTag(p.id).split(' · ')[0],stock:displayProductStock(p),saleState:placementEnabled?placementShelfRelease(p):productSaleState(p),selected:p.id===selectedProductId})),pageCount:shelfPageCount,pageLabel:(shelfPage+1)+' / '+shelfPageCount});
  $('scene-notice').setAttribute('aria-live',D.storeMarketMode(game)&&room==='sales'&&!modal?'off':'polite');
