@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "50d426674f7ecd95e7a609dda0c645f561e7badac86b521b9cc5ea30d36c23f6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-notice-traffic-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "時間と通知の交通整理 S1 bounded presentation, S2 room/map/time integration, S3 browser and preservation regression",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "a870e0affcea2d124c44622652e50eaf6a827637",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/m0-observation.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-notice-traffic-20261109/r0.lock.json",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/canvas-layout.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-dialogue.css",
+      "works/ambertime/notice-motion.mjs",
+      "works/ambertime/notice-motion.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/notice-motion-integration.test.mjs",
+      "works/ambertime/tests/daily-notices-main.test.mjs",
+      "works/ambertime/tests/notice-traffic.test.mjs",
+      "works/ambertime/tests/notice-traffic-browser.test.mjs",
+      "works/ambertime/tests/notice-traffic-preservation.test.mjs",
+      "works/ambertime/NOTICE-TRAFFIC-VERIFICATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/history-record.mjs"
+    ],
+    "expectedChanges": [
+      "One active ordinary notification without preemption; latest world/shop/result slots, no ambient queue; UI-only visibility and dedup",
+      "Preserve userPaused/blocked/RuntimeClock and saved decision rights; suppress ordinary messages during map observation, restore interrupted notices when appropriate",
+      "Preserve adopted motion; remove passive-card dismissal; test real browser and long-run state equivalence"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 current user detailed implementation request sections A-E and S1-S3; staging merge authorized after required checks"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "作者採用のMessage Motion Lab v0.2"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-notice-time-map-input",
+      "browser-widths-reduced-motion",
+      "iPhone-Safari-author-check"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRの表示・Motion分類とCSS/entry cacheをrevert。正式ゲーム状態と既存保存は不変",
+    "outOfScope": [
+      "Productionと本番昇格",
+      "正式保存と100年保存研究、回想の新規保存、イベント発生条件・文章・頻度の変更",
+      "店舗営業状態・閉店・評判・経済・ゲームRNG・世代交代条件・地図の座標や店舗条件・共有Engineの変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari actual device remains author check"
+    ]
+  }
+}
