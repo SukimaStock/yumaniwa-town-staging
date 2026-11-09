@@ -10,3 +10,9 @@ test('occluded news waits without hidden timer and reappears; newer waiting news
 test('sufficiently visible shop line is not repeated after exit, early exit defers',()=>{for(const elapsed of [100,4000]){const h=harness();h.lane.push([shop(1)]);h.advance(elapsed);h.room('distill');h.advance(10000);h.room('sales');assert.equal(h.visible?.kind??null,elapsed<3500?'shop':null);}});
 test('results wait for their room; ambient has no queue; reset never replays',()=>{const h=harness();h.safe(false);h.lane.push([op(1),daily(1)]);h.room('warehouse');h.safe(true);assert.equal(h.visible,null);h.room('sales');assert.equal(h.visible.kind,'operation');h.lane.reset();h.advance(50000);assert.equal(h.visible,null);assert.equal(h.lane.inspect().pending.length,0);});
 test('duplicate ids in batch and subsequent updates do not repeat',()=>{const h=harness(),e=world(1);h.lane.push([e,e]);h.advance(6500);h.lane.push([e]);assert.equal(h.shown.length,1);});
+test('new result participates in priority when push is first synchronization after occlusion',()=>{
+ let safe=false;const shown=[];
+ const lane=scopedNotices({room:()=>'sales',safe:()=>safe,show:(_text,_entries,_duration,kind)=>shown.push(kind),hide:()=>{},setTimer:()=>1,clearTimer:()=>{}});
+ lane.push([world(1)]);safe=true;lane.push([op(1)]);
+ assert.deepEqual(shown,['operation']);assert.deepEqual(lane.inspect().pending.map(n=>n.kind),['world']);
+});

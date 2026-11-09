@@ -71,7 +71,8 @@ export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTime
   timer=setTimer(()=>{stop();update();},next.duration);
  }
  function push(events){
-  update();const fresh=[];
+  // Register this transition before choosing the next slot on becoming visible.
+  const fresh=[];
   for(const e of events){if(seen.has(e.id))continue;seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);fresh.push(e);stats.received++;}
   const groups={operation:[],world:[],shop:[],ambient:[]};
   for(const e of fresh)groups[e.kind==='shop'?'shop':e.kind==='ambient'?'ambient':e.id.startsWith('town:')?'world':'operation'].push(e);
