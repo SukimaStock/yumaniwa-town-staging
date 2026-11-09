@@ -82,3 +82,12 @@ export function drawGameMap(canvas,game,stage,seenMax=1){
  return safe;
 }
 export {STAGES};
+
+// Pixel bounds from the existing authored 144×144 local-map sprites. Used only
+// for the M0 read-only hit layer; the legacy map and saved geography are unchanged.
+// The bar has no authored local-map sprite yet: its bounds are temporary UI only.
+export function mapObservationBounds(stage){
+ if(stage===1)return {retail:[52,62,32,32]};
+ if(stage===2)return {retail:[26,72,24,24],'town-liquor':[90,34,24,24],supermarket:[102,94,24,24],bar:[40,112,16,16]};
+ return {retail:[46,62,16,16],'town-liquor':[86,44,16,16],supermarket:[98,92,16,16],bar:[28,112,16,16]};
+}
