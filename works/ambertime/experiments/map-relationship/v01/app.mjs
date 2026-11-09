@@ -1,15 +1,18 @@
 import {renderMap} from '../../world-map/v01/map.mjs';
 import {mapObservationBounds} from '../../../world-map-view.mjs';
 import {createShopRelationshipProjection} from './relationship-view.mjs';
+import {paintReaction,drawableShop,REACTION_STEPS,REACTION_KINDS} from './pixel-reaction.mjs';
 import {SCENARIOS,fixtureState,SHOP_NAMES} from './fixtures.mjs';
 
 const $=id=>document.getElementById(id);
 const scenarioRoot=$('scenarios'),mapLayer=$('map-layer'),pinLayer=$('map-pins');
-const mapWindow=$('map-window'),lineLayer=$('line-layer'),canvas=$('map-canvas');
+const mapWindow=$('map-window'),pixelLayer=$('pixel-layer'),canvas=$('map-canvas');
+const pixelContext=pixelLayer.getContext('2d');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const originalBounds=mapObservationBounds(3);
 const projection=createShopRelationshipProjection();
 let scenario=SCENARIOS[1],game=fixtureState(scenario),selected=scenario.selected;
-let view='normal',style='text',zoom=1,pan={x:0,y:0};
+let view='normal',style='eaves',zoom=1,pan={x:0,y:0};
 const pointers=new Map();let movement=false,gesture=null;
 const center=id=>{const r=originalBounds[id];return r?{x:r[0]+r[2]/2,y:r[1]+r[3]/2}:null;};
 const available=()=>[...new Set(game.shop.relations.filter(r=>r.status!=='declined').map(r=>r.shopId))];
@@ -32,21 +35,30 @@ function buildPins(){
   btn.addEventListener('click',()=>selectShop(id));pinLayer.append(btn);
  }
 }
-function renderLine(e){
- lineLayer.replaceChildren();
- if(view!=='relation'||style!=='line'||!e?.canDrawLink)return;
- const from=center(e.fromShopId),to=center(e.selectedShopId);if(!from||!to)return;
- const xmlns='http://www.w3.org/2000/svg';
- const path=document.createElementNS(xmlns,'path');
- const arc=Math.max(10,Math.min(25,Math.abs(from.x-to.x)*.18));
- path.setAttribute('d','M'+from.x+' '+from.y+' Q'+(from.x+to.x)/2+' '+(Math.min(from.y,to.y)-arc)+' '+to.x+' '+to.y);
- path.setAttribute('stroke','#f1d184');path.setAttribute('stroke-width','2');path.setAttribute('stroke-dasharray','4 4');
- path.setAttribute('fill','none');path.setAttribute('stroke-linecap','square');lineLayer.append(path);
- for(const p of [from,to]){
-  const dot=document.createElementNS(xmlns,'rect');
-  dot.setAttribute('x',p.x-2);dot.setAttribute('y',p.y-2);
-  dot.setAttribute('width','4');dot.setAttribute('height','4');dot.setAttribute('fill','#ffe5a1');lineLayer.append(dot);
- }
+// A building changes its own source pixels once; there are no map-wide lines,
+// status markers, blinking loops, or extra simulated events.
+let reactionTimer=null,reactionEpoch=0,lastReactionKey=null;
+function cancelReaction(){
+ reactionEpoch++;
+ if(reactionTimer!==null){clearTimeout(reactionTimer);reactionTimer=null;}
+}
+function syncReaction(link,{replay=false}={}){
+ const valid=view==='relation'&&link?.canDrawLink&&drawableShop(link.fromShopId);
+ const key=valid?[scenario.id,selected,link.eventId,style,link.fromShopId].join(':'):'';
+ if(!replay&&lastReactionKey===key)return;
+ lastReactionKey=key;cancelReaction();
+ if(!valid){paintReaction(pixelContext,style,null,0);return;}
+ const shop=link.fromShopId;
+ if(reduced.matches||document.hidden){paintReaction(pixelContext,style,shop,REACTION_STEPS);return;}
+ let step=0;const epoch=reactionEpoch;
+ paintReaction(pixelContext,style,shop,0);
+ const advance=()=>{
+  if(reactionEpoch!==epoch)return;
+  step++;paintReaction(pixelContext,style,shop,step);
+  if(step<REACTION_STEPS)reactionTimer=setTimeout(advance,115);
+  else reactionTimer=null;
+ };
+ reactionTimer=setTimeout(advance,115);
 }
 function render(){
  const link=relation(),isRelation=view==='relation';
@@ -58,20 +70,22 @@ function render(){
  $('shop-title').textContent=SHOP_NAMES[selected]??'取扱店';
  $('detail-tag').textContent='取扱店';
  $('relation-controls').hidden=!isRelation;
- const message=$('shop-message'),foot=$('map-foot'),follow=$('follow');
+ const message=$('shop-message'),foot=$('map-foot'),follow=$('follow'),replay=$('replay');
  if(!isRelation){
   message.textContent='この店の様子を眺めています。関係を見ると、実際に届いた口コミの経緯を調べられます。';
-  foot.textContent='通常時は、関係線を描きません。';follow.hidden=true;
+  foot.textContent='普段の町では、建物はいつもの姿です。';follow.hidden=true;replay.hidden=true;
  }else if(!link){
   message.textContent='この店に届いた、確認できる店舗間の口コミはありません。';
-  foot.textContent='根拠がなければ、線も紹介先も表示しません。';follow.hidden=true;
+  foot.textContent='届いた記録がなければ、建物は反応しません。';follow.hidden=true;replay.hidden=true;
  }else{
   message.textContent=Math.floor(link.month/12)+'年'+link.month%12+'か月目、'+SHOP_NAMES[link.fromShopId]+'からの口コミが、この店に届きました。';
-  foot.textContent=style==='line'&&link.canDrawLink?'選んだ店につながる1本だけが見えています。':'線は隠したまま、つながりを読めます。';
+  const effectName=REACTION_KINDS.find(v=>v.id===style)?.label??'建物';
+  foot.textContent=drawableShop(link.fromShopId)&&link.canDrawLink?effectName+'：紹介元のお店が応えます。':'紹介元の建物にはまだ描画位置がありません。';
   follow.hidden=false;follow.textContent=SHOP_NAMES[link.fromShopId]+'を見に行く';
   follow.onclick=()=>selectShop(link.fromShopId);
+  replay.hidden=!(link.canDrawLink&&drawableShop(link.fromShopId));
  }
- renderLine(link);$('scenario-description').textContent=scenario.desc;
+ syncReaction(link);$('scenario-description').textContent=scenario.desc;
  $('plus').disabled=zoom>=3;$('minus').disabled=zoom<=1;
 }
 function setScenario(id){
@@ -85,6 +99,10 @@ for(const item of SCENARIOS){
 }
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;render();}));
 document.querySelectorAll('[data-style]').forEach(b=>b.addEventListener('click',()=>{style=b.dataset.style;render();}));
+$('replay').addEventListener('click',()=>syncReaction(relation(),{replay:true}));
+reduced.addEventListener?.('change',()=>syncReaction(relation(),{replay:true}));
+document.addEventListener('visibilitychange',()=>syncReaction(relation(),{replay:true}));
+window.addEventListener('pagehide',cancelReaction);
 function changeZoom(n){zoom=clamp(n,1,3);updateTransform();render();}
 $('plus').addEventListener('click',()=>changeZoom(zoom+.5));$('minus').addEventListener('click',()=>changeZoom(zoom-.5));
 const points=()=>[...pointers.values()];
