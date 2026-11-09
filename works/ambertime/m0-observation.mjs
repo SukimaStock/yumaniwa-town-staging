@@ -70,7 +70,10 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
   const scale=Number.isFinite(s)&&s>0?s:1;
   const x=Number.isFinite(v?.offsetX)?v.offsetX:r.left;
   const y=Number.isFinite(v?.offsetY)?v.offsetY:r.top;
-  const left=x+12*scale,top=y+99*scale,width=336*scale,height=417*scale;
+  // Reserve a small upper reading area for the existing non-blocking
+  // generation notice; keep the map's lower edge, hit areas and pan geometry.
+  const reserve=doc.body.dataset.topImportant==='true'?90:0;
+  const left=x+12*scale,top=y+(99+reserve)*scale,width=336*scale,height=(417-reserve)*scale;
   const key=[left,top,width,height,scale].join(':');
   if(key!==placementKey){
    Object.assign(outer.style,{left:left+'px',top:top+'px',width:width+'px',height:height+'px'});
