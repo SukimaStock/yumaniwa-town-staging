@@ -18,7 +18,7 @@ import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
 import {createMarketUI,commitMarketRulesUpdate} from './market-ui.mjs?v=sales-scroll-s1-1';
-import {createM0Observation} from './m0-observation.mjs?v=m09-map-polish-r1';
+import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {createFeedbackComments,recentCustomerFeedback,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=reactions-s1-1&rooms=stage3-r1&status=1&aging=1';
