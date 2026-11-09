@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3e5d4f4744bfc4a8d581ea3da72e48e23ec838387d0a3f4c6e9e4e2014ff4fc2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-relations-lab-m1a-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime M1-A: 町の店を選択し通常表示、根拠付き関係の文章のみ、線を1本出す案を比べられる独立Staging Labを実装。検証用の固定イベントをR0投影で読む。PR #880の本編通知・マップには触れない。",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "a870e0affcea2d124c44622652e50eaf6a827637",
+    "canonicalSources": [
+      "works/ambertime/map-relationship-view.mjs (Draft PR #881 R0)",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-relations-lab-m1a-20261109/r0.lock.json",
+      "works/ambertime-map-relations-lab/index.html",
+      "works/ambertime-map-relations-lab/app.mjs",
+      "works/ambertime-map-relations-lab/style.css",
+      "works/ambertime-map-relations-lab/fixtures.mjs",
+      "works/ambertime-map-relations-lab/relationship-view.mjs",
+      "works/ambertime-map-relations-lab/relationship-lab.test.mjs",
+      "works/ambertime-map-relations-lab/README.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "works/ambertime/**",
+      "works/ambertime-map-relations-lab/*.png",
+      "works/ambertime-map-relations-lab/*.jpg"
+    ],
+    "expectedChanges": [
+      "独立した新規Labページで町の実際のドット絵地図renderMap(stage=3)とM0の店舗座標を読み込み、町を眺める通常表示を保つ",
+      "一つの固定シナリオに対してA文章のみ・B根拠付きの線を1本を切替比較でき、口コミ到達前・到達後・未契約の違いも試せる",
+      "R0と同じ関係抽出ソースをLab内に固定した比較用コピーとして使い、本編PR #881の実装・正式保存・経済・RNG・回想は変更しない",
+      "店舗ピン選択・紹介元へ移動・ズーム・パン・キーボード・reduced-motionを支援し、スマートフォン画面で視覚比較できるようにする"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 作者は店を主役に、普段は静かな地図、関係を見るときだけ店舗とのつながりが現れる方向を選択。R0の次に触って比較できるM1-A Labへ進むよう指示"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "isolated-lab-unit-tests"
+    ],
+    "manualChecks": [
+      "iPhoneで通常表示の静けさとA文章・B線1本の差を比較する",
+      "選んだ店舗の根拠がなければつながりが出ないことを確認する",
+      "小画面の見切れ、店舗の選択、地図のピンチ・パン、キーボードフォーカスとreduced-motion"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "新規works/ambertime-map-relations-lab/とこのPlan Lockを単位としてrevert。本編や他作品のコードは変わらない。",
+    "outOfScope": [
+      "PR #880のS3通知検証、本編M0との統合、取扱条件や店舗ライフサイクルの変更",
+      "経済計算、RNG、実プレイの保存やタイマー、イベント生成条件、回想collector",
+      "町への登録、作品紹介、Production公開、PR #881 R0の変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "本編M0へ実際に接続した際の触感、作者のiPhone試遊、ブラウザー実画面の比較結果"
+    ]
+  }
+}
