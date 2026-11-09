@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "75be9f36ee71fe600e55db4100b6c1d231e12b8d4dc040f001d7b0e134e5e049",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-daily-notices-v01-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "既存通知に日常170件を控えめに流す。表示のみで経済・正式保存・回想の変更なし",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "8adc8c80f26bdb59be67912e8fe66772e3ba2a99",
+    "canonicalSources": [
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/index.html",
+      "AmberTime_300events_review_v3_2026-11-09.json (user selected source)"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-daily-notices-v01-20261109/r0.lock.json",
+      "works/ambertime/daily-event-text.mjs",
+      "works/ambertime/daily-events.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/daily-events.test.mjs",
+      "works/ambertime/tests/daily-notices-main.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/recall/**"
+    ],
+    "expectedChanges": [
+      "作者の承認済み日常170件の固定IDと文面だけを作品内表示データとして追加。要調整5件の修正文、不採用10件除外を守る",
+      "月進行後の保存成功を確認した箇所でゲームRNGに触れない純粋な決定的選択を実施。約6か月に一回で既存重要通知に優先権を渡す",
+      "日常候補を既存の短い通知として一時的に表示し、月・部屋・モーダル安全条件に従い消去。正式保存、ゲーム計算、既存回想へ追加しない",
+      "日常候補の重複・季節・重要通知競合・無表示月・リロード・失敗保存のテストを追加。index.htmlキャッシュ更新のみ"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 作者が選考290件のうち日常170件をLabで確認し「控えめでちょうどいい」「本編接続を進めて」と指定。回想接続は別段階"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "地図を半開きにしたまま蒸留・貯蔵庫・販売室を行き来してもゲーム時間・操作・通知優先を維持する",
+      "控えめの頻度、無表示月、短文とタップで閉じる挙動を確認する",
+      "iPhone Safariで狭幅・安全領域・既存通知と重ならないことを作者が確認する"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本変更の表示データ・選択・通知差分とindex cacheをrevert。セーブ構造変更なし",
+    "outOfScope": [
+      "正式保存・移行・B codec・経済・乱数・操作・店舗条件・M0地図の座標変更",
+      "日常の回想記録化・世代回想への混入、他の120件のイベント、本番Production公開"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "本編の実iPhone Safariと長時間進行の実機体感",
+      "日常回想の正式保存方式は今回対象外"
+    ]
+  }
+}
