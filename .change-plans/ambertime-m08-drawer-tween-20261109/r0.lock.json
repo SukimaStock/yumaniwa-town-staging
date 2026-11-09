@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2944b799c0db1443838025e2e4ece72dcdb0df428ab0a60caf34600f26a0cc20",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-m08-drawer-tween-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "採用済みM0.7の半開き・全画面・閉じる切替に中割り（せり上がり）アニメーションを追加",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "11c33d8e8b627f40ee14d96f177b583a59543a89",
+    "canonicalSources": [
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/m0-map-observation.test.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-m08-drawer-tween-20261109/r0.lock.json",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/m0-map-observation.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/economy-parameters.mjs"
+    ],
+    "expectedChanges": [
+      "開く際に地図を画面下端から半開き位置まで240ms程度でせり上げ、閉じる際に逆方向へ戻す",
+      "半開きと全画面の往復も同じ板の移動を使用し、地図・店舗行の内容を描き直すための遷移を追加しない",
+      "地図のアスペクト比・パン・ピンチ・選択・実売瓶の吸込み・時計進行と停止状態は現行維持",
+      "prefers-reduced-motionと非表示時は中割りを省略して即時切替、途中再操作や中断時も操作不能にならない",
+      "更新キャッシュを変更しStaging上で修正を読み込む"
+    ],
+    "ownerDecisions": [
+      "2026-11-09作者：M0.7の地図半開き・全画面を採用しStagingへマージ",
+      "2026-11-09作者：地図を開閉するときの中割りアニメーションを採用・実装依頼"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "既存販売・保存・地図解放の保護"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360x568,390x680,430x740,PCで地図が下から開き元へ収まる",
+      "半開き/全画面/閉じるの連続遷移と途中再操作・スクロール操作の非干渉",
+      "prefers-reduced-motionで即時切替・余分なアニメーションなし",
+      "販売室の選択/数量/スクロール、注目店、地図の比率とパン・ピンチが不変",
+      "停止中に自動再開しない、実売時の瓶吸込みと描画の重複なし"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "このM0.8差分のみrevertしてM0.7へ戻す。正式保存・経済データ移行なし。",
+    "outOfScope": [
+      "Production、Staging mainへの無断マージ",
+      "保存形式・経済計算・RNG・会話履歴・店舗条件・地図座標の変更",
+      "新マップタイルや新店舗、追加の説明カード・音・エフェクト"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者のiPhone Safari実機での最終的な操作感とリフレッシュレート評価"
+    ]
+  }
+}
