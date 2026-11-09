@@ -24,6 +24,12 @@ function eventChain(events,byId,event){
   const parent=byId.get(current.sourceId);
   if(!parent||!Number.isInteger(parent.month)||parent.month>current.month||
     current.releaseId!=null&&parent.releaseId!=null&&current.releaseId!==parent.releaseId)return null;
+  // Verify every hop, not only the final arrival. The parent must actually
+  // lead to the child's stated origin or destination.
+  if((current.type==='rumor'||current.type==='share')&&parent.to!==current.from)return null;
+  if(current.type==='arrival'&&parent.type==='arrival'&&parent.to!==current.from)return null;
+  if(current.type==='arrival'&&parent.type==='shipment'&&
+     (current.channel!=='direct'||parent.to!==current.to))return null;
   current=parent;
  }
  if(result.at(-1)?.type!=='release'||!result.some(e=>e.type==='shipment'))return null;
