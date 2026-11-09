@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "722ad6dfac477ca59fbbd2d55c885055521d9ecb3a877cba466d7b5542ef6fd9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "04cd48471df22fd25ace867389e76aae0bdaa24d",
+    "changeId": "ambertime-idb-v8-preflight",
+    "revision": 0,
+    "change": "Issue #889 phase 1: formal v8 records in an isolated staging IndexedDB transaction store and local manual cold-read preflight; game runtime not switched",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/checkpoint-idb-research/CONTRACT.md",
+      "works/ambertime/checkpoint-idb-research/REPORT.md",
+      "works/ambertime/checkpoint-idb-research/store.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-idb-v8-preflight/r0.lock.json",
+      "works/ambertime/formal-idb-storage.mjs",
+      "works/ambertime/storage-idb-preflight.html",
+      "works/ambertime/storage-idb-preflight.mjs",
+      "works/ambertime/tests/formal-idb-storage.test.mjs",
+      "works/ambertime/tests/storage-idb-preflight.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "Provide a narrow staging-namespaced IndexedDB adapter, saving each exact version-8 JSON record in one atomic readwrite transaction after external full official validation",
+      "Compare expected monotonic revision in same transaction, store head and previous valid generation and keep previous on write error, stale writer, or quota; do not report success before transaction complete",
+      "Provide a noindex explicit-URL user-operated preflight page: choose external v8 JSON, run official reader and serializer byte equality, copy to staging IDB, readback, revalidate cold on reload without changing localStorage or ongoing AmberTime game",
+      "Add node mock-transaction regression tests and source no-mutation/remote-upload checks. No production or public entrypoint"
+    ],
+    "ownerDecisions": [
+      "2026-11-10 author approved proceeding with root storage fix under #889; no Production permission and no data removal approval."
+    ],
+    "hqDecisions": [
+      "Phase1 remains isolated from running game; staged IDB only, and phase2 game mutation / async save orchestration must get its own Plan and CI.",
+      "Keep the entire v8 byte string authoritative; no history aggregation, new save codec, non-verified checkpoint fast path or semantic change.",
+      "Use atomic head+previous+revision single transaction; CAS reject on stale revision; native transaction completion is the publication point; detect bad/corrupt head instead of autostarting fresh game."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "User iPhone Chrome: upload existing 154-month exported v8 file in preflight; compare readback and reload; do not assume browser validation from Node-only tests.",
+      "Cross-tab stale revision and blocked upgrade using real browser; browser evictions and power loss remain unverified."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove preflight and adapter files; they only use a staging-namespaced IndexedDB and are not connected to active AmberTime. They do not delete or update any existing localStorage keys or game runtime.",
+    "outOfScope": [
+      "Current game runtime switching, boot logic and writeCandidate refactor",
+      "localStorage old key deletion or migration without explicit validation",
+      "Production or save key changes",
+      "Origin-wide cleanup, histories/digests semantic changes",
+      "New shared engine or service worker"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Chrome IDB native storage and quota on actual device",
+      "Game still uses localStorage and is not rescued by this first phase",
+      "IndexedDB physical durability/OS kill and 100-year play not measured"
+    ],
+    "alternativesRejected": [
+      "Swap IndexedDB into synchronous saveCandidate without awaiting completion",
+      "Store replay/checkpoint without formal reader",
+      "Auto cleanup or reset any existing key",
+      "Write to Production database or reuse researcher DB namespace"
+    ],
+    "boundaryCases": [
+      "No or wrong file/version, noncanonical JSON, invalid recall and history proof",
+      "No IndexedDB or blocked open, quota and transaction abort",
+      "Concurrent tabs stale revision and ABA",
+      "Tampered current/previous payload, missing head, cold reload",
+      "Other origin or browser profile and iPhone WebKit"
+    ],
+    "testPlan": [
+      "Native browser preflight full v8 readSession and serializeSession identical before and after IndexedDB write, cold reload manual check",
+      "Mock IDB tests for successful atomic write/read, no write on invalid input, injected abort, stale writer, previous retention, malformed current and wrong version",
+      "Required exact-head validate, plan-risk-gate, trusted-mechanical-evidence CI and scope/risk/impact after Plan Lock"
+    ],
+    "problem": "Author's real iPhone Chrome loses saving near month 154 due to origin-shared localStorage quota; existing diagnosis and backup tools are inadequate for long-term storage.",
+    "currentContract": "Formal v8 serialized JSON and localStorage main.v1 CAS are synchronous; game advances only if validated and write-back succeeded. Existing stop-on-quota retains last committed.",
+    "whyExistingIsInsufficient": "Classic localStorage shares the origin with old game experiments and reaches quota before even 13 years. H1-A4 research tests IDB but does not handle actual v8 file or attach to current game.",
+    "design": "A staging-only atomic IDB head+previous store with same-transaction CAS revision, verified exact v8 text before and after storage; explicit local-file preflight page with no automatic migration. The interface anticipates async main-game adaptation without claiming it has occurred.",
+    "migration": "Only explicitly selected external JSON is copied into an independent staging IndexedDB after full validation. Existing main.v1 and all other storage keys are untouched. Later game migration will require a separate guarded plan.",
+    "compatibility": "Existing formal v8 JSON reader/codec and game behavior remain untouched; IDB adapter remains a separate module. Cross-origin/browser-local data never uploaded.",
+    "promotionRisk": "Staging-only direct URL. Production remains on existing localStorage until independent owner-approved promotion."
+  }
+}
