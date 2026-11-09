@@ -140,6 +140,7 @@ function positionImportantTop(){
   width:336*v.scale+'px',
   fontSize:Math.max(12,Math.round(15*v.scale))+'px'
  });
+ importantTop.style.setProperty('--notice-scale',String(v.scale));
 }
 function updateImportantTop(gen){
  const notice=topGenerationNotice({generation:gen?{id:gen.id,phase:gen.phase,deadlineLabel:monthLabel(gen.fixedMonth+12)}:null,modal,canSave,preview,runtimeHalted,documentHidden:document.hidden});
