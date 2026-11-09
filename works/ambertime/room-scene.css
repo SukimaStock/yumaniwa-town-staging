@@ -386,7 +386,7 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 #action-dialog[data-kind=first-bottle-complete] #dialog-body{overflow:auto}
 #action-dialog[data-kind=first-bottle-complete] #dialog-actions{display:none}
 #action-dialog[data-kind=first-bottle-complete] .first-bottle-complete{width:100%;text-align:center}
-#action-dialog[data-kind=first-bottle-complete] .first-bottle-proceed{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;min-height:232px;padding:13px 8px;background:transparent;border:0}
+#action-dialog[data-kind=first-bottle-complete] .first-bottle-proceed{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;min-height:232px;padding:13px 8px;background:transparent;border:0;box-shadow:none}
 #action-dialog[data-kind=first-bottle-complete] .first-bottle-proceed:focus-visible{outline:3px solid #e4bc66;outline-offset:-4px}
 #action-dialog .first-bottle-assembly{position:relative;display:block;width:144px;height:144px;max-width:100%;flex:none}
 #action-dialog .first-bottle-assembly>span{position:absolute;inset:0;display:block}
