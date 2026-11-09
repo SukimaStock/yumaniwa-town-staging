@@ -47,24 +47,39 @@ export function transientNotices({show,hide,setTimer=setTimeout,clearTimer=clear
 // Room ownership is ephemeral. World news keeps only the latest unseen fact;
 // operation results stay where they happened and never follow a room change.
 export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTimer=clearTimeout}){
- let owner=room(),pending=null,active=false,serial=0;
+ let owner=room(),pending=null,ambientPending=null,active=false,serial=0;
  const seen=new Set();
  const display=transientNotices({show:text=>{active=true;show(text);},hide:()=>{active=false;hide();},setTimer,clearTimer,onExpire:()=>update()});
- function sync(){if(owner!==room()){display.clear();owner=room();}if(!safe())display.clear();}
- function update(){sync();if(!active&&pending&&room()==='sales'&&safe()){const event=pending;pending=null;display.push([{...event,id:'world-display:'+ ++serial}],6500);}}
+ function sync(){
+  if(owner!==room()){display.clear();ambientPending=null;owner=room();}
+  // Daily observations are ephemeral: never follow a room change or unsafe modal.
+  if(!safe()){display.clear();ambientPending=null;}
+}
+ function update(){
+  sync();if(active||!safe())return;
+  if(pending&&room()==='sales'){
+    const event=pending;pending=null;display.push([{...event,id:'world-display:'+ ++serial}],6500);return;
+  }
+  if(ambientPending){
+    const event=ambientPending;ambientPending=null;
+    display.push([{...event,kind:'message',id:'daily-display:'+ ++serial}],6000);
+  }
+}
  return {
   push(events){
    sync();const fresh=events.filter(e=>!seen.has(e.id));for(const e of fresh){seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);}
    const world=fresh.filter(e=>e.id.startsWith('town:'));
    if(world.length)pending=world.at(-1);
-   const results=fresh.filter(e=>!e.id.startsWith('town:'));
+   const ambient=fresh.filter(e=>e.kind==='ambient');
+   if(ambient.length&&safe())ambientPending=ambient.at(-1);
+   const results=fresh.filter(e=>e.kind!=='ambient'&&!e.id.startsWith('town:'));
    // A single saved transition replaces the previous result, without joining
    // unrelated months. Full details remain in the existing ledger.
    if(results.length&&safe()){display.clear();display.push(results);}
    update();
   },
   update,
-  clear(){display.clear();update();},
-  reset(){display.reset();seen.clear();pending=null;owner=room();}
+  clear(){display.clear();ambientPending=null;update();},
+  reset(){display.reset();seen.clear();pending=null;ambientPending=null;owner=room();}
  };
 }

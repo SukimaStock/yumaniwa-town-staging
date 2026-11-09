@@ -38,7 +38,8 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {automaticEvents,scopedNotices} from './event-notices.mjs?v=reactions-s1-1';
+import {automaticEvents,scopedNotices} from './event-notices.mjs?v=daily-v01';
+import {addDailyEvent} from './daily-events.mjs?v=daily-v01';
 import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1';
 import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1';
 import {createObservedModel} from './recall/operations.mjs?v=bar-v01-1';
@@ -667,7 +668,16 @@ function schedule(continuing=false){
    else if(wasDistilling&&!completionSaved&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))saved=save();
    if(completed&&saved&&!completionSaved)saved=save();
    if(!saved){restoreCommitted();render();return;}
-   if(saved){automaticNews.push(automaticEvents(beforeStep,game,caskName,id=>soldOutLabel(game,id,beforeStep)));noteMapReach();marketUI.consume(beforeStep,game);m0.consume(beforeStep,game);}
+   if(saved){
+    const notices=automaticEvents(beforeStep,game,caskName,id=>soldOutLabel(game,id,beforeStep));
+    const advancedMonth=game.core.month===beforeStep.core.month+1;
+    // Existing shop letters and world notices take precedence. Ambient lines
+    // are never actions, persisted facts, or delayed across an unsafe UI.
+    const dailyAllowed=advancedMonth&&!notices.some(e=>e.id.startsWith('town:'))&&
+      dialogueProjection.read(game)?.month!==game.core.month&&!game.shop.offer&&!game.trade.offer&&!game.decisions.length;
+    automaticNews.push(addDailyEvent(notices,beforeStep,game,{allow:dailyAllowed}));
+    noteMapReach();marketUI.consume(beforeStep,game);m0.consume(beforeStep,game);
+   }
    // Pure extraction/clock steps do not change other rooms' content. Keep
    // their time bar live without rebuilding hidden distillation/staff DOM.
    if(!modal&&!blocked()&&beforeStep.operations.length===game.operations.length&&beforeStep.still.phase===game.still.phase&&(room!=='distill'||game.still.phase!=='distilling'))renderProgress();
