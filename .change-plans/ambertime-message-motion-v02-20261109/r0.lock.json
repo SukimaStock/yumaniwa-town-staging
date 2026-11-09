@@ -1,0 +1,105 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7c621c491c91d1c9c4fc83ebfb20671a1dffeb4ad2d371c19381b5291abef57a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-message-motion-v02-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "採用済みMessage Motion Lab v0.2の4表現を既存通知へ段階的に接続。日常・店主・町の知らせの動き、世代予告の上部表示を追加し、重要判断・保存・地図操作を維持する",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "9d68ed5c9b2e405982660d7c6d2837ff4e04938c",
+    "canonicalSources": [
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/recall/player.mjs",
+      "AmberTime_Message_Motion_Lab_v02_REBUILT.html (author approved display comparison)"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-message-motion-v02-20261109/r0.lock.json",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-dialogue.css",
+      "works/ambertime/notice-motion.mjs",
+      "works/ambertime/notice-motion.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/notice-motion.test.mjs",
+      "works/ambertime/tests/notice-motion-integration.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/history-record.mjs"
+    ],
+    "expectedChanges": [
+      "保存成功後の既存通知を型付きで表示へ渡し、日常170件は世代付き「○代のひとこと」と下からの短い動き、町の知らせは横方向の一時表示へ接続。イベント選択と頻度は不変",
+      "既存店主の一言は店名・瓶画像・安全待ち/退避/自動消去を維持したまま下から現れる動きだけ導入する",
+      "既存の世代交代予告を非操作型の上部持続表示へ写像。モーダル・保存エラー・製法判断は既存仕様を維持し、新しい閉店等のイベントを生まない",
+      "M0半開き/全画面地図・部屋移動・iPhone安全領域の表示競合を解消し、prefers-reduced-motionは動きなしで明示した情報分類を読めること",
+      "通知表示・アニメーションにゲーム状態・RNG・時計・正式保存・回想収集を使わず、既存テストと新しい局所回帰を維持する"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 作者が知らせの動きLab v0.2の下から・横から・上部・中央の比較を実機で採用方針とし、通知の横断整理後に「これでよく整理出来ています。実装に進んでください」と指示",
+      "2026-11-09 日常170件の文章と控えめな頻度は採用済み、町の知らせは横、中央の判断モーダルは維持"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "作者採用のMessage Motion Lab v0.2"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "日常と店主のひとことは下から出て消え、文字と出典が分かる",
+      "町の知らせは右から入り一度止まり左へ抜け、読める時間がある",
+      "世代末予告は上部表示へ留まり、半開きと全画面地図操作を塞がない",
+      "部屋移動時の一時通知の消去と店主の退避・復帰、判断モーダルと保存復旧の優先順位を維持",
+      "iPhone Safari 320/360/375/390幅、モーダル、reduced-motion、長文と短時間複数通知を確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRの表示・Motion分類とCSS/entry cacheをrevert。正式ゲーム状態と既存保存は不変",
+    "outOfScope": [
+      "Productionと本番昇格",
+      "正式保存と100年保存研究、回想の新規保存、イベント発生条件・文章・頻度の変更",
+      "店舗営業状態・閉店・評判・経済・ゲームRNG・世代交代条件・地図の座標や店舗条件・共有Engineの変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者の実機iPhone Safariの触感、長期自動進行下での通知競合"
+    ]
+  }
+}
