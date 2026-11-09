@@ -1,0 +1,98 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e90092705477053f7bf03d9ad53a9c5848d693644536a30d06e28cf945bcee46",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-pixel-reaction-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime M1-A comparison Lab: replace the dotted store-to-store link with three authored pixel-art building reactions on the actual town liquor store. No blinking, fake building, game state change, or production deployment.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f53211eedfccd4b9156b46c3684b15dbadf61918",
+    "canonicalSources": [
+      "works/ambertime/experiments/map-relationship/v01/app.mjs",
+      "works/ambertime/experiments/map-relationship/v01/index.html",
+      "works/ambertime/experiments/map-relationship/v01/style.css",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-pixel-reaction-20261110/r0.lock.json",
+      "works/ambertime/experiments/map-relationship/v01/app.mjs",
+      "works/ambertime/experiments/map-relationship/v01/index.html",
+      "works/ambertime/experiments/map-relationship/v01/style.css",
+      "works/ambertime/experiments/map-relationship/v01/pixel-reaction.mjs",
+      "works/ambertime/experiments/map-relationship/v01/pixel-reaction.test.mjs",
+      "works/ambertime/experiments/map-relationship/v01/README.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/experiments/map-relationship/v01/fixtures.mjs",
+      "works/ambertime/experiments/map-relationship/v01/relationship-view.mjs"
+    ],
+    "expectedChanges": [
+      "Remove dashed line SVG presentation from the existing M1-A Lab, retaining the verified store relationship projection and factual fixture scenarios.",
+      "Compare three one-shot changes to the real town liquor shop sprite: an eaves/roof-tile color sweep, a shutter/window opening, and a doorway opening; every painted patch stays on the 144x144 source map 2x2 pixel grid.",
+      "Render changes on a separate pointer-events-none overlay canvas; never invent a bar building or affect other stores or maps; provide static final states for prefers-reduced-motion and hidden pages.",
+      "Maintain town viewing vs relationship viewing, tap-to-select/follow, zoom/pan, keyboard navigation, no-fact/no-contract cases; no permanent UI lines or simultaneous highlights.",
+      "Provide pure pixel-patch tests and documentation. Do not touch gameplay, save, RNG, replay, world map stages, or Production."
+    ],
+    "ownerDecisions": [
+      "2026-11-10 user rejected the dotted relation line as cheap, preferred an A-like building response, and authorized experimenting with pixel-art-native treatment beyond simple blinking."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone Safari: distinguish the three effects at the native 144x144 map scale and 1x/2x/3x zoom, not just while magnified.",
+      "Check map selection, no-fact and uncontracted scenarios do not light an unrelated building; reduced motion shows an immediate static final appearance.",
+      "Check small-width 320/360/375/390/430 map layouts; avoid view blocked by overlay or focus/touch regressions."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only the Lab UI changes, new pixel-reaction view/test and Plan Lock. The original M1-A Lab link and all game data remain intact.",
+    "outOfScope": [
+      "Formal save, economics, RNG, town simulation and existing customer notices; PR #880 and PR #881 source",
+      "New building assets, new nodes, official bar positioning, map scale changes, national/overseas model",
+      "Production publication, new works registration, any changes outside the existing Lab"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "User device feel and chosen visual treatment",
+      "Browser integration at all phone sizes until actually tested"
+    ]
+  }
+}
