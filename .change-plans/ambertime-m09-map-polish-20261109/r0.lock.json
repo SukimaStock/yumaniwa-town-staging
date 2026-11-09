@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "43a7f3d5715e67af3cc514b8d1f44b2500d90b92c0b65c8478a617d251ddbb8f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-m09-map-polish-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "M0.9：地図の操作表示・店舗アイコン・選択枠・視覚的コマ送り・部屋移動とモーダル復帰を統合",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "5f1d233d8cc4a018efd1cb6ee7657dc6b9ebb3f5",
+    "canonicalSources": [
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-m09-map-polish-20261109/r0.lock.json",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/m0-map-observation.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/economy-parameters.mjs"
+    ],
+    "expectedChanges": [
+      "M0半開き上部の取扱店なし表示を削除し、店舗名を省いて既存の瓶＋カテゴリ別ドット絵アイコンを表示。正式名称は既存の地図下の欄のみ",
+      "取っ手の全画面・縮小を□/＿のアイコンで×左隣に配置、＋を上、−を下にする",
+      "下部地図ボタンを開閉トグルとし、半開き・全画面・閉じる途中で選択状態と色を正しく表示",
+      "地図の選択対象の影枠を四隅L字にし、最初の一本の不要な共通ボタン影のみ削除",
+      "M0の240ms開閉は表示位置だけ約16fpsのコマ送り感とし、状態変更/入力/ゲーム進行の処理頻度は変更しない",
+      "半開きでの部屋移動を維持し、全画面から部屋移動で半開きに戻す。モーダル中は地図を一時退避し閉じたら以前の状態へ復帰",
+      "地図の描画・タップ位置、実売時の瓶アニメ、正式保存、経済、RNG、会話、解放イベントを保護"
+    ],
+    "ownerDecisions": [
+      "2026-11-09作者：M0.8の実機動作を確認しM0.9の体験仕上げを指示",
+      "2026-11-09作者：FPSは視覚だけ低下させ、操作と内部状態は滑らかに保つ",
+      "2026-11-09作者：空行削除、□/＿、地図ボタンのトグル・暗色、四隅L字、＋上−下、部屋移動の整合を要求",
+      "2026-11-09作者：上部は業態アイコン中心、下部正式名称の重複解消を採用し実装指示"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "既存販売・保存・地図解放の保護"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone寸法360x568、390x680、430x740とPC幅の上部アイコン・瓶・四隅L字・地図下正式名称",
+      "下部地図ボタンの開閉・選択表示・同一地図の半開き/全画面/縮小",
+      "240ms中割りの16fps感、途中タップの受付、prefers-reduced-motion即時切替",
+      "蒸留室・貯蔵庫・販売室での半開き移動と全画面→半開き、モーダル退避→復帰・時計停止再開",
+      "実売瓶移動・店舗選択・パンピンチ・ズーム方向と経済/保存の回帰",
+      "初回解放、最初の一本の操作とキーボードフォーカス"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "M0.9 UI差分のみrevertして既存M0.8へ戻す。正式保存・経済スキーマに変更なし。",
+    "outOfScope": [
+      "Production公開、既存のmainへの直接書込み",
+      "新しい店舗の追加、地図座標の変更、経済・保存・RNG・会話履歴の変更",
+      "既存の店舗一覧・帳面・販売ルールの改修",
+      "ゲーム全体のfps削減やinputの遅延、全画面用の新タイル追加"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実iPhone Safariの触感・長時間の実プレイは作者の確認を要する"
+    ]
+  }
+}
