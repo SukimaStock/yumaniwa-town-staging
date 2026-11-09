@@ -9,5 +9,5 @@ export function noticePresentation(events){
 export const generationCaption=id=>id===1?'初代':({2:'二代',3:'三代',4:'四代',5:'五代',6:'六代',7:'七代',8:'八代',9:'九代',10:'十代'}[id]??(Number.isInteger(id)?id+'代':'蒸留所'));
 export function topGenerationNotice({generation,modal,canSave,preview,runtimeHalted,documentHidden}={}){
  if(modal||!generation||generation.phase!=='last-batch'||runtimeHalted||documentHidden||(!preview&&!canSave))return null;
- return {heading:'大切な連絡',text:generationCaption(generation.id)+'の最後の仕込み · '+generation.deadlineLabel,kind:'important'};
+ return {heading:'大切な連絡',text:generationCaption(generation.id)+'の最後の仕込み · '+generation.deadlineLabel+'まで',kind:'important'};
 }
