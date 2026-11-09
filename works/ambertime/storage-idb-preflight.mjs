@@ -1,5 +1,5 @@
 // Issue #889 stage 1. Only explicit user-selected files enter staging-only IDB.
-// No original localStorage key is accessed, changed or deleted.
+// The existing browser save is not accessed, changed or deleted.
 import {readSession,serializeSession} from './development-save.mjs?v=bar-v01-1';
 import * as D from './partner-orders.mjs?v=all-stores-s2-1';
 import {PARALLEL_PARAMETERS as T} from './economy-parameters.mjs?v=0.7';
