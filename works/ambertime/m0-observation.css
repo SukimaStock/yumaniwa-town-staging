@@ -41,9 +41,8 @@
 #m0-observation .m0-map-layer{position:absolute;transform-origin:center center;will-change:transform;image-rendering:pixelated}
 #m0-observation .m0-map-layer canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
 #m0-observation .m0-pins{position:absolute;inset:0;pointer-events:none}
-#m0-observation .m0-pin{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;display:block;width:44px;height:44px;min-width:44px;min-height:44px;background:transparent;border:0;padding:0;touch-action:manipulation}
-#m0-observation .m0-pin{color:#d6d4c6}
-#m0-observation .m0-pin::after{content:'';position:absolute;left:50%;top:50%;width:27px;height:27px;transform:translate(-50%,-50%);pointer-events:none;box-sizing:border-box;background:
+#m0-observation .m0-pin{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;display:block;width:44px;height:44px;min-width:44px;min-height:44px;background:transparent;border:0;padding:0;box-shadow:none!important;touch-action:manipulation}
+#m0-observation .m0-corners{position:absolute;z-index:1;display:block;pointer-events:none;color:#d6d4c6;box-shadow:none;background:
 linear-gradient(currentColor,currentColor) left top/9px 3px no-repeat,
 linear-gradient(currentColor,currentColor) left top/3px 9px no-repeat,
 linear-gradient(currentColor,currentColor) right top/9px 3px no-repeat,
@@ -52,7 +51,7 @@ linear-gradient(currentColor,currentColor) left bottom/9px 3px no-repeat,
 linear-gradient(currentColor,currentColor) left bottom/3px 9px no-repeat,
 linear-gradient(currentColor,currentColor) right bottom/9px 3px no-repeat,
 linear-gradient(currentColor,currentColor) right bottom/3px 9px no-repeat}
-#m0-observation .m0-pin[aria-pressed=true]{color:#f6cd70}
+#m0-observation .m0-corners.m0-selected{color:#f6cd70}
 #m0-observation .m0-pin:focus-visible{outline:2px dotted #f7cd58;outline-offset:0}
 #m0-observation .m0-zoom{position:absolute;right:8px;top:48px;z-index:2;display:flex;flex-direction:column;gap:4px}
 #m0-observation .m0-zoom button{font:inherit;color:#f0e6c8;background:#3f3e45;border:2px solid #858995;min-width:40px;min-height:40px}
