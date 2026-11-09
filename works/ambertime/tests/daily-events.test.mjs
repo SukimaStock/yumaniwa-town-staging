@@ -10,6 +10,7 @@ test('curated 170 texts and stable original IDs',()=>{
  for(const id of ['E009','E016','E024','E029','E033','E035','E054','E080','E130','E144'])assert(!ids.includes(id));
  assert.equal(DAILY_EVENT_TEXT.find(e=>e.id==='E023').text,'まだ昼なのに夕方のような暗さです。');
  assert.equal(DAILY_EVENT_TEXT.find(e=>e.id==='E027').text,'雨が上がったようです。');
+ for(const id of ['E131','E152'])assert.equal(DAILY_EVENT_TEXT.find(e=>e.id===id).season,'冬');
  for(const e of DAILY_EVENT_TEXT)assert.match(e.id,/^E\d{3}$/);
 });
 test('quiet frequency and deterministic, seasonally consistent candidates',()=>{
