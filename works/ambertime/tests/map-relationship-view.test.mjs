@@ -31,6 +31,10 @@ test('a synthetic rumor with mismatched from/to is not enough to claim a real li
  assert.equal(read(fixture([release,shipment,{...rumor,from:'super'},arrival])),null);
  assert.equal(read(fixture([release,shipment,{...rumor,to:'diner'},arrival])),null);
 });
+test('a rumor must really originate at the destination of its parent shipment',()=>{
+ const wrong={...shipment,to:'super'};
+ assert.equal(read(fixture([release,wrong,rumor,arrival])),null);
+});
 test('road propagation from a prior arrival is grounded by the prior hop',()=>{
  const hop={id:'e3',type:'arrival',month:3,releaseId:1,sourceId:'e2',from:'distillery',to:'town',channel:'direct'};
  assert.equal(read(fixture([release,shipment,hop,{...arrival,sourceId:'e3',channel:'road'}]))?.fromShopId,'town-liquor');
