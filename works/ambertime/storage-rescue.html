@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; form-action 'none'; base-uri 'none'">
+<title>AmberTime | 旧保存の退避</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;background:#20252b;color:#f4eed7}
+*{box-sizing:border-box}body{margin:0 auto;max-width:660px;padding:22px 16px 50px;line-height:1.6}
+h1{font-size:1.45rem;margin:0 0 12px}h2{font-size:1.1rem;margin:12px 0 8px}
+p{margin:8px 0 16px;color:#d6d8dc}strong{color:#fff}small{color:#b9bfc5}
+section{border:1px solid #5a6470;padding:14px;margin:14px 0;border-radius:5px}
+button{font:inherit;padding:10px 14px;min-height:44px;border:0;border-radius:5px;color:#1c2530;background:#f0ddb0;margin:4px 0 8px;max-width:100%}
+button:disabled{background:#69717b;color:#d8d8d8}button:focus-visible{outline:3px solid #93d2ff;outline-offset:2px}
+#status{min-height:2em}code{overflow-wrap:anywhere}#size{font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<main>
+<h1>旧版保存の退避</h1>
+<p>本編の保存容量を確保するため、過去の別バージョンの保存を<strong>外部ファイルへ退避してから</strong>端末内の保存を整理するためのページです。ページを開いただけでは何も変更しません。</p>
+<section>
+<h2>対象（1件のみ）</h2>
+<p><code id="key"></code></p>
+<p id="size">確認中</p>
+<p><small>現在の本編 <code>sukimastock.ambertime.main.v1</code> は削除しません。ほかの作品や設定にも触れません。</small></p>
+</section>
+<section>
+<h2>1. 元の記録をファイルに保存</h2>
+<p>ダウンロードしたファイルをiPhoneの「ファイル」などに残してください。端末外にもコピーを置いておくと安全です。</p>
+<button id="download" type="button" disabled>旧版の記録をダウンロード</button>
+</section>
+<section>
+<h2>2. ファイルを選び直して照合</h2>
+<p>保存したファイルを選び直し、端末内の元データと一文字ずつ一致するか確認します。ファイルはサーバーへ送信しません。</p>
+<input id="file" type="file" accept=".json,application/json" aria-label="ダウンロードしたバックアップを選ぶ">
+<p id="verified">未確認</p>
+</section>
+<section>
+<h2>3. 端末内の旧版記録だけを整理</h2>
+<p><strong>この操作は現在のブラウザーの旧版保存を削除します。</strong> 上記の外部バックアップは残ります。確認前には操作できません。</p>
+<label><input id="confirmBackup" type="checkbox" disabled> バックアップを端末外にも保管した</label>
+<p><button id="remove" type="button" disabled>照合済みの旧版保存だけを削除</button></p>
+</section>
+<p id="status" role="status" aria-live="polite"></p>
+<p><small>このページは、Chromeなどゲームを遊んでいた同じブラウザーの通常モードで開いてください。保存ファイルの本文は画面に表示しません。</small></p>
+</main>
+<script>
+'use strict';
+const KEY='sukimastock.ambertime.wholesale.v20';
+const $=id=>document.getElementById(id);
+const setStatus=text=>{$('status').textContent=text;};
+const showSize=text=>{$('size').textContent=text;};
+const format=n=>Number(n).toLocaleString('ja-JP');
+let verifiedValue=null;
+let downloaded=false;
+function current(){return window.localStorage.getItem(KEY);}
+function update() {
+ $('key').textContent=KEY;
+ verifiedValue=null; $('verified').textContent='未確認'; $('confirmBackup').checked=false;
+ $('confirmBackup').disabled=true;$('remove').disabled=true;
+ try {
+  const value=current();
+  if(value===null){showSize('このブラウザーには対象の保存がありません。');$('download').disabled=true;return;}
+  showSize('現在の容量：'+format(KEY.length+value.length)+' UTF-16コード単位');
+  $('download').disabled=false;
+ }catch{showSize('対象の保存を読み取れません。');$('download').disabled=true;}
+}
+function bundle(value){return JSON.stringify({schema:'ambertime-localstorage-backup/1',origin:location.origin,key:KEY,value});}
+$('download').addEventListener('click',()=>{
+ try{
+  const value=current();if(value===null)throw Error('not found');
+  const url=URL.createObjectURL(new Blob([bundle(value)],{type:'application/json'}));
+  const link=document.createElement('a');link.href=url;link.download='ambertime-wholesale-v20-backup.json';link.click();
+  setTimeout(()=>URL.revokeObjectURL(url),10000);
+  downloaded=true;verifiedValue=null;$('verified').textContent='未確認';$('confirmBackup').checked=false;
+  $('confirmBackup').disabled=true;$('remove').disabled=true;
+  setStatus('バックアップファイルの保存先を確認し、次に同じファイルを選び直してください。');
+ }catch{setStatus('元の保存を読み取れなかったため、ダウンロードできません。');}
+});
+$('file').addEventListener('change',async e=>{
+ verifiedValue=null;$('confirmBackup').checked=false;$('confirmBackup').disabled=true;$('remove').disabled=true;
+ const file=e.target.files?.[0];e.target.value='';if(!file)return;
+ if(!downloaded){setStatus('先にこのページからバックアップをダウンロードしてください。');return;}
+ try{
+  const obj=JSON.parse(await file.text());
+  if(Object.keys(obj).sort().join('|')!=='key|origin|schema|value'||obj.schema!=='ambertime-localstorage-backup/1'||obj.origin!==location.origin||obj.key!==KEY||typeof obj.value!=='string'||current()!==obj.value)throw Error('mismatch');
+  verifiedValue=obj.value; $('verified').textContent='元の保存と完全一致しました。';$('confirmBackup').disabled=false;
+  setStatus('照合に成功しました。外部バックアップの保管を確認した場合のみ整理できます。');
+ }catch{setStatus('ファイルが一致しません。端末内の保存は変更していません。');}
+});
+$('confirmBackup').addEventListener('change',()=>{$('remove').disabled=!(verifiedValue!==null&&$('confirmBackup').checked);});
+$('remove').addEventListener('click',()=>{
+ if(verifiedValue===null||!$('confirmBackup').checked)return;
+ try{
+  if(current()!==verifiedValue){setStatus('照合後に記録が変わりました。削除せず再確認してください。');update();return;}
+  if(!confirm('照合済みの旧版v20保存をこのブラウザーから削除しますか？本編の保存には触れません。'))return;
+  if(current()!==verifiedValue){setStatus('記録が変わったため、削除しません。');update();return;}
+  window.localStorage.removeItem(KEY);
+  if(current()!==null)throw Error('readback');
+  setStatus('旧版v20の端末内保存を整理しました。バックアップファイルは保管してください。');
+  update();
+ }catch{setStatus('削除または確認に失敗しました。ほかの保存には触れていません。');}
+});
+update();
+</script>
+</body>
+</html>

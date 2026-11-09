@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "92842579460080b09d3847d3d46e8f7a2159a3bb2dad144f66cb8d27aca6b4ab",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "16991ceca7514695f85810e4a7196b9eacb2a951",
+    "changeId": "ambertime-legacy-save-rescue",
+    "revision": 0,
+    "change": "Issue #886: externally back up and verify a single legacy wholesale v20 key before optional explicit user deletion, without modifying current AmberTime",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/storage-diagnostics.html",
+      "works/ambertime/reputation-dedup-research/REPORT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-legacy-save-rescue/r0.lock.json",
+      "works/ambertime/storage-rescue.html",
+      "works/ambertime/tests/storage-rescue.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/economy-parameters.mjs",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Direct-URL Staging-only utility for the fixed legacy key sukimastock.ambertime.wholesale.v20; no general purpose or broad deletion",
+      "Export raw key/value inside a versioned JSON backup with origin identifier to a local file; accept reselected file and verify exact current value, key and origin before enabling deletion",
+      "Deletion remains disabled until the author explicitly checks that the verified backup is stored externally and confirms native browser dialog; compare current value immediately before deletion and verify readback",
+      "No automatic deletion, cloud upload, network request, main.v1 mutation, game code/UI/serialization changes or other key touch; storage usage measured separately"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 and follow-up: author requests diagnosing storage block without losing progress; author reports new-game reset and supplies same-origin 60-key diagnostics. No automatic deletion approval is inferred; page requires explicit user action."
+    ],
+    "hqDecisions": [
+      "Storage cleanup confined to separate Staging page and exactly one legacy key; no shared storage migration, current game modification, or automatic key removal",
+      "New save or long-term quota remedy requires separate Plan; this one-shot utility cannot make 100-year saving reliable"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN Full Plan and staged lock before implementation; required Scope/Risk/Impact/CI",
+      "EXPRESSION-AUDIT accessible minimum warnings; existing public game unchanged"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Node test: no write on load; exact backup roundtrip; no delete on mismatched/modified file; user cancel; preserves current game",
+      "Mobile iOS Chrome: download backup, choose same backup, confirm, re-run storage diagnostics and old-session restore in debug mode; no real user deletion by assistant"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Delete utility and test from Staging if rejected. Actual user deletion never automatic, external backup remains required for restoring the old legacy key. Current game key untouched.",
+    "outOfScope": [
+      "Deleting any data automatically or without confirmed backup",
+      "Deleting current game or any other key",
+      "Formal saved-session migration and game runtime modification",
+      "Repository upload of player data",
+      "Production publishing"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Chrome real UI and backup-to-Files roundtrip",
+      "Actual deleted bytes, old month 97 restore and next-month autosave",
+      "Actual Chrome quota boundary"
+    ],
+    "alternativesRejected": [
+      "Auto-clean all old keys",
+      "Erase entire browser site data",
+      "Delete wholesale v20 without backing up",
+      "Ignore quota exceptions",
+      "Silent migration and current game overwrite"
+    ],
+    "boundaryCases": [
+      "Missing old key",
+      "Browser storage getItem/removeItem errors",
+      "User not saved external backup",
+      "Malformed/wrong-origin/wrong-key/mutated-file backup",
+      "Storage changed between verify and remove",
+      "User cancels confirm",
+      "Legacy value containing HTML/Unicode",
+      "iPhone Chrome file picker and downloads"
+    ],
+    "testPlan": [
+      "Standalone Node vm-based tests on localStorage fake; success, mismatch, change, cancel, missing, no network/main writes",
+      "Plan Lock validate, exact HEAD CI validate/plan-risk-gate/trusted-mechanical-evidence",
+      "Same origin real iPhone Chrome backup and compare before explicit deletion; do not treat CI as real-device proof"
+    ],
+    "problem": "Saved v8 month97 JSON would bring same-origin localStorage usage to approximately 2,627,469 UTF-16 units; historic WebKit 5MiB / UTF16 limit is approximately 2,621,440 units. The legacy wholesale v20 key alone occupies 769,905 units.",
+    "currentContract": "Canonical current AmberTime save key is sukimastock.ambertime.main.v1; all keys on sukimastock.github.io share localStorage per browser profile. Save v8 compact codec current. Keep latest session and exported month97 file intact.",
+    "whyExistingIsInsufficient": "Read-only diagnostics can measure but not safely archive an explicitly selected legacy entry. Chrome iOS lacks convenient safe key-specific export+verification UI.",
+    "design": "One separate noindex, CSP restricted HTML with exactly fixed legacy key. Download JSON, reimport and compare exact raw text, explicit checkbox and window.confirm, then remove only if unchanged. No fetch, no telemetry, never show raw value on page.",
+    "migration": "No game migration. Explicit user action archives then optionally removes a legacy key. Month97 restore uses existing debug import reader; external exported session remains original.",
+    "compatibility": "No current game or legacy reader changes; backup is a separate versioned envelope, not auto-imported as a game session.",
+    "promotionRisk": "Staging-only one-time user-operated cleanup tool, not production release. Actual user cleanup remains in control of the user."
+  }
+}
