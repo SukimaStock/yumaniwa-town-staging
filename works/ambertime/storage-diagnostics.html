@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; form-action 'none'; base-uri 'none'">
+<title>AmberTime | 保存領域の確認</title>
+<style>
+:root {color-scheme:dark; font-family:system-ui,-apple-system,sans-serif; background:#20252b; color:#f4eed7}
+* {box-sizing:border-box}
+body {margin:0 auto;max-width:720px;padding:20px 16px 48px;line-height:1.65}
+h1 {font-size:1.35rem;margin:0 0 8px}
+p {margin:8px 0 16px;color:#d2d5d8}
+strong {color:#fff}
+button {font:inherit;min-height:44px;padding:8px 16px;margin:4px 8px 4px 0;color:#191e24;background:#f2dfac;border:0;border-radius:6px}
+button:focus-visible {outline:3px solid #9dd7ff;outline-offset:2px}
+.panel {border:1px solid #666b72;padding:14px;border-radius:5px;margin:14px 0}
+.big {font-size:1.35rem;font-weight:700;overflow-wrap:anywhere}
+small {color:#b2bac1}
+#origin {overflow-wrap:anywhere}
+ol {margin:0;padding:0;list-style:none}
+li {border-top:1px solid #454c55;padding:12px 0;display:flex;gap:12px;justify-content:space-between;align-items:baseline}
+li .key {overflow-wrap:anywhere;min-width:0;flex:1;font-size:.9rem}
+li .number {white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:700}
+pre {padding:10px;white-space:pre-wrap;overflow-wrap:anywhere;background:#2c333c;color:#d6d9dc;font-size:.8rem}
+#status {min-height:1.3em}
+</style>
+</head>
+<body>
+<main>
+<h1>保存領域の確認</h1>
+<p>このページは保存データを読み取って容量を数えるだけです。<strong>削除・書込み・初期化は行いません。</strong> ゲームの保存先や記録内容も変更しません。</p>
+<section class="panel" aria-labelledby="summary-title">
+<h2 id="summary-title" style="font-size:1rem;margin:0">このサイトの保存領域</h2>
+<small id="origin"></small>
+<div id="total" class="big" aria-live="polite">確認中</div>
+<div id="count"></div>
+<p style="margin-bottom:0;font-size:.85rem">下の数字はキー名と保存文字列の <strong>UTF-16コード単位数</strong>。実際に利用できる容量上限を表すものではありません。</p>
+</section>
+<button id="refresh" type="button">再測定</button><button id="copy" type="button">結果をコピー</button>
+<p id="status" role="status" aria-live="polite"></p>
+<section class="panel" aria-labelledby="keys-title">
+<h2 id="keys-title" style="font-size:1rem;margin:0 0 8px">項目ごとの容量</h2>
+<ol id="keys"></ol>
+</section>
+<p style="font-size:.88rem">ここには保存データの本文は表示しません。「結果をコピー」にはキー名と容量だけを含みます。パスが違っても <code>sukimastock.github.io</code> の同一オリジンでは保存領域を共有します。別ブラウザーやプライベートブラウズでは別の結果になります。</p>
+<details><summary>コピーされる内容のプレビュー</summary><pre id="report"></pre></details>
+</main>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const format = n => Number(n).toLocaleString('ja-JP');
+let report = '';
+function inspectStorage() {
+  const rows = [];
+  const storage = window.localStorage;
+  const count = storage.length;
+  for (let index = 0; index < count; index++) {
+    const key = storage.key(index);
+    if (key === null) continue;
+    const value = storage.getItem(key);
+    if (value === null) continue;
+    rows.push({name:key, units:key.length+value.length, valueUnits:value.length});
+  }
+  rows.sort((a,b) => b.units-a.units || a.name.localeCompare(b.name));
+  return rows;
+}
+function render() {
+  $('origin').textContent = location.origin;
+  $('keys').replaceChildren();
+  try {
+    const rows = inspectStorage();
+    const total = rows.reduce((sum,row) => sum+row.units,0);
+    $('total').textContent = format(total)+' 単位';
+    $('count').textContent = format(rows.length)+' 件のキー';
+    for (const row of rows) {
+      const item = document.createElement('li');
+      const name = document.createElement('span');
+      name.className='key'; name.textContent=row.name;
+      const size = document.createElement('span');
+      size.className='number'; size.textContent=format(row.units)+' 単位';
+      item.append(name,size);
+      $('keys').append(item);
+    }
+    report = ['Origin: '+location.origin,'localStorage keys: '+rows.length,'Total UTF-16 code units (keys + values): '+total,
+      ...rows.map(row=>JSON.stringify(row.name)+'\t'+row.units+'\t(value '+row.valueUnits+')')].join('\n');
+    $('report').textContent=report;
+    $('status').textContent='読み取り完了。保存データは変更していません。';
+  } catch (error) {
+    report=''; $('report').textContent='';
+    $('total').textContent='読み取り不可'; $('count').textContent='';
+    $('status').textContent='保存領域を読み取れませんでした。ブラウザーの設定を確認してください。';
+  }
+}
+$('refresh').addEventListener('click',render);
+$('copy').addEventListener('click',async () => {
+  if (!report) { $('status').textContent='コピーできる結果がありません。'; return; }
+  try {
+    await navigator.clipboard.writeText(report);
+    $('status').textContent='容量の一覧をコピーしました。保存データの内容は含みません。';
+  } catch {
+    $('status').textContent='コピーできませんでした。下のプレビューを選んでコピーしてください。';
+  }
+});
+render();
+</script>
+</body>
+</html>
