@@ -39,7 +39,7 @@ import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,scopedNotices} from './event-notices.mjs?v=reactions-s1-1';
-import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1';
+import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1';
 import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1';
 import {createObservedModel} from './recall/operations.mjs?v=bar-v01-1';
 import {DEBUG_SKIP_YEARS,monthsForDebugSkip,debugSkipMonth} from './recall/debug-time-skip.mjs?v=debug-years-1';
