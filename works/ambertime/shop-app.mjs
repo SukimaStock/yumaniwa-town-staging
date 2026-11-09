@@ -1125,7 +1125,7 @@ function render(){
  const invitation=$('shop-offer'),invited=game.brands.find(b=>b.id===game.shop.offer?.brandId);invitation.hidden=false;invitation.disabled=tasting||!!modal||game.decisions.length>0;invitation.textContent='取扱店';
  $('open-world-map').disabled=!mapProgress(game).bottled&&mapShown===0;$('open-world-map').hidden=$('open-world-map').disabled;
  $('open-m0-map').hidden=true; // The original map control is the single entrance in the sales room.
- $('open-world-map').textContent=room==='sales'&&mapProgress(game).max>=2&&D.storeMarketMode(game)?'地図をひらく':'地図';
+ $('open-world-map').textContent='地図';
  $('start-distill').hidden=countdown.active||phase!=='ready'||!D.stage4Mode(game);$('stop-distill').hidden=automatic||phase!=='distilling'||atLimit;$('open-fill').hidden=true; // Barrel selection now belongs exclusively to the fill modal.
  const gen=generationState();$('generation-name').textContent=gen?generationName(gen.id):'';const banner=$('generation-notice');banner.hidden=!gen||gen.phase==='working';banner.textContent=gen?.phase==='last-batch'?generationName(gen.id)+'の最後の仕込み · '+monthLabel(gen.fixedMonth+12)+'まで':gen?.phase==='review'?generationName(gen.id)+'の歩みを確認します。':'';
  const start=D.canStart(game);$('start-distill').disabled=countdown.active||!start.ok;const confirmedChoice=D.stage4Mode(game)?brewingPanelState(game,distillRoom.confirmation):null;$('start-distill').textContent='仕込み '+money(P.distillationCost)+(confirmedChoice?'・'+({plain:'ふつう',peat:'ピート'}[confirmedChoice.malt])+'・'+({short:'短め',long:'長め'}[confirmedChoice.ferment]):'');
@@ -1221,7 +1221,9 @@ $('close-cask-window').addEventListener('click',closeModal);
 $('open-staff-panel').addEventListener('click',openRoomStaff);
 $('open-aux-menu').addEventListener('click',()=>openModal('aux-panel'));
 $('open-world-map').addEventListener('click',()=>{
- if(room==='sales'&&!modal&&game&&D.storeMarketMode(game)&&mapProgress(game).max>=2&&(preview||canSave)){m0.open();return;}
+ // Ordinary browsing uses the same M0 drawer in all three rooms.
+ // The separate first-unlock presentation is still owned by its native event.
+ if(!modal&&game&&(preview||canSave)){m0.open();return;}
  openDailyMap();
 });
 
