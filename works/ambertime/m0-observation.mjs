@@ -173,14 +173,14 @@ export function createM0Observation({document:doc,state,room,modal}){
  // The map and hit targets belong to one transform layer; no independent pin drift.
  windowEl.addEventListener('pointerdown',e=>{
   if(mode!=='full')return;
-  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,pinId:e.target.closest('[data-m0-shop]')?.dataset.m0Shop});
   windowEl.setPointerCapture?.(e.pointerId);
   if(pointers.size===1)gesture={centroid:{x:e.clientX,y:e.clientY},distance:null,moved:false};
   else if(pointers.size>=2){const [a,b]=[...pointers.values()];gesture={centroid:{x:(a.x+b.x)/2,y:(a.y+b.y)/2},distance:Math.hypot(a.x-b.x,a.y-b.y),moved:true};}
  });
  windowEl.addEventListener('pointermove',e=>{
   if(mode!=='full'||!pointers.has(e.pointerId))return;
-  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  pointers.set(e.pointerId,{...pointers.get(e.pointerId),x:e.clientX,y:e.clientY});
   const current=[...pointers.values()],center=current.length>1?{x:(current[0].x+current[1].x)/2,y:(current[0].y+current[1].y)/2}:current[0];
   if(!gesture){gesture={centroid:center,distance:null,moved:false};return;}
   const dx=center.x-gesture.centroid.x,dy=center.y-gesture.centroid.y;
@@ -192,7 +192,8 @@ export function createM0Observation({document:doc,state,room,modal}){
   }else gesture.distance=null;
   gesture.centroid=center;transform();
  });
- const endPointer=e=>{if(!pointers.has(e.pointerId))return;const moved=gesture?.moved||false;pointers.delete(e.pointerId);
+ const endPointer=e=>{if(!pointers.has(e.pointerId))return;const down=pointers.get(e.pointerId);const moved=!!gesture?.moved||Math.hypot(e.clientX-down.startX,e.clientY-down.startY)>6;pointers.delete(e.pointerId);
+  if(e.type==='pointerup'&&!moved&&down.pinId&&available(state()).includes(down.pinId)){selected=down.pinId;update();}
   if(moved)suppressPinClick=true;
   if(!pointers.size)gesture=null;else{const a=[...pointers.values()][0];gesture={centroid:a,distance:null,moved:true};}
  };
