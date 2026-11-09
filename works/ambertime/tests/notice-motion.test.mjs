@@ -12,7 +12,7 @@ test('world message receives the news treatment',()=>{
 });
 test('generation top banner is a projection only when safe and not modal',()=>{
  const base={generation:{id:2,phase:'last-batch',deadlineLabel:'2030年3月'},modal:null,preview:false,canSave:true,runtimeHalted:false,documentHidden:false};
- assert.equal(topGenerationNotice(base)?.text,'二代の最後の仕込み · 2030年3月');
+ assert.equal(topGenerationNotice(base)?.text,'二代の最後の仕込み · 2030年3月まで');
  for(const patch of [{modal:{kind:'shop-offer'}},{runtimeHalted:true},{documentHidden:true},{canSave:false},{generation:{...base.generation,phase:'review'}}])
   assert.equal(topGenerationNotice({...base,...patch}),null);
 });
