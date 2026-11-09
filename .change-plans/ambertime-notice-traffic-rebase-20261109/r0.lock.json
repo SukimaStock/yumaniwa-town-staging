@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d46fe09b9222873dc3bd29a190a0681952da5597da655bb9cc85057060627b34",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-notice-traffic-rebase-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reapply approved PR #880 notification traffic unchanged onto latest main; preserve #884 isolated Lab and existing limitations",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "dd289c0c9e5966376b9f3cb3e5f6f76647fcbee0",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/shop-dialogue-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/m0-observation.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-notice-traffic-rebase-20261109/r0.lock.json",
+      "works/ambertime/NOTICE-TRAFFIC-VERIFICATION.md",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/notice-motion.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/tests/daily-notices-main.test.mjs",
+      "works/ambertime/tests/notice-motion-integration.test.mjs",
+      "works/ambertime/tests/notice-traffic-browser.test.mjs",
+      "works/ambertime/tests/notice-traffic-preservation.test.mjs",
+      "works/ambertime/tests/notice-traffic.test.mjs",
+      "works/ambertime/tests/reaction-rules.test.mjs",
+      "works/ambertime/tests/recall-app.test.mjs",
+      "works/ambertime/tests/shop-dialogue-a6.test.mjs",
+      "works/ambertime/tests/shop-dialogue-browser.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/history-record.mjs"
+    ],
+    "expectedChanges": [
+      "One active ordinary notification without preemption; latest world/shop/result slots, no ambient queue; UI-only visibility and dedup",
+      "Preserve userPaused/blocked/RuntimeClock and saved decision rights; suppress ordinary messages during map observation, restore interrupted notices when appropriate",
+      "Preserve adopted motion; remove passive-card dismissal; test real browser and long-run state equivalence",
+      "Update existing assertions for explicitly requested passive-card behavior and post-mount acknowledgement; preserve underlying state/rollback assertions",
+      "Byte-identical original PR #880 work files except append current migration/verification status to NOTICE-TRAFFIC-VERIFICATION.md; do not transfer obsolete Lock or modify #884 Lab"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 current user detailed implementation request sections A-E and S1-S3; staging merge authorized after required checks",
+      "2026-11-09 author explicitly approved fresh-base Plan Lock/transplant, required CI, staging merge and deployment verification in this Work thread; browser/device acceptance remains author-owned"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "作者採用のMessage Motion Lab v0.2"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-notice-time-map-input",
+      "browser-widths-reduced-motion",
+      "iPhone-Safari-author-check"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PRの表示・Motion分類とCSS/entry cacheをrevert。正式ゲーム状態と既存保存は不変",
+    "outOfScope": [
+      "Productionと本番昇格",
+      "正式保存と100年保存研究、回想の新規保存、イベント発生条件・文章・頻度の変更",
+      "店舗営業状態・閉店・評判・経済・ゲームRNG・世代交代条件・地図の座標や店舗条件・共有Engineの変更",
+      "Fourth repair of known failed preservation fixture; changing CI/security/protection settings"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari actual device remains author check"
+    ]
+  }
+}
