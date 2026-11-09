@@ -1,0 +1,86 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ae75626033b02d516a810cebc6358c9c6ac7ad6b26537be1cfe5339bfaa4707a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-m09-map-corners-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "M0.9の地図上に残ったボタン影を削除し、四隅L字を建物の実寸に合わせる",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "5fd4b1cc6e1f5e0399389f1dbd76ac4c7872d4d1",
+    "canonicalSources": [
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/tests/m0-map-observation.test.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-m09-map-corners-20261109/r0.lock.json",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/tests/m0-map-observation.test.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "expectedChanges": [
+      "M0の地図上にある透明な店舗ボタンが継承するbox-shadowを削除し、44pxのタップ領域は維持する",
+      "四隅L字は固定27pxではなく既存mapObservationBoundsの建物矩形の外側2pxに合わせ、縮小・全画面・ピンチ時にもCanvasと同じ座標で描画する",
+      "店舗選択の更新・キーボードフォーカス・販売室の瓶・正式名称表示・パンピンチ・時間進行を維持する"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 作者がM0.9実機確認後に、影ボタンの残存と建物より小さい四隅L字の修正を指示"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "M0.9地図表示と描画・操作の境界"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "半開き・全画面の建物L字が建物を囲み、影が残らない",
+      "全画面パン・ピンチ後も枠と建物が一致する",
+      "店舗タップと44px入力・focus-visibleが維持される",
+      "他の操作や販売演出に変化がない"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "M0地図上のCSSと表示座標差分をrevertする。保存内容変更なし。",
+    "outOfScope": [
+      "Productionとmainへの直接反映",
+      "正式保存・経済・RNG・会話・店舗条件・地理情報の変更",
+      "M0以外のシーン・旧地図の表示変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機での視覚上の最終確認"
+    ]
+  }
+}

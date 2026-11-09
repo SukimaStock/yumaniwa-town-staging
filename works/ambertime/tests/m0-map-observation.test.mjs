@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {mapSquare,mapPanBounds,m0ShopCategory,m0ShopGlyph} from '../m0-observation.mjs';
+import {mapSquare,mapPanBounds,mapCornerRect,m0ShopCategory,m0ShopGlyph} from '../m0-observation.mjs';
 import {mapObservationBounds} from '../world-map-view.mjs';
 import {SHOPS} from '../shop-model.mjs';
 
@@ -75,8 +75,8 @@ test('M0.9 map controls, corners, toggle and modal suspend/restore stay consiste
  assert.ok(js.indexOf('data-m0="zoom-in"')<js.indexOf('data-m0="zoom-out"'));
  assert.match(js,/data-m0="advance" aria-label="地図を全画面にする"/);
  assert.match(css,/\.m0-window-icon/);
- assert.match(css,/\.m0-pin\[aria-pressed=true\]\{color:#f6cd70\}/);
- assert.doesNotMatch(css,/\.m0-pin\[aria-pressed=true\]::after\{[^}]*box-shadow/);
+ assert.match(css,/\.m0-corners\.m0-selected\{color:#f6cd70\}/);
+ assert.doesNotMatch(css,/\.m0-pin::after\{/);
  assert.match(app,/m0\.toggle\(\)/);
  assert.match(app,/if\(m0\.mode==='full'\)m0\.setMode\('half'\)/);
  assert.match(scene,/a\.node\.getAttribute\('aria-pressed'\)==='true'/);
@@ -86,4 +86,22 @@ test('M0.9 map controls, corners, toggle and modal suspend/restore stay consiste
  assert.match(css,/transition:top 240ms steps\(4,end\)/);
  const roomStyle=readFileSync(new URL('../room-scene.css',import.meta.url),'utf8');
  assert.match(roomStyle,/first-bottle-proceed\{[^}]*box-shadow:none\}/);
+});
+
+test('M0.9 building corners use authored map bounds instead of a fixed hit-target size',()=>{
+ const near=mapObservationBounds(2),town=mapObservationBounds(3);
+ assert.deepEqual(mapCornerRect(near['town-liquor']),[88,32,28,28]);
+ assert.deepEqual(mapCornerRect(near.retail),[24,70,28,28]);
+ assert.deepEqual(mapCornerRect(town['town-liquor']),[84,42,20,20]);
+ assert.deepEqual(mapCornerRect(town.supermarket),[96,90,20,20]);
+ assert.deepEqual(mapCornerRect([0,0,16,16]),[0,0,18,18]);
+ assert.deepEqual(mapCornerRect([130,130,14,14]),[128,128,16,16]);
+ const js=readFileSync(new URL('../m0-observation.mjs',import.meta.url),'utf8');
+ const css=readFileSync(new URL('../m0-observation.css',import.meta.url),'utf8');
+ assert.match(js,/class="m0-corners" data-m0-corners=/);
+ assert.match(js,/const \[left,top,width,height\]=mapCornerRect/);
+ assert.match(js,/corners\.classList\.toggle\('m0-selected'/);
+ assert.match(css,/#m0-observation \.m0-pin\{[^}]*box-shadow:none!important/);
+ assert.match(css,/#m0-observation \.m0-corners\{[^}]*pointer-events:none/);
+ assert.doesNotMatch(css,/width:27px;height:27px/);
 });

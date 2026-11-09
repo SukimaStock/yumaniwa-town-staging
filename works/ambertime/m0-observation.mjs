@@ -32,6 +32,13 @@ export function mapPanBounds(width,height,zoom){
  const side=Math.min(Math.max(0,width),Math.max(0,height))*Math.max(1,zoom);
  return {x:Math.max(0,(side-width)/2),y:Math.max(0,(side-height)/2)};
 }
+// Same authored 144×144 map coordinates as the building hit target.
+// The visual brackets extend two source pixels beyond each side of the building.
+export function mapCornerRect([x,y,w,h],margin=2){
+ const left=clamp(x-margin,0,144),top=clamp(y-margin,0,144);
+ const right=clamp(x+w+margin,0,144),bottom=clamp(y+h+margin,0,144);
+ return [left,top,right-left,bottom-top];
+}
 
 export function createM0Observation({document:doc,state,room,modal,onModeChange=()=>{}}){
  const source=doc.getElementById('market-board'),scene=doc.getElementById('scene-root');
@@ -107,10 +114,17 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
   const entries=list.map(id=>({id,bounds:bounds[id]})).filter(x=>x.bounds);
   const next=JSON.stringify([level,entries]);
   if(pinKey!==next){
-   pins.innerHTML=entries.map(({id,bounds:[x,y,w,h]})=>`<button type="button" class="m0-pin" data-m0-shop="${esc(id)}" style="left:${((x+w/2)/144)*100}%;top:${((y+h/2)/144)*100}%" aria-label="${esc(id==='retail'?'蒸留所':shopNames.get(id))}${id==='bar'?'（試作位置）':''}"></button>`).join('');
+   const percent=value=>(value/144*100)+'%';
+   pins.innerHTML=entries.map(({id,bounds:[x,y,w,h]})=>{
+    const [left,top,width,height]=mapCornerRect([x,y,w,h]);
+    // Brackets are map-relative, not sized from the fixed 44px hit button.
+    return `<span class="m0-corners" data-m0-corners="${esc(id)}" aria-hidden="true" style="left:${percent(left)};top:${percent(top)};width:${percent(width)};height:${percent(height)}"></span>`+
+     `<button type="button" class="m0-pin" data-m0-shop="${esc(id)}" style="left:${percent(x+w/2)};top:${percent(y+h/2)}" aria-label="${esc(id==='retail'?'蒸留所':shopNames.get(id))}${id==='bar'?'（試作位置）':''}"></button>`;
+   }).join('');
    pinKey=next;
   }
   for(const btn of pins.querySelectorAll('.m0-pin'))btn.setAttribute('aria-pressed',String(btn.dataset.m0Shop===selected));
+  for(const corners of pins.querySelectorAll('.m0-corners'))corners.classList.toggle('m0-selected',corners.dataset.m0Corners===selected);
   const detail=mapShopDetail(s,selected);
   const title=shopNames.get(selected)??'取扱店';
   const stock=detail?.currentStock,monthly=detail?.monthlySold;
