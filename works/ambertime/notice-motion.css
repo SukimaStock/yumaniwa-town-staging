@@ -37,7 +37,7 @@
  border:3px solid #e5be73;background:#3a3231;color:#f0e6c8;
  padding:7px 10px 9px;box-shadow:0 4px #151a1c;
  text-align:left;line-height:1.4;
- pointer-events:none;max-height:min(90px,20dvh);overflow:hidden;
+ pointer-events:none;max-height:min(calc(90px * var(--notice-scale,1)),20dvh);overflow:hidden;
  animation:amber-top-appear 240ms ease-out both;
 }
 #important-top-notice[hidden]{display:none!important}
