@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "36c2782783402ede21818ddfdf0437eca1a115a728e34d7b6fc4dbdef46ed3e0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-m07-map-unification-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "M0.7の地図観察UIを全室で共通化し、配置・ラベル・全画面探索・表示更新を安定化",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "1174be6d285ef6ad3d3af7710864fed6b509225f",
+    "canonicalSources": [
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-m07-map-unification-20261109/r0.lock.json",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/m0-map-observation.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/economy-parameters.mjs"
+    ],
+    "expectedChanges": [
+      "地図の通常閲覧入口を販売室・蒸留室・貯蔵庫で同一M0表示へ接続し、初回解放モーダルは変更しない",
+      "半開きは自家販売と注目店舗の既存棚を維持し、他室は元の部屋の表示を残す",
+      "店舗名はSHOPSを正本にして地図上の大きな文字を除去、同一Canvasとタップ座標を対応させる",
+      "全画面は縦横比を固定しパン・ピンチによる探索を可能にする",
+      "月次進行では地図のサイズや位置を不必要に更新せず、瓶移動・実売処理を維持する",
+      "全画面・縮小・×などの短い操作文言へ統一する"
+    ],
+    "ownerDecisions": [
+      "2026-11-08作者採用：M0.6半開きの既存店舗行、瓶吸込み、地図下の一言欄、全画面",
+      "2026-11-09作者指摘：表示のブレ、文字重なり、単純な全画面拡大、他室の旧地図、名称の揺れを再設計",
+      "2026-11-09作者指示：全画面・縮小などの短い操作文言、M0.7の実装開始"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "既存販売・保存・地図解放の保護"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360x568、390x680、430x740、PC幅で表示崩れ・位置・ラベル非重複",
+      "半開き/全画面/閉じるの操作と全画面のパン・ピンチ",
+      "販売室の元の操作位置と選択復帰、他室からの地図入口",
+      "実売時の瓶移動、停止と進行、reduced-motion"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "M0.7 UI変更ファイルのみrevertしPR #871の挙動へ戻す。保存形式に変更なし。",
+    "outOfScope": [
+      "Production、Staging mainへの無断マージ",
+      "販売・経済・RNG・会話履歴・正式保存の変更",
+      "デパートの通常棚化・店舗解放条件変更",
+      "新しい世界地図や地理設定の確定",
+      "初回解放イベントの進行ロジック変更"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari実機での使用感・実描画は作者確認が必要"
+    ]
+  }
+}
