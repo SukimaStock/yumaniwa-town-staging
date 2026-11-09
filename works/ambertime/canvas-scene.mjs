@@ -305,8 +305,8 @@ export class CanvasScene{
    if(a.key.startsWith('distill-')||a.key.startsWith('cask-')||a.key.startsWith('product-'))continue;
    const pressed=this.pressed===a.key,selected=a.node.getAttribute('aria-pressed')==='true';
    if(['open-ledger','open-staff-panel','shop-offer','open-world-map','open-aux-menu'].includes(a.key)){
-    const kind=$('action-dialog').open?$('action-dialog').dataset.kind:'',active=a.key==='open-ledger'?kind==='ledger':a.key==='open-staff-panel'?/^(staff|bottl)/.test(kind):a.key==='shop-offer'?/^(stockist|shop-offer)/.test(kind):a.key==='open-world-map'?kind==='world-map':kind==='aux-panel',x=a.x+(a.w-54)/2;
-    this.window(x,a.y,54,54,pressed?'#19141e':active?'#414552':'#292b39',pressed?'#f0e6c8':'#d8d5df');if(active)this.pixelRect(x+6,a.y+45,42,3,'#d8d5df');
+    const kind=$('action-dialog').open?$('action-dialog').dataset.kind:'',mapActive=a.key==='open-world-map'&&(a.node.getAttribute('aria-pressed')==='true'||kind==='world-map'),active=a.key==='open-ledger'?kind==='ledger':a.key==='open-staff-panel'?/^(staff|bottl)/.test(kind):a.key==='shop-offer'?/^(stockist|shop-offer)/.test(kind):a.key==='open-world-map'?mapActive:kind==='aux-panel',x=a.x+(a.w-54)/2;
+    this.window(x,a.y,54,54,pressed?'#19141e':mapActive?'#20232d':active?'#414552':'#292b39',pressed?'#f0e6c8':mapActive?'#e4bc66':'#d8d5df');if(active)this.pixelRect(x+6,a.y+45,42,3,mapActive?'#e4bc66':'#d8d5df');
     if(a.key==='open-ledger'){this.icon('ledger',x,a.y,54,54);}
     else if(a.key==='open-aux-menu'){for(let i=0;i<3;i++)this.pixelRect(x+15+i*9,a.y+25.5,3,3,ink);}
     else this.icon(a.key==='open-staff-panel'?'person':a.key==='open-world-map'?'map':'store',x,a.y,54,54);

@@ -8,6 +8,22 @@ import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const shopNames=new Map([['retail','自家販売'],...SHOPS.map(s=>[s.id,s.name])]);
 const clamp=(x,min,max)=>Math.min(max,Math.max(min,x));
+// M0-only presentation identity: types share glyphs as future shops are added.
+// Formal shop names and IDs remain in shop-model.mjs and the lower map report.
+const shopCategories=Object.freeze({'retail':'distillery','town-liquor':'liquor',supermarket:'supermarket',bar:'bar',department:'department'});
+const categoryPixels=Object.freeze({
+ distillery:['00001000000','00011100000','00011100000','00111111000','01111111110','01111111110','01111111110','01111111110','01101101110','01101101110','01111111110'],
+ liquor:['00011000000','00011000000','00011000000','00111100000','00111100000','00111100000','00111100000','00111100000','00111100000','00111100000','00000000000'],
+ supermarket:['00000000000','00100000100','00100000100','00111111100','01111111110','01111111110','01111111110','00111111100','00101010100','00100000100','00000000000'],
+ bar:['01111111110','00111111100','00011111000','00001110000','00000100000','00000100000','00000100000','00011111000','00011111000','00000000000','00000000000'],
+ department:['00000000000','01111111110','01111111110','01100100110','01100100110','01111111110','01100100110','01100100110','01111111110','01111111110','00000000000']
+});
+export const m0ShopCategory=id=>shopCategories[id]??'department';
+export function m0ShopGlyph(id){
+ const pixels=categoryPixels[m0ShopCategory(id)];
+ const rectangles=pixels.map((row,y)=>[...row].map((cell,x)=>cell==='1'?'<rect x="'+x+'" y="'+y+'" width="1" height="1"/>':'').join('')).join('');
+ return '<svg class="m0-shop-symbol" viewBox="0 0 11 11" shape-rendering="crispEdges" aria-hidden="true" focusable="false">'+rectangles+'</svg>';
+}
 export function mapSquare(width,height){
  const w=Math.max(0,width),h=Math.max(0,height),side=Math.min(w,h);
  return {side,left:(w-side)/2,top:(h-side)/2};
@@ -17,15 +33,15 @@ export function mapPanBounds(width,height,zoom){
  return {x:Math.max(0,(side-width)/2),y:Math.max(0,(side-height)/2)};
 }
 
-export function createM0Observation({document:doc,state,room,modal}){
+export function createM0Observation({document:doc,state,room,modal,onModeChange=()=>{}}){
  const source=doc.getElementById('market-board'),scene=doc.getElementById('scene-root');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const outer=doc.createElement('section');outer.id='m0-observation';outer.hidden=true;
  outer.setAttribute('aria-label','町の地図');
  outer.innerHTML=`<div class="m0-top"><div class="m0-rows" aria-label="注目する取扱店"></div></div>
- <div class="m0-drawer"><div class="m0-handle"><button type="button" data-m0="advance">全画面</button><button type="button" data-m0="close" aria-label="地図を閉じる">×</button></div>
+ <div class="m0-drawer"><div class="m0-handle"><span class="m0-grip" aria-hidden="true"><i></i></span><button type="button" data-m0="advance" aria-label="地図を全画面にする"><span class="m0-window-icon" aria-hidden="true"></span></button><button type="button" data-m0="close" aria-label="地図を閉じる">×</button></div>
  <div class="m0-map"><div class="m0-map-window" aria-label="町の地図。全画面では指で移動・拡大できます"><div class="m0-map-layer"><canvas width="144" height="144" role="img" aria-label="町の地図"></canvas><div class="m0-pins"></div></div></div>
- <div class="m0-zoom" hidden><button type="button" data-m0="zoom-out" aria-label="地図を縮小">−</button><button type="button" data-m0="zoom-in" aria-label="地図を拡大">＋</button></div>
+ <div class="m0-zoom" hidden><button type="button" data-m0="zoom-in" aria-label="地図を拡大">＋</button><button type="button" data-m0="zoom-out" aria-label="地図を縮小">−</button></div>
  <div class="m0-report" role="status" aria-live="polite"></div></div></div>`;
  doc.body.append(outer);
  const rows=outer.querySelector('.m0-rows'),canvas=outer.querySelector('canvas'),pins=outer.querySelector('.m0-pins');
@@ -34,7 +50,8 @@ export function createM0Observation({document:doc,state,room,modal}){
  let mode='closed',selected='town-liquor',lastStore='town-liquor',drag=null,suppressAdvance=false;
  const DRAWER_TWEEN_MS=240;
  const drawer=outer.querySelector('.m0-drawer');
- let opening=false,closing=false,hideTimer=null;
+ let opening=false,closing=false,hideTimer=null,suspendedMode=null,reportedOpen=null;
+ function notifyMode(){const shown=mode!=='closed'||closing;if(shown!==reportedOpen){reportedOpen=shown;onModeChange(shown);}}
  let zoom=1,pan={x:0,y:0},paintKey='',pinKey='',rowKeys=new Map(),animationEpoch=0;
  let placementKey='',squareKey='',suppressPinClick=false;
  const pointers=new Map();let gesture=null;
@@ -61,6 +78,8 @@ export function createM0Observation({document:doc,state,room,modal}){
   node.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
   node.querySelectorAll('button').forEach(el=>{const span=doc.createElement('span');span.className=el.className;span.innerHTML=el.innerHTML;el.replaceWith(span);});
   const name=node.querySelector('.market-shop-title');if(name)name.textContent=shopNames.get(id)??id;
+  const icon=node.querySelector('.market-store-icon');if(icon)icon.innerHTML=m0ShopGlyph(id);
+  node.setAttribute('aria-label',shopNames.get(id)??id);
   return node;
  }
  function syncRows(){
@@ -77,8 +96,7 @@ export function createM0Observation({document:doc,state,room,modal}){
    if(rowKeys.get(id)!==markup||!existing){const fresh=staticShelf(id);if(!fresh)continue;existing=fresh;rowKeys.set(id,markup);}
    existing.classList.toggle('m0-selected',selected===id);next.append(existing);seen.add(id);
   }
-  if(wanted.length<2){const empty=doc.createElement('div');empty.className='m0-shop m0-empty';empty.textContent='取扱店なし';next.append(empty);}
-  rows.replaceChildren(next);for(const id of [...rowKeys.keys()])if(!seen.has(id))rowKeys.delete(id);
+  rows.replaceChildren(next);rows.dataset.shopCount=String(seen.size);for(const id of [...rowKeys.keys()])if(!seen.has(id))rowKeys.delete(id);
  }
  function mapStage(s){const p=mapProgress(s);return p.max<2?1:(p.max>=3?3:2);}
  function syncMap(){
@@ -125,27 +143,33 @@ export function createM0Observation({document:doc,state,room,modal}){
  function finishClose(){
   cancelHideTimer();if(mode!=='closed')return;
   const restoreFocus=outer.contains(doc.activeElement);
-  closing=false;opening=false;outer.hidden=true;
+  closing=false;opening=false;outer.hidden=true;notifyMode();
   if(restoreFocus)doc.getElementById('open-world-map')?.focus({preventScroll:true});
  }
  function update(){
-  const canShow=!!state()&&!modal();
-  if(!canShow){
+  const blocked=!!modal(),hasGame=!!state();
+  if(!hasGame||blocked){
+   if(blocked&&mode!=='closed')suspendedMode=mode;
+   if(!hasGame)suspendedMode=null;
    if(mode!=='closed')animationEpoch++;
-   mode='closed';opening=false;closing=false;cancelHideTimer();outer.hidden=true;return;
+   mode='closed';opening=false;closing=false;cancelHideTimer();outer.hidden=true;notifyMode();return;
+  }
+  if(suspendedMode&&mode==='closed'){
+   mode=suspendedMode;suspendedMode=null;opening=false;closing=false;
   }
   outer.hidden=mode==='closed'&&!closing&&!opening;
+  notifyMode();
   if(outer.hidden)return;
   const ids=available(state());if(!ids.includes(selected))selected=ids.find(x=>x!=='retail')??'retail';
   align();if(!opening)outer.dataset.mode=mode;syncRows();syncMap();
-  advance.textContent=mode==='half'?'全画面':'縮小';advance.setAttribute('aria-label',mode==='half'?'地図を全画面にする':'地図を縮小する');
+  advance.setAttribute('aria-label',mode==='half'?'地図を全画面にする':'地図を縮小する');
   zoomControls.hidden=mode!=='full';layoutMap();
  }
  function setMode(next){
   if(!['closed','half','full'].includes(next)||next===mode)return;
   const previous=mode,wasClosing=closing;
   const tween=!reduced.matches&&!doc.hidden&&!!state()&&!modal();
-  cancelHideTimer();mode=next;animationEpoch++;pointers.clear();gesture=null;
+  cancelHideTimer();suspendedMode=null;mode=next;animationEpoch++;pointers.clear();gesture=null;
   if(next==='closed'){
    suppressAdvance=false;opening=false;closing=tween;
    update();
@@ -236,7 +260,7 @@ export function createM0Observation({document:doc,state,room,modal}){
  windowEl.addEventListener('pointerup',endPointer);windowEl.addEventListener('pointercancel',endPointer);
  window.addEventListener('resize',()=>{placementKey='';squareKey='';update();});
  if(typeof ResizeObserver==='function')new ResizeObserver(()=>{squareKey='';layoutMap();}).observe(windowEl);
- return {open:()=>setMode('half'),close:()=>setMode('closed'),setMode,update,consume,
- reset:()=>{cancelHideTimer();opening=false;closing=false;mode='closed';selected='town-liquor';lastStore='town-liquor';zoom=1;pan={x:0,y:0};placementKey='';squareKey='';paintKey='';pinKey='';rowKeys.clear();animationEpoch++;update();},
- get mode(){return mode;}};
+ return {open:()=>setMode('half'),close:()=>setMode('closed'),toggle:()=>setMode(mode==='closed'?'half':'closed'),setMode,update,consume,
+ reset:()=>{cancelHideTimer();opening=false;closing=false;suspendedMode=null;mode='closed';notifyMode();selected='town-liquor';lastStore='town-liquor';zoom=1;pan={x:0,y:0};placementKey='';squareKey='';paintKey='';pinKey='';rowKeys.clear();animationEpoch++;update();},
+ get mode(){return mode;},get isOpen(){return mode!=='closed'||closing;}};
 }
