@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "44bc5a5c853b6943ac48d513ff39e03921776c9b45b86736fe94fd39004b8776",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "e8999a591a2c4995712f2f2d6e6f4fb6fedea029",
+    "changeId": "ambertime-idb-commit-boundary",
+    "revision": 0,
+    "change": "Issue #889 phase 2: isolate the asynchronous IDB commit barrier, with no active game code changed",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/formal-idb-storage.mjs",
+      "works/ambertime/checkpoint-idb-research/CONTRACT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-idb-commit-boundary/r0.lock.json",
+      "works/ambertime/formal-idb-commit-boundary.mjs",
+      "works/ambertime/tests/formal-idb-commit-boundary.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/formal-idb-storage.mjs",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Create a separate, testable async commit barrier for the future game-mode IDB integration; it rejects all intervening actions while writing and never exposes the candidate as committed before durable transaction+readback completes.",
+      "Only one current candidate/revision token. On failure do not call apply; stop game and require controlled recovery from previously committed or cold IDB read. On success apply exactly once and advance revision monotonically; exception during apply is fatal/inconsistent and prevents further operations.",
+      "Add Node tests with delayed writer, concurrent input rejection, transaction failure/abort, stale revision, postcommit readback uncertainty and callback exceptions. No production or game-runtime changes."
+    ],
+    "ownerDecisions": [
+      "2026-11-10 owner approved AmberTime storage repair after second iPhone Chrome quota stop; iPhone Chrome screenshot confirms v8 154 month IndexedDB preflight exact-match.",
+      "No authorization to change production or delete original storage."
+    ],
+    "hqDecisions": [
+      "Build pure non-UI commit barrier before introducing asynchronous clock and full action refactor; current game must remain on synchronous localStorage until a separate reviewed Plan.",
+      "Treat a write that may have committed before a readback or callback error as uncertain; no auto retry or rollback that could clobber a newer transaction.",
+      "Do not process queued user actions after a failed save. Tokens/revision and double-click handling are controlled by one barrier."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "No iPhone runtime effects in this PR; later integrated Staging prototype must perform actual iPhone Chrome click/clock/quota/readback tests."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "New module remains unreferenced by game; revert two new files and Plan Lock. Existing save data and runtime are unaffected.",
+    "outOfScope": [
+      "Switch AmberTime game boot or writer to IDB",
+      "Main game event handlers, clock, market-rules writer or localStorage key modification",
+      "Player data migration, old key removal or automatic backup",
+      "Production deployment or 100 year verification"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real game integration and iPhone Chrome runtime",
+      "Semantics of browser crash after transaction completion",
+      "Performance with 100y formal v8 and reader cap"
+    ],
+    "alternativesRejected": [
+      "Async save that returns truthy Promise to synchronous caller",
+      "Optimistic game/UI commit while writing",
+      "Auto retries after unknown transaction outcome",
+      "Queued user actions based on potentially stale game state"
+    ],
+    "boundaryCases": [
+      "Second action while pending",
+      "Out-of-order callback",
+      "CAS conflict",
+      "Transaction abort/quota",
+      "Writer commits then readback rejects",
+      "User closes/blur during pending transaction",
+      "Consumer commit callback throws",
+      "Apply callback attempts nested save",
+      "Missing initial revision or invalid candidate"
+    ],
+    "testPlan": [
+      "Mock deferred writer tests verify apply only after promise resolves, exactly once, no partial state visible, and rejection prevents apply.",
+      "Test nested and duplicate input guarded, stale token and quota flow, postcommit readback uncertainty, onCommitted exception becomes fatal.",
+      "Exact SHA trusted CI, Scope/Risk/Impact and regression. Manual iPhone test only after integrated PR."
+    ],
+    "problem": "Preflight has proved 154-month v8 JSON survives isolated IndexedDB on iPhone, but shop-app.mjs currently assumes synchronous saveCandidate and would commit game state before an async save settles.",
+    "currentContract": "Game advances and emits notifications only after synchronous validated localStorage writeCandidate succeeds. All input and clock flows assume that Boolean contract.",
+    "whyExistingIsInsufficient": "Staging formal-idb-storage.mjs provides an async transaction but cannot be injected directly into synchronous call sites without truthy Promise, duplicate clock work, and lost last-good snapshot.",
+    "design": "A minimal pure async barrier that invokes prepare with current revision, awaits durable writer+readback, rejects overlap while in-flight, atomically publishes next revision to its own token and only then invokes commit callback once. On error moves to locked fail-stop; no optimistic current game changes or automatic retry.",
+    "migration": "None. Prototype module only; game integration and original localStorage-to-IDB migration require a separate Plan.",
+    "compatibility": "No change to v8 session bytes, format, game model, reader or writer. Module accepts the IDB writer as a dependency for subsequent integration.",
+    "promotionRisk": "Staging-only unreferenced module with Node verification; no public gameplay or release change."
+  }
+}
