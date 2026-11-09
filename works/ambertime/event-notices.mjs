@@ -41,7 +41,7 @@ export function noticeText(events){
 export function transientNotices({show,hide,setTimer=setTimeout,clearTimer=clearTimeout,duration=3500,onExpire=()=>{}}){
  const seen=new Set();let visible=[],timer=null;
  const clear=()=>{if(timer!==null)clearTimer(timer);timer=null;visible=[];hide();};
- return {push(events,lifetime=duration){const batchIds=new Set(),fresh=events.filter(e=>{if(seen.has(e.id)||batchIds.has(e.id))return false;batchIds.add(e.id);return true;});if(!fresh.length)return;for(const e of fresh){seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);}visible.push(...fresh);if(visible.length>32)visible=visible.slice(-32);if(timer!==null)clearTimer(timer);show(noticeText(visible));timer=setTimer(()=>{clear();onExpire();},lifetime);},clear,reset(){clear();seen.clear();}};
+ return {push(events,lifetime=duration){const batchIds=new Set(),fresh=events.filter(e=>{if(seen.has(e.id)||batchIds.has(e.id))return false;batchIds.add(e.id);return true;});if(!fresh.length)return;for(const e of fresh){seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);}visible.push(...fresh);if(visible.length>32)visible=visible.slice(-32);if(timer!==null)clearTimer(timer);show(noticeText(visible),visible,lifetime);timer=setTimer(()=>{clear();onExpire();},lifetime);},clear,reset(){clear();seen.clear();}};
 }
 
 // Room ownership is ephemeral. World news keeps only the latest unseen fact;
@@ -49,7 +49,7 @@ export function transientNotices({show,hide,setTimer=setTimeout,clearTimer=clear
 export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTimer=clearTimeout}){
  let owner=room(),pending=null,ambientPending=null,active=false,serial=0;
  const seen=new Set();
- const display=transientNotices({show:text=>{active=true;show(text);},hide:()=>{active=false;hide();},setTimer,clearTimer,onExpire:()=>update()});
+ const display=transientNotices({show:(text,entries,lifetime)=>{active=true;show(text,entries,lifetime);},hide:()=>{active=false;hide();},setTimer,clearTimer,onExpire:()=>update()});
  function sync(){
   if(owner!==room()){display.clear();ambientPending=null;owner=room();}
   // Daily observations are ephemeral: never follow a room change or unsafe modal.
