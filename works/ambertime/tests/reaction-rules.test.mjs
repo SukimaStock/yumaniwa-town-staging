@@ -19,7 +19,7 @@ test('operation result dismiss/room boundary; world latest remains distinct and 
  n.push([{id:'town:2',kind:'message',text:'海外へ届いた'}]);room='sales';n.update();assert.equal(visible,'海外へ届いた');assert(!shown.includes('町へ届いた'));
  c.advance(3500);assert.equal(visible,'海外へ届いた');c.advance(3000);assert.equal(visible,'');room='warehouse';n.update();room='sales';n.update();assert.equal(visible,'');
  n.push([{id:'result:1',kind:'message',text:'配置できません'}]);n.clear();n.push([{id:'result:1',kind:'message',text:'配置できません'}]);assert.equal(visible,'');
- n.push([{id:'result:2',kind:'message',text:'結果'}]);safe=false;n.update();assert.equal(visible,'');safe=true;n.update();assert.equal(visible,'');
+ n.push([{id:'result:2',kind:'message',text:'結果'}]);safe=false;n.update();assert.equal(visible,'');safe=true;n.update();assert.equal(visible,'結果');
 });
 test('world waits behind result then displays once; reset drops pending, result expires in 3.5s',()=>{
  const c=clock();let text='',room='sales';const n=scopedNotices({...c,room:()=>room,safe:()=>true,show:t=>text=t,hide:()=>text=''});

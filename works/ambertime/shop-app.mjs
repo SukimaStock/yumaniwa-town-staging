@@ -1,7 +1,7 @@
 import {roomStaffAccess} from './staff-access-view.mjs?v=staff-access-s3-1';
 import {staffEncounterMarkup} from './staff-encounter-view.mjs?v=hiring-s2-1';
 import {createDialogueProjection,dialogueShopName} from './shop-dialogue.mjs?v=all-stores-s2-1';
-import {dialogueMarkup,createDialogueNotice,installDialogueDismissal} from './shop-dialogue-view.mjs?v=all-stores-s2-1&fix=room-resume';
+import {dialogueMarkup} from './shop-dialogue-view.mjs?v=all-stores-s2-1&fix=room-resume';
 import {releasePackageArt} from './release-package.mjs?v=package-c1l-1';
 import {migrateRecentLedger,advanceRecentLedger,recentLedgerView} from './recent-ledger.mjs?v=s3-1';
 import {ledgerProfile,caskTimeline,recordTimeline,recordText} from './ledger-history-view.mjs?v=refactor-r5-1';
@@ -38,7 +38,7 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {automaticEvents,scopedNotices} from './event-notices.mjs?v=motion-v02';
+import {automaticEvents,scopedNotices} from './event-notices.mjs?v=traffic-1';
 import {noticePresentation,topGenerationNotice} from './notice-motion.mjs?v=motion-v02';
 import {addDailyEvent} from './daily-events.mjs?v=daily-v01';
 import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1';
@@ -116,15 +116,24 @@ function prepareDistillation(start){
  if(countdown.active||!game||document.hidden||room!=='distill'||!D.canStart(game).ok||modal&&modal.kind!=='flavor-cards')return;
  stopClock();modal=null;countdown.start(()=>act(start,()=>distillRoom.clearPrepared(),null,{paused:false}));
 }
-const automaticNews=scopedNotices({room:()=>room,safe:()=>!!game&&!modal&&!document.hidden&&!runtimeHalted&&(preview||canSave)&&$('storage-notice').hidden&&$('generation-notice').hidden,show:(text,entries,lifetime)=>{
- const el=$('automatic-news'),style=noticePresentation(entries),visibleText=style.heading?style.heading+'\n'+text:text;
- el.dataset.motion=style.motion;el.style.setProperty('--notice-life',lifetime+'ms');
- el.textContent=visibleText;el.setAttribute('aria-label',visibleText+' 閉じる');el.hidden=false;
-},hide:()=>{$('automatic-news').hidden=true;$('automatic-news').textContent='';}});
+function ordinaryNoticeSafe(){return !!game&&!modal&&!document.hidden&&!runtimeHalted&&(preview||canSave)&&!marketEditing&&!countdown.active&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&generationState()?.phase!=='review'&&$('storage-notice').hidden&&$('generation-notice').hidden&&!m0.isOpen;}
+const automaticNews=scopedNotices({room:()=>room,safe:ordinaryNoticeSafe,
+ eligible:n=>n.kind!=='shop'||(game.still.phase==='ready'&&!debugSkipJob&&!!scene.dialogueLayout(n.events[0].entry)),
+ show:(text,entries,lifetime,kind)=>{
+ if(kind==='shop'){
+  const entry=entries[0].entry;dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;
+  dialogueElement.hidden=false;dialogueElement.style.animation='none';void dialogueElement.offsetWidth;dialogueElement.style.removeProperty('animation');scene.positionDialogue();
+ }else{
+  const el=$('automatic-news'),style=noticePresentation(entries),visibleText=style.heading?style.heading+'\n'+text:text;
+  el.dataset.motion=style.motion;el.style.setProperty('--notice-life',lifetime+'ms');el.textContent=visibleText;el.hidden=false;
+  el.style.animation='none';void el.offsetWidth;el.style.removeProperty('animation');
+ }
+ queueMicrotask(()=>{if(game)render();});
+},hide:()=>{$('automatic-news').hidden=true;$('automatic-news').textContent='';dialogueElement.hidden=true;dialogueElement.innerHTML='';queueMicrotask(()=>{if(game)render();});}});
 // Keep transient notices above the body-mounted sales board.
 document.body.append($('automatic-news'),$('market-action-status'));
 const dialogueProjection=createDialogueProjection();
-const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.dataset.motion='ambient';dialogueElement.hidden=true;dialogueElement.setAttribute('role','button');dialogueElement.tabIndex=0;dialogueElement.setAttribute('aria-label','店主の一言を閉じる');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
+const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.dataset.motion='ambient';dialogueElement.hidden=true;dialogueElement.setAttribute('role','status');dialogueElement.setAttribute('aria-atomic','true');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
 // Non-interactive top notice derives entirely from the already committed
 // generation state. Neither its display nor the map's reserved headroom is saved.
 const importantTop=document.createElement('aside');
@@ -157,20 +166,18 @@ function updateImportantTop(gen){
 window.addEventListener('resize',()=>requestAnimationFrame(positionImportantTop));
 window.visualViewport?.addEventListener('resize',()=>requestAnimationFrame(positionImportantTop));
 window.visualViewport?.addEventListener('scroll',()=>requestAnimationFrame(positionImportantTop));
-const dialogueNotice=createDialogueNotice({
- inRoom:()=>room==='sales',
- show:entry=>{dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;dialogueElement.setAttribute('aria-label',`${dialogueShopName(entry.shopId)}。${entry.text} 閉じる`);dialogueElement.hidden=false;dialogueElement.style.animation='none';void dialogueElement.offsetWidth;dialogueElement.style.removeProperty('animation');scene.positionDialogue();},
- hide:()=>{dialogueElement.hidden=true;dialogueElement.innerHTML='';},
- safe:entry=>!!game&&(preview||canSave)&&!document.hidden&&!modal&&!runtimeHalted&&!marketEditing&&!countdown.active&&game.still.phase==='ready'&&game.tastingId===null&&!game.decisions.length&&generationState()?.phase!=='review'&&generationState()?.phase!=='handover'&&!debugSkipJob&&$('automatic-news').hidden&&$('storage-notice').hidden&&!$('scene-notice').textContent.trim()&&!!scene.dialogueLayout(entry)
-});
-installDialogueDismissal(dialogueElement,()=>dialogueNotice.dismiss());
-$('automatic-news').setAttribute('role','button');$('automatic-news').tabIndex=0;$('automatic-news').setAttribute('aria-label','知らせを閉じる');
-installDialogueDismissal($('automatic-news'),()=>automaticNews.clear());
-document.addEventListener('visibilitychange',()=>{automaticNews.update();dialogueNotice.update();});
-window.addEventListener('resize',()=>requestAnimationFrame(()=>dialogueNotice.update()));
-dialogueElement.addEventListener('dialogue-layout-blocked',()=>dialogueNotice.update());
-// Some market warnings do not render the game; react to priority DOM changes too.
-for(const id of ['automatic-news','storage-notice','scene-notice'])new MutationObserver(()=>dialogueNotice.update()).observe($(id),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});
+// The existing projection supplies one latest letter; all ordinary messages use
+// the same lane. No persisted dialogue eligibility or history is changed.
+const dialogueNotice={update:()=>automaticNews.update(),reset:()=>{},commit(before,next,entry){
+ if(!before||next.core.month<=before.core.month||!(entry?.month>before.core.month))return;
+ const epoch=automaticNews.epoch;
+ queueMicrotask(()=>{if(automaticNews.epoch===epoch)automaticNews.push([{id:'shop:'+entry.id,kind:'shop',entry}]);});
+}};
+$('automatic-news').setAttribute('role','status');$('automatic-news').setAttribute('aria-atomic','true');
+document.addEventListener('visibilitychange',()=>automaticNews.update());
+window.addEventListener('resize',()=>requestAnimationFrame(()=>automaticNews.update()));
+dialogueElement.addEventListener('dialogue-layout-blocked',()=>automaticNews.update());
+for(const id of ['storage-notice','scene-notice'])new MutationObserver(()=>automaticNews.update()).observe($(id),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});
 function noteDialogueCommit(before,next){if(before&&next.core.month>before.core.month)dialogueNotice.commit(before,next,dialogueProjection.read(next));}
 function latestDialogueMarkup(shopId){return room==='sales'?dialogueMarkup(dialogueProjection.read(game,shopId),game):'';}
 
@@ -431,11 +438,28 @@ const provenanceTag=caskId=>{const label=provenanceLabel(caskId);return label?'<
 function showGeneration(){
  const g=generationState();if(!g||g.phase==='working'||g.phase==='last-batch'&&!g.needsNotice)return false;
  if(g.phase==='last-batch'&&game.still.phase!=='ready')return false;
- stopClock();const before=game;
- try{if(g.needsNotice){game=D.noticeGeneration(game,g.id);if(!save())return false;}if(g.phase==='review'&&pendingRecall)recallPreview=prepareRecall(pendingRecall,game,game.operations.length);modal={kind:g.phase==='review'?'generation-review':'generation-notice',id:g.id};
-  if(g.phase==='review'&&recallPreview?.scenes.length){const expectedGame=game;queueMicrotask(()=>{if(game===expectedGame&&modal?.kind==='generation-review'&&modal.id===g.id&&!recallScenePlayer.isOpen())openGenerationRecall();});}
-  return true;}
- catch(e){saveFailure(e,'回想準備');return false;}
+ stopClock();
+ modal={kind:g.phase==='review'?'generation-review':'generation-notice',id:g.id,noticePending:g.needsNotice,preparePending:g.phase==='review',returnRoom:m0.isOpen?room:null};
+ return true;
+}
+// Commit the existing notice operation only after its dialog has been mounted.
+// The offer/generation itself stays pending if rendering or saving fails.
+function acknowledgeDecisionNotice(){
+ const target=modal,dialog=$('action-dialog');
+ if(!target||document.hidden||!dialog.open||dialog.dataset.kind!==target.kind)return;
+ if(!['shop-offer','generation-notice','generation-review'].includes(target.kind))return;
+ try{
+  if(target.noticePending){
+   const next=target.kind==='shop-offer'?D.noticeShopOffer(game,target.shopId,target.offerId):D.noticeGeneration(game,target.id);
+   if(!saveCandidate(next))return;
+   game=next;target.noticePending=false;
+  }
+  if(target.preparePending){
+   target.preparePending=false;
+   if(pendingRecall)recallPreview=prepareRecall(pendingRecall,game,game.operations.length);
+   if(recallPreview?.scenes.length){const expectedGame=game;queueMicrotask(()=>{if(game===expectedGame&&modal===target&&!recallScenePlayer.isOpen()){render();openGenerationRecall();}});}
+  }
+ }catch(error){saveFailure(error,'重要連絡');}
 }
 function generationCauseText(g){
  const t=g.trigger;if(!t)return '';
@@ -795,13 +819,12 @@ function shopStartedText(shopId,brandId){
 function shopStartedMarkup(){
  return modal.greeting&&modal.startedBrandId!==undefined?'<p class="delivery-confirmation" role="status">'+esc(shopStartedText(modal.startedShopId??modal.shopId,modal.startedBrandId))+'</p><p class="quiet">'+esc(shopOfferNext(modal.startedShopId??modal.shopId))+'</p>':'';
 }
-// A notice is recorded before showing it, so deferring or reloading never
-// repeats the automatic interruption. Pause intent belongs to userPaused.
+// Pause intent belongs to userPaused; acknowledging the mounted dialog uses
+// the existing formal operation, without consuming the underlying offer.
 function showShopOffer(productId=null,returnModal=null){
  if(!game?.shop.offer||game.trade.offer||game.tastingId!==null||(!preview&&!canSave))return false;
- stopClock();const before=game;
- try{if(!game.shop.offer.notified){game=D.noticeShopOffer(game,game.shop.offer.shopId,game.shop.offer.id);if(!save())return false;}modal={kind:'shop-offer',productId,returnProductId:productId,shopId:game.shop.offer.shopId,offerId:game.shop.offer.id,selectedCount:null,returnModal};deliveryNotice='';return true;}
- catch(e){game=before;runtimeHalted=true;storageNotice(e.message);return false;}
+ stopClock();
+ modal={kind:'shop-offer',productId,returnProductId:productId,shopId:game.shop.offer.shopId,offerId:game.shop.offer.id,selectedCount:null,returnModal,noticePending:!game.shop.offer.notified};deliveryNotice='';return true;
 }
 // Both entry directions use the same quote, pending quantity and final operation.
 function deliveryCount(p,q){return modal.deliveryProductId===p.id&&modal.deliveryShopId===q.shopId&&q.ok&&q.quantities.includes(modal.deliveryCount)?modal.deliveryCount:null;}
@@ -1125,6 +1148,7 @@ function syncModal(){
  else if(previousKind!==kind&&['stockists','stockist','stockist-delivery','staff-opportunity','staff-manager','staff-panel','bottler-panel'].includes(kind)){if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}else document.querySelector('#dialog-body button:not(:disabled), #dialog-actions button')?.focus({preventScroll:true});}
  else if(previousKind!==kind&&kind==='first-bottle-complete')$('dialog-body').querySelector('[data-action="first-bottle-proceed"]')?.focus({preventScroll:true});
  acknowledgeStaffOpportunity();
+ acknowledgeDecisionNotice();
  if(kind==='world-map')observeMapLabels();else{mapLabelObserver?.disconnect();mapLabelObserver=null;}
 }
 function renderSpirit(){
@@ -1234,7 +1258,7 @@ function render(){
  automaticNews.update();
  const comment=room==='sales'?recentCustomerFeedback(game,feedbackComments.read(game)):null,aging=room==='warehouse'?warehouseFeedback(game):null;
  roomFeedback=comment?{kind:'comment',releaseId:comment.releaseId,text:commentExcerpt(game,comment)}:aging?{kind:'aging',caskId:aging.caskId,text:caskName(aging.caskId)+' · '+aging.text,previewText:warehouseFeedbackPreview(caskName(aging.caskId),aging)}:null;
- const feedbackButton=$('room-feedback'),feedbackHidden=!roomFeedback||!!modal||!$('automatic-news').hidden||!$('storage-notice').hidden||!banner.hidden||runtimeHalted;
+ const feedbackButton=$('room-feedback'),feedbackHidden=!roomFeedback||!!modal||m0.isOpen||automaticNews.active!==null||!$('automatic-news').hidden||!$('storage-notice').hidden||!banner.hidden||runtimeHalted;
  feedbackButton.hidden=feedbackHidden;feedbackButton.textContent=roomFeedback?.text??'';feedbackButton.disabled=!!modal;
  const spirit=$('spirit-readout').hidden?null:{compact:phase==='distilling',kind:$('spirit-kind').textContent,volume:$('spirit-volume').textContent,phrase:$('spirit-phrase').textContent,axes:$('spirit-gauges').hidden?[]:[['roughness','シゲキ'],['character','かおり']].map(([id,label])=>({label,ratio:Number($('spirit-'+id).style.getPropertyValue('--flavor-fill'))}))};
  const brewing=D.stage4Mode(game)?brewingPanelState(game,distillRoom.confirmation):null;if(brewing&&countdown.active)brewing.editable=false;
@@ -1426,7 +1450,7 @@ function handleModal(e){
  if(a==='generation-history'&&kind==='generation-review'&&generationState()?.id===id){openHistory();return;}
  if(a==='history-release'&&kind==='history'&&game.releases.some(r=>r.productId===id)){modal={kind:'ledger-release',key:'release:'+game.releases.find(r=>r.productId===id).id,parent:rememberLedger(),returnFocusId:b.id};render();return;}
  if(a==='history-generation'&&kind==='history'&&historyData?.generations?.some(g=>g.id===id)){modal={kind:'history-generation',id,parent:rememberLedger(),returnFocusId:b.id};render();$('dialog-body').scrollTop=0;return;}
- if(a==='generation-continue'&&kind==='generation-notice'&&generationState()?.id===id){modal=null;room='distill';render();schedule();return;}
+ if(a==='generation-continue'&&kind==='generation-notice'&&generationState()?.id===id){const returnRoom=modal.returnRoom;modal=null;room=returnRoom??'distill';render();schedule();return;}
  if(a==='generation-handover'&&kind==='generation-review'&&generationState()?.id===id&&!recallPreview?.scenes.length){act(s=>D.handoverGeneration(s,id),()=>{modal=null;runtimeHalted=false;room='distill';message(generationName(generationState().id)+'へ引き継ぎました。');});return;}
  if(a==='history-year'&&kind==='history'){modal.year=modal.year===b.dataset.id?null:b.dataset.id;modal.page=0;render();return;}
  if(a==='history-brand'&&['history','history-shop'].includes(kind)){modal={kind:'history-brand',brandId:id,year:modal.year??null,page:modal.page??0,parent:modal.parent};render();return;}
@@ -1555,7 +1579,7 @@ async function boot(){
 
 window.amberPlacement={snapshot:()=>structuredClone(game),diagnostics:()=>({placement:true,saveKey:SAVE_KEY,clockPending:timer!==null,playbackRate,canSave,lastSaveError:debugEnabled?lastSaveError:null,caskSlots:[...caskSlots],saveVersion:isCurrentSession(lastSavedText)?DEVELOPMENT_SAVE_VERSION:null,ui:placementUI.diagnostics(),market:marketUI.diagnostics()} )};
 const scene=new CanvasScene();
-const m0=createM0Observation({document,state:()=>game,model:D,room:()=>room,modal:()=>modal,onModeChange:active=>{$('open-world-map').setAttribute('aria-pressed',String(active));scene.queue();}});
+const m0=createM0Observation({document,state:()=>game,model:D,room:()=>room,modal:()=>modal,onModeChange:active=>{$('open-world-map').setAttribute('aria-pressed',String(active));scene.queue();queueMicrotask(()=>{automaticNews.update();if(game)render();});}});
 for(const [id,label] of [['distill-lever','レバーを下に引く'],['distill-glass','グラス']]){const node=document.createElement('button');node.type='button';node.id=id;node.className='distill-tool-hit';node.setAttribute('aria-label',label);node.setAttribute('aria-describedby','distill-tool-guide');scene.controlRoot.append(node);}
 const guide=document.createElement('span');guide.id='distill-tool-guide';guide.className='sr-only';$('scene-access').append(guide);
 const toolInput=new DistillToolInput({root:scene.root,lever:$('distill-lever'),glass:$('distill-glass'),read:()=>({...currentDistillTools(),glassTravel:TOOL_GEOMETRY.travel*scene.viewport.scale}),onChange:value=>scene.setToolGesture(value),onAction:kind=>{if(kind==='lever')startFromLever();else if(currentDistillTools().glassEnabled)finishDistillation();}});
