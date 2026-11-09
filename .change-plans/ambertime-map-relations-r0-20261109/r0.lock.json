@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "35b925c6ca9754e3f7a4815370ae02d5eb4113c68be1dc0c29374a53d9eca167",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-relations-r0-20261109",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime M1 R0: 既存の口コミ到達・原因イベントから店舗ごとの直接伝播を読み取り専用で抽出する。M0本編への描画接続はPR #880の完了後に別段階で判断する",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "a870e0affcea2d124c44622652e50eaf6a827637",
+    "canonicalSources": [
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-relations-r0-20261109/r0.lock.json",
+      "works/ambertime/map-relationship-view.mjs",
+      "works/ambertime/tests/map-relationship-view.test.mjs",
+      "works/ambertime/design/map-relations-r0/REPORT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/index.html",
+      "works/ambertime/*.css"
+    ],
+    "expectedChanges": [
+      "既存の町イベントのsourceId因果連鎖を検証し、実際に発生した非直接の口コミ到達のみを選択店舗の関係候補にする",
+      "正式店舗IDと町のノードIDの限定的な対応を明示し、表示不可な店舗への線を作らない",
+      "同じ店に関わる複数到達は決定的に最新の一件を選ぶ。UI投影は正式ゲーム状態・RNG・保存内容を一切変更しない",
+      "受入/取扱契約や人間関係、休業・閉店の因果を口コミ到達から捏造しない",
+      "コード・単体テスト・簡潔な設計記録だけを追加し、未完了のPR #880と重なる画面変更を加えない"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 作者は店舗を主役に、通常は静かな地図・選択した店の関係のみ発見する方向を選び、現行コード調査を経て実装開始を指示"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "関連する直接伝播がある場合のみ選択店舗をたどれる候補として表示できること",
+      "取扱前の店舗・抽象地域・未作成の座標を線で表示しないこと",
+      "作者のiPhone操作やマップ内視認性は本編接続の際に未確認として扱うこと"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "本PR追加の読み取り専用モジュール、検証テスト、調査記録のみをrevert。正式保存・ゲーム計算・既存地図は不変",
+    "outOfScope": [
+      "PR #880の通知・時計・保存境界への変更",
+      "M0画面への接続、店舗ピン追加、地図の新モード、LAB登録、新作品登録",
+      "店舗の契約/休業/閉店、人物の個体識別、新規地域・国、経済、RNG、正式保存と回想collector",
+      "Productionへの公開"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実際のiPhoneでの選択と線表示、M0との結合、最終的な体験採否"
+    ]
+  }
+}
