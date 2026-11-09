@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "207fc4aaec7c2a949e205d19972a2189f5110298b34d26e0db6d4ed5903f3b4a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "f841b146cd8638272041c0366d050de712581cce",
+    "changeId": "ambertime-storage-quota-diagnosis",
+    "revision": 0,
+    "change": "Issue #886: iPhone Safariの保存容量超過を既存セーブ非破壊で診断する独立ページを追加",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/reputation-dedup-research/REPORT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-storage-quota-diagnosis/r0.lock.json",
+      "works/ambertime/storage-diagnostics.html",
+      "works/ambertime/tests/storage-diagnostics.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "AmberTime配下に直URL専用の読取専用ストレージ診断ページを追加し、localStorageの全キー名・value.length・合計UTF-16 code unitsを端末で計測する",
+      "データの値・本文は画面、report、Networkのどこへも出さない。書込み、削除、移行、セーブ上書き、Quota試験書込、外部通信を行わない",
+      "Stagingから同一originで開けるがゲーム本体の表示・操作・保存は無変更。単体の機械検査を追加"
+    ],
+    "ownerDecisions": [
+      "2026-11-09 Issue #886の保存不能報告、元データ保全、新規ゲームへリセットせず原因調査を進める旨の作者指示"
+    ],
+    "hqDecisions": [
+      "今回の設計範囲は完全read-onlyの直URL診断。保存key/保存形式/データ本体/runtimeは変更せず、HQ判断が必要な永続保存方式の変更は別PR・別Planへ分離",
+      "同一origin共有キーの容量をローカル端末内でのみ集計し、配信元やGitHubへ自動送信しない"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN.md Full Lock、Scope/Risk/Impact、既存release/lifecycleと保存保持契約",
+      "新規診断画面の文章は操作目的と注意だけ（EXPRESSION-AUDIT）"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "保存と同一originで開けるか・iPhone Safari画面にキー/単位が出るか（作者実機）",
+      "診断中にlocalStorage.setItem/removeItem/clear、IndexedDB更新、送信/外部接続が発生しないこと",
+      "複数キー、空Storage、読み取り拒否の3条件とモバイル表示"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "診断ページへの配信を取り消してもゲーム保存とゲーム本編は不変。新規HTMLとテストだけ削除する。既存保存を削除・再生成しない。",
+    "outOfScope": [
+      "localStorageのキー削除/整理",
+      "正式save形式・キー・容量上限・再開・retry処理の変更",
+      "既存プレイヤーデータのアップロード/コミット",
+      "町/Engine/Productionの変更",
+      "元保存を直接書き換える移行"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "作者のiPhone Safariブラウザー実測未完了",
+      "診断時点ではQuotaExceededErrorの根本原因と修正を未確定とする"
+    ],
+    "alternativesRejected": [
+      "容量解決と称した自動localStorage削除",
+      "quotaに達した状態で書込みprobeすること",
+      "未検証IndexedDB移行を同時に実装",
+      "productionへ勝手に公開"
+    ],
+    "boundaryCases": [
+      "localStorage empty",
+      "多キーおよびAmberTimeキー",
+      "getItem例外",
+      "長いUnicodeキー名、HTML文字列を含むキー名、コピー失敗",
+      "navigator.storage.estimate非対応",
+      "Stagingと通常URLの同一origin/異なるpath"
+    ],
+    "testPlan": [
+      "Node unit testでread-only、サイズ計算、値非公開、HTML注入防止",
+      "Node構文、既存AmberTime保存回帰（非変更のため関連確認）",
+      "Scope/Risk/Impactとtrusted CI、exact head SHA",
+      "iPhone Safari実機から同一originで診断後、Issue #886へ測定値と比較。復旧は別の正式保存修正で実施"
+    ],
+    "problem": "月97のiPhone SafariのQuotaExceededErrorでゲームが停止。実書出は約108万UTF-16 unitsと既知の一般quota以下で、他キーの影響を排除できない。",
+    "currentContract": "正式保存はlocalStorage単一keyへの検証付き書込。失敗時は最終確定状態へ戻して停止。v8 compact codec利用中。",
+    "whyExistingIsInsufficient": "診断で他キー容量を把握する端末内UIがなく、容量警告だけでは原因を区別できない。",
+    "design": "ゲーム本体から独立したHTMLを同一origin配下に配置。localStorageのkeyとvalue.lengthだけ読み、sizeを表示。再測定とユーザー明示のコピー以外の操作はなし。Content-Security-Policyでnetworkを拒否する。",
+    "migration": "なし。既存ゲーム本編/保存の読み書き/キーを変更しない。",
+    "compatibility": "既存Save v8と旧データは読み込まず/変更せず、ブラウザーlocalStorage APIのみを参照。",
+    "promotionRisk": "診断ページはStaging限定で明示URLから開く。Productionと本編への埋込みは行わない。"
+  }
+}
