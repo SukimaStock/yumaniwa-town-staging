@@ -5,13 +5,13 @@
  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
  <meta name="robots" content="noindex,nofollow">
  <meta name="theme-color" content="#252d32">
- <title>AmberTime｜お店のつながり Lab M1-A</title>
+ <title>AmberTime｜お店のつながり Lab M1-A・ドットの反応</title>
  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
  <main class="shell">
   <header class="heading"><div><p class="eyebrow">AmberTime / M1-A</p><h1>お店のつながり</h1></div><span class="lab-tag">比較 Lab</span></header>
-  <p class="intro">普段は静かな町。気になるお店だけ、つながりをたどってみる。</p>
+  <p class="intro">紹介元の建物が、屋根・窓・戸口のドットで小さく応えます。</p>
   <section class="controls" aria-label="比較条件">
     <fieldset class="choice"><legend>出来事</legend><div id="scenarios" class="choice-buttons"></div></fieldset>
     <fieldset class="choice"><legend>地図の見方</legend><div class="choice-buttons"><button type="button" data-view="normal" aria-pressed="false">町を眺める</button><button type="button" data-view="relation" aria-pressed="true">関係を見る</button></div></fieldset>
@@ -21,7 +21,7 @@
    <div class="map-window" id="map-window" aria-label="町の地図。店を選択できます。2本指で拡大・移動できます。">
      <div class="map-layer" id="map-layer">
        <canvas id="map-canvas" width="144" height="144" role="img" aria-label="AmberTimeの町のドット絵地図"></canvas>
-       <svg id="line-layer" viewBox="0 0 144 144" aria-hidden="true"></svg>
+       <canvas id="pixel-layer" width="144" height="144" aria-hidden="true"></canvas>
        <div id="map-pins" class="map-pins"></div>
      </div>
    </div>
@@ -31,11 +31,11 @@
     <div class="detail-top"><div><span class="minor">選んだお店</span><h2 id="shop-title">路地裏のバー</h2></div><span id="detail-tag" class="detail-tag">取扱店</span></div>
     <div id="shop-message" class="shop-message" role="status" aria-live="polite" aria-atomic="true"></div>
     <div id="relation-controls" class="relation-controls" hidden>
-      <fieldset class="choice compact"><legend>比較</legend><div class="choice-buttons"><button type="button" data-style="text" aria-pressed="true">A 文章だけ</button><button type="button" data-style="line" aria-pressed="false">B 線を1本</button></div></fieldset>
-      <button type="button" id="follow" class="follow" hidden></button>
+      <fieldset class="choice compact"><legend>建物の反応</legend><div class="choice-buttons"><button type="button" data-style="eaves" aria-pressed="true">A ひさし</button><button type="button" data-style="window" aria-pressed="false">B 窓</button><button type="button" data-style="door" aria-pressed="false">C 戸口</button></div></fieldset>
+      <div class="relation-actions"><button type="button" id="follow" class="follow" hidden></button><button type="button" id="replay" class="follow replay" hidden>もう一度見る</button></div>
     </div>
   </section>
-  <footer class="notes"><span>検証用の固定シナリオ · ゲーム本編ではありません</span><details><summary>このLabについて</summary><p id="scenario-description"></p><p>経済・保存・時間進行はありません。線は既存の口コミイベントを読み取り専用で検証できた場合だけ表示します。バーの建物位置は現行M0の仮配置です。</p></details></footer>
+  <footer class="notes"><span>検証用の固定シナリオ · ゲーム本編ではありません</span><details><summary>このLabについて</summary><p id="scenario-description"></p><p>経済・保存・時間進行はありません。実際のイベント記録と一致する場合だけ紹介元の実在する建物スプライトが反応します。バーの建物位置は現行M0の仮配置で、バーそのものの絵はまだありません。点線と点滅は使いません。</p></details></footer>
  </main>
  <script type="module" src="./app.mjs"></script>
 </body>
