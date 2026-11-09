@@ -1,80 +1,135 @@
+// M0.7: view-only map drawer. All inputs are projections of native game state.
 import {savedMarketSales,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1';
-import {mapSalesProjection,mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1';
-import {mapShopPositions,drawGameMap,mapProgress} from './world-map-view.mjs?v=0.28.0-map';
+import {mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1';
+import {drawGameMap,mapProgress,mapObservationBounds} from './world-map-view.mjs?v=m07-observation';
 import {retailSalePlan,ordinarySaleGroups} from './retail-sale-motion.mjs?v=count-linked-r1';
-const esc=function(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));};
-export function createM0Observation({document:doc,state,model,room,modal,art,stage}){
+import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
+
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shopNames=new Map([['retail','自家販売'],...SHOPS.map(s=>[s.id,s.name])]);
+const clamp=(x,min,max)=>Math.min(max,Math.max(min,x));
+export function mapSquare(width,height){
+ const w=Math.max(0,width),h=Math.max(0,height),side=Math.min(w,h);
+ return {side,left:(w-side)/2,top:(h-side)/2};
+}
+export function mapPanBounds(width,height,zoom){
+ const side=Math.min(Math.max(0,width),Math.max(0,height))*Math.max(1,zoom);
+ return {x:Math.max(0,(side-width)/2),y:Math.max(0,(side-height)/2)};
+}
+
+export function createM0Observation({document:doc,state,room,modal}){
  const source=doc.getElementById('market-board'),scene=doc.getElementById('scene-root');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const outer=doc.createElement('section');outer.id='m0-observation';outer.hidden=true;
- outer.setAttribute('aria-label','販売室と地図を眺める');
- outer.innerHTML='<div class="m0-top"><div class="m0-rows" aria-label="注目店舗の棚"></div></div>'+
- '<div class="m0-drawer"><div class="m0-handle"><button type="button" data-m0="advance">地図をひらく</button><button type="button" data-m0="close" aria-label="地図を閉じる">×</button></div>'+
- '<div class="m0-map"><div class="m0-map-visual"><canvas width="144" height="144" role="img" aria-label="町の地図"></canvas><div class="m0-pins"></div></div>'+
- '<div class="m0-report" role="status" aria-live="polite"></div></div></div>';
+ outer.setAttribute('aria-label','町の地図');
+ outer.innerHTML=`<div class="m0-top"><div class="m0-rows" aria-label="注目する取扱店"></div></div>
+ <div class="m0-drawer"><div class="m0-handle"><button type="button" data-m0="advance">全画面</button><button type="button" data-m0="close" aria-label="地図を閉じる">×</button></div>
+ <div class="m0-map"><div class="m0-map-window" aria-label="町の地図。全画面では指で移動・拡大できます"><div class="m0-map-layer"><canvas width="144" height="144" role="img" aria-label="町の地図"></canvas><div class="m0-pins"></div></div></div>
+ <div class="m0-zoom" hidden><button type="button" data-m0="zoom-out" aria-label="地図を縮小">−</button><button type="button" data-m0="zoom-in" aria-label="地図を拡大">＋</button></div>
+ <div class="m0-report" role="status" aria-live="polite"></div></div></div>`;
  doc.body.append(outer);
- const rows=outer.querySelector('.m0-rows'),map=outer.querySelector('canvas'),pins=outer.querySelector('.m0-pins'),report=outer.querySelector('.m0-report');
- let mode='closed',selected='town-liquor',drag=null,animationEpoch=0,suppressAdvance=false;
- const active=()=>mode!=='closed'&&room()==='sales'&&!modal();
+ const rows=outer.querySelector('.m0-rows'),canvas=outer.querySelector('canvas'),pins=outer.querySelector('.m0-pins');
+ const report=outer.querySelector('.m0-report'),windowEl=outer.querySelector('.m0-map-window'),layer=outer.querySelector('.m0-map-layer');
+ const zoomControls=outer.querySelector('.m0-zoom'),advance=outer.querySelector('[data-m0="advance"]');
+ let mode='closed',selected='town-liquor',lastStore='town-liquor',drag=null,suppressAdvance=false;
+ let zoom=1,pan={x:0,y:0},paintKey='',pinKey='',rowKeys=new Map(),animationEpoch=0;
+ let placementKey='',squareKey='',suppressPinClick=false;
+ const pointers=new Map();let gesture=null;
  const available=s=>availableMarketShops(s).map(x=>x.id);
+ const active=()=>mode!=='closed'&&room()==='sales'&&!modal();
  function align(){
-  const r=source.getBoundingClientRect(),sr=scene.getBoundingClientRect();
-  const left=r.width?r.left:sr.left+12,width=r.width||Math.max(280,sr.width-24);
-  const top=r.height?r.top:sr.top+85,bottom=sr.bottom-10;
-  Object.assign(outer.style,{left:left+'px',width:width+'px',top:top+'px',height:Math.max(300,bottom-top)+'px'});
-  let viewport;try{viewport=JSON.parse(scene.dataset.viewport||'null');}catch{}
-  if(viewport?.scale)outer.style.setProperty('--m0-scale',String(viewport.scale));
- }
- function cloneRows(){
-  const originalShops=source.querySelectorAll('.market-shop');
-  if(!originalShops.length){rows.replaceChildren();return;}
-  const s=state(),list=['retail',selected].filter((x,i,a)=>a.indexOf(x)===i),frag=doc.createDocumentFragment();
-  for(const id of list){
-   const original=source.querySelector('[data-market-shop="'+id+'"]');if(!original)continue;
-   const node=original.cloneNode(true);
-   node.classList.add('m0-shop');node.removeAttribute('data-market-shop');node.dataset.m0Shop=id;
-   node.querySelectorAll('.market-stock-row[id]').forEach(el=>{const productId=el.id.split('-').at(-1);if(Number.isSafeInteger(Number(productId)))el.dataset.m0Product=productId;});
-   node.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
-   node.querySelectorAll('button').forEach(button=>{
-    const span=doc.createElement('span');span.className=button.className;span.innerHTML=button.innerHTML;
-    if(button.hasAttribute('aria-hidden'))span.setAttribute('aria-hidden',button.getAttribute('aria-hidden'));
-    button.replaceWith(span);
-   });
-   frag.append(node);
+  let v;try{v=JSON.parse(scene.dataset.viewport||'null');}catch{}
+  const s=Number(v?.scale),r=scene.getBoundingClientRect();
+  const scale=Number.isFinite(s)&&s>0?s:1;
+  const x=Number.isFinite(v?.offsetX)?v.offsetX:r.left;
+  const y=Number.isFinite(v?.offsetY)?v.offsetY:r.top;
+  const left=x+12*scale,top=y+99*scale,width=336*scale,height=417*scale;
+  const key=[left,top,width,height,scale].join(':');
+  if(key!==placementKey){
+   Object.assign(outer.style,{left:left+'px',top:top+'px',width:width+'px',height:height+'px'});
+   outer.style.setProperty('--m0-scale',String(scale));placementKey=key;
   }
-  rows.replaceChildren(frag);
  }
- function showMap(){
-  const s=state(),max=mapProgress(s).max,mapStage=Math.min(3,Math.max(2,Math.min(stage(),max)));
-  drawGameMap(map,s,mapStage);
-  const data=mapSalesProjection(s,mapStage),ids=available(s),positions=mapShopPositions(mapStage);
-  const markers=[{id:'retail',name:'蒸留所',x:48,y:81},...data.pins];
-  if(ids.includes('bar'))markers.push({id:'bar',name:'路地裏のバー',x:42,y:119,temporary:true});
-  pins.innerHTML=markers.filter(p=>ids.includes(p.id)).map(p=>{
-   const [x,y]=positions[p.id]??[p.x,p.y];
-   return '<button type="button" class="m0-pin" data-m0-shop="'+esc(p.id)+'" aria-pressed="'+String(p.id===selected)+'"'+
-    ' aria-label="'+esc(p.name+(p.temporary?'（仮配置）':''))+'" style="left:'+(x/144*100)+'%;top:'+(y/144*100)+'%">'+
-    esc(p.id==='retail'?'蒸留所':p.name)+'</button>';
-  }).join('');
-  const p=selected==='retail'?data.retail:data.pins.find(p=>p.id===selected)??mapShopDetail(s,selected);
-  const name=p?.name??({'retail':'自家販売','town-liquor':'町の酒店',supermarket:'スーパー',bar:'路地裏のバー'}[selected]??'取扱店');
-  const stock=p?.currentStock,monthly=p?.monthlySold;
-  const nums=(stock==null?'':'残 '+stock+'本')+(monthly==null?'':'　今月 '+monthly+'本');
-  report.innerHTML='<div class="m0-report-heading"><strong>'+esc(name)+'</strong><span>'+esc(nums)+'</span></div>'+
-   (p?.remark?'<p>「'+esc(p.remark)+'」</p>':'');
+ function staticShelf(id){
+  const original=source.querySelector('[data-market-shop="'+id+'"]');
+  if(!original)return null;
+  const node=original.cloneNode(true);node.classList.add('m0-shop');node.removeAttribute('data-market-shop');node.dataset.m0Shop=id;
+  node.querySelectorAll('.market-stock-row[id]').forEach(el=>{el.dataset.m0Product=el.id.split('-').at(-1);});
+  node.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+  node.querySelectorAll('button').forEach(el=>{const span=doc.createElement('span');span.className=el.className;span.innerHTML=el.innerHTML;el.replaceWith(span);});
+  const name=node.querySelector('.market-shop-title');if(name)name.textContent=shopNames.get(id)??id;
+  return node;
+ }
+ function syncRows(){
+  const sales=room()==='sales';outer.dataset.originRoom=sales?'sales':'other';
+  if(!sales){rows.replaceChildren();rowKeys.clear();return;}
+  const ids=available(state());if(!ids.includes(lastStore))lastStore=ids.find(id=>id!=='retail')??null;
+  if(selected!=='retail'&&ids.includes(selected))lastStore=selected;
+  const store=selected==='retail'?lastStore:selected;
+  const wanted=['retail',store].filter((id,i,a)=>id&&a.indexOf(id)===i);
+  const next=doc.createDocumentFragment();const seen=new Set();
+  for(const id of wanted){
+   const original=source.querySelector('[data-market-shop="'+id+'"]');const markup=original?.innerHTML??'';
+   let existing=rows.querySelector('[data-m0-shop="'+id+'"]');
+   if(rowKeys.get(id)!==markup||!existing){const fresh=staticShelf(id);if(!fresh)continue;existing=fresh;rowKeys.set(id,markup);}
+   existing.classList.toggle('m0-selected',selected===id);next.append(existing);seen.add(id);
+  }
+  if(wanted.length<2){const empty=doc.createElement('div');empty.className='m0-shop m0-empty';empty.textContent='取扱店なし';next.append(empty);}
+  rows.replaceChildren(next);for(const id of [...rowKeys.keys()])if(!seen.has(id))rowKeys.delete(id);
+ }
+ function mapStage(s){const p=mapProgress(s);return p.max<2?1:(p.max>=3?3:2);}
+ function syncMap(){
+  const s=state(),level=mapStage(s),progress=mapProgress(s);
+  const key=JSON.stringify([level,progress.max,[...progress.activeShops].sort()]);
+  if(key!==paintKey){drawGameMap(canvas,s,level);paintKey=key;}
+  const list=available(s),bounds=mapObservationBounds(level);
+  const entries=list.map(id=>({id,bounds:bounds[id]})).filter(x=>x.bounds);
+  const next=JSON.stringify([level,entries]);
+  if(pinKey!==next){
+   pins.innerHTML=entries.map(({id,bounds:[x,y,w,h]})=>`<button type="button" class="m0-pin" data-m0-shop="${esc(id)}" style="left:${((x+w/2)/144)*100}%;top:${((y+h/2)/144)*100}%" aria-label="${esc(id==='retail'?'蒸留所':shopNames.get(id))}${id==='bar'?'（試作位置）':''}"></button>`).join('');
+   pinKey=next;
+  }
+  for(const btn of pins.querySelectorAll('.m0-pin'))btn.setAttribute('aria-pressed',String(btn.dataset.m0Shop===selected));
+  const detail=mapShopDetail(s,selected);
+  const title=shopNames.get(selected)??'取扱店';
+  const stock=detail?.currentStock,monthly=detail?.monthlySold;
+  const numbers=[stock===null||stock===undefined?'':'残 '+stock+'本',monthly===null||monthly===undefined?'':'今月 '+monthly+'本'].filter(Boolean).join('　');
+  const remark=detail?.remark??'';
+  const text=title+'|'+numbers+'|'+remark+'|'+(selected==='bar'?'試作位置':'');
+  if(report.dataset.content!==text){
+   report.innerHTML='<div class="m0-report-heading"><strong>'+esc(title)+'</strong><span>'+esc(numbers)+'</span></div>'+(remark?'<p>「'+esc(remark)+'」</p>':'')+(selected==='bar'?'<small>バーの位置は試作上の仮配置</small>':'');
+   report.dataset.content=text;
+  }
+ }
+ function clampPan(){
+  const r=windowEl.getBoundingClientRect(),bounds=mapPanBounds(r.width,r.height,zoom);
+  pan.x=clamp(pan.x,-bounds.x,bounds.x);pan.y=clamp(pan.y,-bounds.y,bounds.y);
+ }
+ function transform(){
+  if(mode!=='full'){layer.style.transform='none';return;}
+  clampPan();layer.style.transform=`translate(${pan.x}px,${pan.y}px) scale(${zoom})`;
+ }
+ function layoutMap(){
+  if(outer.hidden)return;
+  const r=windowEl.getBoundingClientRect(),q=mapSquare(r.width,r.height);
+  const key=[r.width,r.height,q.side].join(':');
+  if(key!==squareKey){Object.assign(layer.style,{left:q.left+'px',top:q.top+'px',width:q.side+'px',height:q.side+'px'});squareKey=key;}
+  transform();
  }
  function update(){
-  const canShow=room()==='sales'&&!modal()&&!!state();
+  const canShow=!!state()&&!modal();
   if(!canShow&&mode!=='closed'){mode='closed';animationEpoch++;}
   outer.hidden=!canShow||mode==='closed';if(outer.hidden)return;
-  const choices=available(state());
-  if(!choices.includes(selected))selected=choices.find(id=>id!=='retail')??'retail';
-  align();outer.dataset.mode=mode;cloneRows();showMap();
-  const button=outer.querySelector('[data-m0="advance"]');
-  button.textContent=mode==='half'?'地図を全画面に　⌃':'地図を半開きに　⌄';
-  button.setAttribute('aria-label',mode==='half'?'地図を全画面にする':'地図を半開きにする');
+  const ids=available(state());if(!ids.includes(selected))selected=ids.find(x=>x!=='retail')??'retail';
+  align();outer.dataset.mode=mode;syncRows();syncMap();
+  advance.textContent=mode==='half'?'全画面':'縮小';advance.setAttribute('aria-label',mode==='half'?'地図を全画面にする':'地図を縮小する');
+  zoomControls.hidden=mode!=='full';layoutMap();
  }
- function setMode(next){if(!['closed','half','full'].includes(next))return;mode=next;animationEpoch++;update();}
+ function setMode(next){
+  if(!['closed','half','full'].includes(next)||next===mode)return;
+  mode=next;animationEpoch++;pointers.clear();gesture=null;
+  if(next==='closed'){suppressAdvance=false;}update();
+ }
  function consume(before,after){
   if(!active()||mode!=='half')return;
   const sales=savedMarketSales(before,after).filter(s=>s.shopId===selected);
@@ -84,37 +139,67 @@ export function createM0Observation({document:doc,state,model,room,modal,art,sta
    const bottle=rows.querySelector('[data-m0-shop="'+sale.shopId+'"] .market-stock-row[data-m0-product="'+sale.productId+'"] .market-bottle');
    if(bottle)originals.set(sale.productId,{rect:bottle.getBoundingClientRect(),html:bottle.innerHTML});
   }
-  update();
-  if(reduced.matches||doc.hidden)return;
+  update();if(reduced.matches||doc.hidden)return;
   const token=++animationEpoch;
-  const groups=ordinarySaleGroups(sales.map(s=>({shopId:s.shopId,productId:s.productId,units:s.count})));
+  const groups=ordinarySaleGroups(sales.map(x=>({shopId:x.shopId,productId:x.productId,units:x.count})));
   for(const group of groups){
-   const origin=originals.get(group.productId),target=rows.querySelector('[data-m0-shop="'+group.shopId+'"] .market-store-icon');
-   if(!origin||!target)continue;
-   const r=origin.rect,t=target.getBoundingClientRect();
-   const from={x:r.left+r.width/2,y:r.top+r.height/2},to={x:t.left+t.width/2,y:t.top+t.height/2};
-   const flight=retailSalePlan(1,{from,to,grid:3,railY:t.top});
-   for(const f of flight){
+   const origin=originals.get(group.productId),dest=rows.querySelector('[data-m0-shop="'+group.shopId+'"] .market-store-icon');
+   if(!origin||!dest||token!==animationEpoch)continue;
+   const r=origin.rect,t=dest.getBoundingClientRect(),from={x:r.left+r.width/2,y:r.top+r.height/2},to={x:t.left+t.width/2,y:t.top+t.height/2};
+   for(const flight of retailSalePlan(1,{from,to,grid:3,railY:t.top})){
     if(token!==animationEpoch)break;
     const ghost=doc.createElement('span');ghost.className='m0-flight';ghost.setAttribute('aria-hidden','true');ghost.innerHTML=origin.html;
-    Object.assign(ghost.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
-    doc.body.append(ghost);
+    Object.assign(ghost.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});doc.body.append(ghost);
     if(!ghost.animate){ghost.remove();continue;}
-    ghost.animate(f.frames,{duration:f.duration,delay:f.delay||0,fill:'none'}).finished.catch(()=>{}).finally(()=>ghost.remove());
+    ghost.animate(flight.frames,{duration:flight.duration,delay:flight.delay||0,fill:'none'}).finished.catch(()=>{}).finally(()=>ghost.remove());
    }
   }
  }
+ function changeZoom(next){if(mode!=='full')return;zoom=clamp(next,1,3);transform();}
  outer.addEventListener('click',event=>{
-  const pin=event.target.closest('[data-m0-shop]');if(pin){const id=pin.dataset.m0Shop;if(available(state()).includes(id)){selected=id;update();}return;}
+  const pin=event.target.closest('[data-m0-shop]');
+  if(pin){if(!suppressPinClick&&available(state()).includes(pin.dataset.m0Shop)){selected=pin.dataset.m0Shop;update();}suppressPinClick=false;return;}
   const action=event.target.closest('[data-m0]')?.dataset.m0;
   if(suppressAdvance&&action==='advance'){suppressAdvance=false;event.preventDefault();return;}
   if(action==='advance')setMode(mode==='half'?'full':'half');
   if(action==='close')setMode('closed');
+  if(action==='zoom-in')changeZoom(zoom+.5);
+  if(action==='zoom-out')changeZoom(zoom-.5);
  });
  const handle=outer.querySelector('.m0-handle');
- handle.addEventListener('pointerdown',e=>{suppressAdvance=false;if(e.target.closest('[data-m0="close"]'))return;drag={id:e.pointerId,y:e.clientY};handle.setPointerCapture(e.pointerId);});
- handle.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const dy=e.clientY-drag.y;drag=null;if(Math.abs(dy)>28){suppressAdvance=true;e.preventDefault();setMode(dy<0?'full':'half');}});
+ handle.addEventListener('pointerdown',e=>{suppressAdvance=false;if(e.target.closest('[data-m0="close"]'))return;drag={id:e.pointerId,y:e.clientY,action:e.target.closest('[data-m0]')?.dataset.m0};handle.setPointerCapture(e.pointerId);});
+ handle.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const d=drag,dy=e.clientY-d.y;drag=null;if(Math.abs(dy)>28){suppressAdvance=true;e.preventDefault();setMode(dy<0?'full':'half');}else if(d.action==='advance'){suppressAdvance=true;setMode(mode==='half'?'full':'half');}});
  handle.addEventListener('pointercancel',()=>{drag=null;});
- window.addEventListener('resize',update);
- return {open:()=>setMode('half'),close:()=>setMode('closed'),setMode,update,consume,reset:()=>{mode='closed';selected='town-liquor';animationEpoch++;update();},get mode(){return mode;}};
+ // The map and hit targets belong to one transform layer; no independent pin drift.
+ windowEl.addEventListener('pointerdown',e=>{
+  if(mode!=='full')return;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  windowEl.setPointerCapture?.(e.pointerId);
+  if(pointers.size===1)gesture={centroid:{x:e.clientX,y:e.clientY},distance:null,moved:false};
+  else if(pointers.size>=2){const [a,b]=[...pointers.values()];gesture={centroid:{x:(a.x+b.x)/2,y:(a.y+b.y)/2},distance:Math.hypot(a.x-b.x,a.y-b.y),moved:true};}
+ });
+ windowEl.addEventListener('pointermove',e=>{
+  if(mode!=='full'||!pointers.has(e.pointerId))return;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  const current=[...pointers.values()],center=current.length>1?{x:(current[0].x+current[1].x)/2,y:(current[0].y+current[1].y)/2}:current[0];
+  if(!gesture){gesture={centroid:center,distance:null,moved:false};return;}
+  const dx=center.x-gesture.centroid.x,dy=center.y-gesture.centroid.y;
+  if(Math.abs(dx)+Math.abs(dy)>3)gesture.moved=true;
+  pan.x+=dx;pan.y+=dy;
+  if(current.length>1){const dist=Math.hypot(current[0].x-current[1].x,current[0].y-current[1].y);
+   if(gesture.distance>0)zoom=clamp(zoom*dist/gesture.distance,1,3);
+   gesture.distance=dist;gesture.moved=true;
+  }else gesture.distance=null;
+  gesture.centroid=center;transform();
+ });
+ const endPointer=e=>{if(!pointers.has(e.pointerId))return;const moved=gesture?.moved||false;pointers.delete(e.pointerId);
+  if(moved)suppressPinClick=true;
+  if(!pointers.size)gesture=null;else{const a=[...pointers.values()][0];gesture={centroid:a,distance:null,moved:true};}
+ };
+ windowEl.addEventListener('pointerup',endPointer);windowEl.addEventListener('pointercancel',endPointer);
+ window.addEventListener('resize',()=>{placementKey='';squareKey='';update();});
+ if(typeof ResizeObserver==='function')new ResizeObserver(()=>{squareKey='';layoutMap();}).observe(windowEl);
+ return {open:()=>setMode('half'),close:()=>setMode('closed'),setMode,update,consume,
+ reset:()=>{mode='closed';selected='town-liquor';lastStore='town-liquor';zoom=1;pan={x:0,y:0};placementKey='';squareKey='';paintKey='';pinKey='';rowKeys.clear();animationEpoch++;update();},
+ get mode(){return mode;}};
 }
