@@ -1,0 +1,18 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {scopedNotices} from '../event-notices.mjs';
+function harness(){let time=0,room='sales',safe=true,id=0;const timers=new Map(),shown=[];let visible=null;
+ const lane=scopedNotices({room:()=>room,safe:()=>safe,now:()=>time,show:(text,entries,duration,kind)=>{visible={text,entries,duration,kind};shown.push(visible);},hide:()=>visible=null,setTimer:(fn,ms)=>{timers.set(++id,{fn,at:time+ms});return id;},clearTimer:id=>timers.delete(id)});
+ return {lane,shown,get visible(){return visible;},advance(ms){const end=time+ms;for(;;){const next=[...timers].sort((a,b)=>a[1].at-b[1].at)[0];if(!next||next[1].at>end)break;timers.delete(next[0]);time=next[1].at;next[1].fn();}time=end;},room(r){room=r;lane.update();},safe(v){safe=v;lane.update();},timers};}
+const op=n=>({id:'bottle:'+n,kind:'bottled',count:n}),world=n=>({id:'town:'+n,kind:'message',text:'news '+n}),shop=n=>({id:'shop:'+n,kind:'shop',entry:{id:n,text:'shop '+n}}),daily=n=>({id:'daily:'+n,kind:'ambient',text:'daily '+n});
+test('active ordinary message cannot be overwritten; priority applies only to next slot',()=>{const h=harness();h.lane.push([shop(1)]);h.lane.push([world(1),op(1),daily(1)]);assert.equal(h.visible.kind,'shop');h.advance(6500);assert.equal(h.visible.kind,'operation');h.advance(3500);assert.equal(h.visible.kind,'world');h.advance(6500);assert.equal(h.visible,null);});
+test('latest slots replace waiting months without concatenation or unbounded queue',()=>{const h=harness();h.safe(false);for(let n=1;n<=1200;n++)h.lane.push([op(n),world(n),shop(n),daily(n)]);assert.equal(h.lane.inspect().pending.length,3);assert.equal(h.lane.inspect().seen,256);h.safe(true);assert.equal(h.visible.text,'ビン詰め完了 1200本');h.advance(3500);assert.equal(h.visible.text,'news 1200');h.advance(6500);assert.equal(h.visible.entries[0].entry.id,1200);assert(h.lane.inspect().discarded>4000);});
+test('occluded news waits without hidden timer and reappears; newer waiting news wins',()=>{const h=harness();h.lane.push([world(1)]);h.advance(50);h.safe(false);assert.equal(h.timers.size,0);h.advance(100000);h.safe(true);assert.equal(h.visible.text,'news 1');h.lane.push([world(2)]);h.safe(false);h.safe(true);assert.equal(h.visible.text,'news 2');});
+test('sufficiently visible shop line is not repeated after exit, early exit defers',()=>{for(const elapsed of [100,4000]){const h=harness();h.lane.push([shop(1)]);h.advance(elapsed);h.room('distill');h.advance(10000);h.room('sales');assert.equal(h.visible?.kind??null,elapsed<3500?'shop':null);}});
+test('results wait for their room; ambient has no queue; reset never replays',()=>{const h=harness();h.safe(false);h.lane.push([op(1),daily(1)]);h.room('warehouse');h.safe(true);assert.equal(h.visible,null);h.room('sales');assert.equal(h.visible.kind,'operation');h.lane.reset();h.advance(50000);assert.equal(h.visible,null);assert.equal(h.lane.inspect().pending.length,0);});
+test('duplicate ids in batch and subsequent updates do not repeat',()=>{const h=harness(),e=world(1);h.lane.push([e,e]);h.advance(6500);h.lane.push([e]);assert.equal(h.shown.length,1);});
+test('new result participates in priority when push is first synchronization after occlusion',()=>{
+ let safe=false;const shown=[];
+ const lane=scopedNotices({room:()=>'sales',safe:()=>safe,show:(_text,_entries,_duration,kind)=>shown.push(kind),hide:()=>{},setTimer:()=>1,clearTimer:()=>{}});
+ lane.push([world(1)]);safe=true;lane.push([op(1)]);
+ assert.deepEqual(shown,['operation']);assert.deepEqual(lane.inspect().pending.map(n=>n.kind),['world']);
+});

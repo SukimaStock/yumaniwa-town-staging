@@ -44,42 +44,55 @@ export function transientNotices({show,hide,setTimer=setTimeout,clearTimer=clear
  return {push(events,lifetime=duration){const batchIds=new Set(),fresh=events.filter(e=>{if(seen.has(e.id)||batchIds.has(e.id))return false;batchIds.add(e.id);return true;});if(!fresh.length)return;for(const e of fresh){seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);}visible.push(...fresh);if(visible.length>32)visible=visible.slice(-32);if(timer!==null)clearTimer(timer);show(noticeText(visible),visible,lifetime);timer=setTimer(()=>{clear();onExpire();},lifetime);},clear,reset(){clear();seen.clear();}};
 }
 
-// Room ownership is ephemeral. World news keeps only the latest unseen fact;
-// operation results stay where they happened and never follow a room change.
-export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTimer=clearTimeout}){
- let owner=room(),pending=null,ambientPending=null,active=false,serial=0;
- const seen=new Set();
- const display=transientNotices({show:(text,entries,lifetime)=>{active=true;show(text,entries,lifetime);},hide:()=>{active=false;hide();},setTimer,clearTimer,onExpire:()=>update()});
- function sync(){
-  if(owner!==room()){display.clear();ambientPending=null;owner=room();}
-  // Daily observations are ephemeral: never follow a room change or unsafe modal.
-  if(!safe()){display.clear();ambientPending=null;}
-}
+// One presentation lane, bounded UI-only slots. Saved events and eligibility are
+// owned by the model; this controller never mutates them or serializes history.
+export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTimer=clearTimeout,now=()=>performance.now(),eligible=()=>true}){
+ let current=null,timer=null,serial=0,epoch=0;
+ const pending=new Map(),seen=new Set();
+ const stats={received:0,displayed:0,discarded:0,interrupted:0};
+ const priority={operation:0,world:1,shop:2,ambient:3};
+ const key=n=>n.kind==='operation'?'operation:'+n.room:n.kind;
+ const allowed=n=>safe()&&(n.kind==='world'||n.kind==='shop'?room()==='sales':room()===n.room)&&eligible(n);
+ function stop(){if(timer!==null)clearTimer(timer);timer=null;current=null;hide();}
+ function retain(n){const k=key(n),old=pending.get(k);if(old){if(old.serial>n.serial){stats.discarded++;return;}stats.discarded++;}pending.set(k,n);}
  function update(){
-  sync();if(active||!safe())return;
-  if(pending&&room()==='sales'){
-    const event=pending;pending=null;display.push([{...event,id:'world-display:'+ ++serial}],6500);return;
+  if(current&&!allowed(current)){
+   const old=current,visible=now()-old.started;stop();stats.interrupted++;
+   // Below the reading threshold, retain the fact, not a running hidden timer.
+   // Daily observations are deliberately disposable. Newer pending facts win.
+   if(old.kind!=='ambient'&&visible<3500)retain(old);else stats.discarded++;
   }
-  if(ambientPending){
-    const event=ambientPending;ambientPending=null;
-    display.push([{...event,kind:'message',id:'daily-display:'+ ++serial}],6000);
+  if(current)return;
+  const next=[...pending.values()].filter(allowed).sort((a,b)=>priority[a.kind]-priority[b.kind]||a.serial-b.serial)[0];
+  if(!next)return;
+  pending.delete(key(next));current=next;next.started=now();stats.displayed++;
+  const entries=next.kind==='world'?[{...next.events[0],id:'world-display:'+next.serial}]:next.kind==='ambient'?[{...next.events[0],kind:'message',id:'daily-display:'+next.serial}]:next.events;
+  show(noticeText(entries),entries,next.duration,next.kind);
+  timer=setTimer(()=>{stop();update();},next.duration);
+ }
+ function push(events){
+  // Register this transition before choosing the next slot on becoming visible.
+  const fresh=[];
+  for(const e of events){if(seen.has(e.id))continue;seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);fresh.push(e);stats.received++;}
+  const groups={operation:[],world:[],shop:[],ambient:[]};
+  for(const e of fresh)groups[e.kind==='shop'?'shop':e.kind==='ambient'?'ambient':e.id.startsWith('town:')?'world':'operation'].push(e);
+  for(const kind of ['operation','world','shop'])if(groups[kind].length){
+   const entries=kind==='operation'?groups[kind]:[groups[kind].at(-1)];
+   stats.discarded+=groups[kind].length-entries.length;
+   const length=noticeText(entries).length;
+   retain({kind,events:entries,room:room(),serial:++serial,duration:kind==='operation'?3500:kind==='world'?Math.min(10000,Math.max(6500,length*90)):6500});
   }
-}
- return {
-  push(events){
-   sync();const fresh=events.filter(e=>!seen.has(e.id));for(const e of fresh){seen.add(e.id);if(seen.size>256)seen.delete(seen.values().next().value);}
-   const world=fresh.filter(e=>e.id.startsWith('town:'));
-   if(world.length)pending=world.at(-1);
-   const ambient=fresh.filter(e=>e.kind==='ambient');
-   if(ambient.length&&safe())ambientPending=ambient.at(-1);
-   const results=fresh.filter(e=>e.kind!=='ambient'&&!e.id.startsWith('town:'));
-   // A single saved transition replaces the previous result, without joining
-   // unrelated months. Full details remain in the existing ledger.
-   if(results.length&&safe()){display.clear();display.push(results);}
-   update();
-  },
-  update,
-  clear(){display.clear();ambientPending=null;update();},
-  reset(){display.reset();seen.clear();pending=null;ambientPending=null;owner=room();}
+  update();
+  // No ambient backlog, even behind results from this same saved transition.
+  if(groups.ambient.length){
+   const n={kind:'ambient',events:[groups.ambient.at(-1)],room:room(),serial:++serial,duration:6000};
+   if(!current&&pending.size===0&&allowed(n)){retain(n);update();stats.discarded+=groups.ambient.length-1;}
+   else stats.discarded+=groups.ambient.length;
+  }
+ }
+ return {push,update,clear(){stop();update();},reset(){epoch++;stop();pending.clear();seen.clear();for(const k of Object.keys(stats))stats[k]=0;},
+  get epoch(){return epoch;},
+  get active(){return current?.kind??null;},
+  inspect(){return {active:current?.kind??null,pending:[...pending.values()].map(n=>({kind:n.kind,room:n.room})),seen:seen.size,...stats};}
  };
 }

@@ -53,3 +53,5 @@
   animation:none!important;transform:none!important;opacity:1!important;
  }
 }
+/* Passive messages do not capture taps, swipes, focus, or map gestures. */
+#automatic-news,#shop-dialogue-notice{pointer-events:none;cursor:default;}

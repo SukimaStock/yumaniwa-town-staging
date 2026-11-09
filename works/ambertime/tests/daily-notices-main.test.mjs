@@ -21,16 +21,16 @@ function harness(initialRoom='distill'){
 }
 const daily={id:'daily:10:E086',kind:'ambient',eventId:'E086',month:10,text:'隣の店主がおまんじゅうをくれました。'};
 
-test('sales result stays first, daily follows and vanishes after six seconds',()=>{
+test('result wins and competing daily is discarded without a backlog',()=>{
  const h=harness();h.board.push([{id:'sales:10',kind:'sales',count:2,revenue:20},daily]);
  assert.equal(h.shown.length,1);assert.match(h.shown[0].text,/販売 2本/);
- h.advance(3500);assert.equal(h.shown.length,2);assert.equal(h.shown[1].text,daily.text);
- h.advance(6000);assert.equal(h.shown.length,2);
+ h.advance(3500);assert.equal(h.shown.length,1);
+ h.advance(6000);assert.equal(h.shown.length,1);
 });
 test('world news precedes daily in sales room',()=>{
  const h=harness('sales');h.board.push([{id:'town:e17',kind:'message',text:'世界の便り',priority:5},daily]);
  assert.equal(h.shown.length,1);assert.equal(h.shown[0].text,'世界の便り');
- h.advance(6500);assert.equal(h.shown[1].text,daily.text);
+ h.advance(6500);assert.equal(h.shown.length,1);
 });
 test('room change, unsafe modal, explicit dismiss discard ambient',()=>{
  for(const kind of ['room','unsafe','dismiss']){

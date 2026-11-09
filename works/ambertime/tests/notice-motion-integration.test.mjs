@@ -18,12 +18,14 @@ function harness(){
  return {h,shown,advance,setRoom:value=>{room=value;h.update();},setSafe:value=>{isSafe=value;h.update();}};
 }
 const daily={id:'daily:10:E086',kind:'ambient',month:10,eventId:'E086',sourceLabel:'初代のひとこと',text:'隣の店主がおまんじゅうをくれました。'};
-test('operation remains first; ambient is rendered with speaker label after it',()=>{
+test('operation remains first; competing ambient has no waiting slot',()=>{
  const {h,shown,advance}=harness();
  h.push([{id:'sales:10',kind:'sales',count:2,revenue:20},daily]);
  assert.equal(shown.length,1);assert.equal(shown[0].view.motion,'operation');
  advance(3500);
- assert.equal(shown.length,2);assert.deepEqual(shown[1].view,{motion:'ambient',heading:'初代のひとこと'});
+ assert.equal(shown.length,1);
+ h.push([{...daily,id:'daily:11:E086'}]);
+ assert.deepEqual(shown[1].view,{motion:'ambient',heading:'初代のひとこと'});
  assert.equal(shown[1].duration,6000);assert.equal(shown[1].text,daily.text);
 });
 test('world news arrives later from a single genuine town event',()=>{
