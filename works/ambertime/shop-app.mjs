@@ -725,7 +725,7 @@ function startFromLever(){
  prepareDistillation(x=>{if(!D.stage4Mode(x))return D.startDistillation(x);const cards=manualCards(x);if(cards.ferment!==x.labConnection.cards.ferment)x=D.selectFlavorCards(x,cards);return D.startRangeDistillation(x);});
 }
 function endTaste(){if(!game||!preview&&!canSave)return false;if(game.tastingId!==null){const next=D.endTasting(game);if(!saveCandidate(next))return false;game=next;}return true;}
-function selectRoom(next){if(!game||!preview&&!canSave||!['distill','warehouse','sales'].includes(next)||modal)return;marketUI.cancel();marketEditing=false;countdown.cancel();stopClock();if(manualDistilling())userPaused=true;if(!endTaste()){render();return;}if(next==='distill')shownFillSpiritId=null;room=next;save();render();schedule();}
+function selectRoom(next){if(!game||!preview&&!canSave||!['distill','warehouse','sales'].includes(next)||modal)return;marketUI.cancel();marketEditing=false;countdown.cancel();stopClock();if(manualDistilling())userPaused=true;if(!endTaste()){render();return;}if(next==='distill')shownFillSpiritId=null;room=next;if(m0.mode==='full')m0.setMode('half');save();render();schedule();}
 // The internal identity remains the action target; its display serial is derived.
 const caskLabel=c=>caskName(c.id)+' '+uiText(P.casks[c.type].short);
 const button=(text,action,id='',extra='')=>'<button type="button" data-action="'+action+'" data-id="'+id+'" '+(text==='閉じる'?'data-close="true" ':text.endsWith('戻る')?'data-return="true" ':'')+extra+'>'+text+'</button>';
@@ -1126,6 +1126,7 @@ function render(){
  $('open-world-map').disabled=!mapProgress(game).bottled&&mapShown===0;$('open-world-map').hidden=$('open-world-map').disabled;
  $('open-m0-map').hidden=true; // The original map control is the single entrance in the sales room.
  $('open-world-map').textContent='地図';
+ $('open-world-map').setAttribute('aria-pressed',String(m0.isOpen));
  $('start-distill').hidden=countdown.active||phase!=='ready'||!D.stage4Mode(game);$('stop-distill').hidden=automatic||phase!=='distilling'||atLimit;$('open-fill').hidden=true; // Barrel selection now belongs exclusively to the fill modal.
  const gen=generationState();$('generation-name').textContent=gen?generationName(gen.id):'';const banner=$('generation-notice');banner.hidden=!gen||gen.phase==='working';banner.textContent=gen?.phase==='last-batch'?generationName(gen.id)+'の最後の仕込み · '+monthLabel(gen.fixedMonth+12)+'まで':gen?.phase==='review'?generationName(gen.id)+'の歩みを確認します。':'';
  const start=D.canStart(game);$('start-distill').disabled=countdown.active||!start.ok;const confirmedChoice=D.stage4Mode(game)?brewingPanelState(game,distillRoom.confirmation):null;$('start-distill').textContent='仕込み '+money(P.distillationCost)+(confirmedChoice?'・'+({plain:'ふつう',peat:'ピート'}[confirmedChoice.malt])+'・'+({short:'短め',long:'長め'}[confirmedChoice.ferment]):'');
@@ -1223,7 +1224,7 @@ $('open-aux-menu').addEventListener('click',()=>openModal('aux-panel'));
 $('open-world-map').addEventListener('click',()=>{
  // Ordinary browsing uses the same M0 drawer in all three rooms.
  // The separate first-unlock presentation is still owned by its native event.
- if(!modal&&game&&(preview||canSave)){m0.open();return;}
+ if(!modal&&game&&(preview||canSave)){m0.toggle();return;}
  openDailyMap();
 });
 
@@ -1243,7 +1244,7 @@ $('stop-distill').addEventListener('click',finishDistillation);$('open-fill').ad
 $('taste-button').addEventListener('click',()=>trial(warehouseRoom.selectedId));$('glass-button').addEventListener('click',()=>{if(game?.tastingId===null)trial(warehouseRoom.selectedId);});
 for(const id of ['cool-cask','cool-tasting'])$(id).addEventListener('click',()=>{if(!game||modal?.kind!=='inspect'||!D.freeAgingMode(game)||!D.canCare(game,warehouseRoom.selectedId))return;act(s=>D.careForCask(s,warehouseRoom.selectedId));});
 $('end-tasting').addEventListener('click',()=>modal?.ledgerParent?finishLedgerTasting():act(D.endTasting));$('open-bottle').addEventListener('click',()=>quoteModal(warehouseRoom.selectedId));$('taste-bottle').addEventListener('click',()=>quoteModal(warehouseRoom.selectedId));
-$('open-m0-map').addEventListener('click',()=>{if(room==='sales'&&!modal&&game)m0.open();});
+$('open-m0-map').addEventListener('click',()=>{if(room==='sales'&&!modal&&game)m0.toggle();});
 $('toggle-time').addEventListener('click',()=>{if(!preview&&!canSave)return;placementUI?.cancel();if(countdown.active)return;if(runtimeHalted){runtimeHalted=false;}else userPaused=!userPaused;save();render();schedule();});
 $('toggle-speed').addEventListener('click',()=>{if(!game||(!preview&&!canSave)||document.hidden||modal?.kind!=='aux-panel')return;stopClock();playbackRate=playbackRate===1?2:1;modal=null;render();schedule();});
 $('close-dialog').addEventListener('click',closeModal);$('action-dialog').addEventListener('cancel',e=>{e.preventDefault();closeModal();});
@@ -1506,7 +1507,7 @@ async function boot(){
 
 window.amberPlacement={snapshot:()=>structuredClone(game),diagnostics:()=>({placement:true,saveKey:SAVE_KEY,clockPending:timer!==null,playbackRate,canSave,lastSaveError:debugEnabled?lastSaveError:null,caskSlots:[...caskSlots],saveVersion:isCurrentSession(lastSavedText)?DEVELOPMENT_SAVE_VERSION:null,ui:placementUI.diagnostics(),market:marketUI.diagnostics()} )};
 const scene=new CanvasScene();
-const m0=createM0Observation({document,state:()=>game,model:D,room:()=>room,modal:()=>modal,art:productArt,stage:()=>worldMapStage});
+const m0=createM0Observation({document,state:()=>game,model:D,room:()=>room,modal:()=>modal,onModeChange:active=>{$('open-world-map').setAttribute('aria-pressed',String(active));scene.queue();}});
 for(const [id,label] of [['distill-lever','レバーを下に引く'],['distill-glass','グラス']]){const node=document.createElement('button');node.type='button';node.id=id;node.className='distill-tool-hit';node.setAttribute('aria-label',label);node.setAttribute('aria-describedby','distill-tool-guide');scene.controlRoot.append(node);}
 const guide=document.createElement('span');guide.id='distill-tool-guide';guide.className='sr-only';$('scene-access').append(guide);
 const toolInput=new DistillToolInput({root:scene.root,lever:$('distill-lever'),glass:$('distill-glass'),read:()=>({...currentDistillTools(),glassTravel:TOOL_GEOMETRY.travel*scene.viewport.scale}),onChange:value=>scene.setToolGesture(value),onAction:kind=>{if(kind==='lever')startFromLever();else if(currentDistillTools().glassEnabled)finishDistillation();}});
