@@ -1,0 +1,160 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a5f55035c2e4df00cea74663173fb3f4bfe87523781cf0a147fca36ddf06aa6d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-partner-selection-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Free six-view map browsing and shared presentation partner selection for M0, daily map and sales room",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "d639f541c10c1495f5a98a2ab1c409dab26bbaa1",
+    "canonicalSources": [
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/regional-partners.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-partner-selection-20261110/r0.lock.json",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/map-partners.mjs",
+      "works/ambertime/map-daily-view.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/world-map-view.test.mjs",
+      "works/ambertime/tests/map-daily-view.test.mjs",
+      "works/ambertime/tests/map-daily-ui.test.mjs",
+      "works/ambertime/tests/map-sales-view.test.mjs",
+      "works/ambertime/tests/map-stage2-view.test.mjs",
+      "works/ambertime/tests/map-sales-regression.test.mjs",
+      "works/ambertime/tests/m0-map-observation.test.mjs",
+      "works/ambertime/tests/map-partners.test.mjs",
+      "works/ambertime/tests/map-partner-ui.test.mjs",
+      "works/ambertime/tests/map-partner-browser.test.mjs",
+      "works/ambertime/design/map-partner-selection.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/regional-partners.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime-strategy-lab/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Independent browse maximum6 while mapProgress stays factual; free renderer and active browse controls never write facts",
+      "Shared mapPartnerProjection derives contact/offer/contract/delivery state and exact authored bounds; native town scopes and regionaldesk stage4; no invented national/world partners",
+      "M0 stage selector and callback-fed shared display state, existing half/full/pan/pinch/L-corners and read-only native shelf clones; trade callback returns to real marketUI",
+      "App shared session mapview state acrossdaily/M0 and shopsForState filter; selfsales always plus current scope/selected qualified partner; department stays specialmodal",
+      "UI-only view persistence supportsoldv1 and sanitizedperstagezoom/pan/stage4selection; unsafe/missing selected targets cleared",
+      "Notice version3 separates actual reach acknowledgements from geographic browsing; legacy notices migrate consumedwithout flood; new actual reaches stillnotify",
+      "Minimal marketUI stale editing guard on display target change without resetting same-stage scroll or model state",
+      "Natural seed3/6 map selection/region allocation/delivery tests, all6viewsreadonly, notices/persistence/geometry/input tests, oldregressions, browserattempt and independentreview"
+    ],
+    "ownerDecisions": [
+      "User Stage4 explicitly authorizes freely browsing6existing maps, mapselect filtering existing marketUI, display-only persistence and safe Staging merge"
+    ],
+    "hqDecisions": [
+      "No formal game operation/schema/economy/contract/save change; geography viewing never changes reached/receipt/replay",
+      "Shared presentation projection owns stage/target/status/geometry; existing model APIs remain transaction authority",
+      "Region desk anchor uses existing stage4 northeast hamlet bounds[86,36,12,12], not real province/country; distillery[60,66,12,16]",
+      "Native sprites use authored bounds. Department schematic anchor uses existing unclaimed stage3house[24,48,12,16], stays specialhandling/no normal shelf",
+      "mapProgress.max remains factual for notifications; browse max6 only, actual reach notice uses separate UI counters; no fabricated rumor",
+      "Presentation state on existing session mapview key, v1backward-compatible read plus v2camera; notice record v3migration acknowledges historical factualmax",
+      "M0 top shelf is read-only clone, no parallel sales actions. Existing salesroom gets selection through shopsForState; map report can open info or return to sales",
+      "Only changed active map/market/app module parent-child URLs refresh; formal model module URLs and Stage5 remain unchanged"
+    ],
+    "rulesApplied": [
+      "Change OS exact-base locked Full scope and existing formal v8 save/replay contract",
+      "Expression audit: reuse modal; only name, preference, actual source and3choices, no new panels or decorative copy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Attempt actual browser4phone sizes stage/selection/half/full/pan/pinch/reducedmotion/keyboard/failedsavedelivery",
+      "Node harness actual M0/map/sales transition behavior and formalstate immutability",
+      "Inspect source geometry using authored cellcoords and region receipt display neverlabels customersales",
+      "Independent review, requiredCI and Pages exactbytes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert display-only change; oldUI displaystate safely sanitized, formal saves remain untouched",
+    "outOfScope": [
+      "Formal model/save/replay changes",
+      "New map assets/prefectures/countries/partners",
+      "Economic/offer/contract/delivery changes",
+      "Scenerybox/flowers/butterflies",
+      "Rumortransmission changes",
+      "Stage5 persistence revision fix",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware; browsergeometry if launchblocked"
+    ],
+    "problem": "Map view is progression gated and cannot select the existing regional procurement partner for existing market interactions",
+    "currentContract": "Sixauthoredviews,M0 local read-only shelf clone, daily map separate display,persisted sessionUIviewv1; actual native/regional model formal",
+    "whyExistingIsInsufficient": "Browse max mixedwithreach notifications and two map paths use disparate pin/selection rules; Stage4 regional contract cannot be selected on map",
+    "design": "Shared pure partner/displayprojection and UI-onlyview normalization; app hosts shared state and sales filtering, M0/day present it; freebrowse while oldreachfacts kept",
+    "alternativesRejected": [
+      "New economy/managementscreen",
+      "Mark viewing as reached",
+      "Static availability as contract",
+      "Duplicate sales handlers inM0",
+      "New country/province definitions"
+    ],
+    "migration": "Read legacy mapviewv1, sanitize selections/cameras, storeUIv2; migrate noticev1/v2 factualseen baseline tov3 without replaying old announcements. Formalgame untouched.",
+    "compatibility": "Existing6art/maps,transactions/IDs/native save bytes intact; oldmap expectations only changed where user explicitly freed browsing/addedstage4selection/newactualnotice semantics",
+    "boundaryCases": [
+      "Nocontact/offeronly/contract/delivered/declined/unavailable selection",
+      "All6viewsandnosyntheticworldpartners",
+      "Mapbrowsing no facts; oldnotificationmigration and subsequentactualreach",
+      "Same-stage selection preservescamera/scroll; scaletransition sensiblecamera; close/reopen",
+      "Pan/pinch/tap/key/reducedmotion",
+      "Selfsale always available,department special path,realregionaldelivery"
+    ],
+    "testPlan": [
+      "Natural seed3/6 contract/delivery mapselector through existing region APIs",
+      "Readonly6views +canonicalbounds +activitymetadata +unknowncustomerSales",
+      "M0/app/sharedview harness, notice migration, storagefailure safe fallback",
+      "Relevant maps/native save/region transactions/sales regression + baseline knownfailures",
+      "RequiredCI independentreview Pages; realbrowserattempt4phone sizes"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
