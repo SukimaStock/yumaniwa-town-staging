@@ -20,7 +20,7 @@ import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
 import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01';
-import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01';
+import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {createFeedbackComments,recentCustomerFeedback,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=reactions-s1-1&rooms=stage3-r1&status=1&aging=1';
@@ -28,9 +28,10 @@ import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=for
 import {RuntimeClock} from './runtime-clock.mjs?v=0.25.1';
 import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1';
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
-import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,MAP_BROWSE_MAX,mapObservationBounds,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01';
+import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,MAP_BROWSE_MAX,mapObservationBounds,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01';
+import {mapSceneryButterflies,syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01';
 import {mapPartnerProjection,marketPartnersForMap} from './map-partners.mjs?v=map-partners-v01';
-import {dailyMapProjection,normalizeMapView,loadMapView,saveMapView} from './map-daily-view.mjs?v=bar-v01-1&map=map-partners-v01';
+import {dailyMapProjection,normalizeMapView,loadMapView,saveMapView} from './map-daily-view.mjs?v=bar-v01-1&map=map-partners-v01&scenery=map-scenery-v01';
 import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard,brewingPanelState} from './brewing-cards.mjs?v=confirmed-brewing-r1';
 import {playerMilestones} from './player-news.mjs?v=0.25.4';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
@@ -987,6 +988,9 @@ function updateBottleSelection(){
 // Move the original panels, rather than copying their inputs or event handlers.
 function vaultPanels(){for(const id of ['selected-cask','staff-panel','free-actions','tasting-actions','aux-panel']){const n=$(id);if(n.closest('#action-dialog'))$('panel-vault').append(n);}}
 function syncModal(){
+ installSceneryMotion(document);
+ if(modal?.kind!=='world-map')for(const layer of document.querySelectorAll('.map-scenery-butterflies'))if(!layer.closest('#m0-observation'))layer.dataset.active='false';
+ let mapScenery=null;
  const dialog=$('action-dialog'),previousKind=dialog.dataset.kind;
  if(!preview&&!canSave){recoveryAccess();return;}
  if(!dialog.open&&modal){
@@ -1019,10 +1023,10 @@ function syncModal(){
  }else if(kind==='aux-panel'){title='メニュー';
  }else if(kind==='world-map'){
   worldMapStage=Math.max(1,Math.min(worldMapStage,mapViewMax()));const introduction=modal.source==='unlock';
-  const data=dailyMapProjection(game,worldMapStage);
+  const data=dailyMapProjection(game,worldMapStage);mapScenery=data.scenery;
   if(!introduction){const normalized=normalizeMapView({stage:worldMapStage,selectedShop:modal.selectedShop},mapViewMax(),data.pins.map(p=>p.id));modal.selectedShop=normalized.selectedShop;}
   const selected=modal.selectedShop;
-  const surface='<div class="world-map-surface"><canvas id="world-map-canvas" width="144" height="144" role="img" aria-label="'+esc(MAP_STAGES[worldMapStage-1])+'の地図"></canvas>'+(!introduction?mapSalesMarkup(data,selected):'')+'</div>';
+  const surface='<div class="world-map-surface"><canvas id="world-map-canvas" width="144" height="144" role="img" aria-label="'+esc(MAP_STAGES[worldMapStage-1])+'の地図"></canvas><div class="map-scenery-butterflies" aria-hidden="true" data-motion-key="'+esc(data.scenery.motionKey)+'" data-motion-stage="'+worldMapStage+'">'+mapSceneryButterflies(data.scenery)+'</div>'+(!introduction?mapSalesMarkup(data,selected):'')+'</div>';
   const controls='<div class="world-map-controls">'+button('−','world-map-out','',worldMapStage>=mapViewMax()?'disabled aria-label="縮小"':'aria-label="縮小"')+'<span role="status">'+esc(MAP_STAGES[worldMapStage-1])+'</span>'+button('＋','world-map-in','',worldMapStage===1?'disabled aria-label="拡大"':'aria-label="拡大"')+'</div>';
   title='地図';body='<div class="world-map-view">'+(introduction?'<p class="map-introduction" role="status">'+esc(mapIntroduction(game,worldMapStage))+'</p>'+surface:'<div class="map-browse-row">'+surface+controls+'</div>'+mapSalesReport(data,selected))+'</div>';
   actions=(!introduction?button('販売室へ','map-sales-room'):'')+button(introduction?'つづける':'戻る',introduction?'map-continue':'map-back');
@@ -1178,7 +1182,8 @@ function syncModal(){
  }
  if(kind==='product'&&placementEnabled&&!D.storeMarketMode(game)&&!modal.placementLegacy)placementUI.update();
  if(kind==='flavor-cards')renderBrewingIcons($('dialog-body'));
- if(kind==='world-map'){const canvas=$('world-map-canvas');if(canvas){const progress=mapProgress(game),key=JSON.stringify([worldMapStage,progress.max,progress.reached,[...progress.activeShops]]);const same=canvas.dataset.paintKey===key;const shown=same?worldMapStage:drawGameMap(canvas,game,worldMapStage);if(!same)canvas.dataset.mapDraws=String(Number(canvas.dataset.mapDraws??0)+1);canvas.dataset.paintKey=key;if(modal.source==='unlock'&&!document.hidden&&shown>mapShown){mapShown=shown;mapNoticeSave();}}}
+ if(kind==='world-map'){const canvas=$('world-map-canvas');if(canvas){const progress=mapProgress(game),key=JSON.stringify([worldMapStage,progress.max,progress.reached,[...progress.activeShops],mapScenery?.staticKey]);const same=canvas.dataset.paintKey===key;const shown=same?worldMapStage:drawGameMap(canvas,game,worldMapStage);if(!same)canvas.dataset.mapDraws=String(Number(canvas.dataset.mapDraws??0)+1);canvas.dataset.paintKey=key;if(modal.source==='unlock'&&!document.hidden&&shown>mapShown){mapShown=shown;mapNoticeSave();}}}
+ if(kind==='world-map')syncSceneryLayer($('dialog-body').querySelector('.map-scenery-butterflies'),mapScenery,true);
  if(kind==='first-bottle-complete')modal.ceremonyStarted=true;
  dialog.dataset.kind=kind;$('close-dialog').hidden=kind==='decision'||kind==='generation-review'||kind==='first-bottle-complete'||kind==='world-map'&&modal.source==='unlock';
  if(!dialog.open){$('dialog-title').removeAttribute('tabindex');dialog.showModal();if(pointerInteraction){$('dialog-title').tabIndex=-1;$('dialog-title').focus({preventScroll:true});}}

@@ -1,7 +1,9 @@
 // M0.7: view-only map drawer. All inputs are projections of native game state.
 import {savedMarketSales,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&map=map-partners-v01';
+import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01';
+import {syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01';
 import {mapPartnerProjection,mapPartnerDetail} from './map-partners.mjs?v=map-partners-v01';
-import {drawGameMap,mapProgress,mapObservationBounds,STAGES} from './world-map-view.mjs?v=m07-observation&map=map-partners-v01';
+import {drawGameMap,mapProgress,mapObservationBounds,STAGES} from './world-map-view.mjs?v=m07-observation&map=map-partners-v01&scenery=map-scenery-v01';
 import {retailSalePlan,ordinarySaleGroups} from './retail-sale-motion.mjs?v=count-linked-r1';
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 
@@ -42,16 +44,18 @@ export function mapCornerRect([x,y,w,h],margin=2){
 
 export function createM0Observation({document:doc,state,room,modal,onModeChange=()=>{},view=null,onViewChange=()=>{},onInspect=()=>{},onTrade=()=>{}}){
  const source=doc.getElementById('market-board'),scene=doc.getElementById('scene-root');
+ installSceneryMotion(doc);
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const outer=doc.createElement('section');outer.id='m0-observation';outer.hidden=true;
  outer.setAttribute('aria-label','地図');
  outer.innerHTML=`<div class="m0-top"><div class="m0-rows" aria-label="注目する取扱店"></div></div>
  <div class="m0-drawer"><div class="m0-handle"><span class="m0-grip" aria-hidden="true"><i></i></span><select class="m0-stage" aria-label="地図の視点">${STAGES.map((name,i)=>`<option value="${i+1}">${esc(typeof name==='string'?name:name.name??name.label??String(i+1))}</option>`).join('')}</select><button type="button" data-m0="advance" aria-label="地図を全画面にする"><span class="m0-window-icon" aria-hidden="true"></span></button><button type="button" data-m0="close" aria-label="地図を閉じる">×</button></div>
- <div class="m0-map"><div class="m0-map-window" tabindex="0" aria-label="地図。全画面では指や矢印キーで移動、拡大ボタンで拡大できます"><div class="m0-map-layer"><canvas width="144" height="144" role="img" aria-label="地図"></canvas><div class="m0-pins"></div></div></div>
+ <div class="m0-map"><div class="m0-map-window" tabindex="0" aria-label="地図。全画面では指や矢印キーで移動、拡大ボタンで拡大できます"><div class="m0-map-layer"><canvas width="144" height="144" role="img" aria-label="地図"></canvas><div class="map-scenery-butterflies" aria-hidden="true"></div><div class="m0-pins"></div></div></div>
  <div class="m0-zoom" hidden><button type="button" data-m0="zoom-in" aria-label="地図を拡大">＋</button><button type="button" data-m0="zoom-out" aria-label="地図を縮小">−</button></div>
  <div class="m0-report" role="status" aria-live="polite"></div></div></div>`;
  doc.body.append(outer);
  const rows=outer.querySelector('.m0-rows'),canvas=outer.querySelector('canvas'),pins=outer.querySelector('.m0-pins');
+ const sceneryLayer=outer.querySelector('.map-scenery-butterflies');
  const report=outer.querySelector('.m0-report'),windowEl=outer.querySelector('.m0-map-window'),layer=outer.querySelector('.m0-map-layer');
  const zoomControls=outer.querySelector('.m0-zoom'),advance=outer.querySelector('[data-m0="advance"]');
  let mode='closed',selected=null,lastStore=null,drag=null,suppressAdvance=false;
@@ -127,9 +131,10 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
   stageControl.value=String(stage);
  }
  function syncMap(){
-  const s=state(),level=stage,progress=mapProgress(s),projection=mapPartnerProjection(s,level);
-  const key=JSON.stringify([level,progress.max,[...progress.activeShops].sort()]);
-  if(key!==paintKey){drawGameMap(canvas,s,level);paintKey=key;}
+  const s=state(),level=stage,progress=mapProgress(s),projection=mapPartnerProjection(s,level),scenery=mapSceneryProjection(s,level,projection);
+  const key=JSON.stringify([level,progress.max,[...progress.activeShops].sort(),scenery.staticKey]);
+  if(key!==paintKey){drawGameMap(canvas,s,level,1,scenery);paintKey=key;}
+  syncSceneryLayer(sceneryLayer,scenery,mode!=='closed'&&!closing&&!opening);
   const bounds=mapObservationBounds(level);
   const entries=[...(bounds.retail?[{id:'retail',name:'蒸留所',bounds:bounds.retail}]:[]),...projection.partners].filter(x=>x.bounds);
   const next=JSON.stringify([level,entries.map(p=>[p.id,p.name,p.status,p.bounds])]);
@@ -177,11 +182,12 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
  function finishClose(){
   cancelHideTimer();if(mode!=='closed')return;
   const restoreFocus=outer.contains(doc.activeElement);
-  closing=false;opening=false;outer.hidden=true;notifyMode();
+  closing=false;opening=false;outer.hidden=true;sceneryLayer.dataset.active='false';notifyMode();
   if(restoreFocus)doc.getElementById('open-world-map')?.focus({preventScroll:true});
  }
  function update(){
   const blocked=!!modal(),hasGame=!!state();
+  sceneryLayer.dataset.active=String(hasGame&&!blocked&&mode!=='closed'&&!closing&&!opening);
   if(!hasGame||blocked){
    if(blocked&&mode!=='closed')suspendedMode=mode;
    if(!hasGame)suspendedMode=null;
@@ -216,7 +222,7 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
    // Establish the offscreen starting frame before transitioning to the target.
    opening=true;outer.dataset.mode='closed';update();
    void drawer.offsetTop;
-   opening=false;outer.dataset.mode=next;
+   opening=false;outer.dataset.mode=next;sceneryLayer.dataset.active='true';
    return;
   }
   opening=false;update(); // CSS continues from the current position if interrupted.

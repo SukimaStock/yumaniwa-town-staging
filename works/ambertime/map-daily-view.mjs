@@ -2,8 +2,9 @@
 // by the existing model. The optional storage helpers write only the supplied UI key.
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 import {mapSalesProjection,mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1';
-import {mapProgress} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01';
+import {mapProgress} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01';
 import {tradingPartner} from './trading-partners.mjs';
+import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01';
 import {mapPartnerProjection} from './map-partners.mjs?v=map-partners-v01';
 
 const validStage=n=>Number.isInteger(n)&&n>=1&&n<=6;
@@ -57,5 +58,5 @@ export function dailyMapProjection(game,stage){
  const progress=mapProgress(game);
  const reach=[['town','町'],['near','周辺地域'],['national','全国'],['overseas','海外']]
   .map(([id,name])=>({id,name,reached:progress.reached[id]}));
- return {month:projection.month,period:projection.period,pins:projection.pins,retail:projection.retail,summary,reach};
+ return {month:projection.month,period:projection.period,pins:projection.pins,retail:projection.retail,summary,reach,scenery:mapSceneryProjection(game,stage,projection)};
 }
