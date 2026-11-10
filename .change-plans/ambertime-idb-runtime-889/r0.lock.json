@@ -1,0 +1,188 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f258e3838ed2f2483cc1b821964165db4b8adec1cede02b46be1346ab715ca96",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "8d83160f962b1394ad3a2dd2fa8939216bb19255",
+    "changeId": "ambertime-idb-runtime-889",
+    "revision": 0,
+    "change": "Connect formal v8 IndexedDB to AmberTime main runtime with source-preserving boot, explicit import and async durable commit boundaries",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/formal-idb-storage.mjs",
+      "works/ambertime/formal-idb-commit-boundary.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/recall/operations.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-idb-runtime-889/r0.lock.json",
+      "works/ambertime/formal-idb-storage.mjs",
+      "works/ambertime/formal-idb-main.mjs",
+      "works/ambertime/formal-idb-commit-boundary.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/placement-ui.mjs",
+      "works/ambertime/recall/player.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/IDB-INTEGRATION.md",
+      "works/ambertime/tests/formal-idb-storage.test.mjs",
+      "works/ambertime/tests/formal-idb-main.test.mjs",
+      "works/ambertime/tests/formal-idb-commit-boundary.test.mjs",
+      "works/ambertime/tests/formal-idb-runtime.test.mjs",
+      "works/ambertime/tests/formal-idb-runtime-browser.test.mjs",
+      "works/ambertime/tests/formal-idb-runtime-harness.mjs",
+      "works/ambertime/tests/h1-b2-app.test.mjs",
+      "works/ambertime/tests/s2-app.test.mjs",
+      "works/ambertime/tests/s3-app.test.mjs",
+      "works/ambertime/tests/s4-app.test.mjs",
+      "works/ambertime/tests/r0-app-baseline.test.mjs",
+      "works/ambertime/tests/r3-preparation-controller.test.mjs",
+      "works/ambertime/tests/r4-warehouse-effects.test.mjs",
+      "works/ambertime/tests/rooms-stage1.test.mjs",
+      "works/ambertime/tests/recall-app.test.mjs",
+      "works/ambertime/tests/staff-encounter.test.mjs",
+      "works/ambertime/tests/bar-model.test.mjs",
+      "works/ambertime/tests/shop-dialogue-s2.test.mjs",
+      "works/ambertime/tests/shop-dialogue-view.test.mjs",
+      "works/ambertime/tests/ui-polish-regression.test.mjs",
+      "works/ambertime/tests/debug-time-skip.test.mjs",
+      "works/ambertime/tests/first-bottle-ui.test.mjs",
+      "works/ambertime/tests/market-ui-main.test.mjs",
+      "works/ambertime/tests/recall-browser.test.mjs",
+      "works/ambertime/tests/h4-player.test.mjs",
+      "works/ambertime/tests/h4-integration.test.mjs",
+      "works/ambertime/tests/save-menu-ui.test.mjs",
+      "works/ambertime/tests/performance-0251-render.test.mjs",
+      "works/ambertime/tests/market-rules-ui.test.mjs",
+      "works/ambertime/tests/r0-cache-graph.test.mjs",
+      "works/ambertime/tests/r6-cache-closure.test.mjs",
+      "works/ambertime/tests/h1-c1-module-cache.test.mjs",
+      "works/ambertime/tests/retail-sale-cache.test.mjs",
+      "works/ambertime/tests/placement-0271.test.mjs",
+      "works/ambertime/tests/market-scroll-state.test.mjs",
+      "works/ambertime/tests/market-scroll-browser.test.mjs",
+      "works/ambertime/tests/notice-traffic-browser.test.mjs",
+      "works/ambertime/tests/bar-browser.test.mjs",
+      "works/ambertime/tests/rooms-stage2.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/parallel-parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/operations.mjs",
+      "works/ambertime/runtime-clock.mjs",
+      "works/ambertime/storage-idb-preflight.html",
+      "works/ambertime/storage-idb-preflight.mjs",
+      "works/ambertime/tests/fixtures/**"
+    ],
+    "expectedChanges": [
+      "Use an independent staging-main IDB namespace; never auto-adopt or modify the existing preflight database or old localStorage keys.",
+      "Validate boot sources using unchanged formal reader/serializer; retain original legacy bytes and stop on competing/corrupt sources rather than choosing or resetting.",
+      "Save exact v8 candidates with head/previous, validated metadata, monotonic revision and transaction CAS; keep immutable copies for migration, explicit import/new start and market-rules transition.",
+      "Convert every gameplay action, logical clock step, debug skip, notification acknowledgement, generation handover and UI success consumer to await durable transaction and formal readback before publishing. Busy operations reject rather than queue; hidden/pagehide interrupts and requires cold reload without late optimistic apply.",
+      "Add synthetic transaction/DOM runtime fault regressions and native-browser harness; adjust existing tests only for explicitly changed async contract while retaining behavioral oracles.",
+      "Keep UI changes to necessary saving/recovery status and existing import/export entry points; apply six-point expression audit without decorative prose."
+    ],
+    "ownerDecisions": [
+      "Direct owner instruction 2026-11-10: connect AmberTime storage to main game, implement/test/PR/required CI and safely merge only Staging without phase questions; record results in #889. No Production, data deletion or denied-permission bypass.",
+      "Issue #889 latest Dot handoff (issuecomment-6755073811) supplies context; explicit current conversation is the authorization. Private 154-month v8/v20 backups never copied into GitHub or repository."
+    ],
+    "hqDecisions": [
+      "Technical design reviewed before implementation: separate preflight/main DBs; unchanged formal v8 authority and gameplay algorithms; persistent original legacy baseline prevents silently selecting IDB over later localStorage state.",
+      "Detached candidate plus FormalIdbCommitBoundary publishes once after transaction/readback only; sidecar observer state is isolated while pending; all synchronous downstream callbacks converted.",
+      "Exact legacy snapshot checks before and after native IDB commits detect old-version writers; cross-store race cannot be atomic, so any uncertainty halts and preserves both sides.",
+      "No automatic rollback/retry/reset after corruption or uncertain write; recovery reads are non-mutating. Explicit import/new game preserves displaced valid head permanently.",
+      "Every logical tick is saved before publication for safety. Potential 100ms-distillation latency must be measured and reported, not asserted performance-neutral; no catch-up during save."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Real browser boot/import/reload, delayed writes, double input, two-tab conflict, background interruption and quota fault injection if permitted environment available.",
+      "Owner iPhone Chrome: keep external 154-month v8, import on Staging, inspect record, advance one month and cold reload; actual device and OS kill remain unverified until owner observes."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert runtime entry/integration commits while retaining all databases, legacy keys and external backups. Do not silently load stale localStorage after rollback; export verified latest IDB first and choose an explicit compatible restoration. Never delete IDB or old saves.",
+    "outOfScope": [
+      "Production and promotion",
+      "Real player fixtures uploaded or committed",
+      "Codec/formal cap/maxOperations changes, checkpoint adoption or history aggregation",
+      "Map #893, economic/RNG/gameplay changes",
+      "Any old-key or database deletion",
+      "Permission bypass or enabling disabled browser security"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone actual-device continuation and cold reload",
+      "Physical OS/power-loss storage durability and origin eviction",
+      "100-year continuation and future cap limits",
+      "Native browser verification when environment is unavailable"
+    ],
+    "alternativesRejected": [
+      "Promise-valued saveCandidate used as boolean",
+      "Mixed synchronous localStorage and async IDB formal writers",
+      "Reuse preflight DB as main or silently adopt differing legacy/IDB records",
+      "Delete old keys, truncate history or raise caps to claim 100 years",
+      "Only rolling previous as market-rules backup",
+      "Optimistic game/UI/clock commit before durable completion"
+    ],
+    "boundaryCases": [
+      "Empty, valid, malformed, older-format and conflicting boot sources",
+      "Import cancellation, invalid v8, original retention, noncanonical input",
+      "Delayed completion, simultaneous input, multiple tabs, stale revision, legacy changes",
+      "Quota/transaction abort, uncertain readback, damaged head/previous/metadata",
+      "Visibility/pagehide during pending save, BFCache return, late callback",
+      "Market-rules backup, debug month skip, generation recall completion, staff and shop notices",
+      "Distillation per-tick performance and formal cap/operation-limit safe stop"
+    ],
+    "testPlan": [
+      "Run full existing AmberTime Node baseline and compare unrelated pre-existing failures before changes.",
+      "Run transaction mocks and real formal synthetic v8 fixtures for exact migration/cold-load/state comparison and injected failure cases.",
+      "Runtime delayed-writer tests prove no game/clock/sidecar/notification/animation publication before acknowledgement.",
+      "Run unchanged formal-save/history/replay/market/recall regressions and adapted async consumer tests.",
+      "Scope Guard then Risk Gate then Impact Check on exact commit; required validate, plan-risk-gate and trusted-mechanical-evidence on exact PR head.",
+      "Independent code review; keep Draft and do not merge while high-risk findings or material verification gaps remain."
+    ],
+    "problem": "LocalStorage origin quota stops current real iPhone game near month154; isolated IDB and commit barrier are merged but not connected.",
+    "currentContract": "Formal v8 reader/serializer validates full game and sidecars; main.v1 synchronous CAS precedes game publication, but scheduler contains transient pre-save mutations and UI consumers assume boolean results.",
+    "whyExistingIsInsufficient": "IDB is asynchronous and preflight-only. A direct writer replacement would publish state before save and break backup/conflict/clock contracts.",
+    "design": "Dedicated main database with atomic verified generations and preserved originals; boot/import bridge followed by one fail-stop async commit boundary across every runtime/consumer. Existing formal v8 modules remain sole data authority.",
+    "migration": "Boot validates and copies exact local main.v1 into empty main IDB only, preserving old keys. External v8 import is user-selected and confirmed; legacy/current displaced bytes are archived. Existing IDB plus changed legacy source stops for explicit resolution, never auto-picks.",
+    "compatibility": "No native game/economy/RNG/history/recall algorithm or formal v8 format/cap change. Preflight stays separate. Preview remains non-persisting but uses async action result contract.",
+    "promotionRisk": "Staging-only runtime change. CI alone does not establish browser/iPhone safety or 100-year guarantee. Production forbidden."
+  }
+}
