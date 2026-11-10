@@ -22,6 +22,7 @@ function updateTransform(){
  const side=Math.min(mapWindow.clientWidth,mapWindow.clientHeight),boundX=Math.max(0,(side*zoom-mapWindow.clientWidth)/2),boundY=Math.max(0,(side*zoom-mapWindow.clientHeight)/2);
  pan={x:clamp(pan.x,-boundX,boundX),y:clamp(pan.y,-boundY,boundY)};
  mapLayer.style.transform='translate(-50%,-50%) translate('+pan.x+'px,'+pan.y+'px) scale('+zoom+')';
+ $('plus').disabled=zoom>=3;$('minus').disabled=zoom<=1;
 }
 function selectShop(id){if(!available().includes(id))return;selected=id;render();}
 function buildPins(){
