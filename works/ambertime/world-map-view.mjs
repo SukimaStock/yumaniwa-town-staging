@@ -1,8 +1,8 @@
 // Pure, read-only view of the existing AmberTime town record.
 // No save schema, economic action or transmission draw is changed here.
 import {STAGES,clampStage,renderMap,MAP_CELL} from './experiments/world-map/v01/map.mjs';
-import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01';
-import {drawMapScenery} from './map-scenery-view.mjs?v=map-scenery-v01';
+import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01&world=world-network-v01';
+import {drawMapScenery} from './map-scenery-view.mjs?v=map-scenery-v01&world=world-network-v01';
 import {NODES} from './town-connection.mjs?v=stage4-r2';
 const level=new Map(NODES.map(n=>[n.id,n.level]));
 const receipts=game=>game?.labConnection?.version===1?game.labConnection.town:null;
@@ -95,6 +95,8 @@ export {STAGES};
 export function mapObservationBounds(stage){
  if(stage===1)return {retail:[52,62,32,32]};
  if(stage===2)return {retail:[26,72,24,24],'town-liquor':[90,34,24,24],supermarket:[102,94,24,24],bar:[40,112,16,16]};
+ if(stage===5)return {'national-specialist-desk':[106,18,6,6]};
+ if(stage===6)return {'overseas-import-desk':[72,48,6,6]};
  if(stage===4)return {retail:[60,66,12,16],'trial-region-desk':[86,36,12,12]};
  if(stage!==3)return {};
  return {department:[24,48,12,16],retail:[46,62,16,16],'town-liquor':[86,44,16,16],supermarket:[98,92,16,16],bar:[28,112,16,16]};

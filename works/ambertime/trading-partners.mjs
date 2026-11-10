@@ -13,7 +13,9 @@ const freeze=value=>{
 // Logical map scopes only; no coordinates, unlocks, or simulation nodes added.
 export const PARTNER_REGIONS=freeze([
  {id:'town',mapScale:'town'},
- {id:'trial-region',mapScale:'region'}
+ {id:'trial-region',mapScale:'region'},
+ {id:'national-network',mapScale:'prefecture'},
+ {id:'overseas-network',mapScale:'country'}
 ]);
 const kinds={'town-liquor':'liquor-shop',supermarket:'supermarket',department:'department-store',bar:'bar'};
 const shortNames={'town-liquor':'酒屋',supermarket:'スーパー',department:'デパート',bar:'バー'};
@@ -42,7 +44,11 @@ const regional=freeze({
  capacity:{monthlyOpportunities:3,allocationMinQuantity:1,quantityChoice:'player'},
  price:{rate:1,source:'provisional'},legacyDemand:null,tradeMethod:'player-delivery',contract:null
 });
-export const TRADING_PARTNERS=Object.freeze([...existing,regional]);
+const wider=[
+ {id:'national-specialist-desk',name:'全国の専門仕入れ窓口（仮）',shortName:'専門窓口',kind:'specialist-desk',regionId:'national-network',mapScale:'prefecture',preference:{source:'provisional',label:'熟成・麦・厚み',flavorKeys:['grain','body','vanilla']},acceptance:{minAge:24,maxRoughness:null,source:'provisional'},capacity:{monthlyOpportunities:2,allocationMinQuantity:1,quantityChoice:'player'},price:{rate:1.05,source:'provisional'}},
+ {id:'overseas-import-desk',name:'海外の輸入窓口（仮）',shortName:'輸入窓口',kind:'importer',regionId:'overseas-network',mapScale:'country',preference:{source:'provisional',label:'煙・厚み・穏やかな刺激',flavorKeys:['smoke','body']},acceptance:{minAge:6,maxRoughness:.4,source:'provisional'},capacity:{monthlyOpportunities:2,allocationMinQuantity:1,quantityChoice:'player'},price:{rate:.95,source:'provisional'}}
+].map(p=>freeze({...p,availability:'definition-only',legacyDemand:null,tradeMethod:'player-delivery',contract:null}));
+export const TRADING_PARTNERS=Object.freeze([...existing,regional,...wider]);
 
 // Validate static references independently of game state. Do not use this as a
 // substitute for shopEvidence/quotes or formal save validation.

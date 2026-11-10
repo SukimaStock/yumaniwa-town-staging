@@ -2,10 +2,11 @@
 // by the existing model. The optional storage helpers write only the supplied UI key.
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 import {mapSalesProjection,mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1';
-import {mapProgress} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01';
-import {tradingPartner} from './trading-partners.mjs';
-import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01';
-import {mapPartnerProjection} from './map-partners.mjs?v=map-partners-v01';
+import {mapProgress} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
+import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
+import {WORLD_CONTACTS} from './world-network.mjs';
+import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01&world=world-network-v01';
+import {mapPartnerProjection} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01';
 
 const validStage=n=>Number.isInteger(n)&&n>=1&&n<=6;
 const validSelection=id=>id===null||typeof id==='string'&&id.length>0&&id.length<=128;
@@ -23,7 +24,7 @@ export function normalizeMapView(view,max=6,visibleShopIds=[]){
  const limit=safeMaximum(max),requested=Number.isInteger(view?.stage)?view.stage:Math.min(3,limit);
  const stage=Math.max(1,Math.min(limit,requested));
  const visible=new Set(Array.isArray(visibleShopIds)||visibleShopIds instanceof Set?visibleShopIds:[]);
- const selectedShop=view?.selectedShop==='retail'?'retail':(stage===2||stage===3||stage===4)&&typeof view?.selectedShop==='string'&&visible.has(view.selectedShop)&&tradingPartner(view.selectedShop)?.mapScale===(stage===4?'region':'town')?view.selectedShop:null;
+ const selectedShop=view?.selectedShop==='retail'?'retail':(stage>=2&&stage<=6)&&typeof view?.selectedShop==='string'&&visible.has(view.selectedShop)&&tradingPartner(view.selectedShop)?.mapScale===(stage<=3?'town':WORLD_CONTACTS.find(p=>p.stage===stage)?.mapScale)?view.selectedShop:null;
  return {stage,selectedShop,...cameraState(view)};
 }
 

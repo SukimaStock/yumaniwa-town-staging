@@ -1,9 +1,9 @@
 // M0.7: view-only map drawer. All inputs are projections of native game state.
-import {savedMarketSales,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&map=map-partners-v01';
-import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01';
-import {syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01';
-import {mapPartnerProjection,mapPartnerDetail} from './map-partners.mjs?v=map-partners-v01';
-import {drawGameMap,mapProgress,mapObservationBounds,STAGES} from './world-map-view.mjs?v=m07-observation&map=map-partners-v01&scenery=map-scenery-v01';
+import {savedMarketSales,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&map=map-partners-v01&world=world-network-v01';
+import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01&world=world-network-v01';
+import {syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01&world=world-network-v01';
+import {mapPartnerProjection,mapPartnerDetail} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01';
+import {drawGameMap,mapProgress,mapObservationBounds,STAGES} from './world-map-view.mjs?v=m07-observation&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {retailSalePlan,ordinarySaleGroups} from './retail-sale-motion.mjs?v=count-linked-r1';
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 

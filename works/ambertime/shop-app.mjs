@@ -1,5 +1,6 @@
-import {regionalOfferView,regionalPartnerView} from './regional-offer-view.mjs?v=regional-v01&delivery=regional-delivery-v01';
-import {tradingPartner} from './trading-partners.mjs';
+import {regionalOfferView,regionalPartnerView} from './regional-offer-view.mjs?v=regional-v01&delivery=regional-delivery-v01&world=world-network-v01';
+import {regionalContacts} from './world-network.mjs';
+import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
 import {roomStaffAccess} from './staff-access-view.mjs?v=staff-access-s3-1';
 import {staffEncounterMarkup} from './staff-encounter-view.mjs?v=hiring-s2-1';
 import {createDialogueProjection,dialogueShopName} from './shop-dialogue.mjs?v=all-stores-s2-1';
@@ -19,8 +20,8 @@ import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
-import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01';
-import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01';
+import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01';
+import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {createFeedbackComments,recentCustomerFeedback,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=reactions-s1-1&rooms=stage3-r1&status=1&aging=1';
@@ -28,10 +29,10 @@ import {shopRelationshipLabel,shopOrderMarkup} from './shop-order-view.mjs?v=for
 import {RuntimeClock} from './runtime-clock.mjs?v=0.25.1';
 import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1&rooms=stage3-r1&aging=1';
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
-import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,MAP_BROWSE_MAX,mapObservationBounds,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01';
-import {mapSceneryButterflies,syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01';
-import {mapPartnerProjection,marketPartnersForMap} from './map-partners.mjs?v=map-partners-v01';
-import {dailyMapProjection,normalizeMapView,loadMapView,saveMapView} from './map-daily-view.mjs?v=bar-v01-1&map=map-partners-v01&scenery=map-scenery-v01';
+import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,MAP_BROWSE_MAX,mapObservationBounds,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
+import {mapSceneryButterflies,syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01&world=world-network-v01';
+import {mapPartnerProjection,marketPartnersForMap} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01';
+import {dailyMapProjection,normalizeMapView,loadMapView,saveMapView} from './map-daily-view.mjs?v=bar-v01-1&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard,brewingPanelState} from './brewing-cards.mjs?v=confirmed-brewing-r1';
 import {playerMilestones} from './player-news.mjs?v=0.25.4';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
@@ -45,7 +46,7 @@ import {automaticEvents,scopedNotices} from './event-notices.mjs?v=traffic-1';
 import {noticePresentation,topGenerationNotice} from './notice-motion.mjs?v=motion-v02';
 import {addDailyEvent} from './daily-events.mjs?v=daily-v01';
 import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1';
-import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01';
+import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01';
 import {createObservedModel} from './recall/operations.mjs?v=bar-v01-1';
 import {DEBUG_SKIP_YEARS,monthsForDebugSkip,debugSkipMonth} from './recall/debug-time-skip.mjs?v=debug-years-1';
 import {createRecallPlayer as createRecallDebugPreview} from './recall/player.mjs?v=h4-2-1';
@@ -70,7 +71,7 @@ import {glass,bottleArt,brandArt,stillArt} from './room-object-art.mjs?v=0.62-bo
 import {shortTaste,shortChange} from './tasting-view.mjs?v=stage4-r2';
 import {flavorTypeView as sourceFlavorTypeView} from './flavor-types.mjs?v=stage4-r2';
 import {FLAVOR_AXES as sourceFlavorAxes,flavorMeter as sourceFlavorMeter} from './flavor-view.mjs?v=formal-copy-r1';
-import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01';
+import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01';
 import {uiText,agingEventText} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 // Slots belong only to current inventory; all operations retain the native ID.
 let caskSlots=[null,null,null,null];
@@ -109,7 +110,9 @@ const recallSceneDebug=debugEnabled?recallScenePlayer:null;
 let game=null,room='distill',selectedProductId=null,userPaused=false,runtimeHalted=false,modal=null,timer=null,generation=0,elapsed=0,playbackRate=1,canSave=!preview,lastSavedText=null;
 let committedSession=null,lastSaveError=null,legacyRecord=null;
 let debugSkipJob=null,debugSkipFeedback='';
-const newNativeGame=()=>D.newRegionalDeliveryDistillery(seed);
+// Keep the existing native creator, then apply the same explicit world boundary
+// used when upgrading a restored game. Neither path reinterprets older operations.
+const newNativeGame=()=>D.enableWorldNetwork(D.newRegionalDeliveryDistillery(seed));
 let marketEditing=false,marketMessageId=0;
 const placementUI=placementEnabled?createPlacementUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),commit:commitPlacement,render:()=>{render();schedule();}}):null;
 const marketUI=createMarketUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),act:actMarket,
@@ -863,7 +866,7 @@ function showRegionalOffer(offer,returnModal=null){
  stopClock();modal={kind:'shop-offer',regional:true,shopId:offer.partnerId,offerId:offer.id,returnProductId:null,returnModal,noticePending:!offer.notified};return true;
 }
 const regionalPending=()=>D.regionalOffers(game);
-const knownRegionalPartners=()=>['trial-region-desk'].flatMap(id=>{
+const knownRegionalPartners=()=>regionalContacts(game).flatMap(({id})=>{
  const partner=tradingPartner(id),offer=regionalPending().find(o=>o.partnerId===id),contract=D.regionalContract(game,id);
  return partner&&(offer||contract)?[{partner,offer,contract}]:[];
 });
@@ -1589,6 +1592,11 @@ function installSession(session,{fresh=false}={}){
  if(!barMigrationFailed&&D.regionalPartnerMode(game)&&!D.regionalDeliveryMode(game)){
   try{const next=D.enableRegionalDeliveries(game);if(saveCandidate(next,userPaused,elapsed,commitMarketRulesUpdate)){game=next;}else barMigrationFailed=true;}
   catch(error){barMigrationFailed=true;saveFailure(error,'地域納品の更新');}
+ }
+ // Only future inquiries and deliveries enter the world network after this saved boundary.
+ if(!barMigrationFailed&&D.regionalDeliveryMode(game)&&!D.worldNetworkMode(game)){
+  try{const next=D.enableWorldNetwork(game);if(saveCandidate(next,userPaused,elapsed,commitMarketRulesUpdate)){game=next;}else barMigrationFailed=true;}
+  catch(error){barMigrationFailed=true;saveFailure(error,'取引網の更新');}
  }
  $('game').hidden=false;if(!barMigrationFailed)$('recovery').hidden=true;if(!barMigrationFailed){storageNotice('');$('save-status').textContent=preview?'試遊中 · 保存しません':'保存済み';}render();schedule();
 }

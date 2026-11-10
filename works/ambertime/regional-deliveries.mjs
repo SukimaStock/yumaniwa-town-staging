@@ -1,6 +1,7 @@
 // Procurement by an accepted regional contact, never observed consumer sales.
-import {tradingPartner} from './trading-partners.mjs';
-import {regionalContract,regionalPartnerMode} from './regional-partners.mjs';
+import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
+import {regionalContract,regionalPartnerMode} from './regional-partners.mjs?world=world-network-v01';
+import {regionalContacts} from './world-network.mjs?v=world-network-v01';
 import {placementInventory,regionalDeliveryMode} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01';
 import {salePrices} from './economy.mjs?v=bar-v01-1';
 export {regionalDeliveryMode};
@@ -10,8 +11,10 @@ const partnerId='trial-region-desk';
 export const initialRegionalDeliveries=s=>({version:1,rules:REGIONAL_DELIVERY.rules,startedMonth:s.core.month,allocationSerial:0,deliverySerial:0,allocations:[],recentReceipts:[],totalsByProduct:{},totalsByPartner:{}});
 export function regionalDeliveryPartners(s){
  if(!regionalDeliveryMode(s)||!regionalPartnerMode(s))return [];
- const p=tradingPartner(partnerId),contract=regionalContract(s,partnerId);
- return p&&contract?[{id:p.id,name:p.shortName,fullName:p.name,kind:p.kind,contractId:contract.id,tradeMethod:'regional-delivery'}]:[];
+ return regionalContacts(s).flatMap(contact=>{
+  const p=tradingPartner(contact.partnerId),contract=regionalContract(s,contact.partnerId);
+  return p&&contract?[{id:p.id,name:p.shortName,fullName:p.name,kind:p.kind,contractId:contract.id,tradeMethod:'regional-delivery'}]:[];
+ });
 }
 export function regionalProductTotals(s,productId){
  const total=regionalDeliveryMode(s)?s.regionalDeliveries.totalsByProduct[productId]:null;
@@ -32,7 +35,7 @@ export function regionalDeliveryQuote(s,productId,id){
  const row=regionalDeliveryRows(s,id).find(row=>row.productId===productId),count=row?.count??0,state=s.regionalDeliveries;
  let reason='';
  if(!regionalDeliveryMode(s))reason='地域への納品に対応した記録を確認してください。';
- else if(id!==partnerId||partner?.kind!=='regional-desk'||!contract)reason='この地域との取扱関係を確認してください。';
+ else if(!regionalContacts(s).some(c=>c.partnerId===id)||partner?.tradeMethod!=='player-delivery'||!contract)reason='この地域との取扱関係を確認してください。';
  else if(!p||!r)reason='手元の酒を選んでください。';
  else if(contract.brandId!==r.brandId)reason='この契約のブランドのお酒を選んでください。';
  else if(p.age<partner.acceptance.minAge)reason=`熟成が${partner.acceptance.minAge}か月未満です。`;
