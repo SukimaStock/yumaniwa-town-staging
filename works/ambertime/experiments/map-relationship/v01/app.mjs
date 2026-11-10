@@ -1,7 +1,7 @@
 import {renderMap} from '../../world-map/v01/map.mjs';
 import {mapObservationBounds} from '../../../world-map-view.mjs';
 import {createShopRelationshipProjection} from './relationship-view.mjs';
-import {BREATH_PATTERNS,breathParticipants,authoredSpriteBounds,alphaMaskShopCrop} from './breath-view.mjs';
+import {BREATH_PATTERNS,BREATH_PERIOD_MS,BREATH_MAX_SCALE,breathParticipants,authoredSpriteBounds,alphaMaskShopCrop} from './breath-view.mjs';
 import {SCENARIOS,fixtureState,SHOP_NAMES} from './fixtures.mjs';
 
 const $=id=>document.getElementById(id);
@@ -9,6 +9,8 @@ const scenarioRoot=$('scenarios'),mapLayer=$('map-layer'),pinLayer=$('map-pins')
 const mapWindow=$('map-window'),breathLayer=$('breath-layer'),canvas=$('map-canvas');
 const originalBounds=mapObservationBounds(3);
 const projection=createShopRelationshipProjection();
+mapLayer.style.setProperty('--breath-period',BREATH_PERIOD_MS+'ms');
+mapLayer.style.setProperty('--breath-scale',String(BREATH_MAX_SCALE));
 let scenario=SCENARIOS[1],game=fixtureState(scenario),selected=scenario.selected;
 let view='normal',style='together',zoom=1,pan={x:0,y:0};
 const pointers=new Map();let movement=false,gesture=null;
