@@ -1,0 +1,387 @@
+{
+  "baselineSha": "001bc6cc712cc300b8f7be65018628199e97e1f0",
+  "measurement": {
+    "freshProcess": true,
+    "exact": true,
+    "sha256": "fe6a66973f57ad7ed9758ddfab12cd88e87e8461885ce8f91c8cb7e13feb7d24",
+    "restoreMilliseconds": 64876,
+    "roundtripMilliseconds": 64907,
+    "rawCodeUnits": 1029453,
+    "rawBytes": 1136103,
+    "month": 1386,
+    "generation": 5,
+    "operations": 2266,
+    "releases": 104,
+    "nativeReceipts": 4,
+    "regionalReceipts": 100,
+    "contracts": 2,
+    "pending": 0,
+    "packets": 0,
+    "rss": 319348736
+  },
+  "selfTop": [
+    {
+      "seconds": 27.484083,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 20.734334,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 6.508904,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 1.061315,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.795988,
+      "function": "(garbage collector)",
+      "file": "",
+      "line": 0
+    },
+    {
+      "seconds": 0.608206,
+      "function": "visit",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 276
+    },
+    {
+      "seconds": 0.546087,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.537,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.529929,
+      "function": "registerExternalRelease",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 252
+    },
+    {
+      "seconds": 0.523696,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.512847,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.506328,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.480741,
+      "function": "visit",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 276
+    },
+    {
+      "seconds": 0.450158,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.379865,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.281512,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.273047,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.264524,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.253279,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.204679,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.198261,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.187868,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.086816,
+      "function": "visit",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 276
+    },
+    {
+      "seconds": 0.051729,
+      "function": "visit",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 276
+    },
+    {
+      "seconds": 0.043739,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 0.04276,
+      "function": "registerExternalRelease",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 252
+    },
+    {
+      "seconds": 0.041096,
+      "function": "visit",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 276
+    },
+    {
+      "seconds": 0.040677,
+      "function": "registerExternalRelease",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 252
+    },
+    {
+      "seconds": 0.038544,
+      "function": "retailReputationFactors",
+      "file": "ambertime/brand-reputation.mjs?v=0.12",
+      "line": 32
+    },
+    {
+      "seconds": 0.03839,
+      "function": "registerExternalRelease",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 252
+    }
+  ],
+  "inclusiveTop": [
+    {
+      "seconds": 64.988346,
+      "function": "(root)",
+      "file": "",
+      "line": 0
+    },
+    {
+      "seconds": 64.113132,
+      "function": "evaluate",
+      "file": "",
+      "line": 0
+    },
+    {
+      "seconds": 64.113132,
+      "function": "run",
+      "file": "node:internal/modules/esm/module_job",
+      "line": 550
+    },
+    {
+      "seconds": 64.112054,
+      "function": "",
+      "file": "file:///tmp/amber-stage7/cold.mjs",
+      "line": 1
+    },
+    {
+      "seconds": 64.078387,
+      "function": "restoreDistillery",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 1471
+    },
+    {
+      "seconds": 64.071837,
+      "function": "validateDistillery",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 1440
+    },
+    {
+      "seconds": 64.050081,
+      "function": "apply",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 1417
+    },
+    {
+      "seconds": 64.028181,
+      "function": "applyOperation",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 1343
+    },
+    {
+      "seconds": 48.299552,
+      "function": "progress",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 1342
+    },
+    {
+      "seconds": 48.291968,
+      "function": "distillStep",
+      "file": "ambertime/economy.mjs?v=bar-v01-1",
+      "line": 25
+    },
+    {
+      "seconds": 27.513823,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 27.513823,
+      "function": "clone",
+      "file": "ambertime/economy.mjs?v=bar-v01-1",
+      "line": 10
+    },
+    {
+      "seconds": 20.76702,
+      "function": "distillStep",
+      "file": "ambertime/distillery.mjs?v=stage4-r2",
+      "line": 15
+    },
+    {
+      "seconds": 20.754881,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 20.754881,
+      "function": "clone",
+      "file": "ambertime/distillery.mjs?v=stage4-r2",
+      "line": 7
+    },
+    {
+      "seconds": 9.697443,
+      "function": "tickDistillery",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 1329
+    },
+    {
+      "seconds": 7.194478,
+      "function": "economicMonthly",
+      "file": "ambertime/economy.mjs?v=bar-v01-1",
+      "line": 43
+    },
+    {
+      "seconds": 6.51325,
+      "function": "clone",
+      "file": "ambertime/economy.mjs?v=bar-v01-1",
+      "line": 10
+    },
+    {
+      "seconds": 6.512168,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 2.27739,
+      "function": "action",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 48
+    },
+    {
+      "seconds": 2.260088,
+      "function": "syncTown",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 280
+    },
+    {
+      "seconds": 1.22724,
+      "function": "advanceTown",
+      "file": "ambertime/town-connection.mjs?v=stage4-r2",
+      "line": 27
+    },
+    {
+      "seconds": 1.226128,
+      "function": "advanceExternal",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 279
+    },
+    {
+      "seconds": 1.225076,
+      "function": "step",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 178
+    },
+    {
+      "seconds": 1.210671,
+      "function": "quantizeReaction",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 275
+    },
+    {
+      "seconds": 1.204502,
+      "function": "regionalDeliveryTransaction",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 177
+    },
+    {
+      "seconds": 1.175763,
+      "function": "visit",
+      "file": "ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2",
+      "line": 276
+    },
+    {
+      "seconds": 1.090859,
+      "function": "fillBarrel",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 1192
+    },
+    {
+      "seconds": 1.063487,
+      "function": "structuredClone",
+      "file": "node:internal/worker/js_transferable",
+      "line": 113
+    },
+    {
+      "seconds": 1.063487,
+      "function": "clone",
+      "file": "ambertime/partner-orders.mjs?world=world-network-v01",
+      "line": 43
+    }
+  ],
+  "note": "CPU sampled attribution, inclusive frames overlap; profiler overhead present. Not iPhone. Source raw CPU profile transient."
+}

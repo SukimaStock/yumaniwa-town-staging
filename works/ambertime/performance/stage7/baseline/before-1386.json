@@ -1,0 +1,582 @@
+{
+  "schema": "ambertime-stage7-profile/1",
+  "measuredAt": "2026-11-10T18:25:22.819Z",
+  "sourceRoot": "/workspace/scratch/7640ffbe6829/ambertime-stage7",
+  "fixture": "/tmp/amber-stage7/pr907-1386.json",
+  "runs": {
+    "control": {
+      "schema": "ambertime-stage7-profile-worker/1",
+      "instrumented": false,
+      "fixture": {
+        "sha256": "fe6a66973f57ad7ed9758ddfab12cd88e87e8461885ce8f91c8cb7e13feb7d24",
+        "bytes": 1136103,
+        "codeUnits": 1029453,
+        "formalV8": false,
+        "month": 1386,
+        "operations": 2266,
+        "releases": 104
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "v8": "13.6.233.17-node.58",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logicalCpus": 9,
+        "totalMemoryBytes": 10451427328
+      },
+      "fileReadMilliseconds": 2.6519519999999943,
+      "independentJsonParseMilliseconds": 6.717157,
+      "moduleImportMilliseconds": 33.762252000000004,
+      "coldRestore": {
+        "milliseconds": 63904.82125,
+        "memoryBefore": {
+          "rss": 53927936,
+          "heapTotal": 21282816,
+          "heapUsed": 14167472,
+          "external": 4343096,
+          "arrayBuffers": 343223
+        },
+        "memoryAfter": {
+          "rss": 301240320,
+          "heapTotal": 189702144,
+          "heapUsed": 53540816,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": null
+      },
+      "sameProcessRestore": {
+        "milliseconds": 31.42925799999648,
+        "memoryBefore": {
+          "rss": 301240320,
+          "heapTotal": 189702144,
+          "heapUsed": 53541040,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "memoryAfter": {
+          "rss": 305827840,
+          "heapTotal": 194215936,
+          "heapUsed": 66190120,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": null
+      },
+      "generationAndValidation": {
+        "milliseconds": 29.464797000000544,
+        "memoryBefore": {
+          "rss": 305827840,
+          "heapTotal": 194215936,
+          "heapUsed": 66190400,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "memoryAfter": {
+          "rss": 312381440,
+          "heapTotal": 200790016,
+          "heapUsed": 79246776,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": null
+      },
+      "exactRoundtrip": true,
+      "peakRssProcessBytes": 312381440,
+      "conditions": [
+        "Imports and independent envelope parse precede cold timer; no model game was previously constructed/restored.",
+        "Cold and warm restoration are consecutive. Generation follows warm restoration and uses its cache.",
+        "Raw generation is serializeDistillery; formal generation is serializeSession including official reader roundtrip.",
+        "Inclusive nested timers overlap: never sum them. Exclusive is time outside other instrumented scopes, not pure CPU.",
+        "Global clone timing includes every structuredClone call in the process during each phase.",
+        "Memory snapshots are boundary RSS/heap observations; maxRSS is process lifetime high-water, not per-phase peak.",
+        "Instrumented wall time includes measurement overhead; use unmodified control for performance conclusions."
+      ]
+    },
+    "instrumented": {
+      "schema": "ambertime-stage7-profile-worker/1",
+      "instrumented": true,
+      "fixture": {
+        "sha256": "fe6a66973f57ad7ed9758ddfab12cd88e87e8461885ce8f91c8cb7e13feb7d24",
+        "bytes": 1136103,
+        "codeUnits": 1029453,
+        "formalV8": false,
+        "month": 1386,
+        "operations": 2266,
+        "releases": 104
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "v8": "13.6.233.17-node.58",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logicalCpus": 9,
+        "totalMemoryBytes": 10451427328
+      },
+      "fileReadMilliseconds": 2.4117839999999973,
+      "independentJsonParseMilliseconds": 6.343299999999992,
+      "moduleImportMilliseconds": 53.393772,
+      "coldRestore": {
+        "milliseconds": 64988.894078,
+        "memoryBefore": {
+          "rss": 53809152,
+          "heapTotal": 21544960,
+          "heapUsed": 14136640,
+          "external": 4277560,
+          "arrayBuffers": 277687
+        },
+        "memoryAfter": {
+          "rss": 297246720,
+          "heapTotal": 188915712,
+          "heapUsed": 95420384,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": {
+          "model.restoreJsonParse": {
+            "calls": 1,
+            "inclusiveMilliseconds": 11.139849999999996,
+            "exclusiveMilliseconds": 11.139849999999996
+          },
+          "model.coreValidation": {
+            "calls": 2,
+            "inclusiveMilliseconds": 9.100555999999983,
+            "exclusiveMilliseconds": 9.100555999999983
+          },
+          "model.matchingPrefix": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.016563999999988255,
+            "exclusiveMilliseconds": 0.016563999999988255
+          },
+          "global.structuredClone": {
+            "calls": 116661,
+            "inclusiveMilliseconds": 62154.345006001284,
+            "exclusiveMilliseconds": 62154.345006001284
+          },
+          "replay.opcode.enable-promised-care": {
+            "calls": 2,
+            "inclusiveMilliseconds": 1.5941870000000051,
+            "exclusiveMilliseconds": 1.5020379999999989
+          },
+          "replay.opcode.enable-brands": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.10900399999999877,
+            "exclusiveMilliseconds": 0.0600599999999929
+          },
+          "replay.opcode.enable-brand-reputation": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.0669110000000046,
+            "exclusiveMilliseconds": 0.037837000000024545
+          },
+          "replay.opcode.enable-usual": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.09549399999997377,
+            "exclusiveMilliseconds": 0.07146699999998418
+          },
+          "replay.opcode.enable-aroma": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.12480899999999906,
+            "exclusiveMilliseconds": 0.08569099999999708
+          },
+          "replay.opcode.enable-shop": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.09379200000003607,
+            "exclusiveMilliseconds": 0.060591000000044914
+          },
+          "replay.opcode.enable-stockists": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.1118280000000027,
+            "exclusiveMilliseconds": 0.071156000000002
+          },
+          "replay.opcode.enable-department": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.12491800000000808,
+            "exclusiveMilliseconds": 0.08778200000003267
+          },
+          "replay.opcode.enable-bottle-storage": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.10671000000002095,
+            "exclusiveMilliseconds": 0.064155999999997
+          },
+          "replay.opcode.enable-generations": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.12155300000003422,
+            "exclusiveMilliseconds": 0.07602500000001555
+          },
+          "replay.opcode.enable-recipe-book": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.2320500000000152,
+            "exclusiveMilliseconds": 0.0575369999999964
+          },
+          "replay.opcode.enable-staff": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.11720600000001014,
+            "exclusiveMilliseconds": 0.059609000000023116
+          },
+          "replay.opcode.enable-partial-bottling": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.08758199999996918,
+            "exclusiveMilliseconds": 0.03330099999996605
+          },
+          "replay.opcode.enable-delegation": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.12292600000000675,
+            "exclusiveMilliseconds": 0.06923500000002036
+          },
+          "replay.opcode.enable-delegation-fixes": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.12959500000002322,
+            "exclusiveMilliseconds": 0.0685420000000363
+          },
+          "replay.opcode.enable-staff-progression": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.17716799999999466,
+            "exclusiveMilliseconds": 0.11277099999998086
+          },
+          "replay.opcode.enable-monthly-timing": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.14683099999999172,
+            "exclusiveMilliseconds": 0.07847799999998983
+          },
+          "replay.opcode.enable-shop-demand": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.1340720000000033,
+            "exclusiveMilliseconds": 0.06217300000002979
+          },
+          "replay.opcode.enable-bottling-policy": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.19735700000001088,
+            "exclusiveMilliseconds": 0.12131200000004583
+          },
+          "replay.opcode.enable-bottling-roles": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.3403119999999831,
+            "exclusiveMilliseconds": 0.24911499999996067
+          },
+          "replay.opcode.enable-free-aging": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.1845480000000066,
+            "exclusiveMilliseconds": 0.08694099999999594
+          },
+          "replay.opcode.enable-staff-experience": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.14252500000000623,
+            "exclusiveMilliseconds": 0.061644000000029564
+          },
+          "replay.opcode.enable-brand-identity": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.1976179999999772,
+            "exclusiveMilliseconds": 0.1073729999999955
+          },
+          "model.fullStateEquality": {
+            "calls": 2,
+            "inclusiveMilliseconds": 9.53708999999921,
+            "exclusiveMilliseconds": 9.53708999999921
+          },
+          "model.validateDistillery": {
+            "calls": 2,
+            "inclusiveMilliseconds": 64978.645061,
+            "exclusiveMilliseconds": 14.156032000068166
+          },
+          "replay.opcode.enable-stage4": {
+            "calls": 1,
+            "inclusiveMilliseconds": 1.4321180000000027,
+            "exclusiveMilliseconds": 0.2546840000000259
+          },
+          "town.advanceExternal": {
+            "calls": 1859,
+            "inclusiveMilliseconds": 1310.2071900001351,
+            "exclusiveMilliseconds": 22.54655500020516
+          },
+          "model.syncTown": {
+            "calls": 1718,
+            "inclusiveMilliseconds": 2628.729601999967,
+            "exclusiveMilliseconds": 75.56870200006458
+          },
+          "replay.opcode.enable-placement": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.28308699999999476,
+            "exclusiveMilliseconds": 0.06959499999999252
+          },
+          "replay.opcode.enable-store-market": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.12621999999998934,
+            "exclusiveMilliseconds": 0.04656999999997424
+          },
+          "replay.opcode.enable-market-rules": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.3560060000000078,
+            "exclusiveMilliseconds": 0.22827399999999898
+          },
+          "replay.opcode.enable-alley-bar": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.2338619999999878,
+            "exclusiveMilliseconds": 0.08852299999998081
+          },
+          "replay.opcode.enable-shop-dialogue": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.16272599999999215,
+            "exclusiveMilliseconds": 0.08052200000000198
+          },
+          "replay.opcode.enable-regional-partners": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.18540899999999283,
+            "exclusiveMilliseconds": 0.10779199999998923
+          },
+          "replay.opcode.enable-regional-deliveries": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.22679099999999153,
+            "exclusiveMilliseconds": 0.1292840000000126
+          },
+          "replay.opcode.enable-world-network": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.2530710000000056,
+            "exclusiveMilliseconds": 0.1558650000000057
+          },
+          "replay.opcode.flavor-cards": {
+            "calls": 105,
+            "inclusiveMilliseconds": 613.9415560000157,
+            "exclusiveMilliseconds": 1.829533000052379
+          },
+          "replay.opcode.start": {
+            "calls": 105,
+            "inclusiveMilliseconds": 1001.373623999968,
+            "exclusiveMilliseconds": 10.037135999953335
+          },
+          "economy.distillStep": {
+            "calls": 5550,
+            "inclusiveMilliseconds": 48823.81986999992,
+            "exclusiveMilliseconds": 44.25749799957853
+          },
+          "model.progress": {
+            "calls": 210,
+            "inclusiveMilliseconds": 48836.249599,
+            "exclusiveMilliseconds": 12.429729000079078
+          },
+          "replay.opcode.collect-start": {
+            "calls": 105,
+            "inclusiveMilliseconds": 33135.60404900001,
+            "exclusiveMilliseconds": 3.97733900005764
+          },
+          "replay.opcode.stop": {
+            "calls": 105,
+            "inclusiveMilliseconds": 17064.579286000044,
+            "exclusiveMilliseconds": 17.31827799999968
+          },
+          "replay.opcode.fill": {
+            "calls": 105,
+            "inclusiveMilliseconds": 1129.6528119999691,
+            "exclusiveMilliseconds": 14.31887399996532
+          },
+          "economy.economicMonthly": {
+            "calls": 1386,
+            "inclusiveMilliseconds": 7375.4924450000035,
+            "exclusiveMilliseconds": 174.45044800037127
+          },
+          "town.quantizeReaction": {
+            "calls": 1527,
+            "inclusiveMilliseconds": 1406.882757999961,
+            "exclusiveMilliseconds": 1406.882757999961
+          },
+          "replay.opcode.month": {
+            "calls": 1386,
+            "inclusiveMilliseconds": 9997.712699999971,
+            "exclusiveMilliseconds": 246.50401899983038
+          },
+          "town.registerExternalRelease": {
+            "calls": 82102,
+            "inclusiveMilliseconds": 690.2059619985284,
+            "exclusiveMilliseconds": 689.3416079985188
+          },
+          "replay.opcode.bottle-branded": {
+            "calls": 104,
+            "inclusiveMilliseconds": 724.0504549999629,
+            "exclusiveMilliseconds": 18.07589199998594
+          },
+          "replay.opcode.product-allocation": {
+            "calls": 4,
+            "inclusiveMilliseconds": 11.647229000000067,
+            "exclusiveMilliseconds": 0.5968609999998762
+          },
+          "town.receiveExternal": {
+            "calls": 141,
+            "inclusiveMilliseconds": 130.88756500002737,
+            "exclusiveMilliseconds": 11.665441999996233
+          },
+          "replay.opcode.stockist-accept": {
+            "calls": 3,
+            "inclusiveMilliseconds": 2.6304599999998857,
+            "exclusiveMilliseconds": 0.25593599999982075
+          },
+          "replay.opcode.store-assign": {
+            "calls": 1,
+            "inclusiveMilliseconds": 2.3413189999999986,
+            "exclusiveMilliseconds": 0.4037190000000237
+          },
+          "replay.opcode.stockist-decline": {
+            "calls": 1,
+            "inclusiveMilliseconds": 2.34785799999986,
+            "exclusiveMilliseconds": 0.09160799999972369
+          },
+          "replay.opcode.regional-accept": {
+            "calls": 2,
+            "inclusiveMilliseconds": 4.79351500000007,
+            "exclusiveMilliseconds": 0.24579100000005383
+          },
+          "replay.opcode.regional-assign": {
+            "calls": 100,
+            "inclusiveMilliseconds": 540.0735200000261,
+            "exclusiveMilliseconds": 12.408799000032104
+          },
+          "replay.opcode.regional-deliver": {
+            "calls": 100,
+            "inclusiveMilliseconds": 653.262761999986,
+            "exclusiveMilliseconds": 21.95356699998956
+          },
+          "replay.opcode.generation-notice": {
+            "calls": 4,
+            "inclusiveMilliseconds": 22.88962399999855,
+            "exclusiveMilliseconds": 0.42094400000678434
+          },
+          "replay.opcode.generation-handover": {
+            "calls": 4,
+            "inclusiveMilliseconds": 22.603482999993503,
+            "exclusiveMilliseconds": 0.32745299999987765
+          },
+          "model.restoreDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 64988.843733,
+            "exclusiveMilliseconds": 0.1942029999991064
+          }
+        }
+      },
+      "sameProcessRestore": {
+        "milliseconds": 31.561031999997795,
+        "memoryBefore": {
+          "rss": 297246720,
+          "heapTotal": 188915712,
+          "heapUsed": 95468088,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "memoryAfter": {
+          "rss": 301834240,
+          "heapTotal": 193429504,
+          "heapUsed": 108243944,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": {
+          "model.restoreJsonParse": {
+            "calls": 1,
+            "inclusiveMilliseconds": 4.701414000002842,
+            "exclusiveMilliseconds": 4.701414000002842
+          },
+          "model.coreValidation": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.5604149999999208,
+            "exclusiveMilliseconds": 0.5604149999999208
+          },
+          "model.matchingPrefix": {
+            "calls": 1,
+            "inclusiveMilliseconds": 1.0073899999988498,
+            "exclusiveMilliseconds": 1.0073899999988498
+          },
+          "global.structuredClone": {
+            "calls": 4,
+            "inclusiveMilliseconds": 15.806959000008646,
+            "exclusiveMilliseconds": 15.806959000008646
+          },
+          "model.fullStateEquality": {
+            "calls": 1,
+            "inclusiveMilliseconds": 8.790524000003643,
+            "exclusiveMilliseconds": 8.790524000003643
+          },
+          "model.validateDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 26.785987000002933,
+            "exclusiveMilliseconds": 0.6206989999918733
+          },
+          "model.restoreDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 31.540069999995467,
+            "exclusiveMilliseconds": 0.052668999989691656
+          }
+        }
+      },
+      "generationAndValidation": {
+        "milliseconds": 31.854253000004974,
+        "memoryBefore": {
+          "rss": 301834240,
+          "heapTotal": 193429504,
+          "heapUsed": 108248496,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "memoryAfter": {
+          "rss": 308387840,
+          "heapTotal": 200003584,
+          "heapUsed": 121375720,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": {
+          "model.coreValidation": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.5347069999988889,
+            "exclusiveMilliseconds": 0.5347069999988889
+          },
+          "model.matchingPrefix": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.8496720000039204,
+            "exclusiveMilliseconds": 0.8496720000039204
+          },
+          "global.structuredClone": {
+            "calls": 4,
+            "inclusiveMilliseconds": 16.122705999987375,
+            "exclusiveMilliseconds": 16.122705999987375
+          },
+          "model.fullStateEquality": {
+            "calls": 1,
+            "inclusiveMilliseconds": 8.80594800000108,
+            "exclusiveMilliseconds": 8.80594800000108
+          },
+          "model.validateDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 27.067991999996593,
+            "exclusiveMilliseconds": 0.7549590000053286
+          },
+          "model.serializeDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 31.715904999997292,
+            "exclusiveMilliseconds": 4.647913000000699
+          }
+        }
+      },
+      "exactRoundtrip": true,
+      "peakRssProcessBytes": 308518912,
+      "conditions": [
+        "Imports and independent envelope parse precede cold timer; no model game was previously constructed/restored.",
+        "Cold and warm restoration are consecutive. Generation follows warm restoration and uses its cache.",
+        "Raw generation is serializeDistillery; formal generation is serializeSession including official reader roundtrip.",
+        "Inclusive nested timers overlap: never sum them. Exclusive is time outside other instrumented scopes, not pure CPU.",
+        "Global clone timing includes every structuredClone call in the process during each phase.",
+        "Memory snapshots are boundary RSS/heap observations; maxRSS is process lifetime high-water, not per-phase peak.",
+        "Instrumented wall time includes measurement overhead; use unmodified control for performance conclusions."
+      ]
+    }
+  },
+  "instrumentedFiles": [
+    "works/ambertime/partner-orders.mjs",
+    "works/ambertime/economy.mjs",
+    "works/ambertime/experiments/town-simulation/v01/model.mjs",
+    "works/ambertime/save-codec.mjs",
+    "works/ambertime/development-save.mjs",
+    "works/ambertime/cask-slots.mjs",
+    "works/ambertime/recent-ledger.mjs",
+    "works/ambertime/history-record.mjs",
+    "works/ambertime/recall/collector.mjs"
+  ]
+}
