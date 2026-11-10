@@ -1,0 +1,83 @@
+{
+  "kind": "Synthetic 12/360/1200 monthly releases; NOT formal game longevity, save performance, browser or iPhone measurements",
+  "node": "v24.22.1",
+  "readRepetitions": 2000,
+  "rows": [
+    {
+      "months": 12,
+      "releases": 12,
+      "receipts": 12,
+      "coreBytes": 8388,
+      "readerBytes": 4969,
+      "sourceReadFieldsBytes": 3874,
+      "coreUpdateTotalMs": 4.746061000000026,
+      "coreUpdateMaxMs": 1.0282020000000074,
+      "readerUpdateTotalMs": 1.0991450000000142,
+      "oldFourRemarksMeanMs": 0.004631207500000002,
+      "compactFourRemarksMeanMs": 0.0018932914999999966,
+      "comparedFourRemarksMeanMs": 0.006615802000000002,
+      "actualComparedRouterFourRemarksMeanMs": 0.016861424499999993,
+      "disabledRouterSingleReadMeanMs": 0.000024793900000000234,
+      "routerEvidence": {
+        "compact": 8000,
+        "fallback": 0
+      },
+      "coreWholeJsonCopies": 48,
+      "readerWholeStructuredCopies": 13,
+      "closedEligibilityCopies": 12,
+      "formalHistoryReplays": 0,
+      "remarkParity": true
+    },
+    {
+      "months": 360,
+      "releases": 360,
+      "receipts": 360,
+      "coreBytes": 185394,
+      "readerBytes": 100078,
+      "sourceReadFieldsBytes": 107753,
+      "coreUpdateTotalMs": 1135.840508,
+      "coreUpdateMaxMs": 8.290423000000033,
+      "readerUpdateTotalMs": 217.0582850000002,
+      "oldFourRemarksMeanMs": 0.02204424449999999,
+      "compactFourRemarksMeanMs": 0.001356501499999922,
+      "comparedFourRemarksMeanMs": 0.02553790550000008,
+      "actualComparedRouterFourRemarksMeanMs": 0.0365513719999999,
+      "disabledRouterSingleReadMeanMs": 0.000022742299999993065,
+      "routerEvidence": {
+        "compact": 8000,
+        "fallback": 0
+      },
+      "coreWholeJsonCopies": 1440,
+      "readerWholeStructuredCopies": 361,
+      "closedEligibilityCopies": 360,
+      "formalHistoryReplays": 0,
+      "remarkParity": true
+    },
+    {
+      "months": 1200,
+      "releases": 1200,
+      "receipts": 1200,
+      "coreBytes": 613816,
+      "readerBytes": 332634,
+      "sourceReadFieldsBytes": 362193,
+      "coreUpdateTotalMs": 12258.438124000006,
+      "coreUpdateMaxMs": 53.94237600000088,
+      "readerUpdateTotalMs": 2267.797183000007,
+      "oldFourRemarksMeanMs": 0.07899334100000033,
+      "compactFourRemarksMeanMs": 0.0011367449999997916,
+      "comparedFourRemarksMeanMs": 0.08366032149999955,
+      "actualComparedRouterFourRemarksMeanMs": 0.08806876799999919,
+      "disabledRouterSingleReadMeanMs": 0.00002298964999990858,
+      "routerEvidence": {
+        "compact": 8000,
+        "fallback": 0
+      },
+      "coreWholeJsonCopies": 4800,
+      "readerWholeStructuredCopies": 1201,
+      "closedEligibilityCopies": 1200,
+      "formalHistoryReplays": 0,
+      "remarkParity": true
+    }
+  ],
+  "copyCountMethod": "Static call-path count for this fixture: registerRelease + two applyTransaction + compactRelease each copy the whole core using JSON; updateReader structuredClones reader and closed eligibility. Not an instrumented allocation count."
+}
