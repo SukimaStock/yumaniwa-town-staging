@@ -1,0 +1,183 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "63268ff1502bb8c25ffc98c1cbb53efdbe7f9fd442d5af9c19ba80f37e1310d9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-world-network-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage6A/B/C multiple procurement partners, causal delivery propagation and strategy/price comparison",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "8ff15e13d482f921aa83b9f638a6e64416577d40",
+    "canonicalSources": [
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/regional-partners.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/map-scenery.mjs",
+      "works/ambertime-strategy-lab/model.mjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-world-network-20261110/r0.lock.json",
+      "works/ambertime/world-network.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/regional-partners.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/regional-offer-view.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/map-partners.mjs",
+      "works/ambertime/map-daily-view.mjs",
+      "works/ambertime/map-scenery.mjs",
+      "works/ambertime/map-scenery-view.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/tests/world-network.test.mjs",
+      "works/ambertime/tests/world-network-helpers.mjs",
+      "works/ambertime/tests/world-network-ui.test.mjs",
+      "works/ambertime/tests/world-network-browser.test.mjs",
+      "works/ambertime/tests/trading-partners.test.mjs",
+      "works/ambertime/tests/regional-partners.test.mjs",
+      "works/ambertime/tests/regional-deliveries.test.mjs",
+      "works/ambertime/tests/map-partners.test.mjs",
+      "works/ambertime/tests/map-scenery.test.mjs",
+      "works/ambertime/design/world-network.md",
+      "works/ambertime-strategy-lab/world-network.mjs",
+      "works/ambertime-strategy-lab/world-network.test.mjs",
+      "works/ambertime-strategy-lab/run-world-network.mjs",
+      "works/ambertime-strategy-lab/results-world-network.json",
+      "works/ambertime-strategy-lab/app.mjs",
+      "works/ambertime-strategy-lab/index.html",
+      "works/ambertime-strategy-lab/REPORT.md",
+      "works/ambertime-strategy-lab/model.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime-strategy-lab/internal/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "6A: staticnational/overseasdefinitions and ID-keyed commonregional APIs, existingtrial IDs/versions/serials retained. All newcontracteligibility gated by worldNetwork mode; oldpath exact",
+      "6B: explicit enable-world-network opcode/replay/newgame creator and savedUIupgrade; perpartner eventcursors, genuineinquiries and concurrentoffers, no sequentialgeography requirement",
+      "6B: onlynew postboundary confirmedregional receipt -> receiveActual once withsameID mappedexistingnode; no oldbackfill, preserve pendingpackets, no customerSales invented/probabilitychange",
+      "6B: sharedmap scopes/selection/render/scenery for3desks inregion/prefecture/country; minimal schematicofficeoverlay fornewmarkers onexistingart, no realcountryassignment; existingoperations unchanged",
+      "6C: existingLab companionactualnative5policy comparison + clearlycounterfactualpricecandidate matrix and measured100yearlimits; retainresults and show existingLab UI",
+      "6C: formalpremium withheld unless broad evidenceprovesbalance; currenteconomy untouched ifheld",
+      "Cache active dependency closure forchangedmodel/viewreaders; legacyprices/receiptfacts/quotes no retroactive reinterpretation",
+      "Genuine seeds multiplepaths, noqueryinjection except explicitlyunitfixtures; roundtrip/failedwrite/retry/caps/30yeargen/100yeartarget tests, independentreview, requiredCI Pages"
+    ],
+    "ownerDecisions": [
+      "UserStage6 authorizes national/overseas provisionalpartners, nofixedunlockorder, postboundarydeliveryrumors, strategy/priceLab and safeStagingmerge. Priceadoption explicitlymayhold ifinsufficient. Productionprohibited"
+    ],
+    "hqDecisions": [
+      "Implement6A then6B then6C withtested orderedcommits inone lockedPR; do notstopatgenericrefactor",
+      "worldNetwork smallnewversion1 state recordsstartedMonth/eventStart/deliveryStartSerial/eventCursors; explicitoperation boundary retainsregionalv1 data IDs andoldbehavior when absent",
+      "WORLD_CONTACTS trialnear-wide, national-specialist-desk national-craft, overseas-import-desk overseas-craft; allnewstaticdefinitiononly, no automaticcontracts",
+      "Newnationaldesk: grain/body/mature24month, opportunities2,min1,rate1.05. Overseasdesk:smoke/body,min6month,maxrough.4,opportunities2,min1,rate.95. Geographydoesnotdeterminepremium. Existingtrialunchanged",
+      "Existingregionaloffer/delivery APIs generalizedwithmodegating; oneeventoneoffer, perpartnerqueue/cooldown, contractbrand andinventoryquotes remainauthority",
+      "Onlynewregional-delivertransaction callsunchangedreceiveActual once. eventrootallowsmatchingpostboundaryregionalreceipt. Existingprobabilities/nodes/edges/unprocessedqueues untouched",
+      "Sharedviewsaddstages5/6 contactswithgeneric smallbuildingoverlayatunnamedlandmarker; no realprefecture/countryfacts. Sceneryrules6/3/6and24/6/24,recent3months unchanged",
+      "No newformalpriceadoptionunlessmeasuredLabdemonstrates; candidate Lab is explicitlycounterfactual andneverreplaysoldprices. Stage5persistenceunused",
+      "NativepolicyLab same lawful initialcheckpointand productionrule across5allocationstrategies; exactcaps/stopreported, no fake100yearsuccess. ExistingLabnotnewwork"
+    ],
+    "rulesApplied": [
+      "ChangeOSFull lockedbase Scope/Risk/Impact/trustedCI, userexplicit6A/B/Corder",
+      "Expressionaudit reuseexistingmarket/map/Labtables; no newmanagementscreen, no decorativecopy",
+      "Formalv8 unchanged envelope, state/opcode boundary exactreplay and save-before-publish"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Realbrowserattempt fourphones iflaunchable; separateNodefromunverifiedtouch",
+      "Independentreview old/newmodecompatibility andcausalRNG/no doubleprocessing",
+      "Mapanchors andspriteoverlap check existing2pxart",
+      "Fivepoliciesandpriceprofiles/seeds +100yeartarget actualstop/bytes/restoremeasurement",
+      "RequiredCI Pages exactfiles"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Stage6 app/model changes; saves afterworld enable requirecompatible reader or preserved preboundarybackup. Oldsavedata unaffected beforeboundary.",
+    "outOfScope": [
+      "Production",
+      "Caskexpansion",
+      "Newrumorprobabilityrules",
+      "Unprovenformalpremium",
+      "Stage5persistencefix/adoption",
+      "Formalv8enveloperedeisgn",
+      "Taxes/logistics/forex",
+      "Worldwideindividualstores",
+      "Historydeletion/capbypass"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware; browsergeometry if launchblocked"
+    ],
+    "problem": "Singlepartner IDs block multiplewindows; regionalprocurement notfedrumor; strategy/priceoptionsnotcompared withformalnative world",
+    "currentContract": "Stages1-5formalregionalv1IDs,explicitoperations/replay,v8writer,worldview/scenery; finitefullreceipts andoperationcaps",
+    "whyExistingIsInsufficient": "Onefixedpartner/node andscope, offersgloballyblocked, native-onlyinquiryroots, formalregionalreceipts neverenterexistingreactionmodel",
+    "design": "MinimalID registry+modegatedregionalgenericAPI, exactsavedboundary, directnewreceiptcausalhandoff, sharedviewextensions, existingLab comparison",
+    "alternativesRejected": [
+      "Duplicateperpartnertradefunctions",
+      "Mandatorygeographyorder",
+      "Backfilloldregionalreceipts",
+      "FakeconsumerSales",
+      "Tuneprobabilityforfavorableexamples",
+      "Hugeworldmonthlytable",
+      "Unprovenpremiumshipping",
+      "Stage5saveadoption"
+    ],
+    "migration": "Checked enable-world-network afterpreboundarybackup andformalwrite. Preservealloldcontracts/allocations/IDs/cursors/pendingpackets; newpartnersstartateventend. Future successfuldeliveriesonly forwarded.",
+    "compatibility": "Olddisabledgames followoldcode andexactreplay/price/RNG. Existingregionalv1contract/serials kept. Currentnative4shops unchanged. Newmode hasexplicitopcode andsmallsparse state.",
+    "boundaryCases": [
+      "Independent3partners,foreignbrand/unknownID/retriedstaleID rejection",
+      "Concurrentpendingoffers/declinecooldown",
+      "Overseasbefore nationalpossiblewithcausalinquiry",
+      "NoRNGorinventorychangeonaccept",
+      "Regionalreceiptforwardonce/coldrestore/no backfill",
+      "Finitecapsactualstop, nohistorydelete",
+      "Oldstage3/4/5savebytes andscenery",
+      "Worldselectionno duplicatedpartners; reservedstockacrossall destinations",
+      "Pricecandidatehighnotalwaysbest/localfitpremiumpossible/holdnativeadoption"
+    ],
+    "testPlan": [
+      "6A genericregistry/deliverycompat tests before6B",
+      "6B genuinefarinquirycontractdelivercausalchain multiple seeds, no forcedevents",
+      "Formalv8old/newcoldrestorefailedwrite/opretry andgeneration",
+      "5nativepolicies commoninitialcondition andcounterfactualpriceprofiles",
+      "100yeartarget operation/savecap/time metrics andactualstop",
+      "Relatedregression+baselineknownfailures, browserattempt, independentreview CI Pages"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
