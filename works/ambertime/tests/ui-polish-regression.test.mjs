@@ -1,25 +1,26 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import {source,extract} from './r0-distill-host.mjs';
+import {runtimeSource as source,extractFunction as extract} from './formal-idb-runtime-harness.mjs';
 import {createDialogueNotice} from '../shop-dialogue-view.mjs';
 const line=prefix=>{const s=source.split('\n').find(s=>s.trimStart().startsWith(prefix));assert(s,prefix);return s;};
 const fillGate=line("if(!modal&&room==='distill'&&game.still.phase==='filling'");
 function fillContext(){
  const game={still:{phase:'filling'},core:{spirit:{id:7},casks:[]},usual:{reservation:null},tastingId:null};
  const ctx={game,preview:true,canSave:true,room:'distill',modal:null,shownFillSpiritId:7,marketEditing:false,userPaused:false,document:{hidden:false},scene:{isDistillCompletion:()=>false},marketUI:{cancel(){}},countdown:{cancel(){}},stopClock(){},manualDistilling:()=>false,endTaste:()=>true,save:()=>true,schedule(){}};
+ ctx.actionReady=()=>true;ctx.prepareGame=fn=>fn(ctx.game);ctx.saveCandidate=async()=>true;ctx.m0={mode:'half',reset(){}};
  vm.createContext(ctx);vm.runInContext(extract('selectRoom')+'\nfunction render(){'+fillGate+'}',ctx);return ctx;
 }
-test('closed fill modal reopens through the existing distillation tab without duplicating the legacy button',()=>{
+test('closed fill modal reopens through the existing distillation tab without duplicating the legacy button',async()=>{
  const c=fillContext(),raw=JSON.stringify(c.game);c.render();assert.equal(c.modal,null);
- c.selectRoom('distill');assert.equal(c.modal.kind,'fill');assert.equal(c.shownFillSpiritId,7);
- c.modal=null;c.selectRoom('warehouse');assert.equal(c.modal,null);c.selectRoom('distill');assert.equal(c.modal.kind,'fill');assert.equal(JSON.stringify(c.game),raw);
+ await c.selectRoom('distill');assert.equal(c.modal.kind,'fill');assert.equal(c.shownFillSpiritId,7);
+ c.modal=null;await c.selectRoom('warehouse');assert.equal(c.modal,null);await c.selectRoom('distill');assert.equal(c.modal.kind,'fill');assert.equal(JSON.stringify(c.game),raw);
  assert.match(source,/\$\('open-fill'\)\.hidden=true;/);
 });
-test('restored filling session does not mark the unseen result as already shown',()=>{
+test('restored filling session does not mark the unseen result as already shown',async()=>{
  const c=fillContext(),session={game:c.game,caskSlots:[],recentLedger:null,historyRecord:null,recallRecord:null,userPaused:true,elapsed:0};
  const reset=()=>{};Object.assign(c,{session,dialogueNotice:{reset},dialogueProjection:{reset},distillRoom:{reset},scene:{...c.scene,resetMotion:reset},marketUI:{cancel:reset,reset},placementUI:{reset},feedbackComments:{reset},automaticNews:{reset},mapNoticeLoad:reset,warehouseRoom:{selectedId:null,select(id){this.selectedId=id;}},D:{marketRulesMode:()=>false},storageNotice:reset,$:()=>({hidden:false,textContent:''})});
- const raw=JSON.stringify(session.game);vm.runInContext(source.slice(source.indexOf('function installSession('),source.indexOf('\nfunction startNew(')),c);c.installSession(session);assert.equal(c.modal.kind,'fill');assert.equal(JSON.stringify(session.game),raw);
+ const raw=JSON.stringify(session.game);vm.runInContext(extract('installSession'),c);await c.installSession(session);assert.equal(c.modal.kind,'fill');assert.equal(JSON.stringify(session.game),raw);
 });
 test('unreleased brand has no bottle; a real release retains its artwork',()=>{
  const calls=[],c={game:{releases:[]},brandArt:(...args)=>{calls.push(args);return 'bottle';},releasePriceTier:()=> 'standard'};vm.createContext(c);

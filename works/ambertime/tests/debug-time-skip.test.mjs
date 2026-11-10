@@ -63,9 +63,9 @@ test('actual AmberTime one-month tick preserves native model validation and oper
 test('app exposes skip only from the debug menu, with confirmation and one saved month per step',()=>{
  const source=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
  assert.match(source,/if\(a==='debug-skip'&&debugEnabled&&kind==='settings'/);
- assert.match(source,/if\(!debugEnabled\|\|preview\|\|!game\|\|!canSave/);
+ assert.match(source,/if\(!actionReady\(\)\|\|!debugEnabled\|\|preview\|\|!game\|\|!canSave/);
  assert.match(source,/confirm\(years\+'年進めます。/);
- assert.match(source,/debugSkipMonth\(game,D\)/);
- assert.match(source,/saveCandidate\(result.next,true,elapsed\)/);
+ assert.match(source,/prepareGame\(s=>\{result=debugSkipMonth\(s,D\);return result.next;\}\)/);
+ assert.match(source,/if\(!await saveCandidate\(result.next,true,elapsed\)\)/);
  assert.match(source,/if\(document.hidden\).*finishDebugSkip/);
 });
