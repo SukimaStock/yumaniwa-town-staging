@@ -49,17 +49,15 @@ test('overlay paint clears the native 144x144 source without drawing unsupported
  assert.equal(fill.length,5);assert.equal(ctx.imageSmoothingEnabled,false);
  assert.equal(paintReaction(ctx,'window','bar',6),0);assert.equal(cleared,2);
 });
-test('archived pixel art options stay unit-tested while the Lab replaces their UI',()=>{
+test('old tiny-pixel art stays testable but active Lab shows breathing shops',()=>{
  const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
  const js=readFileSync(new URL('./app.mjs',import.meta.url),'utf8');
  const css=readFileSync(new URL('./style.css',import.meta.url),'utf8');
- // Historical A/B/C patches remain here as regressions, but the tiny
- // reactions were not visible enough on an actual iPhone; the active UI is new.
- assert.match(html,/<canvas id="focus-mask" width="144" height="144"/);
- assert.doesNotMatch(html,/line-layer|pixel-layer/);
+ assert.match(html,/id="breath-layer"/);
+ assert.doesNotMatch(html,/line-layer|pixel-layer|focus-mask/);
  assert.doesNotMatch(js,/renderLine|stroke-dasharray|setInterval|paintReaction/);
- assert.match(js,/paintTownContrast/);
- assert.match(js,/focusViewport/);
- assert.match(css,/#focus-mask\{pointer-events:none\}/);
- assert.deepEqual(['contrast','focus'].map(id=>html.includes('data-style="'+id+'"')),[true,true]);
+ assert.match(js,/alphaMaskShopCrop/);
+ assert.match(js,/breathParticipants/);
+ assert.match(css,/\.breath-layer\{pointer-events:none\}/);
+ assert.deepEqual(['together','reply','partner'].map(id=>html.includes('data-style="'+id+'"')),[true,true,true]);
 });
