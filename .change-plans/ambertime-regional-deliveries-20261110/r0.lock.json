@@ -1,0 +1,152 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4661cacb878f98d552ead6f9a88c5cc3d8b6b6d4b20a7abc197a55b624c59e87",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-regional-deliveries-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reserve, cancel and formally deliver player-selected bottles under real regional contracts",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "efcfdcb2cf3dd6025072b5fad32e82187405c91b",
+    "canonicalSources": [
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/regional-partners.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/model.mjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-regional-deliveries-20261110/r0.lock.json",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/ledger-view.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/regional-offer-view.mjs",
+      "works/ambertime/tests/regional-delivery-helpers.mjs",
+      "works/ambertime/tests/regional-deliveries.test.mjs",
+      "works/ambertime/tests/regional-delivery-ui.test.mjs",
+      "works/ambertime/tests/regional-delivery-browser.test.mjs",
+      "works/ambertime/tests/formal-copy.test.mjs",
+      "works/ambertime/tests/regional-offers-browser.test.mjs",
+      "works/ambertime/design/regional-deliveries.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-strategy-lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/town-connection.mjs",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Explicit enable-regional-deliveries boundary, unchanged Stage2 contracts, new native operation journal transactions",
+      "Contract-and-brand qualified quote; player quantity1/5/all; minimumage6 from common partner; no monthly3receivingcap",
+      "Separate allocation IDs and idempotent retries; placementInventory includes regional pending counts while preserving disabled shape",
+      "Formal explicit delivery consumes only selected allocations; stable receipt ID/contracts/source inquiry/product/price/operation; stock+paid invariants and unknown downstream customer sales",
+      "Independent recent8receipts + perproduct/partner aggregates; full historical receipts in operations; no shop2048slots used",
+      "Exclude regional payments from retail mirrors and observed monthly sales; update minimal ledger/nearby accounting and current cache closure",
+      "Existing sales-room row and existing pending-return pane extended with deliver/cancel actions; save-before-publish and existing bottle motion",
+      "Organicseed3/6 offers/contracts through new batch/allocation/delivery; oldnative differential, formalv8/cold/savefailure, generation and longterm regressions; UI/browserwhereavailable"
+    ],
+    "ownerDecisions": [
+      "User Stage3 explicitly authorizes1bottle regional allocation/cancel/payment/delivery through existing sales room and safe Staging merge"
+    ],
+    "hqDecisions": [
+      "Existing formalv8 envelope/key/codec/writer unchanged; new explicit enable and operation opcodes protect old replay",
+      "Region payments use existing core stock+sold accounting but independent receipts and mirror subtraction, never customer retail counts",
+      "Regional assigned stock participates in same placementInventory assigned/available invariant; existing native storefront arrays remain unchanged",
+      "Player explicitly confirms pending row via existing returnpane deliver button, permitting cancel before handoff; no monthlyauto regional sales",
+      "No regional receipts forwarded to town simulation in this phase; retain contract/inquiry/region provenance for future one-time integration",
+      "Bounded recent8details, cumulativeperproduct/partner, fullimmutable receipt on delivery opcode; no duplicated full regional journal",
+      "Active app/model/placement/store/ledger/nearby import closure gets fresh cache markers; no unused legacy worker rewrites"
+    ],
+    "rulesApplied": [
+      "Change OS exact-base locked Full scope and existing formal v8 save/replay contract",
+      "Expression audit: reuse modal; only name, preference, actual source and3choices, no new panels or decorative copy",
+      "Fresh scope lock before intentionally changing existing creator expectation; previous lock-only branch retained without implementation",
+      "Independent review detected active nearby reader cache closure; fresh base/lock includes minimal helper path before cache fix"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Browser salesroom quantity/allocation/cancel/deliver/failedsave if launch works; iPhone byauthor",
+      "Inspect paymentonlyondelivery, no regional lastMonth/customer/town events",
+      "Review limits12000operations2048shop512releases and bounded detail history",
+      "Independent review and exactSHA CI/Pages"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Stage3 with pre-enable backup for older reader; Stage2 contract IDs preserved",
+    "outOfScope": [
+      "Regional customer-sales simulation",
+      "New geography or partners",
+      "Town rumor/probability changes",
+      "Stage5 persistence revision fix",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware"
+    ],
+    "problem": "Regional contracts cannot yet reserve or deliver bottles",
+    "currentContract": "Fournative shelves plus Stage2 independent inquiry-backed regional contracts; native physical stock includes all paid bottles in sold",
+    "whyExistingIsInsufficient": "Unknownpartner IDs cannot enter fixedSHOPS; reservations and payments need distinct durable boundary and non-retail accounting",
+    "design": "Lightweight separate regional-deliveries model, explicit enable/reserve/cancel/deliver opcodes, existing cash/inventory conventions with retail mirror exclusions. Existing salesroom row/pending confirmation, bounded history caches and operation receipts.",
+    "alternativesRejected": [
+      "Add region toSHOPS/shop.deliveries",
+      "Treat allocation as payment",
+      "Treat procurement as customer sales",
+      "ReuseStage5persistence",
+      "Auto regional monthlysales"
+    ],
+    "migration": "Explicit enable-op on new creator or backed-up existing save only, no old allocations or transactions reinterpreted",
+    "compatibility": "Disabled old saves and no-regional-delivery careers retain prior outputs; regional sourcecontract IDs retained; archive/history reflect external deliveries separately",
+    "boundaryCases": [
+      "Unknown/unaccepted/declined/wrongbrand/staleID",
+      "1/5/all/excess/age/crossreservation",
+      "Cancel/retry/doubleconfirm/idempotentIDs",
+      "Alloc/cancel/deliver coldrestore and write failure",
+      "Newrelease after naturalquery and generationhandover",
+      "Recentdetail rollover and existing ledger limits"
+    ],
+    "testPlan": [
+      "Natural contractsseed3/6; new6month bottle real game; allocation/cancel/deliver and no stock/cash fabrication",
+      "Formalv8 history/recall roundtrip and separateprocessrestore",
+      "Unenabled oldsave/5seedlongterm diff; maturedept/bar/super/retail overlap",
+      "Stable unique IDs and retries; unknown customer sales; no townreceipt",
+      "Existing regression suites plus independentreview,CI,Pages and browserattempt"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
