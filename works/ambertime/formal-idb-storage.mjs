@@ -113,10 +113,11 @@ function mainEnvelope(record){
  return exactKeys(record,['schema','revision','text','sha256'])&&record.schema===MAIN_SCHEMA&&
  isRevision(record.revision)&&record.revision>0&&hasText(record.text)&&digestValid(record.sha256);
 }
-// A connection-local bounded cache only skips repeat semantic reads of exact
-// already-validated bytes. Shape and SHA checks always run against fresh IDB
-// reads; every returned head is formally read again. The reader identity is part
-// of the cache, so a different validator never inherits another reader's trust.
+// A connection-local bounded cache only skips repeat canonical and semantic
+// reads of exact already-validated bytes. Shape and SHA checks always run against
+// fresh IDB reads; every returned head is canonically and formally read again.
+// The reader identity is part of the cache, so a different validator never
+// inherits another reader's trust. No parsed or mutable session is cached.
 const validatedByConnection=new WeakMap();
 function validationCache(db,reader){
  let readers=validatedByConnection.get(db);
@@ -130,10 +131,11 @@ function rememberValidated(cache,text){
 }
 async function verifyMainEnvelope(record,options,forceReader=false){
  if(!mainEnvelope(record))throw mainFail('invalid-head','本編の保存形式を確認できません。');
- canonical(record.text);
+ const alreadyValidated=!forceReader&&options.cache?.has(record.text);
+ if(!alreadyValidated)canonical(record.text);
  if(await fingerprint(record.text,options.cryptoApi)!==record.sha256)
   throw mainFail('idb-integrity','本編の保存内容が一致しません。');
- if(!forceReader&&options.cache?.has(record.text)){rememberValidated(options.cache,record.text);return undefined;}
+ if(alreadyValidated){rememberValidated(options.cache,record.text);return undefined;}
  const session=options.reader(record.text);
  if(session&&typeof session.then==='function')throw fail('invalid-reader','保存検証は同期的に行ってください。');
  rememberValidated(options.cache,record.text);

@@ -226,6 +226,19 @@ test('steady-state save formally reads the candidate and committed head without 
  assert.equal(validated,3); // head, previous, immutable migration copy
 });
 
+test('warm exact-text records skip redundant canonical parsing but never skip candidate or head checks',async()=>{
+ const f=factory(),s=legacy({[FORMAL_SAVE_KEY]:one}),b=await boot(f,s);
+ await b.adapter.saveCandidate(two);
+ const parse=JSON.parse,parsed=[];
+ JSON.parse=function(text,...args){parsed.push(text);return parse(text,...args);};
+ try{await b.adapter.saveCandidate(three);}finally{JSON.parse=parse;}
+ // Each candidate and committed head is parsed by canonical() and the reader.
+ // Exact previously validated previous/original bytes need no third parse.
+ assert.deepEqual(parsed,[three,three,three,three]);
+ assert.equal(f.records.get('previous').text,two);
+ assert.equal(f.records.get('backup:1:migration').candidate.text,one);
+});
+
 
 test('invalid explicit import does not replace or halt a healthy game',async()=>{
  const f=factory(),s=legacy({[FORMAL_SAVE_KEY]:one}),b=await boot(f,s),before=entries(f);
@@ -236,6 +249,42 @@ test('invalid explicit import does not replace or halt a healthy game',async()=>
 
 const hash=async text=>Buffer.from(await webcrypto.subtle.digest('SHA-256',new TextEncoder().encode(text))).toString('hex');
 async function resign(value){const {sha256,...payload}=value;return {...payload,sha256:await hash(JSON.stringify(payload))};}
+test('warm records with recomputed checksums cannot reuse canonical validation for altered bytes',async()=>{
+ for(const target of ['head','previous','backup:1:migration']){
+  const f=factory(),s=legacy({[FORMAL_SAVE_KEY]:one}),b=await boot(f,s);await b.adapter.saveCandidate(two);
+  const original=f.records.get(target),envelope=target.startsWith('backup:')?original.candidate:original;
+  const text=envelope.text.replace('"version":8','"version": 8');
+  const altered={...envelope,text,sha256:await hash(text)};
+  f.records.set(target,target.startsWith('backup:')?await resign({...original,candidate:altered}):altered);
+  const before=entries(f),writes=f.writes;
+  await assert.rejects(readMainRecord(f.db,options),error=>
+   target==='head'?error.code==='invalid-session':error.cause?.code==='invalid-session');
+  await assert.rejects(b.adapter.saveCandidate(three));
+  assert.deepEqual(entries(f),before);assert.equal(f.writes,writes);
+ }
+});
+test('identical cached text still requires a fresh matching envelope checksum',async()=>{
+ for(const target of ['head','previous','backup:1:migration']){
+  const f=factory(),s=legacy({[FORMAL_SAVE_KEY]:one}),b=await boot(f,s);await b.adapter.saveCandidate(two);
+  const original=f.records.get(target),envelope=target.startsWith('backup:')?original.candidate:original;
+  const altered={...envelope,sha256:'0'.repeat(64)};
+  f.records.set(target,target.startsWith('backup:')?await resign({...original,candidate:altered}):altered);
+  const before=entries(f),writes=f.writes;
+  await assert.rejects(readMainRecord(f.db,options),error=>
+   target==='head'?error.code==='idb-integrity':error.cause?.code==='idb-integrity');
+  await assert.rejects(b.adapter.saveCandidate(three));
+  assert.deepEqual(entries(f),before);assert.equal(f.writes,writes);
+ }
+});
+test('missing or asynchronous validators cannot reuse a warm successful cache or mutate storage',async()=>{
+ const f=factory(),s=legacy({[FORMAL_SAVE_KEY]:one});await boot(f,s);
+ const before=entries(f),writes=f.writes;
+ for(const invalidReader of [undefined,async text=>reader(text)]){
+  await assert.rejects(readMainRecord(f.db,{reader:invalidReader,cryptoApi:webcrypto}),error=>error.code==='invalid-reader');
+  await assert.rejects(writeMainRecord(f.db,two,{...options,reader:invalidReader,expectedRevision:1}),error=>error.code==='invalid-reader');
+ }
+ assert.deepEqual(entries(f),before);assert.equal(f.writes,writes);
+});
 test('warm backup with recomputed checksums still requires semantic validation and failed reads are not cached',async()=>{
  const bad=simple(666);let failures=0;
  const strictReader=text=>{const value=reader(text);if(value.game.core.month===666){failures++;throw Object.assign(Error('invalid game'),{code:'invalid-game'});}return value;};

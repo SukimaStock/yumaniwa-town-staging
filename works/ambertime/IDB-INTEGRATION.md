@@ -40,7 +40,7 @@ These existing failures are not an all-green baseline. New-head results must be
 compared by individual test name and cause, not merely by total failure count.
 Historical source-oracle assertions are not weakened to conceal differences.
 
-## Implementation verification
+## Initial implementation verification (a9730640)
 
 The implementation full run (before adding the separately gated browser file)
 finished in 125.497 seconds: **1,656 tests; 1,580 pass, 65 fail, 11 skipped**.
@@ -93,7 +93,8 @@ formal sidecars. Its month-154 round trip was exact: 302 operations,
 `3d5379e6a017ea53429a010f4cb14206b8e61e3a19674c01e39c683d7c24c678`.
 It is not the author's month-154 record.
 
-On Node v24.22.1, one cold formal read took 5,343 ms. A fuller measurement uses
+On Node v24.22.1, one cold formal read took 5,343 ms. The first implementation
+measurement uses
 the actual main adapter and a serialized transaction simulation, retaining the
 unchanged formal reader, serializer, hashing, generation checks, and backups:
 
@@ -107,7 +108,7 @@ unchanged formal reader, serializer, hashing, generation checks, and backups:
 
 This is synthetic transaction evidence, not native IndexedDB, a real-browser
 scheduler, an OS-cold benchmark, or an iPhone measurement. Every logical tick
-still takes more than six times the nominal 100 ms interval. **Performance is a
+at that checkpoint took more than six times the nominal 100 ms interval. **Performance is a
 merge blocker.** All archives are also read and hashed on every save, so history
 of explicit replacements adds another unbounded cost.
 
@@ -117,6 +118,44 @@ new candidate plus committed head are formally decoded. Cache hit refresh fixed
 an observed multi-second replay spike; eviction, corrupted bytes with recomputed
 hashes, and reopen remain covered. No decoded mutable game is shared from cache.
 No cadence reduction or codec-validation bypass is authorized by these results.
+
+### Narrow follow-up within the same locked Plan
+
+Unchanged prior/archive strings that already passed canonical parsing and the
+official reader now reuse both successful results from the existing exact-text
+cache. Every fresh envelope is still shape-checked and hashed. Every new
+candidate and forced committed-head readback still run canonical parsing and
+the official reader. No parsed session is cached. Stored source bytes and the
+format stay unchanged; no validation check on changed bytes is removed.
+
+In a matched unprofiled synthetic run, adapter median time fell from 424 to
+370 ms. Total elapsed-only saves were 612–625 ms before and 555–607 ms after;
+the month-154-to-155 step was 752 ms before and 656 ms after. The two mandatory
+adapter reader calls, exact reopened month-155 session, original legacy bytes,
+and migration backup all remained intact. Timing varies between runs. This is
+still more than five times the 100 ms interval, with no native-browser cost.
+The unchanged serializer alone measured 184–237 ms. Further fundamental pacing
+changes require a separate design; this follow-up does not make the PR ready.
+
+Four new regressions cover noncanonical changed head/previous/archive bytes
+with recomputed hashes, checksum corruption on a cached exact string, mandatory
+candidate/head parsing, and invalid validators. The focused storage, boundary,
+runtime, and unchanged `s4-save` group passes **56/56**, independently rerun.
+
+The allowed R3 preparation harness now awaits real async runtime actions and
+uses formally checked sidecars for current-session fixtures. Historical native
+legacy/staff fixtures remain read-only projections with their original bytes;
+they are not treated as importable v8 sessions. Its newly failing restored-state
+case and three baseline-failing cases now pass: **6/7 pass**, with related
+runtime/save/recall checks **25/25 pass**.
+
+The one retained R3 failure now reaches `selectRoom:shownFillSpiritId`: current
+and initial main (`8d83160f`) reset it to null, while pinned pre-R3 code retains
+1. The original assertion and pinned source digest remain intact. The monthly
+fixture now uses an observed native tick through the action boundary, checking
+the expected exact native bytes, instead of injecting an unsaved state. The
+other four newly failing extractor cases still require paths outside this lock;
+no compatibility shim or copied harness is used to bypass that scope.
 
 IndexedDB does not solve the independent expanded-state cap (6,016,384 UTF-16
 units) or the 12,000-operation limit. Existing long-term research remains relevant;
