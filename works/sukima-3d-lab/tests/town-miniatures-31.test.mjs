@@ -10,12 +10,12 @@ const root=new URL('../',import.meta.url);
 const read=p=>JSON.parse(readFileSync(new URL(p,root),'utf8'));
 const manifest=read('collection.json');
 const oldIds=["courtyard-rain-barrel","canal-lifebuoy-stand","street-drainpipe","garden-compost-bin","park-seed-feeder","pavement-hopscotch","roadside-traffic-mirror","garden-hose-reel","stair-iron-handrail","park-rope-swing"];
-const oldBlobs=["f75311c9e53fe2324353efdf2b2dd2619fb7b424","84c6d60f3332344b08d82b7558ac0d10c3108f12","95c21ea31af0c51be0d0f97ae4656d60c2596168","ea915e49332f8cc4c0b79b3d74e06bea0c7d9185","07eb3e5342a6e64bc75d658611b07fd5752cf25e","5999df61c1638730724da3eae5b9fa5445a9da27","8de2a7a5447f751819fc28f0271c1b654771805d","b98f9e9dac329b47b39d1bb97978e55f24d0af9c","acabbfe3142f50f4f8e610cdd5906959494a3525","818b831cdb78da92108180893a789ccc8daccf94"];
+const oldBlobs=["f75311c9e53fe2324353efdf2b2dd2619fb7b424","84c6d60f3332344b08d82b7558ac0d10c3108f12","95c21ea31af0c51be0d0f97ae4656d60c2596168","abcde1db41c6d2dea05cb1aa87056e84d6623640","07eb3e5342a6e64bc75d658611b07fd5752cf25e","d5ffb4f85175042c5daeb8091b49d9764186a268","8de2a7a5447f751819fc28f0271c1b654771805d","b98f9e9dac329b47b39d1bb97978e55f24d0af9c","acabbfe3142f50f4f8e610cdd5906959494a3525","818b831cdb78da92108180893a789ccc8daccf94"];
 const names=["neighborhood-noticeboard","park-seesaw","harbor-windsock","sidewalk-tactile-paving","bakery-pushcart","old-gas-streetlamp","market-hanging-scale","park-drinking-fountain","park-sandpit","courtyard-ping-pong"];
 const specimens=manifest.items.slice(320,330).map(e=>read(e.file));
 
 test('Collection31: keep first 320 registrations and previous ten Git object bytes intact',()=>{
-  assert.equal(manifest.items.length,330);
+  assert.equal(manifest.items.length,340);
   assert.ok(manifest.items.length<=1000);
   for(let i=0;i<oldIds.length;i++){
     const id=oldIds[i],entry=manifest.items[i+310];
@@ -25,10 +25,10 @@ test('Collection31: keep first 320 registrations and previous ten Git object byt
     assert.equal(blob,oldBlobs[i],id+' must not change');
   }
   const nums=manifest.items.map((e,i)=>e.number??i);
-  assert.equal(new Set(nums).size,330);
-  assert.equal(new Set(manifest.items.map(e=>e.id)).size,330);
+  assert.equal(new Set(nums).size,340);
+  assert.equal(new Set(manifest.items.map(e=>e.id)).size,340);
   assert.ok(!nums.includes(16));
-  assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:314},(_,i)=>i+17)]);
+  assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:324},(_,i)=>i+17)]);
 });
 
 test('Collection31: exactly ten new STATIC outdoor miniatures at 321–330',()=>{
