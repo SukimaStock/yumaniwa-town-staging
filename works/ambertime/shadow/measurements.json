@@ -1,0 +1,29 @@
+{
+  "kind": "synthetic scaling; not formal 100-year gameplay",
+  "node": "v24.22.1",
+  "rows": [
+    {
+      "releases": 12,
+      "totalUpdateMs": 3.1397620000000046,
+      "copyMs": 0.1045869999999951,
+      "bytes": 5370,
+      "heapUsed": 10942456
+    },
+    {
+      "releases": 360,
+      "totalUpdateMs": 686.697816,
+      "copyMs": 1.6982810000000654,
+      "bytes": 151109,
+      "heapUsed": 20000176
+    },
+    {
+      "releases": 1200,
+      "totalUpdateMs": 7494.918482,
+      "copyMs": 6.642562000000908,
+      "bytes": 506572,
+      "heapUsed": 44780208
+    }
+  ],
+  "nativeNoChange100Ms": 6.653528999999253,
+  "inactive100000Ms": 1.0627420000000711
+}
