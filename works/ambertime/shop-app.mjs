@@ -95,9 +95,10 @@ const debugEnabled=query.get('debug')==='1';
 // Explicit staging-only diagnostic. Normal play does not import the shadow model.
 let shadowObserver=null,shadowLoadError=null;
 if(debugEnabled&&!preview&&query.get('shadow')==='1'&&location.hostname==='sukimastock.github.io'&&location.pathname.startsWith('/yumaniwa-town-staging/')){
- try{const module=await import('./shadow/adapter.mjs');shadowObserver=module.createObserver();}catch(error){shadowLoadError=String(error?.message??error);}
- window.amberShadow={report:()=>shadowObserver?.report()??{status:'stopped',error:shadowLoadError}};
+ try{const module=await import('./shadow/adapter.mjs');shadowObserver=module.createObserver({features:{remarks:query.get('read-remarks')==='1',releaseLedger:query.get('read-release-ledger')==='1',storeLedger:query.get('read-store-ledger')==='1',oldWineDialogue:query.get('read-old-wine')==='1'}});}catch(error){shadowLoadError=String(error?.message??error);}
+ window.amberShadow={reads:()=>shadowObserver?.readReport()??{error:shadowLoadError},report:()=>shadowObserver?.report()??{status:'stopped',error:shadowLoadError}};
 }
+function displayRead(feature,native,legacy,args){try{return shadowObserver?.read(feature,native,legacy,args)??legacy;}catch(error){shadowLoadError=String(error?.message??error);shadowObserver=null;return legacy;}}
 const startShadow=next=>{try{shadowObserver?.start(next);}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}};
 $('open-settings').hidden=!debugEnabled;$('recovery-import').hidden=!debugEnabled;
 const recallScenePlayer=createRecallDebugPreview({document,window});
@@ -186,7 +187,7 @@ window.addEventListener('resize',()=>requestAnimationFrame(()=>automaticNews.upd
 dialogueElement.addEventListener('dialogue-layout-blocked',()=>automaticNews.update());
 for(const id of ['storage-notice','scene-notice'])new MutationObserver(()=>automaticNews.update()).observe($(id),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});
 function noteDialogueCommit(before,next){if(before&&next.core.month>before.core.month){const entry=dialogueProjection.read(next);dialogueNotice.commit(before,next,entry);return entry;}return null;}
-function latestDialogueMarkup(shopId){return room==='sales'?dialogueMarkup(dialogueProjection.read(game,shopId),game):'';}
+function latestDialogueMarkup(shopId){return room==='sales'?dialogueMarkup(displayRead('oldWineDialogue',game,dialogueProjection.read(game,shopId)),game):'';}
 
 const feedbackComments=createFeedbackComments();
 let roomFeedback=null;
@@ -502,7 +503,7 @@ const brandDisplay=brand=>{const release=game.releases.findLast(r=>r.brandId===b
 // Cached detached display projection. Replay facts are requested once per game snapshot.
 let ledgerSnapshot=null,ledgerProjection=null;
 function ledgerData(){
- if(ledgerSnapshot!==game){const productIds=[...new Set([...game.releases,...game.records].map(r=>r.productId).filter(Number.isFinite))],caskIds=[...new Set([...game.releases,...game.records].map(r=>r.caskId).filter(Number.isFinite))];ledgerProjection=buildReleaseLedger(game,{facts:D.nearbyComparisonFacts(game,{productIds,caskIds})});ledgerSnapshot=game;}
+ if(ledgerSnapshot!==game){const productIds=[...new Set([...game.releases,...game.records].map(r=>r.productId).filter(Number.isFinite))],caskIds=[...new Set([...game.releases,...game.records].map(r=>r.caskId).filter(Number.isFinite))];ledgerProjection=displayRead('releaseLedger',game,buildReleaseLedger(game,{facts:D.nearbyComparisonFacts(game,{productIds,caskIds})}));ledgerSnapshot=game;}
  return ledgerProjection;
 }
 function rememberLedger(){
@@ -538,7 +539,7 @@ function ledgerView(){
  return nav+body+'<p>'+button('歩み','ledger-history')+'</p>';
 }
 let shopLedgerSnapshot=null,shopLedgerProjection=null;
-function ledgerShops(){if(shopLedgerSnapshot!==game){shopLedgerProjection=buildShopLedger(game);shopLedgerSnapshot=game;}return shopLedgerProjection.filter(s=>s.established);}
+function ledgerShops(){if(shopLedgerSnapshot!==game){shopLedgerProjection=displayRead('storeLedger',game,buildShopLedger(game));shopLedgerSnapshot=game;}return shopLedgerProjection.filter(s=>s.established);}
 const shopStartLabel=s=>s.id==='department'?'関係開始':'取扱開始';
 const shopProgress=s=>s.interests.map(i=>i.status==='pending'?'承認・翌月納品待ち':'相談中').join('／');
 function ledgerShopList(){if(!ledgerShops().length)return '<p>取扱店なし</p>';return ledgerPaged(ledgerShops(),s=>'<button type="button" class="ledger-release-row" id="ledger-shop-'+esc(s.id)+'" data-action="ledger-shop-open" data-id="'+esc(s.id)+'"><span>'+esc(s.name)+'<br>'+esc(s.related?shopStartLabel(s)+' '+known(s.startedMonth,monthLabel):s.deliveries.length?'開始日不明':'未取扱い')+(s.deliveries.length?'<br>納品 '+esc(known(s.count,n=>n+'本'))+' · 直近 '+esc(known(s.lastMonth,monthLabel)):'')+(shopProgress(s)?'<br>'+esc(shopProgress(s)):'')+'</span></button>');}
@@ -1058,7 +1059,7 @@ function syncModal(){
   if(!knownStockists().some(s=>s.id===modal.shopId)){modal={kind:'stockists'};render();return;}
   title=shopName(modal.shopId);const offers=shopOffers().filter(o=>o.shopId===modal.shopId),items=modal.shopId==='department'||placementEnabled&&modal.shopId==='town-liquor'?stockistProducts(modal.shopId):[];
   const latestDialogue=modal.greeting?'':latestDialogueMarkup(modal.shopId);
-  const remark=modal.greeting&&['town-liquor','supermarket','bar'].includes(modal.shopId)?{key:'approved',text:modal.shopId==='bar'?'では、何本か置いてみましょう。':LIVE_MESSAGE.shopGreeting}:shopRemark(game,modal.shopId);body=(latestDialogue||'<p class="shop-remark" data-remark-key="'+esc(remark.key)+'">「'+esc(remark.text)+'」</p>')+(deliveryNotice?'<p class="delivery-confirmation" role="status">'+esc(deliveryNotice)+'</p>':'')+offers.map(o=>button(o.shopId==='department'?'相談':'申し出','stockist-offer',o.id,offerTarget(o)+(o===game.shop.offer?'':' disabled'))+(o===game.shop.offer?'':'<p class="quiet">先の申し出を確認</p>')).join('');
+  const remark=modal.greeting&&['town-liquor','supermarket','bar'].includes(modal.shopId)?{key:'approved',text:modal.shopId==='bar'?'では、何本か置いてみましょう。':LIVE_MESSAGE.shopGreeting}:displayRead('remarks',game,shopRemark(game,modal.shopId),{shopId:modal.shopId,brandId:1});body=(latestDialogue||'<p class="shop-remark" data-remark-key="'+esc(remark.key)+'">「'+esc(remark.text)+'」</p>')+(deliveryNotice?'<p class="delivery-confirmation" role="status">'+esc(deliveryNotice)+'</p>':'')+offers.map(o=>button(o.shopId==='department'?'相談':'申し出','stockist-offer',o.id,offerTarget(o)+(o===game.shop.offer?'':' disabled'))+(o===game.shop.offer?'':'<p class="quiet">先の申し出を確認</p>')).join('');
   body+=shopStartedMarkup();
   body+=modal.shopId!=='department'?'<p>'+(placementEnabled&&modal.shopId==='town-liquor'?'自分で届ける':game.shop.relations.some(r=>(r.shopId??'town-liquor')===modal.shopId)?'自動発送':'取扱開始後は自動発送')+' · 月'+SHOPS.find(s=>s.id===modal.shopId).monthlyLimit+'本まで</p>':(items.length?'<div class="stockist-list">'+items.map(({p,r,q})=>button(esc(brandFor(p.id)?.name??'ウイスキー')+'<small>'+releaseTag(p.id)+' · '+esc(releaseSource(p.id))+'<br>在庫 '+p.stock+'本<br>買取 '+unit(q.unitPrice)+'/本'+(q.ok?'':'<br>'+esc(displayReason(q.reason)))+'</small>','stockist-product',p.id,q.ok?'':'disabled')).join('')+'</div>':'<p>現在は納品不可</p><p class="quiet">'+(modal.shopId==='department'&&!D.departmentInterests(game).length?'限定取扱いの相談が必要':'納品できる在庫なし')+'</p>');
   body+=shopOrderMarkup(game,modal.shopId,{monthLabel,minQuantity:SHOPS.find(s=>s.id===modal.shopId)?.minQuantity});
