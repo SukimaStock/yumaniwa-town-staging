@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0bcd86f02cd599078a6e6fa2f0f75d1c1cf28d9c219e213b01bcd7a3484b462a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-regional-inquiry-contracts-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Connect real regional inquiries to persisted player-decided offers and contracts",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "7aa5c1d0df87ea516c17c639fe97daf53be49bbf",
+    "canonicalSources": [
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/shop-app.mjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-regional-inquiry-contracts-20261110/r0.lock.json",
+      "works/ambertime/regional-partners.mjs",
+      "works/ambertime/regional-offer-view.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/regional-partners.test.mjs",
+      "works/ambertime/tests/regional-offers-browser.test.mjs",
+      "works/ambertime/tests/regional-offer-view.test.mjs",
+      "works/ambertime/design/regional-offers.md",
+      "works/ambertime/tests/formal-copy.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-strategy-lab/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/store-market.mjs",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Opt-in enable-regional-partners operation boundary; old v8 game/replay remains exact without it",
+      "Derive offers from post-boundary near-wide inquiries with verified source chain to actual release/shipment; no simulation changes",
+      "Separate formal regional offer/contract state and replay ops; unique inquiry use, pending retention, existing12month decline cooldown with new inquiry eligibility",
+      "Reuse existing shop-offer modal and stockist list with safe regional branch, no delivery/shelf/price calculation; save-before-publish semantics",
+      "Multiple seed organic inquiry and long-term differential native comparison, formal roundtrip/failure/browser tests, existing regressions and independent review",
+      "Update only the ordinary URL creator assertion to the explicitly requested regional-enabled new game; retain every other UI assertion"
+    ],
+    "ownerDecisions": [
+      "User Stage2 explicitly authorizes regional inquiry mapping and formal contract/UI/replay opt-in, existing save protection, tests and safe Staging merge"
+    ],
+    "hqDecisions": [
+      "Existing4shop queue/serial/relations remain untouched; independent regional state stored in currentv8 game envelope via new replay opcodes",
+      "near-wide maps only to trial-region as an abstract regional procurement desk; no geography or simulation route changes",
+      "Only post-enable inquiry evidence may create offers; no retroactive contracts or source events; accept records only contract with source IDs",
+      "One inquiry used at most once; after12month decline cooldown another unused valid inquiry can offer; deferred offer coexists with town offers",
+      "New games enabled by separate creator; existing games receive persisted explicit enable boundary through existing saveCandidate and backup writer before publishing"
+    ],
+    "rulesApplied": [
+      "Change OS exact-base locked Full scope and existing formal v8 save/replay contract",
+      "Expression audit: reuse modal; only name, preference, actual source and3choices, no new panels or decorative copy",
+      "Fresh scope lock before intentionally changing existing creator expectation; previous lock-only branch retained without implementation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Real browser offer defer/decline/accept/reload and save failure; verify no shelf/delivery controls",
+      "NoStage5 dependency and no simulation/RNG changes",
+      "Compare pre-boundary old replay and all4shop outcomes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Stage2 change; pre-enable backup preserves older reader compatibility. Enabled saves need Stage2 reader or backup.",
+    "outOfScope": [
+      "Regional delivery/sales/map/pins",
+      "Existing4shop economics/conditions",
+      "Stage5 persistence revision fix",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware"
+    ],
+    "problem": "Actual regional inquiries do not yet produce player-decided formal contracts",
+    "currentContract": "Only4native shops formal; external town inquiry never auto-trades; v8 saves replay operations exactly",
+    "whyExistingIsInsufficient": "Native SHOPS queue assumes known store IDs and would change4shop serial/timing and unsafe delivery lookup",
+    "design": "Separate lightweight regional facts and pure evidence projection, refreshed after existing syncTown only when enabled. Replay new explicit opcodes; existing saved writer/validation unchanged. Common modal dispatches regional actions.",
+    "alternativesRejected": [
+      "Put regional ID into SHOPS",
+      "ReuseStage5 persistence",
+      "Change simulation probabilities or inject inquiries in normal play"
+    ],
+    "migration": "Explicit enable boundary at current month/event count, no earlier inquiries adopted. Current v8 envelope unchanged; new state only when new operation recorded.",
+    "compatibility": "Old creation functions and old operations unchanged. New creator opts in. Regional actions do not generate RNG, shipments, sales or generation facts.",
+    "boundaryCases": [
+      "No inquiry/arrival only/interest only",
+      "Unknown region or unrelated inquiry/malformed source lineage",
+      "Concurrent offers,defer,decline,cooldown,accept idempotence/staleID",
+      "Tasting/partial progress enable; storage write/readback conflict",
+      "Native cold replay, formal v8 and recall compatibility"
+    ],
+    "testPlan": [
+      "Organic near-wide inquiries multiple seeds, long-term baseline/proposal equality except regional fields and added ops",
+      "No direct inquiry input in organic runs; injected unit inputs labelled as synthetic",
+      "Formal serializeSession/readSession and failed writeCandidate/real UI atomicity",
+      "Related native shelf/rules/ledger/bar/department/offer/save/recall/UI/browser regressions",
+      "ScopeRiskImpact, required CI and independent review"
+    ],
+    "promotionRisk": "Staging only; Production untouched"
+  }
+}
