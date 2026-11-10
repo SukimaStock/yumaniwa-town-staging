@@ -5,23 +5,23 @@
  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
  <meta name="robots" content="noindex,nofollow">
  <meta name="theme-color" content="#252d32">
- <title>AmberTime｜お店のつながり Lab M1-A・ドットの反応</title>
+ <title>AmberTime｜お店のつながり Lab M1-A・見せ方の比較</title>
  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
  <main class="shell">
   <header class="heading"><div><p class="eyebrow">AmberTime / M1-A</p><h1>お店のつながり</h1></div><span class="lab-tag">比較 Lab</span></header>
-  <p class="intro">紹介元の建物が、屋根・窓・戸口のドットで小さく応えます。</p>
+  <p class="intro">町の中で場所を浮かび上がらせるか、その店へ近づくか。</p>
   <section class="controls" aria-label="比較条件">
     <fieldset class="choice"><legend>出来事</legend><div id="scenarios" class="choice-buttons"></div></fieldset>
     <fieldset class="choice"><legend>地図の見方</legend><div class="choice-buttons"><button type="button" data-view="normal" aria-pressed="false">町を眺める</button><button type="button" data-view="relation" aria-pressed="true">関係を見る</button></div></fieldset>
   </section>
   <section class="map-panel" aria-label="町の地図と店舗情報">
-   <div class="map-header"><span id="map-caption">町・7か月目</span><span class="zoom-controls"><button type="button" id="minus" aria-label="地図を縮小">−</button><button type="button" id="plus" aria-label="地図を拡大">＋</button></span></div>
+   <div class="map-header"><span id="map-caption">町・7か月目</span><span class="zoom-controls"><button type="button" id="overview" aria-label="町の全景へ戻す">全景</button><button type="button" id="minus" aria-label="地図を縮小">−</button><button type="button" id="plus" aria-label="地図を拡大">＋</button></span></div>
    <div class="map-window" id="map-window" aria-label="町の地図。店を選択できます。2本指で拡大・移動できます。">
      <div class="map-layer" id="map-layer">
        <canvas id="map-canvas" width="144" height="144" role="img" aria-label="AmberTimeの町のドット絵地図"></canvas>
-       <canvas id="pixel-layer" width="144" height="144" aria-hidden="true"></canvas>
+       <canvas id="focus-mask" width="144" height="144" aria-hidden="true"></canvas>
        <div id="map-pins" class="map-pins"></div>
      </div>
    </div>
@@ -31,11 +31,11 @@
     <div class="detail-top"><div><span class="minor">選んだお店</span><h2 id="shop-title">路地裏のバー</h2></div><span id="detail-tag" class="detail-tag">取扱店</span></div>
     <div id="shop-message" class="shop-message" role="status" aria-live="polite" aria-atomic="true"></div>
     <div id="relation-controls" class="relation-controls" hidden>
-      <fieldset class="choice compact"><legend>建物の反応</legend><div class="choice-buttons"><button type="button" data-style="eaves" aria-pressed="true">A ひさし</button><button type="button" data-style="window" aria-pressed="false">B 窓</button><button type="button" data-style="door" aria-pressed="false">C 戸口</button></div></fieldset>
-      <div class="relation-actions"><button type="button" id="follow" class="follow" hidden></button><button type="button" id="replay" class="follow replay" hidden>もう一度見る</button></div>
+      <fieldset class="choice compact"><legend>見せ方の比較</legend><div class="choice-buttons"><button type="button" data-style="contrast" aria-pressed="true">A 場所が浮かぶ</button><button type="button" data-style="focus" aria-pressed="false">C 地図が近づく</button></div></fieldset>
+      <div class="relation-actions"><button type="button" id="follow" class="follow" hidden></button><button type="button" id="replay" class="follow replay" hidden>もう一度近づく</button></div>
     </div>
   </section>
-  <footer class="notes"><span>検証用の固定シナリオ · ゲーム本編ではありません</span><details><summary>このLabについて</summary><p id="scenario-description"></p><p>経済・保存・時間進行はありません。実際のイベント記録と一致する場合だけ紹介元の実在する建物スプライトが反応します。バーの建物位置は現行M0の仮配置で、バーそのものの絵はまだありません。点線と点滅は使いません。</p></details></footer>
+  <footer class="notes"><span>検証用の固定シナリオ · ゲーム本編ではありません</span><details><summary>このLabについて</summary><p id="scenario-description"></p><p>経済・保存・時間進行はありません。同じ固定の口コミ記録を使い、Aでは地図の一部だけを明るく残し、Cでは地図が紹介元へ近づきます。バーの位置は現行M0の仮配置です。線や点滅は使いません。</p></details></footer>
  </main>
  <script type="module" src="./app.mjs"></script>
 </body>
