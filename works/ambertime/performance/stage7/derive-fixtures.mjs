@@ -18,8 +18,14 @@ const t=performance.now(),formal=serializeSession(game,metadata,{enabled:true,se
 const formalGenerationMilliseconds=performance.now()-t;
 fs.writeFileSync(path.join(destination,'formal-v8.json'),formal);
 const measurements={metadataMilliseconds,formalGenerationMilliseconds,formalBytes:Buffer.byteLength(formal),formalCodeUnits:formal.length,prefixes:[]};
-const found=new Set();
-D.replayDistilleryOperations(game,({index,after})=>{
+const found=new Set(),tradeIndex=game.operations.findLastIndex(o=>o.key==='regional-assign');
+D.replayDistilleryOperations(game,({index,before,after})=>{
+ if(index===tradeIndex){
+  if(Object.keys(before).some(key=>!Object.hasOwn(game,key)))throw Error('Unexpected trade prefix key');
+  const state=Object.fromEntries(Object.keys(game).filter(key=>key==='operations'||key==='origin'||Object.hasOwn(before,key)).map(key=>[key,key==='operations'?game.operations.slice(0,index):key==='origin'?game.origin:before[key]]));
+  fs.writeFileSync(path.join(destination,'trade-ready.json'),JSON.stringify(state));
+  measurements.tradePrefix={month:before.core.month,operations:index};
+ }
  const month=after.core.month;
  if(![12,120,360,1200].includes(month)||found.has(month))return;
  found.add(month);

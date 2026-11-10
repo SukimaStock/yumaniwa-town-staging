@@ -1,5 +1,7 @@
 # Stage7A — restore profiling
 
+This document records the historical **7A-only** baseline. Current implementation and verification are in [RESULTS.md](RESULTS.md).
+
 Baseline: `001bc6cc712cc300b8f7be65018628199e97e1f0` (PR #907).
 This directory is research tooling; the application imports none of it. Runtime,
 formal v8, operation order, RNG, IDs and validation are unchanged.

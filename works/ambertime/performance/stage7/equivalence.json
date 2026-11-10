@@ -1,0 +1,107 @@
+{
+  "baselineSha": "001bc6cc712cc300b8f7be65018628199e97e1f0",
+  "candidateModelBlob": "d9de655e57349e42e0c90b040d69d0f068e60785",
+  "futureComparisons": [
+    {
+      "case": "pending-packets",
+      "exact": true,
+      "baseline": {
+        "fixtureSha256": "c07df2682bd152f9ee503510951d80fc66413a95b9e147e822e91b0b4dbbbbec",
+        "startMonth": 120,
+        "initialPackets": 10,
+        "initialPending": 0,
+        "initialFormalExact": false,
+        "futureMonth": 132,
+        "completedMonths": 12,
+        "futureRawSha256": "5d41c3838d8114eb60a0dcbb2fc00a886a7910805135e5feeb389b2e0838afba",
+        "futureTownSha256": "a23c56719fbf2c3d4042dc0d69a0d13e1b17cf9247b72ae0de47359910c01cff",
+        "futureGenerationSha256": "812ef22171a74184a1d40d73addf86233a014a5fa4915b0bd76dfbc3e4b84322",
+        "futureOperations": 206,
+        "futureFormalSha256": "f4d7539b5b231c65e9c177c743b5cd268ed487b8d44d9fd339e1c54e1271d30a",
+        "futureHistorySha256": "cf739b85ab8f20f6f391c17631c3b73a07f0ff5cb1bac2f6e37e44dcb2498067",
+        "futureRecallSha256": "21bbab0543bd71664e02cab57afa4aa8110551821da4b9a9ae045a6b78f712a3"
+      },
+      "candidate": {
+        "fixtureSha256": "c07df2682bd152f9ee503510951d80fc66413a95b9e147e822e91b0b4dbbbbec",
+        "startMonth": 120,
+        "initialPackets": 10,
+        "initialPending": 0,
+        "initialFormalExact": false,
+        "futureMonth": 132,
+        "completedMonths": 12,
+        "futureRawSha256": "5d41c3838d8114eb60a0dcbb2fc00a886a7910805135e5feeb389b2e0838afba",
+        "futureTownSha256": "a23c56719fbf2c3d4042dc0d69a0d13e1b17cf9247b72ae0de47359910c01cff",
+        "futureGenerationSha256": "812ef22171a74184a1d40d73addf86233a014a5fa4915b0bd76dfbc3e4b84322",
+        "futureOperations": 206,
+        "futureFormalSha256": "f4d7539b5b231c65e9c177c743b5cd268ed487b8d44d9fd339e1c54e1271d30a",
+        "futureHistorySha256": "cf739b85ab8f20f6f391c17631c3b73a07f0ff5cb1bac2f6e37e44dcb2498067",
+        "futureRecallSha256": "21bbab0543bd71664e02cab57afa4aa8110551821da4b9a9ae045a6b78f712a3"
+      }
+    },
+    {
+      "case": "100year-v8-records",
+      "exact": true,
+      "baseline": {
+        "fixtureSha256": "06fd7c78d3d881ff43bbdf87365e48c8ea61734e26905de0408ba8910012c040",
+        "startMonth": 1386,
+        "initialPackets": 0,
+        "initialPending": 0,
+        "initialFormalExact": true,
+        "futureMonth": 1398,
+        "completedMonths": 12,
+        "futureRawSha256": "b56627ac5e4e1fc466b7898983ee73bdc11e8b587c67484e43f6cf5f921a702a",
+        "futureTownSha256": "5a8f701c8488879541d21b9e730163fd42d08bbcd37880f1e5c7648ea9ec4b0b",
+        "futureGenerationSha256": "19364586dd03184fb7016332ace2bf132fd177c665c62d6ba36d38e3eef9fe6a",
+        "futureOperations": 2283,
+        "futureFormalSha256": "8eeecd41bd5cfcf342dfe43a1baf039b415c572a546ac88ebd96c16103e3bd36",
+        "futureHistorySha256": "680f2daa93ff8659a3b15f1569af799390c348dc27411b2d4c0ea2531760add5",
+        "futureRecallSha256": "cdee346349f4a75af65a9857a22902159ccf770a923eadb965efc1ce55c0da75",
+        "futureLedgerSha256": "0383dfc1908403d76a83ba8a2b20ec9892aaeb3a088506bdc140cef86c273269"
+      },
+      "candidate": {
+        "fixtureSha256": "06fd7c78d3d881ff43bbdf87365e48c8ea61734e26905de0408ba8910012c040",
+        "startMonth": 1386,
+        "initialPackets": 0,
+        "initialPending": 0,
+        "initialFormalExact": true,
+        "futureMonth": 1398,
+        "completedMonths": 12,
+        "futureRawSha256": "b56627ac5e4e1fc466b7898983ee73bdc11e8b587c67484e43f6cf5f921a702a",
+        "futureTownSha256": "5a8f701c8488879541d21b9e730163fd42d08bbcd37880f1e5c7648ea9ec4b0b",
+        "futureGenerationSha256": "19364586dd03184fb7016332ace2bf132fd177c665c62d6ba36d38e3eef9fe6a",
+        "futureOperations": 2283,
+        "futureFormalSha256": "8eeecd41bd5cfcf342dfe43a1baf039b415c572a546ac88ebd96c16103e3bd36",
+        "futureHistorySha256": "680f2daa93ff8659a3b15f1569af799390c348dc27411b2d4c0ea2531760add5",
+        "futureRecallSha256": "cdee346349f4a75af65a9857a22902159ccf770a923eadb965efc1ce55c0da75",
+        "futureLedgerSha256": "0383dfc1908403d76a83ba8a2b20ec9892aaeb3a088506bdc140cef86c273269"
+      }
+    }
+  ],
+  "seed39ColdV8Compatibility": {
+    "base": {
+      "fixture": {
+        "sha256": "f3328d25ec417dd85bfc7f4eace844b1f216e4c67051dab5370c1fd1aea1b3c1",
+        "bytes": 1300339,
+        "codeUnits": 1213217,
+        "formalV8": true,
+        "month": 1397,
+        "operations": 2276,
+        "releases": 104
+      },
+      "exactRoundtrip": true
+    },
+    "after": {
+      "fixture": {
+        "sha256": "f3328d25ec417dd85bfc7f4eace844b1f216e4c67051dab5370c1fd1aea1b3c1",
+        "bytes": 1300339,
+        "codeUnits": 1213217,
+        "formalV8": true,
+        "month": 1397,
+        "operations": 2276,
+        "releases": 104
+      },
+      "exactRoundtrip": true
+    },
+    "conditions": "Fresh separate Node processes, official v8 reader and writer; correctness only, competing workloads mean timings intentionally omitted."
+  }
+}
