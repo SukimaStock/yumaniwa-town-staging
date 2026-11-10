@@ -92,6 +92,13 @@ const displayReason=text=>({'ビン詰めの資金が足りません。':'資金
 const query=new URLSearchParams(location.search),preview=query.get('preview')==='1',chosenSeed=Number(query.get('seed')),seed=preview&&Number.isInteger(chosenSeed)&&chosenSeed>0&&chosenSeed<=4294967295?chosenSeed:20261015;
 // The authoring tools are reachable only through an explicit debug URL.
 const debugEnabled=query.get('debug')==='1';
+// Explicit staging-only diagnostic. Normal play does not import the shadow model.
+let shadowObserver=null,shadowLoadError=null;
+if(debugEnabled&&!preview&&query.get('shadow')==='1'&&location.hostname==='sukimastock.github.io'&&location.pathname.startsWith('/yumaniwa-town-staging/')){
+ try{const module=await import('./shadow/adapter.mjs');shadowObserver=module.createObserver();}catch(error){shadowLoadError=String(error?.message??error);}
+ window.amberShadow={report:()=>shadowObserver?.report()??{status:'stopped',error:shadowLoadError}};
+}
+const startShadow=next=>{try{shadowObserver?.start(next);}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}};
 $('open-settings').hidden=!debugEnabled;$('recovery-import').hidden=!debugEnabled;
 const recallScenePlayer=createRecallDebugPreview({document,window});
 const recallSceneDebug=debugEnabled?recallScenePlayer:null;
@@ -178,7 +185,7 @@ document.addEventListener('visibilitychange',()=>automaticNews.update());
 window.addEventListener('resize',()=>requestAnimationFrame(()=>automaticNews.update()));
 dialogueElement.addEventListener('dialogue-layout-blocked',()=>automaticNews.update());
 for(const id of ['storage-notice','scene-notice'])new MutationObserver(()=>automaticNews.update()).observe($(id),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});
-function noteDialogueCommit(before,next){if(before&&next.core.month>before.core.month)dialogueNotice.commit(before,next,dialogueProjection.read(next));}
+function noteDialogueCommit(before,next){if(before&&next.core.month>before.core.month){const entry=dialogueProjection.read(next);dialogueNotice.commit(before,next,entry);return entry;}return null;}
 function latestDialogueMarkup(shopId){return room==='sales'?dialogueMarkup(dialogueProjection.read(game,shopId),game):'';}
 
 const feedbackComments=createFeedbackComments();
@@ -629,6 +636,7 @@ function storageNotice(t){$('storage-notice').textContent=t;$('storage-notice').
 const wallClock=new RuntimeClock(T.distillStepMs);
 function stopClock(reset=true){if(reset)wallClock.reset();generation++;if(timer!==null){clearTimeout(timer);timer=null;}}
 function rememberCommitted(){committedSession={game,userPaused,elapsed,caskSlots:[...caskSlots],recentLedger,historyRecord,recallRecord};}
+function observeShadow(before,next,entry){if(typeof shadowObserver==='undefined')return;try{shadowObserver?.observe(before,next);if(shadowObserver)shadowObserver.recordDialogue(entry);}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}}
 function restoreCommitted(){if(committedSession){game=committedSession.game;userPaused=committedSession.userPaused;elapsed=committedSession.elapsed;caskSlots=[...committedSession.caskSlots];recentLedger=committedSession.recentLedger;historyRecord=committedSession.historyRecord;pendingRecall=recallRecord=committedSession.recallRecord;recallPreview=null;}}
 function recoveryAccess(){
  modal=null;vaultPanels();const dialog=$('action-dialog');if(dialog.open)dialog.close();$('recovery').hidden=false;
@@ -650,7 +658,7 @@ function saveCandidate(next,paused=userPaused,time=elapsed,writer=writeCandidate
  if(preview){recallRecord=pendingRecall;historyRecord=candidateHistory(next);recentLedger=ledgerOverride??candidateLedger(next);caskSlots=reconcileCaskSlots(next,caskSlots);committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...caskSlots],recentLedger,historyRecord,recallRecord};noteDialogueCommit(dialogueBefore,next);return true;}
  if(!canSave)return false;
  let phase='帳面';
- try{const slots=reconcileCaskSlots(next,caskSlots),ledger=ledgerOverride??candidateLedger(next);phase='歩み';const history= candidateHistory(next);phase='保存検証';const text=sessionText(next,paused,time,slots,ledger,history);phase='書込み・読戻し';writer(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;caskSlots=slots;recentLedger=ledger;historyRecord=history;recallRecord=pendingRecall;committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...slots],recentLedger,historyRecord,recallRecord};lastSaveError=null;$('save-status').textContent='保存済み';noteDialogueCommit(dialogueBefore,next);return true;}
+ try{const slots=reconcileCaskSlots(next,caskSlots),ledger=ledgerOverride??candidateLedger(next);phase='歩み';const history= candidateHistory(next);phase='保存検証';const text=sessionText(next,paused,time,slots,ledger,history);phase='書込み・読戻し';writer(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;caskSlots=slots;recentLedger=ledger;historyRecord=history;recallRecord=pendingRecall;committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...slots],recentLedger,historyRecord,recallRecord};lastSaveError=null;$('save-status').textContent='保存済み';const committedDialogue=noteDialogueCommit(dialogueBefore,next);observeShadow(dialogueBefore,next,committedDialogue);return true;}
  catch(error){saveFailure(error,phase);return false;}
 }
 function save(){
@@ -1506,6 +1514,7 @@ function exportRaw(text,name='ambertime-save.json'){
  const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
 }
 function installSession(session,{fresh=false}={}){
+ try{shadowObserver?.reset();}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}
  dialogueNotice.reset();dialogueProjection.reset();
  countdown.cancel();stopClock();game=session.game;caskSlots=session.caskSlots;recentLedger=session.recentLedger;historyRecord=session.historyRecord;pendingRecall=recallRecord=session.recallRecord;recallPreview=null;userPaused=session.userPaused;elapsed=session.elapsed;
  if(manualDistilling())userPaused=true;
@@ -1535,7 +1544,7 @@ function startNew(){
   const next=newNativeGame(),session={game:next,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next),historyRecord:initializeHistoryRecord(next),recallRecord:initializeRecall(next)};
   const text=sessionText(next,false,0,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord);
   if(!preview){if(legacyRecord&&localStorage.getItem(legacyRecord.key)!==legacyRecord.raw)throw Object.assign(Error('別の画面で保存が変わりました。'),{code:'conflict'});writeCandidate(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;legacyRecord=null;}
-  installSession(session,{fresh:true});return true;
+  installSession(session,{fresh:true});if(!preview)startShadow(next);return true;
  }catch(error){saveFailure(error,'新規開始');return false;}
 }
 $('reset').addEventListener('click',startNew);
@@ -1554,6 +1563,7 @@ async function importRecord(file){
 }
 $('restore-file').addEventListener('change',async event=>{const file=event.target.files?.[0];event.target.value='';await importRecord(file);});
 async function boot(){
+ try{shadowObserver?.reset();}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}
  recallRecord=null;pendingRecall=null;recallPreview=null;historyRecord=null;historyData=null;historySnapshot=null;historyFactsSnapshot=null;recentLedger=null;committedSession=null;caskSlots=[null,null,null,null];distillRoom.reset();shownFillSpiritId=null;
  staffDisplayKey=null;staffDisplay=null;playbackRate=1;scene.resetMotion();
  if(preview){
@@ -1570,7 +1580,7 @@ async function boot(){
   if(lastSavedText!==null){installSession(readSession(lastSavedText,{...sessionOptions,enabled:true}));return;}
   for(const key of ['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20']){const raw=localStorage.getItem(key);if(raw!==null){legacyRecord={key,raw};throw Object.assign(Error('以前の開発版の記録です。'),{code:'unsupported-version'});}}
   const next=newNativeGame(),session={game:next,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next),historyRecord:initializeHistoryRecord(next),recallRecord:initializeRecall(next)};
-  const text=sessionText(next,false,0,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord);writeCandidate(localStorage,SAVE_KEY,null,text);lastSavedText=text;installSession(session,{fresh:true});
+  const text=sessionText(next,false,0,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord);writeCandidate(localStorage,SAVE_KEY,null,text);lastSavedText=text;installSession(session,{fresh:true});startShadow(next);
  }catch(error){
   game=null;recordSaveError(error,'起動');canSave=false;runtimeHalted=true;stopClock();$('game').hidden=true;recoveryAccess();$('save-status').textContent='未保存';
   storageNotice(error?.code==='unsupported-version'?'以前の開発版の記録です。新しく始めてください。':'この記録は開けません。新しく始めることができます。');

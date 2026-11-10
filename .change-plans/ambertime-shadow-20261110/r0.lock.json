@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9e99aae0914e132fcbd370ab16408c3d10dc3d4a96afdedf7c881c38323e255c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-shadow-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage3 post-save shadow observation, native replay compatibility and safety",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "cdf331f2f9f8ee65601fde3bffd112ed7363027c",
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/selection.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-shadow-20261110/r0.lock.json",
+      "works/ambertime/shadow/**",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime-strategy-lab/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "Post-success observation only; no formal source writes",
+      "Independent native-operation adapter and comparisons",
+      "Bounded explicit staging diagnostics; fail closed on error",
+      "Safety, native replay, performance tests and stage4 handoff"
+    ],
+    "ownerDecisions": [
+      "User Stage3 explicitly authorizes shadow adapter and conditional staging diagnostic, tests, review, PR and safe staging merge"
+    ],
+    "hqDecisions": [
+      "Observation after writer readback only; detached memory; no serializer changes; old sessions refuse bootstrap; diagnostic errors isolated"
+    ],
+    "rulesApplied": [
+      "Change OS exact-base gates",
+      "Expression audit already read in session; UI only comparisons and evidence"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Explicit staging diagnostics only",
+      "Normal main unchanged",
+      "Browser if available"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated internal subdirectory and link",
+    "outOfScope": [
+      "Formal gameplay rules",
+      "v8",
+      "PR894",
+      "Production",
+      "Player saves"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware",
+      "100 year main game integration"
+    ],
+    "problem": "Preserve learnable management and authentic memories with explicit compact read contracts",
+    "currentContract": "Main v8 and gameplay unchanged; full history readers require explicit adapters",
+    "whyExistingIsInsufficient": "Display Lab cannot compare management rules",
+    "design": "Ordered session commit observer, append-only receipts plus retail deltas, fresh-session bootstrap; bounded diagnostics",
+    "alternativesRejected": [
+      "Modify main rules",
+      "Use release count as achievement",
+      "Post-hoc fictional explanations"
+    ],
+    "migration": "none; refuse non-pristine session bootstrap",
+    "compatibility": "Old release IDs retained; no fabricated delivery rows; dialogue/recall limitations explicit",
+    "boundaryCases": [
+      "54 same-cask splits",
+      "Age restrictions",
+      "Capacity and stock",
+      "Zero and low affinity",
+      "Same-month delivery spam",
+      "Multiple seeds and short/long horizons"
+    ],
+    "testPlan": [
+      "Native operations comparison",
+      "Failed write/readback/conflict do not advance",
+      "Observer failure cannot fail formal save",
+      "All4 shop reader compatibility",
+      "Existing v8 and stage2 regressions",
+      "Measured bounded diagnostic overhead"
+    ],
+    "promotionRisk": "none; staging-only"
+  }
+}

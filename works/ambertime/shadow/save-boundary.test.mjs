@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
+const body=source.slice(source.indexOf('function saveCandidate('),source.indexOf('\nfunction save(){'));
+function harness({preview=false,writerError=null,observerError=null}={}){const events=[],before={operations:[]},next={operations:[{}]},context={preview,canSave:true,userPaused:false,elapsed:0,writeCandidate(){events.push('writer');if(writerError)throw writerError;},localStorage:{},SAVE_KEY:'test',lastSavedText:null,caskSlots:[],recentLedger:null,historyRecord:null,recallRecord:null,pendingRecall:null,committedSession:{game:before},lastSaveError:null,reconcileCaskSlots:()=>[],candidateLedger:()=>({}),candidateHistory:()=>({}),sessionText:()=>'{formal}',noteDialogueCommit:()=>events.push('dialogue'),$:()=>({textContent:''}),saveFailure:()=>events.push('failure'),shadowObserver:{observe(){events.push('shadow');if(observerError)throw observerError;},recordDialogue(){}},shadowLoadError:null,dialogueProjection:{read:()=>null}};
+vm.createContext(context);vm.runInContext(source.slice(source.indexOf('function observeShadow('),source.indexOf('function restoreCommitted('))+body,context);return {context,events,run:()=>context.saveCandidate(next),before,next};}
+test('actual saveCandidate body observes only after writer returns',()=>{const h=harness();assert.equal(h.run(),true);assert.deepEqual(h.events,['writer','dialogue','shadow']);assert.equal(h.context.committedSession.game,h.next);});
+test('actual saveCandidate failures and preview cannot advance shadow',()=>{for(const name of ['QuotaExceededError','write','readback','validation','conflict']){const h=harness({writerError:Error(name)});assert.equal(h.run(),false);assert.deepEqual(h.events,['writer','failure']);assert.equal(h.context.committedSession.game,h.before);}const h=harness({preview:true});assert.equal(h.run(),true);assert(!h.events.includes('shadow'));});
+test('actual wrapper shadow throw cannot turn saved state into failure',()=>{const h=harness({observerError:Error('shadow-only')});assert.equal(h.run(),true);assert(!h.events.includes('failure'));assert.equal(h.context.committedSession.game,h.next);assert.equal(h.context.shadowObserver,null);});
