@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "scope": "same flavor, varying old IDs/month/cask/generation; one-time projection, not incremental runtime",
+  "results": [
+    {
+      "months": 12,
+      "fullReleaseBytes": 3165,
+      "priorCBytes": 6441,
+      "stage5CBytes": 7916,
+      "buildMs": 2.084294,
+      "identities": 12,
+      "traits": 1,
+      "visuals": 1,
+      "details": 1
+    },
+    {
+      "months": 360,
+      "fullReleaseBytes": 96515,
+      "priorCBytes": 67430,
+      "stage5CBytes": 100921,
+      "buildMs": 11.034677000000002,
+      "identities": 360,
+      "traits": 1,
+      "visuals": 1,
+      "details": 1
+    },
+    {
+      "months": 1200,
+      "fullReleaseBytes": 323077,
+      "priorCBytes": 215873,
+      "stage5CBytes": 326644,
+      "buildMs": 28.36272000000001,
+      "identities": 1200,
+      "traits": 1,
+      "visuals": 1,
+      "details": 1
+    }
+  ]
+}

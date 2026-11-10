@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6ec4d887c031ecd4540d665f9b6982d1bdf11056c757e6f99751a95af0fbfa3f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-small-authority-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage5 independent incremental model, memory C and checkpoint-tail recovery proof",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "bef87b33a58b8327ef6f22374a6d82ebc0178302",
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/selection.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/shadow/STAGE4.md",
+      "works/ambertime-strategy-lab/internal/model.mjs",
+      "works/ambertime-strategy-lab/internal/memory.mjs",
+      "works/ambertime/checkpoint-persistence/DESIGN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-small-authority-20261110/r0.lock.json",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "works/ambertime-strategy-lab/internal/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/**",
+      "works/ambertime-strategy-lab/internal/model.mjs",
+      "works/ambertime-strategy-lab/internal/adapters.mjs",
+      "works/ambertime-strategy-lab/internal/memory.mjs",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "Independent incremental model with exact legacy-model parity and copy/update metrics",
+      "Versioned independent checkpoint/tail with revision/cursor/ID integrity and diagnosed recovery failure",
+      "Conservative v8-copy bootstrap and memory C comparison without fabricated history",
+      "Existing internal Lab link and small synthetic proof UI, tests, benchmarks, data audit and Stage6 game experience handoff"
+    ],
+    "ownerDecisions": [
+      "User Stage5 authorizes independent model/storage/bootstrap/memory tests/Lab/design and safe staging merge after CI and independent review"
+    ],
+    "hqDecisions": [
+      "No runtime or formal save wiring; structural sharing preserves input state; old events never silently recounted; separate candidate storage revisions must match native provenance; partial data cannot be treated complete"
+    ],
+    "rulesApplied": [
+      "Change OS exact-base gates",
+      "Expression audit already read in session; UI only comparisons and evidence"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent Lab synthetic interaction",
+      "No formal runtime wiring",
+      "Browser if available"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Stage5 independent directory and internal Lab link",
+    "outOfScope": [
+      "Formal gameplay",
+      "Formal v8/save/restore",
+      "Stage4 runtime switches",
+      "PR894",
+      "Production",
+      "Player saves"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware",
+      "100 year main game integration"
+    ],
+    "problem": "Preserve learnable management and authentic memories with explicit compact read contracts",
+    "currentContract": "Stage4 opt-in session Shadow and readers unchanged; Stage2 model whole JSON copies; formal v8 untouched",
+    "whyExistingIsInsufficient": "Long-term copying and duplicated descriptors grow; restart and legacy provenance contract unproven",
+    "design": "Independent Stage5 modules; native v8 stays source. Same model API with touched-record copies; explicit versioned checkpoint/tail and CAS injected store; memory C separate retention projection; bootstrap reports unknown rather than fabricating events.",
+    "alternativesRejected": [
+      "Modify main rules",
+      "Use release count as achievement",
+      "Post-hoc fictional explanations"
+    ],
+    "migration": "Independent copies only; no personal saves; partial v8 source has explicit coverage/unknown",
+    "compatibility": "Stage1-4 and native v8 are immutable references; exact differences classified; completed memory retained",
+    "boundaryCases": [
+      "54 same-cask splits",
+      "Age restrictions",
+      "Capacity and stock",
+      "Zero and low affinity",
+      "Same-month delivery spam",
+      "Multiple seeds and short/long horizons"
+    ],
+    "testPlan": [
+      "Legacy model differential multiple seeds and business patterns",
+      "Copy-on-write old-state/untouched-record identity",
+      "Checkpoint/tail JSON restart and revision/cursor/schema/policy failures",
+      "Quota/write/readback/conflict/interruption and missing IDs",
+      "Memory C old wine identity/art and protected recall/pending references",
+      "12/360/1200 synthetic scaling with copy/update/restore metrics",
+      "Stage1-4/native regressions, independent review, CI, browser if available"
+    ],
+    "promotionRisk": "none; staging-only"
+  }
+}
