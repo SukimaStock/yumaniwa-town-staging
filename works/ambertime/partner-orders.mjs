@@ -1,7 +1,9 @@
-import {regionalDeliveryMode,initialRegionalDeliveries,reserveRegionalInto,returnRegionalInto,deliverRegionalInto,regionalProductTotals} from './regional-deliveries.mjs';
-export {regionalDeliveryMode,regionalDeliveryPartners,regionalDeliveryQuote,regionalDeliveryRows,regionalDeliveryReceipt,regionalDeliveryHistory,regionalProductTotals} from './regional-deliveries.mjs';
-import {regionalPartnerMode,regionalOffers,regionalContract,initialRegionalPartners,refreshRegionalOffers,decideRegionalOffer} from './regional-partners.mjs';
-export {regionalPartnerMode,regionalOffers,regionalContract} from './regional-partners.mjs';
+import {WORLD_NETWORK,WORLD_CONTACTS,worldNetworkMode} from './world-network.mjs?v=world-network-v01';
+export {worldNetworkMode} from './world-network.mjs?v=world-network-v01';
+import {regionalDeliveryMode,initialRegionalDeliveries,reserveRegionalInto,returnRegionalInto,deliverRegionalInto,regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01';
+export {regionalDeliveryMode,regionalDeliveryPartners,regionalDeliveryQuote,regionalDeliveryRows,regionalDeliveryReceipt,regionalDeliveryHistory,regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01';
+import {REGIONAL_PARTNERS,regionalPartnerMode,regionalOffers,regionalContract,initialRegionalPartners,refreshRegionalOffers,decideRegionalOffer} from './regional-partners.mjs?world=world-network-v01';
+export {regionalPartnerMode,regionalOffers,regionalContract} from './regional-partners.mjs?world=world-network-v01';
 import {RULES as MARKET_RULES} from './market-sales.mjs?v=bar-v01-1';
 import {attachFlavor,setFlavorCask,flavorName} from './lab-flavor.mjs?v=stage4-r2';
 import {createTown,recordBottle,receiveActual,advanceTown,townNews} from './town-connection.mjs?v=stage4-r2';
@@ -158,6 +160,20 @@ function enableRegionalDeliveriesTransaction(s,value=null){
 }
 export function enableRegionalDeliveries(s){validateDistillery(s);const j=enableRegionalDeliveriesTransaction(s);if(j!==s)validateDistillery(j);return j;}
 export const newRegionalDeliveryDistillery=seed=>enableRegionalDeliveries(newRegionalPartnerDistillery(seed));
+// New partners and forwarding start only after this recorded execution boundary.
+// Existing regional state, pending contacts and historical receipts stay intact.
+function enableWorldNetworkTransaction(s,value=null){
+ if(worldNetworkMode(s)){assert(value===null,'世界の取引先の切替記録が重複しています。');return s;}
+ assert(s.worldNetwork===undefined&&regionalPartnerMode(s)&&regionalDeliveryMode(s),'地域契約と納品の記録を確認してください。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ const eventStart=s.labConnection.town.events.length,deliveryStartSerial=s.regionalDeliveries.deliverySerial;
+ const boundary={version:WORLD_NETWORK.version,month:s.core.month,eventStart,deliveryStartSerial,progress:shopProgress(s),tastingId:s.tastingId};
+ if(value!==null)assert(JSON.stringify(value)===JSON.stringify(boundary),'世界の取引先の切替記録が一致しません。');
+ const j=clone(s);j.worldNetwork={version:WORLD_NETWORK.version,rules:WORLD_NETWORK.rules,startedMonth:s.core.month,eventStart,deliveryStartSerial,eventCursors:Object.fromEntries(WORLD_CONTACTS.map(c=>[c.partnerId,c.partnerId===REGIONAL_PARTNERS.partnerId?s.regionalPartners.eventCursor:eventStart])),forwardedSerial:deliveryStartSerial};
+ j.operations.push({key:'enable-world-network',value:boundary});return j;
+}
+export function enableWorldNetwork(s){validateDistillery(s);const j=enableWorldNetworkTransaction(s);if(j!==s)validateDistillery(j);return j;}
+export const newWorldNetworkDistillery=seed=>enableWorldNetwork(newRegionalDeliveryDistillery(seed));
 function regionalDeliveryTransaction(s,key,value,expectedReceipt=null){
  assert(regionalDeliveryMode(s)&&!bottleActionBlocked(s),'先に試飲・卸売の申し出を確認します。');
  const j=clone(s),changed=key==='regional-assign'?reserveRegionalInto(j,value):key==='regional-return'?returnRegionalInto(j,value):deliverRegionalInto(j,value);
@@ -1317,7 +1333,11 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(s.still.distillation?.collectionVersion!==2||s.still.distillation.collectStart!==null||value<=88,'採取できる範囲を過ぎています。');assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-regional-deliveries':
+function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-world-network':
+ if(o.value?.progress!==null)s=progress(s,o.value?.progress);
+ if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
+ return enableWorldNetworkTransaction(s,o.value);
+ case 'enable-regional-deliveries':
  if(o.value?.progress!==null)s=progress(s,o.value?.progress);
  if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
  return enableRegionalDeliveriesTransaction(s,o.value);

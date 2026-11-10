@@ -1,5 +1,6 @@
 // Native-game inquiry adapter. No RNG, inventory, money, simulation or storage IO.
-import {tradingPartner} from './trading-partners.mjs';
+import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
+import {regionalContacts} from './world-network.mjs?v=world-network-v01';
 import {SHOP} from './shop-model.mjs?v=bar-v01-1';
 export const REGIONAL_PARTNERS=Object.freeze({version:1,rules:'regional-inquiry-offers/1',partnerId:'trial-region-desk',regionId:'trial-region',nodeId:'near-wide'});
 export const regionalPartnerMode=s=>s?.regionalPartners?.version===REGIONAL_PARTNERS.version&&s.regionalPartners.rules===REGIONAL_PARTNERS.rules;
@@ -52,7 +53,7 @@ export function refreshRegionalOffers(s){
  }
 }
 export function decideRegionalOffer(s,partnerId,offerId,decision){
- if(!regionalPartnerMode(s)||partnerId!==REGIONAL_PARTNERS.partnerId||!['notice','defer','accept','decline'].includes(decision))throw Error('地域の申し出を確認してください。');
+ if(!regionalPartnerMode(s)||!regionalContacts(s).some(c=>c.partnerId===partnerId)||!['notice','defer','accept','decline'].includes(decision))throw Error('地域の申し出を確認してください。');
  const offer=s.regionalPartners.offers.find(o=>o.partnerId===partnerId&&o.id===offerId);
  if(offer?.status==='accepted'&&decision==='accept'&&regionalContract(s,partnerId)?.sourceOfferId===offerId)return false;
  if(!offer||offer.status!=='pending')throw Error('この申し出は変わりました。もう一度確認します。');
