@@ -139,6 +139,7 @@ document.querySelectorAll('[data-style]').forEach(b=>b.addEventListener('click',
 $('overview').addEventListener('click',showOverview);
 document.addEventListener('visibilitychange',()=>{mapLayer.dataset.breathPaused=String(document.hidden);});
 window.addEventListener('pagehide',()=>{mapLayer.dataset.breathPaused='true';});
+window.addEventListener('pageshow',()=>{mapLayer.dataset.breathPaused=String(document.hidden);});
 function changeZoom(n){zoom=clamp(n,1,3);updateTransform();render();}
 $('plus').addEventListener('click',()=>changeZoom(zoom+.5));$('minus').addEventListener('click',()=>changeZoom(zoom-.5));
 const points=()=>[...pointers.values()];
