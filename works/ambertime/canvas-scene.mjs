@@ -61,7 +61,7 @@ export class CanvasScene{
    const zoomed=vv?.scale>1.01;this.root.dataset.zoomed=String(!!zoomed);
    const scene=zoomed?{width:document.documentElement.clientWidth,height:innerHeight,left:0,top:0}:{width:visible.width,height:visible.height,left:0,top:0};
    this.viewport=computeViewport({...scene,dpr:devicePixelRatio||1});const v=this.viewport;this.uniformTypography?.resize(v);Object.assign(this.root.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});for(const[k,n]of Object.entries(visible))document.documentElement.style.setProperty('--view-'+k,n+'px');this.canvas.width=Math.round(v.width*v.dpr);this.canvas.height=Math.round(v.height*v.dpr);document.documentElement.style.setProperty('--scene-width',360*v.scale+'px');document.documentElement.style.setProperty('--pixel',Math.round(3*v.scale*v.dpr)/v.dpr+'px');document.documentElement.style.setProperty('--icon-cell',Math.round(3*v.scale*v.dpr)/v.dpr+'px');this.root.dataset.viewport=JSON.stringify(v);this.alignDialog();this.queue();};
-  for(const id of ['automatic-news','shop-dialogue-notice']){const el=$(id);if(el)new MutationObserver(()=>this.queue()).observe(el,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});}
+  for(const id of ['automatic-news','shop-dialogue-notice']){const el=$(id);if(el)new MutationObserver(()=>{if(id==='automatic-news')el.scrollTop=0;this.queue();}).observe(el,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']});}
   window.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('resize',this.resize);window.visualViewport?.addEventListener('scroll',this.resize);this.resize();
   installSceneInput(this.root,$('action-dialog'),()=>{this.pressed=null;this.queue();});
   this.root.addEventListener('pointerdown',e=>{const p=toLogical(this.viewport,e.clientX,e.clientY),hit=hitTest(this.activeControls??[],p.x,p.y);this.root.dataset.lastPointer=JSON.stringify({...p,key:hit?.key??null});this.pressed=hit?.key;this.queue();});
@@ -194,6 +194,27 @@ export class CanvasScene{
   const wrapped=n.lines.join('\n');if(p&&p.textContent!==wrapped)p.textContent=wrapped;
   el.dataset.noticeLayout=JSON.stringify(n);
  }
+ // Canvas wrapping only chooses the familiar width. Native Japanese line
+ // breaking (including punctuation) owns the actual card height, so it cannot
+ // be clipped by a different Canvas line count. Reserve the existing motion's
+ // downward travel above the management controls as well.
+ positionAutomaticNews(news,close=null){
+  const v=this.viewport,metrics=this.textMetrics(),step=this.uniformTypography?.metrics.lineLogical??Math.max(26,metrics.logical+4);
+  const n=noticeLayout(news.textContent,t=>this.measure(t),{step}),r=projectRect(v,n),border=parseFloat(getComputedStyle(news).borderLeftWidth)||0;
+  const travel=news.dataset.motion==='ambient'&&!this.reducedMotion.matches?25:0;
+  const bottom=v.offsetY+514*v.scale-travel,top=v.offsetY+250*v.scale,maxHeight=Math.max(1,bottom-top);
+  Object.assign(news.style,{left:r.x+'px',width:r.width+'px',height:'auto',maxHeight:maxHeight+'px',fontSize:metrics.pixels/v.dpr+'px',lineHeight:step*v.scale+'px',padding:Math.max(0,n.padding*v.scale-border)+'px'});
+  // offsetHeight is unaffected by the entry/exit transform; it reflects the
+  // native font, wrapping, border and device-pixel rounding after layout.
+  const height=news.offsetHeight,overflow=news.scrollHeight>news.clientHeight+1;
+  if(this.nativeNewsText!==news.textContent){news.scrollTop=0;this.nativeNewsText=news.textContent;}
+  news.style.top=Math.max(top,Math.min(v.offsetY+460*v.scale,bottom-height))+'px';
+  news.dataset.overflow=String(overflow);
+  if(close){close.hidden=!overflow;if(overflow)Object.assign(close.style,{left:(r.x+r.width-84)+'px',top:(parseFloat(news.style.top)-44)+'px'});}
+  if(overflow){news.tabIndex=0;news.setAttribute('aria-label','町の知らせ。スクロールして全文を読めます。');}
+  else{news.removeAttribute('tabindex');news.removeAttribute('aria-label');news.scrollTop=0;}
+  news.dataset.noticeLayout=JSON.stringify({...n,nativeHeight:height,overflow});
+ }
  // Text is rasterized at integral physical dots, independently of the room scale.
  textMetrics(size=BODY_SIZE){return pixelTypography(this.uniformTypography?BODY_SIZE:size,this.viewport.scale*this.viewport.dpr,document.documentElement.dataset.fontState==='ready');}
  runs(text,size=BODY_SIZE){const c=this.ctx,m=this.textMetrics(size);return textRuns(text).map(run=>{const pixels=run.number?m.numberPixels:m.pixels;c.font=`400 ${pixels}px ${FONT_STACK}`;return{...run,pixels,width:c.measureText(run.text).width,drop:run.number?m.numberDrop:0};});}
@@ -293,10 +314,7 @@ export class CanvasScene{
    c.save();c.font=`400 ${metrics.pixels}px ${FONT_STACK}`;const bounds=c.measureText('国Ag');c.restore();const baseline=(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/metrics.unit/2;
    n.lines.forEach((line,i)=>this.text(line,n.x+n.w/2,n.y+n.padding+n.step*(i+.5)+baseline,BODY_SIZE,'center'));this.root.dataset.noticeLayout=JSON.stringify(n);
   }else delete this.root.dataset.noticeLayout;
-  const news=$('automatic-news');if(news&&!news.hidden){
-   const n=noticeLayout(news.textContent,t=>this.measure(t),{step:noticeStep}),r=projectRect(v,n),border=parseFloat(getComputedStyle(news).borderLeftWidth);
-   Object.assign(news.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px',fontSize:metrics.pixels/v.dpr+'px',lineHeight:noticeStep*v.scale+'px',padding:Math.max(0,n.padding*v.scale-border)+'px'});news.dataset.noticeLayout=JSON.stringify(n);
-  }
+  const news=$('automatic-news');if(news&&!news.hidden)this.positionAutomaticNews(news,$('automatic-news-close'));
 
   this.positionDialogue();
   this.window(9,582,342,45,'#292b39','#d8d5df');for(const x of[123,237])this.pixelRect(x,588,3,33,'#858995');
