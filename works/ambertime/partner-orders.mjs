@@ -1,3 +1,5 @@
+import {regionalPartnerMode,regionalOffers,regionalContract,initialRegionalPartners,refreshRegionalOffers,decideRegionalOffer} from './regional-partners.mjs';
+export {regionalPartnerMode,regionalOffers,regionalContract} from './regional-partners.mjs';
 import {RULES as MARKET_RULES} from './market-sales.mjs?v=bar-v01-1';
 import {attachFlavor,setFlavorCask,flavorName} from './lab-flavor.mjs?v=stage4-r2';
 import {createTown,recordBottle,receiveActual,advanceTown,townNews} from './town-connection.mjs?v=stage4-r2';
@@ -39,7 +41,7 @@ const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
 const blocked=s=>s.tastingId!==null||s.decisions.length>0||s.trade.offer!==null;
 // Completed bottles do not mutate or resolve unrelated cask decisions.
 const bottleActionBlocked=s=>bottleStorageMode(s)?s.tastingId!==null||s.trade.offer!==null:blocked(s);
-function action(s,key,value){advanceGeneration(s,key,value);if(s.labConnection&&key!=='enable-stage4')syncTown(s);s.operations.push({key,...(value===undefined?{}:{value})});assert(s.operations.length<=P.maxOperations,'帳面がいっぱいです。');return s;}
+function action(s,key,value){advanceGeneration(s,key,value);if(s.labConnection&&key!=='enable-stage4')syncTown(s);if(key==='month')refreshRegionalOffers(s);s.operations.push({key,...(value===undefined?{}:{value})});assert(s.operations.length<=P.maxOperations,'帳面がいっぱいです。');return s;}
 // Logged opt-in: old objects and operations are never relabeled or recomputed.
 export const stage4Mode=s=>s?.labConnection?.version===1;
 export function enableStage4(s){
@@ -130,6 +132,32 @@ function enableShopDialogueTransaction(s,value=null){
 }
 export function enableShopDialogue(s){validateDistillery(s);const j=enableShopDialogueTransaction(s);if(j!==s)validateDistillery(j);return j;}
 export const newShopDialogueDistillery=seed=>enableShopDialogue(newAlleyBarDistillery(seed));
+
+// Regional contracts have their own explicit replay boundary. Existing shop
+// creation functions and every earlier operation remain unchanged.
+function enableRegionalPartnersTransaction(s,value=null){
+ if(regionalPartnerMode(s)){assert(value===null,'地域の切替記録が重複しています。');return s;}
+ assert(s.regionalPartners===undefined&&marketRulesMode(s)&&stage4Mode(s),'地域の問い合わせに対応した記録を確認してください。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ const boundary={version:1,month:s.core.month,eventStart:s.labConnection.town.events.length,progress:shopProgress(s),tastingId:s.tastingId};
+ if(value!==null)assert(JSON.stringify(value)===JSON.stringify(boundary),'地域の切替記録が一致しません。');
+ const j=clone(s);j.regionalPartners=initialRegionalPartners(s);j.operations.push({key:'enable-regional-partners',value:boundary});return j;
+}
+export function enableRegionalPartners(s){validateDistillery(s);const j=enableRegionalPartnersTransaction(s);if(j!==s)validateDistillery(j);return j;}
+export const newRegionalPartnerDistillery=seed=>enableRegionalPartners(newShopDialogueDistillery(seed));
+function regionalOfferTransaction(s,partnerId,offerId,decision){
+ assert(regionalPartnerMode(s)&&!bottleActionBlocked(s),'先に試飲・卸売の申し出を確認します。');
+ const j=clone(s);if(!decideRegionalOffer(j,partnerId,offerId,decision))return s;
+ assert(j.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ // No generation advancement or syncTown: deciding a contact is not a sale.
+ j.operations.push({key:'regional-'+decision,value:{partnerId,offerId,progress:shopProgress(s)}});return j;
+}
+function checkedRegionalOffer(s,partnerId,offerId,decision){validateDistillery(s);const j=regionalOfferTransaction(s,partnerId,offerId,decision);if(j!==s)validateDistillery(j);return j;}
+export const noticeRegionalOffer=(s,partnerId,offerId)=>checkedRegionalOffer(s,partnerId,offerId,'notice');
+export const deferRegionalOffer=(s,partnerId,offerId)=>checkedRegionalOffer(s,partnerId,offerId,'defer');
+export const acceptRegionalOffer=(s,partnerId,offerId)=>checkedRegionalOffer(s,partnerId,offerId,'accept');
+export const declineRegionalOffer=(s,partnerId,offerId)=>checkedRegionalOffer(s,partnerId,offerId,'decline');
+
 function storeAssignmentTransaction(s,value,returning=false){
  const {productId,shopId,count}=value??{},p=s.core.products.find(p=>p.id===productId),r=s.releases.find(r=>r.productId===productId);
  assert(storeMarketMode(s)&&p&&r&&(alleyBarMode(s)?['town-liquor','supermarket','bar']:['town-liquor','supermarket']).includes(shopId),'割り当てる発売回と店を確認してください。');
@@ -1256,7 +1284,14 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(s.still.distillation?.collectionVersion!==2||s.still.distillation.collectStart!==null||value<=88,'採取できる範囲を過ぎています。');assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-shop-dialogue':
+function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-regional-partners':
+ if(o.value?.progress!==null)s=progress(s,o.value?.progress);
+ if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
+ return enableRegionalPartnersTransaction(s,o.value);
+ case 'regional-notice':case 'regional-defer':case 'regional-accept':case 'regional-decline':
+ if(o.value?.progress!==null)s=progress(s,o.value?.progress);
+ return regionalOfferTransaction(s,o.value?.partnerId,o.value?.offerId,o.key.slice('regional-'.length));
+ case 'enable-shop-dialogue':
  if(o.value?.progress!==null)s=progress(s,o.value?.progress);
  if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
  return enableShopDialogueTransaction(s,o.value);
