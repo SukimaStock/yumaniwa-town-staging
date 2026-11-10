@@ -1,4 +1,4 @@
-import {WORLD_NETWORK,WORLD_CONTACTS,worldNetworkMode} from './world-network.mjs?v=world-network-v01';
+import {WORLD_NETWORK,WORLD_CONTACTS,worldNetworkMode,worldContact} from './world-network.mjs?v=world-network-v01';
 export {worldNetworkMode} from './world-network.mjs?v=world-network-v01';
 import {regionalDeliveryMode,initialRegionalDeliveries,reserveRegionalInto,returnRegionalInto,deliverRegionalInto,regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01';
 export {regionalDeliveryMode,regionalDeliveryPartners,regionalDeliveryQuote,regionalDeliveryRows,regionalDeliveryReceipt,regionalDeliveryHistory,regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01';
@@ -185,8 +185,15 @@ function regionalDeliveryTransaction(s,key,value,expectedReceipt=null){
  if(key==='regional-deliver'){
   if(expectedReceipt!==null)assert(JSON.stringify(changed)===JSON.stringify(expectedReceipt),'地域への納品記録が一致しません。');
   Object.assign(data,{deliveryId:value.deliveryId,receipt:clone(changed)});syncRecords(j);syncReleases(j);
+  if(worldNetworkMode(j)){
+   const contact=worldContact(changed.partnerId);
+   assert(contact&&j.worldNetwork.forwardedSerial===j.regionalDeliveries.deliverySerial-1,'口コミへ渡す正式納品の順序を確認してください。');
+   receiveActual(j.labConnection.town,{receiptId:changed.id,month:changed.month,releaseId:changed.releaseId,to:contact.nodeId,count:changed.count});
+   j.worldNetwork.forwardedSerial=j.regionalDeliveries.deliverySerial;
+  }
  }
- // Regional procurement is not a town-shop/customer receipt or generation trigger.
+ // Regional procurement is never a customer sale or generation trigger.
+ // Only the explicitly enabled network forwards its fresh factual receipt.
  j.operations.push({key,value:{...data,progress:shopProgress(s)}});return j;
 }
 function checkedRegionalDelivery(s,key,value){validateDistillery(s);const j=regionalDeliveryTransaction(s,key,value);if(j!==s)validateDistillery(j);return j;}

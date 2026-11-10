@@ -1,6 +1,6 @@
 // Native-game inquiry adapter. No RNG, inventory, money, simulation or storage IO.
 import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
-import {regionalContacts} from './world-network.mjs?v=world-network-v01';
+import {regionalContacts,worldNetworkMode,worldContact,contactForNode} from './world-network.mjs?v=world-network-v01';
 import {SHOP} from './shop-model.mjs?v=bar-v01-1';
 export const REGIONAL_PARTNERS=Object.freeze({version:1,rules:'regional-inquiry-offers/1',partnerId:'trial-region-desk',regionId:'trial-region',nodeId:'near-wide'});
 export const regionalPartnerMode=s=>s?.regionalPartners?.version===REGIONAL_PARTNERS.version&&s.regionalPartners.rules===REGIONAL_PARTNERS.rules;
@@ -9,12 +9,22 @@ export const regionalContract=(s,partnerId=REGIONAL_PARTNERS.partnerId)=>regiona
 export function initialRegionalPartners(s){
  return {version:REGIONAL_PARTNERS.version,rules:REGIONAL_PARTNERS.rules,startedMonth:s.core.month,eventStart:s.labConnection.town.events.length,eventCursor:s.labConnection.town.events.length,offers:[],contracts:[],declinedUntil:{}};
 }
+// Only a newly forwarded, formally recorded regional receipt can establish
+// a causal source. Old paid deliveries remain history, never backfilled signals.
+function regionalShipmentEvidence(s,shipment,release){
+ if(!worldNetworkMode(s))return false;
+ const index=s.operations.findIndex(o=>o.key==='enable-world-network');
+ const operation=s.operations.find(o=>o.key==='regional-deliver'&&o.value?.receipt?.id===shipment.id),receipt=operation?.value?.receipt;
+ const contact=worldContact(receipt?.partnerId),contract=regionalContract(s,receipt?.partnerId);
+ return !!receipt&&index>=0&&receipt.operationIndex>index&&s.operations[receipt.operationIndex]===operation&&contact?.nodeId===shipment.to&&contract?.id===receipt.contractId&&receipt.releaseId===release.id&&receipt.productId===release.productId&&receipt.month===shipment.month&&receipt.count===shipment.count&&receipt.customerSales===null;
+}
 // Trace the unchanged simulation's sourceId chain to a native paid receipt.
 // Synthetic unit fixtures can call this projection; only native replay can
 // authenticate a complete saved state. Missing/foreign evidence fails closed.
 export function regionalInquiryEvidence(s,eventId,eventMap=new Map((s.labConnection?.town?.events??[]).map(e=>[e.id,e]))){
- const town=s.labConnection?.town,config=REGIONAL_PARTNERS,e=eventMap.get(eventId),p=tradingPartner(config.partnerId);
- if(!town?.external||town.version!=='ambertime-town-main/1'||!p||p.regionId!==config.regionId||e?.type!=='inquiry'||e.to!==config.nodeId||!Number.isSafeInteger(e.month)||e.month>s.core.month)return null;
+ const town=s.labConnection?.town,e=eventMap.get(eventId),config=worldNetworkMode(s)?contactForNode(s,e?.to):REGIONAL_PARTNERS,p=tradingPartner(config?.partnerId);
+ if(!config||!town?.external||town.version!=='ambertime-town-main/1'||!p||p.regionId!==config.regionId||e?.type!=='inquiry'||e.to!==config.nodeId||!Number.isSafeInteger(e.month)||e.month>s.core.month)return null;
+ if(worldNetworkMode(s)&&config.partnerId!==REGIONAL_PARTNERS.partnerId){const position=town.events.findIndex(row=>row.id===e.id);if(position<s.worldNetwork.eventStart||e.month<s.worldNetwork.startedMonth)return null;}
  const r=s.releases?.find(r=>r.id===e.mainReleaseId),local=town.releases.find(r=>r.id===e.releaseId);
  if(!r||!local||local.externalId!==r.id||local.product.productId!==r.productId||e.productId!==r.productId||!s.brands?.some(b=>b.id===r.brandId))return null;
  const seen=new Set();let current=e,shipment=null;
@@ -26,7 +36,7 @@ export function regionalInquiryEvidence(s,eventId,eventMap=new Map((s.labConnect
    if(!receipt||current.count<1)return null;
    const actual=s.shop.deliveries.find(d=>'shop:'+d.id===receipt.id&&d.releaseId===r.id&&d.month===receipt.month&&d.count===receipt.count);
    const retail=receipt.id==='retail:'+receipt.month+':'+r.productId&&receipt.to==='town'&&r.sold>=receipt.count;
-   if(!actual&&!retail)return null;
+   if(!actual&&!retail&&!regionalShipmentEvidence(s,receipt,r))return null;
    shipment=receipt;
   }
   if(current.type==='release'){
@@ -41,6 +51,7 @@ export function regionalInquiryEvidence(s,eventId,eventMap=new Map((s.labConnect
 // Called only after the existing native monthly sync. Pending offers and
 // cooldown never consume future inquiry evidence or touch the town queue.
 export function refreshRegionalOffers(s){
+ if(worldNetworkMode(s))return refreshWorldOffers(s);
  if(!regionalPartnerMode(s)||regionalOffers(s).length||regionalContract(s)||s.tastingId!==null||s.decisions.length||s.trade.offer||s.still.phase!=='ready')return;
  const state=s.regionalPartners,id=REGIONAL_PARTNERS.partnerId;
  if(s.core.month<(state.declinedUntil[id]??0))return;
@@ -50,6 +61,23 @@ export function refreshRegionalOffers(s){
   if(e.month<state.startedMonth||e.type!=='inquiry'||e.to!==REGIONAL_PARTNERS.nodeId)continue;
   const evidence=regionalInquiryEvidence(s,e.id,map);if(!evidence||state.offers.some(o=>o.eventId===e.id))continue;
   state.offers.push({id:'regional-offer:'+id+':'+e.id,...evidence,month:s.core.month,status:'pending',notified:false,deferred:false});return;
+ }
+}
+// Each representative desk consumes its own inquiry cursor. A deferred
+// contact/cooldown at one desk cannot swallow another desk's genuine inquiry.
+function refreshWorldOffers(s){
+ if(!regionalPartnerMode(s)||s.tastingId!==null||s.decisions.length||s.trade.offer||s.still.phase!=='ready')return;
+ const state=s.regionalPartners,world=s.worldNetwork,events=s.labConnection.town.events;let map=null;
+ for(const contact of regionalContacts(s)){
+  const id=contact.partnerId;
+  if(regionalContract(s,id)||state.offers.some(o=>o.partnerId===id&&o.status==='pending')||s.core.month<(state.declinedUntil[id]??0))continue;
+  for(let i=world.eventCursors[id];i<events.length;i++){
+   world.eventCursors[id]=i+1;if(id===REGIONAL_PARTNERS.partnerId)state.eventCursor=i+1;
+   const e=events[i],fromMonth=id===REGIONAL_PARTNERS.partnerId?state.startedMonth:world.startedMonth;
+   if(e.month<fromMonth||e.type!=='inquiry'||e.to!==contact.nodeId)continue;
+   const proof=regionalInquiryEvidence(s,e.id,map??=new Map(events.map(row=>[row.id,row])));if(!proof||state.offers.some(o=>o.eventId===e.id))continue;
+   state.offers.push({id:'regional-offer:'+id+':'+e.id,...proof,month:s.core.month,status:'pending',notified:false,deferred:false});break;
+  }
  }
 }
 export function decideRegionalOffer(s,partnerId,offerId,decision){
