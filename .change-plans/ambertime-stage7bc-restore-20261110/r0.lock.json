@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "56d1c30431f4784d621c65dfd69ecf2fe46b5cde3dc57080bcd2431f1fb20543",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-stage7bc-restore-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage7B measured extraction replay copy reduction; Stage7C long safety and browser verification",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "a26ee5b7d2d4b9ae0c2b3cf19647da67c5168887",
+    "canonicalSources": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/performance/stage7/README.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-stage7bc-restore-20261110/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/restore-performance.test.mjs",
+      "works/ambertime/performance/stage7/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime-strategy-lab/internal/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Private progress uses current E.distillStep unchanged on minimal core/still/tastingId/decisions transient state; full detached clone once after successful progression; zero-step identity retained",
+      "All operation assertions, RNG/order, independent replay, exact state comparison, validation caches and formal writer unchanged",
+      "Refresh app->model and index->app cache URLs only",
+      "Differential extraction tests old/new modes/blocked/invalid/0..99/immutability; legacy and v8/tamper/failedvalidation recovery",
+      "Same baseline fixture/time conditions and multiple seed100year public careers; future states/RNG/rumors/recall equality",
+      "Real browser attempts and exact limitations, report/metrics/checkpoints in existing performance directory; no new product UI"
+    ],
+    "ownerDecisions": [
+      "User Stage7 authorizes investigation, minimal measured optimizations, long validation, safe Staging merge; no Production"
+    ],
+    "hqDecisions": [
+      "7A identified extraction copies48.836s of64.989s instrumented raw; control63.905s. Target rawcold<=25s with unchanged byte-for-byte validation",
+      "Onlyprivate progress projection changes, not underlying distillation calculations or public transaction APIs. Four input fields are explicit dependency contract protected by full-state differential tests",
+      "No checkpoint/tail/Stage5 use, no schema/price/scenery threshold changes",
+      "7B implementation precedes7C verification in same lockedPR; split ifscope changes"
+    ],
+    "rulesApplied": [
+      "Change OS locked Plan, Scope Risk Impact, independent review and CI",
+      "No new product UI or prose"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent implementation review",
+      "Long100year seeds27/39 plus national seed3/6 regressions",
+      "Real browser available checks; iPhone and unsupported geometries remain explicitly unverified",
+      "RequiredCI andPages exactSHA"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert private progress and cache query edits; saved bytes unchanged and readable by baseline",
+    "outOfScope": [
+      "Runtime changes",
+      "Stage5 persistence",
+      "Production",
+      "Price rules"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "ActualiPhone Safari",
+      "Unsupported browser mobilegeometry/touch/longload cases explicitlyreported"
+    ],
+    "problem": "Repeated whole-history clones during extraction replay dominate cold restore",
+    "currentContract": "Full operation replay plus exact state equality, immutable public transactions, v8 roundtrip and CAS",
+    "whyExistingIsInsufficient": "100year rawcold63.905s, formal61.005s on currentNode",
+    "design": "Same step loop with minimal transient input and once-only detached full output",
+    "alternativesRejected": [
+      "Remove replay/assertions/equality",
+      "New persistence format",
+      "Town quantization rewrite",
+      "Public transaction rewrite",
+      "Stage5 reuse"
+    ],
+    "migration": "none",
+    "compatibility": "No save format/IDs/operation changes; exact baseline vs candidate outputs",
+    "boundaryCases": [
+      "No-step identity",
+      "99 max and invalid progress",
+      "blocked tasting/decisions/trade",
+      "both collection versions",
+      "partial/tasting cache branches",
+      "rejectedstate thenvalidrestore",
+      "pendingrumor future equality",
+      "same-seed divergent prefix",
+      "v8 conflict/quota/readback"
+    ],
+    "testPlan": [
+      "Focused differential extraction test",
+      "Currentnative/legacy/market/generation/history/recall/save regression",
+      "Samefixtures after profiles",
+      "Two genuine100year careers and future equivalence",
+      "Independentreview ScopeRiskImpact CI Pages"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
