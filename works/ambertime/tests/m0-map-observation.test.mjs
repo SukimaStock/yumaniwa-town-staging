@@ -36,7 +36,8 @@ test('M0 local hit bounds follow the authored stage-2/3 buildings',()=>{
 test('M0 names use canonical shops; department remains a special handling path',()=>{
  assert.equal(SHOPS.find(s=>s.id==='supermarket').name,'町のスーパー');
  assert.equal(SHOPS.find(s=>s.id==='bar').name,'路地裏のバー');
- assert.ok(!Object.hasOwn(mapObservationBounds(3),'department'));
+ // Stage4 maps the existing house to the special department path, not a shelf.
+ assert.deepEqual(mapObservationBounds(3).department,[24,48,12,16]);
 });
 test('M0 drawer uses reversible sheet positions and respects reduced motion',()=>{
  const css=readFileSync(new URL('../m0-observation.css',import.meta.url),'utf8');

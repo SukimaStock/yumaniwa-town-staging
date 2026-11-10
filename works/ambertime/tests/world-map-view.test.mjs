@@ -1,7 +1,7 @@
 import {caskSlotIndex} from '../canvas-layout.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mapProgress,mapStep,drawGameMap,newlyUnlocked,revealStart,mapIntroduction,mapSeenBaseline,mapNoticeBaseline} from '../world-map-view.mjs';
+import {mapProgress,mapStep,drawGameMap,newlyUnlocked,revealStart,mapIntroduction,mapSeenBaseline,mapNoticeBaseline,MAP_BROWSE_MAX} from '../world-map-view.mjs';
 const make=(arrivals=[],shipments=[],deliveries=[],relations=[],events=[])=>({
  labConnection:{version:1,town:{arrivals,shipments,events}},shop:{deliveries,relations}
 });
@@ -131,20 +131,26 @@ test('notice v1 and old no-key saves migrate without replay; v2 keeps drawn and 
  assert.deepEqual(mapNoticeBaseline(p,{version:1,shown:1},true),{shown:1,announced:1});
  assert.deepEqual(mapNoticeBaseline({...p,max:5},{version:1,shown:6},true),{shown:6,announced:6});
  assert.deepEqual(mapNoticeBaseline({...p,max:6},{version:2,shown:2,announced:6},true),{shown:2,announced:6});
- assert.deepEqual(mapNoticeBaseline(p,{version:2,shown:1,announced:0},true),{shown:1,announced:0});
+ assert.deepEqual(mapNoticeBaseline(p,{version:3,shown:1,announced:0},true),{shown:1,announced:0});
  assert.deepEqual(mapNoticeBaseline(p,null,true),{shown:1,announced:1});
  assert.deepEqual(mapNoticeBaseline({...p,max:6},null,true),{shown:6,announced:6});
  assert.deepEqual(mapNoticeBaseline(p,{version:2,shown:6,announced:6},false),{shown:0,announced:0});
  assert.deepEqual(mapNoticeBaseline(p,{version:1,shown:0},true),{shown:0,announced:0});
  assert.deepEqual(mapNoticeBaseline(p,{version:2,shown:9,announced:'bad'},true),{shown:1,announced:1});
 });
-test('map history cannot unlock scales and close routes do not mark future stages',()=>{
+test('free browsing and closing notices preserve factual acknowledgements',()=>{
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
- const sandbox={game:make(),mapProgress,mapShown:6};vm.runInNewContext(source.match(/const mapViewMax=.*?;/)[0]+'globalThis.maximum=mapViewMax;',sandbox);assert.equal(sandbox.maximum(),1);
+ const sandbox={game:make(),mapProgress,mapShown:6,MAP_BROWSE_MAX};vm.runInNewContext(source.match(/const mapViewMax=.*?;/)[0]+'globalThis.maximum=mapViewMax;',sandbox);assert.equal(sandbox.maximum(),6);
  assert.match(source,/drawGameMap\(canvas,game,worldMapStage\)/);
- const target={focused:false,focus(){this.focused=true}},x={placementUI:null,comparisonKinds:[],render(){},schedule(){x.scheduled++},scheduled:0,$:()=>target};
+ const target={focused:false,focus(){this.focused=true}},x={currentMapBrowse:()=>({stage:3}),debugSkipJob:null,placementUI:null,comparisonKinds:[],render(){},schedule(){x.scheduled++},scheduled:0,$:()=>target};
  const fn=source.slice(source.indexOf('function closeModal('),source.indexOf('function trial('));
- vm.runInNewContext('let modal={kind:"world-map",source:"menu",parent:{kind:"aux-panel",marker:3}},mapShown=2,mapAnnounced=6;'+fn+'globalThis.state=()=>({modal,mapShown,mapAnnounced});globalThis.unlock=()=>{modal={kind:"world-map",source:"unlock"};};',x);
+ vm.runInNewContext('let worldMapStage=2,modal={kind:"world-map",source:"menu",parent:{kind:"aux-panel",marker:3}},mapShown=2,mapAnnounced=6;'+fn+'globalThis.state=()=>({modal,mapShown,mapAnnounced});globalThis.unlock=()=>{modal={kind:"world-map",source:"unlock"};};',x);
  x.closeModal();assert.equal(x.state().modal.kind,'aux-panel');assert.equal(x.state().modal.marker,3);assert(target.focused);assert.equal(x.scheduled,0);assert.equal(x.state().mapShown,2);assert.equal(x.state().mapAnnounced,6);
  x.unlock();x.closeModal();assert.equal(x.state().modal,null);assert.equal(x.scheduled,1);assert.equal(x.state().mapShown,2);assert.equal(x.state().mapAnnounced,6);
+});
+
+test('Stage4 migration consumes historical reaches independently of freely browsed stages',()=>{
+ const p={bottled:true,max:4};
+ for(const old of [null,{version:1,shown:1},{version:2,shown:6,announced:2}])assert.deepEqual(mapNoticeBaseline(p,old,true,{consumeHistorical:true}),{shown:4,announced:4});
+ assert.deepEqual(mapNoticeBaseline(p,{version:3,shown:1,announced:2},true,{consumeHistorical:true}),{shown:1,announced:2});
 });

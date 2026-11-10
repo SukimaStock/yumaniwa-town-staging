@@ -5,6 +5,7 @@ import * as D from '../partner-orders.mjs';
 import {advance} from './brands-helpers.mjs';
 import {mapProgress} from '../world-map-view.mjs';
 import {mapSalesProjection,mapShopDetail} from '../map-sales-view.mjs';
+import {mapPartnerProjection} from '../map-partners.mjs';
 import {normalizeMapView,loadMapView,saveMapView,dailyMapProjection} from '../map-daily-view.mjs';
 
 const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/placement-established-six.json',import.meta.url))).raw;
@@ -39,7 +40,7 @@ test('UI storage roundtrip touches one UI key and tolerates unavailable or inval
  assert.deepEqual(loadMapView(storage,key),{stage:3,selectedShop:'town-liquor'});
  assert.equal(map.get(formal),fixture);assert.equal(map.size,2);
  assert.equal(saveMapView(storage,key,{stage:7}),false);
- for(const value of ['broken','null','[]','{"version":2,"stage":3}','{"version":1,"stage":0}','{"version":1,"stage":3,"selectedShop":{}}']){
+ for(const value of ['broken','null','[]','{"version":3,"stage":3}','{"version":1,"stage":0}','{"version":1,"stage":3,"selectedShop":{}}']){
   map.set(key,value);assert.equal(loadMapView(storage,key),null);
  }
  assert.equal(loadMapView({getItem(){throw Error('blocked');}},key),null);
@@ -55,7 +56,8 @@ test('native committed stock, actual sales and recall remain identical across da
  const raw=D.serializeDistillery(state),progress=mapProgress(state),local=mapSalesProjection(state,3),detail=mapShopDetail(state,'town-liquor');
  assert(detail.recentSold>0);
  const frozen=freeze(state),daily=dailyMapProjection(frozen,3);
- assert.deepEqual(daily.pins,local.pins);assert.deepEqual(daily.retail,local.retail);
+ assert.deepEqual(daily.pins,mapPartnerProjection(frozen,3).pins);
+ assert.deepEqual(daily.pins.map(p=>p.detail.products),local.pins.map(p=>p.products));assert.deepEqual(daily.retail,local.retail);
  assert.equal(daily.summary.shopCount,1);assert.equal(daily.summary.recentSold,detail.recentSold);
  assert.equal(daily.summary.recentDelivered,0);assert.equal(daily.summary.currentStock,detail.currentStock);
  assert.equal(D.serializeDistillery(state),raw);assert.deepEqual(mapProgress(state),progress);

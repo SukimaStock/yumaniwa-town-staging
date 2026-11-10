@@ -2,36 +2,46 @@
 // by the existing model. The optional storage helpers write only the supplied UI key.
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 import {mapSalesProjection,mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1';
-import {mapProgress} from './world-map-view.mjs?v=0.28.0-map';
+import {mapProgress} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01';
+import {tradingPartner} from './trading-partners.mjs';
+import {mapPartnerProjection} from './map-partners.mjs?v=map-partners-v01';
 
 const validStage=n=>Number.isInteger(n)&&n>=1&&n<=6;
 const validSelection=id=>id===null||typeof id==='string'&&id.length>0&&id.length<=128;
 const safeMaximum=max=>Number.isFinite(max)?Math.max(1,Math.min(6,Math.trunc(max))):1;
 
-export function normalizeMapView(view,max,visibleShopIds=[]){
+function cameraState(view){
+ const transforms={};
+ for(const [key,camera] of Object.entries(view?.transforms??{})){
+  if(!/^[1-6]$/.test(key)||!camera||![camera.zoom,camera.panX,camera.panY].every(Number.isFinite))continue;
+  transforms[key]={zoom:Math.max(1,Math.min(4,camera.zoom)),panX:Math.max(-1000,Math.min(1000,camera.panX)),panY:Math.max(-1000,Math.min(1000,camera.panY))};
+ }
+ return Object.keys(transforms).length?{transforms}:{};
+}
+export function normalizeMapView(view,max=6,visibleShopIds=[]){
  const limit=safeMaximum(max),requested=Number.isInteger(view?.stage)?view.stage:Math.min(3,limit);
  const stage=Math.max(1,Math.min(limit,requested));
  const visible=new Set(Array.isArray(visibleShopIds)||visibleShopIds instanceof Set?visibleShopIds:[]);
- const selectedShop=(stage===2||stage===3)&&typeof view?.selectedShop==='string'&&visible.has(view.selectedShop)?view.selectedShop:null;
- return {stage,selectedShop};
+ const selectedShop=view?.selectedShop==='retail'?'retail':(stage===2||stage===3||stage===4)&&typeof view?.selectedShop==='string'&&visible.has(view.selectedShop)&&tradingPartner(view.selectedShop)?.mapScale===(stage===4?'region':'town')?view.selectedShop:null;
+ return {stage,selectedShop,...cameraState(view)};
 }
 
 export function loadMapView(storage,key){
  if(typeof key!=='string'||!key)return null;
  try{
   const value=JSON.parse(storage.getItem(key));
-  if(!value||Array.isArray(value)||value.version!==1||!validStage(value.stage)||!validSelection(value.selectedShop??null))return null;
-  return {stage:value.stage,selectedShop:value.selectedShop??null};
+  if(!value||Array.isArray(value)||![1,2].includes(value.version)||!validStage(value.stage)||!validSelection(value.selectedShop??null))return null;
+  return {stage:value.stage,selectedShop:value.selectedShop??null,...cameraState(value)};
  }catch{return null;}
 }
 
 export function saveMapView(storage,key,view){
  if(typeof key!=='string'||!key||!validStage(view?.stage)||!validSelection(view.selectedShop??null))return false;
- try{storage.setItem(key,JSON.stringify({version:1,stage:view.stage,selectedShop:view.selectedShop??null}));return true;}catch{return false;}
+ try{storage.setItem(key,JSON.stringify({version:2,stage:view.stage,selectedShop:view.selectedShop??null,...cameraState(view)}));return true;}catch{return false;}
 }
 
 export function dailyMapProjection(game,stage){
- const projection=mapSalesProjection(game,stage);
+ const projection=mapPartnerProjection(game,stage);
  const shops=SHOPS.map(shop=>mapShopDetail(game,shop.id)).filter(Boolean);
  const summary={name:'蒸留所のある町',shopCount:shops.length,recentSold:0,recentDelivered:0,currentStock:0,unknownStockCount:0};
  for(const shop of shops){
@@ -47,5 +57,5 @@ export function dailyMapProjection(game,stage){
  const progress=mapProgress(game);
  const reach=[['town','町'],['near','周辺地域'],['national','全国'],['overseas','海外']]
   .map(([id,name])=>({id,name,reached:progress.reached[id]}));
- return {month:projection.month,period:projection.period,pins:stage===2||stage===3?projection.pins:[],retail:projection.retail,summary,reach};
+ return {month:projection.month,period:projection.period,pins:projection.pins,retail:projection.retail,summary,reach};
 }

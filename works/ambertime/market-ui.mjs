@@ -132,6 +132,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   root.style.overflowY='hidden';
   const s=state();if(!s)return;
   const available=shopsForState(s);
+  if(editing&&!available.some(shop=>shop.id===editing.shopId)){editing=null;setEditing(false);signature='';}
   if(needsOrder||!order.length){order=marketShopOrder(s,available).map(shop=>shop.id);needsOrder=false;}
   else order=[...order.filter(id=>available.some(shop=>shop.id===id)),...available.filter(shop=>!order.includes(shop.id)).map(shop=>shop.id)];
   if(gesture||scrolling)return;

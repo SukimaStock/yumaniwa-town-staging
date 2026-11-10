@@ -53,26 +53,29 @@ export function mapSeenBaseline(progress,stored,restored){
  return restored?progress.max:0;
 }
 // UI-only notice history. Legacy shown stages already consumed their introduction.
-export function mapNoticeBaseline(progress,stored,restored){
+export function mapNoticeBaseline(progress,stored,restored,{consumeHistorical=false}={}){
  if(!restored)return {shown:0,announced:0};
  const valid=n=>Number.isInteger(n)&&n>=0&&n<=6;
- if(stored?.version===2&&valid(stored.shown)&&valid(stored.announced))return {shown:stored.shown,announced:stored.announced};
- const shown=mapSeenBaseline(progress,stored,restored);
+ if((stored?.version===3||stored?.version===2&&!consumeHistorical)&&valid(stored.shown)&&valid(stored.announced))return {shown:stored.shown,announced:stored.announced};
+ const shown=consumeHistorical?(progress.bottled||progress.max>1?progress.max:0):mapSeenBaseline(progress,stored,restored);
  return {shown,announced:shown};
 }
 // Pure UI display boundary; no game or town-model mutation.
 export const newlyUnlocked=(shown,max)=>Math.max(0,Math.min(6,max))>Math.max(0,Math.min(6,shown));
 export const revealStart=(shown,max)=>Math.min(Math.max(1,shown),Math.max(1,max));
-export function mapStep(current,direction,max){const n=clampStage(current)+(direction==='out'?1:-1);return Math.max(1,Math.min(clampStage(max),n));}
+export const MAP_BROWSE_MAX=6;
+export function mapStep(current,direction,max=MAP_BROWSE_MAX){const n=clampStage(current)+(direction==='out'?1:-1);return Math.max(1,Math.min(clampStage(max),n));}
 function marker(ctx,x,y,fill){const cell=(v)=>Math.floor(v/MAP_CELL)*MAP_CELL;const sx=cell(x),sy=cell(y);ctx.fillStyle='#27353b';ctx.fillRect(sx-2,sy-2,8,8);ctx.fillStyle=fill;ctx.fillRect(sx,sy,4,4);}
 // Existing marker centres, shared with read-only DOM hit targets. Buildings stay unchanged.
-const shopPositions=stage=>stage===2?{'town-liquor':[100,64],supermarket:[114,118]}:stage===3?{'town-liquor':[31,69],supermarket:[117,99],department:[41,111]}:{};
+const shopPositions=stage=>Object.fromEntries(Object.entries(mapObservationBounds(stage)).filter(([id])=>!['retail','trial-region-desk'].includes(id)).map(([id,[x,y,w,h]])=>[id,[x+w/2,y+h/2]]));
+// Legacy sales projection coordinates retained for old read-only consumers.
 export function mapShopPositions(stage){
- return Object.fromEntries(Object.entries(shopPositions(stage)).map(([id,[x,y]])=>[id,[Math.floor(x/MAP_CELL)*MAP_CELL+2,Math.floor(y/MAP_CELL)*MAP_CELL+2]]));
+ const positions=stage===2?{'town-liquor':[100,64],supermarket:[114,118]}:stage===3?{'town-liquor':[31,69],supermarket:[117,99],department:[41,111]}:{};
+ return Object.fromEntries(Object.entries(positions).map(([id,[x,y]])=>[id,[Math.floor(x/MAP_CELL)*MAP_CELL+2,Math.floor(y/MAP_CELL)*MAP_CELL+2]]));
 }
 export function drawGameMap(canvas,game,stage,seenMax=1){
  const ctx=canvas.getContext('2d',{alpha:false});
- const progress=mapProgress(game);const safe=Math.min(clampStage(stage),Math.max(progress.max,clampStage(seenMax)));
+ const progress=mapProgress(game);const safe=clampStage(stage);
  renderMap(ctx,safe);
  if(safe===2||safe===3){
   const pos=shopPositions(safe);
@@ -89,5 +92,7 @@ export {STAGES};
 export function mapObservationBounds(stage){
  if(stage===1)return {retail:[52,62,32,32]};
  if(stage===2)return {retail:[26,72,24,24],'town-liquor':[90,34,24,24],supermarket:[102,94,24,24],bar:[40,112,16,16]};
- return {retail:[46,62,16,16],'town-liquor':[86,44,16,16],supermarket:[98,92,16,16],bar:[28,112,16,16]};
+ if(stage===4)return {retail:[60,66,12,16],'trial-region-desk':[86,36,12,12]};
+ if(stage!==3)return {};
+ return {department:[24,48,12,16],retail:[46,62,16,16],'town-liquor':[86,44,16,16],supermarket:[98,92,16,16],bar:[28,112,16,16]};
 }
