@@ -108,7 +108,7 @@ test('no storage reader / IDB available refuses to proceed',async()=>{
  const f=fakeFactory(),db=await open(f);
  await assert.rejects(writeStagingRecord(db,one,{expectedRevision:0,cryptoApi:webcrypto}),e=>e.code==='invalid-reader');
 });
-test('preflight is the only site import; runtime and localStorage are untouched',()=>{
+test('preflight stays isolated and byte-store adapters never mutate legacy storage',()=>{
  const js=fs.readFileSync(new URL('../storage-idb-preflight.mjs',import.meta.url),'utf8');
  const html=fs.readFileSync(new URL('../storage-idb-preflight.html',import.meta.url),'utf8');
  const adapter=fs.readFileSync(new URL('../formal-idb-storage.mjs',import.meta.url),'utf8');

@@ -2,8 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
+import {FormalIdbCommitBoundary} from '../formal-idb-commit-boundary.mjs';
 const source=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
-const slice=(start,end)=>{const a=source.indexOf(start),b=source.indexOf(end,a);assert(a>=0&&b>a,`review extraction: ${start}`);return source.slice(a,b);};
+const slice=(start,end)=>{const a=source.indexOf(start),b=source.indexOf(end,a);assert(a>=0&&b>a,`review extraction: ${start}`);return source.slice(source.slice(Math.max(0,a-6),a)==='async '?a-6:a,source.slice(Math.max(0,b-6),b)==='async '?b-6:b);};
 const ledgerCode=slice('// Normal ledger views','function finishLedgerTasting');
 const json=x=>JSON.parse(JSON.stringify(x));
 function ledgerHarness(view){
@@ -57,32 +58,36 @@ function savingHarness(){
   advanceHistoryRecord:(_before,next)=>({tag:next.tag}),initializeHistoryRecord:()=>({tag:'history'}),reconcileCaskSlots:()=>[37,42,null,null],serializeSession:(g,ui)=>JSON.stringify({game:g,...ui}),D:{},T:{monthMs:1000,distillStepMs:100},
   localStorage:{},SAVE_KEY:'formal',writeCandidate:()=>{writes++;}
  });
+ context.runtimeSaving=false;context.debugSkipJob=null;context.mainStore={status:{state:"ready"},invalidate(){this.status.state="halted";}};context.dialogueNotice={reset(){}};context.noteDialogueCommit=()=>{};
+ context.candidateRecalls=new WeakMap([[after,context.pendingRecall]]);
+ context.savingBusy=()=>context.runtimeSaving||context.commitBoundary.status.busy;
+ context.commitBoundary=new FormalIdbCommitBoundary({revision:0,write:async(text,{expectedRevision})=>{(context.writer??context.writeCandidate)(context.localStorage,'formal',context.lastSavedText,text);return {revision:expectedRevision+1};}});
  vm.runInContext(saveCode,context);vm.runInContext('rememberCommitted()',context);return {context,before,after,facts,run:code=>vm.runInContext(code,context),passedBefore:()=>passedBefore,writes:()=>writes};
 }
-test('clock mutation uses committed before and publishes facts only after successful save',()=>{
+test('clock mutation uses committed before and publishes facts only after successful save',async()=>{
  const h=savingHarness();h.context.game=h.after;h.context.next=h.after;
  h.context.writer=(_s,_k,expected,text)=>{assert.equal(expected,'old');assert.equal(h.context.recentLedger,h.facts);const value=JSON.parse(text);assert.equal(value.recentLedger.tag,'after');assert.deepEqual(value.caskSlots,[37,42,null,null]);};
- assert.equal(h.run('saveCandidate(next,false,0,writer)'),true);assert.equal(h.passedBefore(),h.before);assert.equal(h.context.recentLedger.tag,'after');
+ assert.equal(await h.run('saveCandidate(next,false,0)'),true);assert.equal(h.passedBefore(),h.before);assert.equal(h.context.recentLedger.tag,'after');
  assert.equal(h.context.committedSession.game,h.after);assert.equal(h.context.committedSession.recentLedger,h.context.recentLedger);
 });
-test('quota or conflict failure restores game, slots and facts together',()=>{
+test('quota or conflict failure restores game, slots and facts together',async()=>{
  for(const message of ['quota','conflict']){
   const h=savingHarness();h.context.game=h.after;h.context.next=h.after;h.context.writer=()=>{throw Error(message);};
-  assert.equal(h.run('saveCandidate(next,false,0,writer)'),false);assert.equal(h.context.game,h.before);assert.equal(h.context.recentLedger,h.facts);assert.deepEqual(json(h.context.caskSlots),[37,null,null,null]);assert.equal(h.context.lastSavedText,'old');assert.equal(h.context.canSave,false);assert.equal(h.context.runtimeHalted,true);
+  assert.equal(await h.run('saveCandidate(next,false,0)'),false);assert.equal(h.context.game,h.before);assert.equal(h.context.recentLedger,h.facts);assert.deepEqual(json(h.context.caskSlots),[37,null,null,null]);assert.equal(h.context.lastSavedText,'old');assert.equal(h.context.canSave,false);assert.equal(h.context.runtimeHalted,true);
  }
 });
-test('preview advances facts from committed state without storage writes',()=>{
+test('preview advances facts from committed state without storage writes',async()=>{
  const h=savingHarness();h.context.preview=true;h.context.game=h.after;
- assert.equal(h.run('save()'),true);assert.equal(h.passedBefore(),h.before);assert.equal(h.context.recentLedger.tag,'after');assert.equal(h.writes(),0);
+ assert.equal(await h.run('save()'),true);assert.equal(h.passedBefore(),h.before);assert.equal(h.context.recentLedger.tag,'after');assert.equal(h.writes(),0);
 });
-test('boot-upgraded display facts cannot become the starting point of a second candidate transition',()=>{
+test('boot-upgraded display facts cannot become the starting point of a second candidate transition',async()=>{
  for(const fails of [false,true]){
   const h=savingHarness();h.context.game=h.after;h.context.next=h.after;
   // Boot displays an enabled-stage game before the old session's confirmation.
   // Its display facts differ from the durable committed snapshot.
   h.context.recentLedger={tag:'display-upgraded'};
   h.context.writer=()=>{if(fails)throw Error('quota');};
-  assert.equal(h.run('saveCandidate(next,false,0,writer)'),!fails);
+  assert.equal(await h.run('saveCandidate(next,false,0)'),!fails);
   assert.equal(h.passedBefore(),h.before);
   if(fails){assert.equal(h.context.game,h.before);assert.equal(h.context.recentLedger,h.facts);}
   else{assert.equal(h.context.recentLedger.tag,'after');assert.equal(h.context.committedSession.recentLedger,h.context.recentLedger);}

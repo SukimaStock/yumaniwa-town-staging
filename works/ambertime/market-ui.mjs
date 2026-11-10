@@ -240,7 +240,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   // Hold sold-out rows briefly for this shared presentation, never replay on render.
   feedbackTimer=setTimeout(()=>{cancel();feedback=[];signature='';update({visible,sessionActive});},1300);
  }
- let gesture=null,blockedClick=false;
+ let gesture=null,blockedClick=false,pendingAction=false;
  root.addEventListener('pointerdown',event=>{cancel();clearTimeout(scrollTimer);scrolling=false;blockedClick=false;gesture=event.isPrimary===false?null:{id:event.pointerId,x:event.clientX,y:event.clientY,drag:false};});
  root.addEventListener('wheel',cancel,{passive:true});
  root.addEventListener('scroll',event=>{
@@ -251,16 +251,16 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
  root.addEventListener('pointermove',event=>{if(gesture?.id===event.pointerId&&Math.hypot(event.clientX-gesture.x,event.clientY-gesture.y)>10)gesture.drag=true;});
  for(const type of ['pointerup','pointercancel']){const end=event=>{if(gesture?.id===event.pointerId){blockedClick=gesture.drag||type==='pointercancel';gesture=null;setTimeout(()=>update({visible,sessionActive}),0);}};root.addEventListener(type,end);doc.addEventListener(type,end);}
  root.addEventListener('click',event=>{if(event.detail&&blockedClick){event.preventDefault();event.stopImmediatePropagation();blockedClick=false;}},true);
- root.addEventListener('click',event=>{
-  if(!visible)return;const b=event.target.closest('button');if(!b||b.disabled||!root.contains(b))return;
+ root.addEventListener('click',async event=>{
+  if(!visible||pendingAction)return;const b=event.target.closest('button');if(!b||b.disabled||!root.contains(b))return;
   const data=b.dataset;
   if(data.marketRelease&&!editing){const id=Number(data.marketRelease);if(!state().core.products.some(p=>p.id===id)||D.storeMarketInventory(state(),id).hand<1)return;cancel();selected=id;signature='';update({visible,sessionActive});return;}
   if(data.marketPortion){cancel();portion=data.marketPortion;signature='';update({visible,sessionActive});return;}
   if(data.marketCancel){closeEditing();return;}
   if(data.marketConfirm){
    const target=editing;if(!target)return;
-   const ok=act(s=>target.shopId==='retail'?D.setMarketRetail(s,{productId:target.productId,count:0}):D.returnStoreProduct(s,{productId:target.productId,shopId:target.shopId}));
-   if(ok){cancel();closeEditing();announce(`${target.count}本を手元へ`);}return;
+   let ok;pendingAction=true;try{ok=await act(s=>target.shopId==='retail'?D.setMarketRetail(s,{productId:target.productId,count:0}):D.returnStoreProduct(s,{productId:target.productId,shopId:target.shopId}));}catch{ok=false;}finally{pendingAction=false;}
+   if(ok===true&&!doc.hidden&&visible){cancel();closeEditing();announce(`${target.count}本を手元へ`);}return;
   }
   if(editing)return;
   if(data.marketDetails&&!['product','retail'].includes(data.marketDetails)&&!shopsForState(state()).some(x=>x.id===data.marketDetails))return;
@@ -276,8 +276,8 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
     const quote=D.storeMarketQuote(s,p.id,shopId);if(!quote.ok){const relation=s.shop.relations.some(r=>r.shopId===shopId&&r.brandId===releaseFor(s,p.id)?.brandId);if(!relation)openStockist(shopId);else announce(quote.reason);return;}
    }
    const source=query(`[data-market-release="${p.id}"] .market-bottle`),countSource=query(`[data-market-release="${p.id}"] .market-count`),origin=source?{rect:source.getBoundingClientRect(),art:source.innerHTML,countRect:countSource?.getBoundingClientRect()}:null;
-   const ok=act(before=>shopId==='retail'?D.setMarketRetail(before,{productId:p.id,count:inv.retail+count}):D.assignStoreProduct(before,{productId:p.id,shopId,count}));
-   if(ok){signature='';update({visible,sessionActive});placed(shopId,count,p.id,origin);announceSaved(`${ordinary.find(x=>x.id===shopId).name}に${count}本置きました。`);}
+   let ok;pendingAction=true;try{ok=await act(before=>shopId==='retail'?D.setMarketRetail(before,{productId:p.id,count:inv.retail+count}):D.assignStoreProduct(before,{productId:p.id,shopId,count}));}catch{ok=false;}finally{pendingAction=false;}
+   if(ok===true&&!doc.hidden&&visible){signature='';update({visible,sessionActive});placed(shopId,count,p.id,origin);announceSaved(`${ordinary.find(x=>x.id===shopId).name}に${count}本置きました。`);}
   }
  });
  root.addEventListener('keydown',event=>{
