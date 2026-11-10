@@ -19,12 +19,13 @@ h2{font-size:17px;font-weight:700}
 .choice-buttons button[aria-pressed="true"]{border-color:var(--accent);background:#5f5946;color:#fff1c8}
 .map-panel{border:2px solid #596c63;background:#899b7b;padding:5px;border-radius:4px;min-width:0}
 .map-header{display:flex;align-items:center;justify-content:space-between;min-height:30px;color:#252f32;font-size:11px;font-weight:700;padding:1px 3px 6px}
-.zoom-controls{display:flex;gap:5px}.zoom-controls button{min-height:30px;min-width:38px;border:1px solid #40554a;background:#334b43;color:#f7e8c9;border-radius:3px;font-size:18px;line-height:1}
+.zoom-controls{display:flex;gap:5px}.zoom-controls button{min-height:30px;min-width:38px;border:1px solid #40554a;background:#334b43;color:#f7e8c9;border-radius:3px;font-size:18px;line-height:1}.zoom-controls #overview{font-size:11px;min-width:42px}
 .map-window{width:100%;height:clamp(220px,39dvh,340px);overflow:hidden;position:relative;background:#829a76;touch-action:none;user-select:none;overscroll-behavior:contain;border:2px solid #465a4f;container-type:size}
 .map-layer{position:absolute;left:50%;top:50%;width:min(100%,100cqh);aspect-ratio:1;transform:translate(-50%,-50%);transform-origin:center center;image-rendering:pixelated;will-change:transform}
-#map-canvas,#pixel-layer,.map-pins{position:absolute;inset:0;width:100%;height:100%}
-#map-canvas,#pixel-layer{display:block;image-rendering:pixelated}
-#pixel-layer{pointer-events:none}
+.map-layer.focus-motion{transition:transform 680ms steps(12,end)}
+#map-canvas,#focus-mask,.map-pins{position:absolute;inset:0;width:100%;height:100%}
+#map-canvas,#focus-mask{display:block;image-rendering:pixelated}
+#focus-mask{pointer-events:none}
 .map-pins{pointer-events:none}
 .pin{position:absolute;border:0;background:transparent;box-shadow:none!important;width:44px;height:44px;min-width:44px;min-height:44px;padding:0;transform:translate(-50%,-50%);pointer-events:auto;touch-action:none}
 .pin .corner{position:absolute;inset:6px;--c:#dae5c7;background:linear-gradient(var(--c),var(--c)) left top/8px 3px no-repeat,linear-gradient(var(--c),var(--c)) left top/3px 8px no-repeat,linear-gradient(var(--c),var(--c)) right top/8px 3px no-repeat,linear-gradient(var(--c),var(--c)) right top/3px 8px no-repeat,linear-gradient(var(--c),var(--c)) left bottom/8px 3px no-repeat,linear-gradient(var(--c),var(--c)) left bottom/3px 8px no-repeat,linear-gradient(var(--c),var(--c)) right bottom/8px 3px no-repeat,linear-gradient(var(--c),var(--c)) right bottom/3px 8px no-repeat}
@@ -38,7 +39,7 @@ h2{font-size:17px;font-weight:700}
 .relation-controls[hidden],.follow[hidden]{display:none}
 .choice.compact legend{font-size:10px}
 .follow{border:1px solid #9f956f;color:#f7e4b4;background:#4a5149;border-radius:3px;min-height:35px;width:100%;font-size:12px}
-.relation-actions{display:flex;gap:6px;align-items:center}.relation-actions .follow{flex:1;min-width:0}.relation-actions .replay{flex:0 0 38%;border-color:#63736c;color:#d6d9c8;font-size:11px}
+.relation-actions{display:flex;gap:6px;align-items:center}.relation-actions .follow{flex:1;min-width:0}.relation-actions .replay{flex:0 0 39%;border-color:#63736c;color:#d6d9c8;font-size:11px}
 .notes{display:grid;gap:5px;color:#a3b2ad;font-size:10px;line-height:1.5;padding-bottom:6px}.notes summary{cursor:pointer;list-style:disclosure-closed}.notes details[open] p{margin:5px 0}
 @media (min-height:830px){.shell{gap:14px}.map-window{height:min(42dvh,380px)}}
 @media (max-height:800px){.shell{gap:5px;padding-top:calc(6px + env(safe-area-inset-top))}.intro{display:none}.heading h1{font-size:18px}.choice legend{font-size:10px;margin-bottom:2px}.choice-buttons button{min-height:30px}.controls{gap:5px}.map-window{height:clamp(125px,28dvh,220px)}.map-header{min-height:23px;padding:0 3px 3px}.zoom-controls button{min-height:28px}.map-foot{min-height:15px;padding:3px 3px 0}.detail{padding:6px 9px;gap:4px}.detail h2{font-size:15px}.shop-message{font-size:11px;line-height:1.35;min-height:0}.relation-controls{gap:4px}.follow{min-height:30px}.notes{font-size:9px;line-height:1.35}}
