@@ -1,4 +1,4 @@
-import {nearbyComparisonFacts} from './partner-orders.mjs?v=all-stores-s2-1';
+import {nearbyComparisonFacts} from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01';
 
 // Targeted views over an exact validated snapshot. No persistent ledger or replay.
 const copy=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
