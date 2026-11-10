@@ -110,7 +110,9 @@ const recallSceneDebug=debugEnabled?recallScenePlayer:null;
 let game=null,room='distill',selectedProductId=null,userPaused=false,runtimeHalted=false,modal=null,timer=null,generation=0,elapsed=0,playbackRate=1,canSave=!preview,lastSavedText=null;
 let committedSession=null,lastSaveError=null,legacyRecord=null;
 let debugSkipJob=null,debugSkipFeedback='';
-const newNativeGame=()=>D.newWorldNetworkDistillery(seed);
+// Keep the existing native creator, then apply the same explicit world boundary
+// used when upgrading a restored game. Neither path reinterprets older operations.
+const newNativeGame=()=>D.enableWorldNetwork(D.newRegionalDeliveryDistillery(seed));
 let marketEditing=false,marketMessageId=0;
 const placementUI=placementEnabled?createPlacementUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),commit:commitPlacement,render:()=>{render();schedule();}}):null;
 const marketUI=createMarketUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),act:actMarket,
