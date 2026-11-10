@@ -3,7 +3,9 @@
 const anchors={
  2:{'town-liquor':[[116,42],[[82,42],[106,60]],[116,30]],supermarket:[[128,102],[[94,98],[118,122]],[112,82]],bar:[[58,116],[[32,114],[58,124]],[58,104]]},
  3:{department:[[38,52],[[16,52],[28,68]],[38,40]],'town-liquor':[[104,48],[[78,50],[96,64]],[104,38]],supermarket:[[116,96],[[90,96],[106,112]],[116,86]],bar:[[32,104],[[46,108],[18,126]],[46,98]]},
- 4:{'trial-region-desk':[[100,38],[[78,42],[94,50]],[100,28]]}
+ 4:{'trial-region-desk':[[100,38],[[78,42],[94,50]],[100,28]]},
+ 5:{'national-specialist-desk':[[114,16],[[98,20],[114,24]],[106,26]]},
+ 6:{'overseas-import-desk':[[80,58],[[90,52],[84,68]],[80,50]]}
 };
 export function sceneryLayout(partner,stage){
  const a=anchors[stage]?.[partner?.id];
@@ -13,6 +15,8 @@ export function drawMapScenery(ctx,scenery){
  const pixel=(x,y,w,h,color)=>{ctx.fillStyle=color;ctx.fillRect(x,y,w,h);};
  for(const partner of scenery?.partners??[]){
   const a=sceneryLayout(partner,scenery.stage);if(!a)continue;
+  // Symbolic offices occupy unnamed map positions, not real prefectures/countries.
+  if(scenery.stage>=5){const [x,y]=partner.bounds;pixel(x,y,6,2,'#9a6448');pixel(x,y+2,6,4,'#dbcca8');pixel(x+2,y+4,2,2,'#293a3b');}
   if(partner.box){const [x,y]=a.box;pixel(x,y,6,6,'#825b39');pixel(x,y,6,2,'#c69761');pixel(x+2,y,2,6,'#e2ba7c');pixel(x,y+4,2,2,'#ad7b4a');}
   const flowers=Number.isInteger(partner.flowerStage)?Math.max(0,Math.min(2,partner.flowerStage)):0;
   for(const [x,y] of a.flowers.slice(0,flowers)){

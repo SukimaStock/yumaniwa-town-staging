@@ -1,4 +1,4 @@
-import {regionalDeliveryPartners} from './regional-deliveries.mjs';
+import {regionalDeliveryPartners} from './regional-deliveries.mjs?world=world-network-v01';
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {retailSalePlan as saleFlightPlan,ordinarySaleGroups as saleFlightGroups} from './retail-sale-motion.mjs?v=count-linked-r1';
