@@ -69,3 +69,15 @@ linear-gradient(currentColor,currentColor) right bottom/3px 9px no-repeat}
 #m0-observation .m0-report-actions{display:flex;gap:8px;justify-content:flex-end}
 #m0-observation .m0-report-actions button{font:inherit;color:#f0e6c8;background:none;border:0;text-decoration:underline;min-height:44px;padding:2px 5px}
 #m0-observation .m0-report-actions button:focus-visible{outline:2px dotted #f7cd58}
+/* Relationship scenery shares the map layer and never receives pointer input. */
+.map-scenery-butterflies{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.map-scenery-butterfly{position:absolute;display:block;pointer-events:none;image-rendering:pixelated}
+.map-scenery-butterfly svg{display:block;width:100%;height:100%;overflow:visible}
+.map-scenery-drift{animation:map-scenery-drift 2400ms steps(2,end) infinite alternate;animation-play-state:paused}
+.map-scenery-wings{transform-origin:3px 2px;animation:map-scenery-wings 700ms steps(2,end) infinite;animation-play-state:paused}
+.map-scenery-butterflies[data-active=true] .map-scenery-drift,.map-scenery-butterflies[data-active=true] .map-scenery-wings{animation-play-state:running}
+html[data-scenery-hidden=true] .map-scenery-butterflies .map-scenery-drift,html[data-scenery-hidden=true] .map-scenery-butterflies .map-scenery-wings{animation-play-state:paused!important}
+#m0-observation[hidden] .map-scenery-drift,#m0-observation[hidden] .map-scenery-wings,#m0-observation[data-mode=closed] .map-scenery-drift,#m0-observation[data-mode=closed] .map-scenery-wings,dialog:not([open]) .map-scenery-drift,dialog:not([open]) .map-scenery-wings{animation-play-state:paused}
+@keyframes map-scenery-drift{from{transform:translate(0,0)}to{transform:translate(2px,2px)}}
+@keyframes map-scenery-wings{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.5)}}
+@media(prefers-reduced-motion:reduce){.map-scenery-drift,.map-scenery-wings{animation:none!important;transform:none!important}}

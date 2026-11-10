@@ -1,6 +1,8 @@
 // Pure, read-only view of the existing AmberTime town record.
 // No save schema, economic action or transmission draw is changed here.
 import {STAGES,clampStage,renderMap,MAP_CELL} from './experiments/world-map/v01/map.mjs';
+import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01';
+import {drawMapScenery} from './map-scenery-view.mjs?v=map-scenery-v01';
 import {NODES} from './town-connection.mjs?v=stage4-r2';
 const level=new Map(NODES.map(n=>[n.id,n.level]));
 const receipts=game=>game?.labConnection?.version===1?game.labConnection.town:null;
@@ -73,7 +75,7 @@ export function mapShopPositions(stage){
  const positions=stage===2?{'town-liquor':[100,64],supermarket:[114,118]}:stage===3?{'town-liquor':[31,69],supermarket:[117,99],department:[41,111]}:{};
  return Object.fromEntries(Object.entries(positions).map(([id,[x,y]])=>[id,[Math.floor(x/MAP_CELL)*MAP_CELL+2,Math.floor(y/MAP_CELL)*MAP_CELL+2]]));
 }
-export function drawGameMap(canvas,game,stage,seenMax=1){
+export function drawGameMap(canvas,game,stage,seenMax=1,scenery=null){
  const ctx=canvas.getContext('2d',{alpha:false});
  const progress=mapProgress(game);const safe=clampStage(stage);
  renderMap(ctx,safe);
@@ -82,6 +84,7 @@ export function drawGameMap(canvas,game,stage,seenMax=1){
   for(const [shop,[x,y]] of Object.entries(pos))if(progress.activeShops.has(shop))marker(ctx,x,y,'#e6d49e');
  }else if(safe===4&&progress.reached.near){marker(ctx,88,40,'#e6d49e')}
  else if(safe===5&&progress.reached.national){marker(ctx,70,70,'#e6d49e')}
+ drawMapScenery(ctx,scenery??(Number.isSafeInteger(game?.core?.month)?mapSceneryProjection(game,safe):null));
  return safe;
 }
 export {STAGES};
