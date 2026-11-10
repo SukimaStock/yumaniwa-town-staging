@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f86e0542371402b139d61a794f2546fe8bf0134617cd2b566af00028188c5c13",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-small-memory-b-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent B small-memory comparison Lab: shops, maps, ledger and multi-generation recall; synthetic data only",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "f9f733daa715b8fcbf47c88e81f0127ddbe25d63",
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/selection.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-small-memory-b-20261110/r0.lock.json",
+      "works/ambertime-small-memory-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "data/ambertime-research.json",
+      "lab/index.html",
+      "lab/ambertime-research.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "index.html",
+      "main.js",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Isolated same-source synthetic comparison with detached compact payload; B render cannot access source history",
+      "Reuse existing map, package and recall art; four experiences and multi-generation scenarios including gaps and missing facts",
+      "Measure UTF-8 display payloads only; document truthful claim boundaries and future-state dependencies",
+      "Register active staging-only Lab in existing research room and generate indexes"
+    ],
+    "ownerDecisions": [
+      "User explicitly adopted B small-notebook design and authorized independent Lab, PR, CI and safe Staging merge; no production or PR894 changes"
+    ],
+    "hqDecisions": [
+      "Implementation boundary review: new isolated view only; shared paths use unchanged registry schema and generator; full risk floor for generated lab HTML; no shared runtime or game contract changes"
+    ],
+    "rulesApplied": [
+      "Current exact-blob Change OS retained",
+      "Drive expression audit read; controls and evidence only, no poetic copy or unnecessary cards"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Four panels at phone widths and desktop; keyboard controls; absent evidence remains absent",
+      "Browser compact payload isolation and no storage mutation; confirmed past editions stable"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "surface.shared"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this Lab, its registration and generated entries as one unit",
+    "outOfScope": [
+      "Save formats, migrations, real player records, PR894, RNG, economy and reputation computation, main UI, production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware and author subjective experience"
+    ],
+    "problem": "Assess whether small memories communicate long-lived whisky history",
+    "currentContract": "Main history and simulation remain unchanged",
+    "whyExistingIsInsufficient": "Existing history views validate against full provenance; cannot demonstrate standalone small memories",
+    "design": "Extract finite display memories from synthetic complete source, serialize boundary, separate renderer, preserve frozen editions",
+    "alternativesRejected": [
+      "Storage modification",
+      "Inventing causal links from same destination",
+      "Reconstructing missing history during B rendering"
+    ],
+    "migration": "none",
+    "compatibility": "Read-only imports only",
+    "boundaryCases": [
+      "No deliveries",
+      "Same-month deliveries",
+      "Long gaps",
+      "Direct overseas arrival without inquiry",
+      "Multiple generations",
+      "Unknown old bottle data"
+    ],
+    "testPlan": [
+      "Semantic extraction and no-source-access tests",
+      "Multi-generation frozen editions and provenance assertions",
+      "Browser responsiveness and controls",
+      "Lifecycle generator and related regressions",
+      "Scope Risk Impact required CI"
+    ],
+    "promotionRisk": "none; staging-only"
+  }
+}
