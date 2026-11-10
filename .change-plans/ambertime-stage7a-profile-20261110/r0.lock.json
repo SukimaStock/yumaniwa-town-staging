@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "627be3723663e9b536cdf36db2db17d87b1043269f2f2606f7d3d0823d123b43",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-stage7a-profile-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage7A reproducible cold restore profiling only; preserve all runtime and formal validation",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "001bc6cc712cc300b8f7be65018628199e97e1f0",
+    "canonicalSources": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime-strategy-lab/run-world-network.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-stage7a-profile-20261110/r0.lock.json",
+      "works/ambertime/performance/stage7/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime-strategy-lab/internal/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Reproduce PR907 exact SHA256 fixture; cold/warm timing and CPU profile; instrument temporary source copies only",
+      "Separate file/JSON/codec/replay/clone/equality/town/history/recall; overlapping timing explicitly labelled",
+      "Compare operation prefixes at 12/120/360/1200 months and final1386; retain baseline results and reproduction commands"
+    ],
+    "ownerDecisions": [
+      "User Stage7 authorizes investigation, minimal measured optimizations, long validation, safe Staging merge; no Production"
+    ],
+    "hqDecisions": [
+      "7A measurement only; choose 7B scope after measured bottleneck. Do not alter validation guarantees or Stage5 persistence"
+    ],
+    "rulesApplied": [
+      "Change OS locked Plan, Scope Risk Impact, independent review and CI",
+      "No new product UI or prose"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent profiling review",
+      "Exact fixture/hash and cold/warm distinction"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert profiling artifacts only",
+    "outOfScope": [
+      "Runtime changes",
+      "Stage5 persistence",
+      "Production",
+      "Price rules"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware; reserved for 7C"
+    ],
+    "problem": "PR907 cold model restore65.261s",
+    "currentContract": "v8 full replay exact state validation",
+    "whyExistingIsInsufficient": "Bottleneck not measured",
+    "design": "Instrumented temporary copies and independent uninstrumented control; no production instrumentation",
+    "alternativesRejected": [
+      "Skip validation",
+      "Rewrite save format before measurement"
+    ],
+    "migration": "none",
+    "compatibility": "No runtime changes",
+    "boundaryCases": [
+      "cold vs warm",
+      "raw vs v8",
+      "metadata generation vs boot"
+    ],
+    "testPlan": [
+      "Exact PR907 SHA256 and replay equality",
+      "CPU profile plus instrumented timing",
+      "Independent review and required CI"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
