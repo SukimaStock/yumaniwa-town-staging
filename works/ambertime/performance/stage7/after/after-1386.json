@@ -1,0 +1,98 @@
+{
+  "schema": "ambertime-stage7-profile/1",
+  "measuredAt": "2026-11-10T18:32:40.889Z",
+  "sourceRoot": "/workspace/scratch/7640ffbe6829/ambertime-stage7",
+  "fixture": "/tmp/amber-stage7/pr907-1386.json",
+  "runs": {
+    "control": {
+      "schema": "ambertime-stage7-profile-worker/1",
+      "instrumented": false,
+      "fixture": {
+        "sha256": "fe6a66973f57ad7ed9758ddfab12cd88e87e8461885ce8f91c8cb7e13feb7d24",
+        "bytes": 1136103,
+        "codeUnits": 1029453,
+        "formalV8": false,
+        "month": 1386,
+        "operations": 2266,
+        "releases": 104
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "v8": "13.6.233.17-node.58",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logicalCpus": 9,
+        "totalMemoryBytes": 10451427328
+      },
+      "fileReadMilliseconds": 2.6603640000000013,
+      "independentJsonParseMilliseconds": 6.818286999999998,
+      "moduleImportMilliseconds": 36.812578,
+      "coldRestore": {
+        "milliseconds": 20792.675102,
+        "memoryBefore": {
+          "rss": 54120448,
+          "heapTotal": 21544960,
+          "heapUsed": 14188968,
+          "external": 4343096,
+          "arrayBuffers": 343223
+        },
+        "memoryAfter": {
+          "rss": 217849856,
+          "heapTotal": 159031296,
+          "heapUsed": 81755256,
+          "external": 4212064,
+          "arrayBuffers": 212151
+        },
+        "timers": null
+      },
+      "sameProcessRestore": {
+        "milliseconds": 28.188994000000093,
+        "memoryBefore": {
+          "rss": 217849856,
+          "heapTotal": 159031296,
+          "heapUsed": 81755480,
+          "external": 4212064,
+          "arrayBuffers": 212151
+        },
+        "memoryAfter": {
+          "rss": 222568448,
+          "heapTotal": 163545088,
+          "heapUsed": 94390896,
+          "external": 4212064,
+          "arrayBuffers": 212151
+        },
+        "timers": null
+      },
+      "generationAndValidation": {
+        "milliseconds": 30.66991600000256,
+        "memoryBefore": {
+          "rss": 222568448,
+          "heapTotal": 163545088,
+          "heapUsed": 94391176,
+          "external": 4212064,
+          "arrayBuffers": 212151
+        },
+        "memoryAfter": {
+          "rss": 220250112,
+          "heapTotal": 161288192,
+          "heapUsed": 36842696,
+          "external": 4212064,
+          "arrayBuffers": 212151
+        },
+        "timers": null
+      },
+      "exactRoundtrip": true,
+      "peakRssProcessBytes": 222699520,
+      "conditions": [
+        "Imports and independent envelope parse precede cold timer; no model game was previously constructed/restored.",
+        "Cold and warm restoration are consecutive. Generation follows warm restoration and uses its cache.",
+        "Raw generation is serializeDistillery; formal generation is serializeSession including official reader roundtrip.",
+        "Inclusive nested timers overlap: never sum them. Exclusive is time outside other instrumented scopes, not pure CPU.",
+        "Global clone timing includes every structuredClone call in the process during each phase.",
+        "Memory snapshots are boundary RSS/heap observations; maxRSS is process lifetime high-water, not per-phase peak.",
+        "Instrumented wall time includes measurement overhead; use unmodified control for performance conclusions."
+      ]
+    }
+  }
+}

@@ -1,0 +1,4543 @@
+[
+  {
+    "policy": "distant",
+    "production": "balanced",
+    "intervalMonths": 12,
+    "localFocus": "town-liquor",
+    "continuousFocus": "bar",
+    "temporaryRefusal": "wait",
+    "productionBudget": "canonical-start-minimum-plus-selected-cask-premium",
+    "waiting": [],
+    "label": "\u9060\u65b9\u91cd\u8996",
+    "seed": 27,
+    "startMonth": 186,
+    "targetMonth": 1386,
+    "completedMonths": 1200,
+    "initialFingerprint": "745e5b27",
+    "initialCodeUnits": 368398,
+    "completed": true,
+    "stop": null,
+    "peakCasks": 2,
+    "start": {
+      "month": 186,
+      "paidBottles": 207,
+      "observedNativeCustomerSales": 44,
+      "nativeMonthlyOpportunities": [
+        {
+          "id": "bar",
+          "opportunities": 4
+        },
+        {
+          "id": "town-liquor",
+          "opportunities": 8
+        },
+        {
+          "id": "supermarket",
+          "opportunities": 12
+        }
+      ],
+      "cash": 1742.36,
+      "revenue": 3546.36,
+      "costs": 1796,
+      "upkeep": 1608,
+      "inventory": {
+        "hand": 5,
+        "retail": 0,
+        "assigned": 0,
+        "held": 0,
+        "stock": 5
+      },
+      "contracts": [],
+      "delivered": [],
+      "nativeContractIds": [
+        "bar",
+        "town-liquor",
+        "supermarket"
+      ],
+      "nativeReceipts": 4,
+      "operations": 257,
+      "releases": 5,
+      "casks": 0,
+      "generation": 1,
+      "generationHandovers": 0,
+      "rawCodeUnits": 368398,
+      "rawBytes": 419504,
+      "town": {
+        "events": 380,
+        "shipments": 41,
+        "packets": 31,
+        "pending": 2,
+        "attempts": 850,
+        "reached": [
+          "diner",
+          "bar",
+          "super",
+          "restaurant",
+          "specialist",
+          "overseas-craft",
+          "national-food",
+          "near-local",
+          "near-wide",
+          "town",
+          "overseas-food",
+          "department"
+        ],
+        "inquiries": 16,
+        "contacts": [
+          "town",
+          "national-food",
+          "super",
+          "near-local",
+          "near-wide",
+          "overseas-craft"
+        ]
+      },
+      "scenery": [
+        {
+          "id": "town-liquor",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": 0,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "supermarket",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 44,
+            "delivered": 0,
+            "customerSales": 44,
+            "tradeMonths": 4,
+            "firstMonth": 97,
+            "lastMonth": 100,
+            "span": 3
+          }
+        },
+        {
+          "id": "bar",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": 0,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "trial-region-desk",
+          "stage": 4,
+          "box": false,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": null,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "overseas-import-desk",
+          "stage": 6,
+          "box": false,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": null,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        }
+      ]
+    },
+    "final": {
+      "month": 1386,
+      "paidBottles": 4372,
+      "observedNativeCustomerSales": 44,
+      "nativeMonthlyOpportunities": [
+        {
+          "id": "bar",
+          "opportunities": 4
+        },
+        {
+          "id": "town-liquor",
+          "opportunities": 8
+        },
+        {
+          "id": "supermarket",
+          "opportunities": 12
+        }
+      ],
+      "cash": 13421.86,
+      "revenue": 71809.86,
+      "costs": 39276,
+      "upkeep": 20712,
+      "inventory": {
+        "hand": 0,
+        "retail": 0,
+        "assigned": 0,
+        "held": 0,
+        "stock": 0
+      },
+      "contracts": [
+        {
+          "id": "regional-contract:trial-region-desk",
+          "partnerId": "trial-region-desk",
+          "brandId": 1,
+          "startedMonth": 186
+        },
+        {
+          "id": "regional-contract:overseas-import-desk",
+          "partnerId": "overseas-import-desk",
+          "brandId": 1,
+          "startedMonth": 186
+        }
+      ],
+      "delivered": [
+        {
+          "partnerId": "overseas-import-desk",
+          "count": 4165,
+          "revenue": 68263.5,
+          "customerSales": null
+        }
+      ],
+      "nativeContractIds": [
+        "bar",
+        "town-liquor",
+        "supermarket"
+      ],
+      "nativeReceipts": 4,
+      "operations": 2266,
+      "releases": 104,
+      "casks": 1,
+      "generation": 5,
+      "generationHandovers": 4,
+      "rawCodeUnits": 1029453,
+      "rawBytes": 1136103,
+      "town": {
+        "events": 762,
+        "shipments": 141,
+        "packets": 0,
+        "pending": 0,
+        "attempts": 1284,
+        "reached": [
+          "diner",
+          "bar",
+          "super",
+          "restaurant",
+          "specialist",
+          "overseas-craft",
+          "national-food",
+          "near-local",
+          "near-wide",
+          "town",
+          "overseas-food",
+          "department"
+        ],
+        "inquiries": 16,
+        "contacts": [
+          "town",
+          "national-food",
+          "super",
+          "near-local",
+          "near-wide",
+          "overseas-craft"
+        ]
+      },
+      "scenery": [
+        {
+          "id": "town-liquor",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": 0,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "supermarket",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 44,
+            "delivered": 0,
+            "customerSales": 44,
+            "tradeMonths": 4,
+            "firstMonth": 97,
+            "lastMonth": 100,
+            "span": 3
+          }
+        },
+        {
+          "id": "bar",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": 0,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "trial-region-desk",
+          "stage": 4,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": null,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "overseas-import-desk",
+          "stage": 6,
+          "box": true,
+          "flowerStage": 2,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 4165,
+            "delivered": 4165,
+            "customerSales": null,
+            "tradeMonths": 51,
+            "firstMonth": 186,
+            "lastMonth": 1374,
+            "span": 1188
+          }
+        }
+      ]
+    },
+    "delta": {
+      "cash": 11679.5,
+      "revenue": 68263.5,
+      "costs": 37480,
+      "upkeep": 19104,
+      "nativeReceipts": 0,
+      "inquiries": 0
+    },
+    "checkpoints": [
+      {
+        "month": 306,
+        "paidBottles": 592,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 2567.86,
+        "revenue": 9835.86,
+        "costs": 5436,
+        "upkeep": 3432,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 385,
+            "revenue": 6289.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 458,
+        "releases": 14,
+        "casks": 1,
+        "generation": 1,
+        "generationHandovers": 0,
+        "rawCodeUnits": 500486,
+        "rawBytes": 566306,
+        "town": {
+          "events": 458,
+          "shipments": 51,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1014,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 385,
+              "delivered": 385,
+              "customerSales": null,
+              "tradeMonths": 6,
+              "firstMonth": 186,
+              "lastMonth": 294,
+              "span": 108
+            }
+          }
+        ]
+      },
+      {
+        "month": 426,
+        "paidBottles": 1012,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 3773.86,
+        "revenue": 16721.86,
+        "costs": 9196,
+        "upkeep": 5352,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 805,
+            "revenue": 13175.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 660,
+        "releases": 24,
+        "casks": 1,
+        "generation": 2,
+        "generationHandovers": 1,
+        "rawCodeUnits": 571312,
+        "rawBytes": 645482,
+        "town": {
+          "events": 492,
+          "shipments": 61,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1044,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 805,
+              "delivered": 805,
+              "customerSales": null,
+              "tradeMonths": 11,
+              "firstMonth": 186,
+              "lastMonth": 414,
+              "span": 228
+            }
+          }
+        ]
+      },
+      {
+        "month": 546,
+        "paidBottles": 1432,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 4979.86,
+        "revenue": 23607.86,
+        "costs": 12956,
+        "upkeep": 7272,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 1225,
+            "revenue": 20061.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 860,
+        "releases": 34,
+        "casks": 1,
+        "generation": 2,
+        "generationHandovers": 1,
+        "rawCodeUnits": 628777,
+        "rawBytes": 707267,
+        "town": {
+          "events": 527,
+          "shipments": 71,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1074,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 1225,
+              "delivered": 1225,
+              "customerSales": null,
+              "tradeMonths": 16,
+              "firstMonth": 186,
+              "lastMonth": 534,
+              "span": 348
+            }
+          }
+        ]
+      },
+      {
+        "month": 666,
+        "paidBottles": 1852,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 6185.86,
+        "revenue": 30493.86,
+        "costs": 16716,
+        "upkeep": 9192,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 1645,
+            "revenue": 26947.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1062,
+        "releases": 44,
+        "casks": 1,
+        "generation": 3,
+        "generationHandovers": 2,
+        "rawCodeUnits": 686499,
+        "rawBytes": 769109,
+        "town": {
+          "events": 562,
+          "shipments": 81,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1104,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 1645,
+              "delivered": 1645,
+              "customerSales": null,
+              "tradeMonths": 21,
+              "firstMonth": 186,
+              "lastMonth": 654,
+              "span": 468
+            }
+          }
+        ]
+      },
+      {
+        "month": 786,
+        "paidBottles": 2272,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 7391.86,
+        "revenue": 37379.86,
+        "costs": 20476,
+        "upkeep": 11112,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 2065,
+            "revenue": 33833.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1262,
+        "releases": 54,
+        "casks": 1,
+        "generation": 3,
+        "generationHandovers": 2,
+        "rawCodeUnits": 743108,
+        "rawBytes": 829634,
+        "town": {
+          "events": 594,
+          "shipments": 91,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1134,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 2065,
+              "delivered": 2065,
+              "customerSales": null,
+              "tradeMonths": 26,
+              "firstMonth": 186,
+              "lastMonth": 774,
+              "span": 588
+            }
+          }
+        ]
+      },
+      {
+        "month": 906,
+        "paidBottles": 2692,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 8597.86,
+        "revenue": 44265.86,
+        "costs": 24236,
+        "upkeep": 13032,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 2485,
+            "revenue": 40719.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1462,
+        "releases": 64,
+        "casks": 1,
+        "generation": 3,
+        "generationHandovers": 2,
+        "rawCodeUnits": 800115,
+        "rawBytes": 890693,
+        "town": {
+          "events": 628,
+          "shipments": 101,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1164,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 2485,
+              "delivered": 2485,
+              "customerSales": null,
+              "tradeMonths": 31,
+              "firstMonth": 186,
+              "lastMonth": 894,
+              "span": 708
+            }
+          }
+        ]
+      },
+      {
+        "month": 1026,
+        "paidBottles": 3112,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 9803.86,
+        "revenue": 51151.86,
+        "costs": 27996,
+        "upkeep": 14952,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 2905,
+            "revenue": 47605.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1664,
+        "releases": 74,
+        "casks": 1,
+        "generation": 4,
+        "generationHandovers": 3,
+        "rawCodeUnits": 857399,
+        "rawBytes": 951961,
+        "town": {
+          "events": 661,
+          "shipments": 111,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1194,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 2905,
+              "delivered": 2905,
+              "customerSales": null,
+              "tradeMonths": 36,
+              "firstMonth": 186,
+              "lastMonth": 1014,
+              "span": 828
+            }
+          }
+        ]
+      },
+      {
+        "month": 1146,
+        "paidBottles": 3532,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 11009.86,
+        "revenue": 58037.86,
+        "costs": 31756,
+        "upkeep": 16872,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 3325,
+            "revenue": 54491.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1864,
+        "releases": 84,
+        "casks": 1,
+        "generation": 4,
+        "generationHandovers": 3,
+        "rawCodeUnits": 914775,
+        "rawBytes": 1013389,
+        "town": {
+          "events": 695,
+          "shipments": 121,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1224,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 3325,
+              "delivered": 3325,
+              "customerSales": null,
+              "tradeMonths": 41,
+              "firstMonth": 186,
+              "lastMonth": 1134,
+              "span": 948
+            }
+          }
+        ]
+      },
+      {
+        "month": 1266,
+        "paidBottles": 3952,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 12215.86,
+        "revenue": 64923.86,
+        "costs": 35516,
+        "upkeep": 18792,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 3745,
+            "revenue": 61377.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 2066,
+        "releases": 94,
+        "casks": 1,
+        "generation": 5,
+        "generationHandovers": 4,
+        "rawCodeUnits": 972374,
+        "rawBytes": 1075040,
+        "town": {
+          "events": 729,
+          "shipments": 131,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1254,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 3745,
+              "delivered": 3745,
+              "customerSales": null,
+              "tradeMonths": 46,
+              "firstMonth": 186,
+              "lastMonth": 1254,
+              "span": 1068
+            }
+          }
+        ]
+      },
+      {
+        "month": 1386,
+        "paidBottles": 4372,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 13421.86,
+        "revenue": 71809.86,
+        "costs": 39276,
+        "upkeep": 20712,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:trial-region-desk",
+            "partnerId": "trial-region-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          },
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 186
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 4165,
+            "revenue": 68263.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 2266,
+        "releases": 104,
+        "casks": 1,
+        "generation": 5,
+        "generationHandovers": 4,
+        "rawCodeUnits": 1029453,
+        "rawBytes": 1136103,
+        "town": {
+          "events": 762,
+          "shipments": 141,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1284,
+          "reached": [
+            "diner",
+            "bar",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-craft",
+            "national-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "overseas-food",
+            "department"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "national-food",
+            "super",
+            "near-local",
+            "near-wide",
+            "overseas-craft"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "trial-region-desk",
+            "stage": 4,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": null,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 4165,
+              "delivered": 4165,
+              "customerSales": null,
+              "tradeMonths": 51,
+              "firstMonth": 186,
+              "lastMonth": 1374,
+              "span": 1188
+            }
+          }
+        ]
+      }
+    ],
+    "coldRestore": {
+      "ok": true,
+      "milliseconds": 212.32
+    },
+    "priceContext": [
+      {
+        "partnerId": "bar",
+        "partnerName": "\u8def\u5730\u88cf\u306e\u30d0\u30fc",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          {
+            "shopId": "bar",
+            "brandId": 1,
+            "startedMonth": 18
+          }
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 0,
+        "delivered": 0,
+        "observedCustomerSales": 0,
+        "tradeMonths": 0,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.22,
+        "demand": {
+          "units": 0,
+          "source": "actual-last-three-month-customer-purchases-plus-pending-offers",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 17.6,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u5272\u308a\u5f53\u3066\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "town-liquor",
+        "partnerName": "\u753a\u306e\u9152\u5e97",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          {
+            "shopId": "town-liquor",
+            "brandId": 1,
+            "startedMonth": 42
+          }
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 0,
+        "delivered": 0,
+        "observedCustomerSales": 0,
+        "tradeMonths": 0,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.11,
+        "demand": {
+          "units": 0,
+          "source": "actual-last-three-month-customer-purchases-plus-pending-offers",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 12.8,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u5272\u308a\u5f53\u3066\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "supermarket",
+        "partnerName": "\u753a\u306e\u30b9\u30fc\u30d1\u30fc",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          {
+            "shopId": "supermarket",
+            "brandId": 1,
+            "startedMonth": 70
+          }
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 44,
+        "delivered": 0,
+        "observedCustomerSales": 44,
+        "tradeMonths": 4,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.97,
+        "demand": {
+          "units": 0,
+          "source": "actual-last-three-month-customer-purchases-plus-pending-offers",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 16,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u5272\u308a\u5f53\u3066\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "overseas-import-desk",
+        "partnerName": "\u6d77\u5916\u306e\u8f38\u5165\u7a93\u53e3\uff08\u4eee\uff09",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          "regional-contract:overseas-import-desk"
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 4165,
+        "delivered": 4165,
+        "observedCustomerSales": null,
+        "tradeMonths": 51,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.27,
+        "demand": {
+          "units": 0,
+          "source": "actual-pending-inquiry-offer-count",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 15.2,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u914d\u5206\u3057\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "national-specialist-desk",
+        "partnerName": "\u5168\u56fd\u306e\u5c02\u9580\u4ed5\u5165\u308c\u7a93\u53e3\uff08\u4eee\uff09",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 0,
+        "delivered": 0,
+        "observedCustomerSales": null,
+        "tradeMonths": 0,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.3,
+        "demand": {
+          "units": 0,
+          "source": "actual-pending-inquiry-offer-count",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 16.8,
+          "ok": false,
+          "reason": "\u3053\u306e\u5730\u57df\u3068\u306e\u53d6\u6271\u95a2\u4fc2\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "trial-region-desk",
+        "partnerName": "\u5225\u306e\u5730\u57df\u306e\u4ed5\u5165\u308c\u7a93\u53e3\uff08\u4eee\uff09",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          "regional-contract:trial-region-desk"
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 0,
+        "delivered": 0,
+        "observedCustomerSales": null,
+        "tradeMonths": 0,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.67,
+        "demand": {
+          "units": 0,
+          "source": "actual-pending-inquiry-offer-count",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 16,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u914d\u5206\u3057\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      }
+    ],
+    "rawSha256": "fe6a66973f57ad7ed9758ddfab12cd88e87e8461885ce8f91c8cb7e13feb7d24",
+    "formalSha256": "06fd7c78d3d881ff43bbdf87365e48c8ea61734e26905de0408ba8910012c040",
+    "formalBytes": 1289728,
+    "formalExact": true,
+    "conditions": "Public native career, no money/event/contract injection. This duration is not a performance benchmark. Separate fresh-process verification required."
+  },
+  {
+    "policy": "distant",
+    "production": "balanced",
+    "intervalMonths": 12,
+    "localFocus": "town-liquor",
+    "continuousFocus": "bar",
+    "temporaryRefusal": "wait",
+    "productionBudget": "canonical-start-minimum-plus-selected-cask-premium",
+    "waiting": [],
+    "label": "\u9060\u65b9\u91cd\u8996",
+    "seed": 39,
+    "startMonth": 197,
+    "targetMonth": 1397,
+    "completedMonths": 1200,
+    "initialFingerprint": "d261a1db",
+    "initialCodeUnits": 391350,
+    "completed": true,
+    "stop": null,
+    "peakCasks": 2,
+    "start": {
+      "month": 197,
+      "paidBottles": 207,
+      "observedNativeCustomerSales": 44,
+      "nativeMonthlyOpportunities": [
+        {
+          "id": "bar",
+          "opportunities": 4
+        },
+        {
+          "id": "town-liquor",
+          "opportunities": 8
+        },
+        {
+          "id": "supermarket",
+          "opportunities": 12
+        }
+      ],
+      "cash": 1698.36,
+      "revenue": 3546.36,
+      "costs": 1796,
+      "upkeep": 1652,
+      "inventory": {
+        "hand": 5,
+        "retail": 0,
+        "assigned": 0,
+        "held": 0,
+        "stock": 5
+      },
+      "contracts": [],
+      "delivered": [],
+      "nativeContractIds": [
+        "bar",
+        "town-liquor",
+        "supermarket"
+      ],
+      "nativeReceipts": 4,
+      "operations": 268,
+      "releases": 5,
+      "casks": 0,
+      "generation": 1,
+      "generationHandovers": 0,
+      "rawCodeUnits": 391350,
+      "rawBytes": 445656,
+      "town": {
+        "events": 405,
+        "shipments": 41,
+        "packets": 17,
+        "pending": 2,
+        "attempts": 918,
+        "reached": [
+          "diner",
+          "bar",
+          "national-food",
+          "super",
+          "restaurant",
+          "specialist",
+          "overseas-food",
+          "near-local",
+          "near-wide",
+          "town",
+          "department",
+          "overseas-craft"
+        ],
+        "inquiries": 12,
+        "contacts": [
+          "town",
+          "diner",
+          "super",
+          "overseas-food",
+          "overseas-craft"
+        ]
+      },
+      "scenery": [
+        {
+          "id": "town-liquor",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": 0,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "supermarket",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 44,
+            "delivered": 0,
+            "customerSales": 44,
+            "tradeMonths": 4,
+            "firstMonth": 97,
+            "lastMonth": 100,
+            "span": 3
+          }
+        },
+        {
+          "id": "bar",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": 0,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "overseas-import-desk",
+          "stage": 6,
+          "box": false,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": null,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        }
+      ]
+    },
+    "final": {
+      "month": 1397,
+      "paidBottles": 4372,
+      "observedNativeCustomerSales": 44,
+      "nativeMonthlyOpportunities": [
+        {
+          "id": "bar",
+          "opportunities": 4
+        },
+        {
+          "id": "town-liquor",
+          "opportunities": 8
+        },
+        {
+          "id": "supermarket",
+          "opportunities": 12
+        }
+      ],
+      "cash": 13377.86,
+      "revenue": 71809.86,
+      "costs": 39276,
+      "upkeep": 20756,
+      "inventory": {
+        "hand": 0,
+        "retail": 0,
+        "assigned": 0,
+        "held": 0,
+        "stock": 0
+      },
+      "contracts": [
+        {
+          "id": "regional-contract:overseas-import-desk",
+          "partnerId": "overseas-import-desk",
+          "brandId": 1,
+          "startedMonth": 197
+        }
+      ],
+      "delivered": [
+        {
+          "partnerId": "overseas-import-desk",
+          "count": 4165,
+          "revenue": 68263.5,
+          "customerSales": null
+        }
+      ],
+      "nativeContractIds": [
+        "bar",
+        "town-liquor",
+        "supermarket"
+      ],
+      "nativeReceipts": 4,
+      "operations": 2276,
+      "releases": 104,
+      "casks": 1,
+      "generation": 5,
+      "generationHandovers": 4,
+      "rawCodeUnits": 1037580,
+      "rawBytes": 1145600,
+      "town": {
+        "events": 778,
+        "shipments": 141,
+        "packets": 0,
+        "pending": 0,
+        "attempts": 1301,
+        "reached": [
+          "diner",
+          "bar",
+          "national-food",
+          "super",
+          "restaurant",
+          "specialist",
+          "overseas-food",
+          "near-local",
+          "near-wide",
+          "town",
+          "department",
+          "overseas-craft"
+        ],
+        "inquiries": 16,
+        "contacts": [
+          "town",
+          "diner",
+          "super",
+          "overseas-food",
+          "overseas-craft",
+          "specialist"
+        ]
+      },
+      "scenery": [
+        {
+          "id": "town-liquor",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": 0,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "supermarket",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 44,
+            "delivered": 0,
+            "customerSales": 44,
+            "tradeMonths": 4,
+            "firstMonth": 97,
+            "lastMonth": 100,
+            "span": 3
+          }
+        },
+        {
+          "id": "bar",
+          "stage": 3,
+          "box": true,
+          "flowerStage": 0,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 0,
+            "delivered": 0,
+            "customerSales": 0,
+            "tradeMonths": 0,
+            "firstMonth": null,
+            "lastMonth": null,
+            "span": 0
+          }
+        },
+        {
+          "id": "overseas-import-desk",
+          "stage": 6,
+          "box": true,
+          "flowerStage": 2,
+          "butterfly": false,
+          "activity": {
+            "known": true,
+            "quantity": 4165,
+            "delivered": 4165,
+            "customerSales": null,
+            "tradeMonths": 51,
+            "firstMonth": 197,
+            "lastMonth": 1385,
+            "span": 1188
+          }
+        }
+      ]
+    },
+    "delta": {
+      "cash": 11679.5,
+      "revenue": 68263.5,
+      "costs": 37480,
+      "upkeep": 19104,
+      "nativeReceipts": 0,
+      "inquiries": 4
+    },
+    "checkpoints": [
+      {
+        "month": 317,
+        "paidBottles": 592,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 2523.86,
+        "revenue": 9835.86,
+        "costs": 5436,
+        "upkeep": 3476,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 385,
+            "revenue": 6289.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 470,
+        "releases": 14,
+        "casks": 1,
+        "generation": 2,
+        "generationHandovers": 1,
+        "rawCodeUnits": 508085,
+        "rawBytes": 575003,
+        "town": {
+          "events": 470,
+          "shipments": 51,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1031,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 385,
+              "delivered": 385,
+              "customerSales": null,
+              "tradeMonths": 6,
+              "firstMonth": 197,
+              "lastMonth": 305,
+              "span": 108
+            }
+          }
+        ]
+      },
+      {
+        "month": 437,
+        "paidBottles": 1012,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 3729.86,
+        "revenue": 16721.86,
+        "costs": 9196,
+        "upkeep": 5396,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 805,
+            "revenue": 13175.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 670,
+        "releases": 24,
+        "casks": 1,
+        "generation": 2,
+        "generationHandovers": 1,
+        "rawCodeUnits": 578318,
+        "rawBytes": 653518,
+        "town": {
+          "events": 503,
+          "shipments": 61,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1061,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 805,
+              "delivered": 805,
+              "customerSales": null,
+              "tradeMonths": 11,
+              "firstMonth": 197,
+              "lastMonth": 425,
+              "span": 228
+            }
+          }
+        ]
+      },
+      {
+        "month": 557,
+        "paidBottles": 1432,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 4935.86,
+        "revenue": 23607.86,
+        "costs": 12956,
+        "upkeep": 7316,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 1225,
+            "revenue": 20061.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 870,
+        "releases": 34,
+        "casks": 1,
+        "generation": 2,
+        "generationHandovers": 1,
+        "rawCodeUnits": 635789,
+        "rawBytes": 715309,
+        "town": {
+          "events": 538,
+          "shipments": 71,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1091,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 1225,
+              "delivered": 1225,
+              "customerSales": null,
+              "tradeMonths": 16,
+              "firstMonth": 197,
+              "lastMonth": 545,
+              "span": 348
+            }
+          }
+        ]
+      },
+      {
+        "month": 677,
+        "paidBottles": 1852,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 6141.86,
+        "revenue": 30493.86,
+        "costs": 16716,
+        "upkeep": 9236,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 1645,
+            "revenue": 26947.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1072,
+        "releases": 44,
+        "casks": 1,
+        "generation": 3,
+        "generationHandovers": 2,
+        "rawCodeUnits": 693734,
+        "rawBytes": 777442,
+        "town": {
+          "events": 574,
+          "shipments": 81,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1121,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 1645,
+              "delivered": 1645,
+              "customerSales": null,
+              "tradeMonths": 21,
+              "firstMonth": 197,
+              "lastMonth": 665,
+              "span": 468
+            }
+          }
+        ]
+      },
+      {
+        "month": 797,
+        "paidBottles": 2272,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 7347.86,
+        "revenue": 37379.86,
+        "costs": 20476,
+        "upkeep": 11156,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 2065,
+            "revenue": 33833.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1272,
+        "releases": 54,
+        "casks": 1,
+        "generation": 3,
+        "generationHandovers": 2,
+        "rawCodeUnits": 750332,
+        "rawBytes": 837956,
+        "town": {
+          "events": 606,
+          "shipments": 91,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1151,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 2065,
+              "delivered": 2065,
+              "customerSales": null,
+              "tradeMonths": 26,
+              "firstMonth": 197,
+              "lastMonth": 785,
+              "span": 588
+            }
+          }
+        ]
+      },
+      {
+        "month": 917,
+        "paidBottles": 2692,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 8553.86,
+        "revenue": 44265.86,
+        "costs": 24236,
+        "upkeep": 13076,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 2485,
+            "revenue": 40719.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1472,
+        "releases": 64,
+        "casks": 1,
+        "generation": 3,
+        "generationHandovers": 2,
+        "rawCodeUnits": 807584,
+        "rawBytes": 899328,
+        "town": {
+          "events": 641,
+          "shipments": 101,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1181,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 2485,
+              "delivered": 2485,
+              "customerSales": null,
+              "tradeMonths": 31,
+              "firstMonth": 197,
+              "lastMonth": 905,
+              "span": 708
+            }
+          }
+        ]
+      },
+      {
+        "month": 1037,
+        "paidBottles": 3112,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 9759.86,
+        "revenue": 51151.86,
+        "costs": 27996,
+        "upkeep": 14996,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 2905,
+            "revenue": 47605.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1674,
+        "releases": 74,
+        "casks": 1,
+        "generation": 4,
+        "generationHandovers": 3,
+        "rawCodeUnits": 864648,
+        "rawBytes": 960308,
+        "town": {
+          "events": 673,
+          "shipments": 111,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1211,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 2905,
+              "delivered": 2905,
+              "customerSales": null,
+              "tradeMonths": 36,
+              "firstMonth": 197,
+              "lastMonth": 1025,
+              "span": 828
+            }
+          }
+        ]
+      },
+      {
+        "month": 1157,
+        "paidBottles": 3532,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 10965.86,
+        "revenue": 58037.86,
+        "costs": 31756,
+        "upkeep": 16916,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 3325,
+            "revenue": 54491.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 1874,
+        "releases": 84,
+        "casks": 1,
+        "generation": 4,
+        "generationHandovers": 3,
+        "rawCodeUnits": 922228,
+        "rawBytes": 1022008,
+        "town": {
+          "events": 708,
+          "shipments": 121,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1241,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 3325,
+              "delivered": 3325,
+              "customerSales": null,
+              "tradeMonths": 41,
+              "firstMonth": 197,
+              "lastMonth": 1145,
+              "span": 948
+            }
+          }
+        ]
+      },
+      {
+        "month": 1277,
+        "paidBottles": 3952,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 12171.86,
+        "revenue": 64923.86,
+        "costs": 35516,
+        "upkeep": 18836,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 3745,
+            "revenue": 61377.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 2076,
+        "releases": 94,
+        "casks": 1,
+        "generation": 5,
+        "generationHandovers": 4,
+        "rawCodeUnits": 980059,
+        "rawBytes": 1083959,
+        "town": {
+          "events": 743,
+          "shipments": 131,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1271,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 3745,
+              "delivered": 3745,
+              "customerSales": null,
+              "tradeMonths": 46,
+              "firstMonth": 197,
+              "lastMonth": 1265,
+              "span": 1068
+            }
+          }
+        ]
+      },
+      {
+        "month": 1397,
+        "paidBottles": 4372,
+        "observedNativeCustomerSales": 44,
+        "nativeMonthlyOpportunities": [
+          {
+            "id": "bar",
+            "opportunities": 4
+          },
+          {
+            "id": "town-liquor",
+            "opportunities": 8
+          },
+          {
+            "id": "supermarket",
+            "opportunities": 12
+          }
+        ],
+        "cash": 13377.86,
+        "revenue": 71809.86,
+        "costs": 39276,
+        "upkeep": 20756,
+        "inventory": {
+          "hand": 0,
+          "retail": 0,
+          "assigned": 0,
+          "held": 0,
+          "stock": 0
+        },
+        "contracts": [
+          {
+            "id": "regional-contract:overseas-import-desk",
+            "partnerId": "overseas-import-desk",
+            "brandId": 1,
+            "startedMonth": 197
+          }
+        ],
+        "delivered": [
+          {
+            "partnerId": "overseas-import-desk",
+            "count": 4165,
+            "revenue": 68263.5,
+            "customerSales": null
+          }
+        ],
+        "nativeContractIds": [
+          "bar",
+          "town-liquor",
+          "supermarket"
+        ],
+        "nativeReceipts": 4,
+        "operations": 2276,
+        "releases": 104,
+        "casks": 1,
+        "generation": 5,
+        "generationHandovers": 4,
+        "rawCodeUnits": 1037580,
+        "rawBytes": 1145600,
+        "town": {
+          "events": 778,
+          "shipments": 141,
+          "packets": 0,
+          "pending": 0,
+          "attempts": 1301,
+          "reached": [
+            "diner",
+            "bar",
+            "national-food",
+            "super",
+            "restaurant",
+            "specialist",
+            "overseas-food",
+            "near-local",
+            "near-wide",
+            "town",
+            "department",
+            "overseas-craft"
+          ],
+          "inquiries": 16,
+          "contacts": [
+            "town",
+            "diner",
+            "super",
+            "overseas-food",
+            "overseas-craft",
+            "specialist"
+          ]
+        },
+        "scenery": [
+          {
+            "id": "town-liquor",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "supermarket",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 44,
+              "delivered": 0,
+              "customerSales": 44,
+              "tradeMonths": 4,
+              "firstMonth": 97,
+              "lastMonth": 100,
+              "span": 3
+            }
+          },
+          {
+            "id": "bar",
+            "stage": 3,
+            "box": true,
+            "flowerStage": 0,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 0,
+              "delivered": 0,
+              "customerSales": 0,
+              "tradeMonths": 0,
+              "firstMonth": null,
+              "lastMonth": null,
+              "span": 0
+            }
+          },
+          {
+            "id": "overseas-import-desk",
+            "stage": 6,
+            "box": true,
+            "flowerStage": 2,
+            "butterfly": false,
+            "activity": {
+              "known": true,
+              "quantity": 4165,
+              "delivered": 4165,
+              "customerSales": null,
+              "tradeMonths": 51,
+              "firstMonth": 197,
+              "lastMonth": 1385,
+              "span": 1188
+            }
+          }
+        ]
+      }
+    ],
+    "coldRestore": {
+      "ok": true,
+      "milliseconds": 274.01
+    },
+    "priceContext": [
+      {
+        "partnerId": "bar",
+        "partnerName": "\u8def\u5730\u88cf\u306e\u30d0\u30fc",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          {
+            "shopId": "bar",
+            "brandId": 1,
+            "startedMonth": 18
+          }
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 0,
+        "delivered": 0,
+        "observedCustomerSales": 0,
+        "tradeMonths": 0,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.22,
+        "demand": {
+          "units": 0,
+          "source": "actual-last-three-month-customer-purchases-plus-pending-offers",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 17.6,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u5272\u308a\u5f53\u3066\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "town-liquor",
+        "partnerName": "\u753a\u306e\u9152\u5e97",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          {
+            "shopId": "town-liquor",
+            "brandId": 1,
+            "startedMonth": 42
+          }
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 0,
+        "delivered": 0,
+        "observedCustomerSales": 0,
+        "tradeMonths": 0,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.11,
+        "demand": {
+          "units": 0,
+          "source": "actual-last-three-month-customer-purchases-plus-pending-offers",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 12.8,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u5272\u308a\u5f53\u3066\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "supermarket",
+        "partnerName": "\u753a\u306e\u30b9\u30fc\u30d1\u30fc",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          {
+            "shopId": "supermarket",
+            "brandId": 1,
+            "startedMonth": 70
+          }
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 44,
+        "delivered": 0,
+        "observedCustomerSales": 44,
+        "tradeMonths": 4,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.97,
+        "demand": {
+          "units": 0,
+          "source": "actual-last-three-month-customer-purchases-plus-pending-offers",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 16,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u5272\u308a\u5f53\u3066\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "overseas-import-desk",
+        "partnerName": "\u6d77\u5916\u306e\u8f38\u5165\u7a93\u53e3\uff08\u4eee\uff09",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [
+          "regional-contract:overseas-import-desk"
+        ],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 4165,
+        "delivered": 4165,
+        "observedCustomerSales": null,
+        "tradeMonths": 51,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.27,
+        "demand": {
+          "units": 0,
+          "source": "actual-pending-inquiry-offer-count",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 15.2,
+          "ok": false,
+          "reason": "\u624b\u5143\u306e\u74f6\u3092\u914d\u5206\u3057\u307e\u3059\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "national-specialist-desk",
+        "partnerName": "\u5168\u56fd\u306e\u5c02\u9580\u4ed5\u5165\u308c\u7a93\u53e3\uff08\u4eee\uff09",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 0,
+        "delivered": 0,
+        "observedCustomerSales": null,
+        "tradeMonths": 0,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.3,
+        "demand": {
+          "units": 0,
+          "source": "actual-pending-inquiry-offer-count",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 16.8,
+          "ok": false,
+          "reason": "\u3053\u306e\u5730\u57df\u3068\u306e\u53d6\u6271\u95a2\u4fc2\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      },
+      {
+        "partnerId": "trial-region-desk",
+        "partnerName": "\u5225\u306e\u5730\u57df\u306e\u4ed5\u5165\u308c\u7a93\u53e3\uff08\u4eee\uff09",
+        "brandId": 1,
+        "productId": 312,
+        "releaseId": 104,
+        "contractIds": [],
+        "pendingOfferIds": [],
+        "pendingInquiryEventIds": [],
+        "confirmedQuantity": 0,
+        "delivered": 0,
+        "observedCustomerSales": null,
+        "tradeMonths": 0,
+        "availableStock": 0,
+        "handAvailable": 0,
+        "fit": 0.67,
+        "demand": {
+          "units": 0,
+          "source": "actual-pending-inquiry-offer-count",
+          "receiptIds": [],
+          "contractAloneAddsDemand": false
+        },
+        "canonicalQuote": {
+          "unitPrice": 16,
+          "ok": false,
+          "reason": "\u3053\u306e\u5730\u57df\u3068\u306e\u53d6\u6271\u95a2\u4fc2\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+        },
+        "candidateMultiplier": 1,
+        "formalPriceChanged": false
+      }
+    ],
+    "rawSha256": "be3adaff8834041e8de1744eba725de3b941e42f19b5662c63ddf16e57c0b0d9",
+    "formalSha256": "f3328d25ec417dd85bfc7f4eace844b1f216e4c67051dab5370c1fd1aea1b3c1",
+    "formalBytes": 1300339,
+    "formalExact": true,
+    "conditions": "Public native career, no money/event/contract injection. This duration is not a performance benchmark. Separate fresh-process verification required."
+  }
+]

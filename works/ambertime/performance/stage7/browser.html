@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>AmberTime 復元・画面確認</title>
+<style>
+body{margin:12px;background:#20232c;color:#f0e6c8;font:14px system-ui,sans-serif}button,select{font:inherit;margin:3px;padding:7px}fieldset{margin:0 0 8px;padding:5px;border:1px solid #858995}iframe{display:block;border:1px solid #858995;box-sizing:content-box;background:#292b39}#status{white-space:pre-wrap;max-width:760px;line-height:1.5}body.child{margin:0;overflow:hidden}body.child #open-world-map{position:fixed;left:12px;top:10px;z-index:2}#child-status{position:fixed;left:90px;right:8px;top:12px;font:12px system-ui;line-height:1.4;z-index:2;pointer-events:none}
+</style>
+</head>
+<body>
+<script type="module">
+const query=new URL(location.href).searchParams;
+if(query.get('child')!=='1'){
+ document.body.innerHTML=`<fieldset><legend>画面サイズ</legend><select id="size" aria-label="画面サイズ"><option>360×568</option><option>375×620</option><option selected>390×680</option><option>430×740</option></select><button id="long">100年の記録</button><button id="trade">取引前の記録</button><button id="reload">記録を開き直す</button></fieldset><fieldset><legend>メモリ内の確認</legend><button id="map">地図</button><button id="roundtrip">保存・復元</button><button id="fail">次の保存を失敗させる</button></fieldset><p>正式な保存領域は使いません。再読込みで取引の変更は消えます。</p><pre id="status" role="status">読込み中</pre><iframe id="phone" title="AmberTime 検証画面"></iframe>`;
+ const frame=document.querySelector('#phone'),status=document.querySelector('#status');let fixture='long';
+ function resize(){const [w,h]=document.querySelector('#size').value.split('×').map(Number);frame.width=w;frame.height=h;}
+ function load(){resize();status.textContent='読込み中';const url=new URL(location.href);url.search='';url.searchParams.set('child','1');url.searchParams.set('fixture',fixture);frame.src=url.href;}
+ document.querySelector('#size').onchange=resize;
+ document.querySelector('#long').onclick=()=>{fixture='long';load();};
+ document.querySelector('#trade').onclick=()=>{fixture='trade';load();};
+ document.querySelector('#reload').onclick=load;
+ for(const id of ['map','roundtrip','fail'])document.querySelector('#'+id).onclick=()=>frame.contentWindow?.postMessage({type:'amber-stage7-command',command:id},location.origin);
+ addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==frame.contentWindow||event.data?.type!=='amber-stage7-status')return;status.textContent=event.data.text;});
+ load();
+}else{
+ document.body.className='child';document.body.dataset.room='sales';
+ document.body.innerHTML='<div id="scene-root"></div><div id="market-board"></div><button id="open-world-map" disabled>地図</button><div id="child-status" role="status">読込み中</div>';
+ const label=document.querySelector('#child-status');
+ let headline='読込み中',lastAction='',game,rawMemory,ui,m0,failNext=false;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ function report(){const text=[headline,innerWidth+'×'+innerHeight+' / reduced-motion: '+(reduced.matches?'reduce':'no-preference'),game?'月 '+game.core.month+' / 操作 '+game.operations.length+' / 在庫 '+game.core.products.reduce((n,p)=>n+p.stock,0)+'本':'',lastAction].filter(Boolean).join('\n');label.textContent=headline;parent.postMessage({type:'amber-stage7-status',text},location.origin);}
+ addEventListener('error',event=>{lastAction='画面エラー: '+event.message;report();});
+ addEventListener('unhandledrejection',event=>{lastAction='処理エラー: '+String(event.reason?.message??event.reason);report();});
+ try{
+  // Fail closed before importing application modules. No persistent browser
+  // storage is read, cleared, written or migrated by this research document.
+  for(const name of ['localStorage','sessionStorage','indexedDB'])Object.defineProperty(window,name,{configurable:false,get(){throw Error('この検証画面では保存領域を使えません: '+name);}});
+  const styles=['shop.css','room-scene.css','font-uniform.css','market.css','m0-observation.css'];
+  await Promise.all(styles.map(file=>new Promise((resolve,reject)=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../../'+file,location.href);link.onload=resolve;link.onerror=()=>reject(Error('CSSを読み込めません: '+file));document.head.append(link);})));
+  const base=new URL('../../',location.href);
+  const [D,market,observation,partners,layout,font,art]=await Promise.all([
+   import(new URL('partner-orders.mjs?world=world-network-v01&restore=stage7-v01',base)),
+   import(new URL('market-ui.mjs?world=world-network-v01',base)),
+   import(new URL('m0-observation.mjs?world=world-network-v01',base)),
+   import(new URL('map-partners.mjs?v=map-partners-v01&world=world-network-v01',base)),
+   import(new URL('canvas-layout.mjs',base)),import(new URL('font-uniform.mjs',base)),import(new URL('room-object-art.mjs',base))]);
+  const fixture=query.get('fixture')==='trade'?'trade-ready.json':'pr907-1386.json';
+  const response=await fetch(new URL('fixtures/'+fixture,location.href));if(!response.ok)throw Error('記録の読込み: '+response.status);
+  const raw=await response.text();label.textContent='モデルを復元中';await new Promise(requestAnimationFrame);
+  const start=performance.now();game=D.restoreDistillery(raw);const elapsed=performance.now()-start;rawMemory=raw;
+  headline='モデル復元 '+(elapsed/1000).toFixed(3)+'秒';
+  let view={stage:6,selectedShop:'overseas-import-desk'};
+  const typography=font.installUniformTypography('',document.documentElement);
+  function resize(){const viewport=layout.computeViewport({width:innerWidth,height:innerHeight,dpr:devicePixelRatio});typography.resize(viewport);document.querySelector('#scene-root').dataset.viewport=JSON.stringify(viewport);}
+  function render(){ui.update({sessionActive:true,visible:true,notice:''});m0?.update();report();}
+  function act(fn){const oldGame=game,oldRaw=rawMemory;try{const candidate=fn(game),text=D.serializeDistillery(candidate),restored=D.restoreDistillery(text);if(failNext){failNext=false;throw Error('試験用保存失敗');}rawMemory=text;game=restored;lastAction='メモリ内の保存・復元後に反映';render();return true;}catch(error){game=oldGame;rawMemory=oldRaw;lastAction=error.message+' / 前の状態を維持';report();return false;}}
+  resize();
+  ui=market.createMarketUI({document,model:D,state:()=>game,art:p=>art.bottleArt(p.wood),act,openProduct(){lastAction='商品詳細モーダルはこの検証画面の対象外';report();},openStockist(){lastAction='店舗詳細モーダルはこの検証画面の対象外';report();},shopsForState:s=>partners.marketPartnersForMap(s,view,market.availableMarketShops(s))});
+  m0=observation.createM0Observation({document,state:()=>game,room:()=>'sales',modal:()=>null,view:()=>view,onViewChange:next=>{view=next;render();},onTrade:()=>render(),onInspect:()=>{lastAction='詳細モーダルはこの検証画面の対象外';report();}});
+  document.querySelector('#open-world-map').disabled=false;document.querySelector('#open-world-map').onclick=()=>m0.toggle();
+  addEventListener('resize',()=>{resize();render();});reduced.addEventListener('change',report);
+  addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==parent||event.data?.type!=='amber-stage7-command')return;switch(event.data.command){case'map':m0.toggle();break;case'fail':failNext=true;lastAction='次の取引保存は失敗し、前の状態を保ちます';report();break;case'roundtrip':{const start=performance.now(),candidate=D.restoreDistillery(rawMemory);if(D.serializeDistillery(candidate)!==rawMemory)throw Error('復元結果が一致しません');game=candidate;lastAction='メモリ内モデル往復一致 '+((performance.now()-start)/1000).toFixed(3)+'秒';render();break;}}});
+  render();m0.open();document.documentElement.dataset.harnessReady='true';
+ }catch(error){headline='停止: '+error.message;report();}
+}
+</script>
+</body>
+</html>
