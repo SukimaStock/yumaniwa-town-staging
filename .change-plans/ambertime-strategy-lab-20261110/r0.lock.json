@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "201c52427c86264140e2e59b570e843ae58594270c8da108f643da7b89b05bdc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-strategy-lab-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime stage 1: code rule audit, paper management rules and isolated strategy comparison Lab",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "036df63c7fcb47373bc66f44f8fda6a4d0c9872e",
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/selection.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-strategy-lab-20261110/r0.lock.json",
+      "works/ambertime-strategy-lab/**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "data/ambertime-research.json",
+      "lab/index.html",
+      "lab/ambertime-research.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "index.html",
+      "main.js",
+      "data/works.js"
+    ],
+    "expectedChanges": [
+      "Audit six live rule domains with code evidence and distinguish compatibility/research",
+      "Isolated synthetic seeded strategy and bottling comparisons, reuse current pure sales and shop definitions",
+      "Candidate volume/continuity relations and explicit reputation stages with calculation event explanations",
+      "Document three-layer data needs and stage2 handoff; register existing LAB and generate"
+    ],
+    "ownerDecisions": [
+      "User stage1 request explicitly authorizes audit, candidate rules, independent Lab, tests and safe Staging merge only"
+    ],
+    "hqDecisions": [
+      "Boundary review: read-only existing pure imports, standalone synthetic model with no storage API or main connection; existing registry schemas/generator only"
+    ],
+    "rulesApplied": [
+      "Change OS exact base gates",
+      "Drive expression audit read 2026-11-10; only conditions, results and actionable causes in UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone and desktop comparison controls, accessible labels, errors and reproducibility",
+      "No storage access or main imports back to Lab"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "surface.shared"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert independent Lab registration and generated links",
+    "outOfScope": [
+      "All works/ambertime files",
+      "PR894",
+      "Production",
+      "Player saves",
+      "B display Lab"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware",
+      "100 year main game integration"
+    ],
+    "problem": "Make learnable management strategies and meaningful histories before choosing storage representation",
+    "currentContract": "Main game and v8 unchanged; PR894 untouched",
+    "whyExistingIsInsufficient": "Display Lab cannot compare management rules",
+    "design": "Pure synthetic scenarios with existing monthly market and explicit candidate progress counters; events contain causal inputs",
+    "alternativesRejected": [
+      "Modify main rules",
+      "Use release count as achievement",
+      "Post-hoc fictional explanations"
+    ],
+    "migration": "none",
+    "compatibility": "Only read-only pure function reuse; no save migration",
+    "boundaryCases": [
+      "54 same-cask splits",
+      "Age restrictions",
+      "Capacity and stock",
+      "Zero and low affinity",
+      "Same-month delivery spam",
+      "Multiple seeds and short/long horizons"
+    ],
+    "testPlan": [
+      "Deterministic and conservation invariants",
+      "Splitting exploit via live code",
+      "Volume duration flavor sensitivity",
+      "Phone browser controls",
+      "Lifecycle regression",
+      "Scope Risk Impact and required CI"
+    ],
+    "promotionRisk": "none; staging-only"
+  }
+}
