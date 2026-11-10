@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "40f8bbc3eb6e059abf3ad4f2096699d4f8445229137375c1e396955e54a6adaf",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ui-recovery-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Restore safe new game, complete notice text, and first-bottle label ceremony",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "13e0775de82de9c73c0bacd9ff69cdaea1db69db",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/first-bottle-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ui-recovery-20261110/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/notice-motion.css",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/first-bottle-view.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/notice-layout.mjs",
+      "works/ambertime/tests/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shadow/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Pass new-game recall explicitly; validate exact new envelope before writing",
+      "Preserve exact original via existing backup mechanism, compare storage before and after backup, no automatic deletion",
+      "Measure actual notification text at existing font; fit complete text without hiding main controls; preserve queue identity and timing",
+      "Keep first-bottle DOM through intermediate render, complete animation once; reduced motion static final bottle",
+      "Regression tests and cache URL refresh only"
+    ],
+    "ownerDecisions": [
+      "Current user request explicitly authorizes all three repairs, CI/review, Staging merge and Pages; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing v8 serialization and CAS, existing market backup protection; no Stage5 persistence reuse",
+      "Existing UI restoration, no new game rules or product copy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Browser mobile geometry and ceremony normal/reduced motion when available",
+      "Required CI and Pages SHA"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this UI repair PR; v8 schema and calculations unchanged",
+    "outOfScope": [
+      "Production",
+      "Stage5 PR901",
+      "Rules, economy, priority/order, left alignment and frame rate"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}
