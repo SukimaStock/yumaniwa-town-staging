@@ -293,6 +293,10 @@
         {
           "work": "ambertime-market-design-lab",
           "note": "味と販売先の相性、配分と販売循環、販売モデル候補の経済バランスを比較。基準mainは監査PR #666の 3031554e5e115cb1c4c0bf13715ea761646f840b。"
+        },
+        {
+          "work": "ambertime-small-memory-lab",
+          "note": "店・地図・帳面・世代回想を、全記録と少ない記憶で比較する。"
         }
       ]
     },

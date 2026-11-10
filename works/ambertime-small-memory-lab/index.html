@@ -1,0 +1,8 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>AmberTime 小さな帳面 B案</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="lab"><header><a href="../../lab/#room-bench">‹ LAB</a><h1>小さな帳面 B案</h1></header>
+<div class="controls"><label>同じ時点を比較 <select id="scenario"></select></label><nav id="tabs" aria-label="比較する体験"><button data-tab="shops" aria-pressed="true">店</button><button data-tab="map" aria-pressed="false">地図</button><button data-tab="ledger" aria-pressed="false">帳面</button><button data-tab="recalls" aria-pressed="false">世代回想</button></nav></div>
+<p class="note">合成データの表示比較です。本編の進行・保存には接続していません。</p>
+<nav class="phone-switch" aria-label="表示方式"><button data-mode="current" aria-pressed="false">現行方式</button><button data-mode="compact" aria-pressed="true">B案</button></nav>
+<div class="comparison" data-mode="compact"><section data-side="current"><h2>現行方式 <small>全記録から表示</small></h2><iframe id="current" title="現行方式の比較表示" src="frame.html?mode=current"></iframe></section><section data-side="compact"><h2>B案 <small>抽出した記憶だけで表示</small></h2><iframe id="compact" title="B案の比較表示" src="frame.html?mode=compact"></iframe></section></div>
+<details class="evidence"><summary>使った情報・残らない情報</summary><p id="sizes"></p><p>これは表示比較用の入力データ量です。ゲーム全体の保存容量や、将来の計算に必要な容量の削減率ではありません。</p><div id="limits"></div><a id="download" download="ambertime-small-memory.json">B案の記憶JSON</a> · <a href="REPORT.md">調査・比較記録</a></details>
+</main><script type="module" src="app.mjs"></script></body></html>
