@@ -1,18 +1,16 @@
 import {renderMap} from '../../world-map/v01/map.mjs';
 import {mapObservationBounds} from '../../../world-map-view.mjs';
 import {createShopRelationshipProjection} from './relationship-view.mjs';
-import {paintTownContrast,focusViewport} from './focus-view.mjs';
+import {BREATH_PATTERNS,breathParticipants,authoredSpriteBounds,alphaMaskShopCrop} from './breath-view.mjs';
 import {SCENARIOS,fixtureState,SHOP_NAMES} from './fixtures.mjs';
 
 const $=id=>document.getElementById(id);
 const scenarioRoot=$('scenarios'),mapLayer=$('map-layer'),pinLayer=$('map-pins');
-const mapWindow=$('map-window'),maskLayer=$('focus-mask'),canvas=$('map-canvas');
-const maskContext=maskLayer.getContext('2d');
-const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const mapWindow=$('map-window'),breathLayer=$('breath-layer'),canvas=$('map-canvas');
 const originalBounds=mapObservationBounds(3);
 const projection=createShopRelationshipProjection();
 let scenario=SCENARIOS[1],game=fixtureState(scenario),selected=scenario.selected;
-let view='normal',style='contrast',zoom=1,pan={x:0,y:0};
+let view='normal',style='together',zoom=1,pan={x:0,y:0};
 const pointers=new Map();let movement=false,gesture=null;
 const center=id=>{const r=originalBounds[id];return r?{x:r[0]+r[2]/2,y:r[1]+r[3]/2}:null;};
 const available=()=>[...new Set(game.shop.relations.filter(r=>r.status!=='declined').map(r=>r.shopId))];
@@ -36,44 +34,63 @@ function buildPins(){
   btn.addEventListener('click',()=>selectShop(id));pinLayer.append(btn);
  }
 }
-// Two alternatives share the same factual relation: A pixel-stepped view
-// mask, C a single authored-map camera move. Neither changes source pixels.
-let lastVisualKey=null,focusEpoch=0,focusRaf=null,focusTimer=null,programmaticFocus=false;
-function cancelFocusMotion(){
- focusEpoch++;
- if(focusRaf!==null)cancelAnimationFrame(focusRaf);
- if(focusTimer!==null)clearTimeout(focusTimer);
- focusRaf=null;focusTimer=null;
- mapLayer.classList.remove('focus-motion');
+// Presentation only: pulse the real shop's cut-out pixel art, or the
+// existing corners when the bar has no authored building sprite yet.
+let lastBreathKey=null;
+function shopCutout(id){
+ const b=authoredSpriteBounds(id,originalBounds);
+ if(!b)return null;
+ const small=document.createElement('canvas');
+ small.width=b.w;small.height=b.h;
+ const context=small.getContext('2d',{willReadFrequently:true});
+ if(!context)return null;
+ context.imageSmoothingEnabled=false;
+ context.drawImage(canvas,b.x,b.y,b.w,b.h,0,0,b.w,b.h);
+ const pixels=context.getImageData(0,0,b.w,b.h);
+ alphaMaskShopCrop(pixels.data,b.w,b.h);
+ context.putImageData(pixels,0,0);
+ small.className='breath-art';
+ small.setAttribute('aria-hidden','true');
+ return {bounds:b,canvas:small};
 }
-function resetViewpoint(){
- zoom=1;pan={x:0,y:0};programmaticFocus=false;updateTransform();
-}
-function applyFocus(link,{replay=false}={}){
- const from=link&&center(link.fromShopId),to=link&&center(link.selectedShopId);
- const valid=view==='relation'&&link?.canDrawLink&&from&&to;
- const key=valid?[scenario.id,selected,link.eventId,style].join(':'):'';
- if(!replay&&key===lastVisualKey)return;
- lastVisualKey=key;cancelFocusMotion();
- paintTownContrast(maskContext,valid&&style==='contrast'?[from,to]:[]);
- if(!valid||style==='contrast'){
-  resetViewpoint();return;
+function clearBreathing(){
+ breathLayer.replaceChildren();
+ for(const pin of pinLayer.querySelectorAll('.pin')){
+  pin.classList.remove('breath-marker');
+  pin.style.removeProperty('--breath-delay');
  }
- // The camera move is pixel-stepped; the source map remains an intact sprite.
- resetViewpoint();
- const target=focusViewport(from,mapWindow.clientWidth,mapWindow.clientHeight);
- const epoch=focusEpoch;
- const go=()=>{
-  if(epoch!==focusEpoch)return;
-  zoom=target.zoom;pan=target.pan;programmaticFocus=true;
-  if(!reduced.matches&&!document.hidden)mapLayer.classList.add('focus-motion');
-  updateTransform();
-  focusTimer=setTimeout(()=>{if(epoch===focusEpoch){mapLayer.classList.remove('focus-motion');focusTimer=null;}},760);
- };
- if(reduced.matches||document.hidden)go();
- else {void mapLayer.offsetWidth;focusRaf=requestAnimationFrame(go);}
 }
-function showOverview(){cancelFocusMotion();resetViewpoint();render();}
+function syncBreathing(link){
+ const participants=view==='relation'?breathParticipants(link,style,available()):[];
+ const key=[scenario.id,view,selected,style,link?.eventId??'',...participants.map(p=>p.id+':'+p.delayMs)].join('|');
+ if(key===lastBreathKey)return;
+ lastBreathKey=key;
+ clearBreathing();
+ for(const p of participants){
+  const art=shopCutout(p.id);
+  if(art){
+   const b=art.bounds;
+   const spot=document.createElement('div');
+   spot.className='breath-position';
+   spot.style.left=(b.x+b.w/2)/144*100+'%';
+   spot.style.top=(b.y+b.h/2)/144*100+'%';
+   spot.style.width=b.w/144*100+'%';
+   spot.style.height=b.h/144*100+'%';
+   spot.style.setProperty('--breath-delay',p.delayMs+'ms');
+   spot.append(art.canvas);breathLayer.append(spot);
+  }else{
+   // Existing temporary bar corners are the only visible element here.
+   // Never draw a new bar or enlarge the 44px interaction target.
+   const pin=[...pinLayer.querySelectorAll('.pin')].find(x=>x.dataset.shop===p.id);
+   if(pin){
+    pin.classList.add('breath-marker');
+    pin.style.setProperty('--breath-delay',p.delayMs+'ms');
+   }
+  }
+ }
+ mapLayer.dataset.breathPaused=String(document.hidden);
+}
+function showOverview(){zoom=1;pan={x:0,y:0};updateTransform();}
 function render(){
  const link=relation(),isRelation=view==='relation';
  scenarioRoot.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scenario===scenario.id)));
@@ -84,27 +101,31 @@ function render(){
  $('shop-title').textContent=SHOP_NAMES[selected]??'取扱店';
  $('detail-tag').textContent='取扱店';
  $('relation-controls').hidden=!isRelation;
- const message=$('shop-message'),foot=$('map-foot'),follow=$('follow'),replay=$('replay');
+ const message=$('shop-message'),foot=$('map-foot'),follow=$('follow');
  if(!isRelation){
   message.textContent='この店の様子を眺めています。関係を見ると、実際に届いた口コミの経緯を調べられます。';
-  foot.textContent='町はいつもの姿です。';follow.hidden=true;replay.hidden=true;
+  foot.textContent='普段は建物も地図も動きません。';follow.hidden=true;
  }else if(!link){
   message.textContent='この店に届いた、確認できる店舗間の口コミはありません。';
-  foot.textContent='つながりの根拠がないときは地図を変えません。';follow.hidden=true;replay.hidden=true;
+  foot.textContent='届いた記録がなければ、店は呼吸しません。';follow.hidden=true;
  }else{
   message.textContent=Math.floor(link.month/12)+'年'+link.month%12+'か月目、'+SHOP_NAMES[link.fromShopId]+'からの口コミが、この店に届きました。';
-  foot.textContent=link.canDrawLink?(style==='contrast'?'明るく残る2か所が、今回のつながりです。':'紹介元の店へ、地図そのものが近づきます。'):'紹介元の位置がまだありません。';
+  const pattern=BREATH_PATTERNS.find(x=>x.id===style);
+  foot.textContent=link.canDrawLink?({
+   together:'関係する2店が、同時にゆっくり呼吸します。',
+   reply:'紹介元に続いて、相手の店が少し遅れて呼吸します。',
+   partner:'選択した店はそのまま。相手の店だけが呼吸します。'
+  }[style]??pattern?.label):'紹介元の位置がまだありません。';
   follow.hidden=false;follow.textContent=SHOP_NAMES[link.fromShopId]+'を見に行く';
   follow.onclick=()=>selectShop(link.fromShopId);
-  replay.hidden=!(link.canDrawLink&&style==='focus');replay.textContent='もう一度近づく';
  }
- applyFocus(link);$('scenario-description').textContent=scenario.desc;
+ syncBreathing(link);$('scenario-description').textContent=scenario.desc;
  $('plus').disabled=zoom>=3;$('minus').disabled=zoom<=1;
 }
 function setScenario(id){
  const found=SCENARIOS.find(x=>x.id===id);if(!found)return;
- cancelFocusMotion();lastVisualKey=null;
- scenario=found;game=fixtureState(found);selected=found.selected;resetViewpoint();
+ lastBreathKey=null;
+ scenario=found;game=fixtureState(found);selected=found.selected;showOverview();
  projection.reset();buildPins();render();
 }
 for(const item of SCENARIOS){
@@ -113,16 +134,13 @@ for(const item of SCENARIOS){
 }
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;render();}));
 document.querySelectorAll('[data-style]').forEach(b=>b.addEventListener('click',()=>{style=b.dataset.style;render();}));
-$('replay').addEventListener('click',()=>applyFocus(relation(),{replay:true}));
 $('overview').addEventListener('click',showOverview);
-reduced.addEventListener?.('change',()=>applyFocus(relation(),{replay:true}));
-document.addEventListener('visibilitychange',()=>applyFocus(relation(),{replay:true}));
-window.addEventListener('pagehide',cancelFocusMotion);
-function changeZoom(n){cancelFocusMotion();programmaticFocus=false;zoom=clamp(n,1,3);updateTransform();render();}
+document.addEventListener('visibilitychange',()=>{mapLayer.dataset.breathPaused=String(document.hidden);});
+window.addEventListener('pagehide',()=>{mapLayer.dataset.breathPaused='true';});
+function changeZoom(n){zoom=clamp(n,1,3);updateTransform();render();}
 $('plus').addEventListener('click',()=>changeZoom(zoom+.5));$('minus').addEventListener('click',()=>changeZoom(zoom-.5));
 const points=()=>[...pointers.values()];
 mapWindow.addEventListener('pointerdown',event=>{
- cancelFocusMotion();programmaticFocus=false;
  pointers.set(event.pointerId,{x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,shopId:event.target.closest('.pin')?.dataset.shop??null});
  mapWindow.setPointerCapture?.(event.pointerId);movement=false;
  const p=points();
@@ -154,12 +172,6 @@ const end=event=>{
  else {movement=true;const a=points()[0];gesture={x:a.x,y:a.y,distance:0};}
 };
 mapWindow.addEventListener('pointerup',end);mapWindow.addEventListener('pointercancel',end);
-window.addEventListener('resize',()=>{
- if(programmaticFocus&&view==='relation'&&style==='focus'){
-  const link=relation(),from=link&&center(link.fromShopId);
-  if(from){const target=focusViewport(from,mapWindow.clientWidth,mapWindow.clientHeight);zoom=target.zoom;pan=target.pan;}
- }
- updateTransform();
-});
+window.addEventListener('resize',updateTransform);
 renderMap(canvas.getContext('2d',{alpha:false}),3);
 setScenario('after');
