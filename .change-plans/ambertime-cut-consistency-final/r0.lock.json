@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5aec27b7cdcac79b7d9653790923fcc0e7fb2619299deb30093d6538ea33c099",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-cut-consistency-final",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "採取区間収量比較と整合する蒸留・習熟誘導",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e23095e200a3728092c307735dfd664fca78fcdb",
+    "canonicalSources": [
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/distill-tools-view.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-cut-consistency-final/r0.lock.json",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distill-yield.mjs",
+      "works/ambertime/distill-learning.mjs",
+      "works/ambertime/distill-tools-view.mjs",
+      "works/ambertime/distill-tool-input.mjs",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/*.mjs",
+      "works/ambertime/design/cut-consistency/**",
+      "works/ambertime/spirit-view.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/lab-flavor.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/monthly.mjs"
+    ],
+    "expectedChanges": [
+      "実装前に旧/区間差/補正曲線を味・収量・単価・樽瓶・費用収益・短長期資金で比較。重大悪影響は接続保留し報告",
+      "問題ない候補だけ新しい開始操作のversion markerで採用。既存v2保存/進行/自動レシピの完全replay保持",
+      "正式採取量と液面を共通化。採取開始0、終了確定、追加操作なしレバー復帰",
+      "矢印3px刻み下移動、触れたら停止、初回強/2-3弱/4以降無、独立UI設定で成功操作+完了のみ記録、preview非更新"
+    ],
+    "ownerDecisions": [
+      "2026-11-01今回指示。計算比較前置、重大影響時保留。Staging本編PR CI merge公開、Production不可"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "root/work AGENTS,Change OS,単一先頭Plan Lock,Scope→Risk→Impact",
+      "表現監査：可視操作文を外し指定のアイコン/穏やかな点滅で案内。読み上げは維持",
+      "本編編集前にreadout pathの必要性を確認しfresh branch/単一r0へ固定。旧計画branchは保存、旧Lockを変更しない",
+      "outOfScopeを今回明示許可の区間収量に整合させ本編編集前にfresh r0固定。以前のlocked branchは保持"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360/375/390 Chromium/WebKit pointer、8状態と習熟比較画像、実機未確認区別",
+      "公開後初回・操作・液面・復帰確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "通常revert。ただし新version保存は旧版で受理しないため新規save書出しを残す。移行境界と復元を検証",
+    "outOfScope": [
+      "Production/他作品/共有基盤/新Lab",
+      "販売/評判/熟成/価格/解放/費用/成功条件の再設計",
+      "既存保存済みの蒸留・樽・商品・旧レシピの再計算"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone Safari toolbar/指操作/作者採否"
+    ],
+    "alternativesRejected": [
+      "表示専用の別収量タイマー",
+      "40L上限超過補正",
+      "旧操作の無条件再計算",
+      "新Lab/追加操作/販売や熟成再設計"
+    ],
+    "boundaryCases": [
+      "start0/end99/短区間/旧v2midrun/旧save/自動担当/レシピ/expiry/restart/preview/世代/多指/reducedmotion"
+    ],
+    "testPlan": [
+      "比較simulationを本編接続前に保存、oldsave完全一致/新version roundtrip/auto staff/再開/中断/境界",
+      "入力/量/矢印/習熟/還元motion/3幅2engine、Scope Risk Impact 必須CI"
+    ],
+    "problem": "終了位置収量と採取区間の不一致、液面急増、レバー/誘導の状態不整合",
+    "currentContract": "味・熟成・販売モデルは維持、過去保存replayは旧結果維持、新操作増やさず本編接続",
+    "whyExistingIsInsufficient": "従来の味だけ区間対応と終了点収量が道具操作に一致しない",
+    "design": "事前比較に基づくversioned interval cumulative yield、正式共通量、UI独立learning設定とpixel tool motion",
+    "migration": "過去操作の再生は旧モデルを維持、新しい手動開始だけ記録済みyieldModelを導入。既存進行中は旧方式を完了。独立UI設定はgame保存と分離",
+    "compatibility": "旧保存を再計算しない。新batchだけ明示version、旧activebatch/レシピの意味を保持",
+    "promotionRisk": "Staging限定。新モデルの旧コードへのdowngradeは保存書出しと明示version検査で保護。Productionなし"
+  }
+}
