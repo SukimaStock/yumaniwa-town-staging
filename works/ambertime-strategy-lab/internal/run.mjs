@@ -1,0 +1,13 @@
+import {writeFileSync} from 'node:fs';
+import {scenarios} from '../../ambertime-small-memory-lab/fixture.mjs';
+import {compareReadModels} from './adapters.mjs';
+import {compareMemory,bytes,referencedReleaseIds} from './memory.mjs';
+import {bottlingScenario,stageOneRegression} from './scenarios.mjs';
+import {relationExperiment,longRun} from './experiments.mjs';
+const stripMemory=rows=>rows.map(({memory,...row})=>row);
+const reads=scenarios.map(s=>{const r=compareReadModels(s.source);return {id:s.id,label:s.label,sourceBytes:bytes(s.source),readModelBytes:bytes(r.model),checks:r.checks,missing:r.missing,limits:r.limits,memory:stripMemory(compareMemory(s.source,{recallIds:referencedReleaseIds(s.source,r.compact.recalls)}))};});
+const bottling=['whole','singles','aged'].map(mode=>{const r=bottlingScenario(mode);return {mode,bottled:r.bottled,sold:r.sold,inventory:r.inventory,peak:r.peak,remainingLitres:r.remainingLitres,releaseCount:r.source.releases.length,sharedCharacteristics:Object.keys(r.compact.wines).length,activeReleases:Object.keys(r.compact.releases).length,fullBytes:bytes(r.source),modelBytes:bytes(r.compact),retailEqual:r.compact.retail.bottles===r.sold};});
+const relations=['bulk','continuous','procurement'].map(kind=>{const {model,rows,...r}=relationExperiment(kind);return r;});
+const long= [12,360,1200].map(months=>{const {model,full,...r}=longRun(months);return r;});
+const result={schema:'ambertime-internal-comparison/1',base:'f7e69701c507429e4fd4e28d746031fcb9c237a8',scope:'Synthetic independent model; not v8, not formal 100-year game',reads,bottling,relations,long,stageOne36:stageOneRegression()};
+writeFileSync(new URL('./results.json',import.meta.url),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({reads:reads.map(r=>[r.id,r.checks.every(c=>c.equal),r.sourceBytes,r.readModelBytes]),bottling,long},null,2));

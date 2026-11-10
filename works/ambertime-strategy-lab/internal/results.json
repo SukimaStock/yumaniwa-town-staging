@@ -1,0 +1,2246 @@
+{
+  "schema": "ambertime-internal-comparison/1",
+  "base": "f7e69701c507429e4fd4e28d746031fcb9c237a8",
+  "scope": "Synthetic independent model; not v8, not formal 100-year game",
+  "reads": [
+    {
+      "id": "early",
+      "label": "初代・4年",
+      "sourceBytes": 8343,
+      "readModelBytes": 8090,
+      "checks": [
+        {
+          "name": "town-liquor:remark",
+          "equal": true
+        },
+        {
+          "name": "town-liquor:candidates",
+          "equal": true
+        },
+        {
+          "name": "supermarket:remark",
+          "equal": true
+        },
+        {
+          "name": "supermarket:candidates",
+          "equal": true
+        },
+        {
+          "name": "bar:remark",
+          "equal": true
+        },
+        {
+          "name": "bar:candidates",
+          "equal": true
+        },
+        {
+          "name": "department:remark",
+          "equal": true
+        },
+        {
+          "name": "department:candidates",
+          "equal": true
+        },
+        {
+          "name": "town-liquor:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "supermarket:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "bar:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "department:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "native-ledger",
+          "equal": true
+        },
+        {
+          "name": "package",
+          "equal": true
+        },
+        {
+          "name": "map",
+          "equal": true
+        },
+        {
+          "name": "ledger",
+          "equal": true
+        },
+        {
+          "name": "frozen-recalls",
+          "equal": true
+        },
+        {
+          "name": "chosen-dialogue",
+          "equal": true
+        }
+      ],
+      "missing": [],
+      "limits": [
+        "選出台詞は本人の既読を証明しない。",
+        "現在月の候補比較。次の月は更新済みの月初契約が必要。",
+        "B案の合成確定場面を利用。現行全候補と新しい次世代選出の同値は未証明。"
+      ],
+      "memory": [
+        {
+          "policy": "A",
+          "bytes": 4715,
+          "identities": 1,
+          "details": 0,
+          "visuals": 1,
+          "missing": [],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            }
+          ]
+        },
+        {
+          "policy": "B",
+          "bytes": 5060,
+          "identities": 1,
+          "details": 1,
+          "visuals": 1,
+          "missing": [],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            }
+          ]
+        },
+        {
+          "policy": "C",
+          "bytes": 5117,
+          "identities": 1,
+          "details": 1,
+          "visuals": 1,
+          "missing": [],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "generations",
+      "label": "三代目・63年",
+      "sourceBytes": 178877,
+      "readModelBytes": 30731,
+      "checks": [
+        {
+          "name": "town-liquor:remark",
+          "equal": true
+        },
+        {
+          "name": "town-liquor:candidates",
+          "equal": true
+        },
+        {
+          "name": "supermarket:remark",
+          "equal": true
+        },
+        {
+          "name": "supermarket:candidates",
+          "equal": true
+        },
+        {
+          "name": "bar:remark",
+          "equal": true
+        },
+        {
+          "name": "bar:candidates",
+          "equal": true
+        },
+        {
+          "name": "department:remark",
+          "equal": true
+        },
+        {
+          "name": "department:candidates",
+          "equal": true
+        },
+        {
+          "name": "town-liquor:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "supermarket:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "bar:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "department:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "native-ledger",
+          "equal": true
+        },
+        {
+          "name": "package",
+          "equal": true
+        },
+        {
+          "name": "map",
+          "equal": true
+        },
+        {
+          "name": "ledger",
+          "equal": true
+        },
+        {
+          "name": "frozen-recalls",
+          "equal": true
+        },
+        {
+          "name": "chosen-dialogue",
+          "equal": true
+        }
+      ],
+      "missing": [],
+      "limits": [
+        "選出台詞は本人の既読を証明しない。",
+        "現在月の候補比較。次の月は更新済みの月初契約が必要。",
+        "B案の合成確定場面を利用。現行全候補と新しい次世代選出の同値は未証明。"
+      ],
+      "memory": [
+        {
+          "policy": "A",
+          "bytes": 12761,
+          "identities": 11,
+          "details": 6,
+          "visuals": 2,
+          "missing": [],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 2,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 3,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 4,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 5,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 6,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 7,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 8,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 9,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 10,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 11,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            }
+          ]
+        },
+        {
+          "policy": "B",
+          "bytes": 12460,
+          "identities": 7,
+          "details": 7,
+          "visuals": 2,
+          "missing": [
+            3,
+            4,
+            7,
+            9
+          ],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 2,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 3,
+              "status": "missing"
+            },
+            {
+              "releaseId": 4,
+              "status": "missing"
+            },
+            {
+              "releaseId": 5,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 6,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 7,
+              "status": "missing"
+            },
+            {
+              "releaseId": 8,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 9,
+              "status": "missing"
+            },
+            {
+              "releaseId": 10,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 11,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            }
+          ]
+        },
+        {
+          "policy": "C",
+          "bytes": 13169,
+          "identities": 11,
+          "details": 7,
+          "visuals": 2,
+          "missing": [],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 2,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 3,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 4,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 5,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 6,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 7,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 8,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 9,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 10,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 11,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gaps",
+      "label": "納品の間隔・味の記録なし",
+      "sourceBytes": 170985,
+      "readModelBytes": 30411,
+      "checks": [
+        {
+          "name": "town-liquor:remark",
+          "equal": true
+        },
+        {
+          "name": "town-liquor:candidates",
+          "equal": true
+        },
+        {
+          "name": "supermarket:remark",
+          "equal": true
+        },
+        {
+          "name": "supermarket:candidates",
+          "equal": true
+        },
+        {
+          "name": "bar:remark",
+          "equal": true
+        },
+        {
+          "name": "bar:candidates",
+          "equal": true
+        },
+        {
+          "name": "department:remark",
+          "equal": true
+        },
+        {
+          "name": "department:candidates",
+          "equal": true
+        },
+        {
+          "name": "town-liquor:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "supermarket:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "bar:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "department:brand-1:remark",
+          "equal": true
+        },
+        {
+          "name": "native-ledger",
+          "equal": true
+        },
+        {
+          "name": "package",
+          "equal": true
+        },
+        {
+          "name": "map",
+          "equal": true
+        },
+        {
+          "name": "ledger",
+          "equal": true
+        },
+        {
+          "name": "frozen-recalls",
+          "equal": true
+        },
+        {
+          "name": "chosen-dialogue",
+          "equal": true
+        }
+      ],
+      "missing": [
+        {
+          "releaseId": 1,
+          "kind": "profile-unavailable"
+        }
+      ],
+      "limits": [
+        "選出台詞は本人の既読を証明しない。",
+        "現在月の候補比較。次の月は更新済みの月初契約が必要。",
+        "B案の合成確定場面を利用。現行全候補と新しい次世代選出の同値は未証明。"
+      ],
+      "memory": [
+        {
+          "policy": "A",
+          "bytes": 16426,
+          "identities": 11,
+          "details": 6,
+          "visuals": 3,
+          "missing": [],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": false,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 2,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 3,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 4,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 5,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 6,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 7,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 8,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 9,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 10,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 11,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            }
+          ]
+        },
+        {
+          "policy": "B",
+          "bytes": 16122,
+          "identities": 7,
+          "details": 7,
+          "visuals": 3,
+          "missing": [
+            3,
+            4,
+            8,
+            10
+          ],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": false,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 2,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 3,
+              "status": "missing"
+            },
+            {
+              "releaseId": 4,
+              "status": "missing"
+            },
+            {
+              "releaseId": 5,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 6,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 7,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 8,
+              "status": "missing"
+            },
+            {
+              "releaseId": 9,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 10,
+              "status": "missing"
+            },
+            {
+              "releaseId": 11,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            }
+          ]
+        },
+        {
+          "policy": "C",
+          "bytes": 16834,
+          "identities": 11,
+          "details": 7,
+          "visuals": 3,
+          "missing": [],
+          "coverage": [
+            {
+              "releaseId": 1,
+              "appearance": true,
+              "flavor": false,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 2,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 3,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 4,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 5,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 6,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 7,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 8,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 9,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            },
+            {
+              "releaseId": 10,
+              "appearance": true,
+              "flavor": false,
+              "recipe": false,
+              "status": "known"
+            },
+            {
+              "releaseId": 11,
+              "appearance": true,
+              "flavor": true,
+              "recipe": true,
+              "status": "known"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "bottling": [
+    {
+      "mode": "whole",
+      "bottled": 54,
+      "sold": 54,
+      "inventory": 0,
+      "peak": 1,
+      "remainingLitres": 0,
+      "releaseCount": 1,
+      "sharedCharacteristics": 1,
+      "activeReleases": 0,
+      "fullBytes": 738,
+      "modelBytes": 1067,
+      "retailEqual": true
+    },
+    {
+      "mode": "singles",
+      "bottled": 53,
+      "sold": 53,
+      "inventory": 0,
+      "peak": 8,
+      "remainingLitres": 0.3460522341335498,
+      "releaseCount": 53,
+      "sharedCharacteristics": 11,
+      "activeReleases": 0,
+      "fullBytes": 34013,
+      "modelBytes": 18822,
+      "retailEqual": true
+    },
+    {
+      "mode": "aged",
+      "bottled": 53,
+      "sold": 53,
+      "inventory": 0,
+      "peak": 1,
+      "remainingLitres": 0.25042894430324697,
+      "releaseCount": 3,
+      "sharedCharacteristics": 3,
+      "activeReleases": 0,
+      "fullBytes": 2047,
+      "modelBytes": 2275,
+      "retailEqual": true
+    }
+  ],
+  "relations": [
+    {
+      "kind": "bulk",
+      "scope": "確定transactionの集計比較。販売機会を再現する経営シミュレーションではない",
+      "delivery": {
+        "basis": "delivery",
+        "score": 15.5,
+        "targetReached": true,
+        "stage": 2,
+        "bottles": 60,
+        "activeMonths": 1,
+        "lastMonth": 1,
+        "gapMonths": 35,
+        "currentStreak": 0,
+        "historicalMaxStage": 2,
+        "coverage": "complete"
+      },
+      "sale": {
+        "basis": "sale",
+        "score": 15.5,
+        "targetReached": true,
+        "stage": 2,
+        "bottles": 60,
+        "activeMonths": 1,
+        "lastMonth": 1,
+        "gapMonths": 35,
+        "currentStreak": 0,
+        "historicalMaxStage": 2,
+        "coverage": "complete"
+      },
+      "record": {
+        "shopId": "bar",
+        "brandId": 1,
+        "startedMonth": 0,
+        "delivery": {
+          "bottles": 60,
+          "months": 1,
+          "firstMonth": 1,
+          "lastMonth": 1,
+          "streak": 1
+        },
+        "sale": {
+          "bottles": 60,
+          "months": 1,
+          "firstMonth": 1,
+          "lastMonth": 1,
+          "streak": 1
+        },
+        "revenueCents": 120000,
+        "unknownSaleReceipts": 0,
+        "perRelease": {
+          "1": {
+            "firstMonth": 1,
+            "lastMonths": [
+              1
+            ],
+            "bottles": 60
+          }
+        },
+        "recent": [
+          {
+            "seq": 1,
+            "month": 1,
+            "releaseId": 1,
+            "count": 60,
+            "kind": "store-sell-through"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "continuous",
+      "scope": "確定transactionの集計比較。販売機会を再現する経営シミュレーションではない",
+      "delivery": {
+        "basis": "delivery",
+        "score": 30,
+        "targetReached": true,
+        "stage": 3,
+        "bottles": 60,
+        "activeMonths": 30,
+        "lastMonth": 30,
+        "gapMonths": 6,
+        "currentStreak": 0,
+        "historicalMaxStage": 3,
+        "coverage": "complete"
+      },
+      "sale": {
+        "basis": "sale",
+        "score": 30,
+        "targetReached": true,
+        "stage": 3,
+        "bottles": 60,
+        "activeMonths": 30,
+        "lastMonth": 30,
+        "gapMonths": 6,
+        "currentStreak": 0,
+        "historicalMaxStage": 3,
+        "coverage": "complete"
+      },
+      "record": {
+        "shopId": "bar",
+        "brandId": 1,
+        "startedMonth": 0,
+        "delivery": {
+          "bottles": 60,
+          "months": 30,
+          "firstMonth": 1,
+          "lastMonth": 30,
+          "streak": 30
+        },
+        "sale": {
+          "bottles": 60,
+          "months": 30,
+          "firstMonth": 1,
+          "lastMonth": 30,
+          "streak": 30
+        },
+        "revenueCents": 120000,
+        "unknownSaleReceipts": 0,
+        "perRelease": {
+          "1": {
+            "firstMonth": 1,
+            "lastMonths": [
+              29,
+              30
+            ],
+            "bottles": 60
+          }
+        },
+        "recent": [
+          {
+            "seq": 23,
+            "month": 23,
+            "releaseId": 1,
+            "count": 2,
+            "kind": "store-sell-through"
+          },
+          {
+            "seq": 24,
+            "month": 24,
+            "releaseId": 1,
+            "count": 2,
+            "kind": "store-sell-through"
+          },
+          {
+            "seq": 25,
+            "month": 25,
+            "releaseId": 1,
+            "count": 2,
+            "kind": "store-sell-through"
+          },
+          {
+            "seq": 26,
+            "month": 26,
+            "releaseId": 1,
+            "count": 2,
+            "kind": "store-sell-through"
+          },
+          {
+            "seq": 27,
+            "month": 27,
+            "releaseId": 1,
+            "count": 2,
+            "kind": "store-sell-through"
+          },
+          {
+            "seq": 28,
+            "month": 28,
+            "releaseId": 1,
+            "count": 2,
+            "kind": "store-sell-through"
+          },
+          {
+            "seq": 29,
+            "month": 29,
+            "releaseId": 1,
+            "count": 2,
+            "kind": "store-sell-through"
+          },
+          {
+            "seq": 30,
+            "month": 30,
+            "releaseId": 1,
+            "count": 2,
+            "kind": "store-sell-through"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "procurement",
+      "scope": "確定transactionの集計比較。販売機会を再現する経営シミュレーションではない",
+      "delivery": {
+        "basis": "delivery",
+        "score": 10.5,
+        "targetReached": false,
+        "stage": 2,
+        "bottles": 30,
+        "activeMonths": 6,
+        "lastMonth": 6,
+        "gapMonths": 30,
+        "currentStreak": 0,
+        "historicalMaxStage": 2,
+        "coverage": "complete"
+      },
+      "sale": {
+        "basis": "sale",
+        "score": 0,
+        "targetReached": false,
+        "stage": 0,
+        "bottles": 0,
+        "activeMonths": 0,
+        "lastMonth": null,
+        "gapMonths": null,
+        "currentStreak": 0,
+        "historicalMaxStage": 0,
+        "coverage": "partial"
+      },
+      "record": {
+        "shopId": "bar",
+        "brandId": 1,
+        "startedMonth": 0,
+        "delivery": {
+          "bottles": 30,
+          "months": 6,
+          "firstMonth": 1,
+          "lastMonth": 6,
+          "streak": 6
+        },
+        "sale": {
+          "bottles": 0,
+          "months": 0,
+          "firstMonth": null,
+          "lastMonth": null,
+          "streak": 0
+        },
+        "revenueCents": 60000,
+        "unknownSaleReceipts": 6,
+        "perRelease": {
+          "1": {
+            "firstMonth": 1,
+            "lastMonths": [
+              5,
+              6
+            ],
+            "bottles": 30
+          }
+        },
+        "recent": [
+          {
+            "seq": 1,
+            "month": 1,
+            "releaseId": 1,
+            "count": 5,
+            "kind": "paid-procurement"
+          },
+          {
+            "seq": 2,
+            "month": 2,
+            "releaseId": 1,
+            "count": 5,
+            "kind": "paid-procurement"
+          },
+          {
+            "seq": 3,
+            "month": 3,
+            "releaseId": 1,
+            "count": 5,
+            "kind": "paid-procurement"
+          },
+          {
+            "seq": 4,
+            "month": 4,
+            "releaseId": 1,
+            "count": 5,
+            "kind": "paid-procurement"
+          },
+          {
+            "seq": 5,
+            "month": 5,
+            "releaseId": 1,
+            "count": 5,
+            "kind": "paid-procurement"
+          },
+          {
+            "seq": 6,
+            "month": 6,
+            "releaseId": 1,
+            "count": 5,
+            "kind": "paid-procurement"
+          }
+        ]
+      }
+    }
+  ],
+  "long": [
+    {
+      "months": 12,
+      "seed": 42,
+      "synthetic": true,
+      "peak": 1,
+      "releaseCount": 1,
+      "transactionCount": 12,
+      "sold": 54,
+      "remaining": 0,
+      "fullBytes": 1851,
+      "modelBytes": 1087,
+      "updateMs": 1.549678,
+      "fullReadMs": 0.07262000000000057,
+      "compactReadMs": 0.0033549999999991087,
+      "fullReadVisits": 1200,
+      "compactReadVisits": 100,
+      "readEqual": true,
+      "identityCount": 1,
+      "wineCount": 1
+    },
+    {
+      "months": 360,
+      "seed": 42,
+      "synthetic": true,
+      "peak": 1,
+      "releaseCount": 30,
+      "transactionCount": 360,
+      "sold": 1620,
+      "remaining": 0,
+      "fullBytes": 55705,
+      "modelBytes": 18220,
+      "updateMs": 76.000303,
+      "fullReadMs": 1.1740019999999731,
+      "compactReadMs": 0.0006210000000237414,
+      "fullReadVisits": 36000,
+      "compactReadVisits": 100,
+      "readEqual": true,
+      "identityCount": 30,
+      "wineCount": 30
+    },
+    {
+      "months": 1200,
+      "seed": 42,
+      "synthetic": true,
+      "peak": 1,
+      "releaseCount": 100,
+      "transactionCount": 1200,
+      "sold": 5400,
+      "remaining": 0,
+      "fullBytes": 186900,
+      "modelBytes": 59782,
+      "updateMs": 551.262291,
+      "fullReadMs": 0.19839899999999489,
+      "compactReadMs": 0.00014000000010128133,
+      "fullReadVisits": 120000,
+      "compactReadVisits": 100,
+      "readEqual": true,
+      "identityCount": 100,
+      "wineCount": 100
+    }
+  ],
+  "stageOne36": [
+    {
+      "seed": 1,
+      "focus": "town-liquor",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        2,
+        43,
+        2
+      ],
+      "revenues": [
+        32,
+        868,
+        32
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "town-liquor",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        13,
+        79,
+        13
+      ],
+      "revenues": [
+        208,
+        1594,
+        208
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "town-liquor",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        72,
+        65,
+        24
+      ],
+      "revenues": [
+        1152,
+        1218,
+        384
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "town-liquor",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        100,
+        87,
+        100
+      ],
+      "revenues": [
+        1600,
+        1670,
+        1600
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "supermarket",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        100,
+        43,
+        24
+      ],
+      "revenues": [
+        2000,
+        868,
+        480
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "supermarket",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        100,
+        79,
+        100
+      ],
+      "revenues": [
+        2000,
+        1594,
+        2000
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "supermarket",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        4,
+        65,
+        3
+      ],
+      "revenues": [
+        80,
+        1218,
+        60
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "supermarket",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        20,
+        87,
+        19
+      ],
+      "revenues": [
+        400,
+        1670,
+        380
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "bar",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        8,
+        43,
+        7
+      ],
+      "revenues": [
+        176,
+        868,
+        154
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "bar",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        40,
+        79,
+        40
+      ],
+      "revenues": [
+        880,
+        1594,
+        880
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "bar",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        27,
+        65,
+        22
+      ],
+      "revenues": [
+        594,
+        1218,
+        484
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "focus": "bar",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        100,
+        87,
+        100
+      ],
+      "revenues": [
+        2200,
+        1670,
+        2200
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "town-liquor",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        2,
+        43,
+        2
+      ],
+      "revenues": [
+        32,
+        868,
+        32
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "town-liquor",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        13,
+        79,
+        13
+      ],
+      "revenues": [
+        208,
+        1594,
+        208
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "town-liquor",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        72,
+        65,
+        24
+      ],
+      "revenues": [
+        1152,
+        1218,
+        384
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "town-liquor",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        100,
+        87,
+        100
+      ],
+      "revenues": [
+        1600,
+        1670,
+        1600
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "supermarket",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        100,
+        43,
+        24
+      ],
+      "revenues": [
+        2000,
+        868,
+        480
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "supermarket",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        100,
+        79,
+        100
+      ],
+      "revenues": [
+        2000,
+        1594,
+        2000
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "supermarket",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        4,
+        65,
+        3
+      ],
+      "revenues": [
+        80,
+        1218,
+        60
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "supermarket",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        20,
+        87,
+        19
+      ],
+      "revenues": [
+        400,
+        1670,
+        380
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "bar",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        8,
+        43,
+        7
+      ],
+      "revenues": [
+        176,
+        868,
+        154
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "bar",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        40,
+        79,
+        40
+      ],
+      "revenues": [
+        880,
+        1594,
+        880
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "bar",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        27,
+        65,
+        22
+      ],
+      "revenues": [
+        594,
+        1218,
+        484
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "focus": "bar",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        100,
+        87,
+        100
+      ],
+      "revenues": [
+        2200,
+        1670,
+        2200
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "town-liquor",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        2,
+        43,
+        2
+      ],
+      "revenues": [
+        32,
+        868,
+        32
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "town-liquor",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        13,
+        79,
+        13
+      ],
+      "revenues": [
+        208,
+        1594,
+        208
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "town-liquor",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        72,
+        65,
+        24
+      ],
+      "revenues": [
+        1152,
+        1218,
+        384
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "town-liquor",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        100,
+        87,
+        100
+      ],
+      "revenues": [
+        1600,
+        1670,
+        1600
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "supermarket",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        100,
+        43,
+        24
+      ],
+      "revenues": [
+        2000,
+        868,
+        480
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "supermarket",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        100,
+        79,
+        100
+      ],
+      "revenues": [
+        2000,
+        1594,
+        2000
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "supermarket",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        4,
+        65,
+        3
+      ],
+      "revenues": [
+        80,
+        1218,
+        60
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "supermarket",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        20,
+        87,
+        19
+      ],
+      "revenues": [
+        400,
+        1670,
+        380
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "bar",
+      "smoke": 0.25,
+      "months": 12,
+      "sales": [
+        8,
+        43,
+        7
+      ],
+      "revenues": [
+        176,
+        868,
+        154
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "bar",
+      "smoke": 0.25,
+      "months": 60,
+      "sales": [
+        40,
+        79,
+        40
+      ],
+      "revenues": [
+        880,
+        1594,
+        880
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "bar",
+      "smoke": 0.75,
+      "months": 12,
+      "sales": [
+        27,
+        65,
+        22
+      ],
+      "revenues": [
+        594,
+        1218,
+        484
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    },
+    {
+      "seed": 20261021,
+      "focus": "bar",
+      "smoke": 0.75,
+      "months": 60,
+      "sales": [
+        100,
+        87,
+        100
+      ],
+      "revenues": [
+        2200,
+        1670,
+        2200
+      ],
+      "diagnostic": [
+        {
+          "sold": 54,
+          "releaseCount": 1,
+          "unlock": false
+        },
+        {
+          "sold": 54,
+          "releaseCount": 54,
+          "unlock": true
+        }
+      ]
+    }
+  ]
+}
