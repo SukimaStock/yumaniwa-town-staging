@@ -49,16 +49,17 @@ test('overlay paint clears the native 144x144 source without drawing unsupported
  assert.equal(fill.length,5);assert.equal(ctx.imageSmoothingEnabled,false);
  assert.equal(paintReaction(ctx,'window','bar',6),0);assert.equal(cleared,2);
 });
-test('Lab UI uses a source-pixel overlay instead of a dotted line or blinking loop',()=>{
+test('archived pixel art options stay unit-tested while the Lab replaces their UI',()=>{
  const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
  const js=readFileSync(new URL('./app.mjs',import.meta.url),'utf8');
  const css=readFileSync(new URL('./style.css',import.meta.url),'utf8');
- assert.match(html,/<canvas id="pixel-layer" width="144" height="144"/);
- assert.doesNotMatch(html,/line-layer/);
- assert.doesNotMatch(js,/renderLine|stroke-dasharray|setInterval/);
- assert.match(js,/document\.hidden/);
- assert.match(js,/reduced\.matches/);
- assert.match(js,/reactionEpoch/);
- assert.match(css,/#pixel-layer\{pointer-events:none\}/);
- assert.deepEqual(['eaves','window','door'].map(id=>html.includes('data-style="'+id+'"')),[true,true,true]);
+ // Historical A/B/C patches remain here as regressions, but the tiny
+ // reactions were not visible enough on an actual iPhone; the active UI is new.
+ assert.match(html,/<canvas id="focus-mask" width="144" height="144"/);
+ assert.doesNotMatch(html,/line-layer|pixel-layer/);
+ assert.doesNotMatch(js,/renderLine|stroke-dasharray|setInterval|paintReaction/);
+ assert.match(js,/paintTownContrast/);
+ assert.match(js,/focusViewport/);
+ assert.match(css,/#focus-mask\{pointer-events:none\}/);
+ assert.deepEqual(['contrast','focus'].map(id=>html.includes('data-style="'+id+'"')),[true,true]);
 });
