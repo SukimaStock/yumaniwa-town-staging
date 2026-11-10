@@ -20,9 +20,27 @@ test('real app notice lane, map/clock/modal/input and phone layouts',{skip:!proc
  // Passive card input does not dismiss; semantic click also has no dismissal.
  await page.locator('#automatic-news').dispatchEvent('click');assert(await page.locator('#automatic-news').isVisible());assert.equal(await page.locator('#automatic-news').evaluate(e=>getComputedStyle(e).pointerEvents),'none');
  const output=process.env.AMBER_BROWSER_OUTPUT??'/tmp/amber-traffic-browser';await mkdir(output,{recursive:true});
- for(const [width,height] of [[320,568],[360,568],[375,620],[390,680],[430,740]]){
- await page.setViewportSize({width,height});await t(()=>trafficTest.reset());await push([{id:'town:long-'+width,kind:'message',text:'路地裏の小さな酒場から、長い名前のウイスキーについて問い合わせが届きました。今度の集まりでも飲んでもらいたいそうです。'}]);await page.waitForTimeout(1200);
- const g=await page.locator('#automatic-news').evaluate(e=>({r:e.getBoundingClientRect().toJSON(),sw:e.scrollWidth,cw:e.clientWidth,sh:e.scrollHeight,ch:e.clientHeight}));assert(g.r.left>=-1&&g.r.right<=width+1&&g.r.top>=0&&g.r.bottom<=height,JSON.stringify(g));assert(g.sw<=g.cw+1&&g.sh<=g.ch+1,JSON.stringify(g));await page.screenshot({path:path.join(output,`news-${width}.png`)});
+ const examples=['お知らせが届きました。','全国の飲食のつながりへ、『AmberTime・第3回』の口コミが届きました。同じきっかけで、別の取引先にも評判が伝わりました。','北の海沿いの町とその周辺にある飲食店のつながりへ、『とても長い名前の蒸留所で造ったウイスキーの最初の発売・第123回』の口コミが届きました。新しい問い合わせを確認できます。'];
+ for(const [width,height] of [[360,568],[375,620],[390,680],[430,740]]){
+ await page.setViewportSize({width,height});
+ for(const [i,text] of examples.entries()){
+ await t(()=>trafficTest.reset());await push([{id:'town:long-'+width+'-'+i,kind:'message',text}]);await page.waitForTimeout(1200);
+ const g=await page.locator('#automatic-news').evaluate(e=>{const range=document.createRange();range.selectNodeContents(e);return {r:e.getBoundingClientRect().toJSON(),sw:e.scrollWidth,cw:e.clientWidth,sh:e.scrollHeight,ch:e.clientHeight,lines:[...range.getClientRects()].map(r=>r.toJSON()),text:e.textContent};});
+ assert(g.r.left>=-1&&g.r.right<=width+1&&g.r.top>=0&&g.r.bottom<=height,JSON.stringify(g));assert(g.sw<=g.cw+1&&g.sh<=g.ch+1,JSON.stringify(g));
+ assert(g.text.endsWith(text));assert(g.lines.every(r=>r.top>=g.r.top-1&&r.bottom<=g.r.bottom+1),JSON.stringify(g));
+ const controls=await page.locator('#open-aux-menu').boundingBox();assert(g.r.bottom<controls.y,JSON.stringify({g,controls}));
+ }
+ // The original queue owns one long event: full text is retained, while only
+ // an exceptionally tall native card captures vertical scroll in its bounds.
+ const long='長い地域名と商品名を含む口コミの最後まで確認します。'.repeat(24)+'ここが知らせの最後です。';
+ await t(()=>trafficTest.reset());await push([{id:'town:extreme-'+width,kind:'message',text:long}]);await page.waitForTimeout(1200);
+ const longCard=page.locator('#automatic-news');assert.equal(await longCard.getAttribute('data-overflow'),'true');assert.equal(await longCard.evaluate(e=>getComputedStyle(e).pointerEvents),'auto');assert((await longCard.textContent()).endsWith(long));
+ await longCard.evaluate(e=>{e.scrollTop=e.scrollHeight;});assert(await longCard.evaluate(e=>e.scrollTop>0&&e.scrollTop+e.clientHeight>=e.scrollHeight-1));
+ const bounds=await longCard.boundingBox(),controls=await page.locator('#open-aux-menu').boundingBox();assert(bounds.y>=0&&bounds.y+bounds.height<controls.y);
+ assert.equal((await t(()=>trafficTest.inspect())).displayed,1,'scrolling does not redisplay or duplicate the event');
+ await page.locator('#automatic-news-close').click();assert(await longCard.isHidden());assert(await page.locator('#automatic-news-close').isHidden());
+ const hit=await page.locator('#open-aux-menu').evaluate(e=>{const r=e.getBoundingClientRect(),node=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return node===e||e.contains(node);});assert(hit,'controls remain available after leaving long notice');
+ await page.screenshot({path:path.join(output,`news-${width}.png`)});
  }
  await page.emulateMedia({reducedMotion:'reduce'});await t(()=>trafficTest.reset());await push([daily('reduced')]);await page.waitForTimeout(100);assert.equal(await page.locator('#automatic-news').evaluate(e=>getComputedStyle(e).animationName),'none');await page.waitForTimeout(3000);assert(await page.locator('#automatic-news').isVisible());
  await t(()=>trafficTest.hidden(true));assert(await page.locator('#automatic-news').isHidden());assert.equal((await t(()=>trafficTest.state())).clock,false);await t(()=>trafficTest.hidden(false));assert.equal((await t(()=>trafficTest.state())).userPaused,true);

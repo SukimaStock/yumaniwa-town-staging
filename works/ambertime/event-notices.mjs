@@ -80,7 +80,7 @@ export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTime
    const entries=kind==='operation'?groups[kind]:[groups[kind].at(-1)];
    stats.discarded+=groups[kind].length-entries.length;
    const length=noticeText(entries).length;
-   retain({kind,events:entries,room:room(),serial:++serial,duration:kind==='operation'?3500:kind==='world'?Math.min(10000,Math.max(6500,length*90)):6500});
+   retain({kind,events:entries,room:room(),serial:++serial,duration:kind==='operation'?3500:kind==='world'?Math.max(6500,length*90):6500});
   }
   update();
   // No ambient backlog, even behind results from this same saved transition.
