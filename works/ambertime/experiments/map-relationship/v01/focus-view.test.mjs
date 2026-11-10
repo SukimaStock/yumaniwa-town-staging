@@ -58,13 +58,15 @@ test('fixed event scenarios preserve the real arrival proof boundary',()=>{
  assert.equal(evidence('missing'),null);
  assert.deepEqual(evidence('after')?.proofEventIds,['e4','e3','e2','e1']);
 });
-test('Lab UI compares A/C with no dotted or tiny pixel animation',()=>{
+test('archived focus calculations remain tested but active Lab no longer uses darkening or auto zoom',()=>{
  const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
  const app=readFileSync(new URL('./app.mjs',import.meta.url),'utf8');
  const css=readFileSync(new URL('./style.css',import.meta.url),'utf8');
- assert.match(html,/<canvas id="focus-mask" width="144" height="144"/);
- assert.match(html,/data-style="contrast"/);assert.match(html,/data-style="focus"/);
- assert.match(app,/paintTownContrast/);assert.match(app,/focusViewport/);
- assert.match(css,/steps\(12,end\)/);assert.match(css,/#focus-mask\{pointer-events:none\}/);
- assert.doesNotMatch(app,/renderLine|stroke-dasharray|setInterval|paintReaction/);
+ assert.match(html,/id="breath-layer"/);
+ assert.match(html,/data-style="together"/);
+ assert.match(html,/data-style="reply"/);
+ assert.match(html,/data-style="partner"/);
+ assert.doesNotMatch(app,/paintTownContrast|focusViewport|renderLine|stroke-dasharray/);
+ assert.match(app,/breathParticipants/);
+ assert.match(css,/shop-breathe/);
 });

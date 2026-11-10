@@ -1,41 +1,43 @@
-# AmberTime｜お店のつながり M1-A：全景コントラストと自動フォーカス
+# AmberTime｜お店のつながり M1-A：店舗の呼吸 A / B / C
 
-## 目的と採用範囲
+## 試す体験
 
-作者がiPhoneで試した「ひさし／窓／戸口」の小さなピクセル反応は、3つとも町の地図では気づきにくかった。そこで今回の比較Labでは **A：町全体の中で2地点が浮かび上がる** と **C：地図そのものが紹介元の店に近づく** の2案を比較する。点線、点滅、実在しない建物は作らない。
+点線、ひさし・窓・戸口の微細変化、地図全体の暗転、自動ズームは作者のiPhone試遊で採用せず、**関係する店舗そのものを、ゆっくり拡大縮小するだけ**の3案へ更新する。
 
-この画面は既存 `works/ambertime/experiments/map-relationship/v01/` の独立Staging Labであり、正式なゲーム本編・実プレイデータではない。
+| 比較案 | 紹介元 | 選択中の店 | 目的 |
+|---|---|---|---|
+| A 同時 | 呼吸 | 同じタイミングで呼吸 | 2地点が関連すると一目で分かるか |
+| B 呼応 | 呼吸 | 320ms遅れて呼吸 | 伝わった方向を感じるか |
+| C 相手だけ | 呼吸 | 静止 | 今選んだ店から、関係する相手を探せるか |
 
-## A：場所が浮かぶ
+共通：最大 **1.28倍**、**2.2秒周期**、段階的な8ステップ拡大縮小。常に繰り返すが、点滅、矢印、ネットワーク線、地図全体の変形はない。動きは表示中の関係1件に限定する。
 
-既存の町ドット絵（144×144ピクセル）を約68%暗くするマスクを載せ、**選択店舗と紹介元**の2つの場所だけ、元の色を残す。境界は2×2ピクセル格子上の5段の輪郭で、幅は最大48元ピクセル。小さな屋根や窓のパーツだけを動かす方式ではない。
+## 実際のドット絵を使う方法
 
-選択先の路地裏のバーは現行M0の**仮の地図位置**で、建物そのもののドット絵は存在しない。そのためバーの新しい建物を描かず、現在の選択位置の周辺だけを明るく残す。
+町の地図は既存の `renderMap(ctx,3)` が描く **144×144** のCanvas。ホテルやバーの新画像を作らない。
 
-## C：地図が近づく
+- 町の酒店・スーパー：`world-map-view.mjs` の建物範囲に一致する位置から元の16×16ドット絵をコピーし、実スプライトの外形に合わせて周辺の草や道のピクセルだけ透過。別レイヤーで建物の中心を動かさず拡大縮小する。元のCanvasは書き換えない。
+- 路地裏のバー：現行M0では仮の選択位置だけで、正式な建物画像がない。そこで**既存の選択枠（四隅）だけ**を拡大縮小し、建物を捏造しない。
+- アニメーション要素は `pointer-events:none`。既存の44pxタップ領域・パン・ピンチ・ズーム・キーボード操作は維持。
 
-紹介元の店へ、現在の地図全体を約2.85倍まで自動で寄せる。元のマップ画像や建物スプライトは描き直さず、Canvas・ピン・タッチ領域をまとめたレイヤーを拡大し、約680msの12段階で移動する。
+## 表示条件
 
-「全景」で1倍の町へ戻る。ユーザーがズーム・ピンチ・パンを始めたら自動移動は止め、指での操作を尊重する。reduced-motion では移動アニメーションを省いて完成した倍率・位置へ即時に移す。
+固定fixtureの3条件「届く前／届いた後／まだ取扱前」を維持。`relationship-view.mjs` が発売→納品→紹介→口コミ到達の真の因果経路を確認でき、対象の店が取扱中で、双方に選択位置がある場合だけ呼吸する。
 
-## 共通の条件
+- 町を眺める間は通常表示。関係を見る間だけ呼吸する。
+- 他の店を選択・シナリオを変更・通常表示へ戻ると、前の動きは停止する。
+- `prefers-reduced-motion` では呼吸させず、動く対象を少し拡大した静止表示にする。
+- ブラウザーのページを非表示にするとアニメーションを一時停止する。
+- ゲームの経済・保存・RNG・イベント発生・回想・時計は一切変更しない。
 
-- 「届く前／届いた後／まだ取扱前」の固定fixtureを切り替える。
-- 「町を眺める」では追加の表示なし。「関係を見る」では、実際に記録された口コミ到達と発売・納品・紹介の因果関係が照合できた場合だけA/Cを表示する。
-- 契約のない店、到達前、正しい紹介元が不明な場合、マスクも自動フォーカスも出さない。
-- 関係の証拠は既存の読み取り専用 `relationship-view.mjs` を使用し、イベントの判定、経済、正式保存、RNG、歴史、回想には触れない。
-- 元の小さな建物反応の `pixel-reaction.mjs` は比較研究として保持し、ピクセル幾何テストも残す。今回の画面からは使用しない。
-
-## 機械検証
+## 検証
 
 ```sh
 node --check works/ambertime/experiments/map-relationship/v01/app.mjs
-node --check works/ambertime/experiments/map-relationship/v01/focus-view.mjs
-node --test works/ambertime/experiments/map-relationship/v01/relationship-lab.test.mjs works/ambertime/experiments/map-relationship/v01/pixel-reaction.test.mjs works/ambertime/experiments/map-relationship/v01/focus-view.test.mjs
+node --check works/ambertime/experiments/map-relationship/v01/breath-view.mjs
+node --test works/ambertime/experiments/map-relationship/v01/relationship-lab.test.mjs works/ambertime/experiments/map-relationship/v01/breath-view.test.mjs works/ambertime/experiments/map-relationship/v01/focus-view.test.mjs works/ambertime/experiments/map-relationship/v01/pixel-reaction.test.mjs
 ```
 
-`focus-view.test.mjs` ではマスクのピクセル格子、境界、未到達・未契約時の無表示、iPhone相当の画面サイズに対するズーム制約、旧UI廃止を検証する。実ブラウザーでの描画・ジェスチャー・幅別確認は実行した範囲をPRに記録し、未実施はUNVERIFIEDとする。
+正式な機械検証と、実際のブラウザー・iPhone操作確認は区別する。旧方式の純粋な幾何テストを削除せず、現行UIへの期待だけ更新する。
 
-## 今後
-
-作者がA/Cの実機視認性、発見の面白さ、町を眺める時間への馴染みを比較してから、本編M0への接続を検討する。今回Productionや正式ゲームの6段階マップ、ユーザーのセーブデータは変更しない。
+この比較Labは現在の`works/ambertime/experiments/map-relationship/v01/` へのStaging限定更新。本編M0統合やProduction公開は作者の比較結果を見て別途判断する。
