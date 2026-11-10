@@ -13,10 +13,13 @@ const shopBounds={
  'town-liquor':[86,44,16,16],supermarket:[98,92,16,16],bar:[28,112,16,16]
 };
 const visible=['town-liquor','bar'];
-const relation=id=>shopRelationshipEvidence(
- fixtureState(SCENARIOS.find(s=>s.id===id)),'bar',
- {visibleShopIds:visible,mapShopIds:Object.keys(shopBounds)}
-);
+const relation=id=>{
+ const state=fixtureState(SCENARIOS.find(s=>s.id===id));
+ return shopRelationshipEvidence(state,'bar',{
+  visibleShopIds:state.shop.relations.map(r=>r.shopId),
+  mapShopIds:Object.keys(shopBounds)
+ });
+};
 
 test('A, B and C share one breathing period and have distinct roles',()=>{
  assert.deepEqual(BREATH_PATTERNS.map(p=>p.id),['together','reply','partner']);
