@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "931fec0005c3758296bf3f54e52e857c4fb43fafef77fd862e0ec6558e7fb9bc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-contrast-focus-m1a-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Compare two large-scale map relation views in the already released AmberTime M1-A Lab: A dims most of the town while revealing two stepped-pixel areas; C moves and zooms the map toward the source shop. Both replace the hard-to-see building-detail reactions. No changes to real game.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e8999a591a2c4995712f2f2d6e6f4fb6fedea029",
+    "canonicalSources": [
+      "works/ambertime/experiments/map-relationship/v01/app.mjs",
+      "works/ambertime/experiments/map-relationship/v01/index.html",
+      "works/ambertime/experiments/map-relationship/v01/style.css",
+      "works/ambertime/experiments/map-relationship/v01/relationship-view.mjs",
+      "works/ambertime/experiments/map-relationship/v01/fixtures.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-contrast-focus-m1a-20261110/r0.lock.json",
+      "works/ambertime/experiments/map-relationship/v01/app.mjs",
+      "works/ambertime/experiments/map-relationship/v01/index.html",
+      "works/ambertime/experiments/map-relationship/v01/style.css",
+      "works/ambertime/experiments/map-relationship/v01/focus-view.mjs",
+      "works/ambertime/experiments/map-relationship/v01/focus-view.test.mjs",
+      "works/ambertime/experiments/map-relationship/v01/README.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/experiments/map-relationship/v01/relationship-view.mjs",
+      "works/ambertime/experiments/map-relationship/v01/fixtures.mjs",
+      "works/ambertime/experiments/map-relationship/v01/pixel-reaction.mjs",
+      "works/ambertime/experiments/map-relationship/v01/pixel-reaction.test.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs"
+    ],
+    "expectedChanges": [
+      "Retire the old tiny roof/window/door pixels in the Lab UI, without deleting the prior pure comparison implementation or its tests.",
+      "A: dim the 144 x 144 town map with a fixed opacity overlay and reveal both selected and source areas with large stepped 2-pixel-grid apertures; no dotted lines, blinking, fake buildings or map pins.",
+      "C: smoothly but pixelwise step-zoom/pan the existing intact map once toward the factual source shop, while allowing tap, pinch, pan, and an overview return; suppress motion for reduced-motion users.",
+      "Both alternatives use the same existing read-only relation evidence and fixed scenario (reached, not reached, no contract). A connection is never inferred from a rumor without arrival.",
+      "Maintain the same standalone staging Lab URL, do not modify game economics, save, RNG, clock, notifications, stage maps or Production."
+    ],
+    "ownerDecisions": [
+      "2026-11-10 author tried tiny building pixel reactions and found all three too hard to see on the small map; accepted comparing broad whole-map contrast (A) and automatic map zoom/focus (C)."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone 320/360/375/390/430 widths: A clearly distinguishes source from darkened town without creating a fake bar building.",
+      "C zooms toward the source and remains controllable by tap/pan/pinch, then returns to overview when requested.",
+      "When relation is absent or the store is uncontracted, map remains normal and does not auto-zoom or dim.",
+      "Reduced motion disables the zoom animation and keeps its final state legible; backgrounded page never continues an effect."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Lab-only projection view, UI and documentation plus Plan Lock; original game and pixel reactions implementation remain untouched.",
+    "outOfScope": [
+      "AmberTime main UI and M0, PR #881, user storage, save format, town event generator, economy, RNG, history and recall, Production",
+      "New bars/shops/regions, new pixmaps or newly inferred connections",
+      "Publication to Production, new works registry or change in six-stage map"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone visual comparison and authored taste judgment; final integration into main game."
+    ]
+  }
+}
