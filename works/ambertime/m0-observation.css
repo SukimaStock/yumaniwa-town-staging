@@ -55,7 +55,7 @@ linear-gradient(currentColor,currentColor) right bottom/3px 9px no-repeat}
 #m0-observation .m0-pin:focus-visible{outline:2px dotted #f7cd58;outline-offset:0}
 #m0-observation .m0-zoom{position:absolute;right:8px;top:48px;z-index:2;display:flex;flex-direction:column;gap:4px}
 #m0-observation .m0-zoom button{font:inherit;color:#f0e6c8;background:#3f3e45;border:2px solid #858995;min-width:40px;min-height:40px}
-#m0-observation .m0-report{flex:0 0 auto;min-height:66px;height:76px;max-height:76px;width:100%;overflow:hidden;background:#273535;border:2px solid #d6b77a;padding:5px 8px;line-height:1.2}
+#m0-observation .m0-report{flex:0 0 auto;min-height:110px;height:110px;max-height:110px;width:100%;overflow:hidden;background:#273535;border:2px solid #d6b77a;padding:5px 8px;line-height:1.2}
 #m0-observation .m0-report-heading{display:flex;justify-content:space-between;gap:6px;align-items:baseline;min-width:0;white-space:nowrap}
 #m0-observation .m0-report-heading strong{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
 #m0-observation .m0-report-heading span{flex:none;font-size:.85em}
@@ -64,3 +64,8 @@ linear-gradient(currentColor,currentColor) right bottom/3px 9px no-repeat}
 .m0-flight{position:fixed;z-index:50;pointer-events:none;display:block;image-rendering:pixelated}
 .m0-flight svg{display:block;width:100%;height:100%}
 @media(prefers-reduced-motion:reduce){#m0-observation *,#m0-observation *::before,#m0-observation *::after{animation:none!important;transition:none!important}}
+#m0-observation .m0-stage{flex:0 1 112px;max-width:40%;min-width:76px;min-height:38px;font:inherit;color:#f0e6c8;background:#3f3e45;border:0;border-left:2px solid #252630;border-radius:0;padding:0 6px;touch-action:manipulation}
+#m0-observation .m0-stage:focus-visible{outline:2px dotted #f7cd58;outline-offset:-3px}
+#m0-observation .m0-report-actions{display:flex;gap:8px;justify-content:flex-end}
+#m0-observation .m0-report-actions button{font:inherit;color:#f0e6c8;background:none;border:0;text-decoration:underline;min-height:44px;padding:2px 5px}
+#m0-observation .m0-report-actions button:focus-visible{outline:2px dotted #f7cd58}
