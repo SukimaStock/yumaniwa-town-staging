@@ -1,0 +1,8 @@
+import {SHOPS,shopEvidence,shopProductCondition} from '../shop-model.mjs';
+import {storeRelation} from '../../ambertime-strategy-lab/internal/model.mjs';
+// Diagnostic policy only. It never calls a native acceptance/unlock operation.
+export function compareAchievements(core,native){return native.brands.flatMap(brand=>SHOPS.map(shop=>{
+ const current=shopEvidence(native,brand.id,shop.id),releases=Object.values(core.identities).filter(r=>r.brandId===brand.id),sold=releases.reduce((n,r)=>n+(core.releases[r.releaseId]?.retailSold??r.retailSold??0),0),singleBrand=native.brands.length===1;
+ const candidate={policyVersion:'shadow-achievement/0.1',sold,activeRetailMonths:singleBrand?core.retail.months:null,brandAge:Math.max(0,native.core.month-brand.createdMonth),minimumSold:shop.minRetailSold,minimumMonths:2,minimumBrandAge:shop.minBrandAge,volumeAndContinuity:singleBrand?sold>=shop.minRetailSold&&core.retail.months>=2:null,productConditions:native.core.products.filter(p=>releases.some(r=>r.productId===p.id)).map(p=>({productId:p.id,reason:shopProductCondition(native,p.id,shop.id)})),specialConditions:shop.id==='bar'?'native reputation/referral remains authoritative':shop.id==='department'?'native project selection and accepted five remain authoritative':null,unlocks:false};
+ return {shopId:shop.id,brandId:brand.id,current,candidate,supply:storeRelation(core,shop.id,brand.id,{capacity:shop.monthlyLimit,basis:'delivery'}),penetration:storeRelation(core,shop.id,brand.id,{capacity:shop.monthlyLimit,basis:'sale'}),classification:'intentional candidate metrics; no formal unlock replacement'};
+}));}

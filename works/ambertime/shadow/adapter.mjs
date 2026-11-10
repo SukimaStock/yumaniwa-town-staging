@@ -1,3 +1,4 @@
+import {compareAchievements} from './achievements.mjs';
 // Diagnostic only: never receives a writer and never mutates native state.
 import {createReader,updateReader,compareReader} from './readers.mjs';
 import * as M from '../../ambertime-strategy-lab/internal/model.mjs';
@@ -36,7 +37,7 @@ export function advanceShadow(shadow,before,next){
  for(const r of next.releases){const x=M.readRelease(core,r.id),p=next.core.products.find(p=>p.id===r.productId);check('release:'+r.id,[x.productId,x.stock,x.sold,x.revenue,x.delivered,x.deliveryRevenue],[r.productId,p?.stock??0,r.sold??0,r.revenue??0,r.delivered??0,r.deliveryRevenue??0]);check('allocation:'+r.id,core.releases[r.id].allocations,allocations(next,r));check('profile:'+r.id,core.wines[x.wineId].descriptor.profile,r.profile);}
  const cash=shadow.cash+cents(next.core.totals.revenue-before.core.totals.revenue)-cents(next.core.totals.costs-before.core.totals.costs)-cents(next.core.totals.upkeep-before.core.totals.upkeep);check('cash',cash,cents(next.core.cash));
  require(checks.every(x=>x.equal),'comparison-mismatch:'+checks.filter(x=>!x.equal).map(x=>x.name).join(','));
- return {...shadow,caskOrigins,core,reader,cash,commits:shadow.commits+1,checks,nativeCursor:{operations:next.operations.length,receipts:next.shop.deliveries.length,releases:next.releases.length,month:next.core.month}};
+ return {...shadow,achievements:compareAchievements(core,next),caskOrigins,core,reader,cash,commits:shadow.commits+1,checks,nativeCursor:{operations:next.operations.length,receipts:next.shop.deliveries.length,releases:next.releases.length,month:next.core.month}};
 }
 export function createObserver({maxReleases=128,maxOperations=10000,maxReceipts=2048,maxMilliseconds=100,clock=()=>performance.now(),update=advanceShadow}={}){
  let state=null,status='inactive',error=null,last=null;const timings=[];

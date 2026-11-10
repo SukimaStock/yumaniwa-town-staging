@@ -27,7 +27,7 @@ release.sold/revenueの差分を自家販売として取り込む。新しい納
 |スーパー・デパート|方式開始月、adoption7項目一致・5本を要求|
 |選出台詞|本編projectionが選んだ実出力だけを保持。集計から過去を再選出しない|
 |供給と浸透|第2段階storeRelationのdelivery/saleで別評価。仮policy値で正式関係を更新しない|
-|店舗解放|正式shopEvidenceを維持。発売数依存の変更候補は第1段階の反実仮想比較を参照。Shadowによる解放なし|
+|店舗解放|正式shopEvidenceを横に残し、売上本数・実売月数・ブランド経過・商品適格性を別計算。仮2実売月と数量を比較し、バー紹介・デパート企画はnative条件を残す。複数ブランドの実売月数は未対応でnull。Shadowによる解放なし|
 |町・次世代collector|未対応。receipt/cursor/packetを新集計から再生成しない|
 |確定回想|現行正本を維持。Shadowで再選出しない。今回のruntime Shadowは正式回想snapshotを複製しない|
 
@@ -50,3 +50,5 @@ release.sold/revenueの差分を自家販売として取り込む。新しい納
 最初の候補は店舗短文と発売帳の必要数値。新規セッションでの一致を旧v8移行の完成と解釈しない。正式切替には旧セーブの初期集計、保存後再構築の費用、unknown実売、policy versionと歴史的到達の保存契約を別途決める。読取切替と経営ルール変更を同時にしない。
 
 brandedBottling/deliverShopInto/settleStoreMarketは今回変更なし。今後も確定後の入力境界を利用する。syncTownはreceipt正本を維持し、shopEvidenceの候補評価は正式解放へ直結しない。町進行・次世代回想・完全な保存置換は切替対象外。
+
+既存UI回帰の4失敗（文言・cache query正規表現）は基準mainでも同じ失敗を再現。期待値の緩和や範囲外修正なし。新たに生じた保存harness不一致は、観測関数を同じ保存境界へ配置して修正済み。

@@ -98,7 +98,6 @@ if(debugEnabled&&!preview&&query.get('shadow')==='1'&&location.hostname==='sukim
  try{const module=await import('./shadow/adapter.mjs');shadowObserver=module.createObserver();}catch(error){shadowLoadError=String(error?.message??error);}
  window.amberShadow={report:()=>shadowObserver?.report()??{status:'stopped',error:shadowLoadError}};
 }
-const observeShadow=(before,next,entry)=>{try{shadowObserver?.observe(before,next);if(shadowObserver)shadowObserver.recordDialogue(entry);}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}};
 const startShadow=next=>{try{shadowObserver?.start(next);}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}};
 $('open-settings').hidden=!debugEnabled;$('recovery-import').hidden=!debugEnabled;
 const recallScenePlayer=createRecallDebugPreview({document,window});
@@ -637,6 +636,7 @@ function storageNotice(t){$('storage-notice').textContent=t;$('storage-notice').
 const wallClock=new RuntimeClock(T.distillStepMs);
 function stopClock(reset=true){if(reset)wallClock.reset();generation++;if(timer!==null){clearTimeout(timer);timer=null;}}
 function rememberCommitted(){committedSession={game,userPaused,elapsed,caskSlots:[...caskSlots],recentLedger,historyRecord,recallRecord};}
+function observeShadow(before,next,entry){if(typeof shadowObserver==='undefined')return;try{shadowObserver?.observe(before,next);if(shadowObserver)shadowObserver.recordDialogue(entry);}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}}
 function restoreCommitted(){if(committedSession){game=committedSession.game;userPaused=committedSession.userPaused;elapsed=committedSession.elapsed;caskSlots=[...committedSession.caskSlots];recentLedger=committedSession.recentLedger;historyRecord=committedSession.historyRecord;pendingRecall=recallRecord=committedSession.recallRecord;recallPreview=null;}}
 function recoveryAccess(){
  modal=null;vaultPanels();const dialog=$('action-dialog');if(dialog.open)dialog.close();$('recovery').hidden=false;
