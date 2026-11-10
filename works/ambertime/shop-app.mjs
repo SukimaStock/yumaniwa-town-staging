@@ -147,7 +147,7 @@ const automaticNews=scopedNotices({room:()=>room,safe:ordinaryNoticeSafe,
 },hide:()=>{$('automatic-news-close').hidden=true;$('automatic-news').hidden=true;$('automatic-news').textContent='';dialogueElement.hidden=true;dialogueElement.innerHTML='';queueMicrotask(()=>{if(game)render();});}});
 $('automatic-news-close').addEventListener('click',()=>automaticNews.clear());
 // Keep transient notices above the body-mounted sales board.
-document.body.append($('automatic-news'),$('automatic-news-close'),$('market-action-status'));
+document.body.append($('automatic-news'),$('market-action-status'));document.body.append($('automatic-news-close'));
 const dialogueProjection=createDialogueProjection();
 const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.dataset.motion='ambient';dialogueElement.hidden=true;dialogueElement.setAttribute('role','status');dialogueElement.setAttribute('aria-atomic','true');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
 // Non-interactive top notice derives entirely from the already committed
