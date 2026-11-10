@@ -1,0 +1,80 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bbe56bf41f84240e152a0f3d4931f322e20de7faf4c23e2efc2cf547f4d8530a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-partner-foundation-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Read-only common partner definitions for four shops and one inactive regional desk",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f7c2cd2233a90f0995c5226c296faced47776f11",
+    "canonicalSources": [
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/shop-demand.mjs",
+      "works/ambertime/department-projects.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-partner-foundation-20261110/r0.lock.json",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/tests/trading-partners.test.mjs",
+      "works/ambertime/design/partner-foundation.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime-strategy-lab/**",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/formal-save.mjs",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Read-only adapter derives four existing shop definitions and separates current shelf capabilities from historical demand conditions",
+      "One definition-only regional desk with explicit region/map scope and independently specified small capacity/price",
+      "Strict identity and reference validation, inactive filtering, no state/save/UI wiring",
+      "Compatibility tests and Stage5 revision blocker handoff"
+    ],
+    "ownerDecisions": [
+      "User authorizes Stage1 definition-only adapter, provisional regional metadata, tests, review and safe staging merge"
+    ],
+    "hqDecisions": [
+      "No new execution/save contract; existing definitions and transaction paths remain authoritative"
+    ],
+    "rulesApplied": [
+      "Change OS standard locked scope; no UI/copy additions"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review import graph: no reverse runtime wiring and no Stage5 persistence dependency"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated adapter, test and design note",
+    "outOfScope": [
+      "Gameplay/economy/UI changes",
+      "Formal save/replay changes",
+      "Stage5 persistence revision fix",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware; no UI changes"
+    ]
+  }
+}
