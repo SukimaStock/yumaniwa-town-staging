@@ -12,7 +12,7 @@
 <main>
   <nav class="back" aria-label="戻る"><a href="../../lab/">LAB</a><a href="../../lab/ambertime-research.html">AmberTime研究記録</a></nav>
   <h1>AmberTime 経営攻略比較Lab <small>v0.1</small></h1>
-  <p class="scope">合成データによる実験です。取扱開始済みの店へ同じ酒を届け、現行の販売計算と候補の関係・評判ルールを比べます。本編の保存には接続しません。</p>
+  <p class="scope">「集中・分散・継続」「54本の瓶詰め」「同じ目標への攻略」は合成条件の比較です。「正式取引網・価格比較」は本編の正式操作による経営結果と、別に仮定した価格候補を表示します。プレイヤーの保存は読み書きしません。</p>
   <form id="conditions">
     <div class="inputs">
       <label>比較期間（月）<input name="months" type="number" min="1" max="120" step="1" required></label>
@@ -31,12 +31,12 @@
   </form>
   <p id="status" role="status" aria-live="polite">比較を準備しています。</p>
   <p id="error" role="alert" hidden></p>
-  <nav class="views" aria-label="比較内容"><button type="button" data-view="strategies" aria-pressed="true">集中・分散・継続</button><button type="button" data-view="split" aria-pressed="false">54本の瓶詰め</button><button type="button" data-view="goal" aria-pressed="false">同じ目標への攻略</button></nav>
+  <nav class="views" aria-label="比較内容"><button type="button" data-view="strategies" aria-pressed="true">集中・分散・継続</button><button type="button" data-view="split" aria-pressed="false">54本の瓶詰め</button><button type="button" data-view="goal" aria-pressed="false">同じ目標への攻略</button><button type="button" data-view="world-network" aria-pressed="false">正式取引網・価格比較</button></nav>
   <div id="results"></div>
   <details class="definitions"><summary>店の条件と計算の区別</summary><div id="shops"></div><p>棚へ置いた本数と、実際に売れた本数は別です。現行販売の月間機会・熟成条件を使い、関係の候補は確定した実売から計算します。製造費・維持費を含む利益や、本編全体の経営を再現する比較ではありません。</p></details>
   <footer><a href="internal/">第2段階・内部モデル比較</a><a href="RULES.md">紙上ルール</a><a href="REPORT.md">結果・第2段階への引継ぎ</a><a href="AUDIT-RULES.md">販売・店舗の棚卸し</a><a href="AUDIT-MEMORY.md">酒造り・記憶・保存の棚卸し</a></footer>
   <noscript>この比較にはJavaScriptが必要です。上の文書リンクから調査結果を確認できます。</noscript>
 </main>
-<script type="module" src="app.mjs"></script>
+<script type="module" src="app.mjs?world=world-network-v01"></script>
 </body>
 </html>
