@@ -1,0 +1,707 @@
+{
+  "schema": "ambertime-stage7-profile/1",
+  "measuredAt": "2026-11-10T18:27:32.421Z",
+  "sourceRoot": "/workspace/scratch/7640ffbe6829/ambertime-stage7",
+  "fixture": "/tmp/amber-stage7/formal-v8.json",
+  "runs": {
+    "control": {
+      "schema": "ambertime-stage7-profile-worker/1",
+      "instrumented": false,
+      "fixture": {
+        "sha256": "06fd7c78d3d881ff43bbdf87365e48c8ea61734e26905de0408ba8910012c040",
+        "bytes": 1289728,
+        "codeUnits": 1203858,
+        "formalV8": true,
+        "month": 1386,
+        "operations": 2266,
+        "releases": 104
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "v8": "13.6.233.17-node.58",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logicalCpus": 9,
+        "totalMemoryBytes": 10451427328
+      },
+      "fileReadMilliseconds": 2.8535260000000022,
+      "independentJsonParseMilliseconds": 10.571720999999997,
+      "moduleImportMilliseconds": 36.228931,
+      "coldRestore": {
+        "milliseconds": 61005.065312000006,
+        "memoryBefore": {
+          "rss": 54616064,
+          "heapTotal": 21893120,
+          "heapUsed": 14954312,
+          "external": 4343096,
+          "arrayBuffers": 343223
+        },
+        "memoryAfter": {
+          "rss": 312619008,
+          "heapTotal": 192421888,
+          "heapUsed": 103884096,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": null
+      },
+      "sameProcessRestore": {
+        "milliseconds": 56.30075700000452,
+        "memoryBefore": {
+          "rss": 312619008,
+          "heapTotal": 192421888,
+          "heapUsed": 103884320,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "memoryAfter": {
+          "rss": 313843712,
+          "heapTotal": 188514304,
+          "heapUsed": 52060736,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": null
+      },
+      "generationAndValidation": {
+        "milliseconds": 105.55509600000369,
+        "memoryBefore": {
+          "rss": 313843712,
+          "heapTotal": 188514304,
+          "heapUsed": 52061016,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "memoryAfter": {
+          "rss": 340320256,
+          "heapTotal": 215232512,
+          "heapUsed": 102051744,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": null
+      },
+      "exactRoundtrip": true,
+      "peakRssProcessBytes": 340451328,
+      "conditions": [
+        "Imports and independent envelope parse precede cold timer; no model game was previously constructed/restored.",
+        "Cold and warm restoration are consecutive. Generation follows warm restoration and uses its cache.",
+        "Raw generation is serializeDistillery; formal generation is serializeSession including official reader roundtrip.",
+        "Inclusive nested timers overlap: never sum them. Exclusive is time outside other instrumented scopes, not pure CPU.",
+        "Global clone timing includes every structuredClone call in the process during each phase.",
+        "Memory snapshots are boundary RSS/heap observations; maxRSS is process lifetime high-water, not per-phase peak.",
+        "Instrumented wall time includes measurement overhead; use unmodified control for performance conclusions."
+      ]
+    },
+    "instrumented": {
+      "schema": "ambertime-stage7-profile-worker/1",
+      "instrumented": true,
+      "fixture": {
+        "sha256": "06fd7c78d3d881ff43bbdf87365e48c8ea61734e26905de0408ba8910012c040",
+        "bytes": 1289728,
+        "codeUnits": 1203858,
+        "formalV8": true,
+        "month": 1386,
+        "operations": 2266,
+        "releases": 104
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "v8": "13.6.233.17-node.58",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logicalCpus": 9,
+        "totalMemoryBytes": 10451427328
+      },
+      "fileReadMilliseconds": 2.1966129999999993,
+      "independentJsonParseMilliseconds": 7.308965000000001,
+      "moduleImportMilliseconds": 26.351801000000002,
+      "coldRestore": {
+        "milliseconds": 60565.797512,
+        "memoryBefore": {
+          "rss": 54546432,
+          "heapTotal": 21893120,
+          "heapUsed": 14830288,
+          "external": 4343096,
+          "arrayBuffers": 343223
+        },
+        "memoryAfter": {
+          "rss": 299331584,
+          "heapTotal": 194256896,
+          "heapUsed": 101986576,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": {
+          "session.jsonParse": {
+            "calls": 1,
+            "inclusiveMilliseconds": 6.899807999999993,
+            "exclusiveMilliseconds": 6.899807999999993
+          },
+          "codec.expandFormalGame": {
+            "calls": 1,
+            "inclusiveMilliseconds": 10.882486,
+            "exclusiveMilliseconds": 10.882486
+          },
+          "model.restoreJsonParse": {
+            "calls": 1,
+            "inclusiveMilliseconds": 4.744326000000001,
+            "exclusiveMilliseconds": 4.744326000000001
+          },
+          "model.coreValidation": {
+            "calls": 2,
+            "inclusiveMilliseconds": 1.1493630000000081,
+            "exclusiveMilliseconds": 1.1493630000000081
+          },
+          "model.matchingPrefix": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.013910999999993123,
+            "exclusiveMilliseconds": 0.013910999999993123
+          },
+          "global.structuredClone": {
+            "calls": 117093,
+            "inclusiveMilliseconds": 57959.0880929985,
+            "exclusiveMilliseconds": 57959.0880929985
+          },
+          "replay.opcode.enable-promised-care": {
+            "calls": 2,
+            "inclusiveMilliseconds": 1.2767359999999854,
+            "exclusiveMilliseconds": 1.1439659999999918
+          },
+          "replay.opcode.enable-brands": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.12542000000000542,
+            "exclusiveMilliseconds": 0.05562400000000878
+          },
+          "replay.opcode.enable-brand-reputation": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.07333000000001277,
+            "exclusiveMilliseconds": 0.04042000000002588
+          },
+          "replay.opcode.enable-usual": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.09986999999999568,
+            "exclusiveMilliseconds": 0.07306000000001234
+          },
+          "replay.opcode.enable-aroma": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.07626500000000647,
+            "exclusiveMilliseconds": 0.04171300000000144
+          },
+          "replay.opcode.enable-shop": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.10928499999999985,
+            "exclusiveMilliseconds": 0.0514479999999935
+          },
+          "replay.opcode.enable-stockists": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.25864099999999723,
+            "exclusiveMilliseconds": 0.20331699999999842
+          },
+          "replay.opcode.enable-department": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.14076199999999517,
+            "exclusiveMilliseconds": 0.09731700000000387
+          },
+          "replay.opcode.enable-bottle-storage": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.11063699999999699,
+            "exclusiveMilliseconds": 0.06377600000000427
+          },
+          "replay.opcode.enable-generations": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.20980699999999786,
+            "exclusiveMilliseconds": 0.0782779999999974
+          },
+          "replay.opcode.enable-recipe-book": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.2511389999999949,
+            "exclusiveMilliseconds": 0.06988599999999678
+          },
+          "replay.opcode.enable-staff": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.39949300000000676,
+            "exclusiveMilliseconds": 0.2992110000000139
+          },
+          "replay.opcode.enable-partial-bottling": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.11040700000000925,
+            "exclusiveMilliseconds": 0.04749200000001963
+          },
+          "replay.opcode.enable-delegation": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.11566500000000701,
+            "exclusiveMilliseconds": 0.05753700000001061
+          },
+          "replay.opcode.enable-delegation-fixes": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.1992800000000159,
+            "exclusiveMilliseconds": 0.053030000000021005
+          },
+          "replay.opcode.enable-staff-progression": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.26254699999999787,
+            "exclusiveMilliseconds": 0.18602199999999414
+          },
+          "replay.opcode.enable-monthly-timing": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.15879999999999939,
+            "exclusiveMilliseconds": 0.08198400000000561
+          },
+          "replay.opcode.enable-shop-demand": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.14421800000000928,
+            "exclusiveMilliseconds": 0.06727100000000519
+          },
+          "replay.opcode.enable-bottling-policy": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.2376289999999983,
+            "exclusiveMilliseconds": 0.15453399999998396
+          },
+          "replay.opcode.enable-bottling-roles": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.25387400000001037,
+            "exclusiveMilliseconds": 0.1571790000000135
+          },
+          "replay.opcode.enable-free-aging": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.4017149999999958,
+            "exclusiveMilliseconds": 0.15388099999999838
+          },
+          "replay.opcode.enable-staff-experience": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.3273750000000035,
+            "exclusiveMilliseconds": 0.22907700000000375
+          },
+          "replay.opcode.enable-brand-identity": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.18518899999999405,
+            "exclusiveMilliseconds": 0.08334500000000844
+          },
+          "model.fullStateEquality": {
+            "calls": 2,
+            "inclusiveMilliseconds": 9.198446999999376,
+            "exclusiveMilliseconds": 9.198446999999376
+          },
+          "model.validateDistillery": {
+            "calls": 2,
+            "inclusiveMilliseconds": 60525.27981,
+            "exclusiveMilliseconds": 11.230854000169032
+          },
+          "replay.opcode.enable-stage4": {
+            "calls": 1,
+            "inclusiveMilliseconds": 1.8549790000000002,
+            "exclusiveMilliseconds": 0.5971619999999973
+          },
+          "town.advanceExternal": {
+            "calls": 1859,
+            "inclusiveMilliseconds": 1204.2106380001655,
+            "exclusiveMilliseconds": 21.400109000267335
+          },
+          "model.syncTown": {
+            "calls": 1718,
+            "inclusiveMilliseconds": 2425.270563999989,
+            "exclusiveMilliseconds": 68.32826100066096
+          },
+          "replay.opcode.enable-placement": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.4747770000000031,
+            "exclusiveMilliseconds": 0.08203500000000474
+          },
+          "replay.opcode.enable-store-market": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.14653100000001018,
+            "exclusiveMilliseconds": 0.054943000000008624
+          },
+          "replay.opcode.enable-market-rules": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.4187119999999993,
+            "exclusiveMilliseconds": 0.3145849999999939
+          },
+          "replay.opcode.enable-alley-bar": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.2397320000000036,
+            "exclusiveMilliseconds": 0.08535900000001106
+          },
+          "replay.opcode.enable-shop-dialogue": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.17902999999999736,
+            "exclusiveMilliseconds": 0.08451800000000276
+          },
+          "replay.opcode.enable-regional-partners": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.1756249999999966,
+            "exclusiveMilliseconds": 0.0884229999999917
+          },
+          "replay.opcode.enable-regional-deliveries": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.21742799999999818,
+            "exclusiveMilliseconds": 0.11388200000000381
+          },
+          "replay.opcode.enable-world-network": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.3928630000000055,
+            "exclusiveMilliseconds": 0.2473630000000071
+          },
+          "replay.opcode.flavor-cards": {
+            "calls": 105,
+            "inclusiveMilliseconds": 575.0976459999926,
+            "exclusiveMilliseconds": 1.6701359999970435
+          },
+          "replay.opcode.start": {
+            "calls": 105,
+            "inclusiveMilliseconds": 940.313168000002,
+            "exclusiveMilliseconds": 9.295328999979986
+          },
+          "economy.distillStep": {
+            "calls": 5550,
+            "inclusiveMilliseconds": 45506.86062200005,
+            "exclusiveMilliseconds": 35.27048800002973
+          },
+          "model.progress": {
+            "calls": 210,
+            "inclusiveMilliseconds": 45516.83111500001,
+            "exclusiveMilliseconds": 9.970492999960229
+          },
+          "replay.opcode.collect-start": {
+            "calls": 105,
+            "inclusiveMilliseconds": 30916.096350999967,
+            "exclusiveMilliseconds": 3.7885569999743893
+          },
+          "replay.opcode.stop": {
+            "calls": 105,
+            "inclusiveMilliseconds": 15880.349097999999,
+            "exclusiveMilliseconds": 16.4721600000386
+          },
+          "replay.opcode.fill": {
+            "calls": 105,
+            "inclusiveMilliseconds": 1040.6431289999832,
+            "exclusiveMilliseconds": 12.843098000003437
+          },
+          "economy.economicMonthly": {
+            "calls": 1386,
+            "inclusiveMilliseconds": 6840.930738999919,
+            "exclusiveMilliseconds": 142.8706709997959
+          },
+          "town.quantizeReaction": {
+            "calls": 1527,
+            "inclusiveMilliseconds": 1299.3789539999123,
+            "exclusiveMilliseconds": 1299.3789539999123
+          },
+          "replay.opcode.month": {
+            "calls": 1386,
+            "inclusiveMilliseconds": 9246.987092999923,
+            "exclusiveMilliseconds": 213.50796000021066
+          },
+          "town.registerExternalRelease": {
+            "calls": 82102,
+            "inclusiveMilliseconds": 643.8102270005971,
+            "exclusiveMilliseconds": 643.0086740006086
+          },
+          "replay.opcode.bottle-branded": {
+            "calls": 104,
+            "inclusiveMilliseconds": 669.066550000022,
+            "exclusiveMilliseconds": 16.410936999998853
+          },
+          "replay.opcode.product-allocation": {
+            "calls": 4,
+            "inclusiveMilliseconds": 9.582124000000078,
+            "exclusiveMilliseconds": 0.6473099999997771
+          },
+          "town.receiveExternal": {
+            "calls": 141,
+            "inclusiveMilliseconds": 128.4049040000035,
+            "exclusiveMilliseconds": 11.836478999989396
+          },
+          "replay.opcode.stockist-accept": {
+            "calls": 3,
+            "inclusiveMilliseconds": 2.609135999999978,
+            "exclusiveMilliseconds": 0.24873699999989185
+          },
+          "replay.opcode.store-assign": {
+            "calls": 1,
+            "inclusiveMilliseconds": 1.9819599999999582,
+            "exclusiveMilliseconds": 0.3981109999999717
+          },
+          "replay.opcode.stockist-decline": {
+            "calls": 1,
+            "inclusiveMilliseconds": 2.064194000000043,
+            "exclusiveMilliseconds": 0.09348999999997432
+          },
+          "replay.opcode.regional-accept": {
+            "calls": 2,
+            "inclusiveMilliseconds": 5.716773999999987,
+            "exclusiveMilliseconds": 0.5537949999998091
+          },
+          "replay.opcode.regional-assign": {
+            "calls": 100,
+            "inclusiveMilliseconds": 515.496979999981,
+            "exclusiveMilliseconds": 11.521654999965449
+          },
+          "replay.opcode.regional-deliver": {
+            "calls": 100,
+            "inclusiveMilliseconds": 632.6780649999555,
+            "exclusiveMilliseconds": 18.51954599997157
+          },
+          "replay.opcode.generation-notice": {
+            "calls": 4,
+            "inclusiveMilliseconds": 23.51610800000344,
+            "exclusiveMilliseconds": 0.18017899999449583
+          },
+          "replay.opcode.generation-handover": {
+            "calls": 4,
+            "inclusiveMilliseconds": 24.623039000000972,
+            "exclusiveMilliseconds": 0.33869300000696967
+          },
+          "model.restoreDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 60529.034863999994,
+            "exclusiveMilliseconds": 0.22013199999491917
+          },
+          "metadata.assertCaskSlots": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.13035600000148406,
+            "exclusiveMilliseconds": 0.13035600000148406
+          },
+          "metadata.assertRecentLedger": {
+            "calls": 1,
+            "inclusiveMilliseconds": 1.6948170000032405,
+            "exclusiveMilliseconds": 1.5692170000111219
+          },
+          "metadata.assertHistoryRecord": {
+            "calls": 1,
+            "inclusiveMilliseconds": 2.9479780000037863,
+            "exclusiveMilliseconds": 2.75185599996621
+          },
+          "metadata.assertRecall": {
+            "calls": 1,
+            "inclusiveMilliseconds": 6.4914239999998244,
+            "exclusiveMilliseconds": 6.4914239999998244
+          },
+          "session.readSession": {
+            "calls": 1,
+            "inclusiveMilliseconds": 60565.756581,
+            "exclusiveMilliseconds": 7.674848000002385
+          }
+        }
+      },
+      "sameProcessRestore": {
+        "milliseconds": 65.28845099999307,
+        "memoryBefore": {
+          "rss": 299331584,
+          "heapTotal": 194256896,
+          "heapUsed": 102040600,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "memoryAfter": {
+          "rss": 316764160,
+          "heapTotal": 206135296,
+          "heapUsed": 126505144,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": {
+          "session.jsonParse": {
+            "calls": 1,
+            "inclusiveMilliseconds": 5.314386999998533,
+            "exclusiveMilliseconds": 5.314386999998533
+          },
+          "codec.expandFormalGame": {
+            "calls": 1,
+            "inclusiveMilliseconds": 10.108921999999438,
+            "exclusiveMilliseconds": 10.108921999999438
+          },
+          "model.restoreJsonParse": {
+            "calls": 1,
+            "inclusiveMilliseconds": 4.571886999998242,
+            "exclusiveMilliseconds": 4.571886999998242
+          },
+          "model.coreValidation": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.6981730000043171,
+            "exclusiveMilliseconds": 0.6981730000043171
+          },
+          "model.matchingPrefix": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.527235000001383,
+            "exclusiveMilliseconds": 0.527235000001383
+          },
+          "global.structuredClone": {
+            "calls": 436,
+            "inclusiveMilliseconds": 16.103516000017407,
+            "exclusiveMilliseconds": 16.103516000017407
+          },
+          "model.fullStateEquality": {
+            "calls": 1,
+            "inclusiveMilliseconds": 10.09934699999576,
+            "exclusiveMilliseconds": 10.09934699999576
+          },
+          "model.validateDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 27.381399999998393,
+            "exclusiveMilliseconds": 0.8320049999965704
+          },
+          "model.restoreDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 31.999138000006496,
+            "exclusiveMilliseconds": 0.04585100000986131
+          },
+          "metadata.assertCaskSlots": {
+            "calls": 1,
+            "inclusiveMilliseconds": 0.026961000003211666,
+            "exclusiveMilliseconds": 0.026961000003211666
+          },
+          "metadata.assertRecentLedger": {
+            "calls": 1,
+            "inclusiveMilliseconds": 1.1220380000013392,
+            "exclusiveMilliseconds": 1.0483879999956116
+          },
+          "metadata.assertHistoryRecord": {
+            "calls": 1,
+            "inclusiveMilliseconds": 5.755943000003754,
+            "exclusiveMilliseconds": 4.950716999992437
+          },
+          "metadata.assertRecall": {
+            "calls": 1,
+            "inclusiveMilliseconds": 2.8631200000018,
+            "exclusiveMilliseconds": 2.8631200000018
+          },
+          "session.readSession": {
+            "calls": 1,
+            "inclusiveMilliseconds": 65.2725070000015,
+            "exclusiveMilliseconds": 8.081997999986925
+          }
+        }
+      },
+      "generationAndValidation": {
+        "milliseconds": 117.22933500000363,
+        "memoryBefore": {
+          "rss": 316764160,
+          "heapTotal": 206135296,
+          "heapUsed": 126516184,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "memoryAfter": {
+          "rss": 322842624,
+          "heapTotal": 212553728,
+          "heapUsed": 94403288,
+          "external": 4212028,
+          "arrayBuffers": 212115
+        },
+        "timers": {
+          "model.coreValidation": {
+            "calls": 2,
+            "inclusiveMilliseconds": 1.0904860000009649,
+            "exclusiveMilliseconds": 1.0904860000009649
+          },
+          "model.matchingPrefix": {
+            "calls": 2,
+            "inclusiveMilliseconds": 1.1876309999934165,
+            "exclusiveMilliseconds": 1.1876309999934165
+          },
+          "global.structuredClone": {
+            "calls": 872,
+            "inclusiveMilliseconds": 29.45578199988813,
+            "exclusiveMilliseconds": 29.45578199988813
+          },
+          "model.fullStateEquality": {
+            "calls": 2,
+            "inclusiveMilliseconds": 15.9365939999916,
+            "exclusiveMilliseconds": 15.9365939999916
+          },
+          "model.validateDistillery": {
+            "calls": 2,
+            "inclusiveMilliseconds": 48.14277200000652,
+            "exclusiveMilliseconds": 1.0983450000203447
+          },
+          "model.serializeDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 29.035486000000674,
+            "exclusiveMilliseconds": 4.495953999998164
+          },
+          "metadata.assertCaskSlots": {
+            "calls": 2,
+            "inclusiveMilliseconds": 0.06731100000615697,
+            "exclusiveMilliseconds": 0.06731100000615697
+          },
+          "metadata.assertRecentLedger": {
+            "calls": 2,
+            "inclusiveMilliseconds": 4.126697999992757,
+            "exclusiveMilliseconds": 3.944329999969341
+          },
+          "metadata.assertHistoryRecord": {
+            "calls": 2,
+            "inclusiveMilliseconds": 8.540325000001758,
+            "exclusiveMilliseconds": 8.096627000137232
+          },
+          "metadata.assertRecall": {
+            "calls": 2,
+            "inclusiveMilliseconds": 5.27979499999492,
+            "exclusiveMilliseconds": 5.27979499999492
+          },
+          "codec.compactFormalGame": {
+            "calls": 1,
+            "inclusiveMilliseconds": 9.17738599999575,
+            "exclusiveMilliseconds": 9.17738599999575
+          },
+          "session.jsonParse": {
+            "calls": 1,
+            "inclusiveMilliseconds": 4.923427999994601,
+            "exclusiveMilliseconds": 4.923427999994601
+          },
+          "codec.expandFormalGame": {
+            "calls": 1,
+            "inclusiveMilliseconds": 8.238538999998127,
+            "exclusiveMilliseconds": 8.238538999998127
+          },
+          "model.restoreJsonParse": {
+            "calls": 1,
+            "inclusiveMilliseconds": 3.9484969999975874,
+            "exclusiveMilliseconds": 3.9484969999975874
+          },
+          "model.restoreDistillery": {
+            "calls": 1,
+            "inclusiveMilliseconds": 27.602593999996316,
+            "exclusiveMilliseconds": 0.050856999994721264
+          },
+          "session.readSession": {
+            "calls": 1,
+            "inclusiveMilliseconds": 59.223109000005934,
+            "exclusiveMilliseconds": 8.303516000014497
+          },
+          "session.serializeSession": {
+            "calls": 1,
+            "inclusiveMilliseconds": 117.1109460000007,
+            "exclusiveMilliseconds": 11.815868000005139
+          }
+        }
+      },
+      "exactRoundtrip": true,
+      "peakRssProcessBytes": 323317760,
+      "conditions": [
+        "Imports and independent envelope parse precede cold timer; no model game was previously constructed/restored.",
+        "Cold and warm restoration are consecutive. Generation follows warm restoration and uses its cache.",
+        "Raw generation is serializeDistillery; formal generation is serializeSession including official reader roundtrip.",
+        "Inclusive nested timers overlap: never sum them. Exclusive is time outside other instrumented scopes, not pure CPU.",
+        "Global clone timing includes every structuredClone call in the process during each phase.",
+        "Memory snapshots are boundary RSS/heap observations; maxRSS is process lifetime high-water, not per-phase peak.",
+        "Instrumented wall time includes measurement overhead; use unmodified control for performance conclusions."
+      ]
+    }
+  },
+  "instrumentedFiles": [
+    "works/ambertime/partner-orders.mjs",
+    "works/ambertime/economy.mjs",
+    "works/ambertime/experiments/town-simulation/v01/model.mjs",
+    "works/ambertime/save-codec.mjs",
+    "works/ambertime/development-save.mjs",
+    "works/ambertime/cask-slots.mjs",
+    "works/ambertime/recent-ledger.mjs",
+    "works/ambertime/history-record.mjs",
+    "works/ambertime/recall/collector.mjs"
+  ]
+}
