@@ -1,3 +1,4 @@
+import {regionalProductTotals} from './regional-deliveries.mjs';
 // Disposable ledger projection over existing facts. No replay, economic simulation or writes.
 const copy=value=>value==null?null:structuredClone(value);
 const present=value=>value!==undefined&&value!==null;
@@ -30,7 +31,8 @@ export function buildReleaseLedger(state,{facts}={}){
   const mirror={count:firstNumber(source.delivered,record?.delivered),revenue:firstNumber(source.deliveryRevenue,record?.deliveryRevenue)};
   let deliveries,deliveryComplete=false;
   if(present(productId)&&Array.isArray(state.shop?.deliveries)){
-   const rows=state.shop.deliveries.filter(item=>item.productId===productId);
+   const rows=state.shop.deliveries.filter(item=>item.productId===productId),regional=regionalProductTotals(state,productId);
+   if(regional.count)rows.push({count:regional.count,revenue:regional.revenue});
    if(rows.length){
     deliveries={count:total(rows,'count'),revenue:total(rows,'revenue',true)};
     deliveryComplete=deliveries.count!==null&&deliveries.revenue!==null&&(covered||mirror.count===deliveries.count&&mirror.revenue===deliveries.revenue)&&
@@ -58,6 +60,7 @@ export function buildReleaseLedger(state,{facts}={}){
    age:firstNumber(source.age,record?.age,product?.age),profile:copy(firstValue(source.profile,record?.profile)),cut:firstNumber(source.cut,record?.cut,product?.cut),
    bottles:bottledCount,stock,price:wholesale?firstNumber(source.unitPrice,product?.price,receipt?.currentPrice,source.price):firstNumber(product?.price,receipt?.currentPrice,source.price,record?.unitPrice),
    status:wholesale?'wholesale':stock===0?'sold-out':listed===true?'selling':listed===false?'stored':null,listed,
+   ...(regionalProductTotals(state,productId).count?{regional:{...regionalProductTotals(state,productId),customerSales:null}}:{}),
    retail,deliveries,deliveryComplete,wholesale:wholesale?{count:number(source.sold),revenue:number(source.revenue),partner:source.partner??null}:null,
    stopAt:number(fill?.stopAt),record:copy(record)
   };

@@ -1,3 +1,4 @@
+import {regionalDeliveryPartners} from './regional-deliveries.mjs';
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {retailSalePlan as saleFlightPlan,ordinarySaleGroups as saleFlightGroups} from './retail-sale-motion.mjs?v=count-linked-r1';
@@ -32,7 +33,8 @@ export function commitMarketRulesUpdate(storage,key,expected,text){
  if(storage.getItem(key)!==text)throw Error('保存を確認できません。切替前の記録は残っています。');
  return {text,backupKey};
 }
-export const availableMarketShops=s=>ordinary.filter(shop=>shop.id==='retail'||(shop.id!=='bar'||s.alleyBar?.version===1)&&s.shop.relations.some(r=>r.shopId===shop.id));
+export const availableMarketShops=s=>[...ordinary.filter(shop=>shop.id==='retail'||(shop.id!=='bar'||s.alleyBar?.version===1)&&s.shop.relations.some(r=>r.shopId===shop.id)),...regionalDeliveryPartners(s)];
+const regionalPartner=(s,id)=>regionalDeliveryPartners(s).find(p=>p.id===id);
 // The journal contains both legacy purchases and modern shelf sales. Only
 // months strictly after the explicit shelf boundary prove an actual shelf sale.
 export function marketShopOrder(s,shops=availableMarketShops(s)){
@@ -59,7 +61,7 @@ export function savedMarketSales(before,after){
  return rows;
 }
 export function visibleMarketRows(s,model,shopId,feedback=[]){
- const rows=shopId==='retail'?s.core.products.map(p=>({productId:p.id,count:model.storeMarketInventory(s,p.id).retail})).filter(x=>x.count>0):model.storeMarketRows(s,shopId);
+ const rows=shopId==='retail'?s.core.products.map(p=>({productId:p.id,count:model.storeMarketInventory(s,p.id).retail})).filter(x=>x.count>0):regionalPartner(s,shopId)?model.regionalDeliveryRows(s,shopId):model.storeMarketRows(s,shopId);
  const byId=new Map(rows.map(x=>[x.productId,{...x,sold:0}]));
  for(const sale of feedback.filter(x=>x.shopId===shopId)){
   if(!s.core.products.some(p=>p.id===sale.productId))continue;
@@ -148,12 +150,13 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
    const count=D.storeMarketInventory(s,item.id).hand,date=releaseDate(s,item.id);
    return button(`<span class="market-bottle ${item.id===selected?'market-selected-bottle':''}" aria-hidden="true">${art(item)}</span><span class="market-count">${count}本</span><span class="market-date">${esc(date)}</span>`,'release',item.id,`class="market-release" style="${deltaSpace(item)}" aria-pressed="${item.id===selected}" aria-label="${esc(date+' '+tasteLabel(item)+' 手元'+count+'本')}"`);
   }).join('');
-  const returnPane=editing?`<section class="market-return" role="group" aria-label="瓶を手元へ戻す"><p>${esc(ordinary.find(x=>x.id===editing.shopId)?.name)} · ${esc(releaseDate(s,editing.productId))} ${esc(tasteLabel(product(editing.productId)))} · ${editing.count}本</p><div class="market-buttons">${button('手元へ戻す','confirm','return')}${button('やめる','cancel','return')}</div></section>`:'';
+  const deliveryQuote=editing?.regional?D.regionalDeliveryQuote(s,editing.productId,editing.shopId):null;
+  const returnPane=editing?`<section class="market-return" role="group" aria-label="${editing.regional?'納品する・手元へ戻す':'瓶を手元へ戻す'}"><p>${esc(shops.find(x=>x.id===editing.shopId)?.name)} · ${esc(releaseDate(s,editing.productId))} ${esc(tasteLabel(product(editing.productId)))} · ${editing.count}本${editing.regional?' · 未納品 · £'+(Math.round(editing.count*(deliveryQuote?.unitPrice??0)*100)/100).toFixed(2):''}</p>${editing.regional&&deliveryQuote?.deliveryReason?`<p>${esc(deliveryQuote.deliveryReason)}</p>`:''}<div class="market-buttons">${editing.regional?button('納品する','confirm','deliver',deliveryQuote?.canDeliver===false?'disabled':''):''}${button('手元へ戻す','confirm','return')}${button('やめる','cancel','return')}</div></section>`:'';
   root.innerHTML=`<div class="market-content" ${editing?'inert':''}>${notice?`<p class="market-notice" role="status" aria-live="polite" tabindex="0">${esc(notice)}</p>`:''}<div class="market-releases" aria-label="手元の瓶"><span class="market-hand">手元</span><div class="market-hand-list" id="market-shelf-hand" role="group" tabindex="0" aria-label="手元の瓶棚。横に送れます">${productsMarkup}</div></div><div class="market-portions" role="group" aria-label="一度に渡す本数">${[['1','1本'],['5','5本'],['all','全部']].map(([value,label])=>button(label,'portion',value,`aria-pressed="${portion===value}" ${handTotal>0?'':'disabled'}`)).join('')}</div><div class="market-shops">${shops.map((shop,index)=>{
 
    return `${index===1?'<div class="market-partners" id="market-partners" role="region" tabindex="0" aria-label="取扱店一覧">':''}<section class="market-shop" data-market-shop="${shop.id}" aria-label="${shop.name}"><header class="market-shop-heading">${button(`<span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span class="market-shop-title">${shop.name}</span><span aria-hidden="true">${symbolMarkup('chevronRight')}</span>`,'details',shop.id,`class="market-shop-name" aria-label="${shop.name}の店情報"`)}</header><div class="market-shelf-body"><div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}の商品一覧">${rows[index].map(row=>{
     const item=s.core.products.find(x=>x.id===row.productId);if(!item)return '';
-    return `<div class="market-stock-row" data-wide="${String(row.count).length>2||!/^\d{2}\/\d{1,2}$/.test(compactReleaseDate(s,item.id))}" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date" title="${esc(releaseDate(s,item.id))}">${esc(compactReleaseDate(s,item.id))}</span><span class="market-count">${row.count}本</span><span class="market-sale-slot" aria-hidden="true"></span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+'。手元へ戻す')}"`)}</div>`;
+    return `<div class="market-stock-row" data-wide="${shop.tradeMethod==='regional-delivery'||String(row.count).length>2||!/^\d{2}\/\d{1,2}$/.test(compactReleaseDate(s,item.id))}" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date" title="${esc(releaseDate(s,item.id))}">${esc(compactReleaseDate(s,item.id))}</span><span class="market-count">${row.count}本${shop.tradeMethod==='regional-delivery'?'<small>未納品</small>':''}</span><span class="market-sale-slot" aria-hidden="true"></span>`,'stock',`${shop.id}:${item.id}`,`class="market-stock" ${row.count<1?'disabled':''} aria-label="${esc(brandName(s,item.id)+' '+shop.name+' '+releaseDate(s,item.id)+' '+tasteLabel(item)+' 残り'+row.count+'本'+(row.sold?' '+row.sold+'本売れた':'')+(shop.tradeMethod==='regional-delivery'?'。納品・手元へ戻す':'。手元へ戻す'))}"`)}</div>`;
    }).join('')||'<span class="market-empty" aria-label="割り当てなし"></span>'}</div></div>${button(rows[index].length?'':'<span class="market-place-label">ここに置く</span>','place',shop.id,`class="market-target" ${!p||inventory.hand<1?'disabled':''} aria-label="${esc(shop.name+'へ'+(p?releaseDate(s,p.id)+'の瓶':'瓶')+'を渡す')}"`)}</section>`;
   }).join('')}${shops.length>1?'</div>':''}</div></div>${returnPane}`;
   for(const shelf of all('.market-stock-list,.market-hand-list'))shelf.scrollLeft=positions.get(shelf.id)??0;
@@ -217,7 +220,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   await Promise.all(plan.map(async (flight,index)=>{
    if(token!==epoch||!visible||doc.hidden)return;
    const ghost=doc.createElement('span');ghost.className='market-flight';ghost.setAttribute('aria-hidden','true');ghost.innerHTML=art;
-   Object.assign(ghost.dataset,{kind:'sale-flight',shopId:sale.shopId,productId:String(sale.productId),group:String(sale.groupIndex??index),units:String(flight.units),duration:String(flight.duration),delay:String(flight.delay)});
+   Object.assign(ghost.dataset,{kind:sale.kind??'sale-flight',shopId:sale.shopId,productId:String(sale.productId),group:String(sale.groupIndex??index),units:String(flight.units),duration:String(flight.duration),delay:String(flight.delay)});
    Object.assign(ghost.style,{left:(from.x-sprite.width/2)+'px',top:(from.y-sprite.height/2)+'px',width:sprite.width+'px',height:sprite.height+'px',opacity:'0',transformOrigin:'center'});root.append(ghost);
    await animate(ghost,flight.frames,{duration:flight.duration,delay:flight.delay,fill:'none'});ghost.remove();
   }));
@@ -259,25 +262,32 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   if(data.marketCancel){closeEditing();return;}
   if(data.marketConfirm){
    const target=editing;if(!target)return;
-   const ok=act(s=>target.shopId==='retail'?D.setMarketRetail(s,{productId:target.productId,count:0}):D.returnStoreProduct(s,{productId:target.productId,shopId:target.shopId}));
-   if(ok){cancel();closeEditing();announce(`${target.count}本を手元へ`);}return;
+   const delivering=target.regional&&data.marketConfirm==='deliver',origins=new Map();
+   if(delivering){const row=doc.getElementById(`market-stock-${target.shopId}-${target.productId}`),source=row?.querySelector('.market-count'),bottle=row?.querySelector('.market-bottle');if(source&&bottle)origins.set(`${target.shopId}:${target.productId}`,{sourceRect:source.getBoundingClientRect(),sprite:bottle.getBoundingClientRect(),art:bottle.innerHTML});}
+   const ok=act(s=>{
+    if(target.regional){const q=D.regionalDeliveryQuote(s,target.productId,target.shopId),value={partnerId:target.shopId,productId:target.productId,contractId:target.contractId,allocationIds:target.allocationIds};return delivering?D.deliverRegionalProduct(s,{...value,deliveryId:q.nextDeliveryId}):D.returnRegionalProduct(s,value);}
+    return target.shopId==='retail'?D.setMarketRetail(s,{productId:target.productId,count:0}):D.returnStoreProduct(s,{productId:target.productId,shopId:target.shopId});
+   });
+   if(ok){cancel();closeEditing();if(delivering){announceSaved(`${target.count}本を納品しました。`);void shopSold({shopId:target.shopId,productId:target.productId,units:target.count,delay:0,kind:'delivery-flight'},epoch,origins);}else announce(`${target.count}本を手元へ`);}return;
   }
   if(editing)return;
   if(data.marketDetails&&!['product','retail'].includes(data.marketDetails)&&!shopsForState(state()).some(x=>x.id===data.marketDetails))return;
   if(data.marketDetails){modalFocus=activeKey();if(data.marketDetails==='product'){if(selected!==null)openProduct(selected);}else if(data.marketDetails==='retail'){openRetailInfo(selected);}else openStockist(data.marketDetails);return;}
   if(data.marketStock){
-   cancel();const [shopId,pid]=data.marketStock.split(':'),productId=Number(pid),s=state(),inv=D.storeMarketInventory(s,productId),count=shopId==='retail'?inv.retail:inv.shops[shopId];
-   if(count>0){editing={shopId,productId,count};signature='';setEditing(true);update({visible,sessionActive});query('[data-market-confirm]')?.focus({preventScroll:true});}return;
+   cancel();const [shopId,pid]=data.marketStock.split(':'),productId=Number(pid),s=state(),inv=D.storeMarketInventory(s,productId),regional=regionalPartner(s,shopId),row=regional?D.regionalDeliveryRows(s,shopId).find(r=>r.productId===productId):null,count=regional?row?.count:shopId==='retail'?inv.retail:inv.shops[shopId];
+   if(count>0){editing={shopId,productId,count,...(regional?{regional:true,contractId:row.contractId,allocationIds:[...row.allocationIds]}:{})};signature='';setEditing(true);update({visible,sessionActive});query('[data-market-confirm]')?.focus({preventScroll:true});}return;
   }
   if(data.marketPlace){
    cancel();const shopId=data.marketPlace,s=state(),p=product(selected);if(!p||!shopsForState(s).some(x=>x.id===shopId))return;
    const inv=D.storeMarketInventory(s,p.id),count=portionCount(inv.hand,portion);if(count<1)return;
-   if(shopId!=='retail'){
+   const regional=regionalPartner(s,shopId),regionalQuote=regional?D.regionalDeliveryQuote(s,p.id,shopId):null;
+   if(regional&&!regionalQuote.ok){notice=regionalQuote.reason;signature='';update({visible,sessionActive});announce(regionalQuote.reason);return;}
+   if(shopId!=='retail'&&!regional){
     const quote=D.storeMarketQuote(s,p.id,shopId);if(!quote.ok){const relation=s.shop.relations.some(r=>r.shopId===shopId&&r.brandId===releaseFor(s,p.id)?.brandId);if(!relation)openStockist(shopId);else announce(quote.reason);return;}
    }
    const source=query(`[data-market-release="${p.id}"] .market-bottle`),countSource=query(`[data-market-release="${p.id}"] .market-count`),origin=source?{rect:source.getBoundingClientRect(),art:source.innerHTML,countRect:countSource?.getBoundingClientRect()}:null;
-   const ok=act(before=>shopId==='retail'?D.setMarketRetail(before,{productId:p.id,count:inv.retail+count}):D.assignStoreProduct(before,{productId:p.id,shopId,count}));
-   if(ok){signature='';update({visible,sessionActive});placed(shopId,count,p.id,origin);announceSaved(`${ordinary.find(x=>x.id===shopId).name}に${count}本置きました。`);}
+   const ok=act(before=>regional?D.assignRegionalProduct(before,{partnerId:shopId,productId:p.id,contractId:regionalQuote.contractId,allocationId:regionalQuote.nextAllocationId,count}):shopId==='retail'?D.setMarketRetail(before,{productId:p.id,count:inv.retail+count}):D.assignStoreProduct(before,{productId:p.id,shopId,count}));
+   if(ok){notice='';signature='';update({visible,sessionActive});placed(shopId,count,p.id,origin);announceSaved(`${shopsForState(state()).find(x=>x.id===shopId).name}に${count}本${regional?'取り置きました。':'置きました。'}`);}
   }
  });
  root.addEventListener('keydown',event=>{

@@ -1,4 +1,5 @@
-import {nearbyComparisonFacts} from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01';
+import {regionalProductTotals} from './regional-deliveries.mjs';
+import {nearbyComparisonFacts} from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01';
 
 // Targeted views over an exact validated snapshot. No persistent ledger or replay.
 const copy=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
@@ -18,9 +19,9 @@ function releaseView(state,r,facts){
  const deliveries=(state.shop?.deliveries??[]).filter(d=>d.productId===r.productId),shops=[];
  for(const d of deliveries){const shopId=d.shopId??'town-liquor';let t=shops.find(x=>x.shopId===shopId);if(!t){t={shopId,count:0,revenue:0};shops.push(t);}t.count+=d.count;t.revenue=round(t.revenue+d.revenue);}
  const complete=receipt?.complete===true;
- const shopCount=shops.reduce((n,x)=>n+x.count,0),stock=p?.stock??receipt?.stock??(complete||facts.coverage.complete?Math.max(0,r.bottles-r.sold-shopCount):r.status==='sold-out'?0:null);
+ const regional=regionalProductTotals(state,r.productId),shopCount=shops.reduce((n,x)=>n+x.count,0),stock=p?.stock??receipt?.stock??(complete||facts.coverage.complete?Math.max(0,r.bottles-r.sold-shopCount-regional.count):r.status==='sold-out'?0:null);
  const listed=p?!!state.productsById[p.id]?.listed:receipt?.listed??r.listed??null;
- return {key:`release:${r.id}`,kind:'release',label:`${brand?.name??'銘柄'}・第${number}回`,brandName:brand?.name??null,brand:copy(brand??null),brandId:r.brandId,releaseId:r.id,releaseNumber:number,productId:r.productId,...sourceFields(state,r.caskId,fill),batchId:r.batchId,type:r.type,age:r.age,profile:copy(r.profile),bottledMonth:r.bottledMonth,bottles:r.bottles,stock,status:stock===0?'sold-out':listed===true?'selling':listed===false?'stored':null,currentPrice:p?.price??receipt?.currentPrice??r.price??null,listedMonth:receipt?.listedMonth??null,retailActiveMonths:complete?receipt.retailActiveMonths:null,firstSaleMonth:complete?receipt.firstSaleMonth:null,lastSaleMonth:receipt?.lastSaleMonth??null,priceChanges:copy(receipt?.priceChanges??[]),retailPriceTotals:copy(receipt?.retailPriceTotals??[]),retail:{count:r.sold,revenue:r.revenue},shops,shopCount,retailTargetCount:complete||facts.coverage.complete?r.bottles-shopCount:null,salesComplete:complete,coverage:copy(facts.coverage)};
+ return {key:`release:${r.id}`,kind:'release',label:`${brand?.name??'銘柄'}・第${number}回`,brandName:brand?.name??null,brand:copy(brand??null),brandId:r.brandId,releaseId:r.id,releaseNumber:number,productId:r.productId,...sourceFields(state,r.caskId,fill),batchId:r.batchId,type:r.type,age:r.age,profile:copy(r.profile),bottledMonth:r.bottledMonth,bottles:r.bottles,stock,status:stock===0?'sold-out':listed===true?'selling':listed===false?'stored':null,currentPrice:p?.price??receipt?.currentPrice??r.price??null,listedMonth:receipt?.listedMonth??null,retailActiveMonths:complete?receipt.retailActiveMonths:null,firstSaleMonth:complete?receipt.firstSaleMonth:null,lastSaleMonth:receipt?.lastSaleMonth??null,priceChanges:copy(receipt?.priceChanges??[]),retailPriceTotals:copy(receipt?.retailPriceTotals??[]),retail:{count:r.sold,revenue:r.revenue},shops,shopCount,...(regional.count?{regional:{...regional,customerSales:null}}:{}),retailTargetCount:complete||facts.coverage.complete?r.bottles-shopCount-regional.count:null,salesComplete:complete,coverage:copy(facts.coverage)};
 }
 export function releasePair(state,id){
  const current=state.releases?.find(r=>r.id===id),previous=previousRelease(state,id);if(!current||!previous)return null;

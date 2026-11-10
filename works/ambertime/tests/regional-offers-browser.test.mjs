@@ -59,7 +59,7 @@ test('organic regional offer: same phone dialog, defer, local access, accept/rel
   if(await p.locator('#action-dialog').evaluate(d=>d.open))await p.locator('#close-dialog').click();await p.locator('#room-nav [data-room="sales"]').click();await p.locator('#shop-offer').click();await p.locator('[data-action="stockist-open"][data-id="town-liquor"]').click();assert.match(await p.locator('#dialog-title').textContent(),/酒店/);await p.locator('#close-dialog').click();
   await regionalOffer();const acceptBefore=await snapshot();await p.locator('[data-action="regional-accept"]').click();const accepted=await snapshot();assert.equal(accepted.regionalPartners.contracts.length,1);
   for(const k of ['core','shop','labConnection','releases','storeMarket'])assert.deepEqual(accepted[k],acceptBefore[k]);
-  assert.equal(await p.locator('[data-market-shop="trial-region-desk"]').count(),0);
+  assert.equal(await p.locator('[data-market-shop="trial-region-desk"]').count(),1);
   await p.reload();await p.waitForFunction(()=>window.amberPlacement?.snapshot()?.regionalPartners?.contracts.length===1);assert.deepEqual((await snapshot()).regionalPartners,accepted.regionalPartners);
   // Separate clean branch of the same saved, real inquiry for declining/failure.
   await p.evaluate(({key,text})=>localStorage.setItem(key,text),{key,text:fixture.text});await p.reload();await regionalOffer();await p.locator('[data-action="regional-decline"]').click();assert.equal((await snapshot()).regionalPartners.offers[0].status,'declined');assert.equal((await snapshot()).regionalPartners.contracts.length,0);
