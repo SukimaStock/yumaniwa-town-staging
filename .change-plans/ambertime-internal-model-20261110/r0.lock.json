@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7f1b870e1a27263ae4f87dca36cfb3ba475aa46570602860e27171e9def0b608",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-internal-model-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime stage 2: isolated internal model and read-contract compatibility comparison",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "f7e69701c507429e4fd4e28d746031fcb9c237a8",
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/history-record.mjs",
+      "works/ambertime/shop-remarks.mjs",
+      "works/ambertime/shop-dialogue.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/recall/selection.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-internal-model-20261110/r0.lock.json",
+      "works/ambertime-strategy-lab/internal/**",
+      "works/ambertime-strategy-lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/**",
+      "works/ambertime-small-memory-lab/**",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "Complete minimal read contracts before implementing model",
+      "Isolated wine characteristics, active releases, incremental store achievements and memory policies",
+      "Adapters compare existing functions and compact facts without invented history",
+      "Reuse strategy and B fixtures; small linked comparison page; synthetic long term benchmarks and tests"
+    ],
+    "ownerDecisions": [
+      "User stage2 request explicitly authorizes isolated model, adapters, minimal Lab updates, tests, documentation and safe Staging merge"
+    ],
+    "hqDecisions": [
+      "No main/save integration or storage API; read-only imports and explicit missing-information results; changes restricted to existing active Lab"
+    ],
+    "rulesApplied": [
+      "Change OS exact-base gates",
+      "Expression audit already read in session; UI only comparisons and evidence"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Phone and desktop comparison controls, accessible labels, errors and reproducibility",
+      "No storage access or main imports back to Lab"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated internal subdirectory and link",
+    "outOfScope": [
+      "works/ambertime main",
+      "PR894",
+      "Production",
+      "Player saves",
+      "B display Lab"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware",
+      "100 year main game integration"
+    ],
+    "problem": "Preserve learnable management and authentic memories with explicit compact read contracts",
+    "currentContract": "Main v8 and gameplay unchanged; full history readers require explicit adapters",
+    "whyExistingIsInsufficient": "Display Lab cannot compare management rules",
+    "design": "Contract first then pure isolated model with ordered idempotent commits and compact identity catalog",
+    "alternativesRejected": [
+      "Modify main rules",
+      "Use release count as achievement",
+      "Post-hoc fictional explanations"
+    ],
+    "migration": "none; synthetic import only",
+    "compatibility": "Old release IDs retained; no fabricated delivery rows; dialogue/recall limitations explicit",
+    "boundaryCases": [
+      "54 same-cask splits",
+      "Age restrictions",
+      "Capacity and stock",
+      "Zero and low affinity",
+      "Same-month delivery spam",
+      "Multiple seeds and short/long horizons"
+    ],
+    "testPlan": [
+      "Minimal reader equivalence",
+      "Transaction idempotence and month accounting",
+      "54 bottling and active limit regressions",
+      "Memory policy loss comparisons",
+      "Synthetic 12/360/1200 month measurements",
+      "Existing strategy and B Lab regressions",
+      "Scope Risk Impact and required CI"
+    ],
+    "promotionRisk": "none; staging-only"
+  }
+}
