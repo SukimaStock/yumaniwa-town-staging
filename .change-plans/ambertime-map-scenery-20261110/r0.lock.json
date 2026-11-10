@@ -1,0 +1,151 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b59c216b0d6f625c25eaecab63da370c9ec8f7fb6b5f0461035dab8f5eba1d75",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-scenery-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Derived enduring map scenery from confirmed trading history without formal state changes",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "32fce4d649b79a324a603e3d8ab719cb8f550e96",
+    "canonicalSources": [
+      "works/ambertime/map-partners.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-scenery-20261110/r0.lock.json",
+      "works/ambertime/map-scenery.mjs",
+      "works/ambertime/map-scenery-view.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/map-daily-view.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/map-scenery.test.mjs",
+      "works/ambertime/tests/map-scenery-ui.test.mjs",
+      "works/ambertime/tests/map-scenery-browser.test.mjs",
+      "works/ambertime/design/map-scenery.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/regional-partners.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/map-partners.mjs",
+      "works/ambertime/map-sales-view.mjs",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime-strategy-lab/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Pure scenery projection via existing mapPartnerProjection: box for actualcontract only, flowers0/1/2 from confirmed quantity and continuity, recent3months butterfly; no formal writes",
+      "Native append-only receipts partition wholesale vs observedcustomer by existing shelf boundary, no reservation activity; regional totalsByPartner and full regional-deliver receipts once per cached immutable snapshot",
+      "Unknown/missing history remains unknown and cannot establish continuity; no fabricated transactions, customerSales regional null",
+      "Shared static2px Canvas sprites near canonical bounds plus CSS-only butterfly overlay for both maps; existing art/pins/selection/camera untouched",
+      "Exact scenery signature invalidates cached canvas only when visuals change; no history scans perframe, no custom animation timer; pauseclosed/hidden and reducedmotion",
+      "Minimal parent import cache refresh, existingUI actions unchanged",
+      "A-F comparisons, genuine seeds3/6,60monthrest/resumption,360monthgeneration/coldrestore/bytes/tests/browserattempt/review/CI/Pages"
+    ],
+    "ownerDecisions": [
+      "User Stage5 explicitly authorizes box/flowers/butterfly presentation based on existing native and regional facts and safe Staging merge only"
+    ],
+    "hqDecisions": [
+      "No formal schema/operation/state/economy changes; display projection disposable and reconstructed on coldrestore",
+      "Native full2048receipt ledger stops atcapacity rather than truncating; regional fulloperations refuse above maxOperations. Generation preserves these records",
+      "Flowersstage1 requires6bottles,3distinctmonths,6monthspan; stage2 requires24bottles,6distinctmonths,24monthspan. Cumulativeonly => doesnotfade. Butterfly lastactivity currentmonth minus<3",
+      "Use confirmed native deliveries and separately observedcustomer purchases as activity, neither assign/return norpending allocations are transactions; regional customerSales staysnull",
+      "Derive continuity from fullregionalreceipt history once per immutablegame snapshot, use existingtotals as countauthority; no persistent scenerydata",
+      "Draw sprites only in existing verifiedgrass near authoredbounds, not onto buildings/roads/rivers/pins. CSSbutterfly no hit target or timer",
+      "Both M0/daily pass same projection and visual signature; selection doesnotmove decorations; art/title/layout unchanged",
+      "Existing module URLs refresh only viewclosure; Stage5persistence PR901 staysunresolved and unused"
+    ],
+    "rulesApplied": [
+      "Change OS Full exact-base locked scope, Scope/Risk/Impact/trustedCI; existing formalv8 byte/replay contract",
+      "Expression audit: no new cards/explanatorypanels; smallpixelart only, facts and existingaccessible map descriptions"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Attempt realbrowser fourphone sizes, map select/camera/closedhidden/reducedmotion",
+      "Independent review semanticfacts/modeboundaries/cachecorrectness/performance",
+      "Compare baseart pixels vs scenery coordinates, no building/road/water overlap",
+      "CI and Pages exactfile bytes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert display-only scenery change; formal saves untouched and no migration needed",
+    "outOfScope": [
+      "Formal save/model/replay/economy changes",
+      "New partners/geography/art redesign",
+      "New rumor rules",
+      "Scenery gameplay bonuses",
+      "Stage5persistence revisionfix",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone hardware; browsergeometry if launchblocked"
+    ],
+    "problem": "Existing maps identify trading partners but do not show enduring trading history separately from recent activity",
+    "currentContract": "Stage4 sharedpartner projection, free6views, native/regional formaltransaction sources, UI-only camera persistence",
+    "whyExistingIsInsufficient": "Current activity fields expose cumulativequantity and latestmonth but no trustworthy continuity summary or derived scenery rendering",
+    "design": "Disposable cached confirmed-history summaries with shared pure scenery projection, smallCanvas sprites and paused CSS butterfly layer",
+    "alternativesRejected": [
+      "Persist scenerypoints/levels",
+      "Decay flowers with rumor relationship",
+      "Use recent8 as completehistory",
+      "Count reservations/cancels as successfultrade",
+      "Perframe fullhistory scanning",
+      "New animationengine"
+    ],
+    "migration": "None: coldrestore derives same scenery from unchanged formal receipts; incomplete legacy evidence remainsunknown",
+    "compatibility": "All formal model and transaction code untouched; Stage4 selection/camera/UI operations and sixbrowse preserved",
+    "boundaryCases": [
+      "No contact/offer/contract only",
+      "Single bulk vs repeatedsmall acrossmonths",
+      "60month inactivity and restart",
+      "Regional recent8 olderthan3month staleactivity",
+      "Missing/truncated/unknown evidence",
+      "Native shelfmigration and department specialdeliveries",
+      "360monthgeneration/coldrestore",
+      "All6views/closedhidden/reducedmotion/cacheonlysemanticvisualchanges"
+    ],
+    "testPlan": [
+      "A-F confirmedreceipt comparisons",
+      "Natural seed3/6 contract andactualdeliveries",
+      "60month pause/resume and360monthgeneration/coldrestore formalbytes",
+      "Sharedmap rendering/cache/animation lifecycle Nodeharness",
+      "Related map/sales/formalsave/regional regression plus baseline knownfailures",
+      "Browserattempt fourphones, requiredCI, independentreview, Pages"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
